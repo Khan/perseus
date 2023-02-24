@@ -134,7 +134,7 @@ class Iframe extends React.Component<$FlowFixMe> {
         //     sandboxProperties += " allow-top-navigation";
         // }
 
-        // We sandbox the iframe so that we whitelist only the functionality
+        // We sandbox the iframe so that we allowlist only the functionality
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/

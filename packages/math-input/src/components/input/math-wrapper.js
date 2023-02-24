@@ -575,7 +575,7 @@ class MathWrapper {
         const commandStartRegex = /^\\[a-z]$/;
         const commandEndSeq = "\\left(";
 
-        // Note: We whitelist the set of valid commands, since relying solely on
+        // Note: We allowlist the set of valid commands, since relying solely on
         // a command being prefixed with a backslash leads to undesired
         // behavior. For example, Greek symbols, left parentheses, and square
         // roots all get treated as commands.

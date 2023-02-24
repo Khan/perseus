@@ -119,7 +119,7 @@ class WidgetContainer extends React.Component<Props, State> {
 
         // Note: if you add more props here, please consider whether or not
         // it should be auto-serialized (e.g. used in scoreInput()). See
-        // widget-jsonify-deprecated.jsx and widget-prop-blacklist.jsx
+        // widget-jsonify-deprecated.jsx and widget-prop-denylist.jsx
 
         // We default to an empty object for style instead of null
         // because of a strange bug where the static styles aren't applied

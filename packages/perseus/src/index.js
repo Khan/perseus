@@ -87,7 +87,7 @@ export * as SizingUtils from "./util/sizing-utils.js";
 export * as Changeable from "./mixins/changeable.jsx";
 export {default as EditorJsonify} from "./mixins/editor-jsonify.jsx";
 export {default as WidgetJsonifyDeprecated} from "./mixins/widget-jsonify-deprecated.jsx";
-export {default as WIDGET_PROP_BLACKLIST} from "./mixins/widget-prop-blacklist.js";
+export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist.js";
 
 /**
  * Types
