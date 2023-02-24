@@ -21,6 +21,17 @@ module.exports = {
         "@storybook/addon-essentials",
         "@storybook/addon-a11y",
     ],
+    // NOTE(kevinb): We customize the padding a bit so that so that stories
+    // using the on-screen keypad render correctly.  Storybook adds its own
+    // padding as a class to <body> so we use !important to override that.
+    previewHead: (head) => `
+        ${head}
+        <style>
+        html, body {
+            padding: 16px 0px 0px 0px !important;
+        }
+        </style>
+    `,
     babel: async (options) => {
         return babelConfig;
     },
