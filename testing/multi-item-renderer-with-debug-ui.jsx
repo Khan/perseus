@@ -4,12 +4,11 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import {Dependencies, MultiItems} from "../packages/perseus/src/index.js";
+import {MultiItems} from "../packages/perseus/src/index.js";
 import {simpleQuestionShape} from "../packages/perseus/src/multi-items/__testdata__/multi-renderer_testdata.js";
 
 import KEScoreUI from "./ke-score-ui.js";
 import SideBySide from "./side-by-side.jsx";
-import {testDependencies} from "./test-dependencies.js";
 
 import type {Item as MultiItem} from "../packages/perseus/src/multi-items/item-types.js";
 import type {APIOptions, KEScore} from "../packages/perseus/src/types.js";
@@ -35,8 +34,6 @@ export const MultiItemRendererWithDebugUI = ({
 }: Props): React.Node => {
     const ref = React.useRef<?MultiItems.MultiRenderer>(null);
     const [state, setState] = React.useState<?KEScore>(null);
-
-    Dependencies.setDependencies(testDependencies);
 
     return (
         <SideBySide

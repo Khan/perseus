@@ -12,6 +12,7 @@ import ProvideKeypad from "./mixins/provide-keypad.jsx";
 import {ApiOptions} from "./perseus-api.jsx";
 import Renderer from "./renderer.jsx";
 import Util from "./util.js";
+import reactRender from "./util/react-render.js";
 
 import type {KeypadProps} from "./mixins/provide-keypad.jsx";
 import type {PerseusItem} from "./perseus-types.js";
@@ -177,9 +178,7 @@ class ItemRenderer extends React.Component<Props, State> {
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
-        // TODO(LP-11406): Replace with React Portal
-        // eslint-disable-next-line no-restricted-syntax
-        ReactDOM.render(
+        reactRender(
             // metadata (from item.question, aka PerseusRenderer)
             // replace (also item.question, aka PerseusRenderer)
             // savedState (I _think_ this is serializedState on Renderer)
@@ -218,9 +217,7 @@ class ItemRenderer extends React.Component<Props, State> {
             workArea,
         );
 
-        // TODO(LP-11406): Replace with React Portal
-        // eslint-disable-next-line no-restricted-syntax
-        ReactDOM.render(
+        reactRender(
             <HintsRenderer
                 ref={(node) => (this.hintsRenderer = node)}
                 hints={this.props.item.hints}

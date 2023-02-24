@@ -81,4 +81,5 @@ class App extends React.Component {
     }
 }
 
+// eslint-disable-next-line no-restricted-syntax
 ReactDOM.render(<App />, document.getElementById("root"));

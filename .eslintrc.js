@@ -189,6 +189,14 @@ module.exports = {
                 ],
             },
         ],
+        "no-restricted-syntax": [
+            "error",
+            {
+                selector:
+                    "MemberExpression[property.name='render'][object.name='ReactDOM']",
+                message: "DEPRECATED: Use a React Portal instead.",
+            },
+        ],
 
         /**
          * monorepo

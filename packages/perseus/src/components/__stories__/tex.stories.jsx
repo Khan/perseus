@@ -3,16 +3,22 @@ import * as React from "react";
 
 import TeX from "../tex.jsx";
 
-type StoryArgs = {||};
+type StoryArgs = {|
+    equation: string,
+|};
 
 type Story = {|
     title: string,
+    args: StoryArgs,
 |};
 
 export default ({
     title: "Perseus/Components/Tex",
+    args: {
+        equation: "f(x) = x + 1",
+    },
 }: Story);
 
 export const BasicOperation = (args: StoryArgs): React.Node => {
-    return <TeX setAssetStatus={() => {}} children="f(x) = x + 1" />;
+    return <TeX setAssetStatus={() => {}} children={args.equation} />;
 };
