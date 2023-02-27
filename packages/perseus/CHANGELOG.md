@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 1.4.1
+
+### Patch Changes
+
+-   a1b4ab3c: Update wonder-blocks and wonder-stuff deps to fix an issue with wonder-stuff's generated flow types
+-   Updated dependencies [a1b4ab3c]
+    -   @khanacademy/math-input@0.6.7
+    -   @khanacademy/perseus-linter@0.2.5
+    -   @khanacademy/pure-markdown@0.1.5
+
 ## 1.4.0
 
 ### Minor Changes

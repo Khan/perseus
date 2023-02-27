@@ -1,5 +1,11 @@
 # @khanacademy/perseus-error
 
+## 0.1.5
+
+### Patch Changes
+
+-   a1b4ab3c: Update wonder-blocks and wonder-stuff deps to fix an issue with wonder-stuff's generated flow types
+
 ## 0.1.4
 
 ### Patch Changes
