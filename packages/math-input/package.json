@@ -22,10 +22,10 @@
         "performance-now": "^0.2.0"
     },
     "devDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^2.4.4",
-        "@khanacademy/wonder-blocks-color": "^1.1.20",
-        "@khanacademy/wonder-blocks-core": "^4.6.2",
-        "@khanacademy/wonder-blocks-i18n": "^1.2.3",
+        "@khanacademy/wonder-blocks-clickable": "^2.4.5",
+        "@khanacademy/wonder-blocks-color": "^1.2.1",
+        "@khanacademy/wonder-blocks-core": "^4.7.0",
+        "@khanacademy/wonder-blocks-i18n": "^1.2.4",
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
@@ -41,10 +41,10 @@
         "redux": "^4.0.0"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^2.4.4",
-        "@khanacademy/wonder-blocks-color": "^1.1.20",
-        "@khanacademy/wonder-blocks-core": "^4.6.2",
-        "@khanacademy/wonder-blocks-i18n": "^1.2.3",
+        "@khanacademy/wonder-blocks-clickable": "^2.4.5",
+        "@khanacademy/wonder-blocks-color": "^1.2.1",
+        "@khanacademy/wonder-blocks-core": "^4.7.0",
+        "@khanacademy/wonder-blocks-i18n": "^1.2.4",
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
