@@ -9,7 +9,6 @@ type StoryArgs = {|
     correct: boolean,
     previouslyAnswered: boolean,
     reviewMode: boolean,
-    satStyling: boolean,
 |};
 
 type Story = {|
@@ -25,7 +24,6 @@ export default ({
         correct: false,
         previouslyAnswered: false,
         reviewMode: true,
-        satStyling: false,
     },
 }: Story);
 
@@ -44,7 +42,6 @@ export const AllPossibleOutputs = (args: StoryArgs): React.Node => {
                     correct={true}
                     previouslyAnswered={true}
                     reviewMode={true}
-                    satStyling={false}
                 />
             </div>
             <hr />
@@ -56,7 +53,6 @@ export const AllPossibleOutputs = (args: StoryArgs): React.Node => {
                     correct={false}
                     previouslyAnswered={true}
                     reviewMode={true}
-                    satStyling={false}
                 />
             </div>
             <hr />
@@ -68,7 +64,6 @@ export const AllPossibleOutputs = (args: StoryArgs): React.Node => {
                     correct={true}
                     previouslyAnswered={true}
                     reviewMode={true}
-                    satStyling={false}
                 />
             </div>
             <hr />
@@ -80,7 +75,6 @@ export const AllPossibleOutputs = (args: StoryArgs): React.Node => {
                     correct={false}
                     previouslyAnswered={true}
                     reviewMode={true}
-                    satStyling={false}
                 />
             </div>
             <hr />
@@ -92,7 +86,6 @@ export const AllPossibleOutputs = (args: StoryArgs): React.Node => {
                     correct={false}
                     previouslyAnswered={false}
                     reviewMode={true}
-                    satStyling={false}
                 />
             </div>
             <hr />
@@ -104,7 +97,6 @@ export const AllPossibleOutputs = (args: StoryArgs): React.Node => {
                     correct={true}
                     previouslyAnswered={false}
                     reviewMode={true}
-                    satStyling={false}
                 />
             </div>
         </>

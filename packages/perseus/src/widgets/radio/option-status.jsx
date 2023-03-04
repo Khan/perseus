@@ -22,7 +22,6 @@ type OptionStatusProps = {|
     // Did the user select this option as the answer earlier?
     previouslyAnswered: boolean,
     reviewMode: boolean,
-    satStyling?: boolean,
 |};
 
 function renderText(
@@ -50,19 +49,8 @@ function renderText(
 }
 
 function OptionStatus(props: OptionStatusProps): React.Node {
-    const {
-        checked,
-        correct,
-        crossedOut,
-        previouslyAnswered,
-        reviewMode,
-        satStyling,
-    } = props;
-
-    // Option status is exclued for SAT
-    if (satStyling) {
-        return null;
-    }
+    const {checked, correct, crossedOut, previouslyAnswered, reviewMode} =
+        props;
 
     // Option status is shown only in review mode, or for incorrectly
     // answered items.
