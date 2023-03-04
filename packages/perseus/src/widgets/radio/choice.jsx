@@ -238,7 +238,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 showCorrectness={showCorrectness}
                                 multipleSelect={multipleSelect}
                                 reviewMode={reviewMode}
-                                product={"library"}
                                 primaryProductColor={
                                     apiOptions.styling?.primaryProductColor
                                 }
