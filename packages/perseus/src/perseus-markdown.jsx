@@ -24,33 +24,8 @@ const rules = {
                         </div>
                     </div>
                     <div className="perseus-column">
-                        {/* HACK(#sat) This is a cheap way to allow a custom
-                         * header to be displayed in two-column items in the SAT
-                         * mission.
-                         * The header will be rendered into this div. Do not write
-                         * code outside of the SAT mission that relies on this
-                         * because this will be cleaned up with other SAT
-                         * technical debt. */}
-                        <div className="sat-header-grafting-area" />
-
                         <div className="perseus-column-content">
-                            {/* HACK(#sat) This is a cheap way to allow a
-                             * custom review-mode skill box to be displayed in
-                             * SAT.
-                             * Don't write code outside of the SAT mission that
-                             * relies on this div because we are still telling
-                             * ourselves this will be cleaned up along with other
-                             * SAT technical debt. */}
-                            <div className="sat-skill-subscore-grafting-area" />
                             {output(node.col2, state)}
-                            {/* HACK(#sat) This is a cheap way to allow hints
-                             * to be displayed in two-column items in the SAT
-                             * mission.
-                             * The hint renderer will be rendered into this div.
-                             * Do not write code outside of the SAT mission that
-                             * relies on this because this will be cleaned up with
-                             * other SAT technical debt. */}
-                            <div className="sat-grafting-area" />
                         </div>
                     </div>
                 </div>
