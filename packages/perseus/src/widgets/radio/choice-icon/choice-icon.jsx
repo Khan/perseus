@@ -7,7 +7,6 @@ import * as React from "react";
 import {getChoiceLetter} from "../util.js";
 
 import LibraryChoiceIcon from "./library-choice-icon.jsx";
-import SATChoiceIcon from "./sat-choice-icon.jsx";
 
 type ChoiceIconProps = {|
     pos: number,
@@ -18,9 +17,6 @@ type ChoiceIconProps = {|
     pressed: boolean,
     correct: boolean,
     showCorrectness: boolean,
-    // TODO(amy): if we go this "product" flag route, define this type
-    // somewhere shared
-    product: "sat" | "library",
     multipleSelect: boolean,
     reviewMode: boolean,
     previouslyAnswered: boolean,
@@ -40,7 +36,6 @@ function ChoiceIcon(props: ChoiceIconProps): React.Node {
         checked,
         crossedOut,
         correct,
-        product,
         multipleSelect,
         showCorrectness,
         focused,
@@ -53,18 +48,6 @@ function ChoiceIcon(props: ChoiceIconProps): React.Node {
 
     const letter = getChoiceLetter(pos);
 
-    if (product === "sat") {
-        return (
-            <SATChoiceIcon
-                letter={letter}
-                reviewMode={reviewMode}
-                checked={checked}
-                correct={correct}
-                crossedOut={crossedOut}
-                multipleSelect={multipleSelect}
-            />
-        );
-    }
     return (
         <LibraryChoiceIcon
             letter={letter}
