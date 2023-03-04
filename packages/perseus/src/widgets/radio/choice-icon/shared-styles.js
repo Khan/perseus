@@ -3,7 +3,6 @@ import {StyleSheet} from "aphrodite";
 
 import type {StyleDeclaration} from "aphrodite";
 
-const SAT_ICON_SIZE = 25;
 const LIBRARY_ICON_SIZE = 24;
 
 const styles: StyleDeclaration = StyleSheet.create({
@@ -13,5 +12,5 @@ const styles: StyleDeclaration = StyleSheet.create({
     },
 });
 
-export {SAT_ICON_SIZE, LIBRARY_ICON_SIZE};
+export {LIBRARY_ICON_SIZE};
 export default styles;
