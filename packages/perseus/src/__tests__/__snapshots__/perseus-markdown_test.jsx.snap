@@ -22,22 +22,13 @@ exports[`perseus markdown output should output columns 1`] = `
       className="perseus-column"
     >
       <div
-        className="sat-header-grafting-area"
-      />
-      <div
         className="perseus-column-content"
       >
-        <div
-          className="sat-skill-subscore-grafting-area"
-        />
         <div
           className="paragraph"
         >
           col2
         </div>
-        <div
-          className="sat-grafting-area"
-        />
       </div>
     </div>
   </div>,
