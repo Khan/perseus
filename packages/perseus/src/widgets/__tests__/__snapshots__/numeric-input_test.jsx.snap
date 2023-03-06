@@ -96,7 +96,6 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
             class="perseus-widget-container widget-nohighlight widget-inline-block"
           >
             <div>
-               
               <span>
                 <div>
                   <input
@@ -308,7 +307,6 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
             class="perseus-widget-container widget-nohighlight widget-inline-block"
           >
             <div>
-               
               <span>
                 <div>
                   <input
