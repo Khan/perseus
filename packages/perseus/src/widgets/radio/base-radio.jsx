@@ -11,8 +11,8 @@ import {ClassNames as ApiClassNames} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 import sharedStyles from "../../styles/shared.js";
-import Util from "../../util.js";
 import {scrollElementIntoView} from "../../util/scroll-utils.js";
+import Util from "../../util.js";
 
 import ChoiceNoneAbove from "./choice-none-above.jsx";
 import Choice from "./choice.jsx";
@@ -205,7 +205,6 @@ function BaseRadio(props: Props): React.Node {
 
     // some commonly used shorthands
     const reviewMode = !!reviewModeRubric;
-    const sat = apiOptions.satStyling;
     const isMobile = apiOptions.isMobile;
 
     const firstChoiceHighlighted = choices[0].highlighted;
@@ -216,18 +215,13 @@ function BaseRadio(props: Props): React.Node {
         !editMode && "perseus-rendered-radio",
         css(
             styles.radio,
-            // SAT doesn't use the "responsive styling" as it conflicts
-            // with their custom theming.
-            !sat && styles.responsiveRadioContainer,
-            !sat &&
-                firstChoiceHighlighted &&
+            styles.responsiveRadioContainer,
+            firstChoiceHighlighted &&
                 isMobile &&
                 styles.radioContainerFirstHighlighted,
-            !sat &&
-                lastChoiceHighlighted &&
+            lastChoiceHighlighted &&
                 isMobile &&
                 styles.radioContainerLastHighlighted,
-            sat && styles.satRadio,
         ),
     );
 
@@ -240,21 +234,16 @@ function BaseRadio(props: Props): React.Node {
         countChoices,
         numCorrect,
     );
-    const shouldShowInstructions = !sat;
 
     const responsiveClassName = css(styles.responsiveFieldset);
     const fieldset = (
         <fieldset
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
         >
-            {shouldShowInstructions && (
-                <legend className="perseus-sr-only">{instructions}</legend>
-            )}
-            {shouldShowInstructions && (
-                <div className={instructionsClassName} aria-hidden="true">
-                    {instructions}
-                </div>
-            )}
+            <legend className="perseus-sr-only">{instructions}</legend>
+            <div className={instructionsClassName} aria-hidden="true">
+                {instructions}
+            </div>
             <ul className={className} style={{listStyle: "none"}}>
                 {choices.map((choice, i) => {
                     let Element = Choice;
@@ -301,47 +290,21 @@ function BaseRadio(props: Props): React.Node {
                     const aphroditeClassName = (checked) => {
                         // Whether or not to show correctness borders
                         // for this choice and the next choice.
-                        const satShowCorrectness = sat && reviewMode && checked;
-                        const satShowCorrectnessNext =
-                            sat &&
-                            reviewMode &&
-                            nextChoice &&
-                            nextChoice.checked;
-
                         return css(
                             sharedStyles.aboveScratchpad,
                             styles.item,
-                            !sat && styles.responsiveItem,
-                            !sat && checked && styles.selectedItem,
-                            !sat &&
-                                checked &&
+                            styles.responsiveItem,
+                            checked && styles.selectedItem,
+                            checked &&
                                 choice.highlighted &&
                                 styles.aboveBackdrop,
-                            !sat &&
-                                checked &&
+                            checked &&
                                 choice.highlighted &&
                                 apiOptions.isMobile &&
                                 styles.aboveBackdropMobile,
-                            !sat &&
-                                nextChoiceHighlighted &&
+                            nextChoiceHighlighted &&
                                 apiOptions.isMobile &&
                                 styles.nextHighlighted,
-                            sat && styles.satRadioOption,
-                            satShowCorrectness &&
-                                !choice.correct &&
-                                styles.satRadioOptionIncorrect,
-                            satShowCorrectness &&
-                                choice.correct &&
-                                styles.satRadioOptionCorrect,
-                            satShowCorrectnessNext &&
-                                !nextChoice.correct &&
-                                styles.satRadioOptionNextIncorrect,
-                            satShowCorrectnessNext &&
-                                nextChoice.correct &&
-                                styles.satRadioOptionNextCorrect,
-                            sat &&
-                                reviewModeRubric &&
-                                styles.satReviewRadioOption,
                         );
                     };
 
@@ -420,12 +383,7 @@ function BaseRadio(props: Props): React.Node {
 
     // Allow for horizontal scrolling if content is too wide, which may be
     // an issue especially on phones.
-    // This is disabled in SAT, since it conflicts with their theming.
-    return (
-        <div className={css(!sat && styles.responsiveContainer)}>
-            {fieldset}
-        </div>
-    );
+    return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
 }
 
 BaseRadio.defaultProps = {
@@ -478,47 +436,6 @@ const styles: StyleDeclaration = StyleSheet.create({
 
     radioContainerLastHighlighted: {
         borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-    },
-
-    satRadio: {
-        background: "none",
-        marginLeft: 0,
-        userSelect: "none",
-    },
-
-    satRadioOption: {
-        margin: 0,
-        padding: 0,
-        borderBottom: `1px solid #ccc`,
-        ":first-child": {
-            borderTop: `1px solid #ccc`,
-        },
-    },
-
-    satRadioOptionCorrect: {
-        borderBottomColor: styleConstants.satCorrectBorderColor,
-        ":first-child": {
-            borderTopColor: styleConstants.satCorrectBorderColor,
-        },
-    },
-
-    satRadioOptionIncorrect: {
-        borderBottomColor: styleConstants.satIncorrectBorderColor,
-        ":first-child": {
-            borderTopColor: styleConstants.satIncorrectBorderColor,
-        },
-    },
-
-    satRadioOptionNextCorrect: {
-        borderBottomColor: styleConstants.satCorrectBorderColor,
-    },
-
-    satRadioOptionNextIncorrect: {
-        borderBottomColor: styleConstants.satIncorrectBorderColor,
-    },
-
-    satReviewRadioOption: {
-        pointerEvents: "none",
     },
 
     item: {

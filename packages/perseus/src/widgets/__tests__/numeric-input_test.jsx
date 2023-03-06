@@ -26,7 +26,10 @@ import {
 import type {APIOptions} from "../../types.js";
 import type {Rubric} from "../numeric-input.jsx";
 
-const renderQuestion = (question, apiOptions: APIOptions) => {
+const renderQuestion = (
+    question,
+    apiOptions: APIOptions = Object.freeze({}),
+) => {
     // Perseus.init() registers all of the widgets synchronously so
     // it's okay to ignore the promise it returns.
     Perseus.init({skipMathJax: true});
@@ -50,68 +53,50 @@ const renderQuestion = (question, apiOptions: APIOptions) => {
     return {container, renderer};
 };
 
-const options: $ReadOnlyArray<APIOptions> = [
-    {satStyling: true},
-    {satStyling: false},
-];
+describe("numeric-input widget", () => {
+    const [question, correct, incorrect] = question1AndAnswer;
+    const apiOptions = Object.freeze({});
 
-describe.each(options)(
-    "numeric-input widget (options: %j)",
-    (apiOptions: APIOptions) => {
-        describe("question", () => {
-            const [question, correct, incorrect] = question1AndAnswer;
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
 
-            beforeEach(() => {
-                jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                    testDependencies,
-                );
-            });
+    it("Should accept the right answer", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptions);
 
-            it("Should accept the right answer", () => {
-                // Arrange
-                const {renderer} = renderQuestion(question, apiOptions);
+        // Act
+        userEvent.paste(screen.getByRole("textbox", {hidden: true}), correct);
 
-                // Act
-                userEvent.paste(
-                    screen.getByRole("textbox", {hidden: true}),
-                    correct,
-                );
+        // Assert
+        expect(renderer).toHaveBeenAnsweredCorrectly();
+    });
 
-                // Assert
-                expect(renderer).toHaveBeenAnsweredCorrectly();
-            });
+    it("Should render predictably", () => {
+        // Arrange
+        const {container} = renderQuestion(question, apiOptions);
+        expect(container).toMatchSnapshot("first render");
 
-            it("Should render predictably", () => {
-                // Arrange
-                const {container} = renderQuestion(question, apiOptions);
-                expect(container).toMatchSnapshot("first render");
+        // Act
+        userEvent.paste(screen.getByRole("textbox", {hidden: true}), correct);
 
-                // Act
-                userEvent.paste(
-                    screen.getByRole("textbox", {hidden: true}),
-                    correct,
-                );
+        // Assert
+        expect(container).toMatchSnapshot("after interaction");
+    });
 
-                // Assert
-                expect(container).toMatchSnapshot("after interaction");
-            });
+    it("should reject an incorrect answer", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptions);
 
-            it("should reject an incorrect answer", () => {
-                // Arrange
-                const {renderer} = renderQuestion(question, apiOptions);
+        // Act
+        userEvent.paste(screen.getByRole("textbox", {hidden: true}), incorrect);
 
-                // Act
-                userEvent.paste(
-                    screen.getByRole("textbox", {hidden: true}),
-                    incorrect,
-                );
-
-                // Assert
-                expect(renderer).toHaveBeenAnsweredIncorrectly();
-            });
-        });
-    },
-);
+        // Assert
+        expect(renderer).toHaveBeenAnsweredIncorrectly();
+    });
+});
 
 describe("static function getOneCorrectAnswerFromRubric", () => {
     beforeEach(() => {
@@ -371,9 +356,7 @@ describe("Numeric input widget", () => {
 
     it("can handle multiple correct answers (Part one)", () => {
         // Arrange
-        const {renderer} = renderQuestion(multipleAnswers, {
-            satStyling: false,
-        });
+        const {renderer} = renderQuestion(multipleAnswers);
 
         // Act
         userEvent.paste(screen.getByRole("textbox", {hidden: true}), "1");
@@ -384,9 +367,7 @@ describe("Numeric input widget", () => {
 
     it("can handle multiple correct answers (Part two)", () => {
         // Arrange
-        const {renderer} = renderQuestion(multipleAnswers, {
-            satStyling: false,
-        });
+        const {renderer} = renderQuestion(multipleAnswers);
 
         // Act
         userEvent.paste(screen.getByRole("textbox", {hidden: true}), "2");
@@ -397,9 +378,7 @@ describe("Numeric input widget", () => {
 
     it("can handle duplicated answers", () => {
         // Arrange
-        const {renderer} = renderQuestion(duplicatedAnswers, {
-            satStyling: false,
-        });
+        const {renderer} = renderQuestion(duplicatedAnswers);
 
         // Act
         userEvent.paste(screen.getByRole("textbox", {hidden: true}), "2.4");
@@ -410,9 +389,7 @@ describe("Numeric input widget", () => {
 
     it("can handle coefficients", () => {
         // Arrange
-        const {renderer} = renderQuestion(withCoefficient, {
-            satStyling: false,
-        });
+        const {renderer} = renderQuestion(withCoefficient);
 
         // Act
         userEvent.paste(screen.getByRole("textbox", {hidden: true}), "1.0");
@@ -423,9 +400,7 @@ describe("Numeric input widget", () => {
 
     it("handles answers that are percentages", () => {
         // Arrange
-        const {renderer} = renderQuestion(percentageProblem, {
-            satStyling: false,
-        });
+        const {renderer} = renderQuestion(percentageProblem);
 
         // Act
         userEvent.paste(screen.getByRole("textbox", {hidden: true}), "33%");
@@ -436,9 +411,7 @@ describe("Numeric input widget", () => {
 
     it("handles answers that are decimals", () => {
         // Arrange
-        const {renderer} = renderQuestion(multipleAnswersWithDecimals, {
-            satStyling: false,
-        });
+        const {renderer} = renderQuestion(multipleAnswersWithDecimals);
 
         // Act
         userEvent.paste(screen.getByRole("textbox", {hidden: true}), "12.2");
@@ -450,7 +423,6 @@ describe("Numeric input widget", () => {
     it("supports being static", () => {
         // Arrange
         renderQuestion(multipleAnswersWithDecimals, {
-            satStyling: false,
             staticRender: true,
         });
 
@@ -461,7 +433,6 @@ describe("Numeric input widget", () => {
 
     it("styles differently on mobile", () => {
         const {container} = renderQuestion(multipleAnswersWithDecimals, {
-            satStyling: false,
             // I wish this was more clear but this is how mobile
             // rendering is triggered
             customKeypad: true,
@@ -471,9 +442,7 @@ describe("Numeric input widget", () => {
     });
 
     it("can be focused", () => {
-        const {renderer} = renderQuestion(question1, {
-            satStyling: true,
-        });
+        const {renderer} = renderQuestion(question1);
 
         // Act
         const gotFocus = renderer.focus();
@@ -490,7 +459,6 @@ describe("Numeric input widget", () => {
         const testCallback = jest.fn();
 
         const {renderer} = renderQuestion(question1, {
-            satStyling: true,
             interactionCallback: testCallback,
         });
 
@@ -502,9 +470,7 @@ describe("Numeric input widget", () => {
     });
 
     it("can be blurred", () => {
-        const {renderer} = renderQuestion(question1, {
-            satStyling: true,
-        });
+        const {renderer} = renderQuestion(question1);
 
         // Act
         const input = screen.getByRole("textbox", {hidden: true});

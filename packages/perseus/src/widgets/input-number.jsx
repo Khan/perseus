@@ -9,7 +9,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import InputWithExamples from "../components/input-with-examples.jsx";
-import PossibleAnswers from "../components/possible-answers.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import {ApiOptions} from "../perseus-api.jsx";
 import {
@@ -175,26 +174,6 @@ class InputNumber extends React.Component<Props> {
         // HACK(johnsullivan): Create a function with shared logic between
         // this and NumericInput.
         const rubric = this.props.reviewModeRubric;
-        let correct = null;
-        let answerBlurb = null;
-
-        // SAT is deprecated and not testable
-        /* c8 ignore if */
-        if (this.props.apiOptions.satStyling && rubric) {
-            const score = this.simpleValidate(rubric);
-            correct = score.type === "points" && score.earned === score.total;
-
-            if (!correct) {
-                // TODO(johnsullivan): Make this a little more
-                // human-friendly.
-                let answerString = String(rubric.value);
-                if (rubric.inexact && rubric.maxError) {
-                    answerString += " \u00B1 " + rubric.maxError;
-                }
-                const answerStrings = [answerString];
-                answerBlurb = <PossibleAnswers answers={answerStrings} />;
-            }
-        }
 
         // Note: This is _very_ similar to what `numeric-input.jsx` does. If
         // you modify this, double-check if you also need to modify that
@@ -204,20 +183,12 @@ class InputNumber extends React.Component<Props> {
             this.props.size === "small" ? styles.small : null,
             this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
         ];
-        // Correct
-        if (rubric && correct === true && this.props.currentValue) {
-            inputStyles.push(styles.answerStateCorrect);
-        }
-        // Incorrect
-        if (rubric && correct === false && this.props.currentValue) {
-            inputStyles.push(styles.answerStateIncorrect);
-        }
         // Unanswered
         if (rubric && !this.props.currentValue) {
             inputStyles.push(styles.answerStateUnanswered);
         }
 
-        const input = (
+        return (
             <InputWithExamples
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"
@@ -234,18 +205,6 @@ class InputNumber extends React.Component<Props> {
                 linterContext={this.props.linterContext}
             />
         );
-
-        // SAT is deprecated, answer blurb is an SAT feature
-        /* c8 ignore if */
-        if (answerBlurb) {
-            return (
-                <span className="perseus-input-with-answer-blurb">
-                    {input}
-                    {answerBlurb}
-                </span>
-            );
-        }
-        return input;
     }
 
     handleChange: (string, () => void) => void = (newValue, cb) => {

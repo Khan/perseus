@@ -66,6 +66,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
                           <div>
+                             
                             <span>
                               <div>
                                 <input
@@ -302,6 +303,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
                           <div>
+                             
                             <span>
                               <div>
                                 <input
@@ -538,6 +540,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
                           <div>
+                             
                             <span>
                               <div>
                                 <input
