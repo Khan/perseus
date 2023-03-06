@@ -3865,7 +3865,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
+                        class="perseus-radio-rationale-content rationale_1w3tmyh"
                         data-test-id="perseus-radio-rationale-content-0"
                       >
                         <span
@@ -4073,7 +4073,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
+                        class="perseus-radio-rationale-content rationale_1w3tmyh"
                         data-test-id="perseus-radio-rationale-content-1"
                       >
                         <span
@@ -4265,7 +4265,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
+                        class="perseus-radio-rationale-content rationale_1w3tmyh"
                         data-test-id="perseus-radio-rationale-content-2"
                       >
                         <span
@@ -4458,7 +4458,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
+                        class="perseus-radio-rationale-content rationale_1w3tmyh"
                         data-test-id="perseus-radio-rationale-content-3"
                       >
                         <span
