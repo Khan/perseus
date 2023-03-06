@@ -93,20 +93,17 @@ class HintRenderer extends React.Component<Props> {
                         {i18n._("Hint #%(pos)s", {pos: pos + 1})}
                     </span>
                 )}
-                {!apiOptions.isMobile &&
-                    !apiOptions.satStyling &&
-                    totalHints &&
-                    pos != null && (
-                        <span
-                            className="perseus-hint-label"
-                            style={{
-                                display: "block",
-                                color: apiOptions.hintProgressColor,
-                            }}
-                        >
-                            {`${pos + 1} / ${totalHints}`}
-                        </span>
-                    )}
+                {!apiOptions.isMobile && totalHints && pos != null && (
+                    <span
+                        className="perseus-hint-label"
+                        style={{
+                            display: "block",
+                            color: apiOptions.hintProgressColor,
+                        }}
+                    >
+                        {`${pos + 1} / ${totalHints}`}
+                    </span>
+                )}
                 <Renderer
                     // eslint-disable-next-line react/no-string-refs
                     ref="renderer"
