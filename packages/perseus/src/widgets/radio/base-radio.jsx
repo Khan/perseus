@@ -11,8 +11,8 @@ import {ClassNames as ApiClassNames} from "../../perseus-api.jsx";
 import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 import sharedStyles from "../../styles/shared.js";
-import {scrollElementIntoView} from "../../util/scroll-utils.js";
 import Util from "../../util.js";
+import {scrollElementIntoView} from "../../util/scroll-utils.js";
 
 import ChoiceNoneAbove from "./choice-none-above.jsx";
 import Choice from "./choice.jsx";

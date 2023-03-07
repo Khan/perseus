@@ -11,14 +11,6 @@ import _ from "underscore";
 import InputWithExamples from "../components/input-with-examples.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import {ApiOptions} from "../perseus-api.jsx";
-import {
-    satCorrectBackgroundColor,
-    satCorrectBorderColor,
-    satCorrectColor,
-    satIncorrectBackgroundColor,
-    satIncorrectBorderColor,
-    satIncorrectColor,
-} from "../styles/constants.js";
 import TexWrangler from "../tex-wrangler.js";
 import KhanAnswerTypes from "../util/answer-types.js";
 
@@ -389,16 +381,6 @@ const styles = StyleSheet.create({
         textAlign: "right",
         paddingLeft: 0,
         paddingRight: Spacing.xxxSmall_4,
-    },
-    answerStateCorrect: {
-        color: satCorrectColor,
-        backgroundColor: satCorrectBackgroundColor,
-        border: `solid 1px ${satCorrectBorderColor}`,
-    },
-    answerStateIncorrect: {
-        color: satIncorrectColor,
-        backgroundColor: satIncorrectBackgroundColor,
-        border: `solid 1px ${satIncorrectBorderColor}`,
     },
     answerStateUnanswered: {
         backgroundColor: "#eee",
