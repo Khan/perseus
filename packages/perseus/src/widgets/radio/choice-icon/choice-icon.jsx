@@ -21,7 +21,7 @@ type ChoiceIconProps = {
     focused: boolean,
     hovered: boolean,
     pressed: boolean,
-    correct: ?boolean,
+    correct: boolean,
     showCorrectness: boolean,
     multipleSelect: boolean,
     reviewMode: boolean,
