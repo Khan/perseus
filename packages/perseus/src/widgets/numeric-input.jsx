@@ -413,7 +413,6 @@ export class NumericInput extends React.Component<Props, State> {
 
         return (
             <div>
-                {" "}
                 <InputWithExamples
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}

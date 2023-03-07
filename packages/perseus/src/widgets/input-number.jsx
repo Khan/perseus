@@ -165,6 +165,7 @@ class InputNumber extends React.Component<Props> {
         }
         // HACK(johnsullivan): Create a function with shared logic between
         // this and NumericInput.
+        // TODO(jeremy): Deprecate this widget and prefer numeric-input.
         const rubric = this.props.reviewModeRubric;
 
         // Note: This is _very_ similar to what `numeric-input.jsx` does. If
