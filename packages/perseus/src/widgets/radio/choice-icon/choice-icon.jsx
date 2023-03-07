@@ -25,13 +25,14 @@ type ChoiceIconProps = {
     showCorrectness: boolean,
     multipleSelect: boolean,
     reviewMode: boolean,
-    primaryProductColor?: string,
     previouslyAnswered: boolean,
     // TODO(mdr): The CrossOutButton needs a transparent-background ChoiceIcon,
     //     so I've added this prop. I'm not sure why we have backgrounds in the
     //     general case, though? When does the choice container have a
     //     non-white background, aside from SAT, which uses a different icon?
     transparentBackground?: boolean,
+
+    primaryProductColor?: string,
 };
 
 function ChoiceInner(props: {
