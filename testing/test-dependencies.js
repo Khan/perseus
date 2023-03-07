@@ -60,6 +60,13 @@ export const testDependencies: PerseusDependencies = {
     ),
 
     staticUrl: (str: ?string) => {
+        // sometimes we need a real URL in Storybook,
+        // like for images
+        if (str && str.startsWith("http")) {
+            // $FlowIgnore[incompatible-type]
+            return str;
+        }
+
         // We define the interface such that flow can infer calls properly.
         // However, it means that return types are hard to match here in
         // the implementation.
