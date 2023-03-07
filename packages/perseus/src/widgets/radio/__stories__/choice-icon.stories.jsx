@@ -44,66 +44,69 @@ export default {
     args: defaultProps,
 };
 
+const Panel = (props: {|children: React.Node|}): React.Node => {
+    return <div style={{padding: "10px"}}>{props.children}</div>;
+};
+
 export const Interactive = (args: StoryArgs): React.Node => {
-    return <ChoiceIcon {...args} />;
+    return (
+        <Panel>
+            <ChoiceIcon {...args} />
+        </Panel>
+    );
 };
 
 export const Default = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon {...defaultProps} />
             <ChoiceIcon {...defaultProps} multipleSelect={true} />
-        </>
+        </Panel>
     );
 };
 
 export const Focused = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon {...defaultProps} focused={true} />
             <ChoiceIcon
                 {...defaultProps}
                 focused={true}
                 multipleSelect={true}
             />
-        </>
+        </Panel>
     );
 };
 
 export const Checked = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon {...defaultProps} checked={true} />
             <ChoiceIcon
                 {...defaultProps}
                 checked={true}
                 multipleSelect={true}
             />
-        </>
+        </Panel>
     );
 };
 
 export const CrossedOut = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon {...defaultProps} crossedOut={true} />
             <ChoiceIcon
                 {...defaultProps}
                 crossedOut={true}
                 multipleSelect={true}
             />
-        </>
+        </Panel>
     );
 };
 
 export const Correct = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon
                 {...defaultProps}
                 checked={true}
@@ -119,14 +122,13 @@ export const Correct = (args: StoryArgs): React.Node => {
                 reviewMode={true}
                 multipleSelect={true}
             />
-        </>
+        </Panel>
     );
 };
 
 export const Incorrect = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon
                 {...defaultProps}
                 checked={true}
@@ -142,15 +144,14 @@ export const Incorrect = (args: StoryArgs): React.Node => {
                 reviewMode={true}
                 multipleSelect={true}
             />
-        </>
+        </Panel>
     );
 };
 
 export const AllPositions = (args: StoryArgs): React.Node => {
     const allLetters = Array(26).fill();
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             {allLetters.map((_, i: number) => (
                 <ChoiceIcon {...defaultProps} pos={i} key={"choice" + i} />
             ))}
@@ -163,6 +164,6 @@ export const AllPositions = (args: StoryArgs): React.Node => {
                     key={"choice" + i}
                 />
             ))}
-        </>
+        </Panel>
     );
 };
