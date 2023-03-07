@@ -93,7 +93,7 @@ class HintRenderer extends React.Component<Props> {
                         {i18n._("Hint #%(pos)s", {pos: pos + 1})}
                     </span>
                 )}
-                {!apiOptions.isMobile && totalHints && pos != null && (
+                {!apiOptions.isMobile && totalHints != null && pos != null && (
                     <span
                         className="perseus-hint-label"
                         style={{
