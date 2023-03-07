@@ -40,10 +40,6 @@ export default {
         pos: {
             control: {type: "number", min: 0, max: 25, step: 1},
         },
-        product: {
-            options: ["library", "sat"],
-            control: {type: "radio"},
-        },
     },
     args: defaultProps,
 };
