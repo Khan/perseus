@@ -1,7 +1,7 @@
 // @flow
 
-import React from "react";
 import {View} from "@khanacademy/wonder-blocks-core";
+import React from "react";
 
 import HintsRenderer from "../hints-renderer.jsx";
 
