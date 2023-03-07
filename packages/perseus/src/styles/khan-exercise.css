@@ -372,7 +372,10 @@ body.debug .graphie { outline: 1px dashed #fdd; }
 #issue fieldset label { display: inline; }
 #issue fieldset li { margin-top: 0px; margin-bottom: 0px; }
 
-var, div.graphie { white-space: pre; }
+var, div.graphie {
+  white-space: pre;
+  font-size: 14px;
+}
 
 #spinner { position: relative; top: 4px; left: 4px; }
 #issue-spinner { position: relative; top: 3px; }
