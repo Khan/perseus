@@ -25,8 +25,13 @@ type DefinitionProps = {|
     widgets: PerseusRenderer["widgets"],
 |};
 
+type DefaultProps = {|
+    togglePrompt: string,
+    definition: string,
+|};
+
 class Definition extends React.Component<DefinitionProps> {
-    static defaultProps: $FlowFixMe = {
+    static defaultProps: DefaultProps = {
         togglePrompt: "define me",
         definition: "definition goes here",
     };
