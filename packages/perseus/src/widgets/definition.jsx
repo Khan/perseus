@@ -76,13 +76,20 @@ class Definition extends React.Component<DefinitionProps> {
                                 this.props.trackInteraction();
                                 setActiveDefinitionId(this.props.widgetId);
                             }}
-                            style={{
-                                color: Color.blue,
-                            }}
                         >
-                            {({hovered, focused, pressed}) =>
-                                this.props.togglePrompt
-                            }
+                            {({hovered, focused, pressed}) => (
+                                <span
+                                    style={{
+                                        color: Color.blue,
+                                        borderBottom:
+                                            hovered || focused || pressed
+                                                ? `2px solid ${Color.blue}`
+                                                : "none",
+                                    }}
+                                >
+                                    {this.props.togglePrompt}
+                                </span>
+                            )}
                         </Clickable>
                     </Popover>
                 )}
