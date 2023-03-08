@@ -1,6 +1,7 @@
 // @flow
 
 import Button from "@khanacademy/wonder-blocks-button";
+import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color from "@khanacademy/wonder-blocks-color";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
@@ -70,18 +71,19 @@ class Definition extends React.Component<DefinitionProps> {
                         onClose={() => setActiveDefinitionId(null)}
                         placement="top"
                     >
-                        <span className="perseus-widget-definition">
-                            <Button
-                                size="medium"
-                                kind="tertiary"
-                                onClick={() => {
-                                    this.props.trackInteraction();
-                                    setActiveDefinitionId(this.props.widgetId);
-                                }}
-                            >
-                                {this.props.togglePrompt}
-                            </Button>
-                        </span>
+                        <Clickable
+                            onClick={() => {
+                                this.props.trackInteraction();
+                                setActiveDefinitionId(this.props.widgetId);
+                            }}
+                            style={{
+                                color: Color.blue,
+                            }}
+                        >
+                            {({hovered, focused, pressed}) =>
+                                this.props.togglePrompt
+                            }
+                        </Clickable>
                     </Popover>
                 )}
             </DefinitionConsumer>
