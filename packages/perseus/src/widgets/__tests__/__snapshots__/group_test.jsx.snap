@@ -814,7 +814,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                               class="perseus-widget-container widget-nohighlight widget-inline-block"
                             >
                               <div>
-                                 
                                 <span>
                                   <div>
                                     <input
@@ -1025,7 +1024,6 @@ exports[`group widget should snapshot: initial render 1`] = `
                               class="perseus-widget-container widget-nohighlight widget-inline-block"
                             >
                               <div>
-                                 
                                 <span>
                                   <div>
                                     <input
