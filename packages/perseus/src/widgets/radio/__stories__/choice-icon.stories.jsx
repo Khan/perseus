@@ -12,7 +12,6 @@ type StoryArgs = {|
     pressed: boolean,
     correct: boolean,
     showCorrectness: boolean,
-    product: "sat" | "library",
     multipleSelect: boolean,
     reviewMode: boolean,
     previouslyAnswered: boolean,
@@ -29,16 +28,10 @@ const defaultProps = {
     pressed: false,
     correct: false,
     showCorrectness: false,
-    product: "library",
     multipleSelect: false,
     reviewMode: false,
     previouslyAnswered: false,
     transparentBackground: false,
-};
-
-const defaultSATProps = {
-    ...defaultProps,
-    product: "sat",
 };
 
 export default {
@@ -47,98 +40,73 @@ export default {
         pos: {
             control: {type: "number", min: 0, max: 25, step: 1},
         },
-        product: {
-            options: ["library", "sat"],
-            control: {type: "radio"},
-        },
     },
     args: defaultProps,
 };
 
+const Panel = (props: {|children: React.Node|}): React.Node => {
+    return <div style={{padding: "10px"}}>{props.children}</div>;
+};
+
 export const Interactive = (args: StoryArgs): React.Node => {
-    return <ChoiceIcon {...args} />;
+    return (
+        <Panel>
+            <ChoiceIcon {...args} />
+        </Panel>
+    );
 };
 
 export const Default = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon {...defaultProps} />
             <ChoiceIcon {...defaultProps} multipleSelect={true} />
-            <p>SAT</p>
-            <ChoiceIcon {...defaultSATProps} />
-            <ChoiceIcon {...defaultSATProps} multipleSelect={true} />
-        </>
+        </Panel>
     );
 };
 
 export const Focused = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon {...defaultProps} focused={true} />
             <ChoiceIcon
                 {...defaultProps}
                 focused={true}
                 multipleSelect={true}
             />
-            <p>SAT</p>
-            <ChoiceIcon {...defaultSATProps} focused={true} />
-            <ChoiceIcon
-                {...defaultSATProps}
-                focused={true}
-                multipleSelect={true}
-            />
-        </>
+        </Panel>
     );
 };
 
 export const Checked = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon {...defaultProps} checked={true} />
             <ChoiceIcon
                 {...defaultProps}
                 checked={true}
                 multipleSelect={true}
             />
-            <p>SAT</p>
-            <ChoiceIcon {...defaultSATProps} checked={true} />
-            <ChoiceIcon
-                {...defaultSATProps}
-                checked={true}
-                multipleSelect={true}
-            />
-        </>
+        </Panel>
     );
 };
 
 export const CrossedOut = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon {...defaultProps} crossedOut={true} />
             <ChoiceIcon
                 {...defaultProps}
                 crossedOut={true}
                 multipleSelect={true}
             />
-            <p>SAT</p>
-            <ChoiceIcon {...defaultSATProps} crossedOut={true} />
-            <ChoiceIcon
-                {...defaultSATProps}
-                crossedOut={true}
-                multipleSelect={true}
-            />
-        </>
+        </Panel>
     );
 };
 
 export const Correct = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon
                 {...defaultProps}
                 checked={true}
@@ -154,30 +122,13 @@ export const Correct = (args: StoryArgs): React.Node => {
                 reviewMode={true}
                 multipleSelect={true}
             />
-            <p>SAT</p>
-            <ChoiceIcon
-                {...defaultSATProps}
-                checked={true}
-                correct={true}
-                showCorrectness={true}
-                reviewMode={true}
-            />
-            <ChoiceIcon
-                {...defaultSATProps}
-                checked={true}
-                correct={true}
-                showCorrectness={true}
-                reviewMode={true}
-                multipleSelect={true}
-            />
-        </>
+        </Panel>
     );
 };
 
 export const Incorrect = (args: StoryArgs): React.Node => {
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             <ChoiceIcon
                 {...defaultProps}
                 checked={true}
@@ -193,31 +144,14 @@ export const Incorrect = (args: StoryArgs): React.Node => {
                 reviewMode={true}
                 multipleSelect={true}
             />
-            <p>SAT</p>
-            <ChoiceIcon
-                {...defaultSATProps}
-                checked={true}
-                correct={false}
-                showCorrectness={true}
-                reviewMode={true}
-            />
-            <ChoiceIcon
-                {...defaultSATProps}
-                checked={true}
-                correct={false}
-                showCorrectness={true}
-                reviewMode={true}
-                multipleSelect={true}
-            />
-        </>
+        </Panel>
     );
 };
 
 export const AllPositions = (args: StoryArgs): React.Node => {
     const allLetters = Array(26).fill();
     return (
-        <>
-            <p>Library</p>
+        <Panel>
             {allLetters.map((_, i: number) => (
                 <ChoiceIcon {...defaultProps} pos={i} key={"choice" + i} />
             ))}
@@ -230,19 +164,6 @@ export const AllPositions = (args: StoryArgs): React.Node => {
                     key={"choice" + i}
                 />
             ))}
-            <p>SAT</p>
-            {allLetters.map((_, i: number) => (
-                <ChoiceIcon {...defaultSATProps} pos={i} key={"choice" + i} />
-            ))}
-            <br />
-            {allLetters.map((_, i: number) => (
-                <ChoiceIcon
-                    {...defaultSATProps}
-                    pos={i}
-                    multipleSelect={true}
-                    key={"choice" + i}
-                />
-            ))}
-        </>
+        </Panel>
     );
 };
