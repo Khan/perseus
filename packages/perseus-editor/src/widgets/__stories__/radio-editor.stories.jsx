@@ -85,7 +85,6 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
     state = question.widgets["radio 1"];
 
     apiOptions: APIOptions = {
-        satStyling: false,
         styling: {
             primaryProductColor: "red",
         },

@@ -26,9 +26,7 @@ export default ({
 }: Story);
 
 const defaultProps = {
-    apiOptions: {
-        satStyling: false,
-    },
+    apiOptions: {},
     choices: [
         generateChoice({
             content: "Content 1",

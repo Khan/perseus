@@ -142,7 +142,6 @@ type StubTagEditorType = $FlowFixMe; // from "./components/stub-tag-editor.jsx";
 export type APIOptions = $ReadOnly<{|
     isArticle?: boolean,
 
-    satStyling?: boolean,
     // This should actually be required since renderer.jsx sets defaults for
     // any missing properties in this object using this.getApiOptions() before
     // passing the prop on to other components.
@@ -399,7 +398,6 @@ export type APIOptionsWithDefaults = $ReadOnly<{|
     onFocusChange: $NonMaybeType<APIOptions["onFocusChange"]>,
     onInputError: $NonMaybeType<APIOptions["onInputError"]>,
     readOnly: $NonMaybeType<APIOptions["readOnly"]>,
-    satStyling: $NonMaybeType<APIOptions["satStyling"]>,
     setDrawingAreaAvailable: $NonMaybeType<
         APIOptions["setDrawingAreaAvailable"],
     >,

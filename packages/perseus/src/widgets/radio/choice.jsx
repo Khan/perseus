@@ -15,7 +15,6 @@ import _ from "underscore";
 
 import Icon from "../../components/icon.jsx";
 import {ApiOptions, ClassNames} from "../../perseus-api.jsx";
-import * as styleConstants from "../../styles/constants.js";
 import mediaQueries from "../../styles/media-queries.js";
 
 import getA11yText from "./choice-a11y-text.js";
@@ -130,37 +129,21 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
     // via aphrodite, we also need to assign normal CSS classnames here to
     // special-case the coloring of MathJax formulas (see .MathJax .math in
     // stylesheets/task-package/tasks.less)
-    const satCorrectChoice = apiOptions.satStyling && reviewMode && correct;
-    const satIncorrectChecked =
-        apiOptions.satStyling && reviewMode && !correct && checked;
     const descriptionClassName = classNames(
         "description",
-        satCorrectChoice && "sat-correct",
-        satIncorrectChecked && "sat-incorrect",
-        css(
-            !apiOptions.satStyling && styles.description,
-            apiOptions.satStyling && styles.satDescription,
-            satCorrectChoice && checked && styles.satDescriptionCorrectChecked,
-            satIncorrectChecked && styles.satDescriptionIncorrectChecked,
-        ),
+        css(styles.description),
     );
 
     const rationaleClassName = classNames(
         "perseus-radio-rationale-content",
-        css(
-            styles.rationale,
-            !apiOptions.satStyling && styles.nonSatRationale,
-            apiOptions.satStyling && styles.satReviewRationale,
-        ),
+        css(styles.rationale, styles.nonSatRationale),
     );
 
     // We want to show the choices as dimmed out when the choices are
     // disabled. However, we don't want to do this in the SAT product and
     // we also don't want to do this when we're in review mode in the
     // content library.
-    const showDimmed =
-        (!apiOptions.satStyling && !reviewMode && apiOptions.readOnly) ||
-        crossedOut;
+    const showDimmed = (!reviewMode && apiOptions.readOnly) || crossedOut;
 
     const letter = getChoiceLetter(pos);
     const a11yText = getA11yText(
@@ -255,9 +238,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 showCorrectness={showCorrectness}
                                 multipleSelect={multipleSelect}
                                 reviewMode={reviewMode}
-                                product={
-                                    apiOptions.satStyling ? "sat" : "library"
-                                }
+                                product={"library"}
                                 primaryProductColor={
                                     apiOptions.styling?.primaryProductColor
                                 }
@@ -278,7 +259,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                         crossedOut={crossedOut}
                                         previouslyAnswered={previouslyAnswered}
                                         reviewMode={reviewMode}
-                                        satStyling={apiOptions.satStyling}
                                     />
                                 </div>
                                 <div>{content}</div>
@@ -392,23 +372,6 @@ const styles = StyleSheet.create({
         width: "100%",
     },
 
-    satDescription: {
-        display: "block",
-        position: "relative",
-        boxSizing: "border-box",
-        cursor: "pointer",
-        marginLeft: 0,
-        padding: "17px 14px 17px 0",
-    },
-
-    satDescriptionCorrectChecked: {
-        backgroundColor: styleConstants.satCorrectBackgroundColor,
-    },
-
-    satDescriptionIncorrectChecked: {
-        backgroundColor: styleConstants.satIncorrectBackgroundColor,
-    },
-
     rationale: {
         display: "block",
     },
@@ -421,11 +384,6 @@ const styles = StyleSheet.create({
             padding: intermediateCheckboxPaddingPhone,
             paddingTop: 0,
         },
-    },
-
-    satReviewRationale: {
-        marginTop: 13,
-        marginLeft: 45,
     },
 });
 

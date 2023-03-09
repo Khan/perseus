@@ -41,7 +41,6 @@ export const ApiOptions = {
     propTypes: (PropTypes.shape({
         isArticle: PropTypes.bool.isRequired,
 
-        satStyling: PropTypes.bool.isRequired,
         onInputError: PropTypes.func.isRequired,
         onFocusChange: PropTypes.func.isRequired,
         staticRender: PropTypes.bool.isRequired,
@@ -181,7 +180,6 @@ export const ApiOptions = {
         onFocusChange: (...a: $ReadOnlyArray<any>) => mixed,
         onInputError: (...a: $ReadOnlyArray<any>) => mixed,
         readOnly: boolean,
-        satStyling: boolean,
         setDrawingAreaAvailable?: (...a: $ReadOnlyArray<any>) => mixed,
         showAlignmentOptions: boolean,
         staticRender: boolean,
@@ -200,7 +198,6 @@ export const ApiOptions = {
     defaults: ({
         isArticle: false,
         isMobile: false,
-        satStyling: false,
         onInputError: function () {},
         onFocusChange: function () {},
         staticRender: false,
