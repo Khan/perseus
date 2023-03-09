@@ -125,10 +125,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
         onChange({checked: updatedChecked, crossedOut: updatedCrossedOut});
     }
 
-    // HACK: while most of the styling for rendering SAT items is handled
-    // via aphrodite, we also need to assign normal CSS classnames here to
-    // special-case the coloring of MathJax formulas (see .MathJax .math in
-    // stylesheets/task-package/tasks.less)
     const descriptionClassName = classNames(
         "description",
         css(styles.description),
@@ -136,12 +132,11 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
 
     const rationaleClassName = classNames(
         "perseus-radio-rationale-content",
-        css(styles.rationale, styles.nonSatRationale),
+        css(styles.rationale),
     );
 
-    // We want to show the choices as dimmed out when the choices are
-    // disabled. However, we don't want to do this in the SAT product and
-    // we also don't want to do this when we're in review mode in the
+    // We want to show the choices as dimmed out when the choices are disabled.
+    // However, we don't want to do this when we're in review mode in the
     // content library.
     const showDimmed = (!reviewMode && apiOptions.readOnly) || crossedOut;
 
@@ -373,9 +368,6 @@ const styles = StyleSheet.create({
 
     rationale: {
         display: "block",
-    },
-
-    nonSatRationale: {
         padding: intermediateCheckboxPadding,
         paddingTop: 0,
         marginLeft: 54,
