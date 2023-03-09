@@ -351,7 +351,6 @@ export type PerseusDependencies = {|
 
     // KaTeX related dependencies
     getKaTeX: () => Promise<katex>,
-    getRenderA11yString: () => Promise<katexA11y>,
     loadMathjax: () => Promise<mixed>,
     logKaTeXError: (expression: string, error: Error) => Promise<?Response>,
     KatexProvider: React.ComponentType<{|children: React.Node|}>,

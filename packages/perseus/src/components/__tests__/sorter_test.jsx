@@ -1,5 +1,4 @@
 // @flow
-import getRenderA11yString from "katex/dist/contrib/render-a11y-string.js";
 import * as React from "react";
 import "@testing-library/jest-dom";
 
@@ -29,7 +28,6 @@ describe("sorter widget", () => {
             TeX: ({children}: {|children: React.Node|}) => (
                 <span className="tex-mock">{children}</span>
             ),
-            getRenderA11yString: Promise.resolve(getRenderA11yString),
             shouldUseFutureKaTeX: (flag: boolean) => {},
         });
     });
