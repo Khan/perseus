@@ -22,7 +22,12 @@ import type {WidgetExports} from "../types.js";
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-class Matcher extends React.Component<$FlowFixMe, $FlowFixMe> {
+type State = {|
+    leftHeight: number,
+    rightHeight: number,
+|}
+
+class Matcher extends React.Component<$FlowFixMe, State> {
     static propTypes = {
         apiOptions: ApiOptions.propTypes,
         labels: PropTypes.array,
@@ -47,29 +52,12 @@ class Matcher extends React.Component<$FlowFixMe, $FlowFixMe> {
         linterContext: linterContextDefault,
     };
 
-    state: $FlowFixMe = {
+    state: State = {
         leftHeight: 0,
         rightHeight: 0,
-        katex: null,
     };
 
-    componentDidMount() {
-        getDependencies()
-            .getKaTeX()
-            .then((katex) => this.setState({katex}));
-    }
-
     render(): React.Node {
-        // We don't render the Matcher until KaTeX has fully loaded, in case
-        // the sortables are rendering KaTeX content. This is un-optimal as
-        // we end up loading KaTeX even when we may not need it, however it
-        // helps to ensure that the dimensions of the sortables (and thus the
-        // Matcher) will be correct when they render, if their contents are
-        // KaTeX-derived.
-        if (!this.state.katex) {
-            return <CircularSpinner />;
-        }
-
         // Use the same random() function to shuffle both columns sequentially
         const rng = seededRNG(this.props.problemNum);
 
@@ -172,16 +160,6 @@ class Matcher extends React.Component<$FlowFixMe, $FlowFixMe> {
     };
 
     getUserInput: () => $FlowFixMe = () => {
-        // If KaTeX hasn't loaded then we won't be able to get the contents
-        // of the sortables on the left and right, so we just return empty
-        // arrays until we render for the first time.
-        if (!this.state.katex) {
-            return {
-                left: [],
-                right: [],
-            };
-        }
-
         return {
             // eslint-disable-next-line react/no-string-refs
             left: this.refs.left.getOptions(),

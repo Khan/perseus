@@ -383,7 +383,6 @@ type SortableProps = {|
     |}) => void,
     padding: boolean,
     linterContext: LinterContextProps,
-    waitForKatexLoad: boolean,
     options: $ReadOnlyArray<SortableOption>,
 |};
 
@@ -396,7 +395,6 @@ type DefaultProps = {|
     onMeasure: SortableProps["onMeasure"],
     padding: SortableProps["padding"],
     linterContext: SortableProps["linterContext"],
-    waitForKatexLoad: SortableProps["waitForKatexLoad"],
 |};
 
 type ItemState = "disabled" | "static" | "dragging" | "animating";
@@ -411,7 +409,6 @@ type SortableItem = {|
 
 type SortableState = {|
     items: $ReadOnlyArray<SortableItem>,
-    katex: null | any,
 |};
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
@@ -423,7 +420,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         margin: 5,
         onChange: function () {},
         linterContext: PerseusLinter.linterContextDefault,
-        waitForKatexLoad: true,
     };
 
     constructor(props: SortableProps) {
@@ -431,7 +427,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // Don't call this.setState() here!
         this.state = {
             items: Sortable.itemsFromProps(this.props),
-            katex: null,
         };
     }
 
@@ -470,14 +465,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this.measureItems();
             }, 0);
         }
-    }
-
-    componentDidMount() {
-        getDependencies()
-            .getKaTeX()
-            .then((katex) => {
-                this.setState({katex});
-            });
     }
 
     static itemsFromProps(props: {
@@ -573,15 +560,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }, 20);
 
     render(): React.Node {
-        // We don't render the sortable until KaTeX has fully loaded, in case
-        // the draggables are rendering KaTeX content. This is un-optimal as
-        // we end up loading KaTeX even when we may not need it, however it
-        // helps to ensure that the dimensions of the draggables (and thus the
-        // sortable) will be correct when they render, if their contents are
-        // KaTeX-derived.
-        if (this.props.waitForKatexLoad && !this.state.katex) {
-            return <CircularSpinner />;
-        }
         const cards = [];
 
         const {layout} = this.props;

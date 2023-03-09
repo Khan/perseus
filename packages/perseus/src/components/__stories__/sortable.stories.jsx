@@ -21,7 +21,6 @@ export const SortableHorizontalExample = (args: StoryArgs): React.Node => {
         <Sortable
             layout="horizontal"
             options={["a", "b", "c"]}
-            waitForKatexLoad={false}
         />
     );
 };
@@ -31,7 +30,6 @@ export const SortableVerticalExample = (args: StoryArgs): React.Node => {
         <Sortable
             layout="vertical"
             options={["a", "b", "c"]}
-            waitForKatexLoad={false}
         />
     );
 };

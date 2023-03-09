@@ -212,7 +212,7 @@ class Renderer extends React.Component<Props, State> {
     // The i18n linter.
     _translationLinter: TranslationLinter;
 
-    lastRenderedMarkdown: React.Element<PerseusDependencies["KatexProvider"]>;
+    lastRenderedMarkdown: React.Node;
     reuseMarkdown: boolean;
     translationIndex: number;
     // eslint-disable-next-line ft-flow/no-mutable-array
@@ -1795,7 +1795,6 @@ class Renderer extends React.Component<Props, State> {
 
     render(): React.Node {
         const apiOptions = this.getApiOptions();
-        const {KatexProvider} = getDependencies();
 
         if (this.reuseMarkdown) {
             return this.lastRenderedMarkdown;
@@ -1843,17 +1842,13 @@ class Renderer extends React.Component<Props, State> {
                 // calls its before_dom_insert we can lookup this component by
                 // this attribute and render the text with markdown.
                 return (
-                    <KatexProvider>
-                        <DefinitionProvider>
-                            <div
-                                data-perseus-component-index={
-                                    this.translationIndex
-                                }
-                            >
-                                {content}
-                            </div>
-                        </DefinitionProvider>
-                    </KatexProvider>
+                    <div
+                        data-perseus-component-index={
+                            this.translationIndex
+                        }
+                    >
+                        {content}
+                    </div>
                 );
             }
         }
@@ -1911,11 +1906,9 @@ class Renderer extends React.Component<Props, State> {
         });
 
         this.lastRenderedMarkdown = (
-            <KatexProvider>
-                <DefinitionProvider>
-                    <div className={className}>{markdownContents}</div>
-                </DefinitionProvider>
-            </KatexProvider>
+                        <DefinitionProvider>
+                            <div className={className}>{markdownContents}</div>
+                        </DefinitionProvider>
         );
         return this.lastRenderedMarkdown;
     }

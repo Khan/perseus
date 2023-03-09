@@ -21,7 +21,6 @@ describe("Sortable", () => {
             <Sortable
                 layout="horizontal"
                 options={["a", "b", "c"]}
-                waitForKatexLoad={false}
             />,
         );
 
@@ -45,7 +44,6 @@ describe("moveOptionToIndex", () => {
                 ref={(r) => (sortable = r)}
                 layout="horizontal"
                 options={["a", "b", "c"]}
-                waitForKatexLoad={false}
             />,
         );
 
@@ -66,7 +64,6 @@ describe("moveOptionToIndex", () => {
                 ref={(r) => (sortable = r)}
                 layout="horizontal"
                 options={["a", "b", "c"]}
-                waitForKatexLoad={false}
             />,
         );
 
@@ -87,7 +84,6 @@ describe("moveOptionToIndex", () => {
                 ref={(r) => (sortable = r)}
                 layout="horizontal"
                 options={["a", "b", "c"]}
-                waitForKatexLoad={false}
             />,
         );
 
@@ -108,7 +104,6 @@ describe("moveOptionToIndex", () => {
                 ref={(r) => (sortable = r)}
                 layout="horizontal"
                 options={["a", "b", "c"]}
-                waitForKatexLoad={false}
             />,
         );
 
