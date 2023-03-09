@@ -84,11 +84,7 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
     //$FlowIgnore
     state = question.widgets["radio 1"];
 
-    apiOptions: APIOptions = {
-        styling: {
-            primaryProductColor: "red",
-        },
-    };
+    apiOptions: APIOptions = Object.freeze({});
 
     render(): React.Node {
         return (

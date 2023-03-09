@@ -31,8 +31,6 @@ type ChoiceIconProps = {
     //     general case, though? When does the choice container have a
     //     non-white background, aside from SAT, which uses a different icon?
     transparentBackground?: boolean,
-
-    primaryProductColor?: string,
 };
 
 function ChoiceInner(props: {
@@ -69,7 +67,6 @@ function getDynamicStyles(
     showCorrectness: boolean,
     pressed: boolean,
     multipleSelect: boolean,
-    primaryProductColor: string,
     correct: ?boolean,
     transparentBackground?: boolean,
 ): {
@@ -82,16 +79,13 @@ function getDynamicStyles(
     let borderColor;
     let color;
     if (!showCorrectness && pressed) {
-        borderColor = primaryProductColor;
-        color = primaryProductColor;
+        borderColor = Color.blue;
+        color = Color.blue;
         backgroundColor = transparentBackground
             ? "transparent"
             : styleConstants.white;
     } else if (checked) {
-        // Note: kaGreen is not only the default product color,
-        // but also the "correctness" color
-        const bg =
-            showCorrectness && correct ? Color.green : primaryProductColor;
+        const bg = showCorrectness && correct ? Color.green : Color.blue;
         color = styleConstants.white;
         backgroundColor = bg;
         borderColor = bg;
@@ -121,7 +115,6 @@ function ChoiceIcon(props: ChoiceIconProps): React.Node {
         hovered,
         multipleSelect,
         pos,
-        primaryProductColor = Color.blue,
         previouslyAnswered,
         pressed,
         transparentBackground,
@@ -132,7 +125,6 @@ function ChoiceIcon(props: ChoiceIconProps): React.Node {
         showCorrectness,
         pressed,
         multipleSelect,
-        primaryProductColor,
         correct,
         transparentBackground,
     );
@@ -140,7 +132,7 @@ function ChoiceIcon(props: ChoiceIconProps): React.Node {
     return (
         <div className={css(sharedStyles.iconWrapper)}>
             <FocusRing
-                color={primaryProductColor}
+                color={Color.blue}
                 visible={focused || hovered}
                 multipleSelect={multipleSelect}
             >

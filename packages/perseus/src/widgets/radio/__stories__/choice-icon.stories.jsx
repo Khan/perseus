@@ -16,7 +16,6 @@ type StoryArgs = {|
     reviewMode: boolean,
     previouslyAnswered: boolean,
     transparentBackground: boolean,
-    primaryProductColor?: string,
 |};
 
 const defaultProps = {
