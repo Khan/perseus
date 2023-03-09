@@ -12,7 +12,7 @@ import FocusRing from "../focus-ring.jsx";
 import {getChoiceLetter} from "../util.js";
 
 import CrossOutLine from "./cross-out-line.jsx";
-import sharedStyles, {LIBRARY_ICON_SIZE} from "./shared-styles.js";
+import sharedStyles, {CHOICE_ICON_SIZE} from "./shared-styles.js";
 
 type ChoiceIconProps = {
     pos: number,
@@ -99,7 +99,7 @@ function getDynamicStyles(
     if (multipleSelect) {
         borderRadius = 3;
     } else {
-        borderRadius = LIBRARY_ICON_SIZE;
+        borderRadius = CHOICE_ICON_SIZE;
     }
 
     return {backgroundColor, borderColor, color, borderRadius};
@@ -168,8 +168,8 @@ function ChoiceIcon(props: ChoiceIconProps): React.Node {
 
 const styles = StyleSheet.create({
     innerWrapper: {
-        width: LIBRARY_ICON_SIZE,
-        height: LIBRARY_ICON_SIZE,
+        width: CHOICE_ICON_SIZE,
+        height: CHOICE_ICON_SIZE,
 
         // Center the contents of the icon.
         display: "flex",
@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
     },
     circle: {
         // Make the circle
-        width: LIBRARY_ICON_SIZE,
-        height: LIBRARY_ICON_SIZE,
+        width: CHOICE_ICON_SIZE,
+        height: CHOICE_ICON_SIZE,
         boxSizing: "border-box",
         borderStyle: "solid",
         borderWidth: 2,
@@ -205,11 +205,11 @@ const styles = StyleSheet.create({
     },
 
     circleCorrect: {
-        fontSize: LIBRARY_ICON_SIZE,
+        fontSize: CHOICE_ICON_SIZE,
     },
 
     circleIncorrect: {
-        fontSize: LIBRARY_ICON_SIZE,
+        fontSize: CHOICE_ICON_SIZE,
         borderColor: styleConstants.gray68,
         color: styleConstants.gray68,
     },
