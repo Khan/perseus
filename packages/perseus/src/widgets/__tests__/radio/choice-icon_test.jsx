@@ -6,7 +6,7 @@ import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
 import ChoiceIcon from "../../radio/choice-icon/choice-icon.jsx";
-import {LIBRARY_ICON_SIZE} from "../../radio/choice-icon/shared-styles.js";
+import {CHOICE_ICON_SIZE} from "../../radio/choice-icon/shared-styles.js";
 
 function renderChoiceIcon(options) {
     const defaultOptions = {
@@ -37,7 +37,7 @@ describe("choice icon", () => {
             if (multipleSelect) {
                 expectedRadius = 3;
             } else {
-                expectedRadius = LIBRARY_ICON_SIZE;
+                expectedRadius = CHOICE_ICON_SIZE;
             }
 
             // Act

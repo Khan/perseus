@@ -3,7 +3,7 @@ import {StyleSheet} from "aphrodite";
 
 import type {StyleDeclaration} from "aphrodite";
 
-const LIBRARY_ICON_SIZE = 24;
+const CHOICE_ICON_SIZE = 24;
 
 const styles: StyleDeclaration = StyleSheet.create({
     iconWrapper: {
@@ -12,5 +12,5 @@ const styles: StyleDeclaration = StyleSheet.create({
     },
 });
 
-export {LIBRARY_ICON_SIZE};
+export {CHOICE_ICON_SIZE};
 export default styles;
