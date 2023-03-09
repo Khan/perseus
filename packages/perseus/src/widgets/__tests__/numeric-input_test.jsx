@@ -1,13 +1,10 @@
 // @flow
 
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
-import * as Perseus from "../../index.js";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -23,39 +20,12 @@ import {
     unionAnswerForms,
 } from "../numeric-input.jsx";
 
-import type {APIOptions} from "../../types.js";
+import {renderQuestion} from "./renderQuestion.jsx";
+
 import type {Rubric} from "../numeric-input.jsx";
-
-const renderQuestion = (
-    question,
-    apiOptions: APIOptions = Object.freeze({}),
-) => {
-    // Perseus.init() registers all of the widgets synchronously so
-    // it's okay to ignore the promise it returns.
-    Perseus.init({skipMathJax: true});
-
-    let renderer = null;
-    const {container} = render(
-        <RenderStateRoot>
-            <Perseus.Renderer
-                ref={(node) => (renderer = node)}
-                content={question.content}
-                images={question.images}
-                widgets={question.widgets}
-                problemNum={0}
-                apiOptions={apiOptions}
-            />
-        </RenderStateRoot>,
-    );
-    if (!renderer) {
-        throw new Error(`Not rendered`);
-    }
-    return {container, renderer};
-};
 
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
-    const apiOptions = Object.freeze({});
 
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -65,7 +35,7 @@ describe("numeric-input widget", () => {
 
     it("Should accept the right answer", () => {
         // Arrange
-        const {renderer} = renderQuestion(question, apiOptions);
+        const {renderer} = renderQuestion(question);
 
         // Act
         userEvent.paste(screen.getByRole("textbox", {hidden: true}), correct);
@@ -76,7 +46,7 @@ describe("numeric-input widget", () => {
 
     it("Should render predictably", () => {
         // Arrange
-        const {container} = renderQuestion(question, apiOptions);
+        const {container} = renderQuestion(question);
         expect(container).toMatchSnapshot("first render");
 
         // Act
@@ -88,7 +58,7 @@ describe("numeric-input widget", () => {
 
     it("should reject an incorrect answer", () => {
         // Arrange
-        const {renderer} = renderQuestion(question, apiOptions);
+        const {renderer} = renderQuestion(question);
 
         // Act
         userEvent.paste(screen.getByRole("textbox", {hidden: true}), incorrect);
