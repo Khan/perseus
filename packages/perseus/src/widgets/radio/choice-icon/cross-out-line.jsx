@@ -6,7 +6,7 @@ import * as React from "react";
 
 import {LIBRARY_ICON_SIZE} from "./shared-styles.js";
 
-// The "cross-out line" SVG is a bit bigger than the library icon, to provide
+// The "cross-out line" SVG is a bit bigger than the choice icon, to provide
 // extra space for the cute rounded line cap.
 const CROSS_OUT_LINE_PADDING = 2;
 const CROSS_OUT_LINE_SIZE = LIBRARY_ICON_SIZE + CROSS_OUT_LINE_PADDING * 2;
@@ -16,12 +16,11 @@ const CROSS_OUT_LINE_SIZE = LIBRARY_ICON_SIZE + CROSS_OUT_LINE_PADDING * 2;
  * `crossedOut`.
  */
 function CrossOutLine(props: {color: string, ...}): React.Node {
-    const crossOutLineSize = CROSS_OUT_LINE_SIZE;
     return (
         <svg
-            width={crossOutLineSize}
-            height={crossOutLineSize}
-            viewBox={`0 0 ${crossOutLineSize} ${crossOutLineSize}`}
+            width={CROSS_OUT_LINE_SIZE}
+            height={CROSS_OUT_LINE_SIZE}
+            viewBox={`0 0 ${CROSS_OUT_LINE_SIZE} ${CROSS_OUT_LINE_SIZE}`}
             className={css(styles.crossOutLine)}
             data-test-id="choice-icon__cross-out-line"
         >
@@ -30,8 +29,8 @@ function CrossOutLine(props: {color: string, ...}): React.Node {
                 // We don't quite go to the _very_ corner, because the cute
                 // rounded line cap needs to bleed into our padding.
                 x1={CROSS_OUT_LINE_PADDING}
-                x2={crossOutLineSize - CROSS_OUT_LINE_PADDING}
-                y1={crossOutLineSize - CROSS_OUT_LINE_PADDING}
+                x2={CROSS_OUT_LINE_SIZE - CROSS_OUT_LINE_PADDING}
+                y1={CROSS_OUT_LINE_SIZE - CROSS_OUT_LINE_PADDING}
                 y2={CROSS_OUT_LINE_PADDING}
                 stroke={props.color}
                 strokeWidth="2"
