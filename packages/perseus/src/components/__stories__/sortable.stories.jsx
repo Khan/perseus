@@ -17,21 +17,11 @@ export default ({
 }: Story);
 
 export const SortableHorizontalExample = (args: StoryArgs): React.Node => {
-    return (
-        <Sortable
-            layout="horizontal"
-            options={["a", "b", "c"]}
-        />
-    );
+    return <Sortable layout="horizontal" options={["a", "b", "c"]} />;
 };
 
 export const SortableVerticalExample = (args: StoryArgs): React.Node => {
-    return (
-        <Sortable
-            layout="vertical"
-            options={["a", "b", "c"]}
-        />
-    );
+    return <Sortable layout="vertical" options={["a", "b", "c"]} />;
 };
 
 export const BasicSortableOptionsTest = (args: StoryArgs): React.Node => {

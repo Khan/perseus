@@ -1,7 +1,6 @@
 /* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
 // @flow
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import PropTypes from "prop-types";
@@ -9,7 +8,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {getDependencies} from "../dependencies.js";
 import {ClassNames as ApiClassNames} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 import Util from "../util.js";

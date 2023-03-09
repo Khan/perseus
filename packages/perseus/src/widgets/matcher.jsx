@@ -4,14 +4,12 @@ import {
     linterContextProps,
     linterContextDefault,
 } from "@khanacademy/perseus-linter";
-import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Sortable from "../components/sortable.jsx";
-import {getDependencies} from "../dependencies.js";
 import {ApiOptions} from "../perseus-api.jsx";
 import Renderer from "../renderer.jsx";
 import Util from "../util.js";
@@ -25,7 +23,7 @@ const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 type State = {|
     leftHeight: number,
     rightHeight: number,
-|}
+|};
 
 class Matcher extends React.Component<$FlowFixMe, State> {
     static propTypes = {

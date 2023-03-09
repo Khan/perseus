@@ -36,7 +36,6 @@ import type {
     FilterCriterion,
     FocusPath,
     LinterContextProps,
-    PerseusDependencies,
     PerseusScore,
     WidgetInfo,
     WidgetProps,
@@ -1842,11 +1841,7 @@ class Renderer extends React.Component<Props, State> {
                 // calls its before_dom_insert we can lookup this component by
                 // this attribute and render the text with markdown.
                 return (
-                    <div
-                        data-perseus-component-index={
-                            this.translationIndex
-                        }
-                    >
+                    <div data-perseus-component-index={this.translationIndex}>
                         {content}
                     </div>
                 );
@@ -1906,9 +1901,9 @@ class Renderer extends React.Component<Props, State> {
         });
 
         this.lastRenderedMarkdown = (
-                        <DefinitionProvider>
-                            <div className={className}>{markdownContents}</div>
-                        </DefinitionProvider>
+            <DefinitionProvider>
+                <div className={className}>{markdownContents}</div>
+            </DefinitionProvider>
         );
         return this.lastRenderedMarkdown;
     }

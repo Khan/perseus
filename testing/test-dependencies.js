@@ -2,7 +2,6 @@
 // This defines a version of PerseusDependencies that is suitable for use in tests.
 // It should not make network requests, for example.
 import katex from "katex";
-import renderA11yString from "katex/dist/contrib/render-a11y-string.js";
 import * as React from "react";
 
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing.js";

@@ -11,7 +11,6 @@ import {
     icons,
     ApiOptions,
     Changeable,
-    Dependencies,
     Errors,
     PerseusError,
 } from "@khanacademy/perseus";

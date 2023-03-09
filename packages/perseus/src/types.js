@@ -3,7 +3,6 @@
 // eslint-disable-next-line import/no-unresolved
 import typeof katex from "katex";
 // eslint-disable-next-line import/no-unresolved
-import typeof katexA11y from "katex/dist/contrib/render-a11y-string.js";
 import * as React from "react";
 
 import type {SerializedHighlightSet} from "./components/highlighting/types.js";

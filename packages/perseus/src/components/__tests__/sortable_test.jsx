@@ -18,10 +18,7 @@ describe("Sortable", () => {
     it("should snapshot", () => {
         // Arrange and Act
         const {container} = render(
-            <Sortable
-                layout="horizontal"
-                options={["a", "b", "c"]}
-            />,
+            <Sortable layout="horizontal" options={["a", "b", "c"]} />,
         );
 
         // Assert
