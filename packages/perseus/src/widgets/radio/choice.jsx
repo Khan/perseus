@@ -233,9 +233,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 showCorrectness={showCorrectness}
                                 multipleSelect={multipleSelect}
                                 reviewMode={reviewMode}
-                                primaryProductColor={
-                                    apiOptions.styling?.primaryProductColor
-                                }
                                 previouslyAnswered={previouslyAnswered}
                             />
                             <span
