@@ -6,159 +6,236 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
     <div
       id="blurb"
     >
-      <span
-        class="mock-KatexProvider"
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="perseus-renderer perseus-renderer-responsive"
+          class="paragraph perseus-paragraph-centered"
+          data-perseus-paragraph-index="0"
         >
-          <div
-            class="paragraph perseus-paragraph-centered"
-            data-perseus-paragraph-index="0"
-          >
-            
+          
 
-          </div>
         </div>
-      </span>
+      </div>
     </div>
     <div
       id="question"
     >
-      <span
-        class="mock-KatexProvider"
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="perseus-renderer perseus-renderer-responsive"
+          class="paragraph"
+          data-perseus-paragraph-index="0"
         >
           <div
             class="paragraph"
-            data-perseus-paragraph-index="0"
           >
-            <div
-              class="paragraph"
+            Triangle 
+            <span
+              style="white-space: nowrap;"
             >
-              Triangle 
+              <span />
               <span
-                style="white-space: nowrap;"
+                class="mock-TeX"
               >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  ABC
-                </span>
-                <span />
+                ABC
               </span>
-               has side lengths of 
+              <span />
+            </span>
+             has side lengths of 
+            <span
+              style="white-space: nowrap;"
+            >
+              <span />
               <span
-                style="white-space: nowrap;"
+                class="mock-TeX"
               >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  12
-                </span>
-                <span />
+                12
               </span>
-              , 
+              <span />
+            </span>
+            , 
+            <span
+              style="white-space: nowrap;"
+            >
+              <span />
               <span
-                style="white-space: nowrap;"
+                class="mock-TeX"
               >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  14
-                </span>
-                <span />
+                14
               </span>
-              , and 
+              <span />
+            </span>
+            , and 
+            <span
+              style="white-space: nowrap;"
+            >
+              <span />
               <span
-                style="white-space: nowrap;"
+                class="mock-TeX"
               >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  20
-                </span>
-                <span />
+                20
               </span>
-              . Which of the following triangles is congruent to triangle 
+              <span />
+            </span>
+            . Which of the following triangles is congruent to triangle 
+            <span
+              style="white-space: nowrap;"
+            >
+              <span />
               <span
-                style="white-space: nowrap;"
+                class="mock-TeX"
               >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  ABC
-                </span>
-                <span />
+                ABC
               </span>
-               ?
-            </div>
+              <span />
+            </span>
+             ?
           </div>
+        </div>
+        <div
+          class="paragraph"
+          data-perseus-paragraph-index="1"
+        >
           <div
             class="paragraph"
-            data-perseus-paragraph-index="1"
           >
             <div
-              class="paragraph"
+              class="perseus-widget-container widget-nohighlight widget-block"
             >
               <div
-                class="perseus-widget-container widget-nohighlight widget-block"
+                class="responsiveContainer_vq37gq"
               >
-                <div
-                  class="responsiveContainer_vq37gq"
+                <fieldset
+                  class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
                 >
-                  <fieldset
-                    class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
+                  <legend
+                    class="perseus-sr-only"
                   >
-                    <legend
-                      class="perseus-sr-only"
+                    Choose 1 answer:
+                  </legend>
+                  <div
+                    aria-hidden="true"
+                    class="instructions instructions_125m8j1"
+                  >
+                    Choose 1 answer:
+                  </div>
+                  <ul
+                    class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
+                    style="list-style: none;"
+                  >
+                    <li
+                      class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                     >
-                      Choose 1 answer:
-                    </legend>
-                    <div
-                      aria-hidden="true"
-                      class="instructions instructions_125m8j1"
-                    >
-                      Choose 1 answer:
-                    </div>
-                    <ul
-                      class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-responsiveRadioContainer_1ybwre2"
-                      style="list-style: none;"
-                    >
-                      <li
-                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                      <div
+                        class="description description_psmgei"
+                        style="flex-direction: column; color: rgb(33, 36, 44);"
                       >
                         <div
-                          class="description description_psmgei"
-                          style="flex-direction: column; color: rgb(33, 36, 44);"
+                          style="display: flex; flex-direction: row; opacity: 1;"
                         >
                           <div
-                            style="display: flex; flex-direction: row; opacity: 1;"
+                            class="perseus-sr-only"
+                          >
+                            <input
+                              class="perseus-radio-option-content"
+                              id="choice-0"
+                              tabindex="-1"
+                              type="radio"
+                            />
+                            <label
+                              for="choice-0"
+                            >
+                              (Choice A)
+                                 
+                              <div
+                                class="perseus-renderer perseus-renderer-responsive"
+                              >
+                                <div
+                                  class="paragraph"
+                                  data-perseus-paragraph-index="0"
+                                >
+                                  <div
+                                    class="paragraph"
+                                  >
+                                    A triangle with side lengths of 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        3
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        4
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , and 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        5
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                          <button
+                            aria-disabled="false"
+                            aria-hidden="true"
+                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                            type="button"
                           >
                             <div
-                              class="perseus-sr-only"
+                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                             >
-                              <input
-                                class="perseus-radio-option-content"
-                                id="choice-0"
-                                tabindex="-1"
-                                type="radio"
-                              />
-                              <label
-                                for="choice-0"
+                              <div
+                                class="iconWrapper_17y0hv9"
                               >
-                                (Choice A)
-                                   
                                 <span
-                                  class="mock-KatexProvider"
+                                  class="ring_ya75gi"
+                                  data-test-id="focus-ring"
+                                  style="border-color: transparent; border-radius: 50%;"
                                 >
+                                  <div
+                                    class="circle_1tys2th"
+                                    data-is-radio-icon="true"
+                                    data-test-id="choice-icon__library-choice-icon"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                  >
+                                    <div
+                                      class="innerWrapper_177sg8x"
+                                    >
+                                      A
+                                    </div>
+                                  </div>
+                                </span>
+                              </div>
+                              <span
+                                style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
+                              >
+                                <div />
+                                <div>
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -208,132 +285,124 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </span>
-                              </label>
+                                </div>
+                              </span>
                             </div>
-                            <button
-                              aria-disabled="false"
-                              aria-hidden="true"
-                              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                              type="button"
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                    >
+                      <div
+                        class="description description_psmgei"
+                        style="flex-direction: column; color: rgb(33, 36, 44);"
+                      >
+                        <div
+                          style="display: flex; flex-direction: row; opacity: 1;"
+                        >
+                          <div
+                            class="perseus-sr-only"
+                          >
+                            <input
+                              class="perseus-radio-option-content"
+                              id="choice-1"
+                              tabindex="-1"
+                              type="radio"
+                            />
+                            <label
+                              for="choice-1"
                             >
+                              (Choice B)
+                                 
                               <div
-                                style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                class="perseus-renderer perseus-renderer-responsive"
                               >
                                 <div
-                                  class="iconWrapper_17y0hv9"
+                                  class="paragraph"
+                                  data-perseus-paragraph-index="0"
                                 >
-                                  <span
-                                    class="ring_ya75gi"
-                                    data-test-id="focus-ring"
-                                    style="border-color: transparent; border-radius: 50%;"
+                                  <div
+                                    class="paragraph"
+                                  >
+                                    A triangle with side lengths of 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        6
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        7
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , and 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        10
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                          <button
+                            aria-disabled="false"
+                            aria-hidden="true"
+                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                            type="button"
+                          >
+                            <div
+                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                            >
+                              <div
+                                class="iconWrapper_17y0hv9"
+                              >
+                                <span
+                                  class="ring_ya75gi"
+                                  data-test-id="focus-ring"
+                                  style="border-color: transparent; border-radius: 50%;"
+                                >
+                                  <div
+                                    class="circle_1tys2th"
+                                    data-is-radio-icon="true"
+                                    data-test-id="choice-icon__library-choice-icon"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
-                                      class="circle_1tys2th"
-                                      data-is-radio-icon="true"
-                                      data-test-id="choice-icon__library-choice-icon"
-                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                      class="innerWrapper_177sg8x"
                                     >
-                                      <div
-                                        class="innerWrapper_177sg8x"
-                                      >
-                                        A
-                                      </div>
+                                      B
                                     </div>
-                                  </span>
-                                </div>
-                                <span
-                                  style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                >
-                                  <div />
-                                  <div>
-                                    <span
-                                      class="mock-KatexProvider"
-                                    >
-                                      <div
-                                        class="perseus-renderer perseus-renderer-responsive"
-                                      >
-                                        <div
-                                          class="paragraph"
-                                          data-perseus-paragraph-index="0"
-                                        >
-                                          <div
-                                            class="paragraph"
-                                          >
-                                            A triangle with side lengths of 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                3
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                4
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , and 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                5
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </span>
                                   </div>
                                 </span>
                               </div>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                      >
-                        <div
-                          class="description description_psmgei"
-                          style="flex-direction: column; color: rgb(33, 36, 44);"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; opacity: 1;"
-                          >
-                            <div
-                              class="perseus-sr-only"
-                            >
-                              <input
-                                class="perseus-radio-option-content"
-                                id="choice-1"
-                                tabindex="-1"
-                                type="radio"
-                              />
-                              <label
-                                for="choice-1"
+                              <span
+                                style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                               >
-                                (Choice B)
-                                   
-                                <span
-                                  class="mock-KatexProvider"
-                                >
+                                <div />
+                                <div>
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -383,132 +452,124 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </span>
-                              </label>
+                                </div>
+                              </span>
                             </div>
-                            <button
-                              aria-disabled="false"
-                              aria-hidden="true"
-                              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                              type="button"
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                    >
+                      <div
+                        class="description description_psmgei"
+                        style="flex-direction: column; color: rgb(33, 36, 44);"
+                      >
+                        <div
+                          style="display: flex; flex-direction: row; opacity: 1;"
+                        >
+                          <div
+                            class="perseus-sr-only"
+                          >
+                            <input
+                              class="perseus-radio-option-content"
+                              id="choice-2"
+                              tabindex="-1"
+                              type="radio"
+                            />
+                            <label
+                              for="choice-2"
                             >
+                              (Choice C)
+                                 
                               <div
-                                style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                class="perseus-renderer perseus-renderer-responsive"
                               >
                                 <div
-                                  class="iconWrapper_17y0hv9"
+                                  class="paragraph"
+                                  data-perseus-paragraph-index="0"
                                 >
-                                  <span
-                                    class="ring_ya75gi"
-                                    data-test-id="focus-ring"
-                                    style="border-color: transparent; border-radius: 50%;"
+                                  <div
+                                    class="paragraph"
+                                  >
+                                    A triangle with side lengths of 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        10
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        12
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , and 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        18
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                          <button
+                            aria-disabled="false"
+                            aria-hidden="true"
+                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                            type="button"
+                          >
+                            <div
+                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                            >
+                              <div
+                                class="iconWrapper_17y0hv9"
+                              >
+                                <span
+                                  class="ring_ya75gi"
+                                  data-test-id="focus-ring"
+                                  style="border-color: transparent; border-radius: 50%;"
+                                >
+                                  <div
+                                    class="circle_1tys2th"
+                                    data-is-radio-icon="true"
+                                    data-test-id="choice-icon__library-choice-icon"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
-                                      class="circle_1tys2th"
-                                      data-is-radio-icon="true"
-                                      data-test-id="choice-icon__library-choice-icon"
-                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                      class="innerWrapper_177sg8x"
                                     >
-                                      <div
-                                        class="innerWrapper_177sg8x"
-                                      >
-                                        B
-                                      </div>
+                                      C
                                     </div>
-                                  </span>
-                                </div>
-                                <span
-                                  style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                >
-                                  <div />
-                                  <div>
-                                    <span
-                                      class="mock-KatexProvider"
-                                    >
-                                      <div
-                                        class="perseus-renderer perseus-renderer-responsive"
-                                      >
-                                        <div
-                                          class="paragraph"
-                                          data-perseus-paragraph-index="0"
-                                        >
-                                          <div
-                                            class="paragraph"
-                                          >
-                                            A triangle with side lengths of 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                6
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                7
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , and 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                10
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </span>
                                   </div>
                                 </span>
                               </div>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                      >
-                        <div
-                          class="description description_psmgei"
-                          style="flex-direction: column; color: rgb(33, 36, 44);"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; opacity: 1;"
-                          >
-                            <div
-                              class="perseus-sr-only"
-                            >
-                              <input
-                                class="perseus-radio-option-content"
-                                id="choice-2"
-                                tabindex="-1"
-                                type="radio"
-                              />
-                              <label
-                                for="choice-2"
+                              <span
+                                style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                               >
-                                (Choice C)
-                                   
-                                <span
-                                  class="mock-KatexProvider"
-                                >
+                                <div />
+                                <div>
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -558,132 +619,124 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </span>
-                              </label>
+                                </div>
+                              </span>
                             </div>
-                            <button
-                              aria-disabled="false"
-                              aria-hidden="true"
-                              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                              type="button"
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                    >
+                      <div
+                        class="description description_psmgei"
+                        style="flex-direction: column; color: rgb(33, 36, 44);"
+                      >
+                        <div
+                          style="display: flex; flex-direction: row; opacity: 1;"
+                        >
+                          <div
+                            class="perseus-sr-only"
+                          >
+                            <input
+                              class="perseus-radio-option-content"
+                              id="choice-3"
+                              tabindex="-1"
+                              type="radio"
+                            />
+                            <label
+                              for="choice-3"
                             >
+                              (Choice D)
+                                 
                               <div
-                                style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                class="perseus-renderer perseus-renderer-responsive"
                               >
                                 <div
-                                  class="iconWrapper_17y0hv9"
+                                  class="paragraph"
+                                  data-perseus-paragraph-index="0"
                                 >
-                                  <span
-                                    class="ring_ya75gi"
-                                    data-test-id="focus-ring"
-                                    style="border-color: transparent; border-radius: 50%;"
+                                  <div
+                                    class="paragraph"
+                                  >
+                                    A triangle with side lengths of 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        12
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        14
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , and 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        20
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                          <button
+                            aria-disabled="false"
+                            aria-hidden="true"
+                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                            type="button"
+                          >
+                            <div
+                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                            >
+                              <div
+                                class="iconWrapper_17y0hv9"
+                              >
+                                <span
+                                  class="ring_ya75gi"
+                                  data-test-id="focus-ring"
+                                  style="border-color: transparent; border-radius: 50%;"
+                                >
+                                  <div
+                                    class="circle_1tys2th"
+                                    data-is-radio-icon="true"
+                                    data-test-id="choice-icon__library-choice-icon"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
-                                      class="circle_1tys2th"
-                                      data-is-radio-icon="true"
-                                      data-test-id="choice-icon__library-choice-icon"
-                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                      class="innerWrapper_177sg8x"
                                     >
-                                      <div
-                                        class="innerWrapper_177sg8x"
-                                      >
-                                        C
-                                      </div>
+                                      D
                                     </div>
-                                  </span>
-                                </div>
-                                <span
-                                  style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                >
-                                  <div />
-                                  <div>
-                                    <span
-                                      class="mock-KatexProvider"
-                                    >
-                                      <div
-                                        class="perseus-renderer perseus-renderer-responsive"
-                                      >
-                                        <div
-                                          class="paragraph"
-                                          data-perseus-paragraph-index="0"
-                                        >
-                                          <div
-                                            class="paragraph"
-                                          >
-                                            A triangle with side lengths of 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                10
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                12
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , and 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                18
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </span>
                                   </div>
                                 </span>
                               </div>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                      >
-                        <div
-                          class="description description_psmgei"
-                          style="flex-direction: column; color: rgb(33, 36, 44);"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; opacity: 1;"
-                          >
-                            <div
-                              class="perseus-sr-only"
-                            >
-                              <input
-                                class="perseus-radio-option-content"
-                                id="choice-3"
-                                tabindex="-1"
-                                type="radio"
-                              />
-                              <label
-                                for="choice-3"
+                              <span
+                                style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                               >
-                                (Choice D)
-                                   
-                                <span
-                                  class="mock-KatexProvider"
-                                >
+                                <div />
+                                <div>
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -733,132 +786,124 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </span>
-                              </label>
+                                </div>
+                              </span>
                             </div>
-                            <button
-                              aria-disabled="false"
-                              aria-hidden="true"
-                              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                              type="button"
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <li
+                      class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                    >
+                      <div
+                        class="description description_psmgei"
+                        style="flex-direction: column; color: rgb(33, 36, 44);"
+                      >
+                        <div
+                          style="display: flex; flex-direction: row; opacity: 1;"
+                        >
+                          <div
+                            class="perseus-sr-only"
+                          >
+                            <input
+                              class="perseus-radio-option-content"
+                              id="choice-4"
+                              tabindex="-1"
+                              type="radio"
+                            />
+                            <label
+                              for="choice-4"
                             >
+                              (Choice E)
+                                 
                               <div
-                                style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                                class="perseus-renderer perseus-renderer-responsive"
                               >
                                 <div
-                                  class="iconWrapper_17y0hv9"
+                                  class="paragraph"
+                                  data-perseus-paragraph-index="0"
                                 >
-                                  <span
-                                    class="ring_ya75gi"
-                                    data-test-id="focus-ring"
-                                    style="border-color: transparent; border-radius: 50%;"
+                                  <div
+                                    class="paragraph"
+                                  >
+                                    A triangle with side lengths of 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        24
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        28
+                                      </span>
+                                      <span />
+                                    </span>
+                                    , and 
+                                    <span
+                                      style="white-space: nowrap;"
+                                    >
+                                      <span />
+                                      <span
+                                        class="mock-TeX"
+                                      >
+                                        40
+                                      </span>
+                                      <span />
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+                          </div>
+                          <button
+                            aria-disabled="false"
+                            aria-hidden="true"
+                            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                            type="button"
+                          >
+                            <div
+                              style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
+                            >
+                              <div
+                                class="iconWrapper_17y0hv9"
+                              >
+                                <span
+                                  class="ring_ya75gi"
+                                  data-test-id="focus-ring"
+                                  style="border-color: transparent; border-radius: 50%;"
+                                >
+                                  <div
+                                    class="circle_1tys2th"
+                                    data-is-radio-icon="true"
+                                    data-test-id="choice-icon__library-choice-icon"
+                                    style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
                                   >
                                     <div
-                                      class="circle_1tys2th"
-                                      data-is-radio-icon="true"
-                                      data-test-id="choice-icon__library-choice-icon"
-                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
+                                      class="innerWrapper_177sg8x"
                                     >
-                                      <div
-                                        class="innerWrapper_177sg8x"
-                                      >
-                                        D
-                                      </div>
+                                      E
                                     </div>
-                                  </span>
-                                </div>
-                                <span
-                                  style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                >
-                                  <div />
-                                  <div>
-                                    <span
-                                      class="mock-KatexProvider"
-                                    >
-                                      <div
-                                        class="perseus-renderer perseus-renderer-responsive"
-                                      >
-                                        <div
-                                          class="paragraph"
-                                          data-perseus-paragraph-index="0"
-                                        >
-                                          <div
-                                            class="paragraph"
-                                          >
-                                            A triangle with side lengths of 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                12
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                14
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , and 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                20
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </span>
                                   </div>
                                 </span>
                               </div>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                        class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                      >
-                        <div
-                          class="description description_psmgei"
-                          style="flex-direction: column; color: rgb(33, 36, 44);"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; opacity: 1;"
-                          >
-                            <div
-                              class="perseus-sr-only"
-                            >
-                              <input
-                                class="perseus-radio-option-content"
-                                id="choice-4"
-                                tabindex="-1"
-                                type="radio"
-                              />
-                              <label
-                                for="choice-4"
+                              <span
+                                style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
                               >
-                                (Choice E)
-                                   
-                                <span
-                                  class="mock-KatexProvider"
-                                >
+                                <div />
+                                <div>
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
@@ -908,270 +953,173 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                       </div>
                                     </div>
                                   </div>
-                                </span>
-                              </label>
-                            </div>
-                            <button
-                              aria-disabled="false"
-                              aria-hidden="true"
-                              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                              type="button"
-                            >
-                              <div
-                                style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                              >
-                                <div
-                                  class="iconWrapper_17y0hv9"
-                                >
-                                  <span
-                                    class="ring_ya75gi"
-                                    data-test-id="focus-ring"
-                                    style="border-color: transparent; border-radius: 50%;"
-                                  >
-                                    <div
-                                      class="circle_1tys2th"
-                                      data-is-radio-icon="true"
-                                      data-test-id="choice-icon__library-choice-icon"
-                                      style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
-                                    >
-                                      <div
-                                        class="innerWrapper_177sg8x"
-                                      >
-                                        E
-                                      </div>
-                                    </div>
-                                  </span>
                                 </div>
-                                <span
-                                  style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                                >
-                                  <div />
-                                  <div>
-                                    <span
-                                      class="mock-KatexProvider"
-                                    >
-                                      <div
-                                        class="perseus-renderer perseus-renderer-responsive"
-                                      >
-                                        <div
-                                          class="paragraph"
-                                          data-perseus-paragraph-index="0"
-                                        >
-                                          <div
-                                            class="paragraph"
-                                          >
-                                            A triangle with side lengths of 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                24
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                28
-                                              </span>
-                                              <span />
-                                            </span>
-                                            , and 
-                                            <span
-                                              style="white-space: nowrap;"
-                                            >
-                                              <span />
-                                              <span
-                                                class="mock-TeX"
-                                              >
-                                                40
-                                              </span>
-                                              <span />
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </span>
-                                  </div>
-                                </span>
-                              </div>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </fieldset>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="paragraph"
-            data-perseus-paragraph-index="2"
-          >
-            <div
-              class="paragraph"
-            >
-              Enter the number 3 into this field: 
-              <div
-                class="perseus-widget-container widget-nohighlight widget-inline-block"
-              >
-                <span>
-                  <div>
-                    <input
-                      autocapitalize="off"
-                      autocomplete="off"
-                      autocorrect="off"
-                      class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-default_1gznapd-o_O-leftAlign_7jg4r4"
-                      id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                  <div
-                    style="position: relative; height: 0px; display: none;"
-                  >
-                    <div
-                      class="tooltipContainer"
-                      style="position: absolute; left: 0px;"
-                    >
-                      <div
-                        style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
-                      >
-                        <div
-                          style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
-                        />
-                        <div
-                          style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
-                        />
-                      </div>
-                      <div
-                        class="perseus-formats-tooltip preview-measure"
-                        style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
-                      >
-                        <div
-                          id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
-                        >
-                          <span
-                            class="mock-KatexProvider"
-                          >
-                            <div
-                              class="perseus-renderer perseus-renderer-responsive"
-                            >
-                              <div
-                                class="paragraph"
-                                data-perseus-paragraph-index="0"
-                              >
-                                <ul>
-                                  <li>
-                                    <strong>
-                                      Your answer should be
-                                    </strong>
-                                  </li>
-                                  <li>
-                                    an integer, like 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        6
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </li>
-                                  <li>
-                                    an 
-                                    <em>
-                                      exact
-                                    </em>
-                                     decimal, like 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        0.75
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </li>
-                                  <li>
-                                    a 
-                                    <em>
-                                      simplified proper
-                                    </em>
-                                     fraction, like 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        3/5
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </li>
-                                  <li>
-                                    a 
-                                    <em>
-                                      simplified improper
-                                    </em>
-                                     fraction, like 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        7/4
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </li>
-                                  <li>
-                                    a mixed number, like 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        1\\ 3/4
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </li>
-                                </ul>
-                              </div>
+                              </span>
                             </div>
-                          </span>
+                          </button>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </span>
+                    </li>
+                  </ul>
+                </fieldset>
               </div>
             </div>
           </div>
         </div>
-      </span>
+        <div
+          class="paragraph"
+          data-perseus-paragraph-index="2"
+        >
+          <div
+            class="paragraph"
+          >
+            Enter the number 3 into this field: 
+            <div
+              class="perseus-widget-container widget-nohighlight widget-inline-block"
+            >
+              <span>
+                <div>
+                  <input
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
+                    class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-default_1gznapd-o_O-leftAlign_7jg4r4"
+                    id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  style="position: relative; height: 0px; display: none;"
+                >
+                  <div
+                    class="tooltipContainer"
+                    style="position: absolute; left: 0px;"
+                  >
+                    <div
+                      style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
+                    >
+                      <div
+                        style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
+                      />
+                      <div
+                        style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
+                      />
+                    </div>
+                    <div
+                      class="perseus-formats-tooltip preview-measure"
+                      style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
+                    >
+                      <div
+                        id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                      >
+                        <div
+                          class="perseus-renderer perseus-renderer-responsive"
+                        >
+                          <div
+                            class="paragraph"
+                            data-perseus-paragraph-index="0"
+                          >
+                            <ul>
+                              <li>
+                                <strong>
+                                  Your answer should be
+                                </strong>
+                              </li>
+                              <li>
+                                an integer, like 
+                                <span
+                                  style="white-space: nowrap;"
+                                >
+                                  <span />
+                                  <span
+                                    class="mock-TeX"
+                                  >
+                                    6
+                                  </span>
+                                  <span />
+                                </span>
+                              </li>
+                              <li>
+                                an 
+                                <em>
+                                  exact
+                                </em>
+                                 decimal, like 
+                                <span
+                                  style="white-space: nowrap;"
+                                >
+                                  <span />
+                                  <span
+                                    class="mock-TeX"
+                                  >
+                                    0.75
+                                  </span>
+                                  <span />
+                                </span>
+                              </li>
+                              <li>
+                                a 
+                                <em>
+                                  simplified proper
+                                </em>
+                                 fraction, like 
+                                <span
+                                  style="white-space: nowrap;"
+                                >
+                                  <span />
+                                  <span
+                                    class="mock-TeX"
+                                  >
+                                    3/5
+                                  </span>
+                                  <span />
+                                </span>
+                              </li>
+                              <li>
+                                a 
+                                <em>
+                                  simplified improper
+                                </em>
+                                 fraction, like 
+                                <span
+                                  style="white-space: nowrap;"
+                                >
+                                  <span />
+                                  <span
+                                    class="mock-TeX"
+                                  >
+                                    7/4
+                                  </span>
+                                  <span />
+                                </span>
+                              </li>
+                              <li>
+                                a mixed number, like 
+                                <span
+                                  style="white-space: nowrap;"
+                                >
+                                  <span />
+                                  <span
+                                    class="mock-TeX"
+                                  >
+                                    1\\ 3/4
+                                  </span>
+                                  <span />
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div
       id="hints"
@@ -1194,24 +1142,20 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
           >
             1 / 3
           </span>
-          <span
-            class="mock-KatexProvider"
+          <div
+            class="perseus-renderer perseus-renderer-responsive"
           >
             <div
-              class="perseus-renderer perseus-renderer-responsive"
+              class="paragraph"
+              data-perseus-paragraph-index="0"
             >
               <div
                 class="paragraph"
-                data-perseus-paragraph-index="0"
               >
-                <div
-                  class="paragraph"
-                >
-                  If two triangles are congruent, then they have the same side lengths and angle measures.
-                </div>
+                If two triangles are congruent, then they have the same side lengths and angle measures.
               </div>
             </div>
-          </span>
+          </div>
         </div>
       </div>
     </div>

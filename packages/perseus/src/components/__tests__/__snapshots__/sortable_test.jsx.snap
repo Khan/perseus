@@ -9,70 +9,58 @@ exports[`Sortable should snapshot: first render 1`] = `
       class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
       style="position: static; margin: 0px 5px 0px 0px;"
     >
-      <span
-        class="mock-KatexProvider"
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="perseus-renderer perseus-renderer-responsive"
+          class="paragraph"
+          data-perseus-paragraph-index="0"
         >
           <div
             class="paragraph"
-            data-perseus-paragraph-index="0"
           >
-            <div
-              class="paragraph"
-            >
-              a
-            </div>
+            a
           </div>
         </div>
-      </span>
+      </div>
     </li>
     <li
       class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
       style="position: static; margin: 0px 5px 0px 0px;"
     >
-      <span
-        class="mock-KatexProvider"
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="perseus-renderer perseus-renderer-responsive"
+          class="paragraph"
+          data-perseus-paragraph-index="0"
         >
           <div
             class="paragraph"
-            data-perseus-paragraph-index="0"
           >
-            <div
-              class="paragraph"
-            >
-              b
-            </div>
+            b
           </div>
         </div>
-      </span>
+      </div>
     </li>
     <li
       class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
       style="position: static; margin: 0px;"
     >
-      <span
-        class="mock-KatexProvider"
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="perseus-renderer perseus-renderer-responsive"
+          class="paragraph"
+          data-perseus-paragraph-index="0"
         >
           <div
             class="paragraph"
-            data-perseus-paragraph-index="0"
           >
-            <div
-              class="paragraph"
-            >
-              c
-            </div>
+            c
           </div>
         </div>
-      </span>
+      </div>
     </li>
   </ul>
 </div>

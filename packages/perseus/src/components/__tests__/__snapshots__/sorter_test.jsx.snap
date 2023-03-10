@@ -2,296 +2,264 @@
 
 exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
-        <div
-          class="paragraph"
-        >
-          <strong>
-            Arrange the following measurements in order from smallest to largest.
-          </strong>
-        </div>
+        <strong>
+          Arrange the following measurements in order from smallest to largest.
+        </strong>
       </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="1"
       >
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-sorter perseus-clearfix"
           >
-            <div
-              class="perseus-widget-sorter perseus-clearfix"
+            <ul
+              class="sortable_13d4756 perseus-sortable"
             >
-              <ul
-                class="sortable_13d4756 perseus-sortable"
+              <li
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                style="position: static; margin: 0px 8px 0px 0px;"
               >
-                <li
-                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
-                  style="position: static; margin: 0px 8px 0px 0px;"
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
                 >
-                  <span
-                    class="mock-KatexProvider"
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      class="paragraph"
                     >
-                      <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                      <span
+                        style="white-space: nowrap;"
                       >
-                        <div
-                          class="paragraph"
+                        <span />
+                        <span
+                          class="tex-mock"
                         >
-                          <span
-                            style="white-space: nowrap;"
-                          >
-                            <span />
-                            <span
-                              class="tex-mock"
-                            >
-                              15
-                            </span>
-                            <span />
-                          </span>
-                           grams
-                        </div>
-                      </div>
+                          15
+                        </span>
+                        <span />
+                      </span>
+                       grams
                     </div>
-                  </span>
-                </li>
-                <li
-                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
-                  style="position: static; margin: 0px 8px 0px 0px;"
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                style="position: static; margin: 0px 8px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
                 >
-                  <span
-                    class="mock-KatexProvider"
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      class="paragraph"
                     >
-                      <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                      <span
+                        style="white-space: nowrap;"
                       >
-                        <div
-                          class="paragraph"
+                        <span />
+                        <span
+                          class="tex-mock"
                         >
-                          <span
-                            style="white-space: nowrap;"
-                          >
-                            <span />
-                            <span
-                              class="tex-mock"
-                            >
-                              0.005
-                            </span>
-                            <span />
-                          </span>
-                           kilograms
-                        </div>
-                      </div>
+                          0.005
+                        </span>
+                        <span />
+                      </span>
+                       kilograms
                     </div>
-                  </span>
-                </li>
-                <li
-                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
-                  style="position: static; margin: 0px;"
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                style="position: static; margin: 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
                 >
-                  <span
-                    class="mock-KatexProvider"
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      class="paragraph"
                     >
-                      <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                      <span
+                        style="white-space: nowrap;"
                       >
-                        <div
-                          class="paragraph"
+                        <span />
+                        <span
+                          class="tex-mock"
                         >
-                          <span
-                            style="white-space: nowrap;"
-                          >
-                            <span />
-                            <span
-                              class="tex-mock"
-                            >
-                              55
-                            </span>
-                            <span />
-                          </span>
-                           grams
-                        </div>
-                      </div>
+                          55
+                        </span>
+                        <span />
+                      </span>
+                       grams
                     </div>
-                  </span>
-                </li>
-              </ul>
-            </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;
 
 exports[`sorter widget should snapshot: first render 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
-        <div
-          class="paragraph"
-        >
-          <strong>
-            Arrange the following measurements in order from smallest to largest.
-          </strong>
-        </div>
+        <strong>
+          Arrange the following measurements in order from smallest to largest.
+        </strong>
       </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="1"
       >
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-sorter perseus-clearfix"
           >
-            <div
-              class="perseus-widget-sorter perseus-clearfix"
+            <ul
+              class="sortable_13d4756 perseus-sortable"
             >
-              <ul
-                class="sortable_13d4756 perseus-sortable"
+              <li
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
               >
-                <li
-                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
-                  style="position: static; margin: 0px 5px 0px 0px;"
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
                 >
-                  <span
-                    class="mock-KatexProvider"
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      class="paragraph"
                     >
-                      <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                      <span
+                        style="white-space: nowrap;"
                       >
-                        <div
-                          class="paragraph"
+                        <span />
+                        <span
+                          class="tex-mock"
                         >
-                          <span
-                            style="white-space: nowrap;"
-                          >
-                            <span />
-                            <span
-                              class="tex-mock"
-                            >
-                              15
-                            </span>
-                            <span />
-                          </span>
-                           grams
-                        </div>
-                      </div>
+                          15
+                        </span>
+                        <span />
+                      </span>
+                       grams
                     </div>
-                  </span>
-                </li>
-                <li
-                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
-                  style="position: static; margin: 0px 5px 0px 0px;"
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
                 >
-                  <span
-                    class="mock-KatexProvider"
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      class="paragraph"
                     >
-                      <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                      <span
+                        style="white-space: nowrap;"
                       >
-                        <div
-                          class="paragraph"
+                        <span />
+                        <span
+                          class="tex-mock"
                         >
-                          <span
-                            style="white-space: nowrap;"
-                          >
-                            <span />
-                            <span
-                              class="tex-mock"
-                            >
-                              0.005
-                            </span>
-                            <span />
-                          </span>
-                           kilograms
-                        </div>
-                      </div>
+                          0.005
+                        </span>
+                        <span />
+                      </span>
+                       kilograms
                     </div>
-                  </span>
-                </li>
-                <li
-                  class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
-                  style="position: static; margin: 0px;"
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+                style="position: static; margin: 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
                 >
-                  <span
-                    class="mock-KatexProvider"
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      class="paragraph"
                     >
-                      <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                      <span
+                        style="white-space: nowrap;"
                       >
-                        <div
-                          class="paragraph"
+                        <span />
+                        <span
+                          class="tex-mock"
                         >
-                          <span
-                            style="white-space: nowrap;"
-                          >
-                            <span />
-                            <span
-                              class="tex-mock"
-                            >
-                              55
-                            </span>
-                            <span />
-                          </span>
-                           grams
-                        </div>
-                      </div>
+                          55
+                        </span>
+                        <span />
+                      </span>
+                       grams
                     </div>
-                  </span>
-                </li>
-              </ul>
-            </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;
