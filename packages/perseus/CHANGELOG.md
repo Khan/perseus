@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 2.0.0
+
+### Major Changes
+
+-   b850ebee: Remove `satStyling` from `APIOptions`
+-   b850ebee: Remove `styling` from `APIOptions`
+
+### Patch Changes
+
+-   55841525: Fix graphie font-size to a specific size
+-   a325f740: Switch Definition's prompt from Button to Clickable to resolve text not matching
+
 ## 1.4.1
 
 ### Patch Changes
