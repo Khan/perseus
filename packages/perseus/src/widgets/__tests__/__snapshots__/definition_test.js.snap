@@ -29,25 +29,20 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
           <div
             class="perseus-widget-container widget-nohighlight widget-inline"
           >
-            <span
+            <button
               aria-controls="uid-popover-0-wb-id"
+              aria-disabled="false"
               aria-expanded="false"
-              class="perseus-widget-definition"
+              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
               id="uid-popover-0-wb-id-anchor"
+              type="button"
             >
-              <button
-                aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8"
-                role="button"
-                type="button"
+              <span
+                style="color: rgb(24, 101, 242);"
               >
-                <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_m8a8ki-o_O-textWithFocus_e296pg"
-                >
-                  the Pequots
-                </span>
-              </button>
-            </span>
+                the Pequots
+              </span>
+            </button>
           </div>
           , upon these conditions.
         </div>
@@ -86,25 +81,20 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
           <div
             class="perseus-widget-container widget-nohighlight widget-inline"
           >
-            <span
+            <button
               aria-controls="uid-popover-1-wb-id"
+              aria-disabled="false"
               aria-expanded="true"
-              class="perseus-widget-definition"
+              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
               id="uid-popover-1-wb-id-anchor"
+              type="button"
             >
-              <button
-                aria-disabled="false"
-                class="button_vr44p2-o_O-shared_lwskrm-o_O-default_1hl5pu8"
-                role="button"
-                type="button"
+              <span
+                style="color: rgb(24, 101, 242); border-bottom: 2px solid #1865f2;"
               >
-                <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_m8a8ki-o_O-textWithFocus_e296pg-o_O-focus_15mc0l2"
-                >
-                  the Pequots
-                </span>
-              </button>
-            </span>
+                the Pequots
+              </span>
+            </button>
           </div>
           , upon these conditions.
         </div>
