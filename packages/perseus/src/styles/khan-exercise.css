@@ -374,6 +374,11 @@ body.debug .graphie { outline: 1px dashed #fdd; }
 
 var, div.graphie {
   white-space: pre;
+  /**
+   * Graphie didn't have a fixed font-size and was just using
+   * the surrounding font-size. However some labels are banking on
+   * specific dimensions, so we need to lock it to a specific size.
+   */
   font-size: 14px;
 }
 
