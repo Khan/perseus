@@ -26,11 +26,6 @@ type ChoiceIconProps = {
     multipleSelect: boolean,
     reviewMode: boolean,
     previouslyAnswered: boolean,
-    // TODO(mdr): The CrossOutButton needs a transparent-background ChoiceIcon,
-    //     so I've added this prop. I'm not sure why we have backgrounds in the
-    //     general case, though? When does the choice container have a
-    //     non-white background, aside from SAT, which uses a different icon?
-    transparentBackground?: boolean,
 };
 
 function ChoiceInner(props: {
@@ -68,7 +63,6 @@ function getDynamicStyles(
     pressed: boolean,
     multipleSelect: boolean,
     correct: ?boolean,
-    transparentBackground?: boolean,
 ): {
     backgroundColor: ?string,
     borderColor: string,
@@ -81,9 +75,7 @@ function getDynamicStyles(
     if (!showCorrectness && pressed) {
         borderColor = Color.blue;
         color = Color.blue;
-        backgroundColor = transparentBackground
-            ? "transparent"
-            : styleConstants.white;
+        backgroundColor = "transparent";
     } else if (checked) {
         const bg = showCorrectness && correct ? Color.green : Color.blue;
         color = styleConstants.white;
@@ -117,7 +109,6 @@ function ChoiceIcon(props: ChoiceIconProps): React.Node {
         pos,
         previouslyAnswered,
         pressed,
-        transparentBackground,
     } = props;
 
     const dynamicStyles = getDynamicStyles(
@@ -126,7 +117,6 @@ function ChoiceIcon(props: ChoiceIconProps): React.Node {
         pressed,
         multipleSelect,
         correct,
-        transparentBackground,
     );
 
     return (
