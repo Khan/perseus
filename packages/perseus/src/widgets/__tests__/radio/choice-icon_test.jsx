@@ -21,7 +21,6 @@ function renderChoiceIcon(options) {
         multipleSelect: false,
         reviewMode: false,
         previouslyAnswered: false,
-        transparentBackground: false,
     };
 
     const overwrittenOptions = {...defaultOptions, ...options};

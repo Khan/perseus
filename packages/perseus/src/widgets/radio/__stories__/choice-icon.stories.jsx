@@ -15,7 +15,6 @@ type StoryArgs = {|
     multipleSelect: boolean,
     reviewMode: boolean,
     previouslyAnswered: boolean,
-    transparentBackground: boolean,
 |};
 
 const defaultProps = {
@@ -30,7 +29,6 @@ const defaultProps = {
     multipleSelect: false,
     reviewMode: false,
     previouslyAnswered: false,
-    transparentBackground: false,
 };
 
 export default {
