@@ -41,7 +41,6 @@ export const ApiOptions = {
     propTypes: (PropTypes.shape({
         isArticle: PropTypes.bool.isRequired,
 
-        satStyling: PropTypes.bool.isRequired,
         onInputError: PropTypes.func.isRequired,
         onFocusChange: PropTypes.func.isRequired,
         staticRender: PropTypes.bool.isRequired,
@@ -115,19 +114,6 @@ export const ApiOptions = {
         // Whether to use the Draft.js editor or the legacy textarea
         useDraftEditor: PropTypes.bool,
 
-        // Styling options that control the visual behavior of Perseus
-        // items.
-        // TODO(mdr): If we adopt this pattern, we'll need to think about
-        //     how to make individual `styling` options be optional, and
-        //     how to set their default values without overwriting provided
-        //     values. For now, though, you must either specify all fields
-        //     of `styling`, or omit the `styling` option entirely.
-        styling: PropTypes.shape({
-            // TODO(Nicole): Remove this after landing wonderblock-ifying
-            // the radio widget
-            primaryProductColor: PropTypes.string,
-        }),
-
         // The color used for the hint progress indicator (eg. 1 / 3)
         hintProgressColor: PropTypes.string,
 
@@ -181,16 +167,9 @@ export const ApiOptions = {
         onFocusChange: (...a: $ReadOnlyArray<any>) => mixed,
         onInputError: (...a: $ReadOnlyArray<any>) => mixed,
         readOnly: boolean,
-        satStyling: boolean,
         setDrawingAreaAvailable?: (...a: $ReadOnlyArray<any>) => mixed,
         showAlignmentOptions: boolean,
         staticRender: boolean,
-        styling?: {
-            // TODO(Nicole): Remove this after landing wonderblock-ifying
-            // the radio widget
-            primaryProductColor?: string,
-            ...
-        },
         trackInteraction?: (...a: $ReadOnlyArray<any>) => mixed,
         useDraftEditor?: boolean,
         widgetPlaceholder?: any,
@@ -200,7 +179,6 @@ export const ApiOptions = {
     defaults: ({
         isArticle: false,
         isMobile: false,
-        satStyling: false,
         onInputError: function () {},
         onFocusChange: function () {},
         staticRender: false,
@@ -217,7 +195,6 @@ export const ApiOptions = {
         },
         setDrawingAreaAvailable: function () {},
         useDraftEditor: false,
-        styling: {},
         canScrollPage: false,
         inModal: false,
         crossOutEnabled: false,

@@ -17,7 +17,6 @@ type StoryArgs = {|
     static: boolean,
 
     // API Options
-    satStyling: boolean,
     crossOutEnabled: boolean,
 
     // Renderer Options
@@ -33,7 +32,6 @@ export default ({
     title: "Perseus/Widgets/Radio",
     args: {
         static: false,
-        satStyling: false,
         crossOutEnabled: false,
         reviewMode: false,
     },
@@ -57,7 +55,6 @@ const applyStoryArgs = (
 
 const buildApiOptions = (args: StoryArgs): APIOptions => {
     return {
-        satStyling: args.satStyling,
         crossOutEnabled: args.crossOutEnabled,
     };
 };

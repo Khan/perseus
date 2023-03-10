@@ -142,7 +142,6 @@ type StubTagEditorType = $FlowFixMe; // from "./components/stub-tag-editor.jsx";
 export type APIOptions = $ReadOnly<{|
     isArticle?: boolean,
 
-    satStyling?: boolean,
     // This should actually be required since renderer.jsx sets defaults for
     // any missing properties in this object using this.getApiOptions() before
     // passing the prop on to other components.
@@ -231,19 +230,6 @@ export type APIOptions = $ReadOnly<{|
 
     // Whether to use the Draft.js editor or the legacy textarea
     useDraftEditor?: boolean,
-
-    // Styling options that control the visual behavior of Perseus
-    // items.
-    // TODO(mdr): If we adopt this pattern, we'll need to think about
-    //     how to make individual `styling` options be optional, and
-    //     how to set their default values without overwriting provided
-    //     values. For now, though, you must either specify all fields
-    //     of `styling`, or omit the `styling` option entirely.
-    styling?: {|
-        // TODO(Nicole): Remove this after landing wonderblock-ifying
-        // the radio widget
-        primaryProductColor?: string,
-    |},
 
     // The color used for the hint progress indicator (eg. 1 / 3)
     hintProgressColor?: string,
@@ -399,13 +385,11 @@ export type APIOptionsWithDefaults = $ReadOnly<{|
     onFocusChange: $NonMaybeType<APIOptions["onFocusChange"]>,
     onInputError: $NonMaybeType<APIOptions["onInputError"]>,
     readOnly: $NonMaybeType<APIOptions["readOnly"]>,
-    satStyling: $NonMaybeType<APIOptions["satStyling"]>,
     setDrawingAreaAvailable: $NonMaybeType<
         APIOptions["setDrawingAreaAvailable"],
     >,
     showAlignmentOptions: $NonMaybeType<APIOptions["showAlignmentOptions"]>,
     staticRender: $NonMaybeType<APIOptions["staticRender"]>,
-    styling: $NonMaybeType<APIOptions["styling"]>,
     useDraftEditor: $NonMaybeType<APIOptions["useDraftEditor"]>,
 |}>;
 
