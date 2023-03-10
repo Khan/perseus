@@ -372,7 +372,15 @@ body.debug .graphie { outline: 1px dashed #fdd; }
 #issue fieldset label { display: inline; }
 #issue fieldset li { margin-top: 0px; margin-bottom: 0px; }
 
-var, div.graphie { white-space: pre; }
+var, div.graphie {
+  white-space: pre;
+  /**
+   * Graphie didn't have a fixed font-size and was just using
+   * the surrounding font-size. However some labels are banking on
+   * specific dimensions, so we need to lock it to a specific size.
+   */
+  font-size: 14px;
+}
 
 #spinner { position: relative; top: 4px; left: 4px; }
 #issue-spinner { position: relative; top: 3px; }
