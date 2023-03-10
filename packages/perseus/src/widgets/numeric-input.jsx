@@ -8,7 +8,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import InputWithExamples from "../components/input-with-examples.jsx";
-import PossibleAnswers from "../components/possible-answers.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import {ApiOptions} from "../perseus-api.jsx";
 import TexWrangler from "../tex-wrangler.js";
@@ -16,7 +15,6 @@ import KhanAnswerTypes from "../util/answer-types.js";
 import KhanMath from "../util/math.js";
 
 import type {
-    MathFormat,
     PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
@@ -262,49 +260,6 @@ export class NumericInput extends React.Component<Props, State> {
         previousValues: [""],
     };
 
-    getAnswerBlurb: (Rubric) => [?React.Node, boolean] = (rubric) => {
-        let correct;
-        let answerBlurb;
-
-        /* Ignore this block because SAT is deprecated */
-        /* c8 ignore next */
-        if (this.props.apiOptions.satStyling && rubric) {
-            const score = this.simpleValidate(rubric);
-            correct = score.type === "points" && score.earned === score.total;
-
-            if (!correct) {
-                const correctAnswers = rubric.answers.filter(
-                    (answer) => answer.status === "correct",
-                );
-                const answerStrings = correctAnswers.map((answer) => {
-                    // Figure out how this answer is supposed to be
-                    // displayed
-                    let format: MathFormat = "decimal";
-                    if (answer.answerForms && answer.answerForms[0]) {
-                        // NOTE(johnsullivan): This isn't exactly ideal, but
-                        // it does behave well for all the currently known
-                        // problems. See D14742 for some discussion on
-                        // alternate strategies.
-                        format = answer.answerForms[0];
-                    }
-
-                    let answerString = KhanMath.toNumericString(
-                        answer.value,
-                        format,
-                    );
-                    if (answer.maxError) {
-                        answerString +=
-                            " \u00B1 " +
-                            KhanMath.toNumericString(answer.maxError, format);
-                    }
-                    return answerString;
-                });
-                answerBlurb = <PossibleAnswers answers={answerStrings} />;
-            }
-        }
-        return [answerBlurb, !!correct];
-    };
-
     // TODO(Nicole, Jeremy): This is maybe never used and should be removed
     examples: () => $ReadOnlyArray<string> = () => {
         // if the set of specified forms are empty, allow all forms
@@ -416,10 +371,6 @@ export class NumericInput extends React.Component<Props, State> {
     };
 
     render(): React.Node {
-        const rubric = this.props.reviewModeRubric;
-        const answers = this.getAnswerBlurb(rubric);
-        const answerBlurb = answers[0];
-
         let labelText = this.props.labelText;
         if (labelText == null || labelText === "") {
             labelText = i18n._("Your answer:");
@@ -460,47 +411,24 @@ export class NumericInput extends React.Component<Props, State> {
             },
         });
 
-        const input = (
-            <InputWithExamples
-                ref={(ref) => (this.inputRef = ref)}
-                value={this.props.currentValue}
-                onChange={this.handleChange}
-                labelText={labelText}
-                type={this._getInputType()}
-                examples={this.examples()}
-                shouldShowExamples={this.shouldShowExamples()}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-                disabled={this.props.apiOptions.readOnly}
-                style={styles.input}
-            />
+        return (
+            <div>
+                <InputWithExamples
+                    ref={(ref) => (this.inputRef = ref)}
+                    value={this.props.currentValue}
+                    onChange={this.handleChange}
+                    labelText={labelText}
+                    type={this._getInputType()}
+                    examples={this.examples()}
+                    shouldShowExamples={this.shouldShowExamples()}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                    id={this.props.widgetId}
+                    disabled={this.props.apiOptions.readOnly}
+                    style={styles.input}
+                />
+            </div>
         );
-
-        /* This only gets used with SAT Content */
-        /* c8 ignore next if */
-        if (answerBlurb) {
-            return (
-                <span className="perseus-input-with-answer-blurb">
-                    {input}
-                    {answerBlurb}
-                </span>
-            );
-        }
-        if (this.props.apiOptions.satStyling) {
-            // NOTE(amy): the input widgets themselves already have
-            // a default aria label of "Your Answer", so we hide this
-            // redundant label from screen-readers.
-            return (
-                <label className="perseus-input-with-label">
-                    <span className="perseus-input-label" aria-hidden="true">
-                        {i18n.doNotTranslate("Answer:")}
-                    </span>
-                    {input}
-                </label>
-            );
-        }
-        return <div>{input}</div>;
     }
 }
 

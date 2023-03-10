@@ -1,5 +1,6 @@
 // @flow
 
+import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
 import HintsRenderer from "../hints-renderer.jsx";
@@ -48,5 +49,12 @@ export default ({
 }: Story);
 
 export const Interactive = (args: StoryArgs): $FlowFixMe => {
-    return <HintsRenderer {...args} />;
+    return (
+        // Sorry for the hacks! The HintRenderer uses absolute positioning
+        // for the "1 / 3" label that is rendered left of the hint. So we shift
+        // everything over so we can see it.
+        <View style={{left: 80}}>
+            <HintsRenderer {...args} />
+        </View>
+    );
 };

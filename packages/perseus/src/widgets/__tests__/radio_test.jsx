@@ -45,486 +45,456 @@ describe("single-choice question", () => {
     });
 
     const [question, correct, incorrect] = questionAndAnswer;
+    const apiOptions = Object.freeze({});
 
-    describe.each([[true], [false]])("satStyling: %s", (satStyling) => {
-        const apiOptions: APIOptions = {
-            satStyling,
-        };
-
-        describe.each([[true], [false]])(
-            "reviewMode: %s",
-            (reviewMode: boolean) => {
-                it("should snapshot the same", () => {
-                    // Arrange & Act
-                    const {container} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
-
-                    // Assert
-                    expect(container).toMatchSnapshot("first render");
+    describe.each([[true], [false]])(
+        "reviewMode: %s",
+        (reviewMode: boolean) => {
+            it("should snapshot the same", () => {
+                // Arrange & Act
+                const {container} = renderQuestion(question, apiOptions, {
+                    reviewMode,
                 });
 
-                it("should snapshot the same with correct answer", () => {
-                    // Arrange
-                    const {container} = renderQuestion(question, apiOptions);
+                // Assert
+                expect(container).toMatchSnapshot("first render");
+            });
 
-                    // Act
-                    selectOption(correct);
+            it("should snapshot the same with correct answer", () => {
+                // Arrange
+                const {container} = renderQuestion(question, apiOptions);
 
-                    // Assert
-                    expect(container).toMatchSnapshot("correct answer");
+                // Act
+                selectOption(correct);
+
+                // Assert
+                expect(container).toMatchSnapshot("correct answer");
+            });
+
+            it("should snapshot the same with incorrect answer", () => {
+                // Arrange
+                const {container} = renderQuestion(question, apiOptions);
+
+                // Act
+                selectOption(incorrect[0]);
+
+                // Assert
+                expect(container).toMatchSnapshot("incorrect answer");
+            });
+
+            it("should accept the right answer (mouse)", () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, apiOptions, {
+                    reviewMode,
                 });
 
-                it("should snapshot the same with incorrect answer", () => {
-                    // Arrange
-                    const {container} = renderQuestion(question, apiOptions);
+                // Act
+                selectOption(correct);
+                // Assert
+                expect(renderer).toHaveBeenAnsweredCorrectly();
+            });
 
-                    // Act
-                    selectOption(incorrect[0]);
+            it("should accept the right answer (touch)", () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, apiOptions);
+                const correctRadio = screen.getAllByRole("radio")[correct];
 
-                    // Assert
-                    expect(container).toMatchSnapshot("incorrect answer");
-                });
+                // Act
+                fireEvent.touchStart(correctRadio);
+                fireEvent.touchEnd(correctRadio);
+                // We're using fireEvent.click() because mobile browsers synthesize
+                // click events from matching touchStart/touchEnd events.  user-event
+                // does not support touch events so we have to do this ourselves.
+                // eslint-disable-next-line testing-library/prefer-user-event
+                fireEvent.click(correctRadio);
 
-                it("should accept the right answer (mouse)", () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
+                // Assert
+                expect(renderer).toHaveBeenAnsweredCorrectly();
+            });
 
-                    // Act
-                    selectOption(correct);
-                    // Assert
-                    expect(renderer).toHaveBeenAnsweredCorrectly();
-                });
-
-                it("should accept the right answer (touch)", () => {
+            it.each(incorrect)(
+                "should reject incorrect answer - choice %d",
+                (incorrect: number) => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
-                    const correctRadio = screen.getAllByRole("radio")[correct];
 
                     // Act
-                    fireEvent.touchStart(correctRadio);
-                    fireEvent.touchEnd(correctRadio);
-                    // We're using fireEvent.click() because mobile browsers synthesize
-                    // click events from matching touchStart/touchEnd events.  user-event
-                    // does not support touch events so we have to do this ourselves.
-                    // eslint-disable-next-line testing-library/prefer-user-event
-                    fireEvent.click(correctRadio);
+                    selectOption(incorrect);
 
                     // Assert
-                    expect(renderer).toHaveBeenAnsweredCorrectly();
+                    expect(renderer).toHaveBeenAnsweredIncorrectly();
+                },
+            );
+
+            it("calling .focus() on the renderer should succeed", () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, apiOptions, {
+                    reviewMode,
                 });
 
-                it.each(incorrect)(
-                    "should reject incorrect answer - choice %d",
-                    (incorrect: number) => {
-                        // Arrange
-                        const {renderer} = renderQuestion(question, apiOptions);
+                // Act
+                const gotFocus = renderer.focus();
 
-                        // Act
-                        selectOption(incorrect);
+                // Assert
+                expect(gotFocus).toBeTrue();
+            });
 
-                        // Assert
-                        expect(renderer).toHaveBeenAnsweredIncorrectly();
-                    },
-                );
-
-                it("calling .focus() on the renderer should succeed", () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
-
-                    // Act
-                    const gotFocus = renderer.focus();
-
-                    // Assert
-                    expect(gotFocus).toBeTrue();
+            it("should deselect incorrect selected choices", () => {
+                // Arrange
+                const {renderer} = renderQuestion(question, apiOptions, {
+                    reviewMode,
                 });
 
-                it("should deselect incorrect selected choices", () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
+                // Act
+                // Since this is a single-select setup, just select the first
+                // incorrect choice.
+                selectOption(incorrect[0]);
+                renderer.deselectIncorrectSelectedChoices();
 
-                    // Act
-                    // Since this is a single-select setup, just select the first
-                    // incorrect choice.
-                    selectOption(incorrect[0]);
-                    renderer.deselectIncorrectSelectedChoices();
-
-                    // Assert
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).not.toBeChecked();
-                    });
+                // Assert
+                screen.getAllByRole("radio").forEach((r) => {
+                    expect(r).not.toBeChecked();
                 });
+            });
 
-                it("should disable all radio inputs when static is true", () => {
-                    // Arrange
-                    const staticQuestion = {
-                        ...question,
-                        widgets: {
-                            ...question.widgets,
-                            "radio 1": {
-                                ...question.widgets["radio 1"],
-                                static: true,
-                            },
+            it("should disable all radio inputs when static is true", () => {
+                // Arrange
+                const staticQuestion = {
+                    ...question,
+                    widgets: {
+                        ...question.widgets,
+                        "radio 1": {
+                            ...question.widgets["radio 1"],
+                            static: true,
                         },
-                    };
-                    renderQuestion(staticQuestion, apiOptions, {reviewMode});
+                    },
+                };
+                renderQuestion(staticQuestion, apiOptions, {reviewMode});
 
-                    // Act
-                    selectOption(correct);
+                // Act
+                selectOption(correct);
 
-                    // Assert
-                    // Everything's read-only so no selections made
-                    // Note(TB): The visual buttons are hidden from screen
-                    // readers, so they need to be identified as hidden;
-                    // the visual button has the aria attributes
-                    screen
-                        .getAllByRole("button", {hidden: true})
-                        .forEach((r) => {
-                            expect(r).toHaveAttribute("aria-disabled", "true");
-                        });
-                    // Note(TB): Confirms the screen reader only
-                    // radio options are also disabled
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).toHaveAttribute("disabled");
-                    });
+                // Assert
+                // Everything's read-only so no selections made
+                // Note(TB): The visual buttons are hidden from screen
+                // readers, so they need to be identified as hidden;
+                // the visual button has the aria attributes
+                screen.getAllByRole("button", {hidden: true}).forEach((r) => {
+                    expect(r).toHaveAttribute("aria-disabled", "true");
                 });
-            },
-        );
-
-        it("should be able to navigate down by keyboard", () => {
-            // Arrange
-            renderQuestion(question, apiOptions);
-
-            // Act
-            userEvent.tab();
-            userEvent.tab();
-
-            // Assert
-            // Note(TB): The visual buttons are hidden from screen readers
-            // so they need to be identified as hidden;
-            // cannot access screen reader buttons via tabbing
-            expect(
-                screen.getAllByRole("button", {hidden: true})[1],
-            ).toHaveFocus();
-        });
-
-        it("should be able to navigate up by keyboard", () => {
-            // Arrange
-            renderQuestion(question, apiOptions);
-
-            // Act
-            userEvent.tab();
-            // Note(TB): The visual buttons are hidden from screen readers
-            // so they need to be identified as hidden
-            expect(
-                screen.getAllByRole("button", {hidden: true})[0],
-            ).toHaveFocus();
-
-            userEvent.tab();
-            expect(
-                screen.getAllByRole("button", {hidden: true})[1],
-            ).toHaveFocus();
-
-            userEvent.tab({shift: true});
-
-            // Assert
-            expect(
-                screen.getAllByRole("button", {hidden: true})[0],
-            ).toHaveFocus();
-        });
-
-        it("should be able to select an option by keyboard", () => {
-            // Arrange
-            renderQuestion(question, apiOptions);
-
-            // Act
-            userEvent.tab();
-            userEvent.keyboard("{space}");
-
-            // Assert
-            expect(screen.getAllByRole("radio")[0]).toBeChecked();
-        });
-
-        it("should be able to navigate to 'None of the above' choice by keyboard", () => {
-            // Arrange
-            const q = clone(question);
-            ((q.widgets["radio 1"]
-                .options: any): PerseusRadioWidgetOptions).choices[3].isNoneOfTheAbove = true;
-            renderQuestion(q, apiOptions);
-
-            // Act
-            userEvent.tab();
-            userEvent.tab();
-            userEvent.tab();
-
-            // Assert
-            // Note(TB): The visual buttons are hidden from screen readers
-            // so they need to be identified as hidden
-            expect(
-                screen.getAllByRole("button", {hidden: true})[2],
-            ).toHaveFocus();
-        });
-
-        it.each([
-            ["No", "Yes"],
-            ["False", "True"],
-        ])("should enforce ordering for common answers: %j", (...answers) => {
-            // Arrange
-            const q = clone(question);
-            ((q.widgets["radio 1"]
-                .options: any): PerseusRadioWidgetOptions).choices = answers.map(
-                (answer, idx) => ({
-                    content: answer,
-                    correct: idx === 1, // Correct answer is the "truthy" item
-                }),
-            );
-
-            // Act
-            const {renderer} = renderQuestion(q, apiOptions);
-            // We click on the first item, which was the second (index == 1)
-            // item in the original choices. But because of enforced ordering,
-            // it is now at the top of the list (and thus our correct answer).
-            userEvent.click(screen.getAllByRole("radio")[0]);
-
-            // Assert
-            const items = screen.getAllByRole("listitem");
-            expect(items[0]).toHaveTextContent(answers[1]);
-            expect(items[1]).toHaveTextContent(answers[0]);
-            expect(renderer).toHaveBeenAnsweredCorrectly();
-        });
-
-        it("should not change ordering of non-common answers", () => {
-            // Arrange
-            const answers = ["Last", "First"];
-            const q = clone(question);
-            ((q.widgets["radio 1"]
-                .options: any): PerseusRadioWidgetOptions).choices = answers.map(
-                (answer, idx) => ({
-                    content: answer,
-                    correct: idx === 1,
-                }),
-            );
-
-            // Act
-            renderQuestion(q, apiOptions);
-
-            // Assert
-            const items = screen.getAllByRole("listitem");
-            expect(items[0]).toHaveTextContent(answers[0]);
-            expect(items[1]).toHaveTextContent(answers[1]);
-        });
-
-        it("should transform inline passage-refs to references to passage widgets", () => {
-            // Arrange
-
-            // Add a passage widget to the question content and then reference it
-            // in an answer.
-            const questionWithPassage = clone(question);
-            questionWithPassage.content = `[[\u2603 passage 1]]\n\nNow what's the answer?\n\n[[\u2603 radio 1]]`;
-            questionWithPassage.widgets["passage 1"] = passageWidget;
-            const radioOptions = questionWithPassage.widgets["radio 1"];
-            // HACK(jeremy): Flow doesn't know what type these options are because
-            // we've extracted them out of a generic `PerseusJson` blob and all the
-            // `widget` items are just type `Widget`.
-            (radioOptions.options: any).choices[0].content =
-                '{{passage-ref 1 1 "Reference 1 here"}}';
-
-            // Act
-            renderQuestion(questionWithPassage, apiOptions);
-            // Passage refs use `_.defer()` to update their reference ranges.
-            jest.runOnlyPendingTimers();
-
-            // Assert
-            // By using a `passage-ref` in a choice, we should now have the
-            // reference on the radio we used it on.
-            // NOTE: We get by listitem role here because the 'radio' role
-            // element does not contain the HTML that provides the label
-            // for it.
-            const passageRefRadio = screen.getAllByRole("listitem")[0];
-            expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
-        });
-
-        it("should render rationales for selected choices", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question, apiOptions);
-
-            // Act
-            selectOption(incorrect[0]);
-            renderer.showRationalesForCurrentlySelectedChoices();
-
-            // Assert
-            expect(
-                screen.queryAllByTestId(
-                    `perseus-radio-rationale-content-${incorrect[0]}`,
-                ),
-            ).toHaveLength(1);
-        });
-
-        describe("cross-out is enabled", () => {
-            const crossOutApiOptions = {
-                ...apiOptions,
-                crossOutEnabled: true,
-            };
-
-            it("should render cross-out menu button", () => {
-                // Arrange & Act
-                renderQuestion(question, crossOutApiOptions);
-
-                // Assert
-                expect(
-                    screen.getByRole("button", {
-                        name: /Open menu for Choice B/,
-                    }),
-                ).toBeVisible();
-            });
-
-            it("should open the cross-out menu when button clicked", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-
-                // Act
-                userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Open menu for Choice B/,
-                    }),
-                );
-                await act(async () => {
-                    await jest.runAllTimers();
+                // Note(TB): Confirms the screen reader only
+                // radio options are also disabled
+                screen.getAllByRole("radio").forEach((r) => {
+                    expect(r).toHaveAttribute("disabled");
                 });
-
-                // Assert
-                expect(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toBeVisible();
             });
+        },
+    );
 
-            it("should open the cross-out menu when focused and spacebar pressed", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-                userEvent.tab(); // Choice icon
-                userEvent.tab(); // Cross-out menu ellipsis
-
-                // Act
-                userEvent.keyboard("{space}");
-                await act(async () => {
-                    await jest.runAllTimers();
-                });
-
-                // Assert
-                expect(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice A/,
-                    }),
-                ).toBeVisible();
-            });
-
-            it("should cross-out selection and dismiss button when clicked", () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-                userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Open menu for Choice B/,
-                    }),
-                );
-
-                // Act
-                userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                );
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toHaveLength(0);
-
-                expect(
-                    screen.getByTestId("choice-icon__cross-out-line"),
-                ).toBeVisible();
-            });
-
-            it("should remove cross-out line on selection", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-                userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Open menu for Choice B/,
-                    }),
-                );
-
-                // Act
-                userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                );
-                jest.runAllTimers();
-
-                userEvent.click(
-                    screen.getByRole("radio", {
-                        name: "(Choice B, Crossed out) -8",
-                    }),
-                );
-
-                // Assert
-                expect(
-                    screen.queryByTestId("choice-icon__cross-out-line"),
-                ).not.toBeInTheDocument();
-            });
-
-            it("should dismiss cross-out button with {tab} key", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-                userEvent.tab(); // Choice icon
-                userEvent.tab(); // Cross-out menu ellipsis
-
-                // Act
-                userEvent.keyboard("{space}");
-                await act(async () => {
-                    await jest.runAllTimers();
-                });
-
-                expect(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice A/,
-                    }),
-                ).toBeVisible();
-
-                userEvent.keyboard("{space}");
-                jest.runAllTimers();
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice A/,
-                    }),
-                ).toHaveLength(0);
-            });
-        });
-    });
-
-    it("should not display instructions when satStyling true", () => {
+    it("should be able to navigate down by keyboard", () => {
         // Arrange
-        const apiOptions: APIOptions = {
-            satStyling: true,
-        };
-
-        // Act
         renderQuestion(question, apiOptions);
 
+        // Act
+        userEvent.tab();
+        userEvent.tab();
+
         // Assert
-        expect(screen.queryByText("Choose 1 answer:")).not.toBeInTheDocument();
+        // Note(TB): The visual buttons are hidden from screen readers
+        // so they need to be identified as hidden;
+        // cannot access screen reader buttons via tabbing
+        expect(screen.getAllByRole("button", {hidden: true})[1]).toHaveFocus();
+    });
+
+    it("should be able to navigate up by keyboard", () => {
+        // Arrange
+        renderQuestion(question, apiOptions);
+
+        // Act
+        userEvent.tab();
+        // Note(TB): The visual buttons are hidden from screen readers
+        // so they need to be identified as hidden
+        expect(screen.getAllByRole("button", {hidden: true})[0]).toHaveFocus();
+
+        userEvent.tab();
+        expect(screen.getAllByRole("button", {hidden: true})[1]).toHaveFocus();
+
+        userEvent.tab({shift: true});
+
+        // Assert
+        expect(screen.getAllByRole("button", {hidden: true})[0]).toHaveFocus();
+    });
+
+    it("should be able to select an option by keyboard", () => {
+        // Arrange
+        renderQuestion(question, apiOptions);
+
+        // Act
+        userEvent.tab();
+        userEvent.keyboard("{space}");
+
+        // Assert
+        expect(screen.getAllByRole("radio")[0]).toBeChecked();
+    });
+
+    it("should be able to navigate to 'None of the above' choice by keyboard", () => {
+        // Arrange
+        const q = clone(question);
+        ((q.widgets["radio 1"]
+            .options: any): PerseusRadioWidgetOptions).choices[3].isNoneOfTheAbove = true;
+        renderQuestion(q, apiOptions);
+
+        // Act
+        userEvent.tab();
+        userEvent.tab();
+        userEvent.tab();
+
+        // Assert
+        // Note(TB): The visual buttons are hidden from screen readers
+        // so they need to be identified as hidden
+        expect(screen.getAllByRole("button", {hidden: true})[2]).toHaveFocus();
+    });
+
+    it.each([
+        ["No", "Yes"],
+        ["False", "True"],
+    ])("should enforce ordering for common answers: %j", (...answers) => {
+        // Arrange
+        const q = clone(question);
+        ((q.widgets["radio 1"]
+            .options: any): PerseusRadioWidgetOptions).choices = answers.map(
+            (answer, idx) => ({
+                content: answer,
+                correct: idx === 1, // Correct answer is the "truthy" item
+            }),
+        );
+
+        // Act
+        const {renderer} = renderQuestion(q, apiOptions);
+        // We click on the first item, which was the second (index == 1)
+        // item in the original choices. But because of enforced ordering,
+        // it is now at the top of the list (and thus our correct answer).
+        userEvent.click(screen.getAllByRole("radio")[0]);
+
+        // Assert
+        const items = screen.getAllByRole("listitem");
+        expect(items[0]).toHaveTextContent(answers[1]);
+        expect(items[1]).toHaveTextContent(answers[0]);
+        expect(renderer).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should not change ordering of non-common answers", () => {
+        // Arrange
+        const answers = ["Last", "First"];
+        const q = clone(question);
+        ((q.widgets["radio 1"]
+            .options: any): PerseusRadioWidgetOptions).choices = answers.map(
+            (answer, idx) => ({
+                content: answer,
+                correct: idx === 1,
+            }),
+        );
+
+        // Act
+        renderQuestion(q, apiOptions);
+
+        // Assert
+        const items = screen.getAllByRole("listitem");
+        expect(items[0]).toHaveTextContent(answers[0]);
+        expect(items[1]).toHaveTextContent(answers[1]);
+    });
+
+    it("should transform inline passage-refs to references to passage widgets", () => {
+        // Arrange
+
+        // Add a passage widget to the question content and then reference it
+        // in an answer.
+        const questionWithPassage = clone(question);
+        questionWithPassage.content = `[[\u2603 passage 1]]\n\nNow what's the answer?\n\n[[\u2603 radio 1]]`;
+        questionWithPassage.widgets["passage 1"] = passageWidget;
+        const radioOptions = questionWithPassage.widgets["radio 1"];
+        // HACK(jeremy): Flow doesn't know what type these options are because
+        // we've extracted them out of a generic `PerseusJson` blob and all the
+        // `widget` items are just type `Widget`.
+        (radioOptions.options: any).choices[0].content =
+            '{{passage-ref 1 1 "Reference 1 here"}}';
+
+        // Act
+        renderQuestion(questionWithPassage, apiOptions);
+        // Passage refs use `_.defer()` to update their reference ranges.
+        jest.runOnlyPendingTimers();
+
+        // Assert
+        // By using a `passage-ref` in a choice, we should now have the
+        // reference on the radio we used it on.
+        // NOTE: We get by listitem role here because the 'radio' role
+        // element does not contain the HTML that provides the label
+        // for it.
+        const passageRefRadio = screen.getAllByRole("listitem")[0];
+        expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
+    });
+
+    it("should render rationales for selected choices", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question, apiOptions);
+
+        // Act
+        selectOption(incorrect[0]);
+        renderer.showRationalesForCurrentlySelectedChoices();
+
+        // Assert
+        expect(
+            screen.queryAllByTestId(
+                `perseus-radio-rationale-content-${incorrect[0]}`,
+            ),
+        ).toHaveLength(1);
+    });
+
+    describe("cross-out is enabled", () => {
+        const crossOutApiOptions = {
+            ...apiOptions,
+            crossOutEnabled: true,
+        };
+
+        it("should render cross-out menu button", () => {
+            // Arrange & Act
+            renderQuestion(question, crossOutApiOptions);
+
+            // Assert
+            expect(
+                screen.getByRole("button", {
+                    name: /Open menu for Choice B/,
+                }),
+            ).toBeVisible();
+        });
+
+        it("should open the cross-out menu when button clicked", async () => {
+            // Arrange
+            renderQuestion(question, crossOutApiOptions);
+
+            // Act
+            userEvent.click(
+                screen.getByRole("button", {
+                    name: /Open menu for Choice B/,
+                }),
+            );
+            await act(async () => {
+                await jest.runAllTimers();
+            });
+
+            // Assert
+            expect(
+                screen.getByRole("button", {
+                    name: /Cross out Choice B/,
+                }),
+            ).toBeVisible();
+        });
+
+        it("should open the cross-out menu when focused and spacebar pressed", async () => {
+            // Arrange
+            renderQuestion(question, crossOutApiOptions);
+            userEvent.tab(); // Choice icon
+            userEvent.tab(); // Cross-out menu ellipsis
+
+            // Act
+            userEvent.keyboard("{space}");
+            await act(async () => {
+                await jest.runAllTimers();
+            });
+
+            // Assert
+            expect(
+                screen.getByRole("button", {
+                    name: /Cross out Choice A/,
+                }),
+            ).toBeVisible();
+        });
+
+        it("should cross-out selection and dismiss button when clicked", () => {
+            // Arrange
+            renderQuestion(question, crossOutApiOptions);
+            userEvent.click(
+                screen.getByRole("button", {
+                    name: /Open menu for Choice B/,
+                }),
+            );
+
+            // Act
+            userEvent.click(
+                screen.getByRole("button", {
+                    name: /Cross out Choice B/,
+                }),
+            );
+
+            // Assert
+            expect(
+                screen.queryAllByRole("button", {
+                    name: /Cross out Choice B/,
+                }),
+            ).toHaveLength(0);
+
+            expect(
+                screen.getByTestId("choice-icon__cross-out-line"),
+            ).toBeVisible();
+        });
+
+        it("should remove cross-out line on selection", async () => {
+            // Arrange
+            renderQuestion(question, crossOutApiOptions);
+            userEvent.click(
+                screen.getByRole("button", {
+                    name: /Open menu for Choice B/,
+                }),
+            );
+
+            // Act
+            userEvent.click(
+                screen.getByRole("button", {
+                    name: /Cross out Choice B/,
+                }),
+            );
+            jest.runAllTimers();
+
+            userEvent.click(
+                screen.getByRole("radio", {
+                    name: "(Choice B, Crossed out) -8",
+                }),
+            );
+
+            // Assert
+            expect(
+                screen.queryByTestId("choice-icon__cross-out-line"),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should dismiss cross-out button with {tab} key", async () => {
+            // Arrange
+            renderQuestion(question, crossOutApiOptions);
+            userEvent.tab(); // Choice icon
+            userEvent.tab(); // Cross-out menu ellipsis
+
+            // Act
+            userEvent.keyboard("{space}");
+            await act(async () => {
+                await jest.runAllTimers();
+            });
+
+            expect(
+                screen.getByRole("button", {
+                    name: /Cross out Choice A/,
+                }),
+            ).toBeVisible();
+
+            userEvent.keyboard("{space}");
+            jest.runAllTimers();
+
+            // Assert
+            expect(
+                screen.queryAllByRole("button", {
+                    name: /Cross out Choice A/,
+                }),
+            ).toHaveLength(0);
+        });
     });
 
     it("should be invalid when first rendered", () => {
@@ -627,9 +597,7 @@ describe("multi-choice question", () => {
     const [question, correct, incorrect, invalid] =
         multiChoiceQuestionAndAnswer;
 
-    const apiOptions: APIOptions = {
-        satStyling: false,
-    };
+    const apiOptions: APIOptions = Object.freeze({});
 
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

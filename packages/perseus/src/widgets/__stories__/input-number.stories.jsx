@@ -100,17 +100,3 @@ export const Percent = (args: InputNumberOptions): React.Node => {
     return <RendererWithDebugUI question={question} />;
 };
 Percent.args = question3.widgets["input-number 1"].options;
-
-export const RationalWithSatStyling = (
-    args: InputNumberOptions,
-): React.Node => {
-    const question = updateWidgetOptions(question1, "input-number 1", args);
-    return (
-        <RendererWithDebugUI
-            question={question}
-            apiOptions={{satStyling: true}}
-            reviewMode={true}
-        />
-    );
-};
-Rational.args = question1.widgets["input-number 1"].options;

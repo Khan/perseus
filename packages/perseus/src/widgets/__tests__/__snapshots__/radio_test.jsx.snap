@@ -78,12 +78,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-564"
+                            id="choice-318"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-564"
+                            for="choice-318"
                           >
                             (Choice A, Checked)
                                
@@ -201,12 +201,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-565"
+                            id="choice-319"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-565"
+                            for="choice-319"
                           >
                             (Choice B)
                                
@@ -324,12 +324,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-566"
+                            id="choice-320"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-566"
+                            for="choice-320"
                           >
                             (Choice C)
                                
@@ -447,12 +447,12 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-567"
+                            id="choice-321"
                             tabindex="-1"
                             type="checkbox"
                           />
                           <label
-                            for="choice-567"
+                            for="choice-321"
                           >
                             (Choice D)
                                
@@ -586,7 +586,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
 </div>
 `;
 
-exports[`single-choice question satStyling: false reviewMode: false should snapshot the same with correct answer: correct answer 1`] = `
+exports[`single-choice question reviewMode: false should snapshot the same with correct answer: correct answer 1`] = `
 <div>
   <span
     class="mock-KatexProvider"
@@ -674,12 +674,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-330"
+                            id="choice-88"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-330"
+                            for="choice-88"
                           >
                             (Choice A)
                                
@@ -823,12 +823,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-331"
+                            id="choice-89"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-331"
+                            for="choice-89"
                           >
                             (Choice B)
                                
@@ -946,12 +946,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-332"
+                            id="choice-90"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-332"
+                            for="choice-90"
                           >
                             (Choice C, Checked)
                                
@@ -1069,12 +1069,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-333"
+                            id="choice-91"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-333"
+                            for="choice-91"
                           >
                             (Choice D)
                                
@@ -1194,7 +1194,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
 </div>
 `;
 
-exports[`single-choice question satStyling: false reviewMode: false should snapshot the same with incorrect answer: incorrect answer 1`] = `
+exports[`single-choice question reviewMode: false should snapshot the same with incorrect answer: incorrect answer 1`] = `
 <div>
   <span
     class="mock-KatexProvider"
@@ -1282,12 +1282,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-338"
+                            id="choice-96"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-338"
+                            for="choice-96"
                           >
                             (Choice A, Checked)
                                
@@ -1431,12 +1431,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-339"
+                            id="choice-97"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-339"
+                            for="choice-97"
                           >
                             (Choice B)
                                
@@ -1554,12 +1554,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-340"
+                            id="choice-98"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-340"
+                            for="choice-98"
                           >
                             (Choice C)
                                
@@ -1677,12 +1677,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-341"
+                            id="choice-99"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-341"
+                            for="choice-99"
                           >
                             (Choice D)
                                
@@ -1802,7 +1802,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
 </div>
 `;
 
-exports[`single-choice question satStyling: false reviewMode: false should snapshot the same: first render 1`] = `
+exports[`single-choice question reviewMode: false should snapshot the same: first render 1`] = `
 <div>
   <span
     class="mock-KatexProvider"
@@ -1890,12 +1890,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-322"
+                            id="choice-80"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-322"
+                            for="choice-80"
                           >
                             (Choice A)
                                
@@ -2039,12 +2039,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-323"
+                            id="choice-81"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-323"
+                            for="choice-81"
                           >
                             (Choice B)
                                
@@ -2162,12 +2162,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-324"
+                            id="choice-82"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-324"
+                            for="choice-82"
                           >
                             (Choice C)
                                
@@ -2285,12 +2285,12 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-325"
+                            id="choice-83"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-325"
+                            for="choice-83"
                           >
                             (Choice D)
                                
@@ -2410,7 +2410,7 @@ exports[`single-choice question satStyling: false reviewMode: false should snaps
 </div>
 `;
 
-exports[`single-choice question satStyling: false reviewMode: true should snapshot the same with correct answer: correct answer 1`] = `
+exports[`single-choice question reviewMode: true should snapshot the same with correct answer: correct answer 1`] = `
 <div>
   <span
     class="mock-KatexProvider"
@@ -2498,12 +2498,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-250"
+                            id="choice-8"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-250"
+                            for="choice-8"
                           >
                             (Choice A)
                                
@@ -2647,12 +2647,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-251"
+                            id="choice-9"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-251"
+                            for="choice-9"
                           >
                             (Choice B)
                                
@@ -2770,12 +2770,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-252"
+                            id="choice-10"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-252"
+                            for="choice-10"
                           >
                             (Choice C, Checked)
                                
@@ -2893,12 +2893,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-253"
+                            id="choice-11"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-253"
+                            for="choice-11"
                           >
                             (Choice D)
                                
@@ -3018,7 +3018,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
 </div>
 `;
 
-exports[`single-choice question satStyling: false reviewMode: true should snapshot the same with incorrect answer: incorrect answer 1`] = `
+exports[`single-choice question reviewMode: true should snapshot the same with incorrect answer: incorrect answer 1`] = `
 <div>
   <span
     class="mock-KatexProvider"
@@ -3106,12 +3106,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-258"
+                            id="choice-16"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-258"
+                            for="choice-16"
                           >
                             (Choice A, Checked)
                                
@@ -3255,12 +3255,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-259"
+                            id="choice-17"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-259"
+                            for="choice-17"
                           >
                             (Choice B)
                                
@@ -3378,12 +3378,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-260"
+                            id="choice-18"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-260"
+                            for="choice-18"
                           >
                             (Choice C)
                                
@@ -3501,12 +3501,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-261"
+                            id="choice-19"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-261"
+                            for="choice-19"
                           >
                             (Choice D)
                                
@@ -3626,7 +3626,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
 </div>
 `;
 
-exports[`single-choice question satStyling: false reviewMode: true should snapshot the same: first render 1`] = `
+exports[`single-choice question reviewMode: true should snapshot the same: first render 1`] = `
 <div>
   <span
     class="mock-KatexProvider"
@@ -3714,12 +3714,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-242"
+                            id="choice-0"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-242"
+                            for="choice-0"
                           >
                             (Choice A, Incorrect)
                                
@@ -3865,7 +3865,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
+                        class="perseus-radio-rationale-content rationale_1w3tmyh"
                         data-test-id="perseus-radio-rationale-content-0"
                       >
                         <span
@@ -3948,12 +3948,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-243"
+                            id="choice-1"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-243"
+                            for="choice-1"
                           >
                             (Choice B, Incorrect)
                                
@@ -4073,7 +4073,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
+                        class="perseus-radio-rationale-content rationale_1w3tmyh"
                         data-test-id="perseus-radio-rationale-content-1"
                       >
                         <span
@@ -4140,12 +4140,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-244"
+                            id="choice-2"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-244"
+                            for="choice-2"
                           >
                             (Choice C, Correct)
                                
@@ -4265,7 +4265,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
+                        class="perseus-radio-rationale-content rationale_1w3tmyh"
                         data-test-id="perseus-radio-rationale-content-2"
                       >
                         <span
@@ -4327,12 +4327,12 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         >
                           <input
                             class="perseus-radio-option-content"
-                            id="choice-245"
+                            id="choice-3"
                             tabindex="-1"
                             type="radio"
                           />
                           <label
-                            for="choice-245"
+                            for="choice-3"
                           >
                             (Choice D, Incorrect)
                                
@@ -4458,3667 +4458,7 @@ exports[`single-choice question satStyling: false reviewMode: true should snapsh
                         </button>
                       </div>
                       <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-nonSatRationale_10l5hr0"
-                        data-test-id="perseus-radio-rationale-content-3"
-                      >
-                        <span
-                          class="mock-KatexProvider"
-                        >
-                          <div
-                            class="perseus-renderer perseus-renderer-responsive"
-                          >
-                            <div
-                              class="paragraph"
-                              data-perseus-paragraph-index="0"
-                            >
-                              <div
-                                class="paragraph"
-                              >
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    8
-                                  </span>
-                                  <span />
-                                </span>
-                                 satisfies the equation.
-                              </div>
-                            </div>
-                          </div>
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
-exports[`single-choice question satStyling: true reviewMode: false should snapshot the same with correct answer: correct answer 1`] = `
-<div>
-  <span
-    class="mock-KatexProvider"
-  >
-    <div
-      class="perseus-renderer perseus-renderer-responsive"
-    >
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
-      >
-        <div
-          class="paragraph"
-        >
-          Which of the following values of 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              x
-            </span>
-            <span />
-          </span>
-           satisfies the equation 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              \\sqrt{64}=x
-            </span>
-            <span />
-          </span>
-           ?
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="paragraph"
-        >
-          <div
-            class="perseus-widget-container widget-nohighlight widget-block"
-          >
-            <div
-              class=""
-            >
-              <fieldset
-                class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
-              >
-                <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
-                  style="list-style: none;"
-                >
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-88"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-88"
-                          >
-                            (Choice A)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                      <span />
-                                    </span>
-                                     and 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  A
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                          <span />
-                                        </span>
-                                         and 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                          <span />
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-89"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-89"
-                          >
-                            (Choice B)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  B
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option perseus-radio-selected"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-90"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-90"
-                          >
-                            (Choice C, Checked)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(255, 255, 255);"
-                              >
-                                <span>
-                                  C
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-91"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-91"
-                          >
-                            (Choice D)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    No value of 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        x
-                                      </span>
-                                      <span />
-                                    </span>
-                                     satisfies the equation.
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  D
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        No value of 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            x
-                                          </span>
-                                          <span />
-                                        </span>
-                                         satisfies the equation.
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
-exports[`single-choice question satStyling: true reviewMode: false should snapshot the same with incorrect answer: incorrect answer 1`] = `
-<div>
-  <span
-    class="mock-KatexProvider"
-  >
-    <div
-      class="perseus-renderer perseus-renderer-responsive"
-    >
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
-      >
-        <div
-          class="paragraph"
-        >
-          Which of the following values of 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              x
-            </span>
-            <span />
-          </span>
-           satisfies the equation 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              \\sqrt{64}=x
-            </span>
-            <span />
-          </span>
-           ?
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="paragraph"
-        >
-          <div
-            class="perseus-widget-container widget-nohighlight widget-block"
-          >
-            <div
-              class=""
-            >
-              <fieldset
-                class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
-              >
-                <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
-                  style="list-style: none;"
-                >
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option perseus-radio-selected"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-96"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-96"
-                          >
-                            (Choice A, Checked)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                      <span />
-                                    </span>
-                                     and 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(255, 255, 255);"
-                              >
-                                <span>
-                                  A
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                          <span />
-                                        </span>
-                                         and 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                          <span />
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-97"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-97"
-                          >
-                            (Choice B)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  B
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-98"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-98"
-                          >
-                            (Choice C)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  C
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-99"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-99"
-                          >
-                            (Choice D)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    No value of 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        x
-                                      </span>
-                                      <span />
-                                    </span>
-                                     satisfies the equation.
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  D
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        No value of 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            x
-                                          </span>
-                                          <span />
-                                        </span>
-                                         satisfies the equation.
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
-exports[`single-choice question satStyling: true reviewMode: false should snapshot the same: first render 1`] = `
-<div>
-  <span
-    class="mock-KatexProvider"
-  >
-    <div
-      class="perseus-renderer perseus-renderer-responsive"
-    >
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
-      >
-        <div
-          class="paragraph"
-        >
-          Which of the following values of 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              x
-            </span>
-            <span />
-          </span>
-           satisfies the equation 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              \\sqrt{64}=x
-            </span>
-            <span />
-          </span>
-           ?
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="paragraph"
-        >
-          <div
-            class="perseus-widget-container widget-nohighlight widget-block"
-          >
-            <div
-              class=""
-            >
-              <fieldset
-                class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
-              >
-                <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
-                  style="list-style: none;"
-                >
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-80"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-80"
-                          >
-                            (Choice A)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                      <span />
-                                    </span>
-                                     and 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  A
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                          <span />
-                                        </span>
-                                         and 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                          <span />
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-81"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-81"
-                          >
-                            (Choice B)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  B
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-82"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-82"
-                          >
-                            (Choice C)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  C
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-83"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-83"
-                          >
-                            (Choice D)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    No value of 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        x
-                                      </span>
-                                      <span />
-                                    </span>
-                                     satisfies the equation.
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  D
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        No value of 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            x
-                                          </span>
-                                          <span />
-                                        </span>
-                                         satisfies the equation.
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
-exports[`single-choice question satStyling: true reviewMode: true should snapshot the same with correct answer: correct answer 1`] = `
-<div>
-  <span
-    class="mock-KatexProvider"
-  >
-    <div
-      class="perseus-renderer perseus-renderer-responsive"
-    >
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
-      >
-        <div
-          class="paragraph"
-        >
-          Which of the following values of 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              x
-            </span>
-            <span />
-          </span>
-           satisfies the equation 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              \\sqrt{64}=x
-            </span>
-            <span />
-          </span>
-           ?
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="paragraph"
-        >
-          <div
-            class="perseus-widget-container widget-nohighlight widget-block"
-          >
-            <div
-              class=""
-            >
-              <fieldset
-                class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
-              >
-                <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
-                  style="list-style: none;"
-                >
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-8"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-8"
-                          >
-                            (Choice A)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                      <span />
-                                    </span>
-                                     and 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  A
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                          <span />
-                                        </span>
-                                         and 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                          <span />
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-9"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-9"
-                          >
-                            (Choice B)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  B
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option perseus-radio-selected"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-10"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-10"
-                          >
-                            (Choice C, Checked)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(255, 255, 255);"
-                              >
-                                <span>
-                                  C
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-11"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-11"
-                          >
-                            (Choice D)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    No value of 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        x
-                                      </span>
-                                      <span />
-                                    </span>
-                                     satisfies the equation.
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  D
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        No value of 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            x
-                                          </span>
-                                          <span />
-                                        </span>
-                                         satisfies the equation.
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
-exports[`single-choice question satStyling: true reviewMode: true should snapshot the same with incorrect answer: incorrect answer 1`] = `
-<div>
-  <span
-    class="mock-KatexProvider"
-  >
-    <div
-      class="perseus-renderer perseus-renderer-responsive"
-    >
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
-      >
-        <div
-          class="paragraph"
-        >
-          Which of the following values of 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              x
-            </span>
-            <span />
-          </span>
-           satisfies the equation 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              \\sqrt{64}=x
-            </span>
-            <span />
-          </span>
-           ?
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="paragraph"
-        >
-          <div
-            class="perseus-widget-container widget-nohighlight widget-block"
-          >
-            <div
-              class=""
-            >
-              <fieldset
-                class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
-              >
-                <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
-                  style="list-style: none;"
-                >
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option perseus-radio-selected"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-16"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-16"
-                          >
-                            (Choice A, Checked)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                      <span />
-                                    </span>
-                                     and 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px; background-color: rgb(0, 132, 206);"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(255, 255, 255);"
-                              >
-                                <span>
-                                  A
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                          <span />
-                                        </span>
-                                         and 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                          <span />
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-17"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-17"
-                          >
-                            (Choice B)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  B
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-18"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-18"
-                          >
-                            (Choice C)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  C
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7 perseus-radio-option"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-19"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-19"
-                          >
-                            (Choice D)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    No value of 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        x
-                                      </span>
-                                      <span />
-                                    </span>
-                                     satisfies the equation.
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  D
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        No value of 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            x
-                                          </span>
-                                          <span />
-                                        </span>
-                                         satisfies the equation.
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
-exports[`single-choice question satStyling: true reviewMode: true should snapshot the same: first render 1`] = `
-<div>
-  <span
-    class="mock-KatexProvider"
-  >
-    <div
-      class="perseus-renderer perseus-renderer-responsive"
-    >
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
-      >
-        <div
-          class="paragraph"
-        >
-          Which of the following values of 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              x
-            </span>
-            <span />
-          </span>
-           satisfies the equation 
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              \\sqrt{64}=x
-            </span>
-            <span />
-          </span>
-           ?
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="paragraph"
-        >
-          <div
-            class="perseus-widget-container widget-nohighlight widget-block"
-          >
-            <div
-              class=""
-            >
-              <fieldset
-                class="perseus-widget-radio-fieldset responsiveFieldset_c0l5kf"
-              >
-                <ul
-                  class="perseus-widget-radio perseus-rendered-radio radio_1gyjybc-o_O-satRadio_1m9l1iz"
-                  style="list-style: none;"
-                >
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7-o_O-satReviewRadioOption_1dwq0yf perseus-radio-option perseus-incorrect"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-0"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-0"
-                          >
-                            (Choice A, Incorrect)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                      <span />
-                                    </span>
-                                     and 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                      <span />
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  A
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                          <span />
-                                        </span>
-                                         and 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                          <span />
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                      <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-satReviewRationale_1fcwos"
-                        data-test-id="perseus-radio-rationale-content-0"
-                      >
-                        <span
-                          class="mock-KatexProvider"
-                        >
-                          <div
-                            class="perseus-renderer perseus-renderer-responsive"
-                          >
-                            <div
-                              class="paragraph"
-                              data-perseus-paragraph-index="0"
-                            >
-                              <div
-                                class="paragraph"
-                              >
-                                The square root operation (
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    \\sqrt{\\phantom{x}}
-                                  </span>
-                                  <span />
-                                </span>
-                                ) calculates 
-                                <em>
-                                  only
-                                </em>
-                                 the positive square root when performed on a number, so 
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    x
-                                  </span>
-                                  <span />
-                                </span>
-                                 is equal to 
-                                <em>
-                                  only
-                                </em>
-                                 
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    8
-                                  </span>
-                                  <span />
-                                </span>
-                                .
-                              </div>
-                            </div>
-                          </div>
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7-o_O-satReviewRadioOption_1dwq0yf perseus-radio-option perseus-incorrect"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-1"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-1"
-                          >
-                            (Choice B, Incorrect)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        -8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  B
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            -8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                      <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-satReviewRationale_1fcwos"
-                        data-test-id="perseus-radio-rationale-content-1"
-                      >
-                        <span
-                          class="mock-KatexProvider"
-                        >
-                          <div
-                            class="perseus-renderer perseus-renderer-responsive"
-                          >
-                            <div
-                              class="paragraph"
-                              data-perseus-paragraph-index="0"
-                            >
-                              <div
-                                class="paragraph"
-                              >
-                                While 
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    (-8)^2=64
-                                  </span>
-                                  <span />
-                                </span>
-                                , the square root operation (
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    \\sqrt{\\phantom{x}}
-                                  </span>
-                                  <span />
-                                </span>
-                                ) calculates 
-                                <em>
-                                  only
-                                </em>
-                                 the positive square root when performed on a number.
-                              </div>
-                            </div>
-                          </div>
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7-o_O-satReviewRadioOption_1dwq0yf perseus-radio-option perseus-correct"
-                  >
-                    <div
-                      class="description sat-correct satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-2"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-2"
-                          >
-                            (Choice C, Correct)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph perseus-paragraph-centered"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="perseus-block-math"
-                                  >
-                                    <div
-                                      class="perseus-block-math-inner"
-                                      style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                    >
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        8
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="background-color: rgb(255, 255, 255); border-color: #009900; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 153, 0);"
-                              >
-                                <span>
-                                  C
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph perseus-paragraph-centered"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="perseus-block-math"
-                                      >
-                                        <div
-                                          class="perseus-block-math-inner"
-                                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
-                                        >
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            8
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                      <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-satReviewRationale_1fcwos"
-                        data-test-id="perseus-radio-rationale-content-2"
-                      >
-                        <span
-                          class="mock-KatexProvider"
-                        >
-                          <div
-                            class="perseus-renderer perseus-renderer-responsive"
-                          >
-                            <div
-                              class="paragraph"
-                              data-perseus-paragraph-index="0"
-                            >
-                              <div
-                                class="paragraph"
-                              >
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    8
-                                  </span>
-                                  <span />
-                                </span>
-                                 is the positive square root of 
-                                <span
-                                  style="white-space: nowrap;"
-                                >
-                                  <span />
-                                  <span
-                                    class="mock-TeX"
-                                  >
-                                    64
-                                  </span>
-                                  <span />
-                                </span>
-                                .
-                              </div>
-                            </div>
-                          </div>
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="aboveScratchpad_1x0jb4k-o_O-item_dswvvi-o_O-satRadioOption_um6ye7-o_O-satReviewRadioOption_1dwq0yf perseus-radio-option perseus-incorrect"
-                  >
-                    <div
-                      class="description satDescription_paz1ug"
-                      style="flex-direction: column; color: rgb(33, 36, 44);"
-                    >
-                      <div
-                        style="display: flex; flex-direction: row; opacity: 1;"
-                      >
-                        <div
-                          class="perseus-sr-only"
-                        >
-                          <input
-                            class="perseus-radio-option-content"
-                            id="choice-3"
-                            tabindex="-1"
-                            type="radio"
-                          />
-                          <label
-                            for="choice-3"
-                          >
-                            (Choice D, Incorrect)
-                               
-                            <span
-                              class="mock-KatexProvider"
-                            >
-                              <div
-                                class="perseus-renderer perseus-renderer-responsive"
-                              >
-                                <div
-                                  class="paragraph"
-                                  data-perseus-paragraph-index="0"
-                                >
-                                  <div
-                                    class="paragraph"
-                                  >
-                                    No value of 
-                                    <span
-                                      style="white-space: nowrap;"
-                                    >
-                                      <span />
-                                      <span
-                                        class="mock-TeX"
-                                      >
-                                        x
-                                      </span>
-                                      <span />
-                                    </span>
-                                     satisfies the equation.
-                                  </div>
-                                </div>
-                              </div>
-                            </span>
-                          </label>
-                        </div>
-                        <button
-                          aria-disabled="false"
-                          aria-hidden="true"
-                          class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
-                          type="button"
-                        >
-                          <div
-                            style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
-                          >
-                            <div
-                              class="iconWrapper_17y0hv9"
-                            >
-                              <div
-                                class="satCircle_1anqode"
-                                data-test-id="choice-icon__sat-choice-icon"
-                                style="border-color: #0084ce; border-radius: 25px;"
-                              />
-                              <div
-                                class="letter_2ucovf"
-                                style="color: rgb(0, 132, 206);"
-                              >
-                                <span>
-                                  D
-                                </span>
-                              </div>
-                            </div>
-                            <span
-                              style="padding-left: 12px; text-align: left; flex: 1; padding-top: 4px;"
-                            >
-                              <div />
-                              <div>
-                                <span
-                                  class="mock-KatexProvider"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
-                                  >
-                                    <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
-                                    >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        No value of 
-                                        <span
-                                          style="white-space: nowrap;"
-                                        >
-                                          <span />
-                                          <span
-                                            class="mock-TeX"
-                                          >
-                                            x
-                                          </span>
-                                          <span />
-                                        </span>
-                                         satisfies the equation.
-                                      </div>
-                                    </div>
-                                  </div>
-                                </span>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                      <div
-                        class="perseus-radio-rationale-content rationale_uhlm2-o_O-satReviewRationale_1fcwos"
+                        class="perseus-radio-rationale-content rationale_1w3tmyh"
                         data-test-id="perseus-radio-rationale-content-3"
                       >
                         <span
