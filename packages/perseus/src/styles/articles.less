@@ -55,7 +55,12 @@
 
     @paragraphSpacing: 32px;
     .perseus-widget-container {
-        .legacy-typography;
+        // HACK(matthewc): to get around this fixed font-size
+        // since we want the definition widget to match
+        // surrounding text
+        &:not(.perseus-widget__definition) {
+            .legacy-typography;
+        }
 
         &.widget-float-left,
         &.widget-float-right {

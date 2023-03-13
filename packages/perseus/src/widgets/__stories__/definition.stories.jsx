@@ -2,6 +2,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui.jsx";
+import ArticleRenderer from "../../article-renderer.jsx";
 
 export default {
     title: "Perseus/Widgets/Definition",
@@ -71,12 +72,37 @@ const question2 = {
     },
 };
 
+const article = {
+    content:
+        "###Backstory\n\nDuring World War II, in August of 1943, the [[☃ definition 1]] launched a massive bombing campaign on Milan and its outskirts. The explosions and the ensuing fires killed over 700 people and destroyed many of the city’s most important buildings and monuments, including a significant portion of Santa Maria delle Grazie. Miraculously, the wall with the painting survived, probably because it had been shored up with sandbags and mattresses, but the roof of the refectory was blown off and the other walls were decimated. The _Last Supper_ remained exposed to the elements, covered only with a tarp, for several months, until the refectory (the dining room of the monastery where the _Last Supper_ was painted), was rebuilt and a team of restorers began working to preserve and restore the painting.",
+    images: {},
+    widgets: {
+        "definition 1": {
+            alignment: "default",
+            graded: true,
+            options: {
+                definition:
+                    "The Allies, led by the United Kingdom, the United States, and the Soviet Union, were the group of countries who opposed the Axis powers (Germany, Japan, and Italy) during World War II.",
+                static: false,
+                togglePrompt: "Allies",
+            },
+            static: false,
+            type: "definition",
+            version: {major: 0, minor: 0},
+        },
+    },
+};
+
 type StoryArgs = {||};
 
 export const Question1 = (args: StoryArgs): React.Node => {
     return <RendererWithDebugUI question={question1} />;
 };
 
-export const MultipleDefintions = (args: StoryArgs): React.Node => {
+export const MultipleDefinitions = (args: StoryArgs): React.Node => {
     return <RendererWithDebugUI question={question2} />;
+};
+
+export const ArticleDefintion = (args: StoryArgs): React.Node => {
+    return <ArticleRenderer json={article} useNewStyles />;
 };
