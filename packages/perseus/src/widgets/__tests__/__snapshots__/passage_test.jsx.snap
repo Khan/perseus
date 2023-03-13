@@ -96,7 +96,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div
@@ -593,7 +593,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div
@@ -967,7 +967,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div
@@ -1464,7 +1464,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div
@@ -1801,7 +1801,7 @@ exports[`passage widget should snapshot simple passage (mobile: false) 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div
@@ -1902,7 +1902,7 @@ exports[`passage widget should snapshot simple passage (mobile: true) 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div

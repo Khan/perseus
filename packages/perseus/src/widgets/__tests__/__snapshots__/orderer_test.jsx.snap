@@ -29,7 +29,7 @@ exports[`orderer widget should snapshot on mobile: first mobile render 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__orderer widget-block"
           >
             <div
               class="draggy-boxy-thing orderer height-normal layout-horizontal above-scratchpad blank-background perseus-clearfix perseus-interactive"
@@ -166,7 +166,7 @@ exports[`orderer widget should snapshot: first render 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__orderer widget-block"
           >
             <div
               class="draggy-boxy-thing orderer height-normal layout-horizontal above-scratchpad blank-background perseus-clearfix perseus-interactive"

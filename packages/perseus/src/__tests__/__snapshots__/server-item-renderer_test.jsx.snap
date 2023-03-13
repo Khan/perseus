@@ -39,7 +39,7 @@ exports[`server item renderer should snapshot: initial render 1`] = `
               </span>
                in the box: 
               <div
-                class="perseus-widget-container widget-nohighlight widget-inline-block"
+                class="perseus-widget-container widget-nohighlight perseus-widget__input-number widget-inline-block"
               >
                 <span>
                   <div>

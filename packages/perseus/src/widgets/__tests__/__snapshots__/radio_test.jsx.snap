@@ -40,7 +40,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
           >
             <div
               class="responsiveContainer_vq37gq"
@@ -636,7 +636,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
           >
             <div
               class="responsiveContainer_vq37gq"
@@ -1244,7 +1244,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
           >
             <div
               class="responsiveContainer_vq37gq"
@@ -1852,7 +1852,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
           >
             <div
               class="responsiveContainer_vq37gq"
@@ -2460,7 +2460,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
           >
             <div
               class="responsiveContainer_vq37gq"
@@ -3068,7 +3068,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
           >
             <div
               class="responsiveContainer_vq37gq"
@@ -3676,7 +3676,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
           >
             <div
               class="responsiveContainer_vq37gq"

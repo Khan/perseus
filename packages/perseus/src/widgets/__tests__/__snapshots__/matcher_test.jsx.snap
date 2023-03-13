@@ -28,7 +28,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__matcher widget-block"
           >
             <table
               class="widget_lf609f perseus-widget-matcher"
@@ -374,7 +374,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__matcher widget-block"
           >
             <table
               class="widget_lf609f perseus-widget-matcher"
@@ -720,7 +720,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__matcher widget-block"
           >
             <table
               class="widget_lf609f perseus-widget-matcher"

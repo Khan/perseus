@@ -16,7 +16,7 @@ exports[`passage-ref widget should render with invalid reference 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div
@@ -130,7 +130,7 @@ exports[`passage-ref widget should render with invalid reference 1`] = `
         >
           We can see the word “promotes” is used in 
           <div
-            class="perseus-widget-container widget-nohighlight widget-inline"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage-ref widget-inline"
           >
             <span>
               lines 
@@ -161,7 +161,7 @@ exports[`passage-ref widget should render with multi-line reference 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div
@@ -275,7 +275,7 @@ exports[`passage-ref widget should render with multi-line reference 1`] = `
         >
           We can see the word “promotes” is used in 
           <div
-            class="perseus-widget-container widget-nohighlight widget-inline"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage-ref widget-inline"
           >
             <span>
               lines 
@@ -311,7 +311,7 @@ exports[`passage-ref widget should render with single-line reference 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage widget-block"
           >
             <div>
               <div
@@ -425,7 +425,7 @@ exports[`passage-ref widget should render with single-line reference 1`] = `
         >
           We can see the word “promotes” is used in 
           <div
-            class="perseus-widget-container widget-nohighlight widget-inline"
+            class="perseus-widget-container widget-nohighlight perseus-widget__passage-ref widget-inline"
           >
             <span>
               line 

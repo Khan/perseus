@@ -68,10 +68,8 @@ class WidgetContainer extends React.Component<Props, State> {
             "perseus-widget-container": true,
             "widget-highlight": this.props.shouldHighlight,
             "widget-nohighlight": !this.props.shouldHighlight,
-            // HACK(matthewc): perseus-widget-container is setting a font-size
-            // but we want the definition prompt to match the surrounding font
-            // I'm sorry, but there's a time crunch
-            "perseus-widget__definition": this.props.type === "definition",
+            // give the widget wrappers a unique class by type
+            [`perseus-widget__${this.props.type}`]: true,
         });
 
         const type = this.props.type;
