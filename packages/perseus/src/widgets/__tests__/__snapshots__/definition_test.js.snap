@@ -27,7 +27,7 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
         >
           The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
           <div
-            class="perseus-widget-container widget-nohighlight widget-inline"
+            class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
           >
             <button
               aria-controls="uid-popover-0-wb-id"
@@ -79,7 +79,7 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
         >
           The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
           <div
-            class="perseus-widget-container widget-nohighlight widget-inline"
+            class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
           >
             <button
               aria-controls="uid-popover-1-wb-id"
