@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 2.0.1
+
+### Patch Changes
+
+-   6272dfbe: Bugfix for definition prompt size in articles
+
 ## 2.0.0
 
 ### Major Changes
