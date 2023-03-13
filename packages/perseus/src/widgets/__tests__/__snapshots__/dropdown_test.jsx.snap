@@ -17,7 +17,7 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
         >
           The total number of boxes the forklift can carry is 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__dropdown widget-inline-block"
+            class="perseus-widget-container widget-nohighlight widget-inline-block"
           >
             <div>
               <div
@@ -96,7 +96,7 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
         >
           The total number of boxes the forklift can carry is 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__dropdown widget-inline-block"
+            class="perseus-widget-container widget-nohighlight widget-inline-block"
           >
             <div>
               <div

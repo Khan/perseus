@@ -109,7 +109,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
               class="paragraph"
             >
               <div
-                class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
+                class="perseus-widget-container widget-nohighlight widget-block"
               >
                 <div
                   class="responsiveContainer_vq37gq"
@@ -1022,7 +1022,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
             >
               Enter the number 3 into this field: 
               <div
-                class="perseus-widget-container widget-nohighlight perseus-widget__input-number widget-inline-block"
+                class="perseus-widget-container widget-nohighlight widget-inline-block"
               >
                 <span>
                   <div>

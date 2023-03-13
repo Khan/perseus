@@ -67,7 +67,7 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__matrix widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-matrix"
@@ -325,7 +325,7 @@ exports[`matrix widget should snapshot: first render 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__matrix widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-matrix"

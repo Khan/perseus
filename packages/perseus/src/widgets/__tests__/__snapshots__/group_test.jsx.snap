@@ -65,7 +65,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                 class="paragraph"
               >
                 <div
-                  class="perseus-widget-container widget-nohighlight perseus-widget__group widget-block"
+                  class="perseus-widget-container widget-nohighlight widget-block"
                 >
                   <div
                     class="perseus-group perseus-group-invalid-answer"
@@ -108,7 +108,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             class="paragraph"
                           >
                             <div
-                              class="perseus-widget-container widget-nohighlight perseus-widget__radio widget-block"
+                              class="perseus-widget-container widget-nohighlight widget-block"
                             >
                               <div
                                 class="responsiveContainer_vq37gq"
@@ -761,7 +761,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                 class="paragraph"
               >
                 <div
-                  class="perseus-widget-container widget-nohighlight perseus-widget__group widget-block"
+                  class="perseus-widget-container widget-nohighlight widget-block"
                 >
                   <div
                     class="perseus-group perseus-group-invalid-answer"
@@ -805,7 +805,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             class="paragraph"
                           >
                             <div
-                              class="perseus-widget-container widget-nohighlight perseus-widget__numeric-input widget-inline-block"
+                              class="perseus-widget-container widget-nohighlight widget-inline-block"
                             >
                               <div>
                                 <span>
@@ -1015,7 +1015,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             class="paragraph"
                           >
                             <div
-                              class="perseus-widget-container widget-nohighlight perseus-widget__numeric-input widget-inline-block"
+                              class="perseus-widget-container widget-nohighlight widget-inline-block"
                             >
                               <div>
                                 <span>
@@ -1200,7 +1200,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             class="paragraph"
                           >
                             <div
-                              class="perseus-widget-container widget-nohighlight perseus-widget__image widget-block"
+                              class="perseus-widget-container widget-nohighlight widget-block"
                             >
                               <div
                                 class="perseus-image-widget"

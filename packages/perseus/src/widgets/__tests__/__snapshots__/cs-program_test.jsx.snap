@@ -16,7 +16,7 @@ exports[`cs-program widget should snapshot on mobile: first mobile render 1`] = 
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__cs-program widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="widthOverride_1vdzrqd-o_O-container_1v2yujs"
@@ -53,7 +53,7 @@ exports[`cs-program widget should snapshot: first render 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__cs-program widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="widthOverride_1vdzrqd-o_O-container_1v2yujs"

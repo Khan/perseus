@@ -26,7 +26,7 @@ exports[`interaction widget should render 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interaction widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="graphie-container"

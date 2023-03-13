@@ -24,7 +24,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__graded-group-set widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="container_14sgdtb"
@@ -63,7 +63,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         </span>
                            
                         <div
-                          class="perseus-widget-container widget-nohighlight perseus-widget__numeric-input widget-inline-block"
+                          class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
                           <div>
                             <span>
@@ -299,7 +299,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         </span>
                            
                         <div
-                          class="perseus-widget-container widget-nohighlight perseus-widget__numeric-input widget-inline-block"
+                          class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
                           <div>
                             <span>
@@ -535,7 +535,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         </span>
                            
                         <div
-                          class="perseus-widget-container widget-nohighlight perseus-widget__numeric-input widget-inline-block"
+                          class="perseus-widget-container widget-nohighlight widget-inline-block"
                         >
                           <div>
                             <span>

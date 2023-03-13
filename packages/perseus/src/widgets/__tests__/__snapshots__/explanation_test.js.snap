@@ -18,7 +18,7 @@ exports[`Explanation should snapshot for article when expanded: expanded 1`] = `
           Here's the explanation
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__explanation widget-inline"
+            class="perseus-widget-container widget-nohighlight widget-inline"
           >
             <div
               class="container_167wsvl"
@@ -86,7 +86,7 @@ exports[`Explanation should snapshot for article+mobile when expanded: expanded 
           Here's the explanation
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__explanation widget-inline"
+            class="perseus-widget-container widget-nohighlight widget-inline"
           >
             <div
               class="container_167wsvl"
@@ -162,7 +162,7 @@ exports[`Explanation should snapshot for article+mobile: initial render 1`] = `
           Here's the explanation
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__explanation widget-inline"
+            class="perseus-widget-container widget-nohighlight widget-inline"
           >
             <div
               class="container_167wsvl"
@@ -208,7 +208,7 @@ exports[`Explanation should snapshot for article: initial render 1`] = `
           Here's the explanation
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__explanation widget-inline"
+            class="perseus-widget-container widget-nohighlight widget-inline"
           >
             <div
               class="container_167wsvl"
@@ -254,7 +254,7 @@ exports[`Explanation should snapshot for mobile when expanded: expanded 1`] = `
           Here's the explanation
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__explanation widget-inline"
+            class="perseus-widget-container widget-nohighlight widget-inline"
           >
             <div
               class="container_167wsvl"
@@ -330,7 +330,7 @@ exports[`Explanation should snapshot for mobile: initial render 1`] = `
           Here's the explanation
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__explanation widget-inline"
+            class="perseus-widget-container widget-nohighlight widget-inline"
           >
             <div
               class="container_167wsvl"
@@ -376,7 +376,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
           Here's the explanation
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__explanation widget-inline"
+            class="perseus-widget-container widget-nohighlight widget-inline"
           >
             <div
               class="container_167wsvl"
@@ -444,7 +444,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
           Here's the explanation
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__explanation widget-inline"
+            class="perseus-widget-container widget-nohighlight widget-inline"
           >
             <div
               class="container_167wsvl"

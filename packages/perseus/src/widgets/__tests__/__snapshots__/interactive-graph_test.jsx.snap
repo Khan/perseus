@@ -57,7 +57,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
            
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interactive-graph widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-widget perseus-widget-interactive-graph"
@@ -462,7 +462,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interactive-graph widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-widget perseus-widget-interactive-graph"
@@ -894,7 +894,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interactive-graph widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-widget perseus-widget-interactive-graph"
@@ -1301,7 +1301,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interactive-graph widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-widget perseus-widget-interactive-graph"
@@ -1839,7 +1839,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
            
 
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interactive-graph widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-widget perseus-widget-interactive-graph"
@@ -2230,7 +2230,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interactive-graph widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-widget perseus-widget-interactive-graph"
@@ -2662,7 +2662,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interactive-graph widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-widget perseus-widget-interactive-graph"
@@ -2881,7 +2881,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
           class="paragraph"
         >
           <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__interactive-graph widget-block"
+            class="perseus-widget-container widget-nohighlight widget-block"
           >
             <div
               class="perseus-widget perseus-widget-interactive-graph"
