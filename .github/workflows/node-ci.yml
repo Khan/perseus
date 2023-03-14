@@ -184,3 +184,56 @@ jobs:
 
     - name: Extract strings
       run: yarn extract-strings
+
+  publish_snapshot:
+    name: Publish npm snapshot
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: Khan/actions@shared-node-cache-v0
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Publish Snapshot Release to npm
+      id: publish-snapshot
+      run: ./utils/publish-snapshot.sh # All config is via Github env vars
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Calculate short SHA for this commit
+      id: short-sha
+      run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
+
+    # Note: these two actions are locked to the latest version that were
+    # published when I created this yml file (just for security).
+    - name: Find existing comment
+      uses: peter-evans/find-comment@034abe94d3191f9c89d870519735beae326f2bdb
+      id: find-comment
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: npm Snapshot Published
+
+    - name: Create npm snapshot comment, if none exists.
+      uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}
+        edit-mode: replace
+        body: |
+          # npm Snapshot Published
+
+          🎉 Good news!! We've packaged up the latest commit from this PR (${{
+          steps.short-sha.outputs.short_sha }}) and published it to npm. You
+          can install it using the tag "${{
+          steps.publish-snapshot.outputs.npm_snapshot_tag }}".
+
+          Example:
+          `yarn install @khanacademy/perseus@${{
+          steps.publish-snapshot.outputs.npm_snapshot_tag }}`
