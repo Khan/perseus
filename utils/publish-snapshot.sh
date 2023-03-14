@@ -6,15 +6,18 @@ set -o pipefail
 set -u # Treat unset variables as an error when substituting.
 
 # This script uses the `changeset` tool to version each package as a snapshot
-# release and then publishes that release to npm.
+# release and then publishes that release to npm with a tag named after the PR.
+#
 # It is designed to be run in a Github Action, and by default will abort if the
 # `CI`, `GITHUB_EVENT_NAME`, or `GITHUB_REF` environment variables are unset.
 
 # Identifies the path that the script is in (http://stackoverflow.com/a/246128/11807)
 MYPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-# ROOT is the root directory of your project. It isn't always needed if your script is at the root of your project, but its a useful convention to adopt so that your scripts can be moved and the only thing that needs to change then is ROOT.
+# ROOT is the root directory of our project.
 ROOT="$MYPATH/.."
+
+pushd "$ROOT"
 
 if [ -z ${CI+CI_UNSET} ]; then
     echo "CI environment variable is unset. Exiting!"
@@ -38,19 +41,19 @@ if [[
     exit
 fi
 
+echo "Running for $GITHUB_EVENT_NAME @ $GITHUB_REF"
+
 # Example GITHUB_REF
 # refs/pull/:prNumber/merge
-
-echo "Running for ref: $GITHUB_REF"
-
 if [[ "$GITHUB_REF" =~ refs/pull/([[:digit:]]+)/merge ]]; then
     echo "Found PR #${BASH_REMATCH[1]}"
     PR_NUMBER="PR${BASH_REMATCH[1]}"
 else
-    echo "Pull Request number not found ref. Exiting!"
+    echo "Pull Request number not found in ref. Exiting!"
     exit 1
 fi
 
+# publish:ci steps
 node "$ROOT/utils/pre-publish-check-ci.js"
 
 if ! git diff --stat --exit-code HEAD; then
@@ -61,6 +64,7 @@ fi
 yarn build
 yarn extract-strings
 
+# Now version the packages and publish a snapshot
 yarn changeset version --snapshot "$PR_NUMBER"
 yarn changeset publish --no-git-tag --tag "${PR_NUMBER}"
 
