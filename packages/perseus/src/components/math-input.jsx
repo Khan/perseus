@@ -3,37 +3,45 @@
 import classNames from "classnames";
 import $ from "jquery";
 import MathQuill from "mathquill";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import TexButtons from "./tex-buttons.jsx";
 
-const PT = PropTypes;
+type Props = {|
+    className?: string,
+    value: string,
+    onChange: $FlowFixMe,
+    convertDotToTimes: boolean,
+    buttonsVisible: "always" | "never" | "focused",
+    buttonSets: $FlowFixMe,
+    labelText?: string,
+    onFocus?: $FlowFixMe,
+    onBlur?: $FlowFixMe,
+|};
+
+type DefaultProps = {|
+    value: string,
+    convertDotToTimes: boolean,
+    buttonsVisible: "always" | "never" | "focused",
+|};
+
+type State = {|
+    focused: boolean,
+|};
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
-class MathInput extends React.Component<$FlowFixMe, $FlowFixMe> {
+class MathInput extends React.Component<Props, State> {
     mouseDown: boolean;
 
-    static propTypes = {
-        value: PT.string,
-        onChange: PT.func.isRequired,
-        convertDotToTimes: PT.bool,
-        buttonsVisible: PT.oneOf(["always", "never", "focused"]),
-        buttonSets: TexButtons.buttonSetsType.isRequired,
-        labelText: PropTypes.string,
-        onFocus: PT.func,
-        onBlur: PT.func,
-    };
-
-    static defaultProps: $FlowFixMe = {
+    static defaultProps: DefaultProps = {
         value: "",
         convertDotToTimes: false,
         buttonsVisible: "focused",
     };
 
-    state: $FlowFixMe = {focused: false};
+    state: State = {focused: false};
 
     render(): React.Node {
         let className = classNames({
