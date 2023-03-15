@@ -48,7 +48,12 @@ fi
 # we just allow it to write the file in our local dir (although I would prefer
 # to use `mktemp`).
 yarn changeset status --verbose --output changeset-status.json
-jq -e '.releases | length | if . > 0 then . else "Error: No changesets found\\n" | halt_error(1) end' < "changeset-status.json"
+# We use jq to check if the json outpu has changesets. If not, we exit the
+# process (but not with a non-zero exit status because we don't want to cause
+# the github action to exit with a failure status).
+jq -e '.releases | length | if . > 0 then . else "No changesets found" | halt_error(1) end' \
+    < "changeset-status.json" || \
+    exit 0
 
 
 echo "Running for $GITHUB_EVENT_NAME @ $GITHUB_REF"
