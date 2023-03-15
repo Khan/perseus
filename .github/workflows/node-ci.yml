@@ -228,7 +228,7 @@ jobs:
         comment-author: 'github-actions[bot]'
         body-includes: "npm Snapshot:"
 
-    - name: "[Changesets] Create npm snapshot comment if none exists, otherwise replace."
+    - name: Create or update npm snapshot comment - success
       if: steps.publish-snapshot.outputs.npm_snapshot_tag != ""
       uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
       with:
@@ -249,7 +249,7 @@ jobs:
           steps.publish-snapshot.outputs.npm_snapshot_tag }}
           ```
 
-    - name: "[No Changesets] Create npm snapshot comment if none exists, otherwise replace."
+    - name: Create or update npm snapshot comment - failure
       if: steps.publish-snapshot.outputs.npm_snapshot_tag == ""
       uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
       with:
