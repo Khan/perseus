@@ -235,5 +235,5 @@ jobs:
           steps.publish-snapshot.outputs.npm_snapshot_tag }}".
 
           Example:
-          `yarn install @khanacademy/perseus@${{
+          `yarn add @khanacademy/perseus@${{
           steps.publish-snapshot.outputs.npm_snapshot_tag }}`
