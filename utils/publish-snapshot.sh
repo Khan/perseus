@@ -43,9 +43,12 @@ if [[
 fi
 
 # Check if we need to do any work
-temp_file=$(mktemp)
-yarn changeset status --verbose --output "$temp_file"
-jq -e '.releases | length | if . > 0 then . else "Error: No changesets found\\n" | halt_error(1) end' < "$temp_file"
+# NOTE: changeset's --output flag has a bug where it always prefixes whatever
+# you pass to it with `cwd` (the code does `path.join(cwd, outputParam)`). So
+# we just allow it to write the file in our local dir (although I would prefer
+# to use `mktemp`).
+yarn changeset status --verbose --output changeset-status.json
+jq -e '.releases | length | if . > 0 then . else "Error: No changesets found\\n" | halt_error(1) end' < "changeset-status.json"
 
 
 echo "Running for $GITHUB_EVENT_NAME @ $GITHUB_REF"
