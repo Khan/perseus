@@ -25,6 +25,8 @@ set -x
 pwd
 git status
 git branch -vv
+git rev-parse HEAD
+git merge-base main HEAD
 git log main..head
 
 set +x
