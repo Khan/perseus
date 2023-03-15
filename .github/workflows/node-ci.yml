@@ -198,7 +198,8 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: '0'
-    - run: |
+    - name: Ensure main branch is avaialble
+      run: |
         REF=$(git rev-parse HEAD)
         git checkout main
         git checkout $REF
@@ -229,7 +230,7 @@ jobs:
         body-includes: "npm Snapshot:"
 
     - name: Create or update npm snapshot comment - success
-      if: steps.publish-snapshot.outputs.npm_snapshot_tag != ""
+      if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
       uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -250,7 +251,7 @@ jobs:
           ```
 
     - name: Create or update npm snapshot comment - failure
-      if: steps.publish-snapshot.outputs.npm_snapshot_tag == ""
+      if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
       uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
       with:
         issue-number: ${{ github.event.pull_request.number }}
