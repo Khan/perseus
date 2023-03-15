@@ -260,5 +260,6 @@ jobs:
         body: |
           # npm Snapshot: **NOT** Published
 
-          🤕 Oh noes!! We couldn't find any changesets in this branch. As a
-          result, we did not publish an npm snapshot for you.
+          🤕 Oh noes!! We couldn't find any changesets in this PR (${{
+          steps.short-sha.outputs.short_sha }}). As a result, we did not
+          publish an npm snapshot for you.
