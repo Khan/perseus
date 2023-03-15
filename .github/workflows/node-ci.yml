@@ -220,7 +220,7 @@ jobs:
         comment-author: 'github-actions[bot]'
         body-includes: npm Snapshot Published
 
-    - name: Create npm snapshot comment, if none exists.
+    - name: Create npm snapshot comment if none exists, otherwise replace.
       uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
       with:
         issue-number: ${{ github.event.pull_request.number }}
