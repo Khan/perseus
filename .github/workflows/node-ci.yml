@@ -248,7 +248,6 @@ jobs:
           yarn add @khanacademy/perseus@${{
           steps.publish-snapshot.outputs.npm_snapshot_tag }}
           ```
-        reactions: rocket
 
     - name: \[No Changesets\] Create npm snapshot comment if none exists, otherwise replace.
       if: ${{ steps.publish-snapshot.outputs.npm_snapshot_tag }} == ""
@@ -262,4 +261,3 @@ jobs:
 
           🤕 Oh noes!! We couldn't find any changesets in this branch. As a
           result, we did not publish an npm snapshot for you.
-        reactions: confused
