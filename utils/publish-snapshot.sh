@@ -41,6 +41,12 @@ if [[
     exit
 fi
 
+# Check if we need to do any work
+temp_file=$(mktemp)
+yarn changeset status --verbose --output "$temp_file"
+jq -e '.releases | length | if . > 0 then . else "Error: No changesets found\\n" | halt_error(1) end' < "$temp_file"
+
+
 echo "Running for $GITHUB_EVENT_NAME @ $GITHUB_REF"
 
 # Example GITHUB_REF
@@ -72,4 +78,4 @@ echo "npm_snapshot_tag=$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
 # Now throw away all local changes (we've published a snapshot and that's all
 # we needed).
-git reset –hard
+git reset --hard
