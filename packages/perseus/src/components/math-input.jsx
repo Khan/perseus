@@ -10,12 +10,14 @@ import TexButtons from "./tex-buttons.jsx";
 
 import type {ButtonSetsType} from "./tex-buttons.jsx";
 
+type ButtonsVisibleType = "always" | "never" | "focused";
+
 type Props = {|
     className?: string,
     value: string,
     onChange: $FlowFixMe,
     convertDotToTimes: boolean,
-    buttonsVisible: "always" | "never" | "focused",
+    buttonsVisible: ButtonsVisibleType,
     buttonSets: ButtonSetsType,
     labelText?: string,
     onFocus?: () => void,
@@ -25,7 +27,7 @@ type Props = {|
 type DefaultProps = {|
     value: string,
     convertDotToTimes: boolean,
-    buttonsVisible: "always" | "never" | "focused",
+    buttonsVisible: ButtonsVisibleType,
 |};
 
 type State = {|
