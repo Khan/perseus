@@ -63,7 +63,9 @@ fi
 node "$ROOT/utils/pre-publish-check-ci.js"
 
 if ! git diff --stat --exit-code HEAD; then
-    echo "Git repo is dirty. Stash/Commit your changes before running."
+    echo "Git repo is dirty. This is unexpected when running in CI."
+    echo "Please review the logs leading up to this error to figure out why " \
+         "the repo was touched."
     exit 1
 fi
 
