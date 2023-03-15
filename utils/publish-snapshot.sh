@@ -7,7 +7,6 @@
 # It is designed to be run in a Github Action, and by default will abort if the
 # `CI`, `GITHUB_EVENT_NAME`, or `GITHUB_REF` environment variables are unset.
 
-
 # https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin
 set -e # Exit immediately if a command exits with a non-zero status.
 set -o pipefail
