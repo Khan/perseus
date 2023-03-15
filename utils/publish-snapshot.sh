@@ -20,6 +20,15 @@ ROOT="$MYPATH/.."
 
 pushd "$ROOT"
 
+set -x
+
+pwd
+git status
+git branch -vv
+git log main..head
+
+set +x
+
 if [ -z ${CI+CI_UNSET} ]; then
     echo "CI environment variable is unset. Exiting!"
     exit 1
