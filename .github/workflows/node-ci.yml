@@ -226,16 +226,17 @@ jobs:
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
-        body-includes: npm Snapshot Published
+        body-includes: "npm Snapshot:"
 
-    - name: Create npm snapshot comment if none exists, otherwise replace.
+    - name: \[Changesets\] Create npm snapshot comment if none exists, otherwise replace.
+      if: ${{ steps.publish-snapshot.outputs.npm_snapshot_tag }} != ""
       uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-id: ${{ steps.find-comment.outputs.comment-id }}
         edit-mode: replace
         body: |
-          # npm Snapshot Published
+          # npm Snapshot: Published
 
           🎉 Good news!! We've packaged up the latest commit from this PR (${{
           steps.short-sha.outputs.short_sha }}) and published it to npm. You
@@ -245,3 +246,18 @@ jobs:
           Example:
           `yarn add @khanacademy/perseus@${{
           steps.publish-snapshot.outputs.npm_snapshot_tag }}`
+        reactions: rocket
+
+    - name: \[No Changesets\] Create npm snapshot comment if none exists, otherwise replace.
+      if: ${{ steps.publish-snapshot.outputs.npm_snapshot_tag }} == ""
+      uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}
+        edit-mode: replace
+        body: |
+          # npm Snapshot: **NOT** Published
+
+          🤕 Oh noes!! We couldn't find any changesets in this branch. As a
+          result, we did not publish an npm snapshot for you.
+        reactions: confused
