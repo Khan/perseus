@@ -240,12 +240,14 @@ jobs:
 
           🎉 Good news!! We've packaged up the latest commit from this PR (${{
           steps.short-sha.outputs.short_sha }}) and published it to npm. You
-          can install it using the tag "${{
-          steps.publish-snapshot.outputs.npm_snapshot_tag }}".
+          can install it using the tag `${{
+          steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
 
           Example:
-          `yarn add @khanacademy/perseus@${{
-          steps.publish-snapshot.outputs.npm_snapshot_tag }}`
+          ```sh
+          yarn add @khanacademy/perseus@${{
+          steps.publish-snapshot.outputs.npm_snapshot_tag }}
+          ```
         reactions: rocket
 
     - name: \[No Changesets\] Create npm snapshot comment if none exists, otherwise replace.
