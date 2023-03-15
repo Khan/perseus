@@ -252,24 +252,22 @@ const buttonSets: ButtonSets = {
     ],
 };
 
+export type ButtonSetsType = $ReadOnlyArray<$Keys<typeof buttonSets>>;
+
 type TexButtonProps = {|
-    sets: $ReadOnlyArray<$Keys<typeof buttonSets>>,
+    sets: ButtonSetsType,
     onInsert: (Inserter) => void,
     className?: string,
     convertDotToTimes?: boolean,
 |};
 
-const buttonSetsType = PropTypes.arrayOf(PropTypes.oneOf(_(buttonSets).keys()));
+const buttonSetsPropType = PropTypes.arrayOf(
+    PropTypes.oneOf(_(buttonSets).keys()),
+);
 
 class TexButtons extends React.Component<TexButtonProps> {
-    static propTypes = {
-        sets: buttonSetsType.isRequired,
-        onInsert: PropTypes.func.isRequired,
-        className: PropTypes.string,
-    };
-
     static buttonSets: typeof buttonSets = buttonSets;
-    static buttonSetsType: $FlowFixMe = buttonSetsType;
+    static buttonSetsType: $FlowFixMe = buttonSetsPropType;
 
     render(): React.Node {
         // Always show buttonSets in the same order. Note: Technically it's ok
