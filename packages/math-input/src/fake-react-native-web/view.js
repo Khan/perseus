@@ -20,11 +20,11 @@ type Props = {|
     // difficult to override with inline styles.)
     extraClassName?: string,
     numberOfLines?: number,
-    onClick?: () => void,
-    onTouchCancel?: () => void,
-    onTouchEnd?: () => void,
-    onTouchMove?: () => void,
-    onTouchStart?: () => void,
+    onClick?: (SyntheticEvent<HTMLDivElement>) => void,
+    onTouchCancel?: (SyntheticTouchEvent<HTMLDivElement>) => void,
+    onTouchEnd?: (SyntheticTouchEvent<HTMLDivElement>) => void,
+    onTouchMove?: (SyntheticTouchEvent<HTMLDivElement>) => void,
+    onTouchStart?: (SyntheticTouchEvent<HTMLDivElement>) => void,
     role?: string,
     style?: CSSProperties,
 |};

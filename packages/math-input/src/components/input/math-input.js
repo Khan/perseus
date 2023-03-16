@@ -3,7 +3,6 @@ import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -15,7 +14,6 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style.js";
-import {keypadElementPropType} from "../prop-types.js";
 
 import CursorHandle from "./cursor-handle.js";
 import DragListener from "./drag-listener.js";
@@ -28,7 +26,7 @@ type Props = {|
     keypadElement: $FlowFixMe,
     onBlur: () => void,
     onChange: $FlowFixMe,
-    onFocus: $FlowFixMe,
+    onFocus: () => void,
     style: $FlowFixMe,
     value: string,
 |};
@@ -55,31 +53,16 @@ class MathInput extends React.Component<Props, State> {
     didTouchOutside: ?boolean;
     didScroll: ?boolean;
     mathField: $FlowFixMe;
-    recordTouchStartOutside: $FlowFixMe;
-    blurOnTouchEndOutside: $FlowFixMe;
+    recordTouchStartOutside: ($FlowFixMe) => void;
+    blurOnTouchEndOutside: ($FlowFixMe) => void;
     dragListener: $FlowFixMe;
-    inputRef: $FlowFixMe;
+    inputRef: ?HTMLDivElement;
     _isMounted: ?boolean;
     _mathContainer: $FlowFixMe;
-    _container: $FlowFixMe;
+    _container: HTMLDivElement;
     _root: $FlowFixMe;
-    _containerBounds: $FlowFixMe;
-    _keypadBounds: $FlowFixMe;
-
-    static propTypes = {
-        // The React element node associated with the keypad that will send
-        // key-press events to this input. If provided, this can be used to:
-        //   (1) Avoid blurring the input, on user interaction with the keypad.
-        //   (2) Scroll the input into view, if it would otherwise be obscured
-        //       by the keypad on focus.
-        keypadElement: keypadElementPropType,
-        onBlur: PropTypes.func,
-        onChange: PropTypes.func.isRequired,
-        onFocus: PropTypes.func,
-        // An extra, vanilla style object, to be applied to the math input.
-        style: PropTypes.any,
-        value: PropTypes.string,
-    };
+    _containerBounds: ClientRect;
+    _keypadBounds: ?ClientRect;
 
     static defaultProps: DefaultProps = {
         style: {},
@@ -134,9 +117,7 @@ class MathInput extends React.Component<Props, State> {
 
         this._updateInputPadding();
 
-        this._container = ReactDOM.findDOMNode(this);
-        // $FlowFixMe[incompatible-use]
-        // $FlowFixMe[prop-missing]
+        this._container = ((ReactDOM.findDOMNode(this): any): HTMLDivElement);
         this._root = this._container.querySelector(".mq-root-block");
         // $FlowFixMe[incompatible-use]
         // $FlowFixMe[prop-missing]
@@ -271,9 +252,7 @@ class MathInput extends React.Component<Props, State> {
     };
 
     _updateInputPadding: () => void = () => {
-        this._container = ReactDOM.findDOMNode(this);
-        // $FlowFixMe[incompatible-use]
-        // $FlowFixMe[prop-missing]
+        this._container = ((ReactDOM.findDOMNode(this): any): HTMLDivElement);
         this._root = this._container.querySelector(".mq-root-block");
 
         const padding = this.getInputInnerPadding();
@@ -295,7 +274,7 @@ class MathInput extends React.Component<Props, State> {
 
     _updateCursorHandle: (?boolean) => void = (animateIntoPosition) => {
         const containerBounds = this._container.getBoundingClientRect();
-        const cursor = this._container.querySelector(".mq-cursor");
+        const cursor: $FlowFixMe = this._container.querySelector(".mq-cursor");
         const cursorBounds = cursor.getBoundingClientRect();
 
         const cursorWidth = cursorBounds.width;
@@ -425,7 +404,7 @@ class MathInput extends React.Component<Props, State> {
      * The algorithm ends its search when y goes outside the bounds of
      * containerBounds.
      *
-     * @param {ClientRect} containerBounds - bounds of the container node
+     * @param {DOMRect} containerBounds - bounds of the container node
      * @param {number} x - the initial x coordinate in the viewport
      * @param {number} y - the initial y coordinate in the viewport
      * @param {number} dx - horizontal spacing between elementFromPoint calls
@@ -611,7 +590,7 @@ class MathInput extends React.Component<Props, State> {
             });
     };
 
-    handleTouchStart: ($FlowFixMe) => void = (e) => {
+    handleTouchStart: (SyntheticTouchEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
         // Hide the cursor handle on touch start, if the handle itself isn't
@@ -636,7 +615,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    handleTouchMove: ($FlowFixMe) => void = (e) => {
+    handleTouchMove: (SyntheticTouchEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
         // Update the handle-less cursor's location on move, if there's any
@@ -651,7 +630,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    handleTouchEnd: ($FlowFixMe) => void = (e) => {
+    handleTouchEnd: (SyntheticTouchEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
         // And on touch-end, reveal the cursor, unless the input is empty. Note
@@ -670,7 +649,9 @@ class MathInput extends React.Component<Props, State> {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchStart: ($FlowFixMe) => void = (e) => {
+    onCursorHandleTouchStart: (SyntheticTouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
         // NOTE(charlie): The cursor handle is a child of this view, so whenever
         // it receives a touch event, that event would also typically be bubbled
         // up to our own handlers. However, we want the cursor to handle its own
@@ -707,7 +688,9 @@ class MathInput extends React.Component<Props, State> {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchMove: ($FlowFixMe) => void = (e) => {
+    onCursorHandleTouchMove: (SyntheticTouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
         e.stopPropagation();
 
         const x = e.changedTouches[0].clientX;
@@ -761,7 +744,9 @@ class MathInput extends React.Component<Props, State> {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchEnd: ($FlowFixMe) => void = (e) => {
+    onCursorHandleTouchEnd: (SyntheticTouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
         e.stopPropagation();
 
         this._updateCursorHandle(true);
@@ -772,11 +757,12 @@ class MathInput extends React.Component<Props, State> {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchCancel: ($FlowFixMe) => void = (e) => {
-        e.stopPropagation();
+    onCursorHandleTouchCancel: (SyntheticTouchEvent<HTMLSpanElement>) => void =
+        (e) => {
+            e.stopPropagation();
 
-        this._updateCursorHandle(true);
-    };
+            this._updateCursorHandle(true);
+        };
 
     domKeyToMathQuillKey: (string) => ?string = (key) => {
         const keyMap = {
@@ -811,7 +797,7 @@ class MathInput extends React.Component<Props, State> {
         return null;
     };
 
-    handleKeyUp: ($FlowFixMe) => void = (event) => {
+    handleKeyUp: (SyntheticKeyboardEvent<HTMLDivElement>) => void = (event) => {
         const mathQuillKey = this.domKeyToMathQuillKey(event.key);
 
         if (mathQuillKey) {
@@ -900,7 +886,7 @@ class MathInput extends React.Component<Props, State> {
                 onTouchStart={this.handleTouchStart}
                 onTouchMove={this.handleTouchMove}
                 onTouchEnd={this.handleTouchEnd}
-                onClick={(e: $FlowFixMe) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
                 role={"textbox"}
                 ariaLabel={ariaLabel}
             >

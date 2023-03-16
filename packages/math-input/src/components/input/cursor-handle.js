@@ -1,8 +1,8 @@
+// @flow
 /**
  * Renders the green tear-shaped handle under the cursor.
  */
 
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {
@@ -18,26 +18,33 @@ const cursorRadiusPx = cursorHandleRadiusPx;
 const cursorHeightPx = cursorHandleDistanceMultiplier * (cursorRadiusPx * 4);
 const cursorWidthPx = 4 * cursorRadiusPx;
 
-class CursorHandle extends React.Component {
-    static propTypes = {
-        animateIntoPosition: PropTypes.bool,
-        onTouchCancel: PropTypes.func.isRequired,
-        onTouchEnd: PropTypes.func.isRequired,
-        onTouchMove: PropTypes.func.isRequired,
-        onTouchStart: PropTypes.func.isRequired,
-        visible: PropTypes.bool.isRequired,
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-    };
+type Props = {|
+    animateIntoPosition: ?boolean,
+    onTouchCancel: (SyntheticTouchEvent<HTMLSpanElement>) => void,
+    onTouchEnd: (SyntheticTouchEvent<HTMLSpanElement>) => void,
+    onTouchMove: (SyntheticTouchEvent<HTMLSpanElement>) => void,
+    onTouchStart: (SyntheticTouchEvent<HTMLSpanElement>) => void,
+    visible: boolean,
+    x: number,
+    y: number,
+|};
 
-    static defaultProps = {
+type DefaultProps = {|
+    animateIntoPosition: Props["animateIntoPosition"],
+    visible: Props["visible"],
+    x: Props["x"],
+    y: Props["y"],
+|};
+
+class CursorHandle extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         animateIntoPosition: false,
         visible: false,
         x: 0,
         y: 0,
     };
 
-    render() {
+    render(): React.Node {
         const {x, y, animateIntoPosition} = this.props;
 
         const animationStyle = animateIntoPosition
