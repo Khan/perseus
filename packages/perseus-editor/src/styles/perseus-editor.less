@@ -50,6 +50,7 @@
 }
 
 .user-select (@select) {
+	-webkit-user-select: @select;
   user-select: @select;
 }
 
@@ -1174,6 +1175,7 @@
 // I know this is autoprefixed in prod, but I want it to work in the perseus
 // repo.
 .show-div-button {
+    -webkit-user-select: none;
     user-select: none;
 }
 
