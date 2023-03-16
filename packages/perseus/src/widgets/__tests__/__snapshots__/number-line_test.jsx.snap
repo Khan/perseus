@@ -236,7 +236,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                     style="position: absolute; left: 0px; top: 0px;"
                   >
                     <div
-                      style="position: absolute; width: 24px; height: 24px; left: 17.999999999999993px; top: 28px; webkit-filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5)); filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5)); transform: translateX(0px) translateY(0px) translateZ(0);"
+                      style="position: absolute; width: 24px; height: 24px; left: 17.999999999999993px; top: 28px; filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5)); transform: translateX(0px) translateY(0px) translateZ(0);"
                     >
                       <svg
                         height="24"
