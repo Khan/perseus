@@ -84,9 +84,9 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric({
             answers,
             labelText: "",
-            size: "medium",
-            static: false,
+            size: "normal",
             coefficient: false,
+            static: false,
         });
         expect(singleAnswer).toBe("12.2");
     });
@@ -99,9 +99,9 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric({
             answers,
             labelText: "",
-            size: "medium",
-            static: false,
+            size: "normal",
             coefficient: false,
+            static: false,
         });
         expect(singleAnswer).toBe("1252");
     });
@@ -111,9 +111,9 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric({
             answers,
             labelText: "",
-            size: "medium",
-            static: false,
+            size: "normal",
             coefficient: false,
+            static: false,
         });
         expect(singleAnswer).toBeUndefined();
     });
@@ -126,15 +126,15 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
                     value: 1.0,
                     maxError: 0.2,
                     answerForms: ["decimal"],
-                    simplify: "",
+                    simplify: "required",
                     strict: false,
                     message: "",
                 },
             ],
             labelText: "",
             size: "normal",
-            static: false,
             coefficient: true,
+            static: false,
         };
         const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric(rubric);
         expect(singleAnswer).toBe("1 ± 0.2");
@@ -155,15 +155,15 @@ describe("static function validate", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "required",
                     strict: false,
                     message: "",
                 },
             ],
             labelText: "",
             size: "normal",
-            static: false,
             coefficient: true,
+            static: false,
         };
 
         const useInput = {
@@ -189,15 +189,15 @@ describe("static function validate", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "required",
                     strict: false,
                     message: "",
                 },
             ],
             labelText: "",
             size: "normal",
-            static: false,
             coefficient: true,
+            static: false,
         };
 
         const useInput = {
@@ -221,15 +221,15 @@ describe("static function validate", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "required",
                     strict: true,
                     message: "",
                 },
             ],
             labelText: "",
             size: "normal",
-            static: false,
             coefficient: true,
+            static: false,
         };
 
         const useInput = {
@@ -255,15 +255,15 @@ describe("static function validate", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0.2,
-                    simplify: "",
+                    simplify: "required",
                     strict: true,
                     message: "",
                 },
             ],
             labelText: "",
             size: "normal",
-            static: false,
             coefficient: true,
+            static: false,
         };
 
         const useInput = {
@@ -289,15 +289,15 @@ describe("static function validate", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0.2,
-                    simplify: "",
+                    simplify: "required",
                     strict: true,
                     message: "",
                 },
             ],
             labelText: "",
             size: "normal",
-            static: false,
             coefficient: true,
+            static: false,
         };
 
         const useInput = {

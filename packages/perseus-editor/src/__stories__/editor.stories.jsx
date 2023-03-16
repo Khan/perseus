@@ -7,10 +7,10 @@ import Editor from "../editor.jsx";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing.js";
 
 export default {
-    title: "Perseus/Editor",
+    title: "Perseus/Editor/Demo",
 };
 
-export const Rational = (): React.Node => {
+export const Unified = (): React.Node => {
     registerAllWidgetsAndEditorsForTesting();
     Dependencies.getDependencies().shouldUseFutureKaTeX(false);
 

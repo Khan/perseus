@@ -125,6 +125,7 @@ export type {ParsedValue} from "./util.js";
 export type {
     MathFormat,
     InputNumberWidget,
+    NumericInputWidget,
     PerseusRadioWidgetOptions,
     PerseusRenderer,
 } from "./perseus-types.js";
