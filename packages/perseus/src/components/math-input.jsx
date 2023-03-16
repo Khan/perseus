@@ -25,9 +25,9 @@ type Props = {|
 |};
 
 type DefaultProps = {|
-    value: string,
-    convertDotToTimes: boolean,
-    buttonsVisible: ButtonsVisibleType,
+    value: Props["value"],
+    convertDotToTimes: Props["convertDotToTimes"],
+    buttonsVisible: Props["buttonsVisible"],
 |};
 
 type State = {|
