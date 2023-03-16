@@ -28,8 +28,6 @@ const defaultInstructionsStyle = {
     position: "absolute",
     zIndex: 1,
     transition: "opacity .25s ease-in-out",
-    "-moz-transition": "opacity .25s ease-in-out",
-    "-webkit-transition": "opacity .25s ease-in-out",
 };
 
 const instructionsTextStyle = {

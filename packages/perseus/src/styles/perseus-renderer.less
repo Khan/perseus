@@ -23,10 +23,6 @@
 // often, allowing selection makes for an awkward mobile experience
 // where you constantly highlight elements unintentionally.
 .no-select {
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
     user-select: none;
 }
 
@@ -472,8 +468,6 @@
 
     &.widget-highlight {
         @highlight: 0px 0px 0px 2px rgba(255, 165, 0, 1);
-        -webkit-box-shadow: @highlight;
-        -moz-box-shadow:    @highlight;
         box-shadow:         @highlight;
         transition: all 0.15s;
     }
@@ -594,10 +588,6 @@
 
 .box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
           box-shadow: @shadow;
-       -o-box-shadow: @shadow;
-      -ms-box-shadow: @shadow;
-     -moz-box-shadow: @shadow;
-  -webkit-box-shadow: @shadow;
 }
 
 .perseus-math-input.mq-editable-field.mq-math-mode {

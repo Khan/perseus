@@ -33,10 +33,7 @@
 @ungradedBlue:          #d9edf7;
 
 .border-box-sizing() {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
             box-sizing: border-box;
-
 }
 
 .size(@width: auto, @height: auto) {
@@ -53,11 +50,6 @@
 }
 
 .user-select (@select) {
-  -webkit-user-select: @select;
-  -khtml-user-drag: @select;
-  -khtml-user-select: @select;
-  -moz-user-select: @select;
-  -ms-user-select: @select;
   user-select: @select;
 }
 
@@ -129,8 +121,6 @@
 .perseus-textarea-pair > textarea {
     background: transparent;
     border: 0;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
     box-sizing: border-box;
     font: inherit;
     height: 100%;
@@ -776,19 +766,7 @@
     }
 
     textarea {
-        // http://stackoverflow.com/questions/2610497/change-an-inputs-html5-placeholder-color-with-css
-        &::-webkit-input-placeholder {
-            color: #777;
-        }
-        &:-moz-placeholder {
-            color: #777;
-            opacity: 1;
-        }
-        &::-moz-placeholder {
-            color: #777;
-            opacity: 1;
-        }
-        &:-ms-input-placeholder {
+        &::placeholder {
             color: #777;
         }
     }
@@ -1196,9 +1174,6 @@
 // I know this is autoprefixed in prod, but I want it to work in the perseus
 // repo.
 .show-div-button {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
@@ -1248,7 +1223,6 @@
         width: 50%;
         white-space: pre-wrap;
         box-sizing: border-box;
-        -moz-box-sizing: border-box;
         font-size: 14px;
         padding-right: 20px;
         padding-left: 10px;

@@ -16,8 +16,6 @@ div.subhint {
     border: 1px solid #aaaaaa;
     background: #f9f9f9;
     display: none;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
     border-radius: 4px;
     margin-left: 20px;
     margin-right: 20px;
@@ -39,8 +37,6 @@ div.definition {
     border: 1px solid #aaaaaa;
     background: #f9f9f9;
     display: none;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
     border-radius: 4px;
     margin-left: 20px;
     margin-right: 20px;
@@ -152,9 +148,6 @@ body.debug .graphie { outline: 1px dashed #fdd; }
     padding-bottom: 40px;
 }
 #scratchpad div {
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     border: 1px solid #ccc;
     height: 100%;
@@ -232,7 +225,6 @@ body.debug .graphie { outline: 1px dashed #fdd; }
 
 #answer_area .calculator .history input {
     box-sizing: border-box;
-    -moz-box-sizing: border-box;
     display: block;
     font: inherit;
     margin: 5px 3px 3px;
@@ -362,8 +354,6 @@ body.debug .graphie { outline: 1px dashed #fdd; }
   list-style: none;
   border: 1px solid rgba(0, 0, 0, 0.3);
   padding-left: 10px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   line-height: 22px;
   margin-bottom: 3px;
@@ -407,8 +397,6 @@ var, div.graphie {
   padding: 2px 5px;
   border: 1px solid #999;
   border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   float: left;
   cursor: pointer;
   color: white;
@@ -606,7 +594,7 @@ html.exercise-browser {
 	top: 12px;
 	padding: 0px;
 	border: none;
-	-webkit-box-shadow: none;
+	box-shadow: none;
 	overflow: visible;
 }
 
@@ -729,9 +717,6 @@ html.exercise-browser {
 
 #timelinecontainer .simple-button {
   -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
   user-select: none;
   white-space: nowrap;
 }
@@ -754,8 +739,6 @@ html.exercise-browser {
   width: 200px;
   height: 100px;
   border: 1px solid #aaa;
-  -webkit-box-shadow: 0 0 3px #ccc;
-  -moz-box-shadow: 0 0 3px #ccc;
   box-shadow: 0 0 3px #ccc;
   margin-left: 14px; /* to line up with other titles */
   margin-bottom: 8px;
@@ -800,8 +783,6 @@ html.exercise-browser {
 	z-index: 2;
 
 	box-shadow: 0 1px 2px #ccc;
-	-moz-box-shadow: 0 1px 2px #ccc;
-	-webkit-box-shadow: 0 1px 2px #ccc;
 }
 
 .sortable > ul {
@@ -813,8 +794,6 @@ html.exercise-browser {
 	border: 1px solid #b9b9b9;
 	border-bottom-color: #939393;
 	border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
 	cursor: pointer;
 	margin-right: 4px;
 	min-width: 65px;
@@ -823,9 +802,6 @@ html.exercise-browser {
 	font-size: 1.2em;
 	float: left;
 	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
 	user-select: none;
 }
 
@@ -844,10 +820,6 @@ html.exercise-browser {
 .sortable > ul > li:hover {
 	border-color: #ffa500;
 	box-shadow: 0 0 4px #c56f00;
-	-moz-box-shadow: 0 0 4px #c56f00;
-	-ms-box-shadow: 0 0 4px #c56f00;
-	-o-box-shadow: 0 0 4px #c56f00;
-	-webkit-box-shadow: 0 0 4px #c56f00;
 }
 
 .sortable > ul > li:active, .sortable > ul > li.dragging {
@@ -861,8 +833,6 @@ html.exercise-browser {
     border: 0;
     border-bottom: 0;
     box-shadow: 0 0 0;
-    -moz-box-shadow: 0 0 0;
-    -webkit-box-shadow: 0 0 0;
     padding-right: 0;
 }
 
@@ -895,8 +865,6 @@ html.exercise-browser {
 .qhint {
   border: 1px solid #aaaaaa;
   background: #f9f9f9;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   margin-right: 20px;
   margin-bottom: 20px;

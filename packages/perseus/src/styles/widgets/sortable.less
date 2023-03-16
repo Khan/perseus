@@ -2,10 +2,6 @@
     border-color: @color;
     @darker: darken(@color, 11%);
     box-shadow: 0 0 4px @darker;
-    -moz-box-shadow: 0 0 4px @darker;
-    -ms-box-shadow: 0 0 4px @darker;
-    -o-box-shadow: 0 0 4px @darker;
-    -webkit-box-shadow: 0 0 4px @darker;
 }
 
 .draggy-boxy-thing {
@@ -16,8 +12,6 @@
         border-bottom: 1px solid #aaa;
 
         box-shadow: 0 1px 2px #ccc;
-        -moz-box-shadow: 0 1px 2px #ccc;
-        -webkit-box-shadow: 0 1px 2px #ccc;
     }
 
     // TODO(jack): Make this work for the orderer too.
@@ -34,12 +28,6 @@
         border: 1px solid #b9b9b9;
         border-bottom-color: #939393;
         border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
         cursor: pointer;
         touch-action: none;
 
@@ -73,8 +61,6 @@
                 border: 1px solid #b9b9b9;
                 border-bottom-color: #939393;
                 border-radius: 4px;
-                -moz-border-radius: 4px;
-                -webkit-border-radius: 4px;
                 height: 100%;
                 width: 100%;
                 z-index: -1;

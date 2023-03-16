@@ -448,8 +448,6 @@ class Simulator extends React.Component<$FlowFixMe, $FlowFixMe> {
 
         const highlight = "0px 0px 0px 2px rgba(255, 165, 0, 1)";
         const highlightStyle = _.extend({}, inputStyle, {
-            WebkitBoxShadow: highlight,
-            MozBoxShadow: highlight,
             boxShadow: highlight,
             transition: "all 0.15s",
         });

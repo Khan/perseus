@@ -42,11 +42,7 @@ class CursorHandle extends React.Component {
 
         const animationStyle = animateIntoPosition
             ? {
-                  msTransitionDuration: "100ms",
-                  WebkitTransitionDuration: "100ms",
                   transitionDuration: "100ms",
-                  msTransitionProperty: "transform",
-                  WebkitTransitionProperty: "transform",
                   transitionProperty: "transform",
               }
             : {};
@@ -59,8 +55,6 @@ class CursorHandle extends React.Component {
             zIndex: 4,
             left: -touchTargetWidthPx / 2,
             top: 0,
-            msTransform: transformString,
-            WebkitTransform: transformString,
             transform: transformString,
             width: touchTargetWidthPx,
             height: touchTargetHeightPx,
