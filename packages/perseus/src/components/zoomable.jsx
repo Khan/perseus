@@ -253,14 +253,8 @@ class Zoomable extends React.Component<Props, State> {
         const transitionStyle = visible
             ? {
                   transitionProperty: property,
-                  WebkitTransitionProperty: property,
-                  msTransitionProperty: property,
                   transitionDuration: "0.3s",
-                  WebkitTransitionDuration: "0.3s",
-                  msTransitionDuration: "0.3s",
                   transitionTimingFunction: "ease-out",
-                  WebkitTransitionTimingfunction: "ease-out",
-                  msTransitionTmingFunction: "ease-out",
               }
             : {};
 
@@ -276,11 +270,7 @@ class Zoomable extends React.Component<Props, State> {
             width: "100%",
             height: zoomed ? expandedHeight : compactHeight,
             transform: transform,
-            WebkitTransform: transform,
-            msTransform: transform,
             transformOrigin: "0 0",
-            WebkitTransformOrigin: "0 0",
-            msTransformOrigin: "0 0",
             opacity: visible ? 1 : 0,
             WebkitTapHighlightColor: "transparent",
             ...transitionStyle,

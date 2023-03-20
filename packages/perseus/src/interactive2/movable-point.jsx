@@ -326,7 +326,6 @@ _.extend(MovablePoint.prototype, {
                     const svgElem = state.visibleShape.wrapper;
                     if (state.shadow) {
                         const filter = "none";
-                        svgElem.style.webkitFilter = filter;
                         svgElem.style.filter = filter;
                     }
 
@@ -352,7 +351,6 @@ _.extend(MovablePoint.prototype, {
                             const filter =
                                 "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
 
-                            content.style.webkitFilter = filter;
                             content.style.filter = filter;
                         }
                     }
@@ -402,7 +400,6 @@ _.extend(MovablePoint.prototype, {
                     if (state.shadow) {
                         const filter =
                             "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
-                        svgElem.style.webkitFilter = filter;
                         svgElem.style.filter = filter;
                     }
 
@@ -422,7 +419,6 @@ _.extend(MovablePoint.prototype, {
                                 "tooltip-content",
                             )[0];
 
-                        content.style.webkitFilter = "none";
                         content.style.filter = "none";
 
                         this._tooltip.firstChild.addEventListener(

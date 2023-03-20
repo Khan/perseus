@@ -55,7 +55,6 @@ const WrappedEllipse = function (
     if (options.shadow) {
         const filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
         const wrapper = this.wrapper;
-        wrapper.style.webkitFilter = filter;
         wrapper.style.filter = filter;
 
         this.moveTo = function (point) {

@@ -345,9 +345,6 @@ const Tooltip = createReactClass({
                             top: settings["top"],
                             left: settings.tooltipLeft,
                             border: "1px solid " + this.props.borderColor,
-                            WebkitBoxShadow:
-                                "0 1px 3px " + this.props.borderColor,
-                            MozBoxShadow: "0 1px 3px " + this.props.borderColor,
                             boxShadow: "0 1px 3px " + this.props.borderColor,
                             zIndex: zIndex - 1,
                         }}
