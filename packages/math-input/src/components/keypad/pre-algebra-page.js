@@ -14,7 +14,7 @@ type Props = {|
     onClickKey: (keyConfig: string) => void,
 |};
 
-export default class NumericInputPage extends React.Component<Props> {
+export default class PreAlgebraPage extends React.Component<Props> {
     render(): React.Node {
         const {onClickKey} = this.props;
         return (
