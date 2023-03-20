@@ -1,7 +1,8 @@
+// @flow
 import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import {entries} from "@khanacademy/wonder-stuff-core";
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -13,7 +14,6 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style.js";
-import {keypadElementPropType} from "../prop-types.js";
 
 import CursorHandle from "./cursor-handle.js";
 import DragListener from "./drag-listener.js";
@@ -22,29 +22,54 @@ import {scrollIntoView} from "./scroll-into-view.js";
 
 const constrainingFrictionFactor = 0.8;
 
-// eslint-disable-next-line react/no-unsafe
-class MathInput extends React.Component {
-    static propTypes = {
-        // The React element node associated with the keypad that will send
-        // key-press events to this input. If provided, this can be used to:
-        //   (1) Avoid blurring the input, on user interaction with the keypad.
-        //   (2) Scroll the input into view, if it would otherwise be obscured
-        //       by the keypad on focus.
-        keypadElement: keypadElementPropType,
-        onBlur: PropTypes.func,
-        onChange: PropTypes.func.isRequired,
-        onFocus: PropTypes.func,
-        // An extra, vanilla style object, to be applied to the math input.
-        style: PropTypes.any,
-        value: PropTypes.string,
-    };
+type Props = {|
+    keypadElement: $FlowFixMe,
+    onBlur: () => void,
+    onChange: $FlowFixMe,
+    onFocus: () => void,
+    style: $FlowFixMe,
+    value: string,
+|};
 
-    static defaultProps = {
+type DefaultProps = {|
+    style: Props["style"],
+    value: Props["value"],
+|};
+
+type HandleState = {|
+    animateIntoPosition?: ?boolean,
+    visible: boolean,
+    x?: number,
+    y?: number,
+|};
+
+type State = {|
+    focused: boolean,
+    handle: HandleState,
+|};
+
+// eslint-disable-next-line react/no-unsafe
+class MathInput extends React.Component<Props, State> {
+    didTouchOutside: ?boolean;
+    didScroll: ?boolean;
+    mathField: $FlowFixMe;
+    recordTouchStartOutside: ($FlowFixMe) => void;
+    blurOnTouchEndOutside: ($FlowFixMe) => void;
+    dragListener: $FlowFixMe;
+    inputRef: ?HTMLDivElement;
+    _isMounted: ?boolean;
+    _mathContainer: $FlowFixMe;
+    _container: HTMLDivElement;
+    _root: $FlowFixMe;
+    _containerBounds: ClientRect;
+    _keypadBounds: ?ClientRect;
+
+    static defaultProps: DefaultProps = {
         style: {},
         value: "",
     };
 
-    state = {
+    state: State = {
         focused: false,
         handle: {
             animateIntoPosition: false,
@@ -92,15 +117,16 @@ class MathInput extends React.Component {
 
         this._updateInputPadding();
 
-        this._container = ReactDOM.findDOMNode(this);
+        this._container = ((ReactDOM.findDOMNode(this): any): HTMLDivElement);
         this._root = this._container.querySelector(".mq-root-block");
+        // $FlowFixMe[incompatible-use]
+        // $FlowFixMe[prop-missing]
         this._root.addEventListener("scroll", this._handleScroll);
 
         // Record the initial scroll displacement on touch start. This allows
         // us to detect whether a touch event was a scroll and only blur the
         // input on non-scrolls--blurring the input on scroll makes for a
         // frustrating user experience.
-        this.touchStartInitialScroll = null;
         this.recordTouchStartOutside = (evt) => {
             if (this.state.focused) {
                 // Only blur if the touch is both outside of the input, and
@@ -168,7 +194,6 @@ class MathInput extends React.Component {
 
             if (this.dragListener) {
                 this.dragListener.detach();
-                this.removeListeners = null;
             }
         };
 
@@ -189,13 +214,13 @@ class MathInput extends React.Component {
         );
     }
 
-    UNSAFE_componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props: Props) {
         if (this.props.keypadElement !== props.keypadElement) {
             this._clearKeypadBoundsCache();
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: Props, prevState: State) {
         if (this.mathField.getContent() !== this.props.value) {
             this.mathField.setContent(this.props.value);
         }
@@ -218,16 +243,16 @@ class MathInput extends React.Component {
         );
     }
 
-    _clearKeypadBoundsCache = (keypadNode) => {
+    _clearKeypadBoundsCache: () => void = () => {
         this._keypadBounds = null;
     };
 
-    _cacheKeypadBounds = (keypadNode) => {
+    _cacheKeypadBounds: ($FlowFixMe) => void = (keypadNode) => {
         this._keypadBounds = keypadNode.getBoundingClientRect();
     };
 
-    _updateInputPadding = () => {
-        this._container = ReactDOM.findDOMNode(this);
+    _updateInputPadding: () => void = () => {
+        this._container = ((ReactDOM.findDOMNode(this): any): HTMLDivElement);
         this._root = this._container.querySelector(".mq-root-block");
 
         const padding = this.getInputInnerPadding();
@@ -239,7 +264,7 @@ class MathInput extends React.Component {
     };
 
     /** Gets and cache they bounds of the keypadElement */
-    _getKeypadBounds = () => {
+    _getKeypadBounds: () => $FlowFixMe = () => {
         if (!this._keypadBounds) {
             const node = this.props.keypadElement.getDOMNode();
             this._cacheKeypadBounds(node);
@@ -247,9 +272,9 @@ class MathInput extends React.Component {
         return this._keypadBounds;
     };
 
-    _updateCursorHandle = (animateIntoPosition) => {
+    _updateCursorHandle: (?boolean) => void = (animateIntoPosition) => {
         const containerBounds = this._container.getBoundingClientRect();
-        const cursor = this._container.querySelector(".mq-cursor");
+        const cursor: $FlowFixMe = this._container.querySelector(".mq-cursor");
         const cursorBounds = cursor.getBoundingClientRect();
 
         const cursorWidth = cursorBounds.width;
@@ -285,7 +310,7 @@ class MathInput extends React.Component {
         });
     };
 
-    _hideCursorHandle = () => {
+    _hideCursorHandle: () => void = () => {
         this.setState({
             handle: {
                 visible: false,
@@ -295,7 +320,7 @@ class MathInput extends React.Component {
         });
     };
 
-    _handleScroll = () => {
+    _handleScroll: () => void = () => {
         // If animateIntoPosition is false, the user is currently manually positioning
         // the cursor. This is important because the user can scroll the input field
         // with the curor handle, and we don't want to override that ability.
@@ -306,13 +331,13 @@ class MathInput extends React.Component {
         }
     };
 
-    blur = () => {
+    blur: () => void = () => {
         this.mathField.blur();
         this.props.onBlur && this.props.onBlur();
         this.setState({focused: false, handle: {visible: false}});
     };
 
-    focus = () => {
+    focus: () => void = () => {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
         this.props.keypadElement.setKeyHandler((key) => {
@@ -379,7 +404,7 @@ class MathInput extends React.Component {
      * The algorithm ends its search when y goes outside the bounds of
      * containerBounds.
      *
-     * @param {ClientRect} containerBounds - bounds of the container node
+     * @param {DOMRect} containerBounds - bounds of the container node
      * @param {number} x - the initial x coordinate in the viewport
      * @param {number} y - the initial y coordinate in the viewport
      * @param {number} dx - horizontal spacing between elementFromPoint calls
@@ -387,7 +412,13 @@ class MathInput extends React.Component {
      *                      sign determines direction.
      * @returns {boolean} - true if a node was hit, false otherwise.
      */
-    _findHitNode = (containerBounds, x, y, dx, dy) => {
+    _findHitNode: (ClientRect, number, number, number, number) => boolean = (
+        containerBounds,
+        x,
+        y,
+        dx,
+        dy,
+    ) => {
         while (y >= containerBounds.top && y <= containerBounds.bottom) {
             y += dy;
 
@@ -428,11 +459,13 @@ class MathInput extends React.Component {
             // Contains only DOMNodes with child elements.
             const nonLeafElements = [];
 
-            let max = 0;
-            const counts = {};
+            let max: number = 0;
+            const counts: {[string]: number} = {};
             const elementsById = {};
 
             for (const element of elements) {
+                // $FlowFixMe[incompatible-use]
+                // $FlowFixMe[prop-missing]
                 const id = element.getAttribute("mathquill-command-id");
                 if (id != null) {
                     leafElements.push(element);
@@ -455,7 +488,7 @@ class MathInput extends React.Component {
             // we hit multiple leaf nodes at the same time.  In this case we
             // we prefer the DOMNode with the most hits.
             // TODO(kevinb) consider preferring nodes hit by [x, y].
-            for (const [id, count] of Object.entries(counts)) {
+            for (const [id, count] of entries(counts)) {
                 if (count > max) {
                     max = count;
                     hitNode = elementsById[id];
@@ -487,7 +520,7 @@ class MathInput extends React.Component {
      * @param {number} x - the x coordinate in the viewport
      * @param {number} y - the y coordinate in the viewport
      */
-    _insertCursorAtClosestNode = (x, y) => {
+    _insertCursorAtClosestNode: (number, number) => void = (x, y) => {
         const cursor = this.mathField.getCursor();
 
         // Pre-emptively check if the input has any child nodes; if not, the
@@ -557,7 +590,7 @@ class MathInput extends React.Component {
             });
     };
 
-    handleTouchStart = (e) => {
+    handleTouchStart: (SyntheticTouchEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
         // Hide the cursor handle on touch start, if the handle itself isn't
@@ -582,7 +615,7 @@ class MathInput extends React.Component {
         }
     };
 
-    handleTouchMove = (e) => {
+    handleTouchMove: (SyntheticTouchEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
         // Update the handle-less cursor's location on move, if there's any
@@ -597,7 +630,7 @@ class MathInput extends React.Component {
         }
     };
 
-    handleTouchEnd = (e) => {
+    handleTouchEnd: (SyntheticTouchEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
         // And on touch-end, reveal the cursor, unless the input is empty. Note
@@ -616,7 +649,9 @@ class MathInput extends React.Component {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchStart = (e) => {
+    onCursorHandleTouchStart: (SyntheticTouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
         // NOTE(charlie): The cursor handle is a child of this view, so whenever
         // it receives a touch event, that event would also typically be bubbled
         // up to our own handlers. However, we want the cursor to handle its own
@@ -632,7 +667,12 @@ class MathInput extends React.Component {
         this._containerBounds = this._container.getBoundingClientRect();
     };
 
-    _constrainToBound = (value, min, max, friction) => {
+    _constrainToBound: (number, number, number, number) => number = (
+        value,
+        min,
+        max,
+        friction,
+    ) => {
         if (value < min) {
             return min + (value - min) * friction;
         } else if (value > max) {
@@ -648,7 +688,9 @@ class MathInput extends React.Component {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchMove = (e) => {
+    onCursorHandleTouchMove: (SyntheticTouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
         e.stopPropagation();
 
         const x = e.changedTouches[0].clientX;
@@ -702,7 +744,9 @@ class MathInput extends React.Component {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchEnd = (e) => {
+    onCursorHandleTouchEnd: (SyntheticTouchEvent<HTMLSpanElement>) => void = (
+        e,
+    ) => {
         e.stopPropagation();
 
         this._updateCursorHandle(true);
@@ -713,13 +757,14 @@ class MathInput extends React.Component {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchCancel = (e) => {
-        e.stopPropagation();
+    onCursorHandleTouchCancel: (SyntheticTouchEvent<HTMLSpanElement>) => void =
+        (e) => {
+            e.stopPropagation();
 
-        this._updateCursorHandle(true);
-    };
+            this._updateCursorHandle(true);
+        };
 
-    domKeyToMathQuillKey = (key) => {
+    domKeyToMathQuillKey: (string) => ?string = (key) => {
         const keyMap = {
             "+": Keys.PLUS,
             "-": Keys.MINUS,
@@ -752,7 +797,7 @@ class MathInput extends React.Component {
         return null;
     };
 
-    handleKeyUp = (event) => {
+    handleKeyUp: (SyntheticKeyboardEvent<HTMLDivElement>) => void = (event) => {
         const mathQuillKey = this.domKeyToMathQuillKey(event.key);
 
         if (mathQuillKey) {
@@ -770,7 +815,7 @@ class MathInput extends React.Component {
         }
     };
 
-    getBorderWidthPx = () => {
+    getBorderWidthPx: () => number = () => {
         // TODO(diedra): Move these to the common style package.
         const normalBorderWidthPx = 1;
         const focusedBorderWidthPx = 2;
@@ -782,7 +827,12 @@ class MathInput extends React.Component {
     // considered 'padding', since we're using 'border-box') and the fact
     // that MathQuill automatically applies 2px of padding to the inner
     // input.
-    getInputInnerPadding = () => {
+    getInputInnerPadding: () => {|
+        paddingTop: number,
+        paddingRight: number,
+        paddingBottom: number,
+        paddingLeft: number,
+    |} = () => {
         const paddingInset = totalDesiredPadding - this.getBorderWidthPx();
 
         // Now, translate that to the appropriate padding for each direction.
@@ -803,7 +853,7 @@ class MathInput extends React.Component {
         return padding;
     };
 
-    render() {
+    render(): React.Node {
         const {focused, handle} = this.state;
         const {style} = this.props;
 
