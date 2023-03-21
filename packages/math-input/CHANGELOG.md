@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.6.8
+
+### Patch Changes
+
+-   2c843b38: Update to use wonder-blocks deps after migrating wonder-blocks to TS
+
 ## 0.6.7
 
 ### Patch Changes
