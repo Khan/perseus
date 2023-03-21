@@ -26,10 +26,10 @@
         "@khanacademy/perseus": "^2.0.1"
     },
     "devDependencies": {
-        "@khanacademy/wonder-blocks-button": "^3.0.14",
-        "@khanacademy/wonder-blocks-clickable": "^2.4.5",
-        "@khanacademy/wonder-blocks-color": "^1.2.1",
-        "@khanacademy/wonder-blocks-i18n": "^1.2.4",
+        "@khanacademy/wonder-blocks-button": "^4.0.8",
+        "@khanacademy/wonder-blocks-clickable": "^3.0.8",
+        "@khanacademy/wonder-blocks-color": "^2.0.1",
+        "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "aphrodite": "^1.2.5",
         "classnames": "^1.1.4",
         "create-react-class": "^15.6.3",
@@ -41,10 +41,10 @@
         "underscore": "^1.4.4"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-button": "^3.0.14",
-        "@khanacademy/wonder-blocks-clickable": "^2.4.5",
-        "@khanacademy/wonder-blocks-color": "^1.2.1",
-        "@khanacademy/wonder-blocks-i18n": "^1.2.4",
+        "@khanacademy/wonder-blocks-button": "^4.0.8",
+        "@khanacademy/wonder-blocks-clickable": "^3.0.8",
+        "@khanacademy/wonder-blocks-color": "^2.0.1",
+        "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "aphrodite": "^1.2.5",
         "classnames": "^1.1.4",
         "create-react-class": "^15.6.3",
