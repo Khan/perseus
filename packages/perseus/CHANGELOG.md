@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 2.1.0
+
+### Minor Changes
+
+-   2c843b38: Update to use wonder-blocks deps after migrating wonder-blocks to TS
+
+### Patch Changes
+
+-   Updated dependencies [2c843b38]
+    -   @khanacademy/math-input@0.6.8
+
 ## 2.0.1
 
 ### Patch Changes
