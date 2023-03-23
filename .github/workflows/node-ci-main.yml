@@ -33,25 +33,68 @@ jobs:
 
   coverage:
     needs: [prime_cache_primary]
-    name: Gather coverage
+    name: Jest Coverage
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # Use a matrix as it means we get the version info in the job name
-        # which is very helpful.
         os: [ubuntu-latest]
         node-version: [16.x]
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
       uses: Khan/actions@shared-node-cache-v0
       with:
         node-version: ${{ matrix.node-version }}
-    # Collect and upload coverage
-    - name: Run Jest with coverage
+
+    - name: Jest with coverage
       run: yarn coverage
+
     - name: Upload Coverage
-      uses: codecov/codecov-action@v3
+      # We don't bother collecting a record of coverage for dependabot changes
+      if: ${{ github.actor != 'dependabot[bot]' }}
+      uses: coverallsapp/github-action@master
       with:
         files: ./coverage/coverage-final.json
-        fail_ci_if_error: true
+
+  cypress:
+    needs: [prime_cache_primary]
+    name: Cypress Coverage
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+    steps:
+    - name: Checking out latest commit
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+      uses: Khan/actions@shared-node-cache-v0
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Run test with coverage
+      run: yarn cypress:ci
+
+    - name: Generate report
+      run: yarn nyc report --reporter=lcov
+
+    - name: Upload Coverage (Codecov)
+      # We don't bother collecting a record of coverage for dependabot changes
+      if: ${{ github.actor != 'dependabot[bot]' }}
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        flag-name: cypress
+        parallel: true
+
+  finish_coverage:
+    needs: [cypress, coverage]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Finish Coverage
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel-finished: true
