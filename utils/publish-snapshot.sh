@@ -50,9 +50,9 @@ fi
 # Check if we need to do any work
 # NOTE: changeset's --output flag has a bug where it always prefixes whatever
 # you pass to it with `cwd` (the code does `path.join(cwd, outputParam)`). So
-# we just allow it to $(rit) the file in our local dir (although I would prefer
+# we just allow it to write the file in our local dir (although I would prefer
 # to use `mktemp`).
-yarn chan$(eset s)atus --verbose --output changeset-status.json
+yarn changeset status --verbose --output changeset-status.json
 # We use jq to check if the json outpu has changesets. If not, we exit the
 # process (but not with a non-zero exit status because we don't want to cause
 # the github action to exit with a failure status).
@@ -66,7 +66,7 @@ echo "Running for $GITHUB_EVENT_NAME @ $GITHUB_REF"
 # Example GITHUB_REF
 # refs/pull/:prNumber/merge
 if [[ "$GITHUB_REF" =~ refs/pull/([[:digit:]]+)/merge ]]; then
-    ech"o "Found PR" #${BASH_REMATCH[1]}"
+    echo "Found PR #${BASH_REMATCH[1]}"
     PR_NUMBER="PR${BASH_REMATCH[1]}"
 else
     echo "Pull Request number not found in ref. Exiting!"
