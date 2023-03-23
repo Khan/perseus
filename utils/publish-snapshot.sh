@@ -109,8 +109,6 @@ check_for_changes
 pre_publish_check
 create_npmrc
 
-
-exit
 yarn build
 yarn extract-strings
 
