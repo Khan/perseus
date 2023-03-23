@@ -20,63 +20,94 @@ ROOT="$MYPATH/.."
 
 pushd "$ROOT"
 
-if [ -z ${CI+CI_UNSET} ]; then
-    echo "CI environment variable is unset. Exiting!"
-    exit 1
-fi
+verify_env() {
+    if [ -z ${CI+CI_UNSET} ]; then
+        echo "Required 'CI' environment variable is unset. Exiting!"
+        exit 1
+    fi
 
-if [ -z ${GITHUB_EVENT_NAME+GITHUB_EVENT_NAME_UNSET} ]; then
-    echo "GITHUB_EVENT_NAME environment variable is unset. Exiting!"
-    exit 1
-fi
+    if [ -z ${GITHUB_EVENT_NAME+GITHUB_EVENT_NAME_UNSET} ]; then
+        echo "Required 'GITHUB_EVENT_NAME' environment variable is unset. Exiting!"
+        exit 1
+    fi
 
-if [ -z ${GITHUB_REF+GITHUB_REF_UNSET} ]; then
-    echo "GITHUB_REF environment variable is unset. Exiting!"
-    exit 1
-fi
+    if [ -z ${GITHUB_REF+GITHUB_REF_UNSET} ]; then
+        echo "Required 'GITHUB_REF' environment variable is unset. Exiting!"
+        exit 1
+    fi
 
-if [[
-    "$GITHUB_EVENT_NAME" != "workflow_dispatch" \
-    && "$GITHUB_EVENT_NAME" != "pull_request"
-]]; then
-    exit
-fi
+    if [ -z ${NPM_TOKEN+NPM_TOKEN_UNSET} ]; then
+        echo "Required 'NPM_TOKEN' environment variable is unset. Exiting!"
+        exit 1
+    fi
 
-# Check if we need to do any work
-# NOTE: changeset's --output flag has a bug where it always prefixes whatever
-# you pass to it with `cwd` (the code does `path.join(cwd, outputParam)`). So
-# we just allow it to write the file in our local dir (although I would prefer
-# to use `mktemp`).
-yarn changeset status --verbose --output changeset-status.json
-# We use jq to check if the json outpu has changesets. If not, we exit the
-# process (but not with a non-zero exit status because we don't want to cause
-# the github action to exit with a failure status).
-jq -e '.releases | length | if . > 0 then . else "No changesets found" | halt_error(1) end' \
-    < "changeset-status.json" || \
-    exit 0
+    if [[
+        "$GITHUB_EVENT_NAME" != "workflow_dispatch" \
+        && "$GITHUB_EVENT_NAME" != "pull_request"
+    ]]; then
+        exit
+    fi
 
+    # Example GITHUB_REF
+    # refs/pull/:prNumber/merge
+    if [[ "$GITHUB_REF" =~ refs/pull/([[:digit:]]+)/merge ]]; then
+        echo "Found PR #${BASH_REMATCH[1]}"
+        PR_NUMBER="PR${BASH_REMATCH[1]}"
+    else
+        echo "Pull Request number not found in ref. Exiting!"
+        exit 1
+    fi
+}
 
-echo "Running for $GITHUB_EVENT_NAME @ $GITHUB_REF"
+check_for_changes() {
+    # Check if we need to do any work
+    # NOTE: changeset's --output flag has a bug where it always prefixes whatever
+    # you pass to it with `cwd` (the code does `path.join(cwd, outputParam)`). So
+    # we just allow it to write the file in our local dir (although I would prefer
+    # to use `mktemp`).
+    yarn changeset status --verbose --output changeset-status.json
+    # We use jq to check if the json outpu has changesets. If not, we exit the
+    # process (but not with a non-zero exit status because we don't want to cause
+    # the github action to exit with a failure status).
+    jq -e '.releases | length | if . > 0 then . else "No changesets found" | halt_error(1) end' \
+        < "changeset-status.json" || \
+        exit 0
+}
 
-# Example GITHUB_REF
-# refs/pull/:prNumber/merge
-if [[ "$GITHUB_REF" =~ refs/pull/([[:digit:]]+)/merge ]]; then
-    echo "Found PR #${BASH_REMATCH[1]}"
-    PR_NUMBER="PR${BASH_REMATCH[1]}"
-else
-    echo "Pull Request number not found in ref. Exiting!"
-    exit 1
-fi
+pre_publish_check() {
+    node "$ROOT/utils/pre-publish-check-ci.js"
 
-# publish:ci steps
-node "$ROOT/utils/pre-publish-check-ci.js"
+    if ! git diff --stat --exit-code HEAD; then
+        echo "Git repo is dirty. This is unexpected when running in CI."
+        echo "Please review the logs leading up to this error to figure out why " \
+            "the repo was touched."
+        exit 1
+    fi
+}
 
-if ! git diff --stat --exit-code HEAD; then
-    echo "Git repo is dirty. This is unexpected when running in CI."
-    echo "Please review the logs leading up to this error to figure out why " \
-         "the repo was touched."
-    exit 1
-fi
+create_npmrc() {
+    # Inspiration: https://github.com/changesets/action/blob/8c3f5f5637a95a2327e78d5dabcf357978aedcbb/src/index.ts#L59..L85
+    echo "Checking for valid .npmrc"
+    if [[ -f "$HOME/.npmrc" ]]; then
+        if grep --silent "registry.npmjs.org" "$HOME/.npmrc"; then
+            return
+        fi
+    fi
+
+    # Append or create the file!
+    printf "\n//registry.npmjs.org/:_authToken=%s\n" "$NPM_TOKEN" >> "$HOME/.npmrc"
+}
+
+######
+## Now we start the actual workflow of the script
+##
+## A similar set of steps to the 'publish:ci' package.json script
+##
+
+verify_env
+check_for_changes
+pre_publish_check
+create_npmrc
 
 yarn build
 yarn extract-strings
