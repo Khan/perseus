@@ -1,5 +1,4 @@
 // @flow
-/* eslint-disable react/sort-comp */
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
 // terms of a certain type.
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
@@ -176,28 +175,23 @@ export class OldUnitInput extends React.Component<Props> {
         };
     }
 
-    // TODO(joel) think about showing the error buddy
-    render(): React.Node {
-        const input = (
-            <input
-                onChange={this.handleChange}
-                ref="input" // eslint-disable-line react/no-string-refs
-                className={ApiClassNames.INTERACTIVE}
-                value={this.props.value}
-                onFocus={this.handleFocus}
-                onBlur={this.handleBlur}
-            />
-        );
+    componentDidUpdate() {
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        clearTimeout(this._errorTimeout);
+        if (KAS.unitParse(this.props.value).parsed) {
+            this._hideError();
+        } else {
+            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+            // eslint-disable-next-line no-restricted-syntax
+            this._errorTimeout = setTimeout(this._showError, 2000);
+        }
+    }
 
-        return (
-            <div className="old-unit-input">
-                {input}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div ref="error" className="error" style={{display: "none"}}>
-                    {i18n._("I don't understand that")}
-                </div>
-            </div>
-        );
+    componentWillUnmount() {
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        clearTimeout(this._errorTimeout);
     }
 
     _showError: () => void = () => {
@@ -229,25 +223,6 @@ export class OldUnitInput extends React.Component<Props> {
     change: (...args: $ReadOnlyArray<any>) => ?$FlowFixMe = (...args) => {
         return Changeable.change.apply(this, args);
     };
-
-    componentDidUpdate() {
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
-        clearTimeout(this._errorTimeout);
-        if (KAS.unitParse(this.props.value).parsed) {
-            this._hideError();
-        } else {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
-            this._errorTimeout = setTimeout(this._showError, 2000);
-        }
-    }
-
-    componentWillUnmount() {
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
-        clearTimeout(this._errorTimeout);
-    }
 
     handleBlur: () => void = () => {
         this.props.onBlur([]);
@@ -343,6 +318,27 @@ export class OldUnitInput extends React.Component<Props> {
     };
 
     // end mobile stuff
+
+    // TODO(joel) think about showing the error buddy
+    render(): React.Node {
+        return (
+            <div className="old-unit-input">
+                <input
+                    onChange={this.handleChange}
+                    ref="input" // eslint-disable-line react/no-string-refs
+                    className={ApiClassNames.INTERACTIVE}
+                    value={this.props.value}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                    data-test-id="perseus__unit-input"
+                />
+                {/* eslint-disable-next-line react/no-string-refs */}
+                <div ref="error" className="error" style={{display: "none"}}>
+                    {i18n._("I don't understand that")}
+                </div>
+            </div>
+        );
+    }
 }
 
 // Extract the primitive units from a unit expression. This first simplifies
