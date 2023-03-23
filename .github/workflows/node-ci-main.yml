@@ -81,7 +81,7 @@ jobs:
       run: yarn nyc report --reporter=lcov
 
     - name: Upload Coverage (Codecov)
-      # We don't bother collecting a record of coverage for dependabot changes
+      # We don't bother uploading a record of coverage for dependabot changes
       if: ${{ github.actor != 'dependabot[bot]' }}
       uses: coverallsapp/github-action@master
       with:
