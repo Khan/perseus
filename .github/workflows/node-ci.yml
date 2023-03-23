@@ -136,7 +136,9 @@ jobs:
       if: ${{ github.actor != 'dependabot[bot]' }}
       uses: coverallsapp/github-action@master
       with:
-        files: ./coverage/coverage-final.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        flag-name: jest
+        parallel: true
 
   finish_coverage:
     needs: [cypress, coverage]
