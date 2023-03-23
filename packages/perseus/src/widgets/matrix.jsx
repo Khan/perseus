@@ -9,7 +9,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import MathOutput from "../components/math-output.jsx";
 import NumberInput from "../components/number-input.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import TextInput from "../components/text-input.jsx";
@@ -26,19 +25,12 @@ import type {WidgetExports, WidgetProps} from "../types.js";
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;
 
-// We store three sets of dimensions for the brackets, for our three types of
-// inputs, which vary in formatting: (1) the "static" inputs rendered for the
-// mobile apps (that are being deprecated), (2) the normal inputs rendered on
-// desktop, and (3) the keypad-based inputs newly rendered for the mobile apps
-// and mobile web. The first two sets of dimensions come from `matrix.less`;
+// We store two sets of dimensions for the brackets, for our two types of
+// inputs, which vary in formatting: (1) the normal inputs rendered on
+// desktop and (2) the keypad-based inputs newly rendered for the mobile apps
+// and mobile web. These sets of dimensions come from `matrix.less`;
 // the keypad-based input's dimensions are provided to the component itself,
 // below.
-const STATIC_INPUT_DIMENSIONS = {
-    INPUT_MARGIN: 4,
-    INPUT_HEIGHT: 38,
-    INPUT_WIDTH: 82,
-};
-
 const NORMAL_DIMENSIONS = {
     INPUT_MARGIN: 3,
     INPUT_HEIGHT: 30,
@@ -162,8 +154,6 @@ class Matrix extends React.Component<Props, State> {
         let dimensions;
         if (this.props.apiOptions.customKeypad) {
             dimensions = KEYPAD_INPUT_DIMENSIONS;
-        } else if (this.props.apiOptions.staticRender) {
-            dimensions = STATIC_INPUT_DIMENSIONS;
         } else {
             dimensions = NORMAL_DIMENSIONS;
         }
@@ -313,12 +303,6 @@ class Matrix extends React.Component<Props, State> {
                                                     this.props.keypadElement
                                                 }
                                             />
-                                        );
-                                    } else if (
-                                        this.props.apiOptions.staticRender
-                                    ) {
-                                        MatrixInput = (
-                                            <MathOutput {...inputProps} />
                                         );
                                     } else if (this.props.numericInput) {
                                         MatrixInput = (

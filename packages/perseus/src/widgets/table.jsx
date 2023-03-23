@@ -10,7 +10,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import MathOutput from "../components/math-output.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import InteractiveUtil from "../interactive2/interactive-util.js";
 import {ApiOptions} from "../perseus-api.jsx";
@@ -102,9 +101,6 @@ class Table extends React.Component<$FlowFixMe> {
             // input in table.less. Those values should be kept in-sync.
             inputStyle = {width: 80};
             extraInputProps.keypadElement = this.props.keypadElement;
-        } else if (this.props.apiOptions.staticRender) {
-            InputComponent = MathOutput;
-            inputStyle = {};
         } else {
             InputComponent = "input";
             inputStyle = {};
@@ -241,8 +237,6 @@ class Table extends React.Component<$FlowFixMe> {
         const inputComponent = this.refs[inputID];
         if (this.props.apiOptions.customKeypad) {
             inputComponent.focus();
-        } else if (this.props.apiOptions.staticRender) {
-            inputComponent.focus();
         } else {
             // $FlowFixMe[prop-missing]
             // $FlowFixMe[incompatible-use]
@@ -255,8 +249,6 @@ class Table extends React.Component<$FlowFixMe> {
         // eslint-disable-next-line react/no-string-refs
         const inputComponent = this.refs[inputID];
         if (this.props.apiOptions.customKeypad) {
-            inputComponent.blur();
-        } else if (this.props.apiOptions.staticRender) {
             inputComponent.blur();
         } else {
             // $FlowFixMe[prop-missing]

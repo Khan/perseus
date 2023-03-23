@@ -9,7 +9,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon.jsx";
-import InputWithExamples from "../components/input-with-examples.jsx";
 import MathInput from "../components/math-input.jsx";
 import Tooltip from "../components/tooltip.jsx";
 import {iconExclamationSign} from "../icon-paths.js";
@@ -398,10 +397,8 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     // HACK(joel)
     insert: (text: string) => void = (text: string) => {
-        if (!this.props.apiOptions.staticRender) {
-            // eslint-disable-next-line react/no-string-refs
-            this.refs.input.insert(text);
-        }
+        // eslint-disable-next-line react/no-string-refs
+        this.refs.input.insert(text);
     };
 
     getInputPaths: () => $ReadOnlyArray<$ReadOnlyArray<any>> = () => {
@@ -455,26 +452,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
                         );
                     }}
                     onBlur={this._handleBlur}
-                />
-            );
-        }
-        if (this.props.apiOptions.staticRender) {
-            // To make things slightly easier, we just use an InputWithExamples
-            // component to handle the static rendering, which is the same
-            // component used by InputNumber and NumericInput
-            return (
-                <InputWithExamples
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
-                    value={this.props.value}
-                    type="tex"
-                    examples={[]}
-                    shouldShowExamples={false}
-                    onChange={this.changeAndTrack}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                    id={this.props.widgetId}
-                    linterContext={this.props.linterContext}
                 />
             );
         }

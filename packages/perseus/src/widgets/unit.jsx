@@ -13,7 +13,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import MathOutput from "../components/math-output.jsx";
 import * as Changeable from "../mixins/changeable.jsx";
 import {ClassNames as ApiClassNames, ApiOptions} from "../perseus-api.jsx";
 import {SignificantFigures, displaySigFigs} from "../sigfigs.jsx";
@@ -179,16 +178,7 @@ export class OldUnitInput extends React.Component<Props> {
 
     // TODO(joel) think about showing the error buddy
     render(): React.Node {
-        const input = this.props.apiOptions.staticRender ? (
-            <MathOutput
-                onChange={this.handleChange}
-                ref="input" // eslint-disable-line react/no-string-refs
-                className={ApiClassNames.INTERACTIVE}
-                value={this.props.value}
-                onFocus={this.handleFocus}
-                onBlur={this.handleBlur}
-            />
-        ) : (
+        const input = (
             <input
                 onChange={this.handleChange}
                 ref="input" // eslint-disable-line react/no-string-refs

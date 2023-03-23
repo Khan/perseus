@@ -349,9 +349,6 @@ export class NumericInput extends React.Component<Props, State> {
     };
 
     _getInputType: () => "tex" | "text" = () => {
-        if (this.props.apiOptions.staticRender) {
-            return "tex";
-        }
         return "text";
     };
 

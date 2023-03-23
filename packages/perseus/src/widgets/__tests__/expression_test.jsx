@@ -288,16 +288,6 @@ describe("rendering", () => {
         const mobileInput = await screen.findByRole("textbox");
         expect(mobileInput).toBeVisible();
     });
-
-    it("static renders", () => {
-        // arrange and act
-        const {container} = renderQuestion(expressionItem2.question, {
-            staticRender: true,
-        });
-
-        // Assert
-        expect(container).toMatchSnapshot("static render");
-    });
 });
 
 describe("interaction", () => {

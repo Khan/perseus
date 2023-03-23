@@ -157,7 +157,6 @@ export type APIOptions = $ReadOnly<{|
         keypadElement?: HTMLElement,
         focusedElement?: HTMLElement,
     ) => mixed,
-    staticRender?: boolean,
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>,
     showAlignmentOptions?: boolean,
     readOnly?: boolean,
@@ -206,10 +205,6 @@ export type APIOptions = $ReadOnly<{|
     // component.  In this situation we use the MathInput component
     // from the math-input repo instead of the existing perseus math
     // input components.
-    // TODO(charlie): Make this mutually exclusive with `staticRender`.
-    // Internally, we defer to `customKeypad` over `staticRender`, but
-    // they should really be represented as an enum or some other data
-    // structure that forbids them both being enabled at once.
     customKeypad?: boolean,
 
     // If this is provided, it is called instead of appending an instance
@@ -389,7 +384,6 @@ export type APIOptionsWithDefaults = $ReadOnly<{|
         APIOptions["setDrawingAreaAvailable"],
     >,
     showAlignmentOptions: $NonMaybeType<APIOptions["showAlignmentOptions"]>,
-    staticRender: $NonMaybeType<APIOptions["staticRender"]>,
     useDraftEditor: $NonMaybeType<APIOptions["useDraftEditor"]>,
 |}>;
 

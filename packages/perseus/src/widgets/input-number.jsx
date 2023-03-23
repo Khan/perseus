@@ -136,10 +136,7 @@ class InputNumber extends React.Component<Props> {
     };
 
     shouldShowExamples: () => boolean = () => {
-        return (
-            this.props.answerType !== "number" &&
-            !this.props.apiOptions.staticRender
-        );
+        return this.props.answerType !== "number";
     };
 
     render(): React.Node {
@@ -205,9 +202,6 @@ class InputNumber extends React.Component<Props> {
     };
 
     _getInputType: () => "tex" | "text" = () => {
-        if (this.props.apiOptions.staticRender) {
-            return "tex";
-        }
         return "text";
     };
 
