@@ -348,10 +348,6 @@ export class NumericInput extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    _getInputType: () => "tex" | "text" = () => {
-        return "text";
-    };
-
     _handleFocus: () => void = () => {
         this.props.onFocus([]);
         // HACK(kevinb): We want to dismiss the feedback popover that webapp
@@ -415,7 +411,7 @@ export class NumericInput extends React.Component<Props, State> {
                     value={this.props.currentValue}
                     onChange={this.handleChange}
                     labelText={labelText}
-                    type={this._getInputType()}
+                    type={"text"}
                     examples={this.examples()}
                     shouldShowExamples={this.shouldShowExamples()}
                     onFocus={this._handleFocus}
