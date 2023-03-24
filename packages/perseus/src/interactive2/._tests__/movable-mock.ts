@@ -4,9 +4,9 @@
 
 import _ from "underscore";
 
-import Movable from '../movable';
+import Movable from "../movable";
 
-const createMock = function(): any {
+const createMock = function (): any {
     const movable = new Movable(null, {
         mouseTarget: null,
     });

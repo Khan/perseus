@@ -8,7 +8,11 @@
  * interface to `math-input`'s MathInput component.
  */
 
-import {KeypadInput, KeypadTypes, keypadElementPropType} from "@khanacademy/math-input";
+import {
+    KeypadInput,
+    KeypadTypes,
+    keypadElementPropType,
+} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 
@@ -26,12 +30,12 @@ export default class SimpleKeypadInput extends React.Component<any> {
     _isMounted: boolean = false;
 
     focus() {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus(); // eslint-disable-line react/no-string-refs
     }
 
     blur() {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur(); // eslint-disable-line react/no-string-refs
     }
 
@@ -48,7 +52,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
         const {keypadElement, onFocus, value, ...rest} = _this.props;
 
         return (
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             <KeypadInput
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"

@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from '../../perseus-types';
+import type {PerseusRenderer} from "../../perseus-types";
 
 export const absoluteValueQuestion: PerseusRenderer = {
     content:

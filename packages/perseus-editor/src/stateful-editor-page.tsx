@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import EditorPage from './editor-page';
+import EditorPage from "./editor-page";
 
 /* Renders an EditorPage (or an ArticleEditor) as a non-controlled component.
  *

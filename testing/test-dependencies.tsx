@@ -1,15 +1,15 @@
 // This defines a version of PerseusDependencies that is suitable for use in tests.
 // It should not make network requests, for example.
 import katex from "katex";
-import renderA11yString from 'katex/dist/contrib/render-a11y-string';
+import renderA11yString from "katex/dist/contrib/render-a11y-string";
 import * as React from "react";
 
-import {registerAllWidgetsForTesting} from '../packages/perseus/src/util/register-all-widgets-for-testing';
+import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
-import {TestTeX} from './test-tex';
+import {TestTeX} from "./test-tex";
 
-import type {PerseusDependencies} from '../packages/perseus/src/index';
-import type {ILogger} from '../packages/perseus/src/logging/log';
+import type {PerseusDependencies} from "../packages/perseus/src/index";
+import type {ILogger} from "../packages/perseus/src/logging/log";
 
 registerAllWidgetsForTesting();
 
@@ -48,24 +48,17 @@ export const testDependencies: PerseusDependencies = {
     // there is throttling code in the logKaTeXError() function which only reports
     // the error 1% of the time... so this causes _very_ rare test failures.
     // Mocking this here so that we don't fail because of this issue.
-    logKaTeXError: (expression: string, error: Error): Promise<any> => Promise.resolve({}),
-    KatexProvider: ({
-        children,
-    }: {
-        children: React.ReactNode
-    }) => (
+    logKaTeXError: (expression: string, error: Error): Promise<any> =>
+        Promise.resolve({}),
+    KatexProvider: ({children}: {children: React.ReactNode}) => (
         <span className="mock-KatexProvider">{children}</span>
     ),
     shouldUseFutureKaTeX: (flag: boolean) => {},
-    TeX: ({
-        children,
-    }: {
-        children: React.ReactNode
-    }) => (
+    TeX: ({children}: {children: React.ReactNode}) => (
         <span className="mock-TeX">{children}</span>
     ),
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(str?: string | null | undefined) => string' is not assignable to type 'StaticUrlFn'.
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(str?: string | null | undefined) => string' is not assignable to type 'StaticUrlFn'.
     staticUrl: (str?: string | null) => {
         // We define the interface such that flow can infer calls properly.
         // However, it means that return types are hard to match here in

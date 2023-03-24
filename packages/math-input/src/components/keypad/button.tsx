@@ -61,10 +61,10 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-    onPress: () => void,
-    children: Node,
-    style?: StyleType,
-    tintColor?: string
+    onPress: () => void;
+    children: Node;
+    style?: StyleType;
+    tintColor?: string;
 };
 
 type State = Record<any, any>;

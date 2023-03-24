@@ -4,7 +4,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import BlurInput from '../components/blur-input';
+import BlurInput from "../components/blur-input";
 
 import type {ParsedValue} from "@khanacademy/perseus";
 
@@ -46,38 +46,54 @@ const answerTypes = {
 } as const;
 
 type Props = {
-    value: number,
-    simplify: JSX.LibraryManagedAttributes<typeof InputNumber.widget, React.ComponentProps<typeof InputNumber.widget>>['simplify'],
-    size: JSX.LibraryManagedAttributes<typeof InputNumber.widget, React.ComponentProps<typeof InputNumber.widget>>['size'],
-    inexact: JSX.LibraryManagedAttributes<typeof InputNumber.widget, React.ComponentProps<typeof InputNumber.widget>>['reviewModeRubric']['inexact'],
-    maxError: JSX.LibraryManagedAttributes<typeof InputNumber.widget, React.ComponentProps<typeof InputNumber.widget>>['reviewModeRubric']['maxError'],
-    answerType: JSX.LibraryManagedAttributes<typeof InputNumber.widget, React.ComponentProps<typeof InputNumber.widget>>['answerType'],
-    rightAlign: JSX.LibraryManagedAttributes<typeof InputNumber.widget, React.ComponentProps<typeof InputNumber.widget>>['rightAlign'],
-    onChange: (
-        arg1: {
-            value?: ParsedValue | 0,
-            simplify?: Props['simplify'],
-            size?: Props['size'],
-            inexact?: Props['inexact'],
-            maxError?: Props['maxError'],
-            answerType?: Props['answerType'],
-            rightAlign?: Props['rightAlign']
-        },
-    ) => void
+    value: number;
+    simplify: JSX.LibraryManagedAttributes<
+        typeof InputNumber.widget,
+        React.ComponentProps<typeof InputNumber.widget>
+    >["simplify"];
+    size: JSX.LibraryManagedAttributes<
+        typeof InputNumber.widget,
+        React.ComponentProps<typeof InputNumber.widget>
+    >["size"];
+    inexact: JSX.LibraryManagedAttributes<
+        typeof InputNumber.widget,
+        React.ComponentProps<typeof InputNumber.widget>
+    >["reviewModeRubric"]["inexact"];
+    maxError: JSX.LibraryManagedAttributes<
+        typeof InputNumber.widget,
+        React.ComponentProps<typeof InputNumber.widget>
+    >["reviewModeRubric"]["maxError"];
+    answerType: JSX.LibraryManagedAttributes<
+        typeof InputNumber.widget,
+        React.ComponentProps<typeof InputNumber.widget>
+    >["answerType"];
+    rightAlign: JSX.LibraryManagedAttributes<
+        typeof InputNumber.widget,
+        React.ComponentProps<typeof InputNumber.widget>
+    >["rightAlign"];
+    onChange: (arg1: {
+        value?: ParsedValue | 0;
+        simplify?: Props["simplify"];
+        size?: Props["size"];
+        inexact?: Props["inexact"];
+        maxError?: Props["maxError"];
+        answerType?: Props["answerType"];
+        rightAlign?: Props["rightAlign"];
+    }) => void;
 };
 
 type DefaultProps = {
-    value: Props['value'],
-    simplify: Props['simplify'],
-    size: Props['size'],
-    inexact: Props['inexact'],
-    maxError: Props['maxError'],
-    answerType: Props['answerType'],
-    rightAlign: Props['rightAlign']
+    value: Props["value"];
+    simplify: Props["simplify"];
+    size: Props["size"];
+    inexact: Props["inexact"];
+    maxError: Props["maxError"];
+    answerType: Props["answerType"];
+    rightAlign: Props["rightAlign"];
 };
 
 class InputNumberEditor extends React.Component<Props> {
-    static widgetName: 'input-number' = "input-number";
+    static widgetName: "input-number" = "input-number";
 
     static defaultProps: DefaultProps = {
         value: 0,
@@ -128,7 +144,7 @@ class InputNumberEditor extends React.Component<Props> {
                             value={this.props.simplify}
                             onChange={(e) => {
                                 this.props.onChange({
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"optional" | "required" | "enforced" | undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"optional" | "required" | "enforced" | undefined'.
                                     simplify: e.target.value,
                                 });
                             }}
@@ -203,7 +219,7 @@ class InputNumberEditor extends React.Component<Props> {
                     <select
                         value={this.props.answerType}
                         onChange={(e) => {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
                             this.props.onChange({answerType: e.target.value});
                         }}
                     >
@@ -224,7 +240,7 @@ class InputNumberEditor extends React.Component<Props> {
                         <select
                             value={this.props.size}
                             onChange={(e) => {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"small" | "normal" | undefined'.
+                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"small" | "normal" | undefined'.
                                 this.props.onChange({size: e.target.value});
                             }}
                         >
@@ -260,19 +276,19 @@ class InputNumberEditor extends React.Component<Props> {
     }
 
     focus: () => boolean = () => {
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.input).focus(); // eslint-disable-line react/no-string-refs
         return true;
     };
 
     serialize: () => {
-        value: Props['value'],
-        simplify: Props['simplify'],
-        size: Props['size'],
-        inexact: Props['inexact'],
-        maxError: Props['maxError'],
-        answerType: Props['answerType'],
-        rightAlign: Props['rightAlign']
+        value: Props["value"];
+        simplify: Props["simplify"];
+        size: Props["size"];
+        inexact: Props["inexact"];
+        maxError: Props["maxError"];
+        answerType: Props["answerType"];
+        rightAlign: Props["rightAlign"];
     } = () => ({
         value: this.props.value,
         simplify: this.props.simplify,

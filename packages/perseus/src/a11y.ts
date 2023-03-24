@@ -5,9 +5,9 @@
 
 import _ from "underscore";
 
-import MultiItems from './multi-items';
-import {traverse} from './traversal';
-import * as Widgets from './widgets';
+import MultiItems from "./multi-items";
+import {traverse} from "./traversal";
+import * as Widgets from "./widgets";
 
 const {findContentNodesInItem, inferItemShape} = MultiItems;
 

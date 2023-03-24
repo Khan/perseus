@@ -1,5 +1,5 @@
-import shapes from '../shapes';
-import {buildMapper} from '../trees';
+import shapes from "../shapes";
+import {buildMapper} from "../trees";
 
 import type {
     ItemTree,
@@ -7,8 +7,8 @@ import type {
     HintNode,
     TagsNode,
     ItemArrayNode,
-} from '../item-types';
-import type {TreeMapper} from '../trees';
+} from "../item-types";
+import type {TreeMapper} from "../trees";
 
 describe("buildMapper", () => {
     function content(n): ContentNode {
@@ -100,7 +100,14 @@ describe("buildMapper", () => {
     });
 
     it("returns a mapped tree with the correct shape", () => {
-        const mapper: TreeMapper<ContentNode, string, HintNode, string, TagsNode, string> = buildMapper()
+        const mapper: TreeMapper<
+            ContentNode,
+            string,
+            HintNode,
+            string,
+            TagsNode,
+            string
+        > = buildMapper()
             .setContentMapper((c) => `mapped content: ${c.content || "<none>"}`)
             .setHintMapper((h) => `mapped hint: ${h.content || "<none>"}`)
             .setTagsMapper((t) => `mapped tags: ${t.join(", ")}`);
@@ -177,7 +184,14 @@ describe("buildMapper", () => {
 
         const tree = {a: {b: {c: content(1)}}} as const;
 
-        const mapper: TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode> = buildMapper().setContentMapper((c) => c.content);
+        const mapper: TreeMapper<
+            ContentNode,
+            string | null | undefined,
+            HintNode,
+            HintNode,
+            TagsNode,
+            TagsNode
+        > = buildMapper().setContentMapper((c) => c.content);
         const result = mapper.mapTree(tree, shape);
 
         expect({a: {b: {c: "content 1"}}}).toEqual(result);
@@ -193,7 +207,14 @@ describe("buildMapper", () => {
             array(array(content(2)), array(content(3), content(4))),
         );
 
-        const mapper: TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode> = buildMapper().setContentMapper((c) => c.content);
+        const mapper: TreeMapper<
+            ContentNode,
+            string | null | undefined,
+            HintNode,
+            HintNode,
+            TagsNode,
+            TagsNode
+        > = buildMapper().setContentMapper((c) => c.content);
         const result = mapper.mapTree(tree, shape);
 
         expect([
@@ -207,7 +228,14 @@ describe("buildMapper", () => {
 
         const tree = array(array(), array(content(1)), array());
 
-        const mapper: TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode> = buildMapper().setContentMapper((c) => c.content);
+        const mapper: TreeMapper<
+            ContentNode,
+            string | null | undefined,
+            HintNode,
+            HintNode,
+            TagsNode,
+            TagsNode
+        > = buildMapper().setContentMapper((c) => c.content);
 
         // Test the outer array being empty.
         expect([]).toEqual(mapper.mapTree(array(), shape));
@@ -223,7 +251,14 @@ describe("buildMapper", () => {
 
         let wasCalled = false;
         let callArgs: Record<string, any> = {};
-        const mapper: TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode> = buildMapper()
+        const mapper: TreeMapper<
+            ContentNode,
+            string | null | undefined,
+            HintNode,
+            HintNode,
+            TagsNode,
+            TagsNode
+        > = buildMapper()
             .setContentMapper((c) => c.content)
             .setArrayMapper((mappedArray, originalArray, shape, path) => {
                 wasCalled = true;

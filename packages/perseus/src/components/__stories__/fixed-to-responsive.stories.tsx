@@ -1,12 +1,12 @@
 import * as React from "react";
 
-import {getDependencies} from '../../dependencies';
-import FixedToResponsive from '../fixed-to-responsive';
+import {getDependencies} from "../../dependencies";
+import FixedToResponsive from "../fixed-to-responsive";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 const svgUrl = "https://www.khanacademy.org/images/ohnoes-concerned.svg";
@@ -21,7 +21,9 @@ export default {
     title: "Perseus/Components/Fixed to Responsive",
 } as Story;
 
-export const SmallImageWithSmallContainer: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SmallImageWithSmallContainer: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeSmall}>
             <img
@@ -34,7 +36,9 @@ export const SmallImageWithSmallContainer: React.FC<StoryArgs> = (args): React.R
     );
 };
 
-export const SmallImageWithMediumContainer: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SmallImageWithMediumContainer: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeMedium}>
             <img
@@ -47,7 +51,9 @@ export const SmallImageWithMediumContainer: React.FC<StoryArgs> = (args): React.
     );
 };
 
-export const LargeImageWithLargeContainer: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const LargeImageWithLargeContainer: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeLarge}>
             <img
@@ -60,7 +66,9 @@ export const LargeImageWithLargeContainer: React.FC<StoryArgs> = (args): React.R
     );
 };
 
-export const LargeImageWithSmallerContainer: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const LargeImageWithSmallerContainer: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeSmall}>
             <img
@@ -73,7 +81,9 @@ export const LargeImageWithSmallerContainer: React.FC<StoryArgs> = (args): React
     );
 };
 
-export const TwoOverlayedImagesInsteadOneResponsiveContainer: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TwoOverlayedImagesInsteadOneResponsiveContainer: React.FC<
+    StoryArgs
+> = (args): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeSmall}>
             <img
@@ -94,7 +104,9 @@ export const TwoOverlayedImagesInsteadOneResponsiveContainer: React.FC<StoryArgs
     );
 };
 
-export const HeightConstrainingAnImage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const HeightConstrainingAnImage: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <FixedToResponsive
             width={width}
@@ -111,7 +123,9 @@ export const HeightConstrainingAnImage: React.FC<StoryArgs> = (args): React.Reac
     );
 };
 
-export const AllowingFullBleed: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const AllowingFullBleed: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <FixedToResponsive
             width={width}

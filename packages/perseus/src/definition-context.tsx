@@ -5,8 +5,8 @@
 import * as React from "react";
 
 type DefintionContext = {
-    activeDefinitionId: string | null | undefined,
-    setActiveDefinitionId: (arg1?: string | null | undefined) => void
+    activeDefinitionId: string | null | undefined;
+    setActiveDefinitionId: (arg1?: string | null | undefined) => void;
 };
 
 const defaultContext: DefintionContext = {
@@ -18,13 +18,16 @@ const DefinitionContext: React.Context<DefintionContext> =
     React.createContext(defaultContext);
 
 type ProviderState = {
-    activeDefinitionId: string | null | undefined
+    activeDefinitionId: string | null | undefined;
 };
 
 export type ProviderProps = {
-    children: any
+    children: any;
 };
-export class DefinitionProvider extends React.Component<ProviderProps, ProviderState> {
+export class DefinitionProvider extends React.Component<
+    ProviderProps,
+    ProviderState
+> {
     // Context state
     state: ProviderState = {
         activeDefinitionId: null,

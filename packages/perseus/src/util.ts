@@ -1,50 +1,50 @@
 /* eslint-disable @babel/no-invalid-this, getter-return, one-var */
 import _ from "underscore";
 
-import {Errors} from './logging/log';
-import {PerseusError} from './perseus-error';
-import KhanAnswerTypes from './util/answer-types';
+import {Errors} from "./logging/log";
+import {PerseusError} from "./perseus-error";
+import KhanAnswerTypes from "./util/answer-types";
 
-import type {Widget, PerseusScore, KEScore} from './types';
+import type {Widget, PerseusScore, KEScore} from "./types";
 
 type WordPosition = {
-    start: number,
-    end: number
+    start: number;
+    end: number;
 };
 
 type WordAndPosition = {
-    string: string,
-    pos: WordPosition
+    string: string;
+    pos: WordPosition;
 };
 
 type RNG = () => number;
 
 export type ParsedValue = {
-    value: number,
-    exact: boolean
+    value: number;
+    exact: boolean;
 };
 
 // TODO: dedupe this with Coord in interactive2/types.js
 type Coordinates = [number, number];
 
 export type GridDimensions = {
-    scale: number,
-    tickStep: number,
-    unityLabel: boolean
+    scale: number;
+    tickStep: number;
+    unityLabel: boolean;
 };
 
 type QueryParams = {
-    [param: string]: string
+    [param: string]: string;
 };
 
 type Position = {
-    top: number,
-    left: number
+    top: number;
+    left: number;
 };
 
 type TouchHandlers = {
-    pointerDown: boolean,
-    currentTouchIdentifier: string | null | undefined
+    pointerDown: boolean;
+    currentTouchIdentifier: string | null | undefined;
 };
 
 let supportsPassive = false;
@@ -57,11 +57,15 @@ const svgLabelsRegex = /^web\+graphie:/;
 // they should have the `file://` protocol instead of `https://`.
 const svgLocalLabelsRegex = /^file\+graphie:/;
 
-const nestedMap = function<T, M>(children: T | ReadonlyArray<T>, func: (arg1: T) => M, context: unknown): M | ReadonlyArray<M> {
+const nestedMap = function <T, M>(
+    children: T | ReadonlyArray<T>,
+    func: (arg1: T) => M,
+    context: unknown,
+): M | ReadonlyArray<M> {
     if (Array.isArray(children)) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(M | readonly M[])[]' is not assignable to type 'M | readonly M[]'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '(M | readonly M[])[]' is not assignable to type 'M | readonly M[]'.
         return _.map(children, function (child) {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
             return nestedMap(child, func);
         });
     }
@@ -72,7 +76,10 @@ const nestedMap = function<T, M>(children: T | ReadonlyArray<T>, func: (arg1: T)
  * Used to compare equality of two input paths, which are represented as
  * arrays of strings.
  */
-function inputPathsEqual(a?: ReadonlyArray<string> | null, b?: ReadonlyArray<string> | null): boolean {
+function inputPathsEqual(
+    a?: ReadonlyArray<string> | null,
+    b?: ReadonlyArray<string> | null,
+): boolean {
     if (a == null || b == null) {
         return (a == null) === (b == null);
     }
@@ -97,7 +104,7 @@ const noScore: PerseusScore = {
     message: null,
 };
 
-const seededRNG: (seed: number) => RNG = function(seed: number): RNG {
+const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     let randomSeed = seed;
 
     return function () {
@@ -147,9 +154,9 @@ function shuffle<T>(
             const newEnd = Math.floor(random() * top),
                 temp = shuffled[newEnd];
 
-// @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly T[]' only permits reading.
+            // @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[newEnd] = shuffled[top - 1];
-// @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly T[]' only permits reading.
+            // @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[top - 1] = temp;
         }
     } while (ensurePermuted && _.isEqual(array, shuffled));
@@ -177,14 +184,14 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
 
           while ((match = r.exec(str))) {
               const m = match;
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+              // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
               output.push(str.slice(lastIndex, m.index));
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+              // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
               output.push(...m.slice(1));
               lastIndex = m.index + m[0].length;
           }
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+          // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
           output.push(str.slice(lastIndex));
           return output;
       };
@@ -195,7 +202,10 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
  * Given two score objects for two different widgets, combine them so that
  * if one is wrong, the total score is wrong, etc.
  */
-function combineScores(scoreA: PerseusScore, scoreB: PerseusScore): PerseusScore {
+function combineScores(
+    scoreA: PerseusScore,
+    scoreB: PerseusScore,
+): PerseusScore {
     let message;
 
     if (scoreA.type === "points" && scoreB.type === "points") {
@@ -257,7 +267,11 @@ function combineScores(scoreA: PerseusScore, scoreB: PerseusScore): PerseusScore
     );
 }
 
-function keScoreFromPerseusScore(score: PerseusScore, guess: any, state: any): KEScore {
+function keScoreFromPerseusScore(
+    score: PerseusScore,
+    guess: any,
+    state: any,
+): KEScore {
     if (score.type === "points") {
         return {
             empty: false,
@@ -278,7 +292,7 @@ function keScoreFromPerseusScore(score: PerseusScore, guess: any, state: any): K
         };
     }
     throw new PerseusError(
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
         "Invalid score type: " + score.type,
         Errors.InvalidInput,
         {
@@ -361,8 +375,12 @@ function gridDimensionConfig(
  *
  * TODO(somewhatabstract, FEI-3464): Consolidate query string parsing functions.
  */
-function getGridStep(range: [Coordinates, Coordinates], step: Coordinates, boxSize: number): Coordinates {
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(number | null | undefined)[]' is not assignable to type 'Coordinates'.
+function getGridStep(
+    range: [Coordinates, Coordinates],
+    step: Coordinates,
+    boxSize: number,
+): Coordinates {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(number | null | undefined)[]' is not assignable to type 'Coordinates'.
     return _(2).times(function (i) {
         const scale = scaleFromExtent(range[i], boxSize);
         const gridStep = gridStepFromTickStep(step[i], scale);
@@ -380,7 +398,10 @@ function snapStepFromGridStep(gridStep: [number, number]): [number, number] {
  * Example:
  *      gridStepFromTickStep(200, 0.2) // returns 100
  */
-function gridStepFromTickStep(tickStep: number, scale: number): number | null | undefined {
+function gridStepFromTickStep(
+    tickStep: number,
+    scale: number,
+): number | null | undefined {
     const tickWidth = tickStep * scale;
     const x = tickStep;
     const y = Math.pow(10, Math.floor(Math.log(x) / Math.LN10));
@@ -411,7 +432,10 @@ function gridStepFromTickStep(tickStep: number, scale: number): number | null | 
  * Example:
  *      scaleFromExtent([-25, 25], 500) // returns 10
  */
-function scaleFromExtent(extent: Coordinates, dimensionConstraint: number): number {
+function scaleFromExtent(
+    extent: Coordinates,
+    dimensionConstraint: number,
+): number {
     const span = extent[1] - extent[0];
     const scale = dimensionConstraint / span;
     return scale;
@@ -423,7 +447,10 @@ function scaleFromExtent(extent: Coordinates, dimensionConstraint: number): numb
  * Example:
  *      tickStepFromExtent([-10, 10], 300) // returns 2
  */
-function tickStepFromExtent(extent: Coordinates, dimensionConstraint: number): number {
+function tickStepFromExtent(
+    extent: Coordinates,
+    dimensionConstraint: number,
+): number {
     const span = extent[1] - extent[0];
 
     let tickFactor;
@@ -491,7 +518,10 @@ const constrainTickStep = (step: number, range: Range): number => {
  * to something more suitable for mobile size graphs.
  * Specifically, we aim for 10 or fewer ticks per graph axis.
  */
-function constrainedTickStepsFromTickSteps(tickSteps: Coordinates, ranges: [Range, Range]): Coordinates {
+function constrainedTickStepsFromTickSteps(
+    tickSteps: Coordinates,
+    ranges: [Range, Range],
+): Coordinates {
     return [
         constrainTickStep(tickSteps[0], ranges[0]),
         constrainTickStep(tickSteps[1], ranges[1]),
@@ -519,9 +549,9 @@ const DeprecationMixin: any = {
         _.each(
             this.deprecatedProps,
             function (func, prop) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (_.has(this.props, prop)) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     _.extend(newProps, func(this.props));
                 }
             },
@@ -582,11 +612,11 @@ function deepEq<T>(x: T, y: T): boolean {
         return (
             x === y ||
             (_.all(x, function (v, k) {
-// @ts-expect-error [FEI-5003] - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
+                // @ts-expect-error [FEI-5003] - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
                 return deepEq(y[k], v);
             }) &&
                 _.all(y, function (v, k) {
-// @ts-expect-error [FEI-5003] - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
+                    // @ts-expect-error [FEI-5003] - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
                     return deepEq(x[k], v);
                 }))
         );
@@ -650,11 +680,13 @@ function updateQueryString(uri: string, key: string, value: string): string {
  * CC-BY-SA 2.5 license.
  */
 function strongEncodeURIComponent(str: string): string {
-    return encodeURIComponent(str)
-        // Note that although RFC3986 reserves "!", RFC5987 does not,
-        // so we do not need to escape it
-        .replace(/['()!]/g, window.escape) // i.e., %27 %28 %29
-        .replace(/\*/g, "%2A");
+    return (
+        encodeURIComponent(str)
+            // Note that although RFC3986 reserves "!", RFC5987 does not,
+            // so we do not need to escape it
+            .replace(/['()!]/g, window.escape) // i.e., %27 %28 %29
+            .replace(/\*/g, "%2A")
+    );
 }
 
 /**
@@ -788,9 +820,9 @@ const supportsPassiveEvents: () => boolean = () => {
                 supportsPassive = true;
             },
         });
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         window.addEventListener("testPassive", null, opts);
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         window.removeEventListener("testPassive", null, opts);
     } catch (e: any) {
         // Intentionally left empty!
@@ -807,7 +839,10 @@ function captureScratchpadTouchStart(e: TouchEvent) {
     e.stopPropagation();
 }
 
-function getImageSize(url: string, callback: (arg1: number, arg2: number) => void): void {
+function getImageSize(
+    url: string,
+    callback: (arg1: number, arg2: number) => void,
+): void {
     const img = new Image();
     img.onload = function () {
         // IE 11 seems to have problems calculating the heights of svgs

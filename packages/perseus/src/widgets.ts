@@ -1,8 +1,8 @@
 import * as React from "react";
 import _ from "underscore";
 
-import {Errors, Log} from './logging/log';
-import {PerseusError} from './perseus-error';
+import {Errors, Log} from "./logging/log";
+import {PerseusError} from "./perseus-error";
 
 import type {
     Alignment,
@@ -11,7 +11,7 @@ import type {
     WidgetExports,
     WidgetInfo,
     WidgetTransform,
-} from './types';
+} from "./types";
 
 const DEFAULT_ALIGNMENT = "block";
 // NOTE(kevinb): "default" is not one in `validAlignments`.
@@ -23,7 +23,7 @@ const DEFAULT_LINTABLE = false;
 type Editor = any;
 
 const widgets: {
-    [key: string]: WidgetExports
+    [key: string]: WidgetExports;
 } = {};
 const editors: Record<string, any> = {};
 
@@ -55,7 +55,9 @@ export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
     });
 };
 
-export const getWidget = (name: string): React.ComponentType<any> | null | undefined => {
+export const getWidget = (
+    name: string,
+): React.ComponentType<any> | null | undefined => {
     // TODO(alex): Consider referring to these as renderers to avoid
     // overloading "widget"
     if (!_.has(widgets, name)) {
@@ -64,7 +66,7 @@ export const getWidget = (name: string): React.ComponentType<any> | null | undef
 
     // Allow widgets to specify a widget directly or via a function
     if (widgets[name].getWidget) {
-// @ts-expect-error [FEI-5003] - TS2722 - Cannot invoke an object which is possibly 'undefined'.
+        // @ts-expect-error [FEI-5003] - TS2722 - Cannot invoke an object which is possibly 'undefined'.
         return widgets[name].getWidget();
     }
     return widgets[name].widget;
@@ -74,7 +76,9 @@ export const getEditor = (name: string): Editor | null | undefined => {
     return _.has(editors, name) ? editors[name] : null;
 };
 
-export const getTransform = (name: string): WidgetTransform | null | undefined => {
+export const getTransform = (
+    name: string,
+): WidgetTransform | null | undefined => {
     return _.has(widgets, name) ? widgets[name].transform || _.identity : null;
 };
 
@@ -87,7 +91,7 @@ export const getVersion = (name: string): Version | null | undefined => {
 };
 
 export const getVersionVector = (): {
-    [key: string]: Version
+    [key: string]: Version;
 } => {
     const version: Record<string, any> = {};
     _.each(_.keys(widgets), function (name) {
@@ -98,10 +102,10 @@ export const getVersionVector = (): {
 
 export const getPublicWidgets = (): ReadonlyArray<WidgetExports> => {
     // TODO(alex): Update underscore.js so that _.pick can take a function.
-// @ts-expect-error [FEI-5003] - TS2740 - Type 'Pick<{ [key: string]: Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>; }, string>' is missing the following properties from type 'readonly Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>[]': length, concat, join, slice, and 18 more.
+    // @ts-expect-error [FEI-5003] - TS2740 - Type 'Pick<{ [key: string]: Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>; }, string>' is missing the following properties from type 'readonly Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>[]': length, concat, join, slice, and 18 more.
     return _.pick(
         widgets,
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(name: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(name: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
         _.reject(_.keys(widgets), function (name) {
             return widgets[name].hidden;
         }),
@@ -120,7 +124,9 @@ export const getAllWidgetTypes = (): ReadonlyArray<string> => {
     return _.keys(widgets);
 };
 
-export const upgradeWidgetInfoToLatestVersion = (oldWidgetInfo: WidgetInfo): WidgetInfo => {
+export const upgradeWidgetInfoToLatestVersion = (
+    oldWidgetInfo: WidgetInfo,
+): WidgetInfo => {
     const type = oldWidgetInfo.type;
     // TODO(LP-10707): Remove unnecessary type checking (`type` is a string)
     if (!_.isString(type)) {
@@ -240,7 +246,10 @@ export const upgradeWidgetInfoToLatestVersion = (oldWidgetInfo: WidgetInfo): Wid
     });
 };
 
-export const getRendererPropsForWidgetInfo = (widgetInfo: WidgetInfo, problemNum?: number): any => {
+export const getRendererPropsForWidgetInfo = (
+    widgetInfo: WidgetInfo,
+    problemNum?: number,
+): any => {
     const type = widgetInfo.type;
     const widgetExports = widgets[type];
     if (widgetExports == null) {
@@ -264,7 +273,10 @@ export const getRendererPropsForWidgetInfo = (widgetInfo: WidgetInfo, problemNum
     return transform(widgetInfo.options, problemNum);
 };
 
-export const traverseChildWidgets = (widgetInfo: WidgetInfo, traverseRenderer: any): WidgetInfo => {
+export const traverseChildWidgets = (
+    widgetInfo: WidgetInfo,
+    traverseRenderer: any,
+): WidgetInfo => {
     if (!traverseRenderer) {
         throw new PerseusError(
             "traverseRenderer must be provided, but was not",
@@ -302,9 +314,11 @@ export const traverseChildWidgets = (widgetInfo: WidgetInfo, traverseRenderer: a
  * Supported alignments are given as an array of strings in the exports of
  * a widget's module.
  */
-export const getSupportedAlignments = (type: string): ReadonlyArray<Alignment> => {
+export const getSupportedAlignments = (
+    type: string,
+): ReadonlyArray<Alignment> => {
     const widgetExport = widgets[type];
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string[] | readonly Alignment[]' is not assignable to type 'readonly Alignment[]'.
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string[] | readonly Alignment[]' is not assignable to type 'readonly Alignment[]'.
     return (
         (widgetExport && widgetExport.supportedAlignments) ||
         DEFAULT_SUPPORTED_ALIGNMENTS
@@ -403,7 +417,9 @@ export const supportsStaticMode = (type: string): boolean => {
  * Return the staticTransform function used to convert the editorProps to
  * the rendered widget state.
  */
-export const getStaticTransform = (type: string): WidgetTransform | null | undefined => {
+export const getStaticTransform = (
+    type: string,
+): WidgetTransform | null | undefined => {
     const widgetInfo = widgets[type];
     return widgetInfo && widgetInfo.staticTransform;
 };

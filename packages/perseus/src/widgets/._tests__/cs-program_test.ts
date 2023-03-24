@@ -1,10 +1,10 @@
 import "@testing-library/jest-dom";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {question1} from '../__testdata__/cs-program_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {question1} from "../__testdata__/cs-program_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 describe("cs-program widget", () => {
     beforeEach(() => {

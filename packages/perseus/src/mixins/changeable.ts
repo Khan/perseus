@@ -11,12 +11,12 @@
 import PropTypes from "prop-types";
 import _ from "underscore";
 
-import {Errors} from '../logging/log';
-import {PerseusError} from '../perseus-error';
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 
-import WIDGET_PROP_DENYLIST from './widget-prop-denylist';
+import WIDGET_PROP_DENYLIST from "./widget-prop-denylist";
 
-import type {ChangeFn} from '../types';
+import type {ChangeFn} from "../types";
 
 const USAGE =
     "Usage:\n" +
@@ -30,9 +30,16 @@ const USAGE =
  * Takes the parameters in a consistent style, once this.change() has
  * figured out which way it was called.
  */
-const _changeMultiple = function (component: any, newProps: string | Record<any, any> | {
-  [key: string]: any
-}, callback) {
+const _changeMultiple = function (
+    component: any,
+    newProps:
+        | string
+        | Record<any, any>
+        | {
+              [key: string]: any;
+          },
+    callback,
+) {
     // Omit "default" props:
     // ref and key come from react, and don't actually represent
     //   the conceptual state of our component
@@ -46,7 +53,12 @@ const _changeMultiple = function (component: any, newProps: string | Record<any,
 /**
  * Helper function for changing a single prop
  */
-const _changeSingle = function (component: any, propName: string, value: any, callback) {
+const _changeSingle = function (
+    component: any,
+    propName: string,
+    value: any,
+    callback,
+) {
     if (value === undefined) {
         // If called with a single prop name, return a lambda to change
         // a single prop on the current object
@@ -80,7 +92,7 @@ export const change: ChangeFn = function (
         // Called with an object of multiple props to change
         callback = propValue;
         return _changeMultiple(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this,
             newPropsOrSinglePropName, // object newProps
             callback,
@@ -89,7 +101,7 @@ export const change: ChangeFn = function (
     if (typeof newPropsOrSinglePropName === "string") {
         // Called with a string propName of a single prop to change
         return _changeSingle(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this,
             newPropsOrSinglePropName, // string propName
             propValue,
@@ -112,9 +124,9 @@ export const propTypes = {
 export type ChangeableProps = {
     onChange: (
         values: {
-            [key: string]: any
+            [key: string]: any;
         },
         callback?: () => unknown | null | undefined,
         silent?: boolean,
-    ) => unknown
+    ) => unknown;
 };

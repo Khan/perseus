@@ -1,18 +1,20 @@
 import * as React from "react";
 
-import PropCheckBox from '../prop-check-box';
+import PropCheckBox from "../prop-check-box";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
     title: "Perseus/Components/Prop Check Box",
 } as Story;
 
-export const TestLabelWithCheckedObject: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TestLabelWithCheckedObject: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <PropCheckBox
             test={true}
@@ -23,7 +25,9 @@ export const TestLabelWithCheckedObject: React.FC<StoryArgs> = (args): React.Rea
     );
 };
 
-export const TestLabelWithUncheckedObject: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TestLabelWithUncheckedObject: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <PropCheckBox
             test={false}
@@ -34,7 +38,9 @@ export const TestLabelWithUncheckedObject: React.FC<StoryArgs> = (args): React.R
     );
 };
 
-export const TestLabelWithCheckedObjectLabelOnTheRight: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TestLabelWithCheckedObjectLabelOnTheRight: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <PropCheckBox
             test={true}
@@ -45,7 +51,9 @@ export const TestLabelWithCheckedObjectLabelOnTheRight: React.FC<StoryArgs> = (a
     );
 };
 
-export const TestLabelWithUncheckedObjectLabelOnTheRight: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TestLabelWithUncheckedObjectLabelOnTheRight: React.FC<
+    StoryArgs
+> = (args): React.ReactElement => {
     return (
         <PropCheckBox
             test={false}

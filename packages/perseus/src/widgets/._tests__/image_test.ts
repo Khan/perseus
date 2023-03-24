@@ -1,15 +1,12 @@
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {isAccessible} from '../../widgets';
-import {question} from '../__testdata__/image_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {isAccessible} from "../../widgets";
+import {question} from "../__testdata__/image_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {
-    ImageWidget,
-    PerseusImageWidgetOptions,
-} from '../../perseus-types';
-import type {APIOptions} from '../../types';
+import type {ImageWidget, PerseusImageWidgetOptions} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 
 describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
     const apiOptions: APIOptions = {isMobile};
@@ -47,15 +44,15 @@ describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
 
     it("should be inaccessible if background is missing 'alt' prop", () => {
         // Arrange
-        const imageWidget = (question.widgets["image 1"] as ImageWidget);
-        const options = (imageWidget.options as PerseusImageWidgetOptions);
-        const inaccessibleWidgetInfo = ({
+        const imageWidget = question.widgets["image 1"] as ImageWidget;
+        const options = imageWidget.options as PerseusImageWidgetOptions;
+        const inaccessibleWidgetInfo = {
             ...imageWidget,
             options: {
                 ...options,
                 alt: "",
             },
-        } as ImageWidget);
+        } as ImageWidget;
 
         // Act and Assert
         expect(isAccessible(inaccessibleWidgetInfo)).toBeFalse();

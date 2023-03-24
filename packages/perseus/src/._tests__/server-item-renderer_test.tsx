@@ -4,37 +4,42 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from '../../../../testing/test-dependencies';
+import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
     mockedItem,
-} from '../__testdata__/item-renderer_testdata';
-import * as Dependencies from '../dependencies';
+} from "../__testdata__/item-renderer_testdata";
+import * as Dependencies from "../dependencies";
 import WrappedServerItemRenderer, {
     ServerItemRenderer,
-} from '../server-item-renderer';
-import {registerWidget} from '../widgets';
-import InputNumberExport from '../widgets/input-number';
-import RadioWidgetExport from '../widgets/radio';
+} from "../server-item-renderer";
+import {registerWidget} from "../widgets";
+import InputNumberExport from "../widgets/input-number";
+import RadioWidgetExport from "../widgets/radio";
 
 import MockAssetLoadingWidgetExport, {
     MockAssetLoadingWidget,
     mockedAssetItem,
-} from './mock-asset-loading-widget';
-import MockWidgetExport from './mock-widget';
+} from "./mock-asset-loading-widget";
+import MockWidgetExport from "./mock-widget";
 
-import type {PerseusItem} from '../perseus-types';
-import type {APIOptions} from '../types';
+import type {PerseusItem} from "../perseus-types";
+import type {APIOptions} from "../types";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
 const renderQuestion = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
-    optionalProps: Partial<JSX.LibraryManagedAttributes<typeof WrappedServerItemRenderer, React.ComponentProps<typeof WrappedServerItemRenderer>>> = Object.freeze({}),
+    optionalProps: Partial<
+        JSX.LibraryManagedAttributes<
+            typeof WrappedServerItemRenderer,
+            React.ComponentProps<typeof WrappedServerItemRenderer>
+        >
+    > = Object.freeze({}),
 ): {
-    container: HTMLElement,
-    renderer: ServerItemRenderer
+    container: HTMLElement;
+    renderer: ServerItemRenderer;
 } => {
     let renderer: ServerItemRenderer | null = null;
 
@@ -294,7 +299,7 @@ describe("server item renderer", () => {
         // Act
         // setAssetStatus() is not part of the Widget interface, it's specific
         // this test.
-        const widget = (mockedWidget as MockAssetLoadingWidget);
+        const widget = mockedWidget as MockAssetLoadingWidget;
         widget.setAssetStatus("ABC", true);
 
         // Assert

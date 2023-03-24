@@ -5,12 +5,12 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import InputWithExamples from '../components/input-with-examples';
-import SimpleKeypadInput from '../components/simple-keypad-input';
-import {ApiOptions} from '../perseus-api';
-import TexWrangler from '../tex-wrangler';
-import KhanAnswerTypes from '../util/answer-types';
-import KhanMath from '../util/math';
+import InputWithExamples from "../components/input-with-examples";
+import SimpleKeypadInput from "../components/simple-keypad-input";
+import {ApiOptions} from "../perseus-api";
+import TexWrangler from "../tex-wrangler";
+import KhanAnswerTypes from "../util/answer-types";
+import KhanMath from "../util/math";
 
 import type {
     PerseusNumericInputAnswer,
@@ -40,7 +40,7 @@ const answerFormButtons = [
 ];
 
 const formExamples: {
-    [key: string]: (arg1: PerseusNumericInputAnswerForm) => string
+    [key: string]: (arg1: PerseusNumericInputAnswerForm) => string;
 } = {
     integer: () => i18n._("an integer, like $6$"),
     proper: (form) =>
@@ -61,41 +61,41 @@ const formExamples: {
 };
 
 type UserInput = {
-    currentValue: string
+    currentValue: string;
 };
 
 export type Rubric = PerseusNumericInputWidgetOptions;
 
 type ExternalProps = WidgetProps<PerseusNumericInputWidgetOptions, Rubric>;
 
-type Props = (ExternalProps) & {
-    size: NonNullable<ExternalProps['size']>,
-    rightAlign: NonNullable<ExternalProps['rightAlign']>,
-    apiOptions: NonNullable<ExternalProps['apiOptions']>,
-    coefficient: NonNullable<ExternalProps['coefficient']>,
-    answerForms: NonNullable<ExternalProps['answerForms']>,
-    labelText: NonNullable<ExternalProps['labelText']>,
-    linterContext: NonNullable<ExternalProps['linterContext']>,
-    multipleNumberInput: NonNullable<ExternalProps['multipleNumberInput']>,
-    currentValue: string
+type Props = ExternalProps & {
+    size: NonNullable<ExternalProps["size"]>;
+    rightAlign: NonNullable<ExternalProps["rightAlign"]>;
+    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
+    coefficient: NonNullable<ExternalProps["coefficient"]>;
+    answerForms: NonNullable<ExternalProps["answerForms"]>;
+    labelText: NonNullable<ExternalProps["labelText"]>;
+    linterContext: NonNullable<ExternalProps["linterContext"]>;
+    multipleNumberInput: NonNullable<ExternalProps["multipleNumberInput"]>;
+    currentValue: string;
 };
 
 type DefaultProps = {
-    currentValue: Props['currentValue'],
-    size: Props['size'],
-    rightAlign: Props['rightAlign'],
-    apiOptions: Props['apiOptions'],
-    coefficient: Props['coefficient'],
-    answerForms: Props['answerForms'],
-    labelText: Props['labelText'],
-    linterContext: Props['linterContext'],
-    multipleNumberInput: Props['multipleNumberInput']
+    currentValue: Props["currentValue"];
+    size: Props["size"];
+    rightAlign: Props["rightAlign"];
+    apiOptions: Props["apiOptions"];
+    coefficient: Props["coefficient"];
+    answerForms: Props["answerForms"];
+    labelText: Props["labelText"];
+    linterContext: Props["linterContext"];
+    multipleNumberInput: Props["multipleNumberInput"];
 };
 
 type State = {
     // keeps track of the other set of values when switching
     // between 0 and finite solutions
-    previousValues: ReadonlyArray<string>
+    previousValues: ReadonlyArray<string>;
 };
 
 export class NumericInput extends React.Component<Props, State> {
@@ -119,7 +119,9 @@ export class NumericInput extends React.Component<Props, State> {
         };
     }
 
-    static getOneCorrectAnswerFromRubric(rubric: Rubric): string | null | undefined {
+    static getOneCorrectAnswerFromRubric(
+        rubric: Rubric,
+    ): string | null | undefined {
         const correctAnswers = rubric.answers.filter(
             (answer) => answer.status === "correct",
         );
@@ -135,12 +137,12 @@ export class NumericInput extends React.Component<Props, State> {
                 format = answer.answerForms[0];
             }
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
             let answerString = KhanMath.toNumericString(answer.value, format);
             if (answer.maxError) {
                 answerString +=
                     " \u00B1 " +
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
                     KhanMath.toNumericString(answer.maxError, format);
             }
             return answerString;
@@ -197,10 +199,10 @@ export class NumericInput extends React.Component<Props, State> {
                 let localValue = currentValue;
                 if (rubric.coefficient) {
                     if (!localValue) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
                         localValue = 1;
                     } else if (localValue === "-") {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
                         localValue = -1;
                     }
                 }
@@ -217,7 +219,7 @@ export class NumericInput extends React.Component<Props, State> {
         if (!result) {
             // Otherwise, if the guess is not correct
             const otherAnswers = [].concat(
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 rubric.answers.filter((answer) => answer.status === "ungraded"),
                 rubric.answers.filter((answer) => answer.status === "wrong"),
             );
@@ -234,11 +236,11 @@ export class NumericInput extends React.Component<Props, State> {
                 ).correct;
             });
             result = {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
                 empty: match ? match.status === "ungraded" : false,
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
                 correct: match ? match.status === "correct" : false,
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'message' does not exist on type 'never'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'message' does not exist on type 'never'.
                 message: match ? match.message : null,
                 guess: currentValue,
             };
@@ -281,7 +283,7 @@ export class NumericInput extends React.Component<Props, State> {
                   });
 
         let examples = _.map(forms, (form) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusNumericInputAnswerForm | { name: string; simplify: string; }' is not assignable to parameter of type 'PerseusNumericInputAnswerForm'.
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusNumericInputAnswerForm | { name: string; simplify: string; }' is not assignable to parameter of type 'PerseusNumericInputAnswerForm'.
             return formExamples[form.name](form);
         });
         // Ensure no duplicate tooltip text from simplified and unsimplified
@@ -333,11 +335,11 @@ export class NumericInput extends React.Component<Props, State> {
         return "number";
     };
 
-    setInputValue: (arg1: FocusPath, arg2: string, arg3?: () => unknown | null | undefined) => void = (
-        path,
-        newValue,
-        cb,
-    ) => {
+    setInputValue: (
+        arg1: FocusPath,
+        arg2: string,
+        arg3?: () => unknown | null | undefined,
+    ) => void = (path, newValue, cb) => {
         /* c8 ignore next */
         this.props.onChange(
             {
@@ -351,7 +353,10 @@ export class NumericInput extends React.Component<Props, State> {
         return NumericInput.getUserInputFromProps(this.props);
     };
 
-    handleChange: (arg1: string, arg2?: () => unknown | null | undefined) => void = (newValue, cb) => {
+    handleChange: (
+        arg1: string,
+        arg2?: () => unknown | null | undefined,
+    ) => void = (newValue, cb) => {
         this.props.onChange({currentValue: newValue}, cb);
         this.props.trackInteraction();
     };
@@ -378,7 +383,11 @@ export class NumericInput extends React.Component<Props, State> {
         }
 
         // To right align a custom keypad we need to wrap it.
-        const maybeRightAlignKeypadInput = (keypadInput: React.ReactElement<React.ComponentProps<typeof SimpleKeypadInput>>) => {
+        const maybeRightAlignKeypadInput = (
+            keypadInput: React.ReactElement<
+                React.ComponentProps<typeof SimpleKeypadInput>
+            >,
+        ) => {
             return this.props.rightAlign ? (
                 <div className="perseus-input-right-align">{keypadInput}</div>
             ) : (
@@ -439,9 +448,9 @@ export class NumericInput extends React.Component<Props, State> {
 // a given *problem* rather than for each possible [correct/wrong] *answer*.
 // When should two answers to a problem take different answer types?
 // See D27790 for more discussion.
-export const unionAnswerForms: (arg1: ReadonlyArray<ReadonlyArray<PerseusNumericInputAnswerForm>>) => ReadonlyArray<PerseusNumericInputAnswerForm> = function (
-    answerFormsList,
-) {
+export const unionAnswerForms: (
+    arg1: ReadonlyArray<ReadonlyArray<PerseusNumericInputAnswerForm>>,
+) => ReadonlyArray<PerseusNumericInputAnswerForm> = function (answerFormsList) {
     // Takes a list of lists of answer forms, and returns a list of the forms
     // in each of these lists in the same order that they're listed in the
     // `formExamples` forms from above.
@@ -450,7 +459,7 @@ export const unionAnswerForms: (arg1: ReadonlyArray<ReadonlyArray<PerseusNumeric
     // two elements are equal, and returns a list of unique elements. This is
     // just a helper function here, but works generally.
     const uniqueBy = function (list, iteratee: any) {
-// @ts-expect-error [FEI-5003] - TS2347 - Untyped function calls may not accept type arguments.
+        // @ts-expect-error [FEI-5003] - TS2347 - Untyped function calls may not accept type arguments.
         return list.reduce<Array<any>>((uniqueList, element) => {
             // For each element, decide whether it's already in the list of
             // unique items.
@@ -475,14 +484,14 @@ export const unionAnswerForms: (arg1: ReadonlyArray<ReadonlyArray<PerseusNumeric
 
 type RenderProps = {
     answerForms: ReadonlyArray<{
-        simplify: 'required' | 'correct' | 'enforced' | null | undefined,
-        name: 'integer' | 'decimal' | 'proper' | 'improper' | 'mixed' | 'pi'
-    }>,
-    labelText: string,
-    size: 'normal' | 'small',
-    coefficient: boolean,
-    rightAlign?: boolean,
-    static: boolean
+        simplify: "required" | "correct" | "enforced" | null | undefined;
+        name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi";
+    }>;
+    labelText: string;
+    size: "normal" | "small";
+    coefficient: boolean;
+    rightAlign?: boolean;
+    static: boolean;
 };
 
 // This function checks if the user inputted a percent value, parsing
@@ -491,7 +500,10 @@ type RenderProps = {
 // can accept several input forms with or without "%", the decision
 // to parse based on the presence of "%" in the input, is so that we
 // don't accidently scale the user typed value before grading, CP-930.
-export function maybeParsePercentInput(inputValue: string | number, normalizedAnswerExpected: boolean): string | number {
+export function maybeParsePercentInput(
+    inputValue: string | number,
+    normalizedAnswerExpected: boolean,
+): string | number {
     // If the input value is not a string ending with "%", then there's
     // nothing more to do. The value will be graded as inputted by user.
     if (!(typeof inputValue === "string" && inputValue.endsWith("%"))) {
@@ -518,13 +530,15 @@ export function maybeParsePercentInput(inputValue: string | number, normalizedAn
     return value;
 }
 
-const propsTransform = function(widgetOptions: PerseusNumericInputWidgetOptions): RenderProps {
+const propsTransform = function (
+    widgetOptions: PerseusNumericInputWidgetOptions,
+): RenderProps {
     const rendererProps = _.extend(_.omit(widgetOptions, "answers"), {
         answerForms: unionAnswerForms(
             // Pull out the name of each form and whether that form has
             // required simplification.
             widgetOptions.answers.map((answer) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly MathFormat[] | undefined' is not assignable to parameter of type 'Collection<any>'.
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly MathFormat[] | undefined' is not assignable to parameter of type 'Collection<any>'.
                 return _.map(answer.answerForms, (form) => {
                     return {
                         simplify: answer.simplify,

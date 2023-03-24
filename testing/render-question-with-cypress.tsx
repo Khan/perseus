@@ -2,11 +2,11 @@ import {mount} from "@cypress/react";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
-import AssetContext from '../packages/perseus/src/asset-context';
-import * as Perseus from '../packages/perseus/src/index';
+import AssetContext from "../packages/perseus/src/asset-context";
+import * as Perseus from "../packages/perseus/src/index";
 
-import type {PerseusRenderer} from '../packages/perseus/src/perseus-types';
-import type {APIOptions} from '../packages/perseus/src/types';
+import type {PerseusRenderer} from "../packages/perseus/src/perseus-types";
+import type {APIOptions} from "../packages/perseus/src/types";
 
 /**
  * Renders the given question using Cypress. Waits until all assets have been
@@ -16,7 +16,7 @@ const renderQuestion = (
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
     reviewMode: boolean = false,
-): () => Perseus.Renderer => {
+): (() => Perseus.Renderer) => {
     let renderer: Perseus.Renderer | null = null;
 
     let renderedAtLeastOnce = false;
@@ -25,7 +25,7 @@ const renderQuestion = (
     };
 
     const assetStatuses: {
-        [assetKey: string]: boolean
+        [assetKey: string]: boolean;
     } = {};
     const setAssetStatus = (assetKey: string, loaded: boolean) => {
         assetStatuses[assetKey] = loaded;

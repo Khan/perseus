@@ -1,6 +1,6 @@
-import Rule from './rule';
-import AllRules from './rules/all-rules';
-import TreeTransformer from './tree-transformer';
+import Rule from "./rule";
+import AllRules from "./rules/all-rules";
+import TreeTransformer from "./tree-transformer";
 
 export {linterContextProps, linterContextDefault} from "./proptypes.js";
 export type {LinterContextProps} from "./types.js";
@@ -50,7 +50,7 @@ export function runLinter(
         if (TreeTransformer.isTextNode(node)) {
             let next = state.nextSibling();
             while (TreeTransformer.isTextNode(next)) {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'. | TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'content' does not exist on type 'TreeNode'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'. | TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'content' does not exist on type 'TreeNode'.
                 node.content += next.content;
                 state.removeNextSibling();
                 next = state.nextSibling();
@@ -157,7 +157,7 @@ export function runLinter(
         // this node, then we need to save the warnings for display
         // on the table itself
         if (insideTable && nodeWarnings.length) {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
             tableWarnings.push(...nodeWarnings);
         }
 
@@ -185,7 +185,7 @@ export function runLinter(
                 // node under a new lint node and put the warnings there.
                 state.replace({
                     type: "lint",
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ type: string; content: TreeNode; message: string; ruleName: any; blockHighlight: any; insideTable: boolean; severity: any; }' is not assignable to parameter of type 'TreeNode'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ type: string; content: TreeNode; message: string; ruleName: any; blockHighlight: any; insideTable: boolean; severity: any; }' is not assignable to parameter of type 'TreeNode'.
                     content: node,
                     message: nodeWarnings.map((w) => w.message).join("\n\n"),
                     ruleName: nodeWarnings[0].rule,
@@ -219,7 +219,7 @@ export function runLinter(
                 // single line, so keeping them combined in that case might
                 // be the best thing, anyway.
                 //
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
                 const content = node.content; // Text nodes have content
                 const warning = nodeWarnings[0]; // There is only one warning.
                 // These are the lint boundaries within the content
@@ -233,39 +233,39 @@ export function runLinter(
                 // The prefix text node, if there is one
                 if (prefix) {
                     replacements.push({
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
                         type: "text",
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                         content: prefix,
                     });
                 }
 
                 // The lint node wrapped around the linty text
                 replacements.push({
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
                     type: "lint",
                     content: {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
                         type: "text",
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                         content: lint,
                     },
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                     message: warning.message,
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                     ruleName: warning.rule,
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean' is not assignable to type 'never'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean' is not assignable to type 'never'.
                     insideTable: insideTable,
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                     severity: warning.severity,
                 });
 
                 // The suffix node, if there is one
                 if (suffix) {
                     replacements.push({
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
                         type: "text",
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                         content: suffix,
                     });
                 }

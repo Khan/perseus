@@ -1,14 +1,14 @@
-import getRenderA11yString from 'katex/dist/contrib/render-a11y-string';
+import getRenderA11yString from "katex/dist/contrib/render-a11y-string";
 import * as React from "react";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import {wait} from '../../../../../testing/wait';
-import * as Dependencies from '../../dependencies';
-import {renderQuestion} from '../../widgets/__tests__/renderQuestion';
-import {question1} from '../__testdata__/sorter_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import {wait} from "../../../../../testing/wait";
+import * as Dependencies from "../../dependencies";
+import {renderQuestion} from "../../widgets/__tests__/renderQuestion";
+import {question1} from "../__testdata__/sorter_testdata";
 
-import type {APIOptions} from '../../types';
+import type {APIOptions} from "../../types";
 
 describe("sorter widget", () => {
     beforeEach(() => {
@@ -25,11 +25,7 @@ describe("sorter widget", () => {
             getKaTeX: () => {
                 return Promise.resolve({});
             },
-            TeX: ({
-                children,
-            }: {
-                children: React.ReactNode
-            }) => (
+            TeX: ({children}: {children: React.ReactNode}) => (
                 <span className="tex-mock">{children}</span>
             ),
             getRenderA11yString: Promise.resolve(getRenderA11yString),

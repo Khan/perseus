@@ -61,13 +61,17 @@ import {Errors, PerseusError} from "@khanacademy/perseus-error";
 // TreeNode is the type of a node in a parse tree. The only real requirement is
 // that every node has a string-valued `type` property
 export type TreeNode = {
-    type: string
+    type: string;
 };
 
 // TraversalCallback is the type of the callback function passed to the
 // traverse() method. It is invoked with node, state, and content arguments
 // and is expected to return nothing.
-export type TraversalCallback = (node: TreeNode, state: TraversalState, content: string) => void;
+export type TraversalCallback = (
+    node: TreeNode,
+    state: TraversalState,
+    content: string,
+) => void;
 
 // This is the TreeTransformer class described in detail at the
 // top of this file.
@@ -123,7 +127,7 @@ export default class TreeTransformer {
         if (TreeTransformer.isNode(n)) {
             // If we were called on a node object, then we handle it
             // this way.
-            const node = (n as TreeNode); // safe cast; we just tested
+            const node = n as TreeNode; // safe cast; we just tested
 
             // Put the node on the stack before recursing on its children
             state._containers.push(node);
@@ -134,9 +138,9 @@ export default class TreeTransformer {
             // but other nodes types like "math" may also have content.
             // TODO(mdr): We found a new Flow error when upgrading:
             //     "node.content (property `content` is missing in `TreeNode` [1].)"
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
             if (typeof node.content === "string") {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
                 content = node.content;
             }
 
@@ -314,7 +318,7 @@ export class TraversalState {
         }
 
         // The top index is a number because the top container is an array
-        const index = (this._indexes.top() as number);
+        const index = this._indexes.top() as number;
         if (siblings.length > index + 1) {
             return siblings[index + 1];
         }
@@ -335,7 +339,7 @@ export class TraversalState {
         }
 
         // The top index is a number because the top container is an array
-        const index = (this._indexes.top() as number);
+        const index = this._indexes.top() as number;
         if (index > 0) {
             return siblings[index - 1];
         }
@@ -351,7 +355,7 @@ export class TraversalState {
         const siblings = this._containers.top();
         if (siblings && Array.isArray(siblings)) {
             // top index is a number because top container is an array
-            const index = (this._indexes.top() as number);
+            const index = this._indexes.top() as number;
             if (siblings.length > index + 1) {
                 return siblings.splice(index + 1, 1)[0];
             }
@@ -384,7 +388,7 @@ export class TraversalState {
         // or object property. This is hard for Flow, so we have to do some
         // unsafe casting and be careful when we use which cast version
         if (Array.isArray(parent)) {
-            const index = (this._indexes.top() as number);
+            const index = this._indexes.top() as number;
             // For an array parent we just splice the new nodes in
             parent.splice(index, 1, ...replacements);
             // Adjust the index to account for the changed array length.
@@ -392,7 +396,7 @@ export class TraversalState {
             this._indexes.pop();
             this._indexes.push(index + replacements.length - 1);
         } else {
-            const property = (this._indexes.top() as string);
+            const property = this._indexes.top() as string;
             // For an object parent we care how many new nodes there are
             if (replacements.length === 0) {
                 // Deletion
@@ -413,8 +417,10 @@ export class TraversalState {
      * return null, and goToPreviousSibling() will throw an error.
      */
     hasPreviousSibling(): boolean {
-        return Array.isArray(this._containers.top()) &&
-        (this._indexes.top() as number) > 0;
+        return (
+            Array.isArray(this._containers.top()) &&
+            (this._indexes.top() as number) > 0
+        );
     }
 
     /**
@@ -437,7 +443,7 @@ export class TraversalState {
         // Since we know that we have a previous sibling, we know that
         // the value on top of the stack is a number, but we have to do
         // this unsafe cast because Flow doesn't know that.
-        const index = (this._indexes.pop() as number);
+        const index = this._indexes.pop() as number;
         this._indexes.push(index - 1);
     }
 
@@ -537,7 +543,7 @@ class Stack<T> {
 
     /** Pop a value off of the stack. */
     pop(): T {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'T | undefined' is not assignable to type 'T'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'T | undefined' is not assignable to type 'T'.
         return this.stack.pop();
     }
 

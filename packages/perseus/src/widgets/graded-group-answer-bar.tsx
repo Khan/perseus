@@ -6,33 +6,34 @@ import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 
-import InlineIcon from '../components/inline-icon';
-import {iconStar, iconTryAgain} from '../icon-paths';
-import {phoneMargin, negativePhoneMargin} from '../styles/constants';
+import InlineIcon from "../components/inline-icon";
+import {iconStar, iconTryAgain} from "../icon-paths";
+import {phoneMargin, negativePhoneMargin} from "../styles/constants";
 
-import type {APIOptions} from '../types';
+import type {APIOptions} from "../types";
 
 export type ANSWER_BAR_STATES = // Initial state before the question is answerable.  The user must complete
-// each of the widgets before the answer bar becomes visible.
-// The 'Check' button is active whenever the question is answerable or any
-// of the input widgets have been modified after getting the answer wrong.
-'HIDDEN' | // The 'Check' button is disabled and there is no message.  This occurs when
-// some of the widgets haven't been filled in after the has already become
-// visible.
-'ACTIVE' | // This happens immediately after clicking 'Check' with a wrong answer.
-// The 'Check' button is disabled and the 'Try Again' message is displayed.
-'INACTIVE' | // Final state.  This occurs after the user submits the correct answer.
-// The widgets in this grade-group are disabled.
-'INCORRECT' | 'CORRECT';
+    // each of the widgets before the answer bar becomes visible.
+    // The 'Check' button is active whenever the question is answerable or any
+    // of the input widgets have been modified after getting the answer wrong.
+    | "HIDDEN" // The 'Check' button is disabled and there is no message.  This occurs when
+    // some of the widgets haven't been filled in after the has already become
+    // visible.
+    | "ACTIVE" // This happens immediately after clicking 'Check' with a wrong answer.
+    // The 'Check' button is disabled and the 'Try Again' message is displayed.
+    | "INACTIVE" // Final state.  This occurs after the user submits the correct answer.
+    // The widgets in this grade-group are disabled.
+    | "INCORRECT"
+    | "CORRECT";
 
 type Props = {
-    answerBarState: ANSWER_BAR_STATES,
-    apiOptions: APIOptions,
-    onCheckAnswer: () => unknown,
+    answerBarState: ANSWER_BAR_STATES;
+    apiOptions: APIOptions;
+    onCheckAnswer: () => unknown;
     // The function to call when clicking "Next question" after correctly
     // answering one graded group out of a set. If this is null, the
     // "Next question" button will not appear.
-    onNextQuestion?: () => unknown
+    onNextQuestion?: () => unknown;
 };
 
 class GradedGroupAnswerBar extends React.Component<Props> {

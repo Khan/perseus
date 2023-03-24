@@ -1,10 +1,10 @@
 import * as React from "react";
 
 type Props = {
-    className?: string | null | undefined,
-    translationIndex: number,
-    paragraphIndex?: number,
-    children?: React.ReactNode
+    className?: string | null | undefined;
+    translationIndex: number;
+    paragraphIndex?: number;
+    children?: React.ReactNode;
 };
 
 class QuestionParagraph extends React.Component<Props> {

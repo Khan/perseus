@@ -7,9 +7,9 @@
  * To use the utilities exported from interactive.js, require that file
  * itself.
  */
-import GraphUtils from './graphie';
+import GraphUtils from "./graphie";
 
 // eslint-disable-next-line import/no-unassigned-import
-import './interactive'; // For side effects
+import "./interactive"; // For side effects
 
 export default GraphUtils;

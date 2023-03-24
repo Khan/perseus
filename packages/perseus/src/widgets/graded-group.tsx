@@ -7,37 +7,40 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from '../components/inline-icon';
-import {iconOk, iconRemove} from '../icon-paths';
-import * as Changeable from '../mixins/changeable';
-import {ApiOptions} from '../perseus-api';
-import Renderer from '../renderer';
+import InlineIcon from "../components/inline-icon";
+import {iconOk, iconRemove} from "../icon-paths";
+import * as Changeable from "../mixins/changeable";
+import {ApiOptions} from "../perseus-api";
+import Renderer from "../renderer";
 import {
     gray68,
     gray76,
     phoneMargin,
     negativePhoneMargin,
     tableBackgroundAccent,
-} from '../styles/constants';
-import a11y from '../util/a11y';
+} from "../styles/constants";
+import a11y from "../util/a11y";
 
 import GradedGroupAnswerBar, {
     ANSWER_BAR_STATES,
-} from './graded-group-answer-bar';
+} from "./graded-group-answer-bar";
 
-import type {PerseusGradedGroupWidgetOptions} from '../perseus-types';
-import type {PerseusScore, WidgetExports, WidgetProps} from '../types';
+import type {PerseusGradedGroupWidgetOptions} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 const GRADING_STATUSES = {
-    ungraded: ("ungraded" as const),
-    correct: ("correct" as const),
-    incorrect: ("incorrect" as const),
-    invalid: ("invalid" as const),
+    ungraded: "ungraded" as const,
+    correct: "correct" as const,
+    incorrect: "incorrect" as const,
+    invalid: "invalid" as const,
 } as const;
 
 // Update answer bar state based on current state and whether the question is
 // answerable (all parts have been filled out) or not.
-const getNextState = (currentState: ANSWER_BAR_STATES, answerable): ANSWER_BAR_STATES => {
+const getNextState = (
+    currentState: ANSWER_BAR_STATES,
+    answerable,
+): ANSWER_BAR_STATES => {
     switch (currentState) {
         case "HIDDEN":
             return answerable ? "ACTIVE" : currentState;
@@ -61,26 +64,26 @@ const DEFAULT_INVALID_MESSAGE =
 type Rubric = PerseusGradedGroupWidgetOptions;
 type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform'
 
-type Props = (WidgetProps<RenderProps, Rubric>) & {
-    inGradedGroupSet?: boolean // Set by graded-group-set.jsx,
-    onNextQuestion?: () => unknown // Set by graded-group-set.jsx
+type Props = WidgetProps<RenderProps, Rubric> & {
+    inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
+    onNextQuestion?: () => unknown; // Set by graded-group-set.jsx
 };
 
 type DefaultProps = {
-    title: Props['title'],
-    content: Props['content'],
-    widgets: Props['widgets'],
-    images: Props['images'],
-    hint: Props['hint'],
-    hasHint: Props['hasHint'],
-    linterContext: Props['linterContext']
+    title: Props["title"];
+    content: Props["content"];
+    widgets: Props["widgets"];
+    images: Props["images"];
+    hint: Props["hint"];
+    hasHint: Props["hasHint"];
+    linterContext: Props["linterContext"];
 };
 
 type State = {
-    status: typeof GRADING_STATUSES[keyof typeof GRADING_STATUSES],
-    showHint: boolean,
-    message: string,
-    answerBarState: ANSWER_BAR_STATES
+    status: typeof GRADING_STATUSES[keyof typeof GRADING_STATUSES];
+    showHint: boolean;
+    message: string;
+    answerBarState: ANSWER_BAR_STATES;
 };
 
 // A Graded Group is more or less a Group widget that displays a check
@@ -110,7 +113,7 @@ class GradedGroup extends React.Component<Props, State> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -130,7 +133,7 @@ class GradedGroup extends React.Component<Props, State> {
         if (this.refs.renderer) {
             this.change("widgets", this.props.widgets);
             // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'emptyWidgets' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'emptyWidgets' does not exist on type 'ReactInstance'.
             const emptyWidgets = this.refs.renderer.emptyWidgets();
             const answerable = emptyWidgets.length === 0;
             const answerBarState = this.state.answerBarState;
@@ -142,10 +145,10 @@ class GradedGroup extends React.Component<Props, State> {
 
     _checkAnswer: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'showRationalesForCurrentlySelectedChoices' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'showRationalesForCurrentlySelectedChoices' does not exist on type 'ReactInstance'.
         this.refs.renderer.showRationalesForCurrentlySelectedChoices();
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'score' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'score' does not exist on type 'ReactInstance'.
         const score: PerseusScore = this.refs.renderer.score();
 
         const status =
@@ -176,7 +179,7 @@ class GradedGroup extends React.Component<Props, State> {
     // Mobile API
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
         return this.refs.renderer.getInputPaths();
     };
 
@@ -186,25 +189,25 @@ class GradedGroup extends React.Component<Props, State> {
         cb,
     ) => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'setInputValue' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'setInputValue' does not exist on type 'ReactInstance'.
         return this.refs.renderer.setInputValue(path, newValue, cb);
     };
 
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         return this.refs.renderer.focus();
     };
 
     focusInputPath: (arg1: any) => void = (path) => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focusPath' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focusPath' does not exist on type 'ReactInstance'.
         this.refs.renderer.focusPath(path);
     };
 
     blurInputPath: (arg1: any) => void = (path) => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
         this.refs.renderer.blurPath(path);
     };
 
@@ -232,15 +235,15 @@ class GradedGroup extends React.Component<Props, State> {
         // Colors are 10% darker than the colors in graded-group.less
         if (this.state.status === GRADING_STATUSES.correct) {
             // TODO(jeremy): update to a WB colour
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = <InlineIcon {...iconOk} style={{color: "#526f03"}} />;
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
             gradeStatus = i18n._("Correct");
         } else if (this.state.status === GRADING_STATUSES.incorrect) {
             // TODO(jeremy): update to a WB colour
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = <InlineIcon {...iconRemove} style={{color: "#ff5454"}} />;
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
             gradeStatus = i18n._("Incorrect");
         }
 
@@ -282,7 +285,7 @@ class GradedGroup extends React.Component<Props, State> {
                  */}
                 {/* $FlowFixMe[prop-missing] */}
                 {/* $FlowFixMe[incompatible-type] */}
-{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
+                {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
                 <Renderer
                     {...this.props}
                     // eslint-disable-next-line react/no-string-refs
@@ -336,7 +339,7 @@ class GradedGroup extends React.Component<Props, State> {
                         <div>
                             {/* Not using Button here bc the styles won't work. */}
                             <button
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                                 tabIndex="0"
                                 className={css(styles.explanationTitle)}
                                 onClick={() => this.setState({showHint: false})}
@@ -364,7 +367,7 @@ class GradedGroup extends React.Component<Props, State> {
                     ) : (
                         // Not using Button here bc the styles won't work.
                         <button
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                             tabIndex="0"
                             onClick={() => this.setState({showHint: true})}
                             onKeyPress={(e) => {

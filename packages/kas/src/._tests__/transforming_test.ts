@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import * as KAS from '../index';
+import * as KAS from "../index";
 
 expect.extend({
     toFactorAs(input: string, reference: string) {

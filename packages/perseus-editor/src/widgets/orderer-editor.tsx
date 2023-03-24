@@ -22,7 +22,7 @@ class OrdererEditor extends React.Component<Props> {
         onChange: PropTypes.func.isRequired,
     };
 
-    static widgetName: 'orderer' = "orderer";
+    static widgetName: "orderer" = "orderer";
 
     static defaultProps: Props = {
         correctOptions: [{content: "$x$"}],
@@ -73,7 +73,7 @@ class OrdererEditor extends React.Component<Props> {
                         Layout:{" "}
                         <select
                             value={this.props.layout}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onLayoutChange}
                         >
                             <option value={HORIZONTAL}>Horizontal</option>
@@ -94,7 +94,7 @@ class OrdererEditor extends React.Component<Props> {
                         Height:{" "}
                         <select
                             value={this.props.height}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onHeightChange}
                         >
                             <option value={NORMAL}>Normal</option>
@@ -109,7 +109,11 @@ class OrdererEditor extends React.Component<Props> {
         );
     }
 
-    onOptionsChange: (arg1: 'correctOptions' | 'otherOptions', arg2: any, arg3: any) => any = (whichOptions, options, cb) => {
+    onOptionsChange: (
+        arg1: "correctOptions" | "otherOptions",
+        arg2: any,
+        arg3: any,
+    ) => any = (whichOptions, options, cb) => {
         const props: Record<string, any> = {};
         props[whichOptions] = _.map(options, function (option) {
             return {content: option};
@@ -117,11 +121,15 @@ class OrdererEditor extends React.Component<Props> {
         this.props.onChange(props, cb);
     };
 
-    onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
         this.props.onChange({layout: e.target.value});
     };
 
-    onHeightChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    onHeightChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
         this.props.onChange({height: e.target.value});
     };
 

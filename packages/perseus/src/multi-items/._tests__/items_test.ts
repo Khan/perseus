@@ -6,8 +6,8 @@ import {
     inferItemShape,
     itemToTree,
     treeToItem,
-} from '../items';
-import shapes from '../shapes';
+} from "../items";
+import shapes from "../shapes";
 
 import type {
     Item,
@@ -16,7 +16,7 @@ import type {
     HintNode,
     TagsNode,
     ItemArrayNode,
-} from '../item-types';
+} from "../item-types";
 
 describe("treeToItem", () => {
     it("wraps an item tree in the `_multi` key", () => {
@@ -48,7 +48,10 @@ describe("buildEmptyItemTreeForShape and buildEmptyItemForShape", () => {
         __type: "hint",
     } as const;
 
-    function assertEmptyItemTreeForShape(expectedEmptyTree: ItemTree, shape: ContentShape | HintShape | TagsShape | ArrayShape | ObjectShape) {
+    function assertEmptyItemTreeForShape(
+        expectedEmptyTree: ItemTree,
+        shape: ContentShape | HintShape | TagsShape | ArrayShape | ObjectShape,
+    ) {
         const emptyTree = buildEmptyItemTreeForShape(shape);
         expect(emptyTree).toEqual(expectedEmptyTree);
 
@@ -66,12 +69,12 @@ describe("buildEmptyItemTreeForShape and buildEmptyItemForShape", () => {
     });
 
     it("creates empty tags", () => {
-        assertEmptyItemTreeForShape(([] as TagsNode), shapes.tags);
+        assertEmptyItemTreeForShape([] as TagsNode, shapes.tags);
     });
 
     it("creates an empty array", () => {
         assertEmptyItemTreeForShape(
-            ([] as ItemArrayNode),
+            [] as ItemArrayNode,
             shapes.arrayOf(shapes.content),
         );
     });
@@ -89,7 +92,7 @@ describe("buildEmptyItemTreeForShape and buildEmptyItemForShape", () => {
         const expectedEmptyTree = {
             instructions: expectedEmptyContentNode,
             hint: expectedEmptyHintNode,
-            questions: ([] as ItemArrayNode),
+            questions: [] as ItemArrayNode,
             context: {
                 prompt: expectedEmptyContentNode,
                 footnotes: expectedEmptyContentNode,
@@ -124,7 +127,7 @@ describe("inferItemShape", () => {
     });
 
     it("infers a tags node's shape", () => {
-        const item = treeToItem((["foo", "bar"] as TagsNode));
+        const item = treeToItem(["foo", "bar"] as TagsNode);
         expect(shapes.tags).toEqual(inferItemShape(item));
     });
 
@@ -138,43 +141,39 @@ describe("inferItemShape", () => {
     });
 
     it("poorly infers an empty array node's shape", () => {
-        const item = treeToItem(([] as ItemArrayNode));
+        const item = treeToItem([] as ItemArrayNode);
         expect(shapes.arrayOf(shapes.content)).toEqual(inferItemShape(item));
     });
 
     it("correctly infers an nonempty single-typed array node's shape", () => {
-        const item = treeToItem(
-            ([
-                /**
-                 * TODO(somewhatabstract, JIRA-XXXX):
-                 * The Tree types are really hard to work with properly.
-                 */
-                // $FlowFixMe[incompatible-cast]
-                buildEmptyItemTreeForShape(shapes.hint),
-                // $FlowFixMe[incompatible-cast]
-                buildEmptyItemTreeForShape(shapes.hint),
-                // $FlowFixMe[incompatible-cast]
-                buildEmptyItemTreeForShape(shapes.hint),
-            ] as ItemArrayNode),
-        );
+        const item = treeToItem([
+            /**
+             * TODO(somewhatabstract, JIRA-XXXX):
+             * The Tree types are really hard to work with properly.
+             */
+            // $FlowFixMe[incompatible-cast]
+            buildEmptyItemTreeForShape(shapes.hint),
+            // $FlowFixMe[incompatible-cast]
+            buildEmptyItemTreeForShape(shapes.hint),
+            // $FlowFixMe[incompatible-cast]
+            buildEmptyItemTreeForShape(shapes.hint),
+        ] as ItemArrayNode);
         expect(shapes.arrayOf(shapes.hint)).toEqual(inferItemShape(item));
     });
 
     it("poorly infers an invalid multi-type array node's shape", () => {
-        const item = treeToItem(
-            ([
-                /**
-                 * TODO(somewhatabstract, JIRA-XXXX):
-                 * The Tree types are really hard to work with properly.
-                 */
-                // $FlowFixMe[incompatible-cast]
-                buildEmptyItemTreeForShape(shapes.hint),
-                // $FlowFixMe[incompatible-cast]
-                buildEmptyItemTreeForShape(shapes.content),
-                // $FlowFixMe[incompatible-cast]
-                buildEmptyItemTreeForShape(shapes.hint),
-            ] as ItemArrayNode),
-        );
+        const item = treeToItem([
+            /**
+             * TODO(somewhatabstract, JIRA-XXXX):
+             * The Tree types are really hard to work with properly.
+             */
+            // $FlowFixMe[incompatible-cast]
+            buildEmptyItemTreeForShape(shapes.hint),
+            // $FlowFixMe[incompatible-cast]
+            buildEmptyItemTreeForShape(shapes.content),
+            // $FlowFixMe[incompatible-cast]
+            buildEmptyItemTreeForShape(shapes.hint),
+        ] as ItemArrayNode);
         expect(shapes.arrayOf(shapes.hint)).toEqual(inferItemShape(item));
     });
 });
@@ -210,7 +209,7 @@ const item: Item = treeToItem({
      * The Tree types are really hard to work with properly.
      */
     // $FlowFixMe[incompatible-cast]
-    b: ([content(2), content(3), content(4)] as ItemArrayNode),
+    b: [content(2), content(3), content(4)] as ItemArrayNode,
     c: {
         d: content(5),
         e: hint(6),

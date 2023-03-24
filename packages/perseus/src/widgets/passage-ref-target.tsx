@@ -1,13 +1,16 @@
-import {linterContextProps, linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    linterContextProps,
+    linterContextDefault,
+} from "@khanacademy/perseus-linter";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import * as Changeable from '../mixins/changeable';
-import WidgetJsonifyDeprecated from '../mixins/widget-jsonify-deprecated';
-import Renderer from '../renderer';
+import * as Changeable from "../mixins/changeable";
+import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
+import Renderer from "../renderer";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 class PassageRefTarget extends React.Component<any> {
     static propTypes = {
@@ -47,7 +50,7 @@ class PassageRefTarget extends React.Component<any> {
             // $FlowFixMe[prop-missing]: inline doesn't exist in Renderer's declared props
             <Renderer
                 content={this.props.content}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ content: any; inline: boolean; apiOptions: any; linterContext: any; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Renderer> & Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | ... 3 more ... | "legacyPerseusLint"> & InexactPartial<...> & InexactPartial<...>'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ content: any; inline: boolean; apiOptions: any; linterContext: any; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Renderer> & Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | ... 3 more ... | "legacyPerseusLint"> & InexactPartial<...> & InexactPartial<...>'.
                 inline={true}
                 apiOptions={this.props.apiOptions}
                 linterContext={this.props.linterContext}

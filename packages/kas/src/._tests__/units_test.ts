@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import * as KAS from '../index';
+import * as KAS from "../index";
 
 expect.extend({
     toHaveEqualUnits([x, y]: [any, any], msg: string) {
@@ -33,10 +33,7 @@ expect.extend({
 
         return {pass: !this.isNot};
     },
-    toHaveUnitVariable(
-        [original, newUnit]: [any, any],
-        expected: any,
-    ) {
+    toHaveUnitVariable([original, newUnit]: [any, any], expected: any) {
         const originalParsed = KAS.unitParse(original).expr;
         const newUnitParsed = KAS.unitParse(newUnit).unit;
         const x = new KAS.Var("x");

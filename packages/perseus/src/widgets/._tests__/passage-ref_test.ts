@@ -1,18 +1,18 @@
 import {screen} from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {question1} from '../__testdata__/passage-ref_testdata';
-import PassageExport from '../passage';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {question1} from "../__testdata__/passage-ref_testdata";
+import PassageExport from "../passage";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 const mockReference = (
     mock: null | {
-        startLine: number,
-        endLine: number,
-        content: string
+        startLine: number;
+        endLine: number;
+        content: string;
     },
 ) => {
     jest.spyOn(

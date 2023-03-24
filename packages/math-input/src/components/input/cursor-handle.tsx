@@ -7,7 +7,7 @@ import * as React from "react";
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
-} from '../common-style';
+} from "../common-style";
 
 const touchTargetRadiusPx = 2 * cursorHandleRadiusPx;
 const touchTargetHeightPx = 2 * touchTargetRadiusPx;
@@ -18,21 +18,21 @@ const cursorHeightPx = cursorHandleDistanceMultiplier * (cursorRadiusPx * 4);
 const cursorWidthPx = 4 * cursorRadiusPx;
 
 type Props = {
-    animateIntoPosition: boolean | null | undefined,
-    onTouchCancel: (arg1: React.TouchEvent<HTMLSpanElement>) => void,
-    onTouchEnd: (arg1: React.TouchEvent<HTMLSpanElement>) => void,
-    onTouchMove: (arg1: React.TouchEvent<HTMLSpanElement>) => void,
-    onTouchStart: (arg1: React.TouchEvent<HTMLSpanElement>) => void,
-    visible: boolean,
-    x: number,
-    y: number
+    animateIntoPosition: boolean | null | undefined;
+    onTouchCancel: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
+    onTouchEnd: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
+    onTouchMove: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
+    onTouchStart: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
+    visible: boolean;
+    x: number;
+    y: number;
 };
 
 type DefaultProps = {
-    animateIntoPosition: Props['animateIntoPosition'],
-    visible: Props['visible'],
-    x: Props['x'],
-    y: Props['y']
+    animateIntoPosition: Props["animateIntoPosition"];
+    visible: Props["visible"];
+    x: Props["x"];
+    y: Props["y"];
 };
 
 class CursorHandle extends React.Component<Props> {

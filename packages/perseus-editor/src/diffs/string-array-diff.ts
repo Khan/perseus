@@ -59,7 +59,10 @@ const flattenChunks = (chunks: any) => mapcat(chunks, splitUpChunk);
 // Take two arrays and create a diff for them. The result is two arrays of
 // objects, one for the things that should be included in a 'before', and one
 // for 'after'
-const stringArrayDiff = function(a: ReadonlyArray<any>, b: ReadonlyArray<any>): any {
+const stringArrayDiff = function (
+    a: ReadonlyArray<any>,
+    b: ReadonlyArray<any>,
+): any {
     const diffResult = ArrayDiff.diff(a, b);
     const flattened = flattenChunks(diffResult);
 

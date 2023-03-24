@@ -1,7 +1,7 @@
 export const devices = {
-    PHONE: ("phone" as const),
-    TABLET: ("tablet" as const),
-    DESKTOP: ("desktop" as const),
+    PHONE: "phone" as const,
+    TABLET: "tablet" as const,
+    DESKTOP: "desktop" as const,
 } as const;
 
 // How many pixels do we reserve on the right-hand side of a preview

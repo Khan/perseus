@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import RendererDiff from './renderer-diff';
+import RendererDiff from "./renderer-diff";
 
 const rendererProps = PropTypes.shape({
     content: PropTypes.string,

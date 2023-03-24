@@ -3,7 +3,7 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {CHOICE_ICON_SIZE} from './shared-styles';
+import {CHOICE_ICON_SIZE} from "./shared-styles";
 
 // The "cross-out line" SVG is a bit bigger than the choice icon, to provide
 // extra space for the cute rounded line cap.
@@ -15,8 +15,8 @@ const CROSS_OUT_LINE_SIZE = CHOICE_ICON_SIZE + CROSS_OUT_LINE_PADDING * 2;
  * `crossedOut`.
  */
 const CrossOutLine: React.FC<{
-    color: string
-}> = function(props): React.ReactElement {
+    color: string;
+}> = function (props): React.ReactElement {
     return (
         <svg
             width={CROSS_OUT_LINE_SIZE}

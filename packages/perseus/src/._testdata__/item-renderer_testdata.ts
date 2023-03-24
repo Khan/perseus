@@ -1,4 +1,9 @@
-import type {InputNumberWidget, LabelImageWidget, PerseusItem, PerseusRenderer} from '../perseus-types';
+import type {
+    InputNumberWidget,
+    LabelImageWidget,
+    PerseusItem,
+    PerseusRenderer,
+} from "../perseus-types";
 
 export const itemWithInput: PerseusItem = {
     question: {
@@ -6,7 +11,7 @@ export const itemWithInput: PerseusItem = {
             "Enter the number $$-42$$ in the box: [[\u2603 input-number 1]]",
         images: {},
         widgets: {
-            "input-number 1": ({
+            "input-number 1": {
                 type: "input-number",
                 graded: true,
                 options: {
@@ -17,7 +22,7 @@ export const itemWithInput: PerseusItem = {
                     inexact: false,
                     maxError: 0.1,
                 },
-            } as InputNumberWidget),
+            } as InputNumberWidget,
         },
     },
     hints: [
@@ -53,7 +58,7 @@ export const labelImageItem: PerseusItem = {
                 {height: 293, width: 331},
         },
         widgets: {
-            "label-image 1": ({
+            "label-image 1": {
                 alignment: "default",
                 graded: true,
                 static: false,
@@ -97,7 +102,7 @@ export const labelImageItem: PerseusItem = {
                     multipleAnswers: false,
                     static: false,
                 },
-            } as LabelImageWidget),
+            } as LabelImageWidget,
         },
     },
 };
@@ -107,7 +112,7 @@ export const mockedItem: PerseusItem = {
     // The mock widget type is not part of the PerseusWidget type union (and
     // we don't want to make it such to avoid polluting our production types
     // for test purposes) so we force Flow to accept it here.
-    question: ({
+    question: {
         content:
             "Mock widget ==> [[\u2603 mock-widget 1]] [[\u2603 mock-widget 2]] [[\u2603 mock-widget 3]] [[\u2603 mock-widget 4]]",
         images: {},
@@ -145,7 +150,7 @@ export const mockedItem: PerseusItem = {
                 alignment: "default",
             },
         },
-    } as PerseusRenderer),
+    } as PerseusRenderer,
     hints: [],
     answerArea: null,
     _multi: null,

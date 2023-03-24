@@ -16,8 +16,8 @@
 import _ from "underscore";
 
 // TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
-import objective_ from './interactive2/objective_';
-import * as Widgets from './widgets';
+import objective_ from "./interactive2/objective_";
+import * as Widgets from "./widgets";
 
 const noop = function () {};
 
@@ -100,7 +100,7 @@ const traverseRenderer = function (
             // should always be renderable. It's also annoying to write
             // checks for this everywhere, so we just filter them out once and
             // for all!
-// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             if (widgetInfo == null || widgetInfo.type == null) {
                 return widgetInfo;
             }
@@ -119,7 +119,7 @@ const traverseRenderer = function (
     return newOptions;
 };
 
-export const traverse = function(
+export const traverse = function (
     rendererOptions: any,
     contentCallback?: ((arg1: any) => any) | null,
     widgetCallback?: ((widgetInfo: any, widgetId: string) => any) | null,

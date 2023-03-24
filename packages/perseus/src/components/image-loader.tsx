@@ -12,9 +12,9 @@
 
 import * as React from "react";
 
-import {getDependencies} from '../dependencies';
+import {getDependencies} from "../dependencies";
 
-import type {Dimensions} from '../types';
+import type {Dimensions} from "../types";
 
 const Status = {
     PENDING: "pending",
@@ -24,32 +24,32 @@ const Status = {
 } as const;
 
 export type ImageProps = {
-    alt: string,
-    title?: string,
-    ["aria-hidden"]?: boolean,
-    tabIndex?: string,
-    onClick?: (e: React.SyntheticEvent) => void,
-    style?: Dimensions
+    alt: string;
+    title?: string;
+    ["aria-hidden"]?: boolean;
+    tabIndex?: string;
+    onClick?: (e: React.SyntheticEvent) => void;
+    style?: Dimensions;
 };
 
 type Props = {
-    children?: React.ReactNode,
-    imgProps: ImageProps,
-    onError?: (event: Event) => void,
-    onLoad?: (event: Event) => void,
+    children?: React.ReactNode;
+    imgProps: ImageProps;
+    onError?: (event: Event) => void;
+    onLoad?: (event: Event) => void;
     // When the DOM updates to replace the preloader with the image, or
     // vice-versa, we trigger this callback.
-    onUpdate: (status: typeof Status[keyof typeof Status]) => void,
-    preloader: () => React.ReactElement | null | undefined,
-    src: string
+    onUpdate: (status: typeof Status[keyof typeof Status]) => void;
+    preloader: () => React.ReactElement | null | undefined;
+    src: string;
 };
 
 type State = {
-    status: typeof Status[keyof typeof Status]
+    status: typeof Status[keyof typeof Status];
 };
 
 class ImageLoader extends React.Component<Props, State> {
-// @ts-expect-error [FEI-5003] - TS2749 - 'Image' refers to a value, but is being used as a type here. Did you mean 'typeof Image'?
+    // @ts-expect-error [FEI-5003] - TS2749 - 'Image' refers to a value, but is being used as a type here. Did you mean 'typeof Image'?
     img: Image | null | undefined;
 
     constructor(props: Props) {
@@ -120,19 +120,19 @@ class ImageLoader extends React.Component<Props, State> {
         }
     };
 
-    renderImg: () => React.ReactElement<React.ComponentProps<'img'>> = () => {
+    renderImg: () => React.ReactElement<React.ComponentProps<"img">> = () => {
         const {src, imgProps} = this.props;
         let onKeyUp = null;
         let onKeyDown = null;
         if (imgProps.onClick != null) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
             onKeyUp = (e: React.KeyboardEvent) => {
                 // 13 is enter key, 32 is space key
                 if (e.keyCode === 13 || e.keyCode === 32) {
                     imgProps.onClick && imgProps.onClick(e);
                 }
             };
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
             onKeyDown = (e: React.KeyboardEvent) => {
                 // 32 is space key
                 if (e.keyCode === 32) {
@@ -146,9 +146,9 @@ class ImageLoader extends React.Component<Props, State> {
         return (
             <img
                 src={staticUrl(src)}
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
                 onKeyUp={onKeyUp}
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
                 onKeyDown={onKeyDown}
                 {...imgProps}
             />
@@ -162,13 +162,13 @@ class ImageLoader extends React.Component<Props, State> {
 
             case Status.FAILED:
                 if (this.props.children) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'true | ReactChild | ReactFragment | ReactPortal' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>> | null'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'true | ReactChild | ReactFragment | ReactPortal' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>> | null'.
                     return this.props.children;
                 }
                 break;
             default:
                 if (this.props.preloader) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, string | JSXElementConstructor<any>> | null | undefined' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>> | null'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, string | JSXElementConstructor<any>> | null | undefined' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>> | null'.
                     return this.props.preloader();
                 }
         }

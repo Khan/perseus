@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from '../../../../../testing/renderer-with-debug-ui';
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {
     angleQuestion,
     circleQuestion,
@@ -11,8 +11,8 @@ import {
     rayQuestion,
     segmentQuestion,
     sinusoidQuestion,
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/interactive-graph_testdata' or its corresponding type declarations.
-} from '../__testdata__/interactive-graph_testdata';
+    // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/interactive-graph_testdata' or its corresponding type declarations.
+} from "../__testdata__/interactive-graph_testdata";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph",
@@ -20,23 +20,41 @@ export default {
 
 type StoryArgs = Record<any, any>;
 
-export const Angle: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={angleQuestion} />;
+export const Angle: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={angleQuestion} />
+);
 
-export const Circle: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={circleQuestion} />;
+export const Circle: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={circleQuestion} />
+);
 
-export const Linear: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={linearQuestion} />;
+export const Linear: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={linearQuestion} />
+);
 
-export const LinearSystem: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={linearSystemQuestion} />;
+export const LinearSystem: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={linearSystemQuestion} />
+);
 
-export const Point: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={pointQuestion} />;
+export const Point: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={pointQuestion} />
+);
 
-export const Polygon: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={polygonQuestion} />;
+export const Polygon: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={polygonQuestion} />
+);
 
-export const Ray: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={rayQuestion} />;
+export const Ray: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={rayQuestion} />
+);
 
-export const Segment: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={segmentQuestion} />;
+export const Segment: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={segmentQuestion} />
+);
 
-export const Sinusoid: React.FC<StoryArgs> = (args): React.ReactElement => <RendererWithDebugUI question={sinusoidQuestion} />;
+export const Sinusoid: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <RendererWithDebugUI question={sinusoidQuestion} />
+);
 
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that
 // use the "quadratic" graph type.

@@ -1,15 +1,15 @@
 import * as React from "react";
 
-import Keys from '../../data/key-configs';
+import Keys from "../../data/key-configs";
 
 import {
     KeypadPageContainer,
     SecondaryKeypadButton,
     KeypadActionButton,
-} from './keypad-page-items';
+} from "./keypad-page-items";
 
 type Props = {
-    onClickKey: (keyConfig: string) => void
+    onClickKey: (keyConfig: string) => void;
 };
 
 export default class TrigonometryInputPage extends React.Component<Props> {

@@ -1,13 +1,13 @@
 import _ from "underscore";
 
-import * as KAS from '../index';
+import * as KAS from "../index";
 
 expect.extend({
     toEvaluateAs(
         input: string,
         expected: number,
         vars: {
-            [key: string]: string | number
+            [key: string]: string | number;
         } = {},
         functions?: ReadonlyArray<string>,
     ) {

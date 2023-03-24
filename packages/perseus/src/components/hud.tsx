@@ -2,7 +2,7 @@ import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import * as constants from '../styles/constants';
+import * as constants from "../styles/constants";
 
 class HUD extends React.Component<any> {
     static propTypes = {
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         ":hover": {
             backgroundColor: constants.warningColorHover,
         },
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "#f86700"; ":hover": { backgroundColor: "#df5c00"; }; ":active": { backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "#f86700"; ":hover": { backgroundColor: "#df5c00"; }; ":active": { backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
         ":active": {
             backgroundColor: constants.warningColorActive,
         },
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
         ":hover": {
             backgroundColor: "#a1a5a9", // in between those two grays
         },
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "#BABEC2"; ":hover": { backgroundColor: "#a1a5a9"; }; ":active": { backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "#BABEC2"; ":hover": { backgroundColor: "#a1a5a9"; }; ":active": { backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
         ":active": {
             backgroundColor: constants.gray68,
         },

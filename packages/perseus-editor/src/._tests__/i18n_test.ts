@@ -1,9 +1,9 @@
 import {Dependencies} from "@khanacademy/perseus";
 import _ from "underscore";
 
-import {testDependencies} from '../../../../testing/test-dependencies';
-import i18n from '../i18n';
-import {registerAllWidgetsAndEditorsForTesting} from '../util/register-all-widgets-and-editors-for-testing';
+import {testDependencies} from "../../../../testing/test-dependencies";
+import i18n from "../i18n";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 const exerciseImagesEverywhere = {
     question: {

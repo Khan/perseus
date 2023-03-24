@@ -3,36 +3,36 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
 
-import * as Changeable from '../mixins/changeable';
-import {removeDenylistProps} from '../mixins/widget-prop-denylist';
-import PerseusMarkdown from '../perseus-markdown';
+import * as Changeable from "../mixins/changeable";
+import {removeDenylistProps} from "../mixins/widget-prop-denylist";
+import PerseusMarkdown from "../perseus-markdown";
 
-import PassageWidgetExport from './passage';
+import PassageWidgetExport from "./passage";
 
-import type {PerseusPassageRefWidgetOptions} from '../perseus-types';
+import type {PerseusPassageRefWidgetOptions} from "../perseus-types";
 import type {
     ChangeFn,
     PerseusScore,
     WidgetExports,
     WidgetProps,
     LinterContextProps,
-} from '../types';
-import type {Reference} from './passage';
+} from "../types";
+import type {Reference} from "./passage";
 
 const EN_DASH = "\u2013";
 
-type UserInput = (RenderProps) & {
-    static: boolean | null | undefined,
-    reviewModeRubric: Rubric,
-    linterContext: LinterContextProps,
-    isLastUsedWidget: boolean,
-    alignment: string | null | undefined
+type UserInput = RenderProps & {
+    static: boolean | null | undefined;
+    reviewModeRubric: Rubric;
+    linterContext: LinterContextProps;
+    isLastUsedWidget: boolean;
+    alignment: string | null | undefined;
 };
 
 type RenderProps = {
-    passageNumber: PerseusPassageRefWidgetOptions['passageNumber'],
-    referenceNumber: PerseusPassageRefWidgetOptions['referenceNumber'],
-    summaryText: PerseusPassageRefWidgetOptions['summaryText']
+    passageNumber: PerseusPassageRefWidgetOptions["passageNumber"];
+    referenceNumber: PerseusPassageRefWidgetOptions["referenceNumber"];
+    summaryText: PerseusPassageRefWidgetOptions["summaryText"];
 };
 
 type Rubric = PerseusPassageRefWidgetOptions;
@@ -40,21 +40,21 @@ type Rubric = PerseusPassageRefWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {
-    passageNumber: Props['passageNumber'],
-    referenceNumber: Props['referenceNumber'],
-    summaryText: Props['summaryText']
+    passageNumber: Props["passageNumber"];
+    referenceNumber: Props["referenceNumber"];
+    summaryText: Props["summaryText"];
 };
 
 type State = {
-    lineRange: [number, number] | null | undefined,
-    content: string | null | undefined
+    lineRange: [number, number] | null | undefined;
+    content: string | null | undefined;
 };
 
 class PassageRef extends React.Component<Props, State> {
     displayName: string = "PassageRef";
-// @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
-// @ts-expect-error [FEI-5003] - TS2564 - Property '_throttledUpdateRange' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_throttledUpdateRange' has no initializer and is not definitely assigned in the constructor.
     _throttledUpdateRange: () => void;
 
     static defaultProps: DefaultProps = {
@@ -100,7 +100,7 @@ class PassageRef extends React.Component<Props, State> {
 
         let summaryOutput;
         if (this.props.summaryText) {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
             const summaryTree = PerseusMarkdown.parseInline(
                 this.props.summaryText,
             );
@@ -161,9 +161,8 @@ class PassageRef extends React.Component<Props, State> {
         // Note(TB): findWidgets runs findInternal and findExternal;
         // findExternal runs findInternal for the renderers involved;
         // findInternal returns type $ReadOnlyArray<?Widget>
-        const passage: PassageWidgetExport.widget | null | undefined = this.props.findWidgets(
-            "passage " + this.props.passageNumber,
-        )[0];
+        const passage: PassageWidgetExport.widget | null | undefined =
+            this.props.findWidgets("passage " + this.props.passageNumber)[0];
 
         let refInfo: Reference | null | undefined = null;
         if (passage) {
@@ -204,7 +203,9 @@ export default {
     displayName: "PassageRef (SAT only)",
     defaultAlignment: "inline",
     widget: PassageRef,
-    transform: (widgetOptions: PerseusPassageRefWidgetOptions): RenderProps => ({
+    transform: (
+        widgetOptions: PerseusPassageRefWidgetOptions,
+    ): RenderProps => ({
         passageNumber: widgetOptions.passageNumber,
         referenceNumber: widgetOptions.referenceNumber,
         summaryText: widgetOptions.summaryText,

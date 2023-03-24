@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import AssetContext from '../asset-context';
+import AssetContext from "../asset-context";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 export const mockedAssetItem = {
     question: {

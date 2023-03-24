@@ -1,5 +1,5 @@
-import {violatingWidgets} from '../a11y';
-import {registerAllWidgetsForTesting} from '../util/register-all-widgets-for-testing';
+import {violatingWidgets} from "../a11y";
+import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 
 const noWidgets = {
     question: {

@@ -1,4 +1,4 @@
-import type {ImageWidget} from '../../perseus-types';
+import type {ImageWidget} from "../../perseus-types";
 
 export const question = {
     content:
@@ -8,7 +8,7 @@ export const question = {
             {height: 377, width: 460},
     },
     widgets: {
-        "image 1": ({
+        "image 1": {
             alignment: "block",
             graded: true,
             options: {
@@ -31,6 +31,6 @@ export const question = {
             static: false,
             type: "image",
             version: {major: 0, minor: 0},
-        } as ImageWidget),
+        } as ImageWidget,
     },
 } as const;

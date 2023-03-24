@@ -32,12 +32,12 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import StubTagEditor from './components/stub-tag-editor';
+import StubTagEditor from "./components/stub-tag-editor";
 
-import type {APIOptionsWithDefaults} from './types';
+import type {APIOptionsWithDefaults} from "./types";
 
 export const ApiOptions = {
-    propTypes: (PropTypes.shape({
+    propTypes: PropTypes.shape({
         isArticle: PropTypes.bool.isRequired,
 
         onInputError: PropTypes.func.isRequired,
@@ -140,38 +140,38 @@ export const ApiOptions = {
         // keystroke caused text typed in the text area to appear in it
         // only after a good few seconds.
         editorChangeDelay: PropTypes.number,
-// @ts-expect-error [FEI-5003] - TS2694 - Namespace 'React' has no exported member 'PropType'.
+        // @ts-expect-error [FEI-5003] - TS2694 - Namespace 'React' has no exported member 'PropType'.
     }).isRequired as React.PropType<{
-        GroupMetadataEditor: (...a: ReadonlyArray<any>) => unknown,
-        answerableCallback?: (...a: ReadonlyArray<any>) => unknown,
+        GroupMetadataEditor: (...a: ReadonlyArray<any>) => unknown;
+        answerableCallback?: (...a: ReadonlyArray<any>) => unknown;
         baseElements?: {
-            Link?: (...a: ReadonlyArray<any>) => unknown
-        },
-        canScrollPage?: boolean,
-        crossOutEnabled?: boolean,
-        customKeypad?: boolean,
-        editorChangeDelay?: number,
-        getAnotherHint?: (...a: ReadonlyArray<any>) => unknown,
-        groupAnnotator: (...a: ReadonlyArray<any>) => unknown,
-        hintProgressColor?: string,
-        imagePlaceholder?: any,
-        imagePreloader?: (...a: ReadonlyArray<any>) => unknown,
-        inModal?: boolean,
-        interactionCallback?: (...a: ReadonlyArray<any>) => unknown,
-        isArticle: boolean,
-        isMobile?: boolean,
-        nativeKeypadProxy?: (...a: ReadonlyArray<any>) => unknown,
-        onFocusChange: (...a: ReadonlyArray<any>) => unknown,
-        onInputError: (...a: ReadonlyArray<any>) => unknown,
-        readOnly: boolean,
-        setDrawingAreaAvailable?: (...a: ReadonlyArray<any>) => unknown,
-        showAlignmentOptions: boolean,
-        trackInteraction?: (...a: ReadonlyArray<any>) => unknown,
-        useDraftEditor?: boolean,
-        widgetPlaceholder?: any
-    }>),
+            Link?: (...a: ReadonlyArray<any>) => unknown;
+        };
+        canScrollPage?: boolean;
+        crossOutEnabled?: boolean;
+        customKeypad?: boolean;
+        editorChangeDelay?: number;
+        getAnotherHint?: (...a: ReadonlyArray<any>) => unknown;
+        groupAnnotator: (...a: ReadonlyArray<any>) => unknown;
+        hintProgressColor?: string;
+        imagePlaceholder?: any;
+        imagePreloader?: (...a: ReadonlyArray<any>) => unknown;
+        inModal?: boolean;
+        interactionCallback?: (...a: ReadonlyArray<any>) => unknown;
+        isArticle: boolean;
+        isMobile?: boolean;
+        nativeKeypadProxy?: (...a: ReadonlyArray<any>) => unknown;
+        onFocusChange: (...a: ReadonlyArray<any>) => unknown;
+        onInputError: (...a: ReadonlyArray<any>) => unknown;
+        readOnly: boolean;
+        setDrawingAreaAvailable?: (...a: ReadonlyArray<any>) => unknown;
+        showAlignmentOptions: boolean;
+        trackInteraction?: (...a: ReadonlyArray<any>) => unknown;
+        useDraftEditor?: boolean;
+        widgetPlaceholder?: any;
+    }>,
 
-    defaults: ({
+    defaults: {
         isArticle: false,
         isMobile: false,
         onInputError: function () {},
@@ -179,11 +179,13 @@ export const ApiOptions = {
         GroupMetadataEditor: StubTagEditor,
         showAlignmentOptions: false,
         readOnly: false,
-        groupAnnotator: function(): null {
+        groupAnnotator: function (): null {
             return null;
         },
         baseElements: {
-            Link: (props: any): React.ReactElement<React.ComponentProps<'a'>> => {
+            Link: (
+                props: any,
+            ): React.ReactElement<React.ComponentProps<"a">> => {
                 return <a {...props} />;
             },
         },
@@ -193,7 +195,7 @@ export const ApiOptions = {
         inModal: false,
         crossOutEnabled: false,
         editorChangeDelay: 0,
-    } as APIOptionsWithDefaults),
+    } as APIOptionsWithDefaults,
 } as const;
 
 export const ClassNames = {

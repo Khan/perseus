@@ -3,13 +3,13 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
-import * as Perseus from '../packages/perseus/src/index';
+import * as Perseus from "../packages/perseus/src/index";
 
-import KEScoreUI from './ke-score-ui';
-import SideBySide from './side-by-side';
+import KEScoreUI from "./ke-score-ui";
+import SideBySide from "./side-by-side";
 
-import type {PerseusItem} from '../packages/perseus/src/perseus-types';
-import type {APIOptions, KEScore} from '../packages/perseus/src/types';
+import type {PerseusItem} from "../packages/perseus/src/perseus-types";
+import type {APIOptions, KEScore} from "../packages/perseus/src/types";
 // @ts-expect-error [FEI-5003] - TS2305 - Module '"react"' has no exported member 'AbstractComponent'.
 import type {AbstractComponent} from "react";
 
@@ -19,16 +19,14 @@ type ExtractComponentType = <P, T>(arg1: AbstractComponent<P, T>) => T;
 type ServerItemRendererType = ReturnType<ExtractComponentType>;
 
 type Props = {
-    item: PerseusItem,
-    apiOptions?: APIOptions
+    item: PerseusItem;
+    apiOptions?: APIOptions;
 };
 
-export const ServerItemRendererWithDebugUI: React.FC<Props> = (
-    {
-        item,
-        apiOptions,
-    },
-): React.ReactElement => {
+export const ServerItemRendererWithDebugUI: React.FC<Props> = ({
+    item,
+    apiOptions,
+}): React.ReactElement => {
     const ref = React.useRef<ServerItemRendererType | null | undefined>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
     const options = apiOptions || Object.freeze({});
@@ -50,7 +48,7 @@ export const ServerItemRendererWithDebugUI: React.FC<Props> = (
                                 if (!ref.current) {
                                     return;
                                 }
-// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+                                // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
                                 setState(ref.current.scoreInput());
                             }}
                         >
@@ -59,7 +57,7 @@ export const ServerItemRendererWithDebugUI: React.FC<Props> = (
                         <Strut size={8} />
                         <Button
                             onClick={() => {
-// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+                                // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
                                 ref.current?.showRationalesForCurrentlySelectedChoices();
                             }}
                         >

@@ -4,30 +4,30 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {getDependencies} from '../dependencies';
-import * as Changeable from '../mixins/changeable';
+import {getDependencies} from "../dependencies";
+import * as Changeable from "../mixins/changeable";
 import {
     gray76,
     tableBackgroundAccent,
     phoneMargin,
     negativePhoneMargin,
-} from '../styles/constants';
-import a11y from '../util/a11y';
+} from "../styles/constants";
+import a11y from "../util/a11y";
 
-import GradedGroupWidget from './graded-group';
+import GradedGroupWidget from "./graded-group";
 
 import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
 } from "../perseus-types";
-import type {FocusPath, WidgetExports, WidgetProps} from '../types';
+import type {FocusPath, WidgetExports, WidgetProps} from "../types";
 
 const GradedGroup = GradedGroupWidget.widget;
 
 type IndicatorsProps = {
-    currentGroup: number,
-    gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>,
-    onChangeCurrentGroup: (groupNumber: number) => void
+    currentGroup: number;
+    gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>;
+    onChangeCurrentGroup: (groupNumber: number) => void;
 };
 
 class Indicators extends React.Component<IndicatorsProps> {
@@ -71,23 +71,24 @@ class Indicators extends React.Component<IndicatorsProps> {
 type RenderProps = PerseusGradedGroupSetWidgetOptions; // no transform
 type Rubric = PerseusGradedGroupSetWidgetOptions;
 
-type Props = (Changeable.ChangeableProps) & (WidgetProps<RenderProps, Rubric>) & {
-    trackInteraction: () => void
-};
+type Props = Changeable.ChangeableProps &
+    WidgetProps<RenderProps, Rubric> & {
+        trackInteraction: () => void;
+    };
 
 type DefaultProps = {
-    gradedGroups: Props['gradedGroups'],
-    linterContext: Props['linterContext']
+    gradedGroups: Props["gradedGroups"];
+    linterContext: Props["linterContext"];
 };
 
 type State = {
-    currentGroup: number
+    currentGroup: number;
 };
 
 // TODO(jared): find a better name for this :) and for GradedGroup; the names
 // are currently a little confusing.
 class GradedGroupSet extends React.Component<Props, State> {
-// @ts-expect-error [FEI-5003] - TS2749 - 'GradedGroup' refers to a value, but is being used as a type here. Did you mean 'typeof GradedGroup'?
+    // @ts-expect-error [FEI-5003] - TS2749 - 'GradedGroup' refers to a value, but is being used as a type here. Did you mean 'typeof GradedGroup'?
     _childGroup: GradedGroup;
 
     static defaultProps: DefaultProps = {
@@ -100,12 +101,12 @@ class GradedGroupSet extends React.Component<Props, State> {
     };
 
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-        (nextProps.gradedGroups as ReadonlyArray<PerseusGradedGroupWidgetOptions>);
+        nextProps.gradedGroups as ReadonlyArray<PerseusGradedGroupWidgetOptions>;
         return nextProps !== this.props || nextState !== this.state;
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -158,7 +159,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                             // TODO(jeremy): Don't spread this.props, instead
                             // pass in all props GradedGroup needs explicilty
                             // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                             <GradedGroup
                                 key={i}
                                 {...this.props}
@@ -202,7 +203,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                 {/* TODO(jeremy): Don't spread this.props, instead
                     pass in all props GradedGroup needs explicitly */}
                 {/* $FlowFixMe[prop-missing] */}
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
+                {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
                     // $FlowFixMe[incompatible-type]

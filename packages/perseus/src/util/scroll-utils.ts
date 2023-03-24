@@ -4,7 +4,7 @@
 
 // Polyfill scrollTo if it doesn't exist
 if (typeof HTMLElement !== "undefined" && !HTMLElement.prototype.scrollTo) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(left: number, top: any) => void' is not assignable to type '{ (options?: ScrollToOptions | undefined): void; (x: number, y: number): void; }'.
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(left: number, top: any) => void' is not assignable to type '{ (options?: ScrollToOptions | undefined): void; (x: number, y: number): void; }'.
     HTMLElement.prototype.scrollTo = function (left, top: any) {
         this.scrollLeft = left;
         this.scrollTop = top;
@@ -45,8 +45,8 @@ const scrollElementToOffset = (
     const startPosition =
         elementOrWindow === window
             ? window.pageYOffset
-// @ts-expect-error [FEI-5003] - TS2551 - Property 'scrollTop' does not exist on type 'HTMLElement | Window'. Did you mean 'scrollTo'?
-            : elementOrWindow.scrollTop;
+            : // @ts-expect-error [FEI-5003] - TS2551 - Property 'scrollTop' does not exist on type 'HTMLElement | Window'. Did you mean 'scrollTo'?
+              elementOrWindow.scrollTop;
     const endPosition = offset;
     const scrollDistance = endPosition - startPosition;
 

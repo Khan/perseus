@@ -1,4 +1,4 @@
-import type {PerseusRenderer, TransformerWidget} from '../../perseus-types';
+import type {PerseusRenderer, TransformerWidget} from "../../perseus-types";
 
 export const question: PerseusRenderer = {
     content:
@@ -8,7 +8,7 @@ export const question: PerseusRenderer = {
             {height: 503, width: 504},
     },
     widgets: {
-        "transformer 1": ({
+        "transformer 1": {
             graded: true,
             options: {
                 correct: {
@@ -103,6 +103,6 @@ export const question: PerseusRenderer = {
             },
             type: "transformer",
             version: {major: 0, minor: 0},
-        } as TransformerWidget),
+        } as TransformerWidget,
     },
 };

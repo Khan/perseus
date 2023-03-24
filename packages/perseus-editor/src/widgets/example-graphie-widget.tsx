@@ -121,7 +121,7 @@ class ExampleGraphieWidget extends React.Component<Props> {
     };
 
     movePoint: (arg1: Coord) => void = (newCoord) => {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({
             coord: newCoord,
         });
@@ -138,10 +138,7 @@ class ExampleGraphieWidget extends React.Component<Props> {
         });
     };
 
-    setupGraphie: (arg1: any, arg2: any) => any = (
-        graphie,
-        options,
-    ) => {
+    setupGraphie: (arg1: any, arg2: any) => any = (graphie, options) => {
         const gridConfig = this._getGridConfig(options);
         graphie.graphInit({
             range: options.range,

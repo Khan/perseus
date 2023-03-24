@@ -53,16 +53,16 @@ import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from '../components/inline-icon';
-import {iconTrash} from '../icon-paths';
-import KhanColors from '../util/colors';
-import reactRender from '../util/react-render';
-import Tex from '../util/tex';
+import InlineIcon from "../components/inline-icon";
+import {iconTrash} from "../icon-paths";
+import KhanColors from "../util/colors";
+import reactRender from "../util/react-render";
+import Tex from "../util/tex";
 
-import InteractiveUtil from './interactive-util';
-import MovablePointOptions from './movable-point-options';
-import objective_ from './objective_';
-import WrappedEllipse from './wrapped-ellipse';
+import InteractiveUtil from "./interactive-util";
+import MovablePointOptions from "./movable-point-options";
+import objective_ from "./objective_";
+import WrappedEllipse from "./wrapped-ellipse";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -100,12 +100,8 @@ const DEFAULT_STATE = {
 
 const tooltipResetFunctions: Array<() => void> = [];
 
-const MovablePoint = function (
-    graphie: any,
-    movable: any,
-    options: any,
-) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+const MovablePoint = function (graphie: any, movable: any, options: any) {
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {
         graphie,
         movable,
@@ -116,7 +112,7 @@ const MovablePoint = function (
     });
 
     // We only set DEFAULT_STATE once, here
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.modify(_.extend({}, DEFAULT_STATE, options));
 };
 

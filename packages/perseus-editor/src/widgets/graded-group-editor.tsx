@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Editor from '../editor';
+import Editor from "../editor";
 
 const {InlineIcon, TextInput} = components;
 const {iconPlus, iconTrash} = icons;
@@ -22,7 +22,7 @@ class GradedGroupEditor extends React.Component<Props> {
         apiOptions: ApiOptions.propTypes,
     };
 
-    static widgetName: 'graded-group' = "graded-group";
+    static widgetName: "graded-group" = "graded-group";
 
     static defaultProps: Props = {
         title: "",
@@ -40,7 +40,7 @@ class GradedGroupEditor extends React.Component<Props> {
         const hint = {content: ""} as const;
         this.props.onChange({hint}, () => {
             // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["hint-editor"].focus();
         });
     };
@@ -58,7 +58,7 @@ class GradedGroupEditor extends React.Component<Props> {
                         <TextInput
                             value={this.props.title}
                             className={css(styles.input)}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("title")}
                         />
                     </label>
@@ -105,7 +105,7 @@ class GradedGroupEditor extends React.Component<Props> {
                             onChange={(props) => {
                                 // Copy all props over from the existing hint
                                 // and then add new props.
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+                                // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
                                 this.change(
                                     "hint",
                                     Object.assign({}, this.props.hint, props),
@@ -127,24 +127,24 @@ class GradedGroupEditor extends React.Component<Props> {
 
     getSaveWarnings: () => any = () => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         return this.refs.editor.getSaveWarnings();
     };
 
     serialize: () => {
-        title: string,
-        hint: any | null | undefined
+        title: string;
+        hint: any | null | undefined;
     } = () => {
         return {
             title: this.props.title,
             // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             ...this.refs.editor.serialize(),
             hint:
                 // eslint-disable-next-line react/no-string-refs
                 this.refs["hint-editor"] &&
                 // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
                 this.refs["hint-editor"].serialize(),
         };
     };

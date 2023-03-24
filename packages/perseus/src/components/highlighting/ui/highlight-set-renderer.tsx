@@ -10,39 +10,42 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 
-import HighlightRenderer from './highlight-renderer';
-import HighlightTooltip from './highlight-tooltip';
+import HighlightRenderer from "./highlight-renderer";
+import HighlightTooltip from "./highlight-tooltip";
 
-import type {DOMHighlightSet, Position, ZIndexes} from './types';
+import type {DOMHighlightSet, Position, ZIndexes} from "./types";
 
 type HighlightSetRendererProps = {
     // Whether the highlights are user-editable. If false, highlights are
     // read-only.
-    editable: boolean,
+    editable: boolean;
     // A set of highlights to render.
-    highlights: DOMHighlightSet,
+    highlights: DOMHighlightSet;
     // This component's `offsetParent` element, which is the nearest ancestor
     // with `position: relative`. This will enable us to choose the correct
     // CSS coordinates to align highlights and tooltips with the target
     // content.
-    offsetParent: Element,
+    offsetParent: Element;
     // A callback indicating that the user would like to remove the highlight
     // with the given key.
-    onRemoveHighlight: (highlightKey: string) => unknown,
+    onRemoveHighlight: (highlightKey: string) => unknown;
     // The z-indexes to use when rendering tooltips above content, and
     // highlights below content.
-    zIndexes: ZIndexes
+    zIndexes: ZIndexes;
 };
 type HighlightSetRendererState = {
     // If the user is currently hovering over a highlight, this field contains
     // its key.
-    hoveredHighlightKey: string | null | undefined,
+    hoveredHighlightKey: string | null | undefined;
     // If the user is currently hovering over the "Remove highlight" tooltip,
     // this field contains the key of the corresponding highlight.
-    hoveringTooltipFor: string | null | undefined
+    hoveringTooltipFor: string | null | undefined;
 };
 
-class HighlightSetRenderer extends React.PureComponent<HighlightSetRendererProps, HighlightSetRendererState> {
+class HighlightSetRenderer extends React.PureComponent<
+    HighlightSetRendererProps,
+    HighlightSetRendererState
+> {
     state: HighlightSetRendererState = {
         hoveredHighlightKey: null,
         hoveringTooltipFor: null,
@@ -50,7 +53,7 @@ class HighlightSetRenderer extends React.PureComponent<HighlightSetRendererProps
 
     // eslint-disable-next-line react/sort-comp
     _highlightRenderers: {
-        [highlightKey: string]: HighlightRenderer
+        [highlightKey: string]: HighlightRenderer;
     } = {};
 
     componentDidMount() {
@@ -110,7 +113,9 @@ class HighlightSetRenderer extends React.PureComponent<HighlightSetRendererProps
         this.setState({hoveredHighlightKey});
     };
 
-    _getHoveredHighlightKey(mouseClientPosition: Position): string | null | undefined {
+    _getHoveredHighlightKey(
+        mouseClientPosition: Position,
+    ): string | null | undefined {
         // If we're hovering over the tooltip, the hovered highlight is the
         // highlight that the tooltip is pointing to.
         const {hoveringTooltipFor} = this.state;
@@ -155,7 +160,7 @@ class HighlightSetRenderer extends React.PureComponent<HighlightSetRendererProps
         );
     }
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div>
                 {Object.keys(this.props.highlights).map((key) => (

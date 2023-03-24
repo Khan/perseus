@@ -1,4 +1,4 @@
-import TreeTransformer from '../tree-transformer';
+import TreeTransformer from "../tree-transformer";
 
 describe("PerseusLinter tree transformer", () => {
     function clone(o) {
@@ -149,11 +149,9 @@ describe("PerseusLinter tree transformer", () => {
                 "C",
             ];
 
-            new TreeTransformer(tree).traverse(
-                (n: any, state, content) => {
-                    expect(content).toEqual(textContentForNode[n.id]);
-                },
-            );
+            new TreeTransformer(tree).traverse((n: any, state, content) => {
+                expect(content).toEqual(textContentForNode[n.id]);
+            });
         });
 
         it("can remove the next sibling " + treenum, () => {
@@ -175,16 +173,14 @@ describe("PerseusLinter tree transformer", () => {
                 const copy = clone(tree);
 
                 // Remove the next sibling of the node with this id
-                new TreeTransformer(copy).traverse(
-                    (n: any, state: any) => {
-                        if (n.id === id) {
-                            state.removeNextSibling();
-                        }
+                new TreeTransformer(copy).traverse((n: any, state: any) => {
+                    if (n.id === id) {
+                        state.removeNextSibling();
+                    }
 
-                        // Ensure that we don't iterate the removed sibling
-                        expect(n.id).not.toEqual(nextNodeIds[id]);
-                    },
-                );
+                    // Ensure that we don't iterate the removed sibling
+                    expect(n.id).not.toEqual(nextNodeIds[id]);
+                });
 
                 // And then get the traversal order of the resulting tree
                 const traversal = getTraversalOrder(copy);
@@ -220,13 +216,11 @@ describe("PerseusLinter tree transformer", () => {
                 // Make a copy of the tree
                 const copy = clone(tree);
                 // Remove this node from it
-                new TreeTransformer(copy).traverse(
-                    (n: any, state: any) => {
-                        if (n.id === id) {
-                            state.replace();
-                        }
-                    },
-                );
+                new TreeTransformer(copy).traverse((n: any, state: any) => {
+                    if (n.id === id) {
+                        state.replace();
+                    }
+                });
 
                 // Traverse what remains and see if we get what is expected
                 expect(getTraversalOrder(copy)).toEqual(expectedTraversals[id]);

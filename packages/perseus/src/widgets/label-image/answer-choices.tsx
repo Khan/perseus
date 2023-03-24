@@ -10,49 +10,49 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import Icon from '../../components/icon';
-import {iconCheckMedium} from '../../icon-paths';
-import Renderer from '../../renderer';
-import sharedStyles from '../../styles/shared';
+import Icon from "../../components/icon";
+import {iconCheckMedium} from "../../icon-paths";
+import Renderer from "../../renderer";
+import sharedStyles from "../../styles/shared";
 
 export type AnswerType = {
     // The answer string, can be plain text or a KaTeX expression.
-    content: string,
+    content: string;
     // Whether the answer is selected.
-    checked: boolean
+    checked: boolean;
 };
 
-type AnswerProps = (AnswerType) & {
+type AnswerProps = AnswerType & {
     // The input control type to use.
-    inputType: 'checkbox' | 'radio',
+    inputType: "checkbox" | "radio";
     // The radio group name.
-    groupName: string,
+    groupName: string;
     // The answer position within choices.
-    index: number,
+    index: number;
     // Callback to handle change to answer selection.
-    onChange: (checked: boolean) => void,
+    onChange: (checked: boolean) => void;
     // Callbacks to handle navigating between adjacent answers.
-    onFocusPrevAnswer: () => void,
-    onFocusNextAnswer: () => void
+    onFocusPrevAnswer: () => void;
+    onFocusNextAnswer: () => void;
 };
 
 type AnswerState = {
     // Whether answer is currently focused.
-    isInputFocused: boolean
+    isInputFocused: boolean;
 };
 
 type AnswerChoicesProps = {
     // The list of possible answers in a specific order.
-    choices: ReadonlyArray<AnswerType>,
+    choices: ReadonlyArray<AnswerType>;
     // Whether multiple answers may be chosen.
-    multipleSelect: boolean,
+    multipleSelect: boolean;
     // Callback to handle change to answer choices selection.
-    onChange: (selection: ReadonlyArray<boolean>) => void
+    onChange: (selection: ReadonlyArray<boolean>) => void;
 };
 
 type AnswerChoicesState = {
     // Globally unique radio group name.
-    groupName: string
+    groupName: string;
 };
 
 class AnswerChoice extends React.Component<AnswerProps, AnswerState> {
@@ -170,7 +170,10 @@ class AnswerChoice extends React.Component<AnswerProps, AnswerState> {
     }
 }
 
-export default class AnswerChoices extends React.Component<AnswerChoicesProps, AnswerChoicesState> {
+export default class AnswerChoices extends React.Component<
+    AnswerChoicesProps,
+    AnswerChoicesState
+> {
     // The rendered answers elements.
     // eslint-disable-next-line ft-flow/no-mutable-array
     _choices: Array<AnswerChoice | null | undefined>;
@@ -228,7 +231,7 @@ export default class AnswerChoices extends React.Component<AnswerChoicesProps, A
         this.focusAnswer(index);
     }
 
-    render(): React.ReactElement<React.ComponentProps<'fieldset'>> {
+    render(): React.ReactElement<React.ComponentProps<"fieldset">> {
         const {choices, multipleSelect} = this.props;
 
         const {groupName} = this.state;
@@ -269,7 +272,7 @@ const styles = StyleSheet.create({
         border: "solid 2px transparent",
         borderRadius: 2,
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; alignItems: "center"; userSelect: "none"; padding: string; fontWeight: "bold"; border: string; borderRadius: number; ":active": { backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; alignItems: "center"; userSelect: "none"; padding: string; fontWeight: "bold"; border: string; borderRadius: number; ":active": { backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
         ":active": {
             backgroundColor: "rgba(33, 36, 44, 0.08)",
         },
@@ -278,7 +281,7 @@ const styles = StyleSheet.create({
     answerFocused: {
         borderColor: "#1865f2",
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ borderColor: "#1865f2"; ":active": { borderColor: string; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ borderColor: "#1865f2"; ":active": { borderColor: string; }; }' is not assignable to type 'CSSProperties'.
         ":active": {
             borderColor: "transparent",
         },

@@ -6,19 +6,19 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import SvgImage from '../components/svg-image';
-import * as Changeable from '../mixins/changeable';
-import Renderer from '../renderer';
-import {baseUnitPx} from '../styles/constants';
-import mediaQueries from '../styles/media-queries';
+import SvgImage from "../components/svg-image";
+import * as Changeable from "../mixins/changeable";
+import Renderer from "../renderer";
+import {baseUnitPx} from "../styles/constants";
+import mediaQueries from "../styles/media-queries";
 
-import type {PerseusImageWidgetOptions} from '../perseus-types';
+import type {PerseusImageWidgetOptions} from "../perseus-types";
 import type {
     ChangeFn,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from '../types';
+} from "../types";
 
 const defaultBoxSize = 400;
 const defaultRange = [0, 10];
@@ -38,28 +38,28 @@ type UserInput = null;
 
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
-type Props = (ExternalProps) & {
-    alignment: NonNullable<ExternalProps['alignment']>,
-    title: NonNullable<ExternalProps['title']>,
-    range: NonNullable<ExternalProps['range']>,
-    box: NonNullable<ExternalProps['box']>,
-    backgroundImage: NonNullable<ExternalProps['backgroundImage']>,
-    labels: NonNullable<ExternalProps['labels']>,
-    alt: NonNullable<ExternalProps['alt']>,
-    caption: NonNullable<ExternalProps['caption']>,
-    linterContext: NonNullable<ExternalProps['linterContext']>
+type Props = ExternalProps & {
+    alignment: NonNullable<ExternalProps["alignment"]>;
+    title: NonNullable<ExternalProps["title"]>;
+    range: NonNullable<ExternalProps["range"]>;
+    box: NonNullable<ExternalProps["box"]>;
+    backgroundImage: NonNullable<ExternalProps["backgroundImage"]>;
+    labels: NonNullable<ExternalProps["labels"]>;
+    alt: NonNullable<ExternalProps["alt"]>;
+    caption: NonNullable<ExternalProps["caption"]>;
+    linterContext: NonNullable<ExternalProps["linterContext"]>;
 };
 
 type DefaultProps = {
-    alignment: Props['alignment'],
-    title: Props['title'],
-    range: Props['range'],
-    box: Props['box'],
-    backgroundImage: Props['backgroundImage'],
-    labels: Props['labels'],
-    alt: Props['alt'],
-    caption: Props['caption'],
-    linterContext: Props['linterContext']
+    alignment: Props["alignment"];
+    title: Props["title"];
+    range: Props["range"];
+    box: Props["box"];
+    backgroundImage: Props["backgroundImage"];
+    labels: Props["labels"];
+    alt: Props["alt"];
+    caption: Props["caption"];
+    linterContext: Props["linterContext"];
 };
 
 class ImageWidget extends React.Component<Props> {
@@ -205,7 +205,7 @@ class ImageWidget extends React.Component<Props> {
                         <div
                             className={css(styles.caption)}
                             style={{
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string | null' is not assignable to type 'MinWidth<string | number> | undefined'.
+                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | null' is not assignable to type 'MinWidth<string | number> | undefined'.
                                 minWidth: minWidth,
                             }}
                         >

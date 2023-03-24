@@ -16,12 +16,8 @@ import * as React from "react";
 type KeyId = string;
 
 const buttonAsset: React.FC<{
-    id: KeyId
-}> = function(
-    {
-        id,
-    },
-): React.ReactElement {
+    id: KeyId;
+}> = function ({id}): React.ReactElement {
     switch (id) {
         case "NUM_0":
             return (

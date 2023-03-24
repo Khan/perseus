@@ -1,16 +1,11 @@
 import * as React from "react";
 
-import type {TabbarItemType} from './types';
+import type {TabbarItemType} from "./types";
 
 const IconAsset: React.FC<{
-    tintColor: string,
-    type: TabbarItemType
-}> = function(
-    {
-        tintColor,
-        type,
-    },
-): React.ReactElement {
+    tintColor: string;
+    type: TabbarItemType;
+}> = function ({tintColor, type}): React.ReactElement {
     if (type === "Geometry") {
         return (
             <svg
@@ -62,7 +57,7 @@ const IconAsset: React.FC<{
         );
     }
 
-    (type as never);
+    type as never;
     throw new Error("Invalid icon type");
 };
 

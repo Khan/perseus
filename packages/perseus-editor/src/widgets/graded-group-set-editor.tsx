@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import GradedGroupEditor from './graded-group-editor';
+import GradedGroupEditor from "./graded-group-editor";
 
 type Props = any;
 
 class GradedGroupSetEditor extends React.Component<Props> {
     // eslint-disable-next-line ft-flow/no-mutable-array
-// @ts-expect-error [FEI-5003] - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
 
     static propTypes = {
@@ -20,7 +20,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
         onChange: PropTypes.func.isRequired,
     };
 
-    static widgetName: 'graded-group-set' = "graded-group-set";
+    static widgetName: "graded-group-set" = "graded-group-set";
 
     static defaultProps: Props = {
         gradedGroups: [],
@@ -44,7 +44,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     serialize: () => {
-        gradedGroups: any
+        gradedGroups: any;
     } = () => {
         return {
             gradedGroups: this.props.gradedGroups,
@@ -64,7 +64,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
                 widgetEnabled={true}
                 immutableWidgets={false}
                 onChange={(data) =>
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
                     this.change(
                         "gradedGroups",
                         setArrayItem(this.props.gradedGroups, i, {
@@ -79,7 +79,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
 
     addGroup: () => void = () => {
         const groups = this.props.gradedGroups || [];
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
         this.change(
             "gradedGroups",
             groups.concat([GradedGroupEditor.defaultProps]),

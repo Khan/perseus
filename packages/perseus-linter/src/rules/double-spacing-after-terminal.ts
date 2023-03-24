@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import Rule from '../rule';
+import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "double-spacing-after-terminal",

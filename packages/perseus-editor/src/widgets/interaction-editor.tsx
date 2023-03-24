@@ -15,9 +15,9 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import GraphSettings from '../components/graph-settings';
+import GraphSettings from "../components/graph-settings";
 
-import ConstraintEditor from './interaction/constraint-editor';
+import ConstraintEditor from "./interaction/constraint-editor";
 
 const {MathInput, NumberInput, TextInput} = components;
 const {getDependencies} = Dependencies;
@@ -70,7 +70,7 @@ class PointEditor extends React.Component<PointEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordX}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
                     <TeX>,</TeX>{" "}
@@ -78,7 +78,7 @@ class PointEditor extends React.Component<PointEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordY}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
                     />
                     <TeX>\Large)</TeX>
@@ -86,7 +86,7 @@ class PointEditor extends React.Component<PointEditorProps> {
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("color")}
                     />
                 </div>
@@ -145,7 +145,7 @@ class LineEditor extends React.Component<LineEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startX}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("startX")}
                     />
                     <TeX>,</TeX>{" "}
@@ -153,7 +153,7 @@ class LineEditor extends React.Component<LineEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startY}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("startY")}
                     />
                     <TeX>\Large)</TeX>
@@ -164,7 +164,7 @@ class LineEditor extends React.Component<LineEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.endX}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("endX")}
                     />
                     <TeX>,</TeX>{" "}
@@ -172,7 +172,7 @@ class LineEditor extends React.Component<LineEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.endY}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("endY")}
                     />
                     <TeX>\Large)</TeX>
@@ -180,20 +180,20 @@ class LineEditor extends React.Component<LineEditorProps> {
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("color")}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <DashPicker
                         value={this.props.strokeDasharray}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("strokeDasharray")}
                     />
                     &nbsp; &nbsp;
                     <ArrowPicker
                         value={this.props.arrows}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("arrows")}
                     />
                 </div>
@@ -203,7 +203,7 @@ class LineEditor extends React.Component<LineEditorProps> {
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("strokeWidth")}
                         />
                     </div>
@@ -281,7 +281,7 @@ class MovablePointEditor extends React.Component<MovablePointEditorProps> {
                         onChange={this.change("varSubscript")}
                     />
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
+                {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <ConstraintEditor {...this.props} />
             </div>
         );
@@ -389,7 +389,7 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
                 <div className="perseus-widget-row">
                     All constraints are applied to the start point.
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
+                {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <ConstraintEditor {...this.props} />
             </div>
         );
@@ -442,7 +442,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.value}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("value")}
                     />
                 </div>
@@ -452,7 +452,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.rangeMin}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMin")}
                     />
                     <TeX>,</TeX>{" "}
@@ -460,7 +460,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.rangeMax}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMax")}
                     />
                     <TeX>\Large)</TeX>
@@ -468,14 +468,14 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("color")}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <DashPicker
                         value={this.props.strokeDasharray}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("strokeDasharray")}
                     />
                 </div>
@@ -485,7 +485,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("strokeWidth")}
                         />
                     </div>
@@ -543,7 +543,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.x}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("x")}
                     />
                 </div>
@@ -553,7 +553,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.y}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("y")}
                     />
                 </div>
@@ -563,7 +563,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.rangeMin}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMin")}
                     />
                     <TeX>,</TeX>{" "}
@@ -571,7 +571,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.rangeMax}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMax")}
                     />
                     <TeX>\Large)</TeX>
@@ -579,14 +579,14 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("color")}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <DashPicker
                         value={this.props.strokeDasharray}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("strokeDasharray")}
                     />
                 </div>
@@ -596,7 +596,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("strokeWidth")}
                         />
                     </div>
@@ -646,7 +646,7 @@ class LabelEditor extends React.Component<LabelEditorProps> {
                 <div className="perseus-widget-row">
                     <TextInput
                         value={this.props.label}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("label")}
                         style={{
                             width: "100%",
@@ -659,7 +659,7 @@ class LabelEditor extends React.Component<LabelEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordX}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
                     <TeX>,</TeX>{" "}
@@ -667,7 +667,7 @@ class LabelEditor extends React.Component<LabelEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordY}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
                     />
                     <TeX>\Large)</TeX>
@@ -675,7 +675,7 @@ class LabelEditor extends React.Component<LabelEditorProps> {
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("color")}
                     />
                 </div>
@@ -728,7 +728,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordX}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
                     <TeX>,</TeX>{" "}
@@ -736,7 +736,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordY}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
                     />
                     <TeX>\Large)</TeX>
@@ -747,7 +747,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.width}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("width")}
                     />
                 </div>
@@ -757,7 +757,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.height}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("height")}
                     />
                 </div>
@@ -765,7 +765,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                     <ColorPicker
                         value={this.props.color}
                         lightColors={true}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("color")}
                     />
                 </div>
@@ -788,7 +788,10 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
 type InteractionEditorProps = any;
 type InteractionEditorState = any;
 
-class InteractionEditor extends React.Component<InteractionEditorProps, InteractionEditorState> {
+class InteractionEditor extends React.Component<
+    InteractionEditorProps,
+    InteractionEditorState
+> {
     // TODO(eater): Make more better
     static propTypes = {
         ...Changeable.propTypes,
@@ -797,7 +800,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
         graph: PropTypes.objectOf(PropTypes.any),
     };
 
-    static widgetName: 'interaction' = "interaction";
+    static widgetName: "interaction" = "interaction";
     static defaultProps: InteractionEditorProps = defaultInteractionProps;
 
     state: InteractionEditorState = {
@@ -841,7 +844,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
     _updateGraphProps: (arg1: any) => any = (newProps) => {
         // TODO(eater): GraphSettings should name this tickStep instead
         // of step. Grr..
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({
             graph: _.extend(_.omit(newProps, "step"), {
                 tickStep: newProps.step,
@@ -849,7 +852,9 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
         });
     };
 
-    _addNewElement: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    _addNewElement: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
         const elementType = e.target.value;
         if (elementType === "") {
             return;
@@ -885,14 +890,14 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
         if (elementType === "movable-point") {
             nextSubscript =
                 _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'varSubscript' does not exist on type '{}'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'varSubscript' does not exist on type '{}'.
             newElement.options.varSubscript = nextSubscript;
         } else if (elementType === "movable-line") {
             nextSubscript =
                 _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'startSubscript' does not exist on type '{}'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'startSubscript' does not exist on type '{}'.
             newElement.options.startSubscript = nextSubscript;
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'endSubscript' does not exist on type '{}'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'endSubscript' does not exist on type '{}'.
             newElement.options.endSubscript = nextSubscript + 1;
         } else if (elementType === "function") {
             // TODO(eater): The 22nd function added will be {(x) since '{'
@@ -907,10 +912,10 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                     "e".charCodeAt(0),
                 ]) + 1,
             );
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'funcName' does not exist on type '{}'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'funcName' does not exist on type '{}'.
             newElement.options.funcName = nextLetter;
         }
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({
             elements: this.props.elements.concat(newElement),
         });
@@ -918,7 +923,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
 
     _deleteElement: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({elements: _.without(this.props.elements, element)});
     };
 
@@ -926,7 +931,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
         const element = this.props.elements[index];
         const newElements = _.without(this.props.elements, element);
         newElements.splice(index - 1, 0, element);
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({elements: newElements});
     };
 
@@ -934,7 +939,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
         const element = this.props.elements[index];
         const newElements = _.without(this.props.elements, element);
         newElements.splice(index + 1, 0, element);
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({elements: newElements});
     };
 
@@ -947,7 +952,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
 
         return (
             <div className="perseus-widget-interaction-editor">
-{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: (false | Element)[]; title: string; }' is not assignable to type 'Pick<Readonly<ElementContainerProps> & Readonly<{ children?: ReactNode; }>, "children" | "onDelete" | "onDown" | "onUp">'. */}
+                {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: (false | Element)[]; title: string; }' is not assignable to type 'Pick<Readonly<ElementContainerProps> & Readonly<{ children?: ReactNode; }>, "children" | "onDelete" | "onDown" | "onUp">'. */}
                 <ElementContainer title="Grid settings">
                     <GraphSettings
                         editableSettings={["canvas", "graph"]}
@@ -988,23 +993,23 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onUp={
                                         n === 0
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementUp.bind(this, n)
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementUp.bind(this, n)
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onDown={
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         n === this.props.elements.length - 1
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementDown.bind(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementDown.bind(
+                                                  // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                   this,
                                                   n,
                                               )
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     onDelete={this._deleteElement.bind(this, n)}
                                     key={element.key}
                                 >
@@ -1013,7 +1018,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                         onChange={(newProps) => {
                                             const elements = JSON.parse(
                                                 JSON.stringify(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                     this.props.elements,
                                                 ),
                                             );
@@ -1021,7 +1026,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                 elements[n].options,
                                                 newProps,
                                             );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.change({elements: elements});
                                         }}
                                     />
@@ -1059,23 +1064,23 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onUp={
                                         n === 0
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementUp.bind(this, n)
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementUp.bind(this, n)
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onDown={
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         n === this.props.elements.length - 1
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementDown.bind(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementDown.bind(
+                                                  // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                   this,
                                                   n,
                                               )
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     onDelete={this._deleteElement.bind(this, n)}
                                     key={element.key}
                                 >
@@ -1084,7 +1089,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                         onChange={(newProps) => {
                                             const elements = JSON.parse(
                                                 JSON.stringify(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                     this.props.elements,
                                                 ),
                                             );
@@ -1092,7 +1097,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                 elements[n].options,
                                                 newProps,
                                             );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.change({elements: elements});
                                         }}
                                     />
@@ -1118,23 +1123,23 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onUp={
                                         n === 0
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementUp.bind(this, n)
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementUp.bind(this, n)
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onDown={
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         n === this.props.elements.length - 1
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementDown.bind(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementDown.bind(
+                                                  // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                   this,
                                                   n,
                                               )
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     onDelete={this._deleteElement.bind(this, n)}
                                     key={element.key}
                                 >
@@ -1143,7 +1148,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                         onChange={(newProps) => {
                                             const elements = JSON.parse(
                                                 JSON.stringify(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                     this.props.elements,
                                                 ),
                                             );
@@ -1151,7 +1156,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                 elements[n].options,
                                                 newProps,
                                             );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.change({elements: elements});
                                         }}
                                     />
@@ -1185,23 +1190,23 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onUp={
                                         n === 0
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementUp.bind(this, n)
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementUp.bind(this, n)
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onDown={
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         n === this.props.elements.length - 1
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementDown.bind(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementDown.bind(
+                                                  // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                   this,
                                                   n,
                                               )
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     onDelete={this._deleteElement.bind(this, n)}
                                     key={element.key}
                                 >
@@ -1210,7 +1215,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                         onChange={(newProps) => {
                                             const elements = JSON.parse(
                                                 JSON.stringify(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                     this.props.elements,
                                                 ),
                                             );
@@ -1218,7 +1223,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                 elements[n].options,
                                                 newProps,
                                             );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.change({elements: elements});
                                         }}
                                     />
@@ -1242,22 +1247,22 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onUp={
                                         n === 0
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementUp.bind(this, n)
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementUp.bind(this, n)
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onDown={
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         n === this.props.elements.length - 1
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementDown.bind(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementDown.bind(
+                                                  // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                   this,
                                                   n,
                                               )
                                     }
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     onDelete={this._deleteElement}
                                     key={element.key}
                                 >
@@ -1266,7 +1271,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                         onChange={(newProps) => {
                                             const elements = JSON.parse(
                                                 JSON.stringify(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                     this.props.elements,
                                                 ),
                                             );
@@ -1274,7 +1279,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                 elements[n].options,
                                                 newProps,
                                             );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.change({elements: elements});
                                         }}
                                     />
@@ -1289,22 +1294,22 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onUp={
                                         n === 0
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementUp.bind(this, n)
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementUp.bind(this, n)
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onDown={
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         n === this.props.elements.length - 1
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementDown.bind(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementDown.bind(
+                                                  // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                   this,
                                                   n,
                                               )
                                     }
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     onDelete={this._deleteElement}
                                     key={element.key}
                                 >
@@ -1313,7 +1318,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                         onChange={(newProps) => {
                                             const elements = JSON.parse(
                                                 JSON.stringify(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                     this.props.elements,
                                                 ),
                                             );
@@ -1321,7 +1326,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                 elements[n].options,
                                                 newProps,
                                             );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.change({elements: elements});
                                         }}
                                     />
@@ -1345,22 +1350,22 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onUp={
                                         n === 0
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementUp.bind(this, n)
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementUp.bind(this, n)
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onDown={
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         n === this.props.elements.length - 1
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementDown.bind(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementDown.bind(
+                                                  // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                   this,
                                                   n,
                                               )
                                     }
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     onDelete={this._deleteElement}
                                     key={element.key}
                                 >
@@ -1369,7 +1374,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                         onChange={(newProps) => {
                                             const elements = JSON.parse(
                                                 JSON.stringify(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                     this.props.elements,
                                                 ),
                                             );
@@ -1377,7 +1382,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                 elements[n].options,
                                                 newProps,
                                             );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.change({elements: elements});
                                         }}
                                     />
@@ -1409,22 +1414,22 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onUp={
                                         n === 0
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementUp.bind(this, n)
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementUp.bind(this, n)
                                     }
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onDown={
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         n === this.props.elements.length - 1
                                             ? null
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            : this._moveElementDown.bind(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                              this._moveElementDown.bind(
+                                                  // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                   this,
                                                   n,
                                               )
                                     }
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     onDelete={this._deleteElement}
                                     key={element.key}
                                 >
@@ -1433,7 +1438,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                         onChange={(newProps) => {
                                             const elements = JSON.parse(
                                                 JSON.stringify(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                                     this.props.elements,
                                                 ),
                                             );
@@ -1441,7 +1446,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                 elements[n].options,
                                                 newProps,
                                             );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.change({elements: elements});
                                         }}
                                     />
@@ -1452,7 +1457,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                     this,
                 )}
                 <div className="perseus-widget-interaction-editor-select-element">
-{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'. */}
+                    {/* @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'. */}
                     <select onChange={this._addNewElement}>
                         <option value="">Add an element{"\u2026"}</option>
                         <option disabled>--</option>

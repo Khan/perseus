@@ -1,4 +1,4 @@
-import * as constants from '../styles/constants';
+import * as constants from "../styles/constants";
 
 const {interactiveSizes} = constants;
 
@@ -10,13 +10,14 @@ const smMax = constants.articleMaxWidthTableInPx;
 const mdMax = constants.articleMaxWidthInPx;
 
 export const containerSizeClass = {
-    SMALL: ("small" as const),
-    MEDIUM: ("medium" as const),
-    LARGE: ("large" as const),
-    XLARGE: ("xlarge" as const),
+    SMALL: "small" as const,
+    MEDIUM: "medium" as const,
+    LARGE: "large" as const,
+    XLARGE: "xlarge" as const,
 } as const;
 
-export type SizeClass = typeof containerSizeClass[keyof typeof containerSizeClass];
+export type SizeClass =
+    typeof containerSizeClass[keyof typeof containerSizeClass];
 
 export const getClassFromWidth = (width: number): SizeClass => {
     if (!width) {
@@ -32,7 +33,9 @@ export const getClassFromWidth = (width: number): SizeClass => {
     return containerSizeClass.LARGE;
 };
 
-export const getInteractiveBoxFromSizeClass = (sizeClass: SizeClass): [number, number] => {
+export const getInteractiveBoxFromSizeClass = (
+    sizeClass: SizeClass,
+): [number, number] => {
     if (sizeClass === containerSizeClass.SMALL) {
         return [
             interactiveSizes.defaultBoxSizeSmall,

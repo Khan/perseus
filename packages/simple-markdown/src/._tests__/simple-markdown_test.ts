@@ -5,7 +5,7 @@ import {render} from "@testing-library/react";
 // As of 2019-11-03, flow doesn't have definitions for assert.strict:
 // https://github.com/facebook/flow/pull/7660
 // So we use a /*::*/ hack to satisfy flow:
-import SimpleMarkdown from '../index';
+import SimpleMarkdown from "../index";
 
 var assert = require("assert") /*:: || {} */.strict;
 
@@ -3065,11 +3065,11 @@ describe("simple markdown", function () {
                         [{type: "text", content: "h2"}],
                         [{type: "text", content: "h3"}],
                     ],
-                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ ([
+                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ [
                         null,
                         null,
                         null,
-                    ]),
+                    ],
                     cells: [
                         [
                             [{type: "text", content: "d1"}],
@@ -3128,11 +3128,11 @@ describe("simple markdown", function () {
                             },
                         ],
                     ],
-                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ ([
+                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ [
                         null,
                         null,
                         null,
-                    ]),
+                    ],
                     cells: [
                         [
                             [
@@ -3180,7 +3180,10 @@ describe("simple markdown", function () {
              * @param {string} tableSrc
              * @param {Array<SimpleMarkdown.TableAlignment>} expectedAligns
              */
-            var validateAligns = function (tableSrc, expectedAligns: Array<null> | Array<string>) {
+            var validateAligns = function (
+                tableSrc,
+                expectedAligns: Array<null> | Array<string>,
+            ) {
                 var parsed = blockParse(tableSrc + "\n");
                 assert.strictEqual(parsed[0].type, "table");
                 var actualAligns = parsed[0].align;
@@ -3191,11 +3194,11 @@ describe("simple markdown", function () {
                 "| h1 | h2 | h3 |\n" +
                     "| -- | -- | -- |\n" +
                     "| d1 | d2 | d3 |\n",
-                /** @type {Array<SimpleMarkdown.TableAlignment>} */ ([
+                /** @type {Array<SimpleMarkdown.TableAlignment>} */ [
                     null,
                     null,
                     null,
-                ]),
+                ],
             );
 
             validateAligns(
@@ -3234,16 +3237,16 @@ describe("simple markdown", function () {
             var expected = [
                 {
                     type: "table",
-                    header: /** @type {any[][]} */ ([[], [], []]),
-                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ ([
+                    header: /** @type {any[][]} */ [[], [], []],
+                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ [
                         null,
                         null,
                         null,
-                    ]),
-                    cells: /** @type {any[][]} */ ([
+                    ],
+                    cells: /** @type {any[][]} */ [
                         [[], [], []],
                         [[], [], []],
-                    ]),
+                    ],
                 },
             ];
 
@@ -3282,10 +3285,10 @@ describe("simple markdown", function () {
                             {type: "text", content: "|"},
                         ],
                     ],
-                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ ([
+                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ [
                         null,
                         null,
-                    ]),
+                    ],
                     cells: [
                         [
                             [
@@ -3331,10 +3334,10 @@ describe("simple markdown", function () {
                         [{type: "text", content: "Attribute"}],
                         [{type: "text", content: "Type"}],
                     ],
-                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ ([
+                    align: /** @type {Array<SimpleMarkdown.TableAlignment>} */ [
                         null,
                         null,
-                    ]),
+                    ],
                     cells: [
                         [
                             [{type: "inlineCode", content: "position"}],

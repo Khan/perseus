@@ -3,16 +3,16 @@
 
 import PropTypes from "prop-types";
 
-import type {LinterContextProps} from './types';
+import type {LinterContextProps} from "./types";
 
 // @ts-expect-error [FEI-5003] - TS2694 - Namespace 'React' has no exported member 'PropType'.
 export const linterContextProps: React.PropType<{
-    contentType?: string,
-    highlightLint?: boolean,
+    contentType?: string;
+    highlightLint?: boolean;
     // eslint-disable-next-line ft-flow/no-mutable-array
-    paths?: Array<string>,
+    paths?: Array<string>;
     // eslint-disable-next-line ft-flow/no-mutable-array
-    stack?: Array<string>
+    stack?: Array<string>;
 }> = PropTypes.shape({
     contentType: PropTypes.string,
     highlightLint: PropTypes.bool,
@@ -23,6 +23,6 @@ export const linterContextProps: React.PropType<{
 export const linterContextDefault: LinterContextProps = {
     contentType: "",
     highlightLint: false,
-    paths: ([] as ReadonlyArray<any>),
-    stack: ([] as ReadonlyArray<any>),
+    paths: [] as ReadonlyArray<any>,
+    stack: [] as ReadonlyArray<any>,
 };

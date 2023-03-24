@@ -6,7 +6,7 @@ import type {MathFormat} from "../perseus-types";
 
 const KhanMath = {
     // Simplify formulas before display
-    cleanMath: function(expr: string): string {
+    cleanMath: function (expr: string): string {
         return typeof expr === "string"
             ? expr
                   .replace(/\+\s*-/g, "- ")
@@ -16,7 +16,7 @@ const KhanMath = {
     },
 
     // Bound a number by 1e-6 and 1e20 to avoid exponents after toString
-    bound: function(num: number): number {
+    bound: function (num: number): number {
         if (num === 0) {
             return num;
         }
@@ -26,18 +26,18 @@ const KhanMath = {
         return Math.max(1e-6, Math.min(num, 1e20));
     },
 
-    factorial: function(x: number): number {
+    factorial: function (x: number): number {
         if (x <= 1) {
             return x;
         }
         return x * KhanMath.factorial(x - 1);
     },
 
-    getGCD: function(a: number, b: number): number {
+    getGCD: function (a: number, b: number): number {
         if (arguments.length > 2) {
             // TODO(kevinb): rewrite using rest args instead of arguments
             const rest = [].slice.call(arguments, 1);
-// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             return KhanMath.getGCD(a, KhanMath.getGCD(...rest));
         }
         let mod;
@@ -54,11 +54,11 @@ const KhanMath = {
         return a;
     },
 
-    getLCM: function(a: number, b: number): number {
+    getLCM: function (a: number, b: number): number {
         if (arguments.length > 2) {
             // TODO(kevinb): rewrite using rest args instead of arguments
             const rest = [].slice.call(arguments, 1);
-// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             return KhanMath.getLCM(a, KhanMath.getLCM(...rest));
         }
         return Math.abs(a * b) / KhanMath.getGCD(a, b);
@@ -69,7 +69,7 @@ const KhanMath = {
         71, 73, 79, 83, 89, 97,
     ],
 
-    isPrime: function(n: number): boolean {
+    isPrime: function (n: number): boolean {
         if (n <= 1) {
             return false;
         }
@@ -91,8 +91,8 @@ const KhanMath = {
     },
 
     // $FlowFixMe[incompatible-return]
-// @ts-expect-error [FEI-5003] - TS2366 - Function lacks ending return statement and return type does not include 'undefined'.
-    getPrimeFactorization: function(number: number): ReadonlyArray<number> {
+    // @ts-expect-error [FEI-5003] - TS2366 - Function lacks ending return statement and return type does not include 'undefined'.
+    getPrimeFactorization: function (number: number): ReadonlyArray<number> {
         if (number === 1) {
             return [];
         }
@@ -114,14 +114,14 @@ const KhanMath = {
     // Round a number to the nearest increment
     // E.g., if increment = 30 and num = 40, return 30. if increment = 30 and
     //     num = 45, return 60.
-    roundToNearest: function(increment: number, num: number): number {
+    roundToNearest: function (increment: number, num: number): number {
         return Math.round(num / increment) * increment;
     },
 
     // Round a number to a certain number of decimal places
-    roundTo: function(precision: number, num: number): number {
+    roundTo: function (precision: number, num: number): number {
         const factor = Math.pow(10, precision).toFixed(5);
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'number'. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'number'. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
         return Math.round((num * factor).toFixed(5)) / factor;
     },
 
@@ -129,7 +129,7 @@ const KhanMath = {
      * Return a string of num rounded to a fixed precision decimal places,
      * with an approx symbol if num had to be rounded, and trailing 0s
      */
-    toFixedApprox: function(num: number, precision: number): string {
+    toFixedApprox: function (num: number, precision: number): string {
         // TODO(aria): Make this locale-dependent like KhanUtil.localeToFixed
         const fixedStr = num.toFixed(precision);
         if (knumber.equal(+fixedStr, num)) {
@@ -143,7 +143,7 @@ const KhanMath = {
      * approx symbol if num had to be rounded, but no trailing 0s if it was
      * not rounded.
      */
-    roundToApprox: function(num: number, precision: number): string {
+    roundToApprox: function (num: number, precision: number): string {
         const fixed = KhanMath.roundTo(precision, num);
         if (knumber.equal(fixed, num)) {
             return String(fixed);
@@ -156,7 +156,7 @@ const KhanMath = {
     // toFraction(0.666, 0.001) => [2, 3]
     //
     // tolerance can't be bigger than 1, sorry
-    toFraction: function(
+    toFraction: function (
         decimal: number,
         // $FlowFixMe[incompatible-return]
         tolerance?: number,
@@ -204,7 +204,7 @@ const KhanMath = {
     // Returns the format (string) of a given numeric string
     // Note: purposively more inclusive than answer-types' predicate.forms
     // That is, it is not necessarily true that interpreted input are numeric
-    getNumericFormat: function(text: string): MathFormat | null | undefined {
+    getNumericFormat: function (text: string): MathFormat | null | undefined {
         text = $.trim(text);
         text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1");
         if (text.match(/^[+-]?\d+$/)) {
@@ -229,7 +229,7 @@ const KhanMath = {
     },
 
     // Returns a string of the number in a specified format
-    toNumericString: function(number: number, format?: MathFormat): string {
+    toNumericString: function (number: number, format?: MathFormat): string {
         if (number == null) {
             return "";
         }

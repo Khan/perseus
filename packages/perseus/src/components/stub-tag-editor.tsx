@@ -14,7 +14,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import TextListEditor from './text-list-editor';
+import TextListEditor from "./text-list-editor";
 
 const EMPTY_ARRAY = [];
 

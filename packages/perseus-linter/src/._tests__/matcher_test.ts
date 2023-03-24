@@ -4,8 +4,8 @@
  */
 import * as PureMarkdown from "@khanacademy/pure-markdown";
 
-import Selector from '../selector';
-import TreeTransformer from '../tree-transformer';
+import Selector from "../selector";
+import TreeTransformer from "../tree-transformer";
 
 describe("PerseusLinter selector matching:", () => {
     const markdown = `

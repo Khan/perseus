@@ -3,26 +3,32 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import * as Perseus from '../../index';
-import {registerAllWidgetsForTesting} from '../../util/register-all-widgets-for-testing';
+import * as Perseus from "../../index";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
-import type {PerseusRenderer} from '../../perseus-types';
-import type {APIOptions} from '../../types';
+import type {PerseusRenderer} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 
 type RenderResult = ReturnType<typeof render>;
 
 export const renderQuestion = (
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
-    extraProps?: JSX.LibraryManagedAttributes<typeof Perseus.Renderer, React.ComponentProps<typeof Perseus.Renderer>>,
+    extraProps?: JSX.LibraryManagedAttributes<
+        typeof Perseus.Renderer,
+        React.ComponentProps<typeof Perseus.Renderer>
+    >,
 ): {
-    container: HTMLElement,
-    renderer: Perseus.Renderer,
+    container: HTMLElement;
+    renderer: Perseus.Renderer;
     rerender: (
         question: PerseusRenderer,
-        extraProps?: JSX.LibraryManagedAttributes<typeof Perseus.Renderer, React.ComponentProps<typeof Perseus.Renderer>>,
-    ) => void,
-    unmount: RenderResult['unmount']
+        extraProps?: JSX.LibraryManagedAttributes<
+            typeof Perseus.Renderer,
+            React.ComponentProps<typeof Perseus.Renderer>
+        >,
+    ) => void;
+    unmount: RenderResult["unmount"];
 } => {
     registerAllWidgetsForTesting();
     let renderer: Perseus.Renderer | null = null;
@@ -42,7 +48,10 @@ export const renderQuestion = (
     if (!renderer) {
         throw new Error(`Failed to render!`);
     }
-    const renderAgain = (question: PerseusRenderer, extraProps: undefined | ElementConfig<typeof Renderer>) => {
+    const renderAgain = (
+        question: PerseusRenderer,
+        extraProps: undefined | ElementConfig<typeof Renderer>,
+    ) => {
         rerender(
             <RenderStateRoot>
                 <Perseus.Renderer

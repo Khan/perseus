@@ -9,7 +9,7 @@ const {findContentNodesInItem, findHintNodesInItem, inferItemShape} =
 
 // Takes a renderer content and parses the markdown for images
 function findImagesInContent(content: any, images: Array<any>) {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+    // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
     const parsed = PerseusMarkdown.parse(content);
 
     PerseusMarkdown.traverseContent(parsed, function (node) {
@@ -119,12 +119,12 @@ function findImagesInItemData(itemData: any): any {
     let renderers = [];
     if (itemData._multi) {
         const shape = inferItemShape(itemData);
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'ContentNode' is not assignable to parameter of type 'never'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'ContentNode' is not assignable to parameter of type 'never'.
         findContentNodesInItem(itemData, shape, (node) => renderers.push(node));
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'HintNode' is not assignable to parameter of type 'never'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'HintNode' is not assignable to parameter of type 'never'.
         findHintNodesInItem(itemData, shape, (node) => renderers.push(node));
     } else {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'. | TS2322 - Type 'any' is not assignable to type 'never'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'. | TS2322 - Type 'any' is not assignable to type 'never'.
         renderers = [itemData.question, ...itemData.hints];
     }
     return findImagesInRenderers(renderers);

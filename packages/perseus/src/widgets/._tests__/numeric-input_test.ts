@@ -1,8 +1,8 @@
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -11,16 +11,16 @@ import {
     question1,
     duplicatedAnswers,
     withCoefficient,
-} from '../__testdata__/numeric-input_testdata';
+} from "../__testdata__/numeric-input_testdata";
 import {
     maybeParsePercentInput,
     NumericInput,
     unionAnswerForms,
-} from '../numeric-input';
+} from "../numeric-input";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {Rubric} from '../numeric-input';
+import type {Rubric} from "../numeric-input";
 
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;

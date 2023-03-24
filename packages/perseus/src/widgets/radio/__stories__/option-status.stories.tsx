@@ -1,18 +1,18 @@
 import * as React from "react";
 
-import OptionStatus from '../option-status';
+import OptionStatus from "../option-status";
 
 type StoryArgs = {
-    crossedOut: boolean,
-    checked: boolean,
-    correct: boolean,
-    previouslyAnswered: boolean,
-    reviewMode: boolean
+    crossedOut: boolean;
+    checked: boolean;
+    correct: boolean;
+    previouslyAnswered: boolean;
+    reviewMode: boolean;
 };
 
 type Story = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 export default {
@@ -30,7 +30,9 @@ export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <OptionStatus {...args} />;
 };
 
-export const AllPossibleOutputs: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const AllPossibleOutputs: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <>
             <div>

@@ -10,12 +10,12 @@ import _ from "underscore";
 // release
 // http://groups.google.com/group/raphaeljs/browse_thread/thread/c34c75ad8d431544
 
-import {Errors, Log} from '../logging/log';
-import {PerseusError} from '../perseus-error';
+import {Errors, Log} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 
-import KhanColors from './colors';
-import KhanMath from './math';
-import Tex from './tex';
+import KhanColors from "./colors";
+import KhanMath from "./math";
+import Tex from "./tex";
 
 import type {Coord} from "../interactive2/types";
 
@@ -251,7 +251,7 @@ GraphUtils.createGraphie = function (el: any) {
             const points = _.map(xRange, function (x) {
                 return [x, computeParabola(x)];
             });
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
             return svgPath(points);
         }
 
@@ -279,7 +279,7 @@ GraphUtils.createGraphie = function (el: any) {
         const right = [vertex[0] + dx, point[1]];
 
         // Scale and bound
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
         const points = _.map([left, control, right], scalePoint);
         const values = _.map(_.flatten(points), KhanMath.bound);
         return (
@@ -332,7 +332,7 @@ GraphUtils.createGraphie = function (el: any) {
             ];
 
             // Zip and scale
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
             return _.map(_.zip(xCoords, yCoords), scalePoint);
         };
 
@@ -442,7 +442,7 @@ GraphUtils.createGraphie = function (el: any) {
                 $.extend(processed, transformer(value));
             } else {
                 const dasherized = key
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'replace' does not exist on type 'string | number | symbol'.
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'replace' does not exist on type 'string | number | symbol'.
                     .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
                     .replace(/([a-z\d])([A-Z])/g, "$1-$2")
                     .toLowerCase();
@@ -617,7 +617,7 @@ GraphUtils.createGraphie = function (el: any) {
         },
 
         path: function (points) {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
             const p = raphael.path(svgPath(points));
             p.graphiePath = points;
 
@@ -657,7 +657,7 @@ GraphUtils.createGraphie = function (el: any) {
             // Create <div>
             const wrapper = document.createElement("div");
             $(wrapper).css({
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 position: "absolute",
                 width: width + "px",
                 height: height + "px",
@@ -815,7 +815,7 @@ GraphUtils.createGraphie = function (el: any) {
                 .data("labelDirection", direction)
                 .appendTo(el);
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
             $span.setPosition = function (point) {
                 const scaledPoint = scalePoint(point);
                 $span.css({
@@ -824,12 +824,12 @@ GraphUtils.createGraphie = function (el: any) {
                 });
             };
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
             $span.setPosition(point);
 
             const span = $span[0];
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
             $span.processMath = function (math, force) {
                 processMath(span, math, force, function () {
                     const width = span.scrollWidth;
@@ -838,7 +838,7 @@ GraphUtils.createGraphie = function (el: any) {
                 });
             };
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
             $span.processText = function (text: any) {
                 $span.html(text);
                 const width = span.scrollWidth;
@@ -847,10 +847,10 @@ GraphUtils.createGraphie = function (el: any) {
             };
 
             if (latex) {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
                 $span.processMath(text, /* force */ false);
             } else {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
                 $span.processText(text);
             }
 
@@ -922,12 +922,12 @@ GraphUtils.createGraphie = function (el: any) {
                 ) {
                     // split the path at this point, and draw it
                     if (shade) {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                         points.push(top);
 
                         // backtrack to draw paired function
                         for (let u = t - step; u >= lastFlip; u -= step) {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                             points.push(clippedFn2(u));
                         }
                         lastFlip = t;
@@ -936,12 +936,12 @@ GraphUtils.createGraphie = function (el: any) {
                     // restart the path, excluding this point
                     points = [];
                     if (shade) {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                         points.push(top);
                     }
                 } else {
                     // otherwise, just add the point to the path
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     points.push(top);
                 }
 
@@ -951,7 +951,7 @@ GraphUtils.createGraphie = function (el: any) {
             if (shade) {
                 // backtrack to draw paired function
                 for (let u = max - step; u >= lastFlip; u -= step) {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     points.push(clippedFn2(u));
                 }
             }
@@ -1196,7 +1196,7 @@ GraphUtils.createGraphie = function (el: any) {
             } else if (result instanceof $) {
                 // We assume that if it's not a Raphael element/set, it
                 // does not contain SVG.
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'css' does not exist on type '{}'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'css' does not exist on type '{}'.
                 result.css({...currentStyle, ...SVG_SPECIFIC_STYLE_MASK});
             }
 
@@ -1225,7 +1225,7 @@ GraphUtils.createGraphie = function (el: any) {
             // allow options to be specified by a single number for shorthand if
             // the horizontal and vertical components are the same
             if (
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'match' does not exist on type 'string | number | symbol'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'match' does not exist on type 'string | number | symbol'.
                 !prop.match(/.*Opacity$/) &&
                 prop !== "range" &&
                 typeof val === "number"
@@ -1346,24 +1346,24 @@ GraphUtils.createGraphie = function (el: any) {
                     },
                     function () {
                         if (range[1][0] < 0 && range[1][1] > 0) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.path([
                                 axisCenter,
                                 [gridRange[0][0], axisCenter[1]],
                             ]);
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.path([
                                 axisCenter,
                                 [gridRange[0][1], axisCenter[1]],
                             ]);
                         }
                         if (range[0][0] < 0 && range[0][1] > 0) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.path([
                                 axisCenter,
                                 [axisCenter[0], gridRange[1][0]],
                             ]);
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.path([
                                 axisCenter,
                                 [axisCenter[0], gridRange[1][1]],
@@ -1383,12 +1383,12 @@ GraphUtils.createGraphie = function (el: any) {
                         arrows: axisArrows,
                     },
                     function () {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.path([
                             [gridRange[0][0], axisCenter[1]],
                             [gridRange[0][1], axisCenter[1]],
                         ]);
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.path([
                             [axisCenter[0], gridRange[1][0]],
                             [axisCenter[0], gridRange[1][1]],
@@ -1434,7 +1434,7 @@ GraphUtils.createGraphie = function (el: any) {
                             x += step
                         ) {
                             if (x < stop || !axisArrows) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.line(
                                     [x, -len + axisCenter[1]],
                                     [
@@ -1453,7 +1453,7 @@ GraphUtils.createGraphie = function (el: any) {
                             x -= step
                         ) {
                             if (x > start || !axisArrows) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.line(
                                     [x, -len + axisCenter[1]],
                                     [
@@ -1480,7 +1480,7 @@ GraphUtils.createGraphie = function (el: any) {
                             y += step
                         ) {
                             if (y < stop || !axisArrows) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.line(
                                     [-len + axisCenter[0], y],
                                     [
@@ -1499,7 +1499,7 @@ GraphUtils.createGraphie = function (el: any) {
                             y -= step
                         ) {
                             if (y > start || !axisArrows) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.line(
                                     [-len + axisCenter[0], y],
                                     [
@@ -1546,7 +1546,7 @@ GraphUtils.createGraphie = function (el: any) {
                         x += step
                     ) {
                         if (x < stop || !axisArrows) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.label(
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
@@ -1562,7 +1562,7 @@ GraphUtils.createGraphie = function (el: any) {
                         x -= step
                     ) {
                         if (x > start || !axisArrows) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.label(
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
@@ -1582,7 +1582,7 @@ GraphUtils.createGraphie = function (el: any) {
                         y += step
                     ) {
                         if (y < stop || !axisArrows) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.label(
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
@@ -1598,7 +1598,7 @@ GraphUtils.createGraphie = function (el: any) {
                         y -= step
                     ) {
                         if (y > start || !axisArrows) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.label(
                                 [axisCenter[0], y],
                                 yLabelFormat(y),

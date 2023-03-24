@@ -1,10 +1,10 @@
 import _ from "underscore";
 
-import {getDependencies} from '../dependencies';
-import Interactive2 from '../interactive2';
-import KhanColors from '../util/colors';
+import {getDependencies} from "../dependencies";
+import Interactive2 from "../interactive2";
+import KhanColors from "../util/colors";
 
-import GraphieClasses from './graphie-classes';
+import GraphieClasses from "./graphie-classes";
 
 const MovablePoint: any = GraphieClasses.createClass({
     displayName: "MovablePoint",
@@ -307,11 +307,9 @@ const Arc: any = GraphieClasses.createSimpleClass((graphie, props) => {
     );
 });
 
-const Circle: any = GraphieClasses.createSimpleClass(
-    (graphie, props) => {
-        return graphie.circle(props.center, props.radius, props.style);
-    },
-);
+const Circle: any = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.circle(props.center, props.radius, props.style);
+});
 
 const Rect: any = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.rect(

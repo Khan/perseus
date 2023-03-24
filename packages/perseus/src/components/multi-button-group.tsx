@@ -5,27 +5,27 @@ import * as ReactDOM from "react-dom";
 type Props = {
     // the initial values of the buttons selected, defaults to null (no
     // selection).
-    values: ReadonlyArray<any> | null | undefined,
+    values: ReadonlyArray<any> | null | undefined;
     buttons: ReadonlyArray<{
         // the value returned when the button is selected
-        value: any,
+        value: any;
         // the content shown within the button, typically a string that gets
         // rendered as the button's display text
-        content: React.ReactNode,
+        content: React.ReactNode;
         // the title-text shown on hover
-        title?: string
-    }>,
+        title?: string;
+    }>;
     // a function that is provided with the updated set of selected value
     // (which it then is responsible for updating)
-    onChange: (values?: any) => unknown,
+    onChange: (values?: any) => unknown;
     // if false, at least one button must be selected at all times.
     // defaults to true
-    allowEmpty?: boolean
+    allowEmpty?: boolean;
 };
 
 type DefaultProps = {
-    allowEmpty: Props['allowEmpty'],
-    values: Props['values']
+    allowEmpty: Props["allowEmpty"];
+    values: Props["values"];
 };
 
 /**
@@ -42,7 +42,7 @@ class MultiButtonGroup extends React.Component<Props> {
     };
 
     focus(): boolean {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this)?.focus();
         return true;
     }
@@ -67,7 +67,7 @@ class MultiButtonGroup extends React.Component<Props> {
         this.props.onChange(values);
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const values = this.props.values || [];
         const buttons = this.props.buttons.map((button, i) => {
             const selected = values.indexOf(button.value) >= 0;
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         padding: "5px 10px",
         position: "relative", // for hover
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "white"; border: string; borderLeft: string; cursor: "pointer"; margin: string; padding: string; position: "relative"; ":first-child": { borderLeft: string; borderTopLeftRadius: string; borderBottomLeftRadius: string; }; ":last-child": { ...; }; ":hover": { ...; }; ":focus": { ...; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "white"; border: string; borderLeft: string; cursor: "pointer"; margin: string; padding: string; position: "relative"; ":first-child": { borderLeft: string; borderTopLeftRadius: string; borderBottomLeftRadius: string; }; ":last-child": { ...; }; ":hover": { ...; }; ":focus": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":first-child": {
             borderLeft: "1px solid #ccc",
             borderTopLeftRadius: "3px",

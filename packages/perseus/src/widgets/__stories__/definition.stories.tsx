@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from '../../../../../testing/renderer-with-debug-ui';
-import ArticleRenderer from '../../article-renderer';
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import ArticleRenderer from "../../article-renderer";
 
 export default {
     title: "Perseus/Widgets/Definition",
@@ -98,10 +98,14 @@ export const Question1: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <RendererWithDebugUI question={question1} />;
 };
 
-export const MultipleDefinitions: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultipleDefinitions: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <RendererWithDebugUI question={question2} />;
 };
 
-export const ArticleDefintion: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ArticleDefintion: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <ArticleRenderer json={article} useNewStyles />;
 };

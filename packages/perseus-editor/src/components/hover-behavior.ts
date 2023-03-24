@@ -46,33 +46,33 @@
 import * as React from "react";
 
 type Handlers = {
-    onBlur: () => unknown,
-    onClick: (e: React.MouseEvent) => unknown,
-    onFocus: () => unknown,
-    onMouseDown: () => unknown,
-    onMouseEnter: () => unknown,
-    onMouseLeave: () => unknown,
-    onTouchStart: () => unknown,
-    onTouchEnd: () => unknown
+    onBlur: () => unknown;
+    onClick: (e: React.MouseEvent) => unknown;
+    onFocus: () => unknown;
+    onMouseDown: () => unknown;
+    onMouseEnter: () => unknown;
+    onMouseLeave: () => unknown;
+    onTouchStart: () => unknown;
+    onTouchEnd: () => unknown;
 };
 
 type State = {
-    focused: boolean,
-    hovered: boolean
+    focused: boolean;
+    hovered: boolean;
 };
 
 type Props = {
-    children?: (state: State, handlers: Handlers) => React.ReactElement,
-    disabled?: boolean,
-    onClick?: (e: React.MouseEvent) => unknown,
-    startHovered: boolean,
-    shouldUpdate: () => boolean
+    children?: (state: State, handlers: Handlers) => React.ReactElement;
+    disabled?: boolean;
+    onClick?: (e: React.MouseEvent) => unknown;
+    startHovered: boolean;
+    shouldUpdate: () => boolean;
 };
 
 export default class HoverBehavior extends React.Component<Props, State> {
     static defaultProps: {
-        shouldUpdate: () => boolean,
-        startHovered: boolean
+        shouldUpdate: () => boolean;
+        startHovered: boolean;
     } = {
         startHovered: false,
         shouldUpdate: () => true,
@@ -87,14 +87,12 @@ export default class HoverBehavior extends React.Component<Props, State> {
         };
     }
 
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'focusFlag' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'focusFlag' has no initializer and is not definitely assigned in the constructor.
     focusFlag: boolean;
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'waitingForClick' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'waitingForClick' has no initializer and is not definitely assigned in the constructor.
     waitingForClick: boolean;
 
-    handleClick: (e: React.MouseEvent) => void = (
-        e: React.MouseEvent,
-    ) => {
+    handleClick: (e: React.MouseEvent) => void = (e: React.MouseEvent) => {
         if (!this.props.disabled) {
             if (this.props.shouldUpdate()) {
                 this.waitingForClick = false;
@@ -174,7 +172,7 @@ export default class HoverBehavior extends React.Component<Props, State> {
         } as const;
 
         const {children} = this.props;
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, string | JSXElementConstructor<any>> | null' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, string | JSXElementConstructor<any>> | null' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return children?.(this.state, handlers) || null;
     }
 }

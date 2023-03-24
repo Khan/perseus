@@ -6,22 +6,22 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import HighlightableContent from '../components/highlighting/highlightable-content';
-import {getDependencies} from '../dependencies';
-import Renderer from '../renderer';
+import HighlightableContent from "../components/highlighting/highlightable-content";
+import {getDependencies} from "../dependencies";
+import Renderer from "../renderer";
 
-import PassageMarkdown from './passage/passage-markdown';
+import PassageMarkdown from "./passage/passage-markdown";
 
-import type {SerializedHighlightSet} from '../components/highlighting/types';
-import type {ChangeableProps} from '../mixins/changeable';
-import type {PerseusPassageWidgetOptions} from '../perseus-types';
+import type {SerializedHighlightSet} from "../components/highlighting/types";
+import type {ChangeableProps} from "../mixins/changeable";
+import type {PerseusPassageWidgetOptions} from "../perseus-types";
 import type {
     PerseusScore,
     WidgetExports,
     WidgetInfo,
     WidgetProps,
 } from "../types";
-import type {ParseState} from './passage/passage-markdown';
+import type {ParseState} from "./passage/passage-markdown";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -65,47 +65,48 @@ type Rubric = PerseusPassageWidgetOptions;
 
 // The result of the `transform` function (end of this file)
 type RenderProps = {
-    passageTitle: PerseusPassageWidgetOptions['passageTitle'],
-    passageText: PerseusPassageWidgetOptions['passageText'],
-    footnotes: PerseusPassageWidgetOptions['footnotes'],
-    showLineNumbers: PerseusPassageWidgetOptions['showLineNumbers']
+    passageTitle: PerseusPassageWidgetOptions["passageTitle"];
+    passageText: PerseusPassageWidgetOptions["passageText"];
+    footnotes: PerseusPassageWidgetOptions["footnotes"];
+    showLineNumbers: PerseusPassageWidgetOptions["showLineNumbers"];
 };
 
 type FindWidgetsCallback = (id: string, widgetInfo: WidgetInfo) => boolean;
 
-type PassageProps = (ChangeableProps) & (WidgetProps<RenderProps, Rubric>) & {
-    findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>,
-    highlights: SerializedHighlightSet
-};
+type PassageProps = ChangeableProps &
+    WidgetProps<RenderProps, Rubric> & {
+        findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;
+        highlights: SerializedHighlightSet;
+    };
 
 type DefaultPassageProps = {
-    passageTitle: PassageProps['passageTitle'],
-    passageText: PassageProps['passageText'],
-    footnotes: PassageProps['footnotes'],
-    showLineNumbers: PassageProps['showLineNumbers'],
-    highlights: PassageProps['highlights'],
-    linterContext: PassageProps['linterContext']
+    passageTitle: PassageProps["passageTitle"];
+    passageText: PassageProps["passageText"];
+    footnotes: PassageProps["footnotes"];
+    showLineNumbers: PassageProps["showLineNumbers"];
+    highlights: PassageProps["highlights"];
+    linterContext: PassageProps["linterContext"];
 };
 
 type PassageState = {
-    nLines: number | null | undefined,
-    startLineNumbersAfter: number,
-    stylesAreApplied: boolean
+    nLines: number | null | undefined;
+    startLineNumbersAfter: number;
+    stylesAreApplied: boolean;
 };
 
 // Information about a passage reference, used in inter-widgets.
 export type Reference = {
-    startLine: number,
-    endLine: number,
-    content: string | null | undefined
+    startLine: number;
+    endLine: number;
+    content: string | null | undefined;
 };
 
 class Passage extends React.Component<PassageProps, PassageState> {
     _contentRef: HTMLDivElement | null | undefined;
     _lineHeightMeasurerRef: LineHeightMeasurer | null | undefined;
-// @ts-expect-error [FEI-5003] - TS2564 - Property '_onResize' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_onResize' has no initializer and is not definitely assigned in the constructor.
     _onResize: () => Record<any, any>;
-// @ts-expect-error [FEI-5003] - TS2564 - Property '_stylesAppiedTimer' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_stylesAppiedTimer' has no initializer and is not definitely assigned in the constructor.
     _stylesAppiedTimer: number;
 
     static defaultProps: DefaultPassageProps = {
@@ -126,7 +127,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
     componentDidMount() {
         this._updateState();
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => void) & Cancelable' is not assignable to type '() => Record<any, any>'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => void) & Cancelable' is not assignable to type '() => Record<any, any>'.
         this._onResize = _.throttle(() => {
             // If we're rendering JIPT text, we won't have line numbers or a
             // line height measurer, so skip handling this resize.
@@ -164,7 +165,10 @@ class Passage extends React.Component<PassageProps, PassageState> {
         }, 0);
     }
 
-    shouldComponentUpdate(nextProps: PassageProps, nextState: PassageState): any | boolean {
+    shouldComponentUpdate(
+        nextProps: PassageProps,
+        nextState: PassageState,
+    ): any | boolean {
         return (
             !_.isEqual(this.props, nextProps) ||
             !_.isEqual(this.state, nextState)
@@ -181,7 +185,9 @@ class Passage extends React.Component<PassageProps, PassageState> {
         clearTimeout(this._stylesAppiedTimer);
     }
 
-    _handleSerializedHighlightsUpdate: (serializedHighlights: SerializedHighlightSet) => void = (serializedHighlights: SerializedHighlightSet) => {
+    _handleSerializedHighlightsUpdate: (
+        serializedHighlights: SerializedHighlightSet,
+    ) => void = (serializedHighlights: SerializedHighlightSet) => {
         this.props.onChange({highlights: serializedHighlights});
     };
 
@@ -208,7 +214,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _measureLines(): number {
         const renderer = ReactDOM.findDOMNode(this._contentRef);
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
         const contentsHeight: number = $(renderer).height();
         const lineHeight = this._getLineHeight();
         const nLines = Math.round(contentsHeight / lineHeight);
@@ -265,11 +271,11 @@ class Passage extends React.Component<PassageProps, PassageState> {
             return null;
         }
 
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the first text after the ref, not the
         // ref element itself:
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'next' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'next' does not exist on type 'JQueryStatic'.
         let $refText = $ref.next();
         if ($refText.length === 0) {
             // But if there are no elements after the ref, just
@@ -292,11 +298,11 @@ class Passage extends React.Component<PassageProps, PassageState> {
             return null;
         }
 
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the last text before the ref, not the
         // ref element itself:
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'prev' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'prev' does not exist on type 'JQueryStatic'.
         let $refText = $ref.prev();
         if ($refText.length === 0) {
             // But if there are no elements before the ref, just
@@ -322,7 +328,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _convertPosToLineNumber(absoluteVPos: number): number {
         const content = ReactDOM.findDOMNode(this._contentRef);
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
         const relativeVPos = absoluteVPos - $(content).offset().top;
         const lineHeight = this._getLineHeight();
 
@@ -336,7 +342,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
         if (!ref) {
             return null;
         }
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'getRefContent' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getRefContent' does not exist on type 'ReactInstance'.
         return ref.getRefContent();
     }
 
@@ -464,7 +470,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
         return PassageMarkdown.output(parsed);
     }
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         let lineNumbers: ReadonlyArray<React.ReactNode>;
         const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
@@ -517,7 +523,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
                                 />
                             </h3>
                         )}
-{ /* @ts-expect-error [FEI-5003] - TS2454 - Variable 'lineNumbers' is used before being assigned. */}
+                        {/* @ts-expect-error [FEI-5003] - TS2454 - Variable 'lineNumbers' is used before being assigned. */}
                         {lineNumbers && (
                             <div className="line-numbers" aria-hidden={true}>
                                 {lineNumbers}

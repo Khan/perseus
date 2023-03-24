@@ -134,6 +134,8 @@
     "start": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cypress": "cypress open --component",
-    "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1"
+    "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
+    "format": "prettier --write packages/**/*.ts packages/**/*.tsx testing/**/*.ts testing/**/*.tsx",
+    "typecheck": "tsc -p tsconfig-check.json"
   }
 }

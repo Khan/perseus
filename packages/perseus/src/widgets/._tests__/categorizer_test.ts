@@ -2,15 +2,15 @@ import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {question1} from '../__testdata__/categorizer_testdata';
-import {Categorizer} from '../categorizer';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {question1} from "../__testdata__/categorizer_testdata";
+import {Categorizer} from "../categorizer";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {APIOptions} from '../../types';
-import type {Rubric} from '../categorizer';
+import type {APIOptions} from "../../types";
+import type {Rubric} from "../categorizer";
 
 describe("categorizer widget", () => {
     beforeEach(() => {

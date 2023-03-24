@@ -6,36 +6,36 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from '../components/inline-icon';
-import {iconCircle, iconCircleThin} from '../icon-paths';
-import * as Changeable from '../mixins/changeable';
-import WidgetJsonifyDeprecated from '../mixins/widget-jsonify-deprecated';
-import {ClassNames as ApiClassNames} from '../perseus-api';
-import Renderer from '../renderer';
-import mediaQueries from '../styles/media-queries';
-import sharedStyles from '../styles/shared';
-import Util from '../util';
+import InlineIcon from "../components/inline-icon";
+import {iconCircle, iconCircleThin} from "../icon-paths";
+import * as Changeable from "../mixins/changeable";
+import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
+import {ClassNames as ApiClassNames} from "../perseus-api";
+import Renderer from "../renderer";
+import mediaQueries from "../styles/media-queries";
+import sharedStyles from "../styles/shared";
+import Util from "../util";
 
-import type {PerseusCategorizerWidgetOptions} from '../perseus-types';
-import type {PerseusScore, WidgetExports, WidgetProps} from '../types';
+import type {PerseusCategorizerWidgetOptions} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 type UserInput = any;
 
 export type Rubric = PerseusCategorizerWidgetOptions;
 
-type Props = (WidgetProps<RenderProps, Rubric>) & {
-    values: ReadonlyArray<string>
+type Props = WidgetProps<RenderProps, Rubric> & {
+    values: ReadonlyArray<string>;
 };
 
 type DefaultProps = {
-    items: Props['items'],
-    categories: Props['categories'],
-    values: Props['values'],
-    linterContext: Props['linterContext']
+    items: Props["items"];
+    categories: Props["categories"];
+    values: Props["values"];
+    linterContext: Props["linterContext"];
 };
 
 type State = {
-    uniqueId: string
+    uniqueId: string;
 };
 
 export class Categorizer extends React.Component<Props, State> {
@@ -51,7 +51,7 @@ export class Categorizer extends React.Component<Props, State> {
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -67,7 +67,7 @@ export class Categorizer extends React.Component<Props, State> {
         const isMobile = this.props.apiOptions.isMobile;
         let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
-// @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'. | TS2345 - Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | RNG'.
+            // @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'. | TS2345 - Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | RNG'.
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
         }
 
@@ -102,7 +102,7 @@ export class Categorizer extends React.Component<Props, State> {
                             <tr key={itemNum}>
                                 <td>
                                     <Renderer
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string | number' is not assignable to type 'string | undefined'.
+                                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | number' is not assignable to type 'string | undefined'.
                                         content={item}
                                         linterContext={this.props.linterContext}
                                     />
@@ -211,7 +211,7 @@ export class Categorizer extends React.Component<Props, State> {
 
     onChange: (arg1: number, arg2: number) => void = (itemNum, catNum) => {
         const values = [...this.props.values];
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
         values[itemNum] = catNum;
         this.change("values", values);
         this.props.trackInteraction();
@@ -312,21 +312,25 @@ const styles = StyleSheet.create({
 });
 
 type RenderProps = {
-    items: PerseusCategorizerWidgetOptions['items'],
-    categories: PerseusCategorizerWidgetOptions['categories'],
-    randomizeItems: PerseusCategorizerWidgetOptions['randomizeItems'],
+    items: PerseusCategorizerWidgetOptions["items"];
+    categories: PerseusCategorizerWidgetOptions["categories"];
+    randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
     // Depends on whether the widget is in static mode
-    values?: PerseusCategorizerWidgetOptions['values']
+    values?: PerseusCategorizerWidgetOptions["values"];
 };
 
 export default {
     name: "categorizer",
     displayName: "Categorizer",
     widget: Categorizer,
-    transform: (widgetOptions: PerseusCategorizerWidgetOptions): RenderProps => {
+    transform: (
+        widgetOptions: PerseusCategorizerWidgetOptions,
+    ): RenderProps => {
         return _.pick(widgetOptions, "items", "categories", "randomizeItems");
     },
-    staticTransform: (editorProps: PerseusCategorizerWidgetOptions): RenderProps => {
+    staticTransform: (
+        editorProps: PerseusCategorizerWidgetOptions,
+    ): RenderProps => {
         return _.pick(
             editorProps,
             "items",

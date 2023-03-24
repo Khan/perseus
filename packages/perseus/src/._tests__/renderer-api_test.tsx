@@ -3,19 +3,19 @@ import {mount} from "enzyme"; // eslint-disable-line no-restricted-imports
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import TestUtils from 'react-dom/test-utils';
+import TestUtils from "react-dom/test-utils";
 import _ from "underscore";
 import "jest-enzyme";
 
 import {ClassNames, Dependencies, Renderer} from "@khanacademy/perseus";
 
-import {testDependencies} from '../../../../testing/test-dependencies';
-import {registerAllWidgetsForTesting} from '../util/register-all-widgets-for-testing';
+import {testDependencies} from "../../../../testing/test-dependencies";
+import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 
-import imageItem from './test-items/image-item';
-import inputNumber1Item from './test-items/input-number-1-item';
-import inputNumber2Item from './test-items/input-number-2-item';
-import tableItem from './test-items/table-item';
+import imageItem from "./test-items/image-item";
+import inputNumber1Item from "./test-items/input-number-1-item";
+import inputNumber2Item from "./test-items/input-number-2-item";
+import tableItem from "./test-items/table-item";
 
 const itemWidget = inputNumber1Item;
 
@@ -29,7 +29,7 @@ const delayedPromise = (value: undefined) => {
     return deferred.promise();
 };
 
-const renderQuestionArea = function(item, apiOptions): any {
+const renderQuestionArea = function (item, apiOptions): any {
     const wrapper = mount(
         <RenderStateRoot>
             {/* $FlowFixMe[prop-missing] */}

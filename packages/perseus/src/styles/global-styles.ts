@@ -7,8 +7,8 @@ import {
     kaBlueLight,
     learnstormBlue,
     backgroundBlue,
-} from './global-constants';
-import mediaQueries from './media-queries';
+} from "./global-constants";
+import mediaQueries from "./media-queries";
 
 import type {CSSProperties, StyleDeclaration} from "aphrodite";
 
@@ -249,13 +249,13 @@ export const typography: StyleDeclaration = {
         fontStyle: "italic",
         lineHeight: "17px",
     },
-    desktopScalingOnMobile: ({
+    desktopScalingOnMobile: {
         // For when you need Mobile Safari and friends to stick to desktop
         // sizes
         MozTextSizeAdjust: "100%",
         MsTextSizeAdjust: "100%",
         WebkitTextSizeAdjust: "100%",
-    } as any),
+    } as any,
     // TODO (josh): This should move to within <ModalHeader>
     modalSubtitle: {
         fontSize: 12,

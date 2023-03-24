@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Editor from '../editor';
+import Editor from "../editor";
 
 const {InlineIcon} = components;
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
@@ -48,7 +48,7 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
         onChange: PropTypes.func.isRequired,
     };
 
-    static widgetName: 'sequence' = "sequence";
+    static widgetName: "sequence" = "sequence";
 
     static defaultProps: SequenceEditorProps = {
         json: [
@@ -139,7 +139,7 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
         return {
             json: _.times(this.props.json.length, (i) => {
                 // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
                 return this.refs["editor" + i].serialize();
             }),
         };

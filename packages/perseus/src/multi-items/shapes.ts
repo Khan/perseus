@@ -9,7 +9,14 @@
  * leaf node shapes like `content` and `hint` into composite shapes like
  * `arrayOf(shape({foo: content, bar: hint}))`.
  */
-import type {Shape, ContentShape, HintShape, TagsShape, ArrayShape, ObjectShape} from './shape-types';
+import type {
+    Shape,
+    ContentShape,
+    HintShape,
+    TagsShape,
+    ArrayShape,
+    ObjectShape,
+} from "./shape-types";
 
 /**
  * These tools allow you to construct arbirtary shapes, by combining simple
@@ -29,11 +36,7 @@ const buildArrayShape = (elementShape: Shape): ArrayShape => ({
     type: "array",
     elementShape,
 });
-const buildObjectShape = (
-    shape: {
-        [k: string]: Shape
-    },
-): ObjectShape => ({
+const buildObjectShape = (shape: {[k: string]: Shape}): ObjectShape => ({
     type: "object",
     shape,
 });

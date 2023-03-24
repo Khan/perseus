@@ -13,12 +13,12 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {getDependencies} from '../dependencies';
-import * as Changeable from '../mixins/changeable';
-import WidgetJsonifyDeprecated from '../mixins/widget-jsonify-deprecated';
-import Util from '../util';
+import {getDependencies} from "../dependencies";
+import * as Changeable from "../mixins/changeable";
+import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
+import Util from "../util";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 const {updateQueryString} = Util;
 
@@ -146,12 +146,12 @@ class Iframe extends React.Component<any> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Iframe'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Iframe'.
         return Iframe.validate(this.getUserInput(), rubric);
     };
 }

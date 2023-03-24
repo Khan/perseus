@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Editor from '../editor';
+import Editor from "../editor";
 
 const {InfoTip, PropCheckBox} = components;
 
@@ -18,7 +18,7 @@ class PassageEditor extends React.Component<Props> {
         showLineNumbers: PropTypes.bool,
     };
 
-    static widgetName: 'passage' = "passage";
+    static widgetName: "passage" = "passage";
 
     static defaultProps: Props = {
         passageTitle: "",
@@ -45,7 +45,7 @@ class PassageEditor extends React.Component<Props> {
                 widgetEnabled={false}
                 placeholder="Type passage here..."
                 onChange={(newProps) => {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                     this.change({passageText: newProps.content});
                 }}
                 showWordCount={true}
@@ -60,7 +60,7 @@ class PassageEditor extends React.Component<Props> {
                 widgetEnabled={false}
                 placeholder="Type footnotes here..."
                 onChange={(newProps) => {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                     this.change({footnotes: newProps.content});
                 }}
             />
@@ -88,7 +88,7 @@ class PassageEditor extends React.Component<Props> {
                             type="text"
                             defaultValue={this.props.passageTitle}
                             onChange={(e) => {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                                // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                                 this.change({passageTitle: e.target.value});
                             }}
                         />

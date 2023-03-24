@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import * as KAS from '../index';
+import * as KAS from "../index";
 
 expect.extend({
     toParseAs(input: string, expected: string, options?: any) {
@@ -15,11 +15,7 @@ expect.extend({
 
         return {pass: !this.isNot};
     },
-    toParseWithStructure(
-        input: string,
-        expected: string,
-        options?: any,
-    ) {
+    toParseWithStructure(input: string, expected: string, options?: any) {
         const actual = KAS.parse(input, options).expr.repr();
 
         if (actual !== expected) {

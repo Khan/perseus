@@ -8,7 +8,11 @@
 
 // TODO(emily): This file breaks our line length limits like nobody's business.
 // Figure out how to fix that.
-import {vector as kvector, point as kpoint, line as kline} from "@khanacademy/kmath";
+import {
+    vector as kvector,
+    point as kpoint,
+    line as kline,
+} from "@khanacademy/kmath";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
 // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'raphael' or its corresponding type declarations.
@@ -19,19 +23,19 @@ import _ from "underscore";
 // that Perseus will continue to work in mobile native devices
 // (this should have no impact in the browser)
 // eslint-disable-next-line import/no-unassigned-import
-import '../jquery.mobile.vmouse';
-import InteractiveUtil from '../interactive2/interactive-util';
-import WrappedEllipse from '../interactive2/wrapped-ellipse';
-import WrappedLine from '../interactive2/wrapped-line';
-import WrappedPath from '../interactive2/wrapped-path';
-import {Errors} from '../logging/log';
-import {PerseusError} from '../perseus-error';
+import "../jquery.mobile.vmouse";
+import InteractiveUtil from "../interactive2/interactive-util";
+import WrappedEllipse from "../interactive2/wrapped-ellipse";
+import WrappedLine from "../interactive2/wrapped-line";
+import WrappedPath from "../interactive2/wrapped-path";
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 
-import KhanColors from './colors';
-import GraphUtils from './graphie';
-import KhanMath from './math';
+import KhanColors from "./colors";
+import GraphUtils from "./graphie";
+import KhanMath from "./math";
 
-import type {Coord} from '../interactive2/types';
+import type {Coord} from "../interactive2/types";
 
 const {getCanUse3dTransform} = InteractiveUtil;
 
@@ -217,10 +221,10 @@ _.extend(GraphUtils.Graphie.prototype, {
         const graphie = this;
 
         const mouseX =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
             event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
         const mouseY =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
             event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
 
         return [mouseX, mouseY];
@@ -282,14 +286,14 @@ _.extend(GraphUtils.Graphie.prototype, {
             const v3 = addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));
 
             _.each([v1, v2], function (v) {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                 temp.push(graphie.scaledPath([v, v3], options.style));
             });
         } else {
             // Draw arcs
             _.times(options.numArcs, function (i) {
                 temp.push(
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     graphie.arc(
                         vertex,
                         graphie.unscaleVector(sRadius),
@@ -387,7 +391,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     ),
                 ];
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                 temp.push(graphie.scaledPath(sPath, style));
             });
 
@@ -422,7 +426,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
                 const sEnd = addPoints(sMidpoint, sOffsetVector);
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                 temp.push(graphie.scaledPath([sStart, sEnd], style));
             });
         }
@@ -830,7 +834,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 movablePoint.visibleShape = new WrappedEllipse(
                     graph,
                     movablePoint.coord,
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type '[number, number]'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type '[number, number]'.
                     radii,
                     options,
                 );
@@ -1038,7 +1042,11 @@ _.extend(GraphUtils.Graphie.prototype, {
         // Method to let the caller animate the point to a new position.
         // Useful as part of a hint to show the user the correct place
         // to put the point.
-        movablePoint.moveTo = function (coordX: any, coordY: any, updateLines: any) {
+        movablePoint.moveTo = function (
+            coordX: any,
+            coordY: any,
+            updateLines: any,
+        ) {
             const distance = GraphUtils.getDistance(
                 this.graph.scalePoint([coordX, coordY]),
                 this.graph.scalePoint(this.coord),
@@ -1401,8 +1409,11 @@ _.extend(GraphUtils.Graphie.prototype, {
 
                 // Add custom function for transforming arrowheads that
                 // accounts for center, scaling, etc.
-// @ts-expect-error [FEI-5003] - TS2355 - A function whose declared type is neither 'void' nor 'any' must return a value.
-                arrowHead.toCoordAtAngle = function(coord: Coord, angle: number): undefined {
+                // @ts-expect-error [FEI-5003] - TS2355 - A function whose declared type is neither 'void' nor 'any' must return a value.
+                arrowHead.toCoordAtAngle = function (
+                    coord: Coord,
+                    angle: number,
+                ): undefined {
                     const clipPoint = graph.scalePoint(
                         getClipPoint(graph, coord, angle),
                     );
@@ -1559,7 +1570,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             lineSegment.labeledVertices = _.map(
                 lineSegment.vertexLabels,
                 function (label) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     return this.label(
                         [0, 0],
                         "",
@@ -1617,18 +1628,18 @@ _.extend(GraphUtils.Graphie.prototype, {
                     ) {
                         event.preventDefault();
                         let coordX =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                             (event.pageX -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                 $(graph.raphael.canvas.parentNode).offset()
                                     .left) /
                                 graph.scale[0] +
                             graph.range[0][0];
                         let coordY =
                             graph.range[1][1] -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                             (event.pageY -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                 $(graph.raphael.canvas.parentNode).offset()
                                     .top) /
                                 graph.scale[1];
@@ -1676,15 +1687,15 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 dragging = true;
 
                                 let mouseX =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                     event.pageX -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                     $(graph.raphael.canvas.parentNode).offset()
                                         .left;
                                 let mouseY =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                     event.pageY -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                     $(graph.raphael.canvas.parentNode).offset()
                                         .top;
                                 // no part of the line segment can go beyond 10
@@ -2072,7 +2083,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             polygon.labeledAngles = _.times(
                 numLabels,
                 function () {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     return this.label([0, 0], "", "center", polygon.labelStyle);
                 },
                 this,
@@ -2083,7 +2094,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             polygon.labeledSides = _.map(
                 polygon.sideLabels,
                 function (label) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     return this.label([0, 0], "", "center", polygon.labelStyle);
                 },
                 this,
@@ -2094,7 +2105,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             polygon.labeledVertices = _.map(
                 polygon.vertexLabels,
                 function (label) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     return this.label([0, 0], "", "center", polygon.labelStyle);
                 },
                 this,
@@ -2165,18 +2176,18 @@ _.extend(GraphUtils.Graphie.prototype, {
                         );
 
                         let startX =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                             (event.pageX -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                 $(graphie.raphael.canvas.parentNode).offset()
                                     .left) /
                                 graphie.scale[0] +
                             graphie.range[0][0];
                         let startY =
                             graphie.range[1][1] -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                             (event.pageY -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                 $(graphie.raphael.canvas.parentNode).offset()
                                     .top) /
                                 graphie.scale[1];
@@ -2213,16 +2224,16 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 dragging = true;
 
                                 let mouseX =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                     event.pageX -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                     $(
                                         graphie.raphael.canvas.parentNode,
                                     ).offset().left;
                                 let mouseY =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                     event.pageY -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                                     $(
                                         graphie.raphael.canvas.parentNode,
                                     ).offset().top;
@@ -2791,7 +2802,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         };
 
         return function (options: any) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const graph = this;
 
             let rotatePoint = options.center;
@@ -2835,7 +2846,9 @@ _.extend(GraphUtils.Graphie.prototype, {
             let isHovering = false;
             let drawnRotateHandle;
 
-            const redrawRotateHandle = function (handleCoord: Array<never> | ReadonlyArray<number>) {
+            const redrawRotateHandle = function (
+                handleCoord: Array<never> | ReadonlyArray<number>,
+            ) {
                 if (hideArrow) {
                     return; // Don't draw anything!
                 }
@@ -3056,7 +3069,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         };
 
         return function (options: any) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const graphie = this;
 
             const line = options.line;
@@ -3109,7 +3122,10 @@ _.extend(GraphUtils.Graphie.prototype, {
                 return styles[+isHighlight()][+isRight];
             };
 
-            const redraw = function (coord: Point, lineCoords: Array<any> | Array<never>) {
+            const redraw = function (
+                coord: Point,
+                lineCoords: Array<any> | Array<never>,
+            ) {
                 if (currentlyDrawnButton) {
                     currentlyDrawnButton.remove();
                 }
@@ -3182,19 +3198,19 @@ _.extend(GraphUtils.Graphie.prototype, {
                 return isFlipped;
             };
 
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 0.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 0.
             update();
             return button;
         };
     })(),
 
     protractor: function (center) {
-// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
+        // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         return new Protractor(this, center);
     },
 
     ruler: function (options) {
-// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
+        // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         return new Ruler(this, options || {});
     },
 
@@ -3202,21 +3218,21 @@ _.extend(GraphUtils.Graphie.prototype, {
 });
 
 function Protractor(graph: any, center: any) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.set = graph.raphael.set();
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.cx = center[0];
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.cy = center[1];
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     const pro = this;
 
     const r = graph.unscaleVector(180.5)[0];
     const imgPos = graph.scalePoint([
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.cx - r,
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.cy + r - graph.unscaleVector(10.5)[1],
     ]);
     const image = graph.mouselayer.image(
@@ -3226,7 +3242,7 @@ function Protractor(graph: any, center: any) {
         360,
         180,
     );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.set.push(image);
 
     // Prevent the page from scrolling when we grab and drag the image on a
@@ -3295,23 +3311,23 @@ function Protractor(graph: any, center: any) {
         });
 
     // add it to the set so it translates with everything else
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.set.push(arrow);
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.centerPoint = graph.addMovablePoint({
         coord: center,
         visible: false,
     });
 
     // Use a movablePoint for rotation
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle = graph.addMovablePoint({
         bounded: false,
         coord: [
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             Math.sin((275 * Math.PI) / 180) * r + this.cx,
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             Math.cos((275 * Math.PI) / 180) * r + this.cy,
         ],
         onMove: function (x, y) {
@@ -3327,18 +3343,18 @@ function Protractor(graph: any, center: any) {
     });
 
     // Add a constraint so the point moves in a circle
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle.constraints.fixedDistance.dist = r;
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle.constraints.fixedDistance.point = this.centerPoint;
 
     // Remove the default dot added by the movablePoint since we have our
     // double-arrow thing
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle.visibleShape.remove();
     // Make the mouse target bigger to encompass the whole area around the
     // double-arrow thing
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateHandle.mouseTarget.attr({scale: 2.0});
 
     let isDragging = false;
@@ -3347,7 +3363,7 @@ function Protractor(graph: any, center: any) {
         return isHovering || isDragging;
     };
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     const self = this;
     const $mouseTarget = $(self.rotateHandle.mouseTarget.getMouseTarget());
     $mouseTarget.bind("vmousedown", function (event) {
@@ -3380,11 +3396,11 @@ function Protractor(graph: any, center: any) {
         }
     });
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     const setNodes = $.map(this.set, function (el) {
         return el.node;
     });
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.makeTranslatable = function makeTranslatable() {
         $(setNodes).css("cursor", "move");
         $mouseTarget.css("cursor", "-webkit-grab");
@@ -3393,22 +3409,22 @@ function Protractor(graph: any, center: any) {
         $(setNodes).bind("vmousedown", function (event) {
             event.preventDefault();
             let startx =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                 event.pageX - $(graph.raphael.canvas.parentNode).offset().left;
             let starty =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                 event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
 
             $(document).bind("vmousemove.protractor", function (event) {
                 let mouseX =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                     event.pageX -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                     $(graph.raphael.canvas.parentNode).offset().left;
                 let mouseY =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                     event.pageY -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                     $(graph.raphael.canvas.parentNode).offset().top;
                 // can't go beyond 10 pixels from the edge
                 mouseX = Math.max(10, Math.min(graph.xpixels - 10, mouseX));
@@ -3438,10 +3454,10 @@ function Protractor(graph: any, center: any) {
         });
     };
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotation = 0;
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotate = function (offset: any, absolute: any) {
         const center = graph.scalePoint(this.centerPoint.coord);
 
@@ -3455,7 +3471,7 @@ function Protractor(graph: any, center: any) {
         return this;
     };
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.moveTo = function moveTo(x: any, y: any) {
         const start = graph.scalePoint(pro.centerPoint.coord);
         const end = graph.scalePoint([x, y]);
@@ -3489,7 +3505,7 @@ function Protractor(graph: any, center: any) {
         );
     };
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rotateTo = function rotateTo(angle: any) {
         if (Math.abs(this.rotation - angle) > 180) {
             this.rotation += 360;
@@ -3513,14 +3529,14 @@ function Protractor(graph: any, center: any) {
         );
     };
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.remove = function () {
         this.set.remove();
     };
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.makeTranslatable();
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     return this;
 }
 
@@ -3581,14 +3597,14 @@ function Ruler(graphie: any, options: any) {
     }
 
     const tickFrequencies = _.keys(tickHeightMap).sort(function (a, b) {
-// @ts-expect-error [FEI-5003] - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+        // @ts-expect-error [FEI-5003] - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
         return b - a;
     });
 
     function getTickHeight(i: any): number {
         for (let k = 0; k < tickFrequencies.length; k++) {
             const key = tickFrequencies[k];
-// @ts-expect-error [FEI-5003] - TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+            // @ts-expect-error [FEI-5003] - TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
             if (i % key === 0) {
                 return tickHeightMap[key];
             }
@@ -3690,20 +3706,20 @@ function Ruler(graphie: any, options: any) {
     $(setNodes).bind("vmousedown", function (event) {
         event.preventDefault();
         let startx =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
             event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
         let starty =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
             event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
 
         $(document).bind("vmousemove.ruler", function (event) {
             let mouseX =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                 event.pageX -
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                 $(graphie.raphael.canvas.parentNode).offset().left;
             let mouseY =
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                 event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
             // can't go beyond 10 pixels from the edge
             mouseX = Math.max(10, Math.min(graphie.xpixels - 10, mouseX));
@@ -3802,26 +3818,26 @@ function Ruler(graphie: any, options: any) {
     rightBottomHandle.constraints.fixedDistance.dist = width / graphie.scale[0];
     rightBottomHandle.constraints.fixedDistance.point = leftBottomHandle;
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.remove = function () {
         set.remove();
         leftBottomHandle.remove();
         rightBottomHandle.remove();
     };
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     return this;
 }
 
 function MovableAngle(graphie: any, options: any) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.graphie = graphie;
 
     // TODO(alex): Move standard colors from math.js to somewhere else
     // so that they are available when this file is first parsed
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, options);
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.defaults(this, {
         normalStyle: {
             stroke: KhanColors.INTERACTIVE,
@@ -3847,7 +3863,7 @@ function MovableAngle(graphie: any, options: any) {
         // it is not overridden by undefined
     });
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     if (!this.points || this.points.length !== 3) {
         throw new PerseusError(
             "MovableAngle requires 3 points",
@@ -3856,7 +3872,7 @@ function MovableAngle(graphie: any, options: any) {
     }
 
     // Handle coordinates that are not MovablePoints (i.e. [2, 4])
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.points = _.map(
         options.points,
         function (point) {
@@ -3867,59 +3883,59 @@ function MovableAngle(graphie: any, options: any) {
                     constraints: {
                         fixed: true,
                     },
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     normalStyle: this.normalStyle,
                 });
             }
             return point;
         },
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this,
     );
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.coords = _.pluck(this.points, "coord");
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     if (this.reflex == null) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         if (this.allowReflex) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.reflex = this._getClockwiseAngle(this.coords) > 180;
         } else {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.reflex = false;
         }
     }
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.rays = _.map(
         [0, 2],
         function (i) {
             return graphie.addMovableLineSegment({
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 pointA: this.points[1],
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 pointZ: this.points[i],
                 fixed: true,
                 extendRay: true,
             });
         },
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this,
     );
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.temp = [];
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.labeledAngle = graphie.label([0, 0], "", "center", this.labelStyle);
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     if (!this.fixed) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.addMoveHandlers();
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.addHighlightHandlers();
     }
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.update();
 }
 
@@ -3967,7 +3983,7 @@ _.extend(MovableAngle.prototype, {
                 );
                 newPoints[i] = newPoint;
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never[]'.
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never[]'.
                 if (tooClose(newVertex, newPoint)) {
                     valid = false;
                 }
@@ -3991,7 +4007,7 @@ _.extend(MovableAngle.prototype, {
                 const newPoint = [x, y];
                 const vertex = points[1].coord;
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never[]'.
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never[]'.
                 if (tooClose(vertex, newPoint)) {
                     return false;
                 }
@@ -4011,9 +4027,9 @@ _.extend(MovableAngle.prototype, {
         $(points).on(
             "move",
             function () {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.update();
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 $(this).trigger("move");
             }.bind(this),
         );
@@ -4024,56 +4040,56 @@ _.extend(MovableAngle.prototype, {
 
         vertex.onHighlight = function () {
             _.each(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.points,
                 function (point) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     point.visibleShape.animate(this.highlightStyle, 50);
                 },
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this,
             );
             _.each(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.rays,
                 function (ray) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     ray.visibleLine.animate(this.highlightStyle, 50);
                     ray.arrowStyle = _.extend({}, ray.arrowStyle, {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         color: this.highlightStyle.stroke,
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         stroke: this.highlightStyle.stroke,
                     });
                 },
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this,
             );
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.angleStyle = _.extend({}, this.angleStyle, {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 color: this.highlightStyle.stroke,
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 stroke: this.highlightStyle.stroke,
             });
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.update();
         }.bind(this);
 
         vertex.onUnhighlight = function () {
             _.each(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.points,
                 function (point) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     point.visibleShape.animate(this.normalStyle, 50);
                 },
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this,
             );
             _.each(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this.rays,
                 function (ray) {
                     ray.visibleLine.animate(ray.normalStyle, 50);
@@ -4082,16 +4098,16 @@ _.extend(MovableAngle.prototype, {
                         stroke: ray.normalStyle.stroke,
                     });
                 },
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 this,
             );
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.angleStyle = _.extend({}, this.angleStyle, {
                 color: KhanColors.DYNAMIC,
                 stroke: KhanColors.DYNAMIC,
             });
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.update();
         }.bind(this);
     },

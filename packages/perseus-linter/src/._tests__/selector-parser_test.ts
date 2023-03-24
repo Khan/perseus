@@ -1,4 +1,4 @@
-import Selector from '../selector';
+import Selector from "../selector";
 
 describe("PerseusLinter selector parser", () => {
     const validExpressions = [

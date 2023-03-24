@@ -2,10 +2,10 @@ import {components, ApiOptions, ClassNames} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
-import JsonEditor from './components/json-editor';
-import ViewportResizer from './components/viewport-resizer';
-import CombinedHintsEditor from './hint-editor';
-import ItemEditor from './item-editor';
+import JsonEditor from "./components/json-editor";
+import ViewportResizer from "./components/viewport-resizer";
+import CombinedHintsEditor from "./hint-editor";
+import ItemEditor from "./item-editor";
 
 import type {
     APIOptions,
@@ -22,62 +22,62 @@ import type {
 const {HUD} = components;
 
 type Props = {
-    apiOptions?: APIOptions,
-    answerArea?: any // related to the question,
+    apiOptions?: APIOptions;
+    answerArea?: any; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
-    contentPaths?: ReadonlyArray<string>,
+    contentPaths?: ReadonlyArray<string>;
     // Only used in the perseus demos. Consider removing.
-    developerMode: boolean,
+    developerMode: boolean;
     // Source HTML for the iframe to render
-    frameSource: string,
-    hints?: ReadonlyArray<Hint> // related to the question,
+    frameSource: string;
+    hints?: ReadonlyArray<Hint>; // related to the question,
     // A function which takes a file object (guaranteed to be an image) and
     // a callback, then calls the callback with the url where the image
     // will be hosted. Image drag and drop is disabled when imageUploader
     // is null.
-    imageUploader?: ImageUploader,
+    imageUploader?: ImageUploader;
     // Part of the question
-    itemDataVersion?: Version,
+    itemDataVersion?: Version;
     // The content ID of the AssessmentItem being edited.
-    itemId: string,
+    itemId: string;
     // Whether the question is displaying as JSON or if it is
     // showing the editor itself with the rendering
     // Only used in the perseus demos. Consider removing.
-    jsonMode: boolean,
+    jsonMode: boolean;
     // A function which is called with the new JSON blob of content
-    onChange: ChangeHandler,
-    onPreviewDeviceChange: (arg1: DeviceType) => unknown,
-    previewDevice: DeviceType,
+    onChange: ChangeHandler;
+    onPreviewDeviceChange: (arg1: DeviceType) => unknown;
+    previewDevice: DeviceType;
     // Initial value of the question being edited
-    question?: any,
+    question?: any;
     // URL of the route to show on initial load of the preview frames.
-    previewURL: string
+    previewURL: string;
 };
 
 type PerseusJson = {
-    question: any,
-    answerArea: any,
-    hints: ReadonlyArray<Hint>,
-    itemDataVersion?: Version
+    question: any;
+    answerArea: any;
+    hints: ReadonlyArray<Hint>;
+    itemDataVersion?: Version;
 };
 
 type State = {
-    json: PerseusJson,
-    gradeMessage: string,
-    wasAnswered: boolean,
-    highlightLint: boolean
+    json: PerseusJson;
+    gradeMessage: string;
+    wasAnswered: boolean;
+    highlightLint: boolean;
 };
 
 class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'rendererMountNode' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'rendererMountNode' has no initializer and is not definitely assigned in the constructor.
     rendererMountNode: HTMLDivElement;
     renderer: RendererInterface | null | undefined;
 
     static defaultProps: {
-        developerMode: boolean,
-        jsonMode: boolean,
-        onChange: () => void
+        developerMode: boolean;
+        jsonMode: boolean;
+        onChange: () => void;
     } = {
         developerMode: false,
         jsonMode: false,
@@ -88,7 +88,7 @@ class EditorPage extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
             json: _.pick(
                 this.props,
                 "question",
@@ -162,7 +162,7 @@ class EditorPage extends React.Component<Props, State> {
         };
 
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'triggerPreviewUpdate' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'triggerPreviewUpdate' does not exist on type 'ReactInstance'.
         this.refs.itemEditor.triggerPreviewUpdate({
             type: "question",
             data: _({
@@ -178,7 +178,7 @@ class EditorPage extends React.Component<Props, State> {
                 },
                 reviewMode: true,
                 // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
                 legacyPerseusLint: this.refs.itemEditor.getSaveWarnings(),
             }).extend(
                 _(this.props).pick(
@@ -200,27 +200,23 @@ class EditorPage extends React.Component<Props, State> {
 
     getSaveWarnings(): any {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         const issues1 = this.refs.itemEditor.getSaveWarnings();
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         const issues2 = this.refs.hintsEditor.getSaveWarnings();
         return issues1.concat(issues2);
     }
 
-    serialize(
-        options?: {
-            keepDeletedWidgets?: boolean
-        },
-    ): any | PerseusJson {
+    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusJson {
         if (this.props.jsonMode) {
             return this.state.json;
         }
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return _.extend(this.refs.itemEditor.serialize(options), {
             // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             hints: this.refs.hintsEditor.serialize(options),
         });
     }
@@ -246,7 +242,7 @@ class EditorPage extends React.Component<Props, State> {
         return null;
     }
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         let className = "framework-perseus";
 
         const touch =

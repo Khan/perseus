@@ -7,7 +7,7 @@ import {Util, Dependencies, globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Marker from './marker';
+import Marker from "./marker";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
@@ -15,15 +15,15 @@ const {colors, typography} = globalStyles;
 
 type QuestionMarkersProps = {
     // The list of possible answers in a specific order.
-    choices: ReadonlyArray<string>,
+    choices: ReadonlyArray<string>;
     // The question image properties.
-    imageUrl: string,
-    imageWidth: number,
-    imageHeight: number,
+    imageUrl: string;
+    imageWidth: number;
+    imageHeight: number;
     // The list of markers placed on the question image.
-    markers: ReadonlyArray<MarkerType>,
+    markers: ReadonlyArray<MarkerType>;
     // Callback for when any of markers change.
-    onChange: (markers: ReadonlyArray<MarkerType>) => void
+    onChange: (markers: ReadonlyArray<MarkerType>) => void;
 };
 
 export default class QuestionMarkers extends React.Component<QuestionMarkersProps> {
@@ -34,7 +34,7 @@ export default class QuestionMarkers extends React.Component<QuestionMarkersProp
         // Open answer selection dropdown for each of the specified markers.
         indices.forEach((index) => {
             if (this._markers[index]) {
-// @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
                 this._markers[index].openDropdown();
             }
         });
@@ -45,8 +45,7 @@ export default class QuestionMarkers extends React.Component<QuestionMarkersProp
     ) => {
         e.preventDefault();
 
-        const rect =
-            (e.currentTarget as HTMLElement).getBoundingClientRect();
+        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
 
         // Calculate marker position on the question image as percentage offset
         // rounded to one decimal place.
@@ -69,7 +68,7 @@ export default class QuestionMarkers extends React.Component<QuestionMarkersProp
         ]);
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const {choices, imageUrl, imageWidth, imageHeight, markers, onChange} =
             this.props;
 

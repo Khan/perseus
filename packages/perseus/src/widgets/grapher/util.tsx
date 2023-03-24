@@ -3,9 +3,9 @@ import {point as kpoint} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 
-import Graphie from '../../components/graphie';
-import {getDependencies} from '../../dependencies';
-import Util from '../../util';
+import Graphie from "../../components/graphie";
+import {getDependencies} from "../../dependencies";
+import Util from "../../util";
 
 import type {Coord} from "../../interactive2/types";
 import type {PerseusScore} from "../../types";
@@ -98,7 +98,7 @@ const PlotDefaults = {
 
     getPropsForCoeffs: function (coeffs) {
         return {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'getFunctionForCoeffs' does not exist on type '{ readonly areEqual: (coeffs1: any, coeffs2: any) => boolean; readonly Movable: any; readonly getPropsForCoeffs: (coeffs: any) => any; }'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getFunctionForCoeffs' does not exist on type '{ readonly areEqual: (coeffs1: any, coeffs2: any) => boolean; readonly Movable: any; readonly getPropsForCoeffs: (coeffs: any) => any; }'.
             fn: _.partial(this.getFunctionForCoeffs, coeffs),
         };
     },
@@ -151,7 +151,7 @@ const Quadratic = _.extend({}, PlotDefaults, {
     ],
 
     // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
+    // @ts-expect-error [FEI-5003] - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Parabola,
 
     getCoefficients: function (coords) {
@@ -210,7 +210,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
     ],
 
     // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'Sinusoid' does not exist on type 'typeof Graphie'.
+    // @ts-expect-error [FEI-5003] - TS2339 - Property 'Sinusoid' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Sinusoid,
 
     getCoefficients: function (coords) {
@@ -668,7 +668,7 @@ export const pointsFromNormalized = (
         return Math.floor((range[1] - range[0]) / step);
     };
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
     return coordsList.map((coords) => {
         const unsnappedPoint = coords.map((coord, i) => {
             const currRange = range[i];
@@ -723,7 +723,7 @@ export const defaultPlotProps = (type: string, graph: any): any => {
     // might get a free win.
     const model = functionForType(type);
     const gridStep = [1, 1];
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type '[number, number]'.
+    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type '[number, number]'.
     const snapStep = Util.snapStepFromGridStep(gridStep);
     return {
         type,
@@ -740,9 +740,12 @@ export const defaultPlotProps = (type: string, graph: any): any => {
 /* Given a list of available types, choose which to use. */
 export const chooseType = _.first;
 
-export const getGridAndSnapSteps = (options: any, boxSize: number): {
-    gridStep: [number, number],
-    snapStep: [number, number]
+export const getGridAndSnapSteps = (
+    options: any,
+    boxSize: number,
+): {
+    gridStep: [number, number];
+    snapStep: [number, number];
 } => {
     const gridStep =
         options.gridStep ||
@@ -755,15 +758,15 @@ export const getGridAndSnapSteps = (options: any, boxSize: number): {
 };
 
 const defaultGraph: {
-    labels: ReadonlyArray<string>,
-    range: [Coord, Coord],
-    step: [number, number],
-    backgroundImage: any,
-    markings: string,
-    rulerLabel: string,
-    rulerTicks: number,
-    valid: boolean,
-    showTooltips: boolean
+    labels: ReadonlyArray<string>;
+    range: [Coord, Coord];
+    step: [number, number];
+    backgroundImage: any;
+    markings: string;
+    rulerLabel: string;
+    rulerTicks: number;
+    valid: boolean;
+    showTooltips: boolean;
 } = {
     labels: ["x", "y"],
     range: [

@@ -2,22 +2,22 @@
  * Utility functions for manipulating highlights.
  */
 
-import {Errors} from '../../logging/log';
-import {PerseusError} from '../../perseus-error';
+import {Errors} from "../../logging/log";
+import {PerseusError} from "../../perseus-error";
 
 import {
     findFirstAndLastWordIndexes,
     unionRanges,
     spanRanges,
     rangeIncludes,
-} from './ranges';
+} from "./ranges";
 
 import type {
     DOMHighlight,
     DOMHighlightSet,
     SerializedHighlight,
     DOMRange,
-} from './types';
+} from "./types";
 
 /**
  * Given a list of DOMHighlights, return a new list that also includes the
@@ -25,7 +25,10 @@ import type {
  * existing DOMHighlights, the other Highlights are removed and their ranges
  * are merged into the new DOMHighlight.
  */
-export function addHighlight(existingHighlights: DOMHighlightSet, newHighlight: DOMHighlight): DOMHighlightSet {
+export function addHighlight(
+    existingHighlights: DOMHighlightSet,
+    newHighlight: DOMHighlight,
+): DOMHighlightSet {
     const newHighlights: Record<string, any> = {};
 
     // Merge the new highlight with any existing highlights that intersect it.
@@ -189,7 +192,9 @@ export function deserializeHighlight(
 /**
  * Return a SerializedHighlight representing the given DOMHighlight.
  */
-export function serializeHighlight(highlight: DOMHighlight): SerializedHighlight {
+export function serializeHighlight(
+    highlight: DOMHighlight,
+): SerializedHighlight {
     const {firstWordIndex, lastWordIndex} = highlight;
 
     return {

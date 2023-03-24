@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import NumberInput from './number-input';
+import NumberInput from "./number-input";
 
 const truth = () => true;
 

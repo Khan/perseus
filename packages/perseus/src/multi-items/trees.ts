@@ -45,8 +45,8 @@
  * signatures specified here.
  */
 
-import {Errors} from '../logging/log';
-import {PerseusError} from '../perseus-error';
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 
 import type {
     Shape,
@@ -54,8 +54,8 @@ import type {
     HintShape,
     TagsShape,
     ArrayShape,
-} from './shape-types';
-import type {Tree, ArrayNode, ObjectNode} from './tree-types';
+} from "./shape-types";
+import type {Tree, ArrayNode, ObjectNode} from "./tree-types";
 
 /**
  * The sequence of edges that lead to a particular node in a Tree.
@@ -90,17 +90,21 @@ export type Path = ReadonlyArray<string | number>;
  * There's no ObjectMapper here, but not for any particular reason. We just
  * don't have a use case for it yet, so we haven't built it yet.
  */
-export type ContentMapper<CI, CO> = (content: CI, shape: ContentShape, path: Path) => CO;
+export type ContentMapper<CI, CO> = (
+    content: CI,
+    shape: ContentShape,
+    path: Path,
+) => CO;
 export type HintMapper<HI, HO> = (hint: HI, shape: HintShape, path: Path) => HO;
 export type TagsMapper<TI, TO> = (tag: TI, shape: TagsShape, path: Path) => TO;
 export type ArrayMapper<CI, CO, HI, HO, TI, TO> = (
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
     mappedArray: ArrayNode<CO, HO, TO>,
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
     originalArray: ArrayNode<CI, HI, TI>,
     shape: ArrayShape,
     path: Path,
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
 ) => ArrayNode<CO, HO, TO>;
 
 /**
@@ -116,7 +120,7 @@ export interface TreeMapper<CI, CO, HI, HO, TI, TO> {
     hint: HintMapper<HI, HO>;
     tags: TagsMapper<TI, TO>;
     array: ArrayMapper<CI, CO, HI, HO, TI, TO>;
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic. | TS2315 - Type 'Tree' is not generic.
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic. | TS2315 - Type 'Tree' is not generic.
     mapTree(tree: Tree<CI, HI, TI>, shape: Shape): Tree<CO, HO, TO>;
 }
 
@@ -151,7 +155,9 @@ class TreeMapperJustForLeaves<CI, CO, HI, HO, TI, TO> {
         this.array = identity;
     }
 
-    setContentMapper<CI2, CO2>(newContentMapper: ContentMapper<CI2, CO2>): TreeMapperJustForLeaves<CI2, CO2, HI, HO, TI, TO> {
+    setContentMapper<CI2, CO2>(
+        newContentMapper: ContentMapper<CI2, CO2>,
+    ): TreeMapperJustForLeaves<CI2, CO2, HI, HO, TI, TO> {
         return new TreeMapperJustForLeaves(
             newContentMapper,
             this.hint,
@@ -159,7 +165,9 @@ class TreeMapperJustForLeaves<CI, CO, HI, HO, TI, TO> {
         );
     }
 
-    setHintMapper<HI2, HO2>(newHintMapper: HintMapper<HI2, HO2>): TreeMapperJustForLeaves<CI, CO, HI2, HO2, TI, TO> {
+    setHintMapper<HI2, HO2>(
+        newHintMapper: HintMapper<HI2, HO2>,
+    ): TreeMapperJustForLeaves<CI, CO, HI2, HO2, TI, TO> {
         return new TreeMapperJustForLeaves(
             this.content,
             newHintMapper,
@@ -167,7 +175,9 @@ class TreeMapperJustForLeaves<CI, CO, HI, HO, TI, TO> {
         );
     }
 
-    setTagsMapper<TI2, TO2>(newTagsMapper: TagsMapper<TI2, TO2>): TreeMapperJustForLeaves<CI, CO, HI, HO, TI2, TO2> {
+    setTagsMapper<TI2, TO2>(
+        newTagsMapper: TagsMapper<TI2, TO2>,
+    ): TreeMapperJustForLeaves<CI, CO, HI, HO, TI2, TO2> {
         return new TreeMapperJustForLeaves(
             this.content,
             this.hint,
@@ -175,7 +185,9 @@ class TreeMapperJustForLeaves<CI, CO, HI, HO, TI, TO> {
         );
     }
 
-    setArrayMapper(newArrayMapper: ArrayMapper<CI, CO, HI, HO, TI, TO>): TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
+    setArrayMapper(
+        newArrayMapper: ArrayMapper<CI, CO, HI, HO, TI, TO>,
+    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
         return new TreeMapperForLeavesAndCollections(
             this.content,
             this.hint,
@@ -184,7 +196,7 @@ class TreeMapperJustForLeaves<CI, CO, HI, HO, TI, TO> {
         );
     }
 
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic. | TS2315 - Type 'Tree' is not generic.
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic. | TS2315 - Type 'Tree' is not generic.
     mapTree(tree: Tree<CI, HI, TI>, shape: Shape): Tree<CO, HO, TO> {
         return mapTree(tree, shape, [], this);
     }
@@ -212,7 +224,9 @@ class TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
         this.array = array;
     }
 
-    setArrayMapper(newArrayMapper: ArrayMapper<CI, CO, HI, HO, TI, TO>): TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
+    setArrayMapper(
+        newArrayMapper: ArrayMapper<CI, CO, HI, HO, TI, TO>,
+    ): TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
         return new TreeMapperForLeavesAndCollections(
             this.content,
             this.hint,
@@ -221,7 +235,7 @@ class TreeMapperForLeavesAndCollections<CI, CO, HI, HO, TI, TO> {
         );
     }
 
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic. | TS2315 - Type 'Tree' is not generic.
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic. | TS2315 - Type 'Tree' is not generic.
     mapTree(tree: Tree<CI, HI, TI>, shape: Shape): Tree<CO, HO, TO> {
         return mapTree(tree, shape, [], this);
     }
@@ -238,7 +252,14 @@ function identity<T>(x: T): T {
  * transformations for the individual node types.
  */
 // @ts-expect-error [FEI-5003] - TS2300 - Duplicate identifier 'C'. | TS2300 - Duplicate identifier 'H'. | TS2300 - Duplicate identifier 'T'.
-export function buildMapper<C, C, H, H, T, T>(): TreeMapperJustForLeaves<C, C, H, H, T, T> {
+export function buildMapper<C, C, H, H, T, T>(): TreeMapperJustForLeaves<
+    C,
+    C,
+    H,
+    H,
+    T,
+    T
+> {
     return new TreeMapperJustForLeaves(identity, identity, identity);
 }
 
@@ -247,55 +268,55 @@ export function buildMapper<C, C, H, H, T, T>(): TreeMapperJustForLeaves<C, C, H
  * TreeMapper to each node, and return the resulting tree.
  */
 function mapTree<CI, CO, HI, HO, TI, TO>(
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
     tree: Tree<CI, HI, TI>,
     shape: Shape,
     path: Path,
     mappers: TreeMapper<CI, CO, HI, HO, TI, TO>,
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
 ): Tree<CO, HO, TO> {
     // We trust the shape of the multi-item to match the shape provided at
     // runtime. Therefore, in each shape branch, we cast the node to `any` and
     // reinterpret it as the expected node type.
     if (shape.type === "content") {
-        const content: CI = (tree as any);
+        const content: CI = tree as any;
         return mappers.content(content, shape, path);
     }
     if (shape.type === "hint") {
-        const hint: HI = (tree as any);
+        const hint: HI = tree as any;
         return mappers.hint(hint, shape, path);
     }
     if (shape.type === "tags") {
-        const tags: TI = (tree as any);
+        const tags: TI = tree as any;
         return mappers.tags(tags, shape, path);
     }
     if (shape.type === "array") {
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
-        const array: ArrayNode<CI, HI, TI> = (tree as any);
+        // @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
+        const array: ArrayNode<CI, HI, TI> = tree as any;
 
         if (!Array.isArray(array)) {
             throw new PerseusError(
                 `Invalid object of type "${typeof array}" found at path ` +
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     `${["<root>"].concat(path).join(".")}. Expected array.`,
                 Errors.Internal,
             );
         }
 
         const elementShape = shape.elementShape;
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
+        // @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
         const mappedElements: ArrayNode<CO, HO, TO> = array.map((inner, i) =>
             mapTree(inner, elementShape, path.concat(i), mappers),
         );
         return mappers.array(mappedElements, array, shape, path);
     }
     if (shape.type === "object") {
-        const object: ObjectNode<CI, HI, TI> = (tree as any);
+        const object: ObjectNode<CI, HI, TI> = tree as any;
 
         if (object && typeof object !== "object") {
             throw new PerseusError(
                 `Invalid object of type "${typeof object}" found at ` +
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     `path ${["<root>"].concat(path).join(".")}. Expected ` +
                     `"object" type.`,
                 Errors.InvalidInput,
@@ -306,7 +327,7 @@ function mapTree<CI, CO, HI, HO, TI, TO>(
         if (!valueShapes) {
             throw new PerseusError(
                 `Unexpected shape ${JSON.stringify(shape)} at path ` +
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     `${["<root>"].concat(path).join(".")}.`,
                 Errors.InvalidInput,
             );
@@ -316,7 +337,7 @@ function mapTree<CI, CO, HI, HO, TI, TO>(
             if (!(key in object)) {
                 throw new PerseusError(
                     `Key "${key}" is missing from shape at path ` +
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                         `${["<root>"].concat(path).join(".")}.`,
                     Errors.InvalidInput,
                 );
@@ -332,7 +353,7 @@ function mapTree<CI, CO, HI, HO, TI, TO>(
         return newObject;
     }
     throw new PerseusError(
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
         `unexpected shape type ${shape.type}`,
         Errors.InvalidInput,
     );

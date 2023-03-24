@@ -2,17 +2,17 @@ import {screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {registerAllWidgetsForTesting} from '../../util/register-all-widgets-for-testing';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
     expressionItem2,
     expressionItem3,
     expressionItem3Options,
-} from '../__testdata__/expression_testdata';
-import {Expression} from '../expression';
+} from "../__testdata__/expression_testdata";
+import {Expression} from "../expression";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 const assertComplete = (itemData: Item, input, isCorrect: boolean) => {
     const {renderer} = renderQuestion(itemData.question);

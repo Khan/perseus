@@ -2,7 +2,7 @@
  * Utility functions for manipulating ranges of highlightable content.
  */
 
-import type {DOMRange} from './types';
+import type {DOMRange} from "./types";
 
 /**
  * Given two DOMRange objects, and a choice of start/end point for each, compare
@@ -14,7 +14,12 @@ import type {DOMRange} from './types';
  *     of the DOM's `compareBoundaryPoints` API, and to cover over a Flow bug
  *     documented here: https://github.com/facebook/flow/issues/3734.
  */
-function compareRangeBoundaryPoints(a: DOMRange, whichA: 'start' | 'end', b: DOMRange, whichB: 'start' | 'end'): number {
+function compareRangeBoundaryPoints(
+    a: DOMRange,
+    whichA: "start" | "end",
+    b: DOMRange,
+    whichB: "start" | "end",
+): number {
     let mode;
     if (whichA === "start" && whichB === "start") {
         mode = Range.START_TO_START;
@@ -74,7 +79,10 @@ export function rangeIncludes(a: DOMRange, b: DOMRange): boolean {
  *
  * If A and B do not overlap, no intersection exists; return null.
  */
-export function intersectRanges(a: DOMRange, b: DOMRange): DOMRange | null | undefined {
+export function intersectRanges(
+    a: DOMRange,
+    b: DOMRange,
+): DOMRange | null | undefined {
     if (!rangesOverlap(a, b)) {
         return null;
     }
@@ -94,7 +102,10 @@ export function intersectRanges(a: DOMRange, b: DOMRange): DOMRange | null | und
  *
  * If A and B do not overlap, no union exists; return null.
  */
-export function unionRanges(a: DOMRange, b: DOMRange): DOMRange | null | undefined {
+export function unionRanges(
+    a: DOMRange,
+    b: DOMRange,
+): DOMRange | null | undefined {
     if (!rangesOverlap(a, b)) {
         return null;
     }
@@ -122,7 +133,7 @@ export function unionRanges(a: DOMRange, b: DOMRange): DOMRange | null | undefin
 function findBoundaryWordIndex(
     selectionRange: DOMRange,
     wordRanges: ReadonlyArray<DOMRange>,
-    goal: 'first' | 'last',
+    goal: "first" | "last",
     initialLowerBound: number,
     initialUpperBound: number,
 ): number {
@@ -200,7 +211,10 @@ function findBoundaryWordIndex(
  * and return the indexes of the first and last words that the selection
  * intersects, or `null` if the range includes no words.
  */
-export function findFirstAndLastWordIndexes(selectionRange: DOMRange, wordRanges: ReadonlyArray<DOMRange>): [number, number] | null | undefined {
+export function findFirstAndLastWordIndexes(
+    selectionRange: DOMRange,
+    wordRanges: ReadonlyArray<DOMRange>,
+): [number, number] | null | undefined {
     // Find the first word whose end point is after the selection's start
     // point.
     //

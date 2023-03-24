@@ -13,8 +13,8 @@ const {devices} = constants;
 const {iconDesktop, iconMobilePhone, iconTablet} = icons;
 
 type Props = {
-    deviceType: DeviceType,
-    onViewportSizeChanged: (arg1: DeviceType) => unknown
+    deviceType: DeviceType;
+    onViewportSizeChanged: (arg1: DeviceType) => unknown;
 };
 
 class ViewportResizer extends React.Component<Props> {
@@ -30,7 +30,7 @@ class ViewportResizer extends React.Component<Props> {
         this.props.onViewportSizeChanged(value);
     };
 
-    render(): React.ReactElement<React.ComponentProps<'span'>> {
+    render(): React.ReactElement<React.ComponentProps<"span">> {
         const phoneButtonContents = (
             <span>
                 <InlineIcon {...iconMobilePhone} /> Phone

@@ -1,7 +1,7 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import RadioEditor from '../radio/editor';
+import RadioEditor from "../radio/editor";
 
 import type {
     PerseusRadioWidgetOptions,
@@ -12,7 +12,7 @@ import type {
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -78,11 +78,11 @@ const question: PerseusRenderer = {
 };
 
 class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
-// @ts-expect-error [FEI-5003] - TS2564 - Property '_widget' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_widget' has no initializer and is not definitely assigned in the constructor.
     _widget: RadioEditor;
 
     //$FlowIgnore
-// @ts-expect-error [FEI-5003] - TS2416 - Property 'state' in type 'WithState' is not assignable to the same property in base type 'Component<Empty, PerseusRadioWidgetOptions, any>'.
+    // @ts-expect-error [FEI-5003] - TS2416 - Property 'state' in type 'WithState' is not assignable to the same property in base type 'Component<Empty, PerseusRadioWidgetOptions, any>'.
     state = question.widgets["radio 1"];
 
     apiOptions: APIOptions = Object.freeze({});
@@ -100,7 +100,7 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
                         })
                     }
                     // $FlowFixMe[incompatible-type] - can be null
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'RadioEditor | null' is not assignable to type 'RadioEditor'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'RadioEditor | null' is not assignable to type 'RadioEditor'.
                     ref={(widget) => (this._widget = widget)}
                 />
             </div>

@@ -2,26 +2,26 @@ import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {ApiOptions} from '../perseus-api';
+import {ApiOptions} from "../perseus-api";
 
-import type {PerseusDropdownWidgetOptions} from '../perseus-types';
-import type {PerseusScore, WidgetExports, WidgetProps} from '../types';
+import type {PerseusDropdownWidgetOptions} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 type Rubric = PerseusDropdownWidgetOptions;
 
 type UserInput = {
-    value: number
+    value: number;
 };
 
-type Props = (WidgetProps<RenderProps, Rubric>) & {
-    selected: number
+type Props = WidgetProps<RenderProps, Rubric> & {
+    selected: number;
 };
 
 type DefaultProps = {
-    choices: Props['choices'],
-    selected: Props['selected'],
-    placeholder: Props['placeholder'],
-    apiOptions: Props['apiOptions']
+    choices: Props["choices"];
+    selected: Props["selected"];
+    placeholder: Props["placeholder"];
+    apiOptions: Props["apiOptions"];
 };
 
 class Dropdown extends React.Component<Props> {
@@ -53,12 +53,14 @@ class Dropdown extends React.Component<Props> {
         // TODO(LP-10797): This focus() call doesn't do anything because our
         // root element is a <div> and that cannot be focused without a
         // tabIndex.
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this).focus();
         return true;
     };
 
-    _handleChangeEvent: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    _handleChangeEvent: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
         this._handleChange(parseInt(e.target.value));
     };
 
@@ -117,8 +119,8 @@ class Dropdown extends React.Component<Props> {
 }
 
 type RenderProps = {
-    placeholder: string,
-    choices: ReadonlyArray<string>
+    placeholder: string;
+    choices: ReadonlyArray<string>;
 };
 
 const optionsTransform: (arg1: PerseusDropdownWidgetOptions) => RenderProps = (

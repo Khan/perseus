@@ -7,17 +7,17 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from '../components/inline-icon';
-import MathInput from '../components/math-input';
-import Tooltip from '../components/tooltip';
-import {iconExclamationSign} from '../icon-paths';
-import {Errors as PerseusErrors, Log} from '../logging/log';
-import * as Changeable from '../mixins/changeable';
-import {ApiOptions, ClassNames as ApiClassNames} from '../perseus-api';
-import KhanAnswerTypes from '../util/answer-types';
+import InlineIcon from "../components/inline-icon";
+import MathInput from "../components/math-input";
+import Tooltip from "../components/tooltip";
+import {iconExclamationSign} from "../icon-paths";
+import {Errors as PerseusErrors, Log} from "../logging/log";
+import * as Changeable from "../mixins/changeable";
+import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
+import KhanAnswerTypes from "../util/answer-types";
 
-import type {PerseusExpressionWidgetOptions} from '../perseus-types';
-import type {PerseusScore, WidgetExports, WidgetProps} from '../types';
+import type {PerseusExpressionWidgetOptions} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 type InputPath = ReadonlyArray<string>;
 
@@ -49,34 +49,38 @@ type Rubric = PerseusExpressionWidgetOptions;
 
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
-export type Props = (ExternalProps) & {
-    apiOptions: NonNullable<ExternalProps['apiOptions']>,
-    buttonSets: NonNullable<ExternalProps['buttonSets']>,
-    functions: NonNullable<ExternalProps['functions']>,
-    linterContext: NonNullable<ExternalProps['linterContext']>,
-    onBlur: NonNullable<ExternalProps['onBlur']>,
-    onFocus: NonNullable<ExternalProps['onFocus']>,
-    times: NonNullable<ExternalProps['times']>,
-    value: string
+export type Props = ExternalProps & {
+    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
+    buttonSets: NonNullable<ExternalProps["buttonSets"]>;
+    functions: NonNullable<ExternalProps["functions"]>;
+    linterContext: NonNullable<ExternalProps["linterContext"]>;
+    onBlur: NonNullable<ExternalProps["onBlur"]>;
+    onFocus: NonNullable<ExternalProps["onFocus"]>;
+    times: NonNullable<ExternalProps["times"]>;
+    value: string;
 };
 
 export type ExpressionState = {
-    showErrorTooltip: boolean,
-    showErrorText: boolean
+    showErrorTooltip: boolean;
+    showErrorText: boolean;
 };
 
 type DefaultProps = {
-    apiOptions: Props['apiOptions'],
-    buttonSets: Props['buttonSets'],
-    functions: Props['functions'],
-    linterContext: Props['linterContext'],
-    onBlur: Props['onBlur'],
-    onFocus: Props['onFocus'],
-    times: Props['times'],
-    value: Props['value']
+    apiOptions: Props["apiOptions"];
+    buttonSets: Props["buttonSets"];
+    functions: Props["functions"];
+    linterContext: Props["linterContext"];
+    onBlur: Props["onBlur"];
+    onFocus: Props["onFocus"];
+    times: Props["times"];
+    value: Props["value"];
 };
 
-type OnInputErrorFunctionType = (arg1?: any, arg2?: any, arg3?: any) => boolean | null | undefined;
+type OnInputErrorFunctionType = (
+    arg1?: any,
+    arg2?: any,
+    arg3?: any,
+) => boolean | null | undefined;
 
 // The new, MathQuill input expression widget
 export class Expression extends React.Component<Props, ExpressionState> {
@@ -102,7 +106,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     static validate(
         userInput: string,
         rubric: Rubric,
-// @ts-expect-error [FEI-5003] - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
         onInputError: OnInputErrorFunctionType = function () {},
     ): PerseusScore {
         const options = _.clone(rubric);
@@ -115,7 +119,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
             // solution answer, not the student answer, and we don't want a
             // solution to work if the student is using a different language
             // (different from the content creation language, ie. English).
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const expression = KAS.parse(answer.value, rubric);
             // An answer may not be parsed if the expression was defined
             // incorrectly. For example if the answer is using a symbol defined
@@ -246,7 +250,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return insertBraces(props.value);
     }
 
-    static getOneCorrectAnswerFromRubric(rubric: Rubric): string | null | undefined {
+    static getOneCorrectAnswerFromRubric(
+        rubric: Rubric,
+    ): string | null | undefined {
         const correctAnswers = (rubric.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",
         );
@@ -292,7 +298,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         ) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             clearTimeout(this.errorTimeout);
 
             if (this.parse(this.props.value, this.props).parsed) {
@@ -302,7 +308,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 // Store timeout ID so that we can clear it above
                 // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
                 // eslint-disable-next-line no-restricted-syntax
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
                 this.errorTimeout = setTimeout(() => {
                     const apiResult = this.props.apiOptions.onInputError(
                         null, // reserved for some widget identifier
@@ -320,7 +326,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     componentWillUnmount: () => void = () => {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         clearTimeout(this.errorTimeout);
 
         this._isMounted = false;
@@ -329,7 +335,10 @@ export class Expression extends React.Component<Props, ExpressionState> {
     _isMounted: boolean = false;
     errorTimeout: null | number = null;
 
-    simpleValidate: (rubric: Rubric, onInputError: OnInputErrorFunctionType) => PerseusScore = (rubric, onInputError) => {
+    simpleValidate: (
+        rubric: Rubric,
+        onInputError: OnInputErrorFunctionType,
+    ) => PerseusScore = (rubric, onInputError) => {
         onInputError = onInputError || function () {};
         return Expression.validate(this.getUserInput(), rubric, onInputError);
     };
@@ -352,7 +361,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         _.extend(options, {
             decimal_separator: i18n.getDecimalSeparator(),
         });
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         return KAS.parse(insertBraces(value), options);
     };
 
@@ -377,7 +386,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     focus: () => boolean = () => {
         if (this.props.apiOptions.customKeypad) {
             // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs.input.focus();
         } else {
             // The buttons are often on top of text you're trying to read, so
@@ -389,20 +398,20 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     focusInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
     blurInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur();
     };
 
     // HACK(joel)
     insert: (text: string) => void = (text: string) => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.input.insert(text);
     };
 
@@ -434,7 +443,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
         );
     };
 
-    render(): React.ReactNode | React.ReactElement<React.ComponentProps<'div'>> {
+    render():
+        | React.ReactNode
+        | React.ReactElement<React.ComponentProps<"div">> {
         if (this.props.apiOptions.customKeypad) {
             return (
                 <KeypadInput
@@ -543,7 +554,7 @@ const keypadConfigurationForProps = (
     const uniqueExtraVariables: Record<string, any> = {};
     const uniqueExtraConstants: Record<string, any> = {};
     for (const answerForm of widgetOptions.answerForms) {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const maybeExpr = KAS.parse(answerForm.value, widgetOptions);
         if (maybeExpr.parsed) {
             const expr = maybeExpr.expr;
@@ -551,7 +562,8 @@ const keypadConfigurationForProps = (
             // The keypad expects Greek letters to be capitalized (e.g., it
             // requires `PI` instead of `pi`). Right now, it only supports Pi
             // and Theta, so we special-case.
-            const isGreek = (symbol: any) => symbol === "pi" || symbol === "theta";
+            const isGreek = (symbol: any) =>
+                symbol === "pi" || symbol === "theta";
             const toKey = (symbol: any) =>
                 isGreek(symbol) ? symbol.toUpperCase() : symbol;
 
@@ -602,14 +614,14 @@ const propUpgrades = {
 } as const;
 
 type RenderProps = {
-    buttonSets: any,
-    buttonsVisible?: 'always' | 'focused' | 'never',
-    functions: ReadonlyArray<string>,
+    buttonSets: any;
+    buttonsVisible?: "always" | "focused" | "never";
+    functions: ReadonlyArray<string>;
     keypadConfiguration: {
-        extraKeys: ReadonlyArray<any | string>,
-        keypadType: any
-    },
-    times: boolean
+        extraKeys: ReadonlyArray<any | string>;
+        keypadType: any;
+    };
+    times: boolean;
 };
 
 export default {

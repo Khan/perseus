@@ -1,7 +1,7 @@
 import {Changeable, EditorJsonify} from "@khanacademy/perseus";
 import * as React from "react";
 
-import ExampleGraphie from './example-graphie-widget';
+import ExampleGraphie from "./example-graphie-widget";
 
 const ExampleGraphieWidget = ExampleGraphie.widget;
 
@@ -16,7 +16,7 @@ class ExampleGraphieWidgetEditor extends React.Component<Props> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: 'example-graphie-widget' = "example-graphie-widget";
+    static widgetName: "example-graphie-widget" = "example-graphie-widget";
 
     static defaultProps: Props = {
         correct: [4, 4],
@@ -42,7 +42,7 @@ class ExampleGraphieWidgetEditor extends React.Component<Props> {
 
     handleChange: (arg1: any) => void = (newProps) => {
         if (newProps.coord) {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
             this.change({
                 correct: newProps.coord,
             });

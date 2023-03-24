@@ -17,7 +17,7 @@ class MatcherEditor extends React.Component<Props> {
         padding: PropTypes.bool,
     };
 
-    static widgetName: 'matcher' = "matcher";
+    static widgetName: "matcher" = "matcher";
 
     static defaultProps: Props = {
         left: ["$x$", "$y$", "$z$"],
@@ -115,7 +115,10 @@ class MatcherEditor extends React.Component<Props> {
         );
     }
 
-    onLabelChange: (arg1: number, arg2: React.ChangeEvent<HTMLInputElement>) => void = (index, e) => {
+    onLabelChange: (
+        arg1: number,
+        arg2: React.ChangeEvent<HTMLInputElement>,
+    ) => void = (index, e) => {
         const labels = _.clone(this.props.labels);
         labels[index] = e.target.value;
         this.props.onChange({labels: labels});

@@ -4,12 +4,12 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
-import KhanColors from '../util/colors';
+import KhanColors from "../util/colors";
 
-import InteractiveUtil from './interactive-util';
-import MovableLineOptions from './movable-line-options';
-import objective_ from './objective_';
-import WrappedLine from './wrapped-line';
+import InteractiveUtil from "./interactive-util";
+import MovableLineOptions from "./movable-line-options";
+import objective_ from "./objective_";
+import WrappedLine from "./wrapped-line";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -44,15 +44,11 @@ const DEFAULT_STATE = {
     mouseTarget: null,
 } as const;
 
-const MovableLine = function (
-    graphie: any,
-    movable: any,
-    options: any,
-) {
+const MovableLine = function (graphie: any, movable: any, options: any) {
     assert(graphie != null);
     assert(options != null);
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {
         graphie: graphie,
         movable: movable,
@@ -63,7 +59,7 @@ const MovableLine = function (
     });
 
     // We only set DEFAULT_STATE once, here
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.modify(_.extend({}, DEFAULT_STATE, options));
 };
 

@@ -3,10 +3,10 @@
  * A line is an array of two points e.g. [[-5, 0], [5, 0]].
  */
 
-import * as kpoint from './point';
-import * as kvector from './vector';
+import * as kpoint from "./point";
+import * as kvector from "./vector";
 
-import type {Point} from './point';
+import type {Point} from "./point";
 
 export type Line = [Point, Point];
 

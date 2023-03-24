@@ -1,6 +1,6 @@
-import {treeToItem} from '../items';
-import {buildPropTypeForShape} from '../prop-type-builders';
-import shapes from '../shapes';
+import {treeToItem} from "../items";
+import {buildPropTypeForShape} from "../prop-type-builders";
+import shapes from "../shapes";
 
 // TODO(emily): [PERSEUS_MERGE] Calling prop types as a function fails these
 // tests. Rewrite them once we're using the prop-types library.

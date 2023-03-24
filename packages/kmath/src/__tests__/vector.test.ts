@@ -1,4 +1,4 @@
-import * as vector from '../vector';
+import * as vector from "../vector";
 
 describe("kvector", function () {
     it("vector.add should add two 2D vectors", function () {

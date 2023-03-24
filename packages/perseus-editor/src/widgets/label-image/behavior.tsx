@@ -6,64 +6,62 @@ import {globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Checkbox from '../../components/checkbox';
+import Checkbox from "../../components/checkbox";
 
 const {colors, typography} = globalStyles;
 
 type BehaviorProps = {
     // Whether multiple answer choices may be selected for markers.
-    multipleAnswers: boolean,
+    multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
-    hideChoicesFromInstructions: boolean,
+    hideChoicesFromInstructions: boolean;
     // Callback for when widget options change.
-    onChange: (
-        options: {
-            multipleAnswers?: boolean,
-            hideChoicesFromInstructions?: boolean
-        },
-    ) => void
+    onChange: (options: {
+        multipleAnswers?: boolean;
+        hideChoicesFromInstructions?: boolean;
+    }) => void;
 };
 
-const Behavior: React.FC<BehaviorProps> = (
-    {
-        multipleAnswers,
-        hideChoicesFromInstructions,
-        onChange,
-    },
-): React.ReactElement => <div>
-    <div className={css(styles.title)}>Behavior</div>
+const Behavior: React.FC<BehaviorProps> = ({
+    multipleAnswers,
+    hideChoicesFromInstructions,
+    onChange,
+}): React.ReactElement => (
+    <div>
+        <div className={css(styles.title)}>Behavior</div>
 
-    <ul>
-        <li className={css(styles.option)}>
-            <Checkbox
-                checked={multipleAnswers}
-                onChange={() =>
-                    onChange({multipleAnswers: !multipleAnswers})
-                }
-            />
+        <ul>
+            <li className={css(styles.option)}>
+                <Checkbox
+                    checked={multipleAnswers}
+                    onChange={() =>
+                        onChange({multipleAnswers: !multipleAnswers})
+                    }
+                />
 
-            <span className={css(styles.label)}>
-                Allow multiple answers per marker
-            </span>
-        </li>
+                <span className={css(styles.label)}>
+                    Allow multiple answers per marker
+                </span>
+            </li>
 
-        <li className={css(styles.option)}>
-            <Checkbox
-                checked={hideChoicesFromInstructions}
-                onChange={() =>
-                    onChange({
-                        hideChoicesFromInstructions:
-                            !hideChoicesFromInstructions,
-                    })
-                }
-            />
+            <li className={css(styles.option)}>
+                <Checkbox
+                    checked={hideChoicesFromInstructions}
+                    onChange={() =>
+                        onChange({
+                            hideChoicesFromInstructions:
+                                !hideChoicesFromInstructions,
+                        })
+                    }
+                />
 
-            <span className={css(styles.label)}>
-                Do not display answer choices in instructions
-            </span>
-        </li>
-    </ul>
-</div>;
+                <span className={css(styles.label)}>
+                    Do not display answer choices in instructions
+                </span>
+            </li>
+        </ul>
+    </div>
+);
 
 const styles = StyleSheet.create({
     title: {

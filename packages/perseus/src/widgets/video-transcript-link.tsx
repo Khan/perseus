@@ -9,7 +9,7 @@ import Link from "@khanacademy/wonder-blocks-link";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {getDependencies} from '../dependencies';
+import {getDependencies} from "../dependencies";
 
 const IS_URL = /^https?:\/\//;
 
@@ -25,7 +25,7 @@ const getYoutubeId = (url: string): string => {
 
 // will accept a youtube link or a video's slug name from embedded video and then query accordingly.
 type Props = {
-    location: string
+    location: string;
 };
 
 /**
@@ -39,7 +39,7 @@ const VideoTranscriptLink: React.FC<Props> = (props): React.ReactElement => {
         : [location, "READABLE_ID"];
     // The result value conforms to the wonder-blocks-data `Result` type
     // which is used by our GraphQL framework.
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'VideoKind'.
+    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'VideoKind'.
     const result = useVideo(id, kind);
 
     switch (result.status) {

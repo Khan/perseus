@@ -1,7 +1,7 @@
-import shapes from '../shapes';
+import shapes from "../shapes";
 
-import type {Item} from '../item-types';
-import type {Shape} from '../shape-types';
+import type {Item} from "../item-types";
+import type {Shape} from "../shape-types";
 
 export const simpleQuestionShape: Shape = shapes.shape({
     blurb: shapes.content,

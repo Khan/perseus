@@ -9,14 +9,14 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import SimpleKeypadInput from '../components/simple-keypad-input';
-import InteractiveUtil from '../interactive2/interactive-util';
-import {ApiOptions} from '../perseus-api';
-import Renderer from '../renderer';
-import Util from '../util';
-import KhanAnswerTypes from '../util/answer-types';
+import SimpleKeypadInput from "../components/simple-keypad-input";
+import InteractiveUtil from "../interactive2/interactive-util";
+import {ApiOptions} from "../perseus-api";
+import Renderer from "../renderer";
+import Util from "../util";
+import KhanAnswerTypes from "../util/answer-types";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 const {assert} = InteractiveUtil;
 
@@ -194,7 +194,7 @@ class Table extends React.Component<any> {
 
         // If this is coming from an "input", the last argument will be an
         // event. If it's coming from a SimpleKeypadInput, it'll be the value.
-// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+        // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
         answers[row][column] = eventOrValue.target
             ? eventOrValue.target.value
             : eventOrValue;
@@ -214,7 +214,7 @@ class Table extends React.Component<any> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Table'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Table'.
         return Table.validate(this.getUserInput(), rubric);
     };
 
@@ -236,10 +236,10 @@ class Table extends React.Component<any> {
         // eslint-disable-next-line react/no-string-refs
         const inputComponent = this.refs[inputID];
         if (this.props.apiOptions.customKeypad) {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             inputComponent.focus();
         } else {
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             ReactDOM.findDOMNode(inputComponent).focus();
         }
     };
@@ -249,15 +249,17 @@ class Table extends React.Component<any> {
         // eslint-disable-next-line react/no-string-refs
         const inputComponent = this.refs[inputID];
         if (this.props.apiOptions.customKeypad) {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
             inputComponent.blur();
         } else {
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
             ReactDOM.findDOMNode(inputComponent).blur();
         }
     };
 
-    getDOMNodeForPath: (arg1: any) => Text | Element | null | undefined = (path) => {
+    getDOMNodeForPath: (arg1: any) => Text | Element | null | undefined = (
+        path,
+    ) => {
         const inputID = getRefForPath(path);
         // eslint-disable-next-line react/no-string-refs
         return ReactDOM.findDOMNode(this.refs[inputID]);
@@ -290,7 +292,7 @@ class Table extends React.Component<any> {
         const column = getColumnFromPath(path);
 
         const answers = _.map(this.props.answers, _.clone);
-// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+        // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
         answers[row][column] = newValue;
         this.props.onChange(
             {
@@ -346,7 +348,7 @@ _.extend(Table, {
                         });
                         const result = validator(cellSupplied);
                         if (result.message) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
                             message = result.message;
                         }
                         return result.correct;

@@ -1,19 +1,23 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/sort-comp */
-import {number as knumber, vector as kvector, point as kpoint} from "@khanacademy/kmath";
+import {
+    number as knumber,
+    vector as kvector,
+    point as kpoint,
+} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 
-import ButtonGroup from '../components/button-group';
-import Graphie from '../components/graphie';
-import SvgImage from '../components/svg-image';
-import Interactive2 from '../interactive2';
-import WrappedLine from '../interactive2/wrapped-line';
-import * as Changeable from '../mixins/changeable';
-import {interactiveSizes} from '../styles/constants';
-import Util from '../util';
-import KhanColors from '../util/colors';
-import {getInteractiveBoxFromSizeClass} from '../util/sizing-utils';
+import ButtonGroup from "../components/button-group";
+import Graphie from "../components/graphie";
+import SvgImage from "../components/svg-image";
+import Interactive2 from "../interactive2";
+import WrappedLine from "../interactive2/wrapped-line";
+import * as Changeable from "../mixins/changeable";
+import {interactiveSizes} from "../styles/constants";
+import Util from "../util";
+import KhanColors from "../util/colors";
+import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 /* Graphie and relevant components. */
 /* Mixins. */
@@ -26,13 +30,13 @@ import {
     maybePointsFromNormalized,
     typeToButton,
     validate as grapherValidate,
-} from './grapher/util';
+} from "./grapher/util";
 
-import type {Coord, Line} from '../interactive2/types';
-import type {ChangeableProps} from '../mixins/changeable';
-import type {PerseusGrapherWidgetOptions} from '../perseus-types';
+import type {Coord, Line} from "../interactive2/types";
+import type {ChangeableProps} from "../mixins/changeable";
+import type {PerseusGrapherWidgetOptions} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
-import type {GridDimensions} from '../util';
+import type {GridDimensions} from "../util";
 
 // @ts-expect-error [FEI-5003] - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -54,17 +58,17 @@ const typeSelectorStyle = {
     padding: "5px 5px",
 } as const;
 
-type FunctionGrapherProps = (ChangeableProps) & {
-    graph: any,
-    coords: any,
-    asymptote: any,
-    hideHairlines: () => void,
-    isMobile: boolean,
-    model: any,
-    setDrawingAreaAvailable: () => void,
-    showHairlines: () => void,
-    showTooltips: boolean,
-    static: boolean
+type FunctionGrapherProps = ChangeableProps & {
+    graph: any;
+    coords: any;
+    asymptote: any;
+    hideHairlines: () => void;
+    isMobile: boolean;
+    model: any;
+    setDrawingAreaAvailable: () => void;
+    showHairlines: () => void;
+    showTooltips: boolean;
+    static: boolean;
 };
 
 type DefaultFunctionGrapherProps = any;
@@ -116,10 +120,10 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     static={this.props.static}
                     constraints={[
                         // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.bound(),
                         // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.snap(),
                         (coord: any) => {
                             // Always enforce that this is a function
@@ -199,10 +203,10 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         let image = null;
         if (imageDescription.url) {
             const scale = box[0] / interactiveSizes.defaultBoxSize;
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             image = (
                 // $FlowFixMe[prop-missing]: alt props is missing
-// @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
+                // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
                 <SvgImage
                     src={imageDescription.url}
                     width={imageDescription.width}
@@ -277,62 +281,64 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const dashed = {
             strokeDasharray: "- ",
         } as const;
-        return asymptote && (
-            <MovableLine
-                onMove={(newCoord, oldCoord) => {
-                    // Calculate and apply displacement
-                    const delta = kvector.subtract(newCoord, oldCoord);
-                    const newAsymptote = _.map(this._asymptote(), (coord) =>
-                        kvector.add(coord, delta),
-                    );
-                    this.props.onChange({
-                        asymptote: newAsymptote,
-                    });
-                }}
-                constraints={[
-                    // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                    Interactive2.MovableLine.constraints.bound(),
-                    // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                    Interactive2.MovableLine.constraints.snap(),
-                    (newCoord, oldCoord: any) => {
-                        // Calculate and apply proposed displacement
+        return (
+            asymptote && (
+                <MovableLine
+                    onMove={(newCoord, oldCoord) => {
+                        // Calculate and apply displacement
                         const delta = kvector.subtract(newCoord, oldCoord);
-                        const proposedAsymptote = _.map(
-                            this._asymptote(),
-                            (coord) => kvector.add(coord, delta),
+                        const newAsymptote = _.map(this._asymptote(), (coord) =>
+                            kvector.add(coord, delta),
                         );
-                        // Verify that resulting asymptote is valid for graph
-                        if (model.extraAsymptoteConstraint) {
-                            return model.extraAsymptoteConstraint(
-                                newCoord,
-                                oldCoord,
-                                this._coords(),
-                                proposedAsymptote,
-                                graph,
+                        this.props.onChange({
+                            asymptote: newAsymptote,
+                        });
+                    }}
+                    constraints={[
+                        // $FlowFixMe[prop-missing]
+                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        Interactive2.MovableLine.constraints.bound(),
+                        // $FlowFixMe[prop-missing]
+                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        Interactive2.MovableLine.constraints.snap(),
+                        (newCoord, oldCoord: any) => {
+                            // Calculate and apply proposed displacement
+                            const delta = kvector.subtract(newCoord, oldCoord);
+                            const proposedAsymptote = _.map(
+                                this._asymptote(),
+                                (coord) => kvector.add(coord, delta),
                             );
-                        }
-                        return true;
-                    },
-                ]}
-                normalStyle={dashed}
-                highlightStyle={dashed}
-            >
-                {_.map(asymptote, (coord, i) => (
-                    <MovablePoint
-                        key={`asymptoteCoord-${i}`}
-                        coord={coord}
-                        static={true}
-                        draw={null}
-                        extendLine={true}
-                        showHairlines={this.props.showHairlines}
-                        hideHairlines={this.props.hideHairlines}
-                        showTooltips={this.props.showTooltips}
-                        isMobile={this.props.isMobile}
-                    />
-                ))}
-            </MovableLine>
+                            // Verify that resulting asymptote is valid for graph
+                            if (model.extraAsymptoteConstraint) {
+                                return model.extraAsymptoteConstraint(
+                                    newCoord,
+                                    oldCoord,
+                                    this._coords(),
+                                    proposedAsymptote,
+                                    graph,
+                                );
+                            }
+                            return true;
+                        },
+                    ]}
+                    normalStyle={dashed}
+                    highlightStyle={dashed}
+                >
+                    {_.map(asymptote, (coord, i) => (
+                        <MovablePoint
+                            key={`asymptoteCoord-${i}`}
+                            coord={coord}
+                            static={true}
+                            draw={null}
+                            extendLine={true}
+                            showHairlines={this.props.showHairlines}
+                            hideHairlines={this.props.hideHairlines}
+                            showTooltips={this.props.showTooltips}
+                            isMobile={this.props.isMobile}
+                        />
+                    ))}
+                </MovableLine>
+            )
         );
     };
 }
@@ -340,24 +346,24 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
 type UserInput = any; // Really this is props.plot, I think
 
 type RenderProps = {
-    availableTypes: PerseusGrapherWidgetOptions['availableTypes'],
-    graph: PerseusGrapherWidgetOptions['graph'],
-    plot?: any
+    availableTypes: PerseusGrapherWidgetOptions["availableTypes"];
+    graph: PerseusGrapherWidgetOptions["graph"];
+    plot?: any;
 };
 
 type Rubric = PerseusGrapherWidgetOptions;
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
-type Props = (ExternalProps) & {
+type Props = ExternalProps & {
     // plot is always provided by default props
-    plot: NonNullable<RenderProps['plot']>,
+    plot: NonNullable<RenderProps["plot"]>;
     // NOTE(jeremy): This prop exists in the `graph` prop value. Unsure what
     // passes it down as a top-level prop (I suspect the editor?)
-    markings: 'graph' | 'grid' | 'none'
+    markings: "graph" | "grid" | "none";
 };
 
 type DefaultProps = {
-    plot: RenderProps['plot']
+    plot: RenderProps["plot"];
     // More?
 };
 
@@ -429,7 +435,7 @@ class Grapher extends React.Component<Props> {
 
         return (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
+                {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <FunctionGrapher {...grapherProps} />
                 {this.props.availableTypes.length > 1 && typeSelector}
             </div>
@@ -457,9 +463,9 @@ class Grapher extends React.Component<Props> {
     };
 
     _getGridConfig(
-        options: (Props['graph']) & {
-            box: NonNullable<Props['graph']['box']>,
-            gridStep: NonNullable<Props['graph']['gridStep']>
+        options: Props["graph"] & {
+            box: NonNullable<Props["graph"]["box"]>;
+            gridStep: NonNullable<Props["graph"]["gridStep"]>;
         },
     ): ReadonlyArray<GridDimensions> {
         return options.step.map((step, i) => {
@@ -473,9 +479,18 @@ class Grapher extends React.Component<Props> {
     }
 
     _calculateMobileTickStep(
-        gridStep: JSX.LibraryManagedAttributes<typeof Graphie, React.ComponentProps<typeof Graphie>>['gridStep'],
-        step: JSX.LibraryManagedAttributes<typeof Graphie, React.ComponentProps<typeof Graphie>>['step'],
-        ranges: JSX.LibraryManagedAttributes<typeof Graphie, React.ComponentProps<typeof Graphie>>['ranges'],
+        gridStep: JSX.LibraryManagedAttributes<
+            typeof Graphie,
+            React.ComponentProps<typeof Graphie>
+        >["gridStep"],
+        step: JSX.LibraryManagedAttributes<
+            typeof Graphie,
+            React.ComponentProps<typeof Graphie>
+        >["step"],
+        ranges: JSX.LibraryManagedAttributes<
+            typeof Graphie,
+            React.ComponentProps<typeof Graphie>
+        >["ranges"],
     ): any {
         const tickStep = Util.constrainedTickStepsFromTickSteps(step, ranges);
 
@@ -629,7 +644,7 @@ const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     if (widgetProps.availableTypes.length === 1) {
         const graph = widgetProps.graph;
         const type = chooseType(widgetProps.availableTypes);
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
         widgetProps.plot = defaultPlotProps(type, graph);
     }
 

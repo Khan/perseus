@@ -20,24 +20,24 @@ import {
     buildHighlight,
     deserializeHighlight,
     serializeHighlight,
-} from './highlights';
-import HighlightingUI from './ui/highlighting-ui';
-import WordIndexer from './word-indexer';
+} from "./highlights";
+import HighlightingUI from "./ui/highlighting-ui";
+import WordIndexer from "./word-indexer";
 
 import type {
     DOMHighlight,
     DOMHighlightSet,
     SerializedHighlightSet,
     DOMRange,
-} from './types';
+} from "./types";
 
 type HighlightableContentProps = {
     // The highlightable content itself. Highlights will be defined relative to
     // the content specified here.
-    children?: React.ReactElement<any>,
+    children?: React.ReactElement<any>;
     // Whether the highlights are user-editable. If false, highlights are
     // read-only.
-    editable: boolean,
+    editable: boolean;
     // Whether highlighting is currently enabled. If false, highlights are not
     // visible and are read-only (regardless of the `editable` prop), and this
     // component is effectively a no-op.
@@ -46,22 +46,27 @@ type HighlightableContentProps = {
     //     *not* wrapping the content, is to enable quick toggles between
     //     enabled/disabled while maintaining the same component structure.
     //     Forcing React to rebuild the entire component tree is not kind!
-    enabled: boolean,
+    enabled: boolean;
     // When the user attempts to add/remove/update a highlight, this callback
     // will be called with a newly-updated full set of highlights that reflects
     // the user's intent.
-    onSerializedHighlightsUpdate: (serializedHighlights: SerializedHighlightSet) => unknown,
+    onSerializedHighlightsUpdate: (
+        serializedHighlights: SerializedHighlightSet,
+    ) => unknown;
     // The set of highlights to apply to the given content.
-    serializedHighlights: SerializedHighlightSet
+    serializedHighlights: SerializedHighlightSet;
 };
 
 type HighlightableContentState = {
     // A cached list of DOMRanges, each representing one of the content's
     // semantic words. Sorted in document order.
-    wordRanges: ReadonlyArray<DOMRange>
+    wordRanges: ReadonlyArray<DOMRange>;
 };
 
-class HighlightableContent extends React.PureComponent<HighlightableContentProps, HighlightableContentState> {
+class HighlightableContent extends React.PureComponent<
+    HighlightableContentProps,
+    HighlightableContentState
+> {
     // References to the mounted container and content divs.
     _container: HTMLElement | null | undefined;
     _content: HTMLElement | null | undefined;
@@ -129,7 +134,7 @@ class HighlightableContent extends React.PureComponent<HighlightableContentProps
     ) => {
         const {serializedHighlights} = this.props;
         const newSerializedHighlights = {...serializedHighlights} as const;
-// @ts-expect-error [FEI-5003] - TS2542 - Index signature in type '{ readonly [x: string]: SerializedHighlight; }' only permits reading.
+        // @ts-expect-error [FEI-5003] - TS2542 - Index signature in type '{ readonly [x: string]: SerializedHighlight; }' only permits reading.
         delete newSerializedHighlights[keyToRemove];
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     };
@@ -144,7 +149,7 @@ class HighlightableContent extends React.PureComponent<HighlightableContentProps
         this.setState({wordRanges});
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const highlights = this._getDOMHighlights();
 
         // NOTE(mdr): This lambda is rebuilt every time this component updates,

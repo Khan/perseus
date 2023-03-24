@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {getDependencies} from '../dependencies';
+import {getDependencies} from "../dependencies";
 
 const prettyBig = {fontSize: "150%"} as const;
 const slightlyBig = {fontSize: "120%"} as const;
@@ -13,7 +13,7 @@ type Inserter = string | ((input: any) => void);
 type ButtonSet = (props: any) => [React.ReactNode, Inserter];
 
 type ButtonSets = {
-    readonly [key: string]: ReadonlyArray<ButtonSet>
+    readonly [key: string]: ReadonlyArray<ButtonSet>;
 };
 
 // These are functions because we want to generate a new component for each use
@@ -254,10 +254,10 @@ const buttonSets: ButtonSets = {
 export type ButtonSetsType = ReadonlyArray<keyof typeof buttonSets>;
 
 type TexButtonProps = {
-    sets: ButtonSetsType,
-    onInsert: (arg1: Inserter) => void,
-    className?: string,
-    convertDotToTimes?: boolean
+    sets: ButtonSetsType;
+    onInsert: (arg1: Inserter) => void;
+    className?: string;
+    convertDotToTimes?: boolean;
 };
 
 const buttonSetsPropType = PropTypes.arrayOf(
@@ -273,7 +273,7 @@ class TexButtons extends React.Component<TexButtonProps> {
         // for _.keys() to return the keys in an arbitrary order, but in
         // practice, they will be ordered as listed above.
         const sortedButtonSets = _.sortBy(this.props.sets, (setName) =>
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | number' is not assignable to parameter of type 'string'.
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | number' is not assignable to parameter of type 'string'.
             _.keys(buttonSets).indexOf(setName),
         );
 
@@ -289,7 +289,7 @@ class TexButtons extends React.Component<TexButtonProps> {
                     <button
                         onClick={() => this.props.onInsert(symbol[1])}
                         className="tex-button"
-// @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'key' does not exist on type 'boolean | ReactChild | ReactFragment | ReactPortal'.
+                        // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'key' does not exist on type 'boolean | ReactChild | ReactFragment | ReactPortal'.
                         key={symbol[0].key}
                         type="button"
                     >

@@ -1,12 +1,12 @@
 import "@testing-library/jest-dom";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {question2} from '../__testdata__/orderer_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {question2} from "../__testdata__/orderer_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {APIOptions} from '../../types';
+import type {APIOptions} from "../../types";
 
 describe("orderer widget", () => {
     beforeEach(() => {

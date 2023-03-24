@@ -5,8 +5,8 @@
  * traveling along the positive x-axis.
  */
 
-import * as kpoint from './point';
-import * as kvector from './vector';
+import * as kpoint from "./point";
+import * as kvector from "./vector";
 
 import type {Point} from "./point";
 

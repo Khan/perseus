@@ -1,20 +1,20 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from '../../../../../testing/renderer-with-debug-ui';
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/image_testdata' or its corresponding type declarations.
-import {question} from '../__testdata__/image_testdata';
+import {question} from "../__testdata__/image_testdata";
 
-import type {APIOptions} from '../../types';
+import type {APIOptions} from "../../types";
 
 type StoryArgs = {
-    isMobile: boolean,
-    title: string,
-    caption: string
+    isMobile: boolean;
+    title: string;
+    caption: string;
 };
 
 type ImageStory = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 export const Question1: React.FC<StoryArgs> = (args): React.ReactElement => {

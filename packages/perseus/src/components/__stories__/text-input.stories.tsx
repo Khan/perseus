@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import TextInput from '../text-input';
+import TextInput from "../text-input";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -16,15 +16,21 @@ const defaultObject = {
     onChange: () => {},
 } as const;
 
-export const EmptyPropsObject: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const EmptyPropsObject: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <TextInput {...defaultObject} />;
 };
 
-export const TestValueProvided: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TestValueProvided: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <TextInput {...defaultObject} value="Test value" />;
 };
 
-export const AriaLabelTextProvided: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const AriaLabelTextProvided: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <TextInput {...defaultObject} labelText="Test label" />;
 };
 

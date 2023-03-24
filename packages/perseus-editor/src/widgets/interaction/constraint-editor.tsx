@@ -3,24 +3,24 @@ import * as React from "react";
 
 const {ButtonGroup, MathInput, NumberInput} = components;
 
-type Props = (Changeable.ChangeableProps) & {
-    constraint: string,
-    constraintFn: string,
-    constraintXMax: string,
-    constraintXMin: string,
-    constraintYMax: string,
-    constraintYMin: string,
-    snap: number
+type Props = Changeable.ChangeableProps & {
+    constraint: string;
+    constraintFn: string;
+    constraintXMax: string;
+    constraintXMin: string;
+    constraintYMax: string;
+    constraintYMin: string;
+    snap: number;
 };
 
 type DefaultProps = {
-    constraint: Props['constraint'],
-    constraintFn: Props['constraintFn'],
-    constraintXMax: Props['constraintXMax'],
-    constraintXMin: Props['constraintXMin'],
-    constraintYMax: Props['constraintYMax'],
-    constraintYMin: Props['constraintYMin'],
-    snap: Props['snap']
+    constraint: Props["constraint"];
+    constraintFn: Props["constraintFn"];
+    constraintXMax: Props["constraintXMax"];
+    constraintXMin: Props["constraintXMin"];
+    constraintYMax: Props["constraintYMax"];
+    constraintYMin: Props["constraintYMin"];
+    snap: Props["snap"];
 };
 
 class ConstraintEditor extends React.Component<Props> {
@@ -34,11 +34,15 @@ class ConstraintEditor extends React.Component<Props> {
         constraintYMax: "10",
     };
 
-    change: (propName: string) => (value?: any, callback?: () => unknown) => unknown = (propName: string): (value?: any, callback?: () => unknown) => unknown => {
+    change: (
+        propName: string,
+    ) => (value?: any, callback?: () => unknown) => unknown = (
+        propName: string,
+    ): ((value?: any, callback?: () => unknown) => unknown) => {
         return Changeable.change.call(this, propName);
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const {TeX} = Dependencies.getDependencies();
 
         return (

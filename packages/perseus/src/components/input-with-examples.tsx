@@ -3,52 +3,52 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
-import {ClassNames as ApiClassNames} from '../perseus-api';
-import Renderer from '../renderer';
-import Util from '../util';
+import {ClassNames as ApiClassNames} from "../perseus-api";
+import Renderer from "../renderer";
+import Util from "../util";
 
-import MathInput from './math-input';
-import MathOutput from './math-output';
-import TextInput from './text-input';
-import Tooltip from './tooltip';
+import MathInput from "./math-input";
+import MathOutput from "./math-output";
+import TextInput from "./text-input";
+import Tooltip from "./tooltip";
 
-import type {LinterContextProps} from '../types';
+import type {LinterContextProps} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {captureScratchpadTouchStart} = Util;
 
 type Props = {
-    type: 'math' | 'text' | 'tex',
-    value: string,
-    onChange: any,
-    className: string,
-    examples: ReadonlyArray<string>,
-    shouldShowExamples: boolean,
-    convertDotToTimes?: boolean,
-    buttonSet?: string,
-    buttonsVisible?: 'always' | 'never' | 'focused',
-    labelText?: string,
-    onFocus: () => void,
-    onBlur: () => void,
-    disabled: boolean,
-    style?: StyleType,
-    id: string,
-    linterContext: LinterContextProps
+    type: "math" | "text" | "tex";
+    value: string;
+    onChange: any;
+    className: string;
+    examples: ReadonlyArray<string>;
+    shouldShowExamples: boolean;
+    convertDotToTimes?: boolean;
+    buttonSet?: string;
+    buttonsVisible?: "always" | "never" | "focused";
+    labelText?: string;
+    onFocus: () => void;
+    onBlur: () => void;
+    disabled: boolean;
+    style?: StyleType;
+    id: string;
+    linterContext: LinterContextProps;
 };
 
 type DefaultProps = {
-    type: Props['type'],
-    shouldShowExamples: Props['shouldShowExamples'],
-    onFocus: Props['onFocus'],
-    onBlur: Props['onBlur'],
-    disabled: Props['disabled'],
-    linterContext: Props['linterContext'],
-    className: Props['className']
+    type: Props["type"];
+    shouldShowExamples: Props["shouldShowExamples"];
+    onFocus: Props["onFocus"];
+    onBlur: Props["onBlur"];
+    disabled: Props["disabled"];
+    linterContext: Props["linterContext"];
+    className: Props["className"];
 };
 
 type State = {
-    focused: boolean,
-    showExamples: boolean
+    focused: boolean;
+    showExamples: boolean;
 };
 
 class InputWithExamples extends React.Component<Props, State> {
@@ -151,7 +151,7 @@ class InputWithExamples extends React.Component<Props, State> {
                 return TextInput;
 
             default:
-                (this.props.type as never);
+                this.props.type as never;
                 return null;
         }
     };
@@ -231,13 +231,13 @@ class InputWithExamples extends React.Component<Props, State> {
 
     focus: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
     blur: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur();
     };
 

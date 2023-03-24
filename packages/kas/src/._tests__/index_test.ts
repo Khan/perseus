@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import * as KAS from '../index';
+import * as KAS from "../index";
 
 expect.extend({
     toHaveGCD(input: [string, string], expected: string) {
@@ -33,11 +33,7 @@ expect.extend({
                   message: () => `${input} is NOT simplified`,
               };
     },
-    toHaveConsts(
-        input: string,
-        expected: ReadonlyArray<string>,
-        options: any,
-    ) {
+    toHaveConsts(input: string, expected: ReadonlyArray<string>, options: any) {
         const actual = KAS.parse(input, options).expr.getConsts();
 
         if (this.isNot) {

@@ -4,31 +4,26 @@ import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
 
-import Renderer from './renderer';
-import {
-    baseUnitPx,
-    hintBorderWidth,
-    kaGreen,
-    gray97,
-} from './styles/constants';
-import mediaQueries from './styles/media-queries';
+import Renderer from "./renderer";
+import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
+import mediaQueries from "./styles/media-queries";
 
-import type {APIOptions, LinterContextProps} from './types';
+import type {APIOptions, LinterContextProps} from "./types";
 
 type Props = {
-    apiOptions: APIOptions,
-    className?: string,
-    hint: any,
-    lastHint?: boolean,
-    lastRendered?: boolean,
-    pos: number,
-    totalHints?: number,
-    findExternalWidgets?: any,
-    linterContext: LinterContextProps
+    apiOptions: APIOptions;
+    className?: string;
+    hint: any;
+    lastHint?: boolean;
+    lastRendered?: boolean;
+    pos: number;
+    totalHints?: number;
+    findExternalWidgets?: any;
+    linterContext: LinterContextProps;
 };
 
 type DefaultProps = {
-    linterContext: Props['linterContext']
+    linterContext: Props["linterContext"];
 };
 
 /* Renders just a hint preview */
@@ -39,13 +34,16 @@ class HintRenderer extends React.Component<Props> {
 
     getSerializedState: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
         return this.refs.renderer.getSerializedState();
     };
 
-    restoreSerializedState: (arg1: any, arg2: (...args: ReadonlyArray<any>) => unknown) => void = (state, callback) => {
+    restoreSerializedState: (
+        arg1: any,
+        arg2: (...args: ReadonlyArray<any>) => unknown,
+    ) => void = (state, callback) => {
         // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'restoreSerializedState' does not exist on type 'ReactInstance'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'restoreSerializedState' does not exist on type 'ReactInstance'.
         this.refs.renderer.restoreSerializedState(state, callback);
     };
 
@@ -82,7 +80,7 @@ class HintRenderer extends React.Component<Props> {
         } as const;
 
         return (
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
             <div className={classNames} tabIndex="-1">
                 {!apiOptions.isMobile && (
                     <span className="perseus-sr-only">

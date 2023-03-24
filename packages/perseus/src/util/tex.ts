@@ -1,9 +1,9 @@
 /* global MathJax */
 import $ from "jquery";
 
-import {getDependencies} from '../dependencies';
+import {getDependencies} from "../dependencies";
 
-import KhanMath from './math';
+import KhanMath from "./math";
 
 function findChildOrAdd(elem: any, className: string) {
     const $child = $(elem).find("." + className);
@@ -13,7 +13,10 @@ function findChildOrAdd(elem: any, className: string) {
     return $child;
 }
 
-function doCallback(elem: HTMLElement, callback: (() => unknown) | (() => void)) {
+function doCallback(
+    elem: HTMLElement,
+    callback: (() => unknown) | (() => void),
+) {
     let tries = 0;
     (function check() {
         const height = elem.scrollHeight;
@@ -71,11 +74,11 @@ export default {
             if (text == null) {
                 if ($elem.attr("data-math-formula")) {
                     // The old typeset formula
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string | undefined' is not assignable to type 'string'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | undefined' is not assignable to type 'string'.
                     text = $elem.attr("data-math-formula");
                 } else if (script) {
                     // The contents of the <script> tag
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'text' does not exist on type 'HTMLElement'.
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'text' does not exist on type 'HTMLElement'.
                     text = script.text || script.textContent;
                 }
             }
@@ -142,7 +145,7 @@ export default {
             } else {
                 if ("text" in script) {
                     // IE8, etc
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'text' does not exist on type 'HTMLElement'.
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'text' does not exist on type 'HTMLElement'.
                     script.text = text;
                 } else {
                     script.textContent = text;
@@ -171,7 +174,7 @@ export default {
     },
 
     // Function to restore a node to a non-math-processed state
-    cleanupMath: function(elem: HTMLElement): HTMLElement {
+    cleanupMath: function (elem: HTMLElement): HTMLElement {
         const $elem = $(elem);
 
         // Only mess with it if it's been processed before
@@ -187,7 +190,7 @@ export default {
                 }
             }
 
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             $elem.text($elem.attr("data-math-formula"));
             $elem.attr("data-math-formula", null);
             $elem.attr("data-math-type", null);
@@ -197,7 +200,7 @@ export default {
     },
 
     // Function to retrieve the formula of a typeset math node
-    retrieveMathFormula: function(elem: HTMLElement): any {
+    retrieveMathFormula: function (elem: HTMLElement): any {
         return $(elem).attr("data-math-formula");
     },
 };

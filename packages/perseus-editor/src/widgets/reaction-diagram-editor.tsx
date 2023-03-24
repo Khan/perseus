@@ -15,7 +15,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
         smiles: PropTypes.arrayOf(PropTypes.string),
     };
 
-    static widgetName: 'reaction-diagram' = "reaction-diagram";
+    static widgetName: "reaction-diagram" = "reaction-diagram";
 
     static defaultProps: Props = {
         smiles: ["", ""],
@@ -29,20 +29,20 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
 
     updateMolecule: (arg1: number) => (arg1: string) => void = (idx) => {
         return function (newValue: string) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const newSmiles = [...this.props.smiles];
             newSmiles[idx] = newValue;
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.change({smiles: newSmiles});
         }.bind(this);
     };
 
     updateRotation: (arg1: number) => (arg1: any) => void = (idx) => {
         return function (newValue) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const newRot = [...this.props.rotationAngle];
             newRot[idx] = newValue;
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.change({rotationAngle: newRot});
         }.bind(this);
     };
@@ -56,7 +56,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 return {...sep};
             });
             newSep[idx][propName] = newValue;
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
             this.change({separators: newSep});
         };
     };

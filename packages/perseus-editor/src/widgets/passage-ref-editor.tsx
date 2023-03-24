@@ -14,7 +14,7 @@ class PassageRefEditor extends React.Component<Props> {
         summaryText: PropTypes.string,
     };
 
-    static widgetName: 'passage-ref' = "passage-ref";
+    static widgetName: "passage-ref" = "passage-ref";
 
     static defaultProps: Props = {
         passageNumber: 1,
@@ -38,7 +38,7 @@ class PassageRefEditor extends React.Component<Props> {
                         {"Passage Number: "}
                         <NumberInput
                             value={this.props.passageNumber}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("passageNumber")}
                         />
                     </label>
@@ -48,7 +48,7 @@ class PassageRefEditor extends React.Component<Props> {
                         {"Reference Number: "}
                         <NumberInput
                             value={this.props.referenceNumber}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("referenceNumber")}
                         />
                     </label>
@@ -58,7 +58,7 @@ class PassageRefEditor extends React.Component<Props> {
                         {"Summary Text: "}
                         <TextInput
                             value={this.props.summaryText}
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("summaryText")}
                         />
                         <InfoTip>

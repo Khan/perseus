@@ -2,23 +2,28 @@ import "@testing-library/jest-dom";
 import {render, screen} from "@testing-library/react";
 import React from "react";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {ApiOptions} from '../../perseus-api';
-import {question1, question2} from '../__testdata__/passage_testdata';
-import PassageWidgetExport, {LineHeightMeasurer} from '../passage';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
+import {question1, question2} from "../__testdata__/passage_testdata";
+import PassageWidgetExport, {LineHeightMeasurer} from "../passage";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {APIOptions} from '../../types';
+import type {APIOptions} from "../../types";
 
-function renderPassage(overwrite: {
-  footnotes: string
-} | {
-  passageText: string
-} | {
-  passageTitle: string
-}) {
+function renderPassage(
+    overwrite:
+        | {
+              footnotes: string;
+          }
+        | {
+              passageText: string;
+          }
+        | {
+              passageTitle: string;
+          },
+) {
     const widgetPropsBase = {
         footnotes: "",
         passageText: "",

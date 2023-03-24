@@ -1,8 +1,8 @@
-import type {ErrorKind} from './logging/log';
+import type {ErrorKind} from "./logging/log";
 import type {Metadata} from "@khanacademy/wonder-stuff-core";
 
 type Options = {
-    metadata?: Metadata | null | undefined
+    metadata?: Metadata | null | undefined;
 };
 
 export class PerseusError extends Error {

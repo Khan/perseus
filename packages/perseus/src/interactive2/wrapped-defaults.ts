@@ -7,8 +7,8 @@ import {vector as kvector} from "@khanacademy/kmath";
 import $ from "jquery";
 import _ from "underscore";
 
-import InteractiveUtil from './interactive-util';
-import objective_ from './objective_';
+import InteractiveUtil from "./interactive-util";
+import objective_ from "./objective_";
 
 /*
  * These functions, when called on the wrapped object, simply pass the
@@ -20,7 +20,7 @@ const WrappedDefaults: any = _.extend(
     {
         transform: function (transformation) {
             const prefixedTransform = InteractiveUtil.getPrefixedTransform();
-// @ts-expect-error [FEI-5003] - TS2538 - Type 'null' cannot be used as an index type. | TS2538 - Type 'undefined' cannot be used as an index type.
+            // @ts-expect-error [FEI-5003] - TS2538 - Type 'null' cannot be used as an index type. | TS2538 - Type 'undefined' cannot be used as an index type.
             this.wrapper.style[prefixedTransform] = transformation;
         },
 
@@ -78,7 +78,7 @@ const WrappedDefaults: any = _.extend(
     },
     objective_.mapObjectFromArray(PASS_TO_RAPHAEL, function (attribute) {
         return function () {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.visibleShape[attribute](...arguments);
         };
     }),

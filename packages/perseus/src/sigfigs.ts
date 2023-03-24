@@ -75,7 +75,12 @@ export class SignificantFigures {
  * @param scientific true iff scientific notation should always be used.
  * @return a string of this object formatted correctly.
  */
-export function displaySigFigs(f: number, sigFigs: number, sigDecs: number, scientific: boolean): string {
+export function displaySigFigs(
+    f: number,
+    sigFigs: number,
+    sigDecs: number,
+    scientific: boolean,
+): string {
     const s = "" + f;
     let order = parseOrder(s);
     let mantissa = parseMantissa(s);
@@ -429,7 +434,7 @@ function round(mantissa: string, digits: number): string {
                 roundUp = true;
             }
         }
-// @ts-expect-error [FEI-5003] - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+        // @ts-expect-error [FEI-5003] - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
         if (lastChar % 2 == 1) {
             roundUp = true;
         }

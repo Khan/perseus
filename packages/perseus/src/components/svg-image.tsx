@@ -5,18 +5,18 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
-import {getDependencies} from '../dependencies';
-import {Errors, Log} from '../logging/log';
-import {PerseusError} from '../perseus-error';
-import Util from '../util';
-import * as Zoom from '../zoom';
+import {getDependencies} from "../dependencies";
+import {Errors, Log} from "../logging/log";
+import {PerseusError} from "../perseus-error";
+import Util from "../util";
+import * as Zoom from "../zoom";
 
-import FixedToResponsive from './fixed-to-responsive';
-import Graphie from './graphie';
-import ImageLoader from './image-loader';
+import FixedToResponsive from "./fixed-to-responsive";
+import Graphie from "./graphie";
+import ImageLoader from "./image-loader";
 
-import type {Alignment, Dimensions} from '../types';
-import type {ImageProps} from './image-loader';
+import type {Alignment, Dimensions} from "../types";
+import type {ImageProps} from "./image-loader";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;
@@ -55,7 +55,7 @@ const doJSONP = function (url: string, options) {
     }
 
     // Add the global callback.
-// @ts-expect-error [FEI-5003] - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
+    // @ts-expect-error [FEI-5003] - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
     window[options.callbackName] = function () {
         cleanup();
         options.success.apply(null, arguments);
@@ -137,22 +137,22 @@ function defaultPreloader(dimensions: Dimensions) {
 }
 
 type Props = {
-    allowFullBleed?: boolean,
-    alt: string,
-    constrainHeight?: boolean,
+    allowFullBleed?: boolean;
+    alt: string;
+    constrainHeight?: boolean;
     extraGraphie?: {
-        box: ReadonlyArray<any>,
-        range: ReadonlyArray<any>,
-        labels: ReadonlyArray<any>
-    },
-    height?: number,
+        box: ReadonlyArray<any>;
+        range: ReadonlyArray<any>;
+        labels: ReadonlyArray<any>;
+    };
+    height?: number;
     // When the DOM updates to replace the preloader with the image, or
     // vice-versa, we trigger this callback.
-    onUpdate: () => void,
+    onUpdate: () => void;
     // If alt is provided, DO NOT set aria-hidden=true unless this override flag
     // is set.
-    overrideAriaHidden?: boolean,
-    preloader?: (dimensions: Dimensions) => React.ReactElement,
+    overrideAriaHidden?: boolean;
+    preloader?: (dimensions: Dimensions) => React.ReactElement;
     // By default, this component attempts to be responsive whenever
     // possible (specifically, when width and height are passed in).
     // You can expliclty force unresponsive behavior by *either*
@@ -160,63 +160,63 @@ type Props = {
     // The difference is that forcing via this prop will result in
     // explicit width and height styles being set on the rendered
     // component.
-    responsive: boolean,
-    scale: number,
-    src: string,
-    title?: string,
-    trackInteraction?: () => void,
-    width?: number,
+    responsive: boolean;
+    scale: number;
+    src: string;
+    title?: string;
+    trackInteraction?: () => void;
+    width?: number;
     // Whether clicking this image will allow it to be fully zoomed in to
     // its original size on click, and allow the user to scroll in that
     // state. This also does some hacky viewport meta tag changing to
     // ensure this works on mobile devices, so I (david@) don't recommend
     // enabling this on desktop yet.
-    zoomToFullSizeOnMobile?: boolean,
+    zoomToFullSizeOnMobile?: boolean;
     // If provided, use AssetContext.Consumer, see renderer.jsx.
     // If not, it defaults to a no-op.
-    setAssetStatus: (assetKey: string, loaded: boolean) => void
+    setAssetStatus: (assetKey: string, loaded: boolean) => void;
 };
 
 type Label = {
-    coordinates: ReadonlyArray<any>,
-    content: string,
-    alignment: Alignment,
-    typesetAsMath: boolean
+    coordinates: ReadonlyArray<any>;
+    content: string;
+    alignment: Alignment;
+    typesetAsMath: boolean;
 };
 
 type LabelsRenderedMap = {
-    [label: string]: boolean
+    [label: string]: boolean;
 };
 
 type State = {
     // For labeled SVGs, when both dataLoaded and imageLoaded are true,
     // indicates that loading has completed.
-    dataLoaded: boolean,
-    imageDimensions: [number, number] | null | undefined,
+    dataLoaded: boolean;
+    imageDimensions: [number, number] | null | undefined;
     // Used to indicate when a non-labeled SVG image is finished loading
     // and for labeled SVGs, indicates that it's safe to set up the graphie
     // containing the labels.
-    imageLoaded: boolean,
+    imageLoaded: boolean;
     // Some graphies have labels which are rendered after the main image is
     // loaded.  This object keeps track of whether those labels have been
     // rendered.
-    labelsRendered: LabelsRenderedMap,
-    labelDataIsLocalized: boolean,
-    labels: ReadonlyArray<Label>,
-    range: ReadonlyArray<any>
+    labelsRendered: LabelsRenderedMap;
+    labelDataIsLocalized: boolean;
+    labels: ReadonlyArray<Label>;
+    range: ReadonlyArray<any>;
 };
 
 class SvgImage extends React.Component<Props, State> {
     _isMounted: boolean;
 
     static defaultProps: {
-        constrainHeight: boolean,
-        onUpdate: () => void,
-        responsive: boolean,
-        scale: number,
-        setAssetStatus: (src: string, status: boolean) => void,
-        src: string,
-        zoomToFullSizeOnMobile: boolean
+        constrainHeight: boolean;
+        onUpdate: () => void;
+        responsive: boolean;
+        scale: number;
+        setAssetStatus: (src: string, status: boolean) => void;
+        src: string;
+        zoomToFullSizeOnMobile: boolean;
     } = {
         constrainHeight: false,
         onUpdate: () => {},
@@ -325,17 +325,20 @@ class SvgImage extends React.Component<Props, State> {
 
             labelDataCache[hash] = cacheData;
 
-            const retrieveData = (url: string, errorCallback: (x?: any, status?: any, error?: any) => void) => {
+            const retrieveData = (
+                url: string,
+                errorCallback: (x?: any, status?: any, error?: any) => void,
+            ) => {
                 doJSONP(url, {
                     callbackName: "svgData" + hash,
                     success: (data) => {
-// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'data' because it is a read-only property.
+                        // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'data' because it is a read-only property.
                         cacheData.data = data;
-// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
+                        // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
                         cacheData.loaded = true;
 
                         _.each(cacheData.dataCallbacks, (callback) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '{ labels: readonly any[]; range: readonly any[]; }'.
+                            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '{ labels: readonly any[]; range: readonly any[]; }'.
                             callback(cacheData.data, cacheData.localized);
                         });
                     },
@@ -347,7 +350,7 @@ class SvgImage extends React.Component<Props, State> {
                 retrieveData(
                     getLocalizedDataUrl(this.props.src),
                     (x, status, error) => {
-// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'localized' because it is a read-only property.
+                        // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'localized' because it is a read-only property.
                         cacheData.localized = false;
 
                         // If there is isn't any localized data, fall back to
@@ -395,22 +398,27 @@ class SvgImage extends React.Component<Props, State> {
 
     onDataLoaded: (
         data: {
-            labels: ReadonlyArray<any>,
-            range: ReadonlyArray<any>
+            labels: ReadonlyArray<any>;
+            range: ReadonlyArray<any>;
         },
         localized: boolean,
     ) => void = (
         data: {
-            labels: ReadonlyArray<any>,
-            range: ReadonlyArray<any>
+            labels: ReadonlyArray<any>;
+            range: ReadonlyArray<any>;
         },
         localized: boolean,
     ) => {
         if (this._isMounted && data.labels && data.range) {
-            const labelsRendered: LabelsRenderedMap = data.labels.reduce<Record<string, any>>((dict: LabelsRenderedMap, label) => ({
-                ...dict,
-                [label.content]: false,
-            }), {});
+            const labelsRendered: LabelsRenderedMap = data.labels.reduce<
+                Record<string, any>
+            >(
+                (dict: LabelsRenderedMap, label) => ({
+                    ...dict,
+                    [label.content]: false,
+                }),
+                {},
+            );
 
             this.setState({
                 dataLoaded: true,
@@ -504,9 +512,9 @@ class SvgImage extends React.Component<Props, State> {
                 const svgHeight = (this.props.height || 0) * this.props.scale;
                 const svgWidth = (this.props.width || 0) * this.props.scale;
                 label.css({
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                     top: (labelTop / svgHeight) * 100 + "%",
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                     left: (labelLeft / svgWidth) * 100 + "%",
                 });
 
@@ -538,7 +546,9 @@ class SvgImage extends React.Component<Props, State> {
         return parseFloat(value) || null;
     }
 
-    _handleZoomClick: (e: React.SyntheticEvent) => void = (e: React.SyntheticEvent) => {
+    _handleZoomClick: (e: React.SyntheticEvent) => void = (
+        e: React.SyntheticEvent,
+    ) => {
         const $image = $(e.target);
 
         // It's possible that the image is already displayed at its
@@ -551,7 +561,7 @@ class SvgImage extends React.Component<Props, State> {
         // nothing in that case as well. Figuring this out correctly
         // likely required accounting for the image alignment and margins.
         if (
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
             $image.width() < this.props.width ||
             this.props.zoomToFullSizeOnMobile
         ) {
@@ -573,7 +583,9 @@ class SvgImage extends React.Component<Props, State> {
         }
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> | React.ReactNode {
+    render():
+        | React.ReactElement<React.ComponentProps<"div">>
+        | React.ReactNode {
         const imageSrc = this.props.src;
 
         // Props to send to all images
@@ -661,7 +673,7 @@ class SvgImage extends React.Component<Props, State> {
                         <ImageLoader
                             src={imageSrc}
                             imgProps={imageProps}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                             preloader={preloader}
                             onUpdate={this.handleUpdate}
                         />
@@ -673,7 +685,7 @@ class SvgImage extends React.Component<Props, State> {
             return (
                 <ImageLoader
                     src={imageSrc}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                     preloader={preloader}
                     imgProps={imageProps}
                     onUpdate={this.handleUpdate}
@@ -736,7 +748,7 @@ class SvgImage extends React.Component<Props, State> {
                         src={imageUrl}
                         onLoad={this.onImageLoad}
                         onUpdate={this.handleUpdate}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                         preloader={preloader}
                         imgProps={imageProps}
                     />
@@ -752,7 +764,7 @@ class SvgImage extends React.Component<Props, State> {
                     src={imageUrl}
                     onLoad={this.onImageLoad}
                     onUpdate={this.handleUpdate}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                     preloader={preloader}
                     imgProps={imageProps}
                 />

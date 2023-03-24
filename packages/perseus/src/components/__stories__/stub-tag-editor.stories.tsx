@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import StubTagEditor from '../stub-tag-editor';
+import StubTagEditor from "../stub-tag-editor";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -18,11 +18,15 @@ export const ShowingTitle: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <StubTagEditor onChange={() => {}} showTitle={true} />;
 };
 
-export const NotShowingTitle: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const NotShowingTitle: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <StubTagEditor onChange={() => {}} showTitle={false} />;
 };
 
-export const ShowingTitleWithValue: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ShowingTitleWithValue: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <StubTagEditor
             onChange={() => {}}
@@ -32,7 +36,9 @@ export const ShowingTitleWithValue: React.FC<StoryArgs> = (args): React.ReactEle
     );
 };
 
-export const NotShowingTitleWithValue: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const NotShowingTitleWithValue: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <StubTagEditor
             onChange={() => {}}

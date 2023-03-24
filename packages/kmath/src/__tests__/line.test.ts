@@ -1,4 +1,4 @@
-import * as line from '../line';
+import * as line from "../line";
 
 describe("kline", function () {
     it("finds distance to point", () => {

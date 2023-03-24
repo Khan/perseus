@@ -5,7 +5,7 @@
  */
 import * as React from "react";
 
-import type {DOMHighlight, DOMRange} from './types';
+import type {DOMHighlight, DOMRange} from "./types";
 
 export type TrackedSelection = {
     // The focus of the current selection - that is, the boundary point of the
@@ -15,38 +15,41 @@ export type TrackedSelection = {
     // this focus and range information and more, because the browser reuses
     // the global `Selection` object and mutates it, which breaks our
     // `shouldComponentUpdate` checks.
-    focusNode: Node,
-    focusOffset: number,
+    focusNode: Node;
+    focusOffset: number;
     // If the current selection maps to a valid new highlight, we cache the
     // highlight object here.
-    proposedHighlight: DOMHighlight
+    proposedHighlight: DOMHighlight;
 };
 
 type SelectionTrackerProps = {
     // A function that builds a DOMHighlight from the given DOMRange, if
     // possible. If it would not currently be valid to add a highlight over the
     // given DOMRange, returns null.
-    buildHighlight: (domRange: DOMRange) => DOMHighlight | null | undefined,
+    buildHighlight: (domRange: DOMRange) => DOMHighlight | null | undefined;
     // The function-as-children pattern: passes the tracked selection, and
     // whether the user is currently using their mouse to select, down the
     // tree.
     children?: (
         trackedSelection: TrackedSelection | null | undefined,
         userIsMouseSelecting: boolean,
-    ) => React.ReactElement<any>,
+    ) => React.ReactElement<any>;
     // If false, will not track selections.
-    enabled: boolean
+    enabled: boolean;
 };
 
 type SelectionTrackerState = {
     // The current state of the mouse button. We distinguish between down,
     // down and the selection has changed since going down, and up.
-    mouseState: 'down' | 'down-and-selecting' | 'up',
+    mouseState: "down" | "down-and-selecting" | "up";
     // The current TrackedSelection, if any.
-    trackedSelection: TrackedSelection | null | undefined
+    trackedSelection: TrackedSelection | null | undefined;
 };
 
-class SelectionTracker extends React.PureComponent<SelectionTrackerProps, SelectionTrackerState> {
+class SelectionTracker extends React.PureComponent<
+    SelectionTrackerProps,
+    SelectionTrackerState
+> {
     state: SelectionTrackerState = {
         mouseState: "up",
         trackedSelection: null,
@@ -102,11 +105,14 @@ class SelectionTracker extends React.PureComponent<SelectionTrackerProps, Select
      * Otherwise, if there is no current selection or it's collapsed, return
      * null.
      */
-    _computeFocusAndRange(): {
-        focusNode: Node,
-        focusOffset: number,
-        range: DOMRange
-    } | null | undefined {
+    _computeFocusAndRange():
+        | {
+              focusNode: Node;
+              focusOffset: number;
+              range: DOMRange;
+          }
+        | null
+        | undefined {
         const selection = document.getSelection();
         if (!selection || selection.rangeCount === 0) {
             return null;
@@ -120,7 +126,7 @@ class SelectionTracker extends React.PureComponent<SelectionTrackerProps, Select
         // NOTE(mdr): The focus node is guaranteed to exist, because
         //     there's a range, but the Flow type annotations for
         //     Selection don't know that. Cast it ourselves.
-        const focusNode: Node = (selection.focusNode as any);
+        const focusNode: Node = selection.focusNode as any;
         const focusOffset = selection.focusOffset;
         return {focusNode, focusOffset, range};
     }
@@ -142,7 +148,11 @@ class SelectionTracker extends React.PureComponent<SelectionTrackerProps, Select
             return;
         }
 
-        const trackedSelection = {focusNode, focusOffset, proposedHighlight} as const;
+        const trackedSelection = {
+            focusNode,
+            focusOffset,
+            proposedHighlight,
+        } as const;
         this.setState({trackedSelection});
     }
 
@@ -164,7 +174,7 @@ class SelectionTracker extends React.PureComponent<SelectionTrackerProps, Select
         this.setState({mouseState: "up"});
     };
 
-    render(): null | React.ReactElement<React.ComponentProps<'div'>> {
+    render(): null | React.ReactElement<React.ComponentProps<"div">> {
         const {mouseState, trackedSelection} = this.state;
         const userIsMouseSelecting = mouseState === "down-and-selecting";
 

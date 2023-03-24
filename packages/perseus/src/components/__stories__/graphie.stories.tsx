@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import {ItemRendererWithDebugUI} from '../../../../../testing/item-renderer-with-debug-ui';
+import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
 // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../../__testdata__/graphie_testdata' or its corresponding type declarations.
-import {itemWithPieChart} from '../../__testdata__/graphie_testdata';
-import Graphie from '../graphie';
+import {itemWithPieChart} from "../../__testdata__/graphie_testdata";
+import Graphie from "../graphie";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 const size = 200;
@@ -17,7 +17,9 @@ export default {
     title: "Perseus/Components/Graphie",
 } as Story;
 
-export const SquareBoxSizeAndOtherwiseEmpty: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SquareBoxSizeAndOtherwiseEmpty: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <Graphie
             box={[size, size]}
@@ -27,6 +29,8 @@ export const SquareBoxSizeAndOtherwiseEmpty: React.FC<StoryArgs> = (args): React
     );
 };
 
-export const PieChartGraphieLabels: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const PieChartGraphieLabels: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <ItemRendererWithDebugUI item={itemWithPieChart} />;
 };

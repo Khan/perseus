@@ -7,15 +7,15 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
 
-import FixedToResponsive from '../components/fixed-to-responsive';
-import {getDependencies} from '../dependencies';
-import * as Changeable from '../mixins/changeable';
-import a11y from '../util/a11y';
+import FixedToResponsive from "../components/fixed-to-responsive";
+import {getDependencies} from "../dependencies";
+import * as Changeable from "../mixins/changeable";
+import a11y from "../util/a11y";
 
-import VideoTranscriptLink from './video-transcript-link';
+import VideoTranscriptLink from "./video-transcript-link";
 
-import type {PerseusVideoWidgetOptions} from '../perseus-types';
-import type {PerseusScore, WidgetExports, WidgetProps} from '../types';
+import type {PerseusVideoWidgetOptions} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 // Current default is 720p, based on the typical videos we upload currently
 const DEFAULT_WIDTH = 1280;
@@ -28,8 +28,8 @@ const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 type UserInput = null;
 type Rubric = PerseusVideoWidgetOptions;
 type RenderProps = PerseusVideoWidgetOptions; // exports has no 'transform'
-type Props = (WidgetProps<RenderProps, Rubric>) & {
-    alignment: string // Where does this get set?
+type Props = WidgetProps<RenderProps, Rubric> & {
+    alignment: string; // Where does this get set?
 };
 
 /**
@@ -59,7 +59,7 @@ class Video extends React.Component<Props> {
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 

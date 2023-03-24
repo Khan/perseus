@@ -17,20 +17,20 @@ import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {Log} from '../../../logging/log';
+import {Log} from "../../../logging/log";
 
-import {getRelativeRect} from './util';
+import {getRelativeRect} from "./util";
 
-import type {Rect} from './types';
+import type {Rect} from "./types";
 
 type HighlightTooltipProps = {
-    label: string,
-    onClick: () => unknown,
-    onMouseEnter?: () => unknown,
-    onMouseLeave?: () => unknown,
-    focusNode: Node,
-    focusOffset: number,
-    offsetParent: Element
+    label: string;
+    onClick: () => unknown;
+    onMouseEnter?: () => unknown;
+    onMouseLeave?: () => unknown;
+    focusNode: Node;
+    focusOffset: number;
+    offsetParent: Element;
 };
 
 class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {

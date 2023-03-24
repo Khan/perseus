@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import SimpleKeypadInput from '../simple-keypad-input';
+import SimpleKeypadInput from "../simple-keypad-input";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 const defaultObject = {
@@ -18,7 +18,9 @@ export default {
     title: "Perseus/Components/Simple Keypad Input",
 } as Story;
 
-export const EmptyPropsObject: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const EmptyPropsObject: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <SimpleKeypadInput {...defaultObject} />;
 };
 

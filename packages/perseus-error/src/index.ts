@@ -44,7 +44,7 @@ export const Errors = Object.freeze({
 export type ErrorKind = typeof Errors[keyof typeof Errors];
 
 type Options = {
- metadata?: Metadata | null | undefined
+    metadata?: Metadata | null | undefined;
 };
 
 export class PerseusError extends Error {

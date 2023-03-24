@@ -7,11 +7,11 @@
  * renderer tree or a score tree or, well, a multi-item), see trees.js.
  */
 
-import {Errors} from '../logging/log';
-import {PerseusError} from '../perseus-error';
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 
-import shapes from './shapes';
-import {buildMapper} from './trees';
+import shapes from "./shapes";
+import {buildMapper} from "./trees";
 
 import type {
     Item,
@@ -21,8 +21,8 @@ import type {
     TagsNode,
     ItemArrayNode,
     ItemObjectNode,
-} from './item-types';
-import type {Shape} from './shape-types';
+} from "./item-types";
+import type {Shape} from "./shape-types";
 
 /**
  * Return a semantically empty ItemTree that conforms to the given shape.
@@ -66,7 +66,7 @@ export function buildEmptyItemTreeForShape(shape: Shape): ItemTree {
         return object;
     }
     throw new PerseusError(
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
         `unexpected shape type ${shape.type}`,
         Errors.InvalidInput,
     );

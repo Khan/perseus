@@ -19,7 +19,7 @@ import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import {negativePhoneMargin} from '../styles/constants';
+import {negativePhoneMargin} from "../styles/constants";
 
 const MIN_VIEWPORT_HEIGHT = 480;
 
@@ -104,7 +104,7 @@ const FixedToResponsive: any = createReactClass({
             <div
                 style={{
                     // $FlowFixMe[unsafe-addition]
-// @ts-expect-error [FEI-5003] - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+                    // @ts-expect-error [FEI-5003] - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
                     paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + "%",
                 }}
             />

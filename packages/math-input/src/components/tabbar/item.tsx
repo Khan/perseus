@@ -4,7 +4,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import IconAsset from './icons';
+import IconAsset from "./icons";
 
 import type {TabbarItemType} from "./types";
 
@@ -52,7 +52,12 @@ const styles = StyleSheet.create({
     },
 });
 
-function imageTintColor(itemState: ItemState, hovered: boolean, focused: boolean, pressed: boolean): string {
+function imageTintColor(
+    itemState: ItemState,
+    hovered: boolean,
+    focused: boolean,
+    pressed: boolean,
+): string {
     if (itemState === "disabled") {
         return Color.offBlack64;
     } else if (pressed) {
@@ -64,11 +69,11 @@ function imageTintColor(itemState: ItemState, hovered: boolean, focused: boolean
     }
     return Color.offBlack64;
 }
-export type ItemState = 'active' | 'inactive' | 'disabled';
+export type ItemState = "active" | "inactive" | "disabled";
 type Props = {
-    onClick: () => void,
-    itemState: ItemState,
-    itemType: TabbarItemType
+    onClick: () => void;
+    itemState: ItemState;
+    itemType: TabbarItemType;
 };
 
 type State = Record<any, any>;

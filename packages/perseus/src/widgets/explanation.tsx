@@ -4,13 +4,13 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import * as Changeable from '../mixins/changeable';
-import Renderer from '../renderer';
-import * as styleConstants from '../styles/constants';
-import mediaQueries from '../styles/media-queries';
+import * as Changeable from "../mixins/changeable";
+import Renderer from "../renderer";
+import * as styleConstants from "../styles/constants";
+import mediaQueries from "../styles/media-queries";
 
-import type {PerseusExplanationWidgetOptions} from '../perseus-types';
-import type {PerseusScore, WidgetExports, WidgetProps} from '../types';
+import type {PerseusExplanationWidgetOptions} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
 
@@ -21,15 +21,15 @@ type UserInput = Empty;
 type Props = WidgetProps<RenderProps, PerseusExplanationWidgetOptions>;
 
 type DefaultProps = {
-    showPrompt: Props['showPrompt'],
-    hidePrompt: Props['hidePrompt'],
-    explanation: Props['explanation'],
-    widgets: Props['widgets'],
-    linterContext: Props['linterContext']
+    showPrompt: Props["showPrompt"];
+    hidePrompt: Props["hidePrompt"];
+    explanation: Props["explanation"];
+    widgets: Props["widgets"];
+    linterContext: Props["linterContext"];
 };
 
 type State = {
-    expanded: boolean
+    expanded: boolean;
 };
 
 class Explanation extends React.Component<Props, State> {

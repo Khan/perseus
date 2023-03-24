@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import ZoomableTex from '../zoomable-tex';
+import ZoomableTex from "../zoomable-tex";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -13,15 +13,13 @@ export default {
 } as Story;
 
 const ForceZoomWrapper: React.FC<{
-    children: React.ReactNode
-}> = (
-    {
-        children,
-    },
-): React.ReactElement => <>
-    <h1>Click on equation to zoom/unzoom</h1>
-    <div style={{width: "50px"}}>{children}</div>
-</>;
+    children: React.ReactNode;
+}> = ({children}): React.ReactElement => (
+    <>
+        <h1>Click on equation to zoom/unzoom</h1>
+        <div style={{width: "50px"}}>{children}</div>
+    </>
+);
 
 export const KaTeX: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (

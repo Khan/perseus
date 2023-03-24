@@ -1,4 +1,4 @@
-import LabelImageWidget from './label-image';
+import LabelImageWidget from "./label-image";
 
 const LabelImage = LabelImageWidget.widget;
 
@@ -335,7 +335,7 @@ describe("LabelImage", function () {
 
             expect(
                 markers[
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '({ label: string; answers: readonly []; selected: readonly []; x: 0; y: 0; } | { label: string; y: number; showCorrectness: string; answers: readonly []; selected: readonly []; x: 0; } | { label: string; x: number; showCorrectness: string; answers: readonly []; selected: readonly []; y: 0; })[]' is not assignable to parameter of type 'readonly InteractiveMarkerType[]'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '({ label: string; answers: readonly []; selected: readonly []; x: 0; y: 0; } | { label: string; y: number; showCorrectness: string; answers: readonly []; selected: readonly []; x: 0; } | { label: string; x: number; showCorrectness: string; answers: readonly []; selected: readonly []; y: 0; })[]' is not assignable to parameter of type 'readonly InteractiveMarkerType[]'.
                     LabelImage.navigateToMarkerIndex({x: 0, y: 0}, markers, 0)
                 ].label,
             ).toEqual("this");

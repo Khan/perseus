@@ -7,12 +7,15 @@
 
 import * as React from "react";
 
-import ReactComponentsInfoTip from './info-tip/info-tip';
+import ReactComponentsInfoTip from "./info-tip/info-tip";
 
-type Props = JSX.LibraryManagedAttributes<typeof ReactComponentsInfoTip, React.ComponentProps<typeof ReactComponentsInfoTip>>;
+type Props = JSX.LibraryManagedAttributes<
+    typeof ReactComponentsInfoTip,
+    React.ComponentProps<typeof ReactComponentsInfoTip>
+>;
 
 type State = {
-    didMount: boolean
+    didMount: boolean;
 };
 
 class InfoTip extends React.Component<Props, State> {

@@ -13,70 +13,73 @@ import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import AssetContext from '../asset-context';
-import SvgImage from '../components/svg-image';
-import Renderer from '../renderer';
-import {typography} from '../styles/global-styles';
-import mediaQueries from '../styles/media-queries';
+import AssetContext from "../asset-context";
+import SvgImage from "../components/svg-image";
+import Renderer from "../renderer";
+import {typography} from "../styles/global-styles";
+import mediaQueries from "../styles/media-queries";
 
-import AnswerChoices from './label-image/answer-choices';
-import Marker from './label-image/marker';
+import AnswerChoices from "./label-image/answer-choices";
+import Marker from "./label-image/marker";
 
-import type {ChangeableProps} from '../mixins/changeable';
-import type {APIOptions, PerseusScore, WidgetExports} from '../types';
+import type {ChangeableProps} from "../mixins/changeable";
+import type {APIOptions, PerseusScore, WidgetExports} from "../types";
 import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,
-} from './label-image/types';
+} from "./label-image/types";
 
 type MarkersState = {
-    markers: ReadonlyArray<InteractiveMarkerType>
+    markers: ReadonlyArray<InteractiveMarkerType>;
 };
 
 /**
  * Represents a direction vector.
  * No diagonals allowed.
  */
-type Direction = {
-    x: 0,
-    y: 1 | -1
-} | {
-    x: 1 | -1,
-    y: 0
-} | {
-    x: 0,
-    y: 0
-};
+type Direction =
+    | {
+          x: 0;
+          y: 1 | -1;
+      }
+    | {
+          x: 1 | -1;
+          y: 0;
+      }
+    | {
+          x: 0;
+          y: 0;
+      };
 
 type Point = {
-    x: number,
-    y: number
+    x: number;
+    y: number;
 };
 
-type LabelImageProps = (ChangeableProps) & {
-    apiOptions: APIOptions,
+type LabelImageProps = ChangeableProps & {
+    apiOptions: APIOptions;
     // The list of possible answer choices.
-    choices: ReadonlyArray<string>,
+    choices: ReadonlyArray<string>;
     // The question image properties.
-    imageAlt: string,
-    imageUrl: string,
-    imageWidth: number,
-    imageHeight: number,
+    imageAlt: string;
+    imageUrl: string;
+    imageWidth: number;
+    imageHeight: number;
     // The list of label markers on the question image.
-    markers: ReadonlyArray<InteractiveMarkerType>,
+    markers: ReadonlyArray<InteractiveMarkerType>;
     // Whether multiple answer choices may be selected for markers.
-    multipleAnswers: boolean,
+    multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
-    hideChoicesFromInstructions: boolean,
+    hideChoicesFromInstructions: boolean;
     // Whether the question has been answered by the user.
-    questionCompleted: boolean
+    questionCompleted: boolean;
 };
 
 type LabelImageState = {
     // The user selected marker index, defaults to -1, no selection.
-    selectedMarkerIndex: number,
+    selectedMarkerIndex: number;
     // Whether any of the markers were interacted with by the user.
-    markersInteracted: boolean
+    markersInteracted: boolean;
 };
 
 class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
@@ -97,7 +100,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         } as const;
 
         if (marker.selected && marker.selected.length > 0) {
-// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'hasAnswers' because it is a read-only property.
+            // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'hasAnswers' because it is a read-only property.
             score.hasAnswers = true;
         }
 
@@ -107,21 +110,24 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 marker.selected.length === marker.answers.length
             ) {
                 // All correct answers are selected by the user.
-// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
+                // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
                 score.isCorrect = marker.selected.every((choice) =>
                     marker.answers.includes(choice),
                 );
             }
         } else if (!marker.selected || marker.selected.length === 0) {
             // Correct as no answers should be selected by the user.
-// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
+            // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
             score.isCorrect = true;
         }
 
         return score;
     }
 
-    static validate(state: MarkersState, rubric?: LabelImageProps): PerseusScore {
+    static validate(
+        state: MarkersState,
+        rubric?: LabelImageProps,
+    ): PerseusScore {
         let numAnswered = 0;
         let numCorrect = 0;
 
@@ -174,7 +180,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     /**
      * Determine the image side given a marker position (as percent of size).
      */
-    static imageSideForMarkerPosition(x: number, y: number): 'bottom' | 'left' | 'right' | 'top' | 'center' {
+    static imageSideForMarkerPosition(
+        x: number,
+        y: number,
+    ): "bottom" | "left" | "right" | "top" | "center" {
         // Special handling for when marker is positioned near the horizontal
         // edges of the image. We want to ensure the returned side would not
         // result in a popup rendering that may overflow outside the page.
@@ -209,9 +218,9 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         for (const side of Object.keys(triangles)) {
             const corners = triangles[side];
 
-// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             if (LabelImage.pointInTriangle(p, ...corners)) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"left" | "top" | "center" | "right" | "bottom"'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"left" | "top" | "center" | "right" | "bottom"'.
                 return side;
             }
         }
@@ -377,7 +386,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
 
         // Update Perseus widget state with user selected answers without
         // triggering interaction events for listeners.
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
         onChange({markers: updatedMarkers}, null, true);
     }
 
@@ -404,13 +413,16 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         if (this._selectedMarkerPopup && this._answerChoices) {
             const answerChoices = ReactDOM.findDOMNode(this._answerChoices);
 
-            const targetElement = (e.target as Node);
+            const targetElement = e.target as Node;
             // HACK(michaelpolyak): We want to determine if the click target is
             // contained within the popup layer. As there's no public interface
             // to get this layer from the popup, we traverse several levels of
             // answer choices parents to test whether the click target is
             // contained within.
-            const containsEventTarget = (element: Element | null | undefined | Text, depth = 3) =>
+            const containsEventTarget = (
+                element: Element | null | undefined | Text,
+                depth = 3,
+            ) =>
                 element &&
                 (element.contains(targetElement) ||
                     (depth > 0 &&
@@ -515,7 +527,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         const marker =
             this._markers[
                 LabelImage.navigateToMarkerIndex(
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; }' is not assignable to parameter of type 'Direction'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; }' is not assignable to parameter of type 'Direction'.
                     navigateDirection,
                     markers,
                     index,
@@ -546,7 +558,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         }
     }
 
-    renderAnswerChoicesForMarker(index: number, marker: InteractiveMarkerType): React.ReactElement<React.ComponentProps<'div'>> {
+    renderAnswerChoicesForMarker(
+        index: number,
+        marker: InteractiveMarkerType,
+    ): React.ReactElement<React.ComponentProps<"div">> {
         const {choices, multipleAnswers} = this.props;
 
         // The user selected answer choices.
@@ -777,7 +792,7 @@ const styles = StyleSheet.create({
 
         margin: "8px 0",
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; alignItems: "center"; margin: string; ":not(:last-child)": { "::after": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginRight: number; background: string; borderRadius: number; }; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; alignItems: "center"; margin: string; ":not(:last-child)": { "::after": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginRight: number; background: string; borderRadius: number; }; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             "::after": {
                 content: "''",

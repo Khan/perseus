@@ -1,4 +1,4 @@
-import {getChoiceLetter} from './util';
+import {getChoiceLetter} from "./util";
 
 describe("getChoiceLetter (in English)", () => {
     it("returns the first 5 letters for most questions", () => {

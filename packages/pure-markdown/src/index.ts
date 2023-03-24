@@ -75,7 +75,7 @@ const mathMatcher = (source: any, state: any, isBlock: boolean) => {
             if (isBlock) {
                 // Look for two trailing newlines after the closing `$`
                 const match = /^(?: *\n){2,}/.exec(source.slice(endIndex));
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'number | null' is not assignable to type 'number'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'number | null' is not assignable to type 'number'.
                 endIndex = match ? endIndex + match[0].length : null;
             }
 
@@ -111,8 +111,10 @@ const mathMatcher = (source: any, state: any, isBlock: boolean) => {
     // we didn't find a closing `$`
     return null;
 };
-const mathMatch = (source: any, state: any): any => mathMatcher(source, state, false);
-const blockMathMatch = (source: any, state: any): any => mathMatcher(source, state, true);
+const mathMatch = (source: any, state: any): any =>
+    mathMatcher(source, state, false);
+const blockMathMatch = (source: any, state: any): any =>
+    mathMatcher(source, state, true);
 
 const TITLED_TABLE_REGEX = new RegExp(
     "^\\|\\| +(.*) +\\|\\| *\\n" +
@@ -120,7 +122,7 @@ const TITLED_TABLE_REGEX = new RegExp(
         // The simple-markdown nptable regex, without
         // the leading `^`
         // $FlowFixMe[incompatible-use]
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
         SimpleMarkdown.defaultRules.nptable.match.regex.source.substring(1) +
         ")",
 );
@@ -133,9 +135,9 @@ export const pureMarkdownRules = {
     // NOTE: basically ignored by JIPT. wraps everything at the outer layer
     columns: {
         order: -2,
-        match: (SimpleMarkdown.blockRegex(
+        match: SimpleMarkdown.blockRegex(
             /^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/,
-        ) as any),
+        ) as any,
         parse: (capture: any, parse: any, state: any): any => {
             return {
                 col1: parse(capture[1], state),
@@ -165,7 +167,7 @@ export const pureMarkdownRules = {
     titledTable: {
         // process immediately before nptables
         order: SimpleMarkdown.defaultRules.nptable.order - 0.5,
-        match: (SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX) as any),
+        match: SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX) as any,
         parse: (capture: any, parse: any, state: any): any => {
             const title = SimpleMarkdown.parseInline(parse, capture[1], state);
 
@@ -185,7 +187,7 @@ export const pureMarkdownRules = {
     },
     widget: {
         order: SimpleMarkdown.defaultRules.link.order - 0.75,
-        match: (SimpleMarkdown.inlineRegex(rWidgetRule) as any),
+        match: SimpleMarkdown.inlineRegex(rWidgetRule) as any,
         parse: (capture: any, parse: any, state: any): any => {
             return {
                 id: capture[1],
@@ -194,7 +196,7 @@ export const pureMarkdownRules = {
         },
     },
     blockMath: {
-        order: (SimpleMarkdown.defaultRules.codeBlock.order + 0.5 as any),
+        order: (SimpleMarkdown.defaultRules.codeBlock.order + 0.5) as any,
         match: blockMathMatch,
         parse: (capture: any, parse: any, state: any): any => {
             return {
@@ -213,7 +215,7 @@ export const pureMarkdownRules = {
     },
     unescapedDollar: {
         order: SimpleMarkdown.defaultRules.link.order - 0.24,
-        match: (SimpleMarkdown.inlineRegex(/^(?!\\)\$/) as any),
+        match: SimpleMarkdown.inlineRegex(/^(?!\\)\$/) as any,
         parse: (capture: any, parse: any, state: any): any => {
             return {};
         },
@@ -273,9 +275,9 @@ export const pureMarkdownRules = {
         // libraries, for instance CommonMark also splits up blockquotes with
         // empty lines into multiple blockquotes:
         // https://spec.commonmark.org/0.28/#example-205
-        match: (SimpleMarkdown.blockRegex(
+        match: SimpleMarkdown.blockRegex(
             /^ *>[^\n]+(\n( *>)?[^\n]+)*\n{2,}/,
-        ) as any),
+        ) as any,
     },
     list: {
         ...SimpleMarkdown.defaultRules.list,

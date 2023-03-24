@@ -1,13 +1,13 @@
 import _ from "underscore";
 
-import * as KAS from '../index';
+import * as KAS from "../index";
 
 expect.extend({
     toCompileAs(
         input: string,
         expected: number,
         vars: {
-            [key: string]: string | number | ((arg1: number) => number)
+            [key: string]: string | number | ((arg1: number) => number);
         } = {},
     ) {
         const functions = Object.keys(vars).filter(

@@ -4,32 +4,28 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import MockWidgetExport from '../../__tests__/mock-widget';
-import * as Dependencies from '../../dependencies';
-import {registerAllWidgetsForTesting} from '../../util/register-all-widgets-for-testing';
-import {registerWidget} from '../../widgets';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import MockWidgetExport from "../../__tests__/mock-widget";
+import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {registerWidget} from "../../widgets";
 import {
     mockedQuestion1,
     question1,
     simpleQuestionShape,
-} from '../__testdata__/multi-renderer_testdata';
-import MultiRenderer from '../multi-renderer';
-import shapes from '../shapes';
+} from "../__testdata__/multi-renderer_testdata";
+import MultiRenderer from "../multi-renderer";
+import shapes from "../shapes";
 
-import type {Widget} from '../../renderer';
-import type {FilterCriterion} from '../../types';
-import type {Item} from '../item-types';
-import type {Tree} from '../tree-types';
+import type {Widget} from "../../renderer";
+import type {FilterCriterion} from "../../types";
+import type {Item} from "../item-types";
+import type {Tree} from "../tree-types";
 
 // A little helper used in the render callback of a MultiRenderer.
 const SimpleLayout: React.FC<{
-  renderers: any
-}> = (
-  {
-    renderers,
-  },
-): React.ReactElement => {
+    renderers: any;
+}> = ({renderers}): React.ReactElement => {
     if (renderers == null) {
         throw new Error("renderers was null");
     }
@@ -71,7 +67,14 @@ const renderSimpleQuestion = (question: Item) => {
 };
 
 // A test helper to find widgets in a MultiRenderer.
-const _findWidgets = (renderer: MultiRenderer, filterCriterion: FilterCriterion): Tree<ReadonlyArray<Widget | null | undefined>, ReadonlyArray<Widget | null | undefined>, null> => {
+const _findWidgets = (
+    renderer: MultiRenderer,
+    filterCriterion: FilterCriterion,
+): Tree<
+    ReadonlyArray<Widget | null | undefined>,
+    ReadonlyArray<Widget | null | undefined>,
+    null
+> => {
     return renderer._mapRenderers((data) => {
         if (data.ref == null) {
             return [];

@@ -4,16 +4,16 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Graphie from '../components/graphie';
-import NumberInput from '../components/number-input';
-import SimpleKeypadInput from '../components/simple-keypad-input';
-import InteractiveUtil from '../interactive2/interactive-util';
-import * as Changeable from '../mixins/changeable';
-import {ApiOptions} from '../perseus-api';
-import KhanColors from '../util/colors';
-import KhanMath from '../util/math';
+import Graphie from "../components/graphie";
+import NumberInput from "../components/number-input";
+import SimpleKeypadInput from "../components/simple-keypad-input";
+import InteractiveUtil from "../interactive2/interactive-util";
+import * as Changeable from "../mixins/changeable";
+import {ApiOptions} from "../perseus-api";
+import KhanColors from "../util/colors";
+import KhanMath from "../util/math";
 
-import type {ChangeableProps} from '../mixins/changeable';
+import type {ChangeableProps} from "../mixins/changeable";
 import type {APIOptions, WidgetExports} from "../types";
 
 // @ts-expect-error [FEI-5003] - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -67,7 +67,13 @@ function formatNonReduced(n: number, d: number, base: number): string {
     return formatImproper(n * factor, base);
 }
 
-const _label = (graphie: any, labelStyle: any, pos: any, value: any, base: number): any => {
+const _label = (
+    graphie: any,
+    labelStyle: any,
+    pos: any,
+    value: any,
+    base: number,
+): any => {
     value = value || pos;
 
     // TODO(jack): Find out if any exercises have "decimal ticks" set,
@@ -187,45 +193,45 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     return results;
 });
 
-type Props = (ChangeableProps) & {
-    range: ReadonlyArray<number>,
-    labelRange: ReadonlyArray<number | null>,
-    labelStyle: string,
-    labelTicks: boolean,
-    divisionRange: ReadonlyArray<number>,
-    numDivisions: number,
-    snapDivisions: number,
-    isTickCtrl: boolean,
-    isInequality: boolean,
-    numLinePosition: number,
-    rel: 'lt' | 'gt' | 'le' | 'ge',
-    onFocus: (arg1: any) => void,
-    onBlur: (arg1: any) => void,
-    onChange: (arg1: any, arg2?: () => void | null | undefined) => void,
-    apiOptions: APIOptions,
-    keypadElement: HTMLElement | null | undefined,
-    static?: boolean,
-    showTooltips?: boolean,
-    trackInteraction: () => void
+type Props = ChangeableProps & {
+    range: ReadonlyArray<number>;
+    labelRange: ReadonlyArray<number | null>;
+    labelStyle: string;
+    labelTicks: boolean;
+    divisionRange: ReadonlyArray<number>;
+    numDivisions: number;
+    snapDivisions: number;
+    isTickCtrl: boolean;
+    isInequality: boolean;
+    numLinePosition: number;
+    rel: "lt" | "gt" | "le" | "ge";
+    onFocus: (arg1: any) => void;
+    onBlur: (arg1: any) => void;
+    onChange: (arg1: any, arg2?: () => void | null | undefined) => void;
+    apiOptions: APIOptions;
+    keypadElement: HTMLElement | null | undefined;
+    static?: boolean;
+    showTooltips?: boolean;
+    trackInteraction: () => void;
 };
 
 type DefaultProps = {
-    range: Props['range'],
-    labelStyle: Props['labelStyle'],
-    labelRange: Props['labelRange'],
-    divisionRange: Props['divisionRange'],
-    labelTicks: Props['labelTicks'],
-    isTickCtrl: Props['isTickCtrl'],
-    isInequality: Props['isInequality'],
-    numLinePosition: Props['numLinePosition'],
-    snapDivisions: Props['snapDivisions'],
-    showTooltips: Props['showTooltips'],
-    rel: Props['rel'],
-    apiOptions: Props['apiOptions']
+    range: Props["range"];
+    labelStyle: Props["labelStyle"];
+    labelRange: Props["labelRange"];
+    divisionRange: Props["divisionRange"];
+    labelTicks: Props["labelTicks"];
+    isTickCtrl: Props["isTickCtrl"];
+    isInequality: Props["isInequality"];
+    numLinePosition: Props["numLinePosition"];
+    snapDivisions: Props["snapDivisions"];
+    showTooltips: Props["showTooltips"];
+    rel: Props["rel"];
+    apiOptions: Props["apiOptions"];
 };
 
 type State = {
-    numDivisionsEmpty: boolean
+    numDivisionsEmpty: boolean;
 };
 class NumberLine extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
@@ -248,7 +254,7 @@ class NumberLine extends React.Component<Props, State> {
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -269,7 +275,10 @@ class NumberLine extends React.Component<Props, State> {
         );
     };
 
-    onNumDivisionsChange: (arg1: number, arg2: any) => void = (numDivisions, cb) => {
+    onNumDivisionsChange: (arg1: number, arg2: any) => void = (
+        numDivisions,
+        cb,
+    ) => {
         const divRange = this.props.divisionRange.slice();
         const width = this.props.range[1] - this.props.range[0];
 
@@ -326,7 +335,7 @@ class NumberLine extends React.Component<Props, State> {
     focus: () => boolean | null | undefined = () => {
         if (this.props.isTickCtrl) {
             // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["tick-ctrl"].focus();
             return true;
         }
@@ -335,7 +344,7 @@ class NumberLine extends React.Component<Props, State> {
     focusInputPath: (arg1: any) => void = (path) => {
         if (path.length === 1) {
             // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs[path[0]].focus();
         }
     };
@@ -343,7 +352,7 @@ class NumberLine extends React.Component<Props, State> {
     blurInputPath: (arg1: any) => void = (path) => {
         if (path.length === 1) {
             // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
             this.refs[path[0]].blur();
         }
     };
@@ -355,14 +364,18 @@ class NumberLine extends React.Component<Props, State> {
         return [];
     };
 
-    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (inputPath) => {
+    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (
+        inputPath,
+    ) => {
         if (inputPath.length === 1) {
             // eslint-disable-next-line react/no-string-refs
             return ReactDOM.findDOMNode(this.refs[inputPath[0]]);
         }
     };
 
-    getGrammarTypeForPath: (arg1: any) => string | null | undefined = (inputPath) => {
+    getGrammarTypeForPath: (arg1: any) => string | null | undefined = (
+        inputPath,
+    ) => {
         if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
             return "number";
         }
@@ -403,7 +416,7 @@ class NumberLine extends React.Component<Props, State> {
                 options={options}
                 onMouseDown={(coord) => {
                     // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'movables' does not exist on type 'ReactInstance'.
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'movables' does not exist on type 'ReactInstance'.
                     this.refs.graphie.movables.numberLinePoint.grab(coord);
                 }}
                 setup={this._setupGraphie}
@@ -521,7 +534,7 @@ class NumberLine extends React.Component<Props, State> {
         this.props.onChange({rel: newRel});
     };
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(props: any) => any[]' is not assignable to type '(arg1: any) => [number, number]'.
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(props: any) => any[]' is not assignable to type '(arg1: any) => [number, number]'.
     _getInequalityEndpoint: (arg1: any) => [number, number] = (props) => {
         const isGreater = _(["ge", "gt"]).contains(props.rel);
         const widthInPixels = 400;
@@ -534,7 +547,7 @@ class NumberLine extends React.Component<Props, State> {
         return end;
     };
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(props: any) => Element | null' is not assignable to type '(arg1: any) => ReactElement<any, string | JSXElementConstructor<any>>'.
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(props: any) => Element | null' is not assignable to type '(arg1: any) => ReactElement<any, string | JSXElementConstructor<any>>'.
     _renderInequality: (arg1: any) => React.ReactElement = (props) => {
         if (props.isInequality) {
             const end = this._getInequalityEndpoint(props);
@@ -614,7 +627,7 @@ class NumberLine extends React.Component<Props, State> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof NumberLine'.
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof NumberLine'.
         return NumberLine.validate(this.getUserInput(), rubric);
     };
 

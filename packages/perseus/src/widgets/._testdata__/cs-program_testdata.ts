@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from '../../perseus-types';
+import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
     content: "[[\u2603 cs-program 1]]\n\n",

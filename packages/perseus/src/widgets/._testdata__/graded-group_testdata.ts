@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from '../../perseus-types';
+import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
     content: "---\n\n##Check your understanding!\n\n[[☃ graded-group 1]]\n\n",

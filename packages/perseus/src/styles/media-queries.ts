@@ -12,7 +12,7 @@
  *   });
  */
 
-import * as constants from './constants';
+import * as constants from "./constants";
 
 const {
     pureXsMax,
@@ -28,11 +28,11 @@ const {
 export default {
     xs: `@media screen and (max-width: ${pureXsMax})`,
     sm: (`@media screen and (min-width: ${pureSmMin}) and ` +
-        `(max-width: ${pureSmMax})` as string),
+        `(max-width: ${pureSmMax})`) as string,
     md: (`@media screen and (min-width: ${pureMdMin}) and ` +
-        `(max-width: ${pureMdMax})` as string),
+        `(max-width: ${pureMdMax})`) as string,
     lg: (`@media screen and (min-width: ${pureLgMin}) and ` +
-        `(max-width: ${pureLgMax})` as string),
+        `(max-width: ${pureLgMax})`) as string,
     xl: `@media screen and (min-width: ${pureXlMin})`,
 
     xsOrSmaller: `@media screen and (max-width: ${pureXsMax})`,

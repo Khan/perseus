@@ -5,78 +5,73 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
-import HintsRenderer from './hints-renderer';
-import Objective from './interactive2/objective_';
-import ProvideKeypad from './mixins/provide-keypad';
-import {ApiOptions} from './perseus-api';
-import Renderer from './renderer';
-import Util from './util';
-import reactRender from './util/react-render';
+import HintsRenderer from "./hints-renderer";
+import Objective from "./interactive2/objective_";
+import ProvideKeypad from "./mixins/provide-keypad";
+import {ApiOptions} from "./perseus-api";
+import Renderer from "./renderer";
+import Util from "./util";
+import reactRender from "./util/react-render";
 
-import type {KeypadProps} from './mixins/provide-keypad';
-import type {PerseusItem} from './perseus-types';
-import type {
-    APIOptions,
-    FocusPath,
-    KEScore,
-    LinterContextProps,
-} from './types';
+import type {KeypadProps} from "./mixins/provide-keypad";
+import type {PerseusItem} from "./perseus-types";
+import type {APIOptions, FocusPath, KEScore, LinterContextProps} from "./types";
 
 const {mapObject} = Objective;
 
 type Props = // These props are used by the ProvideKeypad mixin.
-(KeypadProps) & {
-    // defaults are set in `this.update()` so as to adhere to
-    // `ApiOptions.PropTypes`, though the API options that are passed in
-    // can be in any degree of completeness
-    apiOptions: APIOptions,
-    // Whether this component should control hiding/showing peripheral
-    // item-related components (for list, see item.answerArea below).
-    // TODO(alex): Generalize this to an 'expectsToBeInTemplate' prop
-    controlPeripherals?: boolean,
-    workAreaSelector: string,
-    hintsAreaSelector: string,
-    initialHintsVisible?: number,
-    item: PerseusItem | any /* any for _multi items */,
-    onShowCalculator?: () => unknown,
-    onShowChi2Table?: () => unknown,
-    onShowPeriodicTable?: () => unknown,
-    onShowTTable?: () => unknown,
-    onShowZTable?: () => unknown,
-    problemNum: number,
-    reviewMode: boolean,
-    // TODO(kevinb): make this more precise
-    savedState: any,
-    linterContext: LinterContextProps,
-    legacyPerseusLint?: ReadonlyArray<string>
-};
+    KeypadProps & {
+        // defaults are set in `this.update()` so as to adhere to
+        // `ApiOptions.PropTypes`, though the API options that are passed in
+        // can be in any degree of completeness
+        apiOptions: APIOptions;
+        // Whether this component should control hiding/showing peripheral
+        // item-related components (for list, see item.answerArea below).
+        // TODO(alex): Generalize this to an 'expectsToBeInTemplate' prop
+        controlPeripherals?: boolean;
+        workAreaSelector: string;
+        hintsAreaSelector: string;
+        initialHintsVisible?: number;
+        item: PerseusItem | any /* any for _multi items */;
+        onShowCalculator?: () => unknown;
+        onShowChi2Table?: () => unknown;
+        onShowPeriodicTable?: () => unknown;
+        onShowTTable?: () => unknown;
+        onShowZTable?: () => unknown;
+        problemNum: number;
+        reviewMode: boolean;
+        // TODO(kevinb): make this more precise
+        savedState: any;
+        linterContext: LinterContextProps;
+        legacyPerseusLint?: ReadonlyArray<string>;
+    };
 
 type DefaultProps = {
-    apiOptions: Props['apiOptions'],
-    controlPeripherals: Props['controlPeripherals'],
-    hintsAreaSelector: Props['hintsAreaSelector'],
-    initialHintsVisible: Props['initialHintsVisible'],
-    linterContext: Props['linterContext'],
-    reviewMode: Props['reviewMode'],
-    workAreaSelector: Props['workAreaSelector']
+    apiOptions: Props["apiOptions"];
+    controlPeripherals: Props["controlPeripherals"];
+    hintsAreaSelector: Props["hintsAreaSelector"];
+    initialHintsVisible: Props["initialHintsVisible"];
+    linterContext: Props["linterContext"];
+    reviewMode: Props["reviewMode"];
+    workAreaSelector: Props["workAreaSelector"];
 };
 
 type State = {
-    keypadElement: HTMLElement | null | undefined // from ProvideKeypad.getInitialState,
-    hintsVisible: number,
-    questionCompleted: boolean,
-    questionHighlightedWidgets: ReadonlyArray<string> // of WidgetIDs
+    keypadElement: HTMLElement | null | undefined; // from ProvideKeypad.getInitialState,
+    hintsVisible: number;
+    questionCompleted: boolean;
+    questionHighlightedWidgets: ReadonlyArray<string>; // of WidgetIDs
 };
 
 type SerializedState = {
-    hints: any,
+    hints: any;
     question: {
-        [id: string]: any
-    }
+        [id: string]: any;
+    };
 };
 
 class ItemRenderer extends React.Component<Props, State> {
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
     hintsRenderer: React.ElementRef<typeof HintsRenderer> | null | undefined;
     _currentFocus: FocusPath;
@@ -214,7 +209,7 @@ class ItemRenderer extends React.Component<Props, State> {
                 {...this.props.item.question}
                 legacyPerseusLint={this.props.legacyPerseusLint}
             />,
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
             workArea,
         );
 
@@ -223,14 +218,14 @@ class ItemRenderer extends React.Component<Props, State> {
                 ref={(node) => (this.hintsRenderer = node)}
                 hints={this.props.item.hints}
                 hintsVisible={this.state.hintsVisible}
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 apiOptions={apiOptions}
                 linterContext={PerseusLinter.pushContextStack(
                     this.props.linterContext,
                     "hints",
                 )}
             />,
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
             hintsArea,
         );
 
@@ -464,12 +459,12 @@ class ItemRenderer extends React.Component<Props, State> {
      * from `getWidgetIds`.
      */
     scoreWidgets(): {
-        [id: string]: KEScore
+        [id: string]: KEScore;
     } {
         const qScore = this.questionRenderer.scoreWidgets();
         const qGuess = this.questionRenderer.getUserInputForWidgets();
         const state = this.questionRenderer.getSerializedState();
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [id: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [id: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
         return mapObject(qScore, (score, id) => {
             return Util.keScoreFromPerseusScore(score, qGuess[id], state[id]);
         });
@@ -512,7 +507,7 @@ class ItemRenderer extends React.Component<Props, State> {
         this.questionRenderer.deselectIncorrectSelectedChoices();
     }
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         return <div />;
     }
 }

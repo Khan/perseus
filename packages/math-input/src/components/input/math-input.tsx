@@ -5,46 +5,46 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import Keys from '../../data/keys';
-import {View} from '../../fake-react-native-web/index';
+import Keys from "../../data/keys";
+import {View} from "../../fake-react-native-web/index";
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
     wonderBlocksBlue,
     offBlack,
-} from '../common-style';
+} from "../common-style";
 
-import CursorHandle from './cursor-handle';
-import DragListener from './drag-listener';
-import MathWrapper from './math-wrapper';
-import {scrollIntoView} from './scroll-into-view';
+import CursorHandle from "./cursor-handle";
+import DragListener from "./drag-listener";
+import MathWrapper from "./math-wrapper";
+import {scrollIntoView} from "./scroll-into-view";
 
 const constrainingFrictionFactor = 0.8;
 
 type Props = {
-    keypadElement: any,
-    onBlur: () => void,
-    onChange: any,
-    onFocus: () => void,
-    style: any,
-    value: string
+    keypadElement: any;
+    onBlur: () => void;
+    onChange: any;
+    onFocus: () => void;
+    style: any;
+    value: string;
 };
 
 type DefaultProps = {
-    style: Props['style'],
-    value: Props['value']
+    style: Props["style"];
+    value: Props["value"];
 };
 
 type HandleState = {
-    animateIntoPosition?: boolean | null | undefined,
-    visible: boolean,
-    x?: number,
-    y?: number
+    animateIntoPosition?: boolean | null | undefined;
+    visible: boolean;
+    x?: number;
+    y?: number;
 };
 
 type State = {
-    focused: boolean,
-    handle: HandleState
+    focused: boolean;
+    handle: HandleState;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -52,18 +52,18 @@ class MathInput extends React.Component<Props, State> {
     didTouchOutside: boolean | null | undefined;
     didScroll: boolean | null | undefined;
     mathField: any;
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'recordTouchStartOutside' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'recordTouchStartOutside' has no initializer and is not definitely assigned in the constructor.
     recordTouchStartOutside: (arg1: any) => void;
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'blurOnTouchEndOutside' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'blurOnTouchEndOutside' has no initializer and is not definitely assigned in the constructor.
     blurOnTouchEndOutside: (arg1: any) => void;
     dragListener: any;
     inputRef: HTMLDivElement | null | undefined;
     _isMounted: boolean | null | undefined;
     _mathContainer: any;
-// @ts-expect-error [FEI-5003] - TS2564 - Property '_container' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_container' has no initializer and is not definitely assigned in the constructor.
     _container: HTMLDivElement;
     _root: any;
-// @ts-expect-error [FEI-5003] - TS2564 - Property '_containerBounds' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_containerBounds' has no initializer and is not definitely assigned in the constructor.
     _containerBounds: ClientRect;
     _keypadBounds: ClientRect | null | undefined;
 
@@ -120,7 +120,7 @@ class MathInput extends React.Component<Props, State> {
 
         this._updateInputPadding();
 
-        this._container = (ReactDOM.findDOMNode(this) as HTMLDivElement);
+        this._container = ReactDOM.findDOMNode(this) as HTMLDivElement;
         this._root = this._container.querySelector(".mq-root-block");
         this._root.addEventListener("scroll", this._handleScroll);
 
@@ -237,11 +237,11 @@ class MathInput extends React.Component<Props, State> {
         window.removeEventListener("touchstart", this.recordTouchStartOutside);
         window.removeEventListener("touchend", this.blurOnTouchEndOutside);
         window.removeEventListener("touchcancel", this.blurOnTouchEndOutside);
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         window.removeEventListener("resize", this._clearKeypadBoundsCache());
         window.removeEventListener(
             "orientationchange",
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             this._clearKeypadBoundsCache(),
         );
     }
@@ -255,7 +255,7 @@ class MathInput extends React.Component<Props, State> {
     };
 
     _updateInputPadding: () => void = () => {
-        this._container = (ReactDOM.findDOMNode(this) as HTMLDivElement);
+        this._container = ReactDOM.findDOMNode(this) as HTMLDivElement;
         this._root = this._container.querySelector(".mq-root-block");
 
         const padding = this.getInputInnerPadding();
@@ -275,7 +275,9 @@ class MathInput extends React.Component<Props, State> {
         return this._keypadBounds;
     };
 
-    _updateCursorHandle: (arg1?: boolean | null | undefined) => void = (animateIntoPosition) => {
+    _updateCursorHandle: (arg1?: boolean | null | undefined) => void = (
+        animateIntoPosition,
+    ) => {
         const containerBounds = this._container.getBoundingClientRect();
         const cursor: any = this._container.querySelector(".mq-cursor");
         const cursorBounds = cursor.getBoundingClientRect();
@@ -415,13 +417,13 @@ class MathInput extends React.Component<Props, State> {
      *                      sign determines direction.
      * @returns {boolean} - true if a node was hit, false otherwise.
      */
-    _findHitNode: (arg1: ClientRect, arg2: number, arg3: number, arg4: number, arg5: number) => boolean = (
-        containerBounds,
-        x,
-        y,
-        dx,
-        dy,
-    ) => {
+    _findHitNode: (
+        arg1: ClientRect,
+        arg2: number,
+        arg3: number,
+        arg4: number,
+        arg5: number,
+    ) => boolean = (containerBounds, x, y, dx, dy) => {
         while (y >= containerBounds.top && y <= containerBounds.bottom) {
             y += dy;
 
@@ -432,7 +434,7 @@ class MathInput extends React.Component<Props, State> {
             ];
 
             const elements = points
-// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+                // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                 .map((point) => document.elementFromPoint(...point))
                 // We exclude the root container itself and any nodes marked
                 // as non-leaf which are fractions, parens, and roots.  The
@@ -465,21 +467,21 @@ class MathInput extends React.Component<Props, State> {
 
             let max: number = 0;
             const counts: {
-                [key: string]: number
+                [key: string]: number;
             } = {};
             const elementsById: Record<string, any> = {};
 
             for (const element of elements) {
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                 const id = element.getAttribute("mathquill-command-id");
                 if (id != null) {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
                     leafElements.push(element);
 
                     counts[id] = (counts[id] || 0) + 1;
                     elementsById[id] = element;
                 } else {
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
                     nonLeafElements.push(element);
                 }
             }
@@ -508,7 +510,7 @@ class MathInput extends React.Component<Props, State> {
             // hit count in the situation should not have serious effects on
             // the overall accuracy of the algorithm.
             if (hitNode == null && nonLeafElements.length > 0) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLElement | null' is not assignable to type 'null'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLElement | null' is not assignable to type 'null'.
                 hitNode = nonLeafElements[0];
             }
 
@@ -528,7 +530,10 @@ class MathInput extends React.Component<Props, State> {
      * @param {number} x - the x coordinate in the viewport
      * @param {number} y - the y coordinate in the viewport
      */
-    _insertCursorAtClosestNode: (arg1: number, arg2: number) => void = (x, y) => {
+    _insertCursorAtClosestNode: (arg1: number, arg2: number) => void = (
+        x,
+        y,
+    ) => {
         const cursor = this.mathField.getCursor();
 
         // Pre-emptively check if the input has any child nodes; if not, the
@@ -598,7 +603,9 @@ class MathInput extends React.Component<Props, State> {
             });
     };
 
-    handleTouchStart: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
+    handleTouchStart: (arg1: React.TouchEvent<HTMLDivElement>) => void = (
+        e,
+    ) => {
         e.stopPropagation();
 
         // Hide the cursor handle on touch start, if the handle itself isn't
@@ -657,9 +664,9 @@ class MathInput extends React.Component<Props, State> {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchStart: (arg1: React.TouchEvent<HTMLSpanElement>) => void = (
-        e,
-    ) => {
+    onCursorHandleTouchStart: (
+        arg1: React.TouchEvent<HTMLSpanElement>,
+    ) => void = (e) => {
         // NOTE(charlie): The cursor handle is a child of this view, so whenever
         // it receives a touch event, that event would also typically be bubbled
         // up to our own handlers. However, we want the cursor to handle its own
@@ -675,12 +682,12 @@ class MathInput extends React.Component<Props, State> {
         this._containerBounds = this._container.getBoundingClientRect();
     };
 
-    _constrainToBound: (arg1: number, arg2: number, arg3: number, arg4: number) => number = (
-        value,
-        min,
-        max,
-        friction,
-    ) => {
+    _constrainToBound: (
+        arg1: number,
+        arg2: number,
+        arg3: number,
+        arg4: number,
+    ) => number = (value, min, max, friction) => {
         if (value < min) {
             return min + (value - min) * friction;
         } else if (value > max) {
@@ -696,82 +703,84 @@ class MathInput extends React.Component<Props, State> {
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchMove: (arg1: React.TouchEvent<HTMLSpanElement>) => void = (
-        e,
-    ) => {
-        e.stopPropagation();
+    onCursorHandleTouchMove: (arg1: React.TouchEvent<HTMLSpanElement>) => void =
+        (e) => {
+            e.stopPropagation();
 
-        const x = e.changedTouches[0].clientX;
-        const y = e.changedTouches[0].clientY;
+            const x = e.changedTouches[0].clientX;
+            const y = e.changedTouches[0].clientY;
 
-        const relativeX = x - this._containerBounds.left;
-        const relativeY =
-            y -
-            2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier -
-            this._containerBounds.top;
+            const relativeX = x - this._containerBounds.left;
+            const relativeY =
+                y -
+                2 * cursorHandleRadiusPx * cursorHandleDistanceMultiplier -
+                this._containerBounds.top;
 
-        // We subtract the containerBounds left/top to correct for the
-        // MathInput's position on the page. On top of that, we subtract an
-        // additional 2 x {height of the cursor} so that the bottom of the
-        // cursor tracks the user's finger, to make it visible under their
-        // touch.
-        this.setState({
-            handle: {
-                animateIntoPosition: false,
-                visible: true,
-                // TODO(charlie): Use clientX and clientY to avoid the need for
-                // scroll offsets. This likely also means that the cursor
-                // detection doesn't work when scrolled, since we're not
-                // offsetting those values.
-                x: this._constrainToBound(
-                    relativeX,
-                    0,
-                    this._containerBounds.width,
-                    constrainingFrictionFactor,
-                ),
-                y: this._constrainToBound(
-                    relativeY,
-                    0,
-                    this._containerBounds.height,
-                    constrainingFrictionFactor,
-                ),
-            },
-        });
+            // We subtract the containerBounds left/top to correct for the
+            // MathInput's position on the page. On top of that, we subtract an
+            // additional 2 x {height of the cursor} so that the bottom of the
+            // cursor tracks the user's finger, to make it visible under their
+            // touch.
+            this.setState({
+                handle: {
+                    animateIntoPosition: false,
+                    visible: true,
+                    // TODO(charlie): Use clientX and clientY to avoid the need for
+                    // scroll offsets. This likely also means that the cursor
+                    // detection doesn't work when scrolled, since we're not
+                    // offsetting those values.
+                    x: this._constrainToBound(
+                        relativeX,
+                        0,
+                        this._containerBounds.width,
+                        constrainingFrictionFactor,
+                    ),
+                    y: this._constrainToBound(
+                        relativeY,
+                        0,
+                        this._containerBounds.height,
+                        constrainingFrictionFactor,
+                    ),
+                },
+            });
 
-        // Use a y-coordinate that's just above where the user is actually
-        // touching because they're dragging the handle which is a little
-        // below where the cursor actually is.
-        const distanceAboveFingerToTrySelecting = 22;
-        const adjustedY = y - distanceAboveFingerToTrySelecting;
+            // Use a y-coordinate that's just above where the user is actually
+            // touching because they're dragging the handle which is a little
+            // below where the cursor actually is.
+            const distanceAboveFingerToTrySelecting = 22;
+            const adjustedY = y - distanceAboveFingerToTrySelecting;
 
-        this._insertCursorAtClosestNode(x, adjustedY);
-    };
+            this._insertCursorAtClosestNode(x, adjustedY);
+        };
 
     /**
      * When the user releases the cursor handle, animate it back into place.
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchEnd: (arg1: React.TouchEvent<HTMLSpanElement>) => void = (
-        e,
-    ) => {
-        e.stopPropagation();
+    onCursorHandleTouchEnd: (arg1: React.TouchEvent<HTMLSpanElement>) => void =
+        (e) => {
+            e.stopPropagation();
 
-        this._updateCursorHandle(true);
-    };
+            this._updateCursorHandle(true);
+        };
 
     /**
      * If the gesture is cancelled mid-drag, simply hide it.
      *
      * @param {TouchEvent} e - the raw touch event from the browser
      */
-    onCursorHandleTouchCancel: (arg1: React.TouchEvent<HTMLSpanElement>) => void = (e) => {
+    onCursorHandleTouchCancel: (
+        arg1: React.TouchEvent<HTMLSpanElement>,
+    ) => void = (e) => {
         e.stopPropagation();
 
         this._updateCursorHandle(true);
     };
 
-    domKeyToMathQuillKey: (arg1: string) => string | null | undefined = (key) => {
+    domKeyToMathQuillKey: (arg1: string) => string | null | undefined = (
+        key,
+    ) => {
         const keyMap = {
             "+": Keys.PLUS,
             "-": Keys.MINUS,
@@ -804,7 +813,9 @@ class MathInput extends React.Component<Props, State> {
         return null;
     };
 
-    handleKeyUp: (arg1: React.KeyboardEvent<HTMLDivElement>) => void = (event) => {
+    handleKeyUp: (arg1: React.KeyboardEvent<HTMLDivElement>) => void = (
+        event,
+    ) => {
         const mathQuillKey = this.domKeyToMathQuillKey(event.key);
 
         if (mathQuillKey) {
@@ -835,10 +846,10 @@ class MathInput extends React.Component<Props, State> {
     // that MathQuill automatically applies 2px of padding to the inner
     // input.
     getInputInnerPadding: () => {
-        paddingTop: number,
-        paddingRight: number,
-        paddingBottom: number,
-        paddingLeft: number
+        paddingTop: number;
+        paddingRight: number;
+        paddingBottom: number;
+        paddingLeft: number;
     } = () => {
         const paddingInset = totalDesiredPadding - this.getBorderWidthPx();
 
@@ -901,7 +912,7 @@ class MathInput extends React.Component<Props, State> {
                 overrides.css. */}
                 <div
                     className="keypad-input"
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                     tabIndex={"0"}
                     ref={(node) => {
                         this.inputRef = node;

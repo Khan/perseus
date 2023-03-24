@@ -1,4 +1,4 @@
-import {isFileProtocol} from './mobile-native-utils';
+import {isFileProtocol} from "./mobile-native-utils";
 
 describe("isFileProtocol", () => {
     it("If protocol is falsy, returns false", () => {

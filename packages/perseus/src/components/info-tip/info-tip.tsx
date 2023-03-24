@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         width: "0",
         zIndex: 1,
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ height: string; left: string; position: "absolute"; top: string; width: string; zIndex: number; ":before": { borderRight: string; right: string; borderBottom: "9px solid transparent"; borderTop: "9px solid transparent"; ... 4 more ...; width: "0"; }; ":after": { ...; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ height: string; left: string; position: "absolute"; top: string; width: string; zIndex: number; ":before": { borderRight: string; right: string; borderBottom: "9px solid transparent"; borderTop: "9px solid transparent"; ... 4 more ...; width: "0"; }; ":after": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":before": {
             ...triangleBeforeAfter,
             borderRight: "9px solid #bbb",
@@ -94,11 +94,11 @@ const questionMark =
     "vc49kQA4yxgAAAAASUVORK5CYII=";
 
 type Props = {
-    children: React.ReactNode
+    children: React.ReactNode;
 };
 
 type State = {
-    hover: boolean
+    hover: boolean;
 };
 
 class InfoTip extends React.Component<Props, State> {
@@ -112,7 +112,7 @@ class InfoTip extends React.Component<Props, State> {
         this.setState({hover: false});
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className={css(styles.infoTip)}>
                 <img

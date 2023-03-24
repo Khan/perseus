@@ -1,6 +1,6 @@
-import PerseusItemVersion from '../item-version';
-import {isItemRenderableByVersion} from '../renderability';
-import {registerAllWidgetsForTesting} from '../util/register-all-widgets-for-testing';
+import PerseusItemVersion from "../item-version";
+import {isItemRenderableByVersion} from "../renderability";
+import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 
 const sampleItemNoWidgets = {
     question: {

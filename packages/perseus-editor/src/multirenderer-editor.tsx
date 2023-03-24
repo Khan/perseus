@@ -1,5 +1,5 @@
 // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from 'flow-to-typescript-codemod';
+import {Flow} from "flow-to-typescript-codemod";
 /**
  * Editor for a multi-item question.
  *
@@ -21,10 +21,10 @@ import lens from "hubble";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import JsonEditor from './components/json-editor';
-import SimpleButton from './components/simple-button';
-import Editor from './editor';
-import {HintEditor} from './hint-editor';
+import JsonEditor from "./components/json-editor";
+import SimpleButton from "./components/simple-button";
+import Editor from "./editor";
+import {HintEditor} from "./hint-editor";
 
 import type {
     APIOptions,
@@ -58,9 +58,9 @@ const {MultiRenderer} = MultiItems;
 type Path = ReadonlyArray<any>;
 
 type ModeDropdownProps = {
-    currentMode: EditorMode,
+    currentMode: EditorMode;
     // A function that takes in a string signifying the mode (ex: "edit")
-    onChange: (mode: EditorMode) => unknown
+    onChange: (mode: EditorMode) => unknown;
 };
 
 /**
@@ -75,7 +75,7 @@ class ModeDropdown extends React.Component<ModeDropdownProps> {
             // event.target.value corresponds to the options' values below which
             // are limited to EditorMode, but flow doesn't know that so we have
             // to cast through any here.
-            const value = (event.target.value as EditorMode);
+            const value = event.target.value as EditorMode;
             this.props.onChange(value);
         }
     };
@@ -141,18 +141,16 @@ function multiPath(path: Path | Array<any>) {
 // Return an h1 if depth=0, h2 if depth=1, etc.
 // NOTE: This component accepts pass-through props.
 type HeaderProps = {
-    depth: number
+    depth: number;
 };
 
-const Header: React.FC<HeaderProps> = (
-    {
-        depth,
-        ...props
-    },
-): React.ReactElement => {
+const Header: React.FC<HeaderProps> = ({
+    depth,
+    ...props
+}): React.ReactElement => {
     const headerLevel = Math.min(depth, 5) + 1;
     const HeaderTag = `h${headerLevel}`;
-// @ts-expect-error [FEI-5003] - TS2559 - Type '{ children?: ReactNode; }' has no properties in common with type 'IntrinsicAttributes'.
+    // @ts-expect-error [FEI-5003] - TS2559 - Type '{ children?: ReactNode; }' has no properties in common with type 'IntrinsicAttributes'.
     return <HeaderTag {...props} />;
 };
 
@@ -170,17 +168,17 @@ interface Actions {
 // params should match when used, e.g. the prop types for `HintNodeContent` is
 // `NodePropTypes<HintShape, HintNode>`.
 type NodePropTypes<S = Shape, D = ItemTree> = {
-    shape: S,
-    data: D,
-    path: Path,
-    actions: Actions,
-    apiOptions: APIOptions,
+    shape: S;
+    data: D;
+    path: Path;
+    actions: Actions;
+    apiOptions: APIOptions;
     // For the left-hand column, we use edit mode and leave renderers empty.
     // For the right-hand column, we use preview mode and provide renderers
     // via a MultiRenderer.
     // TODO(CP-4850): figure out how to type this, it appears to be a tree where the
     // leaf nodes could be typed using RendererInterface.
-    renderers?: any
+    renderers?: any;
 };
 
 /**
@@ -197,10 +195,12 @@ type NodePropTypes<S = Shape, D = ItemTree> = {
  * content. Container nodes, like arrays and objects, render a header above
  * their content.
  */
-const NodeContainer = (props: (NodePropTypes) & {
-    controls?: ReadonlyArray<React.ReactNode>,
-    name?: string
-}) => {
+const NodeContainer = (
+    props: NodePropTypes & {
+        controls?: ReadonlyArray<React.ReactNode>;
+        name?: string;
+    },
+) => {
     const {
         shape,
         data,
@@ -265,25 +265,23 @@ const NodeContainer = (props: (NodePropTypes) & {
 };
 
 type LeafContainerProps = {
-    name: string,
-    controls?: React.ReactNode,
-    children?: React.ReactNode,
-    path: Path,
-    shape: Shape
+    name: string;
+    controls?: React.ReactNode;
+    children?: React.ReactNode;
+    path: Path;
+    shape: Shape;
 };
-const LeafContainer: React.FC<LeafContainerProps> = (
-    {
-        name,
-        controls,
-        children,
-        path,
-        shape,
-    },
-): React.ReactElement => {
+const LeafContainer: React.FC<LeafContainerProps> = ({
+    name,
+    controls,
+    children,
+    path,
+    shape,
+}): React.ReactElement => {
     const hasPreviewHeading = shape.type === "content" || shape.type === "hint";
     const previewHeading = hasPreviewHeading && (
         <div className={css(styles.containerHeader)}>
-{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
+            {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -312,14 +310,16 @@ interface ArrayContainerActions {
 }
 
 type ArrayContainerProps = {
-    name: string,
-    controls?: React.ReactNode,
-    children?: React.ReactNode,
-    path: Path,
-    shape: ArrayShape,
-    actions: ArrayContainerActions
+    name: string;
+    controls?: React.ReactNode;
+    children?: React.ReactNode;
+    path: Path;
+    shape: ArrayShape;
+    actions: ArrayContainerActions;
 };
-const ArrayContainer: React.FC<ArrayContainerProps> = (props): React.ReactElement => {
+const ArrayContainer: React.FC<ArrayContainerProps> = (
+    props,
+): React.ReactElement => {
     const {name, controls, children, path, shape, actions} = props;
     return (
         <div className={css(styles.container)}>
@@ -345,22 +345,20 @@ const ArrayContainer: React.FC<ArrayContainerProps> = (props): React.ReactElemen
 };
 
 type ObjectContainerProps = {
-    name: string,
-    controls?: React.ReactNode,
-    children?: React.ReactNode,
-    path: Path
+    name: string;
+    controls?: React.ReactNode;
+    children?: React.ReactNode;
+    path: Path;
 };
-const ObjectContainer: React.FC<ObjectContainerProps> = (
-    {
-        name,
-        controls,
-        children,
-        path,
-    },
-): React.ReactElement => {
+const ObjectContainer: React.FC<ObjectContainerProps> = ({
+    name,
+    controls,
+    children,
+    path,
+}): React.ReactElement => {
     const headingEditor = (
         <div className={css(styles.containerHeader)}>
-{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
+            {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -374,7 +372,7 @@ const ObjectContainer: React.FC<ObjectContainerProps> = (
                 styles.previewCollectionHeader,
             )}
         >
-{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
+            {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -421,7 +419,7 @@ const NodeContent = (props: NodePropTypes) => {
         return (
             <ItemNodeContent
                 shape={shape}
-                data={(data as ContentNode)}
+                data={data as ContentNode}
                 {...restProps}
             />
         );
@@ -430,7 +428,7 @@ const NodeContent = (props: NodePropTypes) => {
         return (
             <HintNodeContent
                 shape={shape}
-                data={(data as HintNode)}
+                data={data as HintNode}
                 {...restProps}
             />
         );
@@ -439,7 +437,7 @@ const NodeContent = (props: NodePropTypes) => {
         return (
             <TagsNodeContent
                 shape={shape}
-                data={(data as TagsNode)}
+                data={data as TagsNode}
                 {...restProps}
             />
         );
@@ -448,7 +446,7 @@ const NodeContent = (props: NodePropTypes) => {
         return (
             <ArrayNodeContent
                 shape={shape}
-                data={(data as ItemArrayNode)}
+                data={data as ItemArrayNode}
                 {...restProps}
             />
         );
@@ -457,7 +455,7 @@ const NodeContent = (props: NodePropTypes) => {
         return (
             <ObjectNodeContent
                 shape={shape}
-                data={(data as ItemObjectNode)}
+                data={data as ItemObjectNode}
                 {...restProps}
             />
         );
@@ -466,10 +464,10 @@ const NodeContent = (props: NodePropTypes) => {
 };
 
 type WithStickinessProps = {
-    sticky: boolean
+    sticky: boolean;
 };
 
-type WithStickiness<T> = (T) & (WithStickinessProps);
+type WithStickiness<T> = T & WithStickinessProps;
 
 type WithoutStickiness<T> = Partial<Flow.Diff<T, WithStickinessProps>>;
 
@@ -481,12 +479,21 @@ type WithoutStickiness<T> = Partial<Flow.Diff<T, WithStickinessProps>>;
  *
  * It does so by polling the height and comparing it to the window height.
  */
-const withStickiness = <Config extends Record<any, any>, Component extends React.ComponentType<WithStickiness<Config>>>(WrappedComponent: Component): React.ComponentType<WithoutStickiness<JSX.LibraryManagedAttributes<Component, React.ComponentProps<Component>>>> => {
+const withStickiness = <
+    Config extends Record<any, any>,
+    Component extends React.ComponentType<WithStickiness<Config>>,
+>(
+    WrappedComponent: Component,
+): React.ComponentType<
+    WithoutStickiness<
+        JSX.LibraryManagedAttributes<Component, React.ComponentProps<Component>>
+    >
+> => {
     type State = {
-        sticky: boolean
+        sticky: boolean;
     };
     return class StickyComponent extends React.Component<Config, State> {
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'stickynessTimer' has no initializer and is not definitely assigned in the constructor.
+        // @ts-expect-error [FEI-5003] - TS2564 - Property 'stickynessTimer' has no initializer and is not definitely assigned in the constructor.
         stickynessTimer: number;
 
         state = {
@@ -496,7 +503,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
         componentDidMount() {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Timer' is not assignable to type 'number'.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timer' is not assignable to type 'number'.
             this.stickynessTimer = setInterval(this.updateStickiness, 1000);
             this.updateStickiness();
         }
@@ -509,7 +516,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
 
         updateStickiness = () => {
             const domNode = ReactDOM.findDOMNode(this);
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element | Text'.
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element | Text'.
             const height = domNode.offsetHeight;
             const windowHeight = window.innerHeight;
             const sticky = height > windowHeight;
@@ -528,7 +535,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
                  * Cannot create WrappedComponent element because inexact props
                  * [1] is incompatible with exact WithStickiness [2].
                  */
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Readonly<Config> & { sticky: boolean; children?: ReactNode; }' is not assignable to type 'IntrinsicAttributes & LibraryManagedAttributes<Component, PropsWithChildren<WithStickiness<Config>>>'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Readonly<Config> & { sticky: boolean; children?: ReactNode; }' is not assignable to type 'IntrinsicAttributes & LibraryManagedAttributes<Component, PropsWithChildren<WithStickiness<Config>>>'.
                 <WrappedComponent {...this.props} sticky={this.state.sticky} />
             );
         }
@@ -536,7 +543,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
 };
 
 const ItemNodeContent = withStickiness(
-    (props: (NodePropTypes<ContentShape, ContentNode>) & (WithStickinessProps)) => {
+    (props: NodePropTypes<ContentShape, ContentNode> & WithStickinessProps) => {
         const {data, path, actions, apiOptions, renderers, sticky} = props;
 
         const preview = (
@@ -553,7 +560,7 @@ const ItemNodeContent = withStickiness(
                                 // $FlowFixMe[incompatible-exact]: {...data} pass too many props
                                 // $FlowFixMe[incompatible-type]
                                 // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                                 <Editor
                                     {...data}
                                     onChange={(newVal) =>
@@ -576,7 +583,7 @@ const ItemNodeContent = withStickiness(
 );
 
 const HintNodeContent = withStickiness(
-    (props: (NodePropTypes<HintShape, HintNode>) & (WithStickinessProps)) => {
+    (props: NodePropTypes<HintShape, HintNode> & WithStickinessProps) => {
         const {data, path, actions, apiOptions, renderers, sticky} = props;
 
         const preview = (
@@ -752,11 +759,11 @@ interface LayoutStatics {
 
 type MultiRendererEditorProps = {
     // eslint-disable-next-line no-restricted-syntax
-    Layout: React.ComponentType<any> & LayoutStatics,
-    apiOptions: APIOptions,
-    item: Item,
-    editorMode: EditorMode,
-    onChange: ChangeHandler
+    Layout: React.ComponentType<any> & LayoutStatics;
+    apiOptions: APIOptions;
+    item: Item;
+    editorMode: EditorMode;
+    onChange: ChangeHandler;
 };
 
 class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
@@ -774,7 +781,7 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
         );
     };
 
-    _renderJson: () => React.ReactElement<React.ComponentProps<'div'>> = () => {
+    _renderJson: () => React.ReactElement<React.ComponentProps<"div">> = () => {
         return (
             <div>
                 <ModeDropdown
@@ -790,17 +797,20 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
         );
     };
 
-    _renderPreview: () => React.ReactElement<React.ComponentProps<'div'>> = () => {
-        return (
-            <div>
-                <ModeDropdown
-                    currentMode={this.props.editorMode}
-                    onChange={(editorMode) => this.props.onChange({editorMode})}
-                />
-                {this._renderLayout()}
-            </div>
-        );
-    };
+    _renderPreview: () => React.ReactElement<React.ComponentProps<"div">> =
+        () => {
+            return (
+                <div>
+                    <ModeDropdown
+                        currentMode={this.props.editorMode}
+                        onChange={(editorMode) =>
+                            this.props.onChange({editorMode})
+                        }
+                    />
+                    {this._renderLayout()}
+                </div>
+            );
+        };
 
     mergeValueAtPath: (path: Path, newValue?: any) => void = (
         path: Path,
@@ -870,7 +880,7 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
         this.moveArrayElementDown(previousElementPath);
     };
 
-    _renderEdit: () => React.ReactElement<React.ComponentProps<'div'>> = () => {
+    _renderEdit: () => React.ReactElement<React.ComponentProps<"div">> = () => {
         const apiOptions = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,
@@ -908,26 +918,28 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
 
     score: () => any | undefined = () => {
         if (this.layout) {
-// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             return this.layout.score();
         }
     };
 
     getSerializedState: () => any | undefined = () => {
         if (this.layout) {
-// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             return this.layout.getSerializedState();
         }
     };
 
     restoreSerializedState: (state?: any) => void = (state: any) => {
         if (this.layout) {
-// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             this.layout.restoreSerializedState(state);
         }
     };
 
-    _renderContent: () => React.ReactElement<React.ComponentProps<'div'>> | React.ReactNode = () => {
+    _renderContent: () =>
+        | React.ReactElement<React.ComponentProps<"div">>
+        | React.ReactNode = () => {
         switch (this.props.editorMode) {
             case "json":
                 return this._renderJson();
@@ -949,7 +961,7 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
         }
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         return <div id="perseus">{this._renderContent()}</div>;
     }
 }
@@ -1007,7 +1019,7 @@ const styles = StyleSheet.create({
     // this extra border between array elements.
     arrayElementAndNotLeaf: {
         borderBottom: "1px solid #ccc",
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ borderBottom: string; ":first-child": { borderTop: string; paddingTop: number; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ borderBottom: string; ":first-child": { borderTop: string; paddingTop: number; }; }' is not assignable to type 'CSSProperties'.
         ":first-child": {
             borderTop: "1px solid #ccc",
             paddingTop: 16,

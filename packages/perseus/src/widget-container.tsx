@@ -4,27 +4,27 @@ import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {zIndexInteractiveComponent} from './styles/constants';
-import {containerSizeClass, getClassFromWidth} from './util/sizing-utils';
-import * as Widgets from './widgets';
+import {zIndexInteractiveComponent} from "./styles/constants";
+import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
+import * as Widgets from "./widgets";
 
-import type {PerseusWidgetOptions} from './perseus-types';
-import type {LinterContextProps, WidgetProps} from './types';
+import type {PerseusWidgetOptions} from "./perseus-types";
+import type {LinterContextProps, WidgetProps} from "./types";
 
 type Props = {
-    shouldHighlight: boolean,
-    type: string // widget type/name,
-    initialProps: WidgetProps<any, PerseusWidgetOptions>,
-    linterContext: LinterContextProps
+    shouldHighlight: boolean;
+    type: string; // widget type/name,
+    initialProps: WidgetProps<any, PerseusWidgetOptions>;
+    linterContext: LinterContextProps;
 };
 
 type DefaultProps = {
-    linterContext: LinterContextProps
+    linterContext: LinterContextProps;
 };
 
 type State = {
-    sizeClass: 'small' | 'medium' | 'large' | 'xlarge',
-    widgetProps: WidgetProps<any, PerseusWidgetOptions>
+    sizeClass: "small" | "medium" | "large" | "xlarge";
+    widgetProps: WidgetProps<any, PerseusWidgetOptions>;
 };
 
 class WidgetContainer extends React.Component<Props, State> {
@@ -45,7 +45,7 @@ class WidgetContainer extends React.Component<Props, State> {
         // Only relay size class changes for mobile right now.  We may want to
         // this for desktop as well at some point in the future.
         if (this.state.widgetProps.apiOptions.isMobile) {
-// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element | Text'.
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element | Text'.
             const containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
 
             // NOTE(benkomalo): in the common case, this won't change anything.
@@ -166,9 +166,10 @@ class WidgetContainer extends React.Component<Props, State> {
         return this.refs.widget;
     };
 
-    replaceWidgetProps: (arg1: WidgetProps<any, PerseusWidgetOptions>) => void = (newWidgetProps) => {
-        this.setState({widgetProps: newWidgetProps});
-    };
+    replaceWidgetProps: (arg1: WidgetProps<any, PerseusWidgetOptions>) => void =
+        (newWidgetProps) => {
+            this.setState({widgetProps: newWidgetProps});
+        };
 }
 
 export default WidgetContainer;

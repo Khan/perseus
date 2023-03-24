@@ -3,9 +3,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import TabbarItem from './item';
+import TabbarItem from "./item";
 
-import type {TabbarItemType} from './types';
+import type {TabbarItemType} from "./types";
 
 const styles = StyleSheet.create({
     tabbar: {
@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
 });
 
 type TabbarState = {
-    selectedItem: number
+    selectedItem: number;
 };
 
 type TabbarProps = {
-    items: Array<TabbarItemType>,
-    onSelect: (item: TabbarItemType) => void
+    items: Array<TabbarItemType>;
+    onSelect: (item: TabbarItemType) => void;
 };
 
 class Tabbar extends React.Component<TabbarProps, TabbarState> {

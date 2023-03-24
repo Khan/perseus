@@ -1,4 +1,4 @@
-import SmilesParser from '../smiles-parser';
+import SmilesParser from "../smiles-parser";
 
 const parser = SmilesParser.parse;
 

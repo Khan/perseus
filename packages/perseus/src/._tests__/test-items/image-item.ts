@@ -1,7 +1,7 @@
-import type {PerseusRenderer} from '../../perseus-types';
+import type {PerseusRenderer} from "../../perseus-types";
 
 export default {
-    question: ({
+    question: {
         content:
             "![domokun](http://data.whicdn.com/images/7485807/large.jpg)\n",
         images: {
@@ -11,7 +11,7 @@ export default {
             },
         },
         widgets: {},
-    } as PerseusRenderer),
+    } as PerseusRenderer,
     answerArea: {
         calculator: false,
         periodicTable: false,
@@ -20,5 +20,5 @@ export default {
         major: 0,
         minor: 1,
     },
-    hints: ([] as ReadonlyArray<any>),
+    hints: [] as ReadonlyArray<any>,
 };

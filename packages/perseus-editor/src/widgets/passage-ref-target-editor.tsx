@@ -11,7 +11,7 @@ class PassageRefTargetEditor extends React.Component<Props> {
         content: PropTypes.string,
     };
 
-    static widgetName: 'passage-ref-target' = "passage-ref-target";
+    static widgetName: "passage-ref-target" = "passage-ref-target";
 
     static defaultProps: Props = {
         content: "",
@@ -21,8 +21,10 @@ class PassageRefTargetEditor extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    handleContentChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+    handleContentChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({content: e.target.value});
     };
 

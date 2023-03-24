@@ -6,31 +6,31 @@ import {components, globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import FormWrappedTextField from '../../components/form-wrapped-text-field';
-import Link from '../../components/link';
+import FormWrappedTextField from "../../components/form-wrapped-text-field";
+import Link from "../../components/link";
 
 const {colors, typography} = globalStyles;
 const {Icon} = components;
 
 type AddAnswerProps = {
     // Callback to add new answer choice.
-    onClick: () => void
+    onClick: () => void;
 };
 
 type AnswerProps = {
     // The answer string, can be plain text or a KaTeX expression.
-    answer: string,
+    answer: string;
     // Callback for when an answer is changed.
-    onChange: (answer: string) => void,
+    onChange: (answer: string) => void;
     // Callback to remove answer from list of choices.
-    onRemove: () => void
+    onRemove: () => void;
 };
 
 type AnswerChoicesProps = {
     // The list of possible answers in a specific order.
-    choices: ReadonlyArray<string>,
+    choices: ReadonlyArray<string>;
     // Callback for when answers change.
-    onChange: (choices: ReadonlyArray<string>) => void
+    onChange: (choices: ReadonlyArray<string>) => void;
 };
 
 const addIcon = {
@@ -89,95 +89,93 @@ const DraggableGripIcon = () => (
 /**
  * A button link to add a new answer.
  */
-const AddAnswer: React.FC<AddAnswerProps> = (
-    {
-        onClick,
-    },
-): React.ReactElement => <Link
-    className={css(styles.addAnswer, editorStyles.addAnswer)}
-    onClick={onClick}
->
-    <Icon icon={addIcon} size={24} />
-    <div className={css(styles.spacer)} />
-    Add an answer choice
-</Link>;
+const AddAnswer: React.FC<AddAnswerProps> = ({onClick}): React.ReactElement => (
+    <Link
+        className={css(styles.addAnswer, editorStyles.addAnswer)}
+        onClick={onClick}
+    >
+        <Icon icon={addIcon} size={24} />
+        <div className={css(styles.spacer)} />
+        Add an answer choice
+    </Link>
+);
 
 /**
  * An answer item in the choices list.
  *
  * TODO(michaelpolyak): Implement answer reordering, CP-117
  */
-const Answer: React.FC<AnswerProps> = (
-    {
-        answer,
-        onChange,
-        onRemove,
-    },
-): React.ReactElement => <li className={css(styles.answer)}>
-    <Link onClick={onRemove}>
-        <Icon icon={removeIcon} size={24} color="#D92916" />
-    </Link>
+const Answer: React.FC<AnswerProps> = ({
+    answer,
+    onChange,
+    onRemove,
+}): React.ReactElement => (
+    <li className={css(styles.answer)}>
+        <Link onClick={onRemove}>
+            <Icon icon={removeIcon} size={24} color="#D92916" />
+        </Link>
 
-    <div className={css(styles.spacer)} />
+        <div className={css(styles.spacer)} />
 
-    <FormWrappedTextField
-        grow={1}
-        onChange={(e) => onChange(e.target.value)}
-        value={answer}
-    />
+        <FormWrappedTextField
+            grow={1}
+            onChange={(e) => onChange(e.target.value)}
+            value={answer}
+        />
 
-    <div className={css(styles.spacer)} />
+        <div className={css(styles.spacer)} />
 
-    <Link
-        style={[styles.disabled]}
-        title="Answer reordering is not implemented."
-    >
-        <DraggableGripIcon />
-    </Link>
-</li>;
+        <Link
+            style={[styles.disabled]}
+            title="Answer reordering is not implemented."
+        >
+            <DraggableGripIcon />
+        </Link>
+    </li>
+);
 
 /**
  * The list of choices, handles adding, removing and reording of answers.
  */
-const AnswerChoices: React.FC<AnswerChoicesProps> = (
-    {
-        choices,
-        onChange,
-    },
-): React.ReactElement => <div>
-    <div className={css(styles.title)}>Answer Choices</div>
+const AnswerChoices: React.FC<AnswerChoicesProps> = ({
+    choices,
+    onChange,
+}): React.ReactElement => (
+    <div>
+        <div className={css(styles.title)}>Answer Choices</div>
 
-    <ul className={css(styles.answers)}>
-        {choices.map((answer, index) => (
-            <Answer
-                answer={answer}
-                // TODO(michaelpolyak): When answer reording is implemented,
-                // key by index may not re-render correctly, CP-117
-                key={index}
-                // Update answer for choice.
-                onChange={(answer) =>
-                    onChange([
-                        ...choices.slice(0, index),
-                        answer,
-                        ...choices.slice(index + 1),
-                    ])
-                }
-                // Remove answer from choices.
-                onRemove={() =>
-                    onChange([
-                        ...choices.slice(0, index),
-                        ...choices.slice(index + 1),
-                    ])
-                }
-            />
-        ))}
-    </ul>
+        <ul className={css(styles.answers)}>
+            {choices.map((answer, index) => (
+                <Answer
+                    answer={answer}
+                    // TODO(michaelpolyak): When answer reording is implemented,
+                    // key by index may not re-render correctly, CP-117
+                    key={index}
+                    // Update answer for choice.
+                    onChange={(answer) =>
+                        onChange([
+                            ...choices.slice(0, index),
+                            answer,
+                            ...choices.slice(index + 1),
+                        ])
+                    }
+                    // Remove answer from choices.
+                    onRemove={() =>
+                        onChange([
+                            ...choices.slice(0, index),
+                            ...choices.slice(index + 1),
+                        ])
+                    }
+                />
+            ))}
+        </ul>
 
-    <AddAnswer
-        // Append a new empty answer to choices.
-        onClick={() => onChange([...choices, ""])}
-    />
-</div>;
+        <AddAnswer
+            // Append a new empty answer to choices.
+            onClick={() => onChange([...choices, ""])}
+        />
+    </div>
+);
 
 const styles = StyleSheet.create({
     title: {
@@ -198,7 +196,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; flexDirection: "row"; alignItems: "center"; ":not(:first-child)": { marginTop: number; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; flexDirection: "row"; alignItems: "center"; ":not(:first-child)": { marginTop: number; }; }' is not assignable to type 'CSSProperties'.
         ":not(:first-child)": {
             marginTop: 12,
         },
@@ -225,7 +223,7 @@ const styles = StyleSheet.create({
 
 const editorStyles = StyleSheet.create({
     addAnswer: {
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ ":link": { color: string; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ ":link": { color: string; }; }' is not assignable to type 'CSSProperties'.
         ":link": {
             color: "#1865f2",
         },

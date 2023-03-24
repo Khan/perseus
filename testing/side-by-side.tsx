@@ -4,19 +4,13 @@ import * as React from "react";
 import ReactJson from "react-json-view";
 
 const SideBySide: React.FC<{
-    leftTitle: string,
-    left: React.ReactNode,
-    perseusObject: any
-}> = (
-    {
-        leftTitle = "Renderer",
-        left,
-        perseusObject,
-    },
-): React.ReactElement => {
+    leftTitle: string;
+    left: React.ReactNode;
+    perseusObject: any;
+}> = ({leftTitle = "Renderer", left, perseusObject}): React.ReactElement => {
     return (
         <View style={styles.sideBySide}>
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
+            {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
             <View style={styles.leftPanel} className="framework-perseus">
                 <HeadingMedium>{leftTitle}</HeadingMedium>
                 {left}

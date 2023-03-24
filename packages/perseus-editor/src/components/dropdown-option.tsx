@@ -9,7 +9,7 @@ import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import {focusWithChromeStickyFocusBugWorkaround} from './util';
+import {focusWithChromeStickyFocusBugWorkaround} from "./util";
 
 export type OptionRenderer = (
     children: React.ReactElement<any> | null | undefined,
@@ -22,9 +22,10 @@ const {Icon} = components;
 const {colors} = globalStyles;
 
 const findAndFocusElement = (component?: Element | null) => {
-    const DOMNode: Element | Text | null | undefined = ReactDOM.findDOMNode(component);
-    const button = (DOMNode as HTMLInputElement);
-// @ts-expect-error [FEI-5003] - TS2774 - This condition will always return true since this function is always defined. Did you mean to call it instead?
+    const DOMNode: Element | Text | null | undefined =
+        ReactDOM.findDOMNode(component);
+    const button = DOMNode as HTMLInputElement;
+    // @ts-expect-error [FEI-5003] - TS2774 - This condition will always return true since this function is always defined. Did you mean to call it instead?
     if (button.focus) {
         focusWithChromeStickyFocusBugWorkaround(button);
     }
@@ -32,28 +33,28 @@ const findAndFocusElement = (component?: Element | null) => {
 
 type OptionProps = {
     // The value to use when the option is selected
-    value: string,
+    value: string;
     // The display of the option
-    children?: React.ReactNode,
+    children?: React.ReactNode;
     // Is the current option selected?
-    selected?: boolean,
+    selected?: boolean;
     // Is the current option disabled?
-    disabled?: boolean,
+    disabled?: boolean;
     // An event when an option is clicked
-    onClick?: () => void,
+    onClick?: () => void;
     // An optional rendering function to render the details of the option
-    optionRenderer?: OptionRenderer,
+    optionRenderer?: OptionRenderer;
     // An optional function to call when the dropdown should close
     // Only relevant if the Option is inside of a dropdown menu
-    onDropdownClose?: () => void,
+    onDropdownClose?: () => void;
     // An optional value to override the focus styling of an option.
     // Use caution when using this - keyboard users need to know what they're
     // focused on in order to interact with the product!
-    hideFocusState?: boolean,
+    hideFocusState?: boolean;
     // An optional test id that can be used to identify this Option in automated tests.
-    testId?: string,
+    testId?: string;
     // Text to provide for assistive tech users
-    ariaLabel?: string
+    ariaLabel?: string;
 };
 
 const check = `M10,3.8C10,4,9.9,4.2,9.8,4.3L5.1,8.9L4.3,9.8C4.2,9.9,4,10,3.8,10
@@ -65,7 +66,7 @@ const check = `M10,3.8C10,4,9.9,4.2,9.8,4.3L5.1,8.9L4.3,9.8C4.2,9.9,4,10,3.8,10
 export const optionHeight = 30;
 
 class Option extends React.Component<OptionProps> {
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'node' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'node' has no initializer and is not definitely assigned in the constructor.
     node: HTMLDivElement;
 
     handleKeyDown(event: any): void {
@@ -115,7 +116,7 @@ class Option extends React.Component<OptionProps> {
                 // TODO(mdr): We found a new Flow error when upgrading:
                 //     "node (null) This type is incompatible with this.node (HTMLDivElement)"
                 // $FlowFixMe[incompatible-type](0.52.0->0.53.0)
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLButtonElement | null' is not assignable to type 'HTMLDivElement'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLButtonElement | null' is not assignable to type 'HTMLDivElement'.
                 ref={(node) => (this.node = node)}
                 value={value}
                 role="menuitemradio"
@@ -125,7 +126,7 @@ class Option extends React.Component<OptionProps> {
                     disabled && styles.cursorDefault,
                     hideFocusState && styles.noFocus,
                 )}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(value: string) => void' is not assignable to type 'MouseEventHandler<HTMLButtonElement>'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '(value: string) => void' is not assignable to type 'MouseEventHandler<HTMLButtonElement>'.
                 onClick={(value: string) => {
                     if (!disabled && onClick) {
                         // TODO(mdr): We found a new Flow error here when upgrading
@@ -133,11 +134,11 @@ class Option extends React.Component<OptionProps> {
                         //     argument)". This comment was automatically added to
                         //     this file, to suppress the error for now. Please
                         //     consider fixing!
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 0 arguments, but got 1.
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 0 arguments, but got 1.
                         onClick(value);
                     }
                 }}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '(event: KeyboardEvent) => void' is not assignable to type 'KeyboardEventHandler<HTMLButtonElement>'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '(event: KeyboardEvent) => void' is not assignable to type 'KeyboardEventHandler<HTMLButtonElement>'.
                 onKeyDown={(event: KeyboardEvent) => this.handleKeyDown(event)}
                 aria-disabled={disabled}
                 aria-label={ariaLabel}
@@ -183,23 +184,23 @@ class Option extends React.Component<OptionProps> {
 // - how does the drop down interact with tooltips?  what's the z-index order?
 class OptionGroup extends React.Component<{
     // An event when an option is selected
-    onSelected: (value: string) => void,
+    onSelected: (value: string) => void;
     // The list of options to display
-    children?: Array<React.ReactElement<React.ComponentProps<typeof Option>>>,
+    children?: Array<React.ReactElement<React.ComponentProps<typeof Option>>>;
     // The currently selected options
-    selectedValues: Array<string>,
+    selectedValues: Array<string>;
     // An optional rendering function to render the details of the options
-    optionRenderer?: OptionRenderer,
+    optionRenderer?: OptionRenderer;
     // An override to skip the bit of top/bottom spacing around the group
-    noMargin?: boolean,
+    noMargin?: boolean;
     // An optional function to call when the dropdown should close
-    onDropdownClose?: () => void,
+    onDropdownClose?: () => void;
     // An optional value to override the focus styling of an option.
     // Use caution when using this - keyboard users need to know what
     // they're focused on in order to interact with the product!
-    hideFocusState?: boolean
+    hideFocusState?: boolean;
 }> {
-// @ts-expect-error [FEI-5003] - TS2564 - Property 'focusedElement' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'focusedElement' has no initializer and is not definitely assigned in the constructor.
     focusedElement: Element;
 
     componentDidMount() {
@@ -208,7 +209,7 @@ class OptionGroup extends React.Component<{
         }
     }
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const {
             children,
             onSelected,
@@ -221,7 +222,7 @@ class OptionGroup extends React.Component<{
 
         return (
             <div
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Window | null' is not assignable to type 'Top<string | number> | undefined'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Window | null' is not assignable to type 'Top<string | number> | undefined'.
                 style={{top}}
                 className={css(
                     styles.optionGroup,
@@ -229,7 +230,7 @@ class OptionGroup extends React.Component<{
                 )}
             >
                 {React.Children.map(children, (child, index) => {
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                     const selected = selectedValues.includes(child.props.value);
 
                     const reference =
@@ -237,13 +238,13 @@ class OptionGroup extends React.Component<{
                             ? (node: Element) => (this.focusedElement = node)
                             : null;
 
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     return React.cloneElement(child, {
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                         ...child.props,
                         key: index,
                         selected: selected,
-// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                         onClick: () => onSelected(child.props.value),
                         optionRenderer: optionRenderer,
                         ref: reference,

@@ -10,26 +10,26 @@ import {globalConstants, globalStyles} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Option, {OptionGroup} from '../../components/dropdown-option';
-import FormWrappedTextField from '../../components/form-wrapped-text-field';
+import Option, {OptionGroup} from "../../components/dropdown-option";
+import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
 const {colors, borderRadius} = globalStyles;
 
-type MarkerProps = (MarkerType) & {
+type MarkerProps = MarkerType & {
     // The list of possible answer choices.
-    choices: ReadonlyArray<string>,
+    choices: ReadonlyArray<string>;
     // Callback for when any of the marker props are changed.
-    onChange: (marker: MarkerType) => void,
+    onChange: (marker: MarkerType) => void;
     // Callback to remove marker from the question image.
-    onRemove: () => void
+    onRemove: () => void;
 };
 
 type MarkerState = {
     // Whether answer choices dropdown is shown, controlled by the user clicking
     // on the marker icon.
-    showDropdown: boolean
+    showDropdown: boolean;
 };
 
 export default class Marker extends React.Component<MarkerProps, MarkerState> {
@@ -91,7 +91,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
             this.setState({showDropdown: !showDropdown});
         } else if (showDropdown) {
             // Close dropdown if click event was registered anywhere outside it.
-            if (this._marker && !this._marker.contains((e.target as any))) {
+            if (this._marker && !this._marker.contains(e.target as any)) {
                 // Ensure other listeners are not triggered on click event that
                 // closes the dropdown. A specific case this addresses is when
                 // user clicks on question image to close dropdown, a new marker
@@ -103,7 +103,9 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
         }
     };
 
-    handleLabelChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    handleLabelChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
         this.updateMarker({label: e.target.value});
     };
 
@@ -121,7 +123,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
         this.updateMarker({answers});
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const {answers, choices, label, onRemove, x, y} = this.props;
 
         const {showDropdown} = this.state;
@@ -161,7 +163,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
                                 onSelected={this.handleSelectAnswer}
                                 // TODO(WB-1096): make selectedValues immutable in wonder-blocks
                                 // $FlowFixMe[incompatible-type]
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                                 selectedValues={answers}
                             >
                                 {choices.map((choice) => (
@@ -219,7 +221,7 @@ const styles = StyleSheet.create({
         borderRadius: 28,
 
         // Render selected marker border as inset.
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; "::before": { content: string; display: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; "::before": { content: string; display: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "block",
@@ -244,7 +246,7 @@ const styles = StyleSheet.create({
         bottom: -12,
 
         // With an arrow pointing left towards the marker.
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ left: number; bottom: number; "::before": { content: string; display: string; position: string; width: number; height: number; left: number; bottom: number; borderRight: string; borderTop: string; borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ left: number; bottom: number; "::before": { content: string; display: string; position: string; width: number; height: number; left: number; bottom: number; borderRight: string; borderTop: string; borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "block",

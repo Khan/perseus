@@ -1,13 +1,13 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import _ from "underscore";
 
-import Util from '../util';
+import Util from "../util";
 
-import Radio from './radio/widget';
+import Radio from "./radio/widget";
 
-import type {PerseusRadioWidgetOptions} from '../perseus-types';
-import type {WidgetExports} from '../types';
-import type {RenderProps, RadioChoiceWithMetadata} from './radio/widget';
+import type {PerseusRadioWidgetOptions} from "../perseus-types";
+import type {WidgetExports} from "../types";
+import type {RenderProps, RadioChoiceWithMetadata} from "./radio/widget";
 
 const {shuffle, random} = Util;
 
@@ -25,7 +25,9 @@ const _choiceTransform = (
     widgetOptions: PerseusRadioWidgetOptions,
     problemNum?: number | null,
 ) => {
-    const _maybeRandomize = function (array: ReadonlyArray<RadioChoiceWithMetadata>) {
+    const _maybeRandomize = function (
+        array: ReadonlyArray<RadioChoiceWithMetadata>,
+    ) {
         const randomSeed = problemNum === undefined ? random : problemNum;
         // NOTE: `problemNum` will only be set when the radio widget is
         // rendered at the root of an exercise question. It will be `undefined`
@@ -45,7 +47,7 @@ const _choiceTransform = (
 
         const newChoices = choices.filter((choice, index) => {
             if (choice.isNoneOfTheAbove) {
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'RadioChoiceWithMetadata' is not assignable to type 'null'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'RadioChoiceWithMetadata' is not assignable to type 'null'.
                 noneOfTheAbove = choice;
                 return false;
             }
@@ -93,7 +95,10 @@ const _choiceTransform = (
     );
 };
 
-const transform = (widgetOptions: PerseusRadioWidgetOptions, problemNum?: number | null): RenderProps => {
+const transform = (
+    widgetOptions: PerseusRadioWidgetOptions,
+    problemNum?: number | null,
+): RenderProps => {
     const choices = _choiceTransform(widgetOptions, problemNum);
 
     const numCorrect: number = _.reduce(

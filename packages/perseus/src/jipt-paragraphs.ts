@@ -25,7 +25,8 @@ const arrayRules: ParserRules = {
     },
 };
 
-const builtArrayParser: ReturnType<typeof SimpleMarkdown.parserFor> = SimpleMarkdown.parserFor(arrayRules);
+const builtArrayParser: ReturnType<typeof SimpleMarkdown.parserFor> =
+    SimpleMarkdown.parserFor(arrayRules);
 
 // This should just return an array of strings! magick!
 const parseToArray = (source: string): Array<string> => {
@@ -39,7 +40,8 @@ const parseToArray = (source: string): Array<string> => {
     });
 };
 
-const joinFromArray = (paragraphs: ReadonlyArray<string>): string => paragraphs.join("\n\n");
+const joinFromArray = (paragraphs: ReadonlyArray<string>): string =>
+    paragraphs.join("\n\n");
 
 export default {
     parseToArray: parseToArray,

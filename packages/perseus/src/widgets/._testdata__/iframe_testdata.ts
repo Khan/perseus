@@ -1,4 +1,4 @@
-import type {PerseusRenderer} from '../../perseus-types';
+import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
     content: "Try matching the target image\n[[\u2603 iframe 1]]\n",

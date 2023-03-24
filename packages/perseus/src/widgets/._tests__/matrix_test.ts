@@ -2,13 +2,13 @@ import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {question1} from '../__testdata__/matrix_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {question1} from "../__testdata__/matrix_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {APIOptions} from '../../types';
+import type {APIOptions} from "../../types";
 
 describe("matrix widget", () => {
     beforeEach(() => {

@@ -1,7 +1,7 @@
-import {testDependencies} from '../../../../testing/test-dependencies';
-import {setDependencies} from '../dependencies';
+import {testDependencies} from "../../../../testing/test-dependencies";
+import {setDependencies} from "../dependencies";
 
-import {Errors, Log} from './log';
+import {Errors, Log} from "./log";
 
 describe("Perseus logging", () => {
     it("should proxy log() calls to the logger provided through setDependencies", () => {

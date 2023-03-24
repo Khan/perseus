@@ -5,8 +5,8 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
 
-import Lint from './components/lint';
-import {getDependencies} from './dependencies';
+import Lint from "./components/lint";
+import {getDependencies} from "./dependencies";
 
 const rules = {
     ...pureMarkdownRules,
@@ -128,7 +128,7 @@ const rules = {
 
                 // Splice the caption into the table's children with the
                 // caption as the first child.
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 contents = React.cloneElement(tableOutput, null, [
                     caption,
                     ...tableOutput.props.children,
@@ -156,7 +156,7 @@ const rules = {
             // just a stub for testing.
             return (
                 <em key={state.key}>
-{ /* @ts-expect-error [FEI-5003] - TS2554 - Expected 1-2 arguments, but got 3. */}
+                    {/* @ts-expect-error [FEI-5003] - TS2554 - Expected 1-2 arguments, but got 3. */}
                     {i18n.doNotTranslate("[Widget: ", node.id, "]")}
                 </em>
             );
@@ -211,11 +211,16 @@ const rules = {
                 : false;
             if (!isKAUrl) {
                 // Prevents "reverse tabnabbing" phishing attacks
-// @ts-expect-error [FEI-5003] - TS2322 - Type '"noopener noreferrer"' is not assignable to type 'null'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '"noopener noreferrer"' is not assignable to type 'null'.
                 rel = "noopener noreferrer";
             }
 
-            const newProps = {...link.props, target: "_blank", href, rel} as const;
+            const newProps = {
+                ...link.props,
+                target: "_blank",
+                href,
+                rel,
+            } as const;
 
             if (state.baseElements && state.baseElements.Link) {
                 return state.baseElements.Link(newProps);
@@ -380,7 +385,7 @@ const getContent = (ast: any) => {
  * Markdown markup and widget references are ignored.
  */
 const characterCount = (source: string): number => {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+    // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
     const ast = parse(source);
     const content = getContent(ast).join("");
     return content.length;
@@ -393,10 +398,10 @@ export default {
     parseInline: inlineParser,
     reactFor: SimpleMarkdown.reactFor,
     // $FlowFixMe[incompatible-use]
-    ruleOutput: (SimpleMarkdown.ruleOutput(rules, "react") as any),
-    basicOutput: (SimpleMarkdown.reactFor(
+    ruleOutput: SimpleMarkdown.ruleOutput(rules, "react") as any,
+    basicOutput: SimpleMarkdown.reactFor(
         // $FlowFixMe[incompatible-use]
         SimpleMarkdown.ruleOutput(rules, "react"),
-    ) as any),
+    ) as any,
     sanitizeUrl: SimpleMarkdown.sanitizeUrl,
 };

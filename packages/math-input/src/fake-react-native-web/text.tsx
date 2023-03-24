@@ -4,18 +4,18 @@ import * as React from "react";
 import type {CSSProperties} from "aphrodite";
 
 type Props = {
-    children: React.ReactNode,
+    children: React.ReactNode;
     // The `dynamicStyle` prop is provided for animating dynamic
     // properties, as creating Aphrodite StyleSheets in animation loops is
     // expensive. `dynamicStyle` should be a raw style object, rather than
     // a StyleSheet.
-    dynamicStyle?: CSSProperties,
-    numberOfLines?: number,
-    style?: CSSProperties
+    dynamicStyle?: CSSProperties;
+    numberOfLines?: number;
+    style?: CSSProperties;
 };
 
 class Text extends React.Component<Props> {
-    render(): React.ReactElement<React.ComponentProps<'span'>> {
+    render(): React.ReactElement<React.ComponentProps<"span">> {
         const {numberOfLines, style} = this.props;
 
         const className = css(

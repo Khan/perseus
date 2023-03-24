@@ -3,8 +3,8 @@
  * in order for them to work. Requiring this file will register all of the
  * widgets and editors.
  */
-import allWidgets from '../all-widgets';
-import * as Widgets from '../widgets';
+import allWidgets from "../all-widgets";
+import * as Widgets from "../widgets";
 
 export const registerAllWidgetsForTesting = () => {
     Widgets.registerWidgets(allWidgets);

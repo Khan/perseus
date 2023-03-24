@@ -1,9 +1,9 @@
 /* eslint-disable @babel/no-invalid-this */
 import _ from "underscore";
 
-import {Errors} from '../logging/log';
-import {PerseusError} from '../perseus-error';
-import Util from '../util';
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
+import Util from "../util";
 
 const nestedMap = Util.nestedMap;
 const deepEq = Util.deepEq;
@@ -15,14 +15,14 @@ const deepEq = Util.deepEq;
  * GraphieMovables
  */
 function GraphieMovable(descriptor: any) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, descriptor);
 }
 
 const abstractMethod = function () {
     throw new PerseusError(
         "Abstract method! Must be implemented by Graphie Movable" +
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.constructor.displayName,
         Errors.NotAllowed,
     );
@@ -62,18 +62,18 @@ const rewriteProps = function (props: any, childrenArray: any) {
 /**
  * Create a custom GraphieMovable class
  */
-const createClass = function(spec: any): any {
+const createClass = function (spec: any): any {
     const GraphieClass = function (props: any) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         if (!(this instanceof GraphieClass)) {
             throw new PerseusError(
                 "Use createElement or JSX with graphie movables",
                 Errors.NotAllowed,
             );
         }
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.props = rewriteProps(props, props.children || []);
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         return this;
     };
 
@@ -105,7 +105,7 @@ const createClass = function(spec: any): any {
  * Commonly used elements should use the fully-fledged createClass
  * and implement an efficient modify() operation.
  */
-const createSimpleClass = function(addFunction: any): any {
+const createSimpleClass = function (addFunction: any): any {
     return createClass({
         displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
         movableProps: ["children"],
@@ -125,7 +125,7 @@ const createSimpleClass = function(addFunction: any): any {
         },
 
         remove: function () {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
             nestedMap(this._elements, (elem) => {
                 if (elem) {
                     elem.remove();
@@ -136,7 +136,7 @@ const createSimpleClass = function(addFunction: any): any {
         },
 
         toFront: function () {
-// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
             nestedMap(this._elements, (elem) => {
                 if (_.isFunction(elem.toFront)) {
                     elem.toFront();

@@ -1,5 +1,5 @@
 // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from 'flow-to-typescript-codemod';
+import {Flow} from "flow-to-typescript-codemod";
 /**
  * DEPRECATED: Use <TextField> from ./text-field.jsx instead.
  *
@@ -21,19 +21,19 @@ type Props = {
     // TODO(diedra): Instead of passing in this id to connect the label and input
     // field, we should pass in the label for the input field and place it
     // inside the <form>.
-    id?: string,
-    testId?: string,
-    type?: string,
-    name?: string,
-    readOnly?: boolean,
-    value?: string | null | undefined,
-    placeholder?: string,
+    id?: string;
+    testId?: string;
+    type?: string;
+    name?: string;
+    readOnly?: boolean;
+    value?: string | null | undefined;
+    placeholder?: string;
     // https://reactjs.org/docs/uncontrolled-components.html#default-values
-    defaultValue?: string | null | undefined,
-    disabled?: boolean,
-    autoFocus?: boolean,
-    maxLength?: number,
-    invalid?: 'true' | 'false',
+    defaultValue?: string | null | undefined;
+    disabled?: boolean;
+    autoFocus?: boolean;
+    maxLength?: number;
+    invalid?: "true" | "false";
     // styling
     // This prop is passed directly to <input>.  This is incorrect since HTML
     // tags don't know what to do with an aphrodite which is typed as:
@@ -44,39 +44,39 @@ type Props = {
     // }
     // TODO(WB-1026): Update StyleType to reflect the aphrodite type
     // TODO(FEI-3282): Update uses of StyleType in webapp to be correct
-    style?: StyleType,
-    className?: string,
-    width?: number | string,
-    grow?: boolean | number,
-    shrink?: boolean | number,
+    style?: StyleType;
+    className?: string;
+    width?: number | string;
+    grow?: boolean | number;
+    shrink?: boolean | number;
     // HACK(mattmorgan) to enforce WB LabelMedium-like styles on this older
     // component.
-    labelMediumInputText?: boolean,
-    icon?: React.ReactElement<React.ComponentProps<typeof components.Icon>>,
-    leftSideIcon?: boolean,
-    backgroundColor?: string,
-    focusBorderColor?: string,
-    borderColor?: string,
-    color?: string,
+    labelMediumInputText?: boolean;
+    icon?: React.ReactElement<React.ComponentProps<typeof components.Icon>>;
+    leftSideIcon?: boolean;
+    backgroundColor?: string;
+    focusBorderColor?: string;
+    borderColor?: string;
+    color?: string;
     // events
-    onSubmit?: (arg1: React.ChangeEvent<HTMLInputElement>) => unknown,
-    onBlur?: (arg1: React.ChangeEvent<HTMLInputElement>) => unknown,
-    onFocus?: (arg1: React.ChangeEvent<HTMLInputElement>) => unknown,
-    onChange?: (arg1: React.ChangeEvent<HTMLInputElement>) => unknown,
-    onClick?: (arg1: React.MouseEvent<HTMLInputElement>) => unknown,
-    onKeyPress?: (arg1: React.KeyboardEvent<HTMLInputElement>) => unknown,
-    onKeyDown?: (arg1: React.KeyboardEvent<HTMLInputElement>) => unknown,
+    onSubmit?: (arg1: React.ChangeEvent<HTMLInputElement>) => unknown;
+    onBlur?: (arg1: React.ChangeEvent<HTMLInputElement>) => unknown;
+    onFocus?: (arg1: React.ChangeEvent<HTMLInputElement>) => unknown;
+    onChange?: (arg1: React.ChangeEvent<HTMLInputElement>) => unknown;
+    onClick?: (arg1: React.MouseEvent<HTMLInputElement>) => unknown;
+    onKeyPress?: (arg1: React.KeyboardEvent<HTMLInputElement>) => unknown;
+    onKeyDown?: (arg1: React.KeyboardEvent<HTMLInputElement>) => unknown;
     // aria
-    ["aria-label"]?: string,
-    ["aria-describedby"]?: string | null | undefined
+    ["aria-label"]?: string;
+    ["aria-describedby"]?: string | null | undefined;
 };
 
 type State = {
-    focused: boolean
+    focused: boolean;
 };
 
-type PropsWithForwardRef = (Props) & {
-    forwardedRef: React.Ref<'input'>
+type PropsWithForwardRef = Props & {
+    forwardedRef: React.Ref<"input">;
 };
 
 class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
@@ -166,10 +166,10 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         // the form.
         return (
             <form
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'CSSProperties[]' is not assignable to parameter of type 'CSSProperties | Falsy'.
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'CSSProperties[]' is not assignable to parameter of type 'CSSProperties | Falsy'.
                 className={css(spanStyle)}
                 style={extraStyles}
-// @ts-expect-error [FEI-5003] - TS2322 - Type '((arg1: ChangeEvent<HTMLInputElement>) => unknown) | ((e: Event) => void)' is not assignable to type 'FormEventHandler<HTMLFormElement> | undefined'.
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '((arg1: ChangeEvent<HTMLInputElement>) => unknown) | ((e: Event) => void)' is not assignable to type 'FormEventHandler<HTMLFormElement> | undefined'.
                 onSubmit={onSubmit || this.disableDefault}
             >
                 {leftSideIcon && wrappedIcon}
@@ -179,7 +179,7 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
                     onBlur={this.handleBlur}
                     type={type}
                     className={css(inputBase)}
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Ref<"input">' is not assignable to type 'LegacyRef<HTMLInputElement> | undefined'.
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'Ref<"input">' is not assignable to type 'LegacyRef<HTMLInputElement> | undefined'.
                     ref={forwardedRef}
                     id={id}
                     data-test-id={testId}
@@ -244,6 +244,6 @@ const styles = StyleSheet.create({
 });
 
 export default React.forwardRef<Props, HTMLInputElement>((props, ref) => (
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
     <FormWrappedTextField {...props} forwardedRef={ref} />
 )) as Flow.AbstractComponent<Props, HTMLInputElement>;

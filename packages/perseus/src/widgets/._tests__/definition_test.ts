@@ -3,10 +3,10 @@ import userEvent from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 const question = {
     content:

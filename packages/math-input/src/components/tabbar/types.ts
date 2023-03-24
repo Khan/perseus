@@ -1,1 +1,1 @@
-export type TabbarItemType = 'Geometry' | 'Operators' | 'Numbers';
+export type TabbarItemType = "Geometry" | "Operators" | "Numbers";

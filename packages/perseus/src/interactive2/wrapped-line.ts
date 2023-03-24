@@ -1,12 +1,12 @@
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
-import KhanMath from '../util/math';
+import KhanMath from "../util/math";
 
-import InteractiveUtil from './interactive-util';
-import WrappedDefaults from './wrapped-defaults';
+import InteractiveUtil from "./interactive-util";
+import WrappedDefaults from "./wrapped-defaults";
 
-import type {Coord} from './types';
+import type {Coord} from "./types";
 
 const DEFAULT_OPTIONS = {
     thickness: 2,
@@ -29,24 +29,24 @@ const WrappedLine = function (
 
     // Add `wrapper` and `visibleShape`
     _.extend(
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this,
         graphie.fixedLine(initialStart, initialEnd, options.thickness),
     );
 
     if (options.interactiveKindForTesting) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.wrapper.setAttribute(
             "data-interactive-kind-for-testing",
             options.interactiveKindForTesting,
         );
     }
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.visibleShape.attr(options.normalStyle);
 
     // Save properties for computing transformations
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {
         graphie: graphie,
         initialPoint: graphie.scalePoint(initialStart),
@@ -60,18 +60,18 @@ const WrappedLine = function (
     if (options.mouselayer) {
         // Disable browser handling of all panning and zooming gestures on the
         // movable wrapper so that when moved the browser does not scroll page
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.wrapper.style.touchAction = "none";
 
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.graphie.addToMouseLayerWrapper(this.wrapper);
     } else {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.graphie.addToVisibleLayerWrapper(this.wrapper);
     }
 
     // Move to argument points
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.moveTo(start, end);
 };
 

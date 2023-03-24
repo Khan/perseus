@@ -1,31 +1,31 @@
-import MovableLine from './interactive2/movable-line';
-import MovablePoint from './interactive2/movable-point';
-import MovablePolygon from './interactive2/movable-polygon';
-import Movable from './interactive2/movable';
-import KhanColors from './util/colors';
+import MovableLine from "./interactive2/movable-line";
+import MovablePoint from "./interactive2/movable-point";
+import MovablePolygon from "./interactive2/movable-polygon";
+import Movable from "./interactive2/movable";
+import KhanColors from "./util/colors";
 
 const Interactive2 = {
     MovablePoint: MovablePoint,
-    addMovablePoint: function(graphie: any, options: any): any {
-// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
+    addMovablePoint: function (graphie: any, options: any): any {
+        // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         const movable = new Movable(graphie, {});
         return new MovablePoint(graphie, movable, options);
     },
     MovableLine: MovableLine,
-    addMovableLine: function(graphie: any, options: any): any {
-// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
+    addMovableLine: function (graphie: any, options: any): any {
+        // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         const movable = new Movable(graphie, {});
         return new MovableLine(graphie, movable, options);
     },
     MovablePolygon: MovablePolygon,
-    addMovablePolygon: function(graphie: any, options: any): any {
-// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
+    addMovablePolygon: function (graphie: any, options: any): any {
+        // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         const movable = new Movable(graphie, {});
-// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
+        // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         return new MovablePolygon(graphie, movable, options);
     },
 
-    addMaybeMobileMovablePoint: function(widget: any, extraProps: any): any {
+    addMaybeMobileMovablePoint: function (widget: any, extraProps: any): any {
         const isMobile = widget.props.apiOptions.isMobile;
 
         const commonStyle = isMobile

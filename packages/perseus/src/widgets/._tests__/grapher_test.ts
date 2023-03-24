@@ -1,14 +1,14 @@
 // TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
 import "@testing-library/jest-dom/extend-expect";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import {setDependencies} from '../../dependencies';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import {setDependencies} from "../../dependencies";
 import {
     linearQuestion,
     multipleAvailableTypesQuestion,
-} from '../__testdata__/grapher_testdata';
+} from "../__testdata__/grapher_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 describe("grapher widget", () => {
     beforeEach(() => {

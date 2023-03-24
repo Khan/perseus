@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import {Errors} from '../logging/log';
-import {PerseusError} from '../perseus-error';
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 
 /* A checkbox that syncs its value to props using the
  * renderer's onChange method, and gets the prop name
@@ -34,7 +34,7 @@ const PropCheckBox: any = createReactClass({
         const propName = _.find(
             _.keys(this.props),
             function (localPropName) {
-// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return !_.has(this.DEFAULT_PROPS, localPropName);
             },
             this,

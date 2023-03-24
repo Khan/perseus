@@ -4,12 +4,12 @@ import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import {testDependencies} from '../../../../../../testing/test-dependencies';
-import {setDependencies} from '../../../dependencies';
-import {generateChoice} from '../../__testdata__/base-radio_testdata';
-import BaseRadio from '../../radio/base-radio';
+import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {setDependencies} from "../../../dependencies";
+import {generateChoice} from "../../__testdata__/base-radio_testdata";
+import BaseRadio from "../../radio/base-radio";
 
-import type {APIOptions} from '../../../types';
+import type {APIOptions} from "../../../types";
 
 function renderBaseRadio(props) {
     const apiOptions: APIOptions = Object.freeze({});
@@ -83,8 +83,8 @@ describe("base-radio", () => {
         // Arrange
         let updatedValues = null;
         const onChangeHandler = (newValues: {
-          checked: ReadonlyArray<boolean>,
-          crossedOut: ReadonlyArray<boolean>
+            checked: ReadonlyArray<boolean>;
+            crossedOut: ReadonlyArray<boolean>;
         }) => {
             updatedValues = newValues;
         };
@@ -137,8 +137,8 @@ describe("base-radio", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
-              checked: ReadonlyArray<boolean>,
-              crossedOut: ReadonlyArray<boolean>
+                checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
                 updatedValues = newValues;
             };
@@ -167,8 +167,8 @@ describe("base-radio", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
-              checked: ReadonlyArray<boolean>,
-              crossedOut: ReadonlyArray<boolean>
+                checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
                 updatedValues = newValues;
             };
@@ -201,8 +201,8 @@ describe("base-radio", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
-              checked: ReadonlyArray<boolean>,
-              crossedOut: ReadonlyArray<boolean>
+                checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
                 updatedValues = newValues;
             };
@@ -251,8 +251,8 @@ describe("base-radio", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
-              checked: ReadonlyArray<boolean>,
-              crossedOut: ReadonlyArray<boolean>
+                checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
                 updatedValues = newValues;
             };
@@ -299,8 +299,8 @@ describe("base-radio", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
-              checked: ReadonlyArray<boolean>,
-              crossedOut: ReadonlyArray<boolean>
+                checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
                 updatedValues = newValues;
             };
@@ -348,8 +348,8 @@ describe("base-radio", () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
-              checked: ReadonlyArray<boolean>,
-              crossedOut: ReadonlyArray<boolean>
+                checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
                 updatedValues = newValues;
             };

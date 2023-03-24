@@ -12,46 +12,41 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 
-import {rangesOverlap} from '../ranges';
+import {rangesOverlap} from "../ranges";
 
-import HighlightSetRenderer from './highlight-set-renderer';
-import HighlightTooltip from './highlight-tooltip';
-import SelectionTracker from './selection-tracker';
+import HighlightSetRenderer from "./highlight-set-renderer";
+import HighlightTooltip from "./highlight-tooltip";
+import SelectionTracker from "./selection-tracker";
 
-import type {TrackedSelection} from './selection-tracker';
-import type {
-    DOMHighlight,
-    DOMHighlightSet,
-    DOMRange,
-    ZIndexes,
-} from './types';
+import type {TrackedSelection} from "./selection-tracker";
+import type {DOMHighlight, DOMHighlightSet, DOMRange, ZIndexes} from "./types";
 
 type HighlightingUIProps = {
     // A function that builds a DOMHighlight from the given DOMRange, if
     // possible. If it would not currently be valid to add a highlight over the
     // given DOMRange, returns null.
-    buildHighlight: (range: DOMRange) => DOMHighlight | null | undefined,
+    buildHighlight: (range: DOMRange) => DOMHighlight | null | undefined;
     // A Node that contains the highlightable content.
-    contentNode: Node,
+    contentNode: Node;
     // Whether the highlights are user-editable. If false, highlights are
     // read-only.
-    editable: boolean,
+    editable: boolean;
     // A set of highlights to render.
-    highlights: DOMHighlightSet,
+    highlights: DOMHighlightSet;
     // This component's `offsetParent` element, which is the nearest ancestor
     // with `position: relative`. This will enable us to choose the correct
     // CSS coordinates to align highlights and tooltips with the target
     // content.
-    offsetParent: Element,
+    offsetParent: Element;
     // A callback indicating that the user would like to add the given
     // highlight to the current set of highlights.
-    onAddHighlight: (range: DOMHighlight) => unknown,
+    onAddHighlight: (range: DOMHighlight) => unknown;
     // A callback indicating that the user would like to remove the highlight
     // with the given key.
-    onRemoveHighlight: (highlightKey: string) => unknown,
+    onRemoveHighlight: (highlightKey: string) => unknown;
     // The z-indexes to use when rendering tooltips above content, and
     // highlights below content.
-    zIndexes: ZIndexes
+    zIndexes: ZIndexes;
 };
 
 class HighlightingUI extends React.PureComponent<HighlightingUIProps> {
@@ -131,19 +126,19 @@ class HighlightingUI extends React.PureComponent<HighlightingUIProps> {
                                             // TODO(mdr): We found a new Flow error when upgrading:
                                             //     "proposedHighlight (Cannot get `trackedSelection.proposedHighlight` because property `proposedHighlight` is missing in null or undefined [1].)"
                                             // $FlowFixMe[incompatible-use](0.57.3->0.75.0)
-// @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                                            // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
                                             trackedSelection.proposedHighlight,
                                         )
                                     }
                                     // TODO(mdr): We found a new Flow error when upgrading:
                                     //     "focusNode (Cannot get `trackedSelection.focusNode` because property `focusNode` is missing in null or undefined [1].)"
                                     // $FlowFixMe[incompatible-use](0.57.3->0.75.0)
-// @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
                                     focusNode={trackedSelection.focusNode}
                                     // TODO(mdr): We found a new Flow error when upgrading:
                                     //     "focusOffset (Cannot get `trackedSelection.focusOffset` because property `focusOffset` is missing in null or undefined [1].)"
                                     // $FlowFixMe[incompatible-use](0.57.3->0.75.0)
-// @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                                    // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
                                     focusOffset={trackedSelection.focusOffset}
                                     offsetParent={this.props.offsetParent}
                                 />

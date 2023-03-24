@@ -3,14 +3,58 @@
  * alphanumeric characters.
  */
 
-export type Key = 'PLUS' | 'MINUS' | 'NEGATIVE' | 'TIMES' | 'DIVIDE' | 'DECIMAL' | 'PERIOD' | 'PERCENT' | 'CDOT' | 'EQUAL' | 'NEQ' | 'GT' | 'LT' | 'GEQ' | 'LEQ' | // mobile native only
-'FRAC_INCLUSIVE' | // mobile native only
-'FRAC_EXCLUSIVE' | 'FRAC' | 'EXP' | 'EXP_2' | 'EXP_3' | 'SQRT' | 'CUBE_ROOT' | 'RADICAL' | 'LEFT_PAREN' | 'RIGHT_PAREN' | 'LN' | 'LOG' | 'LOG_N' | 'SIN' | 'COS' | // TODO(charlie): Add in additional Greek letters.
-'TAN' | 'PI' | 'THETA' | 'UP' | 'RIGHT' | 'DOWN' | 'LEFT' | 'BACKSPACE' | 'DISMISS' | 'JUMP_OUT_PARENTHESES' | 'JUMP_OUT_EXPONENT' | 'JUMP_OUT_BASE' | 'JUMP_INTO_NUMERATOR' | 'JUMP_OUT_NUMERATOR' | 'JUMP_OUT_DENOMINATOR' | // Multi-functional keys.
-'NOOP' | // mobile native only
-// A custom key that captures an arbitrary number of symbols but has no
-// 'default' symbol or action.
-'FRAC_MULTI' | 'MANY';
+export type Key =
+    | "PLUS"
+    | "MINUS"
+    | "NEGATIVE"
+    | "TIMES"
+    | "DIVIDE"
+    | "DECIMAL"
+    | "PERIOD"
+    | "PERCENT"
+    | "CDOT"
+    | "EQUAL"
+    | "NEQ"
+    | "GT"
+    | "LT"
+    | "GEQ"
+    | "LEQ" // mobile native only
+    | "FRAC_INCLUSIVE" // mobile native only
+    | "FRAC_EXCLUSIVE"
+    | "FRAC"
+    | "EXP"
+    | "EXP_2"
+    | "EXP_3"
+    | "SQRT"
+    | "CUBE_ROOT"
+    | "RADICAL"
+    | "LEFT_PAREN"
+    | "RIGHT_PAREN"
+    | "LN"
+    | "LOG"
+    | "LOG_N"
+    | "SIN"
+    | "COS" // TODO(charlie): Add in additional Greek letters.
+    | "TAN"
+    | "PI"
+    | "THETA"
+    | "UP"
+    | "RIGHT"
+    | "DOWN"
+    | "LEFT"
+    | "BACKSPACE"
+    | "DISMISS"
+    | "JUMP_OUT_PARENTHESES"
+    | "JUMP_OUT_EXPONENT"
+    | "JUMP_OUT_BASE"
+    | "JUMP_INTO_NUMERATOR"
+    | "JUMP_OUT_NUMERATOR"
+    | "JUMP_OUT_DENOMINATOR" // Multi-functional keys.
+    | "NOOP" // mobile native only
+    // A custom key that captures an arbitrary number of symbols but has no
+    // 'default' symbol or action.
+    | "FRAC_MULTI"
+    | "MANY";
 
 // TODO(charlie): There's duplication between this file and key-configs.js.
 // We should clean it up by removing this file and requiring clients to use the

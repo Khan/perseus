@@ -1,19 +1,21 @@
 import * as React from "react";
 
-import {ApiOptions} from '../../perseus-api';
-import {OldUnitInput} from '../unit';
+import {ApiOptions} from "../../perseus-api";
+import {OldUnitInput} from "../unit";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
     title: "Perseus/Widgets/Unit",
 } as Story;
 
-export const NonStaticRender: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const NonStaticRender: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <OldUnitInput
             apiOptions={{

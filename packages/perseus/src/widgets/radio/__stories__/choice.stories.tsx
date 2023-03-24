@@ -1,32 +1,27 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import Choice from '../choice';
+import Choice from "../choice";
 
 type StoryArgs = {
-    checked: boolean,
-    rationale: React.ReactNode,
-    content: React.ReactNode,
-    correct: boolean,
-    disabled: boolean,
-    pos: number,
-    reviewMode: boolean,
-    showRationale: boolean,
-    showCorrectness: boolean,
-    multipleSelect: boolean,
-    crossedOut: boolean,
-    previouslyAnswered: boolean,
-    onChange: (
-        newValues: {
-            checked: boolean,
-            crossedOut: boolean
-        },
-    ) => void
+    checked: boolean;
+    rationale: React.ReactNode;
+    content: React.ReactNode;
+    correct: boolean;
+    disabled: boolean;
+    pos: number;
+    reviewMode: boolean;
+    showRationale: boolean;
+    showCorrectness: boolean;
+    multipleSelect: boolean;
+    crossedOut: boolean;
+    previouslyAnswered: boolean;
+    onChange: (newValues: {checked: boolean; crossedOut: boolean}) => void;
 };
 
 type Story = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 const defaultProps = {

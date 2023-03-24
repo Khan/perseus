@@ -1,4 +1,4 @@
-import {getMockUniqueId} from '../mock-unique-id';
+import {getMockUniqueId} from "../mock-unique-id";
 
 describe("getMockUniqueId", () => {
     it("should increment ids with the same prefix", () => {

@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import StructuredItemDiff from '../structured-item-diff';
+import StructuredItemDiff from "../structured-item-diff";
 
 // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module './perseus-diff-wrapper' or its corresponding type declarations.
-import Wrapper from './perseus-diff-wrapper';
+import Wrapper from "./perseus-diff-wrapper";
 
 // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../../styles/perseus-editor.less' or its corresponding type declarations.
 import("../../styles/perseus-editor.less");
@@ -11,8 +11,10 @@ import("../../styles/perseus-editor.less");
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string,
-    decorators: ReadonlyArray<(StoryComponent: typeof React.Component) => React.ReactElement>
+    title: string;
+    decorators: ReadonlyArray<
+        (StoryComponent: typeof React.Component) => React.ReactElement
+    >;
 };
 
 export default {
@@ -174,7 +176,9 @@ export const ContentAdded: React.FC<StoryArgs> = (args): React.ReactElement => {
 };
 
 // second instance
-export const ContentAddedRemovedAndChanged: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ContentAddedRemovedAndChanged: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         before: {
             _multi: {
@@ -380,7 +384,9 @@ export const ContentAddedRemovedAndChanged: React.FC<StoryArgs> = (args): React.
 };
 
 // third instance
-export const MiscContentChanges: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MiscContentChanges: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         before: {
             _multi: {
@@ -676,7 +682,9 @@ export const MiscContentChanges: React.FC<StoryArgs> = (args): React.ReactElemen
 };
 
 // fourth
-export const ContentRemoved: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ContentRemoved: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         before: {
             _multi: {

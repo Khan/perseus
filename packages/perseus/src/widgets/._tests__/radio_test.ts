@@ -3,24 +3,24 @@ import userEvent from "@testing-library/user-event";
 import _ from "underscore";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import {getMockUniqueId} from '../../../../../testing/mock-unique-id';
-import {clone} from '../../../../../testing/object-utils';
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
+import {getMockUniqueId} from "../../../../../testing/mock-unique-id";
+import {clone} from "../../../../../testing/object-utils";
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
 import {
     passageWidget,
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
-} from '../__testdata__/radio_testdata';
+} from "../__testdata__/radio_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 import type {
     PerseusRenderer,
     RadioWidget,
     PerseusRadioWidgetOptions,
-} from '../../perseus-types';
-import type {APIOptions} from '../../types';
+} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 
 const selectOption = (index: number) => {
     const options = screen.getAllByRole("radio");
@@ -238,8 +238,9 @@ describe("single-choice question", () => {
     it("should be able to navigate to 'None of the above' choice by keyboard", () => {
         // Arrange
         const q = clone(question);
-        (q.widgets["radio 1"]
-            .options as PerseusRadioWidgetOptions).choices[3].isNoneOfTheAbove = true;
+        (
+            q.widgets["radio 1"].options as PerseusRadioWidgetOptions
+        ).choices[3].isNoneOfTheAbove = true;
         renderQuestion(q, apiOptions);
 
         // Act
@@ -259,13 +260,11 @@ describe("single-choice question", () => {
     ])("should enforce ordering for common answers: %j", (...answers) => {
         // Arrange
         const q = clone(question);
-        (q.widgets["radio 1"]
-            .options as PerseusRadioWidgetOptions).choices = answers.map(
-            (answer, idx) => ({
+        (q.widgets["radio 1"].options as PerseusRadioWidgetOptions).choices =
+            answers.map((answer, idx) => ({
                 content: answer,
                 correct: idx === 1, // Correct answer is the "truthy" item
-            }),
-        );
+            }));
 
         // Act
         const {renderer} = renderQuestion(q, apiOptions);
@@ -285,13 +284,11 @@ describe("single-choice question", () => {
         // Arrange
         const answers = ["Last", "First"];
         const q = clone(question);
-        (q.widgets["radio 1"]
-            .options as PerseusRadioWidgetOptions).choices = answers.map(
-            (answer, idx) => ({
+        (q.widgets["radio 1"].options as PerseusRadioWidgetOptions).choices =
+            answers.map((answer, idx) => ({
                 content: answer,
                 correct: idx === 1,
-            }),
-        );
+            }));
 
         // Act
         renderQuestion(q, apiOptions);
@@ -572,8 +569,9 @@ describe("single-choice question", () => {
     it("should register as correct when none of the above option selected", () => {
         // Arrange
         const q = clone(question);
-        const choices = (q.widgets["radio 1"]
-            .options as PerseusRadioWidgetOptions).choices;
+        const choices = (
+            q.widgets["radio 1"].options as PerseusRadioWidgetOptions
+        ).choices;
         choices[2].correct = false;
         choices[3].isNoneOfTheAbove = true;
         choices[3].correct = true;
@@ -620,14 +618,14 @@ describe("multi-choice question", () => {
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
         };
-        const radio1Widget = (question.widgets["radio 1"] as RadioWidget);
+        const radio1Widget = question.widgets["radio 1"] as RadioWidget;
         const radioOptions = radio1Widget.options;
 
         const multipleCorrectChoicesQuestion: PerseusRenderer = {
             ...question,
             widgets: {
                 ...question.widgets,
-                "radio 1": ({
+                "radio 1": {
                     ...radio1Widget,
                     options: {
                         ...radioOptions,
@@ -642,7 +640,7 @@ describe("multi-choice question", () => {
                             },
                         ],
                     },
-                } as RadioWidget),
+                } as RadioWidget,
             },
         };
 
@@ -663,14 +661,14 @@ describe("multi-choice question", () => {
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
         };
-        const radio1Widget = (question.widgets["radio 1"] as RadioWidget);
+        const radio1Widget = question.widgets["radio 1"] as RadioWidget;
         const radioOptions = radio1Widget.options;
 
         const multipleCorrectChoicesQuestion: PerseusRenderer = {
             ...question,
             widgets: {
                 ...question.widgets,
-                "radio 1": ({
+                "radio 1": {
                     ...radio1Widget,
                     options: {
                         ...radioOptions,
@@ -685,7 +683,7 @@ describe("multi-choice question", () => {
                             },
                         ],
                     },
-                } as RadioWidget),
+                } as RadioWidget,
             },
         };
 
@@ -733,14 +731,14 @@ describe("multi-choice question", () => {
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
         };
-        const radio1Widget = (question.widgets["radio 1"] as RadioWidget);
+        const radio1Widget = question.widgets["radio 1"] as RadioWidget;
         const radioOptions = radio1Widget.options;
 
         const multipleCorrectChoicesQuestion: PerseusRenderer = {
             ...question,
             widgets: {
                 ...question.widgets,
-                "radio 1": ({
+                "radio 1": {
                     ...radio1Widget,
                     options: {
                         ...radioOptions,
@@ -755,7 +753,7 @@ describe("multi-choice question", () => {
                             },
                         ],
                     },
-                } as RadioWidget),
+                } as RadioWidget,
             },
         };
 

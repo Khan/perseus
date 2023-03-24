@@ -3,7 +3,7 @@ import * as React from "react";
 import {renderToStaticMarkup} from "react-dom/server";
 import _ from "underscore";
 
-import PassageMarkdown from '../passage-markdown';
+import PassageMarkdown from "../passage-markdown";
 
 const parse = PassageMarkdown.parse;
 

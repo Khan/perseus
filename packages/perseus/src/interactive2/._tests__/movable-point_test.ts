@@ -2,9 +2,9 @@
 import _ from "underscore";
 
 // Interactive2 requires
-import MovablePoint from '../movable-point';
+import MovablePoint from "../movable-point";
 
-import _createMockMovable from './movable-mock';
+import _createMockMovable from "./movable-mock";
 
 // Create a testable MovablePoint with a mocked out Movable
 const createPoint = function (options) {
