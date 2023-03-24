@@ -24,7 +24,7 @@ function generateProps(overwrite) {
         reviewModeRubric: {
             answers: [],
             labelText: "",
-            size: "medium",
+            size: "normal",
             coefficient: false,
             static: false,
         },
