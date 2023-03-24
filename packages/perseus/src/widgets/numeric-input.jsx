@@ -466,7 +466,7 @@ export const unionAnswerForms: (
     });
 };
 
-type RenderProps = {|
+export type RenderProps = {|
     answerForms: $ReadOnlyArray<{|
         simplify: ?("required" | "correct" | "enforced"),
         name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi",
@@ -535,6 +535,20 @@ const propsTransform = function (
     return rendererProps;
 };
 
+const propUpgrades = {
+    // Version 0 => 1 just aligns `numeric-input` options with what we upgrade
+    // to in `input-number` (now deprecated).
+    "1": (
+        v0props: ?PerseusNumericInputWidgetOptions,
+    ): PerseusNumericInputWidgetOptions => {
+        // Our current perseus types define that `options` can be null, but in
+        // reality I can only find 2 pieces of content where a widget has no
+        // options and I suspect these are completely invalid.
+        // $FlowFixMe[incompatible-return]
+        return v0props;
+    },
+};
+
 export default ({
     name: "numeric-input",
     displayName: "Number text box",
@@ -543,4 +557,6 @@ export default ({
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
+    propUpgrades,
+    version: {major: 1, minor: 0},
 }: WidgetExports<typeof NumericInput>);

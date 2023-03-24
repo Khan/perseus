@@ -9,21 +9,9 @@ import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies.js";
 import * as Dependencies from "../../dependencies.js";
-import {errors} from "../../util/answer-types.js";
 import {question3 as question} from "../__testdata__/input-number_testdata.js";
-import InputNumber from "../input-number.jsx";
 
 import {renderQuestion} from "./renderQuestion.jsx";
-
-import type {PerseusInputNumberWidgetOptions} from "../../perseus-types.js";
-
-const {transform} = InputNumber;
-
-const options: PerseusInputNumberWidgetOptions = {
-    value: "2^{-2}-3",
-    size: "normal",
-    simplify: "optional",
-};
 
 describe("input-number", function () {
     beforeEach(() => {
@@ -204,87 +192,6 @@ describe("input-number", function () {
             // Assert
             expect(renderer).toHaveBeenAnsweredIncorrectly();
         });
-    });
-
-    it("transform should remove the `value` field", function () {
-        const editorProps = {
-            value: 5,
-            simplify: "required",
-            size: "normal",
-            inexact: false,
-            maxError: 0.1,
-            answerType: "number",
-        };
-        if (!transform) {
-            throw new Error("transform not defined");
-        }
-        const widgetProps = transform(editorProps);
-        expect(_.has(widgetProps, "value")).toBe(false);
-    });
-});
-
-describe("invalid", function () {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("should handle invalid answers with no error callback", function () {
-        const err = InputNumber.widget.validate({currentValue: "x+1"}, options);
-        expect(err).toStrictEqual({
-            message: errors.EXTRA_SYMBOLS_ERROR,
-            type: "invalid",
-        });
-    });
-});
-
-describe("getOneCorrectAnswerFromRubric", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
-    it("should return undefined if rubric.value is null/undefined", () => {
-        // Arrange
-        const rubric = {};
-
-        // Act
-        const result = InputNumber.widget.getOneCorrectAnswerFromRubric(rubric);
-
-        // Assert
-        expect(result).toBeUndefined();
-    });
-
-    it("should return rubric.value if inexact is false", () => {
-        // Arrange
-        const rubric = {
-            value: 0,
-            maxError: 0.1,
-            inexact: false,
-        };
-
-        // Act
-        const result = InputNumber.widget.getOneCorrectAnswerFromRubric(rubric);
-
-        // Assert
-        expect(result).toEqual("0");
-    });
-
-    it("should return rubric.value with an error band if inexact is true", () => {
-        // Arrange
-        const rubric = {
-            value: 0,
-            maxError: 0.1,
-            inexact: true,
-        };
-
-        // Act
-        const result = InputNumber.widget.getOneCorrectAnswerFromRubric(rubric);
-
-        // Assert
-        expect(result).toEqual("0 ± 0.1");
     });
 });
 
