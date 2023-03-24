@@ -11,7 +11,11 @@ describe("Registering all widgets and editors", () => {
 
         expect(allWidgetsTypes).not.toContain("undefined");
 
-        for (const widgetType of allWidgetsTypes) {
+        for (const widgetType of allWidgetsTypes.filter(
+            // `input-number` is gone, but we register the type so that we can
+            // redirect data that references it to the input-number widget.
+            (widgetType) => widgetType !== "input-number",
+        )) {
             expect(Widgets.getEditor(widgetType)).toBeTruthy();
         }
     });

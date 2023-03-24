@@ -6,7 +6,7 @@ import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
 import {testDependencies} from "../../../../testing/test-dependencies.js";
-import {question1} from "../__testdata__/input-number_testdata.js";
+import {question1} from "../__testdata__/numeric-input_testdata.js";
 import Editor from "../editor.jsx";
 
 describe("Editor", () => {
@@ -16,16 +16,16 @@ describe("Editor", () => {
         );
     });
 
-    describe("input-number widget", () => {
+    describe("numeric-input widget", () => {
         beforeEach(async () => {
-            const [InputNumberWidget, InputNumberEditor] = await Promise.all([
-                import("@khanacademy/perseus").then((m) => m.InputNumber),
-                import("../widgets/input-number-editor.jsx").then(
+            const [NumericInput, NumericInputEditor] = await Promise.all([
+                import("@khanacademy/perseus").then((m) => m.NumericInput),
+                import("../widgets/numeric-input-editor.jsx").then(
                     (m) => m.default,
                 ),
             ]);
-            Widgets.registerWidgets([InputNumberWidget]);
-            Widgets.registerEditors([InputNumberEditor]);
+            Widgets.registerWidgets([NumericInput]);
+            Widgets.registerEditors([NumericInputEditor]);
         });
 
         test("clicking on the widget editor should open it", async () => {
@@ -51,13 +51,14 @@ describe("Editor", () => {
 
             // Act
             const widgetDisclosure = screen.getByRole("link", {
-                name: "input-number 1",
+                name: "numeric-input 1",
             });
             userEvent.click(widgetDisclosure);
-            const correctAnswerInput = screen.getByLabelText("Correct answer:");
 
             // Assert
-            expect(correctAnswerInput).toHaveValue("0.5");
+            expect(
+                screen.getByText("Message shown to user on attempt"),
+            ).toBeVisible();
         });
 
         it("should update values", async () => {
@@ -68,7 +69,7 @@ describe("Editor", () => {
                 <Editor
                     apiOptions={ApiOptions.defaults}
                     content={question1.content}
-                    placeholder=""
+                    placeholder="Hello World"
                     widgets={question1.widgets}
                     images={question1.images}
                     disabled={false}
@@ -84,33 +85,49 @@ describe("Editor", () => {
 
             // Act
             const widgetDisclosure = screen.getByRole("link", {
-                name: "input-number 1",
+                name: "numeric-input 1",
             });
             userEvent.click(widgetDisclosure);
-            const correctAnswerInput = screen.getByLabelText("Correct answer:");
 
+            const correctAnswerInput = screen.getByPlaceholderText("answer");
             userEvent.clear(correctAnswerInput);
             userEvent.paste(correctAnswerInput, "0.75");
             userEvent.tab(); // blurring the input triggers onChange to be called
+
+            const messageInput = screen.getByPlaceholderText(
+                "Why is this answer correct? (reinforce the user's understanding)",
+            );
+            userEvent.clear(messageInput);
+            userEvent.type(messageInput, "Because its 0.75");
+            userEvent.tab();
 
             // Assert
             expect(changeFn).toHaveBeenCalledWith(
                 {
                     widgets: {
-                        "input-number 1": {
+                        "numeric-input 1": {
                             graded: true,
-                            version: {major: 0, minor: 0},
-                            static: false,
-                            type: "input-number",
+                            version: {major: 1, minor: 0},
+                            type: "numeric-input",
                             options: {
-                                value: 0.75,
-                                simplify: "required",
+                                answers: [
+                                    {
+                                        maxError: null,
+                                        message: "",
+                                        simplify: "required",
+                                        status: "correct",
+                                        strict: false,
+                                        value: 0.75,
+                                    },
+                                ],
+                                coefficient: false,
                                 size: "normal",
-                                inexact: false,
-                                maxError: 0.1,
-                                answerType: "number",
+                                multipleNumberInput: false,
+                                labelText: "",
                                 rightAlign: false,
+                                static: false,
                             },
+                            static: false,
                             alignment: "default",
                         },
                     },

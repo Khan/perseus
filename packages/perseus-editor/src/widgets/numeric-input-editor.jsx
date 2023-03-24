@@ -246,7 +246,7 @@ const NumericInputEditor: any = createReactClass({
         const addAnswerButton = (
             <div>
                 <a
-                    href="javascript:void(0)"
+                    href="#"
                     className="simple-button orange"
                     onClick={() => this.addAnswer()}
                     onKeyDown={(e) => this.onSpace(e, this.addAnswer)}
@@ -371,7 +371,7 @@ const NumericInputEditor: any = createReactClass({
                             ) : null}
                             <div className="value-divider" />
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className={"answer-status " + answer.status}
                                 onClick={() => this.onStatusChange(i)}
                                 onKeyDown={(e) =>
@@ -381,7 +381,7 @@ const NumericInputEditor: any = createReactClass({
                                 {answer.status}
                             </a>
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className="answer-trash"
                                 onClick={() => this.onTrashAnswer(i)}
                                 onKeyDown={(e) =>
@@ -391,7 +391,7 @@ const NumericInputEditor: any = createReactClass({
                                 <InlineIcon {...iconTrash} />
                             </a>
                             <a
-                                href="javascript:void(0)"
+                                href="#"
                                 className="options-toggle"
                                 onClick={() => this.onToggleOptions(i)}
                                 onKeyDown={(e) =>
