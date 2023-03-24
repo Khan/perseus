@@ -158,7 +158,6 @@ class Group extends React.Component<Props> {
                 })}
             >
                 {problemNumComponent}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                 <Renderer
                     content={this.props.content}
                     widgets={this.props.widgets}

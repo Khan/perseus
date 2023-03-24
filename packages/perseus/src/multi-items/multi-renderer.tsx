@@ -249,7 +249,7 @@ class MultiRenderer extends React.Component<Props, State> {
              * type for ContentNode and then fix this.
              */
             // $FlowFixMe[cannot-spread-inexact]
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: (e: any) => any; findExternalWidgets: (criterion: any) => readonly (Widget | null | undefined)[]; serializedState: any; onSerializedStateUpdated: (state: any) => void; __type: "content" | "item"; ... 9 more ...; reviewMode?: boolean | ... 1 more ... | undefined; }' is not assignable to type 'InexactPartial<Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "content" | "images" | "onRender" | "linterContext" | "widgets" | "alwaysUpdate" | ... 6 more ... | "serializedState">>'. | TS2786 - 'Renderer' cannot be used as a JSX component.
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: (e: any) => any; findExternalWidgets: (criterion: any) => readonly (Widget | null | undefined)[]; serializedState: any; onSerializedStateUpdated: (state: any) => void; __type: "content" | "item"; ... 9 more ...; reviewMode?: boolean | ... 1 more ... | undefined; }' is not assignable to type 'InexactPartial<Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "content" | "images" | "onRender" | "linterContext" | "widgets" | "alwaysUpdate" | ... 6 more ... | "serializedState">>'.
             <Renderer
                 {...this._getRendererProps()}
                 {...content}
@@ -289,7 +289,6 @@ class MultiRenderer extends React.Component<Props, State> {
             findExternalWidgets, // _annotateRendererArray() needs this
             ref: null,
             makeRenderer: () => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component.
                 <HintsRenderer
                     {...this._getRendererProps()}
 // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
@@ -481,7 +480,6 @@ class MultiRenderer extends React.Component<Props, State> {
 
             renderers = [...renderers];
             (renderers as any).firstN = (n: any) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component.
                 <HintsRenderer
                     {...this._getRendererProps()}
 // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.

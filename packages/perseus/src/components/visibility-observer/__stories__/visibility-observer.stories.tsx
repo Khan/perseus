@@ -138,6 +138,5 @@ class VisibilityTest extends React.Component<Props, State> {
 }
 
 export const AlertWhenNotVisible: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'VisibilityTest' cannot be used as a JSX component.
     return <VisibilityTest />;
 };

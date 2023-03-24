@@ -45,7 +45,6 @@ export const MultiItemRendererWithDebugUI: React.FC<Props> = (
             leftTitle="Multi Renderer"
             left={
                 <>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MultiItems.MultiRenderer' cannot be used as a JSX component. */}
                     <MultiItems.MultiRenderer
                         item={simpleItem}
                         shape={simpleQuestionShape}
@@ -57,9 +56,7 @@ export const MultiItemRendererWithDebugUI: React.FC<Props> = (
                     </MultiItems.MultiRenderer>
                     <div id="workarea" />
                     <div id="hintsarea" />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
                                 if (!ref.current) {

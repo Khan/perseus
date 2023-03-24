@@ -56,7 +56,6 @@ class ExampleGraphieWidgetEditor extends React.Component<Props> {
     render(): React.ReactElement {
         return (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ExampleGraphieWidget' cannot be used as a JSX component. */}
                 <ExampleGraphieWidget
                     graph={this.props.graph}
                     coord={this.props.correct}

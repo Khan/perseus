@@ -26,7 +26,6 @@ export const SimpleListOfOptions: React.FC<StoryArgs> = (args): React.ReactEleme
     return (
 // @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: Element; class: string; }' is not assignable to type 'DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>'.
         <div class={ClassName}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
             <TextListEditor {...defaultObject} />
         </div>
     );

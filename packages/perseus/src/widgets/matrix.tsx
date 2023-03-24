@@ -181,7 +181,6 @@ class Matrix extends React.Component<Props, State> {
             <div className={className}>
                 {this.props.prefix && (
                     <div className="matrix-prefix">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                         <Renderer
                             content={this.props.prefix}
                             linterContext={this.props.linterContext}
@@ -295,7 +294,6 @@ class Matrix extends React.Component<Props, State> {
                                         } as const;
 
                                         MatrixInput = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SimpleKeypadInput' cannot be used as a JSX component.
                                             <SimpleKeypadInput
                                                 {...inputProps}
                                                 style={style}
@@ -307,7 +305,6 @@ class Matrix extends React.Component<Props, State> {
                                         );
                                     } else if (this.props.numericInput) {
                                         MatrixInput = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component.
                                             <NumberInput {...inputProps} />
                                         );
                                     } else {
@@ -327,7 +324,7 @@ class Matrix extends React.Component<Props, State> {
                                         } as const;
 
                                         MatrixInput = (
-// @ts-expect-error [FEI-5003] - TS2322 - Type '{ style: CSSProperties; className: "inside" | "outside"; ref: string; value: number | null; disabled: boolean; onFocus: () => void; onBlur: () => void; onKeyDown: (e: any) => void; onChange: (value: any, cb: any) => void; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "style" | "id" | "className" | "placeholder" | "onFocus" | "onBlur" | "onChange" | "onKeyDown" | "labelText">'. | TS2786 - 'TextInput' cannot be used as a JSX component.
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ style: CSSProperties; className: "inside" | "outside"; ref: string; value: number | null; disabled: boolean; onFocus: () => void; onBlur: () => void; onKeyDown: (e: any) => void; onChange: (value: any, cb: any) => void; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "style" | "id" | "className" | "placeholder" | "onFocus" | "onBlur" | "onChange" | "onKeyDown" | "labelText">'.
                                             <TextInput {...updatedProps} />
                                         );
                                     }
@@ -346,7 +343,6 @@ class Matrix extends React.Component<Props, State> {
                 </div>
                 {this.props.suffix && (
                     <div className="matrix-suffix">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                         <Renderer
                             content={this.props.suffix}
                             linterContext={this.props.linterContext}

@@ -282,7 +282,7 @@ class GradedGroup extends React.Component<Props, State> {
                  */}
                 {/* $FlowFixMe[prop-missing] */}
                 {/* $FlowFixMe[incompatible-type] */}
-{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. | TS2786 - 'Renderer' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
                 <Renderer
                     {...this.props}
                     // eslint-disable-next-line react/no-string-refs
@@ -309,7 +309,6 @@ class GradedGroup extends React.Component<Props, State> {
                     </p>
                 )}
                 {!apiOptions.isMobile && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component.
                     <Button
                         kind="secondary"
                         disabled={this.props.apiOptions.readOnly}
@@ -321,7 +320,6 @@ class GradedGroup extends React.Component<Props, State> {
                 {!apiOptions.isMobile &&
                     isCorrect &&
                     this.props.onNextQuestion && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component.
                         <Button
                             kind="secondary"
                             disabled={this.props.apiOptions.readOnly}
@@ -355,7 +353,6 @@ class GradedGroup extends React.Component<Props, State> {
                              * require as part of {...this.props.hint}.
                              */}
                             {/* $FlowFixMe[prop-missing] */}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                             <Renderer
                                 {...this.props.hint}
                                 // eslint-disable-next-line react/no-string-refs
@@ -381,7 +378,6 @@ class GradedGroup extends React.Component<Props, State> {
                         </button>
                     ))}
                 {apiOptions.isMobile && answerBarState !== "HIDDEN" && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'GradedGroupAnswerBar' cannot be used as a JSX component.
                     <GradedGroupAnswerBar
                         apiOptions={apiOptions}
                         answerBarState={answerBarState}

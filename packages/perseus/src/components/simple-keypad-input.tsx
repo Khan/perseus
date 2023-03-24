@@ -48,7 +48,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
         const {keypadElement, onFocus, value, ...rest} = _this.props;
 
         return (
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'KeypadInput' cannot be used as a JSX component.
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             <KeypadInput
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"

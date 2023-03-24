@@ -183,7 +183,6 @@ class ItemRenderer extends React.Component<Props, State> {
             // replace (also item.question, aka PerseusRenderer)
             // savedState (I _think_ this is serializedState on Renderer)
             // $FlowFixMe[prop-missing] metadata, replace, savedState (see above)
-// @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component.
             <Renderer
                 ref={(node) => {
                     if (!node) {
@@ -220,7 +219,6 @@ class ItemRenderer extends React.Component<Props, State> {
         );
 
         reactRender(
-// @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component.
             <HintsRenderer
                 ref={(node) => (this.hintsRenderer = node)}
                 hints={this.props.item.hints}

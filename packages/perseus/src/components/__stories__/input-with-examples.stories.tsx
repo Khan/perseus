@@ -21,18 +21,15 @@ const defaultObject = {
 const testExamples = ["Sample 1", "Sample 2", "Sample 3"];
 
 export const DefaultAndMostlyEmptyProps: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputWithExamples' cannot be used as a JSX component.
     return <InputWithExamples {...defaultObject} />;
 };
 
 export const ListOfExamples: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputWithExamples' cannot be used as a JSX component.
     return <InputWithExamples {...defaultObject} examples={testExamples} />;
 };
 
 export const AriaLabelTextWithListOfExamples: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputWithExamples' cannot be used as a JSX component.
         <InputWithExamples
             {...defaultObject}
             examples={testExamples}
@@ -43,7 +40,6 @@ export const AriaLabelTextWithListOfExamples: React.FC<StoryArgs> = (args): Reac
 
 export const DisabledInput: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputWithExamples' cannot be used as a JSX component.
         <InputWithExamples
             {...defaultObject}
             disabled={true}

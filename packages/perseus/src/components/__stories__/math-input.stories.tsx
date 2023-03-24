@@ -18,14 +18,11 @@ const defaultObject = {
 } as const;
 
 export const DefaultWithBasicButtonSet: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component.
     return <MathInput {...defaultObject} />;
 };
 export const AlwaysVisibleButtonSet: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component.
     return <MathInput {...defaultObject} buttonsVisible="always" />;
 };
 export const DefaultWithAriaLabel: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component.
     return <MathInput {...defaultObject} labelText="Sample label" />;
 };

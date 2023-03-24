@@ -389,7 +389,6 @@ export class NumericInput extends React.Component<Props, State> {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
             return maybeRightAlignKeypadInput(
-// @ts-expect-error [FEI-5003] - TS2786 - 'SimpleKeypadInput' cannot be used as a JSX component.
                 <SimpleKeypadInput
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
@@ -415,7 +414,6 @@ export class NumericInput extends React.Component<Props, State> {
 
         return (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InputWithExamples' cannot be used as a JSX component. */}
                 <InputWithExamples
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}

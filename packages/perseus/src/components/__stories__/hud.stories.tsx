@@ -14,7 +14,6 @@ export default {
 
 export const TestMessageDisabled: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Hud' cannot be used as a JSX component.
         <Hud
             fixedPosition={false}
             message="Test message"
@@ -26,7 +25,6 @@ export const TestMessageDisabled: React.FC<StoryArgs> = (args): React.ReactEleme
 
 export const TestMessageEnabled: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Hud' cannot be used as a JSX component.
         <Hud
             fixedPosition={false}
             message="Test message"

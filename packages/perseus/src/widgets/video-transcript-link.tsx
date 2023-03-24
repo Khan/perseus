@@ -44,18 +44,13 @@ const VideoTranscriptLink: React.FC<Props> = (props): React.ReactElement => {
 
     switch (result.status) {
         case "loading":
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             return <View>{i18n._("Loading...")}</View>;
         case "success": {
             const video = result.data?.video;
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                 <View style={styles.transcriptLink}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Text' cannot be used as a JSX component. */}
                     <Text>{video?.title}</Text>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Strut' cannot be used as a JSX component. */}
                     <Strut size={10} />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Link' cannot be used as a JSX component. */}
                     <Link
                         href={
                             "/transcript/" +
@@ -70,13 +65,10 @@ const VideoTranscriptLink: React.FC<Props> = (props): React.ReactElement => {
             );
         }
         case "error":
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             return <View>{i18n._("Something went wrong.")}</View>;
         case "aborted":
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             return <View>{i18n._("Something went wrong.")}</View>;
         default:
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             return <View>{i18n._("Something went wrong.")}</View>;
     }
 };

@@ -131,7 +131,6 @@ function defaultPreloader(dimensions: Dimensions) {
                 alignContent: "center",
             }}
         >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'CircularSpinner' cannot be used as a JSX component. */}
             <CircularSpinner size="medium" />
         </span>
     );
@@ -616,7 +615,6 @@ class SvgImage extends React.Component<Props, State> {
         let extraGraphie;
         if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
             extraGraphie = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component.
                 <Graphie
                     box={this.props.extraGraphie.box}
                     range={this.props.extraGraphie.range}
@@ -660,7 +658,6 @@ class SvgImage extends React.Component<Props, State> {
                             isImageProbablyPhotograph(imageSrc)
                         }
                     >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component. */}
                         <ImageLoader
                             src={imageSrc}
                             imgProps={imageProps}
@@ -674,7 +671,6 @@ class SvgImage extends React.Component<Props, State> {
             }
             imageProps.style = dimensions;
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component.
                 <ImageLoader
                     src={imageSrc}
 // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
@@ -714,7 +710,6 @@ class SvgImage extends React.Component<Props, State> {
             const scale = [40 * this.props.scale, 40 * this.props.scale];
 
             graphie = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component.
                 <Graphie
                     // eslint-disable-next-line react/no-string-refs
                     ref="graphie"
@@ -737,7 +732,6 @@ class SvgImage extends React.Component<Props, State> {
                     height={height}
                     constrainHeight={this.props.constrainHeight}
                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component. */}
                     <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
@@ -754,7 +748,6 @@ class SvgImage extends React.Component<Props, State> {
         imageProps.style = dimensions;
         return (
             <div className="unresponsive-svg-image" style={dimensions}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component. */}
                 <ImageLoader
                     src={imageUrl}
                     onLoad={this.onImageLoad}

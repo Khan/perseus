@@ -202,7 +202,6 @@ class PlotterEditor extends React.Component<Props, State> {
                         <div>
                             <label>
                                 Tick Step:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                                 <NumberInput
                                     placeholder={1}
                                     useArrowKeys={true}
@@ -210,7 +209,6 @@ class PlotterEditor extends React.Component<Props, State> {
                                     onChange={this.handleChangeTickStep}
                                 />
                             </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>The difference between adjacent ticks.</p>
                             </InfoTip>
@@ -218,7 +216,6 @@ class PlotterEditor extends React.Component<Props, State> {
                         <div>
                             <label>
                                 Range:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                                 <RangeInput
                                     placeholder={[0, 10]}
                                     useArrowKeys={true}
@@ -237,14 +234,12 @@ class PlotterEditor extends React.Component<Props, State> {
                 <div>
                     <label>
                         Label Interval:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             useArrowKeys={true}
                             value={this.props.labelInterval}
                             onChange={this.changeLabelInterval}
                         />
                     </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Which ticks to display the labels for. For instance,
@@ -257,13 +252,11 @@ class PlotterEditor extends React.Component<Props, State> {
                     <div>
                         <label>
                             Picture:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                             <BlurInput
                                 className="pic-url"
                                 value={this.props.picUrl}
                                 onChange={this.changePicUrl}
                             />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>
                                     Use the default picture of Earth, or insert
@@ -286,7 +279,6 @@ class PlotterEditor extends React.Component<Props, State> {
                 <div>
                     <label>
                         Categories:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                         <TextListEditor
                             // eslint-disable-next-line react/no-string-refs
                             ref="categories"
@@ -328,7 +320,6 @@ class PlotterEditor extends React.Component<Props, State> {
                                 defaultValue={this.props.snapsPerLine}
                             />
                         </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <p>
                                 Creates the specified number of divisions
@@ -358,7 +349,6 @@ class PlotterEditor extends React.Component<Props, State> {
                             {editing}
                         </label>
                     ))}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Use this toggle to switch between editing the
@@ -373,7 +363,6 @@ class PlotterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Plotter' cannot be used as a JSX component. */}
                 <Plotter
                     {...props}
                     starting={this.props[this.state.editing]}

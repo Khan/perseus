@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 
 const Wrapper = (props) => (
     <div className={css(styles.wrapper)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'QuestionMarkers' cannot be used as a JSX component. */}
         <QuestionMarkers {...props} />
     </div>
 );
@@ -48,7 +47,6 @@ class WithState extends React.Component<Record<any, any>, {
 
         return (
             <div className={css(styles.wrapper)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'QuestionMarkers' cannot be used as a JSX component. */}
                 <QuestionMarkers
                     choices={[
                         "Lamborghini",
@@ -102,6 +100,5 @@ export const Filled: React.FC<StoryArgs> = (args): React.ReactElement => {
 };
 
 export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'WithState' cannot be used as a JSX component.
     return <WithState />;
 };

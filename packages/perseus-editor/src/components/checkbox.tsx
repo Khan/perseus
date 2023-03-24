@@ -62,7 +62,6 @@ export default class Checkbox extends React.Component<CheckboxProps> {
         const checkedColor = colors.gray41;
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HoverBehavior' cannot be used as a JSX component.
             <HoverBehavior>
                 {({focused}, handlers) => (
                     <div

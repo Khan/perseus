@@ -437,7 +437,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
     render(): React.ReactNode | React.ReactElement<React.ComponentProps<'div'>> {
         if (this.props.apiOptions.customKeypad) {
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'KeypadInput' cannot be used as a JSX component.
                 <KeypadInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="input"
@@ -504,7 +503,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
         return (
             <div className={className}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                 <MathInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="input"

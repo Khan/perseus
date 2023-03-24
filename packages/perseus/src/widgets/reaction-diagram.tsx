@@ -117,14 +117,12 @@ class ReactionDiagramWidget extends React.Component<any> {
                     const id = this.props.widgetId + "-" + i;
                     return (
                         <div key={id} className="molecule-container">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Molecule' cannot be used as a JSX component. */}
                             <Molecule
                                 id={id}
                                 rotationAngle={this.props.rotationAngle[i]}
                                 smiles={s}
                             />
                             {i === this.props.smiles.length - 1 ? null : (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Separator' cannot be used as a JSX component.
                                 <Separator
                                     data={this.props.separators[i]}
                                     index={i}

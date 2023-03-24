@@ -23,7 +23,6 @@ const Content = (): React.ReactElement => {
         <KeypadContext.Consumer>
             {({keypadElement, setRenderer, scrollableElement}) => (
                 <>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ItemRenderer' cannot be used as a JSX component. */}
                     <ItemRenderer
                         ref={setRenderer}
                         problemNum={0}
@@ -49,7 +48,6 @@ const Content = (): React.ReactElement => {
 
 const Footer = (): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
         <View
             style={[
                 styles.keypadContainer,
@@ -62,7 +60,6 @@ const Footer = (): React.ReactElement => {
         >
             <KeypadContext.Consumer>
                 {({keypadElement, setKeypadElement, renderer}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Keypad' cannot be used as a JSX component.
                     <Keypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => renderer && renderer.blur()}

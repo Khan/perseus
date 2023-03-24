@@ -158,7 +158,6 @@ class MoleculeWidget extends React.Component<any> {
 
     render(): React.ReactElement {
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Molecule' cannot be used as a JSX component.
             <Molecule
                 id={this.props.widgetId}
                 smiles={this.props.smiles}

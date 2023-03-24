@@ -114,7 +114,7 @@ const InteractiveGraphEditor: any = createReactClass({
                 // getWidgetProps() and widget-container.jsx that the editors don't
                 // bother passing.
                 // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'InteractiveGraph' cannot be used as a JSX component.
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 <InteractiveGraph
                     {...graphProps}
                     containerSizeClass={sizeClass}
@@ -136,7 +136,6 @@ const InteractiveGraphEditor: any = createReactClass({
             <div className="perseus-widget-interactive-graph">
                 <div>
                     Correct answer{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Graph the correct answer in the graph below and
@@ -182,7 +181,6 @@ const InteractiveGraphEditor: any = createReactClass({
                                 <option value="similar">be similar</option>
                             </select>
                         </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <ul>
                                 <li>
@@ -241,7 +239,6 @@ const InteractiveGraphEditor: any = createReactClass({
                                     </option>
                                 </select>
                             </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>
                                     Congruency requires only that the angle

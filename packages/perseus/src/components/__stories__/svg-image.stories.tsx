@@ -18,13 +18,11 @@ const graphieUrl =
     "web+graphie://ka-perseus-graphie.s3.amazonaws.com/1e06f6d4071f30cee2cc3ccb7435b3a66a62fe3f";
 
 export const MostlyEmptyPropsObject: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
     return <SvgImage alt="ALT" />;
 };
 
 export const SvgImageThatDoesntLoad: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
         <SvgImage
             alt="ALT"
             height={100}
@@ -35,23 +33,19 @@ export const SvgImageThatDoesntLoad: React.FC<StoryArgs> = (args): React.ReactEl
 };
 
 export const SvgImageBasic: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
     return <SvgImage src={svgUrl} alt="ALT" />;
 };
 
 export const SvgImageWithFixedHeight: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
     return <SvgImage height={50} src={svgUrl} alt="ALT" />;
 };
 
 export const SvgImageWithFixedWidth: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
     return <SvgImage src={svgUrl} width={50} alt="ALT" />;
 };
 
 export const SvgImageWithExtraGraphieProps: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
         <SvgImage
             extraGraphie={{
                 box: [200, 200],
@@ -68,11 +62,9 @@ export const SvgImageWithExtraGraphieProps: React.FC<StoryArgs> = (args): React.
 };
 
 export const PngImage: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
     return <SvgImage src={imgUrl} alt="ALT" />;
 };
 
 export const GraphieImage: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
     return <SvgImage src={graphieUrl} alt="ALT" />;
 };

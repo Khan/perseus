@@ -143,7 +143,6 @@ class InputNumber extends React.Component<Props> {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
             const input = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SimpleKeypadInput' cannot be used as a JSX component.
                 <SimpleKeypadInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="input"
@@ -180,7 +179,6 @@ class InputNumber extends React.Component<Props> {
         }
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputWithExamples' cannot be used as a JSX component.
             <InputWithExamples
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"

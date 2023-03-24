@@ -32,7 +32,6 @@ const HarnassedButtonGroup = (
     );
 
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'MultiButtonGroup' cannot be used as a JSX component.
         <MultiButtonGroup
             {...props}
             values={values}

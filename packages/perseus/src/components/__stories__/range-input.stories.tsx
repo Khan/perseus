@@ -13,18 +13,15 @@ export default {
 } as Story;
 
 export const EmptyValueArray: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component.
     return <RangeInput onChange={() => {}} value={[]} />;
 };
 
 export const SimpleWithSmallValueRanges: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component.
     return <RangeInput onChange={() => {}} value={[-10, 10]} />;
 };
 
 export const Placeholders: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component.
         <RangeInput onChange={() => {}} placeholder={["?", "!"]} value={[]} />
     );
 };

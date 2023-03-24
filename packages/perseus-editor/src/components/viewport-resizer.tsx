@@ -51,7 +51,6 @@ class ViewportResizer extends React.Component<Props> {
         return (
             <span className="viewport-resizer">
                 Viewport:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component. */}
                 <ButtonGroup
                     value={this.props.deviceType}
                     allowEmpty={false}

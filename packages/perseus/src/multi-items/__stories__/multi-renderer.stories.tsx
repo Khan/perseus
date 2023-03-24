@@ -33,31 +33,23 @@ export const SingleItem: React.FC<StoryArgs> = (args): React.ReactElement => {
             {({renderers}) => {
                 const {blurb, question, hints} = renderers;
                 return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                     <View>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                         <View style={styles.section}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
                             <HeadingSmall style={styles.heading}>
                                 {i18n.doNotTranslate("Blurb")}
                             </HeadingSmall>
                             {blurb}
                         </View>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                         <View style={styles.section}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
                             <HeadingSmall style={styles.heading}>
                                 {i18n.doNotTranslate("Question")}
                             </HeadingSmall>
                             {question}
                         </View>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                         <View style={styles.section}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
                             <HeadingSmall style={styles.heading}>
                                 {i18n.doNotTranslate("Hints")}
                             </HeadingSmall>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                             <View style={styles.hints}>
                                 {
                                     // $FlowFixMe[prop-missing]

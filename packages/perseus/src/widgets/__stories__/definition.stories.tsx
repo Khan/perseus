@@ -103,6 +103,5 @@ export const MultipleDefinitions: React.FC<StoryArgs> = (args): React.ReactEleme
 };
 
 export const ArticleDefintion: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'ArticleRenderer' cannot be used as a JSX component.
     return <ArticleRenderer json={article} useNewStyles />;
 };

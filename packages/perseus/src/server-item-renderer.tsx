@@ -400,7 +400,6 @@ export class ServerItemRenderer extends React.Component<Props, State> implements
 
         const questionRenderer = (
             <AssetContext.Provider value={contextValue}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                 <Renderer
                     keypadElement={this.props.keypadElement}
                     problemNum={this.props.problemNum}
@@ -422,7 +421,6 @@ export class ServerItemRenderer extends React.Component<Props, State> implements
         );
 
         const hintsRenderer = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component.
             <HintsRenderer
                 hints={this.props.item.hints}
                 hintsVisible={this.props.hintsVisible}
@@ -463,7 +461,6 @@ const ref: Flow.AbstractComponent<OwnProps, ServerItemRenderer> =
     React.forwardRef((props, ref) => (
         <LoadingContext.Consumer>
             {({onRendered}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ServerItemRenderer' cannot be used as a JSX component.
                 <ServerItemRenderer
                     {...props}
                     onRendered={onRendered}

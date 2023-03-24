@@ -95,7 +95,6 @@ const ProvideKeypad = {
             document.body?.appendChild(_this._keypadContainer);
 
             reactRender(
-// @ts-expect-error [FEI-5003] - TS2786 - 'Keypad' cannot be used as a JSX component.
                 <Keypad
                     onElementMounted={(element) => {
                         // NOTE(kevinb): The reason why this setState works is

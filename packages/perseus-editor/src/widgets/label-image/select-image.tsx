@@ -36,7 +36,6 @@ const SelectImage: React.FC<SelectImageProps> = (
 
         <div className={css(styles.spacer)} />
 
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
         <Button
             // TODO(michaelpolyak): Design calls for uploading an image from
             // the widget. This functionality already exists in

@@ -151,14 +151,12 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
                                 styles.dropdownPositionWithArrow,
                             )}
                         >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Option' cannot be used as a JSX component. */}
                             <Option value="" onClick={() => onRemove()}>
                                 Delete marker
                             </Option>
 
                             <hr className={css(styles.dividerHorizontal)} />
 
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'OptionGroup' cannot be used as a JSX component. */}
                             <OptionGroup
                                 onSelected={this.handleSelectAnswer}
                                 // TODO(WB-1096): make selectedValues immutable in wonder-blocks
@@ -167,7 +165,6 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
                                 selectedValues={answers}
                             >
                                 {choices.map((choice) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Option' cannot be used as a JSX component.
                                     <Option key={choice} value={choice}>
                                         {choice}
                                     </Option>

@@ -17,21 +17,17 @@ const defaultObject = {
 } as const;
 
 export const EmptyPropsObject: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component.
     return <TextInput {...defaultObject} />;
 };
 
 export const TestValueProvided: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component.
     return <TextInput {...defaultObject} value="Test value" />;
 };
 
 export const AriaLabelTextProvided: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component.
     return <TextInput {...defaultObject} labelText="Test label" />;
 };
 
 export const Disabled: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component.
     return <TextInput {...defaultObject} disabled={true} />;
 };

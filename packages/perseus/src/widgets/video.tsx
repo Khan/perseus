@@ -85,7 +85,6 @@ class Video extends React.Component<Props> {
         }
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             <View>
                 <FixedToResponsive
                     width={DEFAULT_WIDTH}
@@ -94,7 +93,6 @@ class Video extends React.Component<Props> {
                     // any changes cause a re-rendering of the frame.
                     key={location + this.props.alignment}
                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                     <View style={a11y.srOnly}>
                         {i18n._("Khan Academy video wrapper")}
                     </View>

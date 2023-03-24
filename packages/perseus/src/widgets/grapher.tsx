@@ -202,7 +202,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             image = (
                 // $FlowFixMe[prop-missing]: alt props is missing
-// @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. | TS2786 - 'SvgImage' cannot be used as a JSX component.
+// @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
                 <SvgImage
                     src={imageDescription.url}
                     width={imageDescription.width}
@@ -229,7 +229,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     }}
                 >
                     {image}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component. */}
                     <Graphie
                         {...this.props.graph}
                         setDrawingAreaAvailable={
@@ -376,7 +375,6 @@ class Grapher extends React.Component<Props> {
 
         const typeSelector = (
             <div style={typeSelectorStyle} className="above-scratchpad">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component. */}
                 <ButtonGroup
                     value={type}
                     allowEmpty={true}
@@ -431,7 +429,7 @@ class Grapher extends React.Component<Props> {
 
         return (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'FunctionGrapher' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <FunctionGrapher {...grapherProps} />
                 {this.props.availableTypes.length > 1 && typeSelector}
             </div>

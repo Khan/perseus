@@ -191,7 +191,6 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                         {a11yText} &nbsp; {content}
                     </label>
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Clickable' cannot be used as a JSX component. */}
                 <Clickable
                     onClick={() => {
                         // If we're checking a crossed-out option, let's
@@ -255,21 +254,16 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                 </Clickable>
 
                 {apiOptions.crossOutEnabled && !reviewMode && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Popover' cannot be used as a JSX component.
                     <Popover
                         dismissEnabled
                         content={({close}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'PopoverContent' cannot be used as a JSX component.
                             <PopoverContent
                                 title="Cross out"
                                 content="Cross out option"
                                 closeButtonVisible
                                 actions={
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                                     <View>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Strut' cannot be used as a JSX component. */}
                                         <Strut size={Spacing.medium_16} />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                                         <Button
                                             kind="primary"
                                             aria-label={`Cross out Choice ${getChoiceLetter(
@@ -307,7 +301,6 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                         )}
                     >
                         {({open}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Clickable' cannot be used as a JSX component.
                             <Clickable
                                 onClick={open}
                                 aria-label={`Open menu for Choice ${getChoiceLetter(
@@ -323,7 +316,6 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                                 }}
                             >
                                 {({hovered, focused, pressed}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Icon' cannot be used as a JSX component.
                                     <Icon
                                         icon={ellipsisHorizontalIcon}
                                         size={3}

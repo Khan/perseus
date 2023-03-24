@@ -434,7 +434,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
         // Highlights are read-only in review mode.
         const editable = !this.props.reviewModeRubric;
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HighlightableContent' cannot be used as a JSX component.
             <HighlightableContent
                 editable={editable}
                 enabled={enabled}
@@ -444,7 +443,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
                 serializedHighlights={this.props.highlights}
             >
                 <div ref={(ref) => (this._contentRef = ref)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'LineHeightMeasurer' cannot be used as a JSX component. */}
                     <LineHeightMeasurer
                         ref={(ref) => (this._lineHeightMeasurerRef = ref)}
                     />
@@ -513,7 +511,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
                     <div className="perseus-widget-passage">
                         {hasTitle && (
                             <h3 className="passage-title">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                 <Renderer
                                     content={this.props.passageTitle}
                                     linterContext={this.props.linterContext}
@@ -536,7 +533,6 @@ class Passage extends React.Component<PassageProps, PassageState> {
                                 // If we're in JIPT mode, just pass off our
                                 // content to a <Renderer /> which knows how
                                 // to handle rendering JIPT text.
-// @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component.
                                 <Renderer content={this.props.passageText} />
                             ) : (
                                 this._renderContent(parsedContent)

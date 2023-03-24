@@ -36,7 +36,6 @@ class PassageRefEditor extends React.Component<Props> {
                 <div>
                     <label>
                         {"Passage Number: "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={this.props.passageNumber}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -47,7 +46,6 @@ class PassageRefEditor extends React.Component<Props> {
                 <div>
                     <label>
                         {"Reference Number: "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={this.props.referenceNumber}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -58,13 +56,11 @@ class PassageRefEditor extends React.Component<Props> {
                 <div>
                     <label>
                         {"Summary Text: "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             value={this.props.summaryText}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("summaryText")}
                         />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <p>
                                 Short summary of the referenced section. This

@@ -35,10 +35,8 @@ class Tabbar extends React.Component<TabbarProps, TabbarState> {
     render(): React.ReactElement {
         const {items, onSelect} = this.props;
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             <View style={styles.tabbar}>
                 {items.map((item, index) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TabbarItem' cannot be used as a JSX component.
                     <TabbarItem
                         key={`tabbar-item-${index}`}
                         itemState={

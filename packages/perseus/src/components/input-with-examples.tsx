@@ -193,7 +193,6 @@ class InputWithExamples extends React.Component<Props, State> {
             >
                 {input}
                 <div id={this._getUniqueId()}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
                         content={examplesContent}
                         linterContext={PerseusLinter.pushContextStack(

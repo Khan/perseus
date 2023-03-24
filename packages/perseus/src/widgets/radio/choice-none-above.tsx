@@ -38,7 +38,6 @@ const ChoiceNoneAbove: React.FC<PropsWithForwardRef> = function(props): React.Re
             //
             // todo(matthewc): this seems like way overkill
             // just to render a string
-// @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component.
             <Renderer
                 key="noneOfTheAboveRenderer"
                 content={i18n._("None of the above")}

@@ -20,7 +20,6 @@ export default {
     decorators: [
         (StoryComponent) => (
             <Wrapper>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'StoryComponent' cannot be used as a JSX component. */}
                 <StoryComponent />
             </Wrapper>
         ),
@@ -171,7 +170,6 @@ export const ContentAdded: React.FC<StoryArgs> = (args): React.ReactElement => {
         },
     } as const;
 
-// @ts-expect-error [FEI-5003] - TS2786 - 'StructuredItemDiff' cannot be used as a JSX component.
     return <StructuredItemDiff {...props} />;
 };
 
@@ -378,7 +376,6 @@ export const ContentAddedRemovedAndChanged: React.FC<StoryArgs> = (args): React.
             names: ["a tag", "b tag", "c tag"],
         },
     } as const;
-// @ts-expect-error [FEI-5003] - TS2786 - 'StructuredItemDiff' cannot be used as a JSX component.
     return <StructuredItemDiff {...props} />;
 };
 
@@ -675,7 +672,6 @@ export const MiscContentChanges: React.FC<StoryArgs> = (args): React.ReactElemen
         },
     } as const;
 
-// @ts-expect-error [FEI-5003] - TS2786 - 'StructuredItemDiff' cannot be used as a JSX component.
     return <StructuredItemDiff {...props} />;
 };
 
@@ -853,6 +849,5 @@ export const ContentRemoved: React.FC<StoryArgs> = (args): React.ReactElement =>
         },
     } as const;
 
-// @ts-expect-error [FEI-5003] - TS2786 - 'StructuredItemDiff' cannot be used as a JSX component.
     return <StructuredItemDiff {...props} />;
 };

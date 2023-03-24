@@ -53,7 +53,6 @@ class CategorizerEditor extends React.Component<Props> {
                     />
                 </div>
                 Categories:
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                 <TextListEditor
                     options={this.props.categories}
                     onChange={(cat) => {
@@ -63,7 +62,6 @@ class CategorizerEditor extends React.Component<Props> {
                     layout="horizontal"
                 />
                 Items:
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                 <TextListEditor
                     options={this.props.items}
                     onChange={(items) => {
@@ -87,7 +85,7 @@ class CategorizerEditor extends React.Component<Props> {
                     via widget-container.jsx that we aren't passing to Categorizer here.
                     See perseus-all-package/types.js#WidgetProps for details. */}
                 {/* $FlowFixMe[prop-missing] */}
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'Categorizer' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <Categorizer
                     apiOptions={this.props.apiOptions}
                     items={this.props.items}

@@ -93,12 +93,10 @@ const AddAnswer: React.FC<AddAnswerProps> = (
     {
         onClick,
     },
-// @ts-expect-error [FEI-5003] - TS2786 - 'Link' cannot be used as a JSX component.
 ): React.ReactElement => <Link
     className={css(styles.addAnswer, editorStyles.addAnswer)}
     onClick={onClick}
 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Icon' cannot be used as a JSX component. */}
     <Icon icon={addIcon} size={24} />
     <div className={css(styles.spacer)} />
     Add an answer choice
@@ -116,9 +114,7 @@ const Answer: React.FC<AnswerProps> = (
         onRemove,
     },
 ): React.ReactElement => <li className={css(styles.answer)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Link' cannot be used as a JSX component. */}
     <Link onClick={onRemove}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Icon' cannot be used as a JSX component. */}
         <Icon icon={removeIcon} size={24} color="#D92916" />
     </Link>
 
@@ -132,7 +128,6 @@ const Answer: React.FC<AnswerProps> = (
 
     <div className={css(styles.spacer)} />
 
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Link' cannot be used as a JSX component. */}
     <Link
         style={[styles.disabled]}
         title="Answer reordering is not implemented."

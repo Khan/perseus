@@ -280,7 +280,6 @@ class EditorPage extends React.Component<Props, State> {
                     )}
 
                     {!this.props.jsonMode && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ViewportResizer' cannot be used as a JSX component.
                         <ViewportResizer
                             deviceType={this.props.previewDevice}
                             onViewportSizeChanged={
@@ -290,7 +289,6 @@ class EditorPage extends React.Component<Props, State> {
                     )}
 
                     {!this.props.jsonMode && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HUD' cannot be used as a JSX component.
                         <HUD
                             message="Style warnings"
                             enabled={this.state.highlightLint}
@@ -314,7 +312,6 @@ class EditorPage extends React.Component<Props, State> {
                 )}
 
                 {(!this.props.developerMode || !this.props.jsonMode) && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ItemEditor' cannot be used as a JSX component.
                     <ItemEditor
                         // eslint-disable-next-line react/no-string-refs
                         ref="itemEditor"
@@ -332,7 +329,6 @@ class EditorPage extends React.Component<Props, State> {
                 )}
 
                 {(!this.props.developerMode || !this.props.jsonMode) && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'CombinedHintsEditor' cannot be used as a JSX component.
                     <CombinedHintsEditor
                         // eslint-disable-next-line react/no-string-refs
                         ref="hintsEditor"

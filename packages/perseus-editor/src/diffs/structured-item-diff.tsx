@@ -235,7 +235,6 @@ class StructuredItemDiff extends React.Component<Props> {
                 );
 
                 return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TagsDiff' cannot be used as a JSX component.
                     <TagsDiff
                         beforeOnly={beforeOnly}
                         afterOnly={afterOnly}
@@ -254,7 +253,6 @@ class StructuredItemDiff extends React.Component<Props> {
                 after = [buildEmptyItemTreeForShape(shapes.content), path];
             }
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'RendererDiff' cannot be used as a JSX component.
                 <RendererDiff
                     before={(before[0] as any)}
 // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.

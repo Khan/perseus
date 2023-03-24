@@ -35,7 +35,6 @@ export const RendererWithDebugUI: React.FC<Props> = (
             leftTitle="Widget"
             left={
                 <>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
                         ref={ref}
@@ -46,9 +45,7 @@ export const RendererWithDebugUI: React.FC<Props> = (
                         apiOptions={apiOptions}
                         reviewMode={reviewMode}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
                                 if (!ref.current) {
@@ -59,9 +56,7 @@ export const RendererWithDebugUI: React.FC<Props> = (
                         >
                             Check
                         </Button>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Strut' cannot be used as a JSX component. */}
                         <Strut size={8} />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
                                 ref.current?.showRationalesForCurrentlySelectedChoices();
@@ -72,21 +67,17 @@ export const RendererWithDebugUI: React.FC<Props> = (
                     </View>
                     {state != null && (
                         <>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
                             <HeadingSmall style={{marginTop: "10px"}}>
                                 Guess
                             </HeadingSmall>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ReactJson' cannot be used as a JSX component. */}
                             <ReactJson
                                 quotesOnKeys={false}
                                 enableClipboard={false}
                                 src={state[0]}
                             />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
                             <HeadingSmall style={{marginTop: "10px"}}>
                                 Score
                             </HeadingSmall>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ReactJson' cannot be used as a JSX component. */}
                             <ReactJson
                                 quotesOnKeys={false}
                                 enableClipboard={false}

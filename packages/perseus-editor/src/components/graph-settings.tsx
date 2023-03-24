@@ -396,7 +396,6 @@ const GraphSettings = createReactClass({
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
                             Canvas size (x,y pixels)
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                             <RangeInput
                                 value={this.props.box}
                                 onChange={(box) => {
@@ -406,7 +405,6 @@ const GraphSettings = createReactClass({
                         </div>
                         <div className="perseus-widget-row">
                             Scale (px per div):{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                             <TeX>{"(" + scale[0] + ", " + scale[1] + ")"}</TeX>
                         </div>
                     </div>
@@ -443,7 +441,6 @@ const GraphSettings = createReactClass({
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
                                 x Range
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                                 <RangeInput
                                     value={this.state.rangeTextbox[0]}
                                     onChange={(vals) =>
@@ -453,7 +450,6 @@ const GraphSettings = createReactClass({
                             </div>
                             <div className="perseus-widget-right-col">
                                 y Range
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                                 <RangeInput
                                     value={this.state.rangeTextbox[1]}
                                     onChange={(vals) =>
@@ -465,7 +461,6 @@ const GraphSettings = createReactClass({
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
                                 Tick Step
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                                 <RangeInput
                                     value={this.state.stepTextbox}
                                     onChange={this.changeStep}
@@ -473,7 +468,6 @@ const GraphSettings = createReactClass({
                             </div>
                             <div className="perseus-widget-right-col">
                                 Grid Step
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                                 <RangeInput
                                     value={this.state.gridStepTextbox}
                                     onChange={this.changeGridStep}
@@ -484,7 +478,6 @@ const GraphSettings = createReactClass({
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
                                     Snap Step
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                                     <RangeInput
                                         value={this.state.snapStepTextbox}
                                         onChange={this.changeSnapStep}
@@ -494,7 +487,6 @@ const GraphSettings = createReactClass({
                         )}
                         <div className="perseus-widget-row">
                             <label>Markings: </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component. */}
                             <ButtonGroup
                                 value={this.props.markings}
                                 allowEmpty={false}
@@ -537,7 +529,6 @@ const GraphSettings = createReactClass({
                                 onKeyPress={this.changeBackgroundUrl}
                                 onBlur={this.changeBackgroundUrl}
                             />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>
                                     Create an image in graphie, or use the "Add

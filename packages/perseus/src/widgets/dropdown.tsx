@@ -77,7 +77,6 @@ class Dropdown extends React.Component<Props> {
 
     render(): React.ReactElement {
         const children = [
-// @ts-expect-error [FEI-5003] - TS2786 - 'OptionItem' cannot be used as a JSX component.
             <OptionItem
                 key="placeholder"
                 value="0"
@@ -85,7 +84,6 @@ class Dropdown extends React.Component<Props> {
                 label={this.props.placeholder}
             />,
             ...this.props.choices.map((choice, i) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'OptionItem' cannot be used as a JSX component.
                 <OptionItem
                     key={String(i + 1)}
                     value={String(i + 1)}
@@ -105,7 +103,6 @@ class Dropdown extends React.Component<Props> {
                     e.stopPropagation();
                 }}
             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SingleSelect' cannot be used as a JSX component. */}
                 <SingleSelect
                     placeholder=""
                     onChange={(value) => this._handleChange(parseInt(value))}

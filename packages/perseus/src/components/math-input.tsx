@@ -267,7 +267,6 @@ class MathInput extends React.Component<Props, State> {
         if (this._shouldShowButtons()) {
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             buttons = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TexButtons' cannot be used as a JSX component.
                 <TexButtons
                     sets={this.props.buttonSets}
                     className="math-input-buttons absolute"

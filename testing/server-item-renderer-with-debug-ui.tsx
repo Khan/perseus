@@ -44,9 +44,7 @@ export const ServerItemRendererWithDebugUI: React.FC<Props> = (
                         apiOptions={options}
                         item={item}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
                                 if (!ref.current) {
@@ -58,9 +56,7 @@ export const ServerItemRendererWithDebugUI: React.FC<Props> = (
                         >
                             Check
                         </Button>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Strut' cannot be used as a JSX component. */}
                         <Strut size={8} />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
 // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.

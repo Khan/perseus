@@ -15,7 +15,6 @@ export const KeypadPageContainer: React.FC<{
     {
         children,
     },
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
 ): React.ReactElement => <View
     style={{
         backgroundColor: "#DBDCDD",
@@ -42,7 +41,6 @@ export const KeypadButton: React.FC<{
         tintColor,
         style,
     },
-// @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component.
 ): React.ReactElement => <Button
     onPress={() => onClickKey(keyConfig.id)}
     tintColor={tintColor}
@@ -85,7 +83,6 @@ export const KeypadActionButton: React.FC<{
     tintColor={"#DBDCDD"}
 />;
 
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
 export const PlaceHolderButton = (): React.ReactElement => <View
     style={{
         height: "100%",
@@ -95,7 +92,6 @@ export const PlaceHolderButton = (): React.ReactElement => <View
         border: "4px solid transparent",
     }}
 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
     <View
         style={{
             background: "rgba(33, 36, 44, 0.04)",

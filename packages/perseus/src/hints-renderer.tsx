@@ -178,7 +178,6 @@ class HintsRenderer extends React.Component<Props, State> {
             const lastRendered = i === hintsVisible - 1;
 
             const renderer = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HintRenderer' cannot be used as a JSX component.
                 <HintRenderer
                     lastHint={lastHint}
                     lastRendered={lastRendered}

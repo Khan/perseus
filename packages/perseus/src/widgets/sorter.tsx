@@ -127,7 +127,6 @@ class Sorter extends React.Component<any, any> {
 
         return (
             <div className="perseus-widget-sorter perseus-clearfix">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component. */}
                 <Sortable
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                     options={options}

@@ -72,7 +72,6 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         LHS SMILES:&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateMolecule(0)}
                             value={this.props.smiles[0]}
@@ -82,7 +81,6 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         LHS Rotation (deg):&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             onChange={this.updateRotation(0)}
                             value={this.props.rotationAngle[0]}
@@ -92,7 +90,6 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         RHS SMILES:&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateMolecule(1)}
                             value={this.props.smiles[1]}
@@ -102,7 +99,6 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         RHS Rotation (deg):&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             onChange={this.updateRotation(1)}
                             value={this.props.rotationAngle[1]}
@@ -112,7 +108,6 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         Top of arrow text:&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateSeparators(0, "topText")}
                             value={this.props.separators[0].topText}
@@ -122,7 +117,6 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         Bottom of arrow text:&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateSeparators(0, "bottomText")}
                             value={this.props.separators[0].bottomText}

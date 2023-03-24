@@ -40,7 +40,6 @@ class StubTagEditor extends React.Component<any> {
                 we sometimes have the metadata set to null
                 (legacy saves, I think), which doesn't get defaulted
                 through defaultProps */}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                 <TextListEditor
                     options={this.props.value || EMPTY_ARRAY}
                     layout="vertical"

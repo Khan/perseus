@@ -55,7 +55,6 @@ class GradedGroupEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <label className={css(styles.title)}>
                         Title:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             value={this.props.title}
                             className={css(styles.input)}
@@ -64,7 +63,6 @@ class GradedGroupEditor extends React.Component<Props> {
                         />
                     </label>
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                 <Editor
                     // eslint-disable-next-line react/no-string-refs
                     ref="editor"
@@ -91,7 +89,6 @@ class GradedGroupEditor extends React.Component<Props> {
                 {this.props.hint && (
                     <div className="perseus-hint-editor">
                         <div className={css(styles.hintsTitle)}>Hint</div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                         <Editor
                             // eslint-disable-next-line react/no-string-refs
                             ref="hint-editor"

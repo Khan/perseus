@@ -99,7 +99,6 @@ class ItemEditor extends React.Component<Props> {
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question</div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                         <Editor
                             // eslint-disable-next-line react/no-string-refs
                             ref="questionEditor"
@@ -120,12 +119,10 @@ class ItemEditor extends React.Component<Props> {
 
                     <div className="perseus-editor-right-cell">
                         <div id="problemarea">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DeviceFramer' cannot be used as a JSX component. */}
                             <DeviceFramer
                                 deviceType={this.props.deviceType}
                                 nochrome={true}
                             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'IframeContentRenderer' cannot be used as a JSX component. */}
                                 <IframeContentRenderer
                                     // eslint-disable-next-line react/no-string-refs
                                     ref="frame"
@@ -148,7 +145,6 @@ class ItemEditor extends React.Component<Props> {
                 <div className="perseus-editor-row perseus-answer-container">
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question extras</div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ItemExtrasEditor' cannot be used as a JSX component. */}
                         <ItemExtrasEditor
                             // eslint-disable-next-line react/no-string-refs
                             ref="itemExtrasEditor"

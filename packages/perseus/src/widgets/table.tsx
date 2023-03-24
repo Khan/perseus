@@ -128,7 +128,6 @@ class Table extends React.Component<any> {
                             }
                             return (
                                 <th key={i}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                     <Renderer
                                         content={header}
                                         linterContext={this.props.linterContext}

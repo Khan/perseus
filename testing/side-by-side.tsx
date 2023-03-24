@@ -15,19 +15,14 @@ const SideBySide: React.FC<{
     },
 ): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
         <View style={styles.sideBySide}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. | TS2769 - No overload matches this call. */}
+{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
             <View style={styles.leftPanel} className="framework-perseus">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingMedium' cannot be used as a JSX component. */}
                 <HeadingMedium>{leftTitle}</HeadingMedium>
                 {left}
             </View>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
             <View style={styles.rightPanel}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingMedium' cannot be used as a JSX component. */}
                 <HeadingMedium>Perseus JSON</HeadingMedium>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ReactJson' cannot be used as a JSX component. */}
                 <ReactJson
                     style={{marginTop: "10px"}}
                     quotesOnKeys={false}

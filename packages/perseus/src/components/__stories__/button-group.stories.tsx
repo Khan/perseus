@@ -24,7 +24,6 @@ const HarnassedButtonGroup = (
     const [value, updateValue] = React.useState((null as string | null | undefined));
 
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component.
         <ButtonGroup
             {...props}
             value={value}

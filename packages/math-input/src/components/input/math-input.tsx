@@ -888,7 +888,6 @@ class MathInput extends React.Component<Props, State> {
             i18n._("Tap with one or two fingers to open keyboard");
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             <View
                 style={styles.input}
                 onTouchStart={this.handleTouchStart}
@@ -920,7 +919,6 @@ class MathInput extends React.Component<Props, State> {
                     />
                 </div>
                 {focused && handle.visible && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'CursorHandle' cannot be used as a JSX component.
                     <CursorHandle
                         {...handle}
                         onTouchStart={this.onCursorHandleTouchStart}

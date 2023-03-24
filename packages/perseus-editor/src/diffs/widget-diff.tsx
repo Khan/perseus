@@ -156,7 +156,6 @@ class DiffEntry extends React.Component<any, any> {
             <div>
                 {entry.key && (
                     <div style={{clear: "both"}}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DiffSide' cannot be used as a JSX component. */}
                         <DiffSide
                             side={BEFORE}
                             className={leftClass}
@@ -165,7 +164,6 @@ class DiffEntry extends React.Component<any, any> {
                             showKey={!propertyAdded}
                             value={entry.before}
                         />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DiffSide' cannot be used as a JSX component. */}
                         <DiffSide
                             side={AFTER}
                             className={rightClass}
@@ -178,7 +176,6 @@ class DiffEntry extends React.Component<any, any> {
                 )}
                 {_.map(shownChildren, function (child) {
                     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'DiffEntry' cannot be used as a JSX component.
                         <DiffEntry
                             key={child.key}
                             depth={self.props.depth + 1}
@@ -188,7 +185,6 @@ class DiffEntry extends React.Component<any, any> {
                     );
                 })}
                 {collapsed && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'CollapsedRow' cannot be used as a JSX component.
                     <CollapsedRow
                         depth={this.props.depth + 1}
                         onClick={this.expand}
@@ -232,7 +228,7 @@ class ImageWidgetDiff extends React.Component<any> {
                             })}
                         >
                             {/* $FlowFixMe[prop-missing]: the alt props is missing */}
-{ /* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. | TS2786 - 'SvgImage' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                             <SvgImage src={beforeSrc} title={beforeSrc} />
                         </div>
                     )}
@@ -247,7 +243,7 @@ class ImageWidgetDiff extends React.Component<any> {
                             })}
                         >
                             {/* $FlowFixMe[prop-missing]: the alt props is missing */}
-{ /* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. | TS2786 - 'SvgImage' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                             <SvgImage src={afterSrc} title={afterSrc} />
                         </div>
                     )}
@@ -284,10 +280,8 @@ class WidgetDiff extends React.Component<any> {
                 <div className="diff-header">{title}</div>
                 <div className="diff-body ui-helper-clearfix">
                     {type === "image" && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ImageWidgetDiff' cannot be used as a JSX component.
                         <ImageWidgetDiff before={before} after={after} />
                     )}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DiffEntry' cannot be used as a JSX component. */}
                     <DiffEntry entry={diff} />
                 </div>
             </div>

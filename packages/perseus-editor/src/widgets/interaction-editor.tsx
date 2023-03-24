@@ -65,9 +65,7 @@ class PointEditor extends React.Component<PointEditorProps> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Coordinate: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -75,9 +73,7 @@ class PointEditor extends React.Component<PointEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -85,11 +81,9 @@ class PointEditor extends React.Component<PointEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ColorPicker' cannot be used as a JSX component. */}
                     <ColorPicker
                         value={this.props.color}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -146,9 +140,7 @@ class LineEditor extends React.Component<LineEditorProps> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Start: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -156,9 +148,7 @@ class LineEditor extends React.Component<LineEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("startX")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -166,13 +156,10 @@ class LineEditor extends React.Component<LineEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("startY")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     End: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -180,9 +167,7 @@ class LineEditor extends React.Component<LineEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("endX")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -190,11 +175,9 @@ class LineEditor extends React.Component<LineEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("endY")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ColorPicker' cannot be used as a JSX component. */}
                     <ColorPicker
                         value={this.props.color}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -202,14 +185,12 @@ class LineEditor extends React.Component<LineEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DashPicker' cannot be used as a JSX component. */}
                     <DashPicker
                         value={this.props.strokeDasharray}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("strokeDasharray")}
                     />
                     &nbsp; &nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ArrowPicker' cannot be used as a JSX component. */}
                     <ArrowPicker
                         value={this.props.arrows}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -219,7 +200,6 @@ class LineEditor extends React.Component<LineEditorProps> {
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col">
                         Width:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
@@ -277,38 +257,31 @@ class MovablePointEditor extends React.Component<MovablePointEditorProps> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Start: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startX}
                         onChange={this.change("startX")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startY}
                         onChange={this.change("startY")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. | TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Update <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this.props.varSubscript}
                         placeholder={0}
                         onChange={this.change("varSubscript")}
                     />
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'ConstraintEditor' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <ConstraintEditor {...this.props} />
             </div>
         );
@@ -364,53 +337,41 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
             <div className="graph-settings">
                 Initial position:
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Start: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startX}
                         onChange={this.change("startX")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startY}
                         onChange={this.change("startY")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     End: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.endX}
                         onChange={this.change("endX")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.endY}
                         onChange={this.change("endY")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. | TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Start updates <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this.props.startSubscript}
                         placeholder={0}
@@ -418,9 +379,7 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. | TS2786 - 'TeX' cannot be used as a JSX component. */}
                     End updates <TeX>(x_m, y_m)</TeX> for <TeX>m =</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this.props.endSubscript}
                         placeholder={0}
@@ -430,7 +389,7 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
                 <div className="perseus-widget-row">
                     All constraints are applied to the start point.
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'ConstraintEditor' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <ConstraintEditor {...this.props} />
             </div>
         );
@@ -478,9 +437,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>{this.props.funcName + "(x)="}</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -490,9 +447,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Range: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -500,9 +455,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMin")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -510,11 +463,9 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMax")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ColorPicker' cannot be used as a JSX component. */}
                     <ColorPicker
                         value={this.props.color}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -522,7 +473,6 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DashPicker' cannot be used as a JSX component. */}
                     <DashPicker
                         value={this.props.strokeDasharray}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -532,7 +482,6 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col">
                         Width:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
@@ -589,9 +538,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>X(t) =</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -601,9 +548,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>Y(t) =</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -613,9 +558,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Range: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -623,9 +566,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMin")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -633,11 +574,9 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMax")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ColorPicker' cannot be used as a JSX component. */}
                     <ColorPicker
                         value={this.props.color}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -645,7 +584,6 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DashPicker' cannot be used as a JSX component. */}
                     <DashPicker
                         value={this.props.strokeDasharray}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -655,7 +593,6 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col">
                         Width:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
@@ -707,7 +644,6 @@ class LabelEditor extends React.Component<LabelEditorProps> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                     <TextInput
                         value={this.props.label}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -718,9 +654,7 @@ class LabelEditor extends React.Component<LabelEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Location: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -728,9 +662,7 @@ class LabelEditor extends React.Component<LabelEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -738,11 +670,9 @@ class LabelEditor extends React.Component<LabelEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ColorPicker' cannot be used as a JSX component. */}
                     <ColorPicker
                         value={this.props.color}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -793,9 +723,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     Bottom left: <TeX>\Large(</TeX>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -803,9 +731,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>,</TeX>{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -813,12 +739,10 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     Width:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -829,7 +753,6 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                 </div>
                 <div className="perseus-widget-row">
                     Height:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                     <MathInput
                         buttonSets={[]}
                         buttonsVisible="never"
@@ -839,7 +762,6 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ColorPicker' cannot be used as a JSX component. */}
                     <ColorPicker
                         value={this.props.color}
                         lightColors={true}
@@ -1025,7 +947,7 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
 
         return (
             <div className="perseus-widget-interaction-editor">
-{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: (false | Element)[]; title: string; }' is not assignable to type 'Pick<Readonly<ElementContainerProps> & Readonly<{ children?: ReactNode; }>, "children" | "onDelete" | "onDown" | "onUp">'. | TS2786 - 'ElementContainer' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: (false | Element)[]; title: string; }' is not assignable to type 'Pick<Readonly<ElementContainerProps> & Readonly<{ children?: ReactNode; }>, "children" | "onDelete" | "onDown" | "onUp">'. */}
                 <ElementContainer title="Grid settings">
                     <GraphSettings
                         editableSettings={["canvas", "graph"]}
@@ -1047,12 +969,10 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                     function (element, n) {
                         if (element.type === "movable-point") {
                             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ElementContainer' cannot be used as a JSX component.
                                 <ElementContainer
                                     title={
                                         <span>
                                             Movable point{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {"(x_{" +
                                                     element.options
@@ -1088,7 +1008,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onDelete={this._deleteElement.bind(this, n)}
                                     key={element.key}
                                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MovablePointEditor' cannot be used as a JSX component. */}
                                     <MovablePointEditor
                                         {...element.options}
                                         onChange={(newProps) => {
@@ -1111,12 +1030,10 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                         }
                         if (element.type === "movable-line") {
                             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ElementContainer' cannot be used as a JSX component.
                                 <ElementContainer
                                     title={
                                         <span>
                                             Movable line{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {"(x_{" +
                                                     element.options
@@ -1127,7 +1044,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                     "})"}
                                             </TeX>{" "}
                                             to{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {"(x_{" +
                                                     element.options
@@ -1163,7 +1079,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onDelete={this._deleteElement.bind(this, n)}
                                     key={element.key}
                                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MovableLineEditor' cannot be used as a JSX component. */}
                                     <MovableLineEditor
                                         {...element.options}
                                         onChange={(newProps) => {
@@ -1186,12 +1101,10 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                         }
                         if (element.type === "point") {
                             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ElementContainer' cannot be used as a JSX component.
                                 <ElementContainer
                                     title={
                                         <span>
                                             Point{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {"(" +
                                                     element.options.coordX +
@@ -1225,7 +1138,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onDelete={this._deleteElement.bind(this, n)}
                                     key={element.key}
                                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'PointEditor' cannot be used as a JSX component. */}
                                     <PointEditor
                                         {...element.options}
                                         onChange={(newProps) => {
@@ -1248,12 +1160,10 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                         }
                         if (element.type === "line") {
                             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ElementContainer' cannot be used as a JSX component.
                                 <ElementContainer
                                     title={
                                         <span>
                                             Line{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {"(" +
                                                     element.options.startX +
@@ -1262,7 +1172,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                     ")"}
                                             </TeX>{" "}
                                             to{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {"(" +
                                                     element.options.endX +
@@ -1296,7 +1205,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onDelete={this._deleteElement.bind(this, n)}
                                     key={element.key}
                                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'LineEditor' cannot be used as a JSX component. */}
                                     <LineEditor
                                         {...element.options}
                                         onChange={(newProps) => {
@@ -1319,12 +1227,10 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                         }
                         if (element.type === "function") {
                             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ElementContainer' cannot be used as a JSX component.
                                 <ElementContainer
                                     title={
                                         <span>
                                             Function{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {element.options.funcName +
                                                     "(x) = " +
@@ -1355,7 +1261,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onDelete={this._deleteElement}
                                     key={element.key}
                                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'FunctionEditor' cannot be used as a JSX component. */}
                                     <FunctionEditor
                                         {...element.options}
                                         onChange={(newProps) => {
@@ -1378,7 +1283,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                         }
                         if (element.type === "parametric") {
                             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ElementContainer' cannot be used as a JSX component.
                                 <ElementContainer
                                     title={<span>Parametric</span>}
                                     // eslint-disable-next-line react/jsx-no-bind
@@ -1404,7 +1308,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onDelete={this._deleteElement}
                                     key={element.key}
                                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ParametricEditor' cannot be used as a JSX component. */}
                                     <ParametricEditor
                                         {...element.options}
                                         onChange={(newProps) => {
@@ -1427,12 +1330,10 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                         }
                         if (element.type === "label") {
                             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ElementContainer' cannot be used as a JSX component.
                                 <ElementContainer
                                     title={
                                         <span>
                                             Label{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {unescapeMathMode(
                                                     element.options.label,
@@ -1463,7 +1364,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onDelete={this._deleteElement}
                                     key={element.key}
                                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'LabelEditor' cannot be used as a JSX component. */}
                                     <LabelEditor
                                         {...element.options}
                                         onChange={(newProps) => {
@@ -1486,12 +1386,10 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                         }
                         if (element.type === "rectangle") {
                             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ElementContainer' cannot be used as a JSX component.
                                 <ElementContainer
                                     title={
                                         <span>
                                             Rectangle{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {"(" +
                                                     element.options.coordX +
@@ -1500,7 +1398,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                                     ")"}
                                             </TeX>
                                             &nbsp;&mdash;&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                                             <TeX>
                                                 {element.options.width +
                                                     " \\times " +
@@ -1531,7 +1428,6 @@ class InteractionEditor extends React.Component<InteractionEditorProps, Interact
                                     onDelete={this._deleteElement}
                                     key={element.key}
                                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RectangleEditor' cannot be used as a JSX component. */}
                                     <RectangleEditor
                                         {...element.options}
                                         onChange={(newProps) => {

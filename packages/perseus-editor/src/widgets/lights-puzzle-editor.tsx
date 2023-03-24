@@ -108,7 +108,6 @@ class TileGrid extends React.Component<TileGridProps> {
                             {_.map(row, (cell, x) => {
                                 return (
                                     <div key={x} style={CELL_STYLE}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Tile' cannot be used as a JSX component. */}
                                         <Tile
                                             value={cell}
                                             size={this.props.size}
@@ -172,7 +171,6 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
             <div>
                 <div>
                     Width:
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this._width()}
                         placeholder={5}
@@ -180,7 +178,6 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
                     />
                     {", "}
                     Height:
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this._height()}
                         placeholder={5}
@@ -211,14 +208,12 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
                         }
                         onChange={this.props.onChange}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         By default, incomplete puzzles are graded as empty.
                     </InfoTip>
                 </div>
                 <div>Starting configuration:</div>
                 <div style={{overflowX: "auto"}}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TileGrid' cannot be used as a JSX component. */}
                     <TileGrid
                         cells={this.props.startCells}
                         size={50}

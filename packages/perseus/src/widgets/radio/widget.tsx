@@ -238,7 +238,6 @@ class Radio extends React.Component<Props> {
         // TODO(mdr): Widgets inside this Renderer are not discoverable through
         //     the parent Renderer's `findWidgets` function.
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component.
             <Renderer
                 key="choiceContentRenderer"
                 content={modContent}

@@ -222,7 +222,6 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
         let acceptingElem = null;
         if (accepting === SOME) {
             const unitsArr = acceptingUnits.map((name, i) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'UnitExample' cannot be used as a JSX component.
                 <UnitExample
                     name={name}
                     original={this.original || null}
@@ -266,7 +265,6 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
 
                 <div>
                     Significant Figures:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this.props.sigfigs}
                         onChange={this.handleSigfigChange}

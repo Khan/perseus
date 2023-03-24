@@ -69,7 +69,6 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
 
         if (showCorrectness) {
             innerIcon = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Icon' cannot be used as a JSX component.
                 <Icon
                     icon={showCorrectness === "correct" ? iconCheck : iconMinus}
                     size={24}

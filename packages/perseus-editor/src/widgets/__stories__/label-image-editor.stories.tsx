@@ -74,7 +74,6 @@ class WithState extends React.Component<Empty, State> {
     render(): React.ReactElement {
         return (
             <div className={css(styles.wrapper)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'LabelImageEditor' cannot be used as a JSX component. */}
                 <LabelImageEditor
                     {...this.state}
                     onChange={(props) =>
@@ -95,6 +94,5 @@ class WithState extends React.Component<Empty, State> {
 }
 
 export const Default: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'WithState' cannot be used as a JSX component.
     return <WithState />;
 };

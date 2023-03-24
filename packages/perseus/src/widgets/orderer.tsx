@@ -121,7 +121,6 @@ class Card extends React.Component<any, any> {
                 onTouchCancel={this.onMouseUp}
             >
                 <div className={className.join(" ")}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
                         {...rendererProps}
                         linterContext={this.props.linterContext}
@@ -330,7 +329,6 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
     render(): React.ReactElement {
         // This is the card we are currently dragging
         const dragging = this.state.dragging && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Card' cannot be used as a JSX component.
             <Card
                 // eslint-disable-next-line react/no-string-refs
                 ref="dragging"
@@ -349,7 +347,6 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
 
         // This is the card that is currently animating
         const animating = this.state.animating && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Card' cannot be used as a JSX component.
             <Card
                 floating={true}
                 animating={true}
@@ -368,7 +365,6 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             this.state.current,
             function (opt, i) {
                 return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Card' cannot be used as a JSX component.
                     <Card
                         key={`sortableCard${i}`}
                         ref={"sortable" + i}
@@ -394,7 +390,6 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
 
         if (this.state.placeholderIndex != null) {
             const placeholder = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'PlaceholderCard' cannot be used as a JSX component.
                 <PlaceholderCard
                     // eslint-disable-next-line react/no-string-refs
                     ref="placeholder"
@@ -413,7 +408,6 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         // If there are no cards in the list, then add a "hint" card
         const sortable = (
             <div className="perseus-clearfix draggable-box">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DragHintCard' cannot be used as a JSX component. */}
                 {!anySortableCards && <DragHintCard />}
                 {/* eslint-disable-next-line react/no-string-refs */}
                 <div ref="dragList">{sortableCards}</div>
@@ -428,7 +422,6 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
                     this.props.options,
                     (opt, i) => {
                         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Card' cannot be used as a JSX component.
                             <Card
                                 ref={"bank" + i}
                                 floating={false}

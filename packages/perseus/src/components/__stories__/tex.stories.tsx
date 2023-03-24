@@ -19,6 +19,5 @@ export default {
 } as Story;
 
 export const BasicOperation: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
     return <TeX setAssetStatus={() => {}} children={args.equation} />;
 };

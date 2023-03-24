@@ -37,7 +37,6 @@ class GroupEditor extends React.Component<Props> {
                     khanacademy.org */}
                     {this._renderMetadataEditor()}
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                 <Editor
                     // eslint-disable-next-line react/no-string-refs
                     ref="editor"

@@ -34,7 +34,6 @@ class ChoiceEditor extends React.Component<any> {
         }
 
         const editor = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="content-editor"
@@ -51,7 +50,6 @@ class ChoiceEditor extends React.Component<any> {
         );
 
         const clueEditor = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="clue-editor"
@@ -187,7 +185,6 @@ class RadioEditor extends React.Component<any> {
                     choices={this.props.choices.map((choice, i) => {
                         return {
                             content: (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ChoiceEditor' cannot be used as a JSX component.
                                 <ChoiceEditor
                                     ref={`choice-editor${i}`}
                                     apiOptions={this.props.apiOptions}

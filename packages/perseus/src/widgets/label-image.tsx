@@ -559,7 +559,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     css(styles.scrollableChoices),
                 )}
             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'AnswerChoices' cannot be used as a JSX component. */}
                 <AnswerChoices
                     choices={choices.map((choice) => ({
                         content: choice,
@@ -588,7 +587,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             const score = LabelImage.gradeMarker(marker);
 
             const element = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Marker' cannot be used as a JSX component.
                 <Marker
                     {...marker}
                     // Once the question is answered, show markers
@@ -642,10 +640,8 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             // markers that are unselected (to hide their popup), this would
             // keep the React tree more stable.
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Popover' cannot be used as a JSX component.
                 <Popover
                     content={() => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'PopoverContentCore' cannot be used as a JSX component.
                         <PopoverContentCore style={styles.choicesPopover}>
                             {this.renderAnswerChoicesForMarker(index, marker)}
                         </PopoverContentCore>
@@ -701,7 +697,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                                 className={css(styles.instructionsChoice)}
                                 key={index}
                             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                 <Renderer content={choice} />
                             </div>
                         ))}
@@ -741,7 +736,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     >
                         <AssetContext.Consumer>
                             {({setAssetStatus}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
                                 <SvgImage
                                     alt={imageAlt}
                                     src={imageUrl}

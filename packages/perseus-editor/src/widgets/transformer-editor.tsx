@@ -171,7 +171,6 @@ class ToolSettings extends React.Component<any> {
                     />
                 )}
                 {this.props.settings.enabled && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component.
                     <InfoTip>
                         'Required' will only grade the answer as correct if the
                         student has used at least one such transformation.
@@ -185,7 +184,6 @@ class ToolSettings extends React.Component<any> {
                     />
                 )}
                 {this.props.allowFixed && this.props.settings.enabled && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component.
                     <InfoTip>
                         Enable 'fixed' to prevent the student from repositioning
                         the tool. The tool will appear in the position at which
@@ -229,7 +227,6 @@ class TransformationExplorerSettings extends React.Component<any> {
                             Formal without movement{" "}
                         </option>
                     </select>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <ul>
                             <li>
@@ -250,26 +247,22 @@ class TransformationExplorerSettings extends React.Component<any> {
                         </ul>
                     </InfoTip>
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolSettings' cannot be used as a JSX component. */}
                 <ToolSettings
                     name="Translations"
                     settings={this.props.tools.translation}
                     allowFixed={false}
                     onChange={this.changeHandlerFor("translation")}
                 />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolSettings' cannot be used as a JSX component. */}
                 <ToolSettings
                     name="Rotations"
                     settings={this.props.tools.rotation}
                     onChange={this.changeHandlerFor("rotation")}
                 />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolSettings' cannot be used as a JSX component. */}
                 <ToolSettings
                     name="Reflections"
                     settings={this.props.tools.reflection}
                     onChange={this.changeHandlerFor("reflection")}
                 />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolSettings' cannot be used as a JSX component. */}
                 <ToolSettings
                     name="Dilations"
                     settings={this.props.tools.dilation}
@@ -767,7 +760,6 @@ class TransformationsShapeEditor extends React.Component<any> {
     render(): React.ReactElement {
         return (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Graph' cannot be used as a JSX component. */}
                 <Graph
                     // eslint-disable-next-line react/no-string-refs
                     ref="graph"
@@ -901,7 +893,6 @@ class TransformerEditor extends React.Component<any> {
                         gradeEmpty={this.props.gradeEmpty}
                         onChange={this.props.onChange}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             We generally do not grade empty answers. This
@@ -931,7 +922,6 @@ class TransformerEditor extends React.Component<any> {
                     onChange={this.changeGraph}
                 />
                 <div>Transformation settings:</div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TransformationExplorerSettings' cannot be used as a JSX component. */}
                 <TransformationExplorerSettings
                     // eslint-disable-next-line react/no-string-refs
                     ref="transformationSettings"
@@ -942,7 +932,6 @@ class TransformerEditor extends React.Component<any> {
                     onChange={this.props.onChange}
                 />
                 <div>Starting location:</div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TransformationsShapeEditor' cannot be used as a JSX component. */}
                 <TransformationsShapeEditor
                     // eslint-disable-next-line react/no-string-refs
                     ref="shapeEditor"
@@ -954,7 +943,6 @@ class TransformerEditor extends React.Component<any> {
                     }
                 />
                 <div>Solution transformations:</div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Transformer' cannot be used as a JSX component. */}
                 <Transformer
                     // eslint-disable-next-line react/no-string-refs
                     ref="explorer"

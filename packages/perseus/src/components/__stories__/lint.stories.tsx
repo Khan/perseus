@@ -20,26 +20,20 @@ const defaultObject = {
 } as const;
 
 export const DefaultLintContainerAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'Lint' cannot be used as a JSX component.
     return <Lint {...defaultObject} />;
 };
 export const Severity1DefaultLintAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'Lint' cannot be used as a JSX component.
     return <Lint {...defaultObject} severity={1} />;
 };
 export const Severity2DefaultLintAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'Lint' cannot be used as a JSX component.
     return <Lint {...defaultObject} severity={2} />;
 };
 export const Severity3DefaultLintAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'Lint' cannot be used as a JSX component.
     return <Lint {...defaultObject} severity={3} />;
 };
 export const Severity4DefaultLintAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'Lint' cannot be used as a JSX component.
     return <Lint {...defaultObject} severity={4} />;
 };
 export const InlineLintContainerAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'Lint' cannot be used as a JSX component.
     return <Lint {...defaultObject} inline={true} />;
 };

@@ -98,7 +98,6 @@ class ImageWidget extends React.Component<Props> {
 
         if (backgroundImage.url) {
             image = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
                 <SvgImage
                     src={backgroundImage.url}
                     alt={
@@ -144,7 +143,6 @@ class ImageWidget extends React.Component<Props> {
         if (this.props.alt) {
             alt = (
                 <span className="perseus-sr-only">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
                         content={this.props.alt}
                         apiOptions={apiOptions}
@@ -211,7 +209,6 @@ class ImageWidget extends React.Component<Props> {
                                 minWidth: minWidth,
                             }}
                         >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                             <Renderer
                                 content={title + this.props.caption}
                                 apiOptions={apiOptions}
@@ -236,7 +233,6 @@ class ImageWidget extends React.Component<Props> {
         if (this.props.title) {
             title = (
                 <div className="perseus-image-title">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
                         content={this.props.title}
                         apiOptions={apiOptions}
@@ -249,7 +245,6 @@ class ImageWidget extends React.Component<Props> {
         if (this.props.caption) {
             caption = (
                 <div className="perseus-image-caption">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
                         content={this.props.caption}
                         apiOptions={apiOptions}

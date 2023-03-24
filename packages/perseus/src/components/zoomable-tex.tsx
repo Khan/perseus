@@ -55,14 +55,12 @@ export default class ZoomableTeX extends React.Component<Props, State> {
 
     render(): React.ReactElement {
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Zoomable' cannot be used as a JSX component.
             <Zoomable
                 readyToMeasure={this.state.isRendered}
                 computeChildBounds={computeMathBounds}
             >
                 <AssetContext.Consumer>
                     {({setAssetStatus}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                         <TeX
                             onRender={this.handleRender}
                             setAssetStatus={setAssetStatus}

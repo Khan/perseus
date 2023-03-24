@@ -90,7 +90,6 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
     render(): React.ReactElement {
         return (
             <div className={css(styles.wrapper)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RadioEditor' cannot be used as a JSX component. */}
                 <RadioEditor
                     {...this.state}
                     apiOptions={this.apiOptions}
@@ -110,6 +109,5 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
 }
 
 export const Default: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'WithState' cannot be used as a JSX component.
     return <WithState />;
 };

@@ -96,7 +96,6 @@ class ExampleWidget extends React.Component<any> {
 
     render(): React.ReactElement {
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component.
             <TextInput
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"

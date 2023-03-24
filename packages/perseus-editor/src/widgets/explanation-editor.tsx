@@ -46,7 +46,6 @@ class ExplanationEditor extends React.Component<Props, State> {
                 <div className="perseus-widget-row">
                     <label>
                         Prompt to show explanation:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             value={this.props.showPrompt}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -57,7 +56,6 @@ class ExplanationEditor extends React.Component<Props, State> {
                 <div className="perseus-widget-row">
                     <label>
                         Prompt to hide explanation:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             value={this.props.hidePrompt}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -66,7 +64,6 @@ class ExplanationEditor extends React.Component<Props, State> {
                     </label>
                 </div>
                 <div className="perseus-widget-row">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                     <Editor
                         apiOptions={this.props.apiOptions}
                         content={this.props.explanation}

@@ -17,7 +17,6 @@ export default {
 
 export const SvgImage: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component.
         <ImageLoader
             src={svgUrl}
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
@@ -32,7 +31,6 @@ export const SvgImage: React.FC<StoryArgs> = (args): React.ReactElement => {
 
 export const PngImage: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component.
         <ImageLoader
             src={imgUrl}
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
@@ -47,7 +45,6 @@ export const PngImage: React.FC<StoryArgs> = (args): React.ReactElement => {
 
 export const InvalidImageWithChildrenForFailedLoading: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component.
         <ImageLoader
             src="http://abcdefiahofshiaof.noway.badimage.com"
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.

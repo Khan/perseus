@@ -75,7 +75,6 @@ class WithState extends React.Component<{
         const {choices} = this.state;
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'AnswerChoices' cannot be used as a JSX component.
             <AnswerChoices
                 choices={choices}
                 multipleSelect={multipleSelect}
@@ -86,11 +85,9 @@ class WithState extends React.Component<{
 }
 
 export const SingleSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'WithState' cannot be used as a JSX component.
     return <WithState />;
 };
 
 export const MultipleSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'WithState' cannot be used as a JSX component.
     return <WithState multipleSelect={true} />;
 };

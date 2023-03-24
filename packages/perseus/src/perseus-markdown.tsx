@@ -169,7 +169,6 @@ const rules = {
             // The actual output is handled in the renderer, because
             // it needs to pass in an `onRender` callback prop. This
             // is just a stub for testing.
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
             return <TeX key={state.key}>{node.content}</TeX>;
         },
     },
@@ -180,7 +179,6 @@ const rules = {
             // The actual output is handled in the renderer, because
             // it needs to pass in an `onRender` callback prop. This
             // is just a stub for testing.
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
             return <TeX key={state.key}>{node.content}</TeX>;
         },
     },
@@ -255,7 +253,6 @@ const rules = {
         ...pureMarkdownRules.lint,
         react: (node, output, state) => {
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Lint' cannot be used as a JSX component.
                 <Lint
                     message={node.message}
                     ruleName={node.ruleName}

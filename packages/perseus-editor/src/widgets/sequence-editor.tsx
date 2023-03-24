@@ -74,7 +74,6 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
                                 }}
                             >
                                 {i + 1 < this.props.json.length && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'StepControlButton' cannot be used as a JSX component.
                                     <StepControlButton
                                         icon={iconCircleArrowDown}
                                         onClick={() => {
@@ -83,7 +82,6 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
                                     />
                                 )}
                                 {i > 0 && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'StepControlButton' cannot be used as a JSX component.
                                     <StepControlButton
                                         icon={iconCircleArrowUp}
                                         onClick={() => {
@@ -91,7 +89,6 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
                                         }}
                                     />
                                 )}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'StepControlButton' cannot be used as a JSX component. */}
                                 <StepControlButton
                                     icon={iconTrash}
                                     onClick={() => {
@@ -105,7 +102,6 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
                                         }
                                     }}
                                 />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'StepControlButton' cannot be used as a JSX component. */}
                                 <StepControlButton
                                     icon={iconPlus}
                                     onClick={() => {
@@ -113,7 +109,6 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
                                     }}
                                 />
                             </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                             <Editor
                                 ref={"editor" + i}
                                 apiOptions={this.props.apiOptions}

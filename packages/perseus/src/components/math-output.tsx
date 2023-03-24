@@ -73,7 +73,6 @@ class MathOutput extends React.Component<any, any> {
                 onTouchStart={this.focus}
             >
                 <div style={divStyle}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>{this._getDisplayValue(this.props.value)}</TeX>
                 </div>
             </span>

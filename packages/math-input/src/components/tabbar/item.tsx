@@ -77,7 +77,6 @@ class TabbarItem extends React.Component<Props, State> {
     render(): React.ReactElement {
         const {onClick, itemType, itemState} = this.props;
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Clickable' cannot be used as a JSX component.
             <Clickable onClick={onClick} disabled={itemState === "disabled"}>
                 {({hovered, focused, pressed}) => {
                     const tintColor = imageTintColor(
@@ -88,7 +87,6 @@ class TabbarItem extends React.Component<Props, State> {
                     );
 
                     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                         <View
                             style={[
                                 styles.base,
@@ -99,7 +97,6 @@ class TabbarItem extends React.Component<Props, State> {
                                 pressed && styles.pressed,
                             ]}
                         >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                             <View
                                 style={[
                                     styles.innerBox,
@@ -112,7 +109,6 @@ class TabbarItem extends React.Component<Props, State> {
                                 />
                             </View>
                             {itemState === "active" && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                                 <View
                                     style={[
                                         styles.activeIndicator,

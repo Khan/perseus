@@ -69,7 +69,6 @@ class SimulatorEditor extends React.Component<Props> {
                             "proportionLabel",
                         )}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             This text will be displayed next to the box in which
@@ -97,7 +96,6 @@ class SimulatorEditor extends React.Component<Props> {
                             Percentage
                         </option>
                     </select>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Do you want the user to describe their simulation in
@@ -107,7 +105,6 @@ class SimulatorEditor extends React.Component<Props> {
                 </div>
                 <div>
                     {i18n._("Number of trials")}:
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this.props.numTrials}
                         checkValidity={(val) => {
@@ -115,7 +112,6 @@ class SimulatorEditor extends React.Component<Props> {
                         }}
                         onChange={this.change("numTrials")}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             This controls the number of trials used in the

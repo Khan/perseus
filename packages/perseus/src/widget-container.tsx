@@ -131,7 +131,6 @@ class WidgetContainer extends React.Component<Props, State> {
                 className={className}
                 style={isStatic ? staticContainerStyles : {}}
             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'WidgetType' cannot be used as a JSX component. */}
                 <WidgetType
                     {...this.state.widgetProps}
                     linterContext={linterContext}

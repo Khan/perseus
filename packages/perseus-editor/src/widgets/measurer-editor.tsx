@@ -62,7 +62,6 @@ class MeasurerEditor extends React.Component<Props> {
                         defaultValue={image.url}
                         onChange={this._changeUrl}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Create an image in graphie, or use the "Add image"
@@ -74,7 +73,6 @@ class MeasurerEditor extends React.Component<Props> {
                     <div className="perseus-widget-row">
                         <label className="perseus-widget-left-col">
                             Pixels from top:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                             <NumberInput
                                 placeholder={0}
                                 onChange={this._changeTop}
@@ -84,7 +82,6 @@ class MeasurerEditor extends React.Component<Props> {
                         </label>
                         <label className="perseus-widget-right-col">
                             Pixels from left:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                             <NumberInput
                                 placeholder={0}
                                 onChange={this._changeLeft}
@@ -96,7 +93,6 @@ class MeasurerEditor extends React.Component<Props> {
                 )}
                 <div>
                     Containing area [width, height]:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                     <RangeInput
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("box")}
@@ -183,7 +179,6 @@ class MeasurerEditor extends React.Component<Props> {
                         <div>
                             <label>
                                 Ruler pixels per unit:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                                 <NumberInput
                                     placeholder={40}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
@@ -196,7 +191,6 @@ class MeasurerEditor extends React.Component<Props> {
                         <div>
                             <label>
                                 Ruler length in units:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                                 <NumberInput
                                     placeholder={10}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.

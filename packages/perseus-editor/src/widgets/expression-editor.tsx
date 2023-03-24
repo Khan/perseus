@@ -129,7 +129,6 @@ class ExpressionEditor extends React.Component<any, any> {
                     })
                     .freeze();
             })
-// @ts-expect-error [FEI-5003] - TS2786 - 'AnswerOption' cannot be used as a JSX component.
             .map((obj, index) => <AnswerOption key={index} {...obj} />);
 
         const sortable = (
@@ -170,7 +169,6 @@ class ExpressionEditor extends React.Component<any, any> {
             <label key="show-div">
                 <input type="checkbox" onChange={this.handleToggleDiv} />
                 <span className="show-div-button">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     show <TeX>\div</TeX> button
                 </span>
             </label>,
@@ -188,7 +186,6 @@ class ExpressionEditor extends React.Component<any, any> {
                         label="Use × for rendering multiplication instead of a
                         center dot."
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             For pre-algebra problems this option displays
@@ -208,7 +205,6 @@ class ExpressionEditor extends React.Component<any, any> {
                             onChange={this.handleFunctions}
                         />
                     </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Single-letter variables listed here will be
@@ -224,7 +220,6 @@ class ExpressionEditor extends React.Component<any, any> {
                 </div>
 
                 {this.state.isTex && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TexButtons' cannot be used as a JSX component.
                     <TexButtons
                         className="math-input-buttons"
                         sets={this.props.buttonSets}
@@ -513,7 +508,6 @@ class AnswerOption extends React.Component<any, any> {
                         </div>
 
                         <div className="answer-expression">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Expression' cannot be used as a JSX component. */}
                             <Expression {...this.props.expressionProps} />
                         </div>
                     </div>
@@ -525,7 +519,6 @@ class AnswerOption extends React.Component<any, any> {
                             labelAlignment="right"
                             label="Answer expression must have the same form."
                         />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <p>
                                 The student's answer must be in the same form.
@@ -543,7 +536,6 @@ class AnswerOption extends React.Component<any, any> {
                             label="Answer expression must be fully expanded and
                             simplified."
                         />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <p>
                                 The student's answer must be fully expanded and

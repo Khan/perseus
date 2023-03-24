@@ -37,7 +37,6 @@ class OrdererEditor extends React.Component<Props> {
                 <div>
                     {" "}
                     Correct answer:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Place the cards in the correct order. The same card
@@ -47,7 +46,6 @@ class OrdererEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                 <TextListEditor
                     options={_.pluck(this.props.correctOptions, "content")}
                     // eslint-disable-next-line react/jsx-no-bind
@@ -58,12 +56,10 @@ class OrdererEditor extends React.Component<Props> {
                 <div>
                     {" "}
                     Other cards:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>Create cards that are not part of the answer.</p>
                     </InfoTip>
                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                 <TextListEditor
                     options={_.pluck(this.props.otherOptions, "content")}
                     // eslint-disable-next-line react/jsx-no-bind
@@ -84,7 +80,6 @@ class OrdererEditor extends React.Component<Props> {
                             <option value={VERTICAL}>Vertical</option>
                         </select>
                     </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Use the horizontal layout for short text and small
@@ -106,7 +101,6 @@ class OrdererEditor extends React.Component<Props> {
                             <option value={AUTO}>Automatic</option>
                         </select>
                     </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>Use "Normal" for text, "Automatic" for images.</p>
                     </InfoTip>

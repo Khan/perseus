@@ -547,9 +547,7 @@ class Renderer extends React.Component<Props, State> {
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component.
                 <ErrorBoundary key={"container:" + id}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'WidgetContainer' cannot be used as a JSX component. */}
                     <WidgetContainer
                         ref={"container:" + id}
                         type={type}
@@ -1035,14 +1033,12 @@ class Renderer extends React.Component<Props, State> {
         }
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'QuestionParagraph' cannot be used as a JSX component.
             <QuestionParagraph
                 key={state.key}
                 className={className}
                 translationIndex={this.translationIndex}
                 paragraphIndex={state.paragraphIndex}
             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component. */}
                 <ErrorBoundary>{output}</ErrorBoundary>
             </QuestionParagraph>
         );
@@ -1180,7 +1176,6 @@ class Renderer extends React.Component<Props, State> {
                         className="perseus-block-math"
                         style={outerStyle}
                     >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component. */}
                         <ErrorBoundary>
                             <div
                                 className="perseus-block-math-inner"
@@ -1189,7 +1184,6 @@ class Renderer extends React.Component<Props, State> {
                                     ...horizontalPadding,
                                 }}
                             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ZoomableTeX' cannot be used as a JSX component. */}
                                 <ZoomableTeX>{content}</ZoomableTeX>
                             </div>
                         </ErrorBoundary>
@@ -1198,7 +1192,6 @@ class Renderer extends React.Component<Props, State> {
             }
             return (
                 <div key={state.key} className="perseus-block-math">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component. */}
                     <ErrorBoundary>
                         <div
                             className="perseus-block-math-inner"
@@ -1206,7 +1199,6 @@ class Renderer extends React.Component<Props, State> {
                         >
                             <AssetContext.Consumer>
                                 {({setAssetStatus}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                                     <TeX setAssetStatus={setAssetStatus}>
                                         {content}
                                     </TeX>
@@ -1235,14 +1227,12 @@ class Renderer extends React.Component<Props, State> {
                         whiteSpace: "nowrap",
                     }}
                 >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component. */}
                     <ErrorBoundary>
                         {/* We add extra empty spans around the math to make it not
                         wrap (I don't know why this works, but it does) */}
                         <span />
                         <AssetContext.Consumer>
                             {({setAssetStatus}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                                 <TeX
                                     onRender={this.props.onRender}
                                     setAssetStatus={setAssetStatus}
@@ -1278,11 +1268,9 @@ class Renderer extends React.Component<Props, State> {
             // TODO(alex): Make tables themselves responsive.
             const responsive = !state.inTable;
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component.
                 <ErrorBoundary key={state.key}>
                     <AssetContext.Consumer>
                         {({setAssetStatus}) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
                             <SvgImage
                                 setAssetStatus={setAssetStatus}
                                 /* $FlowFixMe[incompatible-type]: sanitizeUrl() can return null */
@@ -1310,7 +1298,6 @@ class Renderer extends React.Component<Props, State> {
             this._isTwoColumn = true;
             // but then render normally:
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component.
                 <ErrorBoundary key={state.key}>
                     {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
                 </ErrorBoundary>
@@ -1356,9 +1343,7 @@ class Renderer extends React.Component<Props, State> {
 
             const wrappedOutput = (
                 <div style={{...mobileInnerStyle, overflowX: "auto"}}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component. */}
                     <ErrorBoundary>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Zoomable' cannot be used as a JSX component. */}
                         <Zoomable animateHeight={true}>{output}</Zoomable>
                     </ErrorBoundary>
                 </div>
@@ -1371,7 +1356,6 @@ class Renderer extends React.Component<Props, State> {
         // If it's a "normal" or "simple" markdown node, just
         // output it using its output rule.
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ErrorBoundary' cannot be used as a JSX component.
             <ErrorBoundary key={state.key}>
                 {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
             </ErrorBoundary>
@@ -1871,9 +1855,7 @@ class Renderer extends React.Component<Props, State> {
                 // calls its before_dom_insert we can lookup this component by
                 // this attribute and render the text with markdown.
                 return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'KatexProvider' cannot be used as a JSX component.
                     <KatexProvider>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DefinitionProvider' cannot be used as a JSX component. */}
                         <DefinitionProvider>
                             <div
                                 data-perseus-component-index={
@@ -1940,9 +1922,7 @@ class Renderer extends React.Component<Props, State> {
         });
 
         this.lastRenderedMarkdown = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'KatexProvider' cannot be used as a JSX component.
             <KatexProvider>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DefinitionProvider' cannot be used as a JSX component. */}
                 <DefinitionProvider>
                     <div className={className}>{markdownContents}</div>
                 </DefinitionProvider>

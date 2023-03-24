@@ -56,7 +56,6 @@ class GradedGroupSetEditor extends React.Component<Props> {
             return null;
         }
         return this.props.gradedGroups.map((group, i) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'GradedGroupEditor' cannot be used as a JSX component.
             <GradedGroupEditor
                 key={i}
                 ref={(el) => (this._editors[i] = el)}

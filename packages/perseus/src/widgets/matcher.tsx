@@ -63,7 +63,6 @@ class Matcher extends React.Component<any, any> {
         // Matcher) will be correct when they render, if their contents are
         // KaTeX-derived.
         if (!this.state.katex) {
-// @ts-expect-error [FEI-5003] - TS2786 - 'CircularSpinner' cannot be used as a JSX component.
             return <CircularSpinner />;
         }
 
@@ -98,7 +97,6 @@ class Matcher extends React.Component<any, any> {
                                     styles.columnLabel,
                                 )}
                             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                 <Renderer
                                     content={this.props.labels[0] || "..."}
                                     linterContext={this.props.linterContext}
@@ -111,7 +109,6 @@ class Matcher extends React.Component<any, any> {
                                     styles.columnLabel,
                                 )}
                             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                 <Renderer
                                     content={this.props.labels[1] || "..."}
                                     linterContext={this.props.linterContext}
@@ -121,7 +118,6 @@ class Matcher extends React.Component<any, any> {
                     )}
                     <tr className={css(styles.row)}>
                         <td className={css(styles.column)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component. */}
                             <Sortable
                                 options={left}
                                 layout="vertical"
@@ -137,7 +133,6 @@ class Matcher extends React.Component<any, any> {
                             />
                         </td>
                         <td className={css(styles.column, styles.columnRight)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component. */}
                             <Sortable
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                                 options={right}

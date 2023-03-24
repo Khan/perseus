@@ -159,7 +159,6 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
                                         }}
                                     >
                                         {sectionImageUploadGenerator(i)}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SectionControlButton' cannot be used as a JSX component. */}
                                         <SectionControlButton
                                             icon={iconPlus}
                                             onClick={() => {
@@ -168,7 +167,6 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
                                             title="Add a new section after this one"
                                         />
                                         {i + 1 < sections.length && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SectionControlButton' cannot be used as a JSX component.
                                             <SectionControlButton
                                                 icon={iconCircleArrowDown}
                                                 onClick={() => {
@@ -180,7 +178,6 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
                                             />
                                         )}
                                         {i > 0 && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SectionControlButton' cannot be used as a JSX component.
                                             <SectionControlButton
                                                 icon={iconCircleArrowUp}
                                                 onClick={() => {
@@ -191,7 +188,6 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
                                                 title="Move this section up"
                                             />
                                         )}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SectionControlButton' cannot be used as a JSX component. */}
                                         <SectionControlButton
                                             icon={iconTrash}
                                             onClick={() => {
@@ -212,9 +208,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
                                         />
                                     </div>
                                 </div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'KatexProvider' cannot be used as a JSX component. */}
                                 <KatexProvider>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                                     <Editor
                                         {...section}
                                         apiOptions={apiOptions}
@@ -264,7 +258,6 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
 
     _renderLinterHUD(): React.ReactElement<any> {
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HUD' cannot be used as a JSX component.
             <HUD
                 message="Style warnings"
                 enabled={this.state.highlightLint}
@@ -282,9 +275,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
             this.props.screen === "phone" || this.props.screen === "tablet";
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'DeviceFramer' cannot be used as a JSX component.
             <DeviceFramer deviceType={this.props.screen} nochrome={nochrome}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'IframeContentRenderer' cannot be used as a JSX component. */}
                 <IframeContentRenderer
                     ref={"frame-" + i}
                     key={this.props.screen}

@@ -103,14 +103,12 @@ class HighlightingUI extends React.PureComponent<HighlightingUIProps> {
 
     render(): React.ReactElement {
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SelectionTracker' cannot be used as a JSX component.
             <SelectionTracker
                 buildHighlight={this.props.buildHighlight}
                 enabled={this.props.editable}
             >
                 {(trackedSelection, userIsMouseSelecting) => (
                     <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HighlightSetRenderer' cannot be used as a JSX component. */}
                         <HighlightSetRenderer
                             editable={
                                 /* An existing highlight is editable when the
@@ -126,7 +124,6 @@ class HighlightingUI extends React.PureComponent<HighlightingUIProps> {
                         />
                         {this._selectionIsValid(trackedSelection) &&
                             !userIsMouseSelecting && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HighlightTooltip' cannot be used as a JSX component.
                                 <HighlightTooltip
                                     label={i18n._("Add highlight")}
                                     onClick={() =>

@@ -287,7 +287,6 @@ class WidgetEditor extends React.Component<WidgetEditorProps, WidgetEditorState>
                             ))}
                         </select>
                     )}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SectionControlButton' cannot be used as a JSX component. */}
                     <SectionControlButton
                         icon={iconTrash}
                         onClick={() => {
@@ -520,7 +519,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
             return;
         }
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'WidgetEditor' cannot be used as a JSX component.
             <WidgetEditor
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                 key={id}
@@ -1260,7 +1258,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
             this.widgetIds = _.keys(widgets);
             widgetsDropDown = (
                 // eslint-disable-next-line react/no-string-refs
-// @ts-expect-error [FEI-5003] - TS2786 - 'WidgetSelect' cannot be used as a JSX component.
                 <WidgetSelect ref="widgetSelect" onChange={this._addWidget} />
             );
 
@@ -1364,7 +1361,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
             >
                 {textareaWrapper}
                 {katexErrorList.length > 0 && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'KatexErrorView' cannot be used as a JSX component.
                     <KatexErrorView errorList={katexErrorList} />
                 )}
                 {this.props.warnNoPrompt && noPrompt && (

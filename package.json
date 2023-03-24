@@ -111,6 +111,10 @@
     "webpack-dev-server": "^4.9.0",
     "winston": "^3.7.2"
   },
+  "resolutions": {
+    "@types/react": "16",
+    "@types/react-dom": "16"
+  },
   "scripts": {
     "gen:parsers": "yarn --cwd packages/kas gen:parsers",
     "build": "yarn gen:parsers && rollup -c config/build/rollup.config.js",

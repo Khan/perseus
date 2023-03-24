@@ -50,7 +50,6 @@ export default {
     },
 } as Story;
 
-// @ts-expect-error [FEI-5003] - TS2786 - 'IconComponent' cannot be used as a JSX component.
 export const Icon: React.FC<StoryArgs> = (args): React.ReactElement => <IconComponent
     style={{display: "block"}}
     icon={IconPaths.iconCheck}

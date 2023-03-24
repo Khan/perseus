@@ -42,9 +42,7 @@ export default class PreAlgebraKeypad extends React.Component<Props, State> {
         const availablePages = allPages(this.props);
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             <View>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Tabbar' cannot be used as a JSX component. */}
                 <Tabbar
 // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     items={availablePages}
@@ -53,15 +51,12 @@ export default class PreAlgebraKeypad extends React.Component<Props, State> {
                     }}
                 />
                 {selectedPage === "Numbers" && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'NumericInputPage' cannot be used as a JSX component.
                     <NumericInputPage onClickKey={onClickKey} />
                 )}
                 {selectedPage === "Operators" && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'PreAlgebraPage' cannot be used as a JSX component.
                     <PreAlgebraPage onClickKey={onClickKey} />
                 )}
                 {selectedPage === "Geometry" && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TrigonometryPage' cannot be used as a JSX component.
                     <TrigonometryPage onClickKey={onClickKey} />
                 )}
             </View>

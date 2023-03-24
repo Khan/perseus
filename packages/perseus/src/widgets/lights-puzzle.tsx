@@ -125,7 +125,6 @@ class TileGrid extends React.Component<any> {
                             {_.map(row, (cell, x) => {
                                 return (
                                     <div key={x} style={CELL_STYLE}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Tile' cannot be used as a JSX component. */}
                                         <Tile
                                             value={cell}
                                             size={this.props.size}
@@ -207,7 +206,6 @@ class LightsPuzzle extends React.Component<any> {
         const pxWidth = width * (tileSize + 2 * CELL_PADDING);
         return (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TileGrid' cannot be used as a JSX component. */}
                 <TileGrid
                     cells={this.props.cells}
                     size={tileSize}

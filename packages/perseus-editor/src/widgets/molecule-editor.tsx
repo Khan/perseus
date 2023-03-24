@@ -41,7 +41,6 @@ class MoleculeWidgetEditor extends React.Component<Props> {
                     the spacing right. */}
                     <label>
                         SMILES:&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateMolecule}
                             value={this.props.smiles}
@@ -51,7 +50,6 @@ class MoleculeWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         Rotation (deg):&nbsp;
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             onChange={this.updateRotation}
                             value={this.props.rotationAngle}

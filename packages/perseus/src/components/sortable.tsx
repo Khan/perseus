@@ -213,7 +213,6 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                 onTouchEnd={this.onMouseUp}
                 onTouchCancel={this.onMouseUp}
             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                 <Renderer
                     content={this.props.content}
                     linterContext={PerseusLinter.pushContextStack(
@@ -593,7 +592,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // sortable) will be correct when they render, if their contents are
         // KaTeX-derived.
         if (this.props.waitForKatexLoad && !this.state.katex) {
-// @ts-expect-error [FEI-5003] - TS2786 - 'CircularSpinner' cannot be used as a JSX component.
             return <CircularSpinner />;
         }
         const cards: Array<React.ReactElement<React.ComponentProps<typeof Placeholder>> | React.ReactElement<React.ComponentProps<typeof Draggable>>> = [];
@@ -625,7 +623,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 }
 
                 cards.push(
-// @ts-expect-error [FEI-5003] - TS2786 - 'Draggable' cannot be used as a JSX component.
                     <Draggable
                         content={item.option}
                         key={item.key}
@@ -676,7 +673,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
                 if (item.type === DRAGGING || item.type === ANIMATING) {
                     cards.push(
-// @ts-expect-error [FEI-5003] - TS2786 - 'Placeholder' cannot be used as a JSX component.
                         <Placeholder
                             key={"placeholder_" + item.key}
                             ref={"placeholder_" + item.key}

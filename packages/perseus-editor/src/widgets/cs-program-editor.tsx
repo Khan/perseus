@@ -44,7 +44,6 @@ class PairEditor extends React.Component<any> {
             <fieldset className="pair-editor">
                 <label>
                     Name:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.name}
                         // $FlowFixMe[incompatible-type] single-param call returns a callback
@@ -54,7 +53,6 @@ class PairEditor extends React.Component<any> {
                 <label>
                     {" "}
                     Value:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.value}
                         // $FlowFixMe[incompatible-type] single-param call returns a callback
@@ -103,7 +101,6 @@ class PairsEditor extends React.Component<any> {
     render(): React.ReactElement {
         const editors = _.map(this.props.pairs, (pair, i) => {
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'PairEditor' cannot be used as a JSX component.
                 <PairEditor
                     key={i}
                     name={pair.name}
@@ -212,7 +209,6 @@ class CSProgramEditor extends React.Component<any> {
             <div>
                 <label>
                     Url or Program ID:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.programID}
                         onChange={this._handleProgramIDChange}
@@ -224,7 +220,6 @@ class CSProgramEditor extends React.Component<any> {
                     showEditor={this.props.showEditor}
                     onChange={this.props.onChange}
                 />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                 <InfoTip>
                     If you show the editor, you should use the "full-width"
                     alignment to make room for the width of the editor.
@@ -238,13 +233,11 @@ class CSProgramEditor extends React.Component<any> {
                 <br />
                 <label>
                     Settings:
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'PairsEditor' cannot be used as a JSX component. */}
                     <PairsEditor
                         name="settings"
                         pairs={this.props.settings}
                         onChange={this._handleSettingsChange}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         Settings that you add here are available to the program
                         as an object returned by <code>Program.settings()</code>

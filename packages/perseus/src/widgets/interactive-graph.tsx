@@ -2013,7 +2013,6 @@ class InteractiveGraph extends React.Component<Props, State> {
                     height: box[1],
                 }}
             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Graph' cannot be used as a JSX component. */}
                 <Graph
                     instructions={instructions}
                     // eslint-disable-next-line react/no-string-refs

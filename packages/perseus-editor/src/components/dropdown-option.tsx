@@ -167,7 +167,6 @@ class Option extends React.Component<OptionProps> {
                         {children}
                         {selected && (
                             <span className={css(styles.check)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Icon' cannot be used as a JSX component. */}
                                 <Icon icon={check} />
                             </span>
                         )}

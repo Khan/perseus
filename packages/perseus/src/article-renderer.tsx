@@ -178,7 +178,6 @@ class ArticleRenderer extends React.Component<any, any> {
             const refForSection = `section-${i}`;
             return (
                 <div key={i} className="clearfix">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
                         {...section}
                         ref={refForSection}

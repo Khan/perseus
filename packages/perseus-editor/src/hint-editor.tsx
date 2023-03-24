@@ -98,7 +98,6 @@ export class HintEditor extends React.Component<HintEditorProps> {
         return (
             <div className={"perseus-hint-editor " + this.props.className}>
                 {this.props.showTitle && <div className="pod-title">Hint</div>}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                 <Editor
                     // eslint-disable-next-line react/no-string-refs
                     ref="editor"
@@ -134,7 +133,6 @@ export class HintEditor extends React.Component<HintEditorProps> {
                                 <InlineIcon {...iconCircleArrowUp} />
                             </button>{" "}
                             {this.props.isLast && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component.
                                 <InfoTip>
                                     <p>
                                         The last hint is automatically bolded.
@@ -249,7 +247,6 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                 }
             >
                 <div className="perseus-editor-left-cell">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HintEditor' cannot be used as a JSX component. */}
                     <HintEditor
                         // eslint-disable-next-line react/no-string-refs
                         ref="editor"
@@ -268,12 +265,10 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                     />
                 </div>
                 <div className="perseus-editor-right-cell">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DeviceFramer' cannot be used as a JSX component. */}
                     <DeviceFramer
                         deviceType={this.props.deviceType}
                         nochrome={true}
                     >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'IframeContentRenderer' cannot be used as a JSX component. */}
                         <IframeContentRenderer
                             // eslint-disable-next-line react/no-string-refs
                             ref="frame"
@@ -418,7 +413,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             hints,
             function (hint, i) {
                 return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'CombinedHintEditor' cannot be used as a JSX component.
                     <CombinedHintEditor
                         ref={"hintEditor" + i}
                         key={"hintEditor" + i}

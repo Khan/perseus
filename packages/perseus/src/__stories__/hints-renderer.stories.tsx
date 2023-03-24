@@ -51,9 +51,7 @@ export const Interactive = (args: StoryArgs): any => {
         // Sorry for the hacks! The HintRenderer uses absolute positioning
         // for the "1 / 3" label that is rendered left of the hint. So we shift
         // everything over so we can see it.
-// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
         <View style={{left: 80}}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component. */}
             <HintsRenderer {...args} />
         </View>
     );

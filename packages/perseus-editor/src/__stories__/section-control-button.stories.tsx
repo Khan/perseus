@@ -15,7 +15,6 @@ export default {
 
 export const ButtonForEditingSectionsOfContentWithInArticleEditor: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'SectionControlButton' cannot be used as a JSX component.
         <SectionControlButton
             icon={icons.iconTrash}
             onClick={() => {}}

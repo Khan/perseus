@@ -51,7 +51,6 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }}
                             />
                         </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             Use the calculator when completing difficult
                             calculations is NOT the intent of the question.
@@ -73,7 +72,6 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }}
                             />
                         </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             This provides the student with the ability to view a
                             periodic table of the elements, e.g., for answering
@@ -94,7 +92,6 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }}
                             />
                         </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             This provides the student with the ability to view a
                             table of critical values for the z distribution,
@@ -115,7 +112,6 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }}
                             />
                         </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             This provides the student with the ability to view a
                             table of critical values for the Student's t
@@ -137,7 +133,6 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }}
                             />
                         </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             This provides the student with the ability to view a
                             table of critical values for the chi-squared

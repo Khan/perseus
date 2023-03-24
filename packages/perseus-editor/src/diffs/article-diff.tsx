@@ -52,7 +52,6 @@ class ArticleDiff extends React.Component<Props, State> {
         const sectionCount = Math.max(before.length, after.length);
 
         const sections = _.times(sectionCount, (n) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'RendererDiff' cannot be used as a JSX component.
             <RendererDiff
                 before={n < before.length ? before[n] : undefined}
                 after={n < after.length ? after[n] : undefined}

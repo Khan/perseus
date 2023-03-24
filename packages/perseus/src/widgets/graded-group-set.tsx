@@ -158,7 +158,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                             // TODO(jeremy): Don't spread this.props, instead
                             // pass in all props GradedGroup needs explicilty
                             // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'GradedGroup' cannot be used as a JSX component.
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                             <GradedGroup
                                 key={i}
                                 {...this.props}
@@ -191,7 +191,6 @@ class GradedGroupSet extends React.Component<Props, State> {
                         {currentGroup.title}
                     </div>
                     <div className={css(styles.spacer)} />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Indicators' cannot be used as a JSX component. */}
                     <Indicators
                         currentGroup={this.state.currentGroup}
                         gradedGroups={this.props.gradedGroups}
@@ -203,7 +202,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                 {/* TODO(jeremy): Don't spread this.props, instead
                     pass in all props GradedGroup needs explicitly */}
                 {/* $FlowFixMe[prop-missing] */}
-{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'GradedGroup' cannot be used as a JSX component. */}
+{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
                     // $FlowFixMe[incompatible-type]

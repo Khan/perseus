@@ -391,7 +391,6 @@ class NumberLine extends React.Component<Props, State> {
         });
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component.
             <Graphie
                 // eslint-disable-next-line react/no-string-refs
                 ref="graphie"

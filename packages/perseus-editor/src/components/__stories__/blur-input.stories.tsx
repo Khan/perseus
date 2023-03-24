@@ -11,7 +11,6 @@ export const Default = (): React.ReactElement => {
     const [value, setValue] = React.useState("");
 
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component.
         <BlurInput
             value={value}
             onChange={(newValue) => {

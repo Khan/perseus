@@ -219,13 +219,10 @@ function texFromPoint(point: Coord) {
     const {TeX} = getDependencies();
 
     return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
         <TeX key="(">(</TeX>,
         stringFromDecimal(point[0]),
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
         <TeX key=",">{", {}"}</TeX>,
         stringFromDecimal(point[1]),
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
         <TeX key=")">)</TeX>,
     ];
 }
@@ -234,13 +231,10 @@ function texFromVector(vector) {
     const {TeX} = getDependencies();
 
     return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
         <TeX key="<">{i18n.doNotTranslate("\\langle")}</TeX>,
         stringFromDecimal(vector[0]),
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
         <TeX key=",">{", {}"}</TeX>,
         stringFromDecimal(vector[1]),
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
         <TeX key=">">{i18n.doNotTranslate("\\rangle")}</TeX>,
     ];
 }
@@ -546,9 +540,7 @@ const Transformations = {
                 const {TeX} = getDependencies();
 
                 const vector = [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key="<">{i18n.doNotTranslate("\\langle")}</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="vec_x"
                         // eslint-disable-next-line react/no-string-refs
@@ -566,9 +558,7 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "x")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=",">{", {}"}</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="vec_y"
                         // eslint-disable-next-line react/no-string-refs
@@ -586,7 +576,6 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "y")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=">">{i18n.doNotTranslate("\\rangle")}</TeX>,
                 ];
                 return (
@@ -699,9 +688,7 @@ const Transformations = {
                 const {TeX} = getDependencies();
 
                 const point = [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key="(">(</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="X"
                         // eslint-disable-next-line react/no-string-refs
@@ -719,9 +706,7 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "centerX")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=",">{", {}"}</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="Y"
                         // eslint-disable-next-line react/no-string-refs
@@ -739,11 +724,9 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "centerY")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=")">)</TeX>,
                 ];
                 const degrees = [
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="deg"
                         // eslint-disable-next-line react/no-string-refs
@@ -880,9 +863,7 @@ const Transformations = {
                 const {TeX} = getDependencies();
 
                 const point1 = [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key="(">(</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="x1"
                         // eslint-disable-next-line react/no-string-refs
@@ -895,9 +876,7 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "x1")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=",">{", {}"}</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="y1"
                         // eslint-disable-next-line react/no-string-refs
@@ -910,13 +889,10 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "y1")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=")">)</TeX>,
                 ];
                 const point2 = [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key="(">(</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="x2"
                         // eslint-disable-next-line react/no-string-refs
@@ -929,9 +905,7 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "x2")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=",">{", {}"}</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="y2"
                         // eslint-disable-next-line react/no-string-refs
@@ -944,7 +918,6 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "y2")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=")">)</TeX>,
                 ];
                 return (
@@ -1084,9 +1057,7 @@ const Transformations = {
                 const {TeX} = getDependencies();
 
                 const point = [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key="(">(</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="point_x"
                         // eslint-disable-next-line react/no-string-refs
@@ -1104,9 +1075,7 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "x")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=",">{", {}"}</TeX>,
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         key="point_y"
                         // eslint-disable-next-line react/no-string-refs
@@ -1124,11 +1093,9 @@ const Transformations = {
                         onBlur={_.partial(this.props.onBlur, "y")}
                         keypadElement={this.props.keypadElement}
                     />,
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                     <TeX key=")">)</TeX>,
                 ];
                 const scale = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'InputComponent' cannot be used as a JSX component.
                     <InputComponent
                         // eslint-disable-next-line react/no-string-refs
                         ref="scale"
@@ -1748,7 +1715,6 @@ class ToolsBar extends React.Component<any, any> {
 // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (this.props.enabled[type]) {
                     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ToolButton' cannot be used as a JSX component.
                         <ToolButton
                             key={type}
 // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -1810,7 +1776,6 @@ class AddTransformBar extends React.Component<any, any> {
 // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (this.props.enabled[type]) {
                     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ToolButton' cannot be used as a JSX component.
                         <ToolButton
                             key={type}
                             toggled={false}
@@ -1905,7 +1870,6 @@ class Transformer extends React.Component<Props> {
         // specified.
         const toolsBar = (
             <div style={{width: graph.box[0]}}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolsBarClass' cannot be used as a JSX component. */}
                 <ToolsBarClass
                     // eslint-disable-next-line react/no-string-refs
                     ref="toolsBar"
@@ -1920,7 +1884,6 @@ class Transformer extends React.Component<Props> {
 
         return (
             <div className={"perseus-widget " + "perseus-widget-transformer"}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Graph' cannot be used as a JSX component. */}
                 <Graph
                     // eslint-disable-next-line react/no-string-refs
                     ref="graph"
@@ -1952,7 +1915,6 @@ class Transformer extends React.Component<Props> {
 
                 {interactiveToolsMode && toolsBar}
 
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TransformationList' cannot be used as a JSX component. */}
                 <TransformationList
                     // eslint-disable-next-line react/no-string-refs
                     ref="transformationList"

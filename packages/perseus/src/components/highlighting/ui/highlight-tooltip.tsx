@@ -116,7 +116,6 @@ class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
                 onMouseEnter={this.props.onMouseEnter}
                 onMouseLeave={this.props.onMouseLeave}
             >
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Tooltip' cannot be used as a JSX component. */}
                 <Tooltip content={content} opened={true}>
                     <div />
                 </Tooltip>

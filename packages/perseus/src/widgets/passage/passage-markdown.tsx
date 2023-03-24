@@ -199,7 +199,6 @@ const rules = {
             // note(matthewc) the refs created here become the refs
             // pulled from `this.refs` in passage.jsx
             return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'RefStart' cannot be used as a JSX component.
                 <RefStart
                     ref={START_REF_PREFIX + ref}
                     key={START_REF_PREFIX + ref}
@@ -228,7 +227,6 @@ const rules = {
                 // note(matthewc) the refs created here become the refs
                 // pulled from `this.refs` in passage.jsx
                 return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'RefEnd' cannot be used as a JSX component.
                     <RefEnd
                         ref={END_REF_PREFIX + node.ref}
                         key={END_REF_PREFIX + node.ref}

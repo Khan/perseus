@@ -19,11 +19,9 @@ export default {
 } as Story;
 
 export const EmptyPropsObject: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'SimpleKeypadInput' cannot be used as a JSX component.
     return <SimpleKeypadInput {...defaultObject} />;
 };
 
 export const CustomValue: React.FC<StoryArgs> = (args): React.ReactElement => {
-// @ts-expect-error [FEI-5003] - TS2786 - 'SimpleKeypadInput' cannot be used as a JSX component.
     return <SimpleKeypadInput {...defaultObject} value="Test value" />;
 };

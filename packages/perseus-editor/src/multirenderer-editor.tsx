@@ -419,7 +419,6 @@ const NodeContent = (props: NodePropTypes) => {
     // perseus-all-package/multi-items/item-types.js.
     if (shape.type === "content") {
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ItemNodeContent' cannot be used as a JSX component.
             <ItemNodeContent
                 shape={shape}
                 data={(data as ContentNode)}
@@ -429,7 +428,6 @@ const NodeContent = (props: NodePropTypes) => {
     }
     if (shape.type === "hint") {
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'HintNodeContent' cannot be used as a JSX component.
             <HintNodeContent
                 shape={shape}
                 data={(data as HintNode)}
@@ -530,7 +528,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
                  * Cannot create WrappedComponent element because inexact props
                  * [1] is incompatible with exact WithStickiness [2].
                  */
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'Readonly<Config> & { sticky: boolean; children?: ReactNode; }' is not assignable to type 'IntrinsicAttributes & LibraryManagedAttributes<Component, PropsWithChildren<WithStickiness<Config>>>'. | TS2786 - 'WrappedComponent' cannot be used as a JSX component.
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Readonly<Config> & { sticky: boolean; children?: ReactNode; }' is not assignable to type 'IntrinsicAttributes & LibraryManagedAttributes<Component, PropsWithChildren<WithStickiness<Config>>>'.
                 <WrappedComponent {...this.props} sticky={this.state.sticky} />
             );
         }
@@ -555,7 +553,7 @@ const ItemNodeContent = withStickiness(
                                 // $FlowFixMe[incompatible-exact]: {...data} pass too many props
                                 // $FlowFixMe[incompatible-type]
                                 // $FlowFixMe[prop-missing]
-// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'Editor' cannot be used as a JSX component.
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                                 <Editor
                                     {...data}
                                     onChange={(newVal) =>
@@ -596,7 +594,6 @@ const HintNodeContent = withStickiness(
                          * inexact props [1] is incompatible with exact
                          * WithStickiness [2].
                          */}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HintEditor' cannot be used as a JSX component. */}
                         <HintEditor
                             {...data}
                             className={css(styles.hintEditor)}
@@ -636,7 +633,6 @@ const TagsNodeContent = (props: NodePropTypes<TagsShape, TagsNode>) => {
     return (
         <div className={css(styles.columnLeft)}>
             <div className={css(styles.tagsEditor)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'GroupMetadataEditor' cannot be used as a JSX component. */}
                 <GroupMetadataEditor
                     value={data}
                     onChange={(newVal) => actions.setValueAtPath(path, newVal)}
@@ -668,7 +664,6 @@ const ArrayNodeContent = (props: NodePropTypes<ArrayShape, ItemArrayNode>) => {
         const controls = [
             i > 0 && (
                 <div key="moveArrayElementUp" className={css(styles.control)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SimpleButton' cannot be used as a JSX component. */}
                     <SimpleButton
                         color="orange"
                         title="Move up"
@@ -684,7 +679,6 @@ const ArrayNodeContent = (props: NodePropTypes<ArrayShape, ItemArrayNode>) => {
             // $FlowFixMe[prop-missing]
             i < data.length - 1 && (
                 <div key="moveArrayElementDown" className={css(styles.control)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SimpleButton' cannot be used as a JSX component. */}
                     <SimpleButton
                         color="orange"
                         title="Move down"
@@ -695,7 +689,6 @@ const ArrayNodeContent = (props: NodePropTypes<ArrayShape, ItemArrayNode>) => {
                 </div>
             ),
             <div key="removeArrayElement" className={css(styles.control)}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SimpleButton' cannot be used as a JSX component. */}
                 <SimpleButton
                     color="orange"
                     title="Delete"
@@ -773,7 +766,6 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
         const {Layout, apiOptions, item} = this.props;
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Layout' cannot be used as a JSX component.
             <Layout
                 ref={(node) => (this.layout = node)}
                 item={item}
@@ -785,7 +777,6 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
     _renderJson: () => React.ReactElement<React.ComponentProps<'div'>> = () => {
         return (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ModeDropdown' cannot be used as a JSX component. */}
                 <ModeDropdown
                     currentMode={this.props.editorMode}
                     onChange={(editorMode) => this.props.onChange({editorMode})}
@@ -802,7 +793,6 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
     _renderPreview: () => React.ReactElement<React.ComponentProps<'div'>> = () => {
         return (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ModeDropdown' cannot be used as a JSX component. */}
                 <ModeDropdown
                     currentMode={this.props.editorMode}
                     onChange={(editorMode) => this.props.onChange({editorMode})}
@@ -891,13 +881,11 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
 
         return (
             <div className="perseus-multirenderer-editor">
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ModeDropdown' cannot be used as a JSX component. */}
                 <ModeDropdown
                     currentMode={this.props.editorMode}
                     onChange={(editorMode) => this.props.onChange({editorMode})}
                 />
 
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MultiRenderer' cannot be used as a JSX component. */}
                 <MultiRenderer
                     item={item}
                     shape={itemShape}
@@ -949,7 +937,6 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
                 return this._renderEdit();
             default:
                 return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'ModeDropdown' cannot be used as a JSX component.
                     <ModeDropdown
                         currentMode={this.props.editorMode}
                         onChange={(editorMode) =>

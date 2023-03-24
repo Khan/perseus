@@ -84,7 +84,6 @@ export class Categorizer extends React.Component<Props, State> {
                             // fixed.)
                             return (
                                 <th className={css(styles.header)} key={i}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                     <Renderer
                                         content={category}
                                         linterContext={this.props.linterContext}
@@ -102,7 +101,6 @@ export class Categorizer extends React.Component<Props, State> {
                         return (
                             <tr key={itemNum}>
                                 <td>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                     <Renderer
 // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | number' is not assignable to type 'string | undefined'.
                                         content={item}

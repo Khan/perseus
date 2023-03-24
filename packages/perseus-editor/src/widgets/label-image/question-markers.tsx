@@ -114,7 +114,6 @@ export default class QuestionMarkers extends React.Component<QuestionMarkersProp
                         />
 
                         {markers.map((marker, index) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Marker' cannot be used as a JSX component.
                             <Marker
                                 {...marker}
                                 choices={choices}

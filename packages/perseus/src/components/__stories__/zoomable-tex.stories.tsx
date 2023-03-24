@@ -26,7 +26,6 @@ const ForceZoomWrapper: React.FC<{
 export const KaTeX: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
         <ForceZoomWrapper>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ZoomableTex' cannot be used as a JSX component. */}
             <ZoomableTex children="\sum_{i=1}^\infty\frac{1}{n^2} =\frac{\pi^2}{6}" />
         </ForceZoomWrapper>
     );
@@ -36,7 +35,6 @@ export const ComplexKaTeX: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
         <ForceZoomWrapper>
             {" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ZoomableTex' cannot be used as a JSX component. */}
             <ZoomableTex children="\begin{aligned}h\blueE{v_1} \left(\dfrac{\partial f}{\partial x}(x_0, y_0) \right) + h\greenE{v_2}\left( \dfrac{\partial f}{\partial y}(x_0 \redD{+ h\blueE{v_1}}, y_0)\right)\end{aligned}" />
         </ForceZoomWrapper>
     );

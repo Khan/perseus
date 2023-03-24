@@ -37,7 +37,6 @@ class PassageEditor extends React.Component<Props> {
 
     render(): React.ReactElement {
         const passageEditor = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="passage-editor"
@@ -53,7 +52,6 @@ class PassageEditor extends React.Component<Props> {
             />
         );
         const footnotesEditor = (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="passage-footnotes-editor"
@@ -79,7 +77,6 @@ class PassageEditor extends React.Component<Props> {
                 </div>
                 <div>
                     Passage title:
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             An optional title that will appear directly above
@@ -103,7 +100,6 @@ class PassageEditor extends React.Component<Props> {
                 </div>
                 <div>
                     Footnotes:
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             To add footnotes, add ^ characters where they belong

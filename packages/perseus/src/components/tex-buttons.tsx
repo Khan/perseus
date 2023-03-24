@@ -40,7 +40,6 @@ const basic: ReadonlyArray<ButtonSet> = [
         const {TeX} = getDependencies();
         if (props.convertDotToTimes) {
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="times" style={prettyBig}>
                     {i18n.doNotTranslate("\\times")}
                 </TeX>,
@@ -48,7 +47,6 @@ const basic: ReadonlyArray<ButtonSet> = [
             ];
         }
         return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
             <TeX key="times" style={prettyBig}>
                 {i18n.doNotTranslate("\\cdot")}
             </TeX>,
@@ -58,7 +56,6 @@ const basic: ReadonlyArray<ButtonSet> = [
     () => {
         const {TeX} = getDependencies();
         return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
             <TeX key="frac" style={prettyBig}>
                 {i18n.doNotTranslate("\\frac{x}{y}")}
             </TeX>,
@@ -84,7 +81,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="div">{i18n.doNotTranslate("\\div")}</TeX>,
                 "\\div",
             ];
@@ -95,7 +91,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="sin">{i18n.doNotTranslate("\\sin")}</TeX>,
                 "\\sin",
             ];
@@ -103,7 +98,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="cos">{i18n.doNotTranslate("\\cos")}</TeX>,
                 "\\cos",
             ];
@@ -111,7 +105,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="tan">{i18n.doNotTranslate("\\tan")}</TeX>,
                 "\\tan",
             ];
@@ -119,7 +112,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="theta" style={symbStyle}>
                     {i18n.doNotTranslate("\\theta")}
                 </TeX>,
@@ -134,7 +126,6 @@ const buttonSets: ButtonSets = {
                     <span className="perseus-sr-only">
                         {i18n.doNotTranslate("phi")}
                     </span>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX key="pi" style={symbStyle}>
                         {i18n.doNotTranslate("\\phi")}
                     </TeX>
@@ -148,7 +139,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="sqrt">{i18n.doNotTranslate("\\sqrt{x}")}</TeX>,
                 "\\sqrt",
             ];
@@ -157,7 +147,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="nthroot">{i18n.doNotTranslate("\\sqrt[3]{x}")}</TeX>,
                 (input: any) => {
                     input.typedText("nthroot3");
@@ -168,7 +157,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="pow" style={slightlyBig}>
                     {i18n.doNotTranslate("a^b")}
                 </TeX>,
@@ -188,7 +176,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="pi" style={slightlyBig}>
                     {i18n.doNotTranslate("\\pi")}
                 </TeX>,
@@ -201,20 +188,17 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="log">{i18n.doNotTranslate("\\log")}</TeX>,
                 "\\log",
             ];
         },
         () => {
             const {TeX} = getDependencies();
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
             return [<TeX key="ln">{i18n.doNotTranslate("\\ln")}</TeX>, "\\ln"];
         },
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="log_b">{i18n.doNotTranslate("\\log_b")}</TeX>,
                 (input) => {
                     input.typedText("log_");
@@ -230,17 +214,14 @@ const buttonSets: ButtonSets = {
     "basic relations": [
         () => {
             const {TeX} = getDependencies();
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
             return [<TeX key="eq">{"="}</TeX>, "="];
         },
         () => {
             const {TeX} = getDependencies();
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
             return [<TeX key="lt">{i18n.doNotTranslate("\\lt")}</TeX>, "\\lt"];
         },
         () => {
             const {TeX} = getDependencies();
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
             return [<TeX key="gt">{i18n.doNotTranslate("\\gt")}</TeX>, "\\gt"];
         },
     ],
@@ -249,7 +230,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="neq">{i18n.doNotTranslate("\\neq")}</TeX>,
                 "\\neq",
             ];
@@ -257,7 +237,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="leq">{i18n.doNotTranslate("\\leq")}</TeX>,
                 "\\leq",
             ];
@@ -265,7 +244,6 @@ const buttonSets: ButtonSets = {
         () => {
             const {TeX} = getDependencies();
             return [
-// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                 <TeX key="geq">{i18n.doNotTranslate("\\geq")}</TeX>,
                 "\\geq",
             ];

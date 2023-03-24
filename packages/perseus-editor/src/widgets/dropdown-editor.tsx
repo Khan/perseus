@@ -100,7 +100,6 @@ class DropdownEditor extends React.Component<Props> {
             <div className="perseus-widget-dropdown">
                 <div className="dropdown-info">
                     Dropdown
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             The drop down is useful for making inequalities in a
@@ -118,7 +117,6 @@ class DropdownEditor extends React.Component<Props> {
                         value={this.props.placeholder}
                         onChange={this.onPlaceholderChange}
                     />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             This value will appear as the drop down default. It

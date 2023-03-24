@@ -112,7 +112,6 @@ class InputNumberEditor extends React.Component<Props> {
                 <div>
                     <label>
                         Correct answer:{" "}
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                         <BlurInput
                             value={"" + this.props.value}
                             onChange={this.handleAnswerChange}
@@ -141,7 +140,6 @@ class InputNumberEditor extends React.Component<Props> {
                             </option>
                         </select>
                     </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Normally select "will not be graded". This will give
@@ -211,7 +209,6 @@ class InputNumberEditor extends React.Component<Props> {
                     >
                         {answerTypeOptions}
                     </select>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Use the default "Numbers" unless the answer must be
@@ -235,7 +232,6 @@ class InputNumberEditor extends React.Component<Props> {
                             <option value="small">Small (40px)</option>
                         </select>
                     </label>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Use size "Normal" for all text boxes, unless there

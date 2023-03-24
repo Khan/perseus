@@ -17,7 +17,6 @@ export default {
     decorators: [
         (StoryComponent) => (
             <Wrapper>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'StoryComponent' cannot be used as a JSX component. */}
                 <StoryComponent />
             </Wrapper>
         ),
@@ -26,7 +25,6 @@ export default {
 
 export const Example: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'TagsDiff' cannot be used as a JSX component.
         <TagsDiff
             title="tags"
             beforeOnly={["Math", "Biology", "History"]}

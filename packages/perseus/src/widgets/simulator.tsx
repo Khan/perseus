@@ -247,7 +247,6 @@ class Histogram extends React.Component<any, any> {
         const bottomRight = [range[0][1], 0];
 
         return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component.
             <Graphie
                 box={options.box}
                 range={options.range}
@@ -469,7 +468,6 @@ class Simulator extends React.Component<any, any> {
 
         const proportionInput = (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                 <NumberInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="userProportion"
@@ -481,7 +479,6 @@ class Simulator extends React.Component<any, any> {
                     onFocus={() => this.props.onFocus(["userProportion"])}
                     onBlur={() => this.props.onBlur(["userProportion"])}
                 />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                 <InfoTip>
                     <p>
                         {i18n._(
@@ -494,7 +491,6 @@ class Simulator extends React.Component<any, any> {
 
         const sampleSizeInput = (
             <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                 <NumberInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="sampleSize"
@@ -506,7 +502,6 @@ class Simulator extends React.Component<any, any> {
                     onFocus={() => this.props.onFocus(["sampleSize"])}
                     onBlur={() => this.props.onBlur(["sampleSize"])}
                 />
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                 <InfoTip>
                     <p>
                         {i18n._(
@@ -520,7 +515,6 @@ class Simulator extends React.Component<any, any> {
         const numTrialsDisplay = (
             <div style={{textAlign: "right"}}>
                 <b>{this.props.numTrials}</b>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                 <InfoTip>
                     <p>
                         {i18n._(
@@ -603,7 +597,6 @@ class Simulator extends React.Component<any, any> {
         } as const;
         const histogram = (
             <div style={histogramStyle}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Histogram' cannot be used as a JSX component. */}
                 <Histogram
                     data={this.props.data}
                     xAxisLabel={this.props.xAxisLabel}

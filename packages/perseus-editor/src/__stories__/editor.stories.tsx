@@ -15,7 +15,6 @@ export const Rational = (): React.ReactElement => {
     Dependencies.getDependencies().shouldUseFutureKaTeX(false);
 
     return (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
         <Editor
             apiOptions={ApiOptions.defaults}
             content={question1.content}

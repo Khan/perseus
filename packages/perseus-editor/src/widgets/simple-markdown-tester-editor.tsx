@@ -54,7 +54,6 @@ class SimpleMarkdownTesterEditor extends React.Component<SimpleMarkdownTesterEdi
                 <label>
                     <div>Simple markdown contents:</div>
                     <div>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextArea' cannot be used as a JSX component. */}
                         <TextArea
                             value={this.props.value}
 // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.

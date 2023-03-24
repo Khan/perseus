@@ -120,7 +120,6 @@ class AnswerChoice extends React.Component<AnswerProps, AnswerState> {
         return (
             <span className={css(styles.checkmarkContainer)}>
                 {checked && (
-// @ts-expect-error [FEI-5003] - TS2786 - 'Icon' cannot be used as a JSX component.
                     <Icon
                         icon={iconCheckMedium}
                         size={16}
@@ -164,7 +163,6 @@ class AnswerChoice extends React.Component<AnswerProps, AnswerState> {
                 </span>
 
                 <label htmlFor={answerId}>
-{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer content={content} />
                 </label>
             </div>
@@ -238,7 +236,6 @@ export default class AnswerChoices extends React.Component<AnswerChoicesProps, A
         return (
             <fieldset>
                 {choices.map((choice, index) => (
-// @ts-expect-error [FEI-5003] - TS2786 - 'AnswerChoice' cannot be used as a JSX component.
                     <AnswerChoice
                         {...choice}
                         key={choice.content}
