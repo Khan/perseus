@@ -5,8 +5,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {MultiItemRendererWithDebugUI} from "../../../../../testing/multi-item-renderer-with-debug-ui";
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/multi-renderer_testdata' or its corresponding type declarations.
-import {question1} from "../__testdata__/multi-renderer_testdata";
+import {question1} from "../__testdata__/multi-renderer.testdata";
 
 type StoryArgs = Record<any, any>;
 

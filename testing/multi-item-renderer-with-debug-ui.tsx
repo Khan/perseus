@@ -3,8 +3,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {MultiItems} from "../packages/perseus/src/index";
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../packages/perseus/src/multi-items/__testdata__/multi-renderer_testdata' or its corresponding type declarations.
-import {simpleQuestionShape} from "../packages/perseus/src/multi-items/__testdata__/multi-renderer_testdata";
+import {simpleQuestionShape} from "../packages/perseus/src/multi-items/__testdata__/multi-renderer.testdata";
 
 import KEScoreUI from "./ke-score-ui";
 import SideBySide from "./side-by-side";

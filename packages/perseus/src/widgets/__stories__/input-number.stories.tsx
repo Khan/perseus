@@ -5,8 +5,7 @@ import {
     question1,
     question2,
     question3,
-    // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/input-number_testdata' or its corresponding type declarations.
-} from "../__testdata__/input-number_testdata";
+} from "../__testdata__/input-number.testdata";
 
 import type {
     PerseusRenderer,

@@ -5,8 +5,7 @@ import {
     questionWithPassage,
     multiChoiceQuestion,
     multiChoiceQuestionSimple,
-    // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/radio_testdata' or its corresponding type declarations.
-} from "../__testdata__/radio_testdata";
+} from "../__testdata__/radio.testdata";
 
 import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";

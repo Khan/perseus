@@ -2,7 +2,6 @@ import * as React from "react";
 
 import StructuredItemDiff from "../structured-item-diff";
 
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module './perseus-diff-wrapper' or its corresponding type declarations.
 import Wrapper from "./perseus-diff-wrapper";
 
 // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../../styles/perseus-editor.less' or its corresponding type declarations.
