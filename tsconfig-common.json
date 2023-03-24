@@ -1,0 +1,29 @@
+// This file contains common compiler options that are used by all tsconfigs
+/* Visit https://aka.ms/tsconfig to read more about this file */
+{
+    "compilerOptions": {
+        /* Language and Environment */
+        "target": "ES2016",
+        "jsx": "preserve",
+        /* Modules */
+        // Required for dynamic imports even though we aren't using
+        // tsc to output any modules.
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        /* Interop Constraints */
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        /* Type Checking */
+        "strict": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictPropertyInitialization": true,
+        "strictBindCallApply": true,
+        // TODO(FEI-5020): Enable this setting, there are 242 errors from it when last checked
+        // "noImplicitAny": true,
+        /* Completeness */
+        "skipDefaultLibCheck": true, // it's safe to assume that built-in .d.ts files are correct
+        "skipLibCheck": false
+    }
+}

@@ -1,0 +1,20 @@
+// This file is used by the tsconfig.json files in each package.
+/* Visit https://aka.ms/tsconfig to read more about this file */
+{
+    "extends": "../tsconfig-common.json",
+    "compilerOptions": {
+        "composite": true,
+        "incremental": true, // Required for composite projects
+
+        // We use rollup + babel to compile our bundles so we
+        // only need tsc to output .d.ts files
+        "declaration": true,
+        "emitDeclarationOnly": true,
+
+        "paths": {
+            "@khanacademy/*": [
+                "./*/src"
+            ]
+        },
+    },
+}
