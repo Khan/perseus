@@ -63,7 +63,7 @@ jobs:
         limited: yarn lint {}
 
     - name: Typecheck
-      if: steps.js-files.outputs.filtered != '[]'
+      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
       run: yarn typecheck
 
     # Run tests for our target matrix
