@@ -50,7 +50,14 @@ jobs:
     - name: Jest with coverage
       run: yarn coverage
 
-    - name: Upload Coverage
+    - name: Upload Coverage (Codecov)
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
+
+    - name: Upload Coverage (Coveralls)
       # We don't bother uploading a record of coverage for dependabot changes
       if: ${{ github.actor != 'dependabot[bot]' }}
       uses: coverallsapp/github-action@v1
@@ -82,7 +89,14 @@ jobs:
     - name: Generate report
       run: yarn nyc report --reporter=lcov
 
-    - name: Upload Coverage
+    - name: Upload Coverage (Codecov)
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
+
+    - name: Upload Coverage (Coveralls)
       # We don't bother uploading a record of coverage for dependabot changes
       if: ${{ github.actor != 'dependabot[bot]' }}
       uses: coverallsapp/github-action@v1
