@@ -6,7 +6,6 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import Graphie from "../components/graphie.jsx";
-import MathOutput from "../components/math-output.jsx";
 import NumberInput from "../components/number-input.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import InteractiveUtil from "../interactive2/interactive-util.js";
@@ -656,8 +655,6 @@ class NumberLine extends React.Component<Props, State> {
             let Input;
             if (this.props.apiOptions.customKeypad) {
                 Input = SimpleKeypadInput;
-            } else if (this.props.apiOptions.staticRender) {
-                Input = MathOutput;
             } else {
                 Input = NumberInput;
             }

@@ -180,11 +180,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                             });
                         }}
                         onChange={() => {}}
-                        disabled={
-                            disabled ||
-                            apiOptions.staticRender ||
-                            apiOptions.readOnly
-                        }
+                        disabled={disabled || apiOptions.readOnly}
                         tabIndex={-1}
                         className={ClassNames.RADIO.OPTION_CONTENT}
                     />
@@ -201,11 +197,7 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                             crossedOut: false,
                         });
                     }}
-                    disabled={
-                        disabled ||
-                        apiOptions.staticRender ||
-                        apiOptions.readOnly
-                    }
+                    disabled={disabled || apiOptions.readOnly}
                     style={{flex: 1, color: Color.offBlack, userSelect: "text"}}
                     ref={(forwardedRef: any)}
                     aria-hidden="true"
@@ -311,7 +303,6 @@ function Choice(props: ChoicePropsWithForwardRef): React.Node {
                                 aria-label={`Open menu for Choice ${getChoiceLetter(
                                     pos,
                                 )}`}
-                                disabled={apiOptions.staticRender}
                                 style={{
                                     alignSelf: "center",
                                     padding: "5px",

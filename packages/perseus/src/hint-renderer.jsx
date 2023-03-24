@@ -73,17 +73,14 @@ class HintRenderer extends React.Component<Props> {
             className,
         );
 
-        // TODO(charlie): Allowing `staticRender` here would require that we
-        // extend `HintsRenderer` and `HintRenderer` to implement the full
-        // "input' API, so that clients could access the static inputs. Allowing
-        // `customKeypad` would require that we extend `ItemRenderer` to support
-        // nested inputs in the `HintsRenderer`. For now, we disable these
-        // options. Instead, clients will get standard <input/> elements, which
+        // TODO(charlie): Allowing `customKeypad` would require that we
+        // extend `ItemRenderer` to support nested inputs in the `HintsRenderer`.
+        // For now, we disable this option.
+        // Instead, clients will get standard <input/> elements, which
         // aren't nice to use on mobile, but are at least usable.
         const rendererApiOptions = {
             ...apiOptions,
             customKeypad: false,
-            staticRender: false,
         };
 
         return (

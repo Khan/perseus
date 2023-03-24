@@ -304,14 +304,6 @@ describe("rendering", () => {
 
         expect(container).toMatchSnapshot("mobile render");
     });
-
-    it("static renders", () => {
-        const {container} = renderQuestion(question, {
-            staticRender: true,
-        });
-
-        expect(container).toMatchSnapshot("static render");
-    });
 });
 
 describe("focus state", () => {

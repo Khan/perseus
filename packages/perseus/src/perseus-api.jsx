@@ -43,7 +43,6 @@ export const ApiOptions = {
 
         onInputError: PropTypes.func.isRequired,
         onFocusChange: PropTypes.func.isRequired,
-        staticRender: PropTypes.bool.isRequired,
         GroupMetadataEditor: PropTypes.func.isRequired,
         showAlignmentOptions: PropTypes.bool.isRequired,
         readOnly: PropTypes.bool.isRequired,
@@ -89,10 +88,6 @@ export const ApiOptions = {
         // component.  In this situation we use the MathInput component
         // from the math-input repo instead of the existing perseus math
         // input components.
-        // TODO(charlie): Make this mutually exclusive with `staticRender`.
-        // Internally, we defer to `customKeypad` over `staticRender`, but
-        // they should really be represented as an enum or some other data
-        // structure that forbids them both being enabled at once.
         customKeypad: PropTypes.bool,
 
         // If this is provided, it is called instead of appending an instance
@@ -169,7 +164,6 @@ export const ApiOptions = {
         readOnly: boolean,
         setDrawingAreaAvailable?: (...a: $ReadOnlyArray<any>) => mixed,
         showAlignmentOptions: boolean,
-        staticRender: boolean,
         trackInteraction?: (...a: $ReadOnlyArray<any>) => mixed,
         useDraftEditor?: boolean,
         widgetPlaceholder?: any,
@@ -181,7 +175,6 @@ export const ApiOptions = {
         isMobile: false,
         onInputError: function () {},
         onFocusChange: function () {},
-        staticRender: false,
         GroupMetadataEditor: StubTagEditor,
         showAlignmentOptions: false,
         readOnly: false,

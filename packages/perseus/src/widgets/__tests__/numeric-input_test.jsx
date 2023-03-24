@@ -390,17 +390,6 @@ describe("Numeric input widget", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("supports being static", () => {
-        // Arrange
-        renderQuestion(multipleAnswersWithDecimals, {
-            staticRender: true,
-        });
-
-        // Assert
-        const element = screen.queryByRole("textbox", {hidden: true});
-        expect(element).toBeNull();
-    });
-
     it("styles differently on mobile", () => {
         const {container} = renderQuestion(multipleAnswersWithDecimals, {
             // I wish this was more clear but this is how mobile

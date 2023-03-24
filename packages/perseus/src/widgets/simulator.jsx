@@ -458,13 +458,9 @@ class Simulator extends React.Component<$FlowFixMe, $FlowFixMe> {
             ? highlightStyle
             : unhighlightStyle;
 
-        const InputComponent = this.props.apiOptions.staticRender
-            ? MathOutput
-            : NumberInput;
-
         const proportionInput = (
             <div>
-                <InputComponent
+                <NumberInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="userProportion"
                     style={style}
@@ -487,7 +483,7 @@ class Simulator extends React.Component<$FlowFixMe, $FlowFixMe> {
 
         const sampleSizeInput = (
             <div>
-                <InputComponent
+                <NumberInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="sampleSize"
                     style={style}

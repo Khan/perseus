@@ -30,7 +30,6 @@ import _ from "underscore";
 
 import Graph from "../components/graph.jsx";
 import InlineIcon from "../components/inline-icon.jsx";
-import MathOutput from "../components/math-output.jsx";
 import NumberInput from "../components/number-input.jsx";
 import SimpleKeypadInput from "../components/simple-keypad-input.jsx";
 import {getDependencies} from "../dependencies.js";
@@ -259,9 +258,6 @@ function orderInsensitiveCoordsEqual(coords1, coords2) {
 const inputComponentForApiOptions = (apiOptions) => {
     if (apiOptions.customKeypad) {
         return SimpleKeypadInput;
-    }
-    if (apiOptions.staticRender) {
-        return MathOutput;
     }
     return NumberInput;
 };

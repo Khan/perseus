@@ -136,10 +136,7 @@ class InputNumber extends React.Component<Props> {
     };
 
     shouldShowExamples: () => boolean = () => {
-        return (
-            this.props.answerType !== "number" &&
-            !this.props.apiOptions.staticRender
-        );
+        return this.props.answerType !== "number";
     };
 
     render(): React.Node {
@@ -188,7 +185,7 @@ class InputNumber extends React.Component<Props> {
                 value={this.props.currentValue}
                 onChange={this.handleChange}
                 style={inputStyles}
-                type={this._getInputType()}
+                type="text"
                 examples={this.examples()}
                 shouldShowExamples={this.shouldShowExamples()}
                 onFocus={this._handleFocus}
@@ -202,13 +199,6 @@ class InputNumber extends React.Component<Props> {
 
     handleChange: (string, () => void) => void = (newValue, cb) => {
         this.props.onChange({currentValue: newValue}, cb);
-    };
-
-    _getInputType: () => "tex" | "text" = () => {
-        if (this.props.apiOptions.staticRender) {
-            return "tex";
-        }
-        return "text";
     };
 
     _handleFocus: () => void = () => {
