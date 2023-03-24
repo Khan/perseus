@@ -59,6 +59,7 @@ describe("Editor", () => {
             expect(
                 screen.getByText("Message shown to user on attempt"),
             ).toBeVisible();
+            expect(screen.getByPlaceholderText("answer")).toHaveValue("1252");
         });
 
         it("should update values", async () => {
