@@ -19,7 +19,7 @@ jobs:
       - uses: Khan/actions@check-for-changeset-v0
 
   lint:
-    name: Lint, Typecheck, and Test
+    name: Lint, Flow, and Test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
