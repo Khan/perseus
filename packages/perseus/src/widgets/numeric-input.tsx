@@ -479,9 +479,9 @@ export const unionAnswerForms: (
     });
 };
 
-type RenderProps = {
+export type RenderProps = {
     answerForms: ReadonlyArray<{
-        simplify: "required" | "correct" | "enforced" | null | undefined;
+        simplify: "required" | "correct" | "enforced" | undefined;
         name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi";
     }>;
     labelText: string;
@@ -549,6 +549,20 @@ const propsTransform = function (
     return rendererProps;
 };
 
+const propUpgrades = {
+    // Version 0 => 1 just aligns `numeric-input` options with what we upgrade
+    // to in `input-number` (now deprecated).
+    "1": (
+        v0props: PerseusNumericInputWidgetOptions | null | undefined,
+    ): PerseusNumericInputWidgetOptions => {
+        // Our current perseus types define that `options` can be null, but in
+        // reality I can only find 2 pieces of content where a widget has no
+        // options and I suspect these are completely invalid.
+        // @ts-expect-error TS2322 - Type 'PerseusNumericInputWidgetOptions | null' is not assignable to type 'PerseusNumericInputWidgetOptions'. Type 'null' is not assignable to type 'PerseusNumericInputWidgetOptions'.
+        return v0props;
+    },
+};
+
 export default {
     name: "numeric-input",
     displayName: "Number text box",
@@ -557,4 +571,6 @@ export default {
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
+    propUpgrades,
+    version: {major: 1, minor: 0},
 } as WidgetExports<typeof NumericInput>;
