@@ -41,18 +41,20 @@ export type ImageDict = {
     [url: string]: Dimensions;
 };
 
-export type PerseusScore =
-    | {
-          type: "invalid";
-          message?: string | null | undefined;
-          suppressAlmostThere?: boolean | null | undefined;
-      }
-    | {
-          type: "points";
-          earned: number;
-          total: number;
-          message?: string | null | undefined;
-      };
+export type PerseusScoreInvalid = {
+    type: "invalid";
+    message?: string | null | undefined;
+    suppressAlmostThere?: boolean | null | undefined;
+};
+
+export type PerseusScorePoints = {
+    type: "points";
+    earned: number;
+    total: number;
+    message?: string | null | undefined;
+};
+
+export type PerseusScore = PerseusScoreInvalid | PerseusScorePoints;
 
 export type KEScore = {
     empty: boolean;

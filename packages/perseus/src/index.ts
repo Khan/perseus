@@ -112,6 +112,8 @@ export type {
     LinterContextProps,
     PerseusDependencies,
     PerseusScore,
+    PerseusScoreInvalid,
+    PerseusScorePoints,
     RendererInterface,
     Version,
     VideoData,
