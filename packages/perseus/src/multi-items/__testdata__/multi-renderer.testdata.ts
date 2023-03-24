@@ -47,7 +47,7 @@ export const question1: Item = {
         question: {
             __type: "content",
             content:
-                "Triangle $ABC$ has side lengths of $12$, $14$, and $20$. Which of the following triangles is congruent to triangle $ABC$ ?\n\n[[☃ radio 1]]\n\nEnter the number 3 into this field: [[☃ input-number 1]]",
+                "Triangle $ABC$ has side lengths of $12$, $14$, and $20$. Which of the following triangles is congruent to triangle $ABC$ ?\n\n[[☃ radio 1]]\n\nEnter the number 3 into this field: [[☃ numeric-input 1]]",
             widgets: {
                 "radio 1": {
                     alignment: "default",
@@ -102,16 +102,36 @@ export const question1: Item = {
                         minor: 0,
                     },
                 },
-                "input-number 1": {
-                    type: "input-number",
+                "numeric-input 1": {
+                    type: "numeric-input",
                     graded: true,
                     options: {
-                        answerType: "number",
-                        value: "-42",
-                        simplify: "required",
+                        answers: [
+                            {
+                                message: "That's correct!",
+                                value: -42,
+                                status: "correct",
+                                answerForms: [
+                                    "integer",
+                                    "proper",
+                                    "improper",
+                                    "mixed",
+                                ],
+                                strict: true,
+                                maxError: 0.1,
+                                simplify: "optional",
+                            },
+                        ],
+                        answerForms: [
+                            {name: "integer", simplify: "required"},
+                            {name: "proper", simplify: "required"},
+                            {name: "improper", simplify: "required"},
+                            {name: "mixed", simplify: "required"},
+                        ],
                         size: "normal",
-                        inexact: false,
-                        maxError: 0.1,
+                        coefficient: false,
+                        static: false,
+                        labelText: "Enter the decimal value of 1/3",
                     },
                 },
             },
