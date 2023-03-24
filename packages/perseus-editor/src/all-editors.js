@@ -14,7 +14,6 @@ import GrapherEditor from "./widgets/grapher-editor.jsx";
 import GroupEditor from "./widgets/group-editor.jsx";
 import IframeEditor from "./widgets/iframe-editor.jsx";
 import ImageEditor from "./widgets/image-editor.jsx";
-import InputNumberEditor from "./widgets/input-number-editor.jsx";
 import InteractionEditor from "./widgets/interaction-editor.jsx";
 import InteractiveGraphEditor from "./widgets/interactive-graph-editor.jsx";
 import LabelImageEditor from "./widgets/label-image-editor.jsx";
@@ -56,7 +55,6 @@ export default [
     GroupEditor,
     IframeEditor,
     ImageEditor,
-    InputNumberEditor,
     InteractionEditor,
     InteractiveGraphEditor,
     LabelImageEditor,

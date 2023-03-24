@@ -4,7 +4,9 @@ import _ from "underscore";
 
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing.js";
 
-const missingOptions = {
+import type {PerseusRenderer} from "@khanacademy/perseus";
+
+const missingOptions: PerseusRenderer = {
     content: "[[☃ radio 1]]\n\n",
     images: {},
     widgets: {
@@ -35,28 +37,44 @@ const missingOptions = {
 
 const clonedMissingOptions = JSON.parse(JSON.stringify(missingOptions));
 
-const sampleOptions = {
-    content: "[[☃ input-number 1]]",
+const sampleOptions: PerseusRenderer = {
+    content: "[[☃ numeric-input 1]]",
     images: {},
     widgets: {
-        "input-number 1": {
-            type: "input-number",
-            graded: true,
-            static: false,
-            options: {
-                value: "0",
-                simplify: "required",
-                size: "normal",
-                inexact: false,
-                maxError: 0.1,
-                answerType: "number",
-                rightAlign: false,
-            },
+        "numeric-input 1": {
             version: {
                 major: 0,
                 minor: 0,
             },
+            type: "numeric-input",
+            graded: true,
             alignment: "default",
+            static: false,
+            options: {
+                answers: [
+                    {
+                        message: "That's correct!",
+                        value: 0.3333333333333333,
+                        status: "correct",
+                        answerForms: ["integer", "proper", "improper", "mixed"],
+                        strict: true,
+                        maxError: 0.1,
+                        simplify: "optional",
+                    },
+                ],
+                answerForms: [
+                    {name: "integer", simplify: "required"},
+                    {name: "proper", simplify: "required"},
+                    {name: "improper", simplify: "required"},
+                    {name: "mixed", simplify: "required"},
+                ],
+                size: "normal",
+                coefficient: false,
+                multipleNumberInput: false,
+                rightAlign: false,
+                static: false,
+                labelText: "Enter the decimal value of 1/3",
+            },
         },
     },
 };
@@ -259,7 +277,7 @@ describe("Traversal", () => {
             readContent = content;
         });
 
-        expect(readContent).toBe("[[☃ input-number 1]]");
+        expect(readContent).toBe("[[☃ numeric-input 1]]");
         assertNonMutative();
     });
 
@@ -267,11 +285,10 @@ describe("Traversal", () => {
         const newOptions = traverse(sampleOptions, (content) => {
             return "new content text";
         });
-        expect(newOptions).toEqual(
-            _.extend({}, sampleOptions, {
-                content: "new content text",
-            }),
-        );
+        expect(newOptions).toEqual({
+            ...sampleOptions,
+            content: "new content text",
+        });
         assertNonMutative();
     });
 
@@ -281,7 +298,7 @@ describe("Traversal", () => {
             widgetMap[widgetInfo.type] = (widgetMap[widgetInfo.type] || 0) + 1;
         });
         expect(widgetMap).toEqual({
-            "input-number": 1,
+            "numeric-input": 1,
         });
         assertNonMutative();
     });
@@ -295,9 +312,9 @@ describe("Traversal", () => {
         expect(newOptions).toEqual(
             _.extend({}, sampleOptions, {
                 widgets: {
-                    "input-number 1": _.extend(
+                    "numeric-input 1": _.extend(
                         {},
-                        sampleOptions.widgets["input-number 1"],
+                        sampleOptions.widgets["numeric-input 1"],
                         {graded: false},
                     ),
                 },
@@ -312,7 +329,9 @@ describe("Traversal", () => {
                 content: `${options.content}\n\nnew content!`,
             });
         });
-        expect(newOptions.content).toBe("[[☃ input-number 1]]\n\nnew content!");
+        expect(newOptions.content).toBe(
+            "[[☃ numeric-input 1]]\n\nnew content!",
+        );
         expect(newOptions.widgets).toEqual(sampleOptions.widgets);
         assertNonMutative();
     });

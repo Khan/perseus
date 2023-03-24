@@ -1,28 +1,35 @@
 // @flow
-import type {PerseusRenderer, InputNumberWidget} from "@khanacademy/perseus";
+import type {PerseusRenderer, NumericInputWidget} from "@khanacademy/perseus";
 
 export const question1: PerseusRenderer = {
-    content:
-        "A sequence is defined recursively as follows:\n\n\n$\\qquad\\displaystyle{{a}_{n}}=-\\frac{1}{a_{n-1}-1} \n~~~~~~\\text{ with}\\qquad\\displaystyle{{a}_{0}}=\\frac{1}{2}\\,$\n\n\nFind the term $a_3$ in the sequence.\n\n[[\u2603 input-number 1]]",
+    content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        "input-number 1": ({
+        "numeric-input 1": ({
             graded: true,
             version: {
                 major: 0,
                 minor: 0,
             },
             static: false,
-            type: "input-number",
+            type: "numeric-input",
             options: {
-                maxError: 0.1,
-                inexact: false,
-                value: 0.5,
-                simplify: "required",
-                answerType: "number",
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: false,
+                        value: 1252,
+                        simplify: "required",
+                        message: "",
+                    },
+                ],
+                labelText: "",
                 size: "normal",
             },
             alignment: "default",
-        }: InputNumberWidget),
+        }: NumericInputWidget),
     },
 };

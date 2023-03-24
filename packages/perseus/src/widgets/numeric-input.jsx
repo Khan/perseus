@@ -466,7 +466,7 @@ export const unionAnswerForms: (
     });
 };
 
-type RenderProps = {|
+export type RenderProps = {|
     answerForms: $ReadOnlyArray<{|
         simplify: ?("required" | "correct" | "enforced"),
         name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi",

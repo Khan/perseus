@@ -135,7 +135,7 @@ describe("multi-item renderer", () => {
             // Nudge the widget to a non-default state (ie. an item is
             // selected, a value is entered). You can see the result of this in the `choiceStates`
             // array in the captured state below where the choice at index 2 has
-            // `"selected": true` (instead of false) and the input-number has a `currentValue`.
+            // `"selected": true` (instead of false) and the numeric-input has a `currentValue`.
             userEvent.click(screen.getAllByRole("radio")[2]); // Correct
             userEvent.paste(screen.getByRole("textbox"), "+42"); // Correct
 
@@ -152,12 +152,30 @@ describe("multi-item renderer", () => {
                     null,
                   ],
                   "question": {
-                    "input-number 1": {
-                      "answerType": "number",
+                    "numeric-input 1": {
+                      "answerForms": [
+                        {
+                          "name": "integer",
+                          "simplify": "optional",
+                        },
+                        {
+                          "name": "proper",
+                          "simplify": "optional",
+                        },
+                        {
+                          "name": "improper",
+                          "simplify": "optional",
+                        },
+                        {
+                          "name": "mixed",
+                          "simplify": "optional",
+                        },
+                      ],
+                      "coefficient": false,
                       "currentValue": "+42",
-                      "rightAlign": undefined,
-                      "simplify": "required",
+                      "labelText": "Enter the decimal value of 1/3",
                       "size": "normal",
+                      "static": false,
                     },
                     "radio 1": {
                       "choiceStates": [
@@ -287,12 +305,30 @@ describe("multi-item renderer", () => {
                     undefined,
                   ],
                   "question": {
-                    "input-number 1": {
-                      "answerType": "number",
+                    "numeric-input 1": {
+                      "answerForms": [
+                        {
+                          "name": "integer",
+                          "simplify": "optional",
+                        },
+                        {
+                          "name": "proper",
+                          "simplify": "optional",
+                        },
+                        {
+                          "name": "improper",
+                          "simplify": "optional",
+                        },
+                        {
+                          "name": "mixed",
+                          "simplify": "optional",
+                        },
+                      ],
+                      "coefficient": false,
                       "currentValue": "99",
-                      "rightAlign": undefined,
-                      "simplify": "required",
+                      "labelText": "Enter the decimal value of 1/3",
                       "size": "normal",
+                      "static": false,
                     },
                     "radio 1": {
                       "choiceStates": [
@@ -410,7 +446,7 @@ describe("multi-item renderer", () => {
                 blurb: {},
                 hints: [null, null, null],
                 question: {
-                    "input-number 1": {
+                    "numeric-input 1": {
                         answerType: "number",
                         currentValue: "+42",
                         rightAlign: false,
@@ -628,14 +664,32 @@ describe("multi-item renderer", () => {
                     "currentValue": "-42",
                   },
                 ],
-                "message": null,
+                "message": "That's correct!",
                 "state": {
-                  "input-number 1": {
-                    "answerType": "number",
+                  "numeric-input 1": {
+                    "answerForms": [
+                      {
+                        "name": "integer",
+                        "simplify": "optional",
+                      },
+                      {
+                        "name": "proper",
+                        "simplify": "optional",
+                      },
+                      {
+                        "name": "improper",
+                        "simplify": "optional",
+                      },
+                      {
+                        "name": "mixed",
+                        "simplify": "optional",
+                      },
+                    ],
+                    "coefficient": false,
                     "currentValue": "-42",
-                    "rightAlign": undefined,
-                    "simplify": "required",
+                    "labelText": "Enter the decimal value of 1/3",
                     "size": "normal",
+                    "static": false,
                   },
                   "radio 1": {
                     "choiceStates": [
@@ -784,16 +838,34 @@ describe("multi-item renderer", () => {
                   },
                 ],
               },
-              "message": null,
+              "message": "That's correct!",
               "state": [
                 {},
                 {
-                  "input-number 1": {
-                    "answerType": "number",
+                  "numeric-input 1": {
+                    "answerForms": [
+                      {
+                        "name": "integer",
+                        "simplify": "optional",
+                      },
+                      {
+                        "name": "proper",
+                        "simplify": "optional",
+                      },
+                      {
+                        "name": "improper",
+                        "simplify": "optional",
+                      },
+                      {
+                        "name": "mixed",
+                        "simplify": "optional",
+                      },
+                    ],
+                    "coefficient": false,
                     "currentValue": "-42",
-                    "rightAlign": undefined,
-                    "simplify": "required",
+                    "labelText": "Enter the decimal value of 1/3",
                     "size": "normal",
+                    "static": false,
                   },
                   "radio 1": {
                     "choiceStates": [

@@ -24,7 +24,6 @@ export const article1: PerseusRenderer = {
                                 static: false,
                                 graded: true,
                                 options: {
-                                    static: false,
                                     answers: [
                                         {
                                             value: 0.9,
@@ -37,6 +36,7 @@ export const article1: PerseusRenderer = {
                                     ],
                                     size: "normal",
                                     coefficient: false,
+                                    static: false,
                                     labelText: "",
                                 },
                                 version: {major: 0, minor: 0},
@@ -136,7 +136,6 @@ export const article1: PerseusRenderer = {
                                 static: false,
                                 graded: true,
                                 options: {
-                                    static: false,
                                     answers: [
                                         {
                                             value: 1,
@@ -149,6 +148,7 @@ export const article1: PerseusRenderer = {
                                     ],
                                     size: "normal",
                                     coefficient: false,
+                                    static: false,
                                     labelText: "",
                                 },
                                 version: {major: 0, minor: 0},
@@ -248,7 +248,6 @@ export const article1: PerseusRenderer = {
                                 static: false,
                                 graded: true,
                                 options: {
-                                    static: false,
                                     answers: [
                                         {
                                             value: 1.2,
@@ -261,6 +260,7 @@ export const article1: PerseusRenderer = {
                                     ],
                                     size: "normal",
                                     coefficient: false,
+                                    static: false,
                                     labelText: "",
                                 },
                                 version: {major: 0, minor: 0},

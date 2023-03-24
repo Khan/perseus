@@ -437,7 +437,19 @@ export type WidgetExports<
     tracking?: Tracking,
     staticTransform?: WidgetTransform, // this is a function of some sort
     traverseChildWidgets?: $FlowFixMe, // (Props, traverseRenderer) => NewProps
-    propUpgrades?: {|[string]: ($FlowFixMe) => $FlowFixMe|}, // OldProps => NewProps
+    // propUpgrades is a map! The key is the _target_ major version as a string
+    // (so '1' for major version 1). THe value is a transform function that
+    // takes the props from the previous version and migrates them to target
+    // version-compatible props. See the radio.jsx widget for an example.
+    // Minor version upgrades are not represented here. Instead, the upgrade
+    // machinery fills in any new props in a minor version with their default
+    // value as defined by the editor widget's `defaultProps` value for each
+    // widget.
+    propUpgrades?: {|
+        [targetMajorVersion: string]: (
+            previousMajorVersionProps: $FlowFixMe,
+        ) => $FlowFixMe,
+    |}, // OldProps => NewProps
     widget: T,
 |}>;
 

@@ -14,7 +14,16 @@ import {ApiOptions} from "../perseus-api.jsx";
 import TexWrangler from "../tex-wrangler.js";
 import KhanAnswerTypes from "../util/answer-types.js";
 
-import type {PerseusInputNumberWidgetOptions} from "../perseus-types.js";
+import NumericInput, {
+    type RenderProps as NumericInputRenderProps,
+} from "./numeric-input.jsx";
+
+import type {
+    PerseusNumericInputWidgetOptions,
+    InputNumberWidget,
+    NumericInputWidget,
+    PerseusInputNumberWidgetOptions,
+} from "../perseus-types";
 import type {
     APIOptions,
     Path,
@@ -391,12 +400,110 @@ const propTransform = (
     };
 };
 
+/* Ideally the return type here would be
+ * `$Call<$NonMaybeType<typeofNumericInput.transform>>`
+ * but the `transform` type on WidgetProps returns `any` so it is not usable
+ * here right now */
+// const inputNumberToNumericInputPropTransform = (
+//     widgetOptions: PerseusInputNumberWidgetOptions,
+// ): NumericInputRenderProps => {
+//     return {};
+// };
+
+const mapAnswerTypeToMathFormat = (
+    answerType: PerseusInputNumberWidgetOptions["answerType"],
+): PerseusNumericInputWidgetOptions["answers"][0]["answerForms"] => {
+    // These follow what's from `answerTypes` above
+    switch (answerType) {
+        case "number":
+            return ["integer", "decimal", "proper", "improper", "mixed"];
+        case "decimal":
+            return ["decimal"];
+        case "integer":
+            return ["integer"];
+        case "rational":
+            return ["integer", "proper", "improper", "mixed"];
+        case "improper":
+            return ["integer", "proper", "improper"];
+        case "mixed":
+            return ["integer", "proper", "mixed"];
+        case "percent":
+            return [
+                "integer",
+                "decimal",
+                "proper",
+                "improper",
+                "mixed",
+                "percent",
+            ];
+        case "pi":
+            return ["pi"];
+    }
+};
+
+const inputNumberToNumericInputPropUpgrades = {
+    "1": (
+        v0props: ?PerseusInputNumberWidgetOptions,
+    ): PerseusNumericInputWidgetOptions => {
+        const options = {
+            answers: [
+                {
+                    // input-number never had any sort of message like this
+                    message: "",
+                    // STOPSHIP: verify this isn't "lossy" in transition
+                    value: parseFloat(v0props?.value ?? 0),
+                    status: "correct",
+                    answerForms: mapAnswerTypeToMathFormat(v0props?.answerType),
+                    strict: false,
+                    maxError: 0,
+                    simplify: v0props?.simplify,
+                },
+            ],
+            // input-number never had a property to explain the input. It
+            // seems the its relatively common for numeric-inputs to not
+            // have a labelText either (152 as of Mar 16, 2023).
+            labelText: "",
+            size: v0props?.size ?? "normal",
+            // input-number never supports a coefficient answer style
+            coefficient: false,
+            multipleNumberInput: false,
+            rightAlign: v0props?.rightAlign,
+            static: false,
+
+            // The option notes on this key say it's unused except for
+            // examples (which is a feature we suspect is completely
+            // unused). I'm making it undefined for now.
+            answerForms: undefined,
+        };
+
+        return options;
+    },
+};
+
+// export default ({
+//     name: "input-number",
+//     displayName: "Number text box (old)",
+//     defaultAlignment: "inline-block",
+//     hidden: true,
+//     widget: InputNumber,
+//     transform: propTransform,
+//     isLintable: true,
+// }: WidgetExports<typeof InputNumber>);
+
 export default ({
     name: "input-number",
-    displayName: "Number text box (old)",
-    defaultAlignment: "inline-block",
-    hidden: true,
-    widget: InputNumber,
-    transform: propTransform,
+    displayName: "Deprecated alias for numeric-input - a Number text box",
+    defaultAlignment: NumericInput.defaultAlignment,
+    widget: NumericInput.widget,
+    // This propUpgrades function is special because it migrates `input-number`
+    // usages to `numeric-input` usages. This allows us to delete the
+    // `input-number` widget but keep using all of the old content that
+    // references the `input-number`.
+    // We prefer `propUpgrades` over `transform` because `transform` doesn't
+    // affect the rubric used to mark the guess and that would mean we are
+    // passing `input-number` options to the `numeric-input`'s `validate()`
+    // function and that wouldn't work!
+    propUpgrades: inputNumberToNumericInputPropUpgrades,
     isLintable: true,
-}: WidgetExports<typeof InputNumber>);
+    version: {major: 1, minor: 0},
+}: WidgetExports<typeof NumericInput.widget>);
