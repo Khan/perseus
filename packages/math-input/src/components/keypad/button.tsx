@@ -5,6 +5,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+// @ts-expect-error [FEI-5003] - TS2305 - Module '"react"' has no exported member 'Node'.
 import type {Node} from "React";
 
 const styles = StyleSheet.create({
@@ -71,10 +72,13 @@ export default class Button extends React.Component<Props, State> {
     render(): React.ReactElement {
         const {onPress, children, style, tintColor} = this.props;
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             <View style={style}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Clickable' cannot be used as a JSX component. */}
                 <Clickable onClick={onPress} style={styles.clickable}>
                     {({hovered, focused, pressed}) => {
                         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                             <View
                                 style={[
                                     styles.outerBoxBase,
@@ -82,6 +86,7 @@ export default class Button extends React.Component<Props, State> {
                                     pressed && styles.outerBoxPressed,
                                 ]}
                             >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                                 <View
                                     style={[
                                         styles.base,

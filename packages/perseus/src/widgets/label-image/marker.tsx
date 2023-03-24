@@ -69,6 +69,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
 
         if (showCorrectness) {
             innerIcon = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Icon' cannot be used as a JSX component.
                 <Icon
                     icon={showCorrectness === "correct" ? iconCheck : iconMinus}
                     size={24}
@@ -132,7 +133,9 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
                 tabIndex={isDisabled ? -1 : 0}
                 onFocus={() => this.handleFocus()}
                 onBlur={() => this.handleBlur()}
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'MouseEvent<HTMLButtonElement, MouseEvent>' is not assignable to parameter of type 'MouseEvent'.
                 onClick={(e) => this.props.onClick(e)}
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'KeyboardEvent<HTMLButtonElement>' is not assignable to parameter of type 'KeyboardEvent'.
                 onKeyDown={(e) => this.props.onKeyDown(e)}
             >
                 {this.renderIcon()}
@@ -203,6 +206,7 @@ const styles = StyleSheet.create({
     },
 
     markerUnfilledPulsate: {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ "0%": { transform: string; }; "100%": { transform: string; }; }' is not assignable to type 'AnimationName | undefined'.
         animationName: {
             "0%": {
                 transform: "scale(1)",
@@ -222,6 +226,7 @@ const styles = StyleSheet.create({
     },
 
     markerUnfilledSelected: {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -259,6 +264,7 @@ const styles = StyleSheet.create({
     },
 
     markerFilledSelected: {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -299,6 +305,7 @@ const styles = StyleSheet.create({
     },
 
     markerCorrectSelected: {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -337,6 +344,7 @@ const styles = StyleSheet.create({
     },
 
     markerIncorrectSelected: {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",

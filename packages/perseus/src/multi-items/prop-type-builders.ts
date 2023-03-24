@@ -39,6 +39,7 @@ export function shapePropType(...args: ReadonlyArray<any>): any {
         }).isRequired,
     ]);
 
+// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
     return itemShape(...args);
 }
 
@@ -98,6 +99,7 @@ function buildTreePropTypeForShape(shape: Shape): any {
         return PropTypes.shape(propTypeShape);
     }
     throw new PerseusError(
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
         `unexpected shape type ${shape.type}`,
         Errors.InvalidInput,
     );

@@ -139,6 +139,7 @@ class HighlightSetRenderer extends React.PureComponent<HighlightSetRendererProps
         const hoveredHighlight = this.props.highlights[hoveredHighlightKey];
 
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HighlightTooltip' cannot be used as a JSX component.
             <HighlightTooltip
                 label={i18n._("Remove highlight")}
                 focusNode={hoveredHighlight.domRange.endContainer}
@@ -159,6 +160,7 @@ class HighlightSetRenderer extends React.PureComponent<HighlightSetRendererProps
         return (
             <div>
                 {Object.keys(this.props.highlights).map((key) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HighlightRenderer' cannot be used as a JSX component.
                     <HighlightRenderer
                         ref={(r) => {
                             if (r) {

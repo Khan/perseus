@@ -209,6 +209,7 @@ class LabelImageEditor extends React.Component<LabelImageEditorProps> {
 
                 <div className={css(styles.largeSpacer)} />
 
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'QuestionMarkers' cannot be used as a JSX component. */}
                 <QuestionMarkers
                     choices={choices}
                     imageUrl={imageSelected ? imageUrl : ""}

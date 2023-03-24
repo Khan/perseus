@@ -208,6 +208,7 @@ class NumberLineEditor extends React.Component<Props> {
                     Correct x{" "}
                     <select
                         value={this.props.correctRel}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                         onChange={this.onChangeRelation}
                     >
                         <option value="eq"> = </option>
@@ -216,6 +217,7 @@ class NumberLineEditor extends React.Component<Props> {
                         <option value="le"> &le; </option>
                         <option value="ge"> &ge; </option>
                     </select>{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this.props.correctX}
                         format={this.props.labelStyle}
@@ -231,6 +233,7 @@ class NumberLineEditor extends React.Component<Props> {
                         size="normal"
                         useArrowKeys={true}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             This is the correct answer. The answer is validated
@@ -251,6 +254,7 @@ class NumberLineEditor extends React.Component<Props> {
                     ) : (
                         <label>
                             Position:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                             <NumberInput
                                 value={this.props.initialX}
                                 format={this.props.labelStyle}
@@ -269,12 +273,14 @@ class NumberLineEditor extends React.Component<Props> {
                         </label>
                     )}
 
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                     <RangeInput
                         value={range}
                         onChange={this.onRangeChange}
                         format={this.props.labelStyle}
                         useArrowKeys={true}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             This controls the initial position of the point
@@ -293,6 +299,7 @@ class NumberLineEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col">
                         Labels:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={labelRange[0]}
                             placeholder={range[0]}
@@ -305,6 +312,7 @@ class NumberLineEditor extends React.Component<Props> {
                             useArrowKeys={true}
                         />
                         <span> &amp; </span>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={labelRange[1]}
                             placeholder={range[1]}
@@ -316,6 +324,7 @@ class NumberLineEditor extends React.Component<Props> {
                             onChange={this.onLabelRangeChange.bind(this, 1)}
                             useArrowKeys={true}
                         />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <p>
                                 This controls the position of the left / right
@@ -330,12 +339,14 @@ class NumberLineEditor extends React.Component<Props> {
                 </div>
                 <div className="perseus-widget-row">
                     Style:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component. */}
                     <ButtonGroup
                         allowEmpty={false}
                         value={this.props.labelStyle}
                         buttons={labelStyleEditorButtons}
                         onChange={this.onLabelStyleChange}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             This controls the styling of the labels for the two
@@ -379,6 +390,7 @@ class NumberLineEditor extends React.Component<Props> {
                         <span>
                             <label>
                                 Start num divisions at{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                                 <NumberInput
                                     value={this.props.numDivisions || null}
                                     format="decimal"
@@ -393,6 +405,7 @@ class NumberLineEditor extends React.Component<Props> {
                                     useArrowKeys={true}
                                 />
                             </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>
                                     This controls the number (and position) of
@@ -415,6 +428,7 @@ class NumberLineEditor extends React.Component<Props> {
                         <span>
                             <label>
                                 Num divisions:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                                 <NumberInput
                                     value={this.props.numDivisions || null}
                                     format="decimal"
@@ -431,6 +445,7 @@ class NumberLineEditor extends React.Component<Props> {
                             </label>{" "}
                             <label>
                                 or tick step:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                                 <NumberInput
                                     value={this.props.tickStep || null}
                                     format={this.props.labelStyle}
@@ -444,6 +459,7 @@ class NumberLineEditor extends React.Component<Props> {
                                     useArrowKeys={true}
                                 />
                             </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>
                                     This controls the number (and position) of
@@ -466,6 +482,7 @@ class NumberLineEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <label>
                         Snap increments per tick:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={snapDivisions}
                             checkValidity={(val) => val > 0}
@@ -478,6 +495,7 @@ class NumberLineEditor extends React.Component<Props> {
                             useArrowKeys={true}
                         />
                     </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             This determines the number of different places the

@@ -32,6 +32,7 @@ type State = {
 };
 
 class WithState extends React.Component<Empty, State> {
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_widget' has no initializer and is not definitely assigned in the constructor.
     _widget: LabelImageEditor;
 
     state = {
@@ -73,6 +74,7 @@ class WithState extends React.Component<Empty, State> {
     render(): React.ReactElement {
         return (
             <div className={css(styles.wrapper)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'LabelImageEditor' cannot be used as a JSX component. */}
                 <LabelImageEditor
                     {...this.state}
                     onChange={(props) =>
@@ -84,6 +86,7 @@ class WithState extends React.Component<Empty, State> {
                     // TODO(mdr): We found a new Flow error when upgrading:
                     //     "widget (null) This type is incompatible with this._widget (LabelImageEditor)"
                     // $FlowFixMe[incompatible-type](0.52.0->0.53.0)
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'LabelImageEditor | null' is not assignable to type 'LabelImageEditor'.
                     ref={(widget) => (this._widget = widget)}
                 />
             </div>
@@ -92,5 +95,6 @@ class WithState extends React.Component<Empty, State> {
 }
 
 export const Default: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'WithState' cannot be used as a JSX component.
     return <WithState />;
 };

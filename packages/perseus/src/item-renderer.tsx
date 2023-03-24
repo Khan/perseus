@@ -76,6 +76,7 @@ type SerializedState = {
 };
 
 class ItemRenderer extends React.Component<Props, State> {
+// @ts-expect-error [FEI-5003] - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
     hintsRenderer: React.ElementRef<typeof HintsRenderer> | null | undefined;
     _currentFocus: FocusPath;
@@ -182,6 +183,7 @@ class ItemRenderer extends React.Component<Props, State> {
             // replace (also item.question, aka PerseusRenderer)
             // savedState (I _think_ this is serializedState on Renderer)
             // $FlowFixMe[prop-missing] metadata, replace, savedState (see above)
+// @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component.
             <Renderer
                 ref={(node) => {
                     if (!node) {
@@ -213,20 +215,24 @@ class ItemRenderer extends React.Component<Props, State> {
                 {...this.props.item.question}
                 legacyPerseusLint={this.props.legacyPerseusLint}
             />,
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
             workArea,
         );
 
         reactRender(
+// @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component.
             <HintsRenderer
                 ref={(node) => (this.hintsRenderer = node)}
                 hints={this.props.item.hints}
                 hintsVisible={this.state.hintsVisible}
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 apiOptions={apiOptions}
                 linterContext={PerseusLinter.pushContextStack(
                     this.props.linterContext,
                     "hints",
                 )}
             />,
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
             hintsArea,
         );
 
@@ -465,6 +471,7 @@ class ItemRenderer extends React.Component<Props, State> {
         const qScore = this.questionRenderer.scoreWidgets();
         const qGuess = this.questionRenderer.getUserInputForWidgets();
         const state = this.questionRenderer.getSerializedState();
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [id: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
         return mapObject(qScore, (score, id) => {
             return Util.keScoreFromPerseusScore(score, qGuess[id], state[id]);
         });

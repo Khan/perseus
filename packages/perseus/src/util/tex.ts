@@ -71,9 +71,11 @@ export default {
             if (text == null) {
                 if ($elem.attr("data-math-formula")) {
                     // The old typeset formula
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string | undefined' is not assignable to type 'string'.
                     text = $elem.attr("data-math-formula");
                 } else if (script) {
                     // The contents of the <script> tag
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'text' does not exist on type 'HTMLElement'.
                     text = script.text || script.textContent;
                 }
             }
@@ -140,6 +142,7 @@ export default {
             } else {
                 if ("text" in script) {
                     // IE8, etc
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'text' does not exist on type 'HTMLElement'.
                     script.text = text;
                 } else {
                     script.textContent = text;
@@ -184,6 +187,7 @@ export default {
                 }
             }
 
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             $elem.text($elem.attr("data-math-formula"));
             $elem.attr("data-math-formula", null);
             $elem.attr("data-math-type", null);

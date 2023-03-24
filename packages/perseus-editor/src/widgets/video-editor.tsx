@@ -56,11 +56,13 @@ class VideoEditor extends React.Component<Props> {
             <div>
                 <label>
                     KA Video Slug:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.location}
                         style={{width: 290}}
                         onChange={this._handleUrlChange}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         KA video URLs will be converted to just the slug.
                     </InfoTip>

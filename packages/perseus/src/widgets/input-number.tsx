@@ -143,6 +143,7 @@ class InputNumber extends React.Component<Props> {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
             const input = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'SimpleKeypadInput' cannot be used as a JSX component.
                 <SimpleKeypadInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="input"
@@ -179,6 +180,7 @@ class InputNumber extends React.Component<Props> {
         }
 
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'InputWithExamples' cannot be used as a JSX component.
             <InputWithExamples
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"
@@ -218,17 +220,20 @@ class InputNumber extends React.Component<Props> {
 
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
         return true;
     };
 
     focusInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
     blurInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur();
     };
 
@@ -276,6 +281,7 @@ class InputNumber extends React.Component<Props> {
             forms,
             function (form) {
                 // eslint-disable-next-line @babel/no-invalid-this
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return formExamples[form](this.props);
             },
             this,

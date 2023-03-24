@@ -43,6 +43,7 @@ type UnitExampleState = any;
 class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Readonly<any> & Readonly<{ children?: ReactNode; }>' is not assignable to parameter of type '{ name: any; original: any; sigfigs: any; }'.
         this._checkValidity(this.props);
     }
 
@@ -51,6 +52,7 @@ class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
     }
 
     _checkValidity = ({name, original, sigfigs}) => {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const parseResult = KAS.unitParse(name);
         let solvedExample = "";
 
@@ -58,8 +60,10 @@ class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
         let valid = true;
 
         if (parseResult.parsed && original) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'Var' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const x = new KAS.Var("x");
             const {unit} = parseResult;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'Eq' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'. | TS2339 - Property 'Mul' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const equality = new KAS.Eq(original, "=", new KAS.Mul(x, unit));
             try {
                 const answer = equality.solveLinearEquationForVariable(x);
@@ -71,6 +75,7 @@ class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
                 // places.
                 solvedExample = sigfigPrint(answer.eval(), sigfigs);
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 valid = KAS.compare(primUnits(original), primUnits(unit)).equal;
             } catch (e: any) {
                 valid = false;
@@ -155,10 +160,12 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
             .split(",")
             .map((str) => str.trim())
             .filter((str) => str !== "");
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({acceptingUnits});
     };
 
     handleSigfigChange: (arg1: number) => void = (sigfigs) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({sigfigs});
     };
 
@@ -167,10 +174,12 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
     };
 
     _setAccepting: (arg1: typeof SOME | typeof ALL) => void = (val) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({accepting: val});
     };
 
     _doOriginal: (arg1: UnitExampleProps) => void = (props) => {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const tryParse = KAS.unitParse(props.value);
         this.parsed = false;
 
@@ -191,6 +200,7 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
         const {value, accepting, acceptingUnits} = this.props;
         const warnings: Array<string> = [];
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const tryParse = KAS.unitParse(value);
         if (!tryParse.parsed) {
             warnings.push("Answer did not parse");
@@ -212,6 +222,7 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
         let acceptingElem = null;
         if (accepting === SOME) {
             const unitsArr = acceptingUnits.map((name, i) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'UnitExample' cannot be used as a JSX component.
                 <UnitExample
                     name={name}
                     original={this.original || null}
@@ -220,6 +231,7 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
                 />
             ));
 
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             acceptingElem = (
                 <div>
                     <input
@@ -254,6 +266,7 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
 
                 <div>
                     Significant Figures:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         value={this.props.sigfigs}
                         onChange={this.handleSigfigChange}

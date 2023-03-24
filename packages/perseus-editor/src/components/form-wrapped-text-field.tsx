@@ -1,3 +1,4 @@
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
 import {Flow} from 'flow-to-typescript-codemod';
 /**
  * DEPRECATED: Use <TextField> from ./text-field.jsx instead.
@@ -165,8 +166,10 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         // the form.
         return (
             <form
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'CSSProperties[]' is not assignable to parameter of type 'CSSProperties | Falsy'.
                 className={css(spanStyle)}
                 style={extraStyles}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '((arg1: ChangeEvent<HTMLInputElement>) => unknown) | ((e: Event) => void)' is not assignable to type 'FormEventHandler<HTMLFormElement> | undefined'.
                 onSubmit={onSubmit || this.disableDefault}
             >
                 {leftSideIcon && wrappedIcon}
@@ -176,6 +179,7 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
                     onBlur={this.handleBlur}
                     type={type}
                     className={css(inputBase)}
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Ref<"input">' is not assignable to type 'LegacyRef<HTMLInputElement> | undefined'.
                     ref={forwardedRef}
                     id={id}
                     data-test-id={testId}
@@ -240,5 +244,6 @@ const styles = StyleSheet.create({
 });
 
 export default React.forwardRef<Props, HTMLInputElement>((props, ref) => (
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
     <FormWrappedTextField {...props} forwardedRef={ref} />
 )) as Flow.AbstractComponent<Props, HTMLInputElement>;

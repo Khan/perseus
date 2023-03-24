@@ -42,6 +42,7 @@ class SorterEditor extends React.Component<Props> {
                 <div>
                     {" "}
                     Correct answer:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Enter the correct answer (in the correct order)
@@ -51,6 +52,7 @@ class SorterEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>
                 </div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                 <TextListEditor
                     options={this.props.correct}
                     // eslint-disable-next-line react/jsx-no-bind
@@ -65,12 +67,14 @@ class SorterEditor extends React.Component<Props> {
                         Layout:{" "}
                         <select
                             value={this.props.layout}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onLayoutChange}
                         >
                             <option value={HORIZONTAL}>Horizontal</option>
                             <option value={VERTICAL}>Vertical</option>
                         </select>
                     </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Use the horizontal layout for short text and small
@@ -85,6 +89,7 @@ class SorterEditor extends React.Component<Props> {
                         padding={this.props.padding}
                         onChange={this.props.onChange}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Padding is good for text, but not needed for images.

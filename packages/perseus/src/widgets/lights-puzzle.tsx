@@ -125,6 +125,7 @@ class TileGrid extends React.Component<any> {
                             {_.map(row, (cell, x) => {
                                 return (
                                     <div key={x} style={CELL_STYLE}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Tile' cannot be used as a JSX component. */}
                                         <Tile
                                             value={cell}
                                             size={this.props.size}
@@ -170,6 +171,7 @@ const flipTilesPattern = (oldCells: any, tileY: any, tileX, pattern: any) => {
 class LightsPuzzle extends React.Component<any> {
     _currPattern: any;
     _nextPattern: any;
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_patternIndex' has no initializer and is not definitely assigned in the constructor.
     _patternIndex: number;
 
     static propTypes = {
@@ -205,6 +207,7 @@ class LightsPuzzle extends React.Component<any> {
         const pxWidth = width * (tileSize + 2 * CELL_PADDING);
         return (
             <div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TileGrid' cannot be used as a JSX component. */}
                 <TileGrid
                     cells={this.props.cells}
                     size={tileSize}
@@ -233,6 +236,7 @@ class LightsPuzzle extends React.Component<any> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 

@@ -17,8 +17,11 @@ export default {
     },
 };
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'NumericInputPage' cannot be used as a JSX component.
 export const NumericInput = (): React.ReactElement => <NumericInputPage onClickKey={action("onClickKey")} />;
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'PrealgebraInputPage' cannot be used as a JSX component.
 export const PreAlgebraInput = (): React.ReactElement => <PrealgebraInputPage onClickKey={action("onClickKey")} />;
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'TrigonometryInputPage' cannot be used as a JSX component.
 export const TrigonometryInput = (): React.ReactElement => <TrigonometryInputPage onClickKey={action("onClickKey")} />;

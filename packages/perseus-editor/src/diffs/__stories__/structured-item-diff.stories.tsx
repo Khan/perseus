@@ -2,8 +2,10 @@ import * as React from "react";
 
 import StructuredItemDiff from '../structured-item-diff';
 
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module './perseus-diff-wrapper' or its corresponding type declarations.
 import Wrapper from './perseus-diff-wrapper';
 
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../../styles/perseus-editor.less' or its corresponding type declarations.
 import("../../styles/perseus-editor.less");
 
 type StoryArgs = Record<any, any>;
@@ -18,6 +20,7 @@ export default {
     decorators: [
         (StoryComponent) => (
             <Wrapper>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'StoryComponent' cannot be used as a JSX component. */}
                 <StoryComponent />
             </Wrapper>
         ),
@@ -168,6 +171,7 @@ export const ContentAdded: React.FC<StoryArgs> = (args): React.ReactElement => {
         },
     } as const;
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'StructuredItemDiff' cannot be used as a JSX component.
     return <StructuredItemDiff {...props} />;
 };
 
@@ -374,6 +378,7 @@ export const ContentAddedRemovedAndChanged: React.FC<StoryArgs> = (args): React.
             names: ["a tag", "b tag", "c tag"],
         },
     } as const;
+// @ts-expect-error [FEI-5003] - TS2786 - 'StructuredItemDiff' cannot be used as a JSX component.
     return <StructuredItemDiff {...props} />;
 };
 
@@ -670,6 +675,7 @@ export const MiscContentChanges: React.FC<StoryArgs> = (args): React.ReactElemen
         },
     } as const;
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'StructuredItemDiff' cannot be used as a JSX component.
     return <StructuredItemDiff {...props} />;
 };
 
@@ -847,5 +853,6 @@ export const ContentRemoved: React.FC<StoryArgs> = (args): React.ReactElement =>
         },
     } as const;
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'StructuredItemDiff' cannot be used as a JSX component.
     return <StructuredItemDiff {...props} />;
 };

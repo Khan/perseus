@@ -72,6 +72,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
             return (
                 <div style={answerBarStyle}>
                     {message}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                     <Button
                         disabled={
                             apiOptions.readOnly || answerBarState !== "ACTIVE"
@@ -98,6 +99,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     </span>
                 </span>
                 {onNextQuestion && (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component.
                     <Button onClick={onNextQuestion}>
                         {i18n._("Next question")}
                     </Button>

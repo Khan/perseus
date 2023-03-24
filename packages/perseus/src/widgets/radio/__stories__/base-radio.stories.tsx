@@ -1,6 +1,7 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../../__testdata__/base-radio_testdata' or its corresponding type declarations.
 import {generateChoice} from '../../__testdata__/base-radio_testdata';
 import BaseRadio from '../base-radio';
 

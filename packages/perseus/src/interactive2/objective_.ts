@@ -44,6 +44,7 @@ const pluck = function(table: any, subKey: string): any {
 const mapObject = function<K extends string, V, U>(obj: Partial<Record<K, V>>, lambda: (arg1: V, arg2: K) => U): Partial<Record<K, U>> {
     const result: Record<string, any> = {};
     _.each(_.keys(obj), function (key) {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'K'.
         result[key] = lambda(obj[key], key);
     });
     return result;

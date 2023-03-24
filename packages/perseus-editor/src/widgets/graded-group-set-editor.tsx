@@ -10,6 +10,7 @@ type Props = any;
 
 class GradedGroupSetEditor extends React.Component<Props> {
     // eslint-disable-next-line ft-flow/no-mutable-array
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
 
     static propTypes = {
@@ -55,6 +56,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
             return null;
         }
         return this.props.gradedGroups.map((group, i) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'GradedGroupEditor' cannot be used as a JSX component.
             <GradedGroupEditor
                 key={i}
                 ref={(el) => (this._editors[i] = el)}
@@ -63,6 +65,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
                 widgetEnabled={true}
                 immutableWidgets={false}
                 onChange={(data) =>
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
                     this.change(
                         "gradedGroups",
                         setArrayItem(this.props.gradedGroups, i, {
@@ -77,6 +80,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
 
     addGroup: () => void = () => {
         const groups = this.props.gradedGroups || [];
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
         this.change(
             "gradedGroups",
             groups.concat([GradedGroupEditor.defaultProps]),

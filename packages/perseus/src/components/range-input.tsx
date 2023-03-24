@@ -27,6 +27,7 @@ class RangeInput extends React.Component<any> {
 
         return (
             <div className="range-input">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                 <NumberInput
                     {...this.props}
                     value={value[0]}
@@ -35,6 +36,7 @@ class RangeInput extends React.Component<any> {
                     onChange={this.onChange.bind(this, 0)}
                     placeholder={this.props.placeholder[0]}
                 />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                 <NumberInput
                     {...this.props}
                     value={value[1]}

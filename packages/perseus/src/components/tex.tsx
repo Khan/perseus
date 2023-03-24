@@ -59,6 +59,7 @@ export default class Tex extends React.Component<Props, State> {
     render(): React.ReactElement {
         const {TeX: BaseTeX} = getDependencies();
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'BaseTeX' cannot be used as a JSX component.
             <BaseTeX onRender={this.handleRender}>
                 {this.props.children}
             </BaseTeX>

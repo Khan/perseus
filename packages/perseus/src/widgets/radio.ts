@@ -45,6 +45,7 @@ const _choiceTransform = (
 
         const newChoices = choices.filter((choice, index) => {
             if (choice.isNoneOfTheAbove) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'RadioChoiceWithMetadata' is not assignable to type 'null'.
                 noneOfTheAbove = choice;
                 return false;
             }

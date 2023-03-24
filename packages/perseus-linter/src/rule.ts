@@ -377,6 +377,7 @@ ${e.stack}`,
             const lastSlash = pattern.lastIndexOf("/");
             const expression = pattern.substring(1, lastSlash);
             const flags = pattern.substring(lastSlash + 1);
+// @ts-expect-error [FEI-5003] - TS2713 - Cannot access 'RegExp.flags' because 'RegExp' is a type, but not a namespace. Did you mean to retrieve the type of the property 'flags' in 'RegExp' with 'RegExp["flags"]'?
             return new RegExp(expression, (flags as RegExp.flags));
         }
         return new RegExp(pattern);

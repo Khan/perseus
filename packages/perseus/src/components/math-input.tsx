@@ -35,6 +35,7 @@ type State = {
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
 class MathInput extends React.Component<Props, State> {
+// @ts-expect-error [FEI-5003] - TS2564 - Property 'mouseDown' has no initializer and is not definitely assigned in the constructor.
     mouseDown: boolean;
 
     static defaultProps: DefaultProps = {
@@ -124,6 +125,7 @@ class MathInput extends React.Component<Props, State> {
                     // key. Since this isn't an actual <input> element, we have
                     // to manually trigger the usually automatic form submit.
                     // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'submit' does not exist on type 'JQueryStatic'.
                     $(ReactDOM.findDOMNode(this.refs.mathinput)).submit();
                 },
                 upOutOf: (mathField) => {
@@ -138,6 +140,7 @@ class MathInput extends React.Component<Props, State> {
 
         // Ideally, we would be able to pass an initial value directly into
         // the constructor above
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         this.mathField().latex(this.props.value);
 
         initialized = true;
@@ -164,6 +167,7 @@ class MathInput extends React.Component<Props, State> {
     };
 
     handleMouseDown: (arg1: MouseEvent) => void = (event) => {
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2345 - Argument of type 'EventTarget | null' is not assignable to parameter of type 'Node | null'.
         const focused = ReactDOM.findDOMNode(this).contains(event.target);
         this.mouseDown = focused;
         if (!focused) {
@@ -189,6 +193,7 @@ class MathInput extends React.Component<Props, State> {
             !this.mouseDown &&
             // $FlowFixMe[incompatible-use]
             // $FlowFixMe[incompatible-call]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
             !ReactDOM.findDOMNode(this).contains(e.relatedTarget)
         ) {
             this.setState({focused: false});
@@ -206,6 +211,7 @@ class MathInput extends React.Component<Props, State> {
     };
 
     insert: (arg1: any) => void = (value) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const input = this.mathField();
         if (_(value).isFunction()) {
             value(input);
@@ -232,11 +238,13 @@ class MathInput extends React.Component<Props, State> {
     };
 
     focus: () => void = () => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         this.mathField().focus();
         this.setState({focused: true});
     };
 
     blur: () => void = () => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         this.mathField().blur();
         this.setState({focused: false});
     };
@@ -257,7 +265,9 @@ class MathInput extends React.Component<Props, State> {
 
         let buttons = null;
         if (this._shouldShowButtons()) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             buttons = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'TexButtons' cannot be used as a JSX component.
                 <TexButtons
                     sets={this.props.buttonSets}
                     className="math-input-buttons absolute"

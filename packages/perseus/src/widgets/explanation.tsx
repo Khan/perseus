@@ -118,6 +118,7 @@ class Explanation extends React.Component<Props, State> {
                             styles.articleLink,
                         )}
                     >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Link' cannot be used as a JSX component. */}
                         <Link
                             className={css(styles.explanationLink)}
                             // HACK(michaelpolyak): WB Link doesn't passthrough
@@ -142,6 +143,7 @@ class Explanation extends React.Component<Props, State> {
                             styles.exerciseLink,
                         )}
                     >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Link' cannot be used as a JSX component. */}
                         <Link
                             className={css(styles.explanationLink)}
                             href={href}
@@ -173,6 +175,7 @@ class Explanation extends React.Component<Props, State> {
                         // eslint-disable-next-line react/no-string-refs
                         ref="content"
                     >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                         <Renderer
                             apiOptions={this.props.apiOptions}
                             content={this.props.explanation}

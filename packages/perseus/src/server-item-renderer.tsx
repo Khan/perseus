@@ -1,3 +1,4 @@
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
 import {Flow} from 'flow-to-typescript-codemod';
 /**
  * A copy of the ItemRenderer which renders its question renderer and hints
@@ -71,6 +72,7 @@ type SerializedState = {
 
 /* eslint-disable-next-line react/no-unsafe */
 export class ServerItemRenderer extends React.Component<Props, State> implements RendererInterface {
+// @ts-expect-error [FEI-5003] - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
     hintsRenderer: any;
     _currentFocus: FocusPath;
@@ -176,6 +178,7 @@ export class ServerItemRenderer extends React.Component<Props, State> implements
                 // $FlowFixMe[incompatible-call]: onFocusChange expects an HTMLElement or nothing
                 didFocusInput && keypadElement && keypadElement.getDOMNode(),
                 // $FlowFixMe[incompatible-call]: onFocusChange expects an HTMLElement or nothing
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
                 didFocusInput &&
                     // $FlowFixMe[incompatible-call]: onFocusChange expects an HTMLElement or nothing
                     this.questionRenderer.getDOMNodeForPath(newFocus),
@@ -207,6 +210,7 @@ export class ServerItemRenderer extends React.Component<Props, State> implements
         // this callback is executed
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
         this.blurTimeoutID = setTimeout(() => {
             if (_.isEqual(this._currentFocus, blurringFocusPath)) {
                 this._setCurrentFocus(null);
@@ -326,6 +330,7 @@ export class ServerItemRenderer extends React.Component<Props, State> implements
         const qScore = this.questionRenderer.scoreWidgets();
         const qGuess = this.questionRenderer.getUserInputForWidgets();
         const state = this.questionRenderer.getSerializedState();
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [key: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
         return mapObject(qScore, (score, id) => {
             return Util.keScoreFromPerseusScore(score, qGuess[id], state);
         });
@@ -395,6 +400,7 @@ export class ServerItemRenderer extends React.Component<Props, State> implements
 
         const questionRenderer = (
             <AssetContext.Provider value={contextValue}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                 <Renderer
                     keypadElement={this.props.keypadElement}
                     problemNum={this.props.problemNum}
@@ -416,9 +422,11 @@ export class ServerItemRenderer extends React.Component<Props, State> implements
         );
 
         const hintsRenderer = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component.
             <HintsRenderer
                 hints={this.props.item.hints}
                 hintsVisible={this.props.hintsVisible}
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 apiOptions={apiOptions}
                 ref={(elem) => (this.hintsRenderer = elem)}
             />
@@ -455,9 +463,11 @@ const ref: Flow.AbstractComponent<OwnProps, ServerItemRenderer> =
     React.forwardRef((props, ref) => (
         <LoadingContext.Consumer>
             {({onRendered}) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'ServerItemRenderer' cannot be used as a JSX component.
                 <ServerItemRenderer
                     {...props}
                     onRendered={onRendered}
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'ForwardedRef<unknown>' is not assignable to type 'LegacyRef<ServerItemRenderer> | undefined'.
                     ref={ref}
                 />
             )}

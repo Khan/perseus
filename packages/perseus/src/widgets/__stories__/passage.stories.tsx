@@ -5,6 +5,7 @@ import {
     question1,
     question2,
     question3,
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/passage_testdata' or its corresponding type declarations.
 } from '../__testdata__/passage_testdata';
 
 export default {

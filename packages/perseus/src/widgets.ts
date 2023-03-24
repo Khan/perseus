@@ -64,6 +64,7 @@ export const getWidget = (name: string): React.ComponentType<any> | null | undef
 
     // Allow widgets to specify a widget directly or via a function
     if (widgets[name].getWidget) {
+// @ts-expect-error [FEI-5003] - TS2722 - Cannot invoke an object which is possibly 'undefined'.
         return widgets[name].getWidget();
     }
     return widgets[name].widget;
@@ -97,8 +98,10 @@ export const getVersionVector = (): {
 
 export const getPublicWidgets = (): ReadonlyArray<WidgetExports> => {
     // TODO(alex): Update underscore.js so that _.pick can take a function.
+// @ts-expect-error [FEI-5003] - TS2740 - Type 'Pick<{ [key: string]: Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>; }, string>' is missing the following properties from type 'readonly Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>[]': length, concat, join, slice, and 18 more.
     return _.pick(
         widgets,
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(name: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
         _.reject(_.keys(widgets), function (name) {
             return widgets[name].hidden;
         }),
@@ -301,6 +304,7 @@ export const traverseChildWidgets = (widgetInfo: WidgetInfo, traverseRenderer: a
  */
 export const getSupportedAlignments = (type: string): ReadonlyArray<Alignment> => {
     const widgetExport = widgets[type];
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string[] | readonly Alignment[]' is not assignable to type 'readonly Alignment[]'.
     return (
         (widgetExport && widgetExport.supportedAlignments) ||
         DEFAULT_SUPPORTED_ALIGNMENTS

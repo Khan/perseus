@@ -33,6 +33,7 @@ class MatcherEditor extends React.Component<Props> {
                 <div>
                     {" "}
                     Correct answer:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Enter the correct answers here. The preview on the
@@ -42,6 +43,7 @@ class MatcherEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div className="perseus-clearfix">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                     <TextListEditor
                         options={this.props.left}
                         onChange={(options, cb) => {
@@ -49,6 +51,7 @@ class MatcherEditor extends React.Component<Props> {
                         }}
                         layout="vertical"
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                     <TextListEditor
                         options={this.props.right}
                         onChange={(options, cb) => {
@@ -60,6 +63,7 @@ class MatcherEditor extends React.Component<Props> {
                 <span>
                     {" "}
                     Labels:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>These are entirely optional.</p>
                     </InfoTip>
@@ -84,6 +88,7 @@ class MatcherEditor extends React.Component<Props> {
                         orderMatters={this.props.orderMatters}
                         onChange={this.props.onChange}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             With this option enabled, only the order provided
@@ -105,6 +110,7 @@ class MatcherEditor extends React.Component<Props> {
                         padding={this.props.padding}
                         onChange={this.props.onChange}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Padding is good for text, but not needed for images.

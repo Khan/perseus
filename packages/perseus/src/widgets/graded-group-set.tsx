@@ -87,6 +87,7 @@ type State = {
 // TODO(jared): find a better name for this :) and for GradedGroup; the names
 // are currently a little confusing.
 class GradedGroupSet extends React.Component<Props, State> {
+// @ts-expect-error [FEI-5003] - TS2749 - 'GradedGroup' refers to a value, but is being used as a type here. Did you mean 'typeof GradedGroup'?
     _childGroup: GradedGroup;
 
     static defaultProps: DefaultProps = {
@@ -104,6 +105,7 @@ class GradedGroupSet extends React.Component<Props, State> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -156,6 +158,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                             // TODO(jeremy): Don't spread this.props, instead
                             // pass in all props GradedGroup needs explicilty
                             // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'GradedGroup' cannot be used as a JSX component.
                             <GradedGroup
                                 key={i}
                                 {...this.props}
@@ -188,6 +191,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                         {currentGroup.title}
                     </div>
                     <div className={css(styles.spacer)} />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Indicators' cannot be used as a JSX component. */}
                     <Indicators
                         currentGroup={this.state.currentGroup}
                         gradedGroups={this.props.gradedGroups}
@@ -199,6 +203,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                 {/* TODO(jeremy): Don't spread this.props, instead
                     pass in all props GradedGroup needs explicitly */}
                 {/* $FlowFixMe[prop-missing] */}
+{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'GradedGroup' cannot be used as a JSX component. */}
                 <GradedGroup
                     key={this.state.currentGroup}
                     // $FlowFixMe[incompatible-type]

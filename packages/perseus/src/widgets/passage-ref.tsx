@@ -52,7 +52,9 @@ type State = {
 
 class PassageRef extends React.Component<Props, State> {
     displayName: string = "PassageRef";
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_throttledUpdateRange' has no initializer and is not definitely assigned in the constructor.
     _throttledUpdateRange: () => void;
 
     static defaultProps: DefaultProps = {
@@ -98,6 +100,7 @@ class PassageRef extends React.Component<Props, State> {
 
         let summaryOutput;
         if (this.props.summaryText) {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
             const summaryTree = PerseusMarkdown.parseInline(
                 this.props.summaryText,
             );

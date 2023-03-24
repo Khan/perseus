@@ -45,6 +45,7 @@ class ConstraintEditor extends React.Component<Props> {
             <div>
                 <div className="perseus-widget-row">
                     Constraint:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component. */}
                     <ButtonGroup
                         value={this.props.constraint}
                         allowEmpty={false}
@@ -60,6 +61,7 @@ class ConstraintEditor extends React.Component<Props> {
                 {this.props.constraint === "snap" && (
                     <div className="perseus-widget-row">
                         Snap:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             value={this.props.snap}
                             placeholder={0}
@@ -70,7 +72,9 @@ class ConstraintEditor extends React.Component<Props> {
                 {this.props.constraint === "x" && (
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                             <TeX>x=</TeX>{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                             <MathInput
                                 buttonSets={[]}
                                 buttonsVisible="never"
@@ -83,7 +87,9 @@ class ConstraintEditor extends React.Component<Props> {
                 {this.props.constraint === "y" && (
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                             <TeX>y=</TeX>{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                             <MathInput
                                 buttonSets={[]}
                                 buttonsVisible="never"
@@ -96,39 +102,49 @@ class ConstraintEditor extends React.Component<Props> {
                 Ensure these are set so nothing can be dragged off the canvas:
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-row">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                         <TeX>x \in \Large[</TeX>{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                         <MathInput
                             buttonSets={[]}
                             buttonsVisible="never"
                             value={this.props.constraintXMin}
                             onChange={this.change("constraintXMin")}
                         />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                         <TeX>, </TeX>{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                         <MathInput
                             buttonSets={[]}
                             buttonsVisible="never"
                             value={this.props.constraintXMax}
                             onChange={this.change("constraintXMax")}
                         />{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                         <TeX>\Large]</TeX>
                     </div>
                 </div>
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-row">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                         <TeX>y \in \Large[</TeX>{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                         <MathInput
                             buttonSets={[]}
                             buttonsVisible="never"
                             value={this.props.constraintYMin}
                             onChange={this.change("constraintYMin")}
                         />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                         <TeX>, </TeX>{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                         <MathInput
                             buttonSets={[]}
                             buttonsVisible="never"
                             value={this.props.constraintYMax}
                             onChange={this.change("constraintYMax")}
                         />{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                         <TeX>\Large]</TeX>
                     </div>
                 </div>

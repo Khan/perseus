@@ -16,12 +16,14 @@ export default {
     },
 };
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'Keypad' cannot be used as a JSX component.
 export const PreAlgebra = (): React.ReactElement => <Keypad
     onClickKey={action("onClickKey")}
     preAlgebra={true}
     trigonometry={false}
 />;
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'Keypad' cannot be used as a JSX component.
 export const Trigonometry = (): React.ReactElement => <Keypad
     onClickKey={action("onClickKey")}
     preAlgebra={true}

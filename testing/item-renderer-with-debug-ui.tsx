@@ -30,7 +30,9 @@ export const ItemRendererWithDebugUI: React.FC<Props> = (
             leftTitle="Renderer"
             left={
                 <>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ItemRenderer' cannot be used as a JSX component. */}
                     <ItemRenderer
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'MutableRefObject<ItemRenderer | null | undefined>' is not assignable to type 'LegacyRef<ItemRenderer> | undefined'.
                         ref={ref}
                         problemNum={0}
                         apiOptions={apiOptions}
@@ -39,7 +41,9 @@ export const ItemRendererWithDebugUI: React.FC<Props> = (
                     />
                     <div id="workarea" />
                     <div id="hintsarea" />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                     <View style={{flexDirection: "row", alignItems: "center"}}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
                                 if (!ref.current) {
@@ -50,7 +54,9 @@ export const ItemRendererWithDebugUI: React.FC<Props> = (
                         >
                             Check
                         </Button>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Strut' cannot be used as a JSX component. */}
                         <Strut size={8} />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
                                 ref.current?.showRationalesForCurrentlySelectedChoices();

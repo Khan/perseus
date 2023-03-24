@@ -85,6 +85,7 @@ class DropdownEditor extends React.Component<Props> {
     };
 
     focus: (arg1: number) => boolean = (i) => {
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs["editor" + i]).focus(); // eslint-disable-line react/no-string-refs
         return true;
     };
@@ -99,6 +100,7 @@ class DropdownEditor extends React.Component<Props> {
             <div className="perseus-widget-dropdown">
                 <div className="dropdown-info">
                     Dropdown
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             The drop down is useful for making inequalities in a
@@ -116,6 +118,7 @@ class DropdownEditor extends React.Component<Props> {
                         value={this.props.placeholder}
                         onChange={this.onPlaceholderChange}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             This value will appear as the drop down default. It
@@ -139,11 +142,14 @@ class DropdownEditor extends React.Component<Props> {
                                         ref={"radio" + i}
                                         type="radio"
                                         name={dropdownGroupName}
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'boolean | undefined'.
                                         checked={
                                             choice.correct ? "checked" : ""
                                         }
                                         // eslint-disable-next-line react/jsx-no-bind
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onChange={this.onCorrectChange.bind(
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}
@@ -153,7 +159,9 @@ class DropdownEditor extends React.Component<Props> {
                                         type="text"
                                         ref={"editor" + i}
                                         // eslint-disable-next-line react/jsx-no-bind
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onChange={this.onContentChange.bind(
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}
@@ -165,7 +173,9 @@ class DropdownEditor extends React.Component<Props> {
                                         href="#"
                                         className="simple-button orange"
                                         // eslint-disable-next-line react/jsx-no-bind
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onClick={this.removeChoice.bind(
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}

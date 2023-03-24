@@ -34,6 +34,7 @@ class PairEditor extends React.Component<PairEditorProps> {
             <fieldset>
                 <label>
                     Name:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.name}
                         // $FlowFixMe[incompatible-type] single-param call returns a callback
@@ -42,6 +43,7 @@ class PairEditor extends React.Component<PairEditorProps> {
                 </label>
                 <label>
                     Value:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.value}
                         // $FlowFixMe[incompatible-type] single-param call returns a callback
@@ -76,6 +78,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
     render(): React.ReactElement {
         const editors = _.map(this.props.pairs, (pair, i) => {
             return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'PairEditor' cannot be used as a JSX component.
                 <PairEditor
                     key={i}
                     name={pair.name}
@@ -143,14 +146,17 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 </div>
                 <label>
                     Url or Program ID:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.url}
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("url")}
                     />
                 </label>
                 <br />
                 <label>
                     Settings:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'PairsEditor' cannot be used as a JSX component. */}
                     <PairsEditor
                         name="settings"
                         pairs={this.props.settings}
@@ -160,15 +166,19 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <br />
                 <label>
                     Width:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.width}
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("width")}
                     />
                 </label>
                 <label>
                     Height:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={this.props.height}
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("height")}
                     />
                 </label>
@@ -188,6 +198,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
     }
 
     handleSettingsChange: (arg1: any) => void = (settings) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({settings: settings.pairs});
     };
 

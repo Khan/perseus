@@ -97,10 +97,12 @@ export const createStore = (): any => {
                     ...state,
                     // Default `extraKeys` to the empty array.
                     extraKeys: [],
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'configuration' does not exist on type '{ type: string; }'.
                     ...action.configuration,
                 };
 
             case "PressKey":
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'key' does not exist on type '{ type: string; }'.
                 const keyConfig = KeyConfigs[action.key];
                 // NOTE(charlie): Our keypad system operates by triggering key
                 // presses with key IDs in a dumb manner, such that the keys
@@ -140,6 +142,7 @@ export const createStore = (): any => {
     }) {
         switch (action.type) {
             case "ConfigureKeypad":
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'configuration' does not exist on type '{ type: string; }'.
                 const {keypadType} = action.configuration;
                 const {numPages} = keypadForType[keypadType];
                 return {
@@ -153,10 +156,12 @@ export const createStore = (): any => {
             case "SetPageSize":
                 return {
                     ...state,
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'pageWidthPx' does not exist on type '{ type: string; }'.
                     pageWidthPx: action.pageWidthPx,
                 };
 
             case "PressKey":
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'key' does not exist on type '{ type: string; }'.
                 const keyConfig = KeyConfigs[action.key];
 
                 // Reset the keypad page if the user performs a math operation.
@@ -199,16 +204,19 @@ export const createStore = (): any => {
                 };
 
             case "OnSwipeChange":
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'dx' does not exist on type '{ type: string; }'.
                 state.velocityTracker.push(action.dx);
 
                 return {
                     ...state,
                     animateToPosition: false,
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'dx' does not exist on type '{ type: string; }'.
                     dx: action.dx,
                 };
 
             case "OnSwipeEnd":
                 const {pageWidthPx, velocityTracker} = state;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'dx' does not exist on type '{ type: string; }'.
                 const {dx} = action;
                 const velocity = velocityTracker.getVelocity();
 
@@ -367,6 +375,7 @@ export const createStore = (): any => {
 
             case "RemoveEcho":
                 const remainingEchoes = state.echoes.filter((echo) => {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'animationId' does not exist on type 'never'.
                     return echo.animationId !== action.animationId;
                 });
                 return {

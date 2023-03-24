@@ -40,6 +40,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 </svg>
             );
         }
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactNode' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return this.props.children;
     }
 }

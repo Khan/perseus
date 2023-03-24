@@ -55,6 +55,7 @@ const unverifiedWait = (delay: number, count: number) =>
             if (count > 1) {
                 resolve(unverifiedWait(delay, count - 1));
             } else {
+// @ts-expect-error [FEI-5003] - TS2794 - Expected 1 arguments, but got 0. Did you forget to include 'void' in your type argument to 'Promise'?
                 resolve();
             }
         }, delay);

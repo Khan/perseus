@@ -68,6 +68,7 @@ class RefStart extends React.Component<RefStartProps> {
         return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
     }
 
+// @ts-expect-error [FEI-5003] - TS2322 - Type '() => React.ReactNode' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>>'.
     getRefContent: () => React.ReactElement = () => {
         return this.props.refContent;
     };
@@ -198,6 +199,7 @@ const rules = {
             // note(matthewc) the refs created here become the refs
             // pulled from `this.refs` in passage.jsx
             return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'RefStart' cannot be used as a JSX component.
                 <RefStart
                     ref={START_REF_PREFIX + ref}
                     key={START_REF_PREFIX + ref}
@@ -226,6 +228,7 @@ const rules = {
                 // note(matthewc) the refs created here become the refs
                 // pulled from `this.refs` in passage.jsx
                 return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'RefEnd' cannot be used as a JSX component.
                     <RefEnd
                         ref={END_REF_PREFIX + node.ref}
                         key={END_REF_PREFIX + node.ref}
@@ -279,6 +282,7 @@ const rules = {
             };
         },
         react: (node: LabelNode, output: OutputFun, state: ParseState): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2739 - Type '(string | Element | null)[]' is missing the following properties from type 'ReactElement<any, string | JSXElementConstructor<any>>': type, props, key
             return [
                 <span
                     key="visual-circle"
@@ -415,6 +419,7 @@ const parse: (arg1: string, arg2?: ParseState | null | undefined) => Array<Singl
     source,
     state,
 ) => {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'ParseState | {}' is not assignable to type 'ParseState | null | undefined'.
     state = state || {};
     const paragraphedSource = source + "\n\n";
     return builtParser(
@@ -423,6 +428,7 @@ const parse: (arg1: string, arg2?: ParseState | null | undefined) => Array<Singl
     );
 };
 
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactOutput' is not assignable to type '(arg1: SingleASTNode[]) => ReactElement<any, string | JSXElementConstructor<any>>'.
 const output: (arg1: Array<SingleASTNode>) => React.ReactElement = SimpleMarkdown.reactFor(
     SimpleMarkdown.ruleOutput(rules, "react"),
 );

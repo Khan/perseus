@@ -87,7 +87,9 @@ export default class HoverBehavior extends React.Component<Props, State> {
         };
     }
 
+// @ts-expect-error [FEI-5003] - TS2564 - Property 'focusFlag' has no initializer and is not definitely assigned in the constructor.
     focusFlag: boolean;
+// @ts-expect-error [FEI-5003] - TS2564 - Property 'waitingForClick' has no initializer and is not definitely assigned in the constructor.
     waitingForClick: boolean;
 
     handleClick: (e: React.MouseEvent) => void = (
@@ -172,6 +174,7 @@ export default class HoverBehavior extends React.Component<Props, State> {
         } as const;
 
         const {children} = this.props;
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, string | JSXElementConstructor<any>> | null' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return children?.(this.state, handlers) || null;
     }
 }

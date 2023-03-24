@@ -95,12 +95,14 @@ const ImageEditor: any = createReactClass({
                     <label>
                         <div>
                             Alt text:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 This is important for screenreaders. The content
                                 of this alt text will be formatted as markdown
                                 (tables, emphasis, etc. are supported).
                             </InfoTip>
                         </div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                         <Editor
                             apiOptions={this.props.apiOptions}
                             content={this.props.alt}
@@ -116,6 +118,7 @@ const ImageEditor: any = createReactClass({
                 <div>
                     <label>
                         <div>Caption:</div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                         <Editor
                             apiOptions={this.props.apiOptions}
                             content={this.props.caption}
@@ -141,9 +144,11 @@ const ImageEditor: any = createReactClass({
             <div className="perseus-image-editor">
                 <label>
                     Image url:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>Paste an image or graphie image URL.</InfoTip>
                     {this.state.backgroundImageError &&
                         backgroundImageErrorText}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                     <BlurInput
                         value={backgroundImage.url || ""}
                         style={{width: 332}}
@@ -160,6 +165,7 @@ const ImageEditor: any = createReactClass({
         return (
             <tr key={i}>
                 <td>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                     <RangeInput
                         value={label.coordinates}
                         // eslint-disable-next-line react/jsx-no-bind

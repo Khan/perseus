@@ -7,6 +7,7 @@ import {
     Expression,
 } from "@khanacademy/perseus";
 // eslint-disable-next-line import/no-extraneous-dependencies
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'hubble' or its corresponding type declarations.
 import lens from "hubble";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -128,6 +129,7 @@ class ExpressionEditor extends React.Component<any, any> {
                     })
                     .freeze();
             })
+// @ts-expect-error [FEI-5003] - TS2786 - 'AnswerOption' cannot be used as a JSX component.
             .map((obj, index) => <AnswerOption key={index} {...obj} />);
 
         const sortable = (
@@ -168,6 +170,7 @@ class ExpressionEditor extends React.Component<any, any> {
             <label key="show-div">
                 <input type="checkbox" onChange={this.handleToggleDiv} />
                 <span className="show-div-button">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     show <TeX>\div</TeX> button
                 </span>
             </label>,
@@ -185,6 +188,7 @@ class ExpressionEditor extends React.Component<any, any> {
                         label="Use × for rendering multiplication instead of a
                         center dot."
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             For pre-algebra problems this option displays
@@ -204,6 +208,7 @@ class ExpressionEditor extends React.Component<any, any> {
                             onChange={this.handleFunctions}
                         />
                     </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Single-letter variables listed here will be
@@ -219,6 +224,7 @@ class ExpressionEditor extends React.Component<any, any> {
                 </div>
 
                 {this.state.isTex && (
+// @ts-expect-error [FEI-5003] - TS2786 - 'TexButtons' cannot be used as a JSX component.
                     <TexButtons
                         className="math-input-buttons"
                         sets={this.props.buttonSets}
@@ -297,6 +303,7 @@ class ExpressionEditor extends React.Component<any, any> {
                     issues.push(`Answer ${ix + 1} is empty`);
                 } else {
                     // note we're not using icu for content creators
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                     const expression = KAS.parse(form.value, {
                         functions: this.props.functions,
                     });
@@ -340,12 +347,14 @@ class ExpressionEditor extends React.Component<any, any> {
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
     handleRemoveForm: (arg1: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -356,6 +365,7 @@ class ExpressionEditor extends React.Component<any, any> {
             .merge([i], props)
             .freeze();
 
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -367,10 +377,12 @@ class ExpressionEditor extends React.Component<any, any> {
                 "simplify",
                 "value",
             );
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'key' does not exist on type 'Pick<any, "form" | "value" | "simplify" | "considered">'.
             form.key = component.key;
             return form;
         });
 
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -408,12 +420,14 @@ class ExpressionEditor extends React.Component<any, any> {
             .reject((set) => set === remove)
             .concat(keep);
 
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
         this.change("buttonSets", buttonSets);
     };
 
     // called when the correct answer changes
     handleTexInsert: (arg1: string) => void = (str) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.expression.insert(str);
     };
 
@@ -461,6 +475,7 @@ class AnswerOption extends React.Component<any, any> {
     render(): React.ReactElement {
         let removeButton = null;
         if (this.state.deleteFocused) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"
@@ -472,6 +487,7 @@ class AnswerOption extends React.Component<any, any> {
                 </button>
             );
         } else {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"
@@ -497,6 +513,7 @@ class AnswerOption extends React.Component<any, any> {
                         </div>
 
                         <div className="answer-expression">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Expression' cannot be used as a JSX component. */}
                             <Expression {...this.props.expressionProps} />
                         </div>
                     </div>
@@ -508,6 +525,7 @@ class AnswerOption extends React.Component<any, any> {
                             labelAlignment="right"
                             label="Answer expression must have the same form."
                         />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <p>
                                 The student's answer must be in the same form.
@@ -525,6 +543,7 @@ class AnswerOption extends React.Component<any, any> {
                             label="Answer expression must be fully expanded and
                             simplified."
                         />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <p>
                                 The student's answer must be fully expanded and

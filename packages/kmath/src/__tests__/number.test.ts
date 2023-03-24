@@ -1,10 +1,12 @@
 import * as number from '../number';
 
 describe("knumber", function () {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([3, Math.PI, 6.28, 5e10, 1 / 0])("is a number: %s", (num: any) => {
         expect(number.is(num)).toBe(true);
     });
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each(["10", 0 / 0, NaN])("is not a number:%s", (num: any) => {
         expect(number.is(num)).toBe(false);
     });

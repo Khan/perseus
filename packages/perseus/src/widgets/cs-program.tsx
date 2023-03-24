@@ -117,6 +117,7 @@ class CSProgram extends React.Component<any> {
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -158,6 +159,7 @@ class CSProgram extends React.Component<any> {
             url += "&buttons=yes";
             // Matches templates/scratchpads/embed_script.js
             // Toolbar height is 66, border height is 1 pixel
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'height' because it is a read-only property.
             style.height += 67;
         } else {
             url += "&buttons=no";

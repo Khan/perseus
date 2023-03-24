@@ -124,6 +124,7 @@ class Icon extends React.Component<Props> {
                 aria-hidden={title ? null : true}
                 className={className}
                 style={style}
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"auto" | Booleanish | undefined'.
                 focusable={focusable.toString()}
                 width={width + units}
                 height={height + units}

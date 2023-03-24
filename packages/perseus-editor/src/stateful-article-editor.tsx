@@ -143,6 +143,7 @@ const StatefulArticleEditor = createReactClass({
                     </span>
                 </div>
                 <div style={styles.editor}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ArticleEditor' cannot be used as a JSX component. */}
                     <ArticleEditor {...this.state} />
                 </div>
             </div>

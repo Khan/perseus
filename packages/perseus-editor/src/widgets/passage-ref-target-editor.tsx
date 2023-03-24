@@ -22,6 +22,7 @@ class PassageRefTargetEditor extends React.Component<Props> {
     };
 
     handleContentChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({content: e.target.value});
     };
 

@@ -135,10 +135,12 @@ export class NumericInput extends React.Component<Props, State> {
                 format = answer.answerForms[0];
             }
 
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
             let answerString = KhanMath.toNumericString(answer.value, format);
             if (answer.maxError) {
                 answerString +=
                     " \u00B1 " +
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
                     KhanMath.toNumericString(answer.maxError, format);
             }
             return answerString;
@@ -195,8 +197,10 @@ export class NumericInput extends React.Component<Props, State> {
                 let localValue = currentValue;
                 if (rubric.coefficient) {
                     if (!localValue) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
                         localValue = 1;
                     } else if (localValue === "-") {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
                         localValue = -1;
                     }
                 }
@@ -213,6 +217,7 @@ export class NumericInput extends React.Component<Props, State> {
         if (!result) {
             // Otherwise, if the guess is not correct
             const otherAnswers = [].concat(
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 rubric.answers.filter((answer) => answer.status === "ungraded"),
                 rubric.answers.filter((answer) => answer.status === "wrong"),
             );
@@ -229,8 +234,11 @@ export class NumericInput extends React.Component<Props, State> {
                 ).correct;
             });
             result = {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
                 empty: match ? match.status === "ungraded" : false,
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
                 correct: match ? match.status === "correct" : false,
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'message' does not exist on type 'never'.
                 message: match ? match.message : null,
                 guess: currentValue,
             };
@@ -273,6 +281,7 @@ export class NumericInput extends React.Component<Props, State> {
                   });
 
         let examples = _.map(forms, (form) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusNumericInputAnswerForm | { name: string; simplify: string; }' is not assignable to parameter of type 'PerseusNumericInputAnswerForm'.
             return formExamples[form.name](form);
         });
         // Ensure no duplicate tooltip text from simplified and unsimplified
@@ -380,6 +389,7 @@ export class NumericInput extends React.Component<Props, State> {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
             return maybeRightAlignKeypadInput(
+// @ts-expect-error [FEI-5003] - TS2786 - 'SimpleKeypadInput' cannot be used as a JSX component.
                 <SimpleKeypadInput
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
@@ -405,6 +415,7 @@ export class NumericInput extends React.Component<Props, State> {
 
         return (
             <div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InputWithExamples' cannot be used as a JSX component. */}
                 <InputWithExamples
                     ref={(ref) => (this.inputRef = ref)}
                     value={this.props.currentValue}
@@ -441,6 +452,7 @@ export const unionAnswerForms: (arg1: ReadonlyArray<ReadonlyArray<PerseusNumeric
     // two elements are equal, and returns a list of unique elements. This is
     // just a helper function here, but works generally.
     const uniqueBy = function (list, iteratee: any) {
+// @ts-expect-error [FEI-5003] - TS2347 - Untyped function calls may not accept type arguments.
         return list.reduce<Array<any>>((uniqueList, element) => {
             // For each element, decide whether it's already in the list of
             // unique items.
@@ -514,6 +526,7 @@ const propsTransform = function(widgetOptions: PerseusNumericInputWidgetOptions)
             // Pull out the name of each form and whether that form has
             // required simplification.
             widgetOptions.answers.map((answer) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly MathFormat[] | undefined' is not assignable to parameter of type 'Collection<any>'.
                 return _.map(answer.answerForms, (form) => {
                     return {
                         simplify: answer.simplify,

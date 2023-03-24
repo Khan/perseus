@@ -1,3 +1,4 @@
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
 import {Flow} from 'flow-to-typescript-codemod';
 /**
  * A side by side diff view for Perseus renderers.
@@ -22,14 +23,17 @@ const filterWidgetInfo = function (widgetInfo, showAlignmentOptions: boolean) {
         showAlignmentOptions &&
         Widgets.getSupportedAlignments(type).length > 1
     ) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.alignment = alignment;
     }
 
     if (type === "transformer") {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'graded' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.graded = graded;
     }
 
     if (Widgets.supportsStaticMode(type)) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'static' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.static = widgetInfo?.static ?? undefined;
     }
 
@@ -87,6 +91,7 @@ class RendererDiff extends React.Component<Props> {
 
         if (before.content || after.content) {
             textDiff = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'TextDiff' cannot be used as a JSX component.
                 <TextDiff
                     before={before.content}
                     after={after.content}
@@ -105,6 +110,7 @@ class RendererDiff extends React.Component<Props> {
         if (beforeWidgets.length || afterWidgets.length) {
             const widgets = _.union(beforeWidgets, afterWidgets);
             widgetsDiff = widgets.map((widget) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'WidgetDiff' cannot be used as a JSX component.
                 <WidgetDiff
                     before={filterWidgetInfo(
                         before.widgets?.[widget],

@@ -93,6 +93,7 @@ class ArticleRenderer extends React.Component<any, any> {
         if (this._currentFocus) {
             const [sectionRef, ...focusPath] = this._currentFocus;
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
             const inputPaths = this.refs[sectionRef].getInputPaths();
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
@@ -103,14 +104,18 @@ class ArticleRenderer extends React.Component<any, any> {
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocusPath,
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getDOMNode' does not exist on type 'never'.
                 didFocusInput && keypadElement && keypadElement.getDOMNode(),
             );
         }
 
+// @ts-expect-error [FEI-5003] - TS1345 - An expression of type 'void' cannot be tested for truthiness.
         if (keypadElement) {
             if (didFocusInput) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'activate' does not exist on type 'never'.
                 keypadElement.activate();
             } else {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'dismiss' does not exist on type 'never'.
                 keypadElement.dismiss();
             }
         }
@@ -141,6 +146,7 @@ class ArticleRenderer extends React.Component<any, any> {
         if (this._currentFocus) {
             const [sectionRef, ...inputPath] = this._currentFocus;
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
             this.refs[sectionRef].blurPath(inputPath);
         }
     };
@@ -172,6 +178,7 @@ class ArticleRenderer extends React.Component<any, any> {
             const refForSection = `section-${i}`;
             return (
                 <div key={i} className="clearfix">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
                         {...section}
                         ref={refForSection}

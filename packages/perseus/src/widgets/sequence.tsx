@@ -54,6 +54,7 @@ class Sequence extends React.Component<any, any> {
         const step = parseInt(groupWidgetId.split(" ")[1]);
         if (step === this.state.visible - 1) {
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getWidgetInstance' does not exist on type 'ReactInstance'.
             const widget = this.refs.renderer.getWidgetInstance(
                 "group " + step,
             );
@@ -96,6 +97,7 @@ class Sequence extends React.Component<any, any> {
 
         return (
             <div className="perseus-sequence">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                 <Renderer
                     // eslint-disable-next-line react/no-string-refs
                     ref="renderer"

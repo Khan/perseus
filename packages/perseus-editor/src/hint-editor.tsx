@@ -78,16 +78,19 @@ export class HintEditor extends React.Component<HintEditorProps> {
 
     focus: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.editor.focus();
     };
 
     getSaveWarnings: () => any = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         return this.refs.editor.getSaveWarnings();
     };
 
     serialize: (options?: any) => any = (options: any) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs.editor.serialize(options);
     };
 
@@ -95,6 +98,7 @@ export class HintEditor extends React.Component<HintEditorProps> {
         return (
             <div className={"perseus-hint-editor " + this.props.className}>
                 {this.props.showTitle && <div className="pod-title">Hint</div>}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                 <Editor
                     // eslint-disable-next-line react/no-string-refs
                     ref="editor"
@@ -130,6 +134,7 @@ export class HintEditor extends React.Component<HintEditorProps> {
                                 <InlineIcon {...iconCircleArrowUp} />
                             </button>{" "}
                             {this.props.isLast && (
+// @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component.
                                 <InfoTip>
                                     <p>
                                         The last hint is automatically bolded.
@@ -140,6 +145,7 @@ export class HintEditor extends React.Component<HintEditorProps> {
                     )}
                     <input
                         type="checkbox"
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean | null | undefined' is not assignable to type 'boolean | undefined'.
                         checked={this.props.replace}
                         onChange={this.handleChange}
                     />
@@ -197,6 +203,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
             this.props.isLast && !/\*\*/.test(this.props.hint.content);
 
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
         this.refs.frame.sendNewData({
             type: "hint",
             data: {
@@ -215,16 +222,19 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
 
     getSaveWarnings = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         return this.refs.editor.getSaveWarnings();
     };
 
     serialize = (options: any) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs.editor.serialize(options);
     };
 
     focus = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.editor.focus();
     };
 
@@ -239,6 +249,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                 }
             >
                 <div className="perseus-editor-left-cell">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HintEditor' cannot be used as a JSX component. */}
                     <HintEditor
                         // eslint-disable-next-line react/no-string-refs
                         ref="editor"
@@ -257,10 +268,12 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                     />
                 </div>
                 <div className="perseus-editor-right-cell">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DeviceFramer' cannot be used as a JSX component. */}
                     <DeviceFramer
                         deviceType={this.props.deviceType}
                         nochrome={true}
                     >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'IframeContentRenderer' cannot be used as a JSX component. */}
                         <IframeContentRenderer
                             // eslint-disable-next-line react/no-string-refs
                             ref="frame"
@@ -329,12 +342,15 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             newProps,
         );
 
+// @ts-expect-error [FEI-5003] - TS2740 - Type 'Hint' is missing the following properties from type 'readonly Hint[]': length, concat, join, slice, and 18 more.
         this.props.onChange({hints: hints}, cb, silent);
     };
 
     handleHintRemove: (i: number) => void = (i: number) => {
         const hints = _(this.props.hints).clone();
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'splice' does not exist on type 'Hint'.
         hints.splice(i, 1);
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Hint' is not assignable to type 'readonly Hint[]'.
         this.props.onChange({hints: hints});
     };
 
@@ -343,10 +359,14 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         dir: number,
     ) => {
         const hints = _(this.props.hints).clone();
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'splice' does not exist on type 'Hint'.
         const hint = hints.splice(i, 1)[0];
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'splice' does not exist on type 'Hint'.
         hints.splice(i + dir, 0, hint);
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Hint' is not assignable to type 'readonly Hint[]'.
         this.props.onChange({hints: hints}, () => {
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["hintEditor" + (i + dir)].focus();
         });
     };
@@ -354,10 +374,12 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     addHint: () => void = () => {
         const hints = _(this.props.hints)
             .clone()
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'concat' does not exist on type 'Hint'.
             .concat([{content: ""}]);
         this.props.onChange({hints: hints}, () => {
             const i = hints.length - 1;
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["hintEditor" + i].focus();
         });
     };
@@ -367,6 +389,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .map((hint, i) => {
                 return _.map(
                     // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
                     this.refs["hintEditor" + i].getSaveWarnings(),
                     (issue) => "Hint " + (i + 1) + ": " + issue,
                 );
@@ -385,6 +408,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
 
     serializeHint: (index: number, options?: any) => string = (index: number, options: any): string => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs["hintEditor" + index].serialize(options);
     };
 
@@ -394,6 +418,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             hints,
             function (hint, i) {
                 return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'CombinedHintEditor' cannot be used as a JSX component.
                     <CombinedHintEditor
                         ref={"hintEditor" + i}
                         key={"hintEditor" + i}
@@ -402,16 +427,24 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         itemId={itemId}
                         hint={hint}
                         pos={i}
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         imageUploader={this.props.imageUploader}
                         // eslint-disable-next-line react/jsx-no-bind
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onChange={this.handleHintChange.bind(this, i)}
                         // eslint-disable-next-line react/jsx-no-bind
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onRemove={this.handleHintRemove.bind(this, i)}
                         // eslint-disable-next-line react/jsx-no-bind
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMove={this.handleHintMove.bind(this, i)}
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         deviceType={this.props.deviceType}
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         apiOptions={this.props.apiOptions}
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         highlightLint={this.props.highlightLint}
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         previewURL={this.props.previewURL}
                         // TODO(CP-4838): what should be passed here?
                         contentPaths={[]}

@@ -33,5 +33,6 @@ export function focusWithChromeStickyFocusBugWorkaround(element: Element) {
     // this is an issue, however, so there isn't currently a way to out of the
     // `preventScroll` behavior.
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element'.
     element.focus({preventScroll: true});
 }

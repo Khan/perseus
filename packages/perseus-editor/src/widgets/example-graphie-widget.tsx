@@ -21,6 +21,7 @@ import type {Coord, WidgetExports} from "@khanacademy/perseus";
 
 const {Graphie} = components;
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
 
 type Props = any;
@@ -91,6 +92,7 @@ class ExampleGraphieWidget extends React.Component<Props> {
 
     render(): React.ReactElement {
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component.
             <Graphie
                 // eslint-disable-next-line react/no-string-refs
                 ref="graphie"
@@ -120,6 +122,7 @@ class ExampleGraphieWidget extends React.Component<Props> {
     };
 
     movePoint: (arg1: Coord) => void = (newCoord) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({
             coord: newCoord,
         });

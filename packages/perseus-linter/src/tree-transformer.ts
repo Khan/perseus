@@ -134,7 +134,9 @@ export default class TreeTransformer {
             // but other nodes types like "math" may also have content.
             // TODO(mdr): We found a new Flow error when upgrading:
             //     "node.content (property `content` is missing in `TreeNode` [1].)"
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
             if (typeof node.content === "string") {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
                 content = node.content;
             }
 
@@ -535,6 +537,7 @@ class Stack<T> {
 
     /** Pop a value off of the stack. */
     pop(): T {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'T | undefined' is not assignable to type 'T'.
         return this.stack.pop();
     }
 

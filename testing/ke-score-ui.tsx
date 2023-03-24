@@ -34,13 +34,17 @@ export default (
                 </tbody>
             </table>
 
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
             <HeadingSmall style={{marginTop: "10px"}}>Guess</HeadingSmall>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ReactJson' cannot be used as a JSX component. */}
             <ReactJson
                 quotesOnKeys={false}
                 enableClipboard={false}
                 src={score.guess}
             />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
             <HeadingSmall style={{marginTop: "10px"}}>State</HeadingSmall>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ReactJson' cannot be used as a JSX component. */}
             <ReactJson
                 quotesOnKeys={false}
                 enableClipboard={false}

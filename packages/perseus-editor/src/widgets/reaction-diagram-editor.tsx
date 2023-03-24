@@ -29,16 +29,20 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
 
     updateMolecule: (arg1: number) => (arg1: string) => void = (idx) => {
         return function (newValue: string) {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const newSmiles = [...this.props.smiles];
             newSmiles[idx] = newValue;
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.change({smiles: newSmiles});
         }.bind(this);
     };
 
     updateRotation: (arg1: number) => (arg1: any) => void = (idx) => {
         return function (newValue) {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const newRot = [...this.props.rotationAngle];
             newRot[idx] = newValue;
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.change({rotationAngle: newRot});
         }.bind(this);
     };
@@ -52,6 +56,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 return {...sep};
             });
             newSep[idx][propName] = newValue;
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
             this.change({separators: newSep});
         };
     };
@@ -67,6 +72,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         LHS SMILES:&nbsp;
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateMolecule(0)}
                             value={this.props.smiles[0]}
@@ -76,6 +82,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         LHS Rotation (deg):&nbsp;
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             onChange={this.updateRotation(0)}
                             value={this.props.rotationAngle[0]}
@@ -85,6 +92,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         RHS SMILES:&nbsp;
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateMolecule(1)}
                             value={this.props.smiles[1]}
@@ -94,6 +102,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         RHS Rotation (deg):&nbsp;
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             onChange={this.updateRotation(1)}
                             value={this.props.rotationAngle[1]}
@@ -103,6 +112,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         Top of arrow text:&nbsp;
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateSeparators(0, "topText")}
                             value={this.props.separators[0].topText}
@@ -112,6 +122,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
                 <div>
                     <label>
                         Bottom of arrow text:&nbsp;
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             onChange={this.updateSeparators(0, "bottomText")}
                             value={this.props.separators[0].bottomText}

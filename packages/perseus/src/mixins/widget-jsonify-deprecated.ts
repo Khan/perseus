@@ -9,6 +9,7 @@ import WIDGET_PROP_DENYLIST from './widget-prop-denylist';
 const WidgetJsonifyDeprecated = {
     getUserInput: function(): any {
         // Omit props that get passed to all widgets
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'props' does not exist on type '{ readonly getUserInput: () => any; readonly getUserInputFromProps: (props: any) => any; }'.
         return _.omit(this.props, WIDGET_PROP_DENYLIST);
     },
 

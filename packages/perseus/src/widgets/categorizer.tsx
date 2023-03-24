@@ -51,6 +51,7 @@ export class Categorizer extends React.Component<Props, State> {
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -66,6 +67,7 @@ export class Categorizer extends React.Component<Props, State> {
         const isMobile = this.props.apiOptions.isMobile;
         let indexedItems = this.props.items.map((item, n) => [item, n]);
         if (this.props.randomizeItems) {
+// @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly (string | number)[][]' is 'readonly' and cannot be assigned to the mutable type '(string | number)[][]'. | TS2345 - Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | RNG'.
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
         }
 
@@ -82,6 +84,7 @@ export class Categorizer extends React.Component<Props, State> {
                             // fixed.)
                             return (
                                 <th className={css(styles.header)} key={i}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                     <Renderer
                                         content={category}
                                         linterContext={this.props.linterContext}
@@ -99,7 +102,9 @@ export class Categorizer extends React.Component<Props, State> {
                         return (
                             <tr key={itemNum}>
                                 <td>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                     <Renderer
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string | number' is not assignable to type 'string | undefined'.
                                         content={item}
                                         linterContext={this.props.linterContext}
                                     />
@@ -208,6 +213,7 @@ export class Categorizer extends React.Component<Props, State> {
 
     onChange: (arg1: number, arg2: number) => void = (itemNum, catNum) => {
         const values = [...this.props.values];
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
         values[itemNum] = catNum;
         this.change("values", values);
         this.props.trackInteraction();

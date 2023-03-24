@@ -102,6 +102,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     static validate(
         userInput: string,
         rubric: Rubric,
+// @ts-expect-error [FEI-5003] - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
         onInputError: OnInputErrorFunctionType = function () {},
     ): PerseusScore {
         const options = _.clone(rubric);
@@ -114,6 +115,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
             // solution answer, not the student answer, and we don't want a
             // solution to work if the student is using a different language
             // (different from the content creation language, ie. English).
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const expression = KAS.parse(answer.value, rubric);
             // An answer may not be parsed if the expression was defined
             // incorrectly. For example if the answer is using a symbol defined
@@ -290,6 +292,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         ) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             clearTimeout(this.errorTimeout);
 
             if (this.parse(this.props.value, this.props).parsed) {
@@ -299,6 +302,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 // Store timeout ID so that we can clear it above
                 // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
                 // eslint-disable-next-line no-restricted-syntax
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
                 this.errorTimeout = setTimeout(() => {
                     const apiResult = this.props.apiOptions.onInputError(
                         null, // reserved for some widget identifier
@@ -316,6 +320,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     componentWillUnmount: () => void = () => {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         clearTimeout(this.errorTimeout);
 
         this._isMounted = false;
@@ -347,6 +352,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         _.extend(options, {
             decimal_separator: i18n.getDecimalSeparator(),
         });
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         return KAS.parse(insertBraces(value), options);
     };
 
@@ -371,6 +377,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     focus: () => boolean = () => {
         if (this.props.apiOptions.customKeypad) {
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs.input.focus();
         } else {
             // The buttons are often on top of text you're trying to read, so
@@ -382,17 +389,20 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     focusInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
     blurInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur();
     };
 
     // HACK(joel)
     insert: (text: string) => void = (text: string) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.input.insert(text);
     };
 
@@ -427,6 +437,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     render(): React.ReactNode | React.ReactElement<React.ComponentProps<'div'>> {
         if (this.props.apiOptions.customKeypad) {
             return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'KeypadInput' cannot be used as a JSX component.
                 <KeypadInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="input"
@@ -493,6 +504,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
         return (
             <div className={className}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MathInput' cannot be used as a JSX component. */}
                 <MathInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="input"
@@ -533,6 +545,7 @@ const keypadConfigurationForProps = (
     const uniqueExtraVariables: Record<string, any> = {};
     const uniqueExtraConstants: Record<string, any> = {};
     for (const answerForm of widgetOptions.answerForms) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const maybeExpr = KAS.parse(answerForm.value, widgetOptions);
         if (maybeExpr.parsed) {
             const expr = maybeExpr.expr;

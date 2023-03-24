@@ -43,6 +43,7 @@ class ColorPicker extends React.Component<Props> {
     render(): React.ReactElement {
         const colors = this.props.lightColors ? LIGHT_COLORS : COLORS;
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component.
             <ButtonGroup
                 value={this.props.value}
                 allowEmpty={false}

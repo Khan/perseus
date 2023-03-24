@@ -19,6 +19,7 @@ export default class SectionControlButton extends React.Component<SectionControl
         const {icon, onClick, title} = this.props;
 
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Clickable' cannot be used as a JSX component.
             <Clickable
                 className={
                     "section-control-button " +

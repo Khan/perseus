@@ -73,6 +73,7 @@ class MathOutput extends React.Component<any, any> {
                 onTouchStart={this.focus}
             >
                 <div style={divStyle}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component. */}
                     <TeX>{this._getDisplayValue(this.props.value)}</TeX>
                 </div>
             </span>
@@ -107,6 +108,7 @@ class MathOutput extends React.Component<any, any> {
         $(document).bind("vclick." + this.state.selectorNamespace, (e) => {
             // Detect whether the target has our React DOM node as a parent
             const $closestWidget = $(e.target).closest(
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 ReactDOM.findDOMNode(this),
             );
             if (!$closestWidget.length) {

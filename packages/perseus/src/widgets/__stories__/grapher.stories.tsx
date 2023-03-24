@@ -9,6 +9,7 @@ import {
     logarithmQuestion,
     quadraticQuestion,
     sinusoidQuestion,
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/grapher_testdata' or its corresponding type declarations.
 } from '../__testdata__/grapher_testdata';
 
 export default {

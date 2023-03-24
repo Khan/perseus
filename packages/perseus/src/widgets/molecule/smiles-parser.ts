@@ -10,6 +10,7 @@ const smilesRe = new RegExp("^[A-Za-z\\[\\]()=#+-]*$");
 const atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
 
 function ParseError(message: string) {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.message = message;
 }
 
@@ -93,7 +94,7 @@ function parseBondModifier(smiles: any, ctx) {
  * parenStack should be a list containing any open parentheses already
  * encountered.  (Usually, this will be ["("])
  */
-function sliceFromMatchingCloseParen(smiles: any, parenStack: Array<any> | Array<any | V.1>) {
+function sliceFromMatchingCloseParen(smiles: any, parenStack: Array<any>) {
     if (parenStack.length === 0) {
         return smiles;
     }
@@ -179,7 +180,9 @@ function readAtomSymbol(smiles: any, _ctx) {
         rest = smiles.slice(closingIdx + 1);
     } else {
         const match = atomRe.exec(smiles);
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'. | TS2531 - Object is possibly 'null'.
         sym = match[1];
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
         rest = smiles.slice(sym.length);
     }
 

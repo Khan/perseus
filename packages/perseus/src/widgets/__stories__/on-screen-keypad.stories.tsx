@@ -5,6 +5,7 @@ import * as React from "react";
 
 import {ItemRenderer} from '../../index';
 import KeypadContext from '../../keypad-context';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/expression_testdata' or its corresponding type declarations.
 import {expressionItem3} from '../__testdata__/expression_testdata';
 
 type StoryArgs = Record<any, any>;
@@ -22,6 +23,7 @@ const Content = (): React.ReactElement => {
         <KeypadContext.Consumer>
             {({keypadElement, setRenderer, scrollableElement}) => (
                 <>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ItemRenderer' cannot be used as a JSX component. */}
                     <ItemRenderer
                         ref={setRenderer}
                         problemNum={0}
@@ -47,6 +49,7 @@ const Content = (): React.ReactElement => {
 
 const Footer = (): React.ReactElement => {
     return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
         <View
             style={[
                 styles.keypadContainer,
@@ -59,6 +62,7 @@ const Footer = (): React.ReactElement => {
         >
             <KeypadContext.Consumer>
                 {({keypadElement, setKeypadElement, renderer}) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Keypad' cannot be used as a JSX component.
                     <Keypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => renderer && renderer.blur()}
@@ -84,6 +88,7 @@ const Demo = () => {
                 keypadElement,
                 setRenderer,
                 renderer,
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setScrollableElement,
                 scrollableElement,
             }}

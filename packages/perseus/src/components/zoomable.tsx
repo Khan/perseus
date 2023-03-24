@@ -43,10 +43,14 @@ type State = {
 };
 
 class Zoomable extends React.Component<Props, State> {
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_observer' has no initializer and is not definitely assigned in the constructor.
     _observer: MutationObserver;
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_measuringInitialized' has no initializer and is not definitely assigned in the constructor.
     _measuringInitialized: boolean;
     _originalWidth: number | null | undefined;
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_node' has no initializer and is not definitely assigned in the constructor.
     _node: HTMLElement;
 
     static defaultProps: DefaultProps = {
@@ -58,9 +62,11 @@ class Zoomable extends React.Component<Props, State> {
             return {
                 // $FlowFixMe[incompatible-use]
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
                 width: firstChild.offsetWidth,
                 // $FlowFixMe[incompatible-use]
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
                 height: firstChild.offsetHeight,
             };
         },
@@ -124,6 +130,7 @@ class Zoomable extends React.Component<Props, State> {
 
         if (this._isMounted && shouldInitialize) {
             this._measuringInitialized = true;
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element | Text | null' is not assignable to type 'HTMLElement'.
             this._node = ReactDOM.findDOMNode(this);
 
             // We call measureAndScaleChildToFit asynchronously so that the browser
@@ -276,6 +283,7 @@ class Zoomable extends React.Component<Props, State> {
                 onTouchCancelCapture={this.stopPropagationIfZoomed}
                 onTouchEndCapture={this.stopPropagationIfZoomed}
                 onTouchStartCapture={this.stopPropagationIfZoomed}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ readonly transitionProperty: string; readonly transitionDuration: string; readonly transitionTimingFunction: string; readonly display: "block"; readonly width: "100%"; readonly height: number | ... 1 more ... | undefined; readonly transform: string; readonly transformOrigin: "0 0"; readonly opacity: 0 | 1; readonl...' is not assignable to type 'CSSProperties | undefined'.
                 style={style}
             >
                 {this.props.children}

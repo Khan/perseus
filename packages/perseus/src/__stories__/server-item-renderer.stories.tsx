@@ -4,6 +4,7 @@ import {ServerItemRendererWithDebugUI} from '../../../../testing/server-item-ren
 import {
     itemWithInput,
     labelImageItem,
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/item-renderer_testdata' or its corresponding type declarations.
 } from '../__testdata__/item-renderer_testdata';
 
 type StoryArgs = Record<any, any>;

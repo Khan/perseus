@@ -37,6 +37,7 @@ class PassageEditor extends React.Component<Props> {
 
     render(): React.ReactElement {
         const passageEditor = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="passage-editor"
@@ -45,12 +46,14 @@ class PassageEditor extends React.Component<Props> {
                 widgetEnabled={false}
                 placeholder="Type passage here..."
                 onChange={(newProps) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                     this.change({passageText: newProps.content});
                 }}
                 showWordCount={true}
             />
         );
         const footnotesEditor = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="passage-footnotes-editor"
@@ -59,6 +62,7 @@ class PassageEditor extends React.Component<Props> {
                 widgetEnabled={false}
                 placeholder="Type footnotes here..."
                 onChange={(newProps) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                     this.change({footnotes: newProps.content});
                 }}
             />
@@ -75,6 +79,7 @@ class PassageEditor extends React.Component<Props> {
                 </div>
                 <div>
                     Passage title:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             An optional title that will appear directly above
@@ -86,6 +91,7 @@ class PassageEditor extends React.Component<Props> {
                             type="text"
                             defaultValue={this.props.passageTitle}
                             onChange={(e) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                                 this.change({passageTitle: e.target.value});
                             }}
                         />
@@ -97,6 +103,7 @@ class PassageEditor extends React.Component<Props> {
                 </div>
                 <div>
                     Footnotes:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             To add footnotes, add ^ characters where they belong

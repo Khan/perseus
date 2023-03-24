@@ -89,6 +89,7 @@ function intersects(ab: Line, cd: Line): boolean {
     ];
 
     const orientations = _.map(triplets, function (triplet) {
+// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         return sign(ccw(...triplet));
     });
 
@@ -100,6 +101,7 @@ function intersects(ab: Line, cd: Line): boolean {
     }
 
     for (let i = 0; i < 4; i++) {
+// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         if (orientations[i] === 0 && pointInRect(...triplets[i])) {
             return true;
         }
@@ -119,6 +121,7 @@ function magnitude(v: ReadonlyArray<Coord>): number {
         _.reduce(
             v,
             function (memo, el) {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Coord' is not assignable to parameter of type 'number'.
                 return memo + Math.pow(el, 2);
             },
             0,
@@ -139,6 +142,7 @@ function dotProduct(a: Coord, b: Coord): number {
 function sideLengths(coords: ReadonlyArray<Coord>): ReadonlyArray<number> {
     const segments = _.zip(coords, rotate(coords));
     return segments.map(function (segment) {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         return magnitude(vector(...segment));
     });
 }
@@ -150,7 +154,9 @@ function angleMeasures(coords: ReadonlyArray<Coord>): ReadonlyArray<number> {
     const offsets = _.map(triplets, function (triplet) {
         const p = vector(triplet[1], triplet[0]);
         const q = vector(triplet[2], triplet[1]);
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'Coord'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
         const raw = Math.acos(dotProduct(p, q) / (magnitude(p) * magnitude(q)));
+// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         return sign(ccw(...triplet)) > 0 ? raw : -raw;
     });
 
@@ -195,10 +201,13 @@ function similar(
             sides.reverse();
             // Since sides are calculated from two coordinates,
             // simply reversing results in an off by one error
+// @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
             sides = rotate(sides, 1);
         }
 
+// @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
         angles = rotate(angles, i);
+// @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
         sides = rotate(sides, i);
 
         if (deepEq(angles1, angles)) {
@@ -330,6 +339,7 @@ const deprecatedProps = {
 const _getShouldShowInstructions: (arg1: Props) => boolean = (props) => {
     return (
         _isClickToAddPoints(props) &&
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
         (props.graph.coords == null || props.graph.coords.length === 0)
     );
 };
@@ -379,8 +389,10 @@ class InteractiveGraph extends React.Component<Props, State> {
     pointB: any | null | undefined;
     pointC: any | null | undefined;
     // eslint-disable-next-line ft-flow/no-mutable-array
+// @ts-expect-error [FEI-5003] - TS2564 - Property 'points' has no initializer and is not definitely assigned in the constructor.
     points: Array<any>;
     polygon: any | null | undefined;
+// @ts-expect-error [FEI-5003] - TS2564 - Property 'shouldResetGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldResetGraphie: boolean;
     sinusoid: any | null | undefined;
     trashCan: any | null | undefined;
@@ -394,6 +406,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         ],
         step: [1, 1],
         // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2739 - Type '{ readonly url: null; }' is missing the following properties from type 'PerseusImageBackground': width, height
         backgroundImage: defaultBackgroundImage,
         markings: "graph",
         showTooltips: false,
@@ -417,6 +430,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     componentDidMount() {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
         this.setGraphie(this.refs.graph.graphie());
     }
 
@@ -474,6 +488,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         props = props || this.props;
         return (
             this.isClickToAddPoints(props) &&
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             (props.graph.coords == null || props.graph.coords.length === 0)
         );
     };
@@ -544,6 +559,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         this.parabola = null;
         this.sinusoid = null;
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'reset' does not exist on type 'ReactInstance'.
         this.refs.graph.reset();
     };
 
@@ -667,6 +683,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         ["stroke-width"]?: number
     } = () => {
         // This should probably use: this.props.apiOptions.isMobile
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'isMobile' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'.
         return this.props.isMobile ? {"stroke-width": 3} : {};
     };
 
@@ -683,8 +700,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                 coord: coord,
                 constraints: [
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.bound(),
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.snap(),
                 ],
                 onMove: () => {
@@ -708,8 +727,10 @@ class InteractiveGraph extends React.Component<Props, State> {
         } as const;
 
         if (type === "line") {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'extendLine' does not exist on type '{ readonly points: any[]; readonly static: true; readonly normalStyle: { readonly "stroke-width"?: number | undefined; readonly stroke: "#71B307" | "#63D9EA"; }; }'.
             lineConfig.extendLine = true;
         } else if (type === "ray") {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'extendRay' does not exist on type '{ readonly points: any[]; readonly static: true; readonly normalStyle: { readonly "stroke-width"?: number | undefined; readonly stroke: "#71B307" | "#63D9EA"; }; }'.
             lineConfig.extendRay = true;
         }
 
@@ -750,6 +771,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         const onMoveHandler = () => {
             const graph = _.extend({}, this.props.graph, {
                 // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2531 - Object is possibly 'null'. | TS2531 - Object is possibly 'null'.
                 coords: [pointA.coord(), pointB.coord(), pointC.coord()],
             });
             this.onChange({graph});
@@ -764,15 +786,19 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coords[0],
             constraints: [
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord) => {
                     return (
                         !pointA ||
                         // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                         (coord[0] !== pointB.coord()[0] &&
                             // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointC.coord()[0])
                     );
                 },
@@ -788,15 +814,19 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coords[1],
             constraints: [
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return (
                         !pointB ||
                         // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                         (coord[0] !== pointA.coord()[0] &&
                             // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointC.coord()[0])
                     );
                 },
@@ -812,15 +842,19 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coords[2],
             constraints: [
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return (
                         !pointC ||
                         // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                         (coord[0] !== pointA.coord()[0] &&
                             // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointB.coord()[0])
                     );
                 },
@@ -882,6 +916,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         const onMoveHandler = () => {
             const graph = _.extend({}, this.props.graph, {
                 // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                 coords: [pointA.coord(), pointB.coord()],
             });
             this.onChange({graph: graph});
@@ -896,8 +931,10 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coords[0],
             constraints: [
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return !pointA || coord[0] !== pointB.coord()[0];
@@ -912,10 +949,13 @@ class InteractiveGraph extends React.Component<Props, State> {
                 coord: coords[1],
                 constraints: [
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.bound(),
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.snap(),
                     (coord: any) => {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'coord' does not exist on type 'never'.
                         return !pointA || coord[0] !== pointA.coord()[0];
                     },
                 ],
@@ -969,7 +1009,9 @@ class InteractiveGraph extends React.Component<Props, State> {
         const minSnap = _.min(graphie.snap);
 
         const circle = (this.circle = graphie?.addCircleGraph({
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'.
             center: this.props.graph.center || [0, 0],
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
             radius: this.props.graph.radius || _.min(this.props.step),
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
@@ -1016,8 +1058,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                             coord: coord,
                             constraints: [
                                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.bound(),
                                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.snap(),
                                 (coord) => {
                                     const otherSegment = segmentPoints[1 - i];
@@ -1067,6 +1111,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     };
 
     removeLinearSystemControls: () => void = () => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly (readonly Coord[])[] | null | undefined' is not assignable to parameter of type 'Collection<any>'.
         _.invoke(this.lines, "remove");
         _.map(this.points, (segment) => _.invoke(segment, "remove"));
     };
@@ -1101,6 +1146,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             // said point's onMoveEnd method so its state is
             // consistent throughout this method call
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
             setTimeout(point.remove.bind(point), 0); // eslint-disable-line no-restricted-syntax
         };
 
@@ -1112,8 +1158,10 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coord,
             constraints: [
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 function (coord) {
                     // TODO(jack): There ought to be a
@@ -1153,6 +1201,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         let index = null;
         this.points = _.filter(this.points, function (pt, i) {
             if (pt === point) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
                 index = i;
                 return false;
             }
@@ -1185,6 +1234,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             const index = this.removePoint(point);
             if (this.polygon?.closed()) {
                 // We should be checking if this.points is defined before rotating them.
+// @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly any[]' is 'readonly' and cannot be assigned to the mutable type 'any[]'. | TS2345 - Argument of type 'number | null | undefined' is not assignable to parameter of type 'number | undefined'.
                 this.points = rotate(this.points, index);
                 this.polygon?.update({closed: false});
             }
@@ -1352,6 +1402,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
                         for (let k = 0; k < others.length; k++) {
                             const other = others[k];
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Line'.
                             if (intersects(segment, other)) {
                                 return false;
                             }
@@ -1361,6 +1412,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             }
 
             if (
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'snapTo' does not exist on type 'PerseusGraphType'.
                 this.props.graph.snapTo === "angles" &&
                 this.points.length > 2
             ) {
@@ -1399,6 +1451,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 }
 
                 const knownSide = magnitude(
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
                     vector(coords[rel(-1)], coords[rel(1)]),
                 );
 
@@ -1423,6 +1476,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
                 return this.graphie?.addPoints(coords[rel(-1)], offset);
             }
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'snapTo' does not exist on type 'PerseusGraphType'.
             if (this.props.graph.snapTo === "sides" && this.points.length > 1) {
                 // Snap to whole unit side measures
 
@@ -1433,6 +1487,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                         [coords[rel(-1)], coords[rel(1)]],
                     ],
                     function (coords) {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                         return magnitude(vector(...coords));
                     },
                 );
@@ -1476,9 +1531,11 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coord,
             constraints: [
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
                 snapToGrid
                     ? // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                       Interactive2.MovablePoint.constraints.snap()
                     : null,
                 graphConstraint,
@@ -1579,6 +1636,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             function (segment, i) {
                 const updateCoordProps = function () {
                     const graph = _.extend({}, self.props.graph, {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly (readonly Coord[])[] | null | undefined' is not assignable to parameter of type 'Collection<any>'.
                         coords: _.invoke(self.lines, "coords"),
                     });
                     self.onChange({graph: graph});
@@ -1597,8 +1655,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                             coord: coord,
                             constraints: [
                                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.bound(),
                                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.snap(),
                                 (coord: any) => {
                                     const otherPoint = points[1 - i];
@@ -1627,25 +1687,32 @@ class InteractiveGraph extends React.Component<Props, State> {
                     static: false,
                     constraints: [
                         // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.constraints.bound(),
                         // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.constraints.snap(),
                     ],
                     onMove: [
                         // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'onMove' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.onMove.updatePoints,
                         updateCoordProps,
                     ],
                     normalStyle: {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         stroke: this.props.apiOptions.isMobile
                             ? KhanColors.BLUE_C
                             : KhanColors.INTERACTIVE,
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         ...this._lineStroke(),
                     },
                     highlightStyle: {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         stroke: this.props.apiOptions.isMobile
                             ? KhanColors.BLUE_C
                             : KhanColors.INTERACTING,
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         ...this._lineStroke(),
                     },
                 });
@@ -1659,6 +1726,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     removeSegmentControls: () => void = () => {
         _.invoke(this.points, "remove");
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly (readonly Coord[])[] | null | undefined' is not assignable to parameter of type 'Collection<any>'.
         _.invoke(this.lines, "remove");
     };
 
@@ -1712,11 +1780,13 @@ class InteractiveGraph extends React.Component<Props, State> {
             n,
             function (i) {
                 if (
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     !this.props.graph.showAngles ||
                     (!closed && (i === 0 || i === n - 1))
                 ) {
                     return "";
                 }
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (this.props.graph.snapTo === "angles") {
                     return "$deg0";
                 }
@@ -1737,6 +1807,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             n,
             function (i) {
                 if (
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     this.props.graph.showAngles &&
                     (closed || (i !== 0 && i !== n - 1))
                 ) {
@@ -1750,9 +1821,11 @@ class InteractiveGraph extends React.Component<Props, State> {
         const sideLabels = _.times(
             n,
             function (i) {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (!this.props.graph.showSides || (!closed && i === n - 1)) {
                     return "";
                 }
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (this.props.graph.snapTo === "sides") {
                     return "$len0";
                 }
@@ -1766,9 +1839,11 @@ class InteractiveGraph extends React.Component<Props, State> {
             self.polygon = Interactive2.addMovablePolygon(graphie, {
                 constraints: [
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => undefined'.
                     Interactive2.MovablePolygon.constraints.bound(),
                     snapToGrid
                         ? // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => undefined'.
                           Interactive2.MovablePolygon.constraints.snap()
                         : null,
                 ],
@@ -1780,8 +1855,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                 sideLabels: sideLabels,
                 onMove: [
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'onMove' does not exist on type '(graphie: any, movable: any, options: any) => undefined'.
                     Interactive2.MovablePolygon.onMove.updatePoints,
                     function () {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         if (this.closed()) {
                             self.updateCoordsFromPoints();
                         }
@@ -1936,6 +2013,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     height: box[1],
                 }}
             >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Graph' cannot be used as a JSX component. */}
                 <Graph
                     instructions={instructions}
                     // eslint-disable-next-line react/no-string-refs
@@ -1978,6 +2056,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
         if (denom === 0) {
             // Many of the callers assume that the return value is always defined.
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'undefined' is not assignable to type 'QuadraticCoefficient'.
             return;
         }
         const a =
@@ -2019,6 +2098,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getLineCoords(graph: PerseusGraphType, props: Props): ReadonlyArray<Coord> {
         return (
             // $FlowFixMe[incompatible-return]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
             InteractiveGraph.pointsFromNormalized(props, [
                 [0.25, 0.75],
@@ -2093,6 +2173,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             [-10, 10],
             [-10, 10],
         ];
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
         const newCoords = InteractiveGraph.normalizeCoords(coords, range);
 
         return InteractiveGraph.pointsFromNormalized(props, newCoords);
@@ -2106,6 +2187,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         return (
             // The callers assume that we're return an array of points
             // $FlowFixMe[incompatible-return]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
             _.map(
                 [
@@ -2119,6 +2201,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     ],
                 ],
                 (coords) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
                     return InteractiveGraph.pointsFromNormalized(props, coords);
                 },
             )
@@ -2188,6 +2271,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         }
 
         const n = graph.numSegments || 1;
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number[] | undefined' is not assignable to type 'readonly number[]'.
         const ys: ReadonlyArray<number> = {
             // $FlowFixMe[unsupported-syntax]
             1: [5],
@@ -2207,12 +2291,15 @@ class InteractiveGraph extends React.Component<Props, State> {
             [-10, 10],
         ];
 
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number[][][]' is not assignable to type 'readonly (readonly Coord[])[]'.
         return ys.map(function (y) {
             let segment = [
                 [-5, y],
                 [5, y],
             ];
+// @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly Coord[]' is 'readonly' and cannot be assigned to the mutable type 'number[][]'. | TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
             segment = InteractiveGraph.normalizeCoords(segment, range);
+// @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly Coord[]' is 'readonly' and cannot be assigned to the mutable type 'number[][]'. | TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
             segment = InteractiveGraph.pointsFromNormalized(props, segment);
             return segment;
         });
@@ -2241,15 +2328,18 @@ class InteractiveGraph extends React.Component<Props, State> {
             [0.5, 0.5],
         ]);
 
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         const radius = magnitude(vector(...coords));
 
         // Adjust the lower point by angleOffsetDeg degrees
+// @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly Coord[]' only permits reading.
         coords[0] = [
             coords[1][0] + radius * Math.cos(offset),
             coords[1][1] + radius * Math.sin(offset),
         ];
         // Position the upper point angle radians from the
         // lower point
+// @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly Coord[]' only permits reading.
         coords[2] = [
             coords[1][0] + radius * Math.cos(angle + offset),
             coords[1][1] + radius * Math.sin(angle + offset),
@@ -2259,6 +2349,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static normalizeCoords(coordsList: ReadonlyArray<Coord>, ranges: [Range, Range]): ReadonlyArray<Coord> {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
         return _.map(coordsList, function (coords) {
             return _.map(coords, function (coord, i) {
                 const extent = ranges[i][1] - ranges[i][0];
@@ -2274,6 +2365,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static pointsFromNormalized(props: Props, coordsList: ReadonlyArray<Coord>, noSnap?: boolean): ReadonlyArray<Coord> {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
         return _.map(coordsList, function (coords) {
             return _.map(coords, function (coord, i) {
                 const range: Range = props.range[i];
@@ -2304,6 +2396,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getCurrentQuadraticCoefficients(props: Props): QuadraticCoefficient {
         // TODO(alpert): Don't duplicate
         const coords =
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.graph.coords ||
             InteractiveGraph.defaultQuadraticCoords(props);
         return InteractiveGraph.getQuadraticCoefficients(coords);
@@ -2315,6 +2408,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             [0.5, 0.25],
             [0.75, 0.75],
         ];
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
         return InteractiveGraph.pointsFromNormalized(props, coords);
     }
 
@@ -2332,6 +2426,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getCurrentSinusoidCoefficients(props: Props): SineCoefficient {
         const coords =
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             props.graph.coords || InteractiveGraph.defaultSinusoidCoords(props);
         return InteractiveGraph.getSinusoidCoefficients(coords);
     }
@@ -2341,6 +2436,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             [0.5, 0.5],
             [0.65, 0.6],
         ];
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
         return InteractiveGraph.pointsFromNormalized(props, coords);
     }
 
@@ -2361,7 +2457,9 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getCircleEquationString(props: Props): string {
         const graph = props.graph;
         // TODO(alpert): Don't duplicate
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'.
         const center = graph.center || [0, 0];
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
         const radius = graph.radius || 2;
         return (
             "center (" + center[0] + ", " + center[1] + "), radius " + radius
@@ -2472,6 +2570,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         // When nothing has moved, there will neither be coords nor the
         // circle's center/radius fields. When those fields are absent, skip
         // all these checks; just go mark the answer as empty.
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'center' does not exist on type 'PerseusGraphType'. | TS2339 - Property 'radius' does not exist on type 'PerseusGraphType'.
         const hasValue = !!(state.coords || (state.center && state.radius));
 
         if (state.type === rubric.correct.type && hasValue) {
@@ -2487,7 +2586,9 @@ class InteractiveGraph extends React.Component<Props, State> {
                 // correct.
                 if (
                     // $FlowFixMe[incompatible-use] - Fix type so coords can't be omitted
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[0], correct[1], guess[0]) &&
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[0], correct[1], guess[1])
                 ) {
                     return {
@@ -2532,6 +2633,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 const correctCoeffs = this.getQuadraticCoefficients(
                     // $FlowFixMe[incompatible-call]
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
                 );
                 if (deepEq(guessCoeffs, correctCoeffs)) {
@@ -2551,6 +2653,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 const correctCoeffs = this.getSinusoidCoefficients(
                     // $FlowFixMe[incompatible-call]
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
                 );
 
@@ -2599,6 +2702,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 // eq() anyway. The sort should be fine because it'll stringify
                 // it and -0 converted to a string is "0"
                 guess?.sort();
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'sort' does not exist on type 'readonly Coord[]'.
                 correct.sort();
                 if (deepEq(guess, correct)) {
                     return {
@@ -2614,6 +2718,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 state.coords != null
             ) {
                 const guess: Array<Coord> = state.coords?.slice(); // eslint-disable-line ft-flow/no-mutable-array
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Coord[] | undefined' is not assignable to type 'Coord[]'.
                 const correct: Array<Coord> = rubric.correct.coords?.slice(); // eslint-disable-line ft-flow/no-mutable-array
 
                 let match;
@@ -2646,6 +2751,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 let guess = state.coords.slice();
                 let correct = rubric.correct.coords?.slice();
                 guess = _.invoke(guess, "sort").sort();
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(readonly Coord[])[] | undefined' is not assignable to parameter of type 'Collection<any>'.
                 correct = _.invoke(correct, "sort").sort();
                 if (deepEq(guess, correct)) {
                     return {
@@ -2664,8 +2770,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                 const correct = rubric.correct.coords;
                 if (
                     // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                     deepEq(guess[0], correct[0]) &&
                     // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[0], correct[1], guess[1])
                 ) {
                     return {
@@ -2686,21 +2794,28 @@ class InteractiveGraph extends React.Component<Props, State> {
                 if (rubric.correct.match === "congruent") {
                     const angles = _.map([guess, correct], function (coords) {
                         const angle = GraphUtils.findAngle(
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                             coords[2],
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                             coords[0],
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                             coords[1],
                         );
                         return (angle + 360) % 360;
                     });
+// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                     match = eq(...angles);
                 } else {
                     /* exact */
                     match =
                         // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                         deepEq(guess[1], correct[1]) &&
                         // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                         collinear(correct[1], correct[0], guess[0]) &&
                         // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                         collinear(correct[1], correct[2], guess[2]);
                 }
 

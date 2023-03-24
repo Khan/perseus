@@ -4,6 +4,7 @@ import {RendererWithDebugUI} from '../../../../../testing/renderer-with-debug-ui
 import {
     expressionItem2,
     expressionItem3,
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/expression_testdata' or its corresponding type declarations.
 } from '../__testdata__/expression_testdata';
 
 type StoryArgs = Record<any, any>;

@@ -10,6 +10,7 @@ import SideBySide from './side-by-side';
 
 import type {PerseusItem} from '../packages/perseus/src/perseus-types';
 import type {APIOptions, KEScore} from '../packages/perseus/src/types';
+// @ts-expect-error [FEI-5003] - TS2305 - Module '"react"' has no exported member 'AbstractComponent'.
 import type {AbstractComponent} from "react";
 
 // Jump through the Flow hoops to get at the underlying type that our ref will
@@ -43,20 +44,26 @@ export const ServerItemRendererWithDebugUI: React.FC<Props> = (
                         apiOptions={options}
                         item={item}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                     <View style={{flexDirection: "row", alignItems: "center"}}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
                                 if (!ref.current) {
                                     return;
                                 }
+// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
                                 setState(ref.current.scoreInput());
                             }}
                         >
                             Check
                         </Button>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Strut' cannot be used as a JSX component. */}
                         <Strut size={8} />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
+// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
                                 ref.current?.showRationalesForCurrentlySelectedChoices();
                             }}
                         >

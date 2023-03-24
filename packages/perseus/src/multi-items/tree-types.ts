@@ -23,8 +23,10 @@
 
 // TODO(jeremy): We lost "arrayness" in D69450. It'd be nice to restore that
 // because right now ArrayNode doesn't add anything.
+// @ts-expect-error [FEI-5003] - TS2456 - Type alias 'ArrayNode' circularly references itself. | TS2315 - Type 'Tree' is not generic.
 export type ArrayNode<C, H, T> = Tree<C, H, T>;
 export type ObjectNode<C, H, T> = {
+// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
  [k: string]: Tree<C, H, T>
 };
 
@@ -35,4 +37,5 @@ export type ObjectNode<C, H, T> = {
  * in order to ensure that flow can track its refinement and appropriate use.
  * It's messy.
  */
+// @ts-expect-error [FEI-5003] - TS2456 - Type alias 'Tree' circularly references itself. | TS2315 - Type 'ArrayNode' is not generic.
 export type Tree<C, H, T> = C | H | T | ArrayNode<C, H, T> | ObjectNode<C, H, T>;

@@ -1,3 +1,4 @@
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
 import {Flow} from 'flow-to-typescript-codemod';
 
 import * as React from "react";
@@ -23,6 +24,7 @@ const HarnassedButtonGroup = (
     const [value, updateValue] = React.useState((null as string | null | undefined));
 
     return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component.
         <ButtonGroup
             {...props}
             value={value}

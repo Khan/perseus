@@ -37,6 +37,7 @@ class GroupEditor extends React.Component<Props> {
                     khanacademy.org */}
                     {this._renderMetadataEditor()}
                 </div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                 <Editor
                     // eslint-disable-next-line react/no-string-refs
                     ref="editor"
@@ -57,6 +58,7 @@ class GroupEditor extends React.Component<Props> {
         return (
             <GroupMetadataEditor
                 value={this.props.metadata}
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                 onChange={this.change("metadata")}
             />
         );
@@ -68,11 +70,13 @@ class GroupEditor extends React.Component<Props> {
 
     getSaveWarnings: () => ReadonlyArray<any> = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         return this.refs.editor.getSaveWarnings();
     };
 
     serialize: () => any = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return _.extend({}, this.refs.editor.serialize(), {
             metadata: this.props.metadata,
         });

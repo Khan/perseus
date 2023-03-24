@@ -171,6 +171,7 @@ class ToolSettings extends React.Component<any> {
                     />
                 )}
                 {this.props.settings.enabled && (
+// @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component.
                     <InfoTip>
                         'Required' will only grade the answer as correct if the
                         student has used at least one such transformation.
@@ -184,6 +185,7 @@ class ToolSettings extends React.Component<any> {
                     />
                 )}
                 {this.props.allowFixed && this.props.settings.enabled && (
+// @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component.
                     <InfoTip>
                         Enable 'fixed' to prevent the student from repositioning
                         the tool. The tool will appear in the position at which
@@ -227,6 +229,7 @@ class TransformationExplorerSettings extends React.Component<any> {
                             Formal without movement{" "}
                         </option>
                     </select>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <ul>
                             <li>
@@ -247,22 +250,26 @@ class TransformationExplorerSettings extends React.Component<any> {
                         </ul>
                     </InfoTip>
                 </div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolSettings' cannot be used as a JSX component. */}
                 <ToolSettings
                     name="Translations"
                     settings={this.props.tools.translation}
                     allowFixed={false}
                     onChange={this.changeHandlerFor("translation")}
                 />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolSettings' cannot be used as a JSX component. */}
                 <ToolSettings
                     name="Rotations"
                     settings={this.props.tools.rotation}
                     onChange={this.changeHandlerFor("rotation")}
                 />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolSettings' cannot be used as a JSX component. */}
                 <ToolSettings
                     name="Reflections"
                     settings={this.props.tools.reflection}
                     onChange={this.changeHandlerFor("reflection")}
                 />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ToolSettings' cannot be used as a JSX component. */}
                 <ToolSettings
                     name="Dilations"
                     settings={this.props.tools.dilation}
@@ -652,6 +659,7 @@ const ShapeTypes: any = {
                 const coord0 = points[0].coord || points[0];
                 const coord1 = points[1].coord || points[1];
                 const radius = kpoint.distanceToPoint(coord0, coord1);
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
                 perimeter.remove();
                 perimeter = graphie.circle(
                     coord0,
@@ -676,6 +684,7 @@ const ShapeTypes: any = {
                 remove: function () {
                     // Not _.bind because the remove function changes
                     // when the perimeter is redrawn
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
                     perimeter.remove();
                 },
             };
@@ -724,8 +733,10 @@ const ShapeTypes: any = {
             const line2_2 = [points2[1], points2[2]];
 
             const equalUnflipped =
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Ray'. | TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Ray'.
                 kray.equal(line1_0, line2_0) && kray.equal(line1_2, line2_2);
             const equalFlipped =
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Ray'. | TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Ray'.
                 kray.equal(line1_0, line2_2) && kray.equal(line1_2, line2_0);
 
             return equalUnflipped || equalFlipped;
@@ -756,6 +767,7 @@ class TransformationsShapeEditor extends React.Component<any> {
     render(): React.ReactElement {
         return (
             <div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Graph' cannot be used as a JSX component. */}
                 <Graph
                     // eslint-disable-next-line react/no-string-refs
                     ref="graph"
@@ -813,6 +825,7 @@ class TransformationsShapeEditor extends React.Component<any> {
         );
 
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'props' does not exist on type 'ReactInstance'.
         const radius = scaleToRange(4, this.refs.graph.props.range);
         const offset = (1 / 2 - 1 / pointCount) * 180;
         const coords = _.times(pointCount, function (i) {
@@ -833,12 +846,14 @@ class TransformationsShapeEditor extends React.Component<any> {
 
     componentDidMount() {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
         this.setupGraphie(this.refs.graph.graphie());
     }
 
     componentDidUpdate(prevProps) {
         if (!deepEq(prevProps.shape, this.props.shape)) {
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'reset' does not exist on type 'ReactInstance'.
             this.refs.graph.reset();
         }
     }
@@ -846,11 +861,13 @@ class TransformationsShapeEditor extends React.Component<any> {
     updateCoords = () => {
         this.props.onChange({
             // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'shape' does not exist on type 'TransformationsShapeEditor'.
             shape: this.shape.toJSON(),
         });
     };
 
     setupGraphie = (graphie: any) => {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'shape' does not exist on type 'TransformationsShapeEditor'.
         this.shape = ShapeTypes.addMovableShape(graphie, {
             editable: true,
             snap: graphie.snap,
@@ -884,6 +901,7 @@ class TransformerEditor extends React.Component<any> {
                         gradeEmpty={this.props.gradeEmpty}
                         onChange={this.props.onChange}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             We generally do not grade empty answers. This
@@ -913,6 +931,7 @@ class TransformerEditor extends React.Component<any> {
                     onChange={this.changeGraph}
                 />
                 <div>Transformation settings:</div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TransformationExplorerSettings' cannot be used as a JSX component. */}
                 <TransformationExplorerSettings
                     // eslint-disable-next-line react/no-string-refs
                     ref="transformationSettings"
@@ -923,6 +942,7 @@ class TransformerEditor extends React.Component<any> {
                     onChange={this.props.onChange}
                 />
                 <div>Starting location:</div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TransformationsShapeEditor' cannot be used as a JSX component. */}
                 <TransformationsShapeEditor
                     // eslint-disable-next-line react/no-string-refs
                     ref="shapeEditor"
@@ -934,6 +954,7 @@ class TransformerEditor extends React.Component<any> {
                     }
                 />
                 <div>Solution transformations:</div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Transformer' cannot be used as a JSX component. */}
                 <Transformer
                     // eslint-disable-next-line react/no-string-refs
                     ref="explorer"
@@ -994,6 +1015,7 @@ class TransformerEditor extends React.Component<any> {
 
     serialize: () => any = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getEditorJSON' does not exist on type 'ReactInstance'.
         const json = this.refs.explorer.getEditorJSON();
         json.correct = json.answer;
         delete json.answer;

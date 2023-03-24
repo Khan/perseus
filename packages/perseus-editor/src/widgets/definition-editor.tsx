@@ -44,14 +44,17 @@ class DefinitionEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <label>
                         Word to be defined:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                         <TextInput
                             value={this.props.togglePrompt}
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("togglePrompt")}
                             placeholder="define me"
                         />
                     </label>
                 </div>
                 <div className="perseus-widget-row">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                     <Editor
                         apiOptions={this.props.apiOptions}
                         content={this.props.definition}
@@ -62,6 +65,7 @@ class DefinitionEditor extends React.Component<Props> {
                             if (_.has(props, "content")) {
                                 newProps.definition = props.content;
                             }
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             this.change(newProps);
                         }}
                     />

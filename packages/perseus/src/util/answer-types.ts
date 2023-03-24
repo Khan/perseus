@@ -302,7 +302,9 @@ const KhanAnswerTypes = {
                     ) {
                         possibilities = [
                             {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
                                 value: parseFloat(match[1] + "1"),
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean' is not assignable to type 'never'.
                                 exact: true,
                             },
                         ];
@@ -313,6 +315,7 @@ const KhanAnswerTypes = {
                             /^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
                         ))
                     ) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = fractionTransformer(match[1]);
 
                         // 4 5 / 6 pi
@@ -330,7 +333,9 @@ const KhanAnswerTypes = {
 
                         possibilities = [
                             {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
                                 value: sign * (integ + num / denom),
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean' is not assignable to type 'never'.
                                 exact: simplified,
                             },
                         ];
@@ -341,6 +346,7 @@ const KhanAnswerTypes = {
                             /^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i,
                         ))
                     ) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = fractionTransformer(
                             match[1] + "/" + match[3],
                         );
@@ -351,12 +357,14 @@ const KhanAnswerTypes = {
                             /^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i,
                         ))
                     ) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = fractionTransformer(
                             match[1] + "1/" + match[3],
                         );
 
                         // 0
                     } else if (text === "0") {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'. | TS2322 - Type 'boolean' is not assignable to type 'never'.
                         possibilities = [{value: 0, exact: true}];
 
                         // 0.5 pi (fallback)
@@ -365,6 +373,7 @@ const KhanAnswerTypes = {
                             /^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
                         ))
                     ) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number | undefined; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = forms.decimal(match[1]);
                     } else {
                         possibilities = _.reduce(
@@ -400,6 +409,7 @@ const KhanAnswerTypes = {
                         }
                         if (approximatesPi) {
                             _.each(possibilities, function (possibility) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'piApprox' does not exist on type 'never'.
                                 possibility.piApprox = true;
                             });
                         }
@@ -418,6 +428,7 @@ const KhanAnswerTypes = {
                     }
 
                     $.each(possibilities, function (ix, possibility) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'never'.
                         possibility.value *= multiplier;
                     });
                     return possibilities;
@@ -452,8 +463,10 @@ const KhanAnswerTypes = {
                     text = text.replace(/[ \(\)]/g, "");
 
                     if ((match = text.match(/^log\s*(\S+)\s*$/i))) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number | undefined; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = forms.decimal(match[1]);
                     } else if (text === "0") {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'. | TS2322 - Type 'boolean' is not assignable to type 'never'.
                         possibilities = [{value: 0, exact: true}];
                     }
                     return possibilities;
@@ -473,6 +486,7 @@ const KhanAnswerTypes = {
                     const transformed = forms.decimal(text);
                     $.each(transformed, function (ix, t) {
                         t.exact = hasPercentSign;
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                         t.value = t.value / 100;
                     });
                     return transformed;
@@ -660,6 +674,7 @@ const KhanAnswerTypes = {
         },
         createValidatorFunctional: function(correctAnswer: string, options: any): (arg1: Guess) => Score {
             return KhanAnswerTypes.predicate.createValidatorFunctional(
+// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                 ...KhanAnswerTypes.number.convertToPredicate(
                     correctAnswer,
                     options,
@@ -720,6 +735,7 @@ const KhanAnswerTypes = {
      */
     expression: {
         parseSolution: function(solutionString: string, options: any): any {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             let solution = KAS.parse(solutionString, options);
             if (!solution.parsed) {
                 throw new PerseusError(
@@ -760,14 +776,17 @@ const KhanAnswerTypes = {
 
                 // Don't bother parsing an empty input
                 if (!guess) {
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'empty' because it is a read-only property.
                     score.empty = true;
                     return score;
                 }
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 const answer = KAS.parse(guess, options);
 
                 // An unsuccessful parse doesn't count as wrong
                 if (!answer.parsed) {
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'empty' because it is a read-only property.
                     score.empty = true;
                     return score;
                 }
@@ -781,10 +800,12 @@ const KhanAnswerTypes = {
                     );
                 }
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 const result = KAS.compare(answer.expr, solution, options);
 
                 if (result.equal) {
                     // Correct answer
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'correct' because it is a read-only property.
                     score.correct = true;
                 } else if (
                     result.wrongVariableNames ||
@@ -795,16 +816,20 @@ const KhanAnswerTypes = {
                     // TODO(aasmund): This should ideally have been handled
                     // under the `result.message` condition, but the
                     // KAS messages currently aren't translatable.
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'ungraded' because it is a read-only property.
                     score.ungraded = true;
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'message' because it is a read-only property.
                     score.message = result.wrongVariableCase
                         ? errors.WRONG_CASE_ERROR
                         : errors.WRONG_LETTER_ERROR;
                     // Don't tell the use they're "almost there" in this case, that may not be true and isn't helpful.
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'suppressAlmostThere' does not exist on type '{ readonly empty: false; readonly correct: false; readonly message: string | null | undefined; readonly guess: any; readonly ungraded: false; }'.
                     score.suppressAlmostThere = true;
                 } else if (result.message) {
                     // Nearly correct answer
                     // TODO(aasmund): This message also isn't translatable;
                     // need to fix that in KAS
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'message' because it is a read-only property.
                     score.message = result.message;
                 } else {
                     // Replace x with * and see if it would have been correct
@@ -815,21 +840,26 @@ const KhanAnswerTypes = {
                     // which is handled by another branch. When we implement a
                     // more sophisticated variable check, revive this or
                     // remove it completely if it will never come into play.
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                     const answerX = KAS.parse(
                         guess.replace(/[xX]/g, "*"),
                         options,
                     );
                     if (answerX.parsed) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                         const resultX = KAS.compare(
                             answerX.expr,
                             solution,
                             options,
                         );
                         if (resultX.equal) {
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'ungraded' because it is a read-only property.
                             score.ungraded = true;
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'message' because it is a read-only property.
                             score.message = errors.MULTIPLICATION_SIGN_ERROR;
                         } else if (resultX.message) {
                             // TODO(aasmund): I18nize `score.message`
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'message' because it is a read-only property.
                             score.message =
                                 resultX.message +
                                 " Also, I'm a computer. I only understand " +

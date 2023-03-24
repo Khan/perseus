@@ -24,8 +24,10 @@ const computeMathBounds = (parentNode: HTMLElement, parentBounds: Bounds) => {
         parentNode.querySelector(".MathJax");
     const textBounds = {
         // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
         width: textElement.offsetWidth,
         // $FlowFixMe[incompatible-use]
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
         height: textElement.offsetHeight,
     } as const;
 
@@ -41,6 +43,7 @@ const computeMathBounds = (parentNode: HTMLElement, parentBounds: Bounds) => {
 
 export default class ZoomableTeX extends React.Component<Props, State> {
     constructor() {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 1-2 arguments, but got 0.
         super();
 
         this.state = {isRendered: false};
@@ -52,12 +55,14 @@ export default class ZoomableTeX extends React.Component<Props, State> {
 
     render(): React.ReactElement {
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Zoomable' cannot be used as a JSX component.
             <Zoomable
                 readyToMeasure={this.state.isRendered}
                 computeChildBounds={computeMathBounds}
             >
                 <AssetContext.Consumer>
                     {({setAssetStatus}) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'TeX' cannot be used as a JSX component.
                         <TeX
                             onRender={this.handleRender}
                             setAssetStatus={setAssetStatus}

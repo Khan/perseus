@@ -154,8 +154,10 @@ class PlotterEditor extends React.Component<Props, State> {
                                     <input
                                         type="radio"
                                         name="chart-type"
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         checked={this.props.type === type}
                                         onChange={_.partial(
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.changeType,
                                             type,
                                         )}
@@ -178,9 +180,11 @@ class PlotterEditor extends React.Component<Props, State> {
                                     <input
                                         type="text"
                                         onChange={_.partial(
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this.changeLabel,
                                             i,
                                         )}
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         defaultValue={this.props.labels[i]}
                                     />
                                 </label>
@@ -198,6 +202,7 @@ class PlotterEditor extends React.Component<Props, State> {
                         <div>
                             <label>
                                 Tick Step:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                                 <NumberInput
                                     placeholder={1}
                                     useArrowKeys={true}
@@ -205,6 +210,7 @@ class PlotterEditor extends React.Component<Props, State> {
                                     onChange={this.handleChangeTickStep}
                                 />
                             </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>The difference between adjacent ticks.</p>
                             </InfoTip>
@@ -212,6 +218,7 @@ class PlotterEditor extends React.Component<Props, State> {
                         <div>
                             <label>
                                 Range:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                                 <RangeInput
                                     placeholder={[0, 10]}
                                     useArrowKeys={true}
@@ -230,12 +237,14 @@ class PlotterEditor extends React.Component<Props, State> {
                 <div>
                     <label>
                         Label Interval:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             useArrowKeys={true}
                             value={this.props.labelInterval}
                             onChange={this.changeLabelInterval}
                         />
                     </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Which ticks to display the labels for. For instance,
@@ -248,11 +257,13 @@ class PlotterEditor extends React.Component<Props, State> {
                     <div>
                         <label>
                             Picture:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'BlurInput' cannot be used as a JSX component. */}
                             <BlurInput
                                 className="pic-url"
                                 value={this.props.picUrl}
                                 onChange={this.changePicUrl}
                             />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>
                                     Use the default picture of Earth, or insert
@@ -275,6 +286,7 @@ class PlotterEditor extends React.Component<Props, State> {
                 <div>
                     <label>
                         Categories:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextListEditor' cannot be used as a JSX component. */}
                         <TextListEditor
                             // eslint-disable-next-line react/no-string-refs
                             ref="categories"
@@ -316,6 +328,7 @@ class PlotterEditor extends React.Component<Props, State> {
                                 defaultValue={this.props.snapsPerLine}
                             />
                         </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <p>
                                 Creates the specified number of divisions
@@ -345,6 +358,7 @@ class PlotterEditor extends React.Component<Props, State> {
                             {editing}
                         </label>
                     ))}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Use this toggle to switch between editing the
@@ -359,6 +373,7 @@ class PlotterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Plotter' cannot be used as a JSX component. */}
                 <Plotter
                     {...props}
                     starting={this.props[this.state.editing]}
@@ -410,6 +425,7 @@ class PlotterEditor extends React.Component<Props, State> {
         if (categories) {
             // eslint-disable-next-line react/no-string-refs
             const node = ReactDOM.findDOMNode(this.refs.categories);
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             node.value = categories.join(", ");
         }
     };
@@ -461,6 +477,7 @@ class PlotterEditor extends React.Component<Props, State> {
             starting: _.map(this.props.starting, scale),
         });
 
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.maxY).value = maxY; // eslint-disable-line react/no-string-refs
     };
 
@@ -502,6 +519,7 @@ class PlotterEditor extends React.Component<Props, State> {
         // eslint-disable-next-line react/no-string-refs
         const node = ReactDOM.findDOMNode(this.refs.categories);
 
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         node.value = categories.join(", ");
     };
 
@@ -520,6 +538,7 @@ class PlotterEditor extends React.Component<Props, State> {
         );
 
         if (this.props.type === PIC) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'picUrl' does not exist on type 'Pick<Readonly<any> & Readonly<{ children?: ReactNode; }>, "type" | "correct" | "labels" | "categories" | "starting" | "scaleY" | "maxY" | "snapsPerLine" | "labelInterval">'.
             json.picUrl = this.props.picUrl;
         }
 

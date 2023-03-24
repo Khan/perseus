@@ -34,6 +34,7 @@ class ChoiceEditor extends React.Component<any> {
         }
 
         const editor = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="content-editor"
@@ -50,6 +51,7 @@ class ChoiceEditor extends React.Component<any> {
         );
 
         const clueEditor = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="clue-editor"
@@ -185,6 +187,7 @@ class RadioEditor extends React.Component<any> {
                     choices={this.props.choices.map((choice, i) => {
                         return {
                             content: (
+// @ts-expect-error [FEI-5003] - TS2786 - 'ChoiceEditor' cannot be used as a JSX component.
                                 <ChoiceEditor
                                     ref={`choice-editor${i}`}
                                     apiOptions={this.props.apiOptions}
@@ -242,6 +245,7 @@ class RadioEditor extends React.Component<any> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -348,6 +352,7 @@ class RadioEditor extends React.Component<any> {
             },
             () => {
                 // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
                 this.refs[`choice-editor${addIndex}`].refs[
                     "content-editor"
                 ].focus();
@@ -361,6 +366,7 @@ class RadioEditor extends React.Component<any> {
 
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
         this.refs["choice-editor0"].refs["content-editor"].focus();
         return true;
     };

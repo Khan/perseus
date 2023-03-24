@@ -147,6 +147,7 @@ export const Incorrect: React.FC<StoryArgs> = (args): React.ReactElement => {
 };
 
 export const AllPositions: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 1-3 arguments, but got 0.
     const allLetters = Array(26).fill();
     return (
         <Panel>

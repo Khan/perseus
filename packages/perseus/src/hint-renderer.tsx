@@ -39,11 +39,13 @@ class HintRenderer extends React.Component<Props> {
 
     getSerializedState: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
         return this.refs.renderer.getSerializedState();
     };
 
     restoreSerializedState: (arg1: any, arg2: (...args: ReadonlyArray<any>) => unknown) => void = (state, callback) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'restoreSerializedState' does not exist on type 'ReactInstance'.
         this.refs.renderer.restoreSerializedState(state, callback);
     };
 
@@ -80,6 +82,7 @@ class HintRenderer extends React.Component<Props> {
         } as const;
 
         return (
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
             <div className={classNames} tabIndex="-1">
                 {!apiOptions.isMobile && (
                     <span className="perseus-sr-only">
@@ -97,6 +100,7 @@ class HintRenderer extends React.Component<Props> {
                         {`${pos + 1} / ${totalHints}`}
                     </span>
                 )}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                 <Renderer
                     // eslint-disable-next-line react/no-string-refs
                     ref="renderer"

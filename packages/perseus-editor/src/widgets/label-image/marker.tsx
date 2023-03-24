@@ -151,19 +151,23 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
                                 styles.dropdownPositionWithArrow,
                             )}
                         >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Option' cannot be used as a JSX component. */}
                             <Option value="" onClick={() => onRemove()}>
                                 Delete marker
                             </Option>
 
                             <hr className={css(styles.dividerHorizontal)} />
 
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'OptionGroup' cannot be used as a JSX component. */}
                             <OptionGroup
                                 onSelected={this.handleSelectAnswer}
                                 // TODO(WB-1096): make selectedValues immutable in wonder-blocks
                                 // $FlowFixMe[incompatible-type]
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                                 selectedValues={answers}
                             >
                                 {choices.map((choice) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Option' cannot be used as a JSX component.
                                     <Option key={choice} value={choice}>
                                         {choice}
                                     </Option>
@@ -218,6 +222,7 @@ const styles = StyleSheet.create({
         borderRadius: 28,
 
         // Render selected marker border as inset.
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; "::before": { content: string; display: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "block",
@@ -242,6 +247,7 @@ const styles = StyleSheet.create({
         bottom: -12,
 
         // With an arrow pointing left towards the marker.
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ left: number; bottom: number; "::before": { content: string; display: string; position: string; width: number; height: number; left: number; bottom: number; borderRight: string; borderTop: string; borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "block",

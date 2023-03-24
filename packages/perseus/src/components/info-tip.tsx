@@ -28,6 +28,7 @@ class InfoTip extends React.Component<Props, State> {
 
     render(): React.ReactElement {
         if (this.state.didMount) {
+// @ts-expect-error [FEI-5003] - TS2786 - 'ReactComponentsInfoTip' cannot be used as a JSX component.
             return <ReactComponentsInfoTip {...this.props} />;
         }
         return <div />;

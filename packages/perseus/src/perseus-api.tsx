@@ -140,6 +140,7 @@ export const ApiOptions = {
         // keystroke caused text typed in the text area to appear in it
         // only after a good few seconds.
         editorChangeDelay: PropTypes.number,
+// @ts-expect-error [FEI-5003] - TS2694 - Namespace 'React' has no exported member 'PropType'.
     }).isRequired as React.PropType<{
         GroupMetadataEditor: (...a: ReadonlyArray<any>) => unknown,
         answerableCallback?: (...a: ReadonlyArray<any>) => unknown,

@@ -1,3 +1,4 @@
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
 import {Flow} from 'flow-to-typescript-codemod';
 /* eslint-disable react/no-unsafe */
 import Button from "@khanacademy/wonder-blocks-button";
@@ -154,6 +155,7 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
     return (
         <div
             style={{
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ dispay: string; flexDirection: "column"; color: string; }' is not assignable to type 'Properties<string | number, string & {}>'.
                 dispay: "flex",
                 flexDirection: "column",
                 color: Color.offBlack,
@@ -189,6 +191,7 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                         {a11yText} &nbsp; {content}
                     </label>
                 </div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Clickable' cannot be used as a JSX component. */}
                 <Clickable
                     onClick={() => {
                         // If we're checking a crossed-out option, let's
@@ -252,16 +255,21 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                 </Clickable>
 
                 {apiOptions.crossOutEnabled && !reviewMode && (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Popover' cannot be used as a JSX component.
                     <Popover
                         dismissEnabled
                         content={({close}) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'PopoverContent' cannot be used as a JSX component.
                             <PopoverContent
                                 title="Cross out"
                                 content="Cross out option"
                                 closeButtonVisible
                                 actions={
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                                     <View>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Strut' cannot be used as a JSX component. */}
                                         <Strut size={Spacing.medium_16} />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                                         <Button
                                             kind="primary"
                                             aria-label={`Cross out Choice ${getChoiceLetter(
@@ -299,6 +307,7 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                         )}
                     >
                         {({open}) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Clickable' cannot be used as a JSX component.
                             <Clickable
                                 onClick={open}
                                 aria-label={`Open menu for Choice ${getChoiceLetter(
@@ -314,6 +323,7 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                                 }}
                             >
                                 {({hovered, focused, pressed}) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Icon' cannot be used as a JSX component.
                                     <Icon
                                         icon={ellipsisHorizontalIcon}
                                         size={3}
@@ -374,4 +384,5 @@ const styles = StyleSheet.create({
 
 type ExportProps = Flow.Diff<JSX.LibraryManagedAttributes<typeof Choice, React.ComponentProps<typeof Choice>>, WithForwardRef>;
 
+// @ts-expect-error [FEI-5003] - TS2740 - Type '{ forwardedRef: ForwardedRef<Flow.Diff<ChoiceProps & WithForwardRef & { children?: ReactNode; }, WithForwardRef>>; ... 300 more ...; focus(options?: FocusOptions | undefined): void; }' is missing the following properties from type 'ChoiceProps': apiOptions, checked, rationale, content, and 9 more.
 export default React.forwardRef<ExportProps, HTMLButtonElement>((props, ref) => <Choice {...props} forwardedRef={ref} />) as Flow.AbstractComponent<ExportProps, HTMLButtonElement>;

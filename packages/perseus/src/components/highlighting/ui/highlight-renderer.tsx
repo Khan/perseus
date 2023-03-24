@@ -53,6 +53,7 @@ type HighlightRendererState = {
 class HighlightRenderer extends React.PureComponent<HighlightRendererProps, HighlightRendererState> {
     state: HighlightRendererState = {
         cachedHighlightRects: this._computeRects(this.props),
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ cachedHighlightRects: readonly Rect[]; tooltipIsHovered: boolean; }' is not assignable to type 'HighlightRendererState'.
         tooltipIsHovered: false,
     };
 

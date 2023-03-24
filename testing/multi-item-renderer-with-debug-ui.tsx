@@ -3,6 +3,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {MultiItems} from '../packages/perseus/src/index';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../packages/perseus/src/multi-items/__testdata__/multi-renderer_testdata' or its corresponding type declarations.
 import {simpleQuestionShape} from '../packages/perseus/src/multi-items/__testdata__/multi-renderer_testdata';
 
 import KEScoreUI from './ke-score-ui';
@@ -44,6 +45,7 @@ export const MultiItemRendererWithDebugUI: React.FC<Props> = (
             leftTitle="Multi Renderer"
             left={
                 <>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MultiItems.MultiRenderer' cannot be used as a JSX component. */}
                     <MultiItems.MultiRenderer
                         item={simpleItem}
                         shape={simpleQuestionShape}
@@ -55,7 +57,9 @@ export const MultiItemRendererWithDebugUI: React.FC<Props> = (
                     </MultiItems.MultiRenderer>
                     <div id="workarea" />
                     <div id="hintsarea" />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                     <View style={{flexDirection: "row", alignItems: "center"}}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Button' cannot be used as a JSX component. */}
                         <Button
                             onClick={() => {
                                 if (!ref.current) {

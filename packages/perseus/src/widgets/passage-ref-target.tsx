@@ -45,8 +45,10 @@ class PassageRefTarget extends React.Component<any> {
     render(): React.ReactElement {
         return (
             // $FlowFixMe[prop-missing]: inline doesn't exist in Renderer's declared props
+// @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component.
             <Renderer
                 content={this.props.content}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ content: any; inline: boolean; apiOptions: any; linterContext: any; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Renderer> & Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | ... 3 more ... | "legacyPerseusLint"> & InexactPartial<...> & InexactPartial<...>'.
                 inline={true}
                 apiOptions={this.props.apiOptions}
                 linterContext={this.props.linterContext}

@@ -59,7 +59,9 @@ const svgLocalLabelsRegex = /^file\+graphie:/;
 
 const nestedMap = function<T, M>(children: T | ReadonlyArray<T>, func: (arg1: T) => M, context: unknown): M | ReadonlyArray<M> {
     if (Array.isArray(children)) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(M | readonly M[])[]' is not assignable to type 'M | readonly M[]'.
         return _.map(children, function (child) {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
             return nestedMap(child, func);
         });
     }
@@ -145,7 +147,9 @@ function shuffle<T>(
             const newEnd = Math.floor(random() * top),
                 temp = shuffled[newEnd];
 
+// @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[newEnd] = shuffled[top - 1];
+// @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[top - 1] = temp;
         }
     } while (ensurePermuted && _.isEqual(array, shuffled));
@@ -173,11 +177,14 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
 
           while ((match = r.exec(str))) {
               const m = match;
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
               output.push(str.slice(lastIndex, m.index));
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
               output.push(...m.slice(1));
               lastIndex = m.index + m[0].length;
           }
 
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
           output.push(str.slice(lastIndex));
           return output;
       };
@@ -271,6 +278,7 @@ function keScoreFromPerseusScore(score: PerseusScore, guess: any, state: any): K
         };
     }
     throw new PerseusError(
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
         "Invalid score type: " + score.type,
         Errors.InvalidInput,
         {
@@ -354,6 +362,7 @@ function gridDimensionConfig(
  * TODO(somewhatabstract, FEI-3464): Consolidate query string parsing functions.
  */
 function getGridStep(range: [Coordinates, Coordinates], step: Coordinates, boxSize: number): Coordinates {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(number | null | undefined)[]' is not assignable to type 'Coordinates'.
     return _(2).times(function (i) {
         const scale = scaleFromExtent(range[i], boxSize);
         const gridStep = gridStepFromTickStep(step[i], scale);
@@ -510,7 +519,9 @@ const DeprecationMixin: any = {
         _.each(
             this.deprecatedProps,
             function (func, prop) {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (_.has(this.props, prop)) {
+// @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     _.extend(newProps, func(this.props));
                 }
             },
@@ -571,9 +582,11 @@ function deepEq<T>(x: T, y: T): boolean {
         return (
             x === y ||
             (_.all(x, function (v, k) {
+// @ts-expect-error [FEI-5003] - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
                 return deepEq(y[k], v);
             }) &&
                 _.all(y, function (v, k) {
+// @ts-expect-error [FEI-5003] - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
                     return deepEq(x[k], v);
                 }))
         );
@@ -775,7 +788,9 @@ const supportsPassiveEvents: () => boolean = () => {
                 supportsPassive = true;
             },
         });
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         window.addEventListener("testPassive", null, opts);
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         window.removeEventListener("testPassive", null, opts);
     } catch (e: any) {
         // Intentionally left empty!

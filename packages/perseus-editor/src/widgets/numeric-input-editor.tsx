@@ -78,6 +78,7 @@ const NumericInputEditor: any = createReactClass({
         const unsimplifiedAnswers = (i: any) => (
             <div className="perseus-widget-row">
                 <label>Unsimplified answers are</label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component. */}
                 <ButtonGroup
                     value={answers[i]["simplify"]}
                     allowEmpty={false}
@@ -88,6 +89,7 @@ const NumericInputEditor: any = createReactClass({
                     ]}
                     onChange={this.updateAnswer(i, "simplify")}
                 />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                 <InfoTip>
                     <p>
                         Normally select "ungraded". This will give the user a
@@ -112,11 +114,13 @@ const NumericInputEditor: any = createReactClass({
             <div>
                 <div className="perseus-widget-row">
                     <label>Choose the suggested answer formats</label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MultiButtonGroup' cannot be used as a JSX component. */}
                     <MultiButtonGroup
                         buttons={answerFormButtons}
                         values={answers[i]["answerForms"]}
                         onChange={this.updateAnswer(i, "answerForms")}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Formats will be autoselected for you based on the
@@ -158,6 +162,7 @@ const NumericInputEditor: any = createReactClass({
             <div className="perseus-widget-row">
                 <label>
                     Max error{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                     <NumberInput
                         className="max-error"
                         value={answers[i]["maxError"]}
@@ -171,6 +176,7 @@ const NumericInputEditor: any = createReactClass({
         const inputSize = (
             <div className="perseus-widget-row">
                 <label>Width: </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component. */}
                 <ButtonGroup
                     value={this.props.size}
                     allowEmpty={false}
@@ -180,6 +186,7 @@ const NumericInputEditor: any = createReactClass({
                     ]}
                     onChange={this.change("size")}
                 />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                 <InfoTip>
                     <p>
                         Use size "Normal" for all text boxes, unless there are
@@ -204,11 +211,13 @@ const NumericInputEditor: any = createReactClass({
             <div className="perseus-widget-row">
                 <label>
                     Label text:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextInput' cannot be used as a JSX component. */}
                     <TextInput
                         value={this.props.labelText}
                         onChange={this.change("labelText")}
                     />
                 </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                 <InfoTip>
                     <p>
                         Text to describe this input. This will be shown to users
@@ -226,6 +235,7 @@ const NumericInputEditor: any = createReactClass({
                         coefficient={this.props.coefficient}
                         onChange={this.props.onChange}
                     />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             A coefficient style number allows the student to use
@@ -258,6 +268,7 @@ const NumericInputEditor: any = createReactClass({
         const generateInputAnswerEditors = () =>
             answers.map((answer, i) => {
                 const editor = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component.
                     <Editor
                         apiOptions={this.props.apiOptions}
                         content={answer.message || ""}
@@ -285,6 +296,7 @@ const NumericInputEditor: any = createReactClass({
                                 (answer.maxError ? " with-max-error" : "")
                             }
                         >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                             <NumberInput
                                 value={answer.value}
                                 className="numeric-input-value"
@@ -351,6 +363,7 @@ const NumericInputEditor: any = createReactClass({
                                     <div className="max-error-plusmn">
                                         &plusmn;
                                     </div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                                     <NumberInput
                                         placeholder={0}
                                         value={answers[i]["maxError"]}
@@ -521,6 +534,7 @@ const NumericInputEditor: any = createReactClass({
         // TODO(emily): This doesn't actually work, because the value is either
         // null or undefined when undefined, probably.
         if (_.contains(_.pluck(this.props.answers, "value"), "")) {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
             warnings.push("One or more answers is empty");
         }
         this.props.answers.forEach((answer, i) => {
@@ -529,6 +543,7 @@ const NumericInputEditor: any = createReactClass({
                 (!answer.answerForms || answer.answerForms.length === 0);
             if (formatError) {
                 warnings.push(
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
                     `Answer ${i + 1} is set to string format ` +
                         "matching, but no format was selected",
                 );

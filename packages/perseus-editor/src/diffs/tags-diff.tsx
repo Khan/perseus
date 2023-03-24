@@ -35,6 +35,7 @@ class TagsDiff extends React.Component<Props> {
 
         return (
             <div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'TextDiff' cannot be used as a JSX component. */}
                 <TextDiff
                     before={beforeTags}
                     after={afterTags}

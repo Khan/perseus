@@ -54,13 +54,16 @@ class Definition extends React.Component<DefinitionProps> {
         return (
             <DefinitionConsumer>
                 {({activeDefinitionId, setActiveDefinitionId}) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Popover' cannot be used as a JSX component.
                     <Popover
                         content={
+// @ts-expect-error [FEI-5003] - TS2786 - 'PopoverContentCore' cannot be used as a JSX component.
                             <PopoverContentCore
                                 color="white"
                                 style={styles.tooltipBody}
                                 closeButtonVisible={true}
                             >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                 <Renderer
                                     apiOptions={this.props.apiOptions}
                                     content={this.props.definition}
@@ -72,6 +75,7 @@ class Definition extends React.Component<DefinitionProps> {
                         onClose={() => setActiveDefinitionId(null)}
                         placement="top"
                     >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Clickable' cannot be used as a JSX component. */}
                         <Clickable
                             onClick={() => {
                                 this.props.trackInteraction();

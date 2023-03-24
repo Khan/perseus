@@ -34,6 +34,7 @@ export default class QuestionMarkers extends React.Component<QuestionMarkersProp
         // Open answer selection dropdown for each of the specified markers.
         indices.forEach((index) => {
             if (this._markers[index]) {
+// @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
                 this._markers[index].openDropdown();
             }
         });
@@ -113,6 +114,7 @@ export default class QuestionMarkers extends React.Component<QuestionMarkersProp
                         />
 
                         {markers.map((marker, index) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Marker' cannot be used as a JSX component.
                             <Marker
                                 {...marker}
                                 choices={choices}

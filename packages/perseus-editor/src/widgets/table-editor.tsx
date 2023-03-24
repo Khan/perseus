@@ -37,6 +37,7 @@ class TableEditor extends React.Component<Props> {
     })();
 
     focus: () => void = () => {
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.numberOfColumns).focus(); // eslint-disable-line react/no-string-refs
     };
 
@@ -61,6 +62,7 @@ class TableEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <label>
                         Number of columns:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             // eslint-disable-next-line react/no-string-refs
                             ref="numberOfColumns"
@@ -77,6 +79,7 @@ class TableEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <label>
                         Number of rows:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component. */}
                         <NumberInput
                             // eslint-disable-next-line react/no-string-refs
                             ref="numberOfRows"
@@ -93,6 +96,7 @@ class TableEditor extends React.Component<Props> {
                 <div>
                     {" "}
                     Table of answers:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             The student has to fill out all cells in the table.
@@ -102,6 +106,7 @@ class TableEditor extends React.Component<Props> {
                     </InfoTip>
                 </div>
                 <div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Table' cannot be used as a JSX component. */}
                     <Table {...tableProps} />
                 </div>
             </div>

@@ -193,6 +193,7 @@ class InputWithExamples extends React.Component<Props, State> {
             >
                 {input}
                 <div id={this._getUniqueId()}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                     <Renderer
                         content={examplesContent}
                         linterContext={PerseusLinter.pushContextStack(
@@ -231,11 +232,13 @@ class InputWithExamples extends React.Component<Props, State> {
 
     focus: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
     blur: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur();
     };
 

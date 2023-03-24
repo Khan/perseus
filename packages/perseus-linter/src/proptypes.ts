@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 import type {LinterContextProps} from './types';
 
+// @ts-expect-error [FEI-5003] - TS2694 - Namespace 'React' has no exported member 'PropType'.
 export const linterContextProps: React.PropType<{
     contentType?: string,
     highlightLint?: boolean,

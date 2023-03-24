@@ -34,7 +34,9 @@ import type {PerseusGrapherWidgetOptions} from '../perseus-types';
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 import type {GridDimensions} from '../util';
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovableLine' does not exist on type 'typeof Graphie'.
 const MovableLine = Graphie.MovableLine;
 
 function isFlipped(newCoord: Coord, oldCoord: Coord, line: Line) {
@@ -114,8 +116,10 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     static={this.props.static}
                     constraints={[
                         // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.bound(),
                         // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.snap(),
                         (coord: any) => {
                             // Always enforce that this is a function
@@ -195,8 +199,10 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         let image = null;
         if (imageDescription.url) {
             const scale = box[0] / interactiveSizes.defaultBoxSize;
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             image = (
                 // $FlowFixMe[prop-missing]: alt props is missing
+// @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. | TS2786 - 'SvgImage' cannot be used as a JSX component.
                 <SvgImage
                     src={imageDescription.url}
                     width={imageDescription.width}
@@ -223,6 +229,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     }}
                 >
                     {image}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component. */}
                     <Graphie
                         {...this.props.graph}
                         setDrawingAreaAvailable={
@@ -285,8 +292,10 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 }}
                 constraints={[
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovableLine.constraints.bound(),
                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovableLine.constraints.snap(),
                     (newCoord, oldCoord: any) => {
                         // Calculate and apply proposed displacement
@@ -367,6 +376,7 @@ class Grapher extends React.Component<Props> {
 
         const typeSelector = (
             <div style={typeSelectorStyle} className="above-scratchpad">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ButtonGroup' cannot be used as a JSX component. */}
                 <ButtonGroup
                     value={type}
                     allowEmpty={true}
@@ -421,6 +431,7 @@ class Grapher extends React.Component<Props> {
 
         return (
             <div>
+{ /* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'FunctionGrapher' cannot be used as a JSX component. */}
                 <FunctionGrapher {...grapherProps} />
                 {this.props.availableTypes.length > 1 && typeSelector}
             </div>
@@ -620,6 +631,7 @@ const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     if (widgetProps.availableTypes.length === 1) {
         const graph = widgetProps.graph;
         const type = chooseType(widgetProps.availableTypes);
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
         widgetProps.plot = defaultPlotProps(type, graph);
     }
 

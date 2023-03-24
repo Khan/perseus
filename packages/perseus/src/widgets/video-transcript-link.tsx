@@ -39,17 +39,23 @@ const VideoTranscriptLink: React.FC<Props> = (props): React.ReactElement => {
         : [location, "READABLE_ID"];
     // The result value conforms to the wonder-blocks-data `Result` type
     // which is used by our GraphQL framework.
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'VideoKind'.
     const result = useVideo(id, kind);
 
     switch (result.status) {
         case "loading":
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             return <View>{i18n._("Loading...")}</View>;
         case "success": {
             const video = result.data?.video;
             return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                 <View style={styles.transcriptLink}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Text' cannot be used as a JSX component. */}
                     <Text>{video?.title}</Text>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Strut' cannot be used as a JSX component. */}
                     <Strut size={10} />
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Link' cannot be used as a JSX component. */}
                     <Link
                         href={
                             "/transcript/" +
@@ -64,10 +70,13 @@ const VideoTranscriptLink: React.FC<Props> = (props): React.ReactElement => {
             );
         }
         case "error":
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             return <View>{i18n._("Something went wrong.")}</View>;
         case "aborted":
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             return <View>{i18n._("Something went wrong.")}</View>;
         default:
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
             return <View>{i18n._("Something went wrong.")}</View>;
     }
 };

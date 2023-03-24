@@ -129,6 +129,7 @@ class HighlightableContent extends React.PureComponent<HighlightableContentProps
     ) => {
         const {serializedHighlights} = this.props;
         const newSerializedHighlights = {...serializedHighlights} as const;
+// @ts-expect-error [FEI-5003] - TS2542 - Index signature in type '{ readonly [x: string]: SerializedHighlight; }' only permits reading.
         delete newSerializedHighlights[keyToRemove];
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     };
@@ -168,6 +169,7 @@ class HighlightableContent extends React.PureComponent<HighlightableContentProps
             >
                 <div>
                     {this.props.enabled && this._container && this._content && (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HighlightingUI' cannot be used as a JSX component.
                         <HighlightingUI
                             buildHighlight={buildHighlight}
                             contentNode={this._content}
@@ -193,6 +195,7 @@ class HighlightableContent extends React.PureComponent<HighlightableContentProps
                     className={css(styles.content)}
                     ref={(content) => (this._content = content)}
                 >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'WordIndexer' cannot be used as a JSX component. */}
                     <WordIndexer onWordsUpdate={this._handleWordsUpdate}>
                         {this.props.children}
                     </WordIndexer>

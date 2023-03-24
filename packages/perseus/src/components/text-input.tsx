@@ -75,6 +75,7 @@ class TextInput extends React.Component<Props> {
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ style: StyleType; disabled: boolean | undefined; id: string; value: string; type: "text"; "aria-label": string | undefined; onChange: (value: string) => void; placeholder: string | undefined; ... 5 more ...; autoComplete: string; }' is not assignable to type 'IntrinsicAttributes & ExportProps & RefAttributes<HTMLInputElement>'.
                 autoCorrect="off"
                 autoCapitalize="off"
                 autoComplete="off"
@@ -83,18 +84,22 @@ class TextInput extends React.Component<Props> {
     }
 
     focus: () => void = () => {
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this).focus();
     };
 
     blur: () => void = () => {
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this).blur();
     };
 
     getValue: () => string | null | undefined = () => {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'Element | Text'.
         return ReactDOM.findDOMNode(this)?.value;
     };
 
     getStringValue: () => string | null | undefined = () => {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'Element | Text'.
         return ReactDOM.findDOMNode(this)?.value.toString();
     };
 
@@ -102,6 +107,7 @@ class TextInput extends React.Component<Props> {
         selectionStart,
         selectionEnd,
     ) => {
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'setSelectionRange' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this).setSelectionRange(
             selectionStart,
             selectionEnd,
@@ -109,10 +115,12 @@ class TextInput extends React.Component<Props> {
     };
 
     getSelectionStart: () => number = () => {
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
         return ReactDOM.findDOMNode(this).selectionStart;
     };
 
     getSelectionEnd: () => number = () => {
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'.
         return ReactDOM.findDOMNode(this).selectionEnd;
     };
 }

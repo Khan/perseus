@@ -35,6 +35,7 @@ const Behavior: React.FC<BehaviorProps> = (
 
     <ul>
         <li className={css(styles.option)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Checkbox' cannot be used as a JSX component. */}
             <Checkbox
                 checked={multipleAnswers}
                 onChange={() =>
@@ -48,6 +49,7 @@ const Behavior: React.FC<BehaviorProps> = (
         </li>
 
         <li className={css(styles.option)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Checkbox' cannot be used as a JSX component. */}
             <Checkbox
                 checked={hideChoicesFromInstructions}
                 onChange={() =>

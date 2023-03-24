@@ -66,6 +66,7 @@ export function buildEmptyItemTreeForShape(shape: Shape): ItemTree {
         return object;
     }
     throw new PerseusError(
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
         `unexpected shape type ${shape.type}`,
         Errors.InvalidInput,
     );

@@ -12,5 +12,6 @@
         "**/flow-typed/**"
     ],
     "typescript.format.enable": false,
-    "typescript.validate.enable": false
+    "typescript.validate.enable": false,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

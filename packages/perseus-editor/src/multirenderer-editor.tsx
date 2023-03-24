@@ -1,3 +1,4 @@
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
 import {Flow} from 'flow-to-typescript-codemod';
 /**
  * Editor for a multi-item question.
@@ -15,6 +16,7 @@ import {
 } from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 // eslint-disable-next-line import/no-extraneous-dependencies
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'hubble' or its corresponding type declarations.
 import lens from "hubble";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -150,6 +152,7 @@ const Header: React.FC<HeaderProps> = (
 ): React.ReactElement => {
     const headerLevel = Math.min(depth, 5) + 1;
     const HeaderTag = `h${headerLevel}`;
+// @ts-expect-error [FEI-5003] - TS2559 - Type '{ children?: ReactNode; }' has no properties in common with type 'IntrinsicAttributes'.
     return <HeaderTag {...props} />;
 };
 
@@ -280,6 +283,7 @@ const LeafContainer: React.FC<LeafContainerProps> = (
     const hasPreviewHeading = shape.type === "content" || shape.type === "hint";
     const previewHeading = hasPreviewHeading && (
         <div className={css(styles.containerHeader)}>
+{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -356,6 +360,7 @@ const ObjectContainer: React.FC<ObjectContainerProps> = (
 ): React.ReactElement => {
     const headingEditor = (
         <div className={css(styles.containerHeader)}>
+{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -369,6 +374,7 @@ const ObjectContainer: React.FC<ObjectContainerProps> = (
                 styles.previewCollectionHeader,
             )}
         >
+{ /* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -413,6 +419,7 @@ const NodeContent = (props: NodePropTypes) => {
     // perseus-all-package/multi-items/item-types.js.
     if (shape.type === "content") {
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'ItemNodeContent' cannot be used as a JSX component.
             <ItemNodeContent
                 shape={shape}
                 data={(data as ContentNode)}
@@ -422,6 +429,7 @@ const NodeContent = (props: NodePropTypes) => {
     }
     if (shape.type === "hint") {
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HintNodeContent' cannot be used as a JSX component.
             <HintNodeContent
                 shape={shape}
                 data={(data as HintNode)}
@@ -480,6 +488,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
         sticky: boolean
     };
     return class StickyComponent extends React.Component<Config, State> {
+// @ts-expect-error [FEI-5003] - TS2564 - Property 'stickynessTimer' has no initializer and is not definitely assigned in the constructor.
         stickynessTimer: number;
 
         state = {
@@ -489,6 +498,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
         componentDidMount() {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Timer' is not assignable to type 'number'.
             this.stickynessTimer = setInterval(this.updateStickiness, 1000);
             this.updateStickiness();
         }
@@ -501,6 +511,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
 
         updateStickiness = () => {
             const domNode = ReactDOM.findDOMNode(this);
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element | Text'.
             const height = domNode.offsetHeight;
             const windowHeight = window.innerHeight;
             const sticky = height > windowHeight;
@@ -519,6 +530,7 @@ const withStickiness = <Config extends Record<any, any>, Component extends React
                  * Cannot create WrappedComponent element because inexact props
                  * [1] is incompatible with exact WithStickiness [2].
                  */
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'Readonly<Config> & { sticky: boolean; children?: ReactNode; }' is not assignable to type 'IntrinsicAttributes & LibraryManagedAttributes<Component, PropsWithChildren<WithStickiness<Config>>>'. | TS2786 - 'WrappedComponent' cannot be used as a JSX component.
                 <WrappedComponent {...this.props} sticky={this.state.sticky} />
             );
         }
@@ -543,6 +555,7 @@ const ItemNodeContent = withStickiness(
                                 // $FlowFixMe[incompatible-exact]: {...data} pass too many props
                                 // $FlowFixMe[incompatible-type]
                                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'Editor' cannot be used as a JSX component.
                                 <Editor
                                     {...data}
                                     onChange={(newVal) =>
@@ -583,6 +596,7 @@ const HintNodeContent = withStickiness(
                          * inexact props [1] is incompatible with exact
                          * WithStickiness [2].
                          */}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HintEditor' cannot be used as a JSX component. */}
                         <HintEditor
                             {...data}
                             className={css(styles.hintEditor)}
@@ -622,6 +636,7 @@ const TagsNodeContent = (props: NodePropTypes<TagsShape, TagsNode>) => {
     return (
         <div className={css(styles.columnLeft)}>
             <div className={css(styles.tagsEditor)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'GroupMetadataEditor' cannot be used as a JSX component. */}
                 <GroupMetadataEditor
                     value={data}
                     onChange={(newVal) => actions.setValueAtPath(path, newVal)}
@@ -653,6 +668,7 @@ const ArrayNodeContent = (props: NodePropTypes<ArrayShape, ItemArrayNode>) => {
         const controls = [
             i > 0 && (
                 <div key="moveArrayElementUp" className={css(styles.control)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SimpleButton' cannot be used as a JSX component. */}
                     <SimpleButton
                         color="orange"
                         title="Move up"
@@ -668,6 +684,7 @@ const ArrayNodeContent = (props: NodePropTypes<ArrayShape, ItemArrayNode>) => {
             // $FlowFixMe[prop-missing]
             i < data.length - 1 && (
                 <div key="moveArrayElementDown" className={css(styles.control)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SimpleButton' cannot be used as a JSX component. */}
                     <SimpleButton
                         color="orange"
                         title="Move down"
@@ -678,6 +695,7 @@ const ArrayNodeContent = (props: NodePropTypes<ArrayShape, ItemArrayNode>) => {
                 </div>
             ),
             <div key="removeArrayElement" className={css(styles.control)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'SimpleButton' cannot be used as a JSX component. */}
                 <SimpleButton
                     color="orange"
                     title="Delete"
@@ -755,6 +773,7 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
         const {Layout, apiOptions, item} = this.props;
 
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Layout' cannot be used as a JSX component.
             <Layout
                 ref={(node) => (this.layout = node)}
                 item={item}
@@ -766,6 +785,7 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
     _renderJson: () => React.ReactElement<React.ComponentProps<'div'>> = () => {
         return (
             <div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ModeDropdown' cannot be used as a JSX component. */}
                 <ModeDropdown
                     currentMode={this.props.editorMode}
                     onChange={(editorMode) => this.props.onChange({editorMode})}
@@ -782,6 +802,7 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
     _renderPreview: () => React.ReactElement<React.ComponentProps<'div'>> = () => {
         return (
             <div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ModeDropdown' cannot be used as a JSX component. */}
                 <ModeDropdown
                     currentMode={this.props.editorMode}
                     onChange={(editorMode) => this.props.onChange({editorMode})}
@@ -870,11 +891,13 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
 
         return (
             <div className="perseus-multirenderer-editor">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ModeDropdown' cannot be used as a JSX component. */}
                 <ModeDropdown
                     currentMode={this.props.editorMode}
                     onChange={(editorMode) => this.props.onChange({editorMode})}
                 />
 
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MultiRenderer' cannot be used as a JSX component. */}
                 <MultiRenderer
                     item={item}
                     shape={itemShape}
@@ -897,18 +920,21 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
 
     score: () => any | undefined = () => {
         if (this.layout) {
+// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             return this.layout.score();
         }
     };
 
     getSerializedState: () => any | undefined = () => {
         if (this.layout) {
+// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             return this.layout.getSerializedState();
         }
     };
 
     restoreSerializedState: (state?: any) => void = (state: any) => {
         if (this.layout) {
+// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             this.layout.restoreSerializedState(state);
         }
     };
@@ -923,6 +949,7 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
                 return this._renderEdit();
             default:
                 return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'ModeDropdown' cannot be used as a JSX component.
                     <ModeDropdown
                         currentMode={this.props.editorMode}
                         onChange={(editorMode) =>
@@ -993,6 +1020,7 @@ const styles = StyleSheet.create({
     // this extra border between array elements.
     arrayElementAndNotLeaf: {
         borderBottom: "1px solid #ccc",
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ borderBottom: string; ":first-child": { borderTop: string; paddingTop: number; }; }' is not assignable to type 'CSSProperties'.
         ":first-child": {
             borderTop: "1px solid #ccc",
             paddingTop: 16,

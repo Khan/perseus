@@ -126,6 +126,7 @@ const ChoiceIcon: React.FC<ChoiceIconProps> = function(props): React.ReactElemen
                 multipleSelect={multipleSelect}
             >
                 <div
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: string | null | undefined; borderColor: string; color: string; borderRadius: number; }' is not assignable to type 'Properties<string | number, string & {}>'.
                     style={dynamicStyles}
                     data-test-id="choice-icon__library-choice-icon"
                     className={css(
@@ -142,6 +143,7 @@ const ChoiceIcon: React.FC<ChoiceIconProps> = function(props): React.ReactElemen
                     data-is-radio-icon={true}
                 >
                     <div className={css(styles.innerWrapper)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ChoiceInner' cannot be used as a JSX component. */}
                         <ChoiceInner
                             pos={pos}
                             showCorrectness={showCorrectness}

@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
 
 const Wrapper = (props) => (
     <div className={css(styles.wrapper)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Marker' cannot be used as a JSX component. */}
         <Marker {...props} />
     </div>
 );

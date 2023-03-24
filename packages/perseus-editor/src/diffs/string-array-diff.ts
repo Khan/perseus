@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'jsdiff' or its corresponding type declarations.
 import jsdiff from "jsdiff";
 import _ from "underscore";
 

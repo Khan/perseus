@@ -16,6 +16,7 @@ export default {
 
 export const SortableHorizontalExample: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component.
         <Sortable
             layout="horizontal"
             options={["a", "b", "c"]}
@@ -26,6 +27,7 @@ export const SortableHorizontalExample: React.FC<StoryArgs> = (args): React.Reac
 
 export const SortableVerticalExample: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component.
         <Sortable
             layout="vertical"
             options={["a", "b", "c"]}
@@ -35,23 +37,28 @@ export const SortableVerticalExample: React.FC<StoryArgs> = (args): React.ReactE
 };
 
 export const BasicSortableOptionsTest: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component.
     return <Sortable options={defaultOptions} />;
 };
 
 export const BasicSortableOptionsTestWithNoPadding: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component.
     return <Sortable options={defaultOptions} padding={false} />;
 };
 
 export const BasicSortableOptionsTestWithLargeMargin: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component.
     return <Sortable options={defaultOptions} margin={64} />;
 };
 
 export const BasicSortableOptionsTestDisabled: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component.
     return <Sortable options={defaultOptions} disabled={true} />;
 };
 
 export const BasicSortableOptionsTestWithWidthAndHeightConstraints: React.FC<StoryArgs> = (args): React.ReactElement => {
     return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Sortable' cannot be used as a JSX component.
         <Sortable
             options={defaultOptions}
             constraints={{

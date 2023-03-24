@@ -25,4 +25,5 @@ const dragTo = (node: any, pos: {
         .trigger("mouseup", {force: true})
         .trigger("mouseout", {force: true});
 };
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
 Cypress.Commands.add("dragTo", {prevSubject: true}, dragTo);

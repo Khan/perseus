@@ -26,18 +26,26 @@ class Separator extends React.Component<any> {
     drawArrow = () => {
         // eslint-disable-next-line react/no-string-refs
         const canvas = this.refs["arrowCanvas" + this.props.index];
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getContext' does not exist on type 'ReactInstance'.
         const ctx = canvas.getContext("2d");
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'ReactInstance'. | TS2339 - Property 'height' does not exist on type 'ReactInstance'.
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const path = new Path2D();
         ctx.strokeStyle = "rgb(0,0,0)";
         ctx.lineWidth = 1.2;
         ctx.lineCap = "round";
         const offset = 5;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'height' does not exist on type 'ReactInstance'.
         path.moveTo(offset, canvas.height / 2);
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'ReactInstance'. | TS2339 - Property 'height' does not exist on type 'ReactInstance'.
         path.lineTo(canvas.width - offset, canvas.height / 2);
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'ReactInstance'. | TS2339 - Property 'height' does not exist on type 'ReactInstance'.
         path.moveTo(canvas.width - 2 * offset, canvas.height / 2 - offset);
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'ReactInstance'. | TS2339 - Property 'height' does not exist on type 'ReactInstance'.
         path.lineTo(canvas.width - offset, canvas.height / 2);
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'ReactInstance'. | TS2339 - Property 'height' does not exist on type 'ReactInstance'.
         path.moveTo(canvas.width - 2 * offset, canvas.height / 2 + offset);
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'ReactInstance'. | TS2339 - Property 'height' does not exist on type 'ReactInstance'.
         path.lineTo(canvas.width - offset, canvas.height / 2);
         ctx.stroke(path);
     };
@@ -109,12 +117,14 @@ class ReactionDiagramWidget extends React.Component<any> {
                     const id = this.props.widgetId + "-" + i;
                     return (
                         <div key={id} className="molecule-container">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Molecule' cannot be used as a JSX component. */}
                             <Molecule
                                 id={id}
                                 rotationAngle={this.props.rotationAngle[i]}
                                 smiles={s}
                             />
                             {i === this.props.smiles.length - 1 ? null : (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Separator' cannot be used as a JSX component.
                                 <Separator
                                     data={this.props.separators[i]}
                                     index={i}

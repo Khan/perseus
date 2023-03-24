@@ -5,6 +5,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {MultiItemRendererWithDebugUI} from '../../../../../testing/multi-item-renderer-with-debug-ui';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/multi-renderer_testdata' or its corresponding type declarations.
 import {question1} from '../__testdata__/multi-renderer_testdata';
 
 type StoryArgs = Record<any, any>;
@@ -32,26 +33,35 @@ export const SingleItem: React.FC<StoryArgs> = (args): React.ReactElement => {
             {({renderers}) => {
                 const {blurb, question, hints} = renderers;
                 return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component.
                     <View>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                         <View style={styles.section}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
                             <HeadingSmall style={styles.heading}>
                                 {i18n.doNotTranslate("Blurb")}
                             </HeadingSmall>
                             {blurb}
                         </View>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                         <View style={styles.section}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
                             <HeadingSmall style={styles.heading}>
                                 {i18n.doNotTranslate("Question")}
                             </HeadingSmall>
                             {question}
                         </View>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                         <View style={styles.section}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'HeadingSmall' cannot be used as a JSX component. */}
                             <HeadingSmall style={styles.heading}>
                                 {i18n.doNotTranslate("Hints")}
                             </HeadingSmall>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'View' cannot be used as a JSX component. */}
                             <View style={styles.hints}>
                                 {
                                     // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'firstN' does not exist on type 'readonly ReactNode[]'.
                                     hints?.firstN(2)
                                 }
                             </View>

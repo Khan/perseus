@@ -42,6 +42,7 @@ const renderQuestion = (
         <div className="framework-perseus">
             <AssetContext.Provider value={{assetStatuses, setAssetStatus}}>
                 <RenderStateRoot>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Perseus.Renderer' cannot be used as a JSX component. */}
                     <Perseus.Renderer
                         ref={(node) => (renderer = node)}
                         content={question.content}

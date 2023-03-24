@@ -74,6 +74,7 @@ class MatrixEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     {" "}
                     Max matrix size:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'RangeInput' cannot be used as a JSX component. */}
                     <RangeInput
                         value={this.props.matrixBoardSize}
                         onChange={this.onMatrixBoardSizeChange}
@@ -82,11 +83,13 @@ class MatrixEditor extends React.Component<Props> {
                     />
                 </div>
                 <div className="perseus-widget-row">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Matrix' cannot be used as a JSX component. */}
                     <Matrix {...matrixProps} />
                 </div>
                 <div className="perseus-widget-row">
                     {" "}
                     Matrix prefix:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                     <Editor
                         // eslint-disable-next-line react/no-string-refs
                         ref="prefix"
@@ -94,6 +97,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             this.change({prefix: newProps.content});
                         }}
                     />
@@ -101,6 +105,7 @@ class MatrixEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     {" "}
                     Matrix suffix:{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                     <Editor
                         // eslint-disable-next-line react/no-string-refs
                         ref="suffix"
@@ -108,6 +113,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             this.change({suffix: newProps.content});
                         }}
                     />

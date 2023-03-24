@@ -55,6 +55,7 @@ const doJSONP = function (url: string, options) {
     }
 
     // Add the global callback.
+// @ts-expect-error [FEI-5003] - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
     window[options.callbackName] = function () {
         cleanup();
         options.success.apply(null, arguments);
@@ -130,6 +131,7 @@ function defaultPreloader(dimensions: Dimensions) {
                 alignContent: "center",
             }}
         >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'CircularSpinner' cannot be used as a JSX component. */}
             <CircularSpinner size="medium" />
         </span>
     );
@@ -328,10 +330,13 @@ class SvgImage extends React.Component<Props, State> {
                 doJSONP(url, {
                     callbackName: "svgData" + hash,
                     success: (data) => {
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'data' because it is a read-only property.
                         cacheData.data = data;
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
                         cacheData.loaded = true;
 
                         _.each(cacheData.dataCallbacks, (callback) => {
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '{ labels: readonly any[]; range: readonly any[]; }'.
                             callback(cacheData.data, cacheData.localized);
                         });
                     },
@@ -343,6 +348,7 @@ class SvgImage extends React.Component<Props, State> {
                 retrieveData(
                     getLocalizedDataUrl(this.props.src),
                     (x, status, error) => {
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'localized' because it is a read-only property.
                         cacheData.localized = false;
 
                         // If there is isn't any localized data, fall back to
@@ -499,7 +505,9 @@ class SvgImage extends React.Component<Props, State> {
                 const svgHeight = (this.props.height || 0) * this.props.scale;
                 const svgWidth = (this.props.width || 0) * this.props.scale;
                 label.css({
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                     top: (labelTop / svgHeight) * 100 + "%",
+// @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                     left: (labelLeft / svgWidth) * 100 + "%",
                 });
 
@@ -544,6 +552,7 @@ class SvgImage extends React.Component<Props, State> {
         // nothing in that case as well. Figuring this out correctly
         // likely required accounting for the image alignment and margins.
         if (
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
             $image.width() < this.props.width ||
             this.props.zoomToFullSizeOnMobile
         ) {
@@ -607,6 +616,7 @@ class SvgImage extends React.Component<Props, State> {
         let extraGraphie;
         if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
             extraGraphie = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component.
                 <Graphie
                     box={this.props.extraGraphie.box}
                     range={this.props.extraGraphie.range}
@@ -650,9 +660,11 @@ class SvgImage extends React.Component<Props, State> {
                             isImageProbablyPhotograph(imageSrc)
                         }
                     >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component. */}
                         <ImageLoader
                             src={imageSrc}
                             imgProps={imageProps}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                             preloader={preloader}
                             onUpdate={this.handleUpdate}
                         />
@@ -662,8 +674,10 @@ class SvgImage extends React.Component<Props, State> {
             }
             imageProps.style = dimensions;
             return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component.
                 <ImageLoader
                     src={imageSrc}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                     preloader={preloader}
                     imgProps={imageProps}
                     onUpdate={this.handleUpdate}
@@ -700,6 +714,7 @@ class SvgImage extends React.Component<Props, State> {
             const scale = [40 * this.props.scale, 40 * this.props.scale];
 
             graphie = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Graphie' cannot be used as a JSX component.
                 <Graphie
                     // eslint-disable-next-line react/no-string-refs
                     ref="graphie"
@@ -722,10 +737,12 @@ class SvgImage extends React.Component<Props, State> {
                     height={height}
                     constrainHeight={this.props.constrainHeight}
                 >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component. */}
                     <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
                         onUpdate={this.handleUpdate}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                         preloader={preloader}
                         imgProps={imageProps}
                     />
@@ -737,10 +754,12 @@ class SvgImage extends React.Component<Props, State> {
         imageProps.style = dimensions;
         return (
             <div className="unresponsive-svg-image" style={dimensions}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ImageLoader' cannot be used as a JSX component. */}
                 <ImageLoader
                     src={imageUrl}
                     onLoad={this.onImageLoad}
                     onUpdate={this.handleUpdate}
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                     preloader={preloader}
                     imgProps={imageProps}
                 />

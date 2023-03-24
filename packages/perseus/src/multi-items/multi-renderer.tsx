@@ -38,6 +38,7 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 // eslint-disable-next-line import/no-extraneous-dependencies
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'hubble' or its corresponding type declarations.
 import lens from "hubble";
 import * as React from "react";
 
@@ -60,6 +61,7 @@ type Hint = any; // TODO(mdr)
 type Score = any; // TODO(mdr)
 type SerializedState = any; // TODO(mdr)
 
+// @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
 type RendererProps = JSX.LibraryManagedAttributes<typeof Renderer, React.ComponentProps<typeof Renderer>>;
 
 type ContentRendererElement = React.ReactElement<any>;
@@ -76,6 +78,7 @@ type HintRendererData = {
     hint: Hint
 };
 type RendererData = ContentRendererData | HintRendererData;
+// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
 type RendererDataTree = Tree<ContentRendererData, HintRendererData, null>;
 
 /**
@@ -86,8 +89,11 @@ type RendererDataTree = Tree<ContentRendererData, HintRendererData, null>;
  * really helping us out as I now have to suppress this rather than
  * get value from the type. :(
  */
+// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
 type RendererTree = Tree<ContentRendererElement, HintRendererElement, null>;
+// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
 type ScoreTree = Tree<Score, null, null>;
+// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
 type SerializedStateTree = Tree<SerializedState, null, null>;
 
 type Props = {
@@ -121,12 +127,17 @@ class MultiRenderer extends React.Component<Props, State> {
         super(props);
 
         this.rendererDataTreeMapper = buildMapper()
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'ContentNode'.
             .setContentMapper((c, _, p) => this._makeContentRendererData(c, p))
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'HintNode'.
             .setHintMapper((h) => this._makeHintRendererData(h))
             .setTagsMapper((t) => null);
 
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'TreeMapperForLeavesAndCollections<unknown, any, unknown, any, unknown, unknown>' is not assignable to type 'TreeMapper<ContentRendererData, ContentRendererElement, HintRendererData, HintRendererElement, null, null>'.
         this.getRenderersMapper = buildMapper()
+// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             .setContentMapper((c) => c.makeRenderer())
+// @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             .setHintMapper((h) => h.makeRenderer())
             .setArrayMapper((renderers, data, shape) =>
                 this._annotateRendererArray(
@@ -238,6 +249,7 @@ class MultiRenderer extends React.Component<Props, State> {
              * type for ContentNode and then fix this.
              */
             // $FlowFixMe[cannot-spread-inexact]
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: (e: any) => any; findExternalWidgets: (criterion: any) => readonly (Widget | null | undefined)[]; serializedState: any; onSerializedStateUpdated: (state: any) => void; __type: "content" | "item"; ... 9 more ...; reviewMode?: boolean | ... 1 more ... | undefined; }' is not assignable to type 'InexactPartial<Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "content" | "images" | "onRender" | "linterContext" | "widgets" | "alwaysUpdate" | ... 6 more ... | "serializedState">>'. | TS2786 - 'Renderer' cannot be used as a JSX component.
             <Renderer
                 {...this._getRendererProps()}
                 {...content}
@@ -277,8 +289,10 @@ class MultiRenderer extends React.Component<Props, State> {
             findExternalWidgets, // _annotateRendererArray() needs this
             ref: null,
             makeRenderer: () => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component.
                 <HintsRenderer
                     {...this._getRendererProps()}
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     findExternalWidgets={findExternalWidgets}
                     hints={[hint]}
                 />
@@ -329,6 +343,7 @@ class MultiRenderer extends React.Component<Props, State> {
     _mapRenderers<O>(
         // eslint-disable-next-line no-restricted-syntax
         leafMapper: ContentMapper<RendererData, O> & HintMapper<RendererData, O>,
+// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
     ): Tree<O, O, null> | null | undefined {
         const {rendererDataTree} = this.state;
 
@@ -466,8 +481,10 @@ class MultiRenderer extends React.Component<Props, State> {
 
             renderers = [...renderers];
             (renderers as any).firstN = (n: any) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HintsRenderer' cannot be used as a JSX component.
                 <HintsRenderer
                     {...this._getRendererProps()}
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     findExternalWidgets={
                         hintRendererDatas[0]
                             ? hintRendererDatas[0].findExternalWidgets

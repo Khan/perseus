@@ -99,6 +99,7 @@ const InteractiveGraphEditor: any = createReactClass({
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
                     let correct = this.props.correct;
+// @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                     if (correct.type === newProps.graph.type) {
                         correct = _.extend({}, correct, newProps.graph);
                     } else {
@@ -113,6 +114,7 @@ const InteractiveGraphEditor: any = createReactClass({
                 // getWidgetProps() and widget-container.jsx that the editors don't
                 // bother passing.
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'InteractiveGraph' cannot be used as a JSX component.
                 <InteractiveGraph
                     {...graphProps}
                     containerSizeClass={sizeClass}
@@ -124,6 +126,7 @@ const InteractiveGraphEditor: any = createReactClass({
             );
             // TODO(kevinb): Update getEquationString to only accept the data it actually
             // needs to compute the equation string.
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ readonly ref: "graph"; readonly box: any; readonly range: any; readonly labels: any; readonly step: any; readonly gridStep: any; readonly snapStep: any; readonly graph: any; readonly backgroundImage: any; ... 6 more ...; readonly onChange: (newProps: Pick<...> & ... 1 more ... & InexactPartial<...>) => void; }' is not assignable to parameter of type 'Props'.
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {
             graph = <div className="perseus-error">{this.props.valid}</div>;
@@ -133,6 +136,7 @@ const InteractiveGraphEditor: any = createReactClass({
             <div className="perseus-widget-interactive-graph">
                 <div>
                     Correct answer{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Graph the correct answer in the graph below and
@@ -178,6 +182,7 @@ const InteractiveGraphEditor: any = createReactClass({
                                 <option value="similar">be similar</option>
                             </select>
                         </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                         <InfoTip>
                             <ul>
                                 <li>
@@ -236,6 +241,7 @@ const InteractiveGraphEditor: any = createReactClass({
                                     </option>
                                 </select>
                             </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                             <InfoTip>
                                 <p>
                                     Congruency requires only that the angle
@@ -300,6 +306,7 @@ const InteractiveGraphEditor: any = createReactClass({
                 ],
                 function (key) {
                     if (_.has(correct, key)) {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor" | "showRuler" | "rulerLabel" | "rulerTicks">'.
                         json.graph[key] = correct[key];
                     }
                 },

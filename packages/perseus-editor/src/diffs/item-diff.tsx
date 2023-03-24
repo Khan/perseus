@@ -30,6 +30,7 @@ class ItemDiff extends React.Component<Props> {
         const hintCount = Math.max(before.hints.length, after.hints.length);
 
         const question = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'RendererDiff' cannot be used as a JSX component.
             <RendererDiff
                 before={before.question}
                 after={after.question}
@@ -40,6 +41,7 @@ class ItemDiff extends React.Component<Props> {
         );
 
         const extras = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'WidgetDiff' cannot be used as a JSX component.
             <WidgetDiff
                 before={before.answerArea}
                 after={after.answerArea}
@@ -49,6 +51,7 @@ class ItemDiff extends React.Component<Props> {
 
         const hints = _.times(hintCount, function (n) {
             return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'RendererDiff' cannot be used as a JSX component.
                 <RendererDiff
                     before={
                         n < before.hints.length ? before.hints[n] : undefined

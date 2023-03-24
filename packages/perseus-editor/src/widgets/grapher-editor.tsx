@@ -63,6 +63,7 @@ class GrapherEditor extends React.Component<Props> {
                 // standard props that the Renderer provides normally (eg.
                 // alignment, findWidgets, etc).
                 // $FlowFixMe[prop-missing]
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'Grapher' cannot be used as a JSX component.
                 <Grapher
                     {...graphProps}
                     apiOptions={this.props.apiOptions}
@@ -80,6 +81,7 @@ class GrapherEditor extends React.Component<Props> {
             <div>
                 <div>
                     Correct answer{" "}
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'InfoTip' cannot be used as a JSX component. */}
                     <InfoTip>
                         <p>
                             Graph the correct answer in the graph below and
@@ -104,10 +106,12 @@ class GrapherEditor extends React.Component<Props> {
                     rulerLabel={this.props.graph.rulerLabel}
                     rulerTicks={this.props.graph.rulerTicks}
                     showTooltips={this.props.graph.showTooltips}
+// @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                     onChange={this.change("graph")}
                 />
                 <div className="perseus-widget-row">
                     <label>Available functions: </label>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'MultiButtonGroup' cannot be used as a JSX component. */}
                     <MultiButtonGroup
                         allowEmpty={false}
                         values={this.props.availableTypes}

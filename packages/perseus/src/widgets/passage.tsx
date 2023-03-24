@@ -103,7 +103,9 @@ export type Reference = {
 class Passage extends React.Component<PassageProps, PassageState> {
     _contentRef: HTMLDivElement | null | undefined;
     _lineHeightMeasurerRef: LineHeightMeasurer | null | undefined;
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_onResize' has no initializer and is not definitely assigned in the constructor.
     _onResize: () => Record<any, any>;
+// @ts-expect-error [FEI-5003] - TS2564 - Property '_stylesAppiedTimer' has no initializer and is not definitely assigned in the constructor.
     _stylesAppiedTimer: number;
 
     static defaultProps: DefaultPassageProps = {
@@ -124,6 +126,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
     componentDidMount() {
         this._updateState();
 
+// @ts-expect-error [FEI-5003] - TS2322 - Type '(() => void) & Cancelable' is not assignable to type '() => Record<any, any>'.
         this._onResize = _.throttle(() => {
             // If we're rendering JIPT text, we won't have line numbers or a
             // line height measurer, so skip handling this resize.
@@ -205,6 +208,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _measureLines(): number {
         const renderer = ReactDOM.findDOMNode(this._contentRef);
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
         const contentsHeight: number = $(renderer).height();
         const lineHeight = this._getLineHeight();
         const nLines = Math.round(contentsHeight / lineHeight);
@@ -261,9 +265,11 @@ class Passage extends React.Component<PassageProps, PassageState> {
             return null;
         }
 
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the first text after the ref, not the
         // ref element itself:
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'next' does not exist on type 'JQueryStatic'.
         let $refText = $ref.next();
         if ($refText.length === 0) {
             // But if there are no elements after the ref, just
@@ -286,9 +292,11 @@ class Passage extends React.Component<PassageProps, PassageState> {
             return null;
         }
 
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the last text before the ref, not the
         // ref element itself:
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'prev' does not exist on type 'JQueryStatic'.
         let $refText = $ref.prev();
         if ($refText.length === 0) {
             // But if there are no elements before the ref, just
@@ -314,6 +322,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
 
     _convertPosToLineNumber(absoluteVPos: number): number {
         const content = ReactDOM.findDOMNode(this._contentRef);
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
         const relativeVPos = absoluteVPos - $(content).offset().top;
         const lineHeight = this._getLineHeight();
 
@@ -327,6 +336,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
         if (!ref) {
             return null;
         }
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getRefContent' does not exist on type 'ReactInstance'.
         return ref.getRefContent();
     }
 
@@ -424,6 +434,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
         // Highlights are read-only in review mode.
         const editable = !this.props.reviewModeRubric;
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HighlightableContent' cannot be used as a JSX component.
             <HighlightableContent
                 editable={editable}
                 enabled={enabled}
@@ -433,6 +444,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
                 serializedHighlights={this.props.highlights}
             >
                 <div ref={(ref) => (this._contentRef = ref)}>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'LineHeightMeasurer' cannot be used as a JSX component. */}
                     <LineHeightMeasurer
                         ref={(ref) => (this._lineHeightMeasurerRef = ref)}
                     />
@@ -501,12 +513,14 @@ class Passage extends React.Component<PassageProps, PassageState> {
                     <div className="perseus-widget-passage">
                         {hasTitle && (
                             <h3 className="passage-title">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                 <Renderer
                                     content={this.props.passageTitle}
                                     linterContext={this.props.linterContext}
                                 />
                             </h3>
                         )}
+{ /* @ts-expect-error [FEI-5003] - TS2454 - Variable 'lineNumbers' is used before being assigned. */}
                         {lineNumbers && (
                             <div className="line-numbers" aria-hidden={true}>
                                 {lineNumbers}
@@ -522,6 +536,7 @@ class Passage extends React.Component<PassageProps, PassageState> {
                                 // If we're in JIPT mode, just pass off our
                                 // content to a <Renderer /> which knows how
                                 // to handle rendering JIPT text.
+// @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component.
                                 <Renderer content={this.props.passageText} />
                             ) : (
                                 this._renderContent(parsedContent)

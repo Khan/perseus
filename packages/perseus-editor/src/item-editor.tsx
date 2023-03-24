@@ -51,6 +51,7 @@ class ItemEditor extends React.Component<Props> {
 
     triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
         this.refs.frame.sendNewData(newData);
     };
 
@@ -66,6 +67,7 @@ class ItemEditor extends React.Component<Props> {
 
     getSaveWarnings: () => any = () => {
         // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         return this.refs.questionEditor.getSaveWarnings();
     };
 
@@ -79,8 +81,10 @@ class ItemEditor extends React.Component<Props> {
     } = (options: any) => {
         return {
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             question: this.refs.questionEditor.serialize(options),
             // eslint-disable-next-line react/no-string-refs
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             answerArea: this.refs.itemExtrasEditor.serialize(options),
             itemDataVersion: ITEM_DATA_VERSION,
         };
@@ -95,6 +99,7 @@ class ItemEditor extends React.Component<Props> {
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question</div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Editor' cannot be used as a JSX component. */}
                         <Editor
                             // eslint-disable-next-line react/no-string-refs
                             ref="questionEditor"
@@ -115,10 +120,12 @@ class ItemEditor extends React.Component<Props> {
 
                     <div className="perseus-editor-right-cell">
                         <div id="problemarea">
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'DeviceFramer' cannot be used as a JSX component. */}
                             <DeviceFramer
                                 deviceType={this.props.deviceType}
                                 nochrome={true}
                             >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'IframeContentRenderer' cannot be used as a JSX component. */}
                                 <IframeContentRenderer
                                     // eslint-disable-next-line react/no-string-refs
                                     ref="frame"
@@ -141,6 +148,7 @@ class ItemEditor extends React.Component<Props> {
                 <div className="perseus-editor-row perseus-answer-container">
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question extras</div>
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'ItemExtrasEditor' cannot be used as a JSX component. */}
                         <ItemExtrasEditor
                             // eslint-disable-next-line react/no-string-refs
                             ref="itemExtrasEditor"

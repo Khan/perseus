@@ -119,6 +119,7 @@ function addClientRectsForText(
     mutableRects: Array<Rect>,
 ): void {
     const parentElement = textNode.parentElement;
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
     const computedStyle = window.getComputedStyle(parentElement);
 
     // NOTE(mdr): I'm not sure how computed line height works in all contexts
@@ -135,6 +136,7 @@ function addClientRectsForText(
     ) {
         const parsedLineHeight = parseFloat(computedStyle.lineHeight);
         if (!isNaN(parsedLineHeight)) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
             lineHeight = parsedLineHeight;
         }
     }

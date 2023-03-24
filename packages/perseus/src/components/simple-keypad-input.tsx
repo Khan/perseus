@@ -26,10 +26,12 @@ export default class SimpleKeypadInput extends React.Component<any> {
     _isMounted: boolean = false;
 
     focus() {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus(); // eslint-disable-line react/no-string-refs
     }
 
     blur() {
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur(); // eslint-disable-line react/no-string-refs
     }
 
@@ -46,6 +48,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
         const {keypadElement, onFocus, value, ...rest} = _this.props;
 
         return (
+// @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2786 - 'KeypadInput' cannot be used as a JSX component.
             <KeypadInput
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"
@@ -73,6 +76,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
     }
 }
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'propTypes' does not exist on type 'typeof SimpleKeypadInput'.
 SimpleKeypadInput.propTypes = {
     keypadElement: keypadElementPropType,
     onFocus: PropTypes.func,

@@ -17,11 +17,10 @@
         /* Type Checking */
         "strict": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strictFunctionTypes": false,
         "strictPropertyInitialization": true,
         "strictBindCallApply": true,
-        // TODO(FEI-5020): Enable this setting, there are 242 errors from it when last checked
-        // "noImplicitAny": true,
+        "noImplicitAny": false,
         /* Completeness */
         "skipDefaultLibCheck": true, // it's safe to assume that built-in .d.ts files are correct
         "skipLibCheck": false

@@ -7,17 +7,21 @@ import KhanColors from './util/colors';
 const Interactive2 = {
     MovablePoint: MovablePoint,
     addMovablePoint: function(graphie: any, options: any): any {
+// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         const movable = new Movable(graphie, {});
         return new MovablePoint(graphie, movable, options);
     },
     MovableLine: MovableLine,
     addMovableLine: function(graphie: any, options: any): any {
+// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         const movable = new Movable(graphie, {});
         return new MovableLine(graphie, movable, options);
     },
     MovablePolygon: MovablePolygon,
     addMovablePolygon: function(graphie: any, options: any): any {
+// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         const movable = new Movable(graphie, {});
+// @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         return new MovablePolygon(graphie, movable, options);
     },
 

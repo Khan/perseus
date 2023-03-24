@@ -17,25 +17,31 @@ export default {
 } as Story;
 
 export const EmptyPropsObject: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component.
     return <NumberInput {...defaultObject} />;
 };
 
 export const SampleValue: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component.
     return <NumberInput {...defaultObject} value={1234567890} />;
 };
 
 export const Placeholder: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component.
     return <NumberInput {...defaultObject} placeholder="Sample placeholder" />;
 };
 
 export const SizeMini: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component.
     return <NumberInput {...defaultObject} placeholder="Sample placeholder" />;
 };
 
 export const SizeSmall: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component.
     return <NumberInput {...defaultObject} size="small" />;
 };
 
 export const SizeNormal: React.FC<StoryArgs> = (args): React.ReactElement => {
+// @ts-expect-error [FEI-5003] - TS2786 - 'NumberInput' cannot be used as a JSX component.
     return <NumberInput {...defaultObject} size="normal" />;
 };

@@ -2,6 +2,7 @@ import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {RendererWithDebugUI} from '../../../../../testing/renderer-with-debug-ui';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/numeric-input_testdata' or its corresponding type declarations.
 import {question1} from '../__testdata__/numeric-input_testdata';
 import {NumericInput} from '../numeric-input';
 
@@ -65,6 +66,7 @@ export const Question1 = (): React.ReactElement => {
 export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
     const props = generateProps(args);
 
+// @ts-expect-error [FEI-5003] - TS2786 - 'NumericInput' cannot be used as a JSX component.
     return <NumericInput {...props} />;
 };
 
@@ -76,10 +78,12 @@ export const Sizes: React.FC<StoryArgs> = (args): React.ReactElement => {
         <div>
             <label>
                 Small:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumericInput' cannot be used as a JSX component. */}
                 <NumericInput {...smallProps} />
             </label>
             <label>
                 Normal:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumericInput' cannot be used as a JSX component. */}
                 <NumericInput {...normalProps} />
             </label>
         </div>
@@ -94,10 +98,12 @@ export const TextAlignment: React.FC<StoryArgs> = (args): React.ReactElement => 
         <div>
             <label>
                 Left:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumericInput' cannot be used as a JSX component. */}
                 <NumericInput {...leftProps} />
             </label>
             <label>
                 Right:
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'NumericInput' cannot be used as a JSX component. */}
                 <NumericInput {...rightProps} />
             </label>
         </div>

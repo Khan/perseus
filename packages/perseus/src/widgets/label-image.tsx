@@ -97,6 +97,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         } as const;
 
         if (marker.selected && marker.selected.length > 0) {
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'hasAnswers' because it is a read-only property.
             score.hasAnswers = true;
         }
 
@@ -106,12 +107,14 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 marker.selected.length === marker.answers.length
             ) {
                 // All correct answers are selected by the user.
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
                 score.isCorrect = marker.selected.every((choice) =>
                     marker.answers.includes(choice),
                 );
             }
         } else if (!marker.selected || marker.selected.length === 0) {
             // Correct as no answers should be selected by the user.
+// @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
             score.isCorrect = true;
         }
 
@@ -206,7 +209,9 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         for (const side of Object.keys(triangles)) {
             const corners = triangles[side];
 
+// @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             if (LabelImage.pointInTriangle(p, ...corners)) {
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"left" | "top" | "center" | "right" | "bottom"'.
                 return side;
             }
         }
@@ -372,6 +377,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
 
         // Update Perseus widget state with user selected answers without
         // triggering interaction events for listeners.
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
         onChange({markers: updatedMarkers}, null, true);
     }
 
@@ -509,6 +515,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         const marker =
             this._markers[
                 LabelImage.navigateToMarkerIndex(
+// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; }' is not assignable to parameter of type 'Direction'.
                     navigateDirection,
                     markers,
                     index,
@@ -552,6 +559,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     css(styles.scrollableChoices),
                 )}
             >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'AnswerChoices' cannot be used as a JSX component. */}
                 <AnswerChoices
                     choices={choices.map((choice) => ({
                         content: choice,
@@ -580,6 +588,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             const score = LabelImage.gradeMarker(marker);
 
             const element = (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Marker' cannot be used as a JSX component.
                 <Marker
                     {...marker}
                     // Once the question is answered, show markers
@@ -633,8 +642,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             // markers that are unselected (to hide their popup), this would
             // keep the React tree more stable.
             return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'Popover' cannot be used as a JSX component.
                 <Popover
                     content={() => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'PopoverContentCore' cannot be used as a JSX component.
                         <PopoverContentCore style={styles.choicesPopover}>
                             {this.renderAnswerChoicesForMarker(index, marker)}
                         </PopoverContentCore>
@@ -690,6 +701,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                                 className={css(styles.instructionsChoice)}
                                 key={index}
                             >
+{ /* @ts-expect-error [FEI-5003] - TS2786 - 'Renderer' cannot be used as a JSX component. */}
                                 <Renderer content={choice} />
                             </div>
                         ))}
@@ -729,6 +741,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     >
                         <AssetContext.Consumer>
                             {({setAssetStatus}) => (
+// @ts-expect-error [FEI-5003] - TS2786 - 'SvgImage' cannot be used as a JSX component.
                                 <SvgImage
                                     alt={imageAlt}
                                     src={imageUrl}
@@ -770,6 +783,7 @@ const styles = StyleSheet.create({
 
         margin: "8px 0",
 
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; alignItems: "center"; margin: string; ":not(:last-child)": { "::after": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginRight: number; background: string; borderRadius: number; }; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             "::after": {
                 content: "''",

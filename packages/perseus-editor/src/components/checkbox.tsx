@@ -62,6 +62,7 @@ export default class Checkbox extends React.Component<CheckboxProps> {
         const checkedColor = colors.gray41;
 
         return (
+// @ts-expect-error [FEI-5003] - TS2786 - 'HoverBehavior' cannot be used as a JSX component.
             <HoverBehavior>
                 {({focused}, handlers) => (
                     <div
@@ -130,6 +131,7 @@ export default class Checkbox extends React.Component<CheckboxProps> {
                             )}
                             disabled={disabled}
                             onChange={onChange}
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'string | number | undefined' is not assignable to type 'number | undefined'.
                             tabIndex={tabIndex}
                         />
                     </div>
@@ -156,6 +158,7 @@ const styles = StyleSheet.create({
         flexShrink: 0,
     },
     focused: {
+// @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; position: string; top: number; right: number; bottom: number; left: number; borderRadius: number; backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: '""',
             position: "absolute",
