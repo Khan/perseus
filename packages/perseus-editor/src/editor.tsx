@@ -790,8 +790,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
 
             const widgetJSON = localStorage.perseusLastCopiedWidgets;
             const lastCopiedText = localStorage.perseusLastCopiedText;
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'originalEvent' does not exist on type 'SyntheticEvent<HTMLTextAreaElement, Event>'.
             const textToBePasted =
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'originalEvent' does not exist on type 'SyntheticEvent<HTMLTextAreaElement, Event>'.
                 e.originalEvent.clipboardData.getData("text");
 
             // Only intercept if we have widget data to paste and the user is

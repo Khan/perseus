@@ -21,7 +21,6 @@ const Interactive2 = {
     addMovablePolygon: function (graphie: any, options: any): any {
         // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         const movable = new Movable(graphie, {});
-        // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
         return new MovablePolygon(graphie, movable, options);
     },
 

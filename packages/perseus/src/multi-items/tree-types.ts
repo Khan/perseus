@@ -42,5 +42,6 @@ export type Tree<C, H, T> =
     | C
     | H
     | T
+    // @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
     | ArrayNode<C, H, T>
     | ObjectNode<C, H, T>;

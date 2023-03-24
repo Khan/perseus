@@ -1746,7 +1746,7 @@ var defaultRules: DefaultRules = {
 };
 
 /** (deprecated) */
-var ruleOutput = function (
+var ruleOutput = function <Rule>(
     // $FlowFixMe
     rules: OutputRules<Rule>,
     property: keyof Rule,
@@ -1763,6 +1763,8 @@ var ruleOutput = function (
         outputFunc: Output<any>,
         state: State,
     ) {
+        // @ts-expect-error [FEI-5003] - TS2349 - This expression is not callable.
+        //   Type 'unknown' has no call signatures.
         return rules[ast.type][property](ast, outputFunc, state);
     };
     return nestedRuleOutput;
@@ -1824,7 +1826,7 @@ var htmlFor = function (outputFunc: HtmlNodeOutput): HtmlOutput {
     return nestedOutput;
 };
 
-var outputFor = function (
+var outputFor = function <Rule>(
     rules: OutputRules<Rule>,
     property: keyof Rule,
     defaultState: State | null = {},
@@ -1861,6 +1863,8 @@ var outputFor = function (
         if (Array.isArray(ast)) {
             return arrayRuleOutput(ast, nestedOutput, state);
         } else {
+            // @ts-expect-error [FEI-5003] - TS2349 - This expression is not callable.
+            //   Type 'unknown' has no call signatures.
             return rules[ast.type][property](ast, nestedOutput, state);
         }
     };

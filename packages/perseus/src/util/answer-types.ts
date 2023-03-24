@@ -290,7 +290,7 @@ const KhanAnswerTypes = {
                 // pi-like numbers
                 pi: function (text) {
                     let match;
-                    let possibilities = [];
+                    let possibilities: any[] = [];
 
                     // Replace unicode minus sign with hyphen
                     text = text.replace(/\u2212/, "-");
@@ -305,9 +305,7 @@ const KhanAnswerTypes = {
                     ) {
                         possibilities = [
                             {
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
                                 value: parseFloat(match[1] + "1"),
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean' is not assignable to type 'never'.
                                 exact: true,
                             },
                         ];
@@ -318,7 +316,6 @@ const KhanAnswerTypes = {
                             /^([+-]?\s*\d+\s*(?:\/\s*[+-]?\s*\d+)?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
                         ))
                     ) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = fractionTransformer(match[1]);
 
                         // 4 5 / 6 pi
@@ -336,9 +333,7 @@ const KhanAnswerTypes = {
 
                         possibilities = [
                             {
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
                                 value: sign * (integ + num / denom),
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean' is not assignable to type 'never'.
                                 exact: simplified,
                             },
                         ];
@@ -349,7 +344,6 @@ const KhanAnswerTypes = {
                             /^([+-]?\s*\d+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\s*\d+))?$/i,
                         ))
                     ) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = fractionTransformer(
                             match[1] + "/" + match[3],
                         );
@@ -360,14 +354,12 @@ const KhanAnswerTypes = {
                             /^([+-]?)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)\s*(?:\/\s*([+-]?\d+))?$/i,
                         ))
                     ) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = fractionTransformer(
                             match[1] + "1/" + match[3],
                         );
 
                         // 0
                     } else if (text === "0") {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'. | TS2322 - Type 'boolean' is not assignable to type 'never'.
                         possibilities = [{value: 0, exact: true}];
 
                         // 0.5 pi (fallback)
@@ -376,7 +368,6 @@ const KhanAnswerTypes = {
                             /^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
                         ))
                     ) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ value: number | undefined; exact: boolean; }[]' is not assignable to type 'never[]'.
                         possibilities = forms.decimal(match[1]);
                     } else {
                         possibilities = _.reduce(
@@ -412,7 +403,6 @@ const KhanAnswerTypes = {
                         }
                         if (approximatesPi) {
                             _.each(possibilities, function (possibility) {
-                                // @ts-expect-error [FEI-5003] - TS2339 - Property 'piApprox' does not exist on type 'never'.
                                 possibility.piApprox = true;
                             });
                         }
@@ -431,7 +421,6 @@ const KhanAnswerTypes = {
                     }
 
                     $.each(possibilities, function (ix, possibility) {
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'never'.
                         possibility.value *= multiplier;
                     });
                     return possibilities;

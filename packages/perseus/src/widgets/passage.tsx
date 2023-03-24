@@ -101,7 +101,7 @@ export type Reference = {
     content: string | null | undefined;
 };
 
-class Passage extends React.Component<PassageProps, PassageState> {
+export class Passage extends React.Component<PassageProps, PassageState> {
     _contentRef: HTMLDivElement | null | undefined;
     _lineHeightMeasurerRef: LineHeightMeasurer | null | undefined;
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_onResize' has no initializer and is not definitely assigned in the constructor.

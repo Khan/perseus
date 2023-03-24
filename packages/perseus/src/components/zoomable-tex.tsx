@@ -18,7 +18,10 @@ type State = {
     isRendered: boolean;
 };
 
-const computeMathBounds = (parentNode: HTMLElement, parentBounds: Bounds) => {
+const computeMathBounds = (
+    parentNode: HTMLElement,
+    parentBounds: {width: number; height: number},
+) => {
     const textElement =
         parentNode.querySelector(".katex-html") ||
         parentNode.querySelector(".MathJax");

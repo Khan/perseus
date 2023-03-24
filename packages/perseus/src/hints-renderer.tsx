@@ -22,10 +22,10 @@ import Util from "./util";
 
 import type {APIOptionsWithDefaults} from "./types";
 
-// @ts-expect-error [FEI-5003] - TS2344 - Type 'Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
 type Props = JSX.LibraryManagedAttributes<
     Renderer,
-    React.ComponentProps<Renderer>
+    // @ts-expect-error [FEI-5003] - TS2344 - Type 'Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
+    React.ComponentProps<typeof Renderer>
 > & {
     className?: string;
     // note (mcurtis): I think this should be $ReadOnlyArray<PerseusRenderer>,

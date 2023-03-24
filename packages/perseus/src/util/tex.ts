@@ -5,6 +5,8 @@ import {getDependencies} from "../dependencies";
 
 import KhanMath from "./math";
 
+declare const MathJax: any;
+
 function findChildOrAdd(elem: any, className: string) {
     const $child = $(elem).find("." + className);
     if ($child.length === 0) {
@@ -68,7 +70,9 @@ export default {
             // would update the formula by updating the contents of the script
             // tag, which shouldn't happen any more, but we manage them just in
             // case.
-            const script = $mathjaxHolder.find("script[type='math/tex']")[0];
+            const script: HTMLElement | undefined = $mathjaxHolder.find(
+                "script[type='math/tex']",
+            )[0];
 
             // If text wasn't provided, we look in two places
             if (text == null) {
@@ -145,7 +149,6 @@ export default {
             } else {
                 if ("text" in script) {
                     // IE8, etc
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'text' does not exist on type 'HTMLElement'.
                     script.text = text;
                 } else {
                     script.textContent = text;

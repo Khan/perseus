@@ -228,44 +228,34 @@ export function runLinter(
                 const prefix = content.substring(0, start);
                 const lint = content.substring(start, end);
                 const suffix = content.substring(end);
-                const replacements = []; // What we'll replace the node with
+                // TODO(FEI-5003): Give this a real type.
+                const replacements: any[] = []; // What we'll replace the node with
 
                 // The prefix text node, if there is one
                 if (prefix) {
                     replacements.push({
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
                         type: "text",
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                         content: prefix,
                     });
                 }
 
                 // The lint node wrapped around the linty text
                 replacements.push({
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
                     type: "lint",
                     content: {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
                         type: "text",
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                         content: lint,
                     },
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                     message: warning.message,
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                     ruleName: warning.rule,
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean' is not assignable to type 'never'.
                     insideTable: insideTable,
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                     severity: warning.severity,
                 });
 
                 // The suffix node, if there is one
                 if (suffix) {
                     replacements.push({
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'never'.
                         type: "text",
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                         content: suffix,
                     });
                 }

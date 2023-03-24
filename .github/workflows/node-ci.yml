@@ -19,7 +19,7 @@ jobs:
       - uses: Khan/actions@check-for-changeset-v0
 
   lint:
-    name: Lint, Flow, and Test
+    name: Lint, Typecheck, and Test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -62,9 +62,9 @@ jobs:
         limited-trigger: ${{ steps.js-files.outputs.filtered }}
         limited: yarn lint {}
 
-    - name: Run Flow
+    - name: Typecheck
       if: steps.js-files.outputs.filtered != '[]'
-      run: yarn flow
+      run: yarn typecheck
 
     # Run tests for our target matrix
     - id: jest-reset

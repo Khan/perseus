@@ -1,6 +1,8 @@
 import winston from "winston";
 
-export const getLogger = (): $winstonLogger<any> => {
+import type {Logger} from "winston";
+
+export const getLogger = (): Logger => {
     const simpleFormat = winston.format.printf(({level, message}) => {
         return `[${level.padEnd(5).toUpperCase()}]: ${message}`;
     });

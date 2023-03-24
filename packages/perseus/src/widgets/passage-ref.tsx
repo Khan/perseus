@@ -7,7 +7,7 @@ import * as Changeable from "../mixins/changeable";
 import {removeDenylistProps} from "../mixins/widget-prop-denylist";
 import PerseusMarkdown from "../perseus-markdown";
 
-import PassageWidgetExport from "./passage";
+import {Passage} from "./passage";
 
 import type {PerseusPassageRefWidgetOptions} from "../perseus-types";
 import type {
@@ -161,8 +161,9 @@ class PassageRef extends React.Component<Props, State> {
         // Note(TB): findWidgets runs findInternal and findExternal;
         // findExternal runs findInternal for the renderers involved;
         // findInternal returns type $ReadOnlyArray<?Widget>
-        const passage: PassageWidgetExport.widget | null | undefined =
-            this.props.findWidgets("passage " + this.props.passageNumber)[0];
+        const passage: Passage | null | undefined = this.props.findWidgets(
+            "passage " + this.props.passageNumber,
+        )[0];
 
         let refInfo: Reference | null | undefined = null;
         if (passage) {

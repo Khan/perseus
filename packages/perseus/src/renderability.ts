@@ -16,6 +16,8 @@ import {PerseusError} from "./perseus-error";
 import {traverse} from "./traversal";
 import * as Widgets from "./widgets";
 
+import type {PerseusWidget} from "./perseus-types";
+
 const {findContentNodesInItem, inferItemShape} = MultiItems;
 
 const isUpgradedWidgetInfoRenderableBy = function (

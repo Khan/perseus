@@ -16,7 +16,10 @@ import * as Changeable from "../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
 import KhanAnswerTypes from "../util/answer-types";
 
-import type {PerseusExpressionWidgetOptions} from "../perseus-types";
+import type {
+    PerseusExpressionWidgetOptions,
+    PerseusExpressionAnswerForm,
+} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 type InputPath = ReadonlyArray<string>;
