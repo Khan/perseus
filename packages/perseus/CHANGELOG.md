@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 3.0.0
+
+### Major Changes
+
+-   8ca2a1a6: API change: remove staticRender from ApiOptions
+
 ## 2.1.0
 
 ### Minor Changes
