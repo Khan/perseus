@@ -53,7 +53,7 @@ jobs:
     - name: Upload Coverage
       # We don't bother uploading a record of coverage for dependabot changes
       if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: coverallsapp/github-action@v2
+      uses: coverallsapp/github-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         flag-name: jest
@@ -85,7 +85,7 @@ jobs:
     - name: Upload Coverage
       # We don't bother uploading a record of coverage for dependabot changes
       if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: coverallsapp/github-action@v2
+      uses: coverallsapp/github-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         flag-name: cypress
@@ -96,7 +96,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Finish Coverage
-      uses: coverallsapp/github-action@v2
+      uses: coverallsapp/github-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         parallel-finished: true
