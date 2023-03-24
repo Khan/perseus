@@ -725,8 +725,9 @@ export type PerseusNumericInputWidgetOptions = {|
     answers: $ReadOnlyArray<PerseusNumericInputAnswer>,
     // Translatable Text; Text to describe this input. This will be shown to users using screenreaders.
     labelText: string,
-    // Use size "Normal" for all text boxes, unless there are multiple text boxes in one line and the answer area is too narrow to fit them. Options: "normal" or "small"
-    size: string,
+    // Use size "Normal" for all text boxes, unless there are multiple text boxes in one line and the answer area is too narrow to fit them.
+    // Options: "normal" or "small"
+    size: "normal" | "small",
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
     coefficient: boolean,
     // Whether we're asking for all correct solutions or only one
@@ -750,7 +751,8 @@ export type PerseusNumericInputAnswer = {|
     value: number,
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string,
-    // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
+    // The forms available for this answer.
+    // Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     answerForms?: $ReadOnlyArray<MathFormat>,
     // Whether the answerForms should be strictly matched
@@ -758,8 +760,9 @@ export type PerseusNumericInputAnswer = {|
     // A range of error +/- the value
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
     maxError: ?number,
-    // Unsimplified answers are Ungraded, Accepted, or Wrong. Options: "required", "correct", or "enforced"
-    simplify: ?string,
+    // Unsimplified answers are Ungraded, Accepted, or Wrong.
+    // Options: "required", "correct", or "enforced"
+    simplify: ?("required" | "optional" | "enforced"),
 |};
 
 export type PerseusNumberLineWidgetOptions = {|
