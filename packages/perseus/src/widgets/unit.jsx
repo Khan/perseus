@@ -330,7 +330,6 @@ export class OldUnitInput extends React.Component<Props> {
                     value={this.props.value}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
-                    data-test-id="perseus__unit-input"
                 />
                 {/* eslint-disable-next-line react/no-string-refs */}
                 <div ref="error" className="error" style={{display: "none"}}>

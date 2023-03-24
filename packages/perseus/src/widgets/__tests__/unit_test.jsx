@@ -1,6 +1,6 @@
 // @flow
 import "@testing-library/jest-dom";
-import {render, screen} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import React from "react";
 
 import Unit, {countSigfigs, sigfigPrint} from "../unit.jsx";
@@ -10,15 +10,18 @@ const UnitWidget = widget;
 
 describe("Unit Widget", () => {
     it("renders", () => {
+        // Arrange
         const props = {
             onBlur: () => {},
             onFocus: () => {},
             onChange: () => {},
         };
 
-        render(<Unit.widget {...props} />);
+        // Act
+        const {container} = render(<Unit.widget {...props} />);
 
-        expect(screen.getByTestId("perseus__unit-input")).toBeInTheDocument();
+        // Assert
+        expect(container).toMatchSnapshot("initial render");
     });
 
     describe("countSigfigs", () => {
