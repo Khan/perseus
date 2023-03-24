@@ -735,7 +735,6 @@ const KhanAnswerTypes = {
      */
     expression: {
         parseSolution: function (solutionString: string, options: any): any {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             let solution = KAS.parse(solutionString, options);
             if (!solution.parsed) {
                 throw new PerseusError(
@@ -784,7 +783,6 @@ const KhanAnswerTypes = {
                     return score;
                 }
 
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 const answer = KAS.parse(guess, options);
 
                 // An unsuccessful parse doesn't count as wrong
@@ -803,7 +801,6 @@ const KhanAnswerTypes = {
                     );
                 }
 
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 const result = KAS.compare(answer.expr, solution, options);
 
                 if (result.equal) {
@@ -843,13 +840,11 @@ const KhanAnswerTypes = {
                     // which is handled by another branch. When we implement a
                     // more sophisticated variable check, revive this or
                     // remove it completely if it will never come into play.
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                     const answerX = KAS.parse(
                         guess.replace(/[xX]/g, "*"),
                         options,
                     );
                     if (answerX.parsed) {
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                         const resultX = KAS.compare(
                             answerX.expr,
                             solution,

@@ -298,7 +298,6 @@ class ExpressionEditor extends React.Component<any, any> {
                     issues.push(`Answer ${ix + 1} is empty`);
                 } else {
                     // note we're not using icu for content creators
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                     const expression = KAS.parse(form.value, {
                         functions: this.props.functions,
                     });

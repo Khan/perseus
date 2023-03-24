@@ -122,7 +122,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
             // solution answer, not the student answer, and we don't want a
             // solution to work if the student is using a different language
             // (different from the content creation language, ie. English).
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const expression = KAS.parse(answer.value, rubric);
             // An answer may not be parsed if the expression was defined
             // incorrectly. For example if the answer is using a symbol defined
@@ -364,7 +363,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
         _.extend(options, {
             decimal_separator: i18n.getDecimalSeparator(),
         });
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         return KAS.parse(insertBraces(value), options);
     };
 
@@ -557,7 +555,6 @@ const keypadConfigurationForProps = (
     const uniqueExtraVariables: Record<string, any> = {};
     const uniqueExtraConstants: Record<string, any> = {};
     for (const answerForm of widgetOptions.answerForms) {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const maybeExpr = KAS.parse(answerForm.value, widgetOptions);
         if (maybeExpr.parsed) {
             const expr = maybeExpr.expr;

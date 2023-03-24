@@ -52,7 +52,6 @@ class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
     }
 
     _checkValidity = ({name, original, sigfigs}) => {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const parseResult = KAS.unitParse(name);
         let solvedExample = "";
 
@@ -60,10 +59,8 @@ class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
         let valid = true;
 
         if (parseResult.parsed && original) {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'Var' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const x = new KAS.Var("x");
             const {unit} = parseResult;
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'Eq' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'. | TS2339 - Property 'Mul' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const equality = new KAS.Eq(original, "=", new KAS.Mul(x, unit));
             try {
                 const answer = equality.solveLinearEquationForVariable(x);
@@ -75,7 +72,6 @@ class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
                 // places.
                 solvedExample = sigfigPrint(answer.eval(), sigfigs);
 
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 valid = KAS.compare(primUnits(original), primUnits(unit)).equal;
             } catch (e: any) {
                 valid = false;
@@ -181,7 +177,6 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
     };
 
     _doOriginal: (arg1: UnitExampleProps) => void = (props) => {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const tryParse = KAS.unitParse(props.value);
         this.parsed = false;
 
@@ -202,7 +197,6 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
         const {value, accepting, acceptingUnits} = this.props;
         const warnings: Array<string> = [];
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const tryParse = KAS.unitParse(value);
         if (!tryParse.parsed) {
             warnings.push("Answer did not parse");
