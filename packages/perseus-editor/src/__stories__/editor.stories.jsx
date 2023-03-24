@@ -2,15 +2,15 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {question1} from "../__testdata__/input-number_testdata.js";
+import {question1} from "../__testdata__/numeric-input_testdata.js";
 import Editor from "../editor.jsx";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing.js";
 
 export default {
-    title: "Perseus/Editor",
+    title: "Perseus/Editor/Demo",
 };
 
-export const Rational = (): React.Node => {
+export const Unified = (): React.Node => {
     registerAllWidgetsAndEditorsForTesting();
     Dependencies.getDependencies().shouldUseFutureKaTeX(false);
 

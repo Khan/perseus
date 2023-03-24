@@ -11,7 +11,7 @@ type Story = {|
 |};
 
 export default ({
-    title: "Perseus Editor/Widgets/Section Control Button",
+    title: "Perseus/Editor/Section Control Button",
 }: Story);
 
 export const ButtonForEditingSectionsOfContentWithInArticleEditor = (
