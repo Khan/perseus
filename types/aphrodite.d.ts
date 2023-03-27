@@ -26,11 +26,27 @@ declare module "aphrodite" {
         /**
          * Pseudo-selectors
          */
-        "::placeholder"?: _CSSProperties;
-        ":after"?: _CSSProperties;
-        ":focus-visible"?: _CSSProperties;
-        ":focus"?: _CSSProperties;
-        ":hover"?: _CSSProperties;
+        "::placeholder"?: CSSProperties;
+        ":after"?: CSSProperties;
+        "::after"?: CSSProperties;
+        ":before"?: CSSProperties;
+        "::before"?: CSSProperties;
+        ":focus-visible"?: CSSProperties;
+        ":focus"?: CSSProperties;
+        ":hover"?: CSSProperties;
+        ":active"?: CSSProperties;
+        ":not(:last-child)"?: CSSProperties;
+        ":not(:first-child)"?: CSSProperties;
+        ":first-child"?: CSSProperties;
+        ":last-child"?: CSSProperties;
+        ":hover > span"?: CSSProperties;
+        ":hover > div"?: CSSProperties;
+        ":hover ~ span"?: CSSProperties;
+        ":hover ~ div"?: CSSProperties;
+        ":hover div"?: CSSProperties;
+        ":checked"?: CSSProperties;
+        "::-ms-check"?: CSSProperties;
+        ":link"?: CSSProperties;
     };
 
     /**

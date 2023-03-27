@@ -1,3 +1,5 @@
+import {describe, beforeEach, it} from "@jest/globals";
+
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {isAccessible} from "../../widgets";
@@ -8,7 +10,6 @@ import {renderQuestion} from "./renderQuestion";
 import type {ImageWidget, PerseusImageWidgetOptions} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'SuiteFunction'.
 describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
     const apiOptions: APIOptions = {isMobile};
 

@@ -6,3 +6,4 @@ yarn-error.log
 coverage
 storybook-static
 .nyc_output
+tsconfig.tsbuildinfo

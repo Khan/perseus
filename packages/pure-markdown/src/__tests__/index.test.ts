@@ -1,8 +1,9 @@
+import {describe, it} from "@jest/globals";
+
 import {parse} from "../index";
 
 describe("pure markdown", () => {
     describe("parser", () => {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "math $y = x + 1$",
@@ -37,7 +38,6 @@ describe("pure markdown", () => {
             expect(parsed).toEqual(expected);
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "math $y = \\text{$x + 1$}$",
@@ -77,7 +77,6 @@ describe("pure markdown", () => {
             expect(parsed).toEqual(expected);
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "math $\\\\$",
@@ -163,7 +162,6 @@ describe("pure markdown", () => {
             expect(parsed).toEqual(expected);
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "$x + y = 7$",
@@ -231,7 +229,6 @@ describe("pure markdown", () => {
             expect(parsed).toEqual(expected);
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "hello $ single dollar paragraph\n\n not math $",
@@ -276,7 +273,6 @@ describe("pure markdown", () => {
             expect(parsed).toEqual(expected);
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "[[☃ test 1]]",
@@ -372,7 +368,6 @@ describe("pure markdown", () => {
             ]);
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "[[☃ test 1]][[☃ test 2]]",
@@ -444,7 +439,6 @@ describe("pure markdown", () => {
             ]);
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "1. test\n\n" + "2. boo\n\n",
@@ -508,7 +502,6 @@ describe("pure markdown", () => {
             expect(parsed).toEqual(expected);
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([
             {
                 content: "$",

@@ -1,14 +1,16 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable comma-dangle */
+/* eslint-disable comma-spacing */
 /* eslint-disable import/no-commonjs */
+/* eslint-disable max-len */
+/* eslint-disable no-var */
 /* eslint-disable prettier/prettier */
 
-/* TODO(charlie): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, comma-dangle, max-len, comma-spacing */
+const fs = require("fs");
+const path = require("path");
 
-import fs from "fs";
-import path from "path";
-
-import jison from "jison";
+const jison = require("jison");
 
 var grammar = {
     lex: {
@@ -219,7 +221,11 @@ var unitPrelude = "// this is a @gene" + "rated file\n\n";
 var unitEpilogue = "\n\nexport const unitParser = parser;\n";
 
 var unitParserInfile = path.resolve(__dirname, "unitvalue.jison");
-var unitParserOutfile = path.resolve(__dirname, "__genfiles__", "unitparser");
+var unitParserOutfile = path.resolve(
+    __dirname,
+    "__genfiles__",
+    "unitparser.js",
+);
 
 var unitParserSource = fs.readFileSync(unitParserInfile);
 var unitParser = new jison.Generator(unitParserSource.toString());

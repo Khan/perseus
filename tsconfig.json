@@ -2,12 +2,15 @@
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
     "exclude": ["**/dist"],
+    "include": ["**/src", "./types"],
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,
-
         "paths": {
+            "hubble": ["./vendor/hubble/hubble.js"],
+            "jsdiff": ["./vendor/jsdiff/jsdiff.js"],
+            "raphael": ["./vendor/raphael/raphael.js"],
             "@khanacademy/*": ["./packages/*/src"]
         },
-    }
+    },
 }

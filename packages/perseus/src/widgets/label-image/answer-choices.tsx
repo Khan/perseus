@@ -271,7 +271,6 @@ const styles = StyleSheet.create({
         border: "solid 2px transparent",
         borderRadius: 2,
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; alignItems: "center"; userSelect: "none"; padding: string; fontWeight: "bold"; border: string; borderRadius: number; ":active": { backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
         ":active": {
             backgroundColor: "rgba(33, 36, 44, 0.08)",
         },
@@ -280,7 +279,6 @@ const styles = StyleSheet.create({
     answerFocused: {
         borderColor: "#1865f2",
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ borderColor: "#1865f2"; ":active": { borderColor: string; }; }' is not assignable to type 'CSSProperties'.
         ":active": {
             borderColor: "transparent",
         },

@@ -7,5 +7,6 @@
     },
     "references": [
         {"path": "../perseus-error"},
+        {"path": "../pure-markdown"},
     ]
 }

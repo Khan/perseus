@@ -1,3 +1,4 @@
+import {describe, beforeEach, it} from "@jest/globals";
 import {act, screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import _ from "underscore";
@@ -45,7 +46,6 @@ describe("single-choice question", () => {
     const [question, correct, incorrect] = questionAndAnswer;
     const apiOptions = Object.freeze({});
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'SuiteFunction'.
     describe.each([[true], [false]])(
         "reviewMode: %s",
         (reviewMode: boolean) => {
@@ -111,7 +111,6 @@ describe("single-choice question", () => {
                 expect(renderer).toHaveBeenAnsweredCorrectly();
             });
 
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
             it.each(incorrect)(
                 "should reject incorrect answer - choice %d",
                 (incorrect: number) => {
@@ -256,7 +255,6 @@ describe("single-choice question", () => {
         expect(screen.getAllByRole("button", {hidden: true})[2]).toHaveFocus();
     });
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([
         ["No", "Yes"],
         ["False", "True"],
@@ -777,7 +775,6 @@ describe("multi-choice question", () => {
         );
     });
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each(incorrect)(
         "should reject an incorrect answer - test #%#",
         (...choices) => {
@@ -793,7 +790,6 @@ describe("multi-choice question", () => {
         },
     );
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each(invalid)(
         "should reject an invalid answer - test #%#",
         (...choices) => {

@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
         width: "0",
         zIndex: 1,
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ height: string; left: string; position: "absolute"; top: string; width: string; zIndex: number; ":before": { borderRight: string; right: string; borderBottom: "9px solid transparent"; borderTop: "9px solid transparent"; ... 4 more ...; width: "0"; }; ":after": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":before": {
             ...triangleBeforeAfter,
             borderRight: "9px solid #bbb",

@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
         borderRadius: 28,
 
         // Render selected marker border as inset.
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; "::before": { content: string; display: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "block",
@@ -246,7 +245,6 @@ const styles = StyleSheet.create({
         bottom: -12,
 
         // With an arrow pointing left towards the marker.
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ left: number; bottom: number; "::before": { content: string; display: string; position: string; width: number; height: number; left: number; bottom: number; borderRight: string; borderTop: string; borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "block",

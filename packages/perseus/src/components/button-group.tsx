@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
         padding: "5px 10px",
         position: "relative", // for hover
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "white"; border: string; borderLeft: string; cursor: "pointer"; margin: string; padding: string; position: "relative"; ":first-child": { borderLeft: string; borderTopLeftRadius: string; borderBottomLeftRadius: string; }; ":last-child": { ...; }; ":hover": { ...; }; ":focus": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":first-child": {
             borderLeft: "1px solid #ccc",
             borderTopLeftRadius: "3px",
