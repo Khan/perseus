@@ -1,6 +1,6 @@
 /* eslint-disable import/no-commonjs */
 module.exports = function createBabelPlugins({platform, format, coverage}) {
-    const plugins = ["babel-plugin-transform-flow-enums"];
+    const plugins = [];
     if (coverage) {
         plugins.push("istanbul");
     }

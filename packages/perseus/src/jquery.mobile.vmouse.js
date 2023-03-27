@@ -38,7 +38,7 @@ import $ from "jquery";
         ),
         mouseHookProps = $.event.mouseHooks ? $.event.mouseHooks.props : [],
         mouseEventProps = $.event.props.concat(mouseHookProps),
-        activeDocHandlers: Record<string, any> = {},
+        activeDocHandlers = {},
         resetTimerID = 0,
         startX = 0,
         startY = 0,
@@ -57,14 +57,14 @@ import $ from "jquery";
         resetTimerDuration: 1500,
     };
 
-    function getNativeEvent(event: unknown) {
+    function getNativeEvent(event) {
         while (event && typeof event.originalEvent !== "undefined") {
             event = event.originalEvent;
         }
         return event;
     }
 
-    function createVirtualEvent(event: unknown, eventType: unknown) {
+    function createVirtualEvent(event, eventType) {
         var t = event.type,
             oe,
             props,
@@ -121,8 +121,8 @@ import $ from "jquery";
         return event;
     }
 
-    function getVirtualBindingFlags(element: unknown) {
-        var flags: Record<string, any> = {},
+    function getVirtualBindingFlags(element) {
+        var flags = {},
             b,
             k;
 
@@ -139,7 +139,7 @@ import $ from "jquery";
         return flags;
     }
 
-    function getClosestElementWithVirtualBinding(element, eventType: unknown) {
+    function getClosestElementWithVirtualBinding(element, eventType) {
         var b;
         while (element) {
             b = $.data(element, dataPropertyName);
@@ -191,7 +191,7 @@ import $ from "jquery";
         }
     }
 
-    function triggerVirtualEvent(eventType: unknown, event: unknown, flags) {
+    function triggerVirtualEvent(eventType, event, flags) {
         var ve;
 
         if (
@@ -254,7 +254,7 @@ import $ from "jquery";
         }
     }
 
-    function handleScroll(event: unknown) {
+    function handleScroll(event) {
         if (blockTouchTriggers) {
             return;
         }
@@ -271,7 +271,7 @@ import $ from "jquery";
         startResetTimer();
     }
 
-    function handleTouchMove(event: unknown) {
+    function handleTouchMove(event) {
         if (blockTouchTriggers) {
             return;
         }
@@ -293,7 +293,7 @@ import $ from "jquery";
         startResetTimer();
     }
 
-    function handleTouchEnd(event: unknown) {
+    function handleTouchEnd(event) {
         if (blockTouchTriggers) {
             return;
         }
@@ -329,7 +329,7 @@ import $ from "jquery";
         startResetTimer();
     }
 
-    function hasVirtualBindings(ele: unknown) {
+    function hasVirtualBindings(ele) {
         var bindings = $.data(ele, dataPropertyName),
             k;
 
@@ -345,7 +345,7 @@ import $ from "jquery";
 
     function dummyMouseHandler() {}
 
-    function getSpecialEventObject(eventType: unknown) {
+    function getSpecialEventObject(eventType) {
         var realType = eventType.substr(1);
 
         return {

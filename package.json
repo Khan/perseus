@@ -13,13 +13,14 @@
     "node": ">=16"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
+    "@babel/core": "^7.21.0",
     "@babel/eslint-parser": "^7.16.5",
     "@babel/eslint-plugin": "^7.17.7",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-flow": "^7.16.7",
     "@babel/preset-react": "^7.16.0",
+    "@babel/preset-typescript": "^7.21.0",
     "@changesets/cli": "^2.22.0",
     "@cypress/code-coverage": "^3.10.0",
     "@cypress/react": "^7.0.2",

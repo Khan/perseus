@@ -33,7 +33,6 @@ function renderOptionStatus(
 }
 
 describe("answer text", () => {
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([
         [true, "Correct"],
         [false, "Incorrect"],
@@ -49,7 +48,6 @@ describe("answer text", () => {
         },
     );
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([
         [true, "Incorrect (selected)"],
         [false, "Incorrect"],

@@ -16,7 +16,7 @@
     },
     "module": "dist/es/index.js",
     "main": "dist/index.js",
-    "source": "src/index.js",
+    "source": "src/index.ts",
     "scripts": {},
     "dependencies": {
         "performance-now": "^0.2.0"
