@@ -33,12 +33,12 @@ const ellipsisHorizontalIcon = {
 } as const;
 
 export type ChoiceProps = {
-    apiOptions: APIOptions;
-    checked: boolean;
+    apiOptions?: APIOptions;
+    checked?: boolean;
     rationale: React.ReactNode;
     content: React.ReactNode;
-    correct: boolean;
-    disabled: boolean;
+    correct?: boolean;
+    disabled?: boolean;
     // This indicates the position of the choice relative to others
     // (so that we can display a nice little (A), (B), etc. next to it)
     // Also used to generate an id for each input.
@@ -55,12 +55,12 @@ export type ChoiceProps = {
     // Indicates that the user has previously selected this answer. These
     // answers may be rendered orange in review, rather than grey if
     // incorrect.
-    previouslyAnswered: boolean;
+    previouslyAnswered?: boolean;
     // A callback indicating that this choice has changed. Its argument is
     // an object with two keys: `checked` and `crossedOut`. Each contains a
     // boolean value specifying the new checked and crossed-out value of
     // this choice.
-    onChange: (newValues: {checked: boolean; crossedOut: boolean}) => void;
+    onChange?: (newValues: {checked: boolean; crossedOut: boolean}) => void;
 };
 
 type WithForwardRef = {
@@ -82,19 +82,22 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function (
     props,
 ): React.ReactElement {
     const {
-        disabled,
-        checked,
+        disabled = false,
+        checked = false,
         content,
         crossedOut,
         showCorrectness,
         multipleSelect,
-        onChange,
+        onChange = (newValues: {
+            checked: boolean;
+            crossedOut: boolean;
+        }): void => {},
         reviewMode,
-        correct,
-        apiOptions,
-        previouslyAnswered,
-        pos,
-        showRationale,
+        correct = false,
+        apiOptions = ApiOptions.defaults,
+        previouslyAnswered = false,
+        pos = 0,
+        showRationale = false,
         rationale,
         forwardedRef,
     } = props;
@@ -330,17 +333,6 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function (
             )}
         </div>
     );
-};
-
-Choice.defaultProps = {
-    disabled: false,
-    checked: false,
-    onChange: (newValues: {checked: boolean; crossedOut: boolean}): void => {},
-    correct: false,
-    apiOptions: ApiOptions.defaults,
-    previouslyAnswered: false,
-    pos: 0,
-    showRationale: false,
 };
 
 const styles = StyleSheet.create({

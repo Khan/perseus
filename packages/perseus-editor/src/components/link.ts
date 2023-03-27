@@ -15,7 +15,7 @@ import type {CSSProperties} from "aphrodite";
 const DEFAULT_HREF = "javascript:void(0)";
 
 type DefaultProps = {
-    element: React.ReactElement<any>;
+    element: React.ElementType;
     // Whether the link should appear in a 'highlighted' state. In
     // practice, this will apply the same styles that are applied on-hover.
     highlighted: boolean;

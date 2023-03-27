@@ -12,8 +12,6 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
-
 type Props = {
     // This id is used to tie the input field to the label that describes it.
     // TODO(diedra): Instead of passing in this id to connect the label and input
@@ -24,10 +22,10 @@ type Props = {
     type?: string;
     name?: string;
     readOnly?: boolean;
-    value?: string | null | undefined;
+    value?: string | ReadonlyArray<string> | number | undefined;
     placeholder?: string;
     // https://reactjs.org/docs/uncontrolled-components.html#default-values
-    defaultValue?: string | null | undefined;
+    defaultValue?: string | number | ReadonlyArray<string> | undefined;
     disabled?: boolean;
     autoFocus?: boolean;
     maxLength?: number;
@@ -42,7 +40,7 @@ type Props = {
     // }
     // TODO(WB-1026): Update StyleType to reflect the aphrodite type
     // TODO(FEI-3282): Update uses of StyleType in webapp to be correct
-    style?: StyleType;
+    style?: React.CSSProperties | undefined;
     className?: string;
     width?: number | string;
     grow?: boolean | number;
@@ -66,7 +64,7 @@ type Props = {
     onKeyDown?: (arg1: React.KeyboardEvent<HTMLInputElement>) => unknown;
     // aria
     ["aria-label"]?: string;
-    ["aria-describedby"]?: string | null | undefined;
+    ["aria-describedby"]?: string | undefined;
 };
 
 type State = {

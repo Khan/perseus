@@ -21,7 +21,7 @@ type State = {
 };
 
 class VisibilityTest extends React.Component<Props, State> {
-    state = {
+    state: State = {
         sectionVisibility: "unknown",
     };
 

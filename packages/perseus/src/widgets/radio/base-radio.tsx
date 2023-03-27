@@ -257,7 +257,7 @@ const BaseRadio: React.FC<Props> = function (props): React.ReactElement {
             <ul className={className} style={{listStyle: "none"}}>
                 {choices.map((choice, i) => {
                     let Element = Choice;
-                    const ref = React.createRef();
+                    const ref = React.createRef<any>();
                     // @ts-expect-error [FEI-5003] - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
                     choiceRefs.current[i] = ref;
                     const elementProps = {
@@ -284,7 +284,6 @@ const BaseRadio: React.FC<Props> = function (props): React.ReactElement {
 
                             updateChoice(i, newValues);
                         },
-                        ref,
                     } as const;
 
                     if (choice.isNoneOfTheAbove) {
@@ -389,7 +388,7 @@ const BaseRadio: React.FC<Props> = function (props): React.ReactElement {
                                 !labelWrap ? null : captureScratchpadTouchStart
                             }
                         >
-                            <Element {...elementProps} />
+                            <Element {...elementProps} ref={ref} />
                         </li>
                     );
                 })}

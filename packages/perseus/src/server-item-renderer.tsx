@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
 
 const ref = React.forwardRef<
     ServerItemRenderer,
-    React.ComponentProps<typeof ServerItemRenderer>
+    Omit<React.ComponentProps<typeof ServerItemRenderer>, "onRendered">
 >((props, ref) => (
     <LoadingContext.Consumer>
         {({onRendered}) => (
