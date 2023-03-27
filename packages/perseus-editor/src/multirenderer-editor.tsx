@@ -1,5 +1,3 @@
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from "flow-to-typescript-codemod";
 /**
  * Editor for a multi-item question.
  *
@@ -16,7 +14,6 @@ import {
 } from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 // eslint-disable-next-line import/no-extraneous-dependencies
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'hubble' or its corresponding type declarations.
 import lens from "hubble";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -34,7 +31,7 @@ import type {
     // Multi-item item types
     Item,
     // ItemTree is used below, the linter is confused.
-    ItemTree, // eslint-disable-line no-unused-vars
+    ItemTree, // eslint-disable-line @typescript-eslint/no-unused-vars
     ItemObjectNode,
     ItemArrayNode,
     ContentNode,
@@ -469,8 +466,6 @@ type WithStickinessProps = {
 
 type WithStickiness<T> = T & WithStickinessProps;
 
-type WithoutStickiness<T> = Partial<Flow.Diff<T, WithStickinessProps>>;
-
 /**
  * HOC that adds a "sticky" prop to the wrapped component that is true
  * when the rendered component is taller than the window. Since sticky content
@@ -484,11 +479,7 @@ const withStickiness = <
     Component extends React.ComponentType<WithStickiness<Config>>,
 >(
     WrappedComponent: Component,
-): React.ComponentType<
-    WithoutStickiness<
-        JSX.LibraryManagedAttributes<Component, React.ComponentProps<Component>>
-    >
-> => {
+): React.ComponentType<Config> => {
     type State = {
         sticky: boolean;
     };

@@ -1,15 +1,17 @@
 // Ok here we are
 
-type Score = {
-    type: 'points',
-    earned: number
-} | {
-    type: 'invalid',
-    message: null | string
-};
+type Score =
+    | {
+          type: "points";
+          earned: number;
+      }
+    | {
+          type: "invalid";
+          message: null | string;
+      };
 
 type PerseusRenderer = {
-    guessAndScore: () => [Array<any>, Score]
+    guessAndScore: () => [Array<any>, Score];
 };
 
 expect.extend({

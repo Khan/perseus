@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars, react/no-unsafe, react/sort-comp */
+/* eslint-disable @typescript-eslint/no-unused-vars, react/no-unsafe, react/sort-comp */
 import {number as knumber} from "@khanacademy/kmath";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";

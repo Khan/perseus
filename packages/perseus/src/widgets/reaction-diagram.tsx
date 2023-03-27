@@ -21,7 +21,7 @@ class Separator extends React.Component<any> {
         this.drawArrow();
     }
 
-    arrowLength: number = 100;
+    arrowLength = 100;
 
     drawArrow = () => {
         // eslint-disable-next-line react/no-string-refs

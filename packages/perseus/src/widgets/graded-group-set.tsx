@@ -14,15 +14,13 @@ import {
 } from "../styles/constants";
 import a11y from "../util/a11y";
 
-import GradedGroupWidget from "./graded-group";
+import {GradedGroup} from "./graded-group";
 
 import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
 } from "../perseus-types";
 import type {FocusPath, WidgetExports, WidgetProps} from "../types";
-
-const GradedGroup = GradedGroupWidget.widget;
 
 type IndicatorsProps = {
     currentGroup: number;
@@ -88,7 +86,7 @@ type State = {
 // TODO(jared): find a better name for this :) and for GradedGroup; the names
 // are currently a little confusing.
 class GradedGroupSet extends React.Component<Props, State> {
-    // @ts-expect-error [FEI-5003] - TS2749 - 'GradedGroup' refers to a value, but is being used as a type here. Did you mean 'typeof GradedGroup'?
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
     _childGroup: GradedGroup;
 
     static defaultProps: DefaultProps = {
@@ -206,7 +204,8 @@ class GradedGroupSet extends React.Component<Props, State> {
                 {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
-                    // $FlowFixMe[incompatible-type]
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
+                    //  Type 'null' is not assignable to type 'GradedGroup'.
                     ref={(comp) => (this._childGroup = comp)}
                     // We should pass in the set of props explicitly
                     {...this.props}

@@ -92,10 +92,10 @@ function inputPathsEqual(
     );
 }
 
-const rWidgetRule: RegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
-const rTypeFromWidgetId: RegExp = /^([a-z-]+) ([0-9]+)$/;
+const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
+const rTypeFromWidgetId = /^([a-z-]+) ([0-9]+)$/;
 
-const rWidgetParts: RegExp = new RegExp(rWidgetRule.source + "$");
+const rWidgetParts = new RegExp(rWidgetRule.source + "$");
 const snowman = "\u2603";
 const noScore: PerseusScore = {
     type: "points",
@@ -126,7 +126,7 @@ const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
 function shuffle<T>(
     array: ReadonlyArray<T>,
     randomSeed: number | RNG,
-    ensurePermuted: boolean = false,
+    ensurePermuted = false,
 ): ReadonlyArray<T> {
     // Always return a copy of the input array
     const shuffled = _.clone(array);

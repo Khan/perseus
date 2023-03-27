@@ -110,6 +110,7 @@ export const change: ChangeFn = function (
     }
     throw new PerseusError(
         "Invalid types sent to this.change(): " +
+            // eslint-disable-next-line prefer-rest-params
             _.toArray(arguments).join() +
             "\n" +
             USAGE,

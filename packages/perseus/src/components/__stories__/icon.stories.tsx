@@ -1,6 +1,3 @@
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from "flow-to-typescript-codemod";
-
 import * as React from "react";
 
 import * as IconPaths from "../../icon-paths";
@@ -22,9 +19,13 @@ type StoryArgs = {
     icon?: typeof IconPaths.iconCheck;
 };
 
-type StoryArgTypes = Flow.ObjMap<
+type SetValueType<T, V> = {
+    [Property in keyof T]: V;
+};
+
+type StoryArgTypes = SetValueType<
     StoryArgs,
-    () => StorybookStoryArgs | null | undefined
+    StorybookStoryArgs | null | undefined
 >;
 
 type Story = {

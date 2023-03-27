@@ -52,8 +52,8 @@ export const renderQuestion = (
     }
     const renderAgain = (
         question: PerseusRenderer,
-        // @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'Renderer'
-        extraProps: undefined | React.ComponentProps<typeof Renderer>,
+        // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
+        extraProps: undefined | React.ComponentProps<typeof Perseus.Renderer>,
     ) => {
         rerender(
             <RenderStateRoot>

@@ -1,5 +1,3 @@
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from "flow-to-typescript-codemod";
 /* eslint-disable react/no-unsafe */
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
@@ -66,7 +64,7 @@ export type ChoiceProps = {
 };
 
 type WithForwardRef = {
-    forwardedRef: React.Ref<"button">;
+    forwardedRef: React.ForwardedRef<HTMLButtonElement>;
 };
 
 type ChoicePropsWithForwardRef = ChoiceProps & WithForwardRef;
@@ -363,15 +361,6 @@ const styles = StyleSheet.create({
     },
 });
 
-type ExportProps = Flow.Diff<
-    JSX.LibraryManagedAttributes<
-        typeof Choice,
-        React.ComponentProps<typeof Choice>
-    >,
-    WithForwardRef
->;
-
-export default React.forwardRef<ExportProps, HTMLButtonElement>(
-    // @ts-expect-error [FEI-5003] - TS2740 - Type '{ forwardedRef: ForwardedRef<Flow.Diff<ChoiceProps & WithForwardRef & { children?: ReactNode; }, WithForwardRef>>; ... 300 more ...; focus(options?: FocusOptions | undefined): void; }' is missing the following properties from type 'ChoiceProps': apiOptions, checked, rationale, content, and 9 more.
+export default React.forwardRef<HTMLButtonElement, ChoiceProps>(
     (props, ref) => <Choice {...props} forwardedRef={ref} />,
-) as Flow.AbstractComponent<ExportProps, HTMLButtonElement>;
+);

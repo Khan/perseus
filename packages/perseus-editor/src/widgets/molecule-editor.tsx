@@ -13,7 +13,7 @@ class MoleculeWidgetEditor extends React.Component<Props> {
         smiles: PropTypes.string,
     };
 
-    static widgetName: "molecule-renderer" = "molecule-renderer";
+    static widgetName = "molecule-renderer" as const;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);

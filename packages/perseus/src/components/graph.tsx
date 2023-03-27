@@ -310,6 +310,7 @@ class Graph extends React.Component<any> {
                       }
                       // eslint-disable-next-line @babel/no-invalid-this
                       // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                      // eslint-disable-next-line @babel/no-invalid-this
                       this.props.onMouseDown(coord);
                   }, this)
                 : null;

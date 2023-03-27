@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars, react/sort-comp */
+/* eslint-disable @typescript-eslint/no-unused-vars, react/sort-comp */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";

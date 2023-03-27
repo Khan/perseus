@@ -9,8 +9,8 @@ import _ from "underscore";
 import AssetContext from "./asset-context";
 import SvgImage from "./components/svg-image";
 import TeX from "./components/tex";
-import ZoomableTeX from "./components/zoomable-tex";
 import Zoomable from "./components/zoomable";
+import ZoomableTeX from "./components/zoomable-tex";
 import {DefinitionProvider} from "./definition-context";
 import {getDependencies} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
@@ -147,7 +147,6 @@ export type Widget = {
 type Props = {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
-    // eslint-disable-next-line ft-flow/no-weak-types
     findExternalWidgets: any;
     highlightedWidgets?: ReadonlyArray<any>;
     images: PerseusRenderer["images"];
@@ -232,7 +231,6 @@ class Renderer extends React.Component<Props, State> {
     reuseMarkdown: boolean;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'translationIndex' has no initializer and is not definitely assigned in the constructor.
     translationIndex: number;
-    // eslint-disable-next-line ft-flow/no-mutable-array
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetIds' has no initializer and is not definitely assigned in the constructor.
     widgetIds: Array<string>;
 
@@ -1609,6 +1607,7 @@ class Renderer extends React.Component<Props, State> {
             function (info, id) {
                 // eslint-disable-next-line @babel/no-invalid-this
                 // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // eslint-disable-next-line @babel/no-invalid-this
                 const widget = this.getWidgetInstance(id);
                 const s = widget.serialize();
                 if (!_.isEmpty(s)) {
@@ -1773,7 +1772,7 @@ class Renderer extends React.Component<Props, State> {
             const props = widgetProps[id];
             const widgetIsGraded: boolean =
                 props?.graded == null || props.graded;
-            const widgetIsStatic: boolean = !!props?.static;
+            const widgetIsStatic = !!props?.static;
             // Ungraded widgets or widgets set to static shouldn't be graded.
             return widgetIsGraded && !widgetIsStatic;
         });

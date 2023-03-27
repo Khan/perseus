@@ -1,6 +1,3 @@
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from "flow-to-typescript-codemod";
-
 import * as React from "react";
 
 import ButtonGroup from "../button-group";
@@ -16,24 +13,7 @@ export default {
 } as Story;
 
 const HarnassedButtonGroup = (
-    props: Partial<
-        Flow.Diff<
-            JSX.LibraryManagedAttributes<
-                typeof ButtonGroup,
-                React.ComponentProps<typeof ButtonGroup>
-            >,
-            {
-                value: JSX.LibraryManagedAttributes<
-                    typeof ButtonGroup,
-                    React.ComponentProps<typeof ButtonGroup>
-                >["value"];
-                onChange: JSX.LibraryManagedAttributes<
-                    typeof ButtonGroup,
-                    React.ComponentProps<typeof ButtonGroup>
-                >["onChange"];
-            }
-        >
-    >,
+    props: Pick<React.ComponentProps<typeof ButtonGroup>, "buttons">,
 ) => {
     const [value, updateValue] = React.useState(
         null as string | null | undefined,
@@ -41,7 +21,7 @@ const HarnassedButtonGroup = (
 
     return (
         <ButtonGroup
-            {...props}
+            buttons={props.buttons}
             value={value}
             onChange={(newValue) => {
                 updateValue(newValue);

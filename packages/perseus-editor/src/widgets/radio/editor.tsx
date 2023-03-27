@@ -120,7 +120,7 @@ class RadioEditor extends React.Component<any> {
         static: PropTypes.bool,
     };
 
-    static widgetName: string = "radio";
+    static widgetName = "radio" as const;
 
     static defaultProps: any = {
         choices: [{}, {}],

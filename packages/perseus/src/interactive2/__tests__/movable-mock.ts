@@ -22,8 +22,7 @@ const createMock = function (): any {
             };
         },
     );
-    movable.move = function () {
-        const args = _.toArray(arguments);
+    movable.move = function (...args) {
         const startPoint = _.first(args);
         // TODO(jack): Move these into onMoveStart, onMove, and onMoveEnd
         movable.state.isMouseOver = true;

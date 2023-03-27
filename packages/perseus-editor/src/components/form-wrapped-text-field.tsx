@@ -1,5 +1,3 @@
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from "flow-to-typescript-codemod";
 /**
  * DEPRECATED: Use <TextField> from ./text-field.jsx instead.
  *
@@ -76,7 +74,7 @@ type State = {
 };
 
 type PropsWithForwardRef = Props & {
-    forwardedRef: React.Ref<"input">;
+    forwardedRef: React.ForwardedRef<HTMLInputElement>;
 };
 
 class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
@@ -179,7 +177,6 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
                     onBlur={this.handleBlur}
                     type={type}
                     className={css(inputBase)}
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'Ref<"input">' is not assignable to type 'LegacyRef<HTMLInputElement> | undefined'.
                     ref={forwardedRef}
                     id={id}
                     data-test-id={testId}
@@ -243,7 +240,6 @@ const styles = StyleSheet.create({
     },
 });
 
-export default React.forwardRef<Props, HTMLInputElement>((props, ref) => (
-    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+export default React.forwardRef<HTMLInputElement, Props>((props, ref) => (
     <FormWrappedTextField {...props} forwardedRef={ref} />
-)) as Flow.AbstractComponent<Props, HTMLInputElement>;
+));

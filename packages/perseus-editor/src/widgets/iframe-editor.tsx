@@ -119,7 +119,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: "iframe" = "iframe";
+    static widgetName = "iframe" as const;
 
     static defaultProps: IframeEditorProps = {
         url: "",

@@ -7,5 +7,5 @@
  * StyleSheets instead.
  */
 
-export {default as Text} from "./text.js";
-export {default as View} from "./view.js";
+export {default as Text} from "./text";
+export {default as View} from "./view";

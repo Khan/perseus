@@ -5,7 +5,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import * as Iconography from "./iconography/index.js";
+import * as Iconography from "./iconography/index";
 
 class SvgIcon extends React.Component {
     static propTypes = {

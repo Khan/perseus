@@ -1,11 +1,10 @@
-// @ts-nocheck
 /**
  * A generic tooltip library for React.js
  *
  * This should eventually end up in react-components
  *
  * Interface: ({a, b} means one of a or b)
- * import Tooltip from "./tooltip.jsx";
+ * import Tooltip from "./tooltip";
  * <Tooltip
  *     className="class-for-tooltip-contents"
  *     horizontalPosition="left" // one of "left", "right"
@@ -359,10 +358,11 @@ const Tooltip = createReactClass({
     },
 
     _updateHeight: function () {
-        const height = ReactDOM.findDOMNode(
+        const tooltipContainer = ReactDOM.findDOMNode(
             // eslint-disable-next-line react/no-string-refs
             this.refs.tooltipContainer,
-        ).offsetHeight;
+        ) as HTMLDivElement;
+        const height = tooltipContainer.offsetHeight;
         if (height !== this.state.height) {
             this.setState({height});
         }

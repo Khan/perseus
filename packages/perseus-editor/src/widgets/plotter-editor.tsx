@@ -68,7 +68,7 @@ type State = any;
 
 class PlotterEditor extends React.Component<Props, State> {
     static propTypes = widgetPropTypes;
-    static widgetName: string = "plotter";
+    static widgetName = "plotter" as const;
 
     static defaultProps: Props = {
         ...editorDefaults,

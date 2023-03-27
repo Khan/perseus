@@ -1,9 +1,8 @@
 import * as React from "react";
 
-// @ts-expect-error [FEI-5003] - TS2613 - Module '"/Users/kevinbarabash/khan/perseus/packages/perseus/src/components/visibility-observer/visibility-observer"' has no default export. Did you mean to use 'import { VisibilityObserver } from "/Users/kevinbarabash/khan/perseus/packages/perseus/src/components/visibility-observer/visibility-observer"' instead?
+// eslint-disable-next-line import/no-named-as-default
 import VisibilityObserver from "../visibility-observer";
 
-// @ts-expect-error [FEI-5003] - TS2305 - Module '"../visibility-observer"' has no exported member 'ScrollVisibility'.
 import type {ScrollVisibility} from "../visibility-observer";
 
 type StoryArgs = Record<any, any>;

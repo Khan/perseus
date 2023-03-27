@@ -8,8 +8,8 @@ export default function render<ElementType extends React.ElementType>(
     callback?: () => void,
 ): React.ElementRef<ElementType> {
     // TODO(LP-11406): Replace this, or callers, with React Portal
-    // eslint-disable-next-line no-restricted-syntax
     // @ts-expect-error [FEI-5003] - TS2322 - Type 'void' is not assignable to type 'ElementRef<ElementType>'.
+    // eslint-disable-next-line no-restricted-syntax
     return ReactDOM.render(
         /**
          * `RenderStateRoot` is responsible for tracking whether it's

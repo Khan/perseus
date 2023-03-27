@@ -1,4 +1,4 @@
-import GestureStateMachine from "../gesture-state-machine.js";
+import GestureStateMachine from "../gesture-state-machine";
 
 const swipeThresholdPx = 5;
 const longPressWaitTimeMs = 5;

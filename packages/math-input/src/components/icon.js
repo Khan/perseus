@@ -6,13 +6,13 @@ import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import {IconTypes} from "../consts.js";
+import {IconTypes} from "../consts";
 
-import {offBlack} from "./common-style.js";
-import MathIcon from "./math-icon.js";
-import {iconPropType} from "./prop-types.js";
-import SvgIcon from "./svg-icon.js";
-import TextIcon from "./text-icon.js";
+import {offBlack} from "./common-style";
+import MathIcon from "./math-icon";
+import {iconPropType} from "./prop-types";
+import SvgIcon from "./svg-icon";
+import TextIcon from "./text-icon";
 
 const focusedColor = "#FFF";
 const unfocusedColor = offBlack;

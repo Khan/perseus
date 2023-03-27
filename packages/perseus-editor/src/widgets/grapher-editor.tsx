@@ -30,7 +30,7 @@ class GrapherEditor extends React.Component<Props> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: "grapher" = "grapher";
+    static widgetName = "grapher" as const;
 
     static defaultProps: Props = {
         correct: DEFAULT_GRAPHER_PROPS.plot,

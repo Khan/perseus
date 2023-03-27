@@ -1,3 +1,4 @@
+import {it, describe, beforeEach} from "@jest/globals";
 import {screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
@@ -14,7 +15,8 @@ import {Expression} from "../expression";
 
 import {renderQuestion} from "./renderQuestion";
 
-// @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'Item'
+type Item = any;
+
 const assertComplete = (itemData: Item, input, isCorrect: boolean) => {
     const {renderer} = renderQuestion(itemData.question);
     userEvent.type(screen.getByRole("textbox"), input);
@@ -25,15 +27,12 @@ const assertComplete = (itemData: Item, input, isCorrect: boolean) => {
     });
 };
 
-// @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'Item'
 const assertCorrect = (itemData: Item, input) =>
     assertComplete(itemData, input, true);
-// @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'Item'
 const assertIncorrect = (itemData: Item, input: string) =>
     assertComplete(itemData, input, false);
 
 // TODO: actually Assert that message is being set on the score object.
-// @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'Item'
 const assertInvalid = (itemData: Item, input, message?: string) => {
     const {renderer} = renderQuestion(itemData.question);
     if (input.length) {
@@ -68,7 +67,6 @@ describe("Expression Widget", function () {
     });
 
     describe("variables", function () {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each(["123-X", "X-123"])(
             "should not grade answers that are correct except for the " +
                 "variable case",
@@ -87,7 +85,6 @@ describe("Expression Widget", function () {
             },
         );
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each(["123-y", "123-Y"])(
             "should not not grade answers that use the wrong variable",
             function (input) {
@@ -97,7 +94,6 @@ describe("Expression Widget", function () {
     });
 
     describe("multiple answers", function () {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each(["x-123", "123-x"])(
             "should recognize either of two possibilities",
             (input) => {
@@ -129,7 +125,6 @@ describe("Expression Widget", function () {
             assertCorrect(expressionItem3, "z+1");
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([["X+1"], ["Y+1"], ["Z+1"]])(
             "should give casing or variable name error only relative to the " +
                 "correct answer",

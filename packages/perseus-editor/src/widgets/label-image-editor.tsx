@@ -60,7 +60,7 @@ class LabelImageEditor extends React.Component<LabelImageEditorProps> {
         hideChoicesFromInstructions: false,
     };
 
-    static widgetName: string = "label-image";
+    static widgetName = "label-image" as const;
 
     componentDidUpdate(prevProps: LabelImageEditorProps) {
         const coordsToMarkers: Record<string, any> = {};

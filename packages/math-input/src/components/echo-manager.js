@@ -6,17 +6,17 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
-import {KeyTypes, EchoAnimationTypes} from "../consts.js";
-import KeyConfigs from "../data/key-configs.js";
+import {KeyTypes, EchoAnimationTypes} from "../consts";
+import KeyConfigs from "../data/key-configs";
 
-import KeypadButton from "./keypad-button.js";
+import KeypadButton from "./keypad-button";
 import {
     echoPropType,
     bordersPropType,
     boundingBoxPropType,
     keyIdPropType,
-} from "./prop-types.js";
-import * as zIndexes from "./z-indexes.js";
+} from "./prop-types";
+import * as zIndexes from "./z-indexes";
 
 class Echo extends React.Component {
     static propTypes = {

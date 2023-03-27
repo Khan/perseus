@@ -1,3 +1,4 @@
+import {it, describe, beforeEach} from "@jest/globals";
 import "@testing-library/jest-dom";
 import {render, screen} from "@testing-library/react";
 import React from "react";
@@ -78,7 +79,6 @@ describe("passage widget", () => {
         );
     });
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([true, false])(
         "should snapshot simple passage (mobile: %s)",
         (isMobile: boolean) => {
@@ -96,7 +96,6 @@ describe("passage widget", () => {
         },
     );
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([true, false])(
         "should snapshot multiple passages (mobile: %s)",
         (isMobile: boolean) => {

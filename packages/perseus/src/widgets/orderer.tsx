@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
 import {
     linterContextProps,
     linterContextDefault,

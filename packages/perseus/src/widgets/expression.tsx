@@ -276,7 +276,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         linterContext: linterContextDefault,
     };
 
-    displayName: string = "Expression";
+    displayName = "Expression";
 
     state: ExpressionState = {
         showErrorTooltip: false,
@@ -334,7 +334,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         this._isMounted = false;
     };
 
-    _isMounted: boolean = false;
+    _isMounted = false;
     errorTimeout: null | number = null;
 
     simpleValidate: (

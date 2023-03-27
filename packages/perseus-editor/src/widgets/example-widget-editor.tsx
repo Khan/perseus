@@ -13,7 +13,7 @@ class ExampleWidgetEditor extends React.Component<Props> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: "example-widget" = "example-widget";
+    static widgetName = "example-widget" as const;
 
     static defaultProps: Props = {
         correct: "",

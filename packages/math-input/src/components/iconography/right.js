@@ -3,7 +3,7 @@
  */
 import * as React from "react";
 
-import Arrow from "./arrow.js";
+import Arrow from "./arrow";
 
 const Right = () => {
     return (

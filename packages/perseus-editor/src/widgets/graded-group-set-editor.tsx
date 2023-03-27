@@ -9,7 +9,6 @@ import GradedGroupEditor from "./graded-group-editor";
 type Props = any;
 
 class GradedGroupSetEditor extends React.Component<Props> {
-    // eslint-disable-next-line ft-flow/no-mutable-array
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
 
@@ -20,7 +19,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
         onChange: PropTypes.func.isRequired,
     };
 
-    static widgetName: "graded-group-set" = "graded-group-set";
+    static widgetName = "graded-group-set" as const;
 
     static defaultProps: Props = {
         gradedGroups: [],

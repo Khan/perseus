@@ -874,7 +874,7 @@ class TransformerEditor extends React.Component<any> {
     // so that we don't have all this duplication
     static defaultProps: any = defaultTransformerProps;
 
-    static widgetName: string = "transformer";
+    static widgetName = "transformer" as const;
 
     render(): React.ReactElement {
         // Fill in any missing value in this.props.graph

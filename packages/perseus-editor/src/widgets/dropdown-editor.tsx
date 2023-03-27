@@ -20,7 +20,7 @@ class DropdownEditor extends React.Component<Props> {
         placeholder: PropTypes.string,
     };
 
-    static widgetName: string = "dropdown";
+    static widgetName = "dropdown" as const;
 
     static defaultProps: Props = {
         placeholder: "",

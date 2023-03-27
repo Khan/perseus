@@ -1,4 +1,4 @@
-/* eslint-disable eqeqeq, no-unused-vars */
+/* eslint-disable eqeqeq, @typescript-eslint/no-unused-vars */
 /*
  * A class for formatting number to significant digits.
  * Copyright (C) 2001 Stephen Ostermiller

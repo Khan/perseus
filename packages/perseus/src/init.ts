@@ -2,7 +2,7 @@ import basicWidgets from "./basic-widgets";
 import extraWidgets from "./extra-widgets";
 import * as Widgets from "./widgets";
 
-declare var MathJax: any;
+declare const MathJax: any;
 
 export type PerseusOptions = {
     skipMathJax: boolean;

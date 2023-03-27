@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import $ from "jquery";
 import PropTypes from "prop-types";
@@ -48,7 +48,7 @@ const widgetPropTypes = {
 class Plotter extends React.Component<any, any> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldSetupGraphie: boolean;
-    _isMounted: boolean = false;
+    _isMounted = false;
     horizHairline: any;
     hairlineRange: any;
     graphie: any;

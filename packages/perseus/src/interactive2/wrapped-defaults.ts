@@ -77,9 +77,9 @@ const WrappedDefaults: any = _.extend(
         },
     },
     objective_.mapObjectFromArray(PASS_TO_RAPHAEL, function (attribute) {
-        return function () {
+        return function (...args) {
             // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-            this.visibleShape[attribute](...arguments);
+            this.visibleShape[attribute](...args);
         };
     }),
 );

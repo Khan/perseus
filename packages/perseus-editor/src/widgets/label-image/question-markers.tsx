@@ -27,7 +27,6 @@ type QuestionMarkersProps = {
 };
 
 export default class QuestionMarkers extends React.Component<QuestionMarkersProps> {
-    // eslint-disable-next-line ft-flow/no-mutable-array
     _markers: Array<Marker | null | undefined> = [];
 
     openDropdownForMarkerIndices(indices: ReadonlyArray<number>) {

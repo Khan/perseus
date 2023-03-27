@@ -5,9 +5,10 @@ import _ from "underscore";
 
 import PassageMarkdown from "../passage-markdown";
 
+import type {SingleASTNode} from "@khanacademy/simple-markdown";
+
 const parse = PassageMarkdown.parse;
 
-// @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'SingleASTNode'
 const validateParse = (parsed: Array<SingleASTNode>, expected) => {
     if (!_.isEqual(parsed, expected)) {
         let parsedStr = JSON.stringify(parsed, null, 4);
@@ -27,10 +28,10 @@ const validateParse = (parsed: Array<SingleASTNode>, expected) => {
     }
 };
 
-// @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'SingleASTNode'
 const htmlThroughReact = function (parsed: Array<SingleASTNode>) {
     const output = PassageMarkdown.output(parsed);
     // @ts-expect-error [FEI-5003] - TS2339 - Property 'DOM' does not exist on type 'typeof React'.
+    // eslint-disable-next-line import/namespace
     const rawHtml = renderToStaticMarkup(React.DOM.div(null, output));
     const innerHtml = rawHtml.replace(/^<div>/, "").replace(/<\/div>$/, "");
     const simplifiedHtml = innerHtml

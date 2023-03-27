@@ -1,16 +1,16 @@
-export {default as ArticleEditor} from "./article-editor.jsx";
-export {default as DeviceFramer} from "./components/device-framer.jsx";
-export {default as ViewportResizer} from "./components/viewport-resizer.jsx";
-export {default as ArticleDiff} from "./diffs/article-diff.jsx";
-export {default as ItemDiff} from "./diffs/item-diff.jsx";
-export {default as StructuredItemDiff} from "./diffs/structured-item-diff.jsx";
-export {default as EditorPage} from "./editor-page.jsx";
-export {default as Editor} from "./editor.jsx";
-export {default as i18n} from "./i18n.jsx";
-export {default as IframeContentRenderer} from "./iframe-content-renderer.jsx";
-export {default as MultiRendererEditor} from "./multirenderer-editor.jsx";
-export {default as StatefulArticleEditor} from "./stateful-article-editor.jsx";
-export {default as StatefulEditorPage} from "./stateful-editor-page.jsx";
+export {default as ArticleEditor} from "./article-editor";
+export {default as DeviceFramer} from "./components/device-framer";
+export {default as ViewportResizer} from "./components/viewport-resizer";
+export {default as ArticleDiff} from "./diffs/article-diff";
+export {default as ItemDiff} from "./diffs/item-diff";
+export {default as StructuredItemDiff} from "./diffs/structured-item-diff";
+export {default as EditorPage} from "./editor-page";
+export {default as Editor} from "./editor";
+export {default as i18n} from "./i18n";
+export {default as IframeContentRenderer} from "./iframe-content-renderer";
+export {default as MultiRendererEditor} from "./multirenderer-editor";
+export {default as StatefulArticleEditor} from "./stateful-article-editor";
+export {default as StatefulEditorPage} from "./stateful-editor-page";
 
 import "./styles/perseus-editor.less";
 

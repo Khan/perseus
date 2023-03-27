@@ -67,11 +67,11 @@ class NumberInput extends React.Component<any, any> {
         }
 
         const {
-            // eslint-disable-next-line no-unused-vars
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             onFormatChange,
-            // eslint-disable-next-line no-unused-vars
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             checkValidity,
-            // eslint-disable-next-line no-unused-vars
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             useArrowKeys,
             ...restProps
         } = this.props;

@@ -5,7 +5,7 @@
 
 import _ from "underscore";
 
-export const DEFAULT_TOLERANCE: number = 1e-9;
+export const DEFAULT_TOLERANCE = 1e-9;
 
 // TODO: Should this just be Number.Epsilon
 export const EPSILON: number = Math.pow(2, -42);
@@ -79,7 +79,7 @@ export function toFraction(
     decimal: number,
     // can't be 0
     tolerance: number = EPSILON,
-    maxDenominator: number = 1000,
+    maxDenominator = 1000,
 ): [number, number] {
     // Initialize everything to compute successive terms of
     // continued-fraction approximations via recurrence relation

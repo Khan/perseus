@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 // As new widgets get added here, please also make sure they get added in
 // content_internal/perseus_traversal.py so they can be properly translated.
 
@@ -6,8 +7,8 @@ import CSProgram from "./widgets/cs-program";
 import Definition from "./widgets/definition";
 import Dropdown from "./widgets/dropdown";
 import Explanation from "./widgets/explanation";
-import GradedGroupSet from "./widgets/graded-group-set";
 import GradedGroup from "./widgets/graded-group";
+import GradedGroupSet from "./widgets/graded-group-set";
 import Grapher from "./widgets/grapher";
 import Group from "./widgets/group";
 import Iframe from "./widgets/iframe";
@@ -22,9 +23,9 @@ import Measurer from "./widgets/measurer";
 import Molecule from "./widgets/molecule";
 import NumberLine from "./widgets/number-line";
 import Orderer from "./widgets/orderer";
-import PassageRefTarget from "./widgets/passage-ref-target";
-import PassageRef from "./widgets/passage-ref";
 import Passage from "./widgets/passage";
+import PassageRef from "./widgets/passage-ref";
+import PassageRefTarget from "./widgets/passage-ref-target";
 import Plotter from "./widgets/plotter";
 import ReactionDiagram from "./widgets/reaction-diagram";
 import Sequence from "./widgets/sequence";

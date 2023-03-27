@@ -465,7 +465,7 @@ class MathInput extends React.Component<Props, State> {
             // Contains only DOMNodes with child elements.
             const nonLeafElements: Array<null | HTMLElement> = [];
 
-            let max: number = 0;
+            let max = 0;
             const counts: {
                 [key: string]: number;
             } = {};

@@ -17,6 +17,13 @@ import type {
     TagsNode,
     ItemArrayNode,
 } from "../item-types";
+import type {
+    ContentShape,
+    HintShape,
+    TagsShape,
+    ArrayShape,
+    ObjectShape,
+} from "../shape-types";
 
 describe("treeToItem", () => {
     it("wraps an item tree in the `_multi` key", () => {
@@ -50,8 +57,6 @@ describe("buildEmptyItemTreeForShape and buildEmptyItemForShape", () => {
 
     function assertEmptyItemTreeForShape(
         expectedEmptyTree: ItemTree,
-        // @ts-expect-error [FEI-5003] - TS2304 - Cannot find names 'ContentShape',
-        // 'HintShape', 'TagsShape', 'ArrayShape', and 'ObjectShape'
         shape: ContentShape | HintShape | TagsShape | ArrayShape | ObjectShape,
     ) {
         const emptyTree = buildEmptyItemTreeForShape(shape);

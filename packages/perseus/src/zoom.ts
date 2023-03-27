@@ -78,6 +78,7 @@ $(function () {
             // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             if ($(e.target).is(this)) {
                 // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'IArguments' is not assignable to parameter of type '[t: TriggeredEvent<EventTarget, any, any, any>, ...args: any[]]'.
+                // eslint-disable-next-line prefer-rest-params
                 return e.handleObj.handler.apply(this, arguments);
             }
         },

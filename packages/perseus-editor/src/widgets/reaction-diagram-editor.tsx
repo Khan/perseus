@@ -15,7 +15,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
         smiles: PropTypes.arrayOf(PropTypes.string),
     };
 
-    static widgetName: "reaction-diagram" = "reaction-diagram";
+    static widgetName = "reaction-diagram" as const;
 
     static defaultProps: Props = {
         smiles: ["", ""],

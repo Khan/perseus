@@ -13,8 +13,8 @@ import sharedStyles from "../../styles/shared";
 import Util from "../../util";
 import {scrollElementIntoView} from "../../util/scroll-utils";
 
-import ChoiceNoneAbove from "./choice-none-above";
 import Choice from "./choice";
+import ChoiceNoneAbove from "./choice-none-above";
 
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
 import type {APIOptions} from "../../types";

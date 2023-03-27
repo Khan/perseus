@@ -33,8 +33,9 @@ import unescapedDollarRule from "../rules/unescaped-dollar";
 import widgetInTableRule from "../rules/widget-in-table";
 import TreeTransformer from "../tree-transformer";
 
+type Rule = any;
+
 describe("Individual lint rules tests", () => {
-    // @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'Rule'
     function testRule(rule: Rule, markdown: string, context) {
         const tree = PureMarkdown.parse(markdown);
         const tt = new TreeTransformer(tree);

@@ -4,7 +4,7 @@
 
 import {StyleSheet} from "aphrodite";
 
-import {compactKeypadBorderRadiusPx} from "./common-style.js";
+import {compactKeypadBorderRadiusPx} from "./common-style";
 
 export default StyleSheet.create({
     row: {

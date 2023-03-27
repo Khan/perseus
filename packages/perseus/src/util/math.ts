@@ -36,6 +36,7 @@ const KhanMath = {
     getGCD: function (a: number, b: number): number {
         if (arguments.length > 2) {
             // TODO(kevinb): rewrite using rest args instead of arguments
+            // eslint-disable-next-line prefer-rest-params
             const rest = [].slice.call(arguments, 1);
             // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             return KhanMath.getGCD(a, KhanMath.getGCD(...rest));
@@ -57,6 +58,7 @@ const KhanMath = {
     getLCM: function (a: number, b: number): number {
         if (arguments.length > 2) {
             // TODO(kevinb): rewrite using rest args instead of arguments
+            // eslint-disable-next-line prefer-rest-params
             const rest = [].slice.call(arguments, 1);
             // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             return KhanMath.getLCM(a, KhanMath.getLCM(...rest));

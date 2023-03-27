@@ -1,4 +1,4 @@
-import NodeManager from "../node-manager.js";
+import NodeManager from "../node-manager";
 
 describe("NodeManager", () => {
     let nodeManager;

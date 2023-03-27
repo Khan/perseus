@@ -1,7 +1,7 @@
-import Keys from "../../../data/keys.js";
-import * as CursorContexts from "../cursor-contexts.js";
+import Keys from "../../../data/keys";
+import * as CursorContexts from "../cursor-contexts";
 
-import TestMathWrapper from "./test-math-wrapper.jsx";
+import TestMathWrapper from "./test-math-wrapper";
 
 describe("Cursor context", () => {
     let mathField;

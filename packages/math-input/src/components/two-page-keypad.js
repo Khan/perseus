@@ -7,17 +7,17 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {View} from "../fake-react-native-web/index.js";
+import {View} from "../fake-react-native-web/index";
 
 import {
     innerBorderColor,
     innerBorderStyle,
     innerBorderWidthPx,
     offBlack16,
-} from "./common-style.js";
-import Keypad from "./keypad.js";
-import Styles from "./styles.js";
-import Tabbar from "./tabbar/tabbar.js";
+} from "./common-style";
+import Keypad from "./keypad";
+import Styles from "./styles";
+import Tabbar from "./tabbar/tabbar";
 
 const {column, row, fullWidth} = Styles;
 

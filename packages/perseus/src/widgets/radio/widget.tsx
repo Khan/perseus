@@ -196,7 +196,7 @@ class Radio extends React.Component<Props> {
     }
 
     _renderRenderer: (content?: string) => React.ReactElement = (
-        content: string = "",
+        content = "",
     ) => {
         let nextPassageRefId = 1;
         const widgets: Record<string, any> = {};

@@ -521,7 +521,7 @@ const KhanAnswerTypes = {
                 // less than machine epsilon but should be more than any real
                 // decimal answer would use. (The 'integer' answer type uses
                 // precision == 1.)
-                decimal: function (text: string, precision: number = 1e10) {
+                decimal: function (text: string, precision = 1e10) {
                     const normal = function (text) {
                         text = $.trim(text);
 
