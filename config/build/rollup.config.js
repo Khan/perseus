@@ -212,7 +212,7 @@ const createConfig = (
                 extensions,
             }),
             // This must come after babel() since this plugin doesn't know how
-            // to deal with Flow types.
+            // to deal with TypeScript types.
             commonjs(),
             resolve({
                 browser: platform === "browser",

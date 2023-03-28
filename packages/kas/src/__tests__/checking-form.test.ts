@@ -26,6 +26,7 @@ expect.extend({
     },
 });
 
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
