@@ -1,10 +1,12 @@
-#!/usr/bin/env ./node_modules/.bin/babel-node
 /**
  * Extracts i18n strings from each package and writes them out to <package>/dist/strings.js.
  *
  * This file contains i18n._(), i18n._$(), and i18n.ngettext() calls that can be re-extracted
  * by webapp.  This is required for so that we can leverage webapp's translation pipeline
  * which is responsible for uploading strings to Crowdin.
+ *
+ * Usage:
+ * node -r @swc-node/register ./utils/extract-strings.ts
  */
 import fs from "fs";
 import path from "path";
