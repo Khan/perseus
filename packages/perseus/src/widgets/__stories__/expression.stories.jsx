@@ -55,7 +55,18 @@ export const Desktop = (args: StoryArgs): React.Node => {
 };
 
 export const Mobile = (args: StoryArgs): React.Node => {
-    return <WrappedKeypadContext item={expressionItem3} customKeypad={true} />;
+    return (
+        <div>
+            <p>
+                For some reason you need to be{" "}
+                <a href="https://developer.chrome.com/docs/devtools/device-mode/">
+                    emulating mobile
+                </a>{" "}
+                to see the custom keypad.
+            </p>
+            <WrappedKeypadContext item={expressionItem3} customKeypad={true} />
+        </div>
+    );
 };
 
 export const ExpressionItem2 = (args: StoryArgs): React.Node => {
