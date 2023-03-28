@@ -2,14 +2,16 @@ import _ from "underscore";
 
 import * as KAS from "../index";
 
+type Variables = {
+    [key: string]: string | number | ((arg1: number) => number);
+};
+
 expect.extend({
     toCompileAs(
         input: string,
         expected: number,
-        vars: {
-            [key: string]: string | number | ((arg1: number) => number);
-        } = {},
-    ) {
+        vars: Variables = {},
+    ): jest.CustomMatcherResult {
         const functions = Object.keys(vars).filter(
             (k) => typeof vars[k] === "function",
         );
@@ -18,7 +20,7 @@ expect.extend({
         const actual = func(vars);
 
         return Math.abs(actual - expected) < 1e-9
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () =>
@@ -26,6 +28,15 @@ expect.extend({
               };
     },
 });
+
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toCompileAs(expected: number, vars?: Variables): R;
+        }
+    }
+}
 
 describe("compilation", () => {
     test("empty", () => {

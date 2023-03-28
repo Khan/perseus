@@ -3,37 +3,37 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toFactorAs(input: string, reference: string) {
+    toFactorAs(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.factor().normalize().repr();
         const expected = KAS.parse(reference).expr.normalize().repr();
 
         return actual === expected
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} factors as ${reference}`};
     },
-    toExpandAs(input: string, reference: string) {
+    toExpandAs(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.expand().normalize().print();
         const expected = KAS.parse(reference).expr.normalize().print();
 
         return actual === expected
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} expands as ${reference}`};
     },
-    toExpandAsRepr(input: string, reference: string) {
+    toExpandAsRepr(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.expand().repr();
 
         return actual === reference
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} expands as ${reference}`};
     },
-    toExpandAsTex(input: string, reference: string) {
+    toExpandAsTex(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.expand().tex();
 
         return actual === reference
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} expands as ${reference}`};
     },
-    toCollectAs(input: string, reference: string) {
+    toCollectAs(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.collect().normalize().print();
         const expected = KAS.parse(reference)
             .expr.collect()
@@ -41,35 +41,54 @@ expect.extend({
             .print();
 
         return actual === expected
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} collects as ${reference}`};
     },
-    toCollectAsRepr(input: string, reference: string) {
+    toCollectAsRepr(
+        input: string,
+        reference: string,
+    ): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.collect().repr();
 
         return actual === reference
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} collects as ${reference}`};
     },
-    toCollectAsTex(input: string, reference: string) {
+    toCollectAsTex(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.collect().tex();
 
         return actual === reference
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {pass: false, message: () => `${input} collects as ${reference}`};
     },
-    toSimplifyAs(input: string, reference: string) {
+    toSimplifyAs(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.simplify().normalize().print();
         const expected = KAS.parse(reference).expr.normalize().print();
 
         return actual === expected
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () => `${input} simplifies as ${reference}`,
               };
     },
 });
+
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toFactorAs(reference: string): R;
+            toExpandAs(reference: string): R;
+            toExpandAsRepr(reference: string): R;
+            toExpandAsTex(reference: string): R;
+            toCollectAs(reference: string): R;
+            toCollectAsRepr(reference: string): R;
+            toCollectAsTex(reference: string): R;
+            toSimplifyAs(reference: string): R;
+        }
+    }
+}
 
 describe("transforming", () => {
     test("factoring Adds", () => {

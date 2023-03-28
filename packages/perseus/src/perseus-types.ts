@@ -3,6 +3,9 @@
 
 import type {Coord} from "./interactive2/types";
 
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+type Empty = Record<string, never>;
+
 export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;

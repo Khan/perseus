@@ -3,7 +3,11 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toRenderTex(input: string, expected: string, options?: any) {
+    toRenderTex(
+        input: string,
+        expected: string,
+        options?: any,
+    ): jest.CustomMatcherResult {
         const actual = KAS.parse(input, options).expr.tex();
 
         if (actual !== expected) {
@@ -13,7 +17,7 @@ expect.extend({
             };
         }
 
-        return {pass: !this.isNot};
+        return {pass: !this.isNot, message: () => ""};
     },
     toRenderTexOpt(
         input: string,
@@ -38,9 +42,19 @@ expect.extend({
             };
         }
 
-        return {pass: true};
+        return {pass: true, message: () => ""};
     },
 });
+
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toRenderTex(expected: string, options?: any): R;
+            toRenderTexOpt(expected: string, ...optlist: ReadonlyArray<any>): R;
+        }
+    }
+}
 
 describe("rendering", () => {
     test("positive and negative primitives", () => {

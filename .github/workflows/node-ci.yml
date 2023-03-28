@@ -66,6 +66,10 @@ jobs:
       if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
       run: yarn typecheck
 
+    - name: Build types
+      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+      run: yarn build:types
+
     # Run tests for our target matrix
     - id: jest-reset
       uses: Khan/actions@filter-files-v0

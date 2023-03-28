@@ -1,3 +1,4 @@
+import {describe, beforeEach, it} from "@jest/globals";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {mount} from "enzyme"; // eslint-disable-line no-restricted-imports
 import $ from "jquery";
@@ -191,7 +192,7 @@ describe("Perseus API", function () {
     });
 
     describe("onFocusChange", function () {
-        it("should be called from focused to blurred to back on one input", function () {
+        it("should be called from focused to blurred to back on one input", async function () {
             // TODO(WEB-998): Migrate tests still using real timers to using fake timers
             jest.useRealTimers();
             let callCount = 0;
@@ -235,7 +236,7 @@ describe("Perseus API", function () {
                 });
         });
 
-        it("should be called focusing between two inputs", function () {
+        it("should be called focusing between two inputs", async function () {
             // TODO(WEB-998): Migrate tests still using real timers to using fake timers
             jest.useRealTimers();
             let callCount = 0;

@@ -49,8 +49,7 @@ type State = {
 };
 
 class ImageLoader extends React.Component<Props, State> {
-    // @ts-expect-error [FEI-5003] - TS2749 - 'Image' refers to a value, but is being used as a type here. Did you mean 'typeof Image'?
-    img: Image | null | undefined;
+    img: HTMLImageElement | null | undefined;
 
     constructor(props: Props) {
         super(props);

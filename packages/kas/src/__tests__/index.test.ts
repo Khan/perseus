@@ -3,37 +3,44 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toHaveGCD(input: [string, string], expected: string) {
+    toHaveGCD(
+        input: [string, string],
+        expected: string,
+    ): jest.CustomMatcherResult {
         const [a, b] = input;
         const actualRep = KAS.parse(a).expr.findGCD(KAS.parse(b).expr).repr();
         const expectedRep = KAS.parse(expected).expr.repr();
 
         return actualRep === expectedRep
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () => `(${a}).findGCD(${b}) = ${expected}`,
               };
     },
-    toBeSimplified(input: string, options?: any) {
+    toBeSimplified(input: string, options?: any): jest.CustomMatcherResult {
         const actual = KAS.parse(input, options).expr.isSimplified();
 
         if (this.isNot) {
             return actual
-                ? {pass: true}
+                ? {pass: true, message: () => ""}
                 : {
                       pass: false,
                       message: () => `${input} is simplified`,
                   };
         }
         return actual
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () => `${input} is NOT simplified`,
               };
     },
-    toHaveConsts(input: string, expected: ReadonlyArray<string>, options: any) {
+    toHaveConsts(
+        input: string,
+        expected: ReadonlyArray<string>,
+        options?: any,
+    ): jest.CustomMatcherResult {
         const actual = KAS.parse(input, options).expr.getConsts();
 
         if (this.isNot) {
@@ -42,9 +49,9 @@ expect.extend({
             expect(actual).toEqual(expected);
         }
 
-        return {pass: !this.isNot};
+        return {pass: !this.isNot, message: () => ""};
     },
-    toBeExpr(input: string, reference: string) {
+    toBeExpr(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input)
             .expr.asExpr()
             .simplify()
@@ -53,13 +60,25 @@ expect.extend({
         const expected = KAS.parse(reference).expr.normalize().print();
 
         return actual === expected
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () => `${input} as an expression is ${reference}`,
               };
     },
 });
+
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toHaveGCD(expected: string): R;
+            toBeSimplified(options?: any): R;
+            toHaveConsts(expected: ReadonlyArray<string>, options?: any): R;
+            toBeExpr(reference: string): R;
+        }
+    }
+}
 
 describe("KAS", () => {
     it("should parse", () => {

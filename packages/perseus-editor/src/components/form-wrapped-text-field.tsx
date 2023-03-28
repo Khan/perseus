@@ -162,8 +162,7 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         // the form.
         return (
             <form
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'CSSProperties[]' is not assignable to parameter of type 'CSSProperties | Falsy'.
-                className={css(spanStyle)}
+                className={css(...spanStyle)}
                 style={extraStyles}
                 // @ts-expect-error [FEI-5003] - TS2322 - Type '((arg1: ChangeEvent<HTMLInputElement>) => unknown) | ((e: Event) => void)' is not assignable to type 'FormEventHandler<HTMLFormElement> | undefined'.
                 onSubmit={onSubmit || this.disableDefault}

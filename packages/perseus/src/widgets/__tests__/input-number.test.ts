@@ -14,7 +14,10 @@ import InputNumber from "../input-number";
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
+import type {
+    PerseusInputNumberWidgetOptions,
+    PerseusRenderer,
+} from "../../perseus-types";
 
 const {transform} = InputNumber;
 
@@ -97,7 +100,7 @@ describe("input-number", function () {
                         },
                     },
                 },
-            },
+            } as PerseusRenderer,
             "1/3",
             "0.4",
         ],
@@ -131,7 +134,7 @@ describe("input-number", function () {
                         },
                     },
                 },
-            },
+            } as PerseusRenderer,
             "1/3",
             "0.4",
         ],
@@ -154,7 +157,7 @@ describe("input-number", function () {
                         },
                     },
                 },
-            },
+            } as PerseusRenderer,
             "77 pi",
             "76 pi",
         ],
@@ -177,7 +180,7 @@ describe("input-number", function () {
                         },
                     },
                 },
-            },
+            } as PerseusRenderer,
             "50%",
             "0.56",
         ],

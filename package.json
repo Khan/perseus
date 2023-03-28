@@ -126,7 +126,7 @@
   "scripts": {
     "gen:parsers": "yarn --cwd packages/kas gen:parsers",
     "build": "yarn gen:parsers && rollup -c config/build/rollup.config.js",
-    "build:types": "yarn tsc --build tsconfig-build.json && node -r @swc-node/register build-settings/remove-test-types-from-dist.ts",
+    "build:types": "yarn tsc --build tsconfig-build.json",
     "build:prodsizecheck": "yarn gen:parsers && rollup -c config/build/rollup.config.js --configEnvironment='production'",
     "watch": "rollup -c config/build/rollup.config.js --watch",
     "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules && rm -rf .nyc_output && rm -f packages/*/tsconfig.tsbuildinfo",
@@ -135,7 +135,7 @@
     "flow:ci": "flow check --max-workers 0",
     "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
     "lint:timing": "cross-env TIMING=1 yarn lint",
-    "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn extract-strings && changeset publish",
+    "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn build:types && yarn extract-strings && changeset publish",
     "sloc": "sloc packages --exclude node_modules",
     "test": "yarn jest",
     "test:no-console-mock": "cross-env GLOBAL_CONSOLE_MOCK=false yarn jest",

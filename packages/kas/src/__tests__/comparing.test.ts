@@ -3,7 +3,7 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toEqualExpr(input: string, expected: string) {
+    toEqualExpr(input: string, expected: string): jest.CustomMatcherResult {
         const inputExpr = KAS.parse(input, {functions: ["f", "g", "h"]}).expr;
         const expectedExpr = KAS.parse(expected, {
             functions: ["f", "g", "h"],
@@ -13,20 +13,23 @@ expect.extend({
 
         if (this.isNot) {
             return actual.equal
-                ? {pass: true}
+                ? {pass: true, message: () => ""}
                 : {
                       pass: false,
                       message: () => `${input} is NOT the same as ${expected}`,
                   };
         }
         return actual.equal
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () => `${input} is the same as ${expected}`,
               };
     },
-    toEqualExprAndForm(input: string, expected: string) {
+    toEqualExprAndForm(
+        input: string,
+        expected: string,
+    ): jest.CustomMatcherResult {
         const inputExpr = KAS.parse(input, {functions: ["f", "g", "h"]}).expr;
         const expectedExpr = KAS.parse(expected, {
             functions: ["f", "g", "h"],
@@ -36,20 +39,30 @@ expect.extend({
 
         if (this.isNot) {
             return actual.equal
-                ? {pass: true}
+                ? {pass: true, message: () => ""}
                 : {
                       pass: false,
                       message: () => `${input} is NOT the same as ${expected}`,
                   };
         }
         return actual.equal
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () => `${input} is the same as ${expected}`,
               };
     },
 });
+
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toEqualExpr(expected: string): R;
+            toEqualExprAndForm(expected: string): R;
+        }
+    }
+}
 
 describe("comparing", () => {
     test("evaluate only", () => {

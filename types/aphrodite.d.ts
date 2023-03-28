@@ -1,7 +1,10 @@
 declare module "aphrodite" {
     import * as React from "react";
 
-    type _CSSProperties = React.CSSProperties & {
+    type _CSSProperties = Omit<
+        React.CSSProperties,
+        "animationName" | "transformOrigin"
+    > & {
         /**
          * Browser Specific
          */
@@ -17,6 +20,9 @@ declare module "aphrodite" {
         "@media (max-width: 1023px)"?: React.CSSProperties;
         "@media (min-width: 1024px)"?: React.CSSProperties;
         "@media (min-width: 1168px)"?: React.CSSProperties;
+
+        animationName?: any;
+        transformOrigin?: any;
     };
 
     /**
@@ -41,8 +47,11 @@ declare module "aphrodite" {
         ":last-child"?: CSSProperties;
         ":hover > span"?: CSSProperties;
         ":hover > div"?: CSSProperties;
+        ":hover > div > div"?: CSSProperties;
         ":hover ~ span"?: CSSProperties;
         ":hover ~ div"?: CSSProperties;
+        ":hover ~ div div[data-lint-inside-table]"?: CSSProperties;
+        ":hover ~ div span[data-lint-inside-table]"?: CSSProperties;
         ":hover div"?: CSSProperties;
         ":checked"?: CSSProperties;
         "::-ms-check"?: CSSProperties;
@@ -62,7 +71,7 @@ declare module "aphrodite" {
         /**
          * Rehydrate class names from server renderer
          */
-        rehydrate(renderedClassNames: Array<string>): void;
+        rehydrate(renderedClassNames: ReadonlyArray<string>): void;
     }
 
     export const StyleSheet: StyleSheetStatic;
@@ -72,5 +81,7 @@ declare module "aphrodite" {
     /**
      * Get class names from passed styles
      */
-    export function css(...styles: Array<CSSProperties | Falsy>): string;
+    export function css(
+        ...styles: ReadonlyArray<CSSProperties | Falsy>
+    ): string;
 }

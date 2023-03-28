@@ -62,6 +62,7 @@ const renderQuestion = (
     cy.get('span[style*="images/spinner.gif"]').should("not.exist");
 
     // Wait for all widgets to finish rendering.
+    // @ts-expect-error FEI-5003 - TS2339 - Property 'waitUntil' does not exist on type 'cy & CyEventEmitter'
     cy.waitUntil(() => checkIsRenderedAndLoaded(), {
         customMessage: "Wait for rendering to finish",
     });
