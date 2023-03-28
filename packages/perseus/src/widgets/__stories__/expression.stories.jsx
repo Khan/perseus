@@ -12,14 +12,18 @@ import TestKeypadContext from "./test-keypad-context-wrapper.jsx";
 
 import type {PerseusItem} from "../../perseus-types.js";
 
-type StoryArgs = {||};
+type StoryArgs = {|
+    customKeypad: boolean,
+|};
 
 type Story = {|
     title: string,
+    argTypes: $FlowFixMe,
 |};
 
 type WrappedKeypadContextProps = {|
     item: PerseusItem,
+    customKeypad: boolean,
 |};
 
 const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
@@ -29,16 +33,9 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
                 {({keypadElement, setRenderer, scrollableElement}) => {
                     return (
                         <ItemRendererWithDebugUI
-                            ref={setRenderer}
                             item={props.item}
                             apiOptions={{
-                                customKeypad: true,
-                                onFocusChange: (
-                                    newFocusPath,
-                                    oldFocusPath,
-                                    keypadElement,
-                                    focusedElement,
-                                ) => {},
+                                customKeypad: props.customKeypad,
                             }}
                         />
                     );
@@ -50,12 +47,31 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
 
 export default ({
     title: "Perseus/Widgets/Expression",
+    argTypes: {customKeypad: {control: "boolean"}},
 }: Story);
 
+export const Desktop = (args: StoryArgs): React.Node => {
+    return <WrappedKeypadContext item={expressionItem3} customKeypad={false} />;
+};
+
+export const Mobile = (args: StoryArgs): React.Node => {
+    return <WrappedKeypadContext item={expressionItem3} customKeypad={true} />;
+};
+
 export const ExpressionItem2 = (args: StoryArgs): React.Node => {
-    return <WrappedKeypadContext item={expressionItem2} />;
+    return (
+        <WrappedKeypadContext
+            item={expressionItem2}
+            customKeypad={args.customKeypad}
+        />
+    );
 };
 
 export const ExpressionItem3 = (args: StoryArgs): React.Node => {
-    return <WrappedKeypadContext item={expressionItem3} />;
+    return (
+        <WrappedKeypadContext
+            item={expressionItem3}
+            customKeypad={args.customKeypad}
+        />
+    );
 };
