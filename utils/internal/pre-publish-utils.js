@@ -23,13 +23,26 @@ const checkPublishConfig = ({name, publishConfig, private: isPrivate}) => {
 };
 
 const checkField = (pkgJson, field, value) => {
-    if (pkgJson[field] !== value) {
-        console.error(
-            `ERROR: ${
-                pkgJson.name
-            } must have a "${field}" set to ${JSON.stringify(value)}.`,
-        );
-        process.exit(1);
+    if (Array.isArray(value)) {
+        if (!value.includes(pkgJson[field])) {
+            console.error(
+                `ERROR: ${
+                    pkgJson.name
+                } must have a "${field}" set to one of ${value
+                    .map(JSON.stringify)
+                    .join(", ")}.`,
+            );
+            process.exit(1);
+        }
+    } else {
+        if (pkgJson[field] !== value) {
+            console.error(
+                `ERROR: ${
+                    pkgJson.name
+                } must have a "${field}" set to ${JSON.stringify(value)}.`,
+            );
+            process.exit(1);
+        }
     }
 };
 
@@ -38,7 +51,8 @@ const checkMain = (pkgJson) => checkField(pkgJson, "main", "dist/index.js");
 const checkModule = (pkgJson) =>
     checkField(pkgJson, "module", "dist/es/index.js");
 
-const checkSource = (pkgJson) => checkField(pkgJson, "source", "src/index.js");
+const checkSource = (pkgJson) =>
+    checkField(pkgJson, "source", ["src/index.js", "src/index.ts"]);
 
 const checkPrivate = (pkgJson) => {
     if (pkgJson.private) {
