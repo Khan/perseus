@@ -41,12 +41,13 @@ module.exports = defineConfig({
             webpackConfig: {
                 resolve: {
                     alias: aliases,
+                    extensions: [".js", ".jsx", ".ts", ".tsx"],
                 },
                 module: {
                     rules: [
                         // Babel loader will use your project’s babel.config.js
                         {
-                            test: /\.jsx?$/,
+                            test: /\.(j|t)sx?$/,
                             exclude: /node_modules/,
                             loader: "babel-loader",
                         },
