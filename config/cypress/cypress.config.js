@@ -7,11 +7,20 @@ const {defineConfig} = require("cypress");
 
 const aliases = {};
 fs.readdirSync(path.join(__dirname, "../../packages")).forEach((name) => {
+    if (name.startsWith(".")) {
+        return;
+    }
+    const stat = fs.statSync(path.join(__dirname, "../../packages", name));
+    if (stat.isFile()) {
+        return;
+    }
+    const pkgPath = path.join("../../packages", name, "package.json");
+    const pkgJson = require(pkgPath);
     aliases["@khanacademy/" + name] = path.join(
         __dirname,
         "../../packages",
         name,
-        "src/index.js",
+        pkgJson.source,
     );
 });
 fs.readdirSync(path.join(__dirname, "../../vendor")).forEach((name) => {
