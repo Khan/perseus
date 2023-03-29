@@ -14,10 +14,7 @@ if (Cypress.env("CYPRESS_COVERAGE")) {
 /**
  * Click a node and drag it to the specified {x, y} position
  */
-const dragTo = (node: any, pos: {
-    x: number,
-    y: number
-}) => {
+const dragTo = (node, pos) => {
     return cy
         .wrap(node)
         .trigger("mousedown", {force: true, which: 1, button: 0})
