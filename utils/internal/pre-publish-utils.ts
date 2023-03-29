@@ -29,7 +29,7 @@ const checkField = (pkgJson, field, value) => {
                 `ERROR: ${
                     pkgJson.name
                 } must have a "${field}" set to one of ${value
-                    .map(JSON.stringify)
+                    .map((value) => JSON.stringify(value))
                     .join(", ")}.`,
             );
             process.exit(1);
@@ -69,9 +69,4 @@ const checkEntrypoints = (pkgJson) => {
     checkMain(pkgJson);
 };
 
-module.exports = {
-    checkPublishConfig,
-    checkEntrypoints,
-    checkSource,
-    checkPrivate,
-};
+export {checkPublishConfig, checkEntrypoints, checkSource, checkPrivate};

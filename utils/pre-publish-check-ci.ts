@@ -1,16 +1,16 @@
 /**
  * Pre-publish checks to verify that our publish will go smoothly.
  */
-const path = require("path");
+import path from "path";
 
-const fg = require("fast-glob");
+import fg from "fast-glob";
 
-const {
+import {
     checkPrivate,
     checkEntrypoints,
     checkSource,
     checkPublishConfig,
-} = require("./internal/pre-publish-utils");
+} from "./internal/pre-publish-utils";
 
 // eslint-disable-next-line promise/catch-or-return
 fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
