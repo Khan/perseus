@@ -8,7 +8,7 @@ import Choice from "./choice";
 import type {ChoiceProps} from "./choice";
 
 type Props = ChoiceProps & {
-    showContent: boolean;
+    showContent?: boolean;
 };
 
 type WithForwardRef = {

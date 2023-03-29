@@ -23,6 +23,6 @@
         "noImplicitAny": false,
         /* Completeness */
         "skipDefaultLibCheck": true, // it's safe to assume that built-in .d.ts files are correct
-        "skipLibCheck": false
+        "skipLibCheck": true, // there are conflicts between some of the globals in various third-party packages
     }
 }

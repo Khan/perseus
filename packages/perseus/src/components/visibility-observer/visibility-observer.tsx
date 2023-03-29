@@ -58,7 +58,9 @@ function findPositionInScrollContainer(
 }
 
 class VisibilityObserver extends React.Component<Props> {
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_observer' has no initializer and is not definitely assigned in the constructor.
     _observer: IVisibilityObserver;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_node' has no initializer and is not definitely assigned in the constructor.
     _node: HTMLElement;
 
     static defaultProps: {onChange: () => void} = {
