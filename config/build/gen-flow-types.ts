@@ -9,8 +9,6 @@ const files = fglob.sync("packages/*/dist/**/*.d.ts", {
     cwd: rootDir,
 });
 
-console.log(files);
-
 if (files.length) {
     console.log(`found ${files.length} files`);
 } else {
