@@ -97,7 +97,7 @@ export class HintEditor extends React.Component<HintEditorProps> {
         return this.refs.editor.serialize(options);
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         return (
             <div className={"perseus-hint-editor " + this.props.className}>
                 {this.props.showTitle && <div className="pod-title">Hint</div>}
@@ -239,7 +239,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
         this.refs.editor.focus();
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
@@ -411,7 +411,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         return this.refs["hintEditor" + index].serialize(options);
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const {itemId, hints} = this.props;
         const hintElems = _.map(
             hints,

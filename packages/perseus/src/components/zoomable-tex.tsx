@@ -56,7 +56,7 @@ export default class ZoomableTeX extends React.Component<Props, State> {
         this.setState({isRendered: true});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <Zoomable
                 readyToMeasure={this.state.isRendered}

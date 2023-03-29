@@ -94,7 +94,7 @@ class Tile extends React.Component<any> {
         size: PropTypes.number.isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const color = this.props.value ? "#55dd55" : "#115511";
         const style = _.extend({}, BASE_TILE_STYLE, {
             width: this.props.size,
@@ -116,7 +116,7 @@ class TileGrid extends React.Component<any> {
         size: PropTypes.number.isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div style={TABLE_STYLE} className="no-select">
                 {_.map(this.props.cells, (row, y) => {
@@ -203,7 +203,7 @@ class LightsPuzzle extends React.Component<any> {
         return WidgetJsonifyDeprecated.getUserInput.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const width = this._width();
         const tileSize = MAIN_TILE_SIZE;
         const pxWidth = width * (tileSize + 2 * CELL_PADDING);

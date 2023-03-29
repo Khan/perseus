@@ -27,7 +27,7 @@ class ChoiceEditor extends React.Component<any> {
         onDelete: PropTypes.func,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const checkedClass = this.props.choice.correct
             ? "correct"
             : "incorrect";
@@ -132,7 +132,7 @@ class RadioEditor extends React.Component<any> {
         deselectEnabled: false,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const numCorrect = _.reduce(
             this.props.choices,
             function (memo, choice) {

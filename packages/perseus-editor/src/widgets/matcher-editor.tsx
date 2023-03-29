@@ -27,7 +27,7 @@ class MatcherEditor extends React.Component<Props> {
         padding: true,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-matcher-editor">
                 <div>

@@ -46,7 +46,7 @@ class ElementContainer extends React.Component<
         this.setState({show: !this.state.show});
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         return (
             <div className="perseus-interaction-element">
                 <a

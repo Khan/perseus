@@ -44,7 +44,7 @@ class BlurInput extends React.Component<Props, State> {
         this.props.onChange(e.target.value);
     };
 
-    render(): React.ReactElement<React.ComponentProps<"input">> {
+    render(): React.ReactNode {
         return (
             <input
                 className={this.props.className}

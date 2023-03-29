@@ -40,7 +40,7 @@ class ExplanationEditor extends React.Component<Props, State> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-widget-explanation-editor">
                 <div className="perseus-widget-row">

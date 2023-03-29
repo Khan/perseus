@@ -18,7 +18,7 @@ type SectionControlButtonProps = {
 };
 
 export default class SectionControlButton extends React.Component<SectionControlButtonProps> {
-    render(): React.ReactElement<React.ComponentProps<typeof Clickable>> {
+    render(): React.ReactNode {
         const {icon, onClick, title} = this.props;
 
         return (

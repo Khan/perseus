@@ -84,6 +84,12 @@ for (const inFile of files) {
                 },
             );
         }
+        if (contents.includes("React.ElementConfig<Renderer>")) {
+            contents = contents.replace(
+                "React.ElementConfig<Renderer>",
+                "React.ElementConfig<typeof Renderer>",
+            );
+        }
 
         fs.writeFileSync(
             path.join(rootDir, outFile),

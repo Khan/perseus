@@ -101,7 +101,7 @@ class Group extends React.Component<Props> {
         this.rendererRef?.showRationalesForCurrentlySelectedChoices();
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const apiOptions: APIOptions = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,

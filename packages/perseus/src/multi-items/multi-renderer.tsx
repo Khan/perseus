@@ -536,7 +536,7 @@ class MultiRenderer extends React.Component<Props, State> {
         );
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         if (this.state.renderError) {
             return (
                 <div className={css(styles.error)}>

@@ -94,7 +94,7 @@ class HUD extends React.Component<any> {
         );
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let state;
         let icon;
         if (this.props.enabled) {

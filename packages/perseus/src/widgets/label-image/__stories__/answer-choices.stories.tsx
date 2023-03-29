@@ -72,7 +72,7 @@ class WithState extends React.Component<
         });
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {multipleSelect} = this.props;
 
         const {choices} = this.state;

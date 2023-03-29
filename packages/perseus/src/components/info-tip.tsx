@@ -29,7 +29,7 @@ class InfoTip extends React.Component<Props, State> {
         /* eslint-enable react/no-did-mount-set-state */
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         if (this.state.didMount) {
             return <ReactComponentsInfoTip {...this.props} />;
         }

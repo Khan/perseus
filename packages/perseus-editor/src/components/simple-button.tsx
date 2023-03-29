@@ -20,7 +20,7 @@ class SimpleButton extends React.Component<any> {
         onClick: () => {},
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {children, color, onClick, ...otherProps} = this.props;
         return (
             <div

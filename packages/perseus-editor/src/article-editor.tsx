@@ -420,7 +420,7 @@ export default class ArticleEditor extends React.Component<
         });
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="framework-perseus perseus-article-editor">
                 {this.props.mode === "edit" && this._renderEditor()}

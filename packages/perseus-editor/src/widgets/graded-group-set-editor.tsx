@@ -85,7 +85,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
         );
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-group-editor">
                 {this.renderGroups()}

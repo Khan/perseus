@@ -139,7 +139,7 @@ class InputNumber extends React.Component<Props> {
         return this.props.answerType !== "number";
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
             const input = (

@@ -245,7 +245,7 @@ class Interaction extends React.Component<Props, State> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const range = this.props.graph.range;
         let labels = this.props.graph.labels;
         if (this.props.graph.markings === "graph") {

@@ -631,7 +631,7 @@ class NumberLine extends React.Component<Props, State> {
         return NumberLine.validate(this.getUserInput(), rubric);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const divisionRange = this.props.divisionRange;
         const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
         const invalidNumDivisions =

@@ -37,7 +37,7 @@ export class MockAssetLoadingWidget extends React.Component<Record<any, any>> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'setAssetStatus' has no initializer and is not definitely assigned in the constructor.
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <AssetContext.Consumer>
                 {({setAssetStatus}) => {

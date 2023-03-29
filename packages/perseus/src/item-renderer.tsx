@@ -506,7 +506,7 @@ class ItemRenderer extends React.Component<Props, State> {
         this.questionRenderer.deselectIncorrectSelectedChoices();
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         return <div />;
     }
 }

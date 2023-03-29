@@ -537,7 +537,7 @@ const Transformations = {
                 }
             }
 
-            render(): React.ReactElement {
+            render(): React.ReactNode {
                 const InputComponent = inputComponentForApiOptions(
                     this.props.apiOptions,
                 );
@@ -685,7 +685,7 @@ const Transformations = {
                 }
             }
 
-            render(): React.ReactElement {
+            render(): React.ReactNode {
                 const InputComponent = inputComponentForApiOptions(
                     this.props.apiOptions,
                 );
@@ -860,7 +860,7 @@ const Transformations = {
                 }
             }
 
-            render(): React.ReactElement {
+            render(): React.ReactNode {
                 const InputComponent = inputComponentForApiOptions(
                     this.props.apiOptions,
                 );
@@ -1059,7 +1059,7 @@ const Transformations = {
                 }
             }
 
-            render(): React.ReactElement {
+            render(): React.ReactNode {
                 const InputComponent = inputComponentForApiOptions(
                     this.props.apiOptions,
                 );
@@ -1629,7 +1629,7 @@ const ShapeTypes = {
 const TransformationListItem = TransformOps.ListItem;
 
 class TransformationList extends React.Component<any, any> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         if (this.props.mode === "static") {
             return <span />; // don't render anything
         }
@@ -1692,7 +1692,7 @@ class TransformationList extends React.Component<any, any> {
 }
 
 class ToolButton extends React.Component<any, any> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const classes = this.props.toggled
             ? "simple-button exercise-orange toggled highlighted-tool-button"
             : "simple-button";
@@ -1717,7 +1717,7 @@ class ToolsBar extends React.Component<any, any> {
         selected: null,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const tools = _.map(
             Transformations,
             function (tool, type) {
@@ -1778,7 +1778,7 @@ class ToolsBar extends React.Component<any, any> {
 }
 
 class AddTransformBar extends React.Component<any, any> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const tools = _.map(
             Transformations,
             function (tool, type) {
@@ -1860,7 +1860,7 @@ class Transformer extends React.Component<Props> {
         defaultTransformerProps,
     );
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // Fill in any missing value in this.props.graph
         // this can happen because the graph json doesn't include
         // box, for example

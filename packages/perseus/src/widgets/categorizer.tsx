@@ -59,7 +59,7 @@ export class Categorizer extends React.Component<Props, State> {
         return Categorizer.getUserInputFromProps(this.props);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const self = this;
 
         // In this context, isMobile is used to differentiate mobile from

@@ -42,7 +42,7 @@ class ConstraintEditor extends React.Component<Props> {
         return Changeable.change.call(this, propName);
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
 
         return (

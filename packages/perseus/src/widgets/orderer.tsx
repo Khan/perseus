@@ -24,7 +24,7 @@ class PlaceholderCard extends React.Component<any> {
         height: PropTypes.number.isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div
                 className={"card-wrap " + ApiClassNames.INTERACTIVE}
@@ -40,7 +40,7 @@ class PlaceholderCard extends React.Component<any> {
 }
 
 class DragHintCard extends React.Component<any> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className={"card-wrap " + ApiClassNames.INTERACTIVE}>
                 <div className="card drag-hint" />
@@ -84,7 +84,7 @@ class Card extends React.Component<any, any> {
 
     state = {dragging: false};
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let style: Record<string, any> = {};
 
         if (this.props.floating) {
@@ -332,7 +332,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         }
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // This is the card we are currently dragging
         const dragging = this.state.dragging && (
             <Card

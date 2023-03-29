@@ -46,7 +46,7 @@ class PairEditor extends React.Component<any> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <fieldset className="pair-editor">
                 <label>
@@ -105,7 +105,7 @@ class PairsEditor extends React.Component<any> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const editors = _.map(this.props.pairs, (pair, i) => {
             return (
                 <PairEditor
@@ -211,7 +211,7 @@ class CSProgramEditor extends React.Component<any> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 <label>

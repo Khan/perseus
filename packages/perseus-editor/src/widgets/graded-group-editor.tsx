@@ -49,7 +49,7 @@ class GradedGroupEditor extends React.Component<Props> {
         this.props.onChange({hint: null});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-group-editor">
                 <div className="perseus-widget-row">

@@ -242,7 +242,7 @@ class EditorPage extends React.Component<Props, State> {
         return null;
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         let className = "framework-perseus";
 
         const touch =

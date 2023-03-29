@@ -37,7 +37,7 @@ export class LineHeightMeasurer extends React.Component<Record<any, any>> {
         return this._line.clientHeight;
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className={css(styles.measurer)} aria-hidden="true">
                 <div ref={(ref) => (this._line = ref)} className="paragraph">
@@ -470,7 +470,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         return PassageMarkdown.output(parsed);
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         let lineNumbers: ReadonlyArray<React.ReactNode>;
         const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {

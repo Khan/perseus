@@ -58,7 +58,7 @@ class Matcher extends React.Component<any, any> {
             .then((katex) => this.setState({katex}));
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // We don't render the Matcher until KaTeX has fully loaded, in case
         // the sortables are rendering KaTeX content. This is un-optimal as
         // we end up loading KaTeX even when we may not need it, however it

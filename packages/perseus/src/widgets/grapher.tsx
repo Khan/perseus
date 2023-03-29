@@ -111,7 +111,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const pointForCoord = (coord: any, i) => {
             return (
                 <MovablePoint
@@ -374,7 +374,7 @@ class Grapher extends React.Component<Props> {
 
     static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const type = this.props.plot.type;
         const coords = this.props.plot.coords;
         const asymptote = this.props.plot.asymptote;

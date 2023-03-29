@@ -61,7 +61,7 @@ class WidgetContainer extends React.Component<Props, State> {
         }
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let className = classNames({
             "perseus-widget-container": true,
             "widget-highlight": this.props.shouldHighlight,

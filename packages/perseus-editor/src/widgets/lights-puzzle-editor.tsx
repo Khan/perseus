@@ -78,7 +78,7 @@ class Tile extends React.Component<TileProps> {
         size: PropTypes.number.isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const color = this.props.value ? "#55dd55" : "#115511";
         const style = _.extend({}, BASE_TILE_STYLE, {
             width: this.props.size,
@@ -102,7 +102,7 @@ class TileGrid extends React.Component<TileGridProps> {
         size: PropTypes.number.isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div style={TABLE_STYLE} className="no-select">
                 {_.map(this.props.cells, (row, y) => {
@@ -169,7 +169,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 <div>

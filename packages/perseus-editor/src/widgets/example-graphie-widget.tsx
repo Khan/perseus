@@ -90,7 +90,7 @@ class ExampleGraphieWidget extends React.Component<Props> {
         return WidgetJsonifyDeprecated.getUserInput.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <Graphie
                 // eslint-disable-next-line react/no-string-refs

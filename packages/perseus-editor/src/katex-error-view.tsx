@@ -26,7 +26,7 @@ class KatexErrorView extends React.Component<Props, State> {
         this.setState({showErrors: !this.state.showErrors});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {errorList} = this.props;
         const {showErrors} = this.state;
 

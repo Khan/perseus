@@ -32,7 +32,7 @@ class Tabbar extends React.Component<TabbarProps, TabbarState> {
     state: TabbarState = {
         selectedItem: 0,
     };
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {items, onSelect} = this.props;
         return (
             <View style={styles.tabbar}>

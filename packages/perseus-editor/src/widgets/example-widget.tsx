@@ -15,7 +15,7 @@ import _ from "underscore";
 import type {WidgetExports} from "@khanacademy/perseus";
 
 class TextInput extends React.Component<any> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <input
                 // eslint-disable-next-line react/no-string-refs
@@ -94,7 +94,7 @@ class ExampleWidget extends React.Component<any> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <TextInput
                 // eslint-disable-next-line react/no-string-refs

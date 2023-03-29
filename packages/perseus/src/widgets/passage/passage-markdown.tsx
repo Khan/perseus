@@ -64,7 +64,7 @@ function getInitialParseState(): ParseState {
 }
 
 class RefStart extends React.Component<RefStartProps> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
     }
 
@@ -75,7 +75,7 @@ class RefStart extends React.Component<RefStartProps> {
 }
 
 class RefEnd extends React.Component<Record<any, any>> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
     }
 }

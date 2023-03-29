@@ -337,7 +337,7 @@ export class OldUnitInput extends React.Component<Props> {
     // end mobile stuff
 
     // TODO(joel) think about showing the error buddy
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="old-unit-input">
                 <input

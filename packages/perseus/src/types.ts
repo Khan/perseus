@@ -164,10 +164,7 @@ export type APIOptions = Readonly<{
     // group widget, then returns a react component that will be added
     // immediately above the renderer in the group widget. If the
     // function returns null, no annotation will be added.
-    groupAnnotator?: (
-        groupNumber: number,
-        widgetId: string,
-    ) => React.ReactElement<any> | null | undefined;
+    groupAnnotator?: (groupNumber: number, widgetId: string) => React.ReactNode;
     // If imagePlaceholder or widgetPlaceholder are set, perseus will
     // render the placeholder instead of the image or widget node.
     imagePlaceholder?: React.ReactNode;
@@ -183,7 +180,7 @@ export type APIOptions = Readonly<{
     };
     // Function that takes dimensions and returns a React component
     // to display while an image is loading
-    imagePreloader?: (dimensions: Dimensions) => React.ReactElement;
+    imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
     // Function that takes an object argument. The object should
     // include type and id, both strings, at least and can optionally
     // include a boolean "correct" value. This is used for keeping

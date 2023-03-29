@@ -53,7 +53,7 @@ class Definition extends React.Component<DefinitionProps> {
         return Definition.validate(this.getUserInput(), rubric);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <DefinitionConsumer>
                 {({activeDefinitionId, setActiveDefinitionId}) => (

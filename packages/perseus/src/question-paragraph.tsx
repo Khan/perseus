@@ -8,7 +8,7 @@ type Props = {
 };
 
 class QuestionParagraph extends React.Component<Props> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const className = this.props.className
             ? "paragraph " + this.props.className
             : "paragraph";

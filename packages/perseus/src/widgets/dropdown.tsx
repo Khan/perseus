@@ -77,7 +77,7 @@ class Dropdown extends React.Component<Props> {
         return Dropdown.validate(this.getUserInput(), rubric);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const children = [
             <OptionItem
                 key="placeholder"

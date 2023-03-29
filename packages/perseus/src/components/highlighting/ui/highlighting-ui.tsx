@@ -96,7 +96,7 @@ class HighlightingUI extends React.PureComponent<HighlightingUIProps> {
         return selectionIsValid;
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <SelectionTracker
                 buildHighlight={this.props.buildHighlight}

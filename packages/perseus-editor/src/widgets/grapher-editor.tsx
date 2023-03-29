@@ -42,7 +42,7 @@ class GrapherEditor extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const sizeClass = containerSizeClass.SMALL;
         let equationString;
         let graph;

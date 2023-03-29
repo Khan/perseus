@@ -40,7 +40,7 @@ class ColorPicker extends React.Component<Props> {
         lightColors: false,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const colors = this.props.lightColors ? LIGHT_COLORS : COLORS;
         return (
             <ButtonGroup

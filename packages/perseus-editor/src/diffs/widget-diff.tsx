@@ -27,7 +27,7 @@ class DiffSide extends React.Component<any> {
         value: PropTypes.string,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const className = classNames(this.props.className, {
             "diff-row": true,
             before: this.props.side === BEFORE,
@@ -62,7 +62,7 @@ class CollapsedRow extends React.Component<any> {
         depth: 0,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const self = this;
         return (
             <div onClick={self.props.onClick} style={{clear: "both"}}>
@@ -114,7 +114,7 @@ class DiffEntry extends React.Component<any, any> {
         this.setState({expanded: true});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const entry = this.props.entry;
         const propertyDeleted = entry.status === "removed";
         const propertyAdded = entry.status === "added";
@@ -206,7 +206,7 @@ class ImageWidgetDiff extends React.Component<any> {
         }).isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {before, after} = this.props;
         const beforeSrc =
             before.options && before.options.backgroundImage
@@ -271,7 +271,7 @@ class WidgetDiff extends React.Component<any> {
         type: "",
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {after, before, title, type} = this.props;
         const diff = performDiff(before, after);
         return (

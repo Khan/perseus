@@ -156,7 +156,7 @@ class NumberLineEditor extends React.Component<Props> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const range = this.props.range;
         const labelRange = this.props.labelRange;
         const divisionRange = this.props.divisionRange;

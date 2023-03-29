@@ -178,7 +178,7 @@ class LabelImageEditor extends React.Component<LabelImageEditorProps> {
         this.props.onChange(options);
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const {
             choices,
             imageAlt,

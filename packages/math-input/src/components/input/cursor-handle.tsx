@@ -43,7 +43,7 @@ class CursorHandle extends React.Component<Props> {
         y: 0,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {x, y, animateIntoPosition} = this.props;
 
         const animationStyle = animateIntoPosition

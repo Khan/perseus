@@ -144,7 +144,7 @@ class WordIndexer extends React.PureComponent<WordIndexerProps> {
         return index;
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         return (
             <div ref={(container) => (this._container = container)}>
                 {this.props.children}

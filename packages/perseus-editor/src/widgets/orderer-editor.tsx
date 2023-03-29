@@ -31,7 +31,7 @@ class OrdererEditor extends React.Component<Props> {
         layout: HORIZONTAL,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-widget-orderer">
                 <div>

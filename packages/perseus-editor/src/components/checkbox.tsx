@@ -47,7 +47,7 @@ export default class Checkbox extends React.Component<CheckboxProps> {
         onChange: onChangeCheckboxNoop,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {
             checked,
             disabled,

@@ -720,7 +720,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         );
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {imageAlt, imageUrl, imageWidth, imageHeight} = this.props;
 
         const {selectedMarkerIndex} = this.state;

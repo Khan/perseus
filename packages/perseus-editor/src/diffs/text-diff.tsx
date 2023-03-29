@@ -36,7 +36,7 @@ class ImageDiffSide extends React.Component<any> {
         images: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 {_.map(this.props.images, (entry, index) => {
@@ -90,7 +90,7 @@ class TextDiff extends React.Component<any, any> {
         this.setState({collapsed: false});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const diffed = jsdiff.diffWords(this.props.before, this.props.after);
 
         const lines = splitDiff(diffed);

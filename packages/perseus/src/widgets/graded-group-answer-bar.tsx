@@ -37,7 +37,7 @@ type Props = {
 };
 
 class GradedGroupAnswerBar extends React.Component<Props> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {apiOptions, answerBarState, onCheckAnswer, onNextQuestion} =
             this.props;
 

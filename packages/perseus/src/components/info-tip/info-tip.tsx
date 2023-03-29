@@ -111,7 +111,7 @@ class InfoTip extends React.Component<Props, State> {
         this.setState({hover: false});
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         return (
             <div className={css(styles.infoTip)}>
                 <img

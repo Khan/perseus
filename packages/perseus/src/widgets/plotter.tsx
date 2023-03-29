@@ -98,7 +98,7 @@ class Plotter extends React.Component<any, any> {
         return 2;
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // TODO(kevinb) actually compute the size of the graphie correctly and
         // make it that size so we don't have to add extra padding.  The value
         // was determined by eye-balling the layout.  :(

@@ -12,7 +12,7 @@ const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
 type StepControlButtonProps = any;
 
 class StepControlButton extends React.Component<StepControlButtonProps> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <a
                 href="#"
@@ -60,7 +60,7 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
         ],
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-sequence-editor">
                 {_.map(this.props.json, (json, i) => {

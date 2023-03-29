@@ -249,7 +249,7 @@ class MathInput extends React.Component<Props, State> {
         this.setState({focused: false});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let className = classNames({
             "perseus-math-input": true,
 

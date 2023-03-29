@@ -219,7 +219,7 @@ class Histogram extends React.Component<any, any> {
         return _.map(data, pathForData);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const data = this.props.data;
         // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const range = this._range();
@@ -453,7 +453,7 @@ class Simulator extends React.Component<any, any> {
         }
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const inputStyle = {
             marginLeft: "5px",
         } as const;

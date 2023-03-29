@@ -160,7 +160,7 @@ class HighlightSetRenderer extends React.PureComponent<
         );
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         return (
             <div>
                 {Object.keys(this.props.highlights).map((key) => (

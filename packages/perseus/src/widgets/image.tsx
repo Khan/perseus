@@ -89,7 +89,7 @@ class ImageWidget extends React.Component<Props> {
 
     focus: () => void = () => {}; // no-op
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let image;
         let alt;
         const {apiOptions} = this.props;

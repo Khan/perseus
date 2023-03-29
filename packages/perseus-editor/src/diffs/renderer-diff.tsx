@@ -78,7 +78,7 @@ class RendererDiff extends React.Component<Props> {
         showSeparator: false,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {after, before, showAlignmentOptions, showSeparator, title} =
             this.props;
 

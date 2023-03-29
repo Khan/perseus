@@ -88,7 +88,7 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const widgets = Widgets.getPublicWidgets();
         const orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
             return widgets[name].displayName;
@@ -225,7 +225,7 @@ class WidgetEditor extends React.Component<
         };
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const widgetInfo = this.state.widgetInfo;
 
         const Ed = Widgets.getEditor(widgetInfo.type);
@@ -1163,7 +1163,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
         };
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         let pieces;
         let widgets;
         let underlayPieces;

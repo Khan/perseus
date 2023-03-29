@@ -118,7 +118,7 @@ class Sorter extends React.Component<any, any> {
         return Sorter.validate(this.getUserInput(), rubric);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const options = shuffle(
             this.props.correct,
             this.props.problemNum,

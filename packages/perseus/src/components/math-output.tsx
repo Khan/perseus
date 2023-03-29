@@ -57,7 +57,7 @@ class MathOutput extends React.Component<any, any> {
         return ModifyTex(displayText);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const divStyle = {
             textAlign: "center",
         } as const;

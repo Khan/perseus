@@ -86,7 +86,7 @@ class Table extends React.Component<any> {
         return this.props.answers[0].length;
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const rows = this._getRows();
         const columns = this._getColumns();
         const headers = this.props.headers;

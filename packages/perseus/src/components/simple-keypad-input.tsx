@@ -43,7 +43,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
         return this.props.value;
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const _this = this;
         // Intercept the `onFocus` prop, as we need to configure the keypad
         // before continuing with the default focus logic for Perseus inputs.

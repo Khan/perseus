@@ -159,7 +159,7 @@ export default class HoverBehavior extends React.Component<Props, State> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const handlers = {
             onBlur: this.handleBlur,
             onClick: this.handleClick,
@@ -172,7 +172,6 @@ export default class HoverBehavior extends React.Component<Props, State> {
         } as const;
 
         const {children} = this.props;
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, string | JSXElementConstructor<any>> | null' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return children?.(this.state, handlers) || null;
     }
 }

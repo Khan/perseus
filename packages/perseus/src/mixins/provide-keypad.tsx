@@ -41,11 +41,7 @@ const ProvideKeypad = {
         apiOptions: PropTypes.shape({
             customKeypad: PropTypes.bool,
             nativeKeypadProxy: PropTypes.func,
-            // @ts-expect-error [FEI-5003] - TS2694 - Namespace 'React' has no exported member 'PropType'.
-        }) as React.PropType<{
-            customKeypad?: boolean;
-            nativeKeypadProxy?: (...a: ReadonlyArray<any>) => unknown;
-        }>,
+        }),
         // An Aphrodite style object, to be applied to the keypad container.
         // Note that, given our awkward structure of injecting the keypad, this
         // style won't be applied or updated dynamically. Rather, it will only

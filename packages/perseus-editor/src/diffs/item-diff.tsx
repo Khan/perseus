@@ -24,7 +24,7 @@ class ItemDiff extends React.Component<Props> {
         before: itemProps.isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {before, after} = this.props;
 
         const hintCount = Math.max(before.hints.length, after.hints.length);

@@ -79,7 +79,7 @@ type Props = {
 type State = Record<any, any>;
 
 class TabbarItem extends React.Component<Props, State> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {onClick, itemType, itemState} = this.props;
         return (
             <Clickable onClick={onClick} disabled={itemState === "disabled"}>

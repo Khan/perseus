@@ -97,7 +97,7 @@ class DropdownEditor extends React.Component<Props> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const dropdownGroupName = _.uniqueId("perseus_dropdown_");
         return (
             <div className="perseus-widget-dropdown">

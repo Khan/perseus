@@ -376,7 +376,7 @@ export class NumericInput extends React.Component<Props, State> {
         this.props.onBlur([]);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let labelText = this.props.labelText;
         if (labelText == null || labelText === "") {
             labelText = i18n._("Your answer:");

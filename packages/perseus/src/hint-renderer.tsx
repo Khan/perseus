@@ -47,7 +47,7 @@ class HintRenderer extends React.Component<Props> {
         this.refs.renderer.restoreSerializedState(state, callback);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {
             apiOptions,
             className,

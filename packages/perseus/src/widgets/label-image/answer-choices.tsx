@@ -130,7 +130,7 @@ class AnswerChoice extends React.Component<AnswerProps, AnswerState> {
         );
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {content, checked, groupName, index, inputType} = this.props;
 
         const {isInputFocused} = this.state;
@@ -230,7 +230,7 @@ export default class AnswerChoices extends React.Component<
         this.focusAnswer(index);
     }
 
-    render(): React.ReactElement<React.ComponentProps<"fieldset">> {
+    render(): React.ReactNode {
         const {choices, multipleSelect} = this.props;
 
         const {groupName} = this.state;

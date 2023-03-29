@@ -56,7 +56,7 @@ export default class Tex extends React.Component<Props, State> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX: BaseTeX} = getDependencies();
         return (
             <BaseTeX onRender={this.handleRender}>

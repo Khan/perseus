@@ -38,7 +38,7 @@ class DeviceFramer extends React.Component<Props> {
         nochrome: PropTypes.bool,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const deviceType = this.props.deviceType;
 
         if (this.props.nochrome) {

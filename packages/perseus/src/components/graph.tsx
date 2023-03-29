@@ -91,7 +91,7 @@ class Graph extends React.Component<any> {
         isMobile: false,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let image;
         const imageData = this.props.backgroundImage;
         if (imageData.url) {
