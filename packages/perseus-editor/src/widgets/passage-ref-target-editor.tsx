@@ -1,0 +1,46 @@
+import {Changeable, EditorJsonify} from "@khanacademy/perseus";
+import PropTypes from "prop-types";
+import * as React from "react";
+import _ from "underscore";
+
+type Props = any;
+
+class PassageRefTargetEditor extends React.Component<Props> {
+    static propTypes = {
+        ...Changeable.propTypes,
+        content: PropTypes.string,
+    };
+
+    static widgetName: 'passage-ref-target' = "passage-ref-target";
+
+    static defaultProps: Props = {
+        content: "",
+    };
+
+    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
+        return Changeable.change.apply(this, args);
+    };
+
+    handleContentChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+        this.change({content: e.target.value});
+    };
+
+    serialize: () => any = () => {
+        return EditorJsonify.serialize.call(this);
+    };
+
+    render(): React.ReactElement {
+        return (
+            <div>
+                Content:
+                <input
+                    type="text"
+                    value={this.props.content}
+                    onChange={this.handleContentChange}
+                />
+            </div>
+        );
+    }
+}
+
+export default PassageRefTargetEditor;
