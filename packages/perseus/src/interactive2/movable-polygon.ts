@@ -48,12 +48,11 @@ const DEFAULT_STATE = {
     mouseTarget: null,
 } as const;
 
-// @ts-expect-error [FEI-5003] - TS2355 - A function whose declared type is neither 'void' nor 'any' must return a value.
 const MovablePolygon = function (
     graphie: any,
     movable: any,
     options: any,
-): undefined {
+): void {
     assert(graphie != null);
     assert(options != null);
 

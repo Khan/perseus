@@ -33,7 +33,8 @@ export const MultiItemRendererWithDebugUI: React.FC<Props> = ({
     simpleItem,
     apiOptions,
 }): React.ReactElement => {
-    const ref = React.useRef<MultiItems.MultiRenderer | null | undefined>(null);
+    // @ts-expect-error [FEI-5003] - TS2530 - Cannot find namespace 'MultiItems'.
+    const ref = React.useRef<MultiItems.MultiRenderer>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
 
     return (

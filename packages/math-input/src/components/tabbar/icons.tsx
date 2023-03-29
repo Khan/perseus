@@ -57,7 +57,7 @@ const IconAsset: React.FC<{
         );
     }
 
-    type as never;
+    // type as never;
     throw new Error("Invalid icon type");
 };
 

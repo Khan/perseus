@@ -62,9 +62,9 @@ jobs:
         limited-trigger: ${{ steps.js-files.outputs.filtered }}
         limited: yarn lint {}
 
-    - name: Run Flow
-      if: steps.js-files.outputs.filtered != '[]'
-      run: yarn flow
+    - name: Typecheck
+      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+      run: yarn typecheck
 
     # Run tests for our target matrix
     - id: jest-reset

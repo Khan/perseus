@@ -1850,7 +1850,7 @@ class Renderer extends React.Component<Props, State> {
         });
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const apiOptions = this.getApiOptions();
         const {KatexProvider} = getDependencies();
 

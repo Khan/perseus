@@ -9,6 +9,8 @@ import {debounce} from "underscore";
  * anything in non-KA environments.
  */
 
+declare const KA: any;
+
 // A LintCB is called once the linter has been run.
 type LintCB = (errors: ReadonlyArray<string>) => void;
 
@@ -33,6 +35,7 @@ export default class TranslationLinter {
      */
     runLinter: any = debounce(
         (perseusStr: string, onLintErrorsGenerated: LintCB) => {
+            // TODO(FEI-5003): Do we still need to check for 'KA'?
             if (typeof KA === "undefined") {
                 return;
             }

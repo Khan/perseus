@@ -9,7 +9,7 @@
         {"path": "../kas"},
         {"path": "../kmath"},
         {"path": "../math-input"},
-        {"path": "../pereus-linter"},
+        {"path": "../perseus-linter"},
         {"path": "../pure-markdown"},
         {"path": "../simple-markdown"},
     ]

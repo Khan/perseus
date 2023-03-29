@@ -89,9 +89,7 @@ export class OldUnitInput extends React.Component<Props> {
     };
 
     static validate(userInput: string, rubric: Rubric): ValidationResult {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const answer = KAS.unitParse(rubric.value).expr;
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const guess = KAS.unitParse(userInput);
         if (!guess.parsed) {
             return {
@@ -119,13 +117,10 @@ export class OldUnitInput extends React.Component<Props> {
         // require.
         let numericallyCorrect;
         try {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'Var' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const x = new KAS.Var("x");
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'Eq' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const equality = new KAS.Eq(
                 answer.simplify(),
                 "=",
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'Mul' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 new KAS.Mul(x, guess.expr.simplify()),
             );
 
@@ -153,16 +148,13 @@ export class OldUnitInput extends React.Component<Props> {
         if (rubric.accepting === ALL) {
             // We're accepting all units - KAS does the hard work of figuring
             // out if the user's unit is equivalent to the author's unit.
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             kasCorrect = KAS.compare(guessUnit, answerUnit).equal;
         } else {
             // Are any of the accepted units the same as what the user entered?
             kasCorrect = _(rubric.acceptingUnits).any((unit) => {
                 const thisAnswerUnit = primUnits(
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                     KAS.unitParse(unit).unit.simplify(),
                 );
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 return KAS.compare(
                     thisAnswerUnit,
                     guessUnit,
@@ -191,7 +183,6 @@ export class OldUnitInput extends React.Component<Props> {
         // eslint-disable-next-line no-restricted-syntax
         // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         clearTimeout(this._errorTimeout);
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         if (KAS.unitParse(this.props.value).parsed) {
             this._hideError();
         } else {
@@ -255,7 +246,6 @@ export class OldUnitInput extends React.Component<Props> {
         // eslint-disable-next-line no-restricted-syntax
         // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         clearTimeout(this._errorTimeout);
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         if (!KAS.unitParse(this.props.value).parsed) {
             this._showError();
         }

@@ -51,7 +51,7 @@ import {itemToTree} from "./items";
 import {buildMapper} from "./trees";
 
 import type {Widget} from "../renderer";
-import type {APIOptions, FilterCriterion} from "../types";
+import type {APIOptions, FilterCriterion, PerseusScore} from "../types";
 import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
 import type {Shape, ArrayShape} from "./shape-types";
 import type {Tree} from "./tree-types";
@@ -61,9 +61,9 @@ type Hint = any; // TODO(mdr)
 type Score = any; // TODO(mdr)
 type SerializedState = any; // TODO(mdr)
 
-// @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
 type RendererProps = JSX.LibraryManagedAttributes<
     typeof Renderer,
+    // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
     React.ComponentProps<typeof Renderer>
 >;
 

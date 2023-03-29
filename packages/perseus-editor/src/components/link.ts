@@ -76,10 +76,7 @@ class Link extends React.Component<LinkProps> {
         element: "a",
     };
 
-    // @ts-expect-error [FEI-5003] - TS2344 - Type 'string' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
-    render():
-        | React.ReactElement<React.ComponentProps<string>>
-        | React.ReactNode {
+    render(): React.ReactNode {
         const {
             children,
             className,

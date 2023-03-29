@@ -66,7 +66,6 @@ const KASparse = (expr, options) => {
     if (cached) {
         return cached;
     }
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
     cached = KAS.parse(expr, options);
     _parseCache[hash] = cached;
     return cached;
@@ -84,7 +83,6 @@ const KAScompile = (
     if (cached) {
         return cached;
     }
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
     const parsed = KAS.parse(expr, options).expr;
     cached = parsed
         ? parsed.compile()

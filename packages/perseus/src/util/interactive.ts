@@ -1409,11 +1409,10 @@ _.extend(GraphUtils.Graphie.prototype, {
 
                 // Add custom function for transforming arrowheads that
                 // accounts for center, scaling, etc.
-                // @ts-expect-error [FEI-5003] - TS2355 - A function whose declared type is neither 'void' nor 'any' must return a value.
                 arrowHead.toCoordAtAngle = function (
                     coord: Coord,
                     angle: number,
-                ): undefined {
+                ): void {
                     const clipPoint = graph.scalePoint(
                         getClipPoint(graph, coord, angle),
                     );
@@ -2994,7 +2993,7 @@ _.extend(GraphUtils.Graphie.prototype, {
     addReflectButton: (function () {
         const drawButton = function (
             graphie,
-            buttonCoord: Point,
+            buttonCoord: kpoint.Point,
             lineCoords: Array<any> | Array<never> | Array<any | Array<number>>,
             size: number,
             distanceFromCenter: number,
@@ -3123,7 +3122,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             };
 
             const redraw = function (
-                coord: Point,
+                coord: kpoint.Point,
                 lineCoords: Array<any> | Array<never>,
             ) {
                 if (currentlyDrawnButton) {

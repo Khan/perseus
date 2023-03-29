@@ -62,7 +62,7 @@ type ExportProps = Flow.Diff<
     WithForwardRef
 >;
 
-// @ts-expect-error [FEI-5003] - TS2740 - Type '{ forwardedRef: ForwardedRef<Flow.Diff<ChoiceProps & { showContent: boolean; } & WithForwardRef & { children?: ReactNode; }, WithForwardRef>>; ... 300 more ...; focus(options?: FocusOptions | undefined): void; }' is missing the following properties from type 'ChoiceProps': apiOptions, checked, rationale, content, and 9 more.
 export default React.forwardRef<ExportProps, HTMLButtonElement>(
+    // @ts-expect-error [FEI-5003] - TS2740 - Type '{ forwardedRef: ForwardedRef<Flow.Diff<ChoiceProps & { showContent: boolean; } & WithForwardRef & { children?: ReactNode; }, WithForwardRef>>; ... 300 more ...; focus(options?: FocusOptions | undefined): void; }' is missing the following properties from type 'ChoiceProps': apiOptions, checked, rationale, content, and 9 more.
     (props, ref) => <ChoiceNoneAbove {...props} forwardedRef={ref} />,
 ) as Flow.AbstractComponent<ExportProps, HTMLButtonElement>;
