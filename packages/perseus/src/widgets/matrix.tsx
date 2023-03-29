@@ -146,7 +146,7 @@ class Matrix extends React.Component<Props, State> {
         this.cursorPosition = [0, 0];
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // Set the input sizes through JS so we can control the size of the
         // brackets. (If we set them in CSS we won't know values until the
         // inputs are rendered.)

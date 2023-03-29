@@ -74,7 +74,7 @@ class WithState extends React.Component<Empty, State> {
         ],
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className={css(styles.wrapper)}>
                 <LabelImageEditor

@@ -152,7 +152,7 @@ type Props = {
     // If alt is provided, DO NOT set aria-hidden=true unless this override flag
     // is set.
     overrideAriaHidden?: boolean;
-    preloader?: (dimensions: Dimensions) => React.ReactElement;
+    preloader?: (dimensions: Dimensions) => React.ReactNode;
     // By default, this component attempts to be responsive whenever
     // possible (specifically, when width and height are passed in).
     // You can expliclty force unresponsive behavior by *either*

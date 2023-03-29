@@ -339,7 +339,7 @@ class Graphie extends React.Component<Props> {
         });
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="graphie-container">
                 {/* eslint-disable-next-line react/no-string-refs */}

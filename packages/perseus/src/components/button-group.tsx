@@ -59,7 +59,7 @@ class ButtonGroup extends React.Component<Props> {
         }
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const value = this.props.value;
         const buttons = this.props.buttons.map((button, i) => {
             return (

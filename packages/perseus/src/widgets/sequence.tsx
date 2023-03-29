@@ -76,7 +76,7 @@ class Sequence extends React.Component<any, any> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const icon = <InlineIcon {...iconOk} style={{color: "green"}} />;
 
         const content = _.chain(this.props.json)

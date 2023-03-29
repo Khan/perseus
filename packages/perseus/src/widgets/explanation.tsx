@@ -68,7 +68,7 @@ class Explanation extends React.Component<Props, State> {
         this.props.trackInteraction();
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {Link} = this.props.apiOptions.baseElements;
         const {isArticle, isMobile} = this.props.apiOptions;
 

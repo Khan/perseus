@@ -29,7 +29,7 @@ class PairEditor extends React.Component<PairEditorProps> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <fieldset>
                 <label>
@@ -73,7 +73,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
         ).isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const editors = _.map(this.props.pairs, (pair, i) => {
             return (
                 <PairEditor
@@ -134,7 +134,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 <div style={{fontWeight: "bold", textAlign: "center"}}>

@@ -30,7 +30,7 @@ class ViewportResizer extends React.Component<Props> {
         this.props.onViewportSizeChanged(value);
     };
 
-    render(): React.ReactElement<React.ComponentProps<"span">> {
+    render(): React.ReactNode {
         const phoneButtonContents = (
             <span>
                 <InlineIcon {...iconMobilePhone} /> Phone

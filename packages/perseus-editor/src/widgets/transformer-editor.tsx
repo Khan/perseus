@@ -154,7 +154,7 @@ class ToolSettings extends React.Component<any> {
         allowFixed: true,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 {this.props.name}:{" "}
@@ -203,7 +203,7 @@ class ToolSettings extends React.Component<any> {
 }
 
 class TransformationExplorerSettings extends React.Component<any> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="transformer-settings">
                 <div>
@@ -757,7 +757,7 @@ const ShapeTypes: any = {
 };
 
 class TransformationsShapeEditor extends React.Component<any> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 <Graph
@@ -876,7 +876,7 @@ class TransformerEditor extends React.Component<any> {
 
     static widgetName = "transformer" as const;
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // Fill in any missing value in this.props.graph
         // this can happen because the graph json doesn't include
         // box, for example

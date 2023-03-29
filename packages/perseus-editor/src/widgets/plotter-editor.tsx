@@ -131,7 +131,7 @@ class PlotterEditor extends React.Component<Props, State> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const setFromScale = _.contains(
             [LINE, HISTOGRAM, DOTPLOT],
             this.props.type,

@@ -871,7 +871,7 @@ class MathInput extends React.Component<Props, State> {
         return padding;
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {focused, handle} = this.state;
         const {style} = this.props;
 

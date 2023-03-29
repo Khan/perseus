@@ -64,7 +64,7 @@ class MatrixEditor extends React.Component<Props> {
         cursorPosition: [0, 0],
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const matrixProps = _.extend(
             {
                 numericInput: true,

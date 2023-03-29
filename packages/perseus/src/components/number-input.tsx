@@ -54,7 +54,7 @@ class NumberInput extends React.Component<any, any> {
         format: this.props.format,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let classes = classNames({
             "number-input": true,
             "invalid-input": !this._checkValidity(this.props.value),

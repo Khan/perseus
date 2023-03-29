@@ -151,7 +151,7 @@ class Lint extends React.Component<Props, State> {
     // The main render method surrounds linty content with a block or
     // inline container and the link element that displays the indicator
     // and holds the tooltip.
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {children, inline, blockHighlight, insideTable} = this.props;
 
         if (insideTable) {

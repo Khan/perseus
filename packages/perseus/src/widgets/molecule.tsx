@@ -99,7 +99,7 @@ export class Molecule extends React.Component<any, any> {
         ctx.restore();
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // TODO(colin): escape the punctuation in the SMILES alt text for
         // screen readers?
         let content = (
@@ -153,7 +153,7 @@ class MoleculeWidget extends React.Component<any> {
         };
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <Molecule
                 id={this.props.widgetId}

@@ -45,7 +45,7 @@ class WithState extends React.Component<
         choices: [],
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {choices} = this.state;
 
         return (

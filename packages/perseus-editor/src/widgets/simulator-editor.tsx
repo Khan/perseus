@@ -31,7 +31,7 @@ class SimulatorEditor extends React.Component<Props> {
         proportionOrPercentage: "proportion",
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-widget-simulator">
                 <div>

@@ -157,7 +157,7 @@ class ArticleRenderer extends React.Component<any, any> {
             : [this.props.json];
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const apiOptions = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,

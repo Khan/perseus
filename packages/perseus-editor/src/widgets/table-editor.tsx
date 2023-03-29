@@ -41,7 +41,7 @@ class TableEditor extends React.Component<Props> {
         ReactDOM.findDOMNode(this.refs.numberOfColumns).focus(); // eslint-disable-line react/no-string-refs
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const tableProps = _.pick(
             this.props,
             "headers",

@@ -149,7 +149,7 @@ class HighlightableContent extends React.PureComponent<
         this.setState({wordRanges});
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const highlights = this._getDOMHighlights();
 
         // NOTE(mdr): This lambda is rebuilt every time this component updates,

@@ -150,7 +150,7 @@ class StructuredItemDiff extends React.Component<Props> {
         }
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const {before, after, shape, tags} = this.props;
 
         const beforeList: Array<ItemList> = [];

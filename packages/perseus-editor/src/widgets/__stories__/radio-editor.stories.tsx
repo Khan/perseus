@@ -90,7 +90,7 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
 
     apiOptions: APIOptions = Object.freeze({});
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className={css(styles.wrapper)}>
                 <RadioEditor

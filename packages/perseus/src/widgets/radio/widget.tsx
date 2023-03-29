@@ -403,7 +403,7 @@ class Radio extends React.Component<Props> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {choices} = this.props;
         let choiceStates: ReadonlyArray<ChoiceState>;
         if (this.props.static) {

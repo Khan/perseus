@@ -39,7 +39,7 @@ export class DefinitionProvider extends React.Component<
         this.setState((prevState: ProviderState) => ({activeDefinitionId}));
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {children} = this.props;
         const {activeDefinitionId} = this.state;
         const {setActiveDefinitionId} = this;

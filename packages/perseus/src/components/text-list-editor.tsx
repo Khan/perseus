@@ -39,7 +39,7 @@ class TextListEditor extends React.Component<any, any> {
         });
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const className = [
             "perseus-text-list-editor",
             "perseus-clearfix",

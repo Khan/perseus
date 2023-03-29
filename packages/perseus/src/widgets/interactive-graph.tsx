@@ -2007,7 +2007,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     focus: () => void = $.noop;
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
         );

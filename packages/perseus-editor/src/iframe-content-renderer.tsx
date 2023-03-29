@@ -180,7 +180,7 @@ class IframeContentRenderer extends React.Component<Props> {
         }
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // eslint-disable-next-line react/no-string-refs
         return <div ref="container" style={{width: "100%", height: "100%"}} />;
     }

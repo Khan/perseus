@@ -36,7 +36,7 @@ class SorterEditor extends React.Component<Props> {
         return _.pick(this.props, "correct", "layout", "padding");
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const editor = this;
 
         return (

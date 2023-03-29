@@ -58,7 +58,7 @@ class View extends React.Component<Props> {
         },
     });
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const className =
             css(
                 View.styles.initial,

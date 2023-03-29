@@ -162,7 +162,7 @@ class InputWithExamples extends React.Component<Props, State> {
         return <InputComponent {...inputProps} />;
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const input = this._renderInput();
 
         // Static rendering, which doesn't include the 'tooltip' logic that the

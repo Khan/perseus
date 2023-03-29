@@ -51,7 +51,7 @@ class VideoEditor extends React.Component<Props> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 <label>

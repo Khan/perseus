@@ -26,7 +26,7 @@ class ErrorBoundary extends React.Component<
         });
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         if (this.state.error) {
             // TODO(djf): perhaps we should have one error boundary for
             // inline elements and one for block elements. This one uses
@@ -43,7 +43,6 @@ class ErrorBoundary extends React.Component<
                 </svg>
             );
         }
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactNode' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return this.props.children;
     }
 }

@@ -123,7 +123,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
         this.updateMarker({answers});
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const {answers, choices, label, onRemove, x, y} = this.props;
 
         const {showDropdown} = this.state;

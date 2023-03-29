@@ -90,7 +90,7 @@ class ItemEditor extends React.Component<Props> {
         };
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";

@@ -74,7 +74,7 @@ class ProvidedKeypad extends React.Component<Props> {
         return ReactDOM.findDOMNode(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {onElementMounted, ...rest} = this.props;
 
         return (

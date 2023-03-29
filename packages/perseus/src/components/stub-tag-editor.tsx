@@ -30,7 +30,7 @@ class StubTagEditor extends React.Component<any> {
         showTitle: true,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 {this.props.showTitle && (

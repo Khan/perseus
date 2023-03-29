@@ -245,7 +245,7 @@ class Zoomable extends React.Component<Props, State> {
         });
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {visible, scale, compactHeight, expandedHeight, zoomed} =
             this.state;
         const {animateHeight} = this.props;

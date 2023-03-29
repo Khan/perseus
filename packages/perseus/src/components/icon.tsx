@@ -84,7 +84,7 @@ class Icon extends React.Component<Props> {
         color: "currentColor",
     };
 
-    render(): React.ReactElement<React.ComponentProps<"svg">> {
+    render(): React.ReactNode {
         const {color, pathClassName, className, title, style, alt} = this.props;
         let {icon, size} = this.props;
         let units = "";

@@ -34,7 +34,7 @@ class ItemExtrasEditor extends React.Component<Props> {
         };
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-answer-editor">
                 <div className="perseus-answer-options">

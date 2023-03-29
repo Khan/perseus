@@ -45,7 +45,7 @@ class WithState extends React.Component<
         ],
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {markers} = this.state;
 
         return (

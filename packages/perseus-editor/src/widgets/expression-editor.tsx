@@ -97,7 +97,7 @@ class ExpressionEditor extends React.Component<any, any> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const answerOptions = this.props.answerForms
             .map((obj, index) => {
                 const expressionProps = {
@@ -467,7 +467,7 @@ class AnswerOption extends React.Component<any, any> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let removeButton = null;
         if (this.state.deleteFocused) {
             // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.

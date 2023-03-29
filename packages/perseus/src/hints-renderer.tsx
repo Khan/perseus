@@ -173,7 +173,7 @@ class HintsRenderer extends React.Component<Props, State> {
         fireCallback();
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const apiOptions = this.getApiOptions();
         const hintsVisible = this._hintsVisible();
         const hints: Array<

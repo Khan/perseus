@@ -50,7 +50,7 @@ class Separator extends React.Component<any> {
         ctx.stroke(path);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="arrow-container">
                 <div className="above-text">{this.props.data.topText}</div>
@@ -109,7 +109,7 @@ class ReactionDiagramWidget extends React.Component<any> {
         return true;
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             // eslint-disable-next-line react/no-string-refs
             <div className="reaction" ref="reaction">

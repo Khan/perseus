@@ -35,7 +35,7 @@ class PassageEditor extends React.Component<Props> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const passageEditor = (
             <Editor
                 // eslint-disable-next-line react/no-string-refs

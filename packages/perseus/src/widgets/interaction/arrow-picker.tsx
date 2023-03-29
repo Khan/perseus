@@ -15,7 +15,7 @@ class ArrowPicker extends React.Component<Props> {
         value: "",
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <ButtonGroup
                 value={this.props.value}

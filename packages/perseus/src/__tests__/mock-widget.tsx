@@ -16,7 +16,7 @@ const transform = (
 // widget has been rendered, you can retrieve it from the renderer and attach
 // jest.fn()'s to any functions you need.
 export class MockWidget extends React.Component<Props> {
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         return <div className="mock_widget" />;
     }
 }

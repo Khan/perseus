@@ -110,7 +110,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
         );
     }
 
-    render(): React.ReactElement<React.ComponentProps<"button">> {
+    render(): React.ReactNode {
         const {label, x, y, showCorrectness} = this.props;
 
         // It should no longer be possible to interact with a marker after it

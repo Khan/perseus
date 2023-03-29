@@ -110,7 +110,7 @@ class InputNumberEditor extends React.Component<Props> {
         this.props.onChange({value: value});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const answerTypeOptions = _.map(
             answerTypes,
             function (v, k) {

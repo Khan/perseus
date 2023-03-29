@@ -131,7 +131,7 @@ class CSProgram extends React.Component<any> {
         );
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         if (!this.props.programID) {
             return <div />;
         }

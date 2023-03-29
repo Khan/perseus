@@ -35,7 +35,7 @@ class Indicators extends React.Component<IndicatorsProps> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <ul className={css(styles.indicatorContainer)}>
                 {this.props.gradedGroups.map(({title}, i) => (
@@ -142,7 +142,7 @@ class GradedGroupSet extends React.Component<Props, State> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // When used in the context of TranslationEditor, render the
         // GradedGroup widget one below another instead of using an indicator
         // to click and switch between different graded groups. Translators

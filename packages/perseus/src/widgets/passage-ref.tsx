@@ -81,7 +81,7 @@ class PassageRef extends React.Component<Props, State> {
         return removeDenylistProps(this.props);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const lineRange = this.state.lineRange;
         let lineRangeOutput;
         if (!lineRange) {

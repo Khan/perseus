@@ -29,7 +29,7 @@ class GroupEditor extends React.Component<Props> {
         metadata: undefined,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div className="perseus-group-editor">
                 <div>

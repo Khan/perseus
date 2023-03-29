@@ -21,7 +21,7 @@ class RangeInput extends React.Component<any> {
         placeholder: [null, null],
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const value = this.props.value;
         const checkValidity = this.props.checkValidity || truth;
 

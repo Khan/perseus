@@ -35,7 +35,7 @@ export default class PreAlgebraKeypad extends React.Component<Props, State> {
     state: State = {
         selectedPage: "Numbers",
     };
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {selectedPage} = this.state;
         const {onClickKey} = this.props;
 

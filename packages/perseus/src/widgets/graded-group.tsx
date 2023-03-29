@@ -211,7 +211,7 @@ export class GradedGroup extends React.Component<Props, State> {
         this.refs.renderer.blurPath(path);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const apiOptions = _.extend(
             {},
             ApiOptions.defaults,

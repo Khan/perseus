@@ -59,7 +59,7 @@ class PointEditor extends React.Component<PointEditorProps> {
         color: KhanColors.BLACK,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (
@@ -134,7 +134,7 @@ class LineEditor extends React.Component<LineEditorProps> {
         strokeWidth: 2,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (
@@ -251,7 +251,7 @@ class MovablePointEditor extends React.Component<MovablePointEditorProps> {
         constraintYMax: "10",
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (
@@ -330,7 +330,7 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
         constraintYMax: "10",
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (
@@ -431,7 +431,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
         strokeWidth: 2,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (
@@ -532,7 +532,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
         strokeWidth: 2,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (
@@ -638,7 +638,7 @@ class LabelEditor extends React.Component<LabelEditorProps> {
         label: "\\phi",
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (
@@ -717,7 +717,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
         color: KhanColors.LIGHT_BLUE,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (
@@ -947,7 +947,7 @@ class InteractionEditor extends React.Component<
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {TeX} = getDependencies();
 
         return (

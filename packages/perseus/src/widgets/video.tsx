@@ -63,7 +63,7 @@ class Video extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {InitialRequestUrl} = getDependencies();
 
         const location = this.props.location;

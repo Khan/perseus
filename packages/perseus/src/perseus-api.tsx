@@ -140,36 +140,7 @@ export const ApiOptions = {
         // keystroke caused text typed in the text area to appear in it
         // only after a good few seconds.
         editorChangeDelay: PropTypes.number,
-        // @ts-expect-error [FEI-5003] - TS2694 - Namespace 'React' has no exported member 'PropType'.
-    }).isRequired as React.PropType<{
-        GroupMetadataEditor: (...a: ReadonlyArray<any>) => unknown;
-        answerableCallback?: (...a: ReadonlyArray<any>) => unknown;
-        baseElements?: {
-            Link?: (...a: ReadonlyArray<any>) => unknown;
-        };
-        canScrollPage?: boolean;
-        crossOutEnabled?: boolean;
-        customKeypad?: boolean;
-        editorChangeDelay?: number;
-        getAnotherHint?: (...a: ReadonlyArray<any>) => unknown;
-        groupAnnotator: (...a: ReadonlyArray<any>) => unknown;
-        hintProgressColor?: string;
-        imagePlaceholder?: any;
-        imagePreloader?: (...a: ReadonlyArray<any>) => unknown;
-        inModal?: boolean;
-        interactionCallback?: (...a: ReadonlyArray<any>) => unknown;
-        isArticle: boolean;
-        isMobile?: boolean;
-        nativeKeypadProxy?: (...a: ReadonlyArray<any>) => unknown;
-        onFocusChange: (...a: ReadonlyArray<any>) => unknown;
-        onInputError: (...a: ReadonlyArray<any>) => unknown;
-        readOnly: boolean;
-        setDrawingAreaAvailable?: (...a: ReadonlyArray<any>) => unknown;
-        showAlignmentOptions: boolean;
-        trackInteraction?: (...a: ReadonlyArray<any>) => unknown;
-        useDraftEditor?: boolean;
-        widgetPlaceholder?: any;
-    }>,
+    }).isRequired,
 
     defaults: {
         isArticle: false,

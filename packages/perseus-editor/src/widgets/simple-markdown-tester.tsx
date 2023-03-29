@@ -44,7 +44,7 @@ class SimpleMarkdownTester extends React.Component<Props> {
         return {};
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
         const parsed = mdParse(this.props.value);
         const output = mdOutput(parsed);

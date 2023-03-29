@@ -28,7 +28,7 @@ class ExampleWidgetEditor extends React.Component<Props> {
         });
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 <label>

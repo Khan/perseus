@@ -45,7 +45,7 @@ class PassageRefTarget extends React.Component<any> {
         return PassageRefTarget.validate(this.getUserInput(), rubric);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             // $FlowFixMe[prop-missing]: inline doesn't exist in Renderer's declared props
             <Renderer

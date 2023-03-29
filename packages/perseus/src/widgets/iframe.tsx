@@ -78,7 +78,7 @@ class Iframe extends React.Component<any> {
         $(window).off("message", this.handleMessageEvent);
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const style = {
             width: String(this.props.width),
             height: String(this.props.height),

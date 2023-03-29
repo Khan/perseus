@@ -27,7 +27,7 @@ class TagsDiff extends React.Component<Props> {
         title: "Question tags",
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const {afterOnly, beforeOnly, intersection, showSeparator} = this.props;
 
         const beforeTags = intersection.concat(beforeOnly).join("\n") + "\n";

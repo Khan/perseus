@@ -154,20 +154,18 @@ class ImageLoader extends React.Component<Props, State> {
         );
     };
 
-    render(): React.ReactElement | null {
+    render(): React.ReactNode {
         switch (this.state.status) {
             case Status.LOADED:
                 return this.renderImg();
 
             case Status.FAILED:
                 if (this.props.children) {
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'true | ReactChild | ReactFragment | ReactPortal' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>> | null'.
                     return this.props.children;
                 }
                 break;
             default:
                 if (this.props.preloader) {
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, string | JSXElementConstructor<any>> | null | undefined' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>> | null'.
                     return this.props.preloader();
                 }
         }

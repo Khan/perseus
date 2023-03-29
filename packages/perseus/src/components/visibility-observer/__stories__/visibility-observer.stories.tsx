@@ -29,7 +29,7 @@ class VisibilityTest extends React.Component<Props, State> {
         this.setState({sectionVisibility: visibility});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {sectionVisibility} = this.state;
 
         const visibleText =

@@ -381,7 +381,7 @@ export class ServerItemRenderer
         this.setState({assetStatuses});
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const apiOptions = {
             ...ApiOptions.defaults,
             ...this.props.apiOptions,

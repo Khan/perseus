@@ -10,7 +10,7 @@ import * as React from "react";
 type TextAreaProps = any;
 
 class TextArea extends React.Component<TextAreaProps> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <textarea
                 // eslint-disable-next-line react/no-string-refs
@@ -48,7 +48,7 @@ class SimpleMarkdownTesterEditor extends React.Component<SimpleMarkdownTesterEdi
         value: "",
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <div>
                 <label>

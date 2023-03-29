@@ -135,7 +135,7 @@ class HighlightRenderer extends React.PureComponent<
         );
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const rects = this.state.cachedHighlightRects;
 
         return (

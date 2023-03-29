@@ -98,7 +98,7 @@ class Option extends React.Component<OptionProps> {
         }
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {
             selected,
             value,
@@ -209,7 +209,7 @@ class OptionGroup extends React.Component<{
         }
     }
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const {
             children,
             onSelected,

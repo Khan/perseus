@@ -65,7 +65,7 @@ class ReactionDiagramWidgetEditor extends React.Component<Props> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // TODO(colin): use styling instead of &nbsp hacks.
         return (
             <div>

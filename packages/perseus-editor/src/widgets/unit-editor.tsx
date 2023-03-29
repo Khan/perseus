@@ -86,7 +86,7 @@ class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
         });
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         let icon;
         if (this.state.valid) {
             icon = (
@@ -213,7 +213,7 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
         return EditorJsonify.serialize.call(this);
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {acceptingUnits = [], accepting} = this.props;
         let acceptingElem = null;
         if (accepting === SOME) {

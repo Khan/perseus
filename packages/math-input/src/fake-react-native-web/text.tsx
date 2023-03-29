@@ -15,7 +15,7 @@ type Props = {
 };
 
 class Text extends React.Component<Props> {
-    render(): React.ReactElement<React.ComponentProps<"span">> {
+    render(): React.ReactNode {
         const {numberOfLines, style} = this.props;
 
         const className = css(

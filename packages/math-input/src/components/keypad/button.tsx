@@ -69,7 +69,7 @@ type Props = {
 
 type State = Record<any, any>;
 export default class Button extends React.Component<Props, State> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {onPress, children, style, tintColor} = this.props;
         return (
             <View style={style}>

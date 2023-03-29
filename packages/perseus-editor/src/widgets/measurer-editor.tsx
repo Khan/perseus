@@ -46,7 +46,7 @@ class MeasurerEditor extends React.Component<Props> {
 
     className = "perseus-widget-measurer";
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const image = _.extend({}, defaultImage, this.props.image);
 
         return (

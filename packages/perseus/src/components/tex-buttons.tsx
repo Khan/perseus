@@ -268,7 +268,7 @@ class TexButtons extends React.Component<TexButtonProps> {
     static buttonSets: typeof buttonSets = buttonSets;
     static buttonSetsType: any = buttonSetsPropType;
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // Always show buttonSets in the same order. Note: Technically it's ok
         // for _.keys() to return the keys in an arbitrary order, but in
         // practice, they will be ordered as listed above.

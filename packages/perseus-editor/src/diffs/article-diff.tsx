@@ -46,7 +46,7 @@ class ArticleDiff extends React.Component<Props, State> {
         this.setState(ArticleDiff._stateFromProps(nextProps));
     }
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {before, after} = this.state;
 
         const sectionCount = Math.max(before.length, after.length);

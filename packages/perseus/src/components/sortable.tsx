@@ -46,7 +46,7 @@ class Placeholder extends React.Component<any> {
         height: PropTypes.number.isRequired,
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {layout} = this.props;
         const className = css(
             styles.card,
@@ -162,7 +162,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         };
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {includePadding, layout, type} = this.props;
 
         // We need to keep backwards compatbility with rules specified directly
@@ -583,7 +583,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         });
     }, 20);
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         // We don't render the sortable until KaTeX has fully loaded, in case
         // the draggables are rendering KaTeX content. This is un-optimal as
         // we end up loading KaTeX even when we may not need it, however it

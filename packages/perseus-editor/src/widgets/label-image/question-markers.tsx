@@ -67,7 +67,7 @@ export default class QuestionMarkers extends React.Component<QuestionMarkersProp
         ]);
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const {choices, imageUrl, imageWidth, imageHeight, markers, onChange} =
             this.props;
 

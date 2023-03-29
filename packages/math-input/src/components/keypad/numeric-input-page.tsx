@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default class NumericInputPage extends React.Component<Props> {
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         const {onClickKey} = this.props;
         return (
             <KeypadPageContainer>

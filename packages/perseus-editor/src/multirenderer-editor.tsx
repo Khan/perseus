@@ -77,7 +77,7 @@ class ModeDropdown extends React.Component<ModeDropdownProps> {
         }
     };
 
-    render(): React.ReactElement {
+    render(): React.ReactNode {
         return (
             <label>
                 Mode:{" "}
@@ -518,7 +518,7 @@ const withStickiness = <
             }
         };
 
-        render(): React.ReactElement {
+        render(): React.ReactNode {
             return (
                 /**
                  * $FlowFixMe[incompatible-exact]
@@ -952,7 +952,7 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
         }
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         return <div id="perseus">{this._renderContent()}</div>;
     }
 }

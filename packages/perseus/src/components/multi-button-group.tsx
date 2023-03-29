@@ -67,7 +67,7 @@ class MultiButtonGroup extends React.Component<Props> {
         this.props.onChange(values);
     };
 
-    render(): React.ReactElement<React.ComponentProps<"div">> {
+    render(): React.ReactNode {
         const values = this.props.values || [];
         const buttons = this.props.buttons.map((button, i) => {
             const selected = values.indexOf(button.value) >= 0;
