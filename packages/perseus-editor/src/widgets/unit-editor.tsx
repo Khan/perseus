@@ -128,7 +128,7 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
         sigfigs: PropTypes.number,
     };
 
-    static widgetName: "unit-input" = "unit-input";
+    static widgetName = "unit-input" as const;
 
     static defaultProps: UnitInputEditorProps = {
         value: "5x10^5 kg m / s^2",

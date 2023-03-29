@@ -14,7 +14,7 @@ class PassageRefEditor extends React.Component<Props> {
         summaryText: PropTypes.string,
     };
 
-    static widgetName: "passage-ref" = "passage-ref";
+    static widgetName = "passage-ref" as const;
 
     static defaultProps: Props = {
         passageNumber: 1,

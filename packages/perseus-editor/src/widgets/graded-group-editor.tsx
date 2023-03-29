@@ -22,7 +22,7 @@ class GradedGroupEditor extends React.Component<Props> {
         apiOptions: ApiOptions.propTypes,
     };
 
-    static widgetName: "graded-group" = "graded-group";
+    static widgetName = "graded-group" as const;
 
     static defaultProps: Props = {
         title: "",

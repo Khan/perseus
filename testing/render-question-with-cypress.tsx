@@ -15,7 +15,7 @@ import type {APIOptions} from "../packages/perseus/src/types";
 const renderQuestion = (
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
-    reviewMode: boolean = false,
+    reviewMode = false,
 ): (() => Perseus.Renderer) => {
     let renderer: Perseus.Renderer | null = null;
 

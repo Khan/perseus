@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable @typescript-eslint/no-unused-vars, react/forbid-prop-types, react/sort-comp */
 /**
  * This is an example graphie-using widget
  *

@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* eslint-disable */
 /*
  * jQuery Mobile Framework : "mouse" plugin

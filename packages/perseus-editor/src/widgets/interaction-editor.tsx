@@ -800,7 +800,7 @@ class InteractionEditor extends React.Component<
         graph: PropTypes.objectOf(PropTypes.any),
     };
 
-    static widgetName: "interaction" = "interaction";
+    static widgetName = "interaction" as const;
     static defaultProps: InteractionEditorProps = defaultInteractionProps;
 
     state: InteractionEditorState = {

@@ -145,7 +145,7 @@ class CSProgramEditor extends React.Component<any> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: string = "cs-program";
+    static widgetName = "cs-program" as const;
 
     static defaultProps: any = {
         programID: "",

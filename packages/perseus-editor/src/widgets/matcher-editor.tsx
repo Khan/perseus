@@ -17,7 +17,7 @@ class MatcherEditor extends React.Component<Props> {
         padding: PropTypes.bool,
     };
 
-    static widgetName: "matcher" = "matcher";
+    static widgetName = "matcher" as const;
 
     static defaultProps: Props = {
         left: ["$x$", "$y$", "$z$"],

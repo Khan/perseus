@@ -527,6 +527,7 @@ export const createStore = (): any => {
     // TODO(charlie): This non-inlined return is necessary so as to allow the
     // gesture manager to dispatch actions on the store in its callbacks. We
     // should come up with a better pattern to remove the two-way dependency.
+    // eslint-disable-next-line import/no-deprecated
     const store = Redux.createStore(reducer);
 
     return store;

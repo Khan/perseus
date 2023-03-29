@@ -9,7 +9,7 @@
  * level in the component tree--perhaps even into webapp, beyond Perseus.
  */
 
-import {toolbarHeightPx} from "../common-style.js";
+import {toolbarHeightPx} from "../common-style";
 
 // Taken from https://dev.opera.com/articles/fixing-the-scrolltop-bug/
 function bodyOrHtml() {

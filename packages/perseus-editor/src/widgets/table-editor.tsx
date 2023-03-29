@@ -20,7 +20,7 @@ class TableEditor extends React.Component<Props> {
         answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     };
 
-    static widgetName: "table" = "table";
+    static widgetName = "table" as const;
 
     static defaultProps: Props = (function () {
         const defaultRows = 4;

@@ -90,7 +90,7 @@ type State = {
 // answer button below the rendered content. When clicked, the widget grades
 // the stuff inside and displays feedback about whether the inputted answer was
 // correct or not.
-class GradedGroup extends React.Component<Props, State> {
+export class GradedGroup extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         title: "",
         content: "",

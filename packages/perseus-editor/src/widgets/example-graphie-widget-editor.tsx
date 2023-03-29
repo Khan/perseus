@@ -16,7 +16,7 @@ class ExampleGraphieWidgetEditor extends React.Component<Props> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: "example-graphie-widget" = "example-graphie-widget";
+    static widgetName = "example-graphie-widget" as const;
 
     static defaultProps: Props = {
         correct: [4, 4],

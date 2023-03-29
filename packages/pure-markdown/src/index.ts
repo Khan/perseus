@@ -29,7 +29,7 @@ import SimpleMarkdown from "@khanacademy/simple-markdown";
  * This can also match block-math, which is math alone in a paragraph.
  */
 
-const rWidgetRule: RegExp = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
+const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
 
 const mathMatcher = (source: any, state: any, isBlock: boolean) => {
     const length = source.length;

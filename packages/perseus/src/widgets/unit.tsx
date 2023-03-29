@@ -5,7 +5,6 @@
 import * as KAS from "@khanacademy/kas";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 // eslint-disable-next-line import/no-extraneous-dependencies
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'hubble' or its corresponding type declarations.
 import lens from "hubble";
 import $ from "jquery";
 import * as React from "react";
@@ -228,6 +227,7 @@ export class OldUnitInput extends React.Component<Props> {
             $error.animate({top: 50, opacity: 0.1}, 300, function () {
                 // eslint-disable-next-line @babel/no-invalid-this
                 // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // eslint-disable-next-line @babel/no-invalid-this
                 $(this).hide();
             });
         }

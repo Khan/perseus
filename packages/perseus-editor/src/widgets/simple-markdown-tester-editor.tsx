@@ -42,7 +42,7 @@ class SimpleMarkdownTesterEditor extends React.Component<SimpleMarkdownTesterEdi
         ...Changeable.propTypes,
     };
 
-    static widgetName: "simple-markdown-tester" = "simple-markdown-tester";
+    static widgetName = "simple-markdown-tester" as const;
 
     static defaultProps: SimpleMarkdownTesterEditorProps = {
         value: "",

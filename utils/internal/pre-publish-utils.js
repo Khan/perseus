@@ -33,12 +33,11 @@ const checkField = (pkgJson, field, value) => {
     }
 };
 
-const checkMain = (pkgJson) => checkField(pkgJson, "main", "dist/index.js");
+const checkMain = (pkgJson) => checkField(pkgJson, "main", "dist/index");
 
-const checkModule = (pkgJson) =>
-    checkField(pkgJson, "module", "dist/es/index.js");
+const checkModule = (pkgJson) => checkField(pkgJson, "module", "dist/es/index");
 
-const checkSource = (pkgJson) => checkField(pkgJson, "source", "src/index.js");
+const checkSource = (pkgJson) => checkField(pkgJson, "source", "src/index");
 
 const checkPrivate = (pkgJson) => {
     if (pkgJson.private) {

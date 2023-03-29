@@ -18,7 +18,7 @@ class GroupEditor extends React.Component<Props> {
         apiOptions: ApiOptions.propTypes,
     };
 
-    static widgetName: "group" = "group";
+    static widgetName = "group" as const;
 
     static defaultProps: Props = {
         content: "",

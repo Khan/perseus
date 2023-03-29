@@ -12,7 +12,6 @@ class InteractionTracker {
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'setting' has no initializer and is not definitely assigned in the constructor.
     setting: string;
     track: (extraData?: any) => void;
-    // eslint-disable-next-line ft-flow/no-weak-types
     trackApi: any;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetID' has no initializer and is not definitely assigned in the constructor.
     widgetID: string;
@@ -20,7 +19,6 @@ class InteractionTracker {
     widgetType: string;
 
     constructor(
-        // eslint-disable-next-line ft-flow/no-weak-types
         trackApi: any, // original apiOptions.trackInteraction
         widgetType: string,
         widgetID: string,

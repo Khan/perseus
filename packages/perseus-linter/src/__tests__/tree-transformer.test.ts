@@ -1,5 +1,7 @@
 import TreeTransformer from "../tree-transformer";
 
+import type {TraversalState} from "../tree-transformer";
+
 describe("PerseusLinter tree transformer", () => {
     function clone(o) {
         return JSON.parse(JSON.stringify(o));
@@ -401,7 +403,6 @@ describe("PerseusLinter tree transformer", () => {
             // for each node. Then check that goToParent() and
             // goToPreviousSibling() on each saved state object
             // modify the states in apprpriate ways.
-            // @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'TraversalState'
             const states: Array<TraversalState> = [];
 
             const tt = new TreeTransformer(tree);

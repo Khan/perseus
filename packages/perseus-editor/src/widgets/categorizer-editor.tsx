@@ -24,7 +24,7 @@ class CategorizerEditor extends React.Component<Props> {
         randomizeItems: PropTypes.bool,
     };
 
-    static widgetName: string = "categorizer";
+    static widgetName = "categorizer" as const;
 
     static defaultProps: Props = {
         items: [],

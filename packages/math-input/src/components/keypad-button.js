@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {KeyTypes, BorderDirections, BorderStyles} from "../consts.js";
-import {View} from "../fake-react-native-web/index.js";
+import {KeyTypes, BorderDirections, BorderStyles} from "../consts";
+import {View} from "../fake-react-native-web/index";
 
 import {
     wonderBlocksBlue,
@@ -19,15 +19,11 @@ import {
     operatorGrey,
     controlGrey,
     emptyGrey,
-} from "./common-style.js";
-import CornerDecal from "./corner-decal.js";
-import Icon from "./icon.js";
-import MultiSymbolGrid from "./multi-symbol-grid.js";
-import {
-    bordersPropType,
-    iconPropType,
-    keyConfigPropType,
-} from "./prop-types.js";
+} from "./common-style";
+import CornerDecal from "./corner-decal";
+import Icon from "./icon";
+import MultiSymbolGrid from "./multi-symbol-grid";
+import {bordersPropType, iconPropType, keyConfigPropType} from "./prop-types";
 
 // eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent {

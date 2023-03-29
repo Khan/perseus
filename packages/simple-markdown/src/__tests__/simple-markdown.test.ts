@@ -1,16 +1,12 @@
-/* eslint-disable no-var, no-unused-vars, no-console, import/no-commonjs, no-redeclare, no-useless-escape */
-/* @ts-check */
-import {render} from "@testing-library/react";
+/* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console, import/no-commonjs, no-redeclare, no-useless-escape */
+import assert from "assert";
 
-// As of 2019-11-03, flow doesn't have definitions for assert.strict:
-// https://github.com/facebook/flow/pull/7660
-// So we use a /*::*/ hack to satisfy flow:
+import * as React from "react";
+import * as ReactDOMServer from "react-dom/server";
+
 import SimpleMarkdown from "../index";
 
-var assert = require("assert") /*:: || {} */.strict;
-
-var React = require("react");
-var ReactDOMServer = require("react-dom/server");
+import type {SingleASTNode} from "../index";
 
 var inlineParse = SimpleMarkdown.defaultInlineParse;
 var blockParse = SimpleMarkdown.defaultBlockParse;
@@ -76,7 +72,6 @@ var reactToHtml = function (reactElements) {
  * @param {SimpleMarkdown.ASTNode} parsed
  * @returns {string}
  */
-// @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'SingleASTNode'
 var htmlThroughReact = function (parsed: Array<SingleASTNode>) {
     var output = defaultReactOutput(parsed);
     return reactToHtml(output);

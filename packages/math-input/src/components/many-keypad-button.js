@@ -6,13 +6,13 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import {KeyTypes} from "../consts.js";
-import KeyConfigs from "../data/key-configs.js";
-import Keys from "../data/keys.js";
+import {KeyTypes} from "../consts";
+import KeyConfigs from "../data/key-configs";
+import Keys from "../data/keys";
 
-import EmptyKeypadButton from "./empty-keypad-button.js";
-import {keyIdPropType} from "./prop-types.js";
-import TouchableKeypadButton from "./touchable-keypad-button.js";
+import EmptyKeypadButton from "./empty-keypad-button";
+import {keyIdPropType} from "./prop-types";
+import TouchableKeypadButton from "./touchable-keypad-button";
 
 class ManyKeypadButton extends React.Component {
     static propTypes = {

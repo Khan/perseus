@@ -401,7 +401,6 @@ class InteractiveGraph extends React.Component<Props, State> {
     pointA: any | null | undefined;
     pointB: any | null | undefined;
     pointC: any | null | undefined;
-    // eslint-disable-next-line ft-flow/no-mutable-array
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'points' has no initializer and is not definitely assigned in the constructor.
     points: Array<any>;
     polygon: any | null | undefined;
@@ -1404,7 +1403,6 @@ class InteractiveGraph extends React.Component<Props, State> {
                 return true;
             }
 
-            // eslint-disable-next-line ft-flow/no-mutable-array
             const coords: Array<Coord> = _.invoke(this.points, "coord");
             coords[i] = coord;
 
@@ -2781,9 +2779,9 @@ class InteractiveGraph extends React.Component<Props, State> {
                 rubric.correct.type === "polygon" &&
                 state.coords != null
             ) {
-                const guess: Array<Coord> = state.coords?.slice(); // eslint-disable-line ft-flow/no-mutable-array
+                const guess: Array<Coord> = state.coords?.slice();
                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'Coord[] | undefined' is not assignable to type 'Coord[]'.
-                const correct: Array<Coord> = rubric.correct.coords?.slice(); // eslint-disable-line ft-flow/no-mutable-array
+                const correct: Array<Coord> = rubric.correct.coords?.slice();
 
                 let match;
                 if (rubric.correct.match === "similar") {

@@ -151,7 +151,7 @@ export function polarDegFromCart(
  */
 export function cartFromPolarRad(
     radius: number,
-    theta: number = 0,
+    theta = 0,
 ): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
     return [radius * Math.cos(theta), radius * Math.sin(theta)];
 }
@@ -163,7 +163,7 @@ export function cartFromPolarRad(
  */
 export function cartFromPolarDeg(
     radius: number,
-    theta: number = 0,
+    theta = 0,
 ): ReadonlyArray<number> {
     return cartFromPolarRad(radius, (theta * Math.PI) / 180);
 }

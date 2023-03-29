@@ -12,7 +12,7 @@ import {
     WIDGET_PROP_DENYLIST,
 } from "@khanacademy/perseus";
 import $ from "jquery";
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import katex from "katex";
 import * as React from "react";
 import * as ReactDOM from "react-dom";

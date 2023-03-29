@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* This component makes its children a drag target. Example:
  *
  *     <DragTarget onDrop={this.handleDrop}>Drag to me</DragTarget>

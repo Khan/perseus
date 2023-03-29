@@ -462,6 +462,7 @@ const NumericInputEditor: any = createReactClass({
     onSpace: function (e, callback) {
         if (e.key === " ") {
             e.preventDefault(); // prevent page shifting
+            // eslint-disable-next-line prefer-rest-params
             const args = _.toArray(arguments).slice(2);
             callback.apply(this, args);
         }

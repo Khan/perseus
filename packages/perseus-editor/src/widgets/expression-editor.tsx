@@ -7,7 +7,6 @@ import {
     Expression,
 } from "@khanacademy/perseus";
 // eslint-disable-next-line import/no-extraneous-dependencies
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'hubble' or its corresponding type declarations.
 import lens from "hubble";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -59,7 +58,7 @@ class ExpressionEditor extends React.Component<any, any> {
         functions: PropTypes.arrayOf(PropTypes.string),
     };
 
-    static widgetName: "expression" = "expression";
+    static widgetName = "expression" as const;
 
     static defaultProps: any = {
         answerForms: [],

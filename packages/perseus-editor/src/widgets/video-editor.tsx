@@ -33,7 +33,7 @@ class VideoEditor extends React.Component<Props> {
         onChange: PropTypes.func,
     };
 
-    static widgetName: "video" = "video";
+    static widgetName = "video" as const;
 
     static defaultProps: Props = {
         location: "",

@@ -7,15 +7,15 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {BorderStyles} from "../consts.js";
-import KeyConfigs from "../data/key-configs.js";
-import {View} from "../fake-react-native-web/index.js";
+import {BorderStyles} from "../consts";
+import KeyConfigs from "../data/key-configs";
+import {View} from "../fake-react-native-web/index";
 
-import * as CursorContexts from "./input/cursor-contexts.js";
-import Keypad from "./keypad.js";
-import {cursorContextPropType} from "./prop-types.js";
-import Styles from "./styles.js";
-import TouchableKeypadButton from "./touchable-keypad-button.js";
+import * as CursorContexts from "./input/cursor-contexts";
+import Keypad from "./keypad";
+import {cursorContextPropType} from "./prop-types";
+import Styles from "./styles";
+import TouchableKeypadButton from "./touchable-keypad-button";
 
 const {row, roundedTopLeft, roundedTopRight} = Styles;
 

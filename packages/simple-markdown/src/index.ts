@@ -1,4 +1,4 @@
-/* eslint-disable prefer-spread, no-regex-spaces, no-unused-vars, guard-for-in, no-console, no-var */
+/* eslint-disable prefer-spread, no-regex-spaces, @typescript-eslint/no-unused-vars, guard-for-in, no-console, no-var */
 /**
  * Simple-Markdown
  * ===============
@@ -18,8 +18,9 @@
  * Many of the regexes and original logic has been adapted from
  * the wonderful [marked.js](https://github.com/chjj/marked)
  */
+import * as React from "react";
 
-// Flow Type Definitions:
+// Type Definitions:
 
 type Capture =
     | (Array<string> & {
@@ -1948,12 +1949,12 @@ type Exports = {
         rules: ParserRules,
         defaultState?: State | null | undefined,
     ) => Parser;
-    readonly outputFor: <Rule extends any>(
+    readonly outputFor: <Rule>(
         rules: OutputRules<Rule>,
         param: keyof Rule,
         defaultState?: State | null | undefined,
     ) => Output<any>;
-    readonly ruleOutput: <Rule extends any>(
+    readonly ruleOutput: <Rule>(
         rules: OutputRules<Rule>,
         param: keyof Rule,
     ) => NodeOutput<any>;
@@ -2095,21 +2096,21 @@ var SimpleMarkdown: Exports = {
     reactFor: reactFor,
     htmlFor: htmlFor,
 
-    defaultParse: function () {
+    defaultParse: function (...args) {
         if (typeof console !== "undefined") {
             console.warn(
                 "defaultParse is deprecated, please use `defaultImplicitParse`",
             );
         }
-        return defaultImplicitParse.apply(null, arguments as any);
+        return defaultImplicitParse.apply(null, args);
     },
-    defaultOutput: function () {
+    defaultOutput: function (...args) {
         if (typeof console !== "undefined") {
             console.warn(
                 "defaultOutput is deprecated, please use `defaultReactOutput`",
             );
         }
-        return defaultReactOutput.apply(null, arguments as any);
+        return defaultReactOutput.apply(null, args);
     },
 };
 

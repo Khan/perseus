@@ -175,7 +175,6 @@ export default class AnswerChoices extends React.Component<
     AnswerChoicesState
 > {
     // The rendered answers elements.
-    // eslint-disable-next-line ft-flow/no-mutable-array
     _choices: Array<AnswerChoice | null | undefined>;
 
     constructor(props: AnswerChoicesProps) {
@@ -188,7 +187,7 @@ export default class AnswerChoices extends React.Component<
         };
     }
 
-    focusAnswer(index: number = 0) {
+    focusAnswer(index = 0) {
         const numChoices = this.props.choices.length;
 
         // Wrap the index if necessary.

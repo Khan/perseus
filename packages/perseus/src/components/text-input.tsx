@@ -25,7 +25,7 @@ type DefaultProps = {
 };
 
 let lastId = 0;
-function uniqueIdForInput(prefix: string = "input-") {
+function uniqueIdForInput(prefix = "input-") {
     lastId++;
     return `${prefix}${lastId}`;
 }

@@ -23,7 +23,8 @@
     "@changesets/cli": "^2.22.0",
     "@cypress/code-coverage": "^3.10.0",
     "@cypress/react": "^7.0.2",
-    "@khanacademy/eslint-config": "^0.2.0",
+    "@jest/globals": "^29.5.0",
+    "@khanacademy/eslint-config": "^1.1.0",
     "@khanacademy/wonder-stuff-i18n": "^2.1.0",
     "@popperjs/core": "^2.10.1",
     "@rollup/plugin-alias": "^3.1.9",
@@ -52,6 +53,8 @@
     "@types/react": "16",
     "@types/react-dom": "16",
     "@types/underscore": "^1.11.4",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
     "ancesdir": "^3.1.0",
     "babel-jest": "28",
     "babel-loader": "^8.0.5",
@@ -65,6 +68,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-disable": "^2.0.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -126,7 +130,7 @@
     "coverage": "cross-env NODE_OPTIONS=--max_old_space_size=4096 yarn run jest --coverage",
     "extract-strings": "./utils/extract-strings.js",
     "flow:ci": "flow check --max-workers 0",
-    "lint": "eslint . --ext .js --ext .jsx",
+    "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
     "lint:timing": "cross-env TIMING=1 yarn lint",
     "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn extract-strings && changeset publish",
     "sloc": "sloc packages --exclude node_modules",
@@ -138,6 +142,6 @@
     "cypress": "cypress open --component",
     "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
     "format": "prettier --write packages/**/*.ts packages/**/*.tsx testing/**/*.ts testing/**/*.tsx",
-    "typecheck": "tsc -p tsconfig-check.json"
+    "typecheck": "tsc"
   }
 }

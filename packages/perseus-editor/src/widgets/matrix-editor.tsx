@@ -54,7 +54,7 @@ class MatrixEditor extends React.Component<Props> {
         cursorPosition: PropTypes.arrayOf(PropTypes.number),
     };
 
-    static widgetName: "matrix" = "matrix";
+    static widgetName = "matrix" as const;
 
     static defaultProps: Props = {
         matrixBoardSize: [3, 3],

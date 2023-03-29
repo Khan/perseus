@@ -130,7 +130,7 @@ export type WidgetSize = "normal" | "small" | "mini";
 
 export type Path = ReadonlyArray<string>;
 
-type StubTagEditorType = any; // from "./components/stub-tag-editor.jsx";
+type StubTagEditorType = any; // from "./components/stub-tag-editor";
 
 export type APIOptions = Readonly<{
     isArticle?: boolean;

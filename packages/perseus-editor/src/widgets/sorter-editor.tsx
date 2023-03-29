@@ -18,7 +18,7 @@ class SorterEditor extends React.Component<Props> {
         padding: PropTypes.bool,
     };
 
-    static widgetName: "sorter" = "sorter";
+    static widgetName = "sorter" as const;
 
     static defaultProps: Props = {
         correct: ["$x$", "$y$", "$z$"],

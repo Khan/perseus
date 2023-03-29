@@ -1,9 +1,7 @@
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from "flow-to-typescript-codemod";
+import {Widgets} from "@khanacademy/perseus";
 /**
  * A side by side diff view for Perseus renderers.
  */
-import {Widgets} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
@@ -65,14 +63,7 @@ type Props = {
 };
 
 class RendererDiff extends React.Component<Props> {
-    static defaultProps: Partial<
-        Flow.Diff<
-            Props,
-            {
-                title: string;
-            }
-        >
-    > = {
+    static defaultProps: Partial<Omit<Props, "title">> = {
         after: {
             content: "",
             images: {},

@@ -15,7 +15,6 @@ import {
 } from "@khanacademy/kmath";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'raphael' or its corresponding type declarations.
 import Raphael from "raphael";
 import _ from "underscore";
 
@@ -1245,7 +1244,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             const tickoffset =
                 0.5 - (lineSegment.ticks - 1 + i * 2) / graph.scale[0];
             // TODO(kevinb) figure out why path isn't being used
-            // eslint-disable-next-line no-unused-vars
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             path += GraphUtils.unscaledSvgPath([
                 [tickoffset, -7],
                 [tickoffset, 7],

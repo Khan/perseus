@@ -1,5 +1,3 @@
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from "flow-to-typescript-codemod";
 /**
  * A generic link that removes common link styles.
  *
@@ -17,7 +15,7 @@ import type {CSSProperties} from "aphrodite";
 const DEFAULT_HREF = "javascript:void(0)";
 
 type DefaultProps = {
-    element: string | Flow.AbstractComponent<any>;
+    element: React.ReactElement<any>;
     // Whether the link should appear in a 'highlighted' state. In
     // practice, this will apply the same styles that are applied on-hover.
     highlighted: boolean;

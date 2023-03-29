@@ -2,7 +2,6 @@
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'raphael' or its corresponding type declarations.
 import Raphael from "raphael";
 import _ from "underscore";
 
@@ -1165,8 +1164,8 @@ GraphUtils.createGraphie = function (el: any) {
     });
 
     $.each(drawingTools, function (name) {
-        graphie[name] = function () {
-            const last = arguments[arguments.length - 1];
+        graphie[name] = function (...args) {
+            const last = args[args.length - 1];
             const oldStyle = currentStyle;
             let result;
 
@@ -1177,12 +1176,12 @@ GraphUtils.createGraphie = function (el: any) {
                     ...processAttributes(last),
                 };
 
-                const rest = [].slice.call(arguments, 0, arguments.length - 1);
+                const rest = [].slice.call(args, 0, args.length - 1);
                 result = drawingTools[name](...rest);
             } else {
                 currentStyle = $.extend({}, currentStyle);
 
-                result = drawingTools[name](...arguments);
+                result = drawingTools[name](...args);
             }
 
             // Bad heuristic for recognizing Raphael elements and sets

@@ -6,15 +6,20 @@ import "@testing-library/jest-dom"; // Imports custom mathers
 import Zoomable from "../zoomable";
 
 const mockSize = (
-    // @ts-expect-error [FEI-5003] - TS2304 - Cannot find name 'IntersectionHTMLElement'
-    el: IntersectionHTMLElement | null | undefined | Element,
+    el: HTMLElement | null | undefined,
     size: {
         height: number;
         width: number;
     },
 ) => {
-    jest.spyOn(el, "offsetWidth", "get").mockImplementation(() => size.width);
-    jest.spyOn(el, "offsetHeight", "get").mockImplementation(() => size.height);
+    if (el) {
+        jest.spyOn(el, "offsetWidth", "get").mockImplementation(
+            () => size.width,
+        );
+        jest.spyOn(el, "offsetHeight", "get").mockImplementation(
+            () => size.height,
+        );
+    }
 };
 
 describe("Zoomable", () => {
@@ -121,7 +126,7 @@ describe("Zoomable", () => {
 
         // Parent node bounds
         // eslint-disable-next-line testing-library/no-node-access
-        const rootNode = container.firstElementChild;
+        const rootNode = container.firstElementChild as HTMLElement;
         mockSize(rootNode, {width: 400, height: 100});
 
         // Child node bounds
@@ -159,7 +164,7 @@ describe("Zoomable", () => {
 
         // Parent node bounds
         // eslint-disable-next-line testing-library/no-node-access
-        const rootNode = container.firstElementChild;
+        const rootNode = container.firstElementChild as HTMLElement;
         mockSize(rootNode, {width: 400, height: 100});
 
         // Child node bounds
@@ -238,7 +243,6 @@ describe("Zoomable", () => {
         expect(zoomable?.state.zoomed).toBeTrue();
     });
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'SuiteFunction'.
     describe.each([
         ["onTouchStartCapture", fireEvent.touchStart],
         ["onTouchEndCapture", fireEvent.touchEnd],
@@ -309,7 +313,7 @@ describe("Zoomable", () => {
             componentContainer = container;
 
             // eslint-disable-next-line testing-library/no-node-access
-            const rootNode = container.firstElementChild;
+            const rootNode = container.firstElementChild as HTMLElement;
             mockSize(rootNode, {width: 200, height: 200});
 
             jest.runOnlyPendingTimers();

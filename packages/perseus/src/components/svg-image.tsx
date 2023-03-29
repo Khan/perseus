@@ -56,15 +56,15 @@ const doJSONP = function (url: string, options) {
 
     // Add the global callback.
     // @ts-expect-error [FEI-5003] - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
-    window[options.callbackName] = function () {
+    window[options.callbackName] = function (...args) {
         cleanup();
-        options.success.apply(null, arguments);
+        options.success.apply(null, args);
     };
 
     // Add the error handler.
-    script.addEventListener("error", function () {
+    script.addEventListener("error", function (...args) {
         cleanup();
-        options.error.apply(null, arguments);
+        options.error.apply(null, args);
     });
 
     // Insert the script to start the download.

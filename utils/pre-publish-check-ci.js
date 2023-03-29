@@ -10,7 +10,7 @@ const {
     checkEntrypoints,
     checkSource,
     checkPublishConfig,
-} = require("./internal/pre-publish-utils.js");
+} = require("./internal/pre-publish-utils");
 
 // eslint-disable-next-line promise/catch-or-return
 fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(

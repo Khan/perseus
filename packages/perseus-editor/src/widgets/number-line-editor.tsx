@@ -40,7 +40,7 @@ class NumberLineEditor extends React.Component<Props> {
         showTooltips: PropTypes.bool,
     };
 
-    static widgetName: "number-line" = "number-line";
+    static widgetName = "number-line" as const;
 
     static defaultProps: Props = {
         range: [0, 10],

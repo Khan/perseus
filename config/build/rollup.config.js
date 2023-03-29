@@ -15,8 +15,8 @@ import copy from "rollup-plugin-copy";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";
 
-const createBabelPlugins = require("./create-babel-plugins.js");
-const createBabelPresets = require("./create-babel-presets.js");
+const createBabelPlugins = require("./create-babel-plugins");
+const createBabelPresets = require("./create-babel-presets");
 
 const rootDir = ancesdir(__dirname);
 

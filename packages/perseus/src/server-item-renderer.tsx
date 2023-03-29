@@ -1,5 +1,4 @@
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
-import {Flow} from "flow-to-typescript-codemod";
+import {StyleSheet, css} from "aphrodite";
 /**
  * A copy of the ItemRenderer which renders its question renderer and hints
  * renderer normally instead of ReactDOM.render()ing them into elements in the
@@ -8,7 +7,6 @@ import {Flow} from "flow-to-typescript-codemod";
  * This allows this component to be used in server-rendering of a perseus
  * exercise.
  */
-import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
@@ -221,7 +219,6 @@ export class ServerItemRenderer
      * the form "answer-input-number 1", or the string "answer-area"
      * for the whole answer area (if the answer area is a single widget).
      */
-    // eslint-disable-next-line ft-flow/no-weak-types
     _setWidgetProps(widgetId: string, newProps: Props, callback: any) {
         this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
     }
@@ -455,17 +452,14 @@ const styles = StyleSheet.create({
     },
 });
 
-const ref: Flow.AbstractComponent<OwnProps, ServerItemRenderer> =
-    React.forwardRef((props, ref) => (
-        <LoadingContext.Consumer>
-            {({onRendered}) => (
-                <ServerItemRenderer
-                    {...props}
-                    onRendered={onRendered}
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'ForwardedRef<unknown>' is not assignable to type 'LegacyRef<ServerItemRenderer> | undefined'.
-                    ref={ref}
-                />
-            )}
-        </LoadingContext.Consumer>
-    ));
+const ref = React.forwardRef<
+    ServerItemRenderer,
+    React.ComponentProps<typeof ServerItemRenderer>
+>((props, ref) => (
+    <LoadingContext.Consumer>
+        {({onRendered}) => (
+            <ServerItemRenderer {...props} onRendered={onRendered} ref={ref} />
+        )}
+    </LoadingContext.Consumer>
+));
 export default ref;

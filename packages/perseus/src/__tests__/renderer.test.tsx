@@ -326,7 +326,6 @@ describe("renderer", () => {
             }
         };
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
         it.each([true, false])(
             "should render a table when isMobile: %s",
             (isMobile: boolean) => {
@@ -1313,6 +1312,7 @@ describe("renderer", () => {
                 }
                 // eslint-disable-next-line testing-library/no-node-access
                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLElement | null' is not assignable to type 'HTMLElement'.
+                // eslint-disable-next-line testing-library/no-node-access
                 el = el.parentElement;
             }
 

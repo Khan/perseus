@@ -1,4 +1,3 @@
-// @ts-nocheck
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -80,10 +79,11 @@ const SortableArea = createReactClass({
     _setDragEvents: function () {
         this._dragItems = this._dragItems || [];
         const items =
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'
             ReactDOM.findDOMNode(this).querySelectorAll("[draggable=true]");
 
-        const oldItems = [];
-        const newItems: unknown = [];
+        const oldItems: Array<HTMLElement> = [];
+        const newItems: Array<HTMLElement> = [];
 
         for (let i = 0; i < this._dragItems.length; i++) {
             const item = this._dragItems[i];

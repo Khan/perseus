@@ -11,7 +11,7 @@ class PassageRefTargetEditor extends React.Component<Props> {
         content: PropTypes.string,
     };
 
-    static widgetName: "passage-ref-target" = "passage-ref-target";
+    static widgetName = "passage-ref-target" as const;
 
     static defaultProps: Props = {
         content: "",

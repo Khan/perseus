@@ -142,7 +142,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
         gradeIncompleteAsWrong: PropTypes.bool.isRequired,
     };
 
-    static widgetName: "lights-puzzle" = "lights-puzzle";
+    static widgetName = "lights-puzzle" as const;
 
     static defaultProps: LightsPuzzleEditorProps = {
         startCells: [

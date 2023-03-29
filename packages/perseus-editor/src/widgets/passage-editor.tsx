@@ -18,7 +18,7 @@ class PassageEditor extends React.Component<Props> {
         showLineNumbers: PropTypes.bool,
     };
 
-    static widgetName: "passage" = "passage";
+    static widgetName = "passage" as const;
 
     static defaultProps: Props = {
         passageTitle: "",

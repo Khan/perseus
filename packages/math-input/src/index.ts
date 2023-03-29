@@ -4,19 +4,19 @@
 
 import "../less/main.less";
 
-export {default as KeypadInput} from "./components/input/math-input.js";
+export {default as KeypadInput} from "./components/input/math-input";
 export {
     keypadConfigurationPropType,
     keypadElementPropType,
-} from "./components/prop-types.js";
-export {default as Keypad} from "./components/provided-keypad.js";
-export {KeypadTypes} from "./consts.js";
-export {default as KeyConfigs} from "./data/key-configs.js";
+} from "./components/prop-types";
+export {default as Keypad} from "./components/provided-keypad";
+export {KeypadTypes} from "./consts";
+export {default as KeyConfigs} from "./data/key-configs";
 
 import * as CursorContexts from "./components/input/cursor-contexts";
 
 export {CursorContexts};
 
-export type {KeypadType, KeyType} from "./consts.js";
-export type {Key} from "./data/keys.js";
-export type {CursorContext} from "./components/input/cursor-contexts.js";
+export type {KeypadType, KeyType} from "./consts";
+export type {Key} from "./data/keys";
+export type {CursorContext} from "./components/input/cursor-contexts";

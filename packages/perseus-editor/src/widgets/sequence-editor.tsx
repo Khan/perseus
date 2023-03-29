@@ -48,7 +48,7 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
         onChange: PropTypes.func.isRequired,
     };
 
-    static widgetName: "sequence" = "sequence";
+    static widgetName = "sequence" as const;
 
     static defaultProps: SequenceEditorProps = {
         json: [

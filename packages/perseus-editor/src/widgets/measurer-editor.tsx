@@ -15,7 +15,7 @@ const defaultImage = {
 type Props = any;
 
 class MeasurerEditor extends React.Component<Props> {
-    static widgetName: "measurer" = "measurer";
+    static widgetName = "measurer" as const;
 
     static propTypes = {
         ...Changeable.propTypes,
@@ -44,7 +44,7 @@ class MeasurerEditor extends React.Component<Props> {
         rulerLength: 10,
     };
 
-    className: string = "perseus-widget-measurer";
+    className = "perseus-widget-measurer";
 
     render(): React.ReactElement {
         const image = _.extend({}, defaultImage, this.props.image);

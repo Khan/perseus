@@ -17,7 +17,7 @@ class DefinitionEditor extends React.Component<Props> {
         apiOptions: PropTypes.any,
     };
 
-    static widgetName: string = "definition";
+    static widgetName = "definition" as const;
 
     static defaultProps: Props = {
         togglePrompt: "",

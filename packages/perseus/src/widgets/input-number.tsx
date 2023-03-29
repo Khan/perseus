@@ -283,6 +283,7 @@ class InputNumber extends React.Component<Props> {
             function (form) {
                 // eslint-disable-next-line @babel/no-invalid-this
                 // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // eslint-disable-next-line @babel/no-invalid-this
                 return formExamples[form](this.props);
             },
             this,

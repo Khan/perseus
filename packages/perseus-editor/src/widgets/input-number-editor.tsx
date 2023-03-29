@@ -93,7 +93,7 @@ type DefaultProps = {
 };
 
 class InputNumberEditor extends React.Component<Props> {
-    static widgetName: "input-number" = "input-number";
+    static widgetName = "input-number" as const;
 
     static defaultProps: DefaultProps = {
         value: 0,

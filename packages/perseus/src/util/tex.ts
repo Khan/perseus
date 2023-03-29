@@ -1,4 +1,3 @@
-/* global MathJax */
 import $ from "jquery";
 
 import {getDependencies} from "../dependencies";

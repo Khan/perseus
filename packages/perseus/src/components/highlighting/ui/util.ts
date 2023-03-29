@@ -72,7 +72,6 @@ export function getClientRectsForTextInRange(
 function addClientRectsForTextInNodeAndRange(
     node: Node,
     range: DOMRange,
-    // eslint-disable-next-line ft-flow/no-mutable-array
     mutableRects: Array<Rect>,
 ): void {
     const nodeContentsRange = new Range();
@@ -115,7 +114,6 @@ function addClientRectsForTextInNodeAndRange(
 function addClientRectsForText(
     textNode: Node,
     textRange: DOMRange,
-    // eslint-disable-next-line ft-flow/no-mutable-array
     mutableRects: Array<Rect>,
 ): void {
     const parentElement = textNode.parentElement;

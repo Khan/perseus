@@ -1,4 +1,4 @@
-const babelConfig = require("../babel.config.js");
+const babelConfig = require("../babel.config");
 const util = require("util");
 const path = require("path");
 const fs = require("fs");

@@ -3,22 +3,22 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {setPageSize} from "../actions/index.js";
-import {KeypadTypes, LayoutModes} from "../consts.js";
-import {View} from "../fake-react-native-web/index.js";
+import {setPageSize} from "../actions/index";
+import {KeypadTypes, LayoutModes} from "../consts";
+import {View} from "../fake-react-native-web/index";
 
 import {
     innerBorderColor,
     innerBorderStyle,
     innerBorderWidthPx,
     compactKeypadBorderRadiusPx,
-} from "./common-style.js";
-import ExpressionKeypad from "./expression-keypad.js";
-import FractionKeypad from "./fraction-keypad.js";
-import NavigationPad from "./navigation-pad.js";
-import {keyIdPropType} from "./prop-types.js";
-import Styles from "./styles.js";
-import * as zIndexes from "./z-indexes.js";
+} from "./common-style";
+import ExpressionKeypad from "./expression-keypad";
+import FractionKeypad from "./fraction-keypad";
+import NavigationPad from "./navigation-pad";
+import {keyIdPropType} from "./prop-types";
+import Styles from "./styles";
+import * as zIndexes from "./z-indexes";
 
 const {row, centered, fullWidth} = Styles;
 

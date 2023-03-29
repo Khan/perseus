@@ -21,7 +21,7 @@ class SimulatorEditor extends React.Component<Props> {
         proportionOrPercentage: PropTypes.string,
     };
 
-    static widgetName: string = "simulator";
+    static widgetName = "simulator" as const;
 
     static defaultProps: Props = {
         xAxisLabel: "Proportion (%)",

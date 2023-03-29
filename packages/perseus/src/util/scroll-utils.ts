@@ -38,8 +38,7 @@ const applyUniversalScrollOffset = (
 const scrollElementToOffset = (
     elementOrWindow: HTMLElement | WindowProxy,
     offset: number,
-    duration: number = 0,
-    // eslint-disable-next-line ft-flow/no-weak-types
+    duration = 0,
     callback?: any,
 ) => {
     const startPosition =
@@ -106,11 +105,7 @@ const SCROLL_ANIMATION_DURATION = 750; // ms
  * This works with elements inside scroll containers, but may fail in scenarios
  * involving multiple nested scroll containers.
  */
-export const scrollElementIntoView = (
-    element: Element,
-    // eslint-disable-next-line ft-flow/no-weak-types
-    callback?: any,
-) => {
+export const scrollElementIntoView = (element: Element, callback?: any) => {
     // Often times we scroll an element into with in reaction to some change in
     // the DOM.  Since we need to measure things, we wait a tick for the DOM to
     // settle before computing the distance to scroll and beginning the scroll

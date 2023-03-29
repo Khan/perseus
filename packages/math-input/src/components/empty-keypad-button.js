@@ -6,10 +6,10 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import KeyConfigs from "../data/key-configs.js";
+import KeyConfigs from "../data/key-configs";
 
-import GestureManager from "./gesture-manager.js";
-import KeypadButton from "./keypad-button.js";
+import GestureManager from "./gesture-manager";
+import KeypadButton from "./keypad-button";
 
 class EmptyKeypadButton extends React.Component {
     static propTypes = {

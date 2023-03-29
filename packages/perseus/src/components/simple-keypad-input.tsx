@@ -27,7 +27,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
         this._isMounted = false;
     }
 
-    _isMounted: boolean = false;
+    _isMounted = false;
 
     focus() {
         // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.

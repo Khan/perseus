@@ -13,8 +13,7 @@ import {
     mockedQuestion1,
     question1,
     simpleQuestionShape,
-    // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/multi-renderer_testdata' or its corresponding type declarations.
-} from "../__testdata__/multi-renderer_testdata";
+} from "../__testdata__/multi-renderer.testdata";
 import MultiRenderer from "../multi-renderer";
 import shapes from "../shapes";
 

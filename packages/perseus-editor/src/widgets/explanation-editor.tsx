@@ -28,7 +28,7 @@ class ExplanationEditor extends React.Component<Props, State> {
         apiOptions: PropTypes.any,
     };
 
-    static widgetName: "explanation" = "explanation";
+    static widgetName = "explanation" as const;
     static defaultProps: Props = defaultExplanationProps;
     state: State = {};
 
