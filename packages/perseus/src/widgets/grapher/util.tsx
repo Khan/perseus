@@ -738,7 +738,7 @@ export const defaultPlotProps = (type: string, graph: any): any => {
 };
 
 /* Given a list of available types, choose which to use. */
-export const chooseType = _.first;
+export const chooseType: <T>(list: ReadonlyArray<T>) => T | undefined = _.first;
 
 export const getGridAndSnapSteps = (
     options: any,

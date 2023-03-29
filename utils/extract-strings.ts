@@ -10,18 +10,24 @@
  * node /utils/extract-strings.js
  */
 
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-const {extractStrings} = require("@khanacademy/wonder-stuff-i18n");
-const ancesdir = require("ancesdir");
-const fg = require("fast-glob");
+import {extractStrings} from "@khanacademy/wonder-stuff-i18n";
+import ancesdir from "ancesdir";
+import fg from "fast-glob";
 
-const {getLogger} = require("./internal/logger");
+import {getLogger} from "./internal/logger";
 
 const rootDir = ancesdir(__dirname);
 
 const logger = getLogger();
+
+type I18nString = {
+    type: string;
+    msgids: Array<string>;
+    comments: Array<string>;
+};
 
 const generateStringsFileForPackage = (pkgName) => {
     const glob = path.join(
@@ -36,7 +42,7 @@ const generateStringsFileForPackage = (pkgName) => {
 
     files.sort();
 
-    let strings = [];
+    let strings: Array<I18nString> = [];
 
     for (const file of files) {
         logger.debug(`processing ${file}`);

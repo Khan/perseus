@@ -1,6 +1,6 @@
-const winston = require("winston");
+import winston from "winston";
 
-exports.getLogger = () => {
+export const getLogger = () => {
     const simpleFormat = winston.format.printf(({level, message}) => {
         return `[${level.padEnd(5).toUpperCase()}]: ${message}`;
     });
