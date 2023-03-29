@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; flexDirection: "row"; alignItems: "center"; ":not(:first-child)": { marginTop: number; }; }' is not assignable to type 'CSSProperties'.
         ":not(:first-child)": {
             marginTop: 12,
         },
@@ -223,7 +222,6 @@ const styles = StyleSheet.create({
 
 const editorStyles = StyleSheet.create({
     addAnswer: {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ ":link": { color: string; }; }' is not assignable to type 'CSSProperties'.
         ":link": {
             color: "#1865f2",
         },

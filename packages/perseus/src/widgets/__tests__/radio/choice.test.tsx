@@ -1,3 +1,4 @@
+import {describe, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
@@ -107,7 +108,6 @@ describe("all choice options", () => {
 
 // Tests 1 of 2 element types used to select a choice
 describe("choice button", () => {
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([[true], [false]])(
         "selects the choice by clicking the option when multiple select is: %s",
         (multipleSelect: boolean) => {
@@ -185,7 +185,6 @@ describe("choice button", () => {
 
 // Tests 2 of 2 element types used to select a choice
 describe("choice input (screen reader only)", () => {
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([[true], [false]])(
         "selects the choice by clicking the option when multiple select is: %s",
         (multipleSelect: boolean) => {

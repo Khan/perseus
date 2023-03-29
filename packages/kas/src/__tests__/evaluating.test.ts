@@ -2,13 +2,15 @@ import _ from "underscore";
 
 import * as KAS from "../index";
 
+type Variables = {
+    [key: string]: string | number;
+};
+
 expect.extend({
     toEvaluateAs(
         input: string,
         expected: number,
-        vars: {
-            [key: string]: string | number;
-        } = {},
+        vars: Variables = {},
         functions?: ReadonlyArray<string>,
     ) {
         const actual = KAS.parse(input, {functions: functions}).expr.eval(
@@ -23,9 +25,23 @@ expect.extend({
             };
         }
 
-        return {pass: !this.isNot};
+        return {pass: !this.isNot, message: () => ""};
     },
 });
+
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toEvaluateAs(
+                expected: number,
+                vars?: Variables,
+                functions?: ReadonlyArray<string>,
+            ): R;
+        }
+    }
+}
 
 describe("evaluating", () => {
     test("empty", () => {

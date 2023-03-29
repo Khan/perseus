@@ -1,3 +1,4 @@
+import {describe, beforeEach, it} from "@jest/globals";
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 // TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
@@ -33,7 +34,6 @@ describe("graded-group", () => {
         );
     });
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'TestFunction'.
     it.each([true, false])("should snapshot", (isMobile: boolean) => {
         // Arrange and Act
         const {container} = renderQuestion(question1, {

@@ -3,7 +3,10 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toHaveEqualUnits([x, y]: [any, any], msg: string) {
+    toHaveEqualUnits(
+        [x, y]: [any, any],
+        msg: string,
+    ): jest.CustomMatcherResult {
         const actual = KAS.compare(x.simplify(), y.simplify()).equal;
 
         if (this.isNot) {
@@ -18,7 +21,10 @@ expect.extend({
             message: () => msg,
         };
     },
-    toParseUnitsAsEqual([x, y]: [any, any], msg: string) {
+    toParseUnitsAsEqual(
+        [x, y]: [any, any],
+        msg: string,
+    ): jest.CustomMatcherResult {
         if (this.isNot) {
             expect([
                 KAS.unitParse(x).expr,
@@ -31,9 +37,12 @@ expect.extend({
             ]).toHaveEqualUnits(msg);
         }
 
-        return {pass: !this.isNot};
+        return {pass: !this.isNot, message: () => ""};
     },
-    toHaveUnitVariable([original, newUnit]: [any, any], expected: any) {
+    toHaveUnitVariable(
+        [original, newUnit]: [any, any],
+        expected: any,
+    ): jest.CustomMatcherResult {
         const originalParsed = KAS.unitParse(original).expr;
         const newUnitParsed = KAS.unitParse(newUnit).unit;
         const x = new KAS.Var("x");
@@ -44,32 +53,51 @@ expect.extend({
         );
         const answer = equality.solveLinearEquationForVariable(x);
         return Math.round(answer.eval()) === Math.round(expected.eval())
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () =>
                       `${original} = ["${expected.print()}"] ${newUnit}`,
               };
     },
-    toHaveTheSameForm([x, y]: [any, any], msg: string) {
+    toHaveTheSameForm(
+        [x, y]: [any, any],
+        msg: string,
+    ): jest.CustomMatcherResult {
         const equal = KAS.compare(
             KAS.unitParse(x).unit,
             KAS.unitParse(y).unit,
         ).equal;
 
-        return equal ? {pass: true} : {pass: false, message: () => msg};
+        return equal
+            ? {pass: true, message: () => ""}
+            : {pass: false, message: () => msg};
     },
-    toHaveMagnitude(input: string, expected: number) {
+    toHaveMagnitude(input: string, expected: number): jest.CustomMatcherResult {
         const parsed = KAS.unitParse(input).coefficient;
 
         return +parsed === expected
-            ? {pass: true}
+            ? {pass: true, message: () => ""}
             : {
                   pass: false,
                   message: () => `magnitude of ${input} is not ${expected}`,
               };
     },
 });
+
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toHaveEqualUnits(msg: string): R;
+            toParseUnitsAsEqual(msg: string): R;
+            toHaveUnitVariable(expected: any): R;
+            toHaveTheSameForm(msg: string): R;
+            toHaveMagnitude(expected: number): R;
+        }
+    }
+}
 
 describe("units", () => {
     test("simplify expressions with units", () => {

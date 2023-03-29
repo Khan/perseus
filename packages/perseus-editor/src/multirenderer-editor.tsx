@@ -1010,7 +1010,6 @@ const styles = StyleSheet.create({
     // this extra border between array elements.
     arrayElementAndNotLeaf: {
         borderBottom: "1px solid #ccc",
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ borderBottom: string; ":first-child": { borderTop: string; paddingTop: number; }; }' is not assignable to type 'CSSProperties'.
         ":first-child": {
             borderTop: "1px solid #ccc",
             paddingTop: 16,

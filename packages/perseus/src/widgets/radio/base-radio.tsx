@@ -461,7 +461,6 @@ const styles: StyleDeclaration = StyleSheet.create({
         marginLeft: 0,
         padding: 0,
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ marginLeft: number; padding: number; ":not(:last-child)": { borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             borderBottom: `1px solid ${styleConstants.radioBorderColor}`,
         },
@@ -483,14 +482,12 @@ const styles: StyleDeclaration = StyleSheet.create({
         boxShadow:
             "0 0 4px 0 rgba(0, 0, 0, 0.2)," + "0 0 2px 0 rgba(0, 0, 0, 0.1)",
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ boxShadow: string; ":not(:last-child)": { borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             borderBottom: `1px solid rgba(0, 0, 0, 0)`,
         },
     },
 
     nextHighlighted: {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ ":not(:last-child)": { borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             borderBottom: `1px solid rgba(0, 0, 0, 0)`,
         },

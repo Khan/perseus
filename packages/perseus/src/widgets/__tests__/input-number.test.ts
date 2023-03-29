@@ -1,7 +1,7 @@
 /**
  * Disclaimer: Definitely not thorough enough
  */
-
+import {describe, beforeEach, it} from "@jest/globals";
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import _ from "underscore";
@@ -14,7 +14,10 @@ import InputNumber from "../input-number";
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
+import type {
+    PerseusInputNumberWidgetOptions,
+    PerseusRenderer,
+} from "../../perseus-types";
 
 const {transform} = InputNumber;
 
@@ -66,7 +69,6 @@ describe("input-number", function () {
         });
     });
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'SuiteFunction'.
     describe.each([
         [
             {
@@ -98,7 +100,7 @@ describe("input-number", function () {
                         },
                     },
                 },
-            },
+            } as PerseusRenderer,
             "1/3",
             "0.4",
         ],
@@ -132,7 +134,7 @@ describe("input-number", function () {
                         },
                     },
                 },
-            },
+            } as PerseusRenderer,
             "1/3",
             "0.4",
         ],
@@ -155,7 +157,7 @@ describe("input-number", function () {
                         },
                     },
                 },
-            },
+            } as PerseusRenderer,
             "77 pi",
             "76 pi",
         ],
@@ -178,7 +180,7 @@ describe("input-number", function () {
                         },
                     },
                 },
-            },
+            } as PerseusRenderer,
             "50%",
             "0.56",
         ],

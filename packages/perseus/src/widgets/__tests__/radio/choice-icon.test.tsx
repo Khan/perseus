@@ -1,3 +1,4 @@
+import {describe, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -27,7 +28,6 @@ function renderChoiceIcon(options) {
 }
 
 describe("choice icon", () => {
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'SuiteFunction'.
     describe.each([[true], [false]])("multipleSelect: %s", (multipleSelect) => {
         it("renders with the correct border radius", () => {
             // Arrange

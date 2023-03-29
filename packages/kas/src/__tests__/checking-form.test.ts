@@ -3,7 +3,7 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toHaveNorm(input: string, reference: string) {
+    toHaveNorm(input: string, reference: string): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.normalize().print();
         const expected = KAS.parse(reference).expr.normalize().print();
 
@@ -12,7 +12,10 @@ expect.extend({
             message: () => `${input} is the same as ${reference}`,
         };
     },
-    toHaveStripNorm(input: string, reference: string) {
+    toHaveStripNorm(
+        input: string,
+        reference: string,
+    ): jest.CustomMatcherResult {
         const actual = KAS.parse(input).expr.strip().normalize().print();
         const expected = KAS.parse(reference).expr.strip().normalize().print();
 
@@ -22,6 +25,17 @@ expect.extend({
         };
     },
 });
+
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toHaveNorm(reference: string): R;
+            toHaveStripNorm(reference: string): R;
+        }
+    }
+}
 
 describe("checking form", () => {
     test("normalize", () => {

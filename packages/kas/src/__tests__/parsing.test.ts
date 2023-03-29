@@ -3,7 +3,11 @@ import _ from "underscore";
 import * as KAS from "../index";
 
 expect.extend({
-    toParseAs(input: string, expected: string, options?: any) {
+    toParseAs(
+        input: string,
+        expected: string,
+        options?: any,
+    ): jest.CustomMatcherResult {
         const actual = KAS.parse(input, options).expr.print();
 
         if (actual !== expected) {
@@ -13,9 +17,16 @@ expect.extend({
             };
         }
 
-        return {pass: !this.isNot};
+        return {
+            pass: !this.isNot,
+            message: () => "",
+        };
     },
-    toParseWithStructure(input: string, expected: string, options?: any) {
+    toParseWithStructure(
+        input: string,
+        expected: string,
+        options?: any,
+    ): jest.CustomMatcherResult {
         const actual = KAS.parse(input, options).expr.repr();
 
         if (actual !== expected) {
@@ -25,9 +36,23 @@ expect.extend({
             };
         }
 
-        return {pass: !this.isNot};
+        return {
+            pass: !this.isNot,
+            message: () => "",
+        };
     },
 });
+
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toParseAs(expected: string, options?: any): R;
+            toParseWithStructure(expected: string, options?: any): R;
+        }
+    }
+}
 
 describe("parsing", () => {
     test("empty", () => {

@@ -1,3 +1,5 @@
+import {describe, beforeEach, it} from "@jest/globals";
+
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -26,7 +28,6 @@ describe("interactive-graph widget", function () {
         );
     });
 
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'each' does not exist on type 'SuiteFunction'.
     describe.each(questionsAndAnswers)(
         "question",
         (

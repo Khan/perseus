@@ -205,7 +205,6 @@ const styles = StyleSheet.create({
     },
 
     markerUnfilledPulsate: {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "0%": { transform: string; }; "100%": { transform: string; }; }' is not assignable to type 'AnimationName | undefined'.
         animationName: {
             "0%": {
                 transform: "scale(1)",
@@ -225,7 +224,6 @@ const styles = StyleSheet.create({
     },
 
     markerUnfilledSelected: {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -263,7 +261,6 @@ const styles = StyleSheet.create({
     },
 
     markerFilledSelected: {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -304,7 +301,6 @@ const styles = StyleSheet.create({
     },
 
     markerCorrectSelected: {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -343,7 +339,6 @@ const styles = StyleSheet.create({
     },
 
     markerIncorrectSelected: {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",

@@ -317,7 +317,6 @@ const styles = StyleSheet.create({
         borderWidth: "1px 0 0 0",
 
         position: "relative",
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ marginTop: number; border: string; borderWidth: string; position: "relative"; ":before": { content: string; display: string; clear: string; }; ":after": { content: "\"\""; display: "table"; clear: "both"; }; }' is not assignable to type 'CSSProperties'.
         ":before": {
             content: '""',
             display: "table",

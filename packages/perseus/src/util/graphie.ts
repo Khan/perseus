@@ -656,13 +656,14 @@ GraphUtils.createGraphie = function (el: any) {
             // Create <div>
             const wrapper = document.createElement("div");
             $(wrapper).css({
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 position: "absolute",
                 width: width + "px",
                 height: height + "px",
                 left: left + "px",
                 top: top + "px",
                 // If user specified a center, set it
+                // NOTE(kevinb): jQuery doesn't like that `transformOrigin `could be `null`
+                // so we cast to `any` here.
                 transformOrigin: center
                     ? width / 2 +
                       center[0] +
@@ -670,7 +671,7 @@ GraphUtils.createGraphie = function (el: any) {
                       (height / 2 + center[1]) +
                       "px"
                     : null,
-            });
+            } as any);
 
             // Create Raphael canvas
             const localRaphael = Raphael(wrapper, width, height);

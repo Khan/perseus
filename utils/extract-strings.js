@@ -1,38 +1,42 @@
-#!/usr/bin/env ./node_modules/.bin/babel-node
+#!/usr/bin/env node
 /**
  * Extracts i18n strings from each package and writes them out to <package>/dist/strings.js.
  *
  * This file contains i18n._(), i18n._$(), and i18n.ngettext() calls that can be re-extracted
  * by webapp.  This is required for so that we can leverage webapp's translation pipeline
  * which is responsible for uploading strings to Crowdin.
+ *
+ * Usage:
+ * node /utils/extract-strings.js
  */
-import fs from "fs";
-import path from "path";
 
-import {extractStrings} from "@khanacademy/wonder-stuff-i18n";
-import ancesdir from "ancesdir";
-import fg from "fast-glob";
+const fs = require("fs");
+const path = require("path");
 
-import {getLogger} from "./internal/logger";
+const {extractStrings} = require("@khanacademy/wonder-stuff-i18n");
+const ancesdir = require("ancesdir");
+const fg = require("fast-glob");
+
+const {getLogger} = require("./internal/logger");
 
 const rootDir = ancesdir(__dirname);
 
 const logger = getLogger();
 
-export const generateStringsFileForPackage = (pkgName: string) => {
+const generateStringsFileForPackage = (pkgName) => {
     const glob = path.join(
         rootDir,
         "packages",
         pkgName,
         "src",
         "**",
-        "*.{js,jsx}",
+        "*.{ts,tsx}",
     );
     const files = fg.sync(glob);
 
     files.sort();
 
-    let strings: Array<any> = [];
+    let strings = [];
 
     for (const file of files) {
         logger.debug(`processing ${file}`);

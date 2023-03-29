@@ -64,7 +64,6 @@ export default StyleSheet.create({
         WebkitAppearance: "none",
         appearance: "none",
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "inline-block"; WebkitAppearance: "none"; appearance: "none"; "::-ms-check": { display: string; }; backgroundColor: "#fff"; border: string; boxShadow: "0 0px 0px 1px #BABEC2"; outline: string; ... 7 more ...; width: number; }' is not assignable to type 'CSSProperties'.
         "::-ms-check": {
             display: "none",
         },
@@ -88,7 +87,6 @@ export default StyleSheet.create({
     responsiveRadioInput: {
         borderRadius: "50%",
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ borderRadius: string; ":checked": { backgroundColor: string; border: string; borderRadius: string; boxShadow: string; marginTop: number; marginBottom: number; marginLeft: number; marginRight: number; height: number; width: number; }; }' is not assignable to type 'CSSProperties'.
         ":checked": {
             backgroundColor: checkedColor,
             border: "none",
@@ -121,7 +119,6 @@ export default StyleSheet.create({
         height: circleSize - 2 * radioMarginWidth,
         width: circleSize - 2 * radioMarginWidth,
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "#fff"; border: string; borderRadius: string; boxShadow: "0 0px 0px 2px #71B307"; marginTop: number; marginBottom: number; marginLeft: number; marginRight: number; height: number; width: number; ":checked": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":checked": {
             backgroundColor: "#fff",
         },

@@ -230,7 +230,6 @@ const styles = StyleSheet.create({
 
         // The indicator is in a span inside the hover target.
         // This style changes its color on hover
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ position: "absolute"; top: number; right: number; display: "block"; width: number; height: number; ":hover > span": { backgroundColor: string; }; ":hover div": { display: string; }; ":hover ~ div": { outline: string; }; ":hover ~ div div[data-lint-inside-table]": { ...; }; ":hover ~ div span[data-lint-inside-table...' is not assignable to type 'CSSProperties'.
         ":hover > span": {
             backgroundColor: constants.warningColorHover,
         },
@@ -287,7 +286,6 @@ const styles = StyleSheet.create({
         // The indicator is in a span inside the hover target.
         // This style changes its color on hover.
         // This is the same as the block case.
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ float: "right"; position: "relative"; marginRight: number; display: "block"; width: number; height: number; ":hover > span": { backgroundColor: string; }; ":hover div": { display: string; }; ":hover ~ span": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":hover > span": {
             backgroundColor: constants.warningColorHover,
         },
@@ -328,7 +326,6 @@ const styles = StyleSheet.create({
         // The indicator is in a span inside the hover target.
         // This style changes its color on hover.
         // This is the same as the block case.
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ position: "absolute"; left: number; display: "block"; width: number; height: number; minWidth: number; ":hover > span": { backgroundColor: string; }; ":hover > div": { display: string; padding: number; width: number; }; ":hover > div > div": { ...; }; ":hover ~ span": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":hover > span": {
             backgroundColor: constants.warningColorHover,
         },

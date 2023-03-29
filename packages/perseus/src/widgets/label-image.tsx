@@ -791,7 +791,6 @@ const styles = StyleSheet.create({
 
         margin: "8px 0",
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ display: "flex"; alignItems: "center"; margin: string; ":not(:last-child)": { "::after": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginRight: number; background: string; borderRadius: number; }; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             "::after": {
                 content: "''",

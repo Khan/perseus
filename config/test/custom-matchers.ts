@@ -41,7 +41,7 @@ expect.extend({
                     )}`,
             };
         }
-        return {pass: true};
+        return {pass: true, message: () => ""};
     },
 
     toHaveInvalidInput(renderer: PerseusRenderer, message: string | null) {
@@ -66,7 +66,7 @@ expect.extend({
                     )}`,
             };
         }
-        return {pass: true};
+        return {pass: true, message: () => ""};
     },
 
     toHaveBeenAnsweredIncorrectly(renderer: PerseusRenderer) {
@@ -95,7 +95,7 @@ expect.extend({
                     )}`,
             };
         }
-        return {pass: true};
+        return {pass: true, message: () => ""};
     },
 
     // [Perseus-specific] Asserts that the given DOM element is somewhere
@@ -108,7 +108,7 @@ expect.extend({
                 parent.classList.contains("perseus-widget-container")
             ) {
                 if (parent.classList.contains("widget-highlight")) {
-                    return {pass: true};
+                    return {pass: true, message: () => ""};
                 }
 
                 return {
