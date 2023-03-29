@@ -25,6 +25,8 @@ const HEADER = `/**
  */
 `;
 
+let errorCount = 0;
+
 for (const inFile of files) {
     const outFile = inFile.replace(".d.ts", ".js.flow");
 
@@ -90,6 +92,10 @@ for (const inFile of files) {
         );
         console.log(`✅ wrote: ${outFile}`);
     } catch (e) {
+        errorCount += 1;
         console.log(`❌ error processing: ${inFile}: ${e}`);
     }
 }
+
+// Fail the build step if there were any files we couldn't process
+process.exit(errorCount);

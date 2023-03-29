@@ -576,8 +576,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         });
     }
 
-    // $FlowFixMe[signature-verification-failure]
-    remeasureItems = _.debounce(() => {
+    remeasureItems: () => void = _.debounce(() => {
         this.setState({
             // Clear item measurements
             items: Sortable.clearItemMeasurements(this.state.items),

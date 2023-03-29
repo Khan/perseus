@@ -128,7 +128,7 @@ class GrapherEditor extends React.Component<Props> {
         );
     }
 
-    handleAvailableTypesChange: (arg1: any) => void = (newAvailableTypes) => {
+    handleAvailableTypesChange = (newAvailableTypes: Array<any>) => {
         let correct = this.props.correct;
 
         // If the currently 'correct' type is removed from the list of types,

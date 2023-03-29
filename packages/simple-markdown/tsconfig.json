@@ -1,5 +1,5 @@
 {
-  "exclude": ["dist", "**/*.test.*", "**/*.stories.*", "**/*.cypress.*"],
+  "exclude": ["dist", "**/*.test.*", "**/*.testdata.*", "**/*.stories.*", "**/*.cypress.*"],
   "extends": "../tsconfig-shared.json",
   "compilerOptions": {
       "outDir": "./dist",
