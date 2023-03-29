@@ -1,5 +1,16 @@
 # @khanacademy/perseus-linter
 
+## 0.3.0
+
+### Minor Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
+### Patch Changes
+
+-   Updated dependencies [53fd3768]
+    -   @khanacademy/perseus-error@0.2.0
+
 ## 0.2.5
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 4.0.0
+
+### Major Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
+### Patch Changes
+
+-   Updated dependencies [53fd3768]
+    -   @khanacademy/kas@0.3.0
+    -   @khanacademy/kmath@0.1.0
+    -   @khanacademy/math-input@0.7.0
+    -   @khanacademy/perseus-linter@0.3.0
+    -   @khanacademy/pure-markdown@0.2.0
+    -   @khanacademy/simple-markdown@0.9.0
+
 ## 3.0.0
 
 ### Major Changes
