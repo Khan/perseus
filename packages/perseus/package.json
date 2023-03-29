@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -21,12 +21,12 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.2.7",
-        "@khanacademy/kmath": "^0.0.8",
-        "@khanacademy/math-input": "^0.6.8",
-        "@khanacademy/perseus-linter": "^0.2.5",
-        "@khanacademy/pure-markdown": "^0.1.5",
-        "@khanacademy/simple-markdown": "^0.8.6",
+        "@khanacademy/kas": "^0.3.0",
+        "@khanacademy/kmath": "^0.1.0",
+        "@khanacademy/math-input": "^0.7.0",
+        "@khanacademy/perseus-linter": "^0.3.0",
+        "@khanacademy/pure-markdown": "^0.2.0",
+        "@khanacademy/simple-markdown": "^0.9.0",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992"
     },
     "devDependencies": {

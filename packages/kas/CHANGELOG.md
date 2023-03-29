@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 0.3.0
+
+### Minor Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
 ## 0.2.7
 
 ### Patch Changes

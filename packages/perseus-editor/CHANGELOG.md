@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 2.0.0
+
+### Major Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
+### Patch Changes
+
+-   Updated dependencies [53fd3768]
+-   Updated dependencies [53fd3768]
+    -   @khanacademy/perseus@4.0.0
+    -   @khanacademy/kas@0.3.0
+    -   @khanacademy/kmath@0.1.0
+
 ## 1.1.1
 
 ### Patch Changes

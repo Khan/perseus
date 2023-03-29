@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.9.0
+
+### Minor Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
 ## 0.8.6
 
 ### Patch Changes
