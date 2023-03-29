@@ -137,7 +137,7 @@
     "flow:ci": "flow check --max-workers 0",
     "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
     "lint:timing": "cross-env TIMING=1 yarn lint",
-    "publish:ci": "node utils/pre-publish-check-ci.js && git diff --stat --exit-code HEAD && yarn build && yarn build:types && yarn build:flowtypes && yarn extract-strings && changeset publish",
+    "publish:ci": "SWCRC=true node -r @swc-node/register utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && yarn build && yarn build:types && yarn build:flowtypes && yarn extract-strings && changeset publish",
     "sloc": "sloc packages --exclude node_modules",
     "test": "yarn jest",
     "test:no-console-mock": "cross-env GLOBAL_CONSOLE_MOCK=false yarn jest",
