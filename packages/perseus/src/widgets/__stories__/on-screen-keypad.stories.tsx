@@ -5,8 +5,7 @@ import * as React from "react";
 
 import {ItemRenderer} from "../../index";
 import KeypadContext from "../../keypad-context";
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/expression_testdata' or its corresponding type declarations.
-import {expressionItem3} from "../__testdata__/expression_testdata";
+import {expressionItem3} from "../__testdata__/expression.testdata";
 
 type StoryArgs = Record<any, any>;
 

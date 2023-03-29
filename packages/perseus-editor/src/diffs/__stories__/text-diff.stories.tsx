@@ -2,7 +2,6 @@ import * as React from "react";
 
 import TextDiff from "../text-diff";
 
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module './perseus-diff-wrapper' or its corresponding type declarations.
 import Wrapper from "./perseus-diff-wrapper";
 
 type StoryArgs = Record<any, any>;

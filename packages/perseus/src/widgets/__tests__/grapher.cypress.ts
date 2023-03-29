@@ -9,8 +9,7 @@ import {
     quadraticQuestion,
     sinusoidQuestion,
     multipleAvailableTypesQuestion,
-    // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/grapher_testdata' or its corresponding type declarations.
-} from "../__testdata__/grapher_testdata";
+} from "../__testdata__/grapher.testdata";
 
 // NOTE(jeremy): Careful. This selector _excludes_ other `.graphie` elements
 // (which might be rendered by the SvgImage component if the image is itself a

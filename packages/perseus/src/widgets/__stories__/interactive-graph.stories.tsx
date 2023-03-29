@@ -11,8 +11,7 @@ import {
     rayQuestion,
     segmentQuestion,
     sinusoidQuestion,
-    // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/interactive-graph_testdata' or its corresponding type declarations.
-} from "../__testdata__/interactive-graph_testdata";
+} from "../__testdata__/interactive-graph.testdata";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph",
