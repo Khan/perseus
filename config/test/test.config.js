@@ -23,7 +23,10 @@ const vendorMap = fs
 
 const pkgMap = fs
     .readdirSync(path.join(root, "packages"))
-    .filter((name) => name !== ".DS_Store")
+    .filter((name) => {
+        const stat = fs.statSync(path.join(root, "packages", name));
+        return stat.isDirectory();
+    })
     .reduce((map, name) => {
         const pkgJson = JSON.parse(
             fs.readFileSync(path.join(root, "packages", name, "package.json")),

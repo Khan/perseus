@@ -1,0 +1,16 @@
+{
+    "exclude": ["dist"],
+    "extends": "../tsconfig-shared.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "src",
+    },
+    "references": [
+        {"path": "../kas"},
+        {"path": "../kmath"},
+        {"path": "../math-input"},
+        {"path": "../pereus-linter"},
+        {"path": "../pure-markdown"},
+        {"path": "../simple-markdown"},
+    ]
+}

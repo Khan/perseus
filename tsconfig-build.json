@@ -1,0 +1,18 @@
+// This file is used by the `build:types` command in package.json
+/* Visit https://aka.ms/tsconfig to read more about this file */
+{
+    // Intentionally empty, all files are covered by tsconfig.json files
+    // in each package directory.
+    "files": [],
+    "references": [
+        {"path": "./packages/kas"},
+        {"path": "./packages/kmath"},
+        {"path": "./packages/math-input"},
+        {"path": "./packages/pereus"},
+        {"path": "./packages/pereus-editor"},
+        {"path": "./packages/pereus-erro"},
+        {"path": "./packages/pereus-linter"},
+        {"path": "./packages/pure-markdown"},
+        {"path": "./packages/simple-markdown"},
+    ]
+}

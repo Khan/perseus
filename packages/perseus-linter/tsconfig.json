@@ -1,0 +1,11 @@
+{
+    "exclude": ["dist"],
+    "extends": "../tsconfig-shared.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "src",
+    },
+    "references": [
+        {"path": "../perseus-error"},
+    ]
+}
