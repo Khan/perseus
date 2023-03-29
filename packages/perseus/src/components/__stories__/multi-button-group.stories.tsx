@@ -1,16 +1,17 @@
-import {Flow} from 'flow-to-typescript-codemod';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
+import {Flow} from "flow-to-typescript-codemod";
 
 import * as React from "react";
 
-import MultiButtonGroup from '../multi-button-group';
+import MultiButtonGroup from "../multi-button-group";
 
 type StoryArgs = {
-    allowEmpty: boolean
+    allowEmpty: boolean;
 };
 
 type Story = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 export default {
@@ -21,13 +22,27 @@ export default {
 } as Story;
 
 const HarnassedButtonGroup = (
-    props: Partial<Flow.Diff<JSX.LibraryManagedAttributes<typeof MultiButtonGroup, React.ComponentProps<typeof MultiButtonGroup>>, {
-        values: JSX.LibraryManagedAttributes<typeof MultiButtonGroup, React.ComponentProps<typeof MultiButtonGroup>>['values'],
-        onChange: JSX.LibraryManagedAttributes<typeof MultiButtonGroup, React.ComponentProps<typeof MultiButtonGroup>>['onChange']
-    }>>,
+    props: Partial<
+        Flow.Diff<
+            JSX.LibraryManagedAttributes<
+                typeof MultiButtonGroup,
+                React.ComponentProps<typeof MultiButtonGroup>
+            >,
+            {
+                values: JSX.LibraryManagedAttributes<
+                    typeof MultiButtonGroup,
+                    React.ComponentProps<typeof MultiButtonGroup>
+                >["values"];
+                onChange: JSX.LibraryManagedAttributes<
+                    typeof MultiButtonGroup,
+                    React.ComponentProps<typeof MultiButtonGroup>
+                >["onChange"];
+            }
+        >
+    >,
 ) => {
     const [values, updateValues] = React.useState(
-        (null as ReadonlyArray<string> | null | undefined),
+        null as ReadonlyArray<string> | null | undefined,
     );
 
     return (
@@ -41,7 +56,9 @@ const HarnassedButtonGroup = (
     );
 };
 
-export const ButtonsWithNoTitles: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ButtonsWithNoTitles: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <HarnassedButtonGroup
             {...args}
@@ -54,7 +71,9 @@ export const ButtonsWithNoTitles: React.FC<StoryArgs> = (args): React.ReactEleme
     );
 };
 
-export const ButtonsWithTitles: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ButtonsWithTitles: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <HarnassedButtonGroup
             {...args}

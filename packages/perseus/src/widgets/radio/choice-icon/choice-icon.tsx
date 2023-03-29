@@ -4,33 +4,33 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import InlineIcon from '../../../components/inline-icon';
-import {iconCheck, iconMinus} from '../../../icon-paths';
-import * as styleConstants from '../../../styles/constants';
-import FocusRing from '../focus-ring';
-import {getChoiceLetter} from '../util';
+import InlineIcon from "../../../components/inline-icon";
+import {iconCheck, iconMinus} from "../../../icon-paths";
+import * as styleConstants from "../../../styles/constants";
+import FocusRing from "../focus-ring";
+import {getChoiceLetter} from "../util";
 
-import CrossOutLine from './cross-out-line';
-import sharedStyles, {CHOICE_ICON_SIZE} from './shared-styles';
+import CrossOutLine from "./cross-out-line";
+import sharedStyles, {CHOICE_ICON_SIZE} from "./shared-styles";
 
 type ChoiceIconProps = {
-    pos: number,
-    checked: boolean,
-    crossedOut: boolean,
-    focused: boolean,
-    hovered: boolean,
-    pressed: boolean,
-    correct: boolean,
-    showCorrectness: boolean,
-    multipleSelect: boolean,
-    reviewMode: boolean,
-    previouslyAnswered: boolean
+    pos: number;
+    checked: boolean;
+    crossedOut: boolean;
+    focused: boolean;
+    hovered: boolean;
+    pressed: boolean;
+    correct: boolean;
+    showCorrectness: boolean;
+    multipleSelect: boolean;
+    reviewMode: boolean;
+    previouslyAnswered: boolean;
 };
 
 function ChoiceInner(props: {
-    pos: number,
-    showCorrectness: boolean,
-    correct: boolean | null | undefined
+    pos: number;
+    showCorrectness: boolean;
+    correct: boolean | null | undefined;
 }) {
     const {pos, showCorrectness, correct} = props;
     const letter = getChoiceLetter(pos);
@@ -63,10 +63,10 @@ function getDynamicStyles(
     multipleSelect: boolean,
     correct?: boolean | null,
 ): {
-    backgroundColor: string | null | undefined,
-    borderColor: string,
-    color: string,
-    borderRadius: number
+    backgroundColor: string | null | undefined;
+    borderColor: string;
+    color: string;
+    borderRadius: number;
 } {
     let backgroundColor;
     let borderColor;
@@ -96,7 +96,9 @@ function getDynamicStyles(
     return {backgroundColor, borderColor, color, borderRadius};
 }
 
-const ChoiceIcon: React.FC<ChoiceIconProps> = function(props): React.ReactElement {
+const ChoiceIcon: React.FC<ChoiceIconProps> = function (
+    props,
+): React.ReactElement {
     const {
         checked,
         crossedOut,
@@ -126,6 +128,7 @@ const ChoiceIcon: React.FC<ChoiceIconProps> = function(props): React.ReactElemen
                 multipleSelect={multipleSelect}
             >
                 <div
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: string | null | undefined; borderColor: string; color: string; borderRadius: number; }' is not assignable to type 'Properties<string | number, string & {}>'.
                     style={dynamicStyles}
                     data-test-id="choice-icon__library-choice-icon"
                     className={css(
@@ -142,6 +145,7 @@ const ChoiceIcon: React.FC<ChoiceIconProps> = function(props): React.ReactElemen
                     data-is-radio-icon={true}
                 >
                     <div className={css(styles.innerWrapper)}>
+                        {/* @ts-expect-error [FEI-5003] - TS2786 - 'ChoiceInner' cannot be used as a JSX component. */}
                         <ChoiceInner
                             pos={pos}
                             showCorrectness={showCorrectness}

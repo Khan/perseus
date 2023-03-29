@@ -1,11 +1,12 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from '../../../../../testing/renderer-with-debug-ui';
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {
     question1,
     question2,
     question3,
-} from '../__testdata__/passage_testdata';
+    // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/passage_testdata' or its corresponding type declarations.
+} from "../__testdata__/passage_testdata";
 
 export default {
     title: "Perseus/Widgets/Passage",
@@ -13,14 +14,20 @@ export default {
 
 type StoryArgs = Record<any, any>;
 
-export const SimpleQuestion: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SimpleQuestion: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <RendererWithDebugUI question={question1} />;
 };
 
-export const MultiPassageQuestion: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultiPassageQuestion: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <RendererWithDebugUI question={question2} />;
 };
 
-export const SingleNumberedPassage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SingleNumberedPassage: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <RendererWithDebugUI question={question3} />;
 };

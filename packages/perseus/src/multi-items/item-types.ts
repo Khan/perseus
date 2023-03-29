@@ -8,8 +8,8 @@
  *             interface, so it's compatible with our tree traversal functions.
  * - And the various types of nodes that compose a tree.
  */
-import type {WidgetDict, ImageDict} from '../types';
-import type {Tree, ArrayNode, ObjectNode} from './tree-types';
+import type {WidgetDict, ImageDict} from "../types";
+import type {Tree, ArrayNode, ObjectNode} from "./tree-types";
 
 export type ContentNode = {
     // TODO(mdr): When we first drafted the multi-item feature, we named
@@ -21,24 +21,26 @@ export type ContentNode = {
     //
     //     Code blocks that enable this legacy support are greppable with the
     //     keyword #LegacyContentNode.
-    __type: 'content' | 'item',
+    __type: "content" | "item";
     // Perseus has default values for these fields, so they're all optional.
-    content?: string | null | undefined,
-    images?: ImageDict | null | undefined,
-    widgets?: WidgetDict | null | undefined
+    content?: string | null | undefined;
+    images?: ImageDict | null | undefined;
+    widgets?: WidgetDict | null | undefined;
 };
 export type HintNode = {
-    __type: 'hint',
+    __type: "hint";
     // Perseus has default values for these fields, so they're all optional.
-    content?: string | null | undefined,
-    images?: ImageDict | null | undefined,
-    widgets?: WidgetDict | null | undefined,
-    replace?: boolean | null | undefined
+    content?: string | null | undefined;
+    images?: ImageDict | null | undefined;
+    widgets?: WidgetDict | null | undefined;
+    replace?: boolean | null | undefined;
 };
 export type TagsNode = ReadonlyArray<string>;
 
+// @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
 export type ItemArrayNode = ArrayNode<ContentNode, HintNode, TagsNode>;
 export type ItemObjectNode = ObjectNode<ContentNode, HintNode, TagsNode>;
+// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
 export type ItemTree = Tree<ContentNode, HintNode, TagsNode>;
 
 // TODO(jeremy): I think we could refine this root type for multi items. Right
@@ -50,5 +52,5 @@ export type ItemTree = Tree<ContentNode, HintNode, TagsNode>;
 // object type to something like the following:
 // export type Item = {|_multi: ItemArrayNode | ItemObjectNode|};
 export type Item = {
-    _multi: ItemTree
+    _multi: ItemTree;
 };

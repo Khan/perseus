@@ -2,9 +2,14 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-export default function render<ElementType extends React.ElementType>(element: React.ReactNode, container: HTMLElement, callback?: () => void): React.ElementRef<ElementType> {
+export default function render<ElementType extends React.ElementType>(
+    element: React.ReactNode,
+    container: HTMLElement,
+    callback?: () => void,
+): React.ElementRef<ElementType> {
     // TODO(LP-11406): Replace this, or callers, with React Portal
     // eslint-disable-next-line no-restricted-syntax
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'void' is not assignable to type 'ElementRef<ElementType>'.
     return ReactDOM.render(
         /**
          * `RenderStateRoot` is responsible for tracking whether it's

@@ -2,10 +2,10 @@ import {render, screen} from "@testing-library/react";
 import * as React from "react";
 import "@testing-library/jest-dom/extend-expect";
 
-import {testDependencies} from '../../../../testing/test-dependencies';
-import * as Dependencies from '../dependencies';
+import {testDependencies} from "../../../../testing/test-dependencies";
+import * as Dependencies from "../dependencies";
 
-import VideoTranscriptLink from './video-transcript-link';
+import VideoTranscriptLink from "./video-transcript-link";
 
 describe("VideoTranscriptLink", () => {
     beforeEach(() => {
@@ -138,6 +138,7 @@ describe("VideoTranscriptLink", () => {
         // Arrange
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
+            // @ts-expect-error [FEI-5003] - TS2322 - Type '(videoId: string, kind: VideoKind) => { status: "success"; data: {}; }' is not assignable to type '(id: string, kind: VideoKind) => Result<{ video: VideoData | null | undefined; }>'.
             useVideo: (videoId, kind) => {
                 return {status: "success", data: {}};
             },
@@ -168,6 +169,7 @@ describe("VideoTranscriptLink", () => {
         // Arrange
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
+            // @ts-expect-error [FEI-5003] - TS2322 - Type '(videoId: string, kind: VideoKind) => { status: "success"; data: {}; }' is not assignable to type '(id: string, kind: VideoKind) => Result<{ video: VideoData | null | undefined; }>'.
             useVideo: (videoId, kind) => {
                 return {status: "success", data: {}};
             },
@@ -184,6 +186,7 @@ describe("VideoTranscriptLink", () => {
         // Arrange
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
+            // @ts-expect-error [FEI-5003] - TS2322 - Type '(videoId: string, kind: VideoKind) => { status: "error"; }' is not assignable to type '(id: string, kind: VideoKind) => Result<{ video: VideoData | null | undefined; }>'.
             useVideo: (videoId, kind) => {
                 return {status: "error"};
             },

@@ -10,6 +10,7 @@ import fs from "fs";
 import path from "path";
 
 import {extractStrings} from "@khanacademy/wonder-stuff-i18n";
+// @ts-expect-error [FEI-5003] - TS7016 - Could not find a declaration file for module 'ancesdir'. '/Users/kevinbarabash/khan/perseus/node_modules/ancesdir/dist/index.js' implicitly has an 'any' type.
 import ancesdir from "ancesdir";
 import fg from "fast-glob";
 
@@ -78,6 +79,7 @@ export const generateStringsFileForPackage = (pkgName: string) => {
     const outPath = path.join(outDir, "strings.js");
     const fd = fs.openSync(outPath, "w");
 
+// @ts-expect-error [FEI-5003] - TS7006 - Parameter 'line' implicitly has an 'any' type.
     const writeLine = (line) => fs.writeSync(fd, line + "\n");
 
     const header = `// @noflow
@@ -96,6 +98,7 @@ export const generateStringsFileForPackage = (pkgName: string) => {
             }
         }
         const args = string.msgids
+// @ts-expect-error [FEI-5003] - TS7006 - Parameter 'msgid' implicitly has an 'any' type.
             .map((msgid) => JSON.stringify(msgid))
             .join(",");
         writeLine(`    i18n.${string.type}(${args}, {}),`);

@@ -56,6 +56,7 @@ class CategorizerEditor extends React.Component<Props> {
                 <TextListEditor
                     options={this.props.categories}
                     onChange={(cat) => {
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
                         this.change("categories", cat);
                     }}
                     layout="horizontal"
@@ -64,6 +65,7 @@ class CategorizerEditor extends React.Component<Props> {
                 <TextListEditor
                     options={this.props.items}
                     onChange={(items) => {
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         this.change({
                             items: items,
                             // TODO(eater): This truncates props.values so there
@@ -83,6 +85,7 @@ class CategorizerEditor extends React.Component<Props> {
                     via widget-container.jsx that we aren't passing to Categorizer here.
                     See perseus-all-package/types.js#WidgetProps for details. */}
                 {/* $FlowFixMe[prop-missing] */}
+                {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <Categorizer
                     apiOptions={this.props.apiOptions}
                     items={this.props.items}

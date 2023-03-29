@@ -3,7 +3,7 @@ import {withKnobs} from "@storybook/addon-knobs";
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import * as React from "react";
 
-import Keypad from './index';
+import Keypad from "./index";
 
 export default {
     title: "Full Keypad",
@@ -16,14 +16,18 @@ export default {
     },
 };
 
-export const PreAlgebra = (): React.ReactElement => <Keypad
-    onClickKey={action("onClickKey")}
-    preAlgebra={true}
-    trigonometry={false}
-/>;
+export const PreAlgebra = (): React.ReactElement => (
+    <Keypad
+        onClickKey={action("onClickKey")}
+        preAlgebra={true}
+        trigonometry={false}
+    />
+);
 
-export const Trigonometry = (): React.ReactElement => <Keypad
-    onClickKey={action("onClickKey")}
-    preAlgebra={true}
-    trigonometry={true}
-/>;
+export const Trigonometry = (): React.ReactElement => (
+    <Keypad
+        onClickKey={action("onClickKey")}
+        preAlgebra={true}
+        trigonometry={true}
+    />
+);

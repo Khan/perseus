@@ -1,5 +1,5 @@
-import Layout from '../molecule-layout';
-import SmilesParser from '../smiles-parser';
+import Layout from "../molecule-layout";
+import SmilesParser from "../smiles-parser";
 
 function assertApproximately(actual: any, expected: number, allowed: number) {
     expect(Math.abs(expected - actual) <= allowed).toBeTruthy();

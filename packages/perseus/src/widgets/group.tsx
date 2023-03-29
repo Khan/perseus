@@ -2,12 +2,12 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
-import * as Changeable from '../mixins/changeable';
-import {ApiOptions} from '../perseus-api';
-import Renderer from '../renderer';
+import * as Changeable from "../mixins/changeable";
+import {ApiOptions} from "../perseus-api";
+import Renderer from "../renderer";
 
-import type {PerseusGroupWidgetOptions} from '../perseus-types';
-import type {Widget} from '../renderer';
+import type {PerseusGroupWidgetOptions} from "../perseus-types";
+import type {Widget} from "../renderer";
 import type {
     APIOptions,
     ChangeFn,
@@ -15,16 +15,16 @@ import type {
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from '../types';
+} from "../types";
 
 type Rubric = PerseusGroupWidgetOptions;
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
 type Props = WidgetProps<RenderProps, Rubric>;
 type DefaultProps = {
-    content: Props['content'],
-    widgets: Props['widgets'],
-    images: Props['images'],
-    linterContext: Props['linterContext']
+    content: Props["content"];
+    widgets: Props["widgets"];
+    images: Props["images"];
+    linterContext: Props["linterContext"];
 };
 
 class Group extends React.Component<Props> {
@@ -66,7 +66,9 @@ class Group extends React.Component<Props> {
         return null;
     };
 
-    simpleValidate: (arg1: Rubric) => PerseusScore | null | undefined = (rubric) => {
+    simpleValidate: (arg1: Rubric) => PerseusScore | null | undefined = (
+        rubric,
+    ) => {
         return this.rendererRef?.score();
     };
 
@@ -75,11 +77,11 @@ class Group extends React.Component<Props> {
         return this.rendererRef?.getInputPaths();
     };
 
-    setInputValue: (arg1: FocusPath, arg2: string, arg3: () => unknown) => void = (
-        path,
-        newValue,
-        callback,
-    ) => {
+    setInputValue: (
+        arg1: FocusPath,
+        arg2: string,
+        arg3: () => unknown,
+    ) => void = (path, newValue, callback) => {
         return this.rendererRef?.setInputValue(path, newValue, callback);
     };
 
@@ -125,6 +127,7 @@ class Group extends React.Component<Props> {
         // really we should have a more unidirectional flow. TODO(marcia): fix.
         const groupWidgets: ReadonlyArray<Widget> =
             this.props.findWidgets("group");
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'this' is not assignable to parameter of type 'Widget'.
         const number: number = groupWidgets.indexOf(this);
         const problemNumComponent = this.props.apiOptions.groupAnnotator(
             number,
@@ -169,7 +172,9 @@ class Group extends React.Component<Props> {
                     linterContext={this.props.linterContext}
                 />
                 {/* $FlowFixMe[prop-missing] */}
+                {/* @ts-expect-error [FEI-5003] - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'. */}
                 {this.props.icon && (
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'.
                     <div className="group-icon">{this.props.icon}</div>
                 )}
             </div>
@@ -177,7 +182,7 @@ class Group extends React.Component<Props> {
     }
 }
 
-const traverseChildWidgets = function(props: any, traverseRenderer: any): any {
+const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     return {...props, ...traverseRenderer(props)};
 };
 

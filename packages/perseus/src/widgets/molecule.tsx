@@ -3,11 +3,11 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import draw from './molecule/molecule-drawing';
-import MoleculeLayout from './molecule/molecule-layout';
-import SmilesParser from './molecule/smiles-parser';
+import draw from "./molecule/molecule-drawing";
+import MoleculeLayout from "./molecule/molecule-layout";
+import SmilesParser from "./molecule/smiles-parser";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 const {layout} = MoleculeLayout;
 const parse = SmilesParser.parse;
@@ -44,11 +44,13 @@ export class Molecule extends React.Component<any, any> {
     stateFromSmiles: (arg1: any) => void = (smiles) => {
         try {
             this.setState({
+                // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
                 parsedSmiles: parse(smiles),
                 error: null,
             });
         } catch (e: any) {
             if (e instanceof ParseError) {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'message' does not exist on type '{}'.
                 this.setState({error: e.message});
             } else {
                 throw e;
@@ -56,10 +58,7 @@ export class Molecule extends React.Component<any, any> {
         }
     };
 
-    setCanvasBounds: (arg1: any, arg2: any) => any = (
-        canvas,
-        items,
-    ) => {
+    setCanvasBounds: (arg1: any, arg2: any) => any = (canvas, items) => {
         const xmax = Math.max(
             ...items.map((item) => (item.pos ? item.pos[0] : -Infinity)),
         );
@@ -90,7 +89,9 @@ export class Molecule extends React.Component<any, any> {
         // eslint-disable-next-line react/no-string-refs
         const canvas = this.refs.canvas;
         const translation = this.setCanvasBounds(canvas, items);
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getContext' does not exist on type 'ReactInstance'.
         const ctx = canvas.getContext("2d");
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'ReactInstance'. | TS2339 - Property 'height' does not exist on type 'ReactInstance'.
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.save();
         ctx.translate(translation[0], translation[1]);

@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import TeX from '../tex';
+import TeX from "../tex";
 
 type StoryArgs = {
-    equation: string
+    equation: string;
 };
 
 type Story = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 export default {
@@ -18,6 +18,8 @@ export default {
     },
 } as Story;
 
-export const BasicOperation: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const BasicOperation: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <TeX setAssetStatus={() => {}} children={args.equation} />;
 };

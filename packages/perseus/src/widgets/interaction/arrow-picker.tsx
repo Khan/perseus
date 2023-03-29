@@ -1,16 +1,16 @@
 import * as React from "react";
 
-import ButtonGroup from '../../components/button-group';
+import ButtonGroup from "../../components/button-group";
 
-import type {ChangeableProps} from '../../mixins/changeable';
+import type {ChangeableProps} from "../../mixins/changeable";
 
 type Props = {
-    value?: string
-} & (ChangeableProps);
+    value?: string;
+} & ChangeableProps;
 
 class ArrowPicker extends React.Component<Props> {
     static defaultProps: {
-        value: string
+        value: string;
     } = {
         value: "",
     };

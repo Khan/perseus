@@ -7,12 +7,16 @@ function _noop() {}
  * Wrapper for the trackInteraction apiOption.
  */
 class InteractionTracker {
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_tracked' has no initializer and is not definitely assigned in the constructor.
     _tracked: boolean;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'setting' has no initializer and is not definitely assigned in the constructor.
     setting: string;
     track: (extraData?: any) => void;
     // eslint-disable-next-line ft-flow/no-weak-types
     trackApi: any;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetID' has no initializer and is not definitely assigned in the constructor.
     widgetID: string;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetType' has no initializer and is not definitely assigned in the constructor.
     widgetType: string;
 
     constructor(
@@ -20,7 +24,7 @@ class InteractionTracker {
         trackApi: any, // original apiOptions.trackInteraction
         widgetType: string,
         widgetID: string,
-        setting: '' | 'all', // "" means track once
+        setting: "" | "all", // "" means track once
     ) {
         if (!trackApi) {
             this.track = _noop;
@@ -50,6 +54,7 @@ class InteractionTracker {
         this.trackApi({
             type: this.widgetType,
             id: this.widgetID,
+            // @ts-expect-error [FEI-5003] - TS2698 - Spread types may only be created from object types.
             ...extraData,
         });
     };

@@ -17,6 +17,7 @@ import * as React from "react";
 let nextIframeID = 0;
 const requestIframeData: Record<string, any> = {};
 const updateIframeHeight: Record<string, any> = {};
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
 window.iframeDataStore = {};
 
 // This is called once after Perseus is loaded and the iframe
@@ -53,21 +54,24 @@ type Props = {
     // content?: string,
 
     // The URL that the iframe should load
-    url: string,
+    url: string;
     // The data-* suffix for passing information to the iframe's JS
-    datasetKey: string,
+    datasetKey: string;
     // The value of the data-* attribute
-    datasetValue: any,
+    datasetValue: any;
     // Whether to make the iframe's height match its content's height,
     // used to prevent scrolling inside the iframe.
-    seamless: boolean
+    seamless: boolean;
 };
 
 class IframeContentRenderer extends React.Component<Props> {
     _frame: HTMLIFrameElement | null | undefined;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
     _lastData: any;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_lastHeight' has no initializer and is not definitely assigned in the constructor.
     _lastHeight: number;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'iframeID' has no initializer and is not definitely assigned in the constructor.
     iframeID: number;
 
     componentDidMount() {
@@ -87,6 +91,7 @@ class IframeContentRenderer extends React.Component<Props> {
             this._lastHeight = height;
             if (this._isMounted && this.props.seamless) {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'style' does not exist on type 'ReactInstance'.
                 this.refs.container.style.height = height + "px";
             }
         };
@@ -102,9 +107,11 @@ class IframeContentRenderer extends React.Component<Props> {
     componentDidUpdate(prevProps: Props) {
         if (!this.props.seamless) {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'style' does not exist on type 'ReactInstance'.
             this.refs.container.style.height = "100%";
         } else {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'style' does not exist on type 'ReactInstance'.
             this.refs.container.style.height = this._lastHeight + "px";
         }
 
@@ -125,6 +132,7 @@ class IframeContentRenderer extends React.Component<Props> {
         // Don't initialize the iframe until the page has loaded
         if (this._frame) {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'removeChild' does not exist on type 'ReactInstance'.
             this.refs.container.removeChild(this._frame);
         }
 
@@ -152,6 +160,7 @@ class IframeContentRenderer extends React.Component<Props> {
         }
 
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'appendChild' does not exist on type 'ReactInstance'.
         this.refs.container.appendChild(frame);
 
         this._frame = frame;
@@ -165,6 +174,7 @@ class IframeContentRenderer extends React.Component<Props> {
             // We can't use JSON.stringify/parse for this because the apiOptions
             // includes the functions GroupMetadataEditor, groupAnnotator,
             // onFocusChange, and onInputError.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
             window.iframeDataStore[this.iframeID] = data;
             frame.contentWindow.postMessage(this.iframeID, "*");
         }

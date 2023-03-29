@@ -5,66 +5,71 @@
 import * as KAS from "@khanacademy/kas";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 // eslint-disable-next-line import/no-extraneous-dependencies
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'hubble' or its corresponding type declarations.
 import lens from "hubble";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import * as Changeable from '../mixins/changeable';
-import {ClassNames as ApiClassNames, ApiOptions} from '../perseus-api';
-import {SignificantFigures, displaySigFigs} from '../sigfigs';
+import * as Changeable from "../mixins/changeable";
+import {ClassNames as ApiClassNames, ApiOptions} from "../perseus-api";
+import {SignificantFigures, displaySigFigs} from "../sigfigs";
 
 import type {
     APIOptions,
     ChangeHandler,
     FocusPath,
     WidgetExports,
-} from '../types';
+} from "../types";
 
 const ALL = "all";
 const MAX_SIGFIGS = 10;
 
-export const countSigfigs = function(value: string): number {
+export const countSigfigs = function (value: string): number {
     return new SignificantFigures(value).sigFigs;
 };
 
-export const sigfigPrint = function(num: number, sigfigs: number): string {
+export const sigfigPrint = function (num: number, sigfigs: number): string {
     return displaySigFigs(num, sigfigs, -MAX_SIGFIGS, false);
 };
 
-type Rubric = {
-    value: string,
-    sigfigs: number,
-    accepting: 'all'
-} | {
-    value: string,
-    sigfigs: number,
-    accepting: 'some',
-    acceptingUnits: ReadonlyArray<string>
-};
+type Rubric =
+    | {
+          value: string;
+          sigfigs: number;
+          accepting: "all";
+      }
+    | {
+          value: string;
+          sigfigs: number;
+          accepting: "some";
+          acceptingUnits: ReadonlyArray<string>;
+      };
 
-type ValidationResult = {
-    type: 'points',
-    earned: 1 | 0,
-    message: string | null | undefined,
-    total: number
-} | {
-    type: 'invalid',
-    message: string | null | undefined
-};
+type ValidationResult =
+    | {
+          type: "points";
+          earned: 1 | 0;
+          message: string | null | undefined;
+          total: number;
+      }
+    | {
+          type: "invalid";
+          message: string | null | undefined;
+      };
 
 type Props = {
-    apiOptions: APIOptions,
-    onChange: ChangeHandler,
-    value: string,
-    onBlur: (arg1: FocusPath) => unknown,
-    onFocus: (arg1: FocusPath) => unknown
+    apiOptions: APIOptions;
+    onChange: ChangeHandler;
+    value: string;
+    onBlur: (arg1: FocusPath) => unknown;
+    onFocus: (arg1: FocusPath) => unknown;
 };
 
 type DefaultProps = {
-    apiOptions: Props['apiOptions'],
-    value: Props['value']
+    apiOptions: Props["apiOptions"];
+    value: Props["value"];
 };
 
 /* I just wrote this, but it's old by analogy to `OldExpression`, in that it's
@@ -84,7 +89,9 @@ export class OldUnitInput extends React.Component<Props> {
     };
 
     static validate(userInput: string, rubric: Rubric): ValidationResult {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const answer = KAS.unitParse(rubric.value).expr;
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         const guess = KAS.unitParse(userInput);
         if (!guess.parsed) {
             return {
@@ -104,6 +111,7 @@ export class OldUnitInput extends React.Component<Props> {
         const sigfigs = rubric.sigfigs;
         const sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
         if (!sigfigsCorrect) {
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
             message = i18n._("Check your significant figures.");
         }
 
@@ -111,10 +119,13 @@ export class OldUnitInput extends React.Component<Props> {
         // require.
         let numericallyCorrect;
         try {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'Var' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const x = new KAS.Var("x");
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'Eq' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             const equality = new KAS.Eq(
                 answer.simplify(),
                 "=",
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'Mul' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 new KAS.Mul(x, guess.expr.simplify()),
             );
 
@@ -131,6 +142,7 @@ export class OldUnitInput extends React.Component<Props> {
         }
 
         if (!numericallyCorrect) {
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
             message = i18n._("That answer is numerically incorrect.");
         }
 
@@ -141,13 +153,16 @@ export class OldUnitInput extends React.Component<Props> {
         if (rubric.accepting === ALL) {
             // We're accepting all units - KAS does the hard work of figuring
             // out if the user's unit is equivalent to the author's unit.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
             kasCorrect = KAS.compare(guessUnit, answerUnit).equal;
         } else {
             // Are any of the accepted units the same as what the user entered?
             kasCorrect = _(rubric.acceptingUnits).any((unit) => {
                 const thisAnswerUnit = primUnits(
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                     KAS.unitParse(unit).unit.simplify(),
                 );
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'compare' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                 return KAS.compare(
                     thisAnswerUnit,
                     guessUnit,
@@ -157,6 +172,7 @@ export class OldUnitInput extends React.Component<Props> {
             });
         }
         if (!kasCorrect) {
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
             message = i18n._("Check your units.");
         }
 
@@ -173,12 +189,15 @@ export class OldUnitInput extends React.Component<Props> {
     componentDidUpdate() {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         clearTimeout(this._errorTimeout);
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         if (KAS.unitParse(this.props.value).parsed) {
             this._hideError();
         } else {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
             this._errorTimeout = setTimeout(this._showError, 2000);
         }
     }
@@ -186,6 +205,7 @@ export class OldUnitInput extends React.Component<Props> {
     componentWillUnmount() {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         clearTimeout(this._errorTimeout);
     }
 
@@ -195,9 +215,12 @@ export class OldUnitInput extends React.Component<Props> {
         }
 
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         const $error = $(ReactDOM.findDOMNode(this.refs.error));
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'is' does not exist on type 'JQueryStatic'.
         if (!$error.is(":visible")) {
             $error
+                // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
                 .css({top: 50, opacity: 0.1})
                 .show()
                 .animate({top: 0, opacity: 1.0}, 300);
@@ -206,16 +229,23 @@ export class OldUnitInput extends React.Component<Props> {
 
     _hideError: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         const $error = $(ReactDOM.findDOMNode(this.refs.error));
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'is' does not exist on type 'JQueryStatic'.
         if ($error.is(":visible")) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'animate' does not exist on type 'JQueryStatic'.
             $error.animate({top: 50, opacity: 0.1}, 300, function () {
                 // eslint-disable-next-line @babel/no-invalid-this
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 $(this).hide();
             });
         }
     };
 
-    change: (...args: ReadonlyArray<any>) => any | null | undefined = (...args) => {
+    change: (...args: ReadonlyArray<any>) => any | null | undefined = (
+        ...args
+    ) => {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly any[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -223,7 +253,9 @@ export class OldUnitInput extends React.Component<Props> {
         this.props.onBlur([]);
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         clearTimeout(this._errorTimeout);
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'unitParse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
         if (!KAS.unitParse(this.props.value).parsed) {
             this._showError();
         }
@@ -236,7 +268,10 @@ export class OldUnitInput extends React.Component<Props> {
         this.props.onChange({value: event.target.value});
     };
 
-    simpleValidate: (rubric: Rubric, onInputError?: () => unknown) => ValidationResult = (rubric: Rubric, onInputError?: () => unknown) => {
+    simpleValidate: (
+        rubric: Rubric,
+        onInputError?: () => unknown,
+    ) => ValidationResult = (rubric: Rubric, onInputError?: () => unknown) => {
         onInputError = onInputError || function () {};
         return OldUnitInput.validate(this.getUserInput(), rubric);
     };
@@ -262,6 +297,7 @@ export class OldUnitInput extends React.Component<Props> {
              * Change to using a ref callback so that focus() can be
              * accessed.
              */
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             input.focus();
         }
     };
@@ -279,11 +315,16 @@ export class OldUnitInput extends React.Component<Props> {
              * Change to using a ref callback so that focus() can be
              * accessed.
              */
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'Element | Text'.
             input.blur();
         }
     };
 
-    setInputValue: (path: FocusPath, newValue: string, cb: () => unknown) => void = (path: FocusPath, newValue: string, cb: () => unknown) => {
+    setInputValue: (
+        path: FocusPath,
+        newValue: string,
+        cb: () => unknown,
+    ) => void = (path: FocusPath, newValue: string, cb: () => unknown) => {
         this.props.onChange(
             {
                 value: newValue,

@@ -1,4 +1,4 @@
-import * as point from '../point';
+import * as point from "../point";
 
 describe("kpoint", function () {
     it("point.compare should return positive if the first element is larger", function () {

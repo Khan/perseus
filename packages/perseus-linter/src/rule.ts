@@ -123,9 +123,9 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-error";
 
-import Selector from './selector';
+import Selector from "./selector";
 
-import type {TraversalState, TreeNode} from './tree-transformer';
+import type {TraversalState, TreeNode} from "./tree-transformer";
 
 // This represents the type returned by String.match(). It is an
 // array of strings, but also has index:number and input:string properties.
@@ -133,13 +133,16 @@ import type {TraversalState, TreeNode} from './tree-transformer';
 export type PatternMatchType = any;
 
 // This is the return type of the check() method of a Rule object
-export type RuleCheckReturnType = {
-    rule: string,
-    message: string,
-    start: number,
-    end: number,
-    severity?: number
-} | null | undefined;
+export type RuleCheckReturnType =
+    | {
+          rule: string;
+          message: string;
+          start: number;
+          end: number;
+          severity?: number;
+      }
+    | null
+    | undefined;
 
 // This is the return type of the lint detection function passed as the 4th
 // argument to the Rule() constructor. It can return null or a string or an
@@ -340,9 +343,9 @@ ${e.stack}`,
         patternMatch: PatternMatchType,
         context: LintRuleContextObject,
     ): {
-        end: number,
-        message: string,
-        start: number
+        end: number;
+        message: string;
+        start: number;
     } {
         return {
             message: this.message || "",
@@ -366,7 +369,9 @@ ${e.stack}`,
     //   input "foo"     ==> output /foo/
     //   input "/foo/i"  ==> output /foo/i
     //
-    static makePattern(pattern?: RegExp | string | null): RegExp | null | undefined {
+    static makePattern(
+        pattern?: RegExp | string | null,
+    ): RegExp | null | undefined {
         if (!pattern) {
             return null;
         }
@@ -377,7 +382,8 @@ ${e.stack}`,
             const lastSlash = pattern.lastIndexOf("/");
             const expression = pattern.substring(1, lastSlash);
             const flags = pattern.substring(lastSlash + 1);
-            return new RegExp(expression, (flags as RegExp.flags));
+            // @ts-expect-error [FEI-5003] - TS2713 - Cannot access 'RegExp.flags' because 'RegExp' is a type, but not a namespace. Did you mean to retrieve the type of the property 'flags' in 'RegExp' with 'RegExp["flags"]'?
+            return new RegExp(expression, flags as RegExp.flags);
         }
         return new RegExp(pattern);
     }
@@ -386,7 +392,11 @@ ${e.stack}`,
     // properties added, in order to simulate the return value of the
     // String.match() method. We use it when a Rule has no pattern and we
     // want to simulate a match on the entire content string.
-    static FakePatternMatch(input: string, match: string | null | undefined, index: number): PatternMatchType {
+    static FakePatternMatch(
+        input: string,
+        match: string | null | undefined,
+        index: number,
+    ): PatternMatchType {
         const result: any = [match];
         result.index = index;
         result.input = input;
@@ -394,10 +404,10 @@ ${e.stack}`,
     }
 
     static Severity: {
-        BULK_WARNING: number,
-        ERROR: number,
-        GUIDELINE: number,
-        WARNING: number
+        BULK_WARNING: number;
+        ERROR: number;
+        GUIDELINE: number;
+        WARNING: number;
     } = {
         ERROR: 1,
         WARNING: 2,

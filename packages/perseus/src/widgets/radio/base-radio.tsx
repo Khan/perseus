@@ -6,68 +6,68 @@ import {useRef, useEffect} from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {ClassNames as ApiClassNames} from '../../perseus-api';
-import * as styleConstants from '../../styles/constants';
-import mediaQueries from '../../styles/media-queries';
-import sharedStyles from '../../styles/shared';
-import Util from '../../util';
-import {scrollElementIntoView} from '../../util/scroll-utils';
+import {ClassNames as ApiClassNames} from "../../perseus-api";
+import * as styleConstants from "../../styles/constants";
+import mediaQueries from "../../styles/media-queries";
+import sharedStyles from "../../styles/shared";
+import Util from "../../util";
+import {scrollElementIntoView} from "../../util/scroll-utils";
 
-import ChoiceNoneAbove from './choice-none-above';
-import Choice from './choice';
+import ChoiceNoneAbove from "./choice-none-above";
+import Choice from "./choice";
 
 import type {PerseusRadioWidgetOptions} from "../../perseus-types";
-import type {APIOptions} from '../../types';
+import type {APIOptions} from "../../types";
 import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
 // exported for tests
 export type ChoiceType = {
-    checked: boolean,
-    crossedOut: boolean,
-    content: React.ReactNode,
-    rationale: React.ReactNode,
-    hasRationale: boolean,
-    showRationale: boolean,
-    showCorrectness: boolean,
-    correct: boolean,
-    isNoneOfTheAbove: boolean,
-    highlighted: boolean,
-    previouslyAnswered: boolean,
-    revealNoneOfTheAbove: boolean,
-    disabled: boolean
+    checked: boolean;
+    crossedOut: boolean;
+    content: React.ReactNode;
+    rationale: React.ReactNode;
+    hasRationale: boolean;
+    showRationale: boolean;
+    showCorrectness: boolean;
+    correct: boolean;
+    isNoneOfTheAbove: boolean;
+    highlighted: boolean;
+    previouslyAnswered: boolean;
+    revealNoneOfTheAbove: boolean;
+    disabled: boolean;
 };
 
-export type FocusFunction = (choiceIndex?: number | null | undefined) => boolean;
+export type FocusFunction = (
+    choiceIndex?: number | null | undefined,
+) => boolean;
 
 type Props = {
-    apiOptions: APIOptions,
-    choices: ReadonlyArray<ChoiceType>,
-    deselectEnabled?: boolean,
-    editMode: boolean,
-    labelWrap: boolean,
-    countChoices: boolean | null | undefined,
-    numCorrect: number,
-    multipleSelect: boolean,
+    apiOptions: APIOptions;
+    choices: ReadonlyArray<ChoiceType>;
+    deselectEnabled?: boolean;
+    editMode: boolean;
+    labelWrap: boolean;
+    countChoices: boolean | null | undefined;
+    numCorrect: number;
+    multipleSelect: boolean;
     // the logic checks whether this exists,
     // so it must be optional
-    reviewModeRubric?: PerseusRadioWidgetOptions,
+    reviewModeRubric?: PerseusRadioWidgetOptions;
     // A callback indicating that this choice has changed. Its argument is
     // an object with two keys: `checked` and `crossedOut`. Each contains
     // an array of boolean values, specifying the new checked and
     // crossed-out value of each choice.
-    onChange: (
-        newValues: {
-            checked: ReadonlyArray<boolean>,
-            crossedOut: ReadonlyArray<boolean>
-        },
-    ) => void,
-    registerFocusFunction?: (arg1: FocusFunction) => void,
+    onChange: (newValues: {
+        checked: ReadonlyArray<boolean>;
+        crossedOut: ReadonlyArray<boolean>;
+    }) => void;
+    registerFocusFunction?: (arg1: FocusFunction) => void;
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
-    isLastUsedWidget?: boolean
+    isLastUsedWidget?: boolean;
 };
 
 function getInstructionsText(
@@ -86,7 +86,7 @@ function getInstructionsText(
     return i18n._("Choose 1 answer:");
 }
 
-const BaseRadio: React.FC<Props> = function(props): React.ReactElement {
+const BaseRadio: React.FC<Props> = function (props): React.ReactElement {
     const {
         apiOptions,
         reviewModeRubric,
@@ -130,14 +130,19 @@ const BaseRadio: React.FC<Props> = function(props): React.ReactElement {
                 // note(matthew): we know this is only getting passed
                 // to a WB Clickable button, so we force it to be of
                 // type HTMLButtonElement
-                const anyNode = (ReactDOM.findDOMNode(ref.current) as any);
-                const buttonNode = (anyNode as HTMLButtonElement | null | undefined);
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'current' does not exist on type 'never'.
+                const anyNode = ReactDOM.findDOMNode(ref.current) as any;
+                const buttonNode = anyNode as
+                    | HTMLButtonElement
+                    | null
+                    | undefined;
                 if (buttonNode) {
                     scrollElementIntoView(buttonNode);
                 }
             }
         }
 
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
         prevReviewModeRubric.current = reviewModeRubric;
     }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
 
@@ -158,8 +163,8 @@ const BaseRadio: React.FC<Props> = function(props): React.ReactElement {
     function updateChoice(
         choiceIndex: number,
         newValues: Readonly<{
-            checked: boolean,
-            crossedOut: boolean
+            checked: boolean;
+            crossedOut: boolean;
         }>,
     ): void {
         const {multipleSelect, choices, onChange} = props;
@@ -194,8 +199,9 @@ const BaseRadio: React.FC<Props> = function(props): React.ReactElement {
         // note(matthew): we know this is only getting passed
         // to a WB Clickable button, so we force it to be of
         // type HTMLButtonElement
-        const anyNode = (ReactDOM.findDOMNode(ref.current) as any);
-        const buttonNode = (anyNode as HTMLButtonElement | null | undefined);
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'current' does not exist on type 'never'.
+        const anyNode = ReactDOM.findDOMNode(ref.current) as any;
+        const buttonNode = anyNode as HTMLButtonElement | null | undefined;
 
         if (buttonNode) {
             buttonNode.focus();
@@ -243,13 +249,16 @@ const BaseRadio: React.FC<Props> = function(props): React.ReactElement {
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
         >
             <legend className="perseus-sr-only">{instructions}</legend>
+            {/* @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
             <div className={instructionsClassName} aria-hidden="true">
                 {instructions}
             </div>
+            {/* @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
             <ul className={className} style={{listStyle: "none"}}>
                 {choices.map((choice, i) => {
                     let Element = Choice;
                     const ref = React.createRef();
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
                     choiceRefs.current[i] = ref;
                     const elementProps = {
                         apiOptions: apiOptions,
@@ -340,6 +349,7 @@ const BaseRadio: React.FC<Props> = function(props): React.ReactElement {
                     let listElem = null;
                     let clickHandler = null;
                     if (editMode) {
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: any) => void' is not assignable to type 'null'.
                         clickHandler = (e: any) => {
                             // Traverse the parent nodes of the clicked
                             // element.
@@ -368,9 +378,13 @@ const BaseRadio: React.FC<Props> = function(props): React.ReactElement {
                     return (
                         <li
                             key={i}
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLLIElement | null' is not assignable to type 'null'.
                             ref={(e) => (listElem = e)}
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'string'.
                             className={className}
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'MouseEventHandler<HTMLLIElement> | undefined'.
                             onClick={clickHandler}
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type '((e: TouchEvent) => void) | null' is not assignable to type 'TouchEventHandler<HTMLLIElement> | undefined'.
                             onTouchStart={
                                 !labelWrap ? null : captureScratchpadTouchStart
                             }
@@ -448,6 +462,7 @@ const styles: StyleDeclaration = StyleSheet.create({
         marginLeft: 0,
         padding: 0,
 
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ marginLeft: number; padding: number; ":not(:last-child)": { borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             borderBottom: `1px solid ${styleConstants.radioBorderColor}`,
         },
@@ -469,12 +484,14 @@ const styles: StyleDeclaration = StyleSheet.create({
         boxShadow:
             "0 0 4px 0 rgba(0, 0, 0, 0.2)," + "0 0 2px 0 rgba(0, 0, 0, 0.1)",
 
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ boxShadow: string; ":not(:last-child)": { borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             borderBottom: `1px solid rgba(0, 0, 0, 0)`,
         },
     },
 
     nextHighlighted: {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ ":not(:last-child)": { borderBottom: string; }; }' is not assignable to type 'CSSProperties'.
         ":not(:last-child)": {
             borderBottom: `1px solid rgba(0, 0, 0, 0)`,
         },

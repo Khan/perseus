@@ -18,30 +18,35 @@
  * deal with all possible Javascript types.
  */
 export type ContentShape = {
- type: 'content'
+    type: "content";
 };
 export type HintShape = {
- type: 'hint'
+    type: "hint";
 };
 export type TagsShape = {
- type: 'tags'
+    type: "tags";
 };
 export type ArrayShape = {
- type: 'array',
- /**
-  * Each element of an ArrayNode has the same shape, which is specified by
-  * the `elementShape` property.
-  */
- elementShape: Shape
+    type: "array";
+    /**
+     * Each element of an ArrayNode has the same shape, which is specified by
+     * the `elementShape` property.
+     */
+    elementShape: Shape;
 };
 export type ObjectShape = {
- type: 'object',
- /**
-  * Each property of an ObjectNode has its own shape, which is specified
-  * under the corresponding key in the `shape` property.
-  */
- shape: {
-  [k: string]: Shape
- }
+    type: "object";
+    /**
+     * Each property of an ObjectNode has its own shape, which is specified
+     * under the corresponding key in the `shape` property.
+     */
+    shape: {
+        [k: string]: Shape;
+    };
 };
-export type Shape = ContentShape | HintShape | TagsShape | ArrayShape | ObjectShape;
+export type Shape =
+    | ContentShape
+    | HintShape
+    | TagsShape
+    | ArrayShape
+    | ObjectShape;

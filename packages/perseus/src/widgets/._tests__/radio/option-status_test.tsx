@@ -3,17 +3,22 @@ import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import OptionStatus from '../../radio/option-status';
+import OptionStatus from "../../radio/option-status";
 
-function renderOptionStatus(options: {
-  checked: any,
-  correct: boolean
-} | {
-  correct: any
-} | {
-  correct: boolean,
-  crossedOut: boolean
-}) {
+function renderOptionStatus(
+    options:
+        | {
+              checked: any;
+              correct: boolean;
+          }
+        | {
+              correct: any;
+          }
+        | {
+              correct: boolean;
+              crossedOut: boolean;
+          },
+) {
     const defaultOptions = {
         correct: false,
         checked: false,

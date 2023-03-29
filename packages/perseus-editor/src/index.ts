@@ -16,8 +16,8 @@ import "./styles/perseus-editor.less";
 
 // eslint-disable-next-line import/order
 import {Widgets} from "@khanacademy/perseus";
-import AllEditors from './all-editors';
-import AllWidgets from './all-widgets';
+import AllEditors from "./all-editors";
+import AllWidgets from "./all-widgets";
 
 Widgets.registerEditors(AllEditors);
 Widgets.registerWidgets(AllWidgets);

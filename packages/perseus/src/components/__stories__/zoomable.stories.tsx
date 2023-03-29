@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import Zoomable from '../zoomable';
+import Zoomable from "../zoomable";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -13,18 +13,23 @@ export default {
 } as Story;
 
 type Bounds = {
-    width: number,
-    height: number
+    width: number;
+    height: number;
 };
 
-const computeChildBounds = (parentNode: HTMLElement, parentBounds?: Bounds): Bounds => {
+const computeChildBounds = (
+    parentNode: HTMLElement,
+    parentBounds?: Bounds,
+): Bounds => {
     return {
         width: 1000,
         height: 500,
     };
 };
 
-export const ZoomableExample: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ZoomableExample: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <Zoomable computeChildBounds={computeChildBounds}>
             <span>

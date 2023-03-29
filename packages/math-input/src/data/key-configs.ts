@@ -3,15 +3,15 @@
  */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
-import {DecimalSeparators, IconTypes, KeyTypes} from '../consts';
-import {decimalSeparator} from '../utils';
+import {DecimalSeparators, IconTypes, KeyTypes} from "../consts";
+import {decimalSeparator} from "../utils";
 
-import Keys from './keys';
+import Keys from "./keys";
 
 export type KeyConfig = {
-    id: string,
-    type: string,
-    ariaLabel: string
+    id: string;
+    type: string;
+    ariaLabel: string;
 };
 
 const KeyConfigs: any = {

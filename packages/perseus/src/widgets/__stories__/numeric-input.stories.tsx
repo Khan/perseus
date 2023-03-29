@@ -1,15 +1,16 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import {RendererWithDebugUI} from '../../../../../testing/renderer-with-debug-ui';
-import {question1} from '../__testdata__/numeric-input_testdata';
-import {NumericInput} from '../numeric-input';
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/numeric-input_testdata' or its corresponding type declarations.
+import {question1} from "../__testdata__/numeric-input_testdata";
+import {NumericInput} from "../numeric-input";
 
 type StoryArgs = {
-    coefficient: boolean,
-    currentValue: string,
-    rightAlign: boolean,
-    size: 'normal' | 'small'
+    coefficient: boolean;
+    currentValue: string;
+    rightAlign: boolean;
+    size: "normal" | "small";
 };
 
 function generateProps(overwrite) {
@@ -86,7 +87,9 @@ export const Sizes: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const TextAlignment: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TextAlignment: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const leftProps = generateProps({...args, rightAlign: false});
     const rightProps = generateProps({...args, rightAlign: true});
 

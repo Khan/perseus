@@ -6,12 +6,15 @@ import * as React from "react";
 
 const {InlineIcon} = components;
 
-type InlineIconProps = JSX.LibraryManagedAttributes<typeof InlineIcon, React.ComponentProps<typeof InlineIcon>>;
+type InlineIconProps = JSX.LibraryManagedAttributes<
+    typeof InlineIcon,
+    React.ComponentProps<typeof InlineIcon>
+>;
 
 type SectionControlButtonProps = {
-    icon: InlineIconProps,
-    onClick: () => unknown,
-    title: string
+    icon: InlineIconProps;
+    onClick: () => unknown;
+    title: string;
 };
 
 export default class SectionControlButton extends React.Component<SectionControlButtonProps> {

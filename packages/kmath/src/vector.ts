@@ -5,7 +5,7 @@
 
 import _ from "underscore";
 
-import * as knumber from './number';
+import * as knumber from "./number";
 
 type Vector = ReadonlyArray<number>;
 
@@ -57,14 +57,17 @@ export function dot(a: Vector, b: Vector): number {
  */
 export function add<V extends Vector>(...vecs: ReadonlyArray<V>): V {
     const zipped = _.zip(...vecs);
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return zipped.map(arraySum);
 }
 
 export function subtract<V extends Vector>(v1: V, v2: V): V {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return _.zip(v1, v2).map((dim) => dim[0] - dim[1]);
 }
 
 export function negate<V extends Vector>(v: V): V {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return v.map((x) => {
         return -x;
     });
@@ -72,6 +75,7 @@ export function negate<V extends Vector>(v: V): V {
 
 // Scale a vector
 export function scale<V extends Vector>(v1: V, scalar: number): V {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return v1.map((x) => {
         return x * scalar;
     });
@@ -87,7 +91,11 @@ export function equal(v1: Vector, v2: Vector, tolerance?: number): boolean {
     );
 }
 
-export function codirectional(v1: Vector, v2: Vector, tolerance?: number): boolean {
+export function codirectional(
+    v1: Vector,
+    v2: Vector,
+    tolerance?: number,
+): boolean {
     // The origin is trivially codirectional with all other vectors.
     // This gives nice semantics for codirectionality between points when
     // comparing their difference vectors.
@@ -114,7 +122,9 @@ export function collinear(v1: Vector, v2: Vector, tolerance?: number): boolean {
 // TODO(jeremy) These coordinate conversion functions really only handle 2D points (ie. [number, number])
 
 // Convert a cartesian coordinate into a radian polar coordinate
-export function polarRadFromCart(v: ReadonlyArray<number>): ReadonlyArray<number> {
+export function polarRadFromCart(
+    v: ReadonlyArray<number>,
+): ReadonlyArray<number> {
     const radius = length(v);
     let theta = Math.atan2(v[1], v[0]);
 
@@ -127,7 +137,9 @@ export function polarRadFromCart(v: ReadonlyArray<number>): ReadonlyArray<number
 }
 
 // Converts a cartesian coordinate into a degree polar coordinate
-export function polarDegFromCart(v: ReadonlyArray<number>): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
+export function polarDegFromCart(
+    v: ReadonlyArray<number>,
+): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
     const polar = polarRadFromCart(v);
     return [polar[0], (polar[1] * 180) / Math.PI];
 }
@@ -137,7 +149,10 @@ export function polarDegFromCart(v: ReadonlyArray<number>): ReadonlyArray<number
  * Examples:
  * cartFromPolarRad(5, Math.PI)
  */
-export function cartFromPolarRad(radius: number, theta: number = 0): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
+export function cartFromPolarRad(
+    radius: number,
+    theta: number = 0,
+): ReadonlyArray<number> /* TODO: convert to tuple/Point */ {
     return [radius * Math.cos(theta), radius * Math.sin(theta)];
 }
 
@@ -146,18 +161,27 @@ export function cartFromPolarRad(radius: number, theta: number = 0): ReadonlyArr
  * Examples:
  * cartFromPolarDeg(5, 30)
  */
-export function cartFromPolarDeg(radius: number, theta: number = 0): ReadonlyArray<number> {
+export function cartFromPolarDeg(
+    radius: number,
+    theta: number = 0,
+): ReadonlyArray<number> {
     return cartFromPolarRad(radius, (theta * Math.PI) / 180);
 }
 
 // Rotate vector
-export function rotateRad(v: ReadonlyArray<number>, theta: number): ReadonlyArray<number> {
+export function rotateRad(
+    v: ReadonlyArray<number>,
+    theta: number,
+): ReadonlyArray<number> {
     const polar = polarRadFromCart(v);
     const angle = polar[1] + theta;
     return cartFromPolarRad(polar[0], angle);
 }
 
-export function rotateDeg(v: ReadonlyArray<number>, theta: number): ReadonlyArray<number> {
+export function rotateDeg(
+    v: ReadonlyArray<number>,
+    theta: number,
+): ReadonlyArray<number> {
     const polar = polarDegFromCart(v);
     const angle = polar[1] + theta;
     return cartFromPolarDeg(polar[0], angle);
@@ -180,6 +204,7 @@ export function projection<V extends Vector>(v1: V, v2: V): V {
 
 // Round each number to a certain number of decimal places
 export function round<V extends Vector>(vec: V, precision: V | number): V {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-call]
@@ -189,6 +214,7 @@ export function round<V extends Vector>(vec: V, precision: V | number): V {
 
 // Round each number to the nearest increment
 export function roundTo<V extends Vector>(vec: V, increment: V | number): V {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-call]
@@ -197,6 +223,7 @@ export function roundTo<V extends Vector>(vec: V, increment: V | number): V {
 }
 
 export function floorTo<V extends Vector>(vec: V, increment: V | number): V {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-call]
@@ -205,6 +232,7 @@ export function floorTo<V extends Vector>(vec: V, increment: V | number): V {
 }
 
 export function ceilTo<V extends Vector>(vec: V, increment: V | number): V {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
         // $FlowFixMe[prop-missing]
         // $FlowFixMe[incompatible-call]

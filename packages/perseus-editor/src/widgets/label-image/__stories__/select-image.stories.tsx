@@ -1,12 +1,12 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import SelectImage from '../select-image';
+import SelectImage from "../select-image";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {

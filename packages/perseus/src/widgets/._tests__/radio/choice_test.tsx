@@ -4,7 +4,7 @@ import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import Choice from '../../radio/choice';
+import Choice from "../../radio/choice";
 
 function renderChoice(options) {
     const defaultOptions = {

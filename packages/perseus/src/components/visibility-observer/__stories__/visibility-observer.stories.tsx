@@ -1,13 +1,15 @@
 import * as React from "react";
 
-import VisibilityObserver from '../visibility-observer';
+// @ts-expect-error [FEI-5003] - TS2613 - Module '"/Users/kevinbarabash/khan/perseus/packages/perseus/src/components/visibility-observer/visibility-observer"' has no default export. Did you mean to use 'import { VisibilityObserver } from "/Users/kevinbarabash/khan/perseus/packages/perseus/src/components/visibility-observer/visibility-observer"' instead?
+import VisibilityObserver from "../visibility-observer";
 
-import type {ScrollVisibility} from '../visibility-observer';
+// @ts-expect-error [FEI-5003] - TS2305 - Module '"../visibility-observer"' has no exported member 'ScrollVisibility'.
+import type {ScrollVisibility} from "../visibility-observer";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -16,7 +18,7 @@ export default {
 
 type Props = Record<any, any>;
 type State = {
-    sectionVisibility: ScrollVisibility
+    sectionVisibility: ScrollVisibility;
 };
 
 class VisibilityTest extends React.Component<Props, State> {
@@ -50,6 +52,7 @@ class VisibilityTest extends React.Component<Props, State> {
                         width: 800,
                         overflow: "scroll",
                         backgroundColor: "white",
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ height: number; width: number; overflow: "scroll"; backgroundColor: "white"; scrollbars: string; }' is not assignable to type 'Properties<string | number, string & {}>'.
                         scrollbars: "visible",
                     }}
                 >
@@ -134,6 +137,8 @@ class VisibilityTest extends React.Component<Props, State> {
     }
 }
 
-export const AlertWhenNotVisible: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const AlertWhenNotVisible: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <VisibilityTest />;
 };

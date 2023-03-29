@@ -1,16 +1,16 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
-import HintsRenderer from '../hints-renderer';
+import HintsRenderer from "../hints-renderer";
 
 type StoryArgs = {
-    hints: ReadonlyArray<any>,
-    hintsVisible: number
+    hints: ReadonlyArray<any>;
+    hintsVisible: number;
 };
 
 type Story = {
-    title: string,
-    argTypes: any
+    title: string;
+    argTypes: any;
 };
 
 export default {

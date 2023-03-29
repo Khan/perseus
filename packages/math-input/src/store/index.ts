@@ -1,12 +1,12 @@
 import * as Redux from "redux";
 
-import {tabletCutoffPx} from '../components/common-style';
-import {computeLayoutParameters} from '../components/compute-layout-parameters';
-import ExpressionKeypad from '../components/expression-keypad';
-import FractionKeypad from '../components/fraction-keypad';
-import GestureManager from '../components/gesture-manager';
-import * as CursorContexts from '../components/input/cursor-contexts';
-import VelocityTracker from '../components/velocity-tracker';
+import {tabletCutoffPx} from "../components/common-style";
+import {computeLayoutParameters} from "../components/compute-layout-parameters";
+import ExpressionKeypad from "../components/expression-keypad";
+import FractionKeypad from "../components/fraction-keypad";
+import GestureManager from "../components/gesture-manager";
+import * as CursorContexts from "../components/input/cursor-contexts";
+import VelocityTracker from "../components/velocity-tracker";
 import {
     DeviceOrientations,
     DeviceTypes,
@@ -14,9 +14,9 @@ import {
     KeyTypes,
     KeypadTypes,
     LayoutModes,
-} from '../consts';
-import KeyConfigs from '../data/key-configs';
-import Keys from '../data/keys';
+} from "../consts";
+import KeyConfigs from "../data/key-configs";
+import Keys from "../data/keys";
 
 const keypadForType = {
     [KeypadTypes.FRACTION]: FractionKeypad,
@@ -25,8 +25,8 @@ const keypadForType = {
 
 export const createStore = (): any => {
     const initialInputState: {
-        keyHandler: any,
-        cursor: any
+        keyHandler: any;
+        cursor: any;
     } = {
         keyHandler: null,
         cursor: {
@@ -76,9 +76,12 @@ export const createStore = (): any => {
         active: false,
     } as const;
 
-    const keypadReducer = function (state = initialKeypadState, action: {
-      type: string
-    }) {
+    const keypadReducer = function (
+        state = initialKeypadState,
+        action: {
+            type: string;
+        },
+    ) {
         switch (action.type) {
             case "DismissKeypad":
                 return {
@@ -97,10 +100,12 @@ export const createStore = (): any => {
                     ...state,
                     // Default `extraKeys` to the empty array.
                     extraKeys: [],
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'configuration' does not exist on type '{ type: string; }'.
                     ...action.configuration,
                 };
 
             case "PressKey":
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'key' does not exist on type '{ type: string; }'.
                 const keyConfig = KeyConfigs[action.key];
                 // NOTE(charlie): Our keypad system operates by triggering key
                 // presses with key IDs in a dumb manner, such that the keys
@@ -135,11 +140,15 @@ export const createStore = (): any => {
         velocityTracker: new VelocityTracker(),
     } as const;
 
-    const pagerReducer = function (state = initialPagerState, action: {
-      type: string
-    }) {
+    const pagerReducer = function (
+        state = initialPagerState,
+        action: {
+            type: string;
+        },
+    ) {
         switch (action.type) {
             case "ConfigureKeypad":
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'configuration' does not exist on type '{ type: string; }'.
                 const {keypadType} = action.configuration;
                 const {numPages} = keypadForType[keypadType];
                 return {
@@ -153,10 +162,12 @@ export const createStore = (): any => {
             case "SetPageSize":
                 return {
                     ...state,
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'pageWidthPx' does not exist on type '{ type: string; }'.
                     pageWidthPx: action.pageWidthPx,
                 };
 
             case "PressKey":
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'key' does not exist on type '{ type: string; }'.
                 const keyConfig = KeyConfigs[action.key];
 
                 // Reset the keypad page if the user performs a math operation.
@@ -199,16 +210,19 @@ export const createStore = (): any => {
                 };
 
             case "OnSwipeChange":
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'dx' does not exist on type '{ type: string; }'.
                 state.velocityTracker.push(action.dx);
 
                 return {
                     ...state,
                     animateToPosition: false,
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'dx' does not exist on type '{ type: string; }'.
                     dx: action.dx,
                 };
 
             case "OnSwipeEnd":
                 const {pageWidthPx, velocityTracker} = state;
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'dx' does not exist on type '{ type: string; }'.
                 const {dx} = action;
                 const velocity = velocityTracker.getVelocity();
 
@@ -367,6 +381,7 @@ export const createStore = (): any => {
 
             case "RemoveEcho":
                 const remainingEchoes = state.echoes.filter((echo) => {
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'animationId' does not exist on type 'never'.
                     return echo.animationId !== action.animationId;
                 });
                 return {
@@ -403,13 +418,18 @@ export const createStore = (): any => {
      * Compute the additional layout state based on the provided page and grid
      * dimensions.
      */
-    const layoutParametersForDimensions = (pageDimensions: {
-      pageHeightPx: never,
-      pageWidthPx: never
-    } | {
-      pageHeightPx: number,
-      pageWidthPx: number
-    }, gridDimensions) => {
+    const layoutParametersForDimensions = (
+        pageDimensions:
+            | {
+                  pageHeightPx: never;
+                  pageWidthPx: never;
+              }
+            | {
+                  pageHeightPx: number;
+                  pageWidthPx: number;
+              },
+        gridDimensions,
+    ) => {
         const {pageWidthPx, pageHeightPx} = pageDimensions;
 
         // Determine the device type and orientation.

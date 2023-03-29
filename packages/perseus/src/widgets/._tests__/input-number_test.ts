@@ -6,15 +6,15 @@ import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import _ from "underscore";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {errors} from '../../util/answer-types';
-import {question3 as question} from '../__testdata__/input-number_testdata';
-import InputNumber from '../input-number';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {errors} from "../../util/answer-types";
+import {question3 as question} from "../__testdata__/input-number_testdata";
+import InputNumber from "../input-number";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {PerseusInputNumberWidgetOptions} from '../../perseus-types';
+import type {PerseusInputNumberWidgetOptions} from "../../perseus-types";
 
 const {transform} = InputNumber;
 

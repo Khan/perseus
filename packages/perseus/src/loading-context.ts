@@ -9,7 +9,7 @@
 import * as React from "react";
 
 type Context = {
- onRendered: (isRendered: boolean) => void
+    onRendered: (isRendered: boolean) => void;
 };
 
 const defaultContext: Context = {

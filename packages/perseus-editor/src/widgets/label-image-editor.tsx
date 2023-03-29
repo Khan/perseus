@@ -10,45 +10,45 @@ import {EditorJsonify, Util} from "@khanacademy/perseus";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import FormWrappedTextField from '../components/form-wrapped-text-field';
+import FormWrappedTextField from "../components/form-wrapped-text-field";
 
-import AnswerChoices from './label-image/answer-choices';
-import Behavior from './label-image/behavior';
-import QuestionMarkers from './label-image/question-markers';
-import SelectImage from './label-image/select-image';
+import AnswerChoices from "./label-image/answer-choices";
+import Behavior from "./label-image/behavior";
+import QuestionMarkers from "./label-image/question-markers";
+import SelectImage from "./label-image/select-image";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
 type LabelImageEditorProps = {
     // List of answer choices to label question image with.
-    choices: ReadonlyArray<string>,
+    choices: ReadonlyArray<string>;
     // The question image properties.
-    imageAlt: string,
-    imageUrl: string,
-    imageWidth: number,
-    imageHeight: number,
+    imageAlt: string;
+    imageUrl: string;
+    imageWidth: number;
+    imageHeight: number;
     // The list of label markers on the question image.
-    markers: ReadonlyArray<MarkerType>,
+    markers: ReadonlyArray<MarkerType>;
     // Whether multiple answer choices may be selected for markers.
-    multipleAnswers: boolean,
+    multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
-    hideChoicesFromInstructions: boolean,
+    hideChoicesFromInstructions: boolean;
     // Callback for when a widget prop is changed.
-    onChange: (options: any) => void
+    onChange: (options: any) => void;
 };
 
 class LabelImageEditor extends React.Component<LabelImageEditorProps> {
     _questionMarkers: QuestionMarkers | null | undefined;
 
     static defaultProps: {
-        choices: ReadonlyArray<any>,
-        hideChoicesFromInstructions: boolean,
-        imageAlt: string,
-        imageHeight: number,
-        imageUrl: string,
-        imageWidth: number,
-        markers: ReadonlyArray<any>,
-        multipleAnswers: boolean
+        choices: ReadonlyArray<any>;
+        hideChoicesFromInstructions: boolean;
+        imageAlt: string;
+        imageHeight: number;
+        imageUrl: string;
+        imageWidth: number;
+        markers: ReadonlyArray<any>;
+        multipleAnswers: boolean;
     } = {
         choices: [],
         imageAlt: "",
@@ -178,7 +178,7 @@ class LabelImageEditor extends React.Component<LabelImageEditorProps> {
         this.props.onChange(options);
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const {
             choices,
             imageAlt,

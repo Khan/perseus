@@ -34,9 +34,9 @@ export type DOMRange = Range;
  *     changed sufficiently radically.
  */
 export type SerializedRange = {
- type: 'word-indexes',
- firstWordIndex: number,
- lastWordIndex: number
+    type: "word-indexes";
+    firstWordIndex: number;
+    lastWordIndex: number;
 };
 
 /**
@@ -47,15 +47,15 @@ export type SerializedRange = {
  * being persisted.
  */
 export type DOMHighlight = {
- // A range that specifies this highlight's target content, both in terms of
- // the first and last word, and in terms of the DOM for caching purposes.
- firstWordIndex: number,
- lastWordIndex: number,
- // TODO(mdr): Things like color will go here, too :)
- domRange: DOMRange
+    // A range that specifies this highlight's target content, both in terms of
+    // the first and last word, and in terms of the DOM for caching purposes.
+    firstWordIndex: number;
+    lastWordIndex: number;
+    // TODO(mdr): Things like color will go here, too :)
+    domRange: DOMRange;
 };
 export type DOMHighlightSet = {
- [key: string]: DOMHighlight
+    [key: string]: DOMHighlight;
 };
 
 /**
@@ -63,11 +63,11 @@ export type DOMHighlightSet = {
  * restored in subsequent browser sessions.
  */
 export type SerializedHighlight = {
- // A range that specifies this highlight's target content, in a
- // DOM-independent format.
- // TODO(mdr): Things like color will go here, too :)
- range: SerializedRange
+    // A range that specifies this highlight's target content, in a
+    // DOM-independent format.
+    // TODO(mdr): Things like color will go here, too :)
+    range: SerializedRange;
 };
 export type SerializedHighlightSet = {
- [key: string]: SerializedHighlight
+    [key: string]: SerializedHighlight;
 };

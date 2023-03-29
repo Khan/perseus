@@ -3,13 +3,20 @@
  * This editor is for embedding Khan Academy CS programs.
  */
 
-import {components, Changeable, Dependencies, EditorJsonify, Errors, Log} from "@khanacademy/perseus";
+import {
+    components,
+    Changeable,
+    Dependencies,
+    EditorJsonify,
+    Errors,
+    Log,
+} from "@khanacademy/perseus";
 import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import BlurInput from '../components/blur-input';
+import BlurInput from "../components/blur-input";
 
 const {InfoTip, PropCheckBox} = components;
 
@@ -151,6 +158,7 @@ class CSProgramEditor extends React.Component<any> {
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -182,6 +190,7 @@ class CSProgramEditor extends React.Component<any> {
                     "Error retrieving scratchpad info for program ID ",
                     Errors.TransientService,
                     {
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'Error | null | undefined'.
                         cause: error,
                         loggedMetadata: {
                             textStatus,

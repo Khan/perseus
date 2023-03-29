@@ -1,10 +1,10 @@
-import type {PerseusRenderer, NumericInputWidget} from '../../perseus-types';
+import type {PerseusRenderer, NumericInputWidget} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        "numeric-input 1": ({
+        "numeric-input 1": {
             graded: true,
             version: {
                 major: 0,
@@ -29,7 +29,7 @@ export const question1: PerseusRenderer = {
                 size: "normal",
             },
             alignment: "default",
-        } as NumericInputWidget),
+        } as NumericInputWidget,
     },
 };
 
@@ -37,7 +37,7 @@ export const question2: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        "numeric-input 1": ({
+        "numeric-input 1": {
             graded: true,
             version: {
                 major: 0,
@@ -62,7 +62,7 @@ export const question2: PerseusRenderer = {
                 size: "normal",
             },
             alignment: "default",
-        } as NumericInputWidget),
+        } as NumericInputWidget,
     },
 };
 
@@ -70,7 +70,7 @@ export const percentageProblem: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        "numeric-input 1": ({
+        "numeric-input 1": {
             graded: true,
             version: {
                 major: 0,
@@ -96,7 +96,7 @@ export const percentageProblem: PerseusRenderer = {
                 size: "normal",
             },
             alignment: "default",
-        } as NumericInputWidget),
+        } as NumericInputWidget,
     },
 };
 
@@ -104,7 +104,7 @@ export const multipleAnswers: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        "numeric-input 1": ({
+        "numeric-input 1": {
             graded: true,
             version: {
                 major: 0,
@@ -137,7 +137,7 @@ export const multipleAnswers: PerseusRenderer = {
                 size: "normal",
             },
             alignment: "default",
-        } as NumericInputWidget),
+        } as NumericInputWidget,
     },
 };
 
@@ -145,7 +145,7 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        "numeric-input 1": ({
+        "numeric-input 1": {
             graded: true,
             version: {
                 major: 0,
@@ -178,7 +178,7 @@ export const multipleAnswersWithDecimals: PerseusRenderer = {
                 size: "normal",
             },
             alignment: "default",
-        } as NumericInputWidget),
+        } as NumericInputWidget,
     },
 };
 
@@ -186,7 +186,7 @@ export const duplicatedAnswers: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        "numeric-input 1": ({
+        "numeric-input 1": {
             graded: true,
             version: {
                 major: 0,
@@ -221,7 +221,7 @@ export const duplicatedAnswers: PerseusRenderer = {
                 size: "normal",
             },
             alignment: "default",
-        } as NumericInputWidget),
+        } as NumericInputWidget,
     },
 };
 
@@ -229,7 +229,7 @@ export const withCoefficient: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        "numeric-input 1": ({
+        "numeric-input 1": {
             graded: true,
             version: {
                 major: 0,
@@ -254,7 +254,7 @@ export const withCoefficient: PerseusRenderer = {
                 size: "normal",
             },
             alignment: "default",
-        } as NumericInputWidget),
+        } as NumericInputWidget,
     },
 };
 

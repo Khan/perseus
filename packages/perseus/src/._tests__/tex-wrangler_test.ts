@@ -1,4 +1,4 @@
-import TexWrangler from '../tex-wrangler';
+import TexWrangler from "../tex-wrangler";
 
 const {parseTex, modifyTex} = TexWrangler;
 

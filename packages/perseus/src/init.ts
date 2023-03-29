@@ -1,11 +1,11 @@
-import basicWidgets from './basic-widgets';
-import extraWidgets from './extra-widgets';
-import * as Widgets from './widgets';
+import basicWidgets from "./basic-widgets";
+import extraWidgets from "./extra-widgets";
+import * as Widgets from "./widgets";
 
 declare var MathJax: any;
 
 export type PerseusOptions = {
-    skipMathJax: boolean
+    skipMathJax: boolean;
 };
 
 /**
@@ -17,7 +17,7 @@ export type PerseusOptions = {
  *   If false/undefined, MathJax will be configured, and the
  *   promise will wait for MathJax to load (if it hasn't already).
  */
-const init = function(options: PerseusOptions): Promise<undefined> {
+const init = function (options: PerseusOptions): Promise<undefined> {
     Widgets.registerWidgets(basicWidgets);
     Widgets.registerWidgets(extraWidgets);
 
@@ -25,24 +25,30 @@ const init = function(options: PerseusOptions): Promise<undefined> {
     const skipMathJax = options.skipMathJax;
 
     if (skipMathJax) {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Promise<void>' is not assignable to type 'Promise<undefined>'.
         return Promise.resolve();
     }
 
-    return new Promise((resolve: (result: Promise<never>) => void, reject: (error?: any) => void) => {
-        MathJax.Hub.Config({
-            messageStyle: "none",
-            skipStartupTypeset: "none",
-            "HTML-CSS": {
-                availableFonts: ["TeX"],
-                imageFont: null,
-                scale: 100,
-                showMathMenu: false,
-            },
-        });
+    return new Promise(
+        (
+            resolve: (result: Promise<never>) => void,
+            reject: (error?: any) => void,
+        ) => {
+            MathJax.Hub.Config({
+                messageStyle: "none",
+                skipStartupTypeset: "none",
+                "HTML-CSS": {
+                    availableFonts: ["TeX"],
+                    imageFont: null,
+                    scale: 100,
+                    showMathMenu: false,
+                },
+            });
 
-        MathJax.Hub.Configured();
-        MathJax.Hub.Queue(resolve);
-    });
+            MathJax.Hub.Configured();
+            MathJax.Hub.Queue(resolve);
+        },
+    );
 };
 
 export default init;

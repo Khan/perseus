@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import {render} from "@testing-library/react";
 import React from "react";
 
-import Unit, {countSigfigs, sigfigPrint} from '../unit';
+import Unit, {countSigfigs, sigfigPrint} from "../unit";
 
 const {widget} = Unit;
 const UnitWidget = widget;

@@ -17,23 +17,23 @@ import {
     getClientRectsForTextInRange,
     getRelativePosition,
     getRelativeRect,
-} from './util';
+} from "./util";
 
-import type {DOMHighlight, Position, Rect, ZIndexes} from './types';
+import type {DOMHighlight, Position, Rect, ZIndexes} from "./types";
 
 type HighlightRendererProps = {
     // The DOMHighlight to render.
-    highlight: DOMHighlight,
+    highlight: DOMHighlight;
     // A unique key corresponding to the given `highlight`.
-    highlightKey: string,
+    highlightKey: string;
     // This component's `offsetParent` element, which is the nearest ancestor
     // with `position: relative`. This will enable us to choose the correct
     // CSS coordinates to align highlights and tooltips with the target
     // content.
-    offsetParent: Element,
+    offsetParent: Element;
     // The z-indexes to use when rendering tooltips above content, and
     // highlights below content.
-    zIndexes: ZIndexes
+    zIndexes: ZIndexes;
 };
 
 type HighlightRendererState = {
@@ -47,12 +47,16 @@ type HighlightRendererState = {
     // them on every mousemove seems like it could be expensive on older
     // devices (though tbf that's just a gut instinct, not the result of
     // testing on older devices).
-    cachedHighlightRects: ReadonlyArray<Rect>
+    cachedHighlightRects: ReadonlyArray<Rect>;
 };
 
-class HighlightRenderer extends React.PureComponent<HighlightRendererProps, HighlightRendererState> {
+class HighlightRenderer extends React.PureComponent<
+    HighlightRendererProps,
+    HighlightRendererState
+> {
     state: HighlightRendererState = {
         cachedHighlightRects: this._computeRects(this.props),
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ cachedHighlightRects: readonly Rect[]; tooltipIsHovered: boolean; }' is not assignable to type 'HighlightRendererState'.
         tooltipIsHovered: false,
     };
 
@@ -131,7 +135,7 @@ class HighlightRenderer extends React.PureComponent<HighlightRendererProps, High
         );
     }
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const rects = this.state.cachedHighlightRects;
 
         return (

@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import InlineIcon from '../inline-icon';
+import InlineIcon from "../inline-icon";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 const defaultPath = {
@@ -18,11 +18,15 @@ export default {
     title: "Perseus/Components/Inline Icon",
 } as Story;
 
-export const BasicIconPathAndSizing: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const BasicIconPathAndSizing: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <InlineIcon {...defaultPath} />;
 };
 
-export const BasicIconWithAdditionalStyling: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const BasicIconWithAdditionalStyling: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <InlineIcon
             {...defaultPath}
@@ -33,6 +37,8 @@ export const BasicIconWithAdditionalStyling: React.FC<StoryArgs> = (args): React
     );
 };
 
-export const BasicIconWithAriaTitle: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const BasicIconWithAriaTitle: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <InlineIcon {...defaultPath} title="Sample ARIA title" />;
 };

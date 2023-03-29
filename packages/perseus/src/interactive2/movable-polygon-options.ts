@@ -6,7 +6,7 @@
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
-import type {Coord} from './types';
+import type {Coord} from "./types";
 
 function sum(array: any) {
     return _.reduce(
@@ -38,6 +38,7 @@ const add = {
     },
 } as const;
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'standard' does not exist on type '{ readonly constrain: () => void; readonly pointsToFront: (state: any) => void; }'.
 add.standard = [add.constrain, add.pointsToFront];
 
 const modify = {
@@ -46,25 +47,35 @@ const modify = {
     },
 } as const;
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'standard' does not exist on type '{ readonly draw: () => void; }'.
 modify.standard = [modify.draw];
 
 const draw = {
     basic: function (state: any, prevState: any) {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graphie' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         const graphie = this.graphie;
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'path' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         const path = this.path(state);
 
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         if (!this.state.visibleShape) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             this.state.visibleShape = graphie.raphael.path(path);
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. | TS2339 - Property 'normalStyle' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             this.state.visibleShape.attr(this.normalStyle());
         }
         if (
             state.normalStyle !== prevState.normalStyle &&
             !_.isEqual(state.normalStyle, prevState.normalStyle)
         ) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. | TS2339 - Property 'normalStyle' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             this.state.visibleShape.attr(this.normalStyle());
         }
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         this.state.visibleShape.attr({path: path});
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'mouseTarget' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         if (this.mouseTarget()) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'mouseTarget' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             this.mouseTarget().attr({path: path});
         }
     },
@@ -73,6 +84,7 @@ const draw = {
      * extra movables, e.g., for the arcs drawn at labeled angles. These extra
      * movables are stored in the label cache. */
     labels: function (state: any, prevState: any) {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graphie' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         const graphie = this.graphie;
         const self = this;
 
@@ -86,15 +98,20 @@ const draw = {
         // get stored on state._labelCache. These will all be cleared out when
         // we remove the polygon.
         // (This logic is borrowed from graphie:addMovablePolygon.)
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         if (self.state._labelCache != null) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             _.invoke(self.state._labelCache, "remove");
         }
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         self.state._labelCache = [];
 
         // Update angle labels
         if (state.angleLabels.length || state.showRightAngleMarkers.length) {
             // Generate labels
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             if (self.state._labeledAngles == null) {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
                 self.state._labeledAngles = _.times(
                     Math.max(
                         state.angleLabels.length,
@@ -111,7 +128,9 @@ const draw = {
                 );
             }
 
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             _.each(self.state._labeledAngles, function (label, i) {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
                 self.state._labelCache.push(
                     graphie.labelAngle({
                         point1: coords[(i - 1 + n) % n],
@@ -131,7 +150,9 @@ const draw = {
         // Update side labels
         if (state.sideLabels.length) {
             // Generate labels
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             if (self.state._labeledSides == null) {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
                 self.state._labeledSides = _.map(
                     state.sideLabels,
                     function (label) {
@@ -145,7 +166,9 @@ const draw = {
                 );
             }
 
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             _.each(self.state._labeledSides, function (label, i) {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
                 self.state._labelCache.push(
                     graphie.labelSide({
                         point1: coords[i],
@@ -164,7 +187,9 @@ const draw = {
         // Update vertex labels
         if (state.vertexLabels.length) {
             // Generate labels
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             if (self.state._labeledVertices == null) {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
                 self.state._labeledVertices = _.map(
                     state.vertexLabels,
                     function (label) {
@@ -178,7 +203,9 @@ const draw = {
                 );
             }
 
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             _.each(self.state._labeledVertices, function (label, i) {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
                 self.state._labelCache.push(
                     graphie.labelVertex({
                         point1: coords[(i - 1 + n) % n],
@@ -194,31 +221,41 @@ const draw = {
         }
 
         // graphie.labelVertex and its peer methods return an array of movables
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. | TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
         self.state._labelCache = _.flatten(self.state._labelCache);
     },
 
     highlight: function (state: any, prevState: any) {
         if (state.isHovering && !prevState.isHovering) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'highlightStyle' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             state.visibleShape.animate(this.highlightStyle(), 50);
         } else if (!state.isHovering && prevState.isHovering) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'normalStyle' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             state.visibleShape.animate(this.normalStyle(), 50);
         }
     },
 } as const;
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'standard' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
 draw.standard = [draw.basic, draw.labels, draw.highlight];
 
 const remove = {
     basic: function () {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: () => void; readonly labels: () => void; }'.
         if (this.state.visibleShape) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: () => void; readonly labels: () => void; }'.
             this.state.visibleShape.remove();
         }
     },
     labels: function () {
         const labels = [
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: () => void; readonly labels: () => void; }'.
             this.state._labeledSides,
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: () => void; readonly labels: () => void; }'.
             this.state._labeledVertices,
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: () => void; readonly labels: () => void; }'.
             this.state._labeledAngles,
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly basic: () => void; readonly labels: () => void; }'.
             this.state._labelCache,
         ];
 
@@ -230,27 +267,33 @@ const remove = {
     },
 } as const;
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'standard' does not exist on type '{ readonly basic: () => void; readonly labels: () => void; }'.
 remove.standard = [remove.basic, remove.labels];
 
 const constraints = {
-    fixed: function(): () => boolean {
+    fixed: function (): () => boolean {
         return function () {
             return false;
         };
     },
 
-    snap: function(snap: any): (arg1: Coord) => unknown {
-        return function(coord: Coord): unknown {
+    snap: function (snap: any): (arg1: Coord) => unknown {
+        return function (coord: Coord): unknown {
             if (snap === null) {
                 // NOTE(kevin): this should probably return the original point
                 return true;
             }
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             snap = snap || this.graphie.snap;
             return kpoint.roundTo(coord, snap);
         };
     },
 
-    bound: function(range: any, snap: any, paddingPx: number): (arg1: Coord, arg2: Coord) => Coord {
+    bound: function (
+        range: any,
+        snap: any,
+        paddingPx: number,
+    ): (arg1: Coord, arg2: Coord) => Coord {
         if (paddingPx === undefined) {
             if (range === undefined) {
                 paddingPx = 10;
@@ -258,7 +301,8 @@ const constraints = {
                 paddingPx = 0;
             }
         }
-        return function(coord: Coord, prevCoord: Coord): Coord {
+        return function (coord: Coord, prevCoord: Coord): Coord {
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const graphie = this.graphie;
             const delta = kvector.subtract(coord, prevCoord);
             range = range || graphie.range;
@@ -283,6 +327,7 @@ const constraints = {
             }
 
             // Calculate the bounds for the delta.
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const deltaBounds = _.map(this.coords(), function (coord, i) {
                 const max = kvector.subtract(absoluteUpper, coord);
                 const min = kvector.subtract(absoluteLower, coord);
@@ -308,22 +353,27 @@ const constraints = {
                 delta,
             );
 
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'Coord'.
             return kvector.add(prevCoord, boundedDelta);
         };
     },
 } as const;
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'standard' does not exist on type '{ readonly fixed: () => () => boolean; readonly snap: (snap: any) => (arg1: Coord) => unknown; readonly bound: (range: any, snap: any, paddingPx: number) => (arg1: Coord, arg2: Coord) => Coord; }'.
 constraints.standard = null;
 
 const onMove = {
-    updatePoints: function(coord: Coord, prevCoord: Coord): undefined {
+    // @ts-expect-error [FEI-5003] - TS2355 - A function whose declared type is neither 'void' nor 'any' must return a value.
+    updatePoints: function (coord: Coord, prevCoord: Coord): undefined {
         const actualDelta = kvector.subtract(coord, prevCoord);
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly updatePoints: (coord: Coord, prevCoord: Coord) => undefined; }'.
         _.each(this.state.points, function (point) {
             point.setCoord(kvector.add(point.coord(), actualDelta));
         });
     },
 } as const;
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'standard' does not exist on type '{ readonly updatePoints: (coord: Coord, prevCoord: Coord) => undefined; }'.
 onMove.standard = null;
 
 export default {

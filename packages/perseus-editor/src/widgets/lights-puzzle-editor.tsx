@@ -58,7 +58,10 @@ const clampToInt = function (value: number, min: number, max: number) {
 
 // Returns a copy of the tiles, with tiles flipped according to
 // whether or not their y, x position satisfies the predicate
-const flipTilesPredicate = (oldCells: any, predicate: (y?: any, x?: any) => boolean) => {
+const flipTilesPredicate = (
+    oldCells: any,
+    predicate: (y?: any, x?: any) => boolean,
+) => {
     return _.map(oldCells, (row, y) => {
         return _.map(row, (cell, x) => {
             return predicate(y, x) ? !cell : cell;
@@ -139,7 +142,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
         gradeIncompleteAsWrong: PropTypes.bool.isRequired,
     };
 
-    static widgetName: 'lights-puzzle' = "lights-puzzle";
+    static widgetName: "lights-puzzle" = "lights-puzzle";
 
     static defaultProps: LightsPuzzleEditorProps = {
         startCells: [
@@ -188,6 +191,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
                     Flip pattern:
                     <select
                         value={this.props.flipPattern}
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                         onChange={this._handlePatternChange}
                     >
                         {_.map(_.keys(PATTERNS), (pattern, i) => {
@@ -223,9 +227,11 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
         );
     }
 
-    _handlePatternChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-        this.change("flipPattern", e.target.value);
-    };
+    _handlePatternChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void =
+        (e) => {
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+            this.change("flipPattern", e.target.value);
+        };
 
     _changeWidth: (arg1: number) => void = (newWidth) => {
         newWidth = clampToInt(newWidth, 1, MAX_SIZE);
@@ -237,7 +243,10 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
         this._truncateCells(this._width(), newHeight);
     };
 
-    _truncateCells: (arg1: number, arg2: number) => void = (newWidth, newHeight) => {
+    _truncateCells: (arg1: number, arg2: number) => void = (
+        newWidth,
+        newHeight,
+    ) => {
         const newCells = _.times(newHeight, (y) => {
             return _.times(newWidth, (x) => {
                 // explicitly cast the result to a boolean with !!
@@ -247,6 +256,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
             });
         });
 
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({startCells: newCells});
     };
 
@@ -255,6 +265,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
             return y === tileY && x === tileX;
         });
 
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({startCells: newCells});
     };
 

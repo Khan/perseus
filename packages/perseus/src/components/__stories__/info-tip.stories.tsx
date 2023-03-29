@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import InfoTip from '../info-tip';
+import InfoTip from "../info-tip";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -14,7 +14,9 @@ export default {
 
 const svgUrl = "http://www.khanacademy.org/images/ohnoes-concerned.svg";
 
-export const TextOnMouseover: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TextOnMouseover: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <InfoTip>
             <span>Sample text</span>
@@ -22,7 +24,9 @@ export const TextOnMouseover: React.FC<StoryArgs> = (args): React.ReactElement =
     );
 };
 
-export const ImageOnMouseover: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ImageOnMouseover: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <InfoTip>
             <img alt="" src={svgUrl} />

@@ -1,9 +1,15 @@
 /* eslint-disable react/sort-comp */
-import {components, Changeable, GrapherUtil, GrapherWidget, SizingUtils} from "@khanacademy/perseus";
+import {
+    components,
+    Changeable,
+    GrapherUtil,
+    GrapherWidget,
+    SizingUtils,
+} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
-import GraphSettings from '../components/graph-settings';
+import GraphSettings from "../components/graph-settings";
 
 const {InfoTip, MultiButtonGroup} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
@@ -24,7 +30,7 @@ class GrapherEditor extends React.Component<Props> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: 'grapher' = "grapher";
+    static widgetName: "grapher" = "grapher";
 
     static defaultProps: Props = {
         correct: DEFAULT_GRAPHER_PROPS.plot,
@@ -63,6 +69,7 @@ class GrapherEditor extends React.Component<Props> {
                 // standard props that the Renderer provides normally (eg.
                 // alignment, findWidgets, etc).
                 // $FlowFixMe[prop-missing]
+                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 <Grapher
                     {...graphProps}
                     apiOptions={this.props.apiOptions}
@@ -104,6 +111,7 @@ class GrapherEditor extends React.Component<Props> {
                     rulerLabel={this.props.graph.rulerLabel}
                     rulerTicks={this.props.graph.rulerTicks}
                     showTooltips={this.props.graph.showTooltips}
+                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                     onChange={this.change("graph")}
                 />
                 <div className="perseus-widget-row">

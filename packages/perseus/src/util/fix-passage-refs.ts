@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import {traverse} from '../traversal';
+import {traverse} from "../traversal";
 
 const findPassageRefR = new RegExp(
     // [[ passage-ref 1]]

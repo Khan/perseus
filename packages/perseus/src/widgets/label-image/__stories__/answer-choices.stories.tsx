@@ -1,13 +1,13 @@
 import * as React from "react";
 
-import AnswerChoices from '../answer-choices';
+import AnswerChoices from "../answer-choices";
 
-import type {AnswerType} from '../answer-choices';
+import type {AnswerType} from "../answer-choices";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -45,11 +45,14 @@ const defaultChoices = [
     },
 ];
 
-class WithState extends React.Component<{
-    multipleSelect: boolean
-}, {
-    choices: ReadonlyArray<AnswerType>
-}> {
+class WithState extends React.Component<
+    {
+        multipleSelect: boolean;
+    },
+    {
+        choices: ReadonlyArray<AnswerType>;
+    }
+> {
     static defaultProps = {
         multipleSelect: false,
     };
@@ -88,6 +91,8 @@ export const SingleSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <WithState />;
 };
 
-export const MultipleSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultipleSelect: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <WithState multipleSelect={true} />;
 };

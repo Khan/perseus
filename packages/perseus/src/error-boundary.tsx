@@ -1,15 +1,18 @@
 import * as React from "react";
 
-import {Errors, Log} from './logging/log';
+import {Errors, Log} from "./logging/log";
 
 type ErrorBoundaryProps = {
-    children: React.ReactNode
+    children: React.ReactNode;
 };
 type ErrorBoundaryState = {
-    error: string
+    error: string;
 };
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundary extends React.Component<
+    ErrorBoundaryProps,
+    ErrorBoundaryState
+> {
     constructor(props: ErrorBoundaryProps) {
         super(props);
         this.state = {error: ""};
@@ -40,6 +43,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 </svg>
             );
         }
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactNode' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return this.props.children;
     }
 }

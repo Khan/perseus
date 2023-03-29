@@ -8,10 +8,10 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {getDependencies} from '../dependencies';
-import {ClassNames as ApiClassNames} from '../perseus-api';
-import Renderer from '../renderer';
-import Util from '../util';
+import {getDependencies} from "../dependencies";
+import {ClassNames as ApiClassNames} from "../perseus-api";
+import Renderer from "../renderer";
+import Util from "../util";
 
 import type {LinterContextProps} from "../types";
 
@@ -80,7 +80,9 @@ type DraggableState = any;
 class Draggable extends React.Component<DraggableProps, DraggableState> {
     // Handler returned by requestAnimationFrame.
     animationFrameRequest = null;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'isMouseMoveUpBound' has no initializer and is not definitely assigned in the constructor.
     isMouseMoveUpBound: boolean;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_mounted' has no initializer and is not definitely assigned in the constructor.
     _mounted: boolean;
 
     static propTypes = {
@@ -246,6 +248,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                     ),
                 );
 
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'animate' does not exist on type 'JQueryStatic'.
             $(ReactDOM.findDOMNode(this)).animate(this.props.endPosition, {
                 duration: Math.max(duration, 1),
                 // Animating -> Static
@@ -253,6 +256,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             });
         } else if (this.props.type === STATIC) {
             // Ensure that any animations are done
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'finish' does not exist on type 'JQueryStatic'.
             $(ReactDOM.findDOMNode(this)).finish();
         }
     }
@@ -288,11 +292,14 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
 
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
         this.animationFrameRequest = requestAnimationFrame(() => {
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
             const $el = $(ReactDOM.findDOMNode(this));
 
             // jQuery.position() gets the position of the element wrt its offset parent,
             // but subtracts the scroll position of the parent. We need to add that back.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
             const position = $el.position();
             const startPosition = addOffsetParentScroll($el, position);
 
@@ -308,9 +315,11 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                         dragging: true,
                     },
                     function () {
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.bindMouseMoveUp();
 
                         // Static -> Dragging
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.props.onMouseDown();
                     },
                 );
@@ -332,6 +341,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         if (loc) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
             this.animationFrameRequest = requestAnimationFrame(() => {
                 this.setState(
                     {
@@ -362,55 +372,55 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         }
     };
 }
-type SortableLayoutKind = 'horizontal' | 'vertical';
+type SortableLayoutKind = "horizontal" | "vertical";
 export type SortableOption = string;
 
 type SortableProps = {
-    constraints: {
-        width: number,
-        height: number
-    } | Record<any, any>,
-    disabled: boolean,
-    layout: SortableLayoutKind,
-    margin: number,
-    onChange: (arg1: any) => void,
-    onMeasure: (
-        arg1: {
-            widths: ReadonlyArray<number>,
-            heights: ReadonlyArray<number>
-        },
-    ) => void,
-    padding: boolean,
-    linterContext: LinterContextProps,
-    waitForKatexLoad: boolean,
-    options: ReadonlyArray<SortableOption>
+    constraints:
+        | {
+              width: number;
+              height: number;
+          }
+        | Record<any, any>;
+    disabled: boolean;
+    layout: SortableLayoutKind;
+    margin: number;
+    onChange: (arg1: any) => void;
+    onMeasure: (arg1: {
+        widths: ReadonlyArray<number>;
+        heights: ReadonlyArray<number>;
+    }) => void;
+    padding: boolean;
+    linterContext: LinterContextProps;
+    waitForKatexLoad: boolean;
+    options: ReadonlyArray<SortableOption>;
 };
 
 type DefaultProps = {
-    constraints: SortableProps['constraints'],
-    disabled: SortableProps['disabled'],
-    layout: SortableProps['layout'],
-    margin: SortableProps['margin'],
-    onChange: SortableProps['onChange'],
-    onMeasure: SortableProps['onMeasure'],
-    padding: SortableProps['padding'],
-    linterContext: SortableProps['linterContext'],
-    waitForKatexLoad: SortableProps['waitForKatexLoad']
+    constraints: SortableProps["constraints"];
+    disabled: SortableProps["disabled"];
+    layout: SortableProps["layout"];
+    margin: SortableProps["margin"];
+    onChange: SortableProps["onChange"];
+    onMeasure: SortableProps["onMeasure"];
+    padding: SortableProps["padding"];
+    linterContext: SortableProps["linterContext"];
+    waitForKatexLoad: SortableProps["waitForKatexLoad"];
 };
 
-type ItemState = 'disabled' | 'static' | 'dragging' | 'animating';
+type ItemState = "disabled" | "static" | "dragging" | "animating";
 type SortableItem = {
-    option: SortableOption,
-    key: number,
-    type: ItemState,
-    endPosition: any,
-    width: number,
-    height: number
+    option: SortableOption;
+    key: number;
+    type: ItemState;
+    endPosition: any;
+    width: number;
+    height: number;
 };
 
 type SortableState = {
-    items: ReadonlyArray<SortableItem>,
-    katex: null | any
+    items: ReadonlyArray<SortableItem>;
+    katex: null | any;
 };
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
@@ -479,12 +489,10 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             });
     }
 
-    static itemsFromProps(
-        props: {
-            disabled: boolean,
-            options: ReadonlyArray<SortableOption>
-        },
-    ): ReadonlyArray<SortableItem> {
+    static itemsFromProps(props: {
+        disabled: boolean;
+        options: ReadonlyArray<SortableOption>;
+    }): ReadonlyArray<SortableItem> {
         const type: ItemState = props.disabled ? DISABLED : STATIC;
         return props.options.map((option: SortableOption, i) => {
             return {
@@ -498,7 +506,9 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         });
     }
 
-    static clearItemMeasurements(items: ReadonlyArray<SortableItem>): ReadonlyArray<SortableItem> {
+    static clearItemMeasurements(
+        items: ReadonlyArray<SortableItem>,
+    ): ReadonlyArray<SortableItem> {
         return items.map((item) => {
             return {
                 ...item,
@@ -515,6 +525,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // explictly set on Draggables - this prevents them from changing size
         // or shape while being dragged.
 
+        // @ts-expect-error [FEI-5003] - TS2740 - Type 'readonly SortableItem[]' is missing the following properties from type 'SortableItem': option, key, type, endPosition, and 2 more.
         let items: SortableItem = _.clone(this.state.items);
 
         // Fetches a jQuery list of elements for each item
@@ -522,6 +533,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             items,
             function (item) {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return $(ReactDOM.findDOMNode(this.refs[item.key]));
             },
             this,
@@ -550,12 +562,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             syncHeight = _.max(heights);
         }
 
+        // @ts-expect-error [FEI-5003] - TS2740 - Type 'any[]' is missing the following properties from type 'SortableItem': option, key, type, endPosition, and 2 more.
         items = _.map(items, function (item, i) {
             item.width = syncWidth || widths[i];
             item.height = syncHeight || heights[i];
             return item;
         });
 
+        // @ts-expect-error [FEI-5003] - TS2740 - Type 'SortableItem' is missing the following properties from type 'readonly SortableItem[]': length, concat, join, slice, and 18 more.
         this.setState({items: items}, () => {
             this.props.onMeasure &&
                 this.props.onMeasure({widths: widths, heights: heights});
@@ -580,7 +594,10 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         if (this.props.waitForKatexLoad && !this.state.katex) {
             return <CircularSpinner />;
         }
-        const cards: Array<React.ReactElement<React.ComponentProps<typeof Placeholder>> | React.ReactElement<React.ComponentProps<typeof Draggable>>> = [];
+        const cards: Array<
+            | React.ReactElement<React.ComponentProps<typeof Placeholder>>
+            | React.ReactElement<React.ComponentProps<typeof Draggable>>
+        > = [];
 
         const {layout} = this.props;
         // We need to keep backwards compatbility with rules specified directly
@@ -598,9 +615,13 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 const isStatic = item.type === STATIC || item.type === DISABLED;
                 let margin;
 
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (this.props.layout === HORIZONTAL) {
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 " + this.props.margin + "px 0 0"; // right
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 } else if (this.props.layout === VERTICAL) {
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 0 " + this.props.margin + "px 0"; // bottom
                 }
 
@@ -609,32 +630,44 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                         content={item.option}
                         key={item.key}
                         type={item.type}
+                        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                         ref={item.key}
                         width={syncWidth ? item.width : undefined}
                         height={syncHeight ? item.height : undefined}
                         layout={layout}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         includePadding={this.props.padding}
                         margin={isLast && isStatic ? 0 : margin}
                         endPosition={item.endPosition}
                         linterContext={PerseusLinter.pushContextStack(
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.props.linterContext,
                             "sortable",
                         )}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onRender={this.remeasureItems}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMouseDown={this.onMouseDown.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMouseMove={this.onMouseMove.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMouseUp={this.onMouseUp.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onTouchMove={this.onMouseMove.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onTouchEnd={this.onMouseUp.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onTouchCancel={this.onMouseUp.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onAnimationEnd={this.onAnimationEnd.bind(
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this,
                             item.key,
                         )}
@@ -660,7 +693,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         return <ul className={className}>{cards}</ul>;
     }
 
-    onMouseDown(key: SortableItem['key']) {
+    onMouseDown(key: SortableItem["key"]) {
         // Static -> Dragging
         const items = _.map(this.state.items, function (item) {
             if (item.key === key) {
@@ -699,27 +732,34 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             return i.key === item.key;
         });
 
+        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(currentIndex, 1);
+        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(index, 0, item);
 
         this.setState({items: nextItems});
         this.props.onChange && this.props.onChange({});
     }
 
-    onMouseMove(key: SortableItem['key']) {
+    onMouseMove(key: SortableItem["key"]) {
         // Dragging: Rearrange items based on draggable's position
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         const $sortable = $(ReactDOM.findDOMNode(this));
         const items = _.clone(this.state.items);
         const item = _.findWhere(this.state.items, {key: key});
         const margin = this.props.margin || 0;
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
         const currentIndex = _.indexOf(items, item);
         let newIndex = 0;
 
+        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         items.splice(currentIndex, 1);
 
         if (this.props.layout === HORIZONTAL) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             const midWidth = $draggable.offset().left - $sortable.offset().left;
             let sumWidth = 0;
             let cardWidth;
@@ -732,6 +772,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 sumWidth += cardWidth + margin;
             });
         } else {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             const midHeight = $draggable.offset().top - $sortable.offset().top;
             let sumHeight = 0;
             let cardHeight;
@@ -746,12 +787,13 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         }
 
         if (newIndex !== currentIndex) {
+            // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
             items.splice(newIndex, 0, item);
             this.setState({items: items});
         }
     }
 
-    onMouseUp(key: SortableItem['key']) {
+    onMouseUp(key: SortableItem["key"]) {
         // Dragging -> Animating
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
@@ -762,11 +804,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                     if (item.key === key) {
                         item.type = ANIMATING;
                         const $placeholder = $(
+                            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                             ReactDOM.findDOMNode(
                                 // eslint-disable-next-line react/no-string-refs
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.refs["placeholder_" + key],
                             ),
                         );
+                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
                         const position = $placeholder.position();
                         const endPosition = addOffsetParentScroll(
                             $placeholder,
@@ -786,10 +831,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             this.props.onChange && this.props.onChange({});
         });
 
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'animationFrameRequest' does not exist on type 'Sortable'.
         this.animationFrameRequest = nextAnimationFrame;
     }
 
-    onAnimationEnd(key: SortableItem['key']) {
+    onAnimationEnd(key: SortableItem["key"]) {
         // Animating -> Static
         const items = _.map(this.state.items, function (item) {
             if (item.key === key) {

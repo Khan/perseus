@@ -88,7 +88,7 @@
 
 import {Errors, PerseusError} from "@khanacademy/perseus-error";
 
-import type {TreeNode, TraversalState} from './tree-transformer';
+import type {TreeNode, TraversalState} from "./tree-transformer";
 
 /**
  * This is the base class for all Selector types. The key method that all

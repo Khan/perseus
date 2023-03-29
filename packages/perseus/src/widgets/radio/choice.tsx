@@ -1,4 +1,5 @@
-import {Flow} from 'flow-to-typescript-codemod';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
+import {Flow} from "flow-to-typescript-codemod";
 /* eslint-disable react/no-unsafe */
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
@@ -13,16 +14,16 @@ import * as React from "react";
 import {useState, useEffect} from "react";
 import _ from "underscore";
 
-import Icon from '../../components/icon';
-import {ApiOptions, ClassNames} from '../../perseus-api';
-import mediaQueries from '../../styles/media-queries';
+import Icon from "../../components/icon";
+import {ApiOptions, ClassNames} from "../../perseus-api";
+import mediaQueries from "../../styles/media-queries";
 
-import getA11yText from './choice-a11y-text';
-import ChoiceIcon from './choice-icon/choice-icon';
-import OptionStatus from './option-status';
-import {getChoiceLetter} from './util';
+import getA11yText from "./choice-a11y-text";
+import ChoiceIcon from "./choice-icon/choice-icon";
+import OptionStatus from "./option-status";
+import {getChoiceLetter} from "./util";
 
-import type {APIOptions} from '../../types';
+import type {APIOptions} from "../../types";
 
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
@@ -34,46 +35,41 @@ const ellipsisHorizontalIcon = {
 } as const;
 
 export type ChoiceProps = {
-    apiOptions: APIOptions,
-    checked: boolean,
-    rationale: React.ReactNode,
-    content: React.ReactNode,
-    correct: boolean,
-    disabled: boolean,
+    apiOptions: APIOptions;
+    checked: boolean;
+    rationale: React.ReactNode;
+    content: React.ReactNode;
+    correct: boolean;
+    disabled: boolean;
     // This indicates the position of the choice relative to others
     // (so that we can display a nice little (A), (B), etc. next to it)
     // Also used to generate an id for each input.
-    pos: number,
-    reviewMode: boolean,
-    showRationale: boolean,
-    showCorrectness: boolean,
-    multipleSelect: boolean,
+    pos: number;
+    reviewMode: boolean;
+    showRationale: boolean;
+    showCorrectness: boolean;
+    multipleSelect: boolean;
     // Indicates whether the user has "crossed out" this choice, meaning
     // that they don't think it's correct. This value does not affect
     // scoring or other behavior; it's just a note for the user's
     // reference.
-    crossedOut: boolean,
+    crossedOut: boolean;
     // Indicates that the user has previously selected this answer. These
     // answers may be rendered orange in review, rather than grey if
     // incorrect.
-    previouslyAnswered: boolean,
+    previouslyAnswered: boolean;
     // A callback indicating that this choice has changed. Its argument is
     // an object with two keys: `checked` and `crossedOut`. Each contains a
     // boolean value specifying the new checked and crossed-out value of
     // this choice.
-    onChange: (
-        newValues: {
-            checked: boolean,
-            crossedOut: boolean
-        },
-    ) => void
+    onChange: (newValues: {checked: boolean; crossedOut: boolean}) => void;
 };
 
 type WithForwardRef = {
-    forwardedRef: React.Ref<'button'>
+    forwardedRef: React.Ref<"button">;
 };
 
-type ChoicePropsWithForwardRef = (ChoiceProps) & (WithForwardRef);
+type ChoicePropsWithForwardRef = ChoiceProps & WithForwardRef;
 
 // Note(TB): Received errors when using useUniqueIdWithMock
 // so created this workaround function. Will update when
@@ -84,7 +80,9 @@ function uniqueId() {
     return `choice-${id++}`;
 }
 
-const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.ReactElement {
+const Choice: React.FC<ChoicePropsWithForwardRef> = function (
+    props,
+): React.ReactElement {
     const {
         disabled,
         checked,
@@ -117,10 +115,7 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
     //
     // This enables us to use shorthand inside this component, while
     // maintaining a consistent API for the parent.
-    function sendChange(newValues: {
-        checked?: boolean,
-        crossedOut?: boolean
-    }) {
+    function sendChange(newValues: {checked?: boolean; crossedOut?: boolean}) {
         const updatedChecked = newValues.checked ?? checked;
         const updatedCrossedOut = newValues.crossedOut ?? crossedOut;
         onChange({checked: updatedChecked, crossedOut: updatedCrossedOut});
@@ -154,6 +149,7 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
     return (
         <div
             style={{
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ dispay: string; flexDirection: "column"; color: string; }' is not assignable to type 'Properties<string | number, string & {}>'.
                 dispay: "flex",
                 flexDirection: "column",
                 color: Color.offBlack,
@@ -200,7 +196,7 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
                     }}
                     disabled={disabled || apiOptions.readOnly}
                     style={{flex: 1, color: Color.offBlack, userSelect: "text"}}
-                    ref={(forwardedRef as any)}
+                    ref={forwardedRef as any}
                     aria-hidden="true"
                 >
                     {({hovered, focused, pressed}) => (
@@ -341,12 +337,7 @@ const Choice: React.FC<ChoicePropsWithForwardRef> = function(props): React.React
 Choice.defaultProps = {
     disabled: false,
     checked: false,
-    onChange: (
-        newValues: {
-            checked: boolean,
-            crossedOut: boolean
-        },
-    ): void => {},
+    onChange: (newValues: {checked: boolean; crossedOut: boolean}): void => {},
     correct: false,
     apiOptions: ApiOptions.defaults,
     previouslyAnswered: false,
@@ -372,6 +363,15 @@ const styles = StyleSheet.create({
     },
 });
 
-type ExportProps = Flow.Diff<JSX.LibraryManagedAttributes<typeof Choice, React.ComponentProps<typeof Choice>>, WithForwardRef>;
+type ExportProps = Flow.Diff<
+    JSX.LibraryManagedAttributes<
+        typeof Choice,
+        React.ComponentProps<typeof Choice>
+    >,
+    WithForwardRef
+>;
 
-export default React.forwardRef<ExportProps, HTMLButtonElement>((props, ref) => <Choice {...props} forwardedRef={ref} />) as Flow.AbstractComponent<ExportProps, HTMLButtonElement>;
+// @ts-expect-error [FEI-5003] - TS2740 - Type '{ forwardedRef: ForwardedRef<Flow.Diff<ChoiceProps & WithForwardRef & { children?: ReactNode; }, WithForwardRef>>; ... 300 more ...; focus(options?: FocusOptions | undefined): void; }' is missing the following properties from type 'ChoiceProps': apiOptions, checked, rationale, content, and 9 more.
+export default React.forwardRef<ExportProps, HTMLButtonElement>(
+    (props, ref) => <Choice {...props} forwardedRef={ref} />,
+) as Flow.AbstractComponent<ExportProps, HTMLButtonElement>;

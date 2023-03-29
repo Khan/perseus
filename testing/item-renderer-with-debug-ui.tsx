@@ -3,25 +3,23 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
-import {ItemRenderer} from '../packages/perseus/src/index';
+import {ItemRenderer} from "../packages/perseus/src/index";
 
-import KEScoreUI from './ke-score-ui';
-import SideBySide from './side-by-side';
+import KEScoreUI from "./ke-score-ui";
+import SideBySide from "./side-by-side";
 
-import type {PerseusItem} from '../packages/perseus/src/perseus-types';
-import type {APIOptions, KEScore} from '../packages/perseus/src/types';
+import type {PerseusItem} from "../packages/perseus/src/perseus-types";
+import type {APIOptions, KEScore} from "../packages/perseus/src/types";
 
 type Props = {
-    item: PerseusItem,
-    apiOptions?: APIOptions
+    item: PerseusItem;
+    apiOptions?: APIOptions;
 };
 
-export const ItemRendererWithDebugUI: React.FC<Props> = (
-    {
-        item,
-        apiOptions,
-    },
-): React.ReactElement => {
+export const ItemRendererWithDebugUI: React.FC<Props> = ({
+    item,
+    apiOptions,
+}): React.ReactElement => {
     const ref = React.useRef<ItemRenderer | null | undefined>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
 
@@ -31,6 +29,7 @@ export const ItemRendererWithDebugUI: React.FC<Props> = (
             left={
                 <>
                     <ItemRenderer
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'MutableRefObject<ItemRenderer | null | undefined>' is not assignable to type 'LegacyRef<ItemRenderer> | undefined'.
                         ref={ref}
                         problemNum={0}
                         apiOptions={apiOptions}

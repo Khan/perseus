@@ -2,58 +2,59 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 
-import Renderer from '../../renderer';
-import Util from '../../util';
-import PassageRef from '../passage-ref';
+import Renderer from "../../renderer";
+import Util from "../../util";
+import PassageRef from "../passage-ref";
 
-import BaseRadio from './base-radio';
+import BaseRadio from "./base-radio";
 
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
-} from '../../perseus-types';
-import type {PerseusScore, WidgetProps, ChoiceState} from '../../types';
-import type {FocusFunction, ChoiceType} from './base-radio';
+} from "../../perseus-types";
+import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
+import type {FocusFunction, ChoiceType} from "./base-radio";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
-    numCorrect: number,
-    hasNoneOfTheAbove?: boolean,
-    multipleSelect?: boolean,
-    countChoices?: boolean,
-    deselectEnabled?: boolean,
-    choices: ReadonlyArray<RadioChoiceWithMetadata>,
-    selectedChoices: ReadonlyArray<PerseusRadioChoice['correct']>,
-    choiceStates?: ReadonlyArray<ChoiceState>,
+    numCorrect: number;
+    hasNoneOfTheAbove?: boolean;
+    multipleSelect?: boolean;
+    countChoices?: boolean;
+    deselectEnabled?: boolean;
+    choices: ReadonlyArray<RadioChoiceWithMetadata>;
+    selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
+    choiceStates?: ReadonlyArray<ChoiceState>;
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
-    values?: ReadonlyArray<boolean>
+    values?: ReadonlyArray<boolean>;
 };
 
 type UserInput = {
-    countChoices?: boolean,
-    choicesSelected: ReadonlyArray<boolean>,
-    numCorrect?: number,
-    noneOfTheAboveIndex?: number | null | undefined,
-    noneOfTheAboveSelected?: boolean
+    countChoices?: boolean;
+    choicesSelected: ReadonlyArray<boolean>;
+    numCorrect?: number;
+    noneOfTheAboveIndex?: number | null | undefined;
+    noneOfTheAboveSelected?: boolean;
 };
 type Rubric = PerseusRadioWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {
-    choices: Props['choices'],
-    multipleSelect: Props['multipleSelect'],
-    countChoices: Props['countChoices'],
-    deselectEnabled: Props['deselectEnabled'],
-    linterContext: Props['linterContext']
+    choices: Props["choices"];
+    multipleSelect: Props["multipleSelect"];
+    countChoices: Props["countChoices"];
+    deselectEnabled: Props["deselectEnabled"];
+    linterContext: Props["linterContext"];
 };
 
-export type RadioChoiceWithMetadata = (PerseusRadioChoice) & {
-    originalIndex: number,
-    correct: boolean
+export type RadioChoiceWithMetadata = PerseusRadioChoice & {
+    originalIndex: number;
+    correct: boolean;
 };
 
 class Radio extends React.Component<Props> {
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'focusFunction' has no initializer and is not definitely assigned in the constructor.
     focusFunction: FocusFunction;
 
     static defaultProps: DefaultProps = {
@@ -139,6 +140,7 @@ class Radio extends React.Component<Props> {
                 choicesSelected[index] = choiceStates[i].selected;
 
                 if (props.choices[i].isNoneOfTheAbove) {
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
                     noneOfTheAboveIndex = index;
 
                     if (choicesSelected[i]) {
@@ -172,6 +174,7 @@ class Radio extends React.Component<Props> {
                 choicesSelected[index] = values[i];
 
                 if (props.choices[i].isNoneOfTheAbove) {
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
                     noneOfTheAboveIndex = index;
                     if (choicesSelected[i]) {
                         noneOfTheAboveSelected = true;
@@ -243,6 +246,7 @@ class Radio extends React.Component<Props> {
                 alwaysUpdate={true}
                 linterContext={{
                     ...this.props.linterContext,
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type '{ blockHighlight: true; contentType: string; highlightLint: boolean; paths: readonly string[]; stack: readonly string[]; }' is not assignable to type 'LinterContextProps'.
                     blockHighlight: true,
                 }}
             />
@@ -282,8 +286,8 @@ class Radio extends React.Component<Props> {
     //     converted to an ES6 class, take care to auto-bind this method!
     updateChoices: (
         newValueLists: Readonly<{
-            checked: ReadonlyArray<boolean>,
-            crossedOut: ReadonlyArray<boolean>
+            checked: ReadonlyArray<boolean>;
+            crossedOut: ReadonlyArray<boolean>;
         }>,
     ) => void = (newValueLists) => {
         const {choiceStates, choices} = this.props;
@@ -320,7 +324,9 @@ class Radio extends React.Component<Props> {
         return Radio.getUserInputFromProps(this.props);
     };
 
-    simpleValidate: (arg1: PerseusRadioWidgetOptions) => PerseusScore = (rubric) => {
+    simpleValidate: (arg1: PerseusRadioWidgetOptions) => PerseusScore = (
+        rubric,
+    ) => {
         return Radio.validate(this.getUserInput(), rubric);
     };
 
@@ -329,7 +335,9 @@ class Radio extends React.Component<Props> {
      * this leaves rationales on for choices that are already showing
      * rationales.
      */
-    showRationalesForCurrentlySelectedChoices: (arg1: PerseusRadioWidgetOptions) => void = (rubric) => {
+    showRationalesForCurrentlySelectedChoices: (
+        arg1: PerseusRadioWidgetOptions,
+    ) => void = (rubric) => {
         const {choiceStates} = this.props;
         if (choiceStates) {
             const score = this.simpleValidate(rubric);
@@ -351,10 +359,8 @@ class Radio extends React.Component<Props> {
                     // We use the same behavior for the readOnly flag as for
                     // rationaleShown, but we keep it separate in case other
                     // behaviors want to disable choices without showing rationales.
-                    readOnly:
-                        state.selected || state.readOnly || widgetCorrect,
-                    correctnessShown:
-                        state.selected || state.correctnessShown,
+                    readOnly: state.selected || state.readOnly || widgetCorrect,
+                    correctnessShown: state.selected || state.correctnessShown,
                     previouslyAnswered:
                         state.previouslyAnswered || state.selected,
                 }),
@@ -364,6 +370,7 @@ class Radio extends React.Component<Props> {
                 {
                     choiceStates: newStates,
                 },
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
                 null, // cb
                 true, // silent
             );
@@ -389,6 +396,7 @@ class Radio extends React.Component<Props> {
                 {
                     choiceStates: newStates,
                 },
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
                 null, // cb
                 false, // silent
             );
@@ -494,6 +502,7 @@ class Radio extends React.Component<Props> {
         return (
             <BaseRadio
                 labelWrap={true}
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean | undefined' is not assignable to type 'boolean'.
                 multipleSelect={this.props.multipleSelect}
                 countChoices={this.props.countChoices}
                 numCorrect={this.props.numCorrect}

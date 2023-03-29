@@ -18,9 +18,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
-import DragTarget from './components/drag-target';
-import KatexErrorView from './katex-error-view';
-import SectionControlButton from './section-control-button';
+import DragTarget from "./components/drag-target";
+import KatexErrorView from "./katex-error-view";
+import SectionControlButton from "./section-control-button";
 
 import type {Alignment, ChangeHandler, WidgetInfo} from "@khanacademy/perseus";
 
@@ -68,7 +68,7 @@ const makeStartWithAParagraphAlways = (content) => {
 };
 
 type WidgetSelectProps = {
-    onChange?: (widgetType: string) => unknown
+    onChange?: (widgetType: string) => unknown;
 };
 
 class WidgetSelect extends React.Component<WidgetSelectProps> {
@@ -112,21 +112,28 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
 
 type WidgetEditorProps = {
     // Unserialized props
-    id: string,
-    onChange: (widgetInfo: WidgetInfo, cb?: () => unknown, silent?: boolean) => unknown,
-    onRemove: () => unknown,
-    apiOptions: any
-} & (WidgetInfo);
+    id: string;
+    onChange: (
+        widgetInfo: WidgetInfo,
+        cb?: () => unknown,
+        silent?: boolean,
+    ) => unknown;
+    onRemove: () => unknown;
+    apiOptions: any;
+} & WidgetInfo;
 
 type WidgetEditorState = {
-    showWidget: boolean,
-    widgetInfo: WidgetInfo
+    showWidget: boolean;
+    widgetInfo: WidgetInfo;
 };
 
-const _upgradeWidgetInfo: React.FC<WidgetEditorProps> = (props): React.ReactElement => {
+const _upgradeWidgetInfo: React.FC<WidgetEditorProps> = (
+    props,
+): React.ReactElement => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'PerseusWidget' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'. | TS2345 - Argument of type 'Partial<{ id: string; onChange: (widgetInfo: PerseusWidget, cb?: (() => unknown) | undefined, silent?: boolean | undefined) => unknown; onRemove: () => unknown; apiOptions: any; } & CategorizerWidget & { ...; }> | ... 38 more ... | Partial<...>' is not assignable to parameter of type 'PerseusWidget'.
     return Widgets.upgradeWidgetInfoToLatestVersion(filteredProps);
 };
 
@@ -135,16 +142,21 @@ const _upgradeWidgetInfo: React.FC<WidgetEditorProps> = (props): React.ReactElem
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
 // eslint-disable-next-line react/no-unsafe
-class WidgetEditor extends React.Component<WidgetEditorProps, WidgetEditorState> {
+class WidgetEditor extends React.Component<
+    WidgetEditorProps,
+    WidgetEditorState
+> {
     constructor(props: WidgetEditorProps) {
         super(props);
         this.state = {
             showWidget: false,
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
             widgetInfo: _upgradeWidgetInfo(props),
         };
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
         this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});
     }
 
@@ -158,12 +170,13 @@ class WidgetEditor extends React.Component<WidgetEditorProps, WidgetEditorState>
         cb: () => unknown,
         silent: boolean,
     ) => {
-        const newWidgetInfo = (Object.assign(
+        const newWidgetInfo = Object.assign(
             {},
             this.state.widgetInfo,
-        ) as WidgetInfo);
+        ) as WidgetInfo;
         newWidgetInfo.options = Object.assign(
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             this.refs.widget.serialize(),
             newProps,
         );
@@ -172,24 +185,25 @@ class WidgetEditor extends React.Component<WidgetEditorProps, WidgetEditorState>
 
     _toggleStatic = (e: Event) => {
         e.preventDefault();
-        const newWidgetInfo = (Object.assign({}, this.state.widgetInfo, {
+        const newWidgetInfo = Object.assign({}, this.state.widgetInfo, {
             static: !this.state.widgetInfo.static,
-        }) as WidgetInfo);
+        }) as WidgetInfo;
         this.props.onChange(newWidgetInfo);
     };
 
     _handleAlignmentChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
-        const newAlignment = (e.currentTarget.value as Alignment);
-        const newWidgetInfo = (Object.assign(
+        const newAlignment = e.currentTarget.value as Alignment;
+        const newWidgetInfo = Object.assign(
             {},
             this.state.widgetInfo,
-        ) as WidgetInfo);
+        ) as WidgetInfo;
         newWidgetInfo.alignment = newAlignment;
         this.props.onChange(newWidgetInfo);
     };
 
     getSaveWarnings = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         const issuesFunc = this.refs.widget.getSaveWarnings;
         return issuesFunc ? issuesFunc() : [];
     };
@@ -205,6 +219,7 @@ class WidgetEditor extends React.Component<WidgetEditorProps, WidgetEditorState>
             static: widgetInfo.static,
             graded: widgetInfo.graded,
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             options: this.refs.widget.serialize(),
             version: widgetInfo.version,
         };
@@ -260,6 +275,7 @@ class WidgetEditor extends React.Component<WidgetEditorProps, WidgetEditorState>
                     {supportsStaticMode && (
                         <input
                             type="button"
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: Event) => void' is not assignable to type 'MouseEventHandler<HTMLInputElement>'.
                             onClick={this._toggleStatic}
                             className="simple-button--small"
                             value={
@@ -331,6 +347,7 @@ const IMAGE_REGEX = /!\[[^\]]*\]\(([^\s)]+)[^)]*\)/g;
  * ignores captures. If you don't need captures, use String::match
  */
 const allMatches = function (regex: RegExp, str: string) {
+    // @ts-expect-error [FEI-5003] - TS2702 - 'RegExp' only refers to a type, but is being used as a namespace here.
     const result: Array<any | RegExp.matchResult> = [];
     // eslint-disable-next-line no-constant-condition
     while (true) {
@@ -352,44 +369,47 @@ const imageUrlsFromContent = function (content: string) {
 };
 
 type EditorProps = Readonly<{
-    apiOptions: any,
-    className?: string,
-    content: string,
-    replace?: any,
-    placeholder: string,
+    apiOptions: any;
+    className?: string;
+    content: string;
+    replace?: any;
+    placeholder: string;
     widgets: {
-        [name: string]: WidgetInfo
-    },
-    images: any,
-    disabled: boolean,
-    widgetEnabled: boolean,
-    immutableWidgets: boolean,
-    showWordCount: boolean,
-    warnNoPrompt: boolean,
-    warnNoWidgets: boolean,
-    imageUploader?: (file: string, callback: (url: string) => unknown) => unknown,
-    onChange: ChangeHandler
+        [name: string]: WidgetInfo;
+    };
+    images: any;
+    disabled: boolean;
+    widgetEnabled: boolean;
+    immutableWidgets: boolean;
+    showWordCount: boolean;
+    warnNoPrompt: boolean;
+    warnNoWidgets: boolean;
+    imageUploader?: (
+        file: string,
+        callback: (url: string) => unknown,
+    ) => unknown;
+    onChange: ChangeHandler;
 }>;
 
 type DeafultProps = {
-    content: string,
-    disabled: boolean,
-    images: Record<any, any>,
-    immutableWidgets: boolean,
-    placeholder: string,
-    showWordCount: boolean,
-    warnNoPrompt: boolean,
-    warnNoWidgets: boolean,
-    widgetEnabled: boolean,
+    content: string;
+    disabled: boolean;
+    images: Record<any, any>;
+    immutableWidgets: boolean;
+    placeholder: string;
+    showWordCount: boolean;
+    warnNoPrompt: boolean;
+    warnNoWidgets: boolean;
+    widgetEnabled: boolean;
     widgets: {
-        [name: string]: WidgetInfo
-    }
+        [name: string]: WidgetInfo;
+    };
 };
 
 type EditorState = {
-    showKatexErrors: boolean,
-    textAreaValue: string,
-    katex?: katex
+    showKatexErrors: boolean;
+    textAreaValue: string;
+    katex?: katex;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -427,7 +447,9 @@ class Editor extends React.Component<EditorProps, EditorState> {
         // setState
         this._sizeImages(this.props);
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         $(ReactDOM.findDOMNode(this.refs.textarea))
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
             .on("copy cut", this._maybeCopyWidgets)
             .on("paste", this._maybePasteWidgets);
 
@@ -465,9 +487,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
              * textarea should be refined with an instanceof check to
              * HTMLTextAreaElement so that these props are available.
              */
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             textarea.focus();
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.value = this.lastUserValue;
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
             textarea.selectionStart = 0;
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'select' does not exist on type 'Element | Text'.
             textarea.select(0, prevProps.content.length);
             if (
                 document.execCommand(
@@ -478,6 +504,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
             ) {
                 // This command is not implemented. Fall back to setting `value`
                 // directly.
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'Element | Text'.
                 textarea.value = this.props.content;
             }
             this.lastUserValue = null;
@@ -496,28 +523,28 @@ class Editor extends React.Component<EditorProps, EditorState> {
         clearTimeout(this.deferredChange);
     }
 
-    getWidgetEditor: (id: string, type: string) => undefined | React.ReactNode = (
-        id: string,
-        type: string,
-    ) => {
-        if (!Widgets.getEditor(type)) {
-            return;
-        }
-        return (
-            <WidgetEditor
-                key={id}
-                ref={id}
-                id={id}
-                type={type}
-                // eslint-disable-next-line react/jsx-no-bind
-                onChange={this._handleWidgetEditorChange.bind(this, id)}
-                // eslint-disable-next-line react/jsx-no-bind
-                onRemove={this._handleWidgetEditorRemove.bind(this, id)}
-                apiOptions={this.props.apiOptions}
-                {...this.props.widgets[id]}
-            />
-        );
-    };
+    getWidgetEditor: (id: string, type: string) => undefined | React.ReactNode =
+        (id: string, type: string) => {
+            if (!Widgets.getEditor(type)) {
+                return;
+            }
+            return (
+                <WidgetEditor
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                    key={id}
+                    ref={id}
+                    id={id}
+                    // @ts-expect-error [FEI-5003] - TS2783 - 'type' is specified more than once, so this usage will be overwritten.
+                    type={type}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onChange={this._handleWidgetEditorChange.bind(this, id)}
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onRemove={this._handleWidgetEditorRemove.bind(this, id)}
+                    apiOptions={this.props.apiOptions}
+                    {...this.props.widgets[id]}
+                />
+            );
+        };
 
     _handleWidgetEditorChange: (
         id: string,
@@ -539,6 +566,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
         // eslint-disable-next-line react/no-string-refs
         const textarea = this.refs.textarea;
         const re = new RegExp(widgetRegExp.replace("{id}", id), "gm");
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'ReactInstance'.
         this.props.onChange({content: textarea.value.replace(re, "")});
     };
 
@@ -578,6 +606,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
                     {
                         images: _.clone(images),
                     },
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
                     null, // callback
                     true, // silent
                 );
@@ -653,11 +682,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
                 this.props.onChange({content: content});
             })
             .each((fileAndSentinel) => {
+                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2345 - Argument of type 'File' is not assignable to parameter of type 'string'.
                 imageUploader(fileAndSentinel.file, (url) => {
                     // See componentDidUpdate() for how this flag is used
                     this.lastUserValue = origContent;
                     this.props.onChange({
                         content: this.state.textAreaValue.replace(
+                            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             fileAndSentinel.sentinel,
                             url,
                         ),
@@ -693,6 +724,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
             const textarea = ReactDOM.findDOMNode(this.refs.textarea);
 
             // findDOMNode can also return Text, but we know it's an element.
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
             const word = Util.textarea.getWordBeforeCursor(textarea);
             const matches = word.string.toLowerCase().match(shortcutRegexp);
 
@@ -718,110 +750,117 @@ class Editor extends React.Component<EditorProps, EditorState> {
         }
     };
 
-    _maybeCopyWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void = (
-        e: React.SyntheticEvent<HTMLTextAreaElement>,
-    ) => {
-        // If there are widgets being cut/copied, put the widget JSON in
-        // localStorage.perseusLastCopiedWidgets to allow copy-pasting of
-        // widgets between Editors. Also store the text to be pasted in
-        // localStorage.perseusLastCopiedText since we want to know if the user
-        // is actually pasting something originally from Perseus later.
-        const textarea = e.currentTarget;
-        const selectedText = textarea.value.substring(
-            textarea.selectionStart,
-            textarea.selectionEnd,
-        );
-
-        const widgetNames = _.map(
-            selectedText.match(rWidgetSplit),
-            (syntax) => {
-                return Util.rWidgetParts.exec(syntax)[1];
-            },
-        );
-
-        const widgetData = _.pick(this.serialize().widgets, widgetNames);
-
-        localStorage.perseusLastCopiedText = selectedText;
-        localStorage.perseusLastCopiedWidgets = JSON.stringify(widgetData);
-
-        Log.log(`Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
-    };
-
-    _maybePasteWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void = (
-        e: React.SyntheticEvent<HTMLTextAreaElement>,
-    ) => {
-        // Use the data from localStorage to paste any widgets we copied
-        // before. Avoid name conflicts by renumbering pasted widgets so that
-        // their numbers are always higher than the highest numbered widget of
-        // their type.
-        // TODO(sam): Fix widget numbering in the widget editor titles
-
-        const widgetJSON = localStorage.perseusLastCopiedWidgets;
-        const lastCopiedText = localStorage.perseusLastCopiedText;
-        const textToBePasted = e.originalEvent.clipboardData.getData("text");
-
-        // Only intercept if we have widget data to paste and the user is
-        // pasting something originally from Perseus.
-        // TODO(sam/aria/alex): Make it so that you can paste arbitrary text
-        // (e.g. from a text editor) instead of exactly what was copied, and
-        // let the widgetJSON match up with it. This would let you copy text
-        // into a buffer, perform complex operations on it, then paste it back.
-        if (widgetJSON && lastCopiedText === textToBePasted) {
-            e.preventDefault();
-
-            const widgetData = JSON.parse(widgetJSON);
-            const safeWidgetMapping = this._safeWidgetNameMapping(widgetData);
-
-            // Use safe widget name map to construct the new widget data
-            // TODO(aria/alex): Don't use `rWidgetSplit` or other piecemeal
-            // regexes directly; abstract this out so that we don't have to
-            // worry about potential edge cases.
-            const safeWidgetData: Record<string, any> = {};
-            for (const [key, data] of Object.entries(widgetData)) {
-                safeWidgetData[safeWidgetMapping[key]] = data;
-            }
-            const newWidgets = _.extend(safeWidgetData, this.props.widgets);
-
-            // Use safe widget name map to construct new text
-            const safeText = lastCopiedText.replace(rWidgetSplit, (syntax) => {
-                const match = Util.rWidgetParts.exec(syntax);
-                const completeWidget = match[0];
-                const widget = match[1];
-                return completeWidget.replace(
-                    widget,
-                    safeWidgetMapping[widget],
-                );
-            });
-
-            // Add pasted text to previous content, replacing selected text to
-            // replicate normal paste behavior.
+    _maybeCopyWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
+        (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+            // If there are widgets being cut/copied, put the widget JSON in
+            // localStorage.perseusLastCopiedWidgets to allow copy-pasting of
+            // widgets between Editors. Also store the text to be pasted in
+            // localStorage.perseusLastCopiedText since we want to know if the user
+            // is actually pasting something originally from Perseus later.
             const textarea = e.currentTarget;
-            const selectionStart = textarea.selectionStart;
-            const newContent =
-                this.state.textAreaValue.substr(0, selectionStart) +
-                safeText +
-                this.state.textAreaValue.substr(textarea.selectionEnd);
+            const selectedText = textarea.value.substring(
+                textarea.selectionStart,
+                textarea.selectionEnd,
+            );
 
-            // See componentDidUpdate() for how this flag is used
-            this.lastUserValue = this.state.textAreaValue;
-            this.props.onChange(
-                {content: newContent, widgets: newWidgets},
-                () => {
-                    const expectedCursorPosition =
-                        selectionStart + safeText.length;
-                    Util.textarea.moveCursor(textarea, expectedCursorPosition);
+            const widgetNames = _.map(
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
+                selectedText.match(rWidgetSplit),
+                (syntax) => {
+                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    return Util.rWidgetParts.exec(syntax)[1];
                 },
             );
-        }
-    };
 
-    _safeWidgetNameMapping: (
-        widgetData: {
-            [name: string]: any
-        },
-    ) => Record<any, any> = (widgetData: {
-        [name: string]: any
-    }) => {
+            const widgetData = _.pick(this.serialize().widgets, widgetNames);
+
+            localStorage.perseusLastCopiedText = selectedText;
+            localStorage.perseusLastCopiedWidgets = JSON.stringify(widgetData);
+
+            Log.log(`Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
+        };
+
+    _maybePasteWidgets: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void =
+        (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+            // Use the data from localStorage to paste any widgets we copied
+            // before. Avoid name conflicts by renumbering pasted widgets so that
+            // their numbers are always higher than the highest numbered widget of
+            // their type.
+            // TODO(sam): Fix widget numbering in the widget editor titles
+
+            const widgetJSON = localStorage.perseusLastCopiedWidgets;
+            const lastCopiedText = localStorage.perseusLastCopiedText;
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'originalEvent' does not exist on type 'SyntheticEvent<HTMLTextAreaElement, Event>'.
+            const textToBePasted =
+                e.originalEvent.clipboardData.getData("text");
+
+            // Only intercept if we have widget data to paste and the user is
+            // pasting something originally from Perseus.
+            // TODO(sam/aria/alex): Make it so that you can paste arbitrary text
+            // (e.g. from a text editor) instead of exactly what was copied, and
+            // let the widgetJSON match up with it. This would let you copy text
+            // into a buffer, perform complex operations on it, then paste it back.
+            if (widgetJSON && lastCopiedText === textToBePasted) {
+                e.preventDefault();
+
+                const widgetData = JSON.parse(widgetJSON);
+                const safeWidgetMapping =
+                    this._safeWidgetNameMapping(widgetData);
+
+                // Use safe widget name map to construct the new widget data
+                // TODO(aria/alex): Don't use `rWidgetSplit` or other piecemeal
+                // regexes directly; abstract this out so that we don't have to
+                // worry about potential edge cases.
+                const safeWidgetData: Record<string, any> = {};
+                for (const [key, data] of Object.entries(widgetData)) {
+                    safeWidgetData[safeWidgetMapping[key]] = data;
+                }
+                const newWidgets = _.extend(safeWidgetData, this.props.widgets);
+
+                // Use safe widget name map to construct new text
+                const safeText = lastCopiedText.replace(
+                    rWidgetSplit,
+                    (syntax) => {
+                        const match = Util.rWidgetParts.exec(syntax);
+                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        const completeWidget = match[0];
+                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        const widget = match[1];
+                        return completeWidget.replace(
+                            widget,
+                            safeWidgetMapping[widget],
+                        );
+                    },
+                );
+
+                // Add pasted text to previous content, replacing selected text to
+                // replicate normal paste behavior.
+                const textarea = e.currentTarget;
+                const selectionStart = textarea.selectionStart;
+                const newContent =
+                    this.state.textAreaValue.substr(0, selectionStart) +
+                    safeText +
+                    this.state.textAreaValue.substr(textarea.selectionEnd);
+
+                // See componentDidUpdate() for how this flag is used
+                this.lastUserValue = this.state.textAreaValue;
+                this.props.onChange(
+                    {content: newContent, widgets: newWidgets},
+                    () => {
+                        const expectedCursorPosition =
+                            selectionStart + safeText.length;
+                        Util.textarea.moveCursor(
+                            textarea,
+                            expectedCursorPosition,
+                        );
+                    },
+                );
+            }
+        };
+
+    _safeWidgetNameMapping: (widgetData: {
+        [name: string]: any;
+    }) => Record<any, any> = (widgetData: {[name: string]: any}) => {
         // Helper function for _maybePasteWidgets.
         // For each widget about to be pasted, construct a mapping from
         // old widget name to a new widget name that doesn't have conflicts
@@ -867,7 +906,11 @@ class Editor extends React.Component<EditorProps, EditorState> {
         return safeWidgetMapping;
     };
 
-    _addWidgetToContent: (oldContent: string, cursorRange: ReadonlyArray<number>, widgetType: string) => void = (
+    _addWidgetToContent: (
+        oldContent: string,
+        cursorRange: ReadonlyArray<number>,
+        widgetType: string,
+    ) => void = (
         oldContent: string,
         cursorRange: ReadonlyArray<number>,
         widgetType: string,
@@ -878,9 +921,12 @@ class Editor extends React.Component<EditorProps, EditorState> {
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
         // widgets were found.
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
         const allWidgetIds = _.map(oldContent.match(rWidgetSplit), (syntax) => {
             const match = Util.rWidgetParts.exec(syntax);
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
             const type = match[2];
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
             const num = +match[3];
             return [type, num];
         });
@@ -918,10 +964,12 @@ class Editor extends React.Component<EditorProps, EditorState> {
         const newWidgets = _.clone(this.props.widgets);
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"'.
             type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Version | null | undefined' is not assignable to type 'Version | undefined'.
             version: Widgets.getVersion(widgetType),
         };
 
@@ -936,6 +984,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
                 Util.textarea.moveCursor(
                     // findDOMNode can return Text but we know this is Element
                     // $FlowFixMe[incompatible-call]
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
                     textarea,
                     // We want to put the cursor after the widget
                     // and after any added newlines
@@ -951,9 +1000,11 @@ class Editor extends React.Component<EditorProps, EditorState> {
 
         this._addWidgetToContent(
             this.props.content,
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'selectionStart' does not exist on type 'ReactInstance'. | TS2339 - Property 'selectionEnd' does not exist on type 'ReactInstance'.
             [textarea.selectionStart, textarea.selectionEnd],
             widgetType,
         );
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         textarea.focus();
     };
 
@@ -1028,6 +1079,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
             .chain()
             .map((id) => {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
                 const issuesFunc = this.refs[id].getSaveWarnings;
                 const issues = issuesFunc ? issuesFunc() : [];
                 return _.map(issues, (issue) => id + ": " + issue);
@@ -1047,6 +1099,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
              * textarea should be refined with an instanceof check to
              * HTMLTextAreaElement so that these props are available.
              */
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             textarea.focus();
         }
     };
@@ -1061,16 +1114,18 @@ class Editor extends React.Component<EditorProps, EditorState> {
              * textarea should be refined with an instanceof check to
              * HTMLTextAreaElement so that these props are available.
              */
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.selectionStart = textarea.value.length;
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.selectionEnd = textarea.value.length;
         }
     };
 
     serialize: (options?: any) => {
-        content: string,
-        images: any,
-        replace: any | undefined,
-        widgets: Record<any, any>
+        content: string;
+        images: any;
+        replace: any | undefined;
+        widgets: Record<any, any>;
     } = (options: any) => {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
@@ -1080,6 +1135,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
         const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
         _.each(widgetIds, (id) => {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             widgets[id] = this.refs[id].serialize();
         });
 
@@ -1107,7 +1163,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
         };
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         let pieces;
         let widgets;
         let underlayPieces;
@@ -1116,8 +1172,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
         let widgetsAndTemplates;
         let wordCountDisplay;
         const katexErrorList: Array<{
-          math: string,
-          message: never
+            math: string;
+            message: never;
         }> = [];
 
         if (this.props.showWordCount) {
@@ -1151,6 +1207,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
                     // Normal text
                     underlayPieces.push(pieces[i]);
 
+                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
                     const ast = PerseusMarkdown.parse(pieces[i]);
 
                     PerseusMarkdown.traverseContent(ast, (node) => {
@@ -1163,6 +1220,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
                             } catch (e: any) {
                                 katexErrorList.push({
                                     math: content,
+                                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
                                     message: e.message,
                                 });
                             }
@@ -1221,6 +1279,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: SyntheticEvent<HTMLTextAreaElement, Event>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                 <select onChange={this.addTemplate}>
                     <option value="">{insertTemplateString}</option>
                     <option disabled>--</option>
@@ -1236,7 +1295,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
             );
 
             if (!this.props.immutableWidgets) {
-                const widgetNodes = (Object.values(widgets) as React.ReactNode);
+                const widgetNodes = Object.values(widgets) as React.ReactNode;
                 widgetsAndTemplates = (
                     <div className="perseus-editor-widgets">
                         <div className="perseus-editor-widgets-selectors">

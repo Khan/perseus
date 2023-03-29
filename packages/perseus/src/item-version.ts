@@ -1,6 +1,6 @@
-import allWidgets from './all-widgets';
-import version from './version';
-import * as Widgets from './widgets';
+import allWidgets from "./all-widgets";
+import version from "./version";
+import * as Widgets from "./widgets";
 
 Widgets.registerWidgets(allWidgets);
 

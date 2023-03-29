@@ -10,11 +10,11 @@
 
 import _ from "underscore";
 
-import {Errors} from './logging/log';
-import MultiItems from './multi-items';
-import {PerseusError} from './perseus-error';
-import {traverse} from './traversal';
-import * as Widgets from './widgets';
+import {Errors} from "./logging/log";
+import MultiItems from "./multi-items";
+import {PerseusError} from "./perseus-error";
+import {traverse} from "./traversal";
+import * as Widgets from "./widgets";
 
 const {findContentNodesInItem, inferItemShape} = MultiItems;
 
@@ -75,7 +75,10 @@ const isRendererContentRenderableBy = function (
     return isRenderable;
 };
 
-export const isItemRenderableByVersion = function(itemData: any, rendererContentVersion: any): boolean {
+export const isItemRenderableByVersion = function (
+    itemData: any,
+    rendererContentVersion: any,
+): boolean {
     if (itemData == null || rendererContentVersion == null) {
         throw new PerseusError(
             "missing parameter to Perseus.isRenderable.item",

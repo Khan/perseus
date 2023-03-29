@@ -1,6 +1,6 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 
-import PerseusMarkdown from '../perseus-markdown';
+import PerseusMarkdown from "../perseus-markdown";
 
 const {parse, basicOutput, characterCount} = PerseusMarkdown;
 

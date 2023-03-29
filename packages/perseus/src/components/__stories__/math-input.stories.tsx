@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import MathInput from '../math-input';
+import MathInput from "../math-input";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -17,12 +17,18 @@ const defaultObject = {
     onChange: () => {},
 } as const;
 
-export const DefaultWithBasicButtonSet: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const DefaultWithBasicButtonSet: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <MathInput {...defaultObject} />;
 };
-export const AlwaysVisibleButtonSet: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const AlwaysVisibleButtonSet: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <MathInput {...defaultObject} buttonsVisible="always" />;
 };
-export const DefaultWithAriaLabel: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const DefaultWithAriaLabel: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <MathInput {...defaultObject} labelText="Sample label" />;
 };

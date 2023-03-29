@@ -2,15 +2,13 @@ import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
-import type {KEScore} from '../packages/perseus/src/types';
+import type {KEScore} from "../packages/perseus/src/types";
 
-export default (
-    {
-        score,
-    }: {
-        score: KEScore | null | undefined
-    },
-): React.ReactElement | null => {
+export default ({
+    score,
+}: {
+    score: KEScore | null | undefined;
+}): React.ReactElement | null => {
     if (score == null) {
         return null;
     }

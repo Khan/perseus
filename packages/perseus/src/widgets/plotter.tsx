@@ -6,15 +6,15 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Interactive2 from '../interactive2';
-import WrappedLine from '../interactive2/wrapped-line';
-import {ClassNames as ApiClassNames} from '../perseus-api';
-import Util from '../util';
-import KhanColors from '../util/colors';
-import GraphUtils from '../util/graph-utils';
-import KhanMath from '../util/math';
+import Interactive2 from "../interactive2";
+import WrappedLine from "../interactive2/wrapped-line";
+import {ClassNames as ApiClassNames} from "../perseus-api";
+import Util from "../util";
+import KhanColors from "../util/colors";
+import GraphUtils from "../util/graph-utils";
+import KhanMath from "../util/math";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 const {deepEq} = Util;
 
@@ -46,6 +46,7 @@ const widgetPropTypes = {
 } as const;
 
 class Plotter extends React.Component<any, any> {
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldSetupGraphie: boolean;
     _isMounted: boolean = false;
     horizHairline: any;
@@ -151,6 +152,7 @@ class Plotter extends React.Component<any, any> {
         this.shouldSetupGraphie = _.any(
             props,
             function (prop) {
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return !_.isEqual(this.props[prop], nextProps[prop]);
             },
             this,
@@ -173,6 +175,7 @@ class Plotter extends React.Component<any, any> {
         const self = this;
         self.shouldSetupGraphie = false;
         const graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
         const graphie = GraphUtils.createGraphie(graphieDiv);
 
@@ -261,6 +264,7 @@ class Plotter extends React.Component<any, any> {
         if (isMobile && (isBar || isTiledPlot)) {
             const maxCategoryHeight = Math.max(
                 0,
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'number'.
                 ...Object.values(self.state.categoryHeights),
             );
 
@@ -489,10 +493,7 @@ class Plotter extends React.Component<any, any> {
         }
     };
 
-    labelCategory: (arg1: any, arg2: any) => Promise<any> = (
-        x,
-        category,
-    ) => {
+    labelCategory: (arg1: any, arg2: any) => Promise<any> = (x, category) => {
         const isMobile = this.props.apiOptions.isMobile;
 
         const graphie = this.graphie;
@@ -572,6 +573,7 @@ class Plotter extends React.Component<any, any> {
             _.each(self.props.categories, function (category, i) {
                 const x = 0.5 + i * c.barWidth;
 
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
                 categoryHeightPromises.push(self.labelCategory(x, category));
                 const tickHeight = 6 / c.scale[1];
                 graphie.style(
@@ -621,6 +623,7 @@ class Plotter extends React.Component<any, any> {
                         i === self.props.categories.length - 1
                     ) {
                         categoryHeightPromises.push(
+                            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
                             self.labelCategory(x, category),
                         );
                         tickStart *= 1.5;
@@ -628,6 +631,7 @@ class Plotter extends React.Component<any, any> {
                     }
                 } else {
                     categoryHeightPromises.push(
+                        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
                         self.labelCategory(x, category),
                     );
                 }
@@ -659,7 +663,11 @@ class Plotter extends React.Component<any, any> {
         });
     };
 
-    _clampValue: (arg1: number, arg2: number, arg3: number) => number = (v, min, max) => {
+    _clampValue: (arg1: number, arg2: number, arg3: number) => number = (
+        v,
+        min,
+        max,
+    ) => {
         return Math.max(Math.min(v, max), min);
     };
 
@@ -920,6 +928,7 @@ class Plotter extends React.Component<any, any> {
                 c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
                     points: [c.graph.points[i - 1], c.graph.points[i]],
                     // $FlowFixMe[prop-missing]
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     constraints: Interactive2.MovablePoint.constraints.fixed(),
                     normalStyle: {
                         stroke: KhanColors.BLUE_C,
@@ -1004,7 +1013,12 @@ class Plotter extends React.Component<any, any> {
         });
     };
 
-    setupTiledPlot: (arg1: any, arg2: any, arg3: any, arg4: any) => any = (i, bottomMargin, config, createImage) => {
+    setupTiledPlot: (arg1: any, arg2: any, arg3: any, arg4: any) => any = (
+        i,
+        bottomMargin,
+        config,
+        createImage,
+    ) => {
         const self = this;
         const c = config;
         const graphie = self.graphie;
@@ -1038,6 +1052,7 @@ class Plotter extends React.Component<any, any> {
                 .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
                 .on("vmousedown", function (e) {
                     e.preventDefault();
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
                     self.whichPicClicked = i;
                     self.setPicHeight(i, topY);
 
@@ -1067,6 +1082,7 @@ class Plotter extends React.Component<any, any> {
                             newMidY + 0.5 * c.scaleY,
                             c.dimY,
                         );
+                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
                         self.setPicHeight(self.whichPicClicked, newTopY);
                     });
                 });
@@ -1155,6 +1171,7 @@ class Plotter extends React.Component<any, any> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Plotter'.
         return Plotter.validate(this.getUserInput(), rubric);
     };
 }

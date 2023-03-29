@@ -6,47 +6,54 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 type Bounds = {
-    width: number,
-    height: number
+    width: number;
+    height: number;
 };
 
 type Props = {
-    children: React.ReactNode,
-    animateHeight: boolean,
+    children: React.ReactNode;
+    animateHeight: boolean;
     /**
      * Optional function that allows customizations in zooming.
      *
      * Defaults to just using the bounding client rect of the first DOM
      * element of this component.
      */
-    computeChildBounds: (parentNode: HTMLElement, parentBounds: Bounds) => Bounds,
+    computeChildBounds: (
+        parentNode: HTMLElement,
+        parentBounds: Bounds,
+    ) => Bounds;
     /**
      * Optional boolean specifying whether the component is ready to measure
      * or not.  Defaults to true for synchronous components like tables.
      */
-    readyToMeasure: boolean
+    readyToMeasure: boolean;
 };
 
 type DefaultProps = {
-    animateHeight: Props['animateHeight'],
-    computeChildBounds: Props['computeChildBounds'],
-    readyToMeasure: Props['readyToMeasure']
+    animateHeight: Props["animateHeight"];
+    computeChildBounds: Props["computeChildBounds"];
+    readyToMeasure: Props["readyToMeasure"];
 };
 
 type State = {
-    visible: boolean,
-    marginBottomPx: number,
-    compactHeight?: number | null | undefined,
-    expandedHeight?: number | null | undefined,
-    scale?: number | null | undefined,
-    zoomed: boolean
+    visible: boolean;
+    marginBottomPx: number;
+    compactHeight?: number | null | undefined;
+    expandedHeight?: number | null | undefined;
+    scale?: number | null | undefined;
+    zoomed: boolean;
 };
 
 class Zoomable extends React.Component<Props, State> {
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_observer' has no initializer and is not definitely assigned in the constructor.
     _observer: MutationObserver;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_measuringInitialized' has no initializer and is not definitely assigned in the constructor.
     _measuringInitialized: boolean;
     _originalWidth: number | null | undefined;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_node' has no initializer and is not definitely assigned in the constructor.
     _node: HTMLElement;
 
     static defaultProps: DefaultProps = {
@@ -58,9 +65,11 @@ class Zoomable extends React.Component<Props, State> {
             return {
                 // $FlowFixMe[incompatible-use]
                 // $FlowFixMe[prop-missing]
+                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
                 width: firstChild.offsetWidth,
                 // $FlowFixMe[incompatible-use]
                 // $FlowFixMe[prop-missing]
+                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
                 height: firstChild.offsetHeight,
             };
         },
@@ -124,6 +133,7 @@ class Zoomable extends React.Component<Props, State> {
 
         if (this._isMounted && shouldInitialize) {
             this._measuringInitialized = true;
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element | Text | null' is not assignable to type 'HTMLElement'.
             this._node = ReactDOM.findDOMNode(this);
 
             // We call measureAndScaleChildToFit asynchronously so that the browser
@@ -133,19 +143,21 @@ class Zoomable extends React.Component<Props, State> {
             setTimeout(() => this.measureAndScaleChildToFit(false), 0);
 
             if (window.MutationObserver) {
-                this._observer = new MutationObserver((mutations: Array<MutationRecord>) => {
-                    if (this._isMounted) {
-                        for (const mutation of mutations) {
-                            if (mutation.target !== this._node) {
-                                // Only act on mutations of children
-                                this.measureAndScaleChildToFit(
-                                    this.state.zoomed,
-                                );
-                                break;
+                this._observer = new MutationObserver(
+                    (mutations: Array<MutationRecord>) => {
+                        if (this._isMounted) {
+                            for (const mutation of mutations) {
+                                if (mutation.target !== this._node) {
+                                    // Only act on mutations of children
+                                    this.measureAndScaleChildToFit(
+                                        this.state.zoomed,
+                                    );
+                                    break;
+                                }
                             }
                         }
-                    }
-                });
+                    },
+                );
 
                 this._observer.observe(this._node, {
                     childList: true,
@@ -276,6 +288,7 @@ class Zoomable extends React.Component<Props, State> {
                 onTouchCancelCapture={this.stopPropagationIfZoomed}
                 onTouchEndCapture={this.stopPropagationIfZoomed}
                 onTouchStartCapture={this.stopPropagationIfZoomed}
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ readonly transitionProperty: string; readonly transitionDuration: string; readonly transitionTimingFunction: string; readonly display: "block"; readonly width: "100%"; readonly height: number | ... 1 more ... | undefined; readonly transform: string; readonly transformOrigin: "0 0"; readonly opacity: 0 | 1; readonl...' is not assignable to type 'CSSProperties | undefined'.
                 style={style}
             >
                 {this.props.children}

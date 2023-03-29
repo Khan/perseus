@@ -4,36 +4,53 @@ import {vector as kvector} from "@khanacademy/kmath";
 import * as React from "react";
 import _ from "underscore";
 
-import Graphie from '../components/graphie';
-import * as Changeable from '../mixins/changeable';
-import Util from '../util';
+import Graphie from "../components/graphie";
+import * as Changeable from "../mixins/changeable";
+import Util from "../util";
 
-import type {Coord} from '../interactive2/types';
+import type {Coord} from "../interactive2/types";
 import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
-} from '../perseus-types';
-import type {PerseusScore, WidgetExports, WidgetProps} from '../types';
+} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'Line' does not exist on type 'typeof Graphie'.
 const Line = Graphie.Line;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovableLine' does not exist on type 'typeof Graphie'.
 const MovableLine = Graphie.MovableLine;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'Plot' does not exist on type 'typeof Graphie'.
 const Plot = Graphie.Plot;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'PlotParametric' does not exist on type 'typeof Graphie'.
 const PlotParametric = Graphie.PlotParametric;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'Point' does not exist on type 'typeof Graphie'.
 const Point = Graphie.Point;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'Rect' does not exist on type 'typeof Graphie'.
 const Rect = Graphie.Rect;
 const {unescapeMathMode} = Util;
 
 // Memoize KAS parsing
-const KAShashFunc = (expr: any, options: undefined | {
-  [".decimal_separator"]: never,
-  [".functions"]: never
-} | {
-  functions: any
-}) => {
+const KAShashFunc = (
+    expr: any,
+    options:
+        | undefined
+        | {
+              [".decimal_separator"]: never;
+              [".functions"]: never;
+          }
+        | {
+              functions: any;
+          },
+) => {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; } | {}' is not assignable to type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; } | undefined'.
     options = options || {};
+    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2339 - Property 'decimal_separator' does not exist on type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; }'.
     let result = expr + "||" + options.decimal_separator + "||";
+    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2339 - Property 'functions' does not exist on type '{ ".decimal_separator": never; ".functions": never; } | { functions: any; }'.
     const functions = options.functions;
     const functionsLength = functions ? functions.length : 0;
     for (let i = 0; i < functionsLength; i++) {
@@ -49,20 +66,25 @@ const KASparse = (expr, options) => {
     if (cached) {
         return cached;
     }
+    // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
     cached = KAS.parse(expr, options);
     _parseCache[hash] = cached;
     return cached;
 };
 
 const _compileCache = Object.create(null);
-const KAScompile = (expr: any, options: {
-  functions: any
-}) => {
+const KAScompile = (
+    expr: any,
+    options: {
+        functions: any;
+    },
+) => {
     const hash = KAShashFunc(expr, options);
     let cached = _compileCache[hash];
     if (cached) {
         return cached;
     }
+    // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
     const parsed = KAS.parse(expr, options).expr;
     cached = parsed
         ? parsed.compile()
@@ -78,13 +100,13 @@ type Rubric = PerseusInteractionWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
 type DefaultProps = {
-    graph: Props['graph'],
-    elements: Props['elements']
+    graph: Props["graph"];
+    elements: Props["elements"];
 };
 
 type State = {
-    variables: any,
-    functions: any
+    variables: any;
+    functions: any;
 };
 
 class Interaction extends React.Component<Props, State> {
@@ -143,7 +165,10 @@ class Interaction extends React.Component<Props, State> {
         );
     };
 
-    _updatePointLocation: (arg1: string, arg2: Coord) => void = (subscript, coord) => {
+    _updatePointLocation: (arg1: string, arg2: Coord) => void = (
+        subscript,
+        coord,
+    ) => {
         const variables = _.clone(this.state.variables);
         variables["x_" + subscript] = coord[0];
         variables["y_" + subscript] = coord[1];
@@ -155,9 +180,11 @@ class Interaction extends React.Component<Props, State> {
         options,
         startCoord,
     ) => {
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
         const xDiff = this._eval(
             "(" + options.endX + ")-(" + options.startX + ")",
         );
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
         const yDiff = this._eval(
             "(" + options.endY + ")-(" + options.startY + ")",
         );
@@ -203,6 +230,7 @@ class Interaction extends React.Component<Props, State> {
             expr.args(),
             function (arg) {
                 if (arg && arg.constructor.name === "Expr") {
+                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     vars = vars.concat(this._extractVars(arg));
                 }
             },
@@ -267,7 +295,9 @@ class Interaction extends React.Component<Props, State> {
                                 <Point
                                     key={element.key}
                                     coord={[
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(element.options.coordX),
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(element.options.coordY),
                                     ]}
                                     color={element.options.color}
@@ -276,11 +306,15 @@ class Interaction extends React.Component<Props, State> {
                         }
                         if (element.type === "line") {
                             const start = [
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.startX),
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.startY),
                             ];
                             const end = [
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.endX),
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.endY),
                             ];
                             return (
@@ -305,10 +339,12 @@ class Interaction extends React.Component<Props, State> {
                             const constraints = [
                                 (coord: any) => {
                                     const coordX = Math.max(
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintXMin,
                                         ),
                                         Math.min(
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this._eval(
                                                 element.options.constraintXMax,
                                             ),
@@ -316,10 +352,12 @@ class Interaction extends React.Component<Props, State> {
                                         ),
                                     );
                                     const coordY = Math.max(
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintYMin,
                                         ),
                                         Math.min(
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this._eval(
                                                 element.options.constraintYMax,
                                             ),
@@ -338,6 +376,7 @@ class Interaction extends React.Component<Props, State> {
                             } else if (element.options.constraint === "x") {
                                 constraints.push((coord) => {
                                     return [
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintFn,
                                             {y: coord[1]},
@@ -349,6 +388,7 @@ class Interaction extends React.Component<Props, State> {
                                 constraints.push((coord) => {
                                     return [
                                         coord[0],
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintFn,
                                             {x: coord[0]},
@@ -364,9 +404,11 @@ class Interaction extends React.Component<Props, State> {
                                 <MovablePoint
                                     key={element.key}
                                     coord={[
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this.state.variables[
                                             "x_" + element.options.varSubscript
                                         ],
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this.state.variables[
                                             "y_" + element.options.varSubscript
                                         ],
@@ -376,6 +418,7 @@ class Interaction extends React.Component<Props, State> {
                                     foo_y={element.options.constraintFn}
                                     foo_z={element.options.snap}
                                     onMove={_.partial(
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._updatePointLocation,
                                         element.options.varSubscript,
                                     )}
@@ -390,10 +433,12 @@ class Interaction extends React.Component<Props, State> {
                             const constraints = [
                                 (coord: any) => {
                                     const coordX = Math.max(
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintXMin,
                                         ),
                                         Math.min(
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this._eval(
                                                 element.options.constraintXMax,
                                             ),
@@ -401,10 +446,12 @@ class Interaction extends React.Component<Props, State> {
                                         ),
                                     );
                                     const coordY = Math.max(
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintYMin,
                                         ),
                                         Math.min(
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this._eval(
                                                 element.options.constraintYMax,
                                             ),
@@ -423,6 +470,7 @@ class Interaction extends React.Component<Props, State> {
                             } else if (element.options.constraint === "x") {
                                 constraints.push((coord) => {
                                     return [
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintFn,
                                             {y: coord[1]},
@@ -434,6 +482,7 @@ class Interaction extends React.Component<Props, State> {
                                 constraints.push((coord) => {
                                     return [
                                         coord[0],
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(
                                             element.options.constraintFn,
                                             {x: coord[0]},
@@ -442,17 +491,21 @@ class Interaction extends React.Component<Props, State> {
                                 });
                             }
                             const start = [
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables[
                                     "x_" + element.options.startSubscript
                                 ],
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables[
                                     "y_" + element.options.startSubscript
                                 ],
                             ];
                             const end = [
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables[
                                     "x_" + element.options.endSubscript
                                 ],
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.state.variables[
                                     "y_" + element.options.endSubscript
                                 ],
@@ -463,7 +516,9 @@ class Interaction extends React.Component<Props, State> {
                                     constraints={constraints}
                                     // eslint-disable-next-line react/jsx-no-bind
                                     onMove={_.bind(
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._updateLineLocation,
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this,
                                         element.options,
                                     )}
@@ -492,6 +547,7 @@ class Interaction extends React.Component<Props, State> {
                         }
                         if (element.type === "function") {
                             const fn = (x: any) => {
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 return this._eval(element.options.value, {
                                     x: x,
                                 });
@@ -499,7 +555,9 @@ class Interaction extends React.Component<Props, State> {
                             // find all the variables referenced by this
                             // function
                             const vars = _.without(
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._extractVars(
+                                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
                                     KASparse(element.options.value).expr,
                                 ),
                                 "x",
@@ -508,16 +566,21 @@ class Interaction extends React.Component<Props, State> {
                             // change
                             const varValues = _.object(
                                 vars,
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 _.map(vars, (v) => this.state.variables[v]),
                             );
 
                             const range = [
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(
                                     element.options.rangeMin,
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this.state.variables,
                                 ),
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(
                                     element.options.rangeMax,
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this.state.variables,
                                 ),
                             ];
@@ -544,17 +607,23 @@ class Interaction extends React.Component<Props, State> {
                         if (element.type === "parametric") {
                             const fn = (t: any) => {
                                 return [
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.x, {t: t}),
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._eval(element.options.y, {t: t}),
                                 ];
                             };
                             // find all the variables referenced by this
                             // function
                             const vars = _.without(
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._extractVars(
+                                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
                                     KASparse(element.options.x).expr,
                                 ).concat(
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this._extractVars(
+                                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
                                         KASparse(element.options.y).expr,
                                     ),
                                 ),
@@ -563,16 +632,21 @@ class Interaction extends React.Component<Props, State> {
                             // and find their values, so we redraw if any change
                             const varValues = _.object(
                                 vars,
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 _.map(vars, (v) => this.state.variables[v]),
                             );
 
                             const range = [
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(
                                     element.options.rangeMin,
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this.state.variables,
                                 ),
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(
                                     element.options.rangeMax,
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     this.state.variables,
                                 ),
                             ];
@@ -599,7 +673,9 @@ class Interaction extends React.Component<Props, State> {
                         }
                         if (element.type === "label") {
                             const coord = [
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.coordX),
+                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this._eval(element.options.coordY),
                             ];
                             return (
@@ -619,13 +695,17 @@ class Interaction extends React.Component<Props, State> {
                             return (
                                 <Rect
                                     key={n + 1}
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     x={this._eval(element.options.coordX)}
+                                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     y={this._eval(element.options.coordY)}
                                     width={_.max([
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(element.options.width),
                                         0,
                                     ])}
                                     height={_.max([
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         this._eval(element.options.height),
                                         0,
                                     ])}
@@ -665,12 +745,17 @@ class Interaction extends React.Component<Props, State> {
     }
 }
 
-const _getInitialVariables: (arg1: ReadonlyArray<PerseusInteractionElement>) => any = (elements) => {
+const _getInitialVariables: (
+    arg1: ReadonlyArray<PerseusInteractionElement>,
+) => any = (elements) => {
     const variables: Record<string, any> = {};
     // TODO(eater): look at all this copypasta! refactor this!
     _.each(_.where(elements, {type: "movable-point"}), (element) => {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'varSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const subscript = element.options.varSubscript;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const startXExpr = KASparse(element.options.startX || "0").expr;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const startYExpr = KASparse(element.options.startY || "0").expr;
         let startX = 0;
         let startY = 0;
@@ -684,11 +769,17 @@ const _getInitialVariables: (arg1: ReadonlyArray<PerseusInteractionElement>) => 
         variables["y_" + subscript] = startY;
     });
     _.each(_.where(elements, {type: "movable-line"}), (element) => {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'startSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const startSubscript = element.options.startSubscript;
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'endSubscript' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const endSubscript = element.options.endSubscript;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const startXExpr = KASparse(element.options.startX || "0").expr;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'startY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const startYExpr = KASparse(element.options.startY || "0").expr;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'endX' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const endXExpr = KASparse(element.options.endX || "0").expr;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1. | TS2339 - Property 'endY' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         const endYExpr = KASparse(element.options.endY || "0").expr;
         let startX = 0;
         let startY = 0;
@@ -712,14 +803,18 @@ const _getInitialVariables: (arg1: ReadonlyArray<PerseusInteractionElement>) => 
         variables["y_" + endSubscript] = endY;
     });
     _.each(_.where(elements, {type: "function"}), (element) => {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'funcName' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'. | TS2339 - Property 'value' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         variables[element.options.funcName] = element.options.value;
     });
     return variables;
 };
 
-const _getInitialFunctions: (arg1: ReadonlyArray<PerseusInteractionElement>) => ReadonlyArray<string> = (elements) => {
+const _getInitialFunctions: (
+    arg1: ReadonlyArray<PerseusInteractionElement>,
+) => ReadonlyArray<string> = (elements) => {
     return _.map(
         _.where(elements, {type: "function"}),
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'funcName' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
         (element) => element.options.funcName,
     );
 };

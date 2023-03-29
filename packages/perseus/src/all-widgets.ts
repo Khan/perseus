@@ -1,6 +1,9 @@
-import basicWidgets from './basic-widgets';
-import extraWidgets from './extra-widgets';
+import basicWidgets from "./basic-widgets";
+import extraWidgets from "./extra-widgets";
 
-import type {WidgetExports} from './types';
+import type {WidgetExports} from "./types";
 
-export default [...basicWidgets, ...extraWidgets] as ReadonlyArray<WidgetExports>;
+export default [
+    ...basicWidgets,
+    ...extraWidgets,
+] as ReadonlyArray<WidgetExports>;

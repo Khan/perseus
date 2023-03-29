@@ -3,27 +3,27 @@ import * as React from "react";
 
 type Props = {
     // the initial value of the button selected, defaults to null
-    value: any,
+    value: any;
     buttons: ReadonlyArray<{
         // the value returned when the button is selected
-        value: any,
+        value: any;
         // the content shown within the button, typically a string that gets
         // rendered as the button's display text
-        content: React.ReactNode,
+        content: React.ReactNode;
         // the title-text shown on hover
-        title?: string
-    }>,
+        title?: string;
+    }>;
     // a function that is provided with the updated value (which it then is
     // responsible for updating)
-    onChange: (value?: any) => unknown,
+    onChange: (value?: any) => unknown;
     // if false, exactly one button _must_ be selected;
     // defaults to true and _at most_ one button (0 or 1) may be selected.
-    allowEmpty: boolean
+    allowEmpty: boolean;
 };
 
 type DefaultProps = {
-    allowEmpty: Props['allowEmpty'],
-    value: Props['value']
+    allowEmpty: Props["allowEmpty"];
+    value: Props["value"];
 };
 
 /**
@@ -59,7 +59,7 @@ class ButtonGroup extends React.Component<Props> {
         }
     }
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const value = this.props.value;
         const buttons = this.props.buttons.map((button, i) => {
             return (
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
         padding: "5px 10px",
         position: "relative", // for hover
 
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: "white"; border: string; borderLeft: string; cursor: "pointer"; margin: string; padding: string; position: "relative"; ":first-child": { borderLeft: string; borderTopLeftRadius: string; borderBottomLeftRadius: string; }; ":last-child": { ...; }; ":hover": { ...; }; ":focus": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":first-child": {
             borderLeft: "1px solid #ccc",
             borderTopLeftRadius: "3px",

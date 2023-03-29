@@ -127,10 +127,14 @@ class SimulatorEditor extends React.Component<Props> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
-    handleTargetValueChange: (arg1: string, arg2: any) => void = (propName, e) => {
+    handleTargetValueChange: (arg1: string, arg2: any) => void = (
+        propName,
+        e,
+    ) => {
         this.change(propName, e.target.value);
     };
 

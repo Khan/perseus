@@ -5,7 +5,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Editor from '../editor';
+import Editor from "../editor";
 
 const {InfoTip, NumberInput} = components;
 const Table = TableWidget.widget;
@@ -20,7 +20,7 @@ class TableEditor extends React.Component<Props> {
         answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     };
 
-    static widgetName: 'table' = "table";
+    static widgetName: "table" = "table";
 
     static defaultProps: Props = (function () {
         const defaultRows = 4;
@@ -37,6 +37,7 @@ class TableEditor extends React.Component<Props> {
     })();
 
     focus: () => void = () => {
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.numberOfColumns).focus(); // eslint-disable-line react/no-string-refs
     };
 
@@ -108,7 +109,10 @@ class TableEditor extends React.Component<Props> {
         );
     }
 
-    onSizeInput: (arg1: number, arg2: number) => void = (numRawRows, numRawColumns) => {
+    onSizeInput: (arg1: number, arg2: number) => void = (
+        numRawRows,
+        numRawColumns,
+    ) => {
         let rows = +numRawRows || 0;
         let columns = +numRawColumns || 0;
         rows = Math.min(Math.max(1, rows), 30);

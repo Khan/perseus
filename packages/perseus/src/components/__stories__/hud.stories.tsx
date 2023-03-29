@@ -1,18 +1,20 @@
 import * as React from "react";
 
-import Hud from '../hud';
+import Hud from "../hud";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
     title: "Perseus/Components/HUD",
 } as Story;
 
-export const TestMessageDisabled: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TestMessageDisabled: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <Hud
             fixedPosition={false}
@@ -23,7 +25,9 @@ export const TestMessageDisabled: React.FC<StoryArgs> = (args): React.ReactEleme
     );
 };
 
-export const TestMessageEnabled: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const TestMessageEnabled: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <Hud
             fixedPosition={false}

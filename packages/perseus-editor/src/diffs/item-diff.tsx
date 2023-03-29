@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import RendererDiff from './renderer-diff';
-import WidgetDiff from './widget-diff';
+import RendererDiff from "./renderer-diff";
+import WidgetDiff from "./widget-diff";
 
 const itemProps = PropTypes.shape({
     question: PropTypes.shape({}).isRequired,

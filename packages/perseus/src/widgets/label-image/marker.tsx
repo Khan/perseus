@@ -8,24 +8,24 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Icon from '../../components/icon';
-import {iconCheck, iconMinus} from '../../icon-paths';
+import Icon from "../../components/icon";
+import {iconCheck, iconMinus} from "../../icon-paths";
 
-import type {InteractiveMarkerType} from './types';
+import type {InteractiveMarkerType} from "./types";
 
-type MarkerProps = (InteractiveMarkerType) & {
+type MarkerProps = InteractiveMarkerType & {
     // Whether this marker has been selected by user.
-    showSelected: boolean,
+    showSelected: boolean;
     // Whether this marker should pulsate to draw user attention.
-    showPulsate: boolean,
+    showPulsate: boolean;
     // Callbacks for when marker is interacted with using input device.
-    onClick: (e: MouseEvent) => void,
-    onKeyDown: (e: KeyboardEvent) => void
+    onClick: (e: MouseEvent) => void;
+    onKeyDown: (e: KeyboardEvent) => void;
 };
 
 type MarkerState = {
     // Whether the marker button has input focus.
-    isFocused: boolean
+    isFocused: boolean;
 };
 
 export default class Marker extends React.Component<MarkerProps, MarkerState> {
@@ -33,7 +33,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
     _icon: HTMLElement | null | undefined;
 
     static defaultProps: {
-        selected: ReadonlyArray<any>
+        selected: ReadonlyArray<any>;
     } = {
         selected: [],
     };
@@ -50,7 +50,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
         this.setState({isFocused: false});
     }
 
-    renderIcon(): React.ReactElement<React.ComponentProps<'div'>> {
+    renderIcon(): React.ReactElement<React.ComponentProps<"div">> {
         const {selected, showCorrectness, showSelected, showPulsate} =
             this.props;
 
@@ -110,7 +110,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
         );
     }
 
-    render(): React.ReactElement<React.ComponentProps<'button'>> {
+    render(): React.ReactElement<React.ComponentProps<"button">> {
         const {label, x, y, showCorrectness} = this.props;
 
         // It should no longer be possible to interact with a marker after it
@@ -132,7 +132,9 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
                 tabIndex={isDisabled ? -1 : 0}
                 onFocus={() => this.handleFocus()}
                 onBlur={() => this.handleBlur()}
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'MouseEvent<HTMLButtonElement, MouseEvent>' is not assignable to parameter of type 'MouseEvent'.
                 onClick={(e) => this.props.onClick(e)}
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'KeyboardEvent<HTMLButtonElement>' is not assignable to parameter of type 'KeyboardEvent'.
                 onKeyDown={(e) => this.props.onKeyDown(e)}
             >
                 {this.renderIcon()}
@@ -203,6 +205,7 @@ const styles = StyleSheet.create({
     },
 
     markerUnfilledPulsate: {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "0%": { transform: string; }; "100%": { transform: string; }; }' is not assignable to type 'AnimationName | undefined'.
         animationName: {
             "0%": {
                 transform: "scale(1)",
@@ -222,6 +225,7 @@ const styles = StyleSheet.create({
     },
 
     markerUnfilledSelected: {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -259,6 +263,7 @@ const styles = StyleSheet.create({
     },
 
     markerFilledSelected: {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; marginLeft: number; marginTop: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -299,6 +304,7 @@ const styles = StyleSheet.create({
     },
 
     markerCorrectSelected: {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",
@@ -337,6 +343,7 @@ const styles = StyleSheet.create({
     },
 
     markerIncorrectSelected: {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; display: string; position: string; width: number; height: number; border: string; borderRadius: number; }; ":active": { backgroundColor: string; boxShadow: string; "::before": { ...; }; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: "''",
             display: "inline-block",

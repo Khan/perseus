@@ -4,8 +4,8 @@ import * as React from "react";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {clone} from '../../../../testing/object-utils';
-import {testDependencies} from '../../../../testing/test-dependencies';
+import {clone} from "../../../../testing/object-utils";
+import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     dropdownWidget,
     imageWidget,
@@ -13,21 +13,21 @@ import {
     question1,
     question2,
     mockedItem,
-} from '../__testdata__/renderer_testdata';
-import * as Dependencies from '../dependencies';
-import {Errors} from '../logging/log';
-import {registerWidget} from '../widgets';
-import {renderQuestion} from '../widgets/__tests__/renderQuestion';
-import InputNumberExport from '../widgets/input-number';
-import RadioWidgetExport from '../widgets/radio';
+} from "../__testdata__/renderer_testdata";
+import * as Dependencies from "../dependencies";
+import {Errors} from "../logging/log";
+import {registerWidget} from "../widgets";
+import {renderQuestion} from "../widgets/__tests__/renderQuestion";
+import InputNumberExport from "../widgets/input-number";
+import RadioWidgetExport from "../widgets/radio";
 
-import MockWidgetExport from './mock-widget';
+import MockWidgetExport from "./mock-widget";
 
 import type {
     DropdownWidget,
     PerseusImageWidgetOptions,
     PerseusInputNumberWidgetOptions,
-} from '../perseus-types';
+} from "../perseus-types";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
 // because one of it's "instance" methods is created using `debounce` and Jest
@@ -35,7 +35,7 @@ import type {
 // see that symbol as an instance method).
 const mockRunLinter = jest.fn();
 const mockApplyLintErrors = jest.fn();
-jest.mock('../translation-linter', () => {
+jest.mock("../translation-linter", () => {
     // We mock the TranslationLinter constructor here setting things up so we
     // can spy/verify calls to instances of TranslationLinter
     return function () {
@@ -191,11 +191,11 @@ describe("renderer", () => {
                     ...question1.widgets,
                     // $FlowIgnore[prop-missing]
                     // $FlowIgnore[incompatible-cast]
-                    "dropdown 1": ({
+                    "dropdown 1": {
                         ...question1.widgets["dropdown 1"],
                         // $FlowIgnore[incompatible-cast]
                         type: undefined,
-                    } as DropdownWidget),
+                    } as DropdownWidget,
                 },
             } as const;
 
@@ -843,14 +843,14 @@ describe("renderer", () => {
                         "image 1": {
                             alignment: "block",
                             graded: true,
-                            options: ({
+                            options: {
                                 alt: "A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.",
                                 backgroundImage: {
                                     height: 80,
                                     url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
                                     width: 380,
                                 },
-                            } as PerseusImageWidgetOptions),
+                            } as PerseusImageWidgetOptions,
                             static: false,
                             type: "image",
                             version: {major: 0, minor: 0},
@@ -1767,10 +1767,10 @@ describe("renderer", () => {
                     "input-number 1": inputNumberWidget,
                     "input-number 2": {
                         ...inputNumberWidget,
-                        options: ({
+                        options: {
                             ...inputNumberWidget.options,
                             answerType: "percent",
-                        } as PerseusInputNumberWidgetOptions),
+                        } as PerseusInputNumberWidgetOptions,
                     },
                     "dropdown 1": dropdownWidget,
                 },

@@ -1,16 +1,22 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import TestUtils from 'react-dom/test-utils';
+import TestUtils from "react-dom/test-utils";
 import _ from "underscore";
 
-import NumberInput from '../number-input';
+import NumberInput from "../number-input";
 
 const STARTING_VALUE = 1;
 
 describe("NumberInput", function () {
-    const testInputResult = function (input: string, result: number, extraProps: undefined | {
-      placeholder: number
-    }) {
+    const testInputResult = function (
+        input: string,
+        result: number,
+        extraProps:
+            | undefined
+            | {
+                  placeholder: number;
+              },
+    ) {
         let newVal;
         const handleChange = function (val: any) {
             newVal = val;
@@ -46,10 +52,10 @@ describe("NumberInput", function () {
     });
 
     const testArrowKeys = function (args: {
-      endingValue: number,
-      key: string,
-      keysEnabled: boolean,
-      startingValue: number
+        endingValue: number;
+        key: string;
+        keysEnabled: boolean;
+        startingValue: number;
     }) {
         const key = args.key;
         const startingValue = args.startingValue;

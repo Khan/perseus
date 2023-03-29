@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import * as KAS from '../index';
+import * as KAS from "../index";
 
 expect.extend({
     toRenderTex(input: string, expected: string, options?: any) {

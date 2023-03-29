@@ -6,11 +6,11 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import SvgImage from '../components/svg-image';
-import {ApiOptions} from '../perseus-api';
-import GraphUtils from '../util/graph-utils';
+import SvgImage from "../components/svg-image";
+import {ApiOptions} from "../perseus-api";
+import GraphUtils from "../util/graph-utils";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 const defaultImage = {
     url: null,
@@ -80,6 +80,7 @@ const Measurer: any = createReactClass({
                         }}
                     >
                         {/* $FlowFixMe[prop-missing]: alt prop is missing */}
+                        {/* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                         <SvgImage src={image.url} />
                     </div>
                 )}
@@ -105,6 +106,7 @@ const Measurer: any = createReactClass({
                 "rulerLength",
             ],
             function (prop) {
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return prevProps[prop] !== this.props[prop];
             },
             this,
@@ -118,6 +120,7 @@ const Measurer: any = createReactClass({
     setupGraphie: function () {
         // eslint-disable-next-line react/no-string-refs
         const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
         const graphie = (this.graphie = GraphUtils.createGraphie(graphieDiv));
 

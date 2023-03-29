@@ -1,6 +1,6 @@
 import {getDecimalSeparator} from "@khanacademy/wonder-blocks-i18n";
 
-import {DecimalSeparators} from './consts';
+import {DecimalSeparators} from "./consts";
 
 // NOTES(kevinb):
 // - In order to get the correct decimal separator for the current locale,

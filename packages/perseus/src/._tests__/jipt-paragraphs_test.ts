@@ -1,4 +1,4 @@
-import JiptParagraphs from '../jipt-paragraphs';
+import JiptParagraphs from "../jipt-paragraphs";
 
 const {parseToArray} = JiptParagraphs;
 

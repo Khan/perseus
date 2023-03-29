@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import * as Changeable from '../mixins/changeable';
-import WidgetJsonifyDeprecated from '../mixins/widget-jsonify-deprecated';
+import * as Changeable from "../mixins/changeable";
+import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 const MAX_SIZE = 8;
 
@@ -147,7 +147,10 @@ class TileGrid extends React.Component<any> {
 
 // Returns a copy of the tiles, with tiles flipped according to
 // whether or not their y, x position satisfies the predicate
-const flipTilesPredicate = (oldCells: any, predicate: (y?: any, x?: any) => any | boolean) => {
+const flipTilesPredicate = (
+    oldCells: any,
+    predicate: (y?: any, x?: any) => any | boolean,
+) => {
     return _.map(oldCells, (row, y) => {
         return _.map(row, (cell, x) => {
             return predicate(y, x) ? !cell : cell;
@@ -170,6 +173,7 @@ const flipTilesPattern = (oldCells: any, tileY: any, tileX, pattern: any) => {
 class LightsPuzzle extends React.Component<any> {
     _currPattern: any;
     _nextPattern: any;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property '_patternIndex' has no initializer and is not definitely assigned in the constructor.
     _patternIndex: number;
 
     static propTypes = {
@@ -233,6 +237,7 @@ class LightsPuzzle extends React.Component<any> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 

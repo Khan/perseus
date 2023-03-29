@@ -1,11 +1,15 @@
-import type {PerseusRenderer, RadioWidget, PassageWidget} from '../../perseus-types';
+import type {
+    PerseusRenderer,
+    RadioWidget,
+    PassageWidget,
+} from "../../perseus-types";
 
 export const question: PerseusRenderer = {
     content:
         "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
     images: {},
     widgets: {
-        "radio 1": ({
+        "radio 1": {
             graded: true,
             version: {
                 major: 1,
@@ -47,11 +51,15 @@ export const question: PerseusRenderer = {
                 deselectEnabled: false,
             },
             alignment: "default",
-        } as RadioWidget),
+        } as RadioWidget,
     },
 };
 
-export const questionAndAnswer: [PerseusRenderer, number, ReadonlyArray<number>] = [question, 2, [0, 1, 3]];
+export const questionAndAnswer: [
+    PerseusRenderer,
+    number,
+    ReadonlyArray<number>,
+] = [question, 2, [0, 1, 3]];
 
 export const passageWidget: PassageWidget = {
     alignment: "default",
@@ -73,7 +81,7 @@ export const questionWithPassage: PerseusRenderer = {
         "Read the following passage:\n\n[[\u2603 passage 1]]\n\nWhich of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
     images: {},
     widgets: {
-        "radio 1": ({
+        "radio 1": {
             graded: true,
             version: {
                 major: 1,
@@ -114,8 +122,8 @@ export const questionWithPassage: PerseusRenderer = {
                 deselectEnabled: false,
             },
             alignment: "default",
-        } as RadioWidget),
-        "passage 1": ({
+        } as RadioWidget,
+        "passage 1": {
             alignment: "default",
             graded: true,
             options: {
@@ -129,7 +137,7 @@ export const questionWithPassage: PerseusRenderer = {
             static: false,
             type: "passage",
             version: {major: 0, minor: 0},
-        } as PassageWidget),
+        } as PassageWidget,
     },
 };
 
@@ -144,7 +152,7 @@ export const multiChoiceQuestion: PerseusRenderer = {
             },
     },
     widgets: {
-        "radio 1": ({
+        "radio 1": {
             graded: true,
             version: {
                 major: 1,
@@ -181,7 +189,7 @@ export const multiChoiceQuestion: PerseusRenderer = {
                 deselectEnabled: false,
             },
             alignment: "default",
-        } as RadioWidget),
+        } as RadioWidget,
     },
 };
 
@@ -189,7 +197,7 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
     content: "What are some ways to say hello?\n\n[[\u2603 radio 1]]",
     images: {},
     widgets: {
-        "radio 1": ({
+        "radio 1": {
             graded: true,
             version: {
                 major: 1,
@@ -233,11 +241,16 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
                 deselectEnabled: false,
             },
             alignment: "default",
-        } as RadioWidget),
+        } as RadioWidget,
     },
 };
 
-export const multiChoiceQuestionAndAnswer: [PerseusRenderer, ReadonlyArray<number>, ReadonlyArray<ReadonlyArray<number>>, ReadonlyArray<ReadonlyArray<number>>] = [
+export const multiChoiceQuestionAndAnswer: [
+    PerseusRenderer,
+    ReadonlyArray<number>,
+    ReadonlyArray<ReadonlyArray<number>>,
+    ReadonlyArray<ReadonlyArray<number>>,
+] = [
     multiChoiceQuestion,
     [3],
     [[0], [1], [2], [0, 1], [0, 2], [0, 1, 2], [1, 2]],

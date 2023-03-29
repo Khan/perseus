@@ -9,7 +9,8 @@ const {ButtonGroup, InfoTip, NumberInput, PropCheckBox, RangeInput} =
 
 type Range = [number, number];
 
-const bound = (x: number, gt: number, lt: number): number => Math.min(Math.max(x, gt), lt);
+const bound = (x: number, gt: number, lt: number): number =>
+    Math.min(Math.max(x, gt), lt);
 
 const EN_DASH = "\u2013";
 
@@ -39,7 +40,7 @@ class NumberLineEditor extends React.Component<Props> {
         showTooltips: PropTypes.bool,
     };
 
-    static widgetName: 'number-line' = "number-line";
+    static widgetName: "number-line" = "number-line";
 
     static defaultProps: Props = {
         range: [0, 10],
@@ -94,10 +95,10 @@ class NumberLineEditor extends React.Component<Props> {
         });
     };
 
-    onNumChange: (arg1: 'correctX' | 'initialX' | 'snapDivisions', arg2: number) => void = (
-        key,
-        value,
-    ) => {
+    onNumChange: (
+        arg1: "correctX" | "initialX" | "snapDivisions",
+        arg2: number,
+    ) => void = (key, value) => {
         const opts: Record<string, any> = {};
         opts[key] = value;
         this.props.onChange(opts);
@@ -135,7 +136,9 @@ class NumberLineEditor extends React.Component<Props> {
         });
     };
 
-    onChangeRelation: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    onChangeRelation: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
         const value = e.target.value;
         this.props.onChange({
             correctRel: value,
@@ -208,6 +211,7 @@ class NumberLineEditor extends React.Component<Props> {
                     Correct x{" "}
                     <select
                         value={this.props.correctRel}
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                         onChange={this.onChangeRelation}
                     >
                         <option value="eq"> = </option>

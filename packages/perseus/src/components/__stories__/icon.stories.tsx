@@ -1,32 +1,36 @@
-import {Flow} from 'flow-to-typescript-codemod';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
+import {Flow} from "flow-to-typescript-codemod";
 
 import * as React from "react";
 
-import * as IconPaths from '../../icon-paths';
-import IconComponent from '../icon';
+import * as IconPaths from "../../icon-paths";
+import IconComponent from "../icon";
 
 type StorybookStoryArgs = {
-    options?: ReadonlyArray<string>,
+    options?: ReadonlyArray<string>;
     mapping?: {
-        [value: string]: any
-    },
-    defaultValue?: string,
-    control?: string
+        [value: string]: any;
+    };
+    defaultValue?: string;
+    control?: string;
 };
 
 type StoryArgs = {
-    color?: string,
-    size?: number,
-    title?: string,
-    icon?: typeof IconPaths.iconCheck
+    color?: string;
+    size?: number;
+    title?: string;
+    icon?: typeof IconPaths.iconCheck;
 };
 
-type StoryArgTypes = Flow.ObjMap<StoryArgs, () => StorybookStoryArgs | null | undefined>;
+type StoryArgTypes = Flow.ObjMap<
+    StoryArgs,
+    () => StorybookStoryArgs | null | undefined
+>;
 
 type Story = {
-    title: string,
-    args?: StoryArgs,
-    argTypes: StoryArgTypes
+    title: string;
+    args?: StoryArgs;
+    argTypes: StoryArgTypes;
 };
 
 export default {
@@ -49,8 +53,10 @@ export default {
     },
 } as Story;
 
-export const Icon: React.FC<StoryArgs> = (args): React.ReactElement => <IconComponent
-    style={{display: "block"}}
-    icon={IconPaths.iconCheck}
-    {...args}
-/>;
+export const Icon: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <IconComponent
+        style={{display: "block"}}
+        icon={IconPaths.iconCheck}
+        {...args}
+    />
+);

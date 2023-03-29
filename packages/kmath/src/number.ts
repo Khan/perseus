@@ -30,7 +30,10 @@ export function equal(x: number, y: number, tolerance?: number): boolean {
     return Math.abs(x - y) < tolerance;
 }
 
-export function sign(x: number, tolerance?: number): number /* Should be: 0 | 1 | -1 */ {
+export function sign(
+    x: number,
+    tolerance?: number,
+): number /* Should be: 0 | 1 | -1 */ {
     return equal(x, 0, tolerance) ? 0 : Math.abs(x) / x;
 }
 

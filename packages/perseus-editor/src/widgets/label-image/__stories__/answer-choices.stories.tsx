@@ -2,12 +2,12 @@ import {action} from "@storybook/addon-actions";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import AnswerChoices from '../answer-choices';
+import AnswerChoices from "../answer-choices";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -35,9 +35,12 @@ const Wrapper = (props: any) => {
     );
 };
 
-class WithState extends React.Component<Record<any, any>, {
-    choices: ReadonlyArray<string>
-}> {
+class WithState extends React.Component<
+    Record<any, any>,
+    {
+        choices: ReadonlyArray<string>;
+    }
+> {
     state = {
         choices: [],
     };
@@ -54,12 +57,16 @@ class WithState extends React.Component<Record<any, any>, {
     }
 }
 
-export const EmptyNonInteractive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const EmptyNonInteractive: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {choices: [], onChange: (...args) => {}} as const;
     return <Wrapper {...props} />;
 };
 
-export const FilledNonInteractive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const FilledNonInteractive: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         choices: [
             "Lamborghini",

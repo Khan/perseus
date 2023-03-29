@@ -1,10 +1,17 @@
-import type {PerseusRenderer, PerseusExpressionWidgetOptions, Version} from '../../perseus-types';
+import type {
+    PerseusRenderer,
+    PerseusExpressionWidgetOptions,
+    Version,
+} from "../../perseus-types";
 
 type Item = {
-    question: PerseusRenderer
+    question: PerseusRenderer;
 };
 
-const createItemJson = (widgetOptions: PerseusExpressionWidgetOptions, version: Version): Item => {
+const createItemJson = (
+    widgetOptions: PerseusExpressionWidgetOptions,
+    version: Version,
+): Item => {
     return {
         question: {
             content: "[[☃ expression 1]]",

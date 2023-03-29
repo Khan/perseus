@@ -5,20 +5,20 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import * as styleConstants from '../../styles/constants';
+import * as styleConstants from "../../styles/constants";
 
 type Props = {
-    children?: React.ReactNode,
+    children?: React.ReactNode;
     // Whether the focus ring is visible. Allows for positioning
     // the child identically regardless of whether the ring is visible.
-    visible: boolean,
+    visible: boolean;
     // Color of the focus ring
-    color: string,
+    color: string;
     // Whether a user can select multiple options or not
-    multipleSelect: boolean
+    multipleSelect: boolean;
 };
 
-const FocusRing: React.FC<Props> = function(props): React.ReactElement {
+const FocusRing: React.FC<Props> = function (props): React.ReactElement {
     const {visible, color, children, multipleSelect} = props;
 
     const borderColor = visible ? color : "transparent";

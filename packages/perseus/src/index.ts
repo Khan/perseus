@@ -2,7 +2,7 @@
  * Main entry point
  */
 
-import version from './version';
+import version from "./version";
 
 export {default as init} from "./init.js";
 

@@ -1,18 +1,19 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import {generateChoice} from '../../__testdata__/base-radio_testdata';
-import BaseRadio from '../base-radio';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../../__testdata__/base-radio_testdata' or its corresponding type declarations.
+import {generateChoice} from "../../__testdata__/base-radio_testdata";
+import BaseRadio from "../base-radio";
 
 type StoryArgs = {
-    multipleSelect: boolean,
-    editMode: boolean,
-    countChoices: boolean
+    multipleSelect: boolean;
+    editMode: boolean;
+    countChoices: boolean;
 };
 
 type Story = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 export default {
@@ -65,17 +66,23 @@ export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const SingleSelectWithNothingSelected: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SingleSelectWithNothingSelected: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const overwrittenProps = {...defaultProps, multipleSelect: false} as const;
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const MultipleSelectWithNothingSelected: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultipleSelectWithNothingSelected: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const overwrittenProps = {...defaultProps, multipleSelect: true} as const;
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const MultipleSelectWithCountChoicesLabel: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultipleSelectWithCountChoicesLabel: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const overwrittenProps = {
         ...defaultProps,
         multipleSelect: true,
@@ -85,28 +92,42 @@ export const MultipleSelectWithCountChoicesLabel: React.FC<StoryArgs> = (args): 
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const SingleSelected: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SingleSelected: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const choices = Array(4)
         .fill(null)
         .map((_, i) => generateChoice({content: `Choice ${i + 1}`}));
     choices[1].checked = true;
 
-    const overwrittenProps = {...defaultProps, multipleSelect: false, choices} as const;
+    const overwrittenProps = {
+        ...defaultProps,
+        multipleSelect: false,
+        choices,
+    } as const;
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const MultipleSelected: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultipleSelected: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const choices = Array(4)
         .fill(null)
         .map((_, i) => generateChoice({content: `Choice ${i + 1}`}));
     choices[1].checked = true;
     choices[2].checked = true;
 
-    const overwrittenProps = {...defaultProps, multipleSelect: true, choices} as const;
+    const overwrittenProps = {
+        ...defaultProps,
+        multipleSelect: true,
+        choices,
+    } as const;
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const SingleKitchenSink: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SingleKitchenSink: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const choices = Array(4)
         .fill(null)
         .map((_, i) => {
@@ -142,7 +163,9 @@ export const SingleKitchenSink: React.FC<StoryArgs> = (args): React.ReactElement
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const MultipleKitchenSink: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultipleKitchenSink: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const choices = Array(4)
         .fill(null)
         .map((_, i) => {

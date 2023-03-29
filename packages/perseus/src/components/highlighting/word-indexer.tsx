@@ -13,17 +13,17 @@
  */
 import * as React from "react";
 
-import {Errors} from '../../logging/log';
-import {PerseusError} from '../../perseus-error';
+import {Errors} from "../../logging/log";
+import {PerseusError} from "../../perseus-error";
 
-import type {DOMRange} from './types';
+import type {DOMRange} from "./types";
 
 type WordIndexerProps = {
     // The content to display and traverse in search of words.
-    children?: React.ReactElement<any>,
+    children?: React.ReactElement<any>;
     // After each mount and update, this callback is called with the list of
     // word ranges in `children`'s DOM, sorted in document order.
-    onWordsUpdate: (wordRanges: ReadonlyArray<DOMRange>) => unknown
+    onWordsUpdate: (wordRanges: ReadonlyArray<DOMRange>) => unknown;
 };
 
 class WordIndexer extends React.PureComponent<WordIndexerProps> {
@@ -60,6 +60,7 @@ class WordIndexer extends React.PureComponent<WordIndexerProps> {
             container,
             NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
             () => NodeFilter.FILTER_ACCEPT,
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 1-3 arguments, but got 4.
             false,
         );
 
@@ -71,7 +72,7 @@ class WordIndexer extends React.PureComponent<WordIndexerProps> {
             const node = treeWalker.currentNode;
 
             if (node.nodeType === Node.ELEMENT_NODE) {
-                const element: Element = (node as any);
+                const element: Element = node as any;
                 if (getComputedStyle(element).display !== "inline") {
                     // Block-level elements interrupt text words, so set the
                     // current trailing word to `null`.
@@ -100,6 +101,7 @@ class WordIndexer extends React.PureComponent<WordIndexerProps> {
                 const wordPattern = /\S+/g;
                 let wordMatch;
                 let newTrailingWordRange = null;
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null' is not assignable to parameter of type 'string'.
                 while ((wordMatch = wordPattern.exec(text)) !== null) {
                     // TODO(mdr): We found a new Flow error when upgrading:
                     //     "index (Cannot get `wordMatch.index` because property `index` is missing in null [1].)"
@@ -123,12 +125,14 @@ class WordIndexer extends React.PureComponent<WordIndexerProps> {
                     } else {
                         // Otherwise, start a new word range here, and add it
                         // to the list.
+                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                         range = node.ownerDocument.createRange();
                         range.setStart(node, startOffset);
                         range.setEnd(node, endOffset);
                         index.push(range);
                     }
 
+                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                     if (endOffset === text.length) {
                         newTrailingWordRange = range;
                     }
@@ -140,7 +144,7 @@ class WordIndexer extends React.PureComponent<WordIndexerProps> {
         return index;
     }
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div ref={(container) => (this._container = container)}>
                 {this.props.children}

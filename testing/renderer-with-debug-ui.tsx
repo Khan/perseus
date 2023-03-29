@@ -5,27 +5,25 @@ import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
-import {Renderer} from '../packages/perseus/src/index';
-import {registerAllWidgetsForTesting} from '../packages/perseus/src/util/register-all-widgets-for-testing';
+import {Renderer} from "../packages/perseus/src/index";
+import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
-import SideBySide from './side-by-side';
+import SideBySide from "./side-by-side";
 
-import type {PerseusRenderer} from '../packages/perseus/src/perseus-types';
-import type {APIOptions} from '../packages/perseus/src/types';
+import type {PerseusRenderer} from "../packages/perseus/src/perseus-types";
+import type {APIOptions} from "../packages/perseus/src/types";
 
 type Props = {
-    question: PerseusRenderer,
-    apiOptions?: APIOptions,
-    reviewMode?: boolean
+    question: PerseusRenderer;
+    apiOptions?: APIOptions;
+    reviewMode?: boolean;
 };
 
-export const RendererWithDebugUI: React.FC<Props> = (
-    {
-        question,
-        apiOptions,
-        reviewMode = false,
-    },
-): React.ReactElement => {
+export const RendererWithDebugUI: React.FC<Props> = ({
+    question,
+    apiOptions,
+    reviewMode = false,
+}): React.ReactElement => {
     registerAllWidgetsForTesting();
     const ref = React.useRef<Renderer | null | undefined>(null);
     const [state, setState] = React.useState<any>(null);
@@ -36,6 +34,7 @@ export const RendererWithDebugUI: React.FC<Props> = (
             left={
                 <>
                     <Renderer
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
                         ref={ref}
                         content={question.content}
                         images={question.images}

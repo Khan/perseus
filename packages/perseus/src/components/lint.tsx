@@ -25,9 +25,9 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import * as constants from '../styles/constants';
+import * as constants from "../styles/constants";
 
-import InlineIcon from './inline-icon';
+import InlineIcon from "./inline-icon";
 
 const exclamationIcon = {
     path: "M6 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-9a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z",
@@ -73,6 +73,7 @@ class Lint extends React.Component<Props, State> {
     componentWillUnmount() {
         // TODO(somewhatabstract): Use WB timing
         // eslint-disable-next-line no-restricted-syntax
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         window.clearTimeout(this._positionTimeout);
     }
 
@@ -81,6 +82,7 @@ class Lint extends React.Component<Props, State> {
     // borrow a timeout approach from learnstorm-dashboard.jsx and set our
     // state once the component has mounted and we can get what we need.
     getPosition: () => void = () => {
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'getBoundingClientRect' does not exist on type 'Element | Text'.
         const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
         // TODO(scottgrant): This is a magic number! We don't know the size
         // of the tooltip at this point, so we're arbitrarily choosing a
@@ -228,6 +230,7 @@ const styles = StyleSheet.create({
 
         // The indicator is in a span inside the hover target.
         // This style changes its color on hover
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ position: "absolute"; top: number; right: number; display: "block"; width: number; height: number; ":hover > span": { backgroundColor: string; }; ":hover div": { display: string; }; ":hover ~ div": { outline: string; }; ":hover ~ div div[data-lint-inside-table]": { ...; }; ":hover ~ div span[data-lint-inside-table...' is not assignable to type 'CSSProperties'.
         ":hover > span": {
             backgroundColor: constants.warningColorHover,
         },
@@ -284,6 +287,7 @@ const styles = StyleSheet.create({
         // The indicator is in a span inside the hover target.
         // This style changes its color on hover.
         // This is the same as the block case.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ float: "right"; position: "relative"; marginRight: number; display: "block"; width: number; height: number; ":hover > span": { backgroundColor: string; }; ":hover div": { display: string; }; ":hover ~ span": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":hover > span": {
             backgroundColor: constants.warningColorHover,
         },
@@ -324,6 +328,7 @@ const styles = StyleSheet.create({
         // The indicator is in a span inside the hover target.
         // This style changes its color on hover.
         // This is the same as the block case.
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ position: "absolute"; left: number; display: "block"; width: number; height: number; minWidth: number; ":hover > span": { backgroundColor: string; }; ":hover > div": { display: string; padding: number; width: number; }; ":hover > div > div": { ...; }; ":hover ~ span": { ...; }; }' is not assignable to type 'CSSProperties'.
         ":hover > span": {
             backgroundColor: constants.warningColorHover,
         },

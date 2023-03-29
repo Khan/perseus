@@ -1,4 +1,5 @@
-import {Flow} from 'flow-to-typescript-codemod';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
+import {Flow} from "flow-to-typescript-codemod";
 /**
  * A side by side diff view for Perseus renderers.
  */
@@ -6,8 +7,8 @@ import {Widgets} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
-import TextDiff from './text-diff';
-import WidgetDiff from './widget-diff';
+import TextDiff from "./text-diff";
+import WidgetDiff from "./widget-diff";
 
 import type {PerseusRenderer} from "@khanacademy/perseus";
 
@@ -22,14 +23,17 @@ const filterWidgetInfo = function (widgetInfo, showAlignmentOptions: boolean) {
         showAlignmentOptions &&
         Widgets.getSupportedAlignments(type).length > 1
     ) {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.alignment = alignment;
     }
 
     if (type === "transformer") {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graded' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.graded = graded;
     }
 
     if (Widgets.supportsStaticMode(type)) {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'static' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.static = widgetInfo?.static ?? undefined;
     }
 
@@ -39,31 +43,36 @@ const filterWidgetInfo = function (widgetInfo, showAlignmentOptions: boolean) {
 // TODO(michaelpolyak): This type is very similar to `PerseusRenderer` type
 // found in `perseus-all-package/perseus-type.js`, consider just using it.
 type RendererProps = {
-    content: string,
+    content: string;
     // NOTE: images and widgets may not be set for some items hints,
     // specifically in old revisions, which may only be loaded for diffing.
-    widgets: PerseusRenderer['widgets'] | null | undefined,
-    images: PerseusRenderer['images'] | null | undefined
+    widgets: PerseusRenderer["widgets"] | null | undefined;
+    images: PerseusRenderer["images"] | null | undefined;
 };
 
 type Props = {
     // The "after" props of the renderer. Will be displayed on the right.
-    after: RendererProps,
+    after: RendererProps;
     // The "before" props of the renderer. Will be displayed on the left.
-    before: RendererProps,
+    before: RendererProps;
     // If true, show widget alignment options in the diff.
-    showAlignmentOptions: boolean,
+    showAlignmentOptions: boolean;
     // If true, render a horizontal rule after this diff.
-    showSeparator: boolean,
+    showSeparator: boolean;
     // The heading to render above the side by side diff.
     // (In a code review tool this would be the filename.)
-    title: string
+    title: string;
 };
 
 class RendererDiff extends React.Component<Props> {
-    static defaultProps: Partial<Flow.Diff<Props, {
-        title: string
-    }>> = {
+    static defaultProps: Partial<
+        Flow.Diff<
+            Props,
+            {
+                title: string;
+            }
+        >
+    > = {
         after: {
             content: "",
             images: {},

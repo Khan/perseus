@@ -1,15 +1,15 @@
-import getRenderA11yString from 'katex/dist/contrib/render-a11y-string';
+import getRenderA11yString from "katex/dist/contrib/render-a11y-string";
 import * as React from "react";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import {wait} from '../../../../../testing/wait';
-import * as Dependencies from '../../dependencies';
-import {question1} from '../__testdata__/matcher_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import {wait} from "../../../../../testing/wait";
+import * as Dependencies from "../../dependencies";
+import {question1} from "../__testdata__/matcher_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {APIOptions} from '../../types';
+import type {APIOptions} from "../../types";
 import type {Matcher} from "enzyme-matchers/lib/types/Matcher";
 
 describe("matcher widget", () => {
@@ -29,11 +29,7 @@ describe("matcher widget", () => {
             getKaTeX: () => {
                 return Promise.resolve({});
             },
-            TeX: ({
-                children,
-            }: {
-                children: React.ReactNode
-            }) => (
+            TeX: ({children}: {children: React.ReactNode}) => (
                 <span className="tex-mock">{children}</span>
             ),
             getRenderA11yString: Promise.resolve(getRenderA11yString),

@@ -3,14 +3,14 @@ import * as React from "react";
 import type {CSSProperties} from "aphrodite";
 
 type Props = {
-    value: string,
-    onChange: (arg1: string) => void,
-    className?: string,
-    style?: CSSProperties
+    value: string;
+    onChange: (arg1: string) => void;
+    className?: string;
+    style?: CSSProperties;
 };
 
 type State = {
-    value: string
+    value: string;
 };
 
 /* You know when you want to propagate input to a parent...
@@ -44,7 +44,7 @@ class BlurInput extends React.Component<Props, State> {
         this.props.onChange(e.target.value);
     };
 
-    render(): React.ReactElement<React.ComponentProps<'input'>> {
+    render(): React.ReactElement<React.ComponentProps<"input">> {
         return (
             <input
                 className={this.props.className}

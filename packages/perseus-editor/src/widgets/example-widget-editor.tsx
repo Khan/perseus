@@ -13,13 +13,16 @@ class ExampleWidgetEditor extends React.Component<Props> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: 'example-widget' = "example-widget";
+    static widgetName: "example-widget" = "example-widget";
 
     static defaultProps: Props = {
         correct: "",
     };
 
-    handleAnswerChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (event) => {
+    handleAnswerChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        event,
+    ) => {
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({
             correct: event.target.value,
         });
@@ -47,6 +50,7 @@ class ExampleWidgetEditor extends React.Component<Props> {
 
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
         return true;
     };

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import BlurInput from '../components/blur-input';
+import BlurInput from "../components/blur-input";
 
 const {PropCheckBox} = components;
 
@@ -119,7 +119,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
         ...Changeable.propTypes,
     };
 
-    static widgetName: 'iframe' = "iframe";
+    static widgetName: "iframe" = "iframe";
 
     static defaultProps: IframeEditorProps = {
         url: "",
@@ -145,6 +145,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Url or Program ID:
                     <BlurInput
                         value={this.props.url}
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("url")}
                     />
                 </label>
@@ -162,6 +163,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Width:
                     <BlurInput
                         value={this.props.width}
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("width")}
                     />
                 </label>
@@ -169,6 +171,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Height:
                     <BlurInput
                         value={this.props.height}
+                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("height")}
                     />
                 </label>
@@ -188,6 +191,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
     }
 
     handleSettingsChange: (arg1: any) => void = (settings) => {
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({settings: settings.pairs});
     };
 

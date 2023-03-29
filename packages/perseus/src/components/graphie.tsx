@@ -4,13 +4,13 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import InteractiveUtil from '../interactive2/interactive-util';
-import {Errors, Log} from '../logging/log';
-import Util from '../util';
-import GraphUtils from '../util/graph-utils';
+import InteractiveUtil from "../interactive2/interactive-util";
+import {Errors, Log} from "../logging/log";
+import Util from "../util";
+import GraphUtils from "../util/graph-utils";
 
-import GraphieClasses from './graphie-classes';
-import Movables from './graphie-movables';
+import GraphieClasses from "./graphie-classes";
+import Movables from "./graphie-movables";
 
 const GraphieMovable = GraphieClasses.GraphieMovable;
 
@@ -97,6 +97,7 @@ class Graphie extends React.Component<Props> {
      * Use it for good and not evil.
      */
     getGraphie: () => any = () => {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
         return this._graphie;
     };
 
@@ -132,7 +133,9 @@ class Graphie extends React.Component<Props> {
 
         // eslint-disable-next-line react/no-string-refs
         const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
+        // @ts-expect-error [FEI-5003] - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
         const graphie = (this._graphie = createGraphie(graphieDiv));
 
         // This has to be called before addMouseLayer. You can re-init
@@ -159,6 +162,7 @@ class Graphie extends React.Component<Props> {
             // Overwrite fixed styles set in init()
             // TODO(alex): Either make this component always responsive by
             // itself, or always wrap it in other components so that it is.
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2554 - Expected 2 arguments, but got 1.
             $(graphieDiv).css({width: "100%", height: "100%"});
             graphie.raphael.setSize("100%", "100%");
         }
@@ -177,11 +181,17 @@ class Graphie extends React.Component<Props> {
 
     _removeMovables: () => void = () => {
         // _.invoke works even when this._movables is undefined
+        // @ts-expect-error [FEI-5003] - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         _.invoke(this._movables, "remove");
+        // @ts-expect-error [FEI-5003] - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         this._movables = {};
     };
 
-    _renderMovables: (children: ReadonlyArray<any>, arg2: any) => React.ReactElement = (children, options) => {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(children: readonly any[], options: any) => ReactElement<any, string | JSXElementConstructor<any>> | readonly ReactElement<any, string | JSXElementConstructor<any>>[]' is not assignable to type '(children: readonly any[], arg2: any) => ReactElement<any, string | JSXElementConstructor<any>>'.
+    _renderMovables: (
+        children: ReadonlyArray<any>,
+        arg2: any,
+    ) => React.ReactElement = (children, options) => {
         // Each leaf of `children` is a movable descriptor created by a call to
         // some `GraphieMovable`, such as `MovablePoint`.
         //
@@ -219,6 +229,7 @@ class Graphie extends React.Component<Props> {
         // elements occurring afterwards. If this happens, we set
         // `areMovablesOutOfOrder` to true:
         let areMovablesOutOfOrder = false;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
         return nestedMap(children, (childDescriptor) => {
             if (!childDescriptor) {
                 // Still increment the key to avoid cascading key changes
@@ -291,6 +302,7 @@ class Graphie extends React.Component<Props> {
             }
 
             if (ref) {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'movables' does not exist on type 'Graphie'.
                 this.movables[ref] = newMovables[key];
             }
 
@@ -300,13 +312,18 @@ class Graphie extends React.Component<Props> {
 
     // Sort of like react diffing, but for movables
     _updateMovables: () => void = () => {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
         const graphie = this._graphie;
 
+        // @ts-expect-error [FEI-5003] - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         const oldMovables = this._movables;
         const newMovables: Record<string, any> = {};
+        // @ts-expect-error [FEI-5003] - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         this._movables = newMovables;
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'movables' does not exist on type 'Graphie'.
         this.movables = {};
 
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'ReactNode' is not assignable to parameter of type 'readonly any[]'.
         this._renderMovables(this.props.children, {
             nextKey: 1,
             graphie: graphie,

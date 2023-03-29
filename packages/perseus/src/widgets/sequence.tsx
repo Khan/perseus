@@ -1,16 +1,19 @@
-import {linterContextProps, linterContextDefault} from "@khanacademy/perseus-linter";
+import {
+    linterContextProps,
+    linterContextDefault,
+} from "@khanacademy/perseus-linter";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from '../components/inline-icon';
-import {iconOk} from '../icon-paths';
-import * as Changeable from '../mixins/changeable';
-import {ApiOptions} from '../perseus-api';
-import Renderer from '../renderer';
-import Util from '../util';
+import InlineIcon from "../components/inline-icon";
+import {iconOk} from "../icon-paths";
+import * as Changeable from "../mixins/changeable";
+import {ApiOptions} from "../perseus-api";
+import Renderer from "../renderer";
+import Util from "../util";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 class Sequence extends React.Component<any, any> {
     static propTypes = {
@@ -54,6 +57,7 @@ class Sequence extends React.Component<any, any> {
         const step = parseInt(groupWidgetId.split(" ")[1]);
         if (step === this.state.visible - 1) {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getWidgetInstance' does not exist on type 'ReactInstance'.
             const widget = this.refs.renderer.getWidgetInstance(
                 "group " + step,
             );
@@ -110,7 +114,7 @@ class Sequence extends React.Component<any, any> {
     }
 }
 
-const traverseChildWidgets = function(props: any, traverseRenderer: any): any {
+const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     let oldJson = props.json;
     if (!_.isArray(oldJson)) {
         oldJson = [oldJson];

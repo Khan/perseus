@@ -6,13 +6,13 @@ import * as React from "react";
 // TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
 import "@testing-library/jest-dom/extend-expect";
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import * as Perseus from '../../index';
-import {traverse} from '../../traversal';
-import {question1} from '../__testdata__/group_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import * as Perseus from "../../index";
+import {traverse} from "../../traversal";
+import {question1} from "../__testdata__/group_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 describe("group widget", () => {
     beforeEach(() => {
@@ -478,7 +478,8 @@ describe("group widget", () => {
         it("should call the widgetCallback for every widget anywhere in the tree", () => {
             // Arrange
             const widgetIds = [];
-            const widgetCallback = (_: any, widgetId: string) => widgetIds.push(widgetId);
+            const widgetCallback = (_: any, widgetId: string) =>
+                widgetIds.push(widgetId);
 
             // Act
             traverse(question1, null, widgetCallback);

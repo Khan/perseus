@@ -1,6 +1,6 @@
 import {buildEmptyItemTreeForShape, shapes} from "@khanacademy/perseus";
 
-import StructuredItemDiff from '../structured-item-diff';
+import StructuredItemDiff from "../structured-item-diff";
 
 const gtpPassageShape = shapes.shape({
     directions: shapes.content,

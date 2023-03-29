@@ -27,21 +27,21 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Graph from '../components/graph';
-import InlineIcon from '../components/inline-icon';
-import NumberInput from '../components/number-input';
-import SimpleKeypadInput from '../components/simple-keypad-input';
-import {getDependencies} from '../dependencies';
-import {iconPlus, iconUndo} from '../icon-paths';
-import InteractiveUtil from '../interactive2/interactive-util';
-import {Errors} from '../logging/log';
-import {ApiOptions} from '../perseus-api';
-import {PerseusError} from '../perseus-error';
-import Util from '../util';
-import KhanColors from '../util/colors';
-import KhanMath from '../util/math';
+import Graph from "../components/graph";
+import InlineIcon from "../components/inline-icon";
+import NumberInput from "../components/number-input";
+import SimpleKeypadInput from "../components/simple-keypad-input";
+import {getDependencies} from "../dependencies";
+import {iconPlus, iconUndo} from "../icon-paths";
+import InteractiveUtil from "../interactive2/interactive-util";
+import {Errors} from "../logging/log";
+import {ApiOptions} from "../perseus-api";
+import {PerseusError} from "../perseus-error";
+import Util from "../util";
+import KhanColors from "../util/colors";
+import KhanMath from "../util/math";
 
-import type {Coord} from '../interactive2/types';
+import type {Coord} from "../interactive2/types";
 import type {
     PerseusTransformerWidgetOptions,
     PerseusTransformerTransformation as TransformerTransformation,
@@ -49,8 +49,8 @@ import type {
     ReflectionTransformation,
     RotationTransformation,
     TranslationTransformation,
-} from '../perseus-types';
-import type {Path, PerseusScore, WidgetExports, WidgetProps} from '../types';
+} from "../perseus-types";
+import type {Path, PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 const {deepEq, getGridStep, captureScratchpadTouchStart} = Util;
 const {assert} = InteractiveUtil;
@@ -195,7 +195,11 @@ function scaleToRange(dist: number, range) {
     return (dist * Math.max(spreadX, spreadY)) / 20;
 }
 
-function dilatePointFromCenter(point: any, dilationCenter: Coord, scale: number) {
+function dilatePointFromCenter(
+    point: any,
+    dilationCenter: Coord,
+    scale: number,
+) {
     const pv = kvector.subtract(point, dilationCenter);
     const pvScaled = kvector.scale(pv, scale);
     const transformedPoint = kvector.add(dilationCenter, pvScaled);
@@ -269,9 +273,11 @@ const TransformOps = {
         // TODO (jack): Merge this just into reflections now that other
         // transforms are always valid (after merging transformation
         // collapsing, which may use isValid)
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusTransformerTransformation' is not assignable to parameter of type 'never'.
         if (!Transformations[transform.type].isValid(transform)) {
             return _.identity; // do not transform the coord
         }
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusTransformerTransformation' is not assignable to parameter of type 'never'.
         return Transformations[transform.type].apply(transform);
     },
 
@@ -337,11 +343,13 @@ const TransformOps = {
         );
     },
 
-    isValid: function(transform: TransformerTransformation): boolean {
+    isValid: function (transform: TransformerTransformation): boolean {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusTransformerTransformation' is not assignable to parameter of type 'never'.
         return Transformations[transform.type].isValid(transform);
     },
 
-    isEmpty: function(transform: TransformerTransformation): boolean {
+    isEmpty: function (transform: TransformerTransformation): boolean {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusTransformerTransformation' is not assignable to parameter of type 'never'.
         return Transformations[transform.type].isEmpty(transform);
     },
 
@@ -413,6 +421,7 @@ const TransformOps = {
         },
 
         handleChange: _.debounce(function (callback) {
+            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.props.onChange(this.value(), callback);
         }, RENDER_TRANSFORM_DELAY_IN_MS),
 
@@ -456,7 +465,9 @@ const TransformOps = {
             // We let through the empty string so that "Clear" works -- in
             // that case, the transformer widget will just act as if there is
             // no input, which is what we want.
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'length' does not exist on type 'string | number'.
             if (value.length) {
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | number' is not assignable to parameter of type 'string'.
                 value = parseFloat(value);
                 if (isNaN(value)) {
                     return;
@@ -580,8 +591,10 @@ const Transformations = {
 
             value = () => {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const x = this.refs.x.getValue();
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const y = this.refs.y.getValue();
                 return {
                     vector: [x, y],
@@ -750,10 +763,13 @@ const Transformations = {
 
             value = () => {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const angleDeg = this.refs.angleDeg.getValue();
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const centerX = this.refs.centerX.getValue();
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const centerY = this.refs.centerY.getValue();
                 return {
                     angleDeg: angleDeg,
@@ -919,8 +935,14 @@ const Transformations = {
                 );
             }
 
-            changePoint = (i: undefined | number, j: undefined | number, val: any, cb) => {
+            changePoint = (
+                i: undefined | number,
+                j: undefined | number,
+                val: any,
+                cb,
+            ) => {
                 const line = _.map(this.state.line, _.clone);
+                // @ts-expect-error [FEI-5003] - TS2538 - Type 'undefined' cannot be used as an index type.
                 line[i][j] = val;
                 this.setState({line: line}, () => {
                     this.props.onChange(cb);
@@ -929,12 +951,16 @@ const Transformations = {
 
             value = () => {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const x1 = this.refs.x1.getValue();
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const y1 = this.refs.y1.getValue();
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const x2 = this.refs.x2.getValue();
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const y2 = this.refs.y2.getValue();
                 return {
                     line: [
@@ -1107,10 +1133,13 @@ const Transformations = {
 
             value = () => {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const scale = this.refs.scale.getValue();
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const x = this.refs.x.getValue();
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getValue' does not exist on type 'ReactInstance'.
                 const y = this.refs.y.getValue();
                 return {
                     scale: scale,
@@ -1286,6 +1315,7 @@ const ShapeTypes = {
         const typeOptions =
             options.shape.options || ShapeTypes.defaultOptions(types);
 
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 4 arguments, but got 3.
         const shapes = ShapeTypes._mapTypes(
             types,
             points,
@@ -1344,11 +1374,13 @@ const ShapeTypes = {
         if (types1.length !== types2.length) {
             return false;
         }
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 4 arguments, but got 3.
         const shapes1 = ShapeTypes._mapTypes(
             types1,
             shape1.coords,
             ShapeTypes._combine,
         );
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 4 arguments, but got 3.
         const shapes2 = ShapeTypes._mapTypes(
             types2,
             shape2.coords,
@@ -1490,6 +1522,7 @@ const ShapeTypes = {
                 const coord0 = points[0].coord || points[0];
                 const coord1 = points[1].coord || points[1];
                 const radius = kpoint.distanceToPoint(coord0, coord1);
+                // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
                 perimeter.remove();
                 perimeter = graphie.circle(
                     coord0,
@@ -1514,6 +1547,7 @@ const ShapeTypes = {
                 remove: function () {
                     // Not _.bind because the remove function changes
                     // when the perimeter is redrawn
+                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
                     perimeter.remove();
                 },
             };
@@ -1562,8 +1596,10 @@ const ShapeTypes = {
             const line2_2 = [points2[1], points2[2]];
 
             const equalUnflipped =
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Ray'. | TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Ray'.
                 kray.equal(line1_0, line2_0) && kray.equal(line1_2, line2_2);
             const equalFlipped =
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Ray'. | TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Ray'.
                 kray.equal(line1_0, line2_2) && kray.equal(line1_2, line2_0);
 
             return equalUnflipped || equalFlipped;
@@ -1606,11 +1642,17 @@ class TransformationList extends React.Component<any, any> {
                         ref={"transformation" + i}
                         key={"transformation" + i}
                         transform={transform}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         mode={this.props.mode}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onChange={this.handleChange}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onFocus={_.partial(this.props.onFocus, "" + i)}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onBlur={_.partial(this.props.onBlur, "" + i)}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         keypadElement={this.props.keypadElement}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         apiOptions={this.props.apiOptions}
                     />
                 );
@@ -1643,6 +1685,7 @@ class TransformationList extends React.Component<any, any> {
     focusLast = () => {
         const transformationRefs = this._transformationRefs();
         if (transformationRefs.length !== 0) {
+            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             _.last(transformationRefs).focus();
         }
     };
@@ -1660,6 +1703,7 @@ class ToolButton extends React.Component<any, any> {
                 className={classes}
                 disabled={this.props.disabled}
                 onClick={this.props.onClick}
+                // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLButtonElement>'.
                 onTouchStart={captureScratchpadTouchStart}
             >
                 {this.props.children}
@@ -1677,13 +1721,17 @@ class ToolsBar extends React.Component<any, any> {
         const tools = _.map(
             Transformations,
             function (tool, type) {
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (this.props.enabled[type]) {
                     return (
                         <ToolButton
                             key={type}
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             disabled={this.props.apiOptions.readOnly}
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             toggled={this.state.selected === type}
                             // eslint-disable-next-line react/jsx-no-bind
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             onClick={this.changeSelected.bind(this, type)}
                         >
                             {tool.verbName}
@@ -1702,6 +1750,7 @@ class ToolsBar extends React.Component<any, any> {
                     type="button"
                     disabled={this.props.apiOptions.readOnly}
                     onClick={this.props.onUndoClick}
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLButtonElement>'.
                     onTouchStart={captureScratchpadTouchStart}
                 >
                     <InlineIcon {...iconUndo} />
@@ -1733,13 +1782,16 @@ class AddTransformBar extends React.Component<any, any> {
         const tools = _.map(
             Transformations,
             function (tool, type) {
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (this.props.enabled[type]) {
                     return (
                         <ToolButton
                             key={type}
                             toggled={false}
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             disabled={this.props.apiOptions.readOnly}
                             // eslint-disable-next-line react/jsx-no-bind
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             onClick={this.changeSelected.bind(this, type)}
                         >
                             <InlineIcon {...iconPlus} /> {tool.nounName}
@@ -1758,6 +1810,7 @@ class AddTransformBar extends React.Component<any, any> {
                     type="button"
                     onClick={this.props.onUndoClick}
                     disabled={this.props.apiOptions.readOnly}
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLButtonElement>'.
                     onTouchStart={captureScratchpadTouchStart}
                 >
                     <InlineIcon {...iconUndo} />
@@ -1782,16 +1835,18 @@ type ToolCleanup = any;
 type Rubric = PerseusTransformerWidgetOptions;
 type RenderProps = PerseusTransformerWidgetOptions; // there's no transform in the exports
 type UserInput = any;
-type Props = (WidgetProps<RenderProps, Rubric>) & {
-    transformations: ReadonlyArray<TransformerTransformation>,
-    keypadElement: any
+type Props = WidgetProps<RenderProps, Rubric> & {
+    transformations: ReadonlyArray<TransformerTransformation>;
+    keypadElement: any;
 };
 
 class Transformer extends React.Component<Props> {
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'tools' has no initializer and is not definitely assigned in the constructor.
     tools: {
-        [key: string]: Tool
+        [key: string]: Tool;
     };
     currentTool: Tool | null | undefined;
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'transformations' has no initializer and is not definitely assigned in the constructor.
     transformations: ReadonlyArray<TransformerTransformation>;
     shape: any | null | undefined; // This is not the same as TransformerShape
     dilationCircle: any | null | undefined;
@@ -1893,13 +1948,17 @@ class Transformer extends React.Component<Props> {
     componentDidUpdate(prevProps: Props) {
         if (this.shouldSetupGraphie(this.props, prevProps)) {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'reset' does not exist on type 'ReactInstance'.
             this.refs.graph.reset();
         } else if (!deepEq(this.props.transformations, this.transformations)) {
             this.setTransformations(this.props.transformations);
         }
     }
 
-    shouldSetupGraphie: (arg1: Props, arg2: Props) => boolean = (nextProps, prevProps) => {
+    shouldSetupGraphie: (arg1: Props, arg2: Props) => boolean = (
+        nextProps,
+        prevProps,
+    ) => {
         if (!deepEq(prevProps.starting, nextProps.starting)) {
             return true;
         }
@@ -1926,6 +1985,7 @@ class Transformer extends React.Component<Props> {
 
     graphie: () => Graphie = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
         return this.refs.graph.graphie();
     };
 
@@ -1936,6 +1996,7 @@ class Transformer extends React.Component<Props> {
             this.props.correct.shape &&
             this.props.correct.shape.coords
         ) {
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
             ShapeTypes.addShape(graphie, {
                 fixed: true,
                 shape: this.props.correct.shape,
@@ -1949,6 +2010,7 @@ class Transformer extends React.Component<Props> {
 
         this.currentTool = null;
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'changeSelected' does not exist on type 'ReactInstance'.
         this.refs.toolsBar.changeSelected(null);
         this.addTransformerShape(
             this.props.starting.shape,
@@ -1977,9 +2039,9 @@ class Transformer extends React.Component<Props> {
      *
      * Usually called with this.props.transformations
      */
-    setTransformations: (arg1: ReadonlyArray<TransformerTransformation>) => void = (
-        transformations,
-    ) => {
+    setTransformations: (
+        arg1: ReadonlyArray<TransformerTransformation>,
+    ) => void = (transformations) => {
         this.resetCoords();
         this.transformations = _.clone(transformations);
         _.each(this.transformations, this.applyTransform);
@@ -2002,6 +2064,7 @@ class Transformer extends React.Component<Props> {
                 dX = KhanMath.roundToNearest(graphie.snap[0], dX);
                 dY = KhanMath.roundToNearest(graphie.snap[1], dY);
                 // NOTE(kevinb): object is missing .constraints property
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ type: "translation"; vector: [any, any]; }' is not assignable to parameter of type 'PerseusTransformerTransformation'.
                 self.addTransform({
                     type: "translation",
                     vector: [dX, dY],
@@ -2023,7 +2086,7 @@ class Transformer extends React.Component<Props> {
         });
     };
 
-    addTool: (arg1: TransformerTransformation['type']) => void = (toolId) => {
+    addTool: (arg1: TransformerTransformation["type"]) => void = (toolId) => {
         const self = this;
 
         if (this.props.graphMode === "interactive") {
@@ -2049,6 +2112,7 @@ class Transformer extends React.Component<Props> {
                     type: "translation",
                     // NOTE(kevib): these should be numbers
                     // $FlowFixMe[incompatible-type]
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                     vector: [null, null],
                 };
             } else if (toolId === "rotation") {
@@ -2057,9 +2121,11 @@ class Transformer extends React.Component<Props> {
                     type: "rotation",
                     // NOTE(kevib): these should be numbers
                     // $FlowFixMe[incompatible-type]
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                     center: [null, null],
                     // NOTE(kevib): this should be a number
                     // $FlowFixMe[incompatible-type]
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'.
                     angleDeg: null,
                 };
             } else if (toolId === "reflection") {
@@ -2070,9 +2136,11 @@ class Transformer extends React.Component<Props> {
                     line: [
                         // NOTE(kevib): these should be numbers
                         // $FlowFixMe[incompatible-type]
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                         [null, null],
                         // NOTE(kevib): these should be numbers
                         // $FlowFixMe[incompatible-type]
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                         [null, null],
                     ],
                 };
@@ -2082,9 +2150,11 @@ class Transformer extends React.Component<Props> {
                     type: "dilation",
                     // NOTE(kevib): these should be numbers
                     // $FlowFixMe[incompatible-type]
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                     center: [null, null],
                     // NOTE(kevib): this should be a number
                     // $FlowFixMe[incompatible-type]
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'.
                     scale: null,
                 };
             } else {
@@ -2095,6 +2165,7 @@ class Transformer extends React.Component<Props> {
             }
 
             this.doTransform(transform, function () {
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'focusLast' does not exist on type 'ReactInstance'.
                 self.refs.transformationList.focusLast();
             });
         }
@@ -2124,6 +2195,7 @@ class Transformer extends React.Component<Props> {
     };
 
     // Snaps a coord to this.graphie()'s snap
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(coord: Coord) => number[]' is not assignable to type '(arg1: Coord) => Coord'.
     snapCoord: (arg1: Coord) => Coord = (coord) => {
         const graphie = this.graphie();
         return _.map(coord, function (val, dim) {
@@ -2133,9 +2205,11 @@ class Transformer extends React.Component<Props> {
 
     // Normalize the coords into something that fits the new 45 degree
     // reflection line.
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(messyCoords: [Coord, Coord]) => any[]' is not assignable to type '(arg1: [Coord, Coord]) => [Coord, Coord]'.
     normalizeReflectionCoords: (arg1: [Coord, Coord]) => [Coord, Coord] = (
         messyCoords,
     ) => {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Point' is not assignable to parameter of type 'Coord'.
         const midpoint = this.snapCoord(kline.midpoint(messyCoords));
         const origDirectionPolar = kvector.polarDegFromCart(
             kvector.subtract(messyCoords[0], messyCoords[1]),
@@ -2153,11 +2227,13 @@ class Transformer extends React.Component<Props> {
                     kvector.scale(
                         direction,
                         directionCoefficient *
+                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.scaleToCurrentRange(
                                 REFLECT_ROTATE_HANDLE_DIST,
                             ),
                     ),
                 );
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return this.snapCoord(coord);
             },
             this,
@@ -2172,6 +2248,7 @@ class Transformer extends React.Component<Props> {
         }
         const self = this;
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
         const graphie = this.refs.graph.graphie();
 
         const updateReflectionTool = function () {
@@ -2235,19 +2312,23 @@ class Transformer extends React.Component<Props> {
             onClick: function () {
                 self.doTransform({
                     type: "reflection",
+                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any[]' is not assignable to type '[Coord, Coord]'.
                     line: _.pluck(reflectPoints, "coord"),
                 });
                 if (reflectRotateHandle) {
                     // flip the rotation handle
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'setCoord' does not exist on type 'never'.
                     reflectRotateHandle.setCoord(
                         kvector.add(
                             reflectButton.coord,
                             kvector.subtract(
                                 reflectButton.coord,
+                                // @ts-expect-error [FEI-5003] - TS2339 - Property 'coord' does not exist on type 'never'.
                                 reflectRotateHandle.coord,
                             ),
                         ),
                     );
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'update' does not exist on type 'never'.
                     reflectRotateHandle.update();
                 }
             },
@@ -2301,6 +2382,7 @@ class Transformer extends React.Component<Props> {
             $(reflectRotateHandle).on("move", function () {
                 const rotateHandleApprox = self.snapCoord(
                     // $FlowFixMe[incompatible-use]
+                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                     reflectRotateHandle.coord,
                 );
 
@@ -2332,6 +2414,7 @@ class Transformer extends React.Component<Props> {
             remove: function () {
                 reflectButton.remove();
                 if (reflectRotateHandle) {
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'remove' does not exist on type 'never'.
                     reflectRotateHandle.remove();
                 }
                 reflectLine.remove();
@@ -2349,6 +2432,7 @@ class Transformer extends React.Component<Props> {
      */
     scaleToCurrentRange: (arg1: number) => number = (dist) => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'props' does not exist on type 'ReactInstance'.
         return scaleToRange(dist, this.refs.graph.props.range);
     };
 
@@ -2359,6 +2443,7 @@ class Transformer extends React.Component<Props> {
         }
         const self = this;
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
         const graphie = this.refs.graph.graphie();
 
         const pointColor = colorForTool(options);
@@ -2399,6 +2484,7 @@ class Transformer extends React.Component<Props> {
                 // Rotate polygon with rotateHandle
                 self.doTransform(transform);
 
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'angleDeg' does not exist on type 'PerseusTransformerTransformation'.
                 return oldAngle + transform.angleDeg;
             },
         });
@@ -2425,6 +2511,7 @@ class Transformer extends React.Component<Props> {
         }
         const self = this;
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
         const graphie = this.refs.graph.graphie();
 
         const pointColor = colorForTool(options);
@@ -2439,6 +2526,7 @@ class Transformer extends React.Component<Props> {
             snapRadius: self.scaleToCurrentRange(0.5),
             onResize: function (newRadius, oldRadius) {
                 // NOTE(kevinb): object is missing .constraints property
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ type: "dilation"; center: any; scale: number; }' is not assignable to parameter of type 'PerseusTransformerTransformation'.
                 self.doTransform({
                     type: "dilation",
                     // NOTE(kevinb): It's hard to convince that this.dilationCircle
@@ -2495,7 +2583,11 @@ class Transformer extends React.Component<Props> {
 
     // returns a transformation object representing a rotation
     // rounds the angle to the nearest 15 degrees
-    getRotationTransformFromAngle: (arg1: Coord, arg2: number) => TransformerTransformation = (center, angleChanged) => {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(center: Coord, angleChanged: number) => { type: "rotation"; center: Coord; angleDeg: number; }' is not assignable to type '(arg1: Coord, arg2: number) => PerseusTransformerTransformation'.
+    getRotationTransformFromAngle: (
+        arg1: Coord,
+        arg2: number,
+    ) => TransformerTransformation = (center, angleChanged) => {
         angleChanged = (angleChanged + 360) % 360;
         if (angleChanged > 180) {
             angleChanged -= 360;
@@ -2516,10 +2608,7 @@ class Transformer extends React.Component<Props> {
     doTransform: (
         arg1: TransformerTransformation,
         arg2?: (arg1: any) => unknown | null | undefined,
-    ) => void = (
-        transform,
-        callback,
-    ) => {
+    ) => void = (transform, callback) => {
         this.applyTransform(transform);
         this.addTransform(transform, callback);
     };
@@ -2529,6 +2618,7 @@ class Transformer extends React.Component<Props> {
     applyTransform: (arg1: TransformerTransformation) => void = (transform) => {
         if (this.props.graphMode !== "static") {
             const transformFunc = TransformOps.apply(transform);
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(coord: any) => any' is not assignable to parameter of type 'PerseusTransformerTransformation'.
             this.applyCoordTransformation(transformFunc);
         }
     };
@@ -2538,6 +2628,7 @@ class Transformer extends React.Component<Props> {
         pointTransform,
     ) => {
         _.each(this.shape.points, function (point) {
+            // @ts-expect-error [FEI-5003] - TS2349 - This expression is not callable.
             const newCoord = pointTransform(point.coord);
             point.setCoord(newCoord);
         });
@@ -2555,6 +2646,7 @@ class Transformer extends React.Component<Props> {
     // Remove the last transformation
     handleUndoClick: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'changeSelected' does not exist on type 'ReactInstance'.
         this.refs.toolsBar.changeSelected(null);
         if (this.props.transformations.length) {
             this.props.onChange({
@@ -2571,6 +2663,7 @@ class Transformer extends React.Component<Props> {
             {
                 transformations: newTransfomationList,
             },
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(arg1: any) => unknown' is not assignable to parameter of type '() => unknown'.
             callback,
         );
     };
@@ -2588,6 +2681,7 @@ class Transformer extends React.Component<Props> {
             {
                 transformations: _.clone(this.transformations),
             },
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '((arg1: any) => unknown) | undefined' is not assignable to parameter of type '(() => unknown) | undefined'.
             callback,
         );
     };
@@ -2597,6 +2691,7 @@ class Transformer extends React.Component<Props> {
         newTools[tool] = _.extend({}, this.props.tools[tool], changes);
         this.tools[tool] = _.clone(newTools[tool]);
         this.props.onChange({
+            // @ts-expect-error [FEI-5003] - TS2740 - Type '{ dilation: DilationTool; reflection: ReflectionTool; rotation: RotationTool; translation: TranslationTool; }' is missing the following properties from type 'readonly any[]': length, concat, join, slice, and 18 more.
             tools: newTools,
         });
         this.props.trackInteraction();
@@ -2611,6 +2706,7 @@ class Transformer extends React.Component<Props> {
      * moved, even if we're in formal mode with no movement
      * (and thus the actual movablepoints may not have moved
      */
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '() => [Coord, Coord] | readonly Coord[] | [Coord, Coord, Coord]' is not assignable to type '() => Coord'.
     getCoords: () => Coord = () => {
         const startCoords = this.props.starting.shape.coords;
         const transforms = this.props.transformations;
@@ -2635,11 +2731,14 @@ class Transformer extends React.Component<Props> {
             "gradeEmpty",
         );
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graph' does not exist on type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "tools" | "starting" | "drawSolutionShape" | "gradeEmpty" | "graphMode" | "listMode">'. | TS2339 - Property 'toJSON' does not exist on type 'ReactInstance'.
         json.graph = this.refs.graph.toJSON();
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'version' does not exist on type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "tools" | "starting" | "drawSolutionShape" | "gradeEmpty" | "graphMode" | "listMode">'.
         json.version = 1.2; // Give us some safety to change the format
         // when we realize that I wrote
         // a horrible json spec for this widget
 
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'answer' does not exist on type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "tools" | "starting" | "drawSolutionShape" | "gradeEmpty" | "graphMode" | "listMode">'.
         json.answer = this.getUserInput();
         return json;
     };
@@ -2679,6 +2778,7 @@ class Transformer extends React.Component<Props> {
         // Follow the path of references
         let component = this;
         _.each(refPath, (ref) => {
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactInstance' is not assignable to type 'this'.
             component = component.refs[ref];
         });
         return component;
@@ -2693,11 +2793,14 @@ class Transformer extends React.Component<Props> {
 
         let inputPaths: Array<never> | Array<any> = [];
         _.each(this.props.transformations, (transformation, i) => {
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number' is not assignable to parameter of type 'string'.
             transformation = this._getTransformationForID(i);
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getInputPaths' does not exist on type 'PerseusTransformerTransformation'.
             const innerPaths = transformation.getInputPaths();
             const fullPaths = _.map(innerPaths, (innerPath) => {
                 return ["" + i].concat(innerPath);
             });
+            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string[][]' is not assignable to parameter of type 'ConcatArray<never>'.
             inputPaths = inputPaths.concat(fullPaths);
         });
         return inputPaths;
@@ -2720,6 +2823,7 @@ class Transformer extends React.Component<Props> {
 
         // Pass arguments down to appropriate 'transformation' component
         const transformationID = _.head(path);
+        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         const caller = this._getTransformationForID(transformationID);
         return caller[functionName](innerPath, ...args);
     };
@@ -2761,11 +2865,11 @@ class Transformer extends React.Component<Props> {
         return this._passToInner("blurInputPath", path);
     };
 
-    setInputValue: (arg1: Path, arg2: any, arg3: (arg1: any) => unknown) => any = (
-        path,
-        value,
-        cb,
-    ) => {
+    setInputValue: (
+        arg1: Path,
+        arg2: any,
+        arg3: (arg1: any) => unknown,
+    ) => any = (path, value, cb) => {
         assert(path.length >= 2);
         return this._passToInner("setInputValue", path, value, cb);
     };

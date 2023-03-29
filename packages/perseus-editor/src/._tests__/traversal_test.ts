@@ -1,7 +1,7 @@
 import {traverse, Widgets} from "@khanacademy/perseus";
 import _ from "underscore";
 
-import {registerAllWidgetsAndEditorsForTesting} from '../util/register-all-widgets-and-editors-for-testing';
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 const missingOptions = {
     content: "[[☃ radio 1]]\n\n",

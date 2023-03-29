@@ -1,4 +1,4 @@
-import khanAnswerTypes from './answer-types';
+import khanAnswerTypes from "./answer-types";
 
 const validateFraction = (correctAnswer: string, guess: string) => {
     const validator = khanAnswerTypes.number.createValidatorFunctional(

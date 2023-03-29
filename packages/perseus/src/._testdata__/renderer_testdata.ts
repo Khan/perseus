@@ -1,4 +1,9 @@
-import type {DropdownWidget, ImageWidget, InputNumberWidget, PerseusRenderer} from '../perseus-types';
+import type {
+    DropdownWidget,
+    ImageWidget,
+    InputNumberWidget,
+    PerseusRenderer,
+} from "../perseus-types";
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",
@@ -80,7 +85,7 @@ export const question2: PerseusRenderer = {
 };
 
 // Note that if this item is used, you _must_ first register the MockWidget
-export const mockedItem: PerseusRenderer = ({
+export const mockedItem: PerseusRenderer = {
     // The mock widget type is not part of the PerseusWidget type union (and
     // we don't want to make it such to avoid polluting our production types
     // for test purposes) so we force Flow to accept it here.
@@ -113,4 +118,4 @@ export const mockedItem: PerseusRenderer = ({
             alignment: "default",
         },
     },
-} as PerseusRenderer);
+} as PerseusRenderer;

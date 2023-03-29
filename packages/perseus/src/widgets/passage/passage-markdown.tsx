@@ -11,45 +11,45 @@ import type {
     State,
 } from "@khanacademy/simple-markdown";
 
-export type ParseState = (State) & {
-    currentRef: number[],
-    useRefs: boolean,
-    lastRef: number,
-    firstSentenceRef: string | null | undefined,
-    firstQuestionRef: string | null | undefined,
+export type ParseState = State & {
+    currentRef: number[];
+    useRefs: boolean;
+    lastRef: number;
+    firstSentenceRef: string | null | undefined;
+    firstQuestionRef: string | null | undefined;
     lastFootnote: {
-        id: number,
-        text: string
-    }
+        id: number;
+        text: string;
+    };
 };
 
 type OutputFun = any;
 
 type FootnoteType = {
-    id: number,
-    text: string
+    id: number;
+    text: string;
 };
 
 type RefStartNode = {
-    ref: number | null | undefined,
-    refContent: React.ReactNode
+    ref: number | null | undefined;
+    refContent: React.ReactNode;
 };
 
 type RefEndNode = {
-    ref: number | null | undefined
+    ref: number | null | undefined;
 };
 
 type LabelNode = {
-    content: string,
-    space: boolean
+    content: string;
+    space: boolean;
 };
 
 type HighlightNode = {
-    content: string
+    content: string;
 };
 
 type RefStartProps = {
-    refContent: React.ReactNode
+    refContent: React.ReactNode;
 };
 
 function getInitialParseState(): ParseState {
@@ -68,6 +68,7 @@ class RefStart extends React.Component<RefStartProps> {
         return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
     }
 
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '() => React.ReactNode' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>>'.
     getRefContent: () => React.ReactElement = () => {
         return this.props.refContent;
     };
@@ -86,7 +87,11 @@ const rules = {
     passageFootnote: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.1,
         match: SimpleMarkdown.inlineRegex(/^\^/),
-        parse: (capture: Capture, parse: Parser, state: ParseState): FootnoteType => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): FootnoteType => {
             // if no footnotes have been seen, we're id 1. otherwise,
             // we're the next subsequent id
             const id = state.lastFootnote.id + 1;
@@ -152,7 +157,11 @@ const rules = {
             }
             return null;
         },
-        parse: (capture: Capture, parse: Parser, state: ParseState): RefStartNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): RefStartNode => {
             if (!state.useRefs) {
                 return {
                     ref: null,
@@ -209,7 +218,11 @@ const rules = {
     refEnd: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.3,
         match: SimpleMarkdown.inlineRegex(/^\}\}/),
-        parse: (capture: Capture, parse: Parser, state: ParseState): RefEndNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): RefEndNode => {
             if (!state.useRefs) {
                 return {
                     ref: null,
@@ -241,7 +254,11 @@ const rules = {
     squareLabel: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.4,
         match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
-        parse: (capture: Capture, parse: Parser, state: ParseState): LabelNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): LabelNode => {
             if (!state.firstQuestionRef) {
                 state.firstQuestionRef = capture[1];
             }
@@ -272,13 +289,22 @@ const rules = {
     circleLabel: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.5,
         match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
-        parse: (capture: Capture, parse: Parser, state: ParseState): LabelNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): LabelNode => {
             return {
                 content: capture[1],
                 space: capture[2].length > 0,
             };
         },
-        react: (node: LabelNode, output: OutputFun, state: ParseState): React.ReactElement => {
+        react: (
+            node: LabelNode,
+            output: OutputFun,
+            state: ParseState,
+        ): React.ReactElement => {
+            // @ts-expect-error [FEI-5003] - TS2739 - Type '(string | Element | null)[]' is missing the following properties from type 'ReactElement<any, string | JSXElementConstructor<any>>': type, props, key
             return [
                 <span
                     key="visual-circle"
@@ -300,7 +326,11 @@ const rules = {
     squareBracketRef: {
         order: SimpleMarkdown.defaultRules.escape.order + 0.6,
         match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
-        parse: (capture: Capture, parse: Parser, state: ParseState): LabelNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): LabelNode => {
             if (!state.firstSentenceRef) {
                 state.firstSentenceRef = capture[1];
             }
@@ -330,7 +360,11 @@ const rules = {
         match: SimpleMarkdown.inlineRegex(
             /^{highlighting.start}(.+?){highlighting.end}/,
         ),
-        parse: (capture: Capture, parse: Parser, state: ParseState): HighlightNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): HighlightNode => {
             return {
                 content: capture[1],
             };
@@ -348,7 +382,11 @@ const rules = {
         match: SimpleMarkdown.inlineRegex(
             /^{review-highlighting.start}(.+?){review-highlighting.end}/,
         ),
-        parse: (capture: Capture, parse: Parser, state: ParseState): HighlightNode => {
+        parse: (
+            capture: Capture,
+            parse: Parser,
+            state: ParseState,
+        ): HighlightNode => {
             return {
                 content: capture[1],
             };
@@ -411,10 +449,11 @@ const CIRCLE_LABEL_STYLE = {
 } as const;
 
 const builtParser = SimpleMarkdown.parserFor(rules);
-const parse: (arg1: string, arg2?: ParseState | null | undefined) => Array<SingleASTNode> = (
-    source,
-    state,
-) => {
+const parse: (
+    arg1: string,
+    arg2?: ParseState | null | undefined,
+) => Array<SingleASTNode> = (source, state) => {
+    // @ts-expect-error [FEI-5003] - TS2322 - Type 'ParseState | {}' is not assignable to type 'ParseState | null | undefined'.
     state = state || {};
     const paragraphedSource = source + "\n\n";
     return builtParser(
@@ -423,9 +462,9 @@ const parse: (arg1: string, arg2?: ParseState | null | undefined) => Array<Singl
     );
 };
 
-const output: (arg1: Array<SingleASTNode>) => React.ReactElement = SimpleMarkdown.reactFor(
-    SimpleMarkdown.ruleOutput(rules, "react"),
-);
+// @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactOutput' is not assignable to type '(arg1: SingleASTNode[]) => ReactElement<any, string | JSXElementConstructor<any>>'.
+const output: (arg1: Array<SingleASTNode>) => React.ReactElement =
+    SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react"));
 
 export default {
     parse,

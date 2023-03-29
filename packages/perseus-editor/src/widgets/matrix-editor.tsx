@@ -1,10 +1,15 @@
 /* eslint-disable react/sort-comp */
-import {components, Changeable, EditorJsonify, MatrixWidget} from "@khanacademy/perseus";
+import {
+    components,
+    Changeable,
+    EditorJsonify,
+    MatrixWidget,
+} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Editor from '../editor';
+import Editor from "../editor";
 
 const {RangeInput} = components;
 const Matrix = MatrixWidget.widget;
@@ -49,7 +54,7 @@ class MatrixEditor extends React.Component<Props> {
         cursorPosition: PropTypes.arrayOf(PropTypes.number),
     };
 
-    static widgetName: 'matrix' = "matrix";
+    static widgetName: "matrix" = "matrix";
 
     static defaultProps: Props = {
         matrixBoardSize: [3, 3],
@@ -94,6 +99,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             this.change({prefix: newProps.content});
                         }}
                     />
@@ -108,6 +114,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
+                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                             this.change({suffix: newProps.content});
                         }}
                     />

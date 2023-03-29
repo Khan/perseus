@@ -1,27 +1,28 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from '../../../../../testing/renderer-with-debug-ui';
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {
     questionWithPassage,
     multiChoiceQuestion,
     multiChoiceQuestionSimple,
-} from '../__testdata__/radio_testdata';
+    // @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/radio_testdata' or its corresponding type declarations.
+} from "../__testdata__/radio_testdata";
 
-import type {PerseusRenderer} from '../../perseus-types';
-import type {APIOptions} from '../../types';
+import type {PerseusRenderer} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 
 type StoryArgs = {
     // Radio Options
-    static: boolean,
+    static: boolean;
     // API Options
-    crossOutEnabled: boolean,
+    crossOutEnabled: boolean;
     // Renderer Options
-    reviewMode: boolean
+    reviewMode: boolean;
 };
 
 type Story = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 export default {
@@ -33,7 +34,10 @@ export default {
     },
 } as Story;
 
-const applyStoryArgs = (question: PerseusRenderer, args: StoryArgs): PerseusRenderer => {
+const applyStoryArgs = (
+    question: PerseusRenderer,
+    args: StoryArgs,
+): PerseusRenderer => {
     const q = {
         ...question,
         widgets: {},
@@ -62,7 +66,9 @@ export const SingleSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const MultiSelectSimple: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultiSelectSimple: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <RendererWithDebugUI
             question={applyStoryArgs(multiChoiceQuestionSimple, args)}

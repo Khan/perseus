@@ -54,10 +54,10 @@ import {
     findContentNodesInItem,
     findHintNodesInItem,
     inferItemShape,
-} from './multi-items/items';
-import MultiRenderer from './multi-items/multi-renderer';
-import {buildPropTypeForShape} from './multi-items/prop-type-builders';
-import shapes from './multi-items/shapes';
+} from "./multi-items/items";
+import MultiRenderer from "./multi-items/multi-renderer";
+import {buildPropTypeForShape} from "./multi-items/prop-type-builders";
+import shapes from "./multi-items/shapes";
 
 export default {
     // Tools for rendering your multi-items

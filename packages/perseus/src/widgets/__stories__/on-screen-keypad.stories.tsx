@@ -3,14 +3,15 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {ItemRenderer} from '../../index';
-import KeypadContext from '../../keypad-context';
-import {expressionItem3} from '../__testdata__/expression_testdata';
+import {ItemRenderer} from "../../index";
+import KeypadContext from "../../keypad-context";
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/expression_testdata' or its corresponding type declarations.
+import {expressionItem3} from "../__testdata__/expression_testdata";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -84,6 +85,7 @@ const Demo = () => {
                 keypadElement,
                 setRenderer,
                 renderer,
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setScrollableElement,
                 scrollableElement,
             }}
@@ -94,7 +96,9 @@ const Demo = () => {
     );
 };
 
-export const CustomKeypad: React.FC<StoryArgs> = (args): React.ReactElement => <Demo />;
+export const CustomKeypad: React.FC<StoryArgs> = (args): React.ReactElement => (
+    <Demo />
+);
 
 const styles = StyleSheet.create({
     keypad: {

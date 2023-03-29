@@ -13,17 +13,19 @@ class MoleculeWidgetEditor extends React.Component<Props> {
         smiles: PropTypes.string,
     };
 
-    static widgetName: 'molecule-renderer' = "molecule-renderer";
+    static widgetName: "molecule-renderer" = "molecule-renderer";
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
     updateMolecule: (arg1: string) => void = (newValue) => {
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({smiles: newValue});
     };
 
     updateRotation: (arg1: string) => void = (newValue) => {
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({rotationAngle: newValue});
     };
 

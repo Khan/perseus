@@ -3,12 +3,15 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import Zoomable from '../zoomable';
+import Zoomable from "../zoomable";
 
-const mockSize = (el: IntersectionHTMLElement | null | undefined | Element, size: {
-  height: number,
-  width: number
-}) => {
+const mockSize = (
+    el: IntersectionHTMLElement | null | undefined | Element,
+    size: {
+        height: number;
+        width: number;
+    },
+) => {
     jest.spyOn(el, "offsetWidth", "get").mockImplementation(() => size.width);
     jest.spyOn(el, "offsetHeight", "get").mockImplementation(() => size.height);
 };

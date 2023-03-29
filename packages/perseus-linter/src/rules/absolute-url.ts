@@ -1,6 +1,6 @@
-import Rule from '../rule';
+import Rule from "../rule";
 
-import {getHostname} from './lint-utils';
+import {getHostname} from "./lint-utils";
 
 export default Rule.makeRule({
     name: "absolute-url",

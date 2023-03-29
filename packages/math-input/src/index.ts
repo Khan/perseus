@@ -13,7 +13,7 @@ export {default as Keypad} from "./components/provided-keypad.js";
 export {KeypadTypes} from "./consts.js";
 export {default as KeyConfigs} from "./data/key-configs.js";
 
-import * as CursorContexts from './components/input/cursor-contexts';
+import * as CursorContexts from "./components/input/cursor-contexts";
 
 export {CursorContexts};
 

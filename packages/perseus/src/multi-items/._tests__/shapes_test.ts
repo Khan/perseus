@@ -1,4 +1,4 @@
-import shapes from '../shapes';
+import shapes from "../shapes";
 
 describe("shapes.content", () => {
     it('has type "content"', () => {

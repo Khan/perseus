@@ -1,18 +1,18 @@
 import * as React from "react";
 
-import * as styleConstants from '../../../styles/constants';
-import FocusRing from '../focus-ring';
+import * as styleConstants from "../../../styles/constants";
+import FocusRing from "../focus-ring";
 
 type StoryArgs = {
-    children: React.ReactNode,
-    color: string,
-    visible: boolean,
-    multipleSelect: boolean
+    children: React.ReactNode;
+    color: string;
+    visible: boolean;
+    multipleSelect: boolean;
 };
 
 type Story = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 export default {

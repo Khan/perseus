@@ -2,7 +2,7 @@
 // Taken and updated to our standards from
 // https://github.com/olahol/scrollparent.js
 
-const getParents = function(node: Node, parents): ReadonlyArray<Node> {
+const getParents = function (node: Node, parents): ReadonlyArray<Node> {
     if (!node.parentNode) {
         return parents;
     }
@@ -26,7 +26,9 @@ const scroll = function (node: Element) {
     return /(auto|scroll)/.test(overflow(node));
 };
 
-export const getScrollParent = function(node: Element): Element | null | undefined {
+export const getScrollParent = function (
+    node: Element,
+): Element | null | undefined {
     if (!(node instanceof HTMLElement)) {
         return;
     }
@@ -34,7 +36,7 @@ export const getScrollParent = function(node: Element): Element | null | undefin
     const parents = node.parentNode ? getParents(node.parentNode, []) : [];
 
     for (let i = 0; i < parents.length; i += 1) {
-        const element = (parents[i] as Element);
+        const element = parents[i] as Element;
         if (scroll(element)) {
             return element;
         }

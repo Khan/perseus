@@ -59,7 +59,7 @@ const objectEntry = function (before: any, after: any, key) {
     };
 };
 
-const performDiff = function(before: any, after: any, key?: any): any {
+const performDiff = function (before: any, after: any, key?: any): any {
     if (typeof before === "object" || typeof after === "object") {
         return objectEntry(before, after, key);
     }

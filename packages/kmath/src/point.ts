@@ -5,8 +5,8 @@
 
 import _ from "underscore";
 
-import * as knumber from './number';
-import * as kvector from './vector';
+import * as knumber from "./number";
+import * as kvector from "./vector";
 
 // A point, in 2D, 3D, or nD space.
 export type Point = ReadonlyArray<number>;
@@ -66,7 +66,11 @@ export function reflectOverLine<P extends Point>(point: P, line: [P, P]): P {
  * is 0. In some cases very close points that compare within a
  * few equalityTolerances could appear in the wrong order.
  */
-export function compare(point1: Point, point2: Point, equalityTolerance?: number): number /* TODO: convert to -1 | 0 | 1 type */ {
+export function compare(
+    point1: Point,
+    point2: Point,
+    equalityTolerance?: number,
+): number /* TODO: convert to -1 | 0 | 1 type */ {
     if (point1.length !== point2.length) {
         return point1.length - point2.length;
     }

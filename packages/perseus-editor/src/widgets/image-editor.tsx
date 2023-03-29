@@ -1,11 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, react/sort-comp */
-import {components, icons, Changeable, EditorJsonify, Util} from "@khanacademy/perseus";
+import {
+    components,
+    icons,
+    Changeable,
+    EditorJsonify,
+    Util,
+} from "@khanacademy/perseus";
 import createReactClass from "create-react-class";
 import * as React from "react";
 import _ from "underscore";
 
-import BlurInput from '../components/blur-input';
-import Editor from '../editor';
+import BlurInput from "../components/blur-input";
+import Editor from "../editor";
 
 const {InfoTip, InlineIcon, RangeInput} = components;
 

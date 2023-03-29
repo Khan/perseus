@@ -6,21 +6,22 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import Graphie from '../components/graphie';
-import InfoTip from '../components/info-tip';
-import MathOutput from '../components/math-output';
-import NumberInput from '../components/number-input';
-import InteractiveUtil from '../interactive2/interactive-util';
-import * as Changeable from '../mixins/changeable';
-import {ApiOptions} from '../perseus-api';
-import Util from '../util';
-import KhanColors from '../util/colors';
-import KhanMath from '../util/math';
+import Graphie from "../components/graphie";
+import InfoTip from "../components/info-tip";
+import MathOutput from "../components/math-output";
+import NumberInput from "../components/number-input";
+import InteractiveUtil from "../interactive2/interactive-util";
+import * as Changeable from "../mixins/changeable";
+import {ApiOptions} from "../perseus-api";
+import Util from "../util";
+import KhanColors from "../util/colors";
+import KhanMath from "../util/math";
 
-import type {WidgetExports} from '../types';
+import type {WidgetExports} from "../types";
 
 const {assert} = InteractiveUtil;
 const {seededRNG} = Util;
+// @ts-expect-error [FEI-5003] - TS2339 - Property 'Path' does not exist on type 'typeof Graphie'. | TS2339 - Property 'Arc' does not exist on type 'typeof Graphie'. | TS2339 - Property 'Circle' does not exist on type 'typeof Graphie'. | TS2339 - Property 'Label' does not exist on type 'typeof Graphie'. | TS2339 - Property 'Line' does not exist on type 'typeof Graphie'. | TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'. | TS2339 - Property 'MovableLine' does not exist on type 'typeof Graphie'.
 const {Path, Arc, Circle, Label, Line, MovablePoint, MovableLine} = Graphie;
 
 const defaultBoxSize = 400;
@@ -44,6 +45,7 @@ class Histogram extends React.Component<any, any> {
 
     UNSAFE_componentWillReceiveProps(nextProps: any) {
         // Reset the threshold if the range has changed
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const oldRange = this._range();
         const nextRange = this._range(nextProps);
         if (!Util.deepEq(oldRange, nextRange)) {
@@ -57,6 +59,7 @@ class Histogram extends React.Component<any, any> {
     _renderThresholdLine = () => {
         // Recall the the y-range goes from [-1, yMax] to allow for ticks on
         // the x-axis.
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const yRange = [0, this._range()[1][1]];
         const coords = _.map(yRange, (y) => [this.state.threshold, y]);
 
@@ -148,6 +151,7 @@ class Histogram extends React.Component<any, any> {
         };
 
         // Plot the label below the circle
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const xRange = this._range()[0];
         const formattedThreshold = Math.min(
             Math.max(this.state.threshold, xRange[0]),
@@ -184,6 +188,7 @@ class Histogram extends React.Component<any, any> {
     /* Renders the actual bars of the histogram. */
     _renderData = () => {
         const data = this.props.data;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const range = this._range();
 
         // Plot bars
@@ -216,6 +221,7 @@ class Histogram extends React.Component<any, any> {
 
     render(): React.ReactElement {
         const data = this.props.data;
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const range = this._range();
 
         const options = {
@@ -225,7 +231,9 @@ class Histogram extends React.Component<any, any> {
             range: range,
             data: data,
             scale: [
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Coordinates'.
                 Util.scaleFromExtent(range[0], this.props.box[0]),
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Coordinates'.
                 Util.scaleFromExtent(range[1], this.props.box[1]),
             ],
         } as const;
@@ -380,18 +388,24 @@ class Histogram extends React.Component<any, any> {
         ];
     };
 
-    _getInitialThreshold = (range: Array<Array<number>> | Array<Array<number> | Array<any | number>>) => {
+    _getInitialThreshold = (
+        range:
+            | Array<Array<number>>
+            | Array<Array<number> | Array<any | number>>,
+    ) => {
         // We pick a pretty-looking threshold, 1/3 of the way along the axis
         const xRange = range[0];
         return xRange[0] + (xRange[1] - xRange[0]) / 3;
     };
 
     state = {
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         threshold: this._getInitialThreshold(this._range()),
     };
 }
 
 class Simulator extends React.Component<any, any> {
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'generateNumber' has no initializer and is not definitely assigned in the constructor.
     generateNumber: () => number;
 
     static propTypes = {
@@ -516,10 +530,12 @@ class Simulator extends React.Component<any, any> {
         );
 
         // Generates a table from a set of titles and values.
-        const generateTable = (contents: Array<{
-          title: string,
-          value: React.ReactElement<React.ComponentProps<'div'>>
-        }>) => {
+        const generateTable = (
+            contents: Array<{
+                title: string;
+                value: React.ReactElement<React.ComponentProps<"div">>;
+            }>,
+        ) => {
             const header = (
                 <thead>
                     <tr>
@@ -618,6 +634,7 @@ class Simulator extends React.Component<any, any> {
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -631,7 +648,10 @@ class Simulator extends React.Component<any, any> {
         );
     };
 
-    handleUserProportionChange: (arg1: number, arg2: any) => void = (value, cb) => {
+    handleUserProportionChange: (arg1: number, arg2: any) => void = (
+        value,
+        cb,
+    ) => {
         let userProportion;
 
         // If "percentage" mode is enabled, user will have entered value as
@@ -654,6 +674,7 @@ class Simulator extends React.Component<any, any> {
         );
     };
 
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(sampleSize: any, cb: any) => void' is not assignable to type '(number: any) => void'.
     handleSampleSizeChange: (number: any) => void = (sampleSize, cb) => {
         if (sampleSize != null) {
             sampleSize = Math.min(
@@ -686,6 +707,7 @@ class Simulator extends React.Component<any, any> {
         });
 
         this.props.onChange({
+            // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
             data: this.generateData(),
         });
         this.props.trackInteraction();
@@ -693,7 +715,11 @@ class Simulator extends React.Component<any, any> {
 
     generateData: (arg1: any) => any = (props) => {
         props = props || this.props;
-        const getSampleDistribution = (sampleSize: any, numTrials: any, proportion: any) => {
+        const getSampleDistribution = (
+            sampleSize: any,
+            numTrials: any,
+            proportion: any,
+        ) => {
             const draw = () => {
                 return this.generateNumber() < proportion;
             };
@@ -729,6 +755,7 @@ class Simulator extends React.Component<any, any> {
         const inputID = _.head(path);
         // eslint-disable-next-line react/no-string-refs
         const inputComponent = this.refs[inputID];
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         inputComponent.focus();
     };
 
@@ -737,10 +764,13 @@ class Simulator extends React.Component<any, any> {
         const inputID = _.head(path);
         // eslint-disable-next-line react/no-string-refs
         const inputComponent = this.refs[inputID];
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         inputComponent.blur();
     };
 
-    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (path) => {
+    getDOMNodeForPath: (arg1: any) => Element | Text | null | undefined = (
+        path,
+    ) => {
         assert(path.length > 0);
         const inputID = _.head(path);
         // eslint-disable-next-line react/no-string-refs
@@ -770,6 +800,7 @@ class Simulator extends React.Component<any, any> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Simulator'.
         return Simulator.validate(this.getUserInput(), rubric);
     };
 }

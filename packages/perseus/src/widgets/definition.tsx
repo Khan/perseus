@@ -3,14 +3,14 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
-import {DefinitionConsumer} from '../definition-context';
-import Renderer from '../renderer';
+import {DefinitionConsumer} from "../definition-context";
+import Renderer from "../renderer";
 
 import type {
     PerseusRenderer,
     PerseusDefinitionWidgetOptions,
-} from '../perseus-types';
-import type {PerseusScore, WidgetExports, WidgetProps} from '../types';
+} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 
 type RenderProps = PerseusDefinitionWidgetOptions;
 
@@ -18,13 +18,13 @@ type Rubric = PerseusDefinitionWidgetOptions;
 
 type UserInput = Empty;
 
-type DefinitionProps = (WidgetProps<RenderProps, Rubric>) & {
-    widgets: PerseusRenderer['widgets']
+type DefinitionProps = WidgetProps<RenderProps, Rubric> & {
+    widgets: PerseusRenderer["widgets"];
 };
 
 type DefaultProps = {
-    togglePrompt: string,
-    definition: string
+    togglePrompt: string;
+    definition: string;
 };
 
 class Definition extends React.Component<DefinitionProps> {

@@ -13,17 +13,21 @@ import * as React from "react";
 
 type OptionStatusProps = {
     // Was this option the correct answer?
-    correct: boolean,
+    correct: boolean;
     // Did the user select this option as the answer?
-    checked: boolean,
+    checked: boolean;
     // Did the user cross out this option?
-    crossedOut: boolean,
+    crossedOut: boolean;
     // Did the user select this option as the answer earlier?
-    previouslyAnswered: boolean,
-    reviewMode: boolean
+    previouslyAnswered: boolean;
+    reviewMode: boolean;
 };
 
-function renderText(checked: boolean, correct: boolean, crossedOut: boolean): string {
+function renderText(
+    checked: boolean,
+    correct: boolean,
+    crossedOut: boolean,
+): string {
     if (correct) {
         // For correct answers, we surface checked _or_ crossedOut state,
         // because any interaction with the correct answer is noteworthy!
@@ -43,13 +47,16 @@ function renderText(checked: boolean, correct: boolean, crossedOut: boolean): st
     return i18n._("Incorrect");
 }
 
-const OptionStatus: React.FC<OptionStatusProps> = function(props): React.ReactElement {
+const OptionStatus: React.FC<OptionStatusProps> = function (
+    props,
+): React.ReactElement {
     const {checked, correct, crossedOut, previouslyAnswered, reviewMode} =
         props;
 
     // Option status is shown only in review mode, or for incorrectly
     // answered items.
     if (!reviewMode && !previouslyAnswered) {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return null;
     }
 

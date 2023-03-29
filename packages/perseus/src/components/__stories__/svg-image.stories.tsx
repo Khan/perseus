@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import SvgImage from '../svg-image';
+import SvgImage from "../svg-image";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -17,11 +17,15 @@ const imgUrl = "https://www.khanacademy.org/images/hand-tree.new.png";
 const graphieUrl =
     "web+graphie://ka-perseus-graphie.s3.amazonaws.com/1e06f6d4071f30cee2cc3ccb7435b3a66a62fe3f";
 
-export const MostlyEmptyPropsObject: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MostlyEmptyPropsObject: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <SvgImage alt="ALT" />;
 };
 
-export const SvgImageThatDoesntLoad: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SvgImageThatDoesntLoad: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <SvgImage
             alt="ALT"
@@ -32,19 +36,27 @@ export const SvgImageThatDoesntLoad: React.FC<StoryArgs> = (args): React.ReactEl
     );
 };
 
-export const SvgImageBasic: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SvgImageBasic: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <SvgImage src={svgUrl} alt="ALT" />;
 };
 
-export const SvgImageWithFixedHeight: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SvgImageWithFixedHeight: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <SvgImage height={50} src={svgUrl} alt="ALT" />;
 };
 
-export const SvgImageWithFixedWidth: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SvgImageWithFixedWidth: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <SvgImage src={svgUrl} width={50} alt="ALT" />;
 };
 
-export const SvgImageWithExtraGraphieProps: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SvgImageWithExtraGraphieProps: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return (
         <SvgImage
             extraGraphie={{

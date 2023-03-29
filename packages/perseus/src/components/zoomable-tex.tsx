@@ -6,16 +6,16 @@
 
 import * as React from "react";
 
-import AssetContext from '../asset-context';
+import AssetContext from "../asset-context";
 
-import TeX from './tex';
-import Zoomable from './zoomable';
+import TeX from "./tex";
+import Zoomable from "./zoomable";
 
 type Props = {
-    children: string
+    children: string;
 };
 type State = {
-    isRendered: boolean
+    isRendered: boolean;
 };
 
 const computeMathBounds = (parentNode: HTMLElement, parentBounds: Bounds) => {
@@ -24,8 +24,10 @@ const computeMathBounds = (parentNode: HTMLElement, parentBounds: Bounds) => {
         parentNode.querySelector(".MathJax");
     const textBounds = {
         // $FlowFixMe[incompatible-use]
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
         width: textElement.offsetWidth,
         // $FlowFixMe[incompatible-use]
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
         height: textElement.offsetHeight,
     } as const;
 
@@ -41,6 +43,7 @@ const computeMathBounds = (parentNode: HTMLElement, parentBounds: Bounds) => {
 
 export default class ZoomableTeX extends React.Component<Props, State> {
     constructor() {
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1-2 arguments, but got 0.
         super();
 
         this.state = {isRendered: false};

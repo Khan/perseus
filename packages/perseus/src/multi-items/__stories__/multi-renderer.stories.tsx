@@ -4,13 +4,14 @@ import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {MultiItemRendererWithDebugUI} from '../../../../../testing/multi-item-renderer-with-debug-ui';
-import {question1} from '../__testdata__/multi-renderer_testdata';
+import {MultiItemRendererWithDebugUI} from "../../../../../testing/multi-item-renderer-with-debug-ui";
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/multi-renderer_testdata' or its corresponding type declarations.
+import {question1} from "../__testdata__/multi-renderer_testdata";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export const SingleItem: React.FC<StoryArgs> = (args): React.ReactElement => {
@@ -52,6 +53,7 @@ export const SingleItem: React.FC<StoryArgs> = (args): React.ReactElement => {
                             <View style={styles.hints}>
                                 {
                                     // $FlowFixMe[prop-missing]
+                                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'firstN' does not exist on type 'readonly ReactNode[]'.
                                     hints?.firstN(2)
                                 }
                             </View>

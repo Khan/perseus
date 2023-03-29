@@ -1,5 +1,12 @@
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
-import {components, interactiveSizes, Changeable, Dependencies, KhanMath, Util} from "@khanacademy/perseus";
+import {
+    components,
+    interactiveSizes,
+    Changeable,
+    Dependencies,
+    KhanMath,
+    Util,
+} from "@khanacademy/perseus";
 import createReactClass from "create-react-class";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -144,6 +151,7 @@ const GraphSettings = createReactClass({
             );
         };
 
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
         if (url) {
             Util.getImageSize(url, (width, height) => {

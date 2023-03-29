@@ -9,20 +9,21 @@ import {
     configureKeypad,
     setCursor,
     setKeyHandler,
-} from '../actions/index';
-import {createStore} from '../store/index';
+} from "../actions/index";
+import {createStore} from "../store/index";
 
-import KeypadContainer from './keypad-container';
+import KeypadContainer from "./keypad-container";
 
 import type {CSSProperties} from "aphrodite";
 
 type Props = {
-    onElementMounted?: (arg1: any) => void,
-    onDismiss?: () => unknown,
-    style?: CSSProperties
+    onElementMounted?: (arg1: any) => void;
+    onDismiss?: () => unknown;
+    style?: CSSProperties;
 };
 
 class ProvidedKeypad extends React.Component<Props> {
+    // @ts-expect-error [FEI-5003] - TS2564 - Property 'mounted' has no initializer and is not definitely assigned in the constructor.
     mounted: boolean;
     store: any;
 
@@ -46,6 +47,7 @@ class ProvidedKeypad extends React.Component<Props> {
         this.store.dispatch(dismissKeypad());
     };
 
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(configuration: any, cb: any) => void' is not assignable to type '() => void'.
     configure: () => void = (configuration, cb) => {
         this.store.dispatch(configureKeypad(configuration));
 
@@ -59,6 +61,7 @@ class ProvidedKeypad extends React.Component<Props> {
         setTimeout(() => cb && cb());
     };
 
+    // @ts-expect-error [FEI-5003] - TS2322 - Type '(cursor: any) => void' is not assignable to type '() => void'.
     setCursor: () => void = (cursor) => {
         this.store.dispatch(setCursor(cursor));
     };

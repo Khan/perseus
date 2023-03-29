@@ -5,12 +5,12 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
-import KhanColors from '../util/colors';
-import GraphUtils from '../util/graph-utils';
+import KhanColors from "../util/colors";
+import GraphUtils from "../util/graph-utils";
 
-import InteractiveUtil from './interactive-util';
-import MovablePolygonOptions from './movable-polygon-options';
-import objective_ from './objective_';
+import InteractiveUtil from "./interactive-util";
+import MovablePolygonOptions from "./movable-polygon-options";
+import objective_ from "./objective_";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -48,10 +48,16 @@ const DEFAULT_STATE = {
     mouseTarget: null,
 } as const;
 
-const MovablePolygon = function(graphie: any, movable: any, options: any): undefined {
+// @ts-expect-error [FEI-5003] - TS2355 - A function whose declared type is neither 'void' nor 'any' must return a value.
+const MovablePolygon = function (
+    graphie: any,
+    movable: any,
+    options: any,
+): undefined {
     assert(graphie != null);
     assert(options != null);
 
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {
         graphie: graphie,
         movable: movable,
@@ -62,6 +68,7 @@ const MovablePolygon = function(graphie: any, movable: any, options: any): undef
     });
 
     // We only set DEFAULT_STATE once, here
+    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.modify(_.extend({}, DEFAULT_STATE, options));
 };
 

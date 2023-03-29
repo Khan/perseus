@@ -1,12 +1,12 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import Behavior from '../behavior';
+import Behavior from "../behavior";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {

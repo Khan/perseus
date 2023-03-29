@@ -1,5 +1,5 @@
 export const instances: ReadonlyArray<unknown> = [
-    ({} as Record<any, any>),
+    {} as Record<any, any>,
     {
         content: "Plain Content",
     },

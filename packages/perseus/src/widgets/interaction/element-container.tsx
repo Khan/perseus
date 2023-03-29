@@ -1,30 +1,33 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from "react";
 
-import InlineIcon from '../../components/inline-icon';
+import InlineIcon from "../../components/inline-icon";
 import {
     iconChevronDown,
     iconChevronRight,
     iconCircleArrowDown,
     iconCircleArrowUp,
     iconTrash,
-} from '../../icon-paths';
+} from "../../icon-paths";
 
 type ElementContainerProps = {
-    children: React.ReactElement<any> | ReadonlyArray<React.ReactElement<any>>,
-    initiallyVisible: boolean,
-    onDelete?: () => void | null | undefined,
-    onDown?: () => void | null | undefined,
-    onUp?: () => void | null | undefined,
-    title: string | React.ReactElement<any>
+    children: React.ReactElement<any> | ReadonlyArray<React.ReactElement<any>>;
+    initiallyVisible: boolean;
+    onDelete?: () => void | null | undefined;
+    onDown?: () => void | null | undefined;
+    onUp?: () => void | null | undefined;
+    title: string | React.ReactElement<any>;
 };
 
-class ElementContainer extends React.Component<ElementContainerProps, {
-    show: boolean
-}> {
+class ElementContainer extends React.Component<
+    ElementContainerProps,
+    {
+        show: boolean;
+    }
+> {
     static defaultProps: {
-        initiallyVisible: boolean,
-        title: string
+        initiallyVisible: boolean;
+        title: string;
     } = {
         initiallyVisible: false,
         title: "More",
@@ -43,7 +46,7 @@ class ElementContainer extends React.Component<ElementContainerProps, {
         this.setState({show: !this.state.show});
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className="perseus-interaction-element">
                 <a

@@ -1,16 +1,16 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import ChoiceNoneAbove from '../choice-none-above';
+import ChoiceNoneAbove from "../choice-none-above";
 
 type StoryArgs = {
-    content: React.ReactNode,
-    showContent?: boolean
+    content: React.ReactNode;
+    showContent?: boolean;
 };
 
 type ChoiceNoneAboveStory = {
-    title: string,
-    args: StoryArgs
+    title: string;
+    args: StoryArgs;
 };
 
 export default {

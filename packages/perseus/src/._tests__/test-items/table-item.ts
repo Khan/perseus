@@ -1,7 +1,7 @@
-import type {PerseusRenderer} from '../../perseus-types';
+import type {PerseusRenderer} from "../../perseus-types";
 
 export default {
-    question: ({
+    question: {
         content: "[[☃ table 1]]",
         images: {},
         widgets: {
@@ -21,9 +21,9 @@ export default {
                 },
             },
         },
-    } as PerseusRenderer),
+    } as PerseusRenderer,
     answerArea: {
         calculator: false,
     },
-    hints: ([] as ReadonlyArray<any>),
+    hints: [] as ReadonlyArray<any>,
 };

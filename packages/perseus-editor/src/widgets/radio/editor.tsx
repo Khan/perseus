@@ -1,11 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, react/forbid-prop-types, react/sort-comp */
-import {components, icons, ApiOptions, BaseRadio, Changeable} from "@khanacademy/perseus";
+import {
+    components,
+    icons,
+    ApiOptions,
+    BaseRadio,
+    Changeable,
+} from "@khanacademy/perseus";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Editor from '../../editor';
+import Editor from "../../editor";
 
 const {InlineIcon, PropCheckBox} = components;
 const {iconPlus, iconTrash} = icons;
@@ -242,6 +248,7 @@ class RadioEditor extends React.Component<any> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
+        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -348,6 +355,7 @@ class RadioEditor extends React.Component<any> {
             },
             () => {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
                 this.refs[`choice-editor${addIndex}`].refs[
                     "content-editor"
                 ].focus();
@@ -361,6 +369,7 @@ class RadioEditor extends React.Component<any> {
 
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
         this.refs["choice-editor0"].refs["content-editor"].focus();
         return true;
     };

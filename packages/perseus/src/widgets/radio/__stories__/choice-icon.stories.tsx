@@ -1,19 +1,19 @@
 import * as React from "react";
 
-import ChoiceIcon from '../choice-icon/choice-icon';
+import ChoiceIcon from "../choice-icon/choice-icon";
 
 type StoryArgs = {
-    pos: number,
-    checked: boolean,
-    crossedOut: boolean,
-    focused: boolean,
-    hovered: boolean,
-    pressed: boolean,
-    correct: boolean,
-    showCorrectness: boolean,
-    multipleSelect: boolean,
-    reviewMode: boolean,
-    previouslyAnswered: boolean
+    pos: number;
+    checked: boolean;
+    crossedOut: boolean;
+    focused: boolean;
+    hovered: boolean;
+    pressed: boolean;
+    correct: boolean;
+    showCorrectness: boolean;
+    multipleSelect: boolean;
+    reviewMode: boolean;
+    previouslyAnswered: boolean;
 };
 
 const defaultProps = {
@@ -41,7 +41,7 @@ export default {
 };
 
 const Panel: React.FC<{
-    children: React.ReactNode
+    children: React.ReactNode;
 }> = (props): React.ReactElement => {
     return <div style={{padding: "10px"}}>{props.children}</div>;
 };
@@ -147,6 +147,7 @@ export const Incorrect: React.FC<StoryArgs> = (args): React.ReactElement => {
 };
 
 export const AllPositions: React.FC<StoryArgs> = (args): React.ReactElement => {
+    // @ts-expect-error [FEI-5003] - TS2554 - Expected 1-3 arguments, but got 0.
     const allLetters = Array(26).fill();
     return (
         <Panel>

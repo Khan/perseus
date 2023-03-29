@@ -12,7 +12,7 @@ import createReactClass from "create-react-class";
 import * as React from "react";
 import _ from "underscore";
 
-import ArticleEditor from './article-editor';
+import ArticleEditor from "./article-editor";
 
 const StatefulArticleEditor = createReactClass({
     displayName: "StatefulArticleEditor",

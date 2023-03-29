@@ -7,20 +7,20 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-import InputWithExamples from '../components/input-with-examples';
-import SimpleKeypadInput from '../components/simple-keypad-input';
-import {ApiOptions} from '../perseus-api';
-import TexWrangler from '../tex-wrangler';
-import KhanAnswerTypes from '../util/answer-types';
+import InputWithExamples from "../components/input-with-examples";
+import SimpleKeypadInput from "../components/simple-keypad-input";
+import {ApiOptions} from "../perseus-api";
+import TexWrangler from "../tex-wrangler";
+import KhanAnswerTypes from "../util/answer-types";
 
-import type {PerseusInputNumberWidgetOptions} from '../perseus-types';
+import type {PerseusInputNumberWidgetOptions} from "../perseus-types";
 import type {
     APIOptions,
     Path,
     PerseusScore,
     WidgetExports,
     WidgetProps,
-} from '../types';
+} from "../types";
 
 const ParseTex = TexWrangler.parseTex;
 
@@ -93,34 +93,34 @@ const formExamples = {
 } as const;
 
 type UserInput = {
-    currentValue: string
+    currentValue: string;
 };
 type RenderProps = {
-    simplify: PerseusInputNumberWidgetOptions['simplify'],
-    size: PerseusInputNumberWidgetOptions['size'],
-    answerType: PerseusInputNumberWidgetOptions['answerType'],
-    rightAlign: PerseusInputNumberWidgetOptions['rightAlign']
+    simplify: PerseusInputNumberWidgetOptions["simplify"];
+    size: PerseusInputNumberWidgetOptions["size"];
+    answerType: PerseusInputNumberWidgetOptions["answerType"];
+    rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
 };
 type Rubric = PerseusInputNumberWidgetOptions;
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
-type Props = (ExternalProps) & {
-    apiOptions: NonNullable<ExternalProps['apiOptions']>,
-    linterContext: NonNullable<ExternalProps['linterContext']>,
-    rightAlign: NonNullable<ExternalProps['rightAlign']>,
-    size: NonNullable<ExternalProps['size']>,
-    currentValue: string,
+type Props = ExternalProps & {
+    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
+    linterContext: NonNullable<ExternalProps["linterContext"]>;
+    rightAlign: NonNullable<ExternalProps["rightAlign"]>;
+    size: NonNullable<ExternalProps["size"]>;
+    currentValue: string;
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<Rubric['answerType']>
+    answerType: NonNullable<Rubric["answerType"]>;
 };
 
 type DefaultProps = {
-    answerType: Props['answerType'],
-    apiOptions: Props['apiOptions'],
-    currentValue: Props['currentValue'],
-    linterContext: Props['linterContext'],
-    rightAlign: Props['rightAlign'],
-    size: Props['size']
+    answerType: Props["answerType"];
+    apiOptions: Props["apiOptions"];
+    currentValue: Props["currentValue"];
+    linterContext: Props["linterContext"];
+    rightAlign: Props["rightAlign"];
+    size: Props["size"];
 };
 
 class InputNumber extends React.Component<Props> {
@@ -218,17 +218,20 @@ class InputNumber extends React.Component<Props> {
 
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
         return true;
     };
 
     focusInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
     blurInputPath: (arg1: Path) => void = (inputPath) => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur();
     };
 
@@ -263,7 +266,10 @@ class InputNumber extends React.Component<Props> {
         return InputNumber.getUserInputFromProps(this.props);
     };
 
-    simpleValidate: (rubric: Rubric, onInputError?: APIOptions['onInputError']) => PerseusScore = (rubric, onInputError) => {
+    simpleValidate: (
+        rubric: Rubric,
+        onInputError?: APIOptions["onInputError"],
+    ) => PerseusScore = (rubric, onInputError) => {
         onInputError = onInputError || function () {};
         return InputNumber.validate(this.getUserInput(), rubric, onInputError);
     };
@@ -276,6 +282,7 @@ class InputNumber extends React.Component<Props> {
             forms,
             function (form) {
                 // eslint-disable-next-line @babel/no-invalid-this
+                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return formExamples[form](this.props);
             },
             this,
@@ -286,10 +293,10 @@ class InputNumber extends React.Component<Props> {
 
     static validate(
         state: {
-            currentValue: string
+            currentValue: string;
         },
         rubric: Rubric,
-        onInputError: APIOptions['onInputError'] = () => {},
+        onInputError: APIOptions["onInputError"] = () => {},
     ): PerseusScore {
         if (rubric.answerType == null) {
             rubric.answerType = "number";
@@ -338,14 +345,16 @@ class InputNumber extends React.Component<Props> {
     }
 
     static getUserInputFromProps(props: Props): {
-        currentValue: string
+        currentValue: string;
     } {
         return {
             currentValue: props.currentValue,
         };
     }
 
-    static getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
+    static getOneCorrectAnswerFromRubric(
+        rubric: any,
+    ): string | null | undefined {
         if (rubric.value == null) {
             return;
         }
@@ -380,7 +389,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const propTransform = (widgetOptions: PerseusInputNumberWidgetOptions): RenderProps => {
+const propTransform = (
+    widgetOptions: PerseusInputNumberWidgetOptions,
+): RenderProps => {
     const {simplify, size, answerType, rightAlign} = widgetOptions;
     return {
         simplify,

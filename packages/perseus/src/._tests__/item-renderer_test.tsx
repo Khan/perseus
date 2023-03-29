@@ -4,26 +4,26 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import {testDependencies} from '../../../../testing/test-dependencies';
+import {testDependencies} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
     labelImageItem,
     mockedItem,
-} from '../__testdata__/item-renderer_testdata';
-import * as Dependencies from '../dependencies';
-import ItemRenderer from '../item-renderer';
-import {registerWidget} from '../widgets';
-import {multiChoiceQuestion} from '../widgets/__testdata__/radio_testdata';
-import DefinitionExport from '../widgets/definition';
-import InputNumberExport from '../widgets/input-number';
-import LabelImageExport from '../widgets/label-image';
-import RadioWidgetExport from '../widgets/radio';
+} from "../__testdata__/item-renderer_testdata";
+import * as Dependencies from "../dependencies";
+import ItemRenderer from "../item-renderer";
+import {registerWidget} from "../widgets";
+import {multiChoiceQuestion} from "../widgets/__testdata__/radio_testdata";
+import DefinitionExport from "../widgets/definition";
+import InputNumberExport from "../widgets/input-number";
+import LabelImageExport from "../widgets/label-image";
+import RadioWidgetExport from "../widgets/radio";
 
-import MockWidgetExport from './mock-widget';
+import MockWidgetExport from "./mock-widget";
 
-import type {PerseusItem, PerseusRenderer} from '../perseus-types';
-import type {Widget as WidgetInstance} from '../renderer';
-import type {APIOptions, PerseusScore} from '../types';
+import type {PerseusItem, PerseusRenderer} from "../perseus-types";
+import type {Widget as WidgetInstance} from "../renderer";
+import type {APIOptions, PerseusScore} from "../types";
 
 const Peripherals = () => (
     <div className="test_peripherals">
@@ -60,10 +60,10 @@ const Peripherals = () => (
 export const renderQuestion = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
-    optionalProps: Partial<ItemRenderer['props']> = Object.freeze({}),
+    optionalProps: Partial<ItemRenderer["props"]> = Object.freeze({}),
 ): {
-    container: HTMLElement,
-    renderer: ItemRenderer
+    container: HTMLElement;
+    renderer: ItemRenderer;
 } => {
     let renderer: ItemRenderer | null = null;
     const {container} = render(
@@ -95,7 +95,10 @@ export const renderQuestion = (
 // Finds a widget in the given renderer by ID. The return type is non-optional
 // (ie. it assumes the widget will exist) to make Flow happier in the tests
 // that use this function.
-const getWidgetById = (renderer: ItemRenderer, widgetId: string): WidgetInstance => {
+const getWidgetById = (
+    renderer: ItemRenderer,
+    widgetId: string,
+): WidgetInstance => {
     const mockWidget = renderer.questionRenderer.getWidgetInstance(widgetId);
     expect(mockWidget).not.toBeUndefined();
     if (mockWidget == null) {
@@ -806,7 +809,7 @@ describe("item renderer", () => {
     });
 
     describe("controlPeripherals is enabled", () => {
-        const extraProps: Partial<ItemRenderer['props']> = {
+        const extraProps: Partial<ItemRenderer["props"]> = {
             controlPeripherals: true,
         };
 

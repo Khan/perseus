@@ -7,12 +7,13 @@ import {
     Expression,
 } from "@khanacademy/perseus";
 // eslint-disable-next-line import/no-extraneous-dependencies
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'hubble' or its corresponding type declarations.
 import lens from "hubble";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import SortableArea from '../components/sortable';
+import SortableArea from "../components/sortable";
 
 const {InfoTip, PropCheckBox, TexButtons} = components;
 const {getDependencies} = Dependencies;
@@ -58,7 +59,7 @@ class ExpressionEditor extends React.Component<any, any> {
         functions: PropTypes.arrayOf(PropTypes.string),
     };
 
-    static widgetName: 'expression' = "expression";
+    static widgetName: "expression" = "expression";
 
     static defaultProps: any = {
         answerForms: [],
@@ -297,6 +298,7 @@ class ExpressionEditor extends React.Component<any, any> {
                     issues.push(`Answer ${ix + 1} is empty`);
                 } else {
                     // note we're not using icu for content creators
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'typeof import("/Users/kevinbarabash/khan/perseus/packages/kas/dist/index")'.
                     const expression = KAS.parse(form.value, {
                         functions: this.props.functions,
                     });
@@ -340,12 +342,14 @@ class ExpressionEditor extends React.Component<any, any> {
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
     handleRemoveForm: (arg1: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -356,6 +360,7 @@ class ExpressionEditor extends React.Component<any, any> {
             .merge([i], props)
             .freeze();
 
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -367,10 +372,12 @@ class ExpressionEditor extends React.Component<any, any> {
                 "simplify",
                 "value",
             );
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'key' does not exist on type 'Pick<any, "form" | "value" | "simplify" | "considered">'.
             form.key = component.key;
             return form;
         });
 
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -408,17 +415,21 @@ class ExpressionEditor extends React.Component<any, any> {
             .reject((set) => set === remove)
             .concat(keep);
 
+        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
         this.change("buttonSets", buttonSets);
     };
 
     // called when the correct answer changes
     handleTexInsert: (arg1: string) => void = (str) => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.expression.insert(str);
     };
 
     // called when the function variables change
-    handleFunctions: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    handleFunctions: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
         const newProps: Record<string, any> = {};
         newProps.functions = _.compact(e.target.value.split(/[ ,]+/));
         this.props.onChange(newProps);
@@ -461,6 +472,7 @@ class AnswerOption extends React.Component<any, any> {
     render(): React.ReactElement {
         let removeButton = null;
         if (this.state.deleteFocused) {
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"
@@ -472,6 +484,7 @@ class AnswerOption extends React.Component<any, any> {
                 </button>
             );
         } else {
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"

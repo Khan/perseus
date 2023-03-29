@@ -1,8 +1,8 @@
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {question1} from '../__testdata__/interaction_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {question1} from "../__testdata__/interaction_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 describe("interaction widget", () => {
     beforeEach(() => {

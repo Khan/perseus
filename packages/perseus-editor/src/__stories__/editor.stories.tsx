@@ -1,9 +1,10 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {question1} from '../__testdata__/input-number_testdata';
-import Editor from '../editor';
-import {registerAllWidgetsAndEditorsForTesting} from '../util/register-all-widgets-and-editors-for-testing';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../__testdata__/input-number_testdata' or its corresponding type declarations.
+import {question1} from "../__testdata__/input-number_testdata";
+import Editor from "../editor";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 export default {
     title: "Perseus/Editor",

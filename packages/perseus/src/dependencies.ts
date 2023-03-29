@@ -1,4 +1,4 @@
-import type {PerseusDependencies} from './types';
+import type {PerseusDependencies} from "./types";
 
 let _dependencies: PerseusDependencies | null | undefined = null;
 

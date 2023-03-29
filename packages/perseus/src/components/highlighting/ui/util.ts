@@ -1,15 +1,18 @@
 /**
  * Utility functions for highlighting UI.
  */
-import {rangesOverlap, intersectRanges} from '../ranges';
+import {rangesOverlap, intersectRanges} from "../ranges";
 
-import type {DOMRange, Position, Rect} from './types';
+import type {DOMRange, Position, Rect} from "./types";
 
 /**
  * Given two positions relative to the same origin, return `child`'s position
  * relative to `parent`'s position.
  */
-export function getRelativePosition(child: Position, parent: Position): Position {
+export function getRelativePosition(
+    child: Position,
+    parent: Position,
+): Position {
     return {
         left: child.left - parent.left,
         top: child.top - parent.top,
@@ -24,12 +27,7 @@ export function getRelativePosition(child: Position, parent: Position): Position
  * position.
  */
 export function getRelativeRect(
-    {
-        left,
-        top,
-        width,
-        height,
-    }: Rect,
+    {left, top, width, height}: Rect,
     parent: Position,
 ): Rect {
     return {
@@ -52,7 +50,9 @@ export function getRelativeRect(
  * return a rectangle that covers the entire paragraph block, whereas this
  * method will only return rectangles for the text inside the paragraph.
  */
-export function getClientRectsForTextInRange(range: DOMRange): ReadonlyArray<Rect> {
+export function getClientRectsForTextInRange(
+    range: DOMRange,
+): ReadonlyArray<Rect> {
     const mutableRects = [];
     addClientRectsForTextInNodeAndRange(
         range.commonAncestorContainer,
@@ -119,6 +119,7 @@ function addClientRectsForText(
     mutableRects: Array<Rect>,
 ): void {
     const parentElement = textNode.parentElement;
+    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
     const computedStyle = window.getComputedStyle(parentElement);
 
     // NOTE(mdr): I'm not sure how computed line height works in all contexts
@@ -135,6 +136,7 @@ function addClientRectsForText(
     ) {
         const parsedLineHeight = parseFloat(computedStyle.lineHeight);
         if (!isNaN(parsedLineHeight)) {
+            // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
             lineHeight = parsedLineHeight;
         }
     }

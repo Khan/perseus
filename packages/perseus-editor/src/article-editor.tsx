@@ -16,11 +16,11 @@ import {
 import * as React from "react";
 import _ from "underscore";
 
-import DeviceFramer from './components/device-framer';
-import JsonEditor from './components/json-editor';
-import Editor from './editor';
-import IframeContentRenderer from './iframe-content-renderer';
-import SectionControlButton from './section-control-button';
+import DeviceFramer from "./components/device-framer";
+import JsonEditor from "./components/json-editor";
+import Editor from "./editor";
+import IframeContentRenderer from "./iframe-content-renderer";
+import SectionControlButton from "./section-control-button";
 
 import type {APIOptions} from "@khanacademy/perseus";
 
@@ -28,31 +28,36 @@ const {HUD, InlineIcon} = components;
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
 
 type RendererProps = {
-    content?: string,
-    widgets?: any,
-    images?: any
+    content?: string;
+    widgets?: any;
+    images?: any;
 };
 
 type JsonType = RendererProps | ReadonlyArray<RendererProps>;
 type DefaultProps = {
-    contentPaths?: ReadonlyArray<string>,
-    json: JsonType,
-    mode: 'diff' | 'edit' | 'json' | 'preview',
-    screen: 'phone' | 'tablet' | 'desktop',
-    sectionImageUploadGenerator: (i: number) => React.ReactElement<React.ComponentProps<'span'>>,
-    useNewStyles: boolean
+    contentPaths?: ReadonlyArray<string>;
+    json: JsonType;
+    mode: "diff" | "edit" | "json" | "preview";
+    screen: "phone" | "tablet" | "desktop";
+    sectionImageUploadGenerator: (
+        i: number,
+    ) => React.ReactElement<React.ComponentProps<"span">>;
+    useNewStyles: boolean;
 };
-type PerseusArticleEditorProps = (DefaultProps) & {
-    apiOptions?: APIOptions,
-    imageUploader?: (arg1: string, arg2: (arg1: string) => unknown) => unknown,
+type PerseusArticleEditorProps = DefaultProps & {
+    apiOptions?: APIOptions;
+    imageUploader?: (arg1: string, arg2: (arg1: string) => unknown) => unknown;
     // URL of the route to show on initial load of the preview frames.
-    previewURL: string
-} & (Changeable.ChangeableProps);
+    previewURL: string;
+} & Changeable.ChangeableProps;
 
 type State = {
-    highlightLint: boolean
+    highlightLint: boolean;
 };
-export default class ArticleEditor extends React.Component<PerseusArticleEditorProps, State> {
+export default class ArticleEditor extends React.Component<
+    PerseusArticleEditorProps,
+    State
+> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
         // $FlowFixMe[incompatible-exact]
@@ -78,6 +83,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
     _updatePreviewFrames() {
         if (this.props.mode === "preview") {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
             this.refs["frame-all"].sendNewData({
                 type: "article-all",
                 data: this._sections().map((section, i) => {
@@ -87,6 +93,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
         } else if (this.props.mode === "edit") {
             this._sections().forEach((section, i) => {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
                 this.refs["frame-" + i].sendNewData({
                     type: "article",
                     data: this._apiOptionsForSection(section, i),
@@ -115,6 +122,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
                 highlightLint: this.state.highlightLint,
                 paths: this.props.contentPaths,
             },
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
         };
     }
@@ -125,7 +133,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
             : [this.props.json];
     }
 
-    _renderEditor(): React.ReactElement<React.ComponentProps<'div'>> {
+    _renderEditor(): React.ReactElement<React.ComponentProps<"div">> {
         const {imageUploader, sectionImageUploadGenerator} = this.props;
 
         const apiOptions = {
@@ -233,7 +241,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
         /* eslint-enable max-len */
     }
 
-    _renderAddSection(): React.ReactElement<React.ComponentProps<'div'>> {
+    _renderAddSection(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className="perseus-editor-row">
                 <div className="perseus-editor-left-cell">
@@ -267,7 +275,10 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
         );
     }
 
-    _renderIframePreview(i: number | string, nochrome: boolean): React.ReactElement<any> {
+    _renderIframePreview(
+        i: number | string,
+        nochrome: boolean,
+    ): React.ReactElement<any> {
         const isMobile =
             this.props.screen === "phone" || this.props.screen === "tablet";
 
@@ -285,7 +296,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
         );
     }
 
-    _renderPreviewMode(): React.ReactElement<React.ComponentProps<'div'>> {
+    _renderPreviewMode(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className="standalone-preview">
                 {this._renderIframePreview("all", false)}
@@ -302,6 +313,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
         newProps,
     ) => {
         const sections = _.clone(this._sections());
+        // @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly RendererProps[]' only permits reading.
         sections[i] = _.extend({}, sections[i], newProps);
         this.props.onChange({json: sections});
     };
@@ -312,7 +324,9 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
         }
         const sections = _.clone(this._sections());
         const section = sections[i];
+        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
+        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i - 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -325,7 +339,9 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
             return;
         }
         const section = sections[i];
+        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
+        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i + 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -348,6 +364,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
                       widgets: sections[i].widgets,
                   }
                 : {};
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'splice' does not exist on type 'JsonType'.
         sections.splice(i + 1, 0, newSection);
         this.props.onChange({
             json: sections,
@@ -356,6 +373,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
 
     _handleRemoveSection(i: number) {
         const sections = _.clone(this._sections());
+        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
         this.props.onChange({
             json: sections,
@@ -366,6 +384,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
                 // eslint-disable-next-line react/no-string-refs
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
                 return this.refs["editor" + i].serialize();
             });
         }
@@ -396,6 +415,7 @@ export default class ArticleEditor extends React.Component<PerseusArticleEditorP
 
         return this._sections().map((section, i) => {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             return this.refs["editor" + i].getSaveWarnings();
         });
     }

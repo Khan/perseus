@@ -2,13 +2,14 @@
 import {components} from "@khanacademy/perseus";
 import classNames from "classnames";
 // eslint-disable-next-line import/no-extraneous-dependencies
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'jsdiff' or its corresponding type declarations.
 import jsdiff from "jsdiff";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import splitDiff from './split-diff';
-import stringArrayDiff from './string-array-diff';
+import splitDiff from "./split-diff";
+import stringArrayDiff from "./string-array-diff";
 
 const {SvgImage} = components;
 
@@ -50,6 +51,7 @@ class ImageDiffSide extends React.Component<any> {
                         <div key={index}>
                             <div className={className}>
                                 {/* $FlowFixMe[prop-missing]: the alt prop is missing */}
+                                {/* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                                 <SvgImage
                                     src={entry.value}
                                     title={entry.value}

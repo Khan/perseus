@@ -4,22 +4,22 @@
 
 import * as React from "react";
 
-import TextDiff from './text-diff';
+import TextDiff from "./text-diff";
 
 type Props = {
-    afterOnly: ReadonlyArray<string>,
-    beforeOnly: ReadonlyArray<string>,
-    intersection: ReadonlyArray<string>,
-    showSeparator: boolean,
-    title: string
+    afterOnly: ReadonlyArray<string>;
+    beforeOnly: ReadonlyArray<string>;
+    intersection: ReadonlyArray<string>;
+    showSeparator: boolean;
+    title: string;
 };
 
 class TagsDiff extends React.Component<Props> {
     static defaultProps: {
-        afterOnly: ReadonlyArray<any>,
-        beforeOnly: ReadonlyArray<any>,
-        showSeparator: boolean,
-        title: string
+        afterOnly: ReadonlyArray<any>;
+        beforeOnly: ReadonlyArray<any>;
+        showSeparator: boolean;
+        title: string;
     } = {
         afterOnly: [],
         beforeOnly: [],
@@ -27,7 +27,7 @@ class TagsDiff extends React.Component<Props> {
         title: "Question tags",
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const {afterOnly, beforeOnly, intersection, showSeparator} = this.props;
 
         const beforeTags = intersection.concat(beforeOnly).join("\n") + "\n";

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import allEditors from './all-editors';
+import allEditors from "./all-editors";
 
 describe("All editors", () => {
     it("should export react components with a widgetName property", () => {

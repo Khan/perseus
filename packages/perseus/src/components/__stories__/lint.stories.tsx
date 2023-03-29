@@ -3,10 +3,10 @@ import * as React from "react";
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
-import Lint from '../lint';
+import Lint from "../lint";
 
 export default {
     title: "Perseus/Components/Lint",
@@ -19,21 +19,33 @@ const defaultObject = {
     ruleName: "Test rule",
 } as const;
 
-export const DefaultLintContainerAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const DefaultLintContainerAndMessage: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <Lint {...defaultObject} />;
 };
-export const Severity1DefaultLintAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Severity1DefaultLintAndMessage: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <Lint {...defaultObject} severity={1} />;
 };
-export const Severity2DefaultLintAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Severity2DefaultLintAndMessage: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <Lint {...defaultObject} severity={2} />;
 };
-export const Severity3DefaultLintAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Severity3DefaultLintAndMessage: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <Lint {...defaultObject} severity={3} />;
 };
-export const Severity4DefaultLintAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Severity4DefaultLintAndMessage: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <Lint {...defaultObject} severity={4} />;
 };
-export const InlineLintContainerAndMessage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const InlineLintContainerAndMessage: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     return <Lint {...defaultObject} inline={true} />;
 };

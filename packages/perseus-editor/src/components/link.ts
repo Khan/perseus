@@ -1,4 +1,5 @@
-import {Flow} from 'flow-to-typescript-codemod';
+// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module 'flow-to-typescript-codemod' or its corresponding type declarations.
+import {Flow} from "flow-to-typescript-codemod";
 /**
  * A generic link that removes common link styles.
  *
@@ -16,52 +17,52 @@ import type {CSSProperties} from "aphrodite";
 const DEFAULT_HREF = "javascript:void(0)";
 
 type DefaultProps = {
-    element: string | Flow.AbstractComponent<any>,
+    element: string | Flow.AbstractComponent<any>;
     // Whether the link should appear in a 'highlighted' state. In
     // practice, this will apply the same styles that are applied on-hover.
-    highlighted: boolean,
-    href: string,
+    highlighted: boolean;
+    href: string;
     // Pass through styles but also add our own to normalize
-    style: CSSProperties | Array<CSSProperties>
+    style: CSSProperties | Array<CSSProperties>;
 };
 
-type LinkProps = (DefaultProps) & {
-    children?: React.ReactNode,
+type LinkProps = DefaultProps & {
+    children?: React.ReactNode;
     // An additional class name to add. This is supported so-as to allow
     // Perseus to add class-based styles to links when using this
     // component as its base link class.
-    className?: string,
+    className?: string;
     // Additional direct styles to add.
     inlineStyles?: {
-        [key: string]: any
-    },
+        [key: string]: any;
+    };
     // Optional referrer query parameter to add to the end of the URL, used
     // for analytics purposes.
-    referrer?: string,
+    referrer?: string;
     // A target window to open a link in
-    target?: string,
+    target?: string;
     // The relationship between the linked page and the current page.
     // Mostly used to prevent abuse from linked sites.
-    rel?: string,
+    rel?: string;
     // The data-test-id attribute
-    testId?: string,
+    testId?: string;
     // Specify either an HTML tag (like "a") or a React component (like
     // React Router's `Link`) to be used as the underlying element.
 
-    onClick?: (e: React.MouseEvent) => unknown,
-    onMouseOver?: (e: React.MouseEvent) => unknown,
-    onMouseLeave?: (e: React.MouseEvent) => unknown,
-    onMouseEnter?: (e: React.MouseEvent) => unknown,
-    onBlur?: (e: React.SyntheticEvent) => unknown,
-    onFocus?: (e: React.SyntheticEvent) => unknown,
-    onKeyDown?: (e: React.KeyboardEvent) => unknown,
-    ["aria-label"]?: string,
-    ["aria-selected"]?: boolean,
-    ["aria-current"]?: boolean,
-    role?: 'tab',
-    title?: string,
-    id?: string,
-    tabIndex?: number
+    onClick?: (e: React.MouseEvent) => unknown;
+    onMouseOver?: (e: React.MouseEvent) => unknown;
+    onMouseLeave?: (e: React.MouseEvent) => unknown;
+    onMouseEnter?: (e: React.MouseEvent) => unknown;
+    onBlur?: (e: React.SyntheticEvent) => unknown;
+    onFocus?: (e: React.SyntheticEvent) => unknown;
+    onKeyDown?: (e: React.KeyboardEvent) => unknown;
+    ["aria-label"]?: string;
+    ["aria-selected"]?: boolean;
+    ["aria-current"]?: boolean;
+    role?: "tab";
+    title?: string;
+    id?: string;
+    tabIndex?: number;
 };
 
 /**
@@ -71,11 +72,14 @@ class Link extends React.Component<LinkProps> {
     static defaultProps: DefaultProps = {
         highlighted: false,
         href: DEFAULT_HREF,
-        style: ([] as Array<CSSProperties>),
+        style: [] as Array<CSSProperties>,
         element: "a",
     };
 
-    render(): React.ReactElement<React.ComponentProps<string>> | React.ReactNode {
+    // @ts-expect-error [FEI-5003] - TS2344 - Type 'string' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
+    render():
+        | React.ReactElement<React.ComponentProps<string>>
+        | React.ReactNode {
         const {
             children,
             className,

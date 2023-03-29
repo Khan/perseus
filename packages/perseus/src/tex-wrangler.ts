@@ -34,7 +34,11 @@ function findEndpoint(tex, currentIndex: number) {
 /*
  * Parses an individual set of curly brackets into TeX.
  */
-function parseNextExpression(tex: string, currentIndex: number, handler: (exp1: string, exp2: string) => string) {
+function parseNextExpression(
+    tex: string,
+    currentIndex: number,
+    handler: (exp1: string, exp2: string) => string,
+) {
     // Find the first '{' and grab subsequent TeX
     // Ex) tex: '{3}{7}', and we want the '3'
     const openBracketIndex = tex.indexOf("{", currentIndex);
@@ -70,7 +74,10 @@ function getNextFracIndex(tex: string, currentIndex: number) {
     return -1;
 }
 
-function walkTex(tex: string, handler: (exp1: string, exp2: string) => string): string {
+function walkTex(
+    tex: string,
+    handler: (exp1: string, exp2: string) => string,
+): string {
     if (!tex) {
         return "";
     }

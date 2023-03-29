@@ -4,11 +4,11 @@
  * easier for translators.
  */
 
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {article1} from '../__testdata__/graded-group-set_testdata';
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {article1} from "../__testdata__/graded-group-set_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
 describe("graded-group-set", () => {
     beforeEach(() => {

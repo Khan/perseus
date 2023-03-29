@@ -32,14 +32,17 @@ class DropdownEditor extends React.Component<Props> {
         ],
     };
 
-    onPlaceholderChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    onPlaceholderChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+        e,
+    ) => {
         const placeholder = e.target.value;
         this.props.onChange({placeholder: placeholder});
     };
 
-    onCorrectChange: (arg1: number, arg2: React.ChangeEvent<HTMLInputElement>) => void = (
-        choiceIndex,
-    ) => {
+    onCorrectChange: (
+        arg1: number,
+        arg2: React.ChangeEvent<HTMLInputElement>,
+    ) => void = (choiceIndex) => {
         const choices = _.map(this.props.choices, function (choice, i) {
             return _.extend({}, choice, {
                 correct: i === choiceIndex,
@@ -48,10 +51,10 @@ class DropdownEditor extends React.Component<Props> {
         this.props.onChange({choices: choices});
     };
 
-    onContentChange: (arg1: number, arg2: React.ChangeEvent<HTMLInputElement>) => void = (
-        choiceIndex,
-        e,
-    ) => {
+    onContentChange: (
+        arg1: number,
+        arg2: React.ChangeEvent<HTMLInputElement>,
+    ) => void = (choiceIndex, e) => {
         const choices = this.props.choices.slice();
         const choice = _.clone(choices[choiceIndex]);
         choice.content = e.target.value;
@@ -85,6 +88,7 @@ class DropdownEditor extends React.Component<Props> {
     };
 
     focus: (arg1: number) => boolean = (i) => {
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs["editor" + i]).focus(); // eslint-disable-line react/no-string-refs
         return true;
     };
@@ -139,11 +143,14 @@ class DropdownEditor extends React.Component<Props> {
                                         ref={"radio" + i}
                                         type="radio"
                                         name={dropdownGroupName}
+                                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'boolean | undefined'.
                                         checked={
                                             choice.correct ? "checked" : ""
                                         }
                                         // eslint-disable-next-line react/jsx-no-bind
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onChange={this.onCorrectChange.bind(
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}
@@ -153,7 +160,9 @@ class DropdownEditor extends React.Component<Props> {
                                         type="text"
                                         ref={"editor" + i}
                                         // eslint-disable-next-line react/jsx-no-bind
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onChange={this.onContentChange.bind(
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}
@@ -165,7 +174,9 @@ class DropdownEditor extends React.Component<Props> {
                                         href="#"
                                         className="simple-button orange"
                                         // eslint-disable-next-line react/jsx-no-bind
+                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onClick={this.removeChoice.bind(
+                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}

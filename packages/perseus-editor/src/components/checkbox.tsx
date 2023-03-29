@@ -5,32 +5,32 @@ import {globalStyles} from "@khanacademy/perseus";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import HoverBehavior from './hover-behavior';
+import HoverBehavior from "./hover-behavior";
 
 const {borderRadius, colors} = globalStyles;
 
 export type CheckboxProps = {
     // Whether or not the checkbox is checked.  The parent responsible for
     // responding to onChange events and updating this prop appropriately.
-    checked: boolean,
+    checked: boolean;
     // When disable the checkbox will appear faded out and will not
     // respond to events and cannot be tabbed to.
-    disabled?: boolean,
+    disabled?: boolean;
     // Appear as if disabled but allow it to respond to events and be
     // tabbed to.
     // This allows us to hook alternate responses into clicking on a
     // disabled checkbox.
-    appearDisabled?: boolean,
+    appearDisabled?: boolean;
     // Called when the value has changed.
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    tabIndex?: number | string,
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    tabIndex?: number | string;
     style?: {
-        marginTop: number
-    },
+        marginTop: number;
+    };
     // For e2e test
-    dataTestId?: string,
+    dataTestId?: string;
     // Unique identifier for this checkbox.
-    id?: string
+    id?: string;
 };
 
 // NOTE(jangmi): Checkbox may have `onChange` depends on circumstances but lack
@@ -40,8 +40,8 @@ const onChangeCheckboxNoop = (event: React.ChangeEvent<HTMLInputElement>) => {};
 
 export default class Checkbox extends React.Component<CheckboxProps> {
     static defaultProps: {
-        checked: boolean,
-        onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+        checked: boolean;
+        onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     } = {
         checked: false,
         onChange: onChangeCheckboxNoop,
@@ -130,6 +130,7 @@ export default class Checkbox extends React.Component<CheckboxProps> {
                             )}
                             disabled={disabled}
                             onChange={onChange}
+                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | number | undefined' is not assignable to type 'number | undefined'.
                             tabIndex={tabIndex}
                         />
                     </div>
@@ -156,6 +157,7 @@ const styles = StyleSheet.create({
         flexShrink: 0,
     },
     focused: {
+        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ "::before": { content: string; position: string; top: number; right: number; bottom: number; left: number; borderRadius: number; backgroundColor: string; }; }' is not assignable to type 'CSSProperties'.
         "::before": {
             content: '""',
             position: "absolute",

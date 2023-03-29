@@ -26,25 +26,25 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const InlineIcon: React.FC<InlineIconProps> = (
-    {
-        path,
-        width,
-        height,
-        style = {},
-        title,
-    },
-): React.ReactElement => <svg
-    role="img"
-    aria-hidden={!title}
-    style={{verticalAlign: "middle", ...style}}
-    width={`${width / height}em`}
-    height="1em"
-    viewBox={`0 0 ${width} ${height}`}
->
-    {!!title && <title>{title}</title>}
-    <path d={path} fill="currentColor" />
-</svg>;
+const InlineIcon: React.FC<InlineIconProps> = ({
+    path,
+    width,
+    height,
+    style = {},
+    title,
+}): React.ReactElement => (
+    <svg
+        role="img"
+        aria-hidden={!title}
+        style={{verticalAlign: "middle", ...style}}
+        width={`${width / height}em`}
+        height="1em"
+        viewBox={`0 0 ${width} ${height}`}
+    >
+        {!!title && <title>{title}</title>}
+        <path d={path} fill="currentColor" />
+    </svg>
+);
 
 InlineIcon.propTypes = {
     // An SVG path to render.
@@ -63,15 +63,15 @@ InlineIcon.propTypes = {
 };
 export type InlineIconProps = {
     // An SVG path to render.
-    path: string,
+    path: string;
     // The path's viewBox dimensions.
     // We set the viewport height to 1em and scale the width accordingly.
-    height: number,
-    width: number,
-    style?: any,
+    height: number;
+    width: number;
+    style?: any;
     // A11y description for this icon. If absent, icon is marked
     // aria-hidden=true
-    title?: string
+    title?: string;
 };
 
 export default InlineIcon;

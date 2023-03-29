@@ -1,4 +1,4 @@
-import Rule from '../rule';
+import Rule from "../rule";
 
 // Because no selector is specified, this rule only applies to text nodes.
 // Math and code hold their content directly and do not have text nodes

@@ -1,7 +1,7 @@
 import * as PureMarkdown from "@khanacademy/pure-markdown";
 
-import Rule from '../rule';
-import TreeTransformer from '../tree-transformer';
+import Rule from "../rule";
+import TreeTransformer from "../tree-transformer";
 
 describe("PerseusLinter lint Rules class", () => {
     const markdown = `
@@ -73,13 +73,16 @@ the previous heading was level ${previousHeading.level}`;
     it("check() method", () => {
         const tree = parseTree();
         const tt = new TreeTransformer(tree);
-        const warnings: Array<any | {
-          end: number,
-          message: string,
-          rule: string,
-          severity?: number,
-          start: number
-        }> = [];
+        const warnings: Array<
+            | any
+            | {
+                  end: number;
+                  message: string;
+                  rule: string;
+                  severity?: number;
+                  start: number;
+              }
+        > = [];
 
         tt.traverse((node, state, content) => {
             rules.forEach((r) => {

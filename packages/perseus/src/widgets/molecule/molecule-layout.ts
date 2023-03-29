@@ -53,7 +53,12 @@ function polarAdd(origin: any, angle, length) {
  *     a rendering instruction for the atom, containing a type (text), the text
  *     to render, the position, and the atom index
  */
-function atomLayout(atom: any, atoms: any, bonds: ReadonlyArray<any>, rotationAngle: number): any {
+function atomLayout(
+    atom: any,
+    atoms: any,
+    bonds: ReadonlyArray<any>,
+    rotationAngle: number,
+): any {
     let textValue = atom.symbol;
     if (textValue === "C" && Object.keys(atoms).length !== 1) {
         // By convention, don't render the C for carbon in a chain.

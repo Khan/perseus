@@ -1,14 +1,14 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import QuestionMarkers from '../question-markers';
+import QuestionMarkers from "../question-markers";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -28,9 +28,12 @@ const Wrapper = (props) => (
     </div>
 );
 
-class WithState extends React.Component<Record<any, any>, {
-    markers: ReadonlyArray<MarkerType>
-}> {
+class WithState extends React.Component<
+    Record<any, any>,
+    {
+        markers: ReadonlyArray<MarkerType>;
+    }
+> {
     state = {
         markers: [
             {

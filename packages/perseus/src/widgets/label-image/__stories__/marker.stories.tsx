@@ -1,12 +1,12 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Marker from '../marker';
+import Marker from "../marker";
 
 type StoryArgs = Record<any, any>;
 
 type Story = {
-    title: string
+    title: string;
 };
 
 export default {
@@ -46,7 +46,9 @@ export const Unfilled: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const UnfilledPulsate: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const UnfilledPulsate: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: [],
@@ -61,7 +63,9 @@ export const UnfilledPulsate: React.FC<StoryArgs> = (args): React.ReactElement =
     return <Wrapper {...props} />;
 };
 
-export const UnfilledSelected: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const UnfilledSelected: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: [],
@@ -91,7 +95,9 @@ export const Filled: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const FilledSelected: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const FilledSelected: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["Fiat"],
@@ -122,7 +128,9 @@ export const Incorrect: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const IncorrectSelected: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const IncorrectSelected: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["Fiat"],
@@ -154,7 +162,9 @@ export const Correct: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const CorrectSelected: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const CorrectSelected: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["BMW", "Ferrari"],

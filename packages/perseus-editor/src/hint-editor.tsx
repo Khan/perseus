@@ -7,9 +7,9 @@ import {components, icons} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
-import DeviceFramer from './components/device-framer';
-import Editor from './editor';
-import IframeContentRenderer from './iframe-content-renderer';
+import DeviceFramer from "./components/device-framer";
+import Editor from "./editor";
+import IframeContentRenderer from "./iframe-content-renderer";
 
 import type {
     APIOptions,
@@ -23,26 +23,29 @@ import type {
 const {InfoTip, InlineIcon} = components;
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
 
-type ImageUploader = (file: string, callback: (url: string) => unknown) => unknown;
+type ImageUploader = (
+    file: string,
+    callback: (url: string) => unknown,
+) => unknown;
 
 type HintEditorProps = {
-    itemId?: string,
-    apiOptions?: APIOptions,
-    className: string,
-    imageUploader?: ImageUploader,
-    showMoveButtons?: boolean,
-    showRemoveButton?: boolean,
-    showTitle?: boolean,
-    content?: string | null | undefined,
-    replace?: boolean | null | undefined,
-    widgets?: WidgetDict | null | undefined,
-    images?: ImageDict | null | undefined,
-    isLast: boolean,
-    isFirst: boolean,
-    onMove: (direction: number) => unknown,
-    onRemove: () => unknown,
-    onChange: ChangeHandler,
-    __type?: 'hint'
+    itemId?: string;
+    apiOptions?: APIOptions;
+    className: string;
+    imageUploader?: ImageUploader;
+    showMoveButtons?: boolean;
+    showRemoveButton?: boolean;
+    showTitle?: boolean;
+    content?: string | null | undefined;
+    replace?: boolean | null | undefined;
+    widgets?: WidgetDict | null | undefined;
+    images?: ImageDict | null | undefined;
+    isLast: boolean;
+    isFirst: boolean;
+    onMove: (direction: number) => unknown;
+    onRemove: () => unknown;
+    onChange: ChangeHandler;
+    __type?: "hint";
 };
 
 /* Renders a hint editor box
@@ -55,12 +58,12 @@ type HintEditorProps = {
  */
 export class HintEditor extends React.Component<HintEditorProps> {
     static defaultProps: {
-        className: string,
-        content: string,
-        replace: boolean,
-        showMoveButtons: boolean,
-        showRemoveButton: boolean,
-        showTitle: boolean
+        className: string;
+        content: string;
+        replace: boolean;
+        showMoveButtons: boolean;
+        showRemoveButton: boolean;
+        showTitle: boolean;
     } = {
         className: "",
         content: "",
@@ -78,20 +81,23 @@ export class HintEditor extends React.Component<HintEditorProps> {
 
     focus: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.editor.focus();
     };
 
     getSaveWarnings: () => any = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         return this.refs.editor.getSaveWarnings();
     };
 
     serialize: (options?: any) => any = (options: any) => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs.editor.serialize(options);
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         return (
             <div className={"perseus-hint-editor " + this.props.className}>
                 {this.props.showTitle && <div className="pod-title">Hint</div>}
@@ -140,6 +146,7 @@ export class HintEditor extends React.Component<HintEditorProps> {
                     )}
                     <input
                         type="checkbox"
+                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean | null | undefined' is not assignable to type 'boolean | undefined'.
                         checked={this.props.replace}
                         onChange={this.handleChange}
                     />
@@ -161,21 +168,21 @@ export class HintEditor extends React.Component<HintEditorProps> {
 }
 
 type CombinedHintEditorProps = {
-    itemId?: string,
-    apiOptions?: APIOptions,
-    deviceType: DeviceType,
-    imageUploader?: ImageUploader,
-    highlightLint?: boolean,
-    isLast: boolean,
-    isFirst: boolean,
-    hint: Hint,
-    pos: number // position,
-    contentPaths: ReadonlyArray<string>,
+    itemId?: string;
+    apiOptions?: APIOptions;
+    deviceType: DeviceType;
+    imageUploader?: ImageUploader;
+    highlightLint?: boolean;
+    isLast: boolean;
+    isFirst: boolean;
+    hint: Hint;
+    pos: number; // position,
+    contentPaths: ReadonlyArray<string>;
     // URL of the route to show on initial load of the preview frames.
-    previewURL: string,
-    onMove: (direction: number) => unknown,
-    onRemove: () => unknown,
-    onChange: ChangeHandler
+    previewURL: string;
+    onMove: (direction: number) => unknown;
+    onRemove: () => unknown;
+    onChange: ChangeHandler;
 };
 
 /* A single hint-row containing a hint editor and preview */
@@ -197,6 +204,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
             this.props.isLast && !/\*\*/.test(this.props.hint.content);
 
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
         this.refs.frame.sendNewData({
             type: "hint",
             data: {
@@ -215,16 +223,19 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
 
     getSaveWarnings = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         return this.refs.editor.getSaveWarnings();
     };
 
     serialize = (options: any) => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs.editor.serialize(options);
     };
 
     focus = () => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.editor.focus();
     };
 
@@ -277,17 +288,17 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
 }
 
 type CombinedHintsEditorProps = {
-    apiOptions?: APIOptions,
-    deviceType: DeviceType,
-    imageUploader?: ImageUploader,
-    highlightLint?: boolean,
-    hints: ReadonlyArray<Hint>,
+    apiOptions?: APIOptions;
+    deviceType: DeviceType;
+    imageUploader?: ImageUploader;
+    highlightLint?: boolean;
+    hints: ReadonlyArray<Hint>;
     // URL of the route to show on initial load of the preview frames.
-    previewURL: string,
-    onChange: ChangeHandler,
+    previewURL: string;
+    onChange: ChangeHandler;
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.
-    itemId?: string
+    itemId?: string;
 };
 
 /* The entire hints editing/preview area
@@ -301,9 +312,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     static HintEditor: typeof HintEditor = HintEditor;
 
     static defaultProps: {
-        highlightLint: boolean,
-        hints: ReadonlyArray<any>,
-        onChange: () => void
+        highlightLint: boolean;
+        hints: ReadonlyArray<any>;
+        onChange: () => void;
     } = {
         onChange: () => {},
         hints: [],
@@ -329,12 +340,15 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             newProps,
         );
 
+        // @ts-expect-error [FEI-5003] - TS2740 - Type 'Hint' is missing the following properties from type 'readonly Hint[]': length, concat, join, slice, and 18 more.
         this.props.onChange({hints: hints}, cb, silent);
     };
 
     handleHintRemove: (i: number) => void = (i: number) => {
         const hints = _(this.props.hints).clone();
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'splice' does not exist on type 'Hint'.
         hints.splice(i, 1);
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Hint' is not assignable to type 'readonly Hint[]'.
         this.props.onChange({hints: hints});
     };
 
@@ -343,10 +357,14 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         dir: number,
     ) => {
         const hints = _(this.props.hints).clone();
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'splice' does not exist on type 'Hint'.
         const hint = hints.splice(i, 1)[0];
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'splice' does not exist on type 'Hint'.
         hints.splice(i + dir, 0, hint);
+        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Hint' is not assignable to type 'readonly Hint[]'.
         this.props.onChange({hints: hints}, () => {
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["hintEditor" + (i + dir)].focus();
         });
     };
@@ -354,10 +372,12 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     addHint: () => void = () => {
         const hints = _(this.props.hints)
             .clone()
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'concat' does not exist on type 'Hint'.
             .concat([{content: ""}]);
         this.props.onChange({hints: hints}, () => {
             const i = hints.length - 1;
             // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["hintEditor" + i].focus();
         });
     };
@@ -367,6 +387,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .map((hint, i) => {
                 return _.map(
                     // eslint-disable-next-line react/no-string-refs
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
                     this.refs["hintEditor" + i].getSaveWarnings(),
                     (issue) => "Hint " + (i + 1) + ": " + issue,
                 );
@@ -375,20 +396,22 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .value();
     };
 
-    serialize: (options?: any) => ReadonlyArray<string> = (
-        options: any,
-    ) => {
+    serialize: (options?: any) => ReadonlyArray<string> = (options: any) => {
         return this.props.hints.map((hint, i) => {
             return this.serializeHint(i, options);
         });
     };
 
-    serializeHint: (index: number, options?: any) => string = (index: number, options: any): string => {
+    serializeHint: (index: number, options?: any) => string = (
+        index: number,
+        options: any,
+    ): string => {
         // eslint-disable-next-line react/no-string-refs
+        // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs["hintEditor" + index].serialize(options);
     };
 
-    render(): React.ReactElement<React.ComponentProps<'div'>> {
+    render(): React.ReactElement<React.ComponentProps<"div">> {
         const {itemId, hints} = this.props;
         const hintElems = _.map(
             hints,
@@ -402,16 +425,24 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         itemId={itemId}
                         hint={hint}
                         pos={i}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         imageUploader={this.props.imageUploader}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onChange={this.handleHintChange.bind(this, i)}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onRemove={this.handleHintRemove.bind(this, i)}
                         // eslint-disable-next-line react/jsx-no-bind
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMove={this.handleHintMove.bind(this, i)}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         deviceType={this.props.deviceType}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         apiOptions={this.props.apiOptions}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         highlightLint={this.props.highlightLint}
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         previewURL={this.props.previewURL}
                         // TODO(CP-4838): what should be passed here?
                         contentPaths={[]}

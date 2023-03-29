@@ -1,9 +1,15 @@
-import Rule from '../rule';
+import Rule from "../rule";
 
 // These are 3-letter and longer words that we would not expect to be
 // capitalized even in a title-case heading.  See
 // http://blog.apastyle.org/apastyle/2012/03/title-case-and-sentence-case-capitalization-in-apa-style.html
-const littleWords = {and: true, nor: true, but: true, the: true, for: true} as const;
+const littleWords = {
+    and: true,
+    nor: true,
+    but: true,
+    the: true,
+    for: true,
+} as const;
 
 function isCapitalized(word: any) {
     const c = word[0];

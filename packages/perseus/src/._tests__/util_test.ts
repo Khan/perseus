@@ -1,4 +1,4 @@
-import Util from '../util';
+import Util from "../util";
 
 describe("#constrainedTickStepsFromTickSteps", () => {
     it("should not changes the tick steps if there are fewer than (or exactly) 10 steps", () => {

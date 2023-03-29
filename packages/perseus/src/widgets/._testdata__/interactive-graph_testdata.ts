@@ -1,5 +1,5 @@
-import type {Coord} from '../../interactive2/types';
-import type {PerseusRenderer} from '../../perseus-types';
+import type {Coord} from "../../interactive2/types";
+import type {PerseusRenderer} from "../../perseus-types";
 
 // Data for the interactive graph widget
 
@@ -472,9 +472,13 @@ export const sinusoidQuestion: PerseusRenderer = {
     },
 };
 
-export const questionsAndAnswers: ReadonlyArray<[PerseusRenderer, // Correct answer
-ReadonlyArray<Coord>, // Incorrect answer
-ReadonlyArray<Coord>]> = [
+export const questionsAndAnswers: ReadonlyArray<
+    [
+        PerseusRenderer, // Correct answer
+        ReadonlyArray<Coord>, // Incorrect answer
+        ReadonlyArray<Coord>,
+    ]
+> = [
     [
         polygonQuestion,
         [

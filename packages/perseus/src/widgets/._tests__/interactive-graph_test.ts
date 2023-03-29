@@ -1,14 +1,14 @@
-import {clone} from '../../../../../testing/object-utils';
-import {testDependencies} from '../../../../../testing/test-dependencies';
-import * as Dependencies from '../../dependencies';
-import {ApiOptions} from '../../perseus-api';
-import {questionsAndAnswers} from '../__testdata__/interactive-graph_testdata';
+import {clone} from "../../../../../testing/object-utils";
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
+import {questionsAndAnswers} from "../__testdata__/interactive-graph_testdata";
 
-import {renderQuestion} from './renderQuestion';
+import {renderQuestion} from "./renderQuestion";
 
-import type {Coord} from '../../interactive2/types';
-import type {PerseusRenderer} from '../../perseus-types';
-import type {APIOptions} from '../../types';
+import type {Coord} from "../../interactive2/types";
+import type {PerseusRenderer} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());

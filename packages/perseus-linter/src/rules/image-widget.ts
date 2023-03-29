@@ -1,4 +1,4 @@
-import Rule from '../rule';
+import Rule from "../rule";
 
 // Normally we have one rule per file. But since our selector class
 // can't match specific widget types directly, this rule implements

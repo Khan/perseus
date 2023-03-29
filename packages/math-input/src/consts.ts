@@ -2,7 +2,7 @@
  * Constants that are shared between multiple files.
  */
 
-export type KeypadType = 'FRACTION' | 'EXPRESSION';
+export type KeypadType = "FRACTION" | "EXPRESSION";
 
 // TODO: Retire this in favour of KeypadType (above)
 export const KeypadTypes = {
@@ -11,16 +11,17 @@ export const KeypadTypes = {
 } as const;
 
 export type KeyType = // For numerals, variables, and any other characters that themselves
-// compose 'values'.
-'EMPTY' | // For buttons that insert or adjust math in an input.
-'VALUE' | // For buttons that move the cursor in an input (including via
-// deletion).
-'OPERATOR' | // For buttons that modify the broader keypad state (e.g., by changing
-// the visible pane).
-'INPUT_NAVIGATION' | // For buttons that house multiple buttons and have no action
-// themselves.
-'KEYPAD_NAVIGATION' | // For the echo animation that appears on press.
-'MANY' | 'ECHO';
+    // compose 'values'.
+    | "EMPTY" // For buttons that insert or adjust math in an input.
+    | "VALUE" // For buttons that move the cursor in an input (including via
+    // deletion).
+    | "OPERATOR" // For buttons that modify the broader keypad state (e.g., by changing
+    // the visible pane).
+    | "INPUT_NAVIGATION" // For buttons that house multiple buttons and have no action
+    // themselves.
+    | "KEYPAD_NAVIGATION" // For the echo animation that appears on press.
+    | "MANY"
+    | "ECHO";
 
 export const KeyTypes = {
     EMPTY: "EMPTY",
@@ -58,11 +59,13 @@ export const LayoutModes = {
 } as const;
 
 export const BorderDirections = {
-    LEFT: ("LEFT" as const),
-    BOTTOM: ("BOTTOM" as const),
+    LEFT: "LEFT" as const,
+    BOTTOM: "BOTTOM" as const,
 } as const;
 export const BorderStyles: {
-    [style: string]: ReadonlyArray<typeof BorderDirections[keyof typeof BorderDirections]>
+    [style: string]: ReadonlyArray<
+        typeof BorderDirections[keyof typeof BorderDirections]
+    >;
 } = {
     LEFT: ["LEFT"],
     BOTTOM: ["BOTTOM"],

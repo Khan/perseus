@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import BlurInput from '../components/blur-input';
+import BlurInput from "../components/blur-input";
 
 const {InfoTip} = components;
 
@@ -33,7 +33,7 @@ class VideoEditor extends React.Component<Props> {
         onChange: PropTypes.func,
     };
 
-    static widgetName: 'video' = "video";
+    static widgetName: "video" = "video";
 
     static defaultProps: Props = {
         location: "",

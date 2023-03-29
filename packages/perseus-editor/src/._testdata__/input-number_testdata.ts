@@ -5,7 +5,7 @@ export const question1: PerseusRenderer = {
         "A sequence is defined recursively as follows:\n\n\n$\\qquad\\displaystyle{{a}_{n}}=-\\frac{1}{a_{n-1}-1} \n~~~~~~\\text{ with}\\qquad\\displaystyle{{a}_{0}}=\\frac{1}{2}\\,$\n\n\nFind the term $a_3$ in the sequence.\n\n[[\u2603 input-number 1]]",
     images: {},
     widgets: {
-        "input-number 1": ({
+        "input-number 1": {
             graded: true,
             version: {
                 major: 0,
@@ -22,6 +22,6 @@ export const question1: PerseusRenderer = {
                 size: "normal",
             },
             alignment: "default",
-        } as InputNumberWidget),
+        } as InputNumberWidget,
     },
 };

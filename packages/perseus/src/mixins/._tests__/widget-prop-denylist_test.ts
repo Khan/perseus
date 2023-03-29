@@ -1,4 +1,4 @@
-import {removeDenylistProps} from '../widget-prop-denylist';
+import {removeDenylistProps} from "../widget-prop-denylist";
 
 describe("removeDenylistProps", () => {
     it("removes props that are in denylist from input", () => {

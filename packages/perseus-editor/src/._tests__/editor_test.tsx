@@ -4,9 +4,9 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import {testDependencies} from '../../../../testing/test-dependencies';
-import {question1} from '../__testdata__/input-number_testdata';
-import Editor from '../editor';
+import {testDependencies} from "../../../../testing/test-dependencies";
+import {question1} from "../__testdata__/input-number_testdata";
+import Editor from "../editor";
 
 describe("Editor", () => {
     beforeEach(() => {

@@ -10,8 +10,8 @@
 import {point as kpoint} from "@khanacademy/kmath";
 import _ from "underscore";
 
-import {Errors} from '../logging/log';
-import {PerseusError} from '../perseus-error';
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 
 /* Local helper methods. */
 
@@ -145,8 +145,10 @@ const MovableHelperMethods: any = {
                 function (key) {
                     if (
                         getEventName(key) === eventName &&
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this._listenerMap[key] > index
                     ) {
+                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this._listenerMap[key]--;
                     }
                 },
