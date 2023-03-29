@@ -18,7 +18,7 @@ module.exports = function createBabelPresets({platform, format}) {
             break;
     }
     return [
-        "@babel/preset-flow",
+        "@babel/preset-typescript",
         [
             "@babel/preset-env",
             {

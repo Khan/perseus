@@ -2,8 +2,8 @@ import Rule from "./rule";
 import AllRules from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
-export {linterContextProps, linterContextDefault} from "./proptypes.js";
-export type {LinterContextProps} from "./types.js";
+export {linterContextProps, linterContextDefault} from "./proptypes";
+export type {LinterContextProps} from "./types";
 
 const allLintRules: ReadonlyArray<any> = AllRules.filter(
     (r) => r.severity < Rule.Severity.BULK_WARNING,

@@ -19,9 +19,7 @@ describe("Editor", () => {
         beforeEach(async () => {
             const [InputNumberWidget, InputNumberEditor] = await Promise.all([
                 import("@khanacademy/perseus").then((m) => m.InputNumber),
-                import("../widgets/input-number-editor.jsx").then(
-                    (m) => m.default,
-                ),
+                import("../widgets/input-number-editor").then((m) => m.default),
             ]);
             Widgets.registerWidgets([InputNumberWidget]);
             Widgets.registerEditors([InputNumberEditor]);

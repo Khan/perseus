@@ -4,13 +4,13 @@
 
 import version from "./version";
 
-export {default as init} from "./init.js";
+export {default as init} from "./init";
 
 export {ApiOptions, ClassNames} from "./perseus-api";
 
 export const apiVersion = version.apiVersion;
 export const itemDataVersion = version.itemDataVersion;
-export {default as itemVersion} from "./item-version.js";
+export {default as itemVersion} from "./item-version";
 
 /**
  * Renderers
@@ -25,8 +25,8 @@ export {default as Renderer} from "./renderer";
 /**
  * Widgets
  */
-export * as Widgets from "./widgets.js";
-export {default as widgets} from "./all-widgets.js";
+export * as Widgets from "./widgets";
+export {default as widgets} from "./all-widgets";
 export {Expression} from "./widgets/expression";
 export {default as InputNumber} from "./widgets/input-number";
 export {default as NumericInput} from "./widgets/numeric-input";
@@ -49,36 +49,36 @@ export * as GrapherUtil from "./widgets/grapher/util";
 /**
  * Misc
  */
-export * as components from "./components.js";
-export * as constants from "./components/constants.js";
+export * as components from "./components";
+export * as constants from "./components/constants";
 // TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
-export * as globalStyles from "./styles/global-styles.js";
+export * as globalStyles from "./styles/global-styles";
 // TODO(FEI-4504): Replace globalStyles with wonder-blocks where possible
-export * as globalConstants from "./styles/global-constants.js";
-export * as icons from "./icon-paths.js";
-export * as Dependencies from "./dependencies.js";
-export {Errors, Log} from "./logging/log.js";
-export {PerseusError} from "./perseus-error.js";
-export {default as JiptParagraphs} from "./jipt-paragraphs.js";
-export {default as KeypadContext} from "./keypad-context.js";
-export {default as KhanMath} from "./util/math.js";
-export {default as LoadingContext} from "./loading-context.js";
-export {default as mediaQueries} from "./styles/media-queries.js";
+export * as globalConstants from "./styles/global-constants";
+export * as icons from "./icon-paths";
+export * as Dependencies from "./dependencies";
+export {Errors, Log} from "./logging/log";
+export {PerseusError} from "./perseus-error";
+export {default as JiptParagraphs} from "./jipt-paragraphs";
+export {default as KeypadContext} from "./keypad-context";
+export {default as KhanMath} from "./util/math";
+export {default as LoadingContext} from "./loading-context";
+export {default as mediaQueries} from "./styles/media-queries";
 export {default as PerseusMarkdown} from "./perseus-markdown";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
-export {violatingWidgets} from "./a11y.js";
-export {interactiveSizes} from "./styles/constants.js";
+export {violatingWidgets} from "./a11y";
+export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
 
 /**
  * Util
  */
-export {default as Util} from "./util.js";
-export {default as KhanColors} from "./util/colors.js";
-export {default as preprocessTex} from "./util/katex-preprocess.js";
-export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing.js";
-export * as SizingUtils from "./util/sizing-utils.js";
+export {default as Util} from "./util";
+export {default as KhanColors} from "./util/colors";
+export {default as preprocessTex} from "./util/katex-preprocess";
+export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
+export * as SizingUtils from "./util/sizing-utils";
 
 /**
  * Mixins
@@ -86,13 +86,13 @@ export * as SizingUtils from "./util/sizing-utils.js";
 export * as Changeable from "./mixins/changeable";
 export {default as EditorJsonify} from "./mixins/editor-jsonify";
 export {default as WidgetJsonifyDeprecated} from "./mixins/widget-jsonify-deprecated";
-export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist.js";
+export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
 
 /**
  * Types
  */
-export type {PerseusOptions} from "./init.js";
-export type {ILogger, LogErrorOptions, ErrorKind} from "./logging/log.js";
+export type {PerseusOptions} from "./init";
+export type {ILogger, LogErrorOptions, ErrorKind} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
     Alignment,
@@ -119,24 +119,24 @@ export type {
     WidgetDict,
     WidgetExports,
     WidgetInfo,
-} from "./types.js";
-export type {ParsedValue} from "./util.js";
+} from "./types";
+export type {ParsedValue} from "./util";
 export type {
     MathFormat,
     InputNumberWidget,
     PerseusRadioWidgetOptions,
     PerseusRenderer,
-} from "./perseus-types.js";
-export type {Coord} from "./interactive2/types.js";
-export type {MarkerType} from "./widgets/label-image/types.js";
+} from "./perseus-types";
+export type {Coord} from "./interactive2/types";
+export type {MarkerType} from "./widgets/label-image/types";
 
 /**
  * Multi-items
  */
-export {default as MultiItems} from "./multi-items.js";
-export {buildEmptyItemTreeForShape, itemToTree} from "./multi-items/items.js";
-export {default as shapes} from "./multi-items/shapes.js";
-export {buildMapper} from "./multi-items/trees.js";
+export {default as MultiItems} from "./multi-items";
+export {buildEmptyItemTreeForShape, itemToTree} from "./multi-items/items";
+export {default as shapes} from "./multi-items/shapes";
+export {buildMapper} from "./multi-items/trees";
 
 export type {
     ContentNode,
@@ -146,7 +146,7 @@ export type {
     ItemObjectNode,
     ItemArrayNode,
     TagsNode,
-} from "./multi-items/item-types.js";
+} from "./multi-items/item-types";
 export type {
     Shape,
     ArrayShape,
@@ -154,5 +154,5 @@ export type {
     ContentShape,
     HintShape,
     TagsShape,
-} from "./multi-items/shape-types.js";
-export type {Path} from "./multi-items/trees.js";
+} from "./multi-items/shape-types";
+export type {Path} from "./multi-items/trees";
