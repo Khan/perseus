@@ -205,7 +205,10 @@ const createConfig = (
                 url: false,
             }),
             babel({
-                babelHelpers: "bundled",
+                babelHelpers:
+                    platform === "browser" && format === "esm"
+                        ? "runtime"
+                        : "bundled",
                 presets: createBabelPresets({platform, format}),
                 plugins: createBabelPlugins({platform, format}),
                 exclude: "node_modules/**",

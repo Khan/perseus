@@ -2591,7 +2591,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         // and maximum angle values bounding a circle sector, and
         // the third column refers to the cursor name that will be
         // applied if the mouse position falls inside the given sector.
-        const cursorAxes = [
+        const cursorAxes: Array<[number, number, string]> = [
             [Math.PI * -1.0, Math.PI * -0.875, "ew-resize"],
             [Math.PI * -0.875, Math.PI * -0.625, "nesw-resize"],
             [Math.PI * -0.625, Math.PI * -0.375, "ns-resize"],
