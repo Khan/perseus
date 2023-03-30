@@ -85,7 +85,7 @@ const generateStringsFileForPackage = (pkgName) => {
         fs.mkdirSync(outDir, {recursive: true});
     }
 
-    const outPath = path.join(outDir, "strings");
+    const outPath = path.join(outDir, "strings.js");
     const fd = fs.openSync(outPath, "w");
 
     const writeLine = (line) => fs.writeSync(fd, line + "\n");
