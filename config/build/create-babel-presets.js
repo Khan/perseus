@@ -1,6 +1,7 @@
 /* eslint-disable import/no-commonjs */
 module.exports = function createBabelPresets({platform, format}) {
     const targets = {};
+    const options = {targets};
 
     if (platform === "node") {
         targets.node = true;
@@ -15,16 +16,14 @@ module.exports = function createBabelPresets({platform, format}) {
 
         case "esm":
             targets.esmodules = true;
+            options.bugfixes = true;
+            options.loose = true;
             break;
     }
+
     return [
         "@babel/preset-typescript",
-        [
-            "@babel/preset-env",
-            {
-                targets,
-            },
-        ],
+        ["@babel/preset-env", options],
         "@babel/preset-react",
     ];
 };
