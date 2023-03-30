@@ -1,5 +1,5 @@
 ---
-"perseus-build-settings": patch
+"perseus-build-settings": minor
 "@khanacademy/perseus": patch
 ---
 
