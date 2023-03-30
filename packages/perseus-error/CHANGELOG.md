@@ -1,5 +1,11 @@
 # @khanacademy/perseus-error
 
+## 0.2.1
+
+### Patch Changes
+
+-   1f062e98: Bump all package versions since the build settings have been updated
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @khanacademy/pure-markdown
 
+## 0.2.1
+
+### Patch Changes
+
+-   1f062e98: Bump all package versions since the build settings have been updated
+-   Updated dependencies [1f062e98]
+    -   @khanacademy/perseus-error@0.2.1
+    -   @khanacademy/simple-markdown@0.9.1
+
 ## 0.2.0
 
 ### Minor Changes
