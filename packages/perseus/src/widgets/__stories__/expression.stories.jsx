@@ -7,6 +7,7 @@ import {
     expressionItem2,
     expressionItem3,
 } from "../__testdata__/expression_testdata.js";
+import Expression from "../expression.jsx";
 
 import TestKeypadContext from "./test-keypad-context-wrapper.jsx";
 
@@ -49,6 +50,47 @@ export default ({
     title: "Perseus/Widgets/Expression",
     argTypes: {customKeypad: {control: "boolean"}},
 }: Story);
+
+export const DesktopKitchenSink = (args: StoryArgs): React.Node => {
+    const reviewModeRubric = {
+        functions: ["f", "g", "h"],
+        times: true,
+        answerForms: [],
+        buttonSets: [
+            "basic",
+            "basic+div",
+            "trig",
+            "prealgebra",
+            "logarithms",
+            "basic relations",
+            "advanced relations",
+        ],
+    };
+
+    const keypadConfiguration = {
+        keypadType: "EXPRESSION",
+        extraKeys: ["x", "y", "z"],
+    };
+
+    return (
+        <div style={{padding: "2rem"}}>
+            <Expression.widget
+                alignment={null}
+                value=""
+                containerSizeClass="small"
+                findWidgets={(callback) => []}
+                isLastUsedWidget={false}
+                onChange={() => {}}
+                problemNum={1}
+                static={false}
+                trackInteraction={() => {}}
+                widgetId="expression"
+                reviewModeRubric={reviewModeRubric}
+                keypadConfiguration={keypadConfiguration}
+            />
+        </div>
+    );
+};
 
 export const Desktop = (args: StoryArgs): React.Node => {
     return <WrappedKeypadContext item={expressionItem3} customKeypad={false} />;
