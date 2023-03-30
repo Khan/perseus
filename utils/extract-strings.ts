@@ -118,11 +118,10 @@ const generateStringsFileForPackage = (pkgName) => {
 };
 
 if (require.main === module) {
-    // fs.readdirSync(path.join(rootDir, "packages"))
-    //     .filter((name) => {
-    //         const stat = fs.statSync(path.join(rootDir, "packages", name));
-    //         return stat.isDirectory();
-    //     })
-    //     .map(generateStringsFileForPackage);
-    generateStringsFileForPackage("perseus-editor");
+    fs.readdirSync(path.join(rootDir, "packages"))
+        .filter((name) => {
+            const stat = fs.statSync(path.join(rootDir, "packages", name));
+            return stat.isDirectory();
+        })
+        .map(generateStringsFileForPackage);
 }
