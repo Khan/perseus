@@ -85,7 +85,7 @@ const generateStringsFileForPackage = (pkgName) => {
         fs.mkdirSync(outDir, {recursive: true});
     }
 
-    const outPath = path.join(outDir, "strings");
+    const outPath = path.join(outDir, "strings.js");
     const fd = fs.openSync(outPath, "w");
 
     const writeLine = (line) => fs.writeSync(fd, line + "\n");
@@ -118,10 +118,11 @@ const generateStringsFileForPackage = (pkgName) => {
 };
 
 if (require.main === module) {
-    fs.readdirSync(path.join(rootDir, "packages"))
-        .filter((name) => {
-            const stat = fs.statSync(path.join(rootDir, "packages", name));
-            return stat.isDirectory();
-        })
-        .map(generateStringsFileForPackage);
+    // fs.readdirSync(path.join(rootDir, "packages"))
+    //     .filter((name) => {
+    //         const stat = fs.statSync(path.join(rootDir, "packages", name));
+    //         return stat.isDirectory();
+    //     })
+    //     .map(generateStringsFileForPackage);
+    generateStringsFileForPackage("perseus-editor");
 }
