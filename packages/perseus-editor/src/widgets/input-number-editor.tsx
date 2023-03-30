@@ -46,12 +46,21 @@ const answerTypes = {
 } as const;
 
 type Props = {
+    // Note(jeremy): These props used the reference the InputNumber widget's
+    // React.ElementConfig<>, but that widget has been deleted in favour of
+    // using the `numeric-input` widget. This editor exists so that content
+    // editors can load content that still uses `input-number` widget
+    // references. Just know that all of these will render `numeric-input`
+    // widgets by migrating their widget options to values compatible with the
+    // `numeric-input` (see the `input-number.jsx` file which contains a
+    // special "propUpgrades" function that does this work).
+    // For this reason, these props are defined "manually".
     value: number;
     simplify: "required" | "optional" | "enforced";
     size: "normal" | "small";
-    inexact: boolean;
-    maxError: number | string;
-    answerType:
+    inexact?: boolean;
+    maxError?: number | string;
+    answerType?:
         | "number"
         | "decimal"
         | "integer"
@@ -60,8 +69,9 @@ type Props = {
         | "mixed"
         | "percent"
         | "pi";
-    rightAlign: boolean;
-    onChange: (arg1: {
+    rightAlign?: boolean;
+
+    onChange: (args: {
         value?: ParsedValue | 0;
         simplify?: Props["simplify"];
         size?: Props["size"];
@@ -115,6 +125,7 @@ class InputNumberEditor extends React.Component<Props> {
 
         return (
             <div>
+                <div>Abs</div>
                 <div>
                     <label>
                         Correct answer:{" "}
@@ -268,6 +279,15 @@ class InputNumberEditor extends React.Component<Props> {
         // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.input).focus(); // eslint-disable-line react/no-string-refs
         return true;
+    };
+
+    getSaveWarnings: () => ReadonlyArray<any | string> = () => {
+        return [
+            `Please consider migrating usages of 'input-number' to
+            'numeric-input'. The 'input-number' widget no longer exists and all
+            content that uses it now renders the newer and more modern
+            'numeric-input' widget automatically.`,
+        ];
     };
 
     serialize: () => {
