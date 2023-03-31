@@ -26,13 +26,13 @@ describe("buildMapper", () => {
     }
 
     function tags(...elements): TagsNode {
-        // This function mostly exists as a shorthand way to clarify to Flow
+        // This function mostly exists as a shorthand way to clarify to TypeScript
         // that this is a TagsNode, not a confused ItemArrayNode.
         return elements;
     }
 
     function array(...elements): ItemArrayNode {
-        // This function mostly exists as a shorthand way to clarify to Flow
+        // This function mostly exists as a shorthand way to clarify to TypeScript
         // that this is an ItemArrayNode, not a confused TagsNode.
         /**
          * TODO(somewhatabstract, JIRA-XXXX):
@@ -287,20 +287,9 @@ describe("buildMapper", () => {
     });
 
     it("uses the array mapper return value to construct the new tree", () => {
-        const mapper = buildMapper()
-            // $FlowFixMe[not-a-function]
-            // $FlowFixMe[prop-missing]
-            // $FlowFixMe[incompatible-use]
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
-            .setContentMapper((c) => c.content)
-            // $FlowFixMe[not-a-function]
-            // $FlowFixMe[prop-missing]
-            // $FlowFixMe[incompatible-use]
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
-            .setHintMapper((h) => h.content)
-            // $FlowFixMe[not-a-function]
-            // $FlowFixMe[prop-missing]
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+        const mapper = buildMapper() // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            .setContentMapper((c) => c.content) // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            .setHintMapper((h) => h.content) // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             .setTagsMapper((t) => t.join(", "))
             .setArrayMapper((mappedArray, originalArray, shape, path) => {
                 return mappedArray.map((child) => `${String(child)} in array`);

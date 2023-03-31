@@ -87,7 +87,6 @@ export const percentageProblem: PerseusRenderer = {
                         status: "correct",
                         maxError: null,
                         strict: false,
-                        // $FlowFixMe[incompatible-cast] I need this to be a percent
                         value: "33%",
                         simplify: "required",
                         message: "",

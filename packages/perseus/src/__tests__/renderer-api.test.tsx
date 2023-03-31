@@ -33,7 +33,6 @@ const delayedPromise = (value: undefined) => {
 const renderQuestionArea = function (item, apiOptions): any {
     const wrapper = mount(
         <RenderStateRoot>
-            {/* $FlowFixMe[prop-missing] */}
             <Renderer
                 content={item.question.content}
                 images={item.question.images}
@@ -171,10 +170,7 @@ describe("Perseus API", function () {
                         renderer.setInputValue(widgetId, "5");
                     },
                 });
-                const input =
-                    // $FlowFixMe[incompatible-use]
-                    // $FlowFixMe[prop-missing]
-                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'querySelector' does not exist on type 'Element | Text'.
+                const input = // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'querySelector' does not exist on type 'Element | Text'.
                     ReactDOM.findDOMNode(renderer).querySelector("input");
 
                 // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
@@ -250,10 +246,7 @@ describe("Perseus API", function () {
                 },
             });
 
-            const inputs =
-                // $FlowFixMe[incompatible-use]
-                // $FlowFixMe[prop-missing]
-                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'querySelectorAll' does not exist on type 'Element | Text'.
+            const inputs = // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'querySelectorAll' does not exist on type 'Element | Text'.
                 ReactDOM.findDOMNode(renderer).querySelectorAll("input");
             const input1 = inputs[0];
             const input2 = inputs[1];

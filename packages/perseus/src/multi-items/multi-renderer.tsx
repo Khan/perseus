@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unsafe */
-// TODO(mdr): There are some Flow errors in this file, and they're tricky, so
-//     I'm skipping Flow errors for now.
+// TODO(mdr): There are some TypeScript errors in this file, and they're tricky, so
+//     I'm skipping TypeScript errors for now.
 /**
  * Main entry point to the MultiRenderer render portion.
  *
@@ -87,7 +87,7 @@ type RendererDataTree = Tree<ContentRendererData, HintRendererData, null>;
 
 /**
  * TODO(somewhatabstract, JIRA-XXXX):
- * Some usage of this type somewhere is causing Flow to believe that these
+ * Some usage of this type somewhere is causing TypeScript to believe that these
  * elements should be components. Don't know where that is, to fix it up
  * properly. In reality, these types are just too hard to use and aren't
  * really helping us out as I now have to suppress this rather than
@@ -245,7 +245,7 @@ class MultiRenderer extends React.Component<Props, State> {
         //     were to change every render, it would cause the Renderer to
         //     re-render a lot more than is necessary. Don't re-compute this
         //     element unless it is necessary!
-        // HACK(mdr): Flow can't prove that this is a ContentRendererData,
+        // HACK(mdr): TypeScript can't prove that this is a ContentRendererData,
         //     because of how we awkwardly construct it in order to obtain a
         //     circular reference. But it is, I promise.
         const data: any = {ref: null, makeRenderer: null};
@@ -264,9 +264,7 @@ class MultiRenderer extends React.Component<Props, State> {
              * if this spread is including undocumented props so mapping
              * one to one could introduce a bug. Need to work out the exact
              * type for ContentNode and then fix this.
-             */
-            // $FlowFixMe[cannot-spread-inexact]
-            // @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: (e: any) => any; findExternalWidgets: (criterion: any) => readonly (Widget | null | undefined)[]; serializedState: any; onSerializedStateUpdated: (state: any) => void; __type: "content" | "item"; ... 9 more ...; reviewMode?: boolean | ... 1 more ... | undefined; }' is not assignable to type 'InexactPartial<Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "content" | "images" | "onRender" | "linterContext" | "widgets" | "alwaysUpdate" | ... 6 more ... | "serializedState">>'.
+             */ // @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: (e: any) => any; findExternalWidgets: (criterion: any) => readonly (Widget | null | undefined)[]; serializedState: any; onSerializedStateUpdated: (state: any) => void; __type: "content" | "item"; ... 9 more ...; reviewMode?: boolean | ... 1 more ... | undefined; }' is not assignable to type 'InexactPartial<Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "content" | "images" | "onRender" | "linterContext" | "widgets" | "alwaysUpdate" | ... 6 more ... | "serializedState">>'.
             <Renderer
                 {...this._getRendererProps()}
                 {...content}

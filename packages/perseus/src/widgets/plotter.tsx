@@ -926,9 +926,7 @@ class Plotter extends React.Component<any, any> {
 
             if (i > 0) {
                 c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
-                    points: [c.graph.points[i - 1], c.graph.points[i]],
-                    // $FlowFixMe[prop-missing]
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                    points: [c.graph.points[i - 1], c.graph.points[i]], // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     constraints: Interactive2.MovablePoint.constraints.fixed(),
                     normalStyle: {
                         stroke: KhanColors.BLUE_C,

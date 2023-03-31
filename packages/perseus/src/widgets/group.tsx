@@ -171,7 +171,6 @@ class Group extends React.Component<Props> {
                     onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
                 />
-                {/* $FlowFixMe[prop-missing] */}
                 {/* @ts-expect-error [FEI-5003] - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'. */}
                 {this.props.icon && (
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'.

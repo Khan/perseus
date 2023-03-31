@@ -309,7 +309,7 @@ describe("single-choice question", () => {
         questionWithPassage.content = `[[\u2603 passage 1]]\n\nNow what's the answer?\n\n[[\u2603 radio 1]]`;
         questionWithPassage.widgets["passage 1"] = passageWidget;
         const radioOptions = questionWithPassage.widgets["radio 1"];
-        // HACK(jeremy): Flow doesn't know what type these options are because
+        // HACK(jeremy): TypeScript doesn't know what type these options are because
         // we've extracted them out of a generic `PerseusJson` blob and all the
         // `widget` items are just type `Widget`.
         (radioOptions.options as any).choices[0].content =

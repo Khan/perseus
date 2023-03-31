@@ -146,7 +146,7 @@ export const SingleKitchenSink: React.FC<StoryArgs> = (
 
     const rubricChoices = choices.map(({correct}) => ({
         // note(matthew): reviewModeRubric.choices requires content,
-        // but I don't see how it's getting used and Flow gets mad
+        // but I don't see how it's getting used and TypeScript gets mad
         // when I use choice.content because it's not a string.
         // reviewModeRubric could probably use a look over.
         content: "",
@@ -186,7 +186,7 @@ export const MultipleKitchenSink: React.FC<StoryArgs> = (
 
     const rubricChoices = choices.map((c) => ({
         // note(matthew): reviewModeRubric.choices requires content,
-        // but I don't see how it's getting used and Flow gets mad
+        // but I don't see how it's getting used and TypeScript gets mad
         // when I use choice.content because it's not a string.
         // reviewModeRubric could probably use a look over.
         content: "",

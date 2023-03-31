@@ -113,9 +113,6 @@ class Option extends React.Component<OptionProps> {
 
         return (
             <button
-                // TODO(mdr): We found a new Flow error when upgrading:
-                //     "node (null) This type is incompatible with this.node (HTMLDivElement)"
-                // $FlowFixMe[incompatible-type](0.52.0->0.53.0)
                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLButtonElement | null' is not assignable to type 'HTMLDivElement'.
                 ref={(node) => (this.node = node)}
                 value={value}
@@ -129,11 +126,6 @@ class Option extends React.Component<OptionProps> {
                 // @ts-expect-error [FEI-5003] - TS2322 - Type '(value: string) => void' is not assignable to type 'MouseEventHandler<HTMLButtonElement>'.
                 onClick={(value: string) => {
                     if (!disabled && onClick) {
-                        // TODO(mdr): We found a new Flow error here when upgrading
-                        //     from 0.35.0 to 0.52.0: "value (unused function
-                        //     argument)". This comment was automatically added to
-                        //     this file, to suppress the error for now. Please
-                        //     consider fixing!
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 0 arguments, but got 1.
                         onClick(value);
                     }

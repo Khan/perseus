@@ -252,7 +252,6 @@ export class GradedGroup extends React.Component<Props, State> {
             : css(styles.gradedGroup);
 
         const classes = classNames({
-            // $FlowFixMe[invalid-computed-prop]
             [mobileClass]: apiOptions.isMobile,
             "perseus-graded-group": true,
             "answer-correct": apiOptions.isMobile
@@ -283,8 +282,6 @@ export class GradedGroup extends React.Component<Props, State> {
                  * props that are needed.
                  * TODO(FEI-4034): Only pass what the Renderer expects.
                  */}
-                {/* $FlowFixMe[prop-missing] */}
-                {/* $FlowFixMe[incompatible-type] */}
                 {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
                 <Renderer
                     {...this.props}
@@ -355,7 +352,6 @@ export class GradedGroup extends React.Component<Props, State> {
                              * We're passing a couple of props to Renderer that it doesn't
                              * require as part of {...this.props.hint}.
                              */}
-                            {/* $FlowFixMe[prop-missing] */}
                             <Renderer
                                 {...this.props.hint}
                                 // eslint-disable-next-line react/no-string-refs

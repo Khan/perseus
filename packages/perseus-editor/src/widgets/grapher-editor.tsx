@@ -68,7 +68,6 @@ class GrapherEditor extends React.Component<Props> {
                 // NOTE(jeremy): This editor doesn't pass in a bunch of
                 // standard props that the Renderer provides normally (eg.
                 // alignment, findWidgets, etc).
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 <Grapher
                     {...graphProps}

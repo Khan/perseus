@@ -1281,9 +1281,7 @@ const ShapeTypes = {
                     fixed: !options.translatable && !options.editable,
                 },
                 visible: options.showPoints,
-                // $FlowFixMe[prop-missing]
                 snapX: (options.snap && options.snap[0]) || 0,
-                // $FlowFixMe[prop-missing]
                 snapY: (options.snap && options.snap[1]) || 0,
                 bounded: false, // Don't bound it when placing it on the graph
                 onMove: onMove,
@@ -2111,7 +2109,6 @@ class Transformer extends React.Component<Props> {
                 transform = {
                     type: "translation",
                     // NOTE(kevib): these should be numbers
-                    // $FlowFixMe[incompatible-type]
                     // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                     vector: [null, null],
                 };
@@ -2120,11 +2117,9 @@ class Transformer extends React.Component<Props> {
                 transform = {
                     type: "rotation",
                     // NOTE(kevib): these should be numbers
-                    // $FlowFixMe[incompatible-type]
                     // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                     center: [null, null],
                     // NOTE(kevib): this should be a number
-                    // $FlowFixMe[incompatible-type]
                     // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'.
                     angleDeg: null,
                 };
@@ -2135,11 +2130,9 @@ class Transformer extends React.Component<Props> {
                     type: "reflection",
                     line: [
                         // NOTE(kevib): these should be numbers
-                        // $FlowFixMe[incompatible-type]
                         // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                         [null, null],
                         // NOTE(kevib): these should be numbers
-                        // $FlowFixMe[incompatible-type]
                         // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                         [null, null],
                     ],
@@ -2149,11 +2142,9 @@ class Transformer extends React.Component<Props> {
                 transform = {
                     type: "dilation",
                     // NOTE(kevib): these should be numbers
-                    // $FlowFixMe[incompatible-type]
                     // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'. | TS2322 - Type 'null' is not assignable to type 'number'.
                     center: [null, null],
                     // NOTE(kevib): this should be a number
-                    // $FlowFixMe[incompatible-type]
                     // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'number'.
                     scale: null,
                 };
@@ -2381,7 +2372,6 @@ class Transformer extends React.Component<Props> {
         if (reflectRotateHandle) {
             $(reflectRotateHandle).on("move", function () {
                 const rotateHandleApprox = self.snapCoord(
-                    // $FlowFixMe[incompatible-use]
                     // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                     reflectRotateHandle.coord,
                 );
@@ -2476,7 +2466,6 @@ class Transformer extends React.Component<Props> {
             hoverWidth: this.scaleToCurrentRange(0.4),
             onMove: function (newAngle, oldAngle) {
                 const transform = self.getRotationTransformFromAngle(
-                    // $FlowFixMe[incompatible-use]
                     self.rotatePoint.coord,
                     newAngle - oldAngle,
                 );
@@ -2530,9 +2519,7 @@ class Transformer extends React.Component<Props> {
                 self.doTransform({
                     type: "dilation",
                     // NOTE(kevinb): It's hard to convince that this.dilationCircle
-                    // will still be defined here.
-                    // $FlowFixMe[incompatible-use]
-                    center: self.dilationCircle.centerPoint.coord,
+                    // will still be defined here.                    center: self.dilationCircle.centerPoint.coord,
                     scale: newRadius / oldRadius,
                 });
             },
@@ -2569,7 +2556,6 @@ class Transformer extends React.Component<Props> {
                 origOnMoveEnd(args);
             }
             self.changeTool("dilation", {
-                // $FlowFixMe[incompatible-use]
                 coord: self.dilationCircle.centerPoint.coord,
             });
         };
@@ -2750,7 +2736,6 @@ class Transformer extends React.Component<Props> {
             // handle coordinates in formal mode without movement, since
             // the movablepoints never move
             shape: {
-                // $FlowFixMe[incompatible-use]
                 type: this.shape.type,
                 coords: this.getCoords(),
                 options: this.shape?.getOptions(),

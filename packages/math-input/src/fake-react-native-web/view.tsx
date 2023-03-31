@@ -28,7 +28,6 @@ type Props = {
 };
 
 class View extends React.Component<Props> {
-    // $FlowFixMe[signature-verification-failure]
     static styles = StyleSheet.create({
         // From: https://github.com/necolas/react-native-web/blob/master/src/components/View/index.js
         // eslint-disable-next-line react-native/no-unused-styles

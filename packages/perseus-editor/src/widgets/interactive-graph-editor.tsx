@@ -122,7 +122,6 @@ const InteractiveGraphEditor: any = createReactClass({
                 // There are a bunch of props that renderer.jsx passes to widgets via
                 // getWidgetProps() and widget-container.jsx that the editors don't
                 // bother passing.
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 <InteractiveGraph
                     {...graphProps}

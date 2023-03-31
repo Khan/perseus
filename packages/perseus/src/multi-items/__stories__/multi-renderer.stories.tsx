@@ -16,11 +16,8 @@ type Story = {
 export const SingleItem: React.FC<StoryArgs> = (args): React.ReactElement => {
     const item = {
         _multi: {
-            // $FlowFixMe[not-an-object]
             ...question1._multi,
             blurb: {
-                // $FlowFixMe[not-an-object]
-                // $FlowFixMe[prop-missing]
                 ...question1._multi.blurb,
                 content:
                     "This is a short snippet to help you understand the context of the question. We call it the 'blurb'.",
@@ -51,7 +48,6 @@ export const SingleItem: React.FC<StoryArgs> = (args): React.ReactElement => {
                             </HeadingSmall>
                             <View style={styles.hints}>
                                 {
-                                    // $FlowFixMe[prop-missing]
                                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'firstN' does not exist on type 'readonly ReactNode[]'.
                                     hints?.firstN(2)
                                 }

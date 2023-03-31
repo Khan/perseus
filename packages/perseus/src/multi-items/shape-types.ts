@@ -11,7 +11,7 @@
  * Shapes also enable us to traverse a multi-item-shaped tree with confidence,
  * even when we can't infer the shape from the tree alone.
  *
- * We *could* go all-in on a more general library to make certain Flow types
+ * We *could* go all-in on a more general library to make certain types
  * runtime-inspectable, in order to DRY some things up, but that's probably a
  * big ol' infrastructural magic mess, and the narrower scope of Shapes makes
  * it easier to be confident that we've covered all cases rather than having to

@@ -150,7 +150,7 @@ const rules = {
 
                 // A "magic" capture that matches the opening {{
                 // but captures the full ref text internally :D
-                // unfortunately the "magic" makes Flow upset,
+                // unfortunately the "magic" makes TypeScript upset,
                 // so there's this questionable workaround
                 capture[1] = source.slice(2, closeIndex);
                 return capture;

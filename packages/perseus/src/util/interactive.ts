@@ -3510,7 +3510,6 @@ function Protractor(graph: any, center: any) {
         }
         const time = Math.abs(this.rotation - angle) * 5;
         $({0: this.rotation}).animate(
-            // $FlowFixMe[unsupported-syntax]
             {0: angle},
             {
                 duration: time,
@@ -3578,11 +3577,8 @@ function Ruler(graphie: any, options: any) {
     if (options.ticksPerUnit === 10) {
         // decimal, as on a centimeter ruler
         tickHeightMap = {
-            // $FlowFixMe[unsupported-syntax]
             10: tickHeight,
-            // $FlowFixMe[unsupported-syntax]
             5: tickHeight * 0.55,
-            // $FlowFixMe[unsupported-syntax]
             1: tickHeight * 0.35,
         };
     } else {

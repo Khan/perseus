@@ -119,11 +119,8 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     coord={coord}
                     static={this.props.static}
                     constraints={[
-                        // $FlowFixMe[prop-missing]
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                        Interactive2.MovablePoint.constraints.bound(),
-                        // $FlowFixMe[prop-missing]
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.snap(),
                         (coord: any) => {
                             // Always enforce that this is a function
@@ -205,7 +202,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
             const scale = box[0] / interactiveSizes.defaultBoxSize;
             // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
             image = (
-                // $FlowFixMe[prop-missing]: alt props is missing
                 // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
                 <SvgImage
                     src={imageDescription.url}
@@ -295,11 +291,8 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                         });
                     }}
                     constraints={[
-                        // $FlowFixMe[prop-missing]
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                        Interactive2.MovableLine.constraints.bound(),
-                        // $FlowFixMe[prop-missing]
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        Interactive2.MovableLine.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.constraints.snap(),
                         (newCoord, oldCoord: any) => {
                             // Calculate and apply proposed displacement

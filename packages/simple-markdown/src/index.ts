@@ -242,7 +242,7 @@ type RefNode = {
     alt?: string;
 };
 
-// End Flow Definitions
+// End TypeScript Definitions
 
 var CR_NEWLINE_R = /\r\n?/g;
 var TAB_R = /\t/g;
@@ -572,7 +572,6 @@ var htmlTag = function (
         var attribute = attributes[attr];
         // Removes falsey attributes
         if (
-            // $FlowFixMe
             Object.prototype.hasOwnProperty.call(attributes, attr) &&
             attribute
         ) {
@@ -1086,7 +1085,6 @@ var defaultRules: DefaultRules = {
     },
     list: {
         order: currOrder++,
-        // $FlowFixMe
         match: function (source, state) {
             // We only want to break into a list if we are at the start of a
             // line. This is to avoid parsing "hi * there" with "* there"
@@ -1405,7 +1403,6 @@ var defaultRules: DefaultRules = {
     },
     tableSeparator: {
         order: currOrder++,
-        // $FlowFixMe
         match: function (source, state) {
             if (!state.inTable) {
                 return null;
@@ -1748,7 +1745,6 @@ var defaultRules: DefaultRules = {
 
 /** (deprecated) */
 var ruleOutput = function <Rule>(
-    // $FlowFixMe
     rules: OutputRules<Rule>,
     property: keyof Rule,
 ) {
@@ -1932,7 +1928,6 @@ var ReactMarkdown: React.FC<ReactMarkdownProps> = function (
     for (var prop in props) {
         if (
             prop !== "source" &&
-            // $FlowFixMe
             Object.prototype.hasOwnProperty.call(props, prop)
         ) {
             divProps[prop] = props[prop];

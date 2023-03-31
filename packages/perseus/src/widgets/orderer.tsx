@@ -502,10 +502,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             current: list,
             dragging: true,
             placeholderIndex: placeholderIndex,
-            // $FlowFixMe[prop-missing]
-            // $FlowFixMe[incompatible-use]
             dragKey: opt.key,
-            // $FlowFixMe[incompatible-use]
             dragContent: opt.content,
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
             dragWidth: $draggable.width(),

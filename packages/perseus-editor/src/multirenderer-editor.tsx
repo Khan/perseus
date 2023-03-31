@@ -70,7 +70,7 @@ class ModeDropdown extends React.Component<ModeDropdownProps> {
     _handleSelectMode = (event: React.ChangeEvent<HTMLSelectElement>) => {
         if (this.props.onChange) {
             // event.target.value corresponds to the options' values below which
-            // are limited to EditorMode, but flow doesn't know that so we have
+            // are limited to EditorMode, but TypeScript doesn't know that so we have
             // to cast through any here.
             const value = event.target.value as EditorMode;
             this.props.onChange(value);
@@ -409,7 +409,7 @@ const NodeContent = (props: NodePropTypes) => {
 
     // All uses of `data` have been cast through any which isn't safe. This was
     // done to avoid introducing new logic which may have resulted in a change
-    // of behavior.  Also, there doesn't appear to be a way to tell flow the
+    // of behavior.  Also, there doesn't appear to be a way to tell TypeScript the
     // difference between and `TagsNode` and `ItemArrayNode`, see
     // perseus-all-package/multi-items/item-types.js.
     if (shape.type === "content") {
@@ -520,12 +520,6 @@ const withStickiness = <
 
         render(): React.ReactNode {
             return (
-                /**
-                 * $FlowFixMe[incompatible-exact]
-                 * TODO(somewhatabstract, JIRA-XXXX):
-                 * Cannot create WrappedComponent element because inexact props
-                 * [1] is incompatible with exact WithStickiness [2].
-                 */
                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'Readonly<Config> & { sticky: boolean; children?: ReactNode; }' is not assignable to type 'IntrinsicAttributes & LibraryManagedAttributes<Component, PropsWithChildren<WithStickiness<Config>>>'.
                 <WrappedComponent {...this.props} sticky={this.state.sticky} />
             );
@@ -548,9 +542,6 @@ const ItemNodeContent = withStickiness(
                         <div className={css(sticky && styles.sticky)}>
                             {/* TODO(CP-4852): only pass the props to Editor that it uses. */}
                             {
-                                // $FlowFixMe[incompatible-exact]: {...data} pass too many props
-                                // $FlowFixMe[incompatible-type]
-                                // $FlowFixMe[prop-missing]
                                 // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                                 <Editor
                                     {...data}
@@ -585,13 +576,6 @@ const HintNodeContent = withStickiness(
             <div className={css(styles.row)}>
                 <div className={css(styles.columnLeft)}>
                     <div className={css(sticky && styles.sticky)}>
-                        {/**
-                         * $FlowFixMe[incompatible-exact]
-                         * TODO(somewhatabstract, JIRA-XXXX):
-                         * Cannot create WrappedComponent element because
-                         * inexact props [1] is incompatible with exact
-                         * WithStickiness [2].
-                         */}
                         <HintEditor
                             {...data}
                             className={css(styles.hintEditor)}
@@ -673,8 +657,6 @@ const ArrayNodeContent = (props: NodePropTypes<ArrayShape, ItemArrayNode>) => {
                     </SimpleButton>
                 </div>
             ),
-            // $FlowFixMe[unsafe-addition]
-            // $FlowFixMe[prop-missing]
             i < data.length - 1 && (
                 <div key="moveArrayElementDown" className={css(styles.control)}>
                     <SimpleButton

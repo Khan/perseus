@@ -101,9 +101,7 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
                             ...this._widget.serialize(),
                             ...props,
                         })
-                    }
-                    // $FlowFixMe[incompatible-type] - can be null
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'RadioEditor | null' is not assignable to type 'RadioEditor'.
+                    } // @ts-expect-error [FEI-5003] - TS2322 - Type 'RadioEditor | null' is not assignable to type 'RadioEditor'.
                     ref={(widget) => (this._widget = widget)}
                 />
             </div>

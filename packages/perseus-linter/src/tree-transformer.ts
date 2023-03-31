@@ -135,8 +135,6 @@ export default class TreeTransformer {
             // Record the node's text content if it has any.
             // Usually this is for nodes with a type property of "text",
             // but other nodes types like "math" may also have content.
-            // TODO(mdr): We found a new Flow error when upgrading:
-            //     "node.content (property `content` is missing in `TreeNode` [1].)"
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
             if (typeof node.content === "string") {
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
@@ -204,7 +202,7 @@ export default class TreeTransformer {
             while (index < nodes.length) {
                 state._indexes.push(index);
                 content += this._traverse(nodes[index], state, f);
-                // Casting to convince Flow that this is a number
+                // Casting to convince TypeScript that this is a number
                 index = (state._indexes.pop() as number) + 1;
             }
 
@@ -231,7 +229,7 @@ export default class TreeTransformer {
  * for that traversal, and the instance is passed to the traversal callback
  * function for each node that is traversed. This class is not intended to be
  * instantiated directly, but is exported so that its type can be used for
- * Flow annotaions.
+ * type annotaions.
  **/
 export class TraversalState {
     // The root node of the tree being traversed
@@ -241,8 +239,8 @@ export class TraversalState {
     // below instead of using these properties directly. Note that the
     // _containers and _indexes stacks can have two different types of
     // elements, depending on whether we just recursed on an array or on a
-    // node. This is hard for Flow to deal with, so you'll see a number of
-    // Flow casts through the any type when working with these two properties.
+    // node. This is hard for TypeScript to deal with, so you'll see a number of
+    // type casts through the any type when working with these two properties.
     _currentNode: TreeNode | null | undefined;
     _containers: Stack<TreeNode | Array<TreeNode>>;
     _indexes: Stack<string | number>;
@@ -383,7 +381,7 @@ export class TraversalState {
 
         // The top of the container stack is either an array or an object
         // and the top of the indexes stack is a corresponding array index
-        // or object property. This is hard for Flow, so we have to do some
+        // or object property. This is hard for TypeScript, so we have to do some
         // unsafe casting and be careful when we use which cast version
         if (Array.isArray(parent)) {
             const index = this._indexes.top() as number;
@@ -440,7 +438,7 @@ export class TraversalState {
         this._currentNode = this.previousSibling();
         // Since we know that we have a previous sibling, we know that
         // the value on top of the stack is a number, but we have to do
-        // this unsafe cast because Flow doesn't know that.
+        // this unsafe cast because TypeScript doesn't know that.
         const index = this._indexes.pop() as number;
         this._indexes.push(index - 1);
     }
@@ -479,8 +477,6 @@ export class TraversalState {
         //
         while (
             this._containers.size() &&
-            // This is safe, but easier to just disable flow than do casts
-            // $FlowFixMe[incompatible-use]
             this._containers.top()[this._indexes.top()] !== this._currentNode
         ) {
             this._containers.pop();

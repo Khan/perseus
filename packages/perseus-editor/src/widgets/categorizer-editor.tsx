@@ -84,7 +84,6 @@ class CategorizerEditor extends React.Component<Props> {
                 {/* There are a bunch of props that renderer.jsx passes to each widget
                     via widget-container.jsx that we aren't passing to Categorizer here.
                     See perseus-all-package/types.js#WidgetProps for details. */}
-                {/* $FlowFixMe[prop-missing] */}
                 {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <Categorizer
                     apiOptions={this.props.apiOptions}

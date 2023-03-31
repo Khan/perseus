@@ -204,7 +204,6 @@ class InputNumberEditor extends React.Component<Props> {
                             onBlur={(e) => {
                                 const ans =
                                     "" +
-                                    // $FlowFixMe[incompatible-type]
                                     (Util.firstNumericalParse(e.target.value) ||
                                         0);
                                 e.target.value = ans;

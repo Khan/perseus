@@ -14,15 +14,6 @@ var implicitParse = SimpleMarkdown.defaultImplicitParse;
 var defaultReactOutput = SimpleMarkdown.defaultReactOutput;
 var defaultHtmlOutput = SimpleMarkdown.defaultHtmlOutput;
 
-/*:: // Flow definitions & hackery
-
-var FLOW_IGNORE_COVARIANCE = {
-  console: {
-    warn: (console.warn : any),
-  },
-};
-*/
-
 /**
  * A pretty-printer that handles `undefined` and functions better
  * than JSON.stringify
@@ -3645,11 +3636,8 @@ describe("simple markdown", function () {
 
             it("should output a warning for non-numeric orders", function () {
                 var oldconsolewarn = console.warn;
-                /** @type {any[]} */
                 var warnings = [];
-                /*::FLOW_IGNORE_COVARIANCE.*/ console.warn = function (
-                    /** @type {any} */ warning: any,
-                ) {
+                console.warn = function (/** @type {any} */ warning: any) {
                     // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     warnings.push(warning);
                 };
@@ -3667,7 +3655,7 @@ describe("simple markdown", function () {
                     "simple-markdown: Invalid order for rule `em1`: NaN",
                 );
 
-                /*::FLOW_IGNORE_COVARIANCE.*/ console.warn = oldconsolewarn;
+                console.warn = oldconsolewarn;
             });
 
             it("should break ties with quality", function () {
@@ -3756,8 +3744,6 @@ describe("simple markdown", function () {
             var parser1 = SimpleMarkdown.parserFor({
                 fancy: {
                     order: SimpleMarkdown.defaultRules.text.order - 1,
-
-                    // $FlowFixMe
                     match: function (/** @type {string} */ source) {
                         return /^.*/.exec(source);
                     },
@@ -3828,7 +3814,6 @@ describe("simple markdown", function () {
                         return node.content;
                     },
                 },
-                // $FlowFixMe
                 delimiter: Object.assign({}, SimpleMarkdown.defaultRules.text, {
                     match: function (/** @type {string} */ source) {
                         return /^\W+/.exec(source);
@@ -3873,11 +3858,9 @@ describe("simple markdown", function () {
 
         it("should allow default state params in parserFor", function () {
             var parser1 = SimpleMarkdown.parserFor(
-                // $FlowFixMe
                 {
                     fancy: {
                         order: SimpleMarkdown.defaultRules.text.order - 1,
-                        // $FlowFixMe
                         match: function (/** @type {string} */ source) {
                             return /^\w+/.exec(source);
                         },
@@ -3895,7 +3878,6 @@ describe("simple markdown", function () {
                             }
                         },
                     },
-                    // $FlowFixMe
                     text: Object.assign({}, SimpleMarkdown.defaultRules.text, {
                         match: function (/** @type {string} */ source) {
                             return /^\W+/.exec(source);
@@ -3926,7 +3908,6 @@ describe("simple markdown", function () {
         it("should allow default state params in outputFor", function () {
             var output = SimpleMarkdown.outputFor(
                 {
-                    // $FlowFixMe[incompatible-call]
                     Array: SimpleMarkdown.defaultRules.Array,
                     text: Object.assign({}, SimpleMarkdown.defaultRules.text, {
                         react: function (
@@ -3963,7 +3944,6 @@ describe("simple markdown", function () {
                 {
                     bracketed: {
                         order: SimpleMarkdown.defaultRules.text.order - 1,
-                        // $FlowFixMe
                         match: function (/** @type {string} */ source) {
                             return /^\{((?:\\[\S\s]|[^\\\*])+)\}/.exec(source);
                         },
@@ -4041,7 +4021,6 @@ describe("simple markdown", function () {
         it("should not require passing state to recursiveOutput", function () {
             var output = SimpleMarkdown.outputFor(
                 {
-                    // $FlowFixMe[incompatible-call]
                     Array: SimpleMarkdown.defaultRules.Array,
                     paragraph: Object.assign(
                         {},
@@ -4933,11 +4912,10 @@ describe("simple markdown", function () {
         it("should throw if `parse` returns invalid result", () => {
             const parse = jest
                 .fn()
-                // Flow correctly catches that the `parse` function returns and
+                // TypeScript correctly catches that the `parse` function returns and
                 // incorrect type, but I want to keep this test here for now
-                // because in call sites that use this, we've seen Flow not
+                // because in call sites that use this, we've seen TypeScript not
                 // catch this. So for now, we hard-fail!
-                // $FlowFixMe[incompatible-call]
                 .mockImplementation(() => "invalid parse result");
 
             const invalidRules = {
@@ -4949,7 +4927,6 @@ describe("simple markdown", function () {
             } as const;
 
             expect(() =>
-                // $FlowFixMe[incompatible-call]
                 // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ readonly parseDoesntReturnCorrectType: { readonly order: 1; readonly match: (source: any, state: any, prevCapture: any) => boolean; readonly parse: Mock<any, any, any>; }; }' is not assignable to parameter of type 'ParserRules'.
                 SimpleMarkdown.parserFor(invalidRules)("some input"),
             ).toThrow();

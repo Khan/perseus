@@ -458,7 +458,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                     onFocus={() => {
                         // this.props.keypadElement should always be set
                         // when apiOptions.customKeypad is set, but how
-                        // to convince Flow of this?
+                        // to convince TypeScript of this?
                         this.props.keypadElement?.configure(
                             this.props.keypadConfiguration,
                             () => {

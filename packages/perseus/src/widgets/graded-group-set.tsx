@@ -156,7 +156,6 @@ class GradedGroupSet extends React.Component<Props, State> {
                         return (
                             // TODO(jeremy): Don't spread this.props, instead
                             // pass in all props GradedGroup needs explicilty
-                            // $FlowFixMe[prop-missing]
                             // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                             <GradedGroup
                                 key={i}
@@ -200,7 +199,6 @@ class GradedGroupSet extends React.Component<Props, State> {
                 </div>
                 {/* TODO(jeremy): Don't spread this.props, instead
                     pass in all props GradedGroup needs explicitly */}
-                {/* $FlowFixMe[prop-missing] */}
                 {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
@@ -211,9 +209,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                     {...this.props}
                     {...currentGroup}
                     inGradedGroupSet={true}
-                    // $FlowFixMe[incompatible-type]
                     title={null}
-                    // $FlowFixMe[incompatible-type]
                     onNextQuestion={handleNextQuestion}
                     linterContext={this.props.linterContext}
                 />

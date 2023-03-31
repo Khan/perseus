@@ -31,7 +31,7 @@ export const Question1: React.FC<StoryArgs> = (args): React.ReactElement => {
                 options:
                     // `options` is nullable so we have handle it explicitly
                     // to avoid spreading `null` and generating
-                    // hard-to-understand Flow type errors about missing keys
+                    // hard-to-understand type errors about missing keys
                     // in object literal.
                     imageOptions != null
                         ? {

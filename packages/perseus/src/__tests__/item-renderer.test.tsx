@@ -93,7 +93,7 @@ export const renderQuestion = (
 };
 
 // Finds a widget in the given renderer by ID. The return type is non-optional
-// (ie. it assumes the widget will exist) to make Flow happier in the tests
+// (ie. it assumes the widget will exist) to make TypeScript happier in the tests
 // that use this function.
 const getWidgetById = (
     renderer: ItemRenderer,
@@ -111,7 +111,6 @@ const makeHint = (content: string): PerseusRenderer => ({
     content:
         "Maybe if you try using a calculator? See: [[\u2603 mock-hint-widget 1]]",
     widgets: {
-        // $FlowFixMe[incompatible-return]
         "mock-hint-widget 1": {
             graded: true,
             version: {major: 0, minor: 0},

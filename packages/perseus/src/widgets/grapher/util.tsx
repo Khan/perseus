@@ -148,10 +148,7 @@ const Quadratic = _.extend({}, PlotDefaults, {
     defaultCoords: [
         [0.5, 0.5],
         [0.75, 0.75],
-    ],
-
-    // $FlowFixMe[prop-missing]
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
+    ], // @ts-expect-error [FEI-5003] - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Parabola,
 
     getCoefficients: function (coords) {
@@ -207,10 +204,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
     defaultCoords: [
         [0.5, 0.5],
         [0.6, 0.6],
-    ],
-
-    // $FlowFixMe[prop-missing]
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'Sinusoid' does not exist on type 'typeof Graphie'.
+    ], // @ts-expect-error [FEI-5003] - TS2339 - Property 'Sinusoid' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Sinusoid,
 
     getCoefficients: function (coords) {
@@ -593,7 +587,7 @@ export const allTypes: any = _.keys(functionTypeMapping);
 
 export function functionForType(
     // TODO(jeremy): Actually `$Keys<typeof functionTypeMapping>` but that
-    // triggers Flow to require all of our Plot types to be fully typed which
+    // triggers TypeScript to require all of our Plot types to be fully typed which
     // is a big amount of work/change.
     type: string,
 ): any {

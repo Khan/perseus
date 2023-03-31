@@ -61,7 +61,9 @@ class HighlightingUI extends React.PureComponent<HighlightingUIProps> {
         }
     }
 
-    _selectionIsValid(trackedSelection?: TrackedSelection | null): boolean {
+    _selectionIsValid(
+        trackedSelection?: TrackedSelection | null,
+    ): trackedSelection is TrackedSelection {
         if (!trackedSelection) {
             return false;
         }
@@ -123,22 +125,10 @@ class HighlightingUI extends React.PureComponent<HighlightingUIProps> {
                                     label={i18n._("Add highlight")}
                                     onClick={() =>
                                         this._handleAddHighlight(
-                                            // TODO(mdr): We found a new Flow error when upgrading:
-                                            //     "proposedHighlight (Cannot get `trackedSelection.proposedHighlight` because property `proposedHighlight` is missing in null or undefined [1].)"
-                                            // $FlowFixMe[incompatible-use](0.57.3->0.75.0)
-                                            // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
                                             trackedSelection.proposedHighlight,
                                         )
                                     }
-                                    // TODO(mdr): We found a new Flow error when upgrading:
-                                    //     "focusNode (Cannot get `trackedSelection.focusNode` because property `focusNode` is missing in null or undefined [1].)"
-                                    // $FlowFixMe[incompatible-use](0.57.3->0.75.0)
-                                    // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
                                     focusNode={trackedSelection.focusNode}
-                                    // TODO(mdr): We found a new Flow error when upgrading:
-                                    //     "focusOffset (Cannot get `trackedSelection.focusOffset` because property `focusOffset` is missing in null or undefined [1].)"
-                                    // $FlowFixMe[incompatible-use](0.57.3->0.75.0)
-                                    // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
                                     focusOffset={trackedSelection.focusOffset}
                                     offsetParent={this.props.offsetParent}
                                 />
