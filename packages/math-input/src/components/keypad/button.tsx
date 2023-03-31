@@ -5,8 +5,6 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-// @ts-expect-error [FEI-5003] - TS2305 - Module '"react"' has no exported member 'Node'.
-import type {Node} from "React";
 
 const styles = StyleSheet.create({
     base: {
@@ -62,7 +60,7 @@ const styles = StyleSheet.create({
 
 type Props = {
     onPress: () => void;
-    children: Node;
+    children: React.ReactNode;
     style?: StyleType;
     tintColor?: string;
 };
