@@ -592,9 +592,11 @@ class Renderer extends React.Component<Props, State> {
         if (!interactionTracker) {
             interactionTracker = this._interactionTrackers[id] =
                 new InteractionTracker(
-                    apiOptions.trackInteraction, // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
+                    apiOptions.trackInteraction,
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     widgetInfo && widgetInfo.type,
-                    id, // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
+                    id,
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
         }

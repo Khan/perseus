@@ -116,9 +116,12 @@ class Graph extends React.Component<any> {
                 style={{
                     width: this.props.box[0],
                     height: this.props.box[1],
-                }} // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
-                onMouseOut={this.onMouseOut} // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
-                onMouseOver={this.onMouseOver} // @ts-expect-error [FEI-5003] - TS2339 - Property 'onClick' does not exist on type 'Graph'.
+                }}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
+                onMouseOut={this.onMouseOut}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
+                onMouseOver={this.onMouseOver}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onClick' does not exist on type 'Graph'.
                 onClick={this.onClick}
             >
                 {image}

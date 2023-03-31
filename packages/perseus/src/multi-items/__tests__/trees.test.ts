@@ -287,9 +287,12 @@ describe("buildMapper", () => {
     });
 
     it("uses the array mapper return value to construct the new tree", () => {
-        const mapper = buildMapper() // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
-            .setContentMapper((c) => c.content) // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
-            .setHintMapper((h) => h.content) // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+        const mapper = buildMapper()
+            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            .setContentMapper((c) => c.content)
+            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            .setHintMapper((h) => h.content)
+            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
             .setTagsMapper((t) => t.join(", "))
             .setArrayMapper((mappedArray, originalArray, shape, path) => {
                 return mappedArray.map((child) => `${String(child)} in array`);

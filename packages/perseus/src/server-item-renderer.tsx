@@ -171,7 +171,8 @@ export class ServerItemRenderer
             onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                didFocusInput && keypadElement && keypadElement.getDOMNode(), // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
+                didFocusInput && keypadElement && keypadElement.getDOMNode(),
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
                 didFocusInput &&
                     this.questionRenderer.getDOMNodeForPath(newFocus),
             );

@@ -416,7 +416,8 @@ class InteractiveGraph extends React.Component<Props, State> {
             [-10, 10],
             [-10, 10],
         ],
-        step: [1, 1], // @ts-expect-error [FEI-5003] - TS2739 - Type '{ readonly url: null; }' is missing the following properties from type 'PerseusImageBackground': width, height
+        step: [1, 1],
+        // @ts-expect-error [FEI-5003] - TS2739 - Type '{ readonly url: null; }' is missing the following properties from type 'PerseusImageBackground': width, height
         backgroundImage: defaultBackgroundImage,
         markings: "graph",
         showTooltips: false,
@@ -726,7 +727,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 coord: coord,
                 constraints: [
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                    Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                    Interactive2.MovablePoint.constraints.bound(),
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.snap(),
                 ],
                 onMove: () => {
@@ -808,12 +810,15 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coords[0],
             constraints: [
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                Interactive2.MovablePoint.constraints.bound(),
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord) => {
                     return (
-                        !pointA || // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
-                        (coord[0] !== pointB.coord()[0] && // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        !pointA ||
+                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        (coord[0] !== pointB.coord()[0] &&
+                            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointC.coord()[0])
                     );
                 },
@@ -829,12 +834,15 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coords[1],
             constraints: [
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                Interactive2.MovablePoint.constraints.bound(),
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return (
-                        !pointB || // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
-                        (coord[0] !== pointA.coord()[0] && // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        !pointB ||
+                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        (coord[0] !== pointA.coord()[0] &&
+                            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointC.coord()[0])
                     );
                 },
@@ -850,12 +858,15 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coords[2],
             constraints: [
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                Interactive2.MovablePoint.constraints.bound(),
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return (
-                        !pointC || // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
-                        (coord[0] !== pointA.coord()[0] && // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        !pointC ||
+                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        (coord[0] !== pointA.coord()[0] &&
+                            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointB.coord()[0])
                     );
                 },
@@ -931,7 +942,8 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coords[0],
             constraints: [
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                Interactive2.MovablePoint.constraints.bound(),
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return !pointA || coord[0] !== pointB.coord()[0];
@@ -946,7 +958,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 coord: coords[1],
                 constraints: [
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                    Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                    Interactive2.MovablePoint.constraints.bound(),
+                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.snap(),
                     (coord: any) => {
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'coord' does not exist on type 'never'.
@@ -1050,7 +1063,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                             coord: coord,
                             constraints: [
                                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                                Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                                Interactive2.MovablePoint.constraints.bound(),
+                                // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.snap(),
                                 (coord) => {
                                     const otherSegment = segmentPoints[1 - i];
@@ -1148,7 +1162,8 @@ class InteractiveGraph extends React.Component<Props, State> {
             coord: coord,
             constraints: [
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                Interactive2.MovablePoint.constraints.bound(),
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 function (coord) {
                     // TODO(jack): There ought to be a
@@ -1641,7 +1656,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                             coord: coord,
                             constraints: [
                                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                                Interactive2.MovablePoint.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                                Interactive2.MovablePoint.constraints.bound(),
+                                // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.snap(),
                                 (coord: any) => {
                                     const otherPoint = points[1 - i];
@@ -1670,7 +1686,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                     static: false,
                     constraints: [
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
-                        Interactive2.MovableLine.constraints.bound(), // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        Interactive2.MovableLine.constraints.bound(),
+                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.constraints.snap(),
                     ],
                     onMove: [
@@ -2762,7 +2779,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 const correct = rubric.correct.coords;
                 if (
                     // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
-                    deepEq(guess[0], correct[0]) && // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+                    deepEq(guess[0], correct[0]) &&
+                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[0], correct[1], guess[1])
                 ) {
                     return {
@@ -2797,8 +2815,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                 } else {
                     /* exact */
                     match = // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                        deepEq(guess[1], correct[1]) && // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
-                        collinear(correct[1], correct[0], guess[0]) && // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+                        deepEq(guess[1], correct[1]) &&
+                        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+                        collinear(correct[1], correct[0], guess[0]) &&
+                        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                         collinear(correct[1], correct[2], guess[2]);
                 }
 

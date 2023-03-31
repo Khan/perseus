@@ -90,7 +90,8 @@ const KhanMath = {
         }
 
         return true;
-    }, // @ts-expect-error [FEI-5003] - TS2366 - Function lacks ending return statement and return type does not include 'undefined'.
+    },
+    // @ts-expect-error [FEI-5003] - TS2366 - Function lacks ending return statement and return type does not include 'undefined'.
     getPrimeFactorization: function (number: number): ReadonlyArray<number> {
         if (number === 1) {
             return [];

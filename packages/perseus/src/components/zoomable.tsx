@@ -64,7 +64,8 @@ class Zoomable extends React.Component<Props, State> {
 
             return {
                 // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
-                width: firstChild.offsetWidth, // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
+                width: firstChild.offsetWidth,
+                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
                 height: firstChild.offsetHeight,
             };
         },

@@ -190,7 +190,8 @@ class MathInput extends React.Component<Props, State> {
         // group. This will probably require ESCAPE key handling to enable to
         // close (blur) the button group in order to focus on next page element.
         if (
-            !this.mouseDown && // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+            !this.mouseDown &&
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
             !ReactDOM.findDOMNode(this).contains(e.relatedTarget)
         ) {
             this.setState({focused: false});
