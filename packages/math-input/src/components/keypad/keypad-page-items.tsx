@@ -6,11 +6,9 @@ import ButtonAsset from "./button-assets";
 
 import type {KeyConfig} from "../../data/key-configs";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-// @ts-expect-error [FEI-5003] - TS2305 - Module '"react"' has no exported member 'Node'.
-import type {Node} from "React";
 
 export const KeypadPageContainer: React.FC<{
-    children: Node;
+    children: React.ReactNode;
 }> = ({children}): React.ReactElement => (
     <View
         style={{
