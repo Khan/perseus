@@ -325,7 +325,7 @@ const BaseRadio: React.FC<Props> = function (props): React.ReactElement {
 
                     let correctnessClass;
                     // reviewMode is only true if there's a rubric
-                    // but Flow doesn't understand that
+                    // but TypeScript doesn't understand that
                     if (reviewMode && reviewModeRubric) {
                         correctnessClass = reviewModeRubric.choices[i].correct
                             ? ApiClassNames.CORRECT

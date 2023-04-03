@@ -6,7 +6,7 @@ import shapes from "../shapes";
 // tests. Rewrite them once we're using the prop-types library.
 describe.skip("buildPropTypeForShape", () => {
     // The value we're wrapping might not be a valid ItemTree - that's the
-    // point of testing this PropType - so we disable Flow checking by casting
+    // point of testing this PropType - so we disable type checking by casting
     // `value` to type `any`. The current implementation of `treeToItem` can
     // handle that possibility.
     const tryPropType = (propType: any, value: any) =>

@@ -205,19 +205,13 @@ export function projection<V extends Vector>(v1: V, v2: V): V {
 // Round each number to a certain number of decimal places
 export function round<V extends Vector>(vec: V, precision: V | number): V {
     // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
-    return vec.map((elem, i) =>
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-call]
-        knumber.round(elem, precision[i] || precision),
-    );
+    return vec.map((elem, i) => knumber.round(elem, precision[i] || precision));
 }
 
 // Round each number to the nearest increment
 export function roundTo<V extends Vector>(vec: V, increment: V | number): V {
     // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-call]
         knumber.roundTo(elem, increment[i] || increment),
     );
 }
@@ -225,8 +219,6 @@ export function roundTo<V extends Vector>(vec: V, increment: V | number): V {
 export function floorTo<V extends Vector>(vec: V, increment: V | number): V {
     // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-call]
         knumber.floorTo(elem, increment[i] || increment),
     );
 }
@@ -234,8 +226,6 @@ export function floorTo<V extends Vector>(vec: V, increment: V | number): V {
 export function ceilTo<V extends Vector>(vec: V, increment: V | number): V {
     // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
-        // $FlowFixMe[prop-missing]
-        // $FlowFixMe[incompatible-call]
         knumber.ceilTo(elem, increment[i] || increment),
     );
 }

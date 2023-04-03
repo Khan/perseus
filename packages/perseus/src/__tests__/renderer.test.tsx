@@ -184,7 +184,7 @@ describe("renderer", () => {
 
         it("should derive type widget ID if type missing", () => {
             // Arrange
-            // Note that the Flow types disallow this, but our Renderer handles the
+            // Note that the types disallow this, but our Renderer handles the
             // case so for now, I'm adding this test. We can remove the test
             // if/when we clean up the code for it in _getAllWidgetsInfo().
             const question = {

@@ -983,7 +983,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
             function () {
                 Util.textarea.moveCursor(
                     // findDOMNode can return Text but we know this is Element
-                    // $FlowFixMe[incompatible-call]
                     // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
                     textarea,
                     // We want to put the cursor after the widget

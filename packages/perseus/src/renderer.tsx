@@ -150,7 +150,7 @@ type Props = {
     findExternalWidgets: any;
     highlightedWidgets?: ReadonlyArray<any>;
     images: PerseusRenderer["images"];
-    keypadElement?: any; // TODO(kevinb): add proper flow types,
+    keypadElement?: any; // TODO(kevinb): add proper types,
     onInteractWithWidget: (id: string) => void;
     onRender: (node?: any) => void;
     problemNum?: number;
@@ -593,11 +593,9 @@ class Renderer extends React.Component<Props, State> {
             interactionTracker = this._interactionTrackers[id] =
                 new InteractionTracker(
                     apiOptions.trackInteraction,
-                    // $FlowFixMe[incompatible-call]
                     // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     widgetInfo && widgetInfo.type,
                     id,
-                    // $FlowFixMe[incompatible-call]
                     // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
@@ -1086,7 +1084,7 @@ class Renderer extends React.Component<Props, State> {
                 const isString = typeof nodeOut === "string";
                 if (typeof nodeOut === "string" && lastWasString) {
                     /**
-                     * We know that last was string, but Flow can't see this
+                     * We know that last was string, but TypeScript can't see this
                      * refinement.
                      */
                     result[result.length - 1] += nodeOut;
@@ -1308,7 +1306,6 @@ class Renderer extends React.Component<Props, State> {
                         {({setAssetStatus}) => (
                             <SvgImage
                                 setAssetStatus={setAssetStatus}
-                                /* $FlowFixMe[incompatible-type]: sanitizeUrl() can return null */
                                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | null | undefined' is not assignable to type 'string | undefined'.
                                 src={PerseusMarkdown.sanitizeUrl(node.target)}
                                 alt={node.alt}

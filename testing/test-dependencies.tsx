@@ -60,7 +60,7 @@ export const testDependencies: PerseusDependencies = {
 
     // @ts-expect-error [FEI-5003] - TS2322 - Type '(str?: string | null | undefined) => string' is not assignable to type 'StaticUrlFn'.
     staticUrl: (str?: string | null) => {
-        // We define the interface such that flow can infer calls properly.
+        // We define the interface such that TypeScript can infer calls properly.
         // However, it means that return types are hard to match here in
         // the implementation.
         return `mockStaticUrl(${str})`;

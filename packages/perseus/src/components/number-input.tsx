@@ -110,8 +110,6 @@ class NumberInput extends React.Component<any, any> {
      */
     getValue: () => any = () => {
         return this.parseInputValue(
-            // $FlowFixMe[incompatible-use]
-            // $FlowFixMe[prop-missing]
             // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             ReactDOM.findDOMNode(this.refs.input).value, // eslint-disable-line react/no-string-refs
         );

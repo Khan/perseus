@@ -964,7 +964,6 @@ class InteractionEditor extends React.Component<
                         markings={this.props.graph.markings}
                         onChange={this._updateGraphProps}
                     />
-                    {/* $FlowFixMe[incompatible-type] */}
                     {this.props.graph.valid !== true && (
                         <div>{this.props.graph.valid}</div>
                     )}

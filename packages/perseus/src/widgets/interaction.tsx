@@ -206,7 +206,6 @@ class Interaction extends React.Component<Props, State> {
                 });
                 compiledVars[name] = function (x: any) {
                     return func(
-                        // $FlowFixMe[extra-arg]
                         _.extend({}, compiledVars, {
                             x: x,
                         }),

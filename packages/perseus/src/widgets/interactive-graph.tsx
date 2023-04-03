@@ -417,7 +417,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             [-10, 10],
         ],
         step: [1, 1],
-        // $FlowFixMe[prop-missing]
         // @ts-expect-error [FEI-5003] - TS2739 - Type '{ readonly url: null; }' is missing the following properties from type 'PerseusImageBackground': width, height
         backgroundImage: defaultBackgroundImage,
         markings: "graph",
@@ -727,10 +726,8 @@ class InteractiveGraph extends React.Component<Props, State> {
             return Interactive2.addMaybeMobileMovablePoint(this, {
                 coord: coord,
                 constraints: [
-                    // $FlowFixMe[prop-missing]
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.bound(),
-                    // $FlowFixMe[prop-missing]
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.snap(),
                 ],
@@ -798,7 +795,6 @@ class InteractiveGraph extends React.Component<Props, State> {
 
         const onMoveHandler = () => {
             const graph = _.extend({}, this.props.graph, {
-                // $FlowFixMe[incompatible-use]
                 // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2531 - Object is possibly 'null'. | TS2531 - Object is possibly 'null'.
                 coords: [pointA.coord(), pointB.coord(), pointC.coord()],
             });
@@ -813,19 +809,15 @@ class InteractiveGraph extends React.Component<Props, State> {
         pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[0],
             constraints: [
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord) => {
                     return (
                         !pointA ||
-                        // $FlowFixMe[incompatible-use]
                         // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                         (coord[0] !== pointB.coord()[0] &&
-                            // $FlowFixMe[incompatible-use]
                             // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointC.coord()[0])
                     );
@@ -841,19 +833,15 @@ class InteractiveGraph extends React.Component<Props, State> {
         pointB = this.pointB = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[1],
             constraints: [
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return (
                         !pointB ||
-                        // $FlowFixMe[incompatible-use]
                         // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                         (coord[0] !== pointA.coord()[0] &&
-                            // $FlowFixMe[incompatible-use]
                             // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointC.coord()[0])
                     );
@@ -869,19 +857,15 @@ class InteractiveGraph extends React.Component<Props, State> {
         pointC = this.pointC = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[2],
             constraints: [
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
                     return (
                         !pointC ||
-                        // $FlowFixMe[incompatible-use]
                         // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                         (coord[0] !== pointA.coord()[0] &&
-                            // $FlowFixMe[incompatible-use]
                             // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                             coord[0] !== pointB.coord()[0])
                     );
@@ -943,7 +927,6 @@ class InteractiveGraph extends React.Component<Props, State> {
 
         const onMoveHandler = () => {
             const graph = _.extend({}, this.props.graph, {
-                // $FlowFixMe[incompatible-use]
                 // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
                 coords: [pointA.coord(), pointB.coord()],
             });
@@ -958,10 +941,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         pointA = this.pointA = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coords[0],
             constraints: [
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 (coord: any) => {
@@ -976,10 +957,8 @@ class InteractiveGraph extends React.Component<Props, State> {
             {
                 coord: coords[1],
                 constraints: [
-                    // $FlowFixMe[prop-missing]
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.bound(),
-                    // $FlowFixMe[prop-missing]
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     Interactive2.MovablePoint.constraints.snap(),
                     (coord: any) => {
@@ -1049,9 +1028,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
         $(circle).on("move", () => {
             const graph = _.extend({}, this.props.graph, {
-                // $FlowFixMe[incompatible-use]
                 center: circle.center,
-                // $FlowFixMe[incompatible-use]
                 radius: circle.radius,
             });
             this.onChange({graph: graph});
@@ -1085,10 +1062,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                         Interactive2.addMaybeMobileMovablePoint(this, {
                             coord: coord,
                             constraints: [
-                                // $FlowFixMe[prop-missing]
                                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.bound(),
-                                // $FlowFixMe[prop-missing]
                                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.snap(),
                                 (coord) => {
@@ -1152,9 +1127,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         const graphie = this.graphie;
         const screenPoint = graphie?.scalePoint(coord);
         return (
-            // $FlowFixMe[incompatible-use]
             screenPoint[0] >= graphie.xpixels - 40 &&
-            // $FlowFixMe[incompatible-use]
             screenPoint[1] >= graphie.ypixels - 40
         );
     };
@@ -1188,10 +1161,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         point = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coord,
             constraints: [
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.snap(),
                 function (coord) {
@@ -1563,12 +1534,10 @@ class InteractiveGraph extends React.Component<Props, State> {
         const point = Interactive2.addMaybeMobileMovablePoint(this, {
             coord: coord,
             constraints: [
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 Interactive2.MovablePoint.constraints.bound(),
                 snapToGrid
-                    ? // $FlowFixMe[prop-missing]
-                      // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                    ? // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                       Interactive2.MovablePoint.constraints.snap()
                     : null,
                 graphConstraint,
@@ -1686,10 +1655,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                         createPoint({
                             coord: coord,
                             constraints: [
-                                // $FlowFixMe[prop-missing]
                                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.bound(),
-                                // $FlowFixMe[prop-missing]
                                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                                 Interactive2.MovablePoint.constraints.snap(),
                                 (coord: any) => {
@@ -1718,15 +1685,12 @@ class InteractiveGraph extends React.Component<Props, State> {
                     points: points,
                     static: false,
                     constraints: [
-                        // $FlowFixMe[prop-missing]
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.constraints.bound(),
-                        // $FlowFixMe[prop-missing]
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.constraints.snap(),
                     ],
                     onMove: [
-                        // $FlowFixMe[prop-missing]
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMove' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.onMove.updatePoints,
                         updateCoordProps,
@@ -1870,12 +1834,10 @@ class InteractiveGraph extends React.Component<Props, State> {
             const self = this;
             self.polygon = Interactive2.addMovablePolygon(graphie, {
                 constraints: [
-                    // $FlowFixMe[prop-missing]
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => undefined'.
                     Interactive2.MovablePolygon.constraints.bound(),
                     snapToGrid
-                        ? // $FlowFixMe[prop-missing]
-                          // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => undefined'.
+                        ? // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => undefined'.
                           Interactive2.MovablePolygon.constraints.snap()
                         : null,
                 ],
@@ -1886,7 +1848,6 @@ class InteractiveGraph extends React.Component<Props, State> {
                 numArcs: numArcs,
                 sideLabels: sideLabels,
                 onMove: [
-                    // $FlowFixMe[prop-missing]
                     // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMove' does not exist on type '(graphie: any, movable: any, options: any) => undefined'.
                     Interactive2.MovablePolygon.onMove.updatePoints,
                     function () {
@@ -2135,7 +2096,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         props: Props,
     ): ReadonlyArray<Coord> {
         return (
-            // $FlowFixMe[incompatible-return]
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
             InteractiveGraph.pointsFromNormalized(props, [
@@ -2230,7 +2190,6 @@ class InteractiveGraph extends React.Component<Props, State> {
     ): ReadonlyArray<ReadonlyArray<Coord>> {
         return (
             // The callers assume that we're return an array of points
-            // $FlowFixMe[incompatible-return]
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
             _.map(
@@ -2323,17 +2282,11 @@ class InteractiveGraph extends React.Component<Props, State> {
         const n = graph.numSegments || 1;
         // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[] | undefined' is not assignable to type 'readonly number[]'.
         const ys: ReadonlyArray<number> = {
-            // $FlowFixMe[unsupported-syntax]
             1: [5],
-            // $FlowFixMe[unsupported-syntax]
             2: [5, -5],
-            // $FlowFixMe[unsupported-syntax]
             3: [5, 0, -5],
-            // $FlowFixMe[unsupported-syntax]
             4: [6, 2, -2, -6],
-            // $FlowFixMe[unsupported-syntax]
             5: [6, 3, 0, -3, -6],
-            // $FlowFixMe[unsupported-syntax]
             6: [5, 3, 1, -1, -3, -5],
         }[n];
         const range = [
@@ -2645,7 +2598,6 @@ class InteractiveGraph extends React.Component<Props, State> {
                 // If both of the guess points are on the correct line, it's
                 // correct.
                 if (
-                    // $FlowFixMe[incompatible-use] - Fix type so coords can't be omitted
                     // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[0], correct[1], guess[0]) &&
                     // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
@@ -2693,8 +2645,6 @@ class InteractiveGraph extends React.Component<Props, State> {
                 // If the parabola coefficients match, it's correct.
                 const guessCoeffs = this.getQuadraticCoefficients(state.coords);
                 const correctCoeffs = this.getQuadraticCoefficients(
-                    // $FlowFixMe[incompatible-call]
-                    // $FlowFixMe[prop-missing]
                     // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
                 );
@@ -2713,8 +2663,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             ) {
                 const guessCoeffs = this.getSinusoidCoefficients(state.coords);
                 const correctCoeffs = this.getSinusoidCoefficients(
-                    // $FlowFixMe[incompatible-call]
-                    // $FlowFixMe[prop-missing]
                     // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly Coord[] | undefined' is not assignable to parameter of type 'readonly Coord[]'.
                     rubric.correct.coords,
                 );
@@ -2738,7 +2686,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             ) {
                 if (
                     deepEq(state.center, rubric.correct.center) &&
-                    // $FlowFixMe[prop-missing]
                     eq(state.radius, rubric.correct.radius)
                 ) {
                     return {
@@ -2831,10 +2778,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                 const guess = state.coords;
                 const correct = rubric.correct.coords;
                 if (
-                    // $FlowFixMe[incompatible-use]
                     // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
                     deepEq(guess[0], correct[0]) &&
-                    // $FlowFixMe[incompatible-use]
                     // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                     collinear(correct[0], correct[1], guess[1])
                 ) {
@@ -2869,14 +2814,10 @@ class InteractiveGraph extends React.Component<Props, State> {
                     match = eq(...angles);
                 } else {
                     /* exact */
-                    match =
-                        // $FlowFixMe[incompatible-use]
-                        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+                    match = // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                         deepEq(guess[1], correct[1]) &&
-                        // $FlowFixMe[incompatible-use]
                         // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                         collinear(correct[1], correct[0], guess[0]) &&
-                        // $FlowFixMe[incompatible-use]
                         // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                         collinear(correct[1], correct[2], guess[2]);
                 }

@@ -223,8 +223,6 @@ class ExpressionEditor extends React.Component<any, any> {
                         className="math-input-buttons"
                         sets={this.props.buttonSets}
                         convertDotToTimes={this.props.times}
-                        // onInsert is typed as `(string | ((input: $FlowFixMe) => void)) => void`
-                        // $FlowFixMe[incompatible-type]
                         onInsert={this.handleTexInsert}
                     />
                 )}

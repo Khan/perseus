@@ -91,8 +91,6 @@ const KhanMath = {
 
         return true;
     },
-
-    // $FlowFixMe[incompatible-return]
     // @ts-expect-error [FEI-5003] - TS2366 - Function lacks ending return statement and return type does not include 'undefined'.
     getPrimeFactorization: function (number: number): ReadonlyArray<number> {
         if (number === 1) {
@@ -160,7 +158,6 @@ const KhanMath = {
     // tolerance can't be bigger than 1, sorry
     toFraction: function (
         decimal: number,
-        // $FlowFixMe[incompatible-return]
         tolerance?: number,
     ): [number, number] {
         if (tolerance == null) {

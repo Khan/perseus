@@ -22,7 +22,7 @@ class GestureStateMachine {
         this.swipeDisabledNodeIds = swipeDisabledNodeIds || [];
         this.multiPressableKeys = multiPressableKeys || [];
 
-        // TODO(charlie): Flow-type this file. It's not great that we're now
+        // TODO(charlie): Add types for this file. It's not great that we're now
         // passing around these opaque state objects.
         this.touchState = {};
         this.swipeState = null;

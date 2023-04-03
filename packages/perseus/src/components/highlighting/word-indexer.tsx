@@ -103,11 +103,7 @@ class WordIndexer extends React.PureComponent<WordIndexerProps> {
                 let newTrailingWordRange = null;
                 // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null' is not assignable to parameter of type 'string'.
                 while ((wordMatch = wordPattern.exec(text)) !== null) {
-                    // TODO(mdr): We found a new Flow error when upgrading:
-                    //     "index (Cannot get `wordMatch.index` because property `index` is missing in null [1].)"
                     const startOffset = wordMatch.index;
-                    // TODO(mdr): We found a new Flow error when upgrading:
-                    //     "index (Cannot get `wordMatch.index` because property `index` is missing in null [1].)", "0 (Cannot get `wordMatch[0]` because an indexer property is missing in null [1].)"
                     const endOffset = wordMatch.index + wordMatch[0].length;
 
                     let range;

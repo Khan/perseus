@@ -162,7 +162,6 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
                             <OptionGroup
                                 onSelected={this.handleSelectAnswer}
                                 // TODO(WB-1096): make selectedValues immutable in wonder-blocks
-                                // $FlowFixMe[incompatible-type]
                                 // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                                 selectedValues={answers}
                             >

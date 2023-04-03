@@ -397,10 +397,8 @@ export default {
     parse: parse,
     parseInline: inlineParser,
     reactFor: SimpleMarkdown.reactFor,
-    // $FlowFixMe[incompatible-use]
     ruleOutput: SimpleMarkdown.ruleOutput(rules, "react") as any,
     basicOutput: SimpleMarkdown.reactFor(
-        // $FlowFixMe[incompatible-use]
         SimpleMarkdown.ruleOutput(rules, "react"),
     ) as any,
     sanitizeUrl: SimpleMarkdown.sanitizeUrl,

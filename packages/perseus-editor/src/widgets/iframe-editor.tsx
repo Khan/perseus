@@ -36,7 +36,6 @@ class PairEditor extends React.Component<PairEditorProps> {
                     Name:
                     <BlurInput
                         value={this.props.name}
-                        // $FlowFixMe[incompatible-type] single-param call returns a callback
                         onChange={this.change("name")}
                     />
                 </label>
@@ -44,7 +43,6 @@ class PairEditor extends React.Component<PairEditorProps> {
                     Value:
                     <BlurInput
                         value={this.props.value}
-                        // $FlowFixMe[incompatible-type] single-param call returns a callback
                         onChange={this.change("value")}
                     />
                 </label>

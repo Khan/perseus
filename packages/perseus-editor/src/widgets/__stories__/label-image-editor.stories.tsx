@@ -85,9 +85,6 @@ class WithState extends React.Component<Empty, State> {
                             ...props,
                         })
                     }
-                    // TODO(mdr): We found a new Flow error when upgrading:
-                    //     "widget (null) This type is incompatible with this._widget (LabelImageEditor)"
-                    // $FlowFixMe[incompatible-type](0.52.0->0.53.0)
                     // @ts-expect-error [FEI-5003] - TS2322 - Type 'LabelImageEditor | null' is not assignable to type 'LabelImageEditor'.
                     ref={(widget) => (this._widget = widget)}
                 />

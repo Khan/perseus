@@ -34,7 +34,6 @@ export class DefinitionProvider extends React.Component<
     };
 
     // Method to update state
-    // $FlowFixMe[signature-verification-failure]
     setActiveDefinitionId = (activeDefinitionId?: string | null): void => {
         this.setState((prevState: ProviderState) => ({activeDefinitionId}));
     };

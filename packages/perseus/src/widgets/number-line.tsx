@@ -160,7 +160,6 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
                       color: KhanColors.BLUE_D,
                   }
                 : {},
-            // $FlowFixMe[incompatible-call]
             () => _label(graphie, props.labelStyle, leftLabel, leftLabel, base),
         ),
     );
@@ -173,7 +172,6 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
                   }
                 : {},
             () =>
-                // $FlowFixMe[incompatible-call]
                 _label(graphie, props.labelStyle, rightLabel, rightLabel, base),
         ),
     );

@@ -399,15 +399,12 @@ Zoom.prototype._calculateZoom = function () {
     const viewportAspectRatio = viewportWidth / viewportHeight;
 
     if (
-        // $FlowFixMe[invalid-compare]
         originalFullImageWidth < viewportWidth &&
-        // $FlowFixMe[invalid-compare]
         originalFullImageHeight < viewportHeight
     ) {
         this._imgScaleFactor = maxScaleFactor;
     } else if (imageAspectRatio < viewportAspectRatio) {
         this._imgScaleFactor =
-            // $FlowFixMe[unsafe-addition]
             (viewportHeight / originalFullImageHeight) * maxScaleFactor;
     } else {
         this._imgScaleFactor =

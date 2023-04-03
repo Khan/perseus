@@ -157,12 +157,8 @@ describe("inferItemShape", () => {
             /**
              * TODO(somewhatabstract, JIRA-XXXX):
              * The Tree types are really hard to work with properly.
-             */
-            // $FlowFixMe[incompatible-cast]
+             */ buildEmptyItemTreeForShape(shapes.hint),
             buildEmptyItemTreeForShape(shapes.hint),
-            // $FlowFixMe[incompatible-cast]
-            buildEmptyItemTreeForShape(shapes.hint),
-            // $FlowFixMe[incompatible-cast]
             buildEmptyItemTreeForShape(shapes.hint),
         ] as ItemArrayNode);
         expect(shapes.arrayOf(shapes.hint)).toEqual(inferItemShape(item));
@@ -173,12 +169,8 @@ describe("inferItemShape", () => {
             /**
              * TODO(somewhatabstract, JIRA-XXXX):
              * The Tree types are really hard to work with properly.
-             */
-            // $FlowFixMe[incompatible-cast]
-            buildEmptyItemTreeForShape(shapes.hint),
-            // $FlowFixMe[incompatible-cast]
+             */ buildEmptyItemTreeForShape(shapes.hint),
             buildEmptyItemTreeForShape(shapes.content),
-            // $FlowFixMe[incompatible-cast]
             buildEmptyItemTreeForShape(shapes.hint),
         ] as ItemArrayNode);
         expect(shapes.arrayOf(shapes.hint)).toEqual(inferItemShape(item));
@@ -214,9 +206,7 @@ const item: Item = treeToItem({
     /**
      * TODO(somewhatabstract, JIRA-XXXX):
      * The Tree types are really hard to work with properly.
-     */
-    // $FlowFixMe[incompatible-cast]
-    b: [content(2), content(3), content(4)] as ItemArrayNode,
+     */ b: [content(2), content(3), content(4)] as ItemArrayNode,
     c: {
         d: content(5),
         e: hint(6),

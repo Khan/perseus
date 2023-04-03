@@ -363,7 +363,7 @@ const validAlignments: ReadonlyArray<Alignment> = [
  * invalid.
  */
 // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
-// TODO(LP-10707): I think this can be completely removed because our Flow types
+// TODO(LP-10707): I think this can be completely removed because our TypeScript types
 // enforce this!
 export const validateAlignments = () => {
     _.each(widgets, function (widgetInfo) {

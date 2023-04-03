@@ -1423,7 +1423,7 @@ export type PerseusInputNumberWidgetOptions = {
     customKeypad?: boolean;
 };
 
-// TODO(FEI-3983): Create proper flow types for these.
+// TODO(FEI-3983): Create proper types for these.
 export type PerseusExampleGraphieWidgetOptions = any;
 export type PerseusExampleWidgetOptions = any;
 export type PerseusLightsPuzzleWidgetOptions = any;

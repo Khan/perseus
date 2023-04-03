@@ -79,7 +79,6 @@ const Measurer: any = createReactClass({
                             left: image.left,
                         }}
                     >
-                        {/* $FlowFixMe[prop-missing]: alt prop is missing */}
                         {/* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                         <SvgImage src={image.url} />
                     </div>

@@ -174,10 +174,6 @@ class ItemRenderer extends React.Component<Props, State> {
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
         reactRender(
-            // metadata (from item.question, aka PerseusRenderer)
-            // replace (also item.question, aka PerseusRenderer)
-            // savedState (I _think_ this is serializedState on Renderer)
-            // $FlowFixMe[prop-missing] metadata, replace, savedState (see above)
             <Renderer
                 ref={(node) => {
                     if (!node) {
@@ -293,7 +289,6 @@ class ItemRenderer extends React.Component<Props, State> {
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                // $FlowFixMe[incompatible-call]: onFocusChange expects an HTMLElement or nothing
                 didFocusInput && keypadElement && keypadElement.getDOMNode(),
             );
         }

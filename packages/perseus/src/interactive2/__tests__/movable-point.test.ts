@@ -53,7 +53,6 @@ describe("MovablePoint", function () {
         it("should snap to the grid when a snap is specified", function () {
             const point = createPoint({
                 coord: [1.1, 1.1],
-                // $FlowFixMe[prop-missing]
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                 constraints: MovablePoint.constraints.snap([1, 1]),
             }).point;

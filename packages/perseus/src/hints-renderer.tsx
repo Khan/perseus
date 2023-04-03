@@ -77,7 +77,7 @@ class HintsRenderer extends React.Component<Props, State> {
             this._cacheHintImages();
         }
 
-        // Force number to make Flow happy
+        // Force number to make TypeScript happy
         const prevHintsVisible = prevProps.hintsVisible || 0;
         const nextHintsVisible = this.props.hintsVisible || 0;
 

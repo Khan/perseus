@@ -59,7 +59,6 @@ export const question: PerseusRenderer = {
                 graphMode: "interactive",
                 listMode: "static",
                 starting: {
-                    // $FlowFixMe[speculation-ambiguous]
                     shape: {
                         coords: [
                             [0, 0],

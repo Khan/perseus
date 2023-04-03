@@ -97,7 +97,6 @@ class Graph extends React.Component<any> {
         if (imageData.url) {
             const scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
             image = (
-                // $FlowFixMe[prop-missing]: `alt` is missing
                 // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
                 <SvgImage
                     src={imageData.url}
@@ -118,13 +117,10 @@ class Graph extends React.Component<any> {
                     width: this.props.box[0],
                     height: this.props.box[1],
                 }}
-                // $FlowFixMe[prop-missing]: This can probably be removed
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
                 onMouseOut={this.onMouseOut}
-                // $FlowFixMe[prop-missing]: This can probably be removed
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
                 onMouseOver={this.onMouseOver}
-                // $FlowFixMe[prop-missing]: This can probably be removed
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'onClick' does not exist on type 'Graph'.
                 onClick={this.onClick}
             >

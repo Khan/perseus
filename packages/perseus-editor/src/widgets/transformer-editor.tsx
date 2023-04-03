@@ -852,7 +852,6 @@ class TransformationsShapeEditor extends React.Component<any> {
 
     updateCoords = () => {
         this.props.onChange({
-            // $FlowFixMe[prop-missing]
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'shape' does not exist on type 'TransformationsShapeEditor'.
             shape: this.shape.toJSON(),
         });

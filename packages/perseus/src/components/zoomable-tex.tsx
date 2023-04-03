@@ -26,10 +26,8 @@ const computeMathBounds = (
         parentNode.querySelector(".katex-html") ||
         parentNode.querySelector(".MathJax");
     const textBounds = {
-        // $FlowFixMe[incompatible-use]
         // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
         width: textElement.offsetWidth,
-        // $FlowFixMe[incompatible-use]
         // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
         height: textElement.offsetHeight,
     } as const;

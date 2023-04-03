@@ -60,7 +60,6 @@ export default class ArticleEditor extends React.Component<
 > {
     static defaultProps: DefaultProps = {
         contentPaths: [],
-        // $FlowFixMe[incompatible-exact]
         json: [{}],
         mode: "edit",
         screen: "desktop",

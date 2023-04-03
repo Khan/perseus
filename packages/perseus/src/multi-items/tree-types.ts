@@ -34,7 +34,7 @@ export type ObjectNode<C, H, T> = {
  * TODO(somewhatabstract, JIRA-XXXX):
  * We should ditch this type or create some helpers for working with it.
  * As it stands, consumers have to check each node's type before using it
- * in order to ensure that flow can track its refinement and appropriate use.
+ * in order to ensure that TypeScript can track its refinement and appropriate use.
  * It's messy.
  */
 // @ts-expect-error [FEI-5003] - TS2456 - Type alias 'Tree' circularly references itself. | TS2315 - Type 'ArrayNode' is not generic.

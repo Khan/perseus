@@ -116,8 +116,6 @@ class TextListEditor extends React.Component<any, any> {
                         // eslint-disable-next-line react/no-string-refs
                         // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.refs["input_" + focusIndex],
-                        // $FlowFixMe[incompatible-use]
-                        // $FlowFixMe[prop-missing]
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
                     ).focus();
                 });
@@ -156,8 +154,6 @@ class TextListEditor extends React.Component<any, any> {
                         // eslint-disable-next-line react/no-string-refs
                         // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.refs["input_" + focusIndex],
-                        // $FlowFixMe[incompatible-use]
-                        // $FlowFixMe[prop-missing]
                         // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
                     ).focus();
                 });

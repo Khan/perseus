@@ -2,7 +2,7 @@
  * Utility functions to build React PropTypes for multi-items and shapes.
  *
  * If you're writing new components, though, consider using the Item and Shape
- * Flow types instead.
+ * types instead.
  */
 /* instanbul ignore file */
 

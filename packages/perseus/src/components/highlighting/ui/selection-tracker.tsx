@@ -124,7 +124,7 @@ class SelectionTracker extends React.PureComponent<
         }
 
         // NOTE(mdr): The focus node is guaranteed to exist, because
-        //     there's a range, but the Flow type annotations for
+        //     there's a range, but the type annotations for
         //     Selection don't know that. Cast it ourselves.
         const focusNode: Node = selection.focusNode as any;
         const focusOffset = selection.focusOffset;

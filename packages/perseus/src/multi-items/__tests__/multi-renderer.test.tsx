@@ -580,7 +580,7 @@ describe("multi-item renderer", () => {
         // ("mock-widget 1"). This verifies that the MultiRenderer has
         // correctly passed down a functioning `findWidgets` prop to the
         // widgets.
-        // Oh the Flow warnings we'll suppress. Welcome to multi items.
+        // Oh the TypeScript warnings we'll suppress. Welcome to multi items.
         const widget1 = result.question[0].props.findWidgets("mock-widget 1");
 
         // Assert

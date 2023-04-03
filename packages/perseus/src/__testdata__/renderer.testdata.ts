@@ -89,7 +89,7 @@ export const question2: PerseusRenderer = {
 export const mockedItem: PerseusRenderer = {
     // The mock widget type is not part of the PerseusWidget type union (and
     // we don't want to make it such to avoid polluting our production types
-    // for test purposes) so we force Flow to accept it here.
+    // for test purposes) so we force TypeScript to accept it here.
     content:
         "Mock widgets ==> [[\u2603 mock-widget 1]] [[\u2603 mock-widget 2]] [[\u2603 mock-widget 3]]",
     images: {},

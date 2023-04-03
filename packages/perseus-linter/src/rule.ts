@@ -129,7 +129,7 @@ import type {TraversalState, TreeNode} from "./tree-transformer";
 
 // This represents the type returned by String.match(). It is an
 // array of strings, but also has index:number and input:string properties.
-// Flow doesn't handle it well, so we punt and just use any.
+// TypeScript doesn't handle it well, so we punt and just use any.
 export type PatternMatchType = any;
 
 // This is the return type of the check() method of a Rule object

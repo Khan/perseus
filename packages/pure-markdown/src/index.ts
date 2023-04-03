@@ -121,7 +121,6 @@ const TITLED_TABLE_REGEX = new RegExp(
         "(" +
         // The simple-markdown nptable regex, without
         // the leading `^`
-        // $FlowFixMe[incompatible-use]
         // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
         SimpleMarkdown.defaultRules.nptable.match.regex.source.substring(1) +
         ")",

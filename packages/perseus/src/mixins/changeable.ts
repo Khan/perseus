@@ -82,7 +82,7 @@ const _changeSingle = function (
  * this.change(propName) -> returns a lambda that takes a prop value to
  * set and a callback to call after having set that value.
  */
-// TODO(WEB-1727): use proper flow syntax for overloaded functions
+// TODO(WEB-1727): use proper TypeScript syntax for overloaded functions
 export const change: ChangeFn = function (
     newPropsOrSinglePropName,
     propValue,

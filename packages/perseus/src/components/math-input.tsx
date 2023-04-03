@@ -191,8 +191,6 @@ class MathInput extends React.Component<Props, State> {
         // close (blur) the button group in order to focus on next page element.
         if (
             !this.mouseDown &&
-            // $FlowFixMe[incompatible-use]
-            // $FlowFixMe[incompatible-call]
             // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
             !ReactDOM.findDOMNode(this).contains(e.relatedTarget)
         ) {
