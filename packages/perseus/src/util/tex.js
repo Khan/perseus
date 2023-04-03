@@ -94,7 +94,7 @@ export default {
                 // security issue with it as outlined in https://hackerone.com/reports/844216.
                 // See https://khanacademy.atlassian.net/browse/FEI-2225 for
                 // additional context.
-                katex.render(text, $katexHolder[0], {colorIsTextColor: true});
+                $katexHolder[0].innerHTML = katex.renderToString(text, {colorIsTextColor: true});
                 // If that worked, and we previously formatted with
                 // mathjax, do some mathjax cleanup
                 if ($elem.attr("data-math-type") === "mathjax") {

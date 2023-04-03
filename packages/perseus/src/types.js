@@ -350,7 +350,7 @@ export type PerseusDependencies = {|
 
     // KaTeX related dependencies
     getKaTeX: () => Promise<katex>,
-    loadMathjax: () => Promise<mixed>,
+    loadMathjax?: () => Promise<mixed>,
     logKaTeXError: (expression: string, error: Error) => Promise<?Response>,
     // TODO(kevinb): Update `getKaTeX` to return the version of `katex` that
     // webapp (or mobile) wants perseus to use.
