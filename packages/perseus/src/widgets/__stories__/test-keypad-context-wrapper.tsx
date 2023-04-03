@@ -22,12 +22,12 @@ const Footer = (): React.ReactElement => {
 };
 
 type TestKeypadContextWrapperProps = {
-    children: React.Node,
+    children: React.ReactElement;
 };
 
 const TestKeypadContextWrapper = (
     props: TestKeypadContextWrapperProps,
-): React.Node => {
+): React.ReactElement => {
     const [keypadElement, setKeypadElement] = React.useState(null);
     const [renderer, setRenderer] = React.useState(null);
     const [scrollableElement, setScrollableElement] = React.useState(
@@ -37,8 +37,10 @@ const TestKeypadContextWrapper = (
     return (
         <KeypadContext.Provider
             value={{
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setKeypadElement,
                 keypadElement,
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setRenderer,
                 renderer,
                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
