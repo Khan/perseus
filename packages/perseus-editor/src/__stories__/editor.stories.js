@@ -12,7 +12,6 @@ export default {
 
 export const Rational = (): React.Node => {
     registerAllWidgetsAndEditorsForTesting();
-    Dependencies.getDependencies().shouldUseFutureKaTeX(false);
 
     return (
         <Editor

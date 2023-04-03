@@ -30,7 +30,6 @@ describe("Editor", () => {
 
         test("clicking on the widget editor should open it", async () => {
             // Arrange
-            testDependencies.shouldUseFutureKaTeX(false);
             render(
                 <Editor
                     apiOptions={ApiOptions.defaults}
@@ -63,7 +62,6 @@ describe("Editor", () => {
         it("should update values", async () => {
             // Arrange
             const changeFn = jest.fn();
-            testDependencies.shouldUseFutureKaTeX(false);
             render(
                 <Editor
                     apiOptions={ApiOptions.defaults}

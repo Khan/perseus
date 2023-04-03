@@ -350,11 +350,11 @@ export type PerseusDependencies = {|
 
     // KaTeX related dependencies
     getKaTeX: () => Promise<katex>,
+    // loadMathjax is deprecated. Perseus doesn't call it.
     loadMathjax?: () => Promise<mixed>,
     logKaTeXError: (expression: string, error: Error) => Promise<?Response>,
-    // TODO(kevinb): Update `getKaTeX` to return the version of `katex` that
-    // webapp (or mobile) wants perseus to use.
-    shouldUseFutureKaTeX: (flag: boolean) => void,
+    // shouldUseFutureKaTeX is deprecated. Perseus doesn't call it.
+    shouldUseFutureKaTeX?: (flag: boolean) => void,
     TeX: React.ComponentType<TeXProps>,
 
     //misc
