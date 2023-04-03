@@ -1,6 +1,6 @@
 import MathQuill from "mathquill";
 
-import MathWrapper from "../math-wrapper.js";
+import MathWrapper from "../math-wrapper";
 
 const MQ = MathQuill.getInterface(2);
 

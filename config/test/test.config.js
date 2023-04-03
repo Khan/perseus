@@ -23,7 +23,10 @@ const vendorMap = fs
 
 const pkgMap = fs
     .readdirSync(path.join(root, "packages"))
-    .filter((name) => name !== ".DS_Store")
+    .filter((name) => {
+        const stat = fs.statSync(path.join(root, "packages", name));
+        return stat.isDirectory();
+    })
     .reduce((map, name) => {
         const pkgJson = JSON.parse(
             fs.readFileSync(path.join(root, "packages", name, "package.json")),
@@ -39,16 +42,21 @@ const pkgMap = fs
 module.exports = {
     rootDir: path.join(__dirname, "../../"),
     transform: {
-        "^.+\\.jsx?$": "<rootDir>/config/test/test.transform.js",
+        "^.+\\.(j|t)sx?$": "<rootDir>/config/test/test.transform.js",
     },
     restoreMocks: true,
     resetMocks: true,
     testEnvironment: "jsdom",
-    testMatch: ["<rootDir>/**/*_test.js", "<rootDir>/**/*_test.jsx"],
+    testMatch: [
+        "<rootDir>/**/*.test.js",
+        "<rootDir>/**/*.test.jsx",
+        "<rootDir>/**/*.test.ts",
+        "<rootDir>/**/*.test.tsx",
+    ],
     setupFilesAfterEnv: [
         "jest-extended/all",
-        "<rootDir>/config/test/test-setup.js",
-        "<rootDir>/config/test/custom-matchers.js",
+        "<rootDir>/config/test/test-setup.ts",
+        "<rootDir>/config/test/custom-matchers.ts",
 
         // TODO(LP-11633) math-input uses these matchers. We can remove this
         // once we transition these tests to RTL
@@ -63,6 +71,8 @@ module.exports = {
     collectCoverageFrom: [
         "packages/*/src/**/*.js",
         "packages/*/src/**/*.jsx",
+        "packages/*/src/**/*.ts",
+        "packages/*/src/**/*.tsx",
         "!packages/*/node_modules/",
         "!**/__tests__/**",
         "!**/__stories__/**",

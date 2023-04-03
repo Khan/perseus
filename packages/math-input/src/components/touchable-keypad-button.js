@@ -10,12 +10,12 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {KeyTypes} from "../consts.js";
-import KeyConfigs from "../data/key-configs.js";
+import {KeyTypes} from "../consts";
+import KeyConfigs from "../data/key-configs";
 
-import GestureManager from "./gesture-manager.js";
-import KeypadButton from "./keypad-button.js";
-import {bordersPropType, keyIdPropType} from "./prop-types.js";
+import GestureManager from "./gesture-manager";
+import KeypadButton from "./keypad-button";
+import {bordersPropType, keyIdPropType} from "./prop-types";
 
 class TouchableKeypadButton extends React.Component {
     static propTypes = {

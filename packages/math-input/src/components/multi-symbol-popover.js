@@ -6,12 +6,12 @@ import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import {BorderStyles} from "../consts.js";
-import {View} from "../fake-react-native-web/index.js";
+import {BorderStyles} from "../consts";
+import {View} from "../fake-react-native-web/index";
 
-import {keyConfigPropType} from "./prop-types.js";
-import TouchableKeypadButton from "./touchable-keypad-button.js";
-import * as zIndexes from "./z-indexes.js";
+import {keyConfigPropType} from "./prop-types";
+import TouchableKeypadButton from "./touchable-keypad-button";
+import * as zIndexes from "./z-indexes";
 
 class MultiSymbolPopover extends React.Component {
     static propTypes = {

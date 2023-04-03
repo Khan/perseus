@@ -5,4 +5,4 @@
  *
  * We should remove this when jest is fixed.
  */
-module.exports = require("../../config/build/babel.config.js");
+module.exports = require("../../config/build/babel.config");

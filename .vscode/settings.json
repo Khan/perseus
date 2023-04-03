@@ -5,12 +5,11 @@
     },
     "eslint.codeActionsOnSave.mode": "all",
     "files.trimTrailingWhitespace": true,
-    "flow.useNPMPackagedFlow": true,
     "javascript.validate.enable": false,
     "todo-tree.filtering.excludeGlobs": [
         "**/dist/**",
-        "**/flow-typed/**"
     ],
     "typescript.format.enable": false,
-    "typescript.validate.enable": false
+    "typescript.validate.enable": true,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

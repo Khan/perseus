@@ -19,7 +19,7 @@ jobs:
       - uses: Khan/actions@check-for-changeset-v0
 
   lint:
-    name: Lint, Flow, and Test
+    name: Lint, Typecheck, and Test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -39,11 +39,11 @@ jobs:
       id: changed
 
     - id: js-files
-      name: Find .js changed files
+      name: Find .js(x)/.ts(x) changed files
       uses: Khan/actions@filter-files-v0
       with:
         changed-files: ${{ steps.changed.outputs.files }}
-        extensions: '.js,.jsx'
+        extensions: '.js,.jsx,.ts,.tsx'
         files: 'yarn.lock'
 
     - id: eslint-reset
@@ -62,9 +62,17 @@ jobs:
         limited-trigger: ${{ steps.js-files.outputs.filtered }}
         limited: yarn lint {}
 
-    - name: Run Flow
-      if: steps.js-files.outputs.filtered != '[]'
-      run: yarn flow
+    - name: Typecheck
+      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+      run: yarn typecheck
+
+    - name: Build types
+      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+      run: yarn build:types
+
+    - name: Build Flow types
+      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+      run: yarn build:flowtypes
 
     # Run tests for our target matrix
     - id: jest-reset

@@ -1,12 +1,11 @@
-// @flow
 import {Keypad} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import KeypadContext from "../../keypad-context.js";
+import KeypadContext from "../../keypad-context";
 
-const Footer = (): React.Node => {
+const Footer = (): React.ReactElement => {
     return (
         <View style={styles.keypadContainer}>
             <KeypadContext.Consumer>
@@ -22,9 +21,9 @@ const Footer = (): React.Node => {
     );
 };
 
-type TestKeypadContextWrapperProps = {|
+type TestKeypadContextWrapperProps = {
     children: React.Node,
-|};
+};
 
 const TestKeypadContextWrapper = (
     props: TestKeypadContextWrapperProps,
@@ -42,6 +41,7 @@ const TestKeypadContextWrapper = (
                 keypadElement,
                 setRenderer,
                 renderer,
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setScrollableElement,
                 scrollableElement,
             }}

@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.6.8",
+    "version": "0.7.1",
     "publishConfig": {
         "access": "public"
     },
@@ -16,7 +16,7 @@
     },
     "module": "dist/es/index.js",
     "main": "dist/index.js",
-    "source": "src/index.js",
+    "source": "src/index.ts",
     "scripts": {},
     "dependencies": {
         "performance-now": "^0.2.0"
@@ -31,7 +31,7 @@
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992",
-        "perseus-build-settings": "^0.0.5",
+        "perseus-build-settings": "^0.1.0",
         "prop-types": "15.6.1",
         "react": "^16.8.0",
         "react-dom": "^16.8.0",

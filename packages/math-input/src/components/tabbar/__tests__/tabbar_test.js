@@ -1,7 +1,7 @@
 import {mount} from "enzyme";
 import * as React from "react";
 
-import Tabbar from "../tabbar.js";
+import Tabbar from "../tabbar";
 
 describe("<Tabbar />", () => {
     it("defaults to selecting the first item", () => {

@@ -1,1 +1,1 @@
-module.exports = require("@khanacademy/eslint-config/.prettierrc.js");
+module.exports = require("@khanacademy/eslint-config/.prettierrc");
