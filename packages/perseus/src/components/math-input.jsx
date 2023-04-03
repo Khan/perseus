@@ -1,4 +1,5 @@
 // @flow
+import {BareKeypad} from "@khanacademy/math-input";
 import classNames from "classnames";
 import $ from "jquery";
 import MathQuill from "mathquill";
@@ -208,7 +209,85 @@ class MathInput extends React.Component<Props, State> {
         return this.state.focused;
     };
 
+    _mapToMathQuill(value) {
+        if (value.startsWith?.("NUM_")) {
+            return value.slice(4);
+        }
+
+        switch (value) {
+            case "LEFT_PAREN":
+                return "(";
+            case "RIGHT_PAREN":
+                return ")";
+            case "PLUS":
+                return "+";
+            case "MINUS":
+                return "-";
+            case "TIMES":
+                return "\\cdot";
+            case "NEGATIVE":
+                return "-";
+            case "DECIMAL":
+                return ".";
+            case "SIN":
+                return "\\sin";
+            case "COS":
+                return "\\cos";
+            case "TAN":
+                return "\\tan";
+            case "PI":
+                return "\\pi";
+            case "X":
+                return "x";
+            case "FRAC_INCLUSIVE":
+                // If there's something in the input that can become part of a
+                // fraction, typing "/" puts it in the numerator. If not, typing
+                // "/" does nothing. In that case, enter a \frac.
+                return (input) => {
+                    const contents = input.latex();
+                    input.typedText("/");
+                    if (input.latex() === contents) {
+                        input.cmd("\\frac");
+                    }
+                };
+            case "EXP":
+                return (input) => {
+                    const contents = input.latex();
+                    input.typedText("^");
+
+                    // If the input hasn't changed (for example, if we're
+                    // attempting to add an exponent on an empty input or an empty
+                    // denominator), insert our own "a^b"
+                    if (input.latex() === contents) {
+                        input.typedText("a^b");
+                    }
+                };
+            case "EXP_2":
+                return (input) => {
+                    const contents = input.latex();
+                    input.typedText("^2");
+
+                    // If the input hasn't changed (for example, if we're
+                    // attempting to add an exponent on an empty input or an empty
+                    // denominator), insert our own "a^b"
+                    if (input.latex() === contents) {
+                        input.typedText("a^2");
+                    }
+                };
+            case "SQRT":
+                return "\\sqrt";
+            case "RADICAL":
+                return "???";
+            default:
+                console.log("Didn't match");
+                return value;
+        }
+    }
+
     insert: ($FlowFixMe) => void = (value) => {
+        console.log(value);
+        value = this._mapToMathQuill(value);
+        console.log(value);
         const input = this.mathField();
         if (_(value).isFunction()) {
             value(input);
@@ -261,12 +340,24 @@ class MathInput extends React.Component<Props, State> {
         let buttons = null;
         if (this._shouldShowButtons()) {
             buttons = (
-                <TexButtons
-                    sets={this.props.buttonSets}
-                    className="math-input-buttons absolute"
-                    convertDotToTimes={this.props.convertDotToTimes}
-                    onInsert={this.insert}
-                />
+                <>
+                    {true && (
+                        <BareKeypad
+                            onClickKey={this.insert}
+                            trigonometry
+                            preAlgebra
+                        />
+                    )}
+
+                    {false && (
+                        <TexButtons
+                            sets={this.props.buttonSets}
+                            className="math-input-buttons absolute"
+                            convertDotToTimes={this.props.convertDotToTimes}
+                            onInsert={this.insert}
+                        />
+                    )}
+                </>
             );
         }
 

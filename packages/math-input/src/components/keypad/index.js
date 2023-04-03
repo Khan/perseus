@@ -31,7 +31,7 @@ function allPages(props: Props): Array<TabbarItemType> {
     return pages;
 }
 
-export default class PreAlgebraKeypad extends React.Component<Props, State> {
+export default class Keypad extends React.Component<Props, State> {
     state: State = {
         selectedPage: "Numbers",
     };

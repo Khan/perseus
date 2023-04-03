@@ -87,6 +87,7 @@ export const DesktopKitchenSink = (args: StoryArgs): React.Node => {
                 widgetId="expression"
                 reviewModeRubric={reviewModeRubric}
                 keypadConfiguration={keypadConfiguration}
+                buttonsVisible={"always"}
             />
         </div>
     );
