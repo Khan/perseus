@@ -15,8 +15,8 @@ import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import ImageLoader from "./image-loader";
 
-import type {Alignment, Dimensions} from "../types";
 import type {ImageProps} from "./image-loader";
+import type {Alignment, Dimensions} from "../types";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;

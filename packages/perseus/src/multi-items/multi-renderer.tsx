@@ -36,9 +36,8 @@
  *   </MultiRenderer>
  */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import {StyleSheet, css} from "aphrodite";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import lens from "hubble";
+import {StyleSheet, css} from "aphrodite"; // eslint-disable-line import/no-extraneous-dependencies
+import lens from "hubble"; // eslint-disable-line import/no-extraneous-dependencies
 import * as React from "react";
 
 import HintsRenderer from "../hints-renderer";
@@ -49,12 +48,12 @@ import Util from "../util";
 import {itemToTree} from "./items";
 import {buildMapper} from "./trees";
 
-import type {Widget} from "../renderer";
-import type {APIOptions, FilterCriterion, PerseusScore} from "../types";
 import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
 import type {Shape, ArrayShape} from "./shape-types";
 import type {Tree} from "./tree-types";
 import type {TreeMapper, ContentMapper, HintMapper, Path} from "./trees";
+import type {Widget} from "../renderer";
+import type {APIOptions, FilterCriterion, PerseusScore} from "../types";
 
 type Hint = any; // TODO(mdr)
 type Score = any; // TODO(mdr)
