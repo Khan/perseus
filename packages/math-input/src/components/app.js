@@ -1,8 +1,8 @@
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {View} from "../fake-react-native-web/index.js";
-import {Keypad, KeypadInput, KeypadTypes} from "../index.js";
+import {View} from "../fake-react-native-web/index";
+import {Keypad, KeypadInput, KeypadTypes} from "../index";
 
 class App extends React.Component {
     state = {

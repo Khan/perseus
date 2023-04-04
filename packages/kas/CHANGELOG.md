@@ -1,5 +1,17 @@
 # @khanacademy/kas
 
+## 0.3.1
+
+### Patch Changes
+
+-   1f062e98: Bump all package versions since the build settings have been updated
+
+## 0.3.0
+
+### Minor Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
 ## 0.2.7
 
 ### Patch Changes

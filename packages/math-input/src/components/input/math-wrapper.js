@@ -7,11 +7,11 @@
 import $ from "jquery";
 import MathQuill from "mathquill";
 
-import {DecimalSeparators} from "../../consts.js";
-import Keys from "../../data/keys.js";
-import {decimalSeparator} from "../../utils.js";
+import {DecimalSeparators} from "../../consts";
+import Keys from "../../data/keys";
+import {decimalSeparator} from "../../utils";
 
-import * as CursorContexts from "./cursor-contexts.js";
+import * as CursorContexts from "./cursor-contexts";
 
 // Keeping `window` in place for test suite and GitHub Pages.
 // If it does not exist, fall back to CommonJS require. - jsatk
@@ -181,7 +181,7 @@ class MathWrapper {
                 this.mathField.keystroke("Left");
             }
         } else if (key === Keys.FRAC) {
-            // eslint-disable-next-line no-unused-vars
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const shouldNavigateLeft = cursor[this.MQ.L] === MQ_END;
             this.mathField.cmd("\\frac");
         } else if (key === Keys.LOG_N) {

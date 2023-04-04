@@ -1,0 +1,12 @@
+{
+    "exclude": ["dist", "**/*.test.*", "**/*.testdata.*", "**/*.stories.*", "**/*.cypress.*"],
+    "extends": "../tsconfig-shared.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "src",
+    },
+    "references": [
+        {"path": "../perseus-error"},
+        {"path": "../pure-markdown"},
+    ]
+}

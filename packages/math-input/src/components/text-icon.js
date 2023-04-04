@@ -6,10 +6,10 @@ import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import {View, Text} from "../fake-react-native-web/index.js";
+import {View, Text} from "../fake-react-native-web/index";
 
-import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style.js";
-import Styles from "./styles.js";
+import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style";
+import Styles from "./styles";
 
 const {row, centered} = Styles;
 

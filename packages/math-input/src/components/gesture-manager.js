@@ -4,9 +4,9 @@
  * and links them together.
  */
 
-import GestureStateMachine from "./gesture-state-machine.js";
-import NodeManager from "./node-manager.js";
-import PopoverStateMachine from "./popover-state-machine.js";
+import GestureStateMachine from "./gesture-state-machine";
+import NodeManager from "./node-manager";
+import PopoverStateMachine from "./popover-state-machine";
 
 const coordsForEvent = (evt) => {
     return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];

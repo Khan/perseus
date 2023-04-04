@@ -1,6 +1,6 @@
-import Keys from "../../../data/keys.js";
+import Keys from "../../../data/keys";
 
-import TestMathWrapper from "./test-math-wrapper.jsx";
+import TestMathWrapper from "./test-math-wrapper";
 
 const MQ = {L: "-1", R: "1"};
 const END_OF_EXPR = 0;

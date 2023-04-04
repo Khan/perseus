@@ -1,5 +1,17 @@
 # @khanacademy/kmath
 
+## 0.1.1
+
+### Patch Changes
+
+-   1f062e98: Bump all package versions since the build settings have been updated
+
+## 0.1.0
+
+### Minor Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
 ## 0.0.8
 
 ### Patch Changes

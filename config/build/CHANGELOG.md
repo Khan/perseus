@@ -1,5 +1,16 @@
 # perseus-build-settings
 
+## 0.1.0
+
+### Minor Changes
+
+-   df820619: Update TS to 5.0 and @babel/preset-env settings to match other repos
+
+### Patch Changes
+
+-   1f062e98: Bump all package versions since the build settings have been updated
+-   96aa4f6e: Downgrade TS to 4.9.5 until issues with react-docgen-typescript-plugin are resolved
+
 ## 0.0.5
 
 ### Patch Changes

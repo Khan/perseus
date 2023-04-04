@@ -8,12 +8,12 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {removeEcho} from "../actions/index.js";
-import {View} from "../fake-react-native-web/index.js";
+import {removeEcho} from "../actions/index";
+import {View} from "../fake-react-native-web/index";
 
-import EchoManager from "./echo-manager.js";
-import PopoverManager from "./popover-manager.js";
-import {echoPropType, popoverPropType} from "./prop-types.js";
+import EchoManager from "./echo-manager";
+import PopoverManager from "./popover-manager";
+import {echoPropType, popoverPropType} from "./prop-types";
 
 // eslint-disable-next-line react/no-unsafe
 class Keypad extends React.Component {

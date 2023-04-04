@@ -1,10 +1,10 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import KeyConfigs from "./data/key-configs.js";
-import {View} from "./fake-react-native-web/index.js";
+import KeyConfigs from "./data/key-configs";
+import {View} from "./fake-react-native-web/index";
 
-import {KeypadInput} from "./index.js";
+import {KeypadInput} from "./index";
 
 // eslint-disable-next-line react/prop-types
 const ManualInput = ({handler}) => {

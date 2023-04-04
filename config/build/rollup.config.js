@@ -11,12 +11,11 @@ import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import ancesdir from "ancesdir";
 import autoExternal from "rollup-plugin-auto-external";
-import copy from "rollup-plugin-copy";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";
 
-const createBabelPlugins = require("./create-babel-plugins.js");
-const createBabelPresets = require("./create-babel-presets.js");
+const createBabelPlugins = require("./create-babel-plugins");
+const createBabelPresets = require("./create-babel-presets");
 
 const rootDir = ancesdir(__dirname);
 
@@ -106,8 +105,17 @@ const getPackageDirNamesInBuildOrder = () => {
 /**
  * Make path to a package relative path.
  */
-const makePackageBasedPath = (pkgName, pkgRelPath) =>
-    path.normalize(path.join("packages", pkgName, pkgRelPath));
+const makePackageBasedPath = (pkgName, pkgRelPath) => {
+    if (pkgRelPath) {
+        return path.normalize(path.join("packages", pkgName, pkgRelPath));
+    }
+
+    const pkgPath = path.normalize(
+        path.join(rootDir, "packages", pkgName, "package.json"),
+    );
+    const pkgJson = require(pkgPath);
+    return path.normalize(path.join("packages", pkgName, pkgJson.source));
+};
 
 /**
  * Generate the rollup output configuration for a given package
@@ -167,9 +175,11 @@ const createConfig = (
         );
     }
 
+    const extensions = [".js", ".jsx", ".ts", ".tsx"];
+
     const config = {
         output: createOutputConfig(name, format, file),
-        input: makePackageBasedPath(name, inputFile || "./src/index.js"),
+        input: makePackageBasedPath(name, inputFile),
         plugins: [
             // We don't want to do process.env.NODE_ENV checks in our main
             // builds. Our consumers should handle that. However, if we
@@ -195,16 +205,21 @@ const createConfig = (
                 url: false,
             }),
             babel({
-                babelHelpers: "bundled",
+                babelHelpers:
+                    platform === "browser" && format === "esm"
+                        ? "runtime"
+                        : "bundled",
                 presets: createBabelPresets({platform, format}),
                 plugins: createBabelPlugins({platform, format}),
                 exclude: "node_modules/**",
+                extensions,
             }),
             // This must come after babel() since this plugin doesn't know how
-            // to deal with Flow types.
+            // to deal with TypeScript types.
             commonjs(),
             resolve({
                 browser: platform === "browser",
+                extensions,
             }),
             autoExternal({
                 packagePath: makePackageBasedPath(name, "./package.json"),
@@ -247,34 +262,6 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     // Determine what formats and platforms we are building.
     const formats = getFormats(commandLineArgs);
 
-    // This generates the flow import file and a file for intellisense to work.
-    // By using the same instance of it across all output configurations
-    // while using the `copyOnce` value, we ensure it only gets copied one time.
-    const typesAndDocsCopy = copy({
-        copyOnce: true,
-        verbose: true,
-        targets: [
-            // This is the file that provides flow types.
-            {
-                // src path is relative to the package root unless started
-                // with ./
-                src: "config/build/index.js.flow.template",
-                // dest path is relative to src path.
-                dest: makePackageBasedPath(pkgName, "./dist"),
-                rename: "index.js.flow",
-            },
-            // This is the file that we use for intellisense.
-            {
-                // src path is relative to the package root unless started
-                // with ./
-                src: "config/build/index.js.flow.template",
-                // dest path is relative to src path.
-                dest: makePackageBasedPath(pkgName, "./dist"),
-                rename: "index.d.ts",
-            },
-        ],
-    });
-
     const configs = [];
     if (formats.has("cjs")) {
         configs.push({
@@ -282,7 +269,7 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
             format: "cjs",
             platform: "browser",
             file: pkgJson.main,
-            plugins: [typesAndDocsCopy],
+            plugins: [],
         });
     }
     if (formats.has("esm")) {
@@ -292,7 +279,7 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
             platform: "browser",
             file: pkgJson.module,
             // We care about the file size of this one.
-            plugins: [typesAndDocsCopy, filesize()],
+            plugins: [filesize()],
         });
     }
 

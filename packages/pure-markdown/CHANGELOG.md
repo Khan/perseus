@@ -1,5 +1,26 @@
 # @khanacademy/pure-markdown
 
+## 0.2.1
+
+### Patch Changes
+
+-   1f062e98: Bump all package versions since the build settings have been updated
+-   Updated dependencies [1f062e98]
+    -   @khanacademy/perseus-error@0.2.1
+    -   @khanacademy/simple-markdown@0.9.1
+
+## 0.2.0
+
+### Minor Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
+### Patch Changes
+
+-   Updated dependencies [53fd3768]
+    -   @khanacademy/perseus-error@0.2.0
+    -   @khanacademy/simple-markdown@0.9.0
+
 ## 0.1.5
 
 ### Patch Changes
