@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
-import KeypadContext from "../../keypad-context.js";
+import KeypadContext from "../../keypad-context";
 import {
     expressionItem2,
     expressionItem3,
@@ -10,7 +10,7 @@ import expressionExport from "../expression";
 
 import TestKeypadContext from "./test-keypad-context-wrapper";
 
-import type {PerseusItem} from "../../perseus-types.js";
+import type {PerseusItem} from "../../perseus-types";
 
 type StoryArgs = {
     customKeypad: boolean;

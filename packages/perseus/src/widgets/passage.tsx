@@ -3,7 +3,7 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
 import HighlightableContent from "../components/highlighting/highlightable-content";
