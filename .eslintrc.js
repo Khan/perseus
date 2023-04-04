@@ -19,6 +19,33 @@ const vendorAliases = fs
 
 const allAliases = [...pkgAliases, ...vendorAliases];
 
+function banImportExtension(extension) {
+    const message = `Unexpected use of file extension (.${extension}) in import`;
+    const literalAttributeMatcher = `Literal[value=/\\.${extension}$/]`;
+    return [
+        {
+            // import foo from 'bar.js';
+            selector: `ImportDeclaration > ${literalAttributeMatcher}.source`,
+            message,
+        },
+        {
+            // const foo = import('bar.js');
+            selector: `ImportExpression > ${literalAttributeMatcher}.source`,
+            message,
+        },
+        {
+            // type Foo = typeof import('bar.js');
+            selector: `TSImportType > TSLiteralType > ${literalAttributeMatcher}`,
+            message,
+        },
+        {
+            // const foo = require('foo.js');
+            selector: `CallExpression[callee.name = "require"] > ${literalAttributeMatcher}.arguments`,
+            message,
+        },
+    ];
+}
+
 module.exports = {
     extends: [
         "@khanacademy",
@@ -193,7 +220,6 @@ module.exports = {
         ],
         "import/no-named-default": "error",
         "import/no-relative-packages": "error",
-        "import/extensions": ["error", "never"],
         "import/no-restricted-paths": [
             "error",
             {
@@ -212,6 +238,10 @@ module.exports = {
                     "MemberExpression[property.name='render'][object.name='ReactDOM']",
                 message: "DEPRECATED: Use a React Portal instead.",
             },
+            ...banImportExtension("js"),
+            ...banImportExtension("jsx"),
+            ...banImportExtension("ts"),
+            ...banImportExtension("tsx"),
         ],
 
         /**
