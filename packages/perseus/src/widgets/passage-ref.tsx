@@ -9,7 +9,6 @@ import PerseusMarkdown from "../perseus-markdown";
 
 import {Passage} from "./passage";
 
-import type {Reference} from "./passage";
 import type {PerseusPassageRefWidgetOptions} from "../perseus-types";
 import type {
     ChangeFn,
@@ -18,6 +17,7 @@ import type {
     WidgetProps,
     LinterContextProps,
 } from "../types";
+import type {Reference} from "./passage";
 
 const EN_DASH = "\u2013";
 

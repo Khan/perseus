@@ -48,12 +48,12 @@ import Util from "../util";
 import {itemToTree} from "./items";
 import {buildMapper} from "./trees";
 
+import type {Widget} from "../renderer";
+import type {APIOptions, FilterCriterion, PerseusScore} from "../types";
 import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
 import type {Shape, ArrayShape} from "./shape-types";
 import type {Tree} from "./tree-types";
 import type {TreeMapper, ContentMapper, HintMapper, Path} from "./trees";
-import type {Widget} from "../renderer";
-import type {APIOptions, FilterCriterion, PerseusScore} from "../types";
 
 type Hint = any; // TODO(mdr)
 type Score = any; // TODO(mdr)

@@ -8,12 +8,12 @@ import PassageRef from "../passage-ref";
 
 import BaseRadio from "./base-radio";
 
-import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
 } from "../../perseus-types";
 import type {PerseusScore, WidgetProps, ChoiceState} from "../../types";
+import type {FocusFunction, ChoiceType} from "./base-radio";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
