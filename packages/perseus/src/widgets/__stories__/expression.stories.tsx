@@ -1,29 +1,135 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
+import KeypadContext from "../../keypad-context.js";
 import {
     expressionItem2,
     expressionItem3,
 } from "../__testdata__/expression.testdata";
+import expressionExport from "../expression";
 
-type StoryArgs = Record<any, any>;
+import TestKeypadContext from "./test-keypad-context-wrapper";
+
+import type {PerseusItem} from "../../perseus-types.js";
+
+type StoryArgs = {
+    customKeypad: boolean;
+};
 
 type Story = {
     title: string;
+    argTypes: any;
 };
 
-export default {
-    title: "Perseus/Widgets/Expression",
-} as Story;
+type WrappedKeypadContextProps = {
+    item: PerseusItem;
+    customKeypad: boolean;
+};
+
+const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
+    return (
+        <TestKeypadContext>
+            <KeypadContext.Consumer>
+                {({keypadElement, setRenderer, scrollableElement}) => {
+                    return (
+                        <ItemRendererWithDebugUI
+                            item={props.item}
+                            apiOptions={{
+                                customKeypad: props.customKeypad,
+                            }}
+                        />
+                    );
+                }}
+            </KeypadContext.Consumer>
+        </TestKeypadContext>
+    );
+};
+
+export const DesktopKitchenSink: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
+    const reviewModeRubric = {
+        functions: ["f", "g", "h"],
+        times: true,
+        answerForms: [],
+        buttonSets: [
+            "basic",
+            "basic+div",
+            "trig",
+            "prealgebra",
+            "logarithms",
+            "basic relations",
+            "advanced relations",
+        ],
+    };
+
+    const keypadConfiguration = {
+        keypadType: "EXPRESSION",
+        extraKeys: ["x", "y", "z"],
+    };
+
+    return (
+        <div style={{padding: "2rem"}}>
+            <expressionExport.widget
+                alignment={null}
+                value=""
+                containerSizeClass="small"
+                findWidgets={(callback) => []}
+                isLastUsedWidget={false}
+                onChange={() => {}}
+                problemNum={1}
+                static={false}
+                trackInteraction={() => {}}
+                widgetId="expression"
+                reviewModeRubric={reviewModeRubric}
+                keypadConfiguration={keypadConfiguration}
+            />
+        </div>
+    );
+};
+
+export const Desktop: React.FC<StoryArgs> = (args): React.ReactElement => {
+    return <WrappedKeypadContext item={expressionItem3} customKeypad={false} />;
+};
+
+export const Mobile: React.FC<StoryArgs> = (args): React.ReactElement => {
+    return (
+        <div>
+            <p>
+                For some reason you need to be{" "}
+                <a href="https://developer.chrome.com/docs/devtools/device-mode/">
+                    emulating mobile
+                </a>{" "}
+                to see the custom keypad.
+            </p>
+            <WrappedKeypadContext item={expressionItem3} customKeypad={true} />
+        </div>
+    );
+};
 
 export const ExpressionItem2: React.FC<StoryArgs> = (
     args,
 ): React.ReactElement => {
-    return <RendererWithDebugUI question={expressionItem2.question} />;
+    return (
+        <WrappedKeypadContext
+            item={expressionItem2}
+            customKeypad={args.customKeypad}
+        />
+    );
 };
 
 export const ExpressionItem3: React.FC<StoryArgs> = (
     args,
 ): React.ReactElement => {
-    return <RendererWithDebugUI question={expressionItem3.question} />;
+    return (
+        <WrappedKeypadContext
+            item={expressionItem3}
+            customKeypad={args.customKeypad}
+        />
+    );
 };
+
+export default {
+    title: "Perseus/Widgets/Expression",
+    argTypes: {customKeypad: {control: "boolean"}},
+} as Story;

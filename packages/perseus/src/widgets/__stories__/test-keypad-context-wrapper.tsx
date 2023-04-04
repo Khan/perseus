@@ -3,60 +3,11 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {ItemRenderer} from "../../index";
 import KeypadContext from "../../keypad-context";
-import {expressionItem3} from "../__testdata__/expression.testdata";
-
-type StoryArgs = Record<any, any>;
-
-type Story = {
-    title: string;
-};
-
-export default {
-    title: "Perseus/Demos/On Screen Keypad",
-} as Story;
-
-const Content = (): React.ReactElement => {
-    return (
-        <KeypadContext.Consumer>
-            {({keypadElement, setRenderer, scrollableElement}) => (
-                <>
-                    <ItemRenderer
-                        ref={setRenderer}
-                        problemNum={0}
-                        apiOptions={{
-                            customKeypad: true,
-                            onFocusChange: (
-                                newFocusPath,
-                                oldFocusPath,
-                                keypadElement,
-                                focusedElement,
-                            ) => {},
-                        }}
-                        item={expressionItem3}
-                        savedState={null}
-                    />
-                    <div id="workarea" />
-                    <div id="hintsarea" />
-                </>
-            )}
-        </KeypadContext.Consumer>
-    );
-};
 
 const Footer = (): React.ReactElement => {
     return (
-        <View
-            style={[
-                styles.keypadContainer,
-                {
-                    // NOTE: in webapp we normally get this from problemProgress
-                    // from the exercise state store.
-                    height: 240,
-                },
-            ]}
-        >
+        <View style={styles.keypadContainer}>
             <KeypadContext.Consumer>
                 {({keypadElement, setKeypadElement, renderer}) => (
                     <Keypad
@@ -70,9 +21,15 @@ const Footer = (): React.ReactElement => {
     );
 };
 
-const Demo = () => {
-    const [keypadElement, setKeypadElement] = React.useState<any>(null);
-    const [renderer, setRenderer] = React.useState<any>(null);
+type TestKeypadContextWrapperProps = {
+    children: React.ReactElement;
+};
+
+const TestKeypadContextWrapper = (
+    props: TestKeypadContextWrapperProps,
+): React.ReactElement => {
+    const [keypadElement, setKeypadElement] = React.useState(null);
+    const [renderer, setRenderer] = React.useState(null);
     const [scrollableElement, setScrollableElement] = React.useState(
         document.body,
     );
@@ -80,8 +37,10 @@ const Demo = () => {
     return (
         <KeypadContext.Provider
             value={{
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setKeypadElement,
                 keypadElement,
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setRenderer,
                 renderer,
                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
@@ -89,15 +48,13 @@ const Demo = () => {
                 scrollableElement,
             }}
         >
-            <Content />
+            {props.children}
             <Footer />
         </KeypadContext.Provider>
     );
 };
 
-export const CustomKeypad: React.FC<StoryArgs> = (args): React.ReactElement => (
-    <Demo />
-);
+export default TestKeypadContextWrapper;
 
 const styles = StyleSheet.create({
     keypad: {
@@ -116,5 +73,8 @@ const styles = StyleSheet.create({
         // Prevent container from swallowing events that the exercise
         // below it needs to respond to.
         pointerEvents: "none",
+        // NOTE: in webapp we normally get this from problemProgress
+        // from the exercise state store.
+        height: 240,
     },
 });

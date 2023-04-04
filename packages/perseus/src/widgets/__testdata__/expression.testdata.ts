@@ -1,17 +1,13 @@
 import type {
-    PerseusRenderer,
     PerseusExpressionWidgetOptions,
     Version,
+    PerseusItem,
 } from "../../perseus-types";
-
-type Item = {
-    question: PerseusRenderer;
-};
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
     version: Version,
-): Item => {
+): PerseusItem => {
     return {
         question: {
             content: "[[☃ expression 1]]",
@@ -25,9 +21,14 @@ const createItemJson = (
                 },
             },
         },
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ question: { content: string; images: {}; widgets: { "expression 1": { type: "expression"; graded: true; options: PerseusExpressionWidgetOptions; version: Version; }; }; }; answerArea: { ...; }; itemDataVersion: { ...; }; hints: never[]; }' is not assignable to type 'Item'.
+        _multi: null,
+        answer: null,
         answerArea: {
+            zTable: false,
+            chi2Table: false,
+            tTable: false,
             calculator: false,
+            periodicTable: false,
         },
         itemDataVersion: {
             major: 0,
@@ -37,7 +38,7 @@ const createItemJson = (
     };
 };
 
-export const expressionItem2: Item = createItemJson(
+export const expressionItem2: PerseusItem = createItemJson(
     {
         answerForms: [
             {
@@ -88,7 +89,10 @@ export const expressionItem3Options: PerseusExpressionWidgetOptions = {
     buttonsVisible: "focused",
 };
 
-export const expressionItem3: Item = createItemJson(expressionItem3Options, {
-    major: 1,
-    minor: 0,
-});
+export const expressionItem3: PerseusItem = createItemJson(
+    expressionItem3Options,
+    {
+        major: 1,
+        minor: 0,
+    },
+);
