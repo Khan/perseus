@@ -1,5 +1,12 @@
 # @khanacademy/pure-markdown
 
+## 0.2.2
+
+### Patch Changes
+
+-   Updated dependencies [77391aa8]
+    -   @khanacademy/simple-markdown@0.9.2
+
 ## 0.2.1
 
 ### Patch Changes

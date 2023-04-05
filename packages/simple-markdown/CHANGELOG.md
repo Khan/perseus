@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.9.2
+
+### Patch Changes
+
+-   77391aa8: Fix issue with generated Flow types
+
 ## 0.9.1
 
 ### Patch Changes
