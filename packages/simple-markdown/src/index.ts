@@ -20,15 +20,9 @@
  */
 import * as React from "react";
 
-// Type Definitions:
+import type {Capture, MatchFunction, State} from "./troublesome-types";
 
-type Capture =
-    | (Array<string> & {
-          index: number;
-      })
-    | (Array<string> & {
-          index?: number;
-      });
+// Type Definitions:
 
 type Attr = string | number | boolean | null | undefined;
 
@@ -43,22 +37,8 @@ type UnTypedASTNode = {
 
 type ASTNode = SingleASTNode | Array<SingleASTNode>;
 
-type State = {
-    key?: string | number | undefined;
-    inline?: boolean | null | undefined;
-    [key: string]: any;
-};
-
 type ReactElement = React.ReactElement<any>;
 type ReactElements = React.ReactNode;
-
-type MatchFunction = {
-    regex?: RegExp;
-} & ((
-    source: string,
-    state: State,
-    prevCapture: string,
-) => Capture | null | undefined);
 
 type Parser = (
     source: string,
