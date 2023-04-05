@@ -1,5 +1,5 @@
 // @flow
-import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 
 import {question1} from "../__testdata__/input-number_testdata.js";
