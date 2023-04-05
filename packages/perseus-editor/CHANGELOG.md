@@ -1,5 +1,39 @@
 # @khanacademy/perseus-editor
 
+## 2.0.2
+
+### Patch Changes
+
+-   Updated dependencies [90c1833e]
+    -   @khanacademy/perseus@4.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+-   1f062e98: Bump all package versions since the build settings have been updated
+-   406edf6b: Extract strings to dist/string.js instead of dist/strings.
+-   Updated dependencies [1f062e98]
+-   Updated dependencies [df820619]
+-   Updated dependencies [406edf6b]
+    -   @khanacademy/kas@0.3.1
+    -   @khanacademy/kmath@0.1.1
+    -   @khanacademy/perseus@4.0.1
+
+## 2.0.0
+
+### Major Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
+### Patch Changes
+
+-   Updated dependencies [53fd3768]
+-   Updated dependencies [53fd3768]
+    -   @khanacademy/perseus@4.0.0
+    -   @khanacademy/kas@0.3.0
+    -   @khanacademy/kmath@0.1.0
+
 ## 1.1.1
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-const babelConfig = require("../babel.config.js");
+const babelConfig = require("../babel.config");
 const util = require("util");
 const path = require("path");
 const fs = require("fs");
@@ -17,7 +17,7 @@ module.exports = {
         // to be ones in any of our local packages 'src' dirs. This effectively
         // eliminates stories showing up inside node_modules within any package
         // dir.
-        "../packages/*/src/**/*@(.stories|.fixturestories).@(js|jsx)",
+        "../packages/*/src/**/*@(.stories|.fixturestories).@(ts|tsx)",
     ],
     addons: [
         "@storybook/addon-links",
@@ -50,11 +50,20 @@ module.exports = {
 
         const aliases = {};
         fs.readdirSync(path.join(__dirname, "../packages")).forEach((name) => {
+            if (name.startsWith(".")) {
+                return;
+            }
+            const stat = fs.statSync(path.join(__dirname, "../packages", name));
+            if (stat.isFile()) {
+                return;
+            }
+            const pkgPath = path.join("../packages", name, "package.json");
+            const pkgJson = require(pkgPath);
             aliases["@khanacademy/" + name] = path.join(
                 __dirname,
                 "../packages",
                 name,
-                "src/index.js",
+                pkgJson.source,
             );
         });
         fs.readdirSync(path.join(__dirname, "../vendor")).forEach((name) => {
@@ -69,6 +78,7 @@ module.exports = {
                     ...webpackConfig.resolve?.alias,
                     ...aliases,
                 },
+                extensions: [".js", ".jsx", ".ts", ".tsx"],
             },
             module: {
                 ...webpackConfig.module,

@@ -75,7 +75,7 @@ check_for_changes() {
 }
 
 pre_publish_check() {
-    node "$ROOT/utils/pre-publish-check-ci.js"
+    SWCRC=true node -r @swc-node/register "$ROOT/utils/pre-publish-check-ci.ts"
 
     if ! git diff --stat --exit-code HEAD; then
         echo "Git repo is dirty. This is unexpected when running in CI."
@@ -110,6 +110,8 @@ pre_publish_check
 create_npmrc
 
 yarn build
+yarn build:types
+yarn build:flowtypes
 yarn extract-strings
 
 # Now version the packages and publish a snapshot

@@ -7,18 +7,18 @@ import {StyleSheet} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-import {BorderStyles} from "../consts.js";
-import KeyConfigs from "../data/key-configs.js";
-import {View} from "../fake-react-native-web/index.js";
+import {BorderStyles} from "../consts";
+import KeyConfigs from "../data/key-configs";
+import {View} from "../fake-react-native-web/index";
 
 import {
     navigationPadWidthPx,
     controlGrey,
     valueGrey,
     offBlack16,
-} from "./common-style.js";
-import Styles from "./styles.js";
-import TouchableKeypadButton from "./touchable-keypad-button.js";
+} from "./common-style";
+import Styles from "./styles";
+import TouchableKeypadButton from "./touchable-keypad-button";
 
 const {row, column, centered, stretch, roundedTopLeft} = Styles;
 

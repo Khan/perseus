@@ -1,5 +1,48 @@
 # @khanacademy/perseus
 
+## 4.0.2
+
+### Patch Changes
+
+-   90c1833e: Fix lint
+-   Updated dependencies [8e8d85cd]
+-   Updated dependencies [77391aa8]
+    -   @khanacademy/math-input@0.7.2
+    -   @khanacademy/simple-markdown@0.9.2
+    -   @khanacademy/pure-markdown@0.2.2
+
+## 4.0.1
+
+### Patch Changes
+
+-   1f062e98: Bump all package versions since the build settings have been updated
+-   df820619: Update TS to 5.0 and @babel/preset-env settings to match other repos
+-   406edf6b: Extract strings to dist/string.js instead of dist/strings.
+-   Updated dependencies [1f062e98]
+-   Updated dependencies [406edf6b]
+    -   @khanacademy/kas@0.3.1
+    -   @khanacademy/kmath@0.1.1
+    -   @khanacademy/math-input@0.7.1
+    -   @khanacademy/perseus-linter@0.3.1
+    -   @khanacademy/pure-markdown@0.2.1
+    -   @khanacademy/simple-markdown@0.9.1
+
+## 4.0.0
+
+### Major Changes
+
+-   53fd3768: Migrate source code to TypeScript
+
+### Patch Changes
+
+-   Updated dependencies [53fd3768]
+    -   @khanacademy/kas@0.3.0
+    -   @khanacademy/kmath@0.1.0
+    -   @khanacademy/math-input@0.7.0
+    -   @khanacademy/perseus-linter@0.3.0
+    -   @khanacademy/pure-markdown@0.2.0
+    -   @khanacademy/simple-markdown@0.9.0
+
 ## 3.0.0
 
 ### Major Changes

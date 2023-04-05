@@ -1,0 +1,59 @@
+import * as React from "react";
+
+import ButtonGroup from "../button-group";
+
+type StoryArgs = Record<any, any>;
+
+type Story = {
+    title: string;
+};
+
+export default {
+    title: "Perseus/Components/Button Group",
+} as Story;
+
+const HarnassedButtonGroup = (
+    props: Pick<React.ComponentProps<typeof ButtonGroup>, "buttons">,
+) => {
+    const [value, updateValue] = React.useState(
+        null as string | null | undefined,
+    );
+
+    return (
+        <ButtonGroup
+            buttons={props.buttons}
+            value={value}
+            onChange={(newValue) => {
+                updateValue(newValue);
+            }}
+        />
+    );
+};
+
+export const ButtonsWithNoTitles: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
+    return (
+        <HarnassedButtonGroup
+            buttons={[
+                {value: "One", content: "Item #1"},
+                {value: "Two", content: "Item #2"},
+                {value: "Three", content: "Item #3"},
+            ]}
+        />
+    );
+};
+
+export const ButtonsWithTitles: React.FC<StoryArgs> = (
+    args,
+): React.ReactElement => {
+    return (
+        <HarnassedButtonGroup
+            buttons={[
+                {value: "One", content: "Item #1", title: "The first item"},
+                {value: "Two", content: "Item #2", title: "The second item"},
+                {value: "Three", content: "Item #3", title: "The third item"},
+            ]}
+        />
+    );
+};

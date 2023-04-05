@@ -10,10 +10,10 @@ import {
     IconTypes,
     KeyTypes,
     KeypadTypes,
-} from "../consts.js";
-import KeyConfigs from "../data/key-configs.js";
+} from "../consts";
+import KeyConfigs from "../data/key-configs";
 
-import * as CursorContexts from "./input/cursor-contexts.js";
+import * as CursorContexts from "./input/cursor-contexts";
 
 export const iconPropType = PropTypes.shape({
     type: PropTypes.oneOf(Object.keys(IconTypes)).isRequired,

@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
 /* TODO(charlie): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var, one-var, no-dupe-keys, no-new-func, no-redeclare, no-unused-vars, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
+/* eslint-disable indent, no-undef, no-var, one-var, no-dupe-keys, no-new-func, no-redeclare, @typescript-eslint/no-unused-vars, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
 import _ from "underscore";
 
-import {unitParser} from "./__genfiles__/unitparser.js";
-import {parser} from "./__genfiles__/parser.js";
+import {unitParser} from "./__genfiles__/unitparser";
+import {parser} from "./__genfiles__/parser";
 
 /*  The node hierarcy is as follows:
 
@@ -39,22 +39,28 @@ import {parser} from "./__genfiles__/parser.js";
 /* non user-facing functions */
 
 // assert that all abstract methods have been overridden
-var abstract = function() {
+var abstract = function () {
     // Try to give people a bit of information when this happens
-    throw new Error("Abstract method - must override for expr: " +
+    throw new Error(
+        "Abstract method - must override for expr: " +
             // eslint-disable-next-line @babel/no-invalid-this
-            this.print());
+            this.print(),
+    );
 };
 
 // throw an error that is meant to be caught by the test suite (not user facing)
-var error = function(message) { throw new Error(message); };
+var error = function (message) {
+    throw new Error(message);
+};
 
 // reliably detect NaN
-var isNaN = function(object) { return object !== object; };
+var isNaN = function (object) {
+    return object !== object;
+};
 
 // return a random float between min (inclusive) and max (exclusive),
 // not that inclusivity means much, probabilistically, on floats
-var randomFloat = function(min, max) {
+var randomFloat = function (min, max) {
     var extent = max - min;
     return Math.random() * extent + min;
 };
@@ -63,12 +69,10 @@ var randomFloat = function(min, max) {
 var ITERATIONS = 12;
 var TOLERANCE = 9; // decimal places
 
-
 /* abstract base expression node */
 function Expr() {}
 
 _.extend(Expr.prototype, {
-
     // this node's immediate constructor
     func: abstract,
 
@@ -76,16 +80,16 @@ _.extend(Expr.prototype, {
     args: abstract,
 
     // make a new node with the given arguments
-    construct: function(args) {
+    construct: function (args) {
         var instance = new this.func();
         this.func.apply(instance, args);
         return instance;
     },
 
     // an abstraction for chainable, bottom-up recursion
-    recurse: function(method) {
+    recurse: function (method) {
         var passed = Array.prototype.slice.call(arguments, 1);
-        var args = _.map(this.args(), function(arg) {
+        var args = _.map(this.args(), function (arg) {
             return _.isString(arg) ? arg : arg[method].apply(arg, passed);
         });
         return this.construct(args);
@@ -96,7 +100,7 @@ _.extend(Expr.prototype, {
 
     codegen: abstract,
 
-    compile: function() {
+    compile: function () {
         var code = this.codegen();
         try {
             return new Function("vars", "return " + code + ";");
@@ -114,13 +118,12 @@ _.extend(Expr.prototype, {
     tex: abstract,
 
     // returns a TeX string, modified by the given options
-    asTex: function(options) {
-
+    asTex: function (options) {
         options = options || {};
         _.defaults(options, {
             display: true,
             dynamic: true,
-            times: false
+            times: false,
         });
 
         var tex = this.tex();
@@ -141,7 +144,7 @@ _.extend(Expr.prototype, {
 
     // returns the name of this expression's constructor as a string
     // only used for testing and debugging (the ugly regex is for IE8)
-    name: function() {
+    name: function () {
         if (this.func.name) {
             return this.func.name;
         } else {
@@ -150,37 +153,55 @@ _.extend(Expr.prototype, {
     },
 
     // returns a string representing current node structure
-    repr: function() {
-        return this.name() + "(" + _.map(this.args(), function(arg) {
-            return _.isString(arg) ? arg : arg.repr();
-        }).join(",") + ")";
+    repr: function () {
+        return (
+            this.name() +
+            "(" +
+            _.map(this.args(), function (arg) {
+                return _.isString(arg) ? arg : arg.repr();
+            }).join(",") +
+            ")"
+        );
     },
 
     // removes all negative signs
-    strip: function() { return this.recurse("strip"); },
+    strip: function () {
+        return this.recurse("strip");
+    },
 
     // canonically reorders all commutative elements
-    normalize: function() { return this.recurse("normalize"); },
+    normalize: function () {
+        return this.recurse("normalize");
+    },
 
     // expands the expression
-    expand: function() { return this.recurse("expand"); },
+    expand: function () {
+        return this.recurse("expand");
+    },
 
     // naively factors out like terms
-    factor: function(options) { return this.recurse("factor", options); },
+    factor: function (options) {
+        return this.recurse("factor", options);
+    },
 
     // collect all like terms
-    collect: function(options) { return this.recurse("collect", options); },
+    collect: function (options) {
+        return this.recurse("collect", options);
+    },
 
     // strict syntactic equality check
-    equals: function(other) {
+    equals: function (other) {
         return this.normalize().print() === other.normalize().print();
     },
 
     // expand and collect until the expression no longer changes
-    simplify: function(options) {
-        options = _.extend({
-            once: false
-        }, options);
+    simplify: function (options) {
+        options = _.extend(
+            {
+                once: false,
+            },
+            options,
+        );
 
         // Attempt to factor and collect
         var step1 = this.factor(options);
@@ -211,72 +232,82 @@ _.extend(Expr.prototype, {
     },
 
     // check whether this expression is simplified
-    isSimplified: function() {
+    isSimplified: function () {
         return this.equals(this.simplify());
     },
 
     // return the child nodes of this node
-    exprArgs: function() {
-        return _.filter(this.args(), function(arg) {
+    exprArgs: function () {
+        return _.filter(this.args(), function (arg) {
             return arg instanceof Expr;
         });
     },
 
     // return the variables (function and non) within the expression
-    getVars: function(excludeFunc) {
-        return _.uniq(_.flatten(_.invoke(this.exprArgs(), "getVars", excludeFunc))).sort();
+    getVars: function (excludeFunc) {
+        return _.uniq(
+            _.flatten(_.invoke(this.exprArgs(), "getVars", excludeFunc)),
+        ).sort();
     },
 
-    getConsts: function() {
+    getConsts: function () {
         return _.uniq(_.flatten(_.invoke(this.exprArgs(), "getConsts"))).sort();
     },
 
-    getUnits: function() {
+    getUnits: function () {
         return _.flatten(_.invoke(this.exprArgs(), "getUnits"));
     },
 
     // check whether this expression node is of a particular type
-    is: function(func) {
+    is: function (func) {
         return this instanceof func;
     },
 
     // check whether this expression has a particular node type
-    has: function(func) {
+    has: function (func) {
         if (this instanceof func) {
             return true;
         }
-        return _.any(this.exprArgs(), function(arg) { return arg.has(func); });
+        return _.any(this.exprArgs(), function (arg) {
+            return arg.has(func);
+        });
     },
 
     // raise this expression to a given exponent
     // most useful for eventually implementing i^3 = -i, etc.
-    raiseToThe: function(exp) {
+    raiseToThe: function (exp) {
         return new Pow(this, exp);
     },
 
     // does this expression have a specific rendering hint?
     // rendering hints are picked up while parsing, but are lost during transformations
-    isSubtract: function() { return false; },
-    isDivide:  function() { return false; },
-    isRoot:  function() { return false; },
+    isSubtract: function () {
+        return false;
+    },
+    isDivide: function () {
+        return false;
+    },
+    isRoot: function () {
+        return false;
+    },
 
     // whether this node needs an explicit multiplication sign if following a Num
-    needsExplicitMul: function() {
+    needsExplicitMul: function () {
         return this.args()[0].needsExplicitMul();
     },
 
     // check that the variables in both expressions are the same
-    sameVars: function(other) {
+    sameVars: function (other) {
         var vars1 = this.getVars();
         var vars2 = other.getVars();
 
         // the other Expr can have more variables than this one
         // this lets you multiply equations by other variables
-        var same = function(array1, array2) {
+        var same = function (array1, array2) {
             return !_.difference(array1, array2).length;
         };
 
-        var lower = function(array) {
+        var lower = function (array) {
             return _.uniq(_.invoke(array, "toLowerCase")).sort();
         };
 
@@ -289,7 +320,7 @@ _.extend(Expr.prototype, {
     // semantic equality check, call after sameVars() to avoid potential false positives
     // plug in random numbers for the variables in both expressions
     // if they both consistently evaluate the same, then they're the same
-    compare: function(other) {
+    compare: function (other) {
         // equation comparisons are handled by Eq.compare()
         if (other instanceof Eq) {
             return false;
@@ -297,12 +328,13 @@ _.extend(Expr.prototype, {
 
         var varList = _.union(
             this.getVars(/* excludeFunc */ true),
-            other.getVars(/* excludeFunc */ true));
+            other.getVars(/* excludeFunc */ true),
+        );
 
         // If the numbers are large we would like to do a relative comparison
         // rather than an absolute one, but if they're small enough then an
         // absolute comparison makes more sense
-        var getDelta = function(num1, num2) {
+        var getDelta = function (num1, num2) {
             if (Math.abs(num1) < 1 || Math.abs(num2) < 1) {
                 return Math.abs(num1 - num2);
             } else {
@@ -310,11 +342,13 @@ _.extend(Expr.prototype, {
             }
         };
 
-        var equalNumbers = function(num1, num2) {
+        var equalNumbers = function (num1, num2) {
             var delta = getDelta(num1, num2);
-            return ((num1 === num2) || /* needed if either is +/- Infinity */
-                    (isNaN(num1) && isNaN(num2)) ||
-                    (delta < Math.pow(10, -TOLERANCE)));
+            return (
+                num1 === num2 /* needed if either is +/- Infinity */ ||
+                (isNaN(num1) && isNaN(num2)) ||
+                delta < Math.pow(10, -TOLERANCE)
+            );
         };
 
         // if no variables, only need to evaluate once
@@ -345,11 +379,10 @@ _.extend(Expr.prototype, {
         // Note that because there are 12 iterations and three ranges, each
         // range is checked four times.
         for (var i = 0; i < ITERATIONS; i++) {
-
             var vars = {};
 
             // One third total iterations each with range 10, 100, and 1000
-            var range = Math.pow(10, 1 + Math.floor(3 * i / ITERATIONS));
+            var range = Math.pow(10, 1 + Math.floor((3 * i) / ITERATIONS));
 
             // Half of the iterations should only use integer values.
             // This is because expressions like (-2)^x are common but result
@@ -367,15 +400,19 @@ _.extend(Expr.prototype, {
             // TODO(alex): Add support for complex numbers, then remove this.
             var useFloats = i % 2 === 0;
 
-            _.each(varList, function(v) {
-                vars[v] = useFloats ? randomFloat(-range, range)
-                                    : _.random(-range, range);
+            _.each(varList, function (v) {
+                vars[v] = useFloats
+                    ? randomFloat(-range, range)
+                    : _.random(-range, range);
             });
 
             var equal;
-            if (expr1.has(Func) || expr2.has(Func) ||
-                    expr1.has(Unit) || expr2.has(Unit)) {
-
+            if (
+                expr1.has(Func) ||
+                expr2.has(Func) ||
+                expr1.has(Unit) ||
+                expr2.has(Unit)
+            ) {
                 var result1 = expr1.partialEval(vars);
                 var result2 = expr2.partialEval(vars);
 
@@ -396,7 +433,7 @@ _.extend(Expr.prototype, {
     },
 
     // evaluate as much of the expression as possible
-    partialEval: function(vars) {
+    partialEval: function (vars) {
         if (this instanceof Unit) {
             return this;
         } else if (!this.has(Func)) {
@@ -412,22 +449,22 @@ _.extend(Expr.prototype, {
     // all negative signs are stripped and the expressions are converted to
     // a canonical commutative form
     // should only be done after compare() returns true to avoid false positives
-    sameForm: function(other) {
+    sameForm: function (other) {
         return this.strip().equals(other.strip());
     },
 
     // returns the GCD of this expression and the given factor
-    findGCD: function(factor) {
+    findGCD: function (factor) {
         return this.equals(factor) ? factor : Num.One;
     },
 
     // return this expression's denominator
-    getDenominator: function() {
+    getDenominator: function () {
         return Num.One;
     },
 
     // return this expression as a Mul
-    asMul: function() {
+    asMul: function () {
         return new Mul(Num.One, this);
     },
 
@@ -437,15 +474,17 @@ _.extend(Expr.prototype, {
 
     // TODO(alex): rename to hasNegativeSign or similar?
     // return whether this expression has a negative sign
-    isNegative: function() { return false; },
+    isNegative: function () {
+        return false;
+    },
 
     // return a factor of this expression that is 100% positive
-    asPositiveFactor: function() {
+    asPositiveFactor: function () {
         return this.isPositive() ? this : Num.One;
     },
 
     // return a copy of the expression with a new hint set (preserves hints)
-    addHint: function(hint) {
+    addHint: function (hint) {
         if (!hint) {
             return this;
         }
@@ -457,46 +496,54 @@ _.extend(Expr.prototype, {
     },
 
     hints: {
-        parens: false
+        parens: false,
     },
 
     // currently unused!
-    asExpr: function() { return this; },
+    asExpr: function () {
+        return this;
+    },
 
     // complete parse by performing a few necessary transformations
-    completeParse: function() { return this.recurse("completeParse"); },
+    completeParse: function () {
+        return this.recurse("completeParse");
+    },
 
     abs: abstract,
 
-    negate: function() {
+    negate: function () {
         return new Mul(Num.Neg, this);
-    }
+    },
 });
-
 
 /* abstract sequence node */
 function Seq() {}
 Seq.prototype = new Expr();
 
 _.extend(Seq.prototype, {
-    args: function() { return this.terms; },
+    args: function () {
+        return this.terms;
+    },
 
-    normalize: function() {
-        var terms = _.sortBy(_.invoke(this.terms, "normalize"), function(term) {
-            return term.print();
-        });
+    normalize: function () {
+        var terms = _.sortBy(
+            _.invoke(this.terms, "normalize"),
+            function (term) {
+                return term.print();
+            },
+        );
 
         return new this.func(terms);
     },
 
-    expand: function() {
+    expand: function () {
         return this.recurse("expand").flatten();
     },
 
     // partition the sequence into its numeric and non-numeric parts
     // makes no guarantees about the validity of either part!
-    partition: function() {
-        var terms = _.groupBy(this.terms, function(term) {
+    partition: function () {
+        var terms = _.groupBy(this.terms, function (term) {
             return term instanceof Num;
         });
 
@@ -511,9 +558,9 @@ _.extend(Seq.prototype, {
 
     // ensure that sequences have 2+ terms and no nested sequences of the same type
     // this is a shallow flattening and will return a non-Seq if terms.length <= 1
-    flatten: function() {
+    flatten: function () {
         var type = this;
-        var terms = _.reject(this.terms, function(term) {
+        var terms = _.reject(this.terms, function (term) {
             return term.equals(type.identity);
         });
 
@@ -524,7 +571,7 @@ _.extend(Seq.prototype, {
             return terms[0];
         }
 
-        var grouped = _.groupBy(terms, function(term) {
+        var grouped = _.groupBy(terms, function (term) {
             return term instanceof type.func;
         });
 
@@ -532,7 +579,9 @@ _.extend(Seq.prototype, {
         var same = grouped[true] || [];
         var others = grouped[false] || [];
 
-        var flattened = others.concat(_.flatten(_.pluck(same, "terms"), /* shallow: */ true));
+        var flattened = others.concat(
+            _.flatten(_.pluck(same, "terms"), /* shallow: */ true),
+        );
         return new type.func(flattened);
     },
 
@@ -542,7 +591,7 @@ _.extend(Seq.prototype, {
     // reduce a numeric sequence to a Num
     reduce: abstract,
 
-    isPositive: function() {
+    isPositive: function () {
         var terms = _.invoke(this.terms, "collect");
         return _.all(_.invoke(terms, "isPositive"));
     },
@@ -550,7 +599,7 @@ _.extend(Seq.prototype, {
     // return a new Seq with a given term replaced by a different term
     // (or array of terms). given term can be passed directly, or by index
     // if no new term is provided, the old one is simply removed
-    replace: function(oldTerm, newTerm) {
+    replace: function (oldTerm, newTerm) {
         var index;
 
         if (oldTerm instanceof Expr) {
@@ -566,24 +615,24 @@ _.extend(Seq.prototype, {
             newTerms = [newTerm];
         }
 
-        var terms = this.terms.slice(0, index)
-                    .concat(newTerms)
-                    .concat(this.terms.slice(index + 1));
+        var terms = this.terms
+            .slice(0, index)
+            .concat(newTerms)
+            .concat(this.terms.slice(index + 1));
 
         return new this.func(terms);
     },
 
     // syntactic sugar for replace()
-    remove: function(term) {
+    remove: function (term) {
         return this.replace(term);
     },
 
-    getDenominator: function() {
+    getDenominator: function () {
         // TODO(alex): find and return LCM
         return new Mul(_.invoke(this.terms, "getDenominator")).flatten();
-    }
+    },
 });
-
 
 /* sequence of additive terms */
 export function Add() {
@@ -598,24 +647,32 @@ Add.prototype = new Seq();
 _.extend(Add.prototype, {
     func: Add,
 
-    eval: function(vars, options) {
-        return _.reduce(this.terms, function(memo, term) { return memo + term.eval(vars, options); }, 0);
+    eval: function (vars, options) {
+        return _.reduce(
+            this.terms,
+            function (memo, term) {
+                return memo + term.eval(vars, options);
+            },
+            0,
+        );
     },
 
-    codegen: function() {
-        return _.map(this.terms, function(term) {
-            return "(" + term.codegen() + ")";
-        }).join(" + ") || "0";
+    codegen: function () {
+        return (
+            _.map(this.terms, function (term) {
+                return "(" + term.codegen() + ")";
+            }).join(" + ") || "0"
+        );
     },
 
-    print: function() {
+    print: function () {
         return _.invoke(this.terms, "print").join("+");
     },
 
-    tex: function() {
+    tex: function () {
         var tex = "";
 
-        _.each(this.terms, function(term) {
+        _.each(this.terms, function (term) {
             if (!tex || term.isSubtract()) {
                 tex += term.tex();
             } else {
@@ -626,13 +683,13 @@ _.extend(Add.prototype, {
         return tex;
     },
 
-    collect: function(options) {
+    collect: function (options) {
         var terms = _.invoke(this.terms, "collect", options);
 
         // [Expr expr, Num coefficient]
         var pairs = [];
 
-        _.each(terms, function(term) {
+        _.each(terms, function (term) {
             if (term instanceof Mul) {
                 var muls = term.partition();
                 pairs.push([muls[1].flatten(), muls[0].reduce(options)]);
@@ -644,16 +701,18 @@ _.extend(Add.prototype, {
         });
 
         // { (Expr expr).print(): [[Expr expr, Num coefficient]] }
-        var grouped = _.groupBy(pairs, function(pair) {
+        var grouped = _.groupBy(pairs, function (pair) {
             return pair[0].normalize().print();
         });
 
-        var collected = _.compact(_.map(grouped, function(pairs) {
-            var expr = pairs[0][0];
-            var sum = new Add(_.zip.apply(_, pairs)[1]);
-            var coefficient = sum.reduce(options);
-            return new Mul(coefficient, expr).collect(options);
-        }));
+        var collected = _.compact(
+            _.map(grouped, function (pairs) {
+                var expr = pairs[0][0];
+                var sum = new Add(_.zip.apply(_, pairs)[1]);
+                var coefficient = sum.reduce(options);
+                return new Mul(coefficient, expr).collect(options);
+            }),
+        );
 
         // TODO(alex): use the Pythagorean identity here
         // e.g. x*sin^2(y) + x*cos^2(y) -> x
@@ -663,10 +722,13 @@ _.extend(Add.prototype, {
 
     // naively factor out anything that is common to all terms
     // if options.keepNegative is specified, won't factor out a common -1
-    factor: function(options) {
-        options = _.extend({
-            keepNegative: false
-        }, options);
+    factor: function (options) {
+        options = _.extend(
+            {
+                keepNegative: false,
+            },
+            options,
+        );
 
         var terms = _.invoke(this.terms, "collect");
         var factors;
@@ -677,8 +739,8 @@ _.extend(Add.prototype, {
             factors = [terms[0]];
         }
 
-        _.each(_.rest(this.terms), function(term) {
-            factors = _.map(factors, function(factor) {
+        _.each(_.rest(this.terms), function (term) {
+            factors = _.map(factors, function (factor) {
                 return term.findGCD(factor);
             });
         });
@@ -689,7 +751,7 @@ _.extend(Add.prototype, {
 
         factors = new Mul(factors).flatten().collect();
 
-        var remainder = _.map(terms, function(term) {
+        var remainder = _.map(terms, function (term) {
             return Mul.handleDivide(term, factors).simplify();
         });
         remainder = new Add(remainder).flatten();
@@ -697,24 +759,29 @@ _.extend(Add.prototype, {
         return Mul.createOrAppend(factors, remainder).flatten();
     },
 
-    reduce: function(options) {
-        return _.reduce(this.terms, function(memo, term) {
-            return memo.add(term, options);
-        }, this.identity);
+    reduce: function (options) {
+        return _.reduce(
+            this.terms,
+            function (memo, term) {
+                return memo.add(term, options);
+            },
+            this.identity,
+        );
     },
 
-    needsExplicitMul: function() { return false; },
+    needsExplicitMul: function () {
+        return false;
+    },
 
-    isNegative: function() {
+    isNegative: function () {
         var terms = _.invoke(this.terms, "collect");
         return _.all(_.invoke(terms, "isNegative"));
     },
 
-    negate: function() {
+    negate: function () {
         return new Add(_.invoke(this.terms, "negate"));
-    }
+    },
 });
-
 
 /* sequence of multiplicative terms */
 export function Mul() {
@@ -729,26 +796,36 @@ Mul.prototype = new Seq();
 _.extend(Mul.prototype, {
     func: Mul,
 
-    eval: function(vars, options) {
-        return _.reduce(this.terms, function(memo, term) { return memo * term.eval(vars, options); }, 1);
+    eval: function (vars, options) {
+        return _.reduce(
+            this.terms,
+            function (memo, term) {
+                return memo * term.eval(vars, options);
+            },
+            1,
+        );
     },
 
-    codegen: function() {
-        return _.map(this.terms, function(term) {
-            return "(" + term.codegen() + ")";
-        }).join(" * ") || "0";
+    codegen: function () {
+        return (
+            _.map(this.terms, function (term) {
+                return "(" + term.codegen() + ")";
+            }).join(" * ") || "0"
+        );
     },
 
-    print: function() {
-        return _.map(this.terms, function(term) {
-            return (term instanceof Add) ? "(" + term.print() + ")" : term.print();
+    print: function () {
+        return _.map(this.terms, function (term) {
+            return term instanceof Add
+                ? "(" + term.print() + ")"
+                : term.print();
         }).join("*");
     },
 
-    getUnits: function() {
+    getUnits: function () {
         var tmUnits = _(this.terms)
             .chain()
-            .map(function(term) {
+            .map(function (term) {
                 return term.getUnits();
             })
             .flatten()
@@ -761,10 +838,10 @@ _.extend(Mul.prototype, {
 
     // since we don't care about commutativity, we can render a Mul any way we choose
     // so we follow convention: first any negatives, then any numbers, then everything else
-    tex: function() {
+    tex: function () {
         var cdot = " \\cdot ";
 
-        var terms = _.groupBy(this.terms, function(term) {
+        var terms = _.groupBy(this.terms, function (term) {
             if (term.isDivide()) {
                 return "inverse";
             } else if (term instanceof Num) {
@@ -785,8 +862,8 @@ _.extend(Mul.prototype, {
         // since we would like 1/2x/y to come out as \frac{1}{2}\frac{x}{y},
         // and not \frac{1x}{2y}.
         for (var i = 0; i < numbers.length; i++) {
-            var isRational = numbers[i] instanceof Rational &&
-                                !(numbers[i] instanceof Int);
+            var isRational =
+                numbers[i] instanceof Rational && !(numbers[i] instanceof Int);
             if (isRational && others.length > 0 && inverses.length > 0) {
                 var withThisRemoved = numbers.slice();
                 withThisRemoved.splice(i, 1);
@@ -795,19 +872,23 @@ _.extend(Mul.prototype, {
             }
         }
 
-        numbers = _.compact(_.map(numbers, function(term) {
-            var hasDenom = (term instanceof Rational) && !(term instanceof Int);
-            var shouldPushDown = !term.hints.fraction || inverses.length > 0;
-            if (hasDenom && shouldPushDown) {
-                // e.g. 3x/4 -> 3/4*x (internally) -> 3x/4 (rendered)
-                inverses.push(new Pow(new Int(term.d), Num.Div));
-                var number = new Int(term.n);
-                number.hints = term.hints;
-                return _.any(term.hints) ? number : null;
-            } else {
-                return term;
-            }
-        }));
+        numbers = _.compact(
+            _.map(numbers, function (term) {
+                var hasDenom =
+                    term instanceof Rational && !(term instanceof Int);
+                var shouldPushDown =
+                    !term.hints.fraction || inverses.length > 0;
+                if (hasDenom && shouldPushDown) {
+                    // e.g. 3x/4 -> 3/4*x (internally) -> 3x/4 (rendered)
+                    inverses.push(new Pow(new Int(term.d), Num.Div));
+                    var number = new Int(term.n);
+                    number.hints = term.hints;
+                    return _.any(term.hints) ? number : null;
+                } else {
+                    return term;
+                }
+            }),
+        );
 
         if (numbers.length === 0 && others.length === 1) {
             // e.g. (x+y)/z -> \frac{x+y}{z}
@@ -815,12 +896,15 @@ _.extend(Mul.prototype, {
         } else {
             var tex = "";
 
-            _.each(numbers, function(term) {
+            _.each(numbers, function (term) {
                 if (term.hints.subtract && term.hints.entered) {
                     negatives += "-";
                     tex += (tex ? cdot : "") + term.abs().tex();
-                } else if ((term instanceof Int) && (term.n === -1) &&
-                    (term.hints.negate || term.hints.subtract)) {
+                } else if (
+                    term instanceof Int &&
+                    term.n === -1 &&
+                    (term.hints.negate || term.hints.subtract)
+                ) {
                     // e.g. -1*-1 -> --1
                     // e.g. -1*x -> -x
                     negatives += "-";
@@ -830,7 +914,7 @@ _.extend(Mul.prototype, {
                 }
             });
 
-            _.each(others, function(term) {
+            _.each(others, function (term) {
                 if (term.needsExplicitMul()) {
                     // e.g. 2*2^3 -> 2(dot)2^3
                     tex += (tex ? cdot : "") + term.tex();
@@ -849,30 +933,31 @@ _.extend(Mul.prototype, {
         if (!inverses.length) {
             return negatives + numerator;
         } else {
-            var denominator = new Mul(_.invoke(inverses, "asDivide")).flatten().tex();
+            var denominator = new Mul(_.invoke(inverses, "asDivide"))
+                .flatten()
+                .tex();
             return negatives + "\\frac{" + numerator + "}{" + denominator + "}";
         }
     },
 
-    strip: function() {
-        var terms = _.map(this.terms, function(term) {
+    strip: function () {
+        var terms = _.map(this.terms, function (term) {
             return term instanceof Num ? term.abs() : term.strip();
         });
         return new Mul(terms).flatten();
     },
 
     // expand numerator and denominator separately
-    expand: function() {
-
-        var isAdd = function(term) {
+    expand: function () {
+        var isAdd = function (term) {
             return term instanceof Add;
         };
 
-        var isInverse = function(term) {
+        var isInverse = function (term) {
             return term instanceof Pow && term.exp.isNegative();
         };
 
-        var isInverseAdd = function(term) {
+        var isInverseAdd = function (term) {
             return isInverse(term) && isAdd(term.base);
         };
 
@@ -895,18 +980,28 @@ _.extend(Mul.prototype, {
             var others = grouped[false] || [];
 
             // loop over each additive sequence
-            var expanded = _.reduce(adds, function(expanded, add) {
-                // loop over each expanded array of terms
-                return _.reduce(expanded, function(temp, array) {
-                    // loop over each additive sequence's terms
-                    return temp.concat(_.map(add.terms, function(term) {
-                        return array.concat(term);
-                    }));
-                }, []);
-            }, [[]]);
+            var expanded = _.reduce(
+                adds,
+                function (expanded, add) {
+                    // loop over each expanded array of terms
+                    return _.reduce(
+                        expanded,
+                        function (temp, array) {
+                            // loop over each additive sequence's terms
+                            return temp.concat(
+                                _.map(add.terms, function (term) {
+                                    return array.concat(term);
+                                }),
+                            );
+                        },
+                        [],
+                    );
+                },
+                [[]],
+            );
 
             // join each fully expanded array of factors with remaining multiplicative factors
-            var muls = _.map(expanded, function(array) {
+            var muls = _.map(expanded, function (array) {
                 return new Mul(others.concat(array)).flatten();
             });
 
@@ -914,30 +1009,36 @@ _.extend(Mul.prototype, {
         }
 
         if (hasInverseAdd) {
-            var denominator = new Mul(_.invoke(inverses, "getDenominator")).flatten();
+            var denominator = new Mul(
+                _.invoke(inverses, "getDenominator"),
+            ).flatten();
             inverses = [new Pow(denominator.expand(), Num.Div)];
         }
 
         return new Mul(normals.concat(inverses)).flatten();
     },
 
-    factor: function(options) {
+    factor: function (options) {
         var factored = this.recurse("factor", options).flatten();
-        if (! (factored instanceof Mul)) {
+        if (!(factored instanceof Mul)) {
             return factored;
         }
 
         // Combine any factored out Rationals into one, but don't collect
-        var grouped = _.groupBy(factored.terms, function(term) {
+        var grouped = _.groupBy(factored.terms, function (term) {
             return term instanceof Rational;
         });
 
         // Could also accomplish this by passing a new option
         // e.g. return  memo.mul(term, {autocollect: false});
         // TODO(alex): Decide whether this is a good use of options or not
-        var rational = _.reduce(grouped[true], function(memo, term) {
-            return {n: memo.n * term.n, d: memo.d * term.d};
-        }, {n: 1, d: 1});
+        var rational = _.reduce(
+            grouped[true],
+            function (memo, term) {
+                return {n: memo.n * term.n, d: memo.d * term.d};
+            },
+            {n: 1, d: 1},
+        );
 
         if (rational.d === 1) {
             rational = new Int(rational.n);
@@ -948,7 +1049,7 @@ _.extend(Mul.prototype, {
         return new Mul((grouped[false] || []).concat(rational)).flatten();
     },
 
-    collect: function(options) {
+    collect: function (options) {
         var partitioned = this.recurse("collect", options).partition();
         var number = partitioned[0].reduce(options);
 
@@ -970,7 +1071,7 @@ _.extend(Mul.prototype, {
         // [Expr base, Expr exp]
         var pairs = [];
 
-        _.each(others, function(term) {
+        _.each(others, function (term) {
             if (term instanceof Pow) {
                 pairs.push([term.base, term.exp]);
             } else {
@@ -979,25 +1080,27 @@ _.extend(Mul.prototype, {
         });
 
         // {(Expr base).print(): [[Expr base, Expr exp]]}
-        var grouped = _.groupBy(pairs, function(pair) {
+        var grouped = _.groupBy(pairs, function (pair) {
             return pair[0].normalize().print();
         });
 
         // [[Expr base, Expr exp]]
-        var summed = _.compact(_.map(grouped, function(pairs) {
-            var base = pairs[0][0];
-            var sum = new Add(_.zip.apply(_, pairs)[1]);
-            var exp = sum.collect(options);
+        var summed = _.compact(
+            _.map(grouped, function (pairs) {
+                var base = pairs[0][0];
+                var sum = new Add(_.zip.apply(_, pairs)[1]);
+                var exp = sum.collect(options);
 
-            if (exp instanceof Num && exp.eval() === 0) {
-                return null;
-            } else {
-                return [base, exp];
-            }
-        }));
+                if (exp instanceof Num && exp.eval() === 0) {
+                    return null;
+                } else {
+                    return [base, exp];
+                }
+            }),
+        );
 
         // XXX `pairs` is shadowed four or five times in this function
-        var pairs = _.groupBy(summed, function(pair) {
+        var pairs = _.groupBy(summed, function (pair) {
             if (pair[0] instanceof Trig && pair[0].isBasic()) {
                 return "trig";
             } else if (pair[0] instanceof Log) {
@@ -1014,21 +1117,25 @@ _.extend(Mul.prototype, {
             // combine sines and cosines into other trig functions
 
             // {Trig.arg.print(): [[Trig base, Expr exp]]}
-            var byArg = _.groupBy(trigs, function(pair) {
+            var byArg = _.groupBy(trigs, function (pair) {
                 return pair[0].arg.normalize().print();
             });
 
             trigs = [];
-            _.each(byArg, function(pairs) {
+            _.each(byArg, function (pairs) {
                 var arg = pairs[0][0].arg;
 
                 // {Trig.type: Expr exp}
                 var funcs = {sin: Num.Zero, cos: Num.Zero};
-                _.each(pairs, function(pair) {
+                _.each(pairs, function (pair) {
                     funcs[pair[0].type] = pair[1];
                 });
 
-                if (Mul.handleNegative(funcs.sin).collect(options).equals(funcs.cos)) {
+                if (
+                    Mul.handleNegative(funcs.sin)
+                        .collect(options)
+                        .equals(funcs.cos)
+                ) {
                     // e.g. sin^x(y)/cos^x(y) -> tan^x(y)
                     if (funcs.cos.isNegative()) {
                         funcs = {tan: funcs.sin};
@@ -1040,7 +1147,7 @@ _.extend(Mul.prototype, {
                 // TODO(alex): combine even if exponents not a perfect match
                 // TODO(alex): transform 1/sin and 1/cos into csc and sec
 
-                _.each(funcs, function(exp, type) {
+                _.each(funcs, function (exp, type) {
                     trigs.push([new Trig(type, arg), exp]);
                 });
             });
@@ -1050,24 +1157,34 @@ _.extend(Mul.prototype, {
             // combine logs with the same base
 
             // {Log.base.print(): [[Log base, Expr exp]]}
-            var byBase = _.groupBy(logs, function(pair) {
+            var byBase = _.groupBy(logs, function (pair) {
                 return pair[0].base.normalize().print();
             });
 
             logs = [];
 
-            _.each(byBase, function(pairs) {
+            _.each(byBase, function (pairs) {
                 // only combine two logs of the same base, otherwise commutative
                 // differences result in different equally valid output
                 // e.g. ln(x)/ln(z)*ln(y) -> log_z(x)*ln(y)
                 // e.g. ln(x)*ln(y)/ln(z) -> ln(x)*log_z(y)
-                if (pairs.length === 2 &&
-                    Mul.handleNegative(pairs[0][1]).collect(options).equals(pairs[1][1])) {
+                if (
+                    pairs.length === 2 &&
+                    Mul.handleNegative(pairs[0][1])
+                        .collect(options)
+                        .equals(pairs[1][1])
+                ) {
                     // e.g. ln(x)^y/ln(b)^y -> log_b(x)^y
                     if (pairs[0][1].isNegative()) {
-                        logs.push([new Log(pairs[0][0].power, pairs[1][0].power), pairs[1][1]]);
+                        logs.push([
+                            new Log(pairs[0][0].power, pairs[1][0].power),
+                            pairs[1][1],
+                        ]);
                     } else {
-                        logs.push([new Log(pairs[1][0].power, pairs[0][0].power), pairs[0][1]]);
+                        logs.push([
+                            new Log(pairs[1][0].power, pairs[0][0].power),
+                            pairs[0][1],
+                        ]);
                     }
                 } else {
                     logs = logs.concat(pairs);
@@ -1079,27 +1196,29 @@ _.extend(Mul.prototype, {
 
         pairs = trigs.concat(logs).concat(exprs);
 
-        var collected = _.map(pairs, function(pair) {
+        var collected = _.map(pairs, function (pair) {
             return new Pow(pair[0], pair[1]).collect(options);
         });
 
         return new Mul([number].concat(collected)).flatten();
     },
 
-    isSubtract: function() {
-        return _.any(this.terms, function(term) {
+    isSubtract: function () {
+        return _.any(this.terms, function (term) {
             return term instanceof Num && term.hints.subtract;
         });
     },
 
     // factor a single -1 in to the Mul
     // combine with a Num if all Nums are positive, else add as a term
-    factorIn: function(hint) {
+    factorIn: function (hint) {
         var partitioned = this.partition();
         var numbers = partitioned[0].terms;
-        var fold = numbers.length && _.all(numbers, function(num) {
-            return num.n > 0;
-        });
+        var fold =
+            numbers.length &&
+            _.all(numbers, function (num) {
+                return num.n > 0;
+            });
 
         if (fold) {
             // e.g. - x*2*3 -> x*-2*3
@@ -1115,16 +1234,18 @@ _.extend(Mul.prototype, {
 
     // factor out a single hinted -1 (assume it is the division hint)
     // TODO(alex): make more general or rename to be more specific
-    factorOut: function() {
+    factorOut: function () {
         var factored = false;
-        var terms = _.compact(_.map(this.terms, function(term, i, list) {
-            if (!factored && term instanceof Num && term.hints.divide) {
-                factored = true;
-                return term.n !== -1 ? term.negate() : null;
-            } else {
-                return term;
-            }
-        }));
+        var terms = _.compact(
+            _.map(this.terms, function (term, i, list) {
+                if (!factored && term instanceof Num && term.hints.divide) {
+                    factored = true;
+                    return term.n !== -1 ? term.negate() : null;
+                } else {
+                    return term;
+                }
+            }),
+        );
 
         if (terms.length === 1) {
             return terms[0];
@@ -1133,21 +1254,25 @@ _.extend(Mul.prototype, {
         }
     },
 
-    reduce: function(options) {
-        return _.reduce(this.terms, function(memo, term) {
-            return memo.mul(term, options);
-        }, this.identity);
+    reduce: function (options) {
+        return _.reduce(
+            this.terms,
+            function (memo, term) {
+                return memo.mul(term, options);
+            },
+            this.identity,
+        );
     },
 
-    findGCD: function(factor) {
+    findGCD: function (factor) {
         return new Mul(_.invoke(this.terms, "findGCD", factor)).flatten();
     },
 
-    asMul: function() {
+    asMul: function () {
         return this;
     },
 
-    asPositiveFactor: function() {
+    asPositiveFactor: function () {
         if (this.isPositive()) {
             return this;
         } else {
@@ -1156,36 +1281,38 @@ _.extend(Mul.prototype, {
         }
     },
 
-    isNegative: function() {
+    isNegative: function () {
         return _.any(_.invoke(this.collect().terms, "isNegative"));
     },
 
-    fold: function() {
+    fold: function () {
         return Mul.fold(this);
     },
 
-    negate: function() {
-        var isNum = function(expr) { return expr instanceof Num; };
+    negate: function () {
+        var isNum = function (expr) {
+            return expr instanceof Num;
+        };
         if (_.any(this.terms, isNum)) {
             var num = _.find(this.terms, isNum);
             return this.replace(num, num.negate());
         } else {
             return new Mul([Num.Neg].concat(this.terms));
         }
-    }
+    },
 });
 
 // static methods for the sequence types
-_.each([Add, Mul], function(type) {
+_.each([Add, Mul], function (type) {
     _.extend(type, {
         // create a new sequence unless left is already one (returns a copy)
-        createOrAppend: function(left, right) {
+        createOrAppend: function (left, right) {
             if (left instanceof type) {
                 return new type(left.terms.concat(right));
             } else {
                 return new type(left, right);
             }
-        }
+        },
     });
 });
 
@@ -1194,7 +1321,7 @@ _.extend(Mul, {
     // never fold into a Num that's already negative or a Mul that has a negative Num
     // an optional hint is kept track of to properly render user input
     // an empty hint means negation
-    handleNegative: function(expr, hint) {
+    handleNegative: function (expr, hint) {
         if (expr instanceof Num && expr.n > 0) {
             // e.g. - 2 -> -2
             var negated = expr.negate();
@@ -1213,8 +1340,7 @@ _.extend(Mul, {
     },
 
     // division can create either a Rational or a Mul
-    handleDivide: function(left, right) {
-
+    handleDivide: function (left, right) {
         // dividing by a Mul is the same as repeated division by its terms
         if (right instanceof Mul) {
             var first = Mul.handleDivide(left, right.terms[0]);
@@ -1222,19 +1348,26 @@ _.extend(Mul, {
             return Mul.handleDivide(first, rest);
         }
 
-        var isInt = function(expr) { return expr instanceof Int; };
-        var isRational = function(expr) { return expr instanceof Rational; };
+        var isInt = function (expr) {
+            return expr instanceof Int;
+        };
+        var isRational = function (expr) {
+            return expr instanceof Rational;
+        };
 
         // for simplification purposes, fold Ints into Rationals if possible
         // e.g. 3x / 4 -> 3/4 * x (will still render as 3x/4)
         if (isInt(right) && left instanceof Mul && _.any(left.terms, isInt)) {
-
             // search from the right
             var reversed = left.terms.slice().reverse();
             var num = _.find(reversed, isRational);
 
             if (!isInt(num)) {
-                return new Mul(left.terms.concat([new Rational(1, right.n).addHint("fraction")]));
+                return new Mul(
+                    left.terms.concat([
+                        new Rational(1, right.n).addHint("fraction"),
+                    ]),
+                );
             }
 
             var rational = new Rational(num.n, right.n);
@@ -1255,12 +1388,15 @@ _.extend(Mul, {
             }
         }
 
-        var divide = function(a, b) {
+        var divide = function (a, b) {
             if (b instanceof Int) {
                 if (a instanceof Int) {
                     if (a.n < 0 && b.n < 0) {
                         // e.g. -2 / -3 -> -1*-2/3
-                        return [Num.Neg, new Rational(a.n, -b.n).addHint("fraction")];
+                        return [
+                            Num.Neg,
+                            new Rational(a.n, -b.n).addHint("fraction"),
+                        ];
                     } else {
                         // e.g. 2 / 3 -> 2/3
                         // e.g. -2 / 3 -> -2/3
@@ -1328,31 +1464,46 @@ _.extend(Mul, {
     // e.g. sin(x)*x -> sin(x)*x
     // e.g. sin(x)*(x) -> sin(x)*x
     // e.g. sin(x)*sin(y) -> sin(x)*sin(y)
-    fold: function(expr) {
+    fold: function (expr) {
         if (expr instanceof Mul) {
             // assuming that this will be second to last
-            var trigLog = _.find(_.initial(expr.terms), function(term) {
-                return (term instanceof Trig || term instanceof Log) && term.hints.open;
+            var trigLog = _.find(_.initial(expr.terms), function (term) {
+                return (
+                    (term instanceof Trig || term instanceof Log) &&
+                    term.hints.open
+                );
             });
             var index = _.indexOf(expr.terms, trigLog);
 
             if (trigLog) {
                 var last = _.last(expr.terms);
-                if (trigLog.hints.parens || last.hints.parens ||
-                          last.has(Trig) || last.has(Log)) {
+                if (
+                    trigLog.hints.parens ||
+                    last.hints.parens ||
+                    last.has(Trig) ||
+                    last.has(Log)
+                ) {
                     trigLog.hints.open = false;
                 } else {
                     var newTrigLog;
                     if (trigLog instanceof Trig) {
-                        newTrigLog = Trig.create([trigLog.type, trigLog.exp], Mul.createOrAppend(trigLog.arg, last).fold());
+                        newTrigLog = Trig.create(
+                            [trigLog.type, trigLog.exp],
+                            Mul.createOrAppend(trigLog.arg, last).fold(),
+                        );
                     } else {
-                        newTrigLog = Log.create(trigLog.base, Mul.createOrAppend(trigLog.power, last).fold());
+                        newTrigLog = Log.create(
+                            trigLog.base,
+                            Mul.createOrAppend(trigLog.power, last).fold(),
+                        );
                     }
 
                     if (index === 0) {
                         return newTrigLog;
                     } else {
-                        return new Mul(expr.terms.slice(0, index).concat(newTrigLog)).fold();
+                        return new Mul(
+                            expr.terms.slice(0, index).concat(newTrigLog),
+                        ).fold();
                     }
                 }
             }
@@ -1360,42 +1511,53 @@ _.extend(Mul, {
             var partitioned = expr.partition();
             var numbers = partitioned[0].terms;
 
-            var pos = function(num) { return num.n > 0; };
-            var neg = function(num) { return num.n === -1 && num.hints.negate; };
-            var posOrNeg = function(num) { return pos(num) || neg(num); };
+            var pos = function (num) {
+                return num.n > 0;
+            };
+            var neg = function (num) {
+                return num.n === -1 && num.hints.negate;
+            };
+            var posOrNeg = function (num) {
+                return pos(num) || neg(num);
+            };
 
-            if (numbers.length > 1 &&
+            if (
+                numbers.length > 1 &&
                 _.some(numbers, neg) &&
                 _.some(numbers, pos) &&
-                _.every(numbers, posOrNeg)) {
-
+                _.every(numbers, posOrNeg)
+            ) {
                 var firstNeg = _.indexOf(expr.terms, _.find(expr.terms, neg));
                 var firstNum = _.indexOf(expr.terms, _.find(expr.terms, pos));
 
                 // e.g. -x*2 -> x*-2
                 if (firstNeg < firstNum) {
-                    return expr.replace(firstNum,
-                                        expr.terms[firstNum].negate())
-                               .remove(firstNeg);
+                    return expr
+                        .replace(firstNum, expr.terms[firstNum].negate())
+                        .remove(firstNeg);
                 }
             }
         }
 
         // in all other cases, make no change
         return expr;
-    }
+    },
 });
 
-
 /* exponentiation */
-export function Pow(base, exp) { this.base = base; this.exp = exp; }
+export function Pow(base, exp) {
+    this.base = base;
+    this.exp = exp;
+}
 Pow.prototype = new Expr();
 
 _.extend(Pow.prototype, {
     func: Pow,
-    args: function() { return [this.base, this.exp]; },
+    args: function () {
+        return [this.base, this.exp];
+    },
 
-    eval: function(vars, options) {
+    eval: function (vars, options) {
         var evaledBase = this.base.eval(vars, options);
         var evaledExp = this.exp.eval(vars, options);
 
@@ -1423,7 +1585,7 @@ _.extend(Pow.prototype, {
                 var oddDenominator = Math.abs(simplifiedExp.d) % 2 === 1;
                 if (oddDenominator) {
                     var oddNumerator = Math.abs(simplifiedExp.n) % 2 === 1;
-                    var sign = (oddNumerator) ? -1 : 1;
+                    var sign = oddNumerator ? -1 : 1;
                     return sign * Math.pow(-1 * evaledBase, evaledExp);
                 }
             }
@@ -1431,21 +1593,24 @@ _.extend(Pow.prototype, {
         return Math.pow(evaledBase, evaledExp);
     },
 
-    getUnits: function() {
-        return this.base.getUnits().map(function(unit) {
-            return {
-                unit: unit.unit,
-                pow: unit.pow * this.exp.n
-            };
-        }.bind(this));
+    getUnits: function () {
+        return this.base.getUnits().map(
+            function (unit) {
+                return {
+                    unit: unit.unit,
+                    pow: unit.pow * this.exp.n,
+                };
+            }.bind(this),
+        );
     },
 
-    codegen: function() {
-        return "Math.pow(" + this.base.codegen() +
-            ", " + this.exp.codegen() + ")";
+    codegen: function () {
+        return (
+            "Math.pow(" + this.base.codegen() + ", " + this.exp.codegen() + ")"
+        );
     },
 
-    print: function() {
+    print: function () {
         var base = this.base.print();
         if (this.base instanceof Seq || this.base instanceof Pow) {
             base = "(" + base + ")";
@@ -1453,17 +1618,16 @@ _.extend(Pow.prototype, {
         return base + "^(" + this.exp.print() + ")";
     },
 
-    tex: function() {
+    tex: function () {
         if (this.isDivide()) {
-
             // e.g. x ^ -1 w/hint -> 1/x
             return "\\frac{1}{" + this.asDivide().tex() + "}";
-
         } else if (this.isRoot()) {
-
             if (this.exp.n !== 1) {
-                error("Node marked with hint 'root' does not have exponent " +
-                      "of form 1/x.");
+                error(
+                    "Node marked with hint 'root' does not have exponent " +
+                        "of form 1/x.",
+                );
             }
 
             if (this.exp.d === 2) {
@@ -1473,21 +1637,24 @@ _.extend(Pow.prototype, {
                 // e.g. x ^ 1/y w/hint -> sqrt[y]{x}
                 return "\\sqrt[" + this.exp.d + "]{" + this.base.tex() + "}";
             }
-
-        } else if (this.base instanceof Trig && !this.base.isInverse() &&
-            this.exp instanceof Num && this.exp.isSimple() &&
-            this.exp.eval() >= 0) {
-
+        } else if (
+            this.base instanceof Trig &&
+            !this.base.isInverse() &&
+            this.exp instanceof Num &&
+            this.exp.isSimple() &&
+            this.exp.eval() >= 0
+        ) {
             // e.g sin(x) ^ 2 -> sin^2(x)
             var split = this.base.tex({split: true});
             return split[0] + "^{" + this.exp.tex() + "}" + split[1];
-
         } else {
-
             // e.g. x ^ y -> x^y
             var base = this.base.tex();
-            if (this.base instanceof Seq || this.base instanceof Pow ||
-                (this.base instanceof Num && !this.base.isSimple())) {
+            if (
+                this.base instanceof Seq ||
+                this.base instanceof Pow ||
+                (this.base instanceof Num && !this.base.isSimple())
+            ) {
                 // e.g. a+b ^ c -> (a+b)^c
                 base = "(" + base + ")";
             } else if (this.base instanceof Trig || this.base instanceof Log) {
@@ -1498,30 +1665,33 @@ _.extend(Pow.prototype, {
         }
     },
 
-    needsExplicitMul: function() {
+    needsExplicitMul: function () {
         return this.isRoot() ? false : this.base.needsExplicitMul();
     },
 
-    expand: function() {
+    expand: function () {
         var pow = this.recurse("expand");
 
         if (pow.base instanceof Mul) {
             // e.g. (ab)^c -> a^c*b^c
 
-            var terms = _.map(pow.base.terms, function(term) {
+            var terms = _.map(pow.base.terms, function (term) {
                 return new Pow(term, pow.exp);
             });
 
             return new Mul(terms).expand();
-
-        } else if (pow.base instanceof Add && pow.exp instanceof Int && pow.exp.abs().eval() > 1) {
+        } else if (
+            pow.base instanceof Add &&
+            pow.exp instanceof Int &&
+            pow.exp.abs().eval() > 1
+        ) {
             // e.g. (a+b)^2 -> a*a+a*b+a*b+b*b
             // e.g. (a+b)^-2 -> (a*a+a*b+a*b+b*b)^-1
 
             var positive = pow.exp.eval() > 0;
             var n = pow.exp.abs().eval();
 
-            var signed = function(mul) {
+            var signed = function (mul) {
                 return positive ? mul : new Pow(mul, Num.Div);
             };
 
@@ -1538,19 +1708,22 @@ _.extend(Pow.prototype, {
             }
 
             // otherwise decompose n into powers of 2 ...
-            var indices = _.map(n.toString(2).split(""), function(str, i, list) {
-                return Number(str) * Math.pow(2, list.length - i - 1);
-            });
+            var indices = _.map(
+                n.toString(2).split(""),
+                function (str, i, list) {
+                    return Number(str) * Math.pow(2, list.length - i - 1);
+                },
+            );
             indices = _.without(indices, 0);
 
             // ... then combine
             var mul = new Mul(_.pick(cache, indices)).expand().collect();
             return signed(mul);
-
-        } else if (pow.exp instanceof Add) { // DEFINITELY want behind super-simplify() flag
+        } else if (pow.exp instanceof Add) {
+            // DEFINITELY want behind super-simplify() flag
             // e.g. x^(a+b) -> x^a*x^b
 
-            var terms = _.map(pow.exp.terms, function(term) {
+            var terms = _.map(pow.exp.terms, function (term) {
                 return new Pow(pow.base, term).expand();
             });
 
@@ -1560,10 +1733,10 @@ _.extend(Pow.prototype, {
         }
     },
 
-    factor: function() {
+    factor: function () {
         var pow = this.recurse("factor");
         if (pow.base instanceof Mul) {
-            var terms = _.map(pow.base.terms, function(term) {
+            var terms = _.map(pow.base.terms, function (term) {
                 if (term instanceof Int && pow.exp.equals(Num.Div)) {
                     // Anything that can be a Rational should be a Rational
                     // e.g. 2^(-1) -> 1/2
@@ -1578,8 +1751,7 @@ _.extend(Pow.prototype, {
         }
     },
 
-    collect: function(options) {
-
+    collect: function (options) {
         if (this.base instanceof Pow) {
             // collect this first to avoid having to deal with float precision
             // e.g. sqrt(2)^2 -> 2, not 2.0000000000000004
@@ -1591,39 +1763,29 @@ _.extend(Pow.prototype, {
 
         var pow = this.recurse("collect", options);
 
-        var isSimilarLog = function(term) {
+        var isSimilarLog = function (term) {
             return term instanceof Log && term.base.equals(pow.base);
         };
 
-        if (pow.exp instanceof Num &&
-            pow.exp.eval() === 0) {
-
+        if (pow.exp instanceof Num && pow.exp.eval() === 0) {
             // e.g. x^0 -> 1
             return Num.One;
-
-        } else if (pow.exp instanceof Num &&
-            pow.exp.eval() === 1) {
-
+        } else if (pow.exp instanceof Num && pow.exp.eval() === 1) {
             // e.g. x^1 -> x
             return pow.base;
-
         } else if (isSimilarLog(pow.exp)) {
-
             // e.g. b^(log_b(x)) -> x
             return pow.exp.power;
-
-        } else if (pow.exp instanceof Mul &&
-            _.any(pow.exp.terms, isSimilarLog)) {
-
+        } else if (
+            pow.exp instanceof Mul &&
+            _.any(pow.exp.terms, isSimilarLog)
+        ) {
             // e.g. b^(2*y*log_b(x)) -> x^(2*y)
             var log = _.find(pow.exp.terms, isSimilarLog);
             var base = log.power;
             var exp = pow.exp.remove(log).flatten();
             return new Pow(base, exp).collect(options);
-
-        } else if (pow.base instanceof Num &&
-            pow.exp instanceof Num) {
-
+        } else if (pow.base instanceof Num && pow.exp instanceof Num) {
             // TODO(alex): Consider encapsualting this logic (and similar logic
             // elsewhere) into a separate Decimal class for user-entered floats
             if (options && options.preciseFloats) {
@@ -1657,13 +1819,18 @@ _.extend(Pow.prototype, {
     },
 
     // checks whether this Pow represents user-entered division
-    isDivide: function() {
-        var isDiv = function(arg) { return arg instanceof Num && arg.hints.divide; };
-        return isDiv(this.exp) || (this.exp instanceof Mul && _.any(this.exp.terms, isDiv));
+    isDivide: function () {
+        var isDiv = function (arg) {
+            return arg instanceof Num && arg.hints.divide;
+        };
+        return (
+            isDiv(this.exp) ||
+            (this.exp instanceof Mul && _.any(this.exp.terms, isDiv))
+        );
     },
 
     // assuming this Pow represents user-entered division, returns the denominator
-    asDivide: function() {
+    asDivide: function () {
         if (this.exp instanceof Num) {
             if (this.exp.eval() === -1) {
                 return this.base;
@@ -1680,23 +1847,36 @@ _.extend(Pow.prototype, {
         }
     },
 
-    isRoot: function() {
+    isRoot: function () {
         return this.exp instanceof Rational && this.exp.hints.root;
     },
 
-    isSquaredTrig: function() {
-        return this.base instanceof Trig && !this.base.isInverse() &&
-            this.exp instanceof Num && this.exp.eval() === 2;
+    isSquaredTrig: function () {
+        return (
+            this.base instanceof Trig &&
+            !this.base.isInverse() &&
+            this.exp instanceof Num &&
+            this.exp.eval() === 2
+        );
     },
 
     // extract whatever denominator makes sense, ignoring hints
     // if negative exponent, will recursively include the base's denominator as well
-    getDenominator: function() {
+    getDenominator: function () {
         if (this.exp instanceof Num && this.exp.eval() === -1) {
-            return Mul.createOrAppend(this.base, this.base.getDenominator()).flatten();
+            return Mul.createOrAppend(
+                this.base,
+                this.base.getDenominator(),
+            ).flatten();
         } else if (this.exp.isNegative()) {
-            var pow = new Pow(this.base, Mul.handleNegative(this.exp).collect());
-            return Mul.createOrAppend(pow, pow.collect().getDenominator()).flatten();
+            var pow = new Pow(
+                this.base,
+                Mul.handleNegative(this.exp).collect(),
+            );
+            return Mul.createOrAppend(
+                pow,
+                pow.collect().getDenominator(),
+            ).flatten();
         } else if (this.base instanceof Num) {
             return new Pow(this.base.getDenominator(), this.exp).collect();
         } else {
@@ -1704,7 +1884,7 @@ _.extend(Pow.prototype, {
         }
     },
 
-    findGCD: function(factor) {
+    findGCD: function (factor) {
         var base, exp;
         if (factor instanceof Pow) {
             base = factor.base;
@@ -1745,7 +1925,7 @@ _.extend(Pow.prototype, {
         return Num.One;
     },
 
-    isPositive: function() {
+    isPositive: function () {
         if (this.base.isPositive()) {
             return true;
         }
@@ -1754,7 +1934,7 @@ _.extend(Pow.prototype, {
         return exp instanceof Int && exp.eval() % 2 === 0;
     },
 
-    asPositiveFactor: function() {
+    asPositiveFactor: function () {
         if (this.isPositive()) {
             return this;
         } else {
@@ -1763,23 +1943,23 @@ _.extend(Pow.prototype, {
                 var n = exp.eval();
                 if (n > 2) {
                     // e.g. x^3 -> x^2
-                    return new Pow(this.base, new Int(n-1));
+                    return new Pow(this.base, new Int(n - 1));
                 } else if (n < -2) {
                     // e.g. x^-3 -> x^-2
-                    return new Pow(this.base, new Int(n+1));
+                    return new Pow(this.base, new Int(n + 1));
                 }
             }
             return Num.One;
         }
-    }
+    },
 });
 
 _.extend(Pow, {
-    sqrt: function(arg) {
+    sqrt: function (arg) {
         return new Pow(arg, Num.Sqrt);
     },
 
-    nthroot: function(radicand, degree) {
+    nthroot: function (radicand, degree) {
         var exp = Mul.fold(Mul.handleDivide(new Int(1), degree));
 
         // FIXME(johnsullivan): If oneOverDegree ends up being a pow object,
@@ -1788,25 +1968,37 @@ _.extend(Pow, {
     },
 });
 
-
 /* logarithm */
-export function Log(base, power) { this.base = base; this.power = power; }
+export function Log(base, power) {
+    this.base = base;
+    this.power = power;
+}
 Log.prototype = new Expr();
 
 _.extend(Log.prototype, {
     func: Log,
-    args: function() { return [this.base, this.power]; },
-
-    eval: function(vars, options) {
-        return Math.log(this.power.eval(vars, options)) / Math.log(this.base.eval(vars, options));
+    args: function () {
+        return [this.base, this.power];
     },
 
-    codegen: function() {
-        return "(Math.log(" + this.power.codegen() +
-            ") / Math.log(" + this.base.codegen() + "))";
+    eval: function (vars, options) {
+        return (
+            Math.log(this.power.eval(vars, options)) /
+            Math.log(this.base.eval(vars, options))
+        );
     },
 
-    print: function() {
+    codegen: function () {
+        return (
+            "(Math.log(" +
+            this.power.codegen() +
+            ") / Math.log(" +
+            this.base.codegen() +
+            "))"
+        );
+    },
+
+    print: function () {
         var power = "(" + this.power.print() + ")";
         if (this.isNatural()) {
             return "ln" + power;
@@ -1815,7 +2007,7 @@ _.extend(Log.prototype, {
         }
     },
 
-    tex: function() {
+    tex: function () {
         var power = "(" + this.power.tex() + ")";
         if (this.isNatural()) {
             return "\\ln" + power;
@@ -1824,22 +2016,19 @@ _.extend(Log.prototype, {
         }
     },
 
-    collect: function(options) {
+    collect: function (options) {
         var log = this.recurse("collect", options);
 
         if (log.power instanceof Num && log.power.eval() === 1) {
-
             // e.g. ln(1) -> 0
             return Num.Zero;
-
         } else if (log.base.equals(log.power)) {
-
             // e.g. log_b(b) -> 1
             return Num.One;
-
-        } else if (log.power instanceof Pow &&
-            log.power.base.equals(log.base)) {
-
+        } else if (
+            log.power instanceof Pow &&
+            log.power.base.equals(log.base)
+        ) {
             // e.g. log_b(b^x) -> x
             return log.power.exp;
         } else {
@@ -1847,242 +2036,339 @@ _.extend(Log.prototype, {
         }
     },
 
-    expand: function() {
+    expand: function () {
         var log = this.recurse("expand");
 
-        if (log.power instanceof Mul) {  // might want behind super-simplify() flag
+        if (log.power instanceof Mul) {
+            // might want behind super-simplify() flag
             // e.g. ln(xy) -> ln(x) + ln(y)
 
-            var terms = _.map(log.power.terms, function(term) {
+            var terms = _.map(log.power.terms, function (term) {
                 // need to expand again in case new log powers are Pows
                 return new Log(log.base, term).expand();
             });
 
             return new Add(terms);
-
         } else if (log.power instanceof Pow) {
             // e.g. ln(x^y) -> y*ln(x)
 
-            return new Mul(log.power.exp, new Log(log.base, log.power.base).expand()).flatten();
+            return new Mul(
+                log.power.exp,
+                new Log(log.base, log.power.base).expand(),
+            ).flatten();
         } else if (!log.isNatural()) {
             // e.g. log_b(x) -> ln(x)/ln(b)
 
-            return Mul.handleDivide(new Log(Const.e, log.power), new Log(Const.e, log.base));
+            return Mul.handleDivide(
+                new Log(Const.e, log.power),
+                new Log(Const.e, log.base),
+            );
         } else {
             return log;
         }
     },
 
     hints: _.extend(Log.prototype.hints, {
-        open: false
+        open: false,
     }),
 
-    isPositive: function() {
+    isPositive: function () {
         var log = this.collect();
 
-        if (log.base instanceof Num &&
-            log.power instanceof Num) {
+        if (log.base instanceof Num && log.power instanceof Num) {
             return this.eval() > 0;
         } else {
             return false;
         }
     },
 
-    needsExplicitMul: function() { return false; },
+    needsExplicitMul: function () {
+        return false;
+    },
 
-    isNatural: function() { return this.base.equals(Const.e); }
+    isNatural: function () {
+        return this.base.equals(Const.e);
+    },
 });
 
 _.extend(Log, {
-    natural: function() { return Const.e; },
-    common: function() { return Num.Ten; },
+    natural: function () {
+        return Const.e;
+    },
+    common: function () {
+        return Num.Ten;
+    },
 
-    create: function(base, power) {
+    create: function (base, power) {
         var log = new Log(base, power);
         if (!power.hints.parens) {
             log = log.addHint("open");
         }
         return log;
-    }
+    },
 });
 
-
 /* trigonometric functions */
-export function Trig(type, arg) { this.type = type; this.arg = arg; }
+export function Trig(type, arg) {
+    this.type = type;
+    this.arg = arg;
+}
 Trig.prototype = new Expr();
 
 _.extend(Trig.prototype, {
     func: Trig,
-    args: function() { return [this.type, this.arg]; },
+    args: function () {
+        return [this.type, this.arg];
+    },
 
     functions: {
         sin: {
             eval: Math.sin,
             codegen: "Math.sin((",
             tex: "\\sin",
-            expand: function() { return this; }
+            expand: function () {
+                return this;
+            },
         },
         cos: {
             eval: Math.cos,
             codegen: "Math.cos((",
             tex: "\\cos",
-            expand: function() { return this; }
+            expand: function () {
+                return this;
+            },
         },
         tan: {
             eval: Math.tan,
             codegen: "Math.tan((",
             tex: "\\tan",
-            expand: function() {
+            expand: function () {
                 return Mul.handleDivide(Trig.sin(this.arg), Trig.cos(this.arg));
-            }
+            },
         },
         csc: {
-            eval: function(arg) { return 1 / Math.sin(arg); },
+            eval: function (arg) {
+                return 1 / Math.sin(arg);
+            },
             codegen: "(1/Math.sin(",
             tex: "\\csc",
-            expand: function() {
+            expand: function () {
                 return Mul.handleDivide(Num.One, Trig.sin(this.arg));
-            }
+            },
         },
         sec: {
-            eval: function(arg) { return 1 / Math.cos(arg); },
+            eval: function (arg) {
+                return 1 / Math.cos(arg);
+            },
             codegen: "(1/Math.cos(",
             tex: "\\sec",
-            expand: function() {
+            expand: function () {
                 return Mul.handleDivide(Num.One, Trig.cos(this.arg));
-            }
+            },
         },
         cot: {
-            eval: function(arg) { return 1 / Math.tan(arg); },
+            eval: function (arg) {
+                return 1 / Math.tan(arg);
+            },
             codegen: "(1/Math.tan(",
             tex: "\\cot",
-            expand: function() {
+            expand: function () {
                 return Mul.handleDivide(Trig.cos(this.arg), Trig.sin(this.arg));
-            }
+            },
         },
         arcsin: {
             eval: Math.asin,
             codegen: "Math.asin((",
-            tex: "\\arcsin"
+            tex: "\\arcsin",
         },
         arccos: {
             eval: Math.acos,
             codegen: "Math.acos((",
-            tex: "\\arccos"
+            tex: "\\arccos",
         },
         arctan: {
             eval: Math.atan,
             codegen: "Math.atan((",
-            tex: "\\arctan"
+            tex: "\\arctan",
         },
         arccsc: {
-            eval: function(arg) { return Math.asin(1 / arg); },
+            eval: function (arg) {
+                return Math.asin(1 / arg);
+            },
             codegen: "Math.asin(1/(",
-            tex: "\\operatorname{arccsc}"
+            tex: "\\operatorname{arccsc}",
         },
         arcsec: {
-            eval: function(arg) { return Math.acos(1 / arg); },
+            eval: function (arg) {
+                return Math.acos(1 / arg);
+            },
             codegen: "Math.acos(1/(",
-            tex: "\\operatorname{arcsec}"
+            tex: "\\operatorname{arcsec}",
         },
         arccot: {
-            eval: function(arg) { return Math.atan(1 / arg); },
+            eval: function (arg) {
+                return Math.atan(1 / arg);
+            },
             codegen: "Math.atan(1/(",
-            tex: "\\operatorname{arccot}"
+            tex: "\\operatorname{arccot}",
         },
         sinh: {
-            eval: function(arg) {
+            eval: function (arg) {
                 return (Math.exp(arg) - Math.exp(-arg)) / 2;
             },
-            codegen: function(argStr) {
-                return "((Math.exp(" + argStr + ") - Math.exp(-(" + argStr + "))) / 2)";
+            codegen: function (argStr) {
+                return (
+                    "((Math.exp(" +
+                    argStr +
+                    ") - Math.exp(-(" +
+                    argStr +
+                    "))) / 2)"
+                );
             },
             tex: "\\sinh",
-            expand: function() { return this; }
+            expand: function () {
+                return this;
+            },
         },
         cosh: {
-            eval: function(arg) {
+            eval: function (arg) {
                 return (Math.exp(arg) + Math.exp(-arg)) / 2;
             },
-            codegen: function(argStr) {
-                return "((Math.exp(" + argStr + ") + Math.exp(-(" + argStr + "))) / 2)";
+            codegen: function (argStr) {
+                return (
+                    "((Math.exp(" +
+                    argStr +
+                    ") + Math.exp(-(" +
+                    argStr +
+                    "))) / 2)"
+                );
             },
             tex: "\\cosh",
-            expand: function() { return this; }
+            expand: function () {
+                return this;
+            },
         },
         tanh: {
-            eval: function(arg) {
-                return (Math.exp(arg) - Math.exp(-arg)) / (Math.exp(arg) + Math.exp(-arg));
+            eval: function (arg) {
+                return (
+                    (Math.exp(arg) - Math.exp(-arg)) /
+                    (Math.exp(arg) + Math.exp(-arg))
+                );
             },
-            codegen: function(argStr) {
-                return "(" +
-                    "(Math.exp(" + argStr + ") - Math.exp(-(" + argStr + ")))" +
+            codegen: function (argStr) {
+                return (
+                    "(" +
+                    "(Math.exp(" +
+                    argStr +
+                    ") - Math.exp(-(" +
+                    argStr +
+                    ")))" +
                     " / " +
-                    "(Math.exp(" + argStr + ") + Math.exp(-(" + argStr + ")))" +
-                    ")";
+                    "(Math.exp(" +
+                    argStr +
+                    ") + Math.exp(-(" +
+                    argStr +
+                    ")))" +
+                    ")"
+                );
             },
             tex: "\\tanh",
-            expand: function() {
-                return Mul.handleDivide(Trig.sinh(this.arg), Trig.cosh(this.arg));
-            }
+            expand: function () {
+                return Mul.handleDivide(
+                    Trig.sinh(this.arg),
+                    Trig.cosh(this.arg),
+                );
+            },
         },
         csch: {
-            eval: function(arg) { return 2 / (Math.exp(arg) - Math.exp(-arg)); },
-            codegen: function(argStr) {
-                return "(2 / (Math.exp(" + argStr + ") - Math.exp(-(" + argStr + "))))";
+            eval: function (arg) {
+                return 2 / (Math.exp(arg) - Math.exp(-arg));
+            },
+            codegen: function (argStr) {
+                return (
+                    "(2 / (Math.exp(" +
+                    argStr +
+                    ") - Math.exp(-(" +
+                    argStr +
+                    "))))"
+                );
             },
             tex: "\\csch",
-            expand: function() {
+            expand: function () {
                 return Mul.handleDivide(Num.One, Trig.sinh(this.arg));
-            }
+            },
         },
         sech: {
-            eval: function(arg) { return 2 / (Math.exp(arg) + Math.exp(-arg)); },
-            codegen: function(argStr) {
-                return "(2 / (Math.exp(" + argStr + ") + Math.exp(-(" + argStr + "))))";
+            eval: function (arg) {
+                return 2 / (Math.exp(arg) + Math.exp(-arg));
+            },
+            codegen: function (argStr) {
+                return (
+                    "(2 / (Math.exp(" +
+                    argStr +
+                    ") + Math.exp(-(" +
+                    argStr +
+                    "))))"
+                );
             },
             tex: "\\sech",
-            expand: function() {
+            expand: function () {
                 return Mul.handleDivide(Num.One, Trig.cosh(this.arg));
-            }
+            },
         },
         coth: {
-            eval: function(arg) {
-                return (Math.exp(arg) + Math.exp(-arg)) / (Math.exp(arg) - Math.exp(-arg));
+            eval: function (arg) {
+                return (
+                    (Math.exp(arg) + Math.exp(-arg)) /
+                    (Math.exp(arg) - Math.exp(-arg))
+                );
             },
-            codegen: function(argStr) {
-                return "(" +
-                    "(Math.exp(" + argStr + ") + Math.exp(-(" + argStr + ")))" +
+            codegen: function (argStr) {
+                return (
+                    "(" +
+                    "(Math.exp(" +
+                    argStr +
+                    ") + Math.exp(-(" +
+                    argStr +
+                    ")))" +
                     " / " +
-                    "(Math.exp(" + argStr + ") - Math.exp(-(" + argStr + ")))" +
-                    ")";
+                    "(Math.exp(" +
+                    argStr +
+                    ") - Math.exp(-(" +
+                    argStr +
+                    ")))" +
+                    ")"
+                );
             },
             tex: "\\coth",
-            expand: function() {
-                return Mul.handleDivide(Trig.cosh(this.arg), Trig.sinh(this.arg));
-            }
+            expand: function () {
+                return Mul.handleDivide(
+                    Trig.cosh(this.arg),
+                    Trig.sinh(this.arg),
+                );
+            },
         },
     },
 
-    isEven: function() {
+    isEven: function () {
         return _.contains(["cos", "sec"], this.type);
     },
 
-    isInverse: function() {
+    isInverse: function () {
         return this.type.indexOf("arc") === 0;
     },
 
-    isBasic: function() {
+    isBasic: function () {
         return _.contains(["sin", "cos"], this.type);
     },
 
-    eval: function(vars, options) {
+    eval: function (vars, options) {
         var func = this.functions[this.type].eval;
         var arg = this.arg.eval(vars, options);
         return func(arg);
     },
 
-    codegen: function() {
+    codegen: function () {
         var func = this.functions[this.type].codegen;
         if (typeof func === "function") {
             return func(this.arg.codegen());
@@ -2093,21 +2379,21 @@ _.extend(Trig.prototype, {
         }
     },
 
-    print: function() {
+    print: function () {
         return this.type + "(" + this.arg.print() + ")";
     },
 
-    tex: function(options) {
+    tex: function (options) {
         var func = this.functions[this.type].tex;
         var arg = "(" + this.arg.tex() + ")";
-        return (options && options.split) ? [func, arg] : func + arg;
+        return options && options.split ? [func, arg] : func + arg;
     },
 
     hints: _.extend(Trig.prototype.hints, {
-        open: false
+        open: false,
     }),
 
-    isPositive: function() {
+    isPositive: function () {
         var trig = this.collect();
 
         if (trig.arg instanceof Num) {
@@ -2117,7 +2403,7 @@ _.extend(Trig.prototype, {
         }
     },
 
-    completeParse: function() {
+    completeParse: function () {
         if (this.exp) {
             var pow = new Pow(this, this.exp);
             this.exp = undefined;
@@ -2128,9 +2414,11 @@ _.extend(Trig.prototype, {
     },
 
     // TODO(alex): does every new node type need to redefine these?
-    needsExplicitMul: function() { return false; },
+    needsExplicitMul: function () {
+        return false;
+    },
 
-    expand: function() {
+    expand: function () {
         var trig = this.recurse("expand");
         if (!trig.isInverse()) {
             // e.g. tan(x) -> sin(x)/cos(x)
@@ -2141,7 +2429,7 @@ _.extend(Trig.prototype, {
         }
     },
 
-    collect: function(options) {
+    collect: function (options) {
         var trig = this.recurse("collect", options);
         if (!trig.isInverse() && trig.arg.isNegative()) {
             var arg;
@@ -2154,7 +2442,6 @@ _.extend(Trig.prototype, {
             if (trig.isEven()) {
                 // e.g. cos(-x) -> cos(x)
                 return new Trig(trig.type, arg);
-
             } else {
                 // e.g. sin(-x) -> -sin(x)
                 return new Mul(Num.Neg, new Trig(trig.type, arg));
@@ -2162,11 +2449,11 @@ _.extend(Trig.prototype, {
         } else {
             return trig;
         }
-    }
+    },
 });
 
 _.extend(Trig, {
-    create: function(pair, arg) {
+    create: function (pair, arg) {
         var type = pair[0];
         var exp = pair[1];
 
@@ -2188,39 +2475,48 @@ _.extend(Trig, {
         return trig;
     },
 
-    sin: function(arg) {
+    sin: function (arg) {
         return new Trig("sin", arg);
     },
 
-    cos: function(arg) {
+    cos: function (arg) {
         return new Trig("cos", arg);
     },
 
-    sinh: function(arg) {
+    sinh: function (arg) {
         return new Trig("sinh", arg);
     },
 
-    cosh: function(arg) {
+    cosh: function (arg) {
         return new Trig("cosh", arg);
-    }
+    },
 });
 
-
-export function Abs(arg) { this.arg = arg; }
+export function Abs(arg) {
+    this.arg = arg;
+}
 Abs.prototype = new Expr();
 
 _.extend(Abs.prototype, {
     func: Abs,
-    args: function() { return [this.arg]; },
-    eval: function(vars, options) { return Math.abs(this.arg.eval(vars, options)); },
-    codegen: function() { return "Math.abs(" + this.arg.codegen() + ")"; },
-    print: function() { return "abs(" + this.arg.print() + ")"; },
+    args: function () {
+        return [this.arg];
+    },
+    eval: function (vars, options) {
+        return Math.abs(this.arg.eval(vars, options));
+    },
+    codegen: function () {
+        return "Math.abs(" + this.arg.codegen() + ")";
+    },
+    print: function () {
+        return "abs(" + this.arg.print() + ")";
+    },
 
-    tex: function() {
+    tex: function () {
         return "\\left|" + this.arg.tex() + "\\right|";
     },
 
-    collect: function(options) {
+    collect: function (options) {
         var abs = this.recurse("collect", options);
 
         if (abs.arg.isPositive()) {
@@ -2231,7 +2527,7 @@ _.extend(Abs.prototype, {
             return abs.arg.abs();
         } else if (abs.arg instanceof Mul) {
             // e.g. |-2*pi*x| -> 2*pi*|x|
-            var terms = _.groupBy(abs.arg.terms, function(term) {
+            var terms = _.groupBy(abs.arg.terms, function (term) {
                 if (term.isPositive()) {
                     return "positive";
                 } else if (term instanceof Num) {
@@ -2241,7 +2537,9 @@ _.extend(Abs.prototype, {
                 }
             });
 
-            var positives = terms.positive.concat(_.invoke(terms.number, "abs"));
+            var positives = terms.positive.concat(
+                _.invoke(terms.number, "abs"),
+            );
 
             if (terms.other.length) {
                 positives.push(new Abs(new Mul(terms.other).flatten()));
@@ -2254,12 +2552,12 @@ _.extend(Abs.prototype, {
     },
 
     // this should definitely be behind a super-simplify flag
-    expand: function() {
+    expand: function () {
         var abs = this.recurse("expand");
 
         if (abs.arg instanceof Mul) {
             // e.g. |xyz| -> |x|*|y|*|z|
-            var terms = _.map(abs.arg.terms, function(term) {
+            var terms = _.map(abs.arg.terms, function (term) {
                 return new Abs(term);
             });
             return new Mul(terms);
@@ -2268,9 +2566,10 @@ _.extend(Abs.prototype, {
         }
     },
 
-    isPositive: function() { return true; }
+    isPositive: function () {
+        return true;
+    },
 });
-
 
 /* equation */
 export function Eq(left, type, right) {
@@ -2282,11 +2581,15 @@ Eq.prototype = new Expr();
 
 _.extend(Eq.prototype, {
     func: Eq,
-    args: function() { return [this.left, this.type, this.right]; },
+    args: function () {
+        return [this.left, this.type, this.right];
+    },
 
-    needsExplicitMul: function() { return false; },
+    needsExplicitMul: function () {
+        return false;
+    },
 
-    print: function() {
+    print: function () {
         return this.left.print() + this.type + this.right.print();
     },
 
@@ -2296,14 +2599,14 @@ _.extend(Eq.prototype, {
         ">": " > ",
         "<>": " \\ne ",
         "<=": " \\le ",
-        ">=": " \\ge "
+        ">=": " \\ge ",
     },
 
-    tex: function() {
+    tex: function () {
         return this.left.tex() + this.signs[this.type] + this.right.tex();
     },
 
-    normalize: function() {
+    normalize: function () {
         var eq = this.recurse("normalize");
 
         if (_.contains([">", ">="], eq.type)) {
@@ -2318,8 +2621,8 @@ _.extend(Eq.prototype, {
     // the expression is normalized to a canonical form
     // e.g. y/2=x/4 -> y/2-x/4(=0) -> 2y-x(=0)
     // unless unfactored is specified, will then divide through
-    asExpr: function(unfactored) {
-        var isZero = function(expr) {
+    asExpr: function (unfactored) {
+        var isZero = function (expr) {
             return expr instanceof Num && expr.isSimple() && expr.eval() === 0;
         };
 
@@ -2357,10 +2660,10 @@ _.extend(Eq.prototype, {
             }
 
             if (!denominator.equals(Num.One)) {
-                terms = _.map(terms, function(term) {
+                terms = _.map(terms, function (term) {
                     return Mul.createOrAppend(term, denominator).simplify({
                         once: true,
-                        preciseFloats: true
+                        preciseFloats: true,
                     });
                 });
             }
@@ -2374,7 +2677,7 @@ _.extend(Eq.prototype, {
     // e.g. 2y-4x(=0) -> y-2x(=0)
     // TODO(alex): Make it an option to only divide by variables/expressions
     // guaranteed to be nonzero
-    divideThrough: function(expr) {
+    divideThrough: function (expr) {
         var isInequality = !this.isEquality();
 
         var simplified = expr.simplify({once: true});
@@ -2386,9 +2689,15 @@ _.extend(Eq.prototype, {
 
         var terms = factored.terms;
 
-        var isAdd = function(term) { return term instanceof Add; };
-        var hasVar = function(term) { return !!term.getVars().length; };
-        var isOne = function(term) { return term.equals(Num.One); };
+        var isAdd = function (term) {
+            return term instanceof Add;
+        };
+        var hasVar = function (term) {
+            return !!term.getVars().length;
+        };
+        var isOne = function (term) {
+            return term.equals(Num.One);
+        };
 
         var grouped = _.groupBy(terms, isAdd);
         var adds = grouped[true] || [];
@@ -2417,7 +2726,7 @@ _.extend(Eq.prototype, {
         // don't need to divide by one
         denominator = _.reject(denominator, isOne);
 
-        denominator = _.map(denominator, function(term) {
+        denominator = _.map(denominator, function (term) {
             return new Pow(term, Num.Div);
         });
 
@@ -2432,11 +2741,11 @@ _.extend(Eq.prototype, {
         }
     },
 
-    isEquality: function() {
+    isEquality: function () {
         return _.contains(["=", "<>"], this.type);
     },
 
-    compare: function(other) {
+    compare: function (other) {
         // expression comparisons are handled by Expr.compare()
         if (!(other instanceof Eq)) {
             return false;
@@ -2451,20 +2760,25 @@ _.extend(Eq.prototype, {
 
         // need to collect to properly factor out common factors
         // e.g x+2x=6 -> 3x=6 -> 3x-6(=0) -> x-2(=0)
-        var expr1 = eq1.divideThrough(eq1.asExpr(/* unfactored */ true).collect());
-        var expr2 = eq2.divideThrough(eq2.asExpr(/* unfactored */ true).collect());
+        var expr1 = eq1.divideThrough(
+            eq1.asExpr(/* unfactored */ true).collect(),
+        );
+        var expr2 = eq2.divideThrough(
+            eq2.asExpr(/* unfactored */ true).collect(),
+        );
 
         if (eq1.isEquality()) {
             // equals and not-equals can be subtracted either way
-            return expr1.compare(expr2) ||
-                   expr1.compare(Mul.handleNegative(expr2));
+            return (
+                expr1.compare(expr2) || expr1.compare(Mul.handleNegative(expr2))
+            );
         } else {
             return expr1.compare(expr2);
         }
     },
 
     // should only be done after compare() returns true to avoid false positives
-    sameForm: function(other) {
+    sameForm: function (other) {
         var eq1 = this.normalize();
         var eq2 = other.normalize();
 
@@ -2472,7 +2786,10 @@ _.extend(Eq.prototype, {
 
         if (eq1.isEquality()) {
             // equals and not-equals can be commutative with respect to the sign
-            return same || (eq1.left.sameForm(eq2.right) && eq1.right.sameForm(eq2.left));
+            return (
+                same ||
+                (eq1.left.sameForm(eq2.right) && eq1.right.sameForm(eq2.left))
+            );
         } else {
             return same;
         }
@@ -2480,25 +2797,29 @@ _.extend(Eq.prototype, {
 
     // we don't want to override collect because it would turn y=x into y-x(=0)
     // instead, we ask if the equation was in that form, would it be simplified?
-    isSimplified: function() {
+    isSimplified: function () {
         var expr = this.asExpr(/* unfactored */ true);
         var simplified = this.divideThrough(expr).simplify();
-        return expr.equals(simplified) &&
-               this.left.isSimplified() &&
-               this.right.isSimplified();
-    }
+        return (
+            expr.equals(simplified) &&
+            this.left.isSimplified() &&
+            this.right.isSimplified()
+        );
+    },
 });
 
 _.extend(Eq.prototype, {
     // Assumptions: Expression is of the form a+bx, and we solve for x
-    solveLinearEquationForVariable: function(variable) {
+    solveLinearEquationForVariable: function (variable) {
         var expr = this.asExpr();
         if (!expr.is(Add) || expr.terms.length !== 2) {
-            throw new Error("Can only handle linear equations of the form " +
-                            "a + bx (= 0)");
+            throw new Error(
+                "Can only handle linear equations of the form " +
+                    "a + bx (= 0)",
+            );
         }
 
-        var hasVar = function(term) {
+        var hasVar = function (term) {
             return term.has(Var) && _.contains(term.getVars(), variable.symbol);
         };
 
@@ -2513,51 +2834,53 @@ _.extend(Eq.prototype, {
         }
 
         return Mul.handleDivide(a, b).simplify();
-    }
+    },
 });
-
 
 /* abstract symbol node */
 function Symbol() {}
 Symbol.prototype = new Expr();
 
 _.extend(Symbol.prototype, {
+    needsExplicitMul: function () {
+        return false;
+    },
 
-    needsExplicitMul: function() { return false; },
-
-    findGCD: function(factor) {
+    findGCD: function (factor) {
         if (factor instanceof Symbol || factor instanceof Num) {
             return this.equals(factor) ? this : Num.One;
         } else {
             return factor.findGCD(this);
         }
-    }
+    },
 });
-
 
 /* function variable */
 export function Func(symbol, arg) {
-    this.symbol = symbol; this.arg = arg;
+    this.symbol = symbol;
+    this.arg = arg;
 }
 Func.prototype = new Symbol();
 
 _.extend(Func.prototype, {
     func: Func,
-    args: function() { return [this.symbol, this.arg]; },
+    args: function () {
+        return [this.symbol, this.arg];
+    },
 
-    print: function() {
+    print: function () {
         return this.symbol + "(" + this.arg.print() + ")";
     },
 
-    tex: function() {
+    tex: function () {
         return this.symbol + "(" + this.arg.tex() + ")";
     },
 
-    eval: function(vars, options) {
+    eval: function (vars, options) {
         var arg = this.arg;
         var func = vars[this.symbol];
         var newVars = _.extend(_.clone(vars), {
-            x: arg.eval(vars, options)
+            x: arg.eval(vars, options),
         });
         var parsedFunc = parse(func, options);
         if (parsedFunc.parsed) {
@@ -2567,16 +2890,15 @@ _.extend(Func.prototype, {
         return parsedFunc;
     },
 
-    codegen: function() {
-        return 'vars["' + this.symbol + '"](' +
-            this.arg.codegen() + ')';
+    codegen: function () {
+        return 'vars["' + this.symbol + '"](' + this.arg.codegen() + ")";
     },
 
-    getUnits: function() {
+    getUnits: function () {
         return this.arg.getUnits();
     },
 
-    getVars: function(excludeFunc) {
+    getVars: function (excludeFunc) {
         if (excludeFunc) {
             return this.arg.getVars();
         } else {
@@ -2584,11 +2906,10 @@ _.extend(Func.prototype, {
         }
     },
 
-    getConsts: function() {
+    getConsts: function () {
         return this.arg.getConsts();
     },
 });
-
 
 /* variable */
 export function Var(symbol, subscript) {
@@ -2599,12 +2920,18 @@ Var.prototype = new Symbol();
 
 _.extend(Var.prototype, {
     func: Var,
-    args: function() { return [this.symbol, this.subscript]; },
+    args: function () {
+        return [this.symbol, this.subscript];
+    },
 
-    exprArgs: function() { return []; },
-    recurse: function() { return this; },
+    exprArgs: function () {
+        return [];
+    },
+    recurse: function () {
+        return this;
+    },
 
-    print: function() {
+    print: function () {
         var sub = "";
         if (this.subscript) {
             sub = "_(" + this.subscript.print() + ")";
@@ -2614,7 +2941,7 @@ _.extend(Var.prototype, {
 
     // Provide a way to easily evalate expressions with the common case,
     // subscripts that consist of a single number or symbol e.g. x_a or x_42
-    prettyPrint: function() {
+    prettyPrint: function () {
         var sub = this.subscript;
         if (sub && (sub instanceof Num || sub instanceof Symbol)) {
             return this.symbol + "_" + sub.print();
@@ -2623,7 +2950,7 @@ _.extend(Var.prototype, {
         }
     },
 
-    tex: function() {
+    tex: function () {
         var sub = "";
         if (this.subscript) {
             sub = "_{" + this.subscript.tex() + "}";
@@ -2632,32 +2959,43 @@ _.extend(Var.prototype, {
         return prefix + this.symbol + sub;
     },
 
-    repr: function() { return "Var(" + this.print() + ")"; },
+    repr: function () {
+        return "Var(" + this.print() + ")";
+    },
 
-    eval: function(vars, options) {
+    eval: function (vars, options) {
         return vars[this.prettyPrint()];
     },
 
-    codegen: function() {
+    codegen: function () {
         return 'vars["' + this.prettyPrint() + '"]';
     },
 
-    getVars: function() { return [this.prettyPrint()]; },
+    getVars: function () {
+        return [this.prettyPrint()];
+    },
 
-    isPositive: function() { return false; }
+    isPositive: function () {
+        return false;
+    },
 });
 
-
 /* constant */
-export function Const(symbol) { this.symbol = symbol; }
+export function Const(symbol) {
+    this.symbol = symbol;
+}
 Const.prototype = new Symbol();
 
 _.extend(Const.prototype, {
     func: Const,
-    args: function() { return [this.symbol]; },
-    recurse: function() { return this; },
+    args: function () {
+        return [this.symbol];
+    },
+    recurse: function () {
+        return this;
+    },
 
-    eval: function(vars, options) {
+    eval: function (vars, options) {
         if (this.symbol === "pi") {
             return Math.PI;
         } else if (this.symbol === "e") {
@@ -2665,7 +3003,7 @@ _.extend(Const.prototype, {
         }
     },
 
-    codegen: function() {
+    codegen: function () {
         if (this.symbol === "pi") {
             return "Math.PI";
         } else if (this.symbol === "e") {
@@ -2673,9 +3011,11 @@ _.extend(Const.prototype, {
         }
     },
 
-    print: function() { return this.symbol; },
+    print: function () {
+        return this.symbol;
+    },
 
-    tex: function() {
+    tex: function () {
         if (this.symbol === "pi") {
             return "\\pi ";
         } else if (this.symbol === "e") {
@@ -2683,11 +3023,11 @@ _.extend(Const.prototype, {
         }
     },
 
-    isPositive: function() {
+    isPositive: function () {
         return this.eval() > 0;
     },
 
-    abs: function() {
+    abs: function () {
         if (this.eval() > 0) {
             return this;
         } else {
@@ -2695,7 +3035,7 @@ _.extend(Const.prototype, {
         }
     },
 
-    getConsts: function() {
+    getConsts: function () {
         return [this.print()];
     },
 });
@@ -2703,16 +3043,23 @@ _.extend(Const.prototype, {
 Const.e = new Const("e");
 Const.pi = new Const("pi");
 
-
 /* abstract number node */
 function Num() {}
 Num.prototype = new Expr();
 
 _.extend(Num.prototype, {
-    repr: function() { return this.print(); },
-    strip: function() { return this.abs(); },
-    recurse: function() { return this; },
-    codegen: function() { return this.print(); },
+    repr: function () {
+        return this.print();
+    },
+    strip: function () {
+        return this.abs();
+    },
+    recurse: function () {
+        return this;
+    },
+    codegen: function () {
+        return this.print();
+    },
 
     // takes another Num and returns a new Num
     add: abstract,
@@ -2721,24 +3068,28 @@ _.extend(Num.prototype, {
     // returns this Num's additive inverse
     negate: abstract,
 
-    isSubtract: function() { return this.hints.subtract; },
+    isSubtract: function () {
+        return this.hints.subtract;
+    },
 
     // return the absolute value of the number
     abs: abstract,
 
-    needsExplicitMul: function() { return true; },
+    needsExplicitMul: function () {
+        return true;
+    },
 
     findGCD: abstract,
 
-    isPositive: function() {
+    isPositive: function () {
         return this.eval() > 0;
     },
 
-    isNegative: function() {
+    isNegative: function () {
         return this.eval() < 0;
     },
 
-    asPositiveFactor: function() {
+    asPositiveFactor: function () {
         return this.isPositive() ? this : this.abs();
     },
 
@@ -2749,7 +3100,7 @@ _.extend(Num.prototype, {
         divide: false,
         root: false,
         fraction: false,
-        entered: false
+        entered: false,
     }),
 
     // whether a number is considered simple (one term)
@@ -2757,58 +3108,72 @@ _.extend(Num.prototype, {
     isSimple: abstract,
 
     // Based on http://stackoverflow.com/a/10454560/2571482
-    getDecimalPlaces: function() {
+    getDecimalPlaces: function () {
         var match = ("" + this.n).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
         if (match) {
             return Math.max(
                 0,
                 // Number of digits right of decimal point
                 (match[1] ? match[1].length : 0) -
-                // Adjust for scientific notation
-                (match[2] ? +match[2] : 0)
+                    // Adjust for scientific notation
+                    (match[2] ? +match[2] : 0),
             );
         } else {
             return 0;
         }
     },
 
-    asRational: abstract
+    asRational: abstract,
 });
-
 
 /* rational number (n: numerator, d: denominator) */
 export function Rational(numerator, denominator) {
-    var n = numerator; var d = denominator;
+    var n = numerator;
+    var d = denominator;
     if (d < 0) {
-        n = -n; d = -d;
+        n = -n;
+        d = -d;
     }
-    this.n = n; this.d = d;
+    this.n = n;
+    this.d = d;
 }
 Rational.prototype = new Num();
 
 _.extend(Rational.prototype, {
     func: Rational,
-    args: function() { return [this.n, this.d]; },
-    eval: function() { return this.n / this.d; },
+    args: function () {
+        return [this.n, this.d];
+    },
+    eval: function () {
+        return this.n / this.d;
+    },
 
-    print: function() {
+    print: function () {
         return this.n.toString() + "/" + this.d.toString();
     },
 
-    tex: function() {
-        var tex = "\\frac{" + Math.abs(this.n).toString() + "}{" + this.d.toString() + "}";
+    tex: function () {
+        var tex =
+            "\\frac{" +
+            Math.abs(this.n).toString() +
+            "}{" +
+            this.d.toString() +
+            "}";
         return this.n < 0 ? "-" + tex : tex;
     },
 
-    add: function(num, options) {
+    add: function (num, options) {
         if (num instanceof Rational) {
-            return new Rational(this.n * num.d + this.d * num.n, this.d * num.d).collect();
+            return new Rational(
+                this.n * num.d + this.d * num.n,
+                this.d * num.d,
+            ).collect();
         } else {
             return num.add(this, options);
         }
     },
 
-    mul: function(num, options) {
+    mul: function (num, options) {
         if (num instanceof Rational) {
             return new Rational(this.n * num.n, this.d * num.d).collect();
         } else {
@@ -2816,7 +3181,7 @@ _.extend(Rational.prototype, {
         }
     },
 
-    collect: function() {
+    collect: function () {
         var gcd = Num.findGCD(this.n, this.d);
 
         var n = this.n / gcd;
@@ -2829,15 +3194,15 @@ _.extend(Rational.prototype, {
         }
     },
 
-    negate: function() {
+    negate: function () {
         return new Rational(-this.n, this.d);
     },
 
-    abs: function() {
+    abs: function () {
         return new Rational(Math.abs(this.n), this.d);
     },
 
-    findGCD: function(factor) {
+    findGCD: function (factor) {
         // Attempt to factor out common numerators and denominators to return
         // a Rational instead of a Float
         if (factor instanceof Rational) {
@@ -2855,7 +3220,7 @@ _.extend(Rational.prototype, {
     },
 
     // for now, assuming that exp is a Num
-    raiseToThe: function(exp) {
+    raiseToThe: function (exp) {
         if (exp instanceof Int) {
             var positive = exp.eval() > 0;
             var abs = exp.abs().eval();
@@ -2871,87 +3236,120 @@ _.extend(Rational.prototype, {
         }
     },
 
-    getDenominator: function() {
+    getDenominator: function () {
         return new Int(this.d);
     },
 
-    isSimple: function() { return false; },
+    isSimple: function () {
+        return false;
+    },
 
-    asRational: function() { return this; }
+    asRational: function () {
+        return this;
+    },
 });
 
-
 /* integer (n: numerator/number) */
-export function Int(number) { this.n = number; }
+export function Int(number) {
+    this.n = number;
+}
 Int.prototype = new Rational(0, 1);
 
 _.extend(Int.prototype, {
     func: Int,
-    args: function() { return [this.n]; },
-    print: function() { return this.n.toString(); },
-    tex: function() { return this.n.toString(); },
-    negate: function() { return new Int(-this.n); },
-    abs: function() { return new Int(Math.abs(this.n)); },
-    isSimple: function() { return true; },
-    findGCD: function(factor) {
+    args: function () {
+        return [this.n];
+    },
+    print: function () {
+        return this.n.toString();
+    },
+    tex: function () {
+        return this.n.toString();
+    },
+    negate: function () {
+        return new Int(-this.n);
+    },
+    abs: function () {
+        return new Int(Math.abs(this.n));
+    },
+    isSimple: function () {
+        return true;
+    },
+    findGCD: function (factor) {
         if (factor instanceof Int) {
             return new Int(Num.findGCD(this.n, factor.n));
         } else {
             return factor.findGCD(this);
         }
-    }
+    },
 });
 
 _.extend(Int, {
-    create: function(n) { return new Int(n).addHint("entered"); }
+    create: function (n) {
+        return new Int(n).addHint("entered");
+    },
 });
 
 /* float (n: number) */
-export function Float(number) { this.n = number; }
+export function Float(number) {
+    this.n = number;
+}
 Float.prototype = new Num();
 
 _.extend(Float.prototype, {
     func: Float,
-    args: function() { return [this.n]; },
-    eval: function() { return this.n; },
+    args: function () {
+        return [this.n];
+    },
+    eval: function () {
+        return this.n;
+    },
 
     // TODO(alex): when we internationalize number parsing/display
     // we should make sure to use the appropriate decimal mark here
-    print: function() { return this.n.toString(); },
-    tex: function() { return this.n.toString(); },
+    print: function () {
+        return this.n.toString();
+    },
+    tex: function () {
+        return this.n.toString();
+    },
 
-    add: function(num, options) {
+    add: function (num, options) {
         if (options && options.preciseFloats) {
             return Float.toDecimalPlaces(
                 this.n + num.eval(),
-                Math.max(this.getDecimalPlaces(), num.getDecimalPlaces())
+                Math.max(this.getDecimalPlaces(), num.getDecimalPlaces()),
             );
         } else {
             return new Float(this.n + num.eval()).collect();
         }
     },
 
-    mul: function(num, options) {
+    mul: function (num, options) {
         if (options && options.preciseFloats) {
             return Float.toDecimalPlaces(
                 this.n * num.eval(),
-                this.getDecimalPlaces() + num.getDecimalPlaces()
+                this.getDecimalPlaces() + num.getDecimalPlaces(),
             );
         } else {
             return new Float(this.n * num.eval()).collect();
         }
     },
 
-    collect: function() {
+    collect: function () {
         // We used to simplify Floats to Ints here whenever possible, but no
         // longer do so in order to preserve significant figures.
         return this;
     },
 
-    negate: function() { return new Float(-this.n); },
-    abs: function() { return new Float(Math.abs(this.n)); },
+    negate: function () {
+        return new Float(-this.n);
+    },
+    abs: function () {
+        return new Float(Math.abs(this.n));
+    },
 
-    findGCD: function(factor) {
+    findGCD: function (factor) {
         if (factor instanceof Num) {
             return new Float(Num.findGCD(this.eval(), factor.eval())).collect();
         } else {
@@ -2960,12 +3358,16 @@ _.extend(Float.prototype, {
     },
 
     // for now, assuming that exp is a Num
-    raiseToThe: function(exp, options) {
-        if (options && options.preciseFloats &&
-                exp instanceof Int && exp.n > 1) {
+    raiseToThe: function (exp, options) {
+        if (
+            options &&
+            options.preciseFloats &&
+            exp instanceof Int &&
+            exp.n > 1
+        ) {
             return Float.toDecimalPlaces(
                 new Pow(this, exp).eval(),
-                this.getDecimalPlaces() * exp.n
+                this.getDecimalPlaces() * exp.n,
             );
         } else {
             return new Float(new Pow(this, exp).eval()).collect();
@@ -2973,7 +3375,7 @@ _.extend(Float.prototype, {
     },
 
     // only to be used on non-repeating decimals (e.g. user-provided)
-    asRational: function() {
+    asRational: function () {
         var parts = this.n.toString().split(".");
         if (parts.length === 1) {
             return new Rational(this.n, 1);
@@ -2984,26 +3386,30 @@ _.extend(Float.prototype, {
         }
     },
 
-    getDenominator: function() {
+    getDenominator: function () {
         return this.asRational().getDenominator();
     },
 
-    isSimple: function() { return true; }
+    isSimple: function () {
+        return true;
+    },
 });
 
 _.extend(Float, {
-    create: function(n) { return new Float(n).addHint("entered"); },
+    create: function (n) {
+        return new Float(n).addHint("entered");
+    },
 
     // Account for floating point imprecision by explicitly controlling the
     // number of decimal places in common operations (e.g. +, *, ^)
-    toDecimalPlaces: function(n, places) {
+    toDecimalPlaces: function (n, places) {
         return new Float(+n.toFixed(Math.min(places, 20))).collect();
-    }
+    },
 });
 
 // static methods and fields that are best defined on Num
 _.extend(Num, {
-    negativeOne: function(hint) {
+    negativeOne: function (hint) {
         if (hint === "subtract") {
             return Num.Sub;
         } else if (hint === "divide") {
@@ -3014,7 +3420,7 @@ _.extend(Num, {
     },
 
     // find the greatest common denominator
-    findGCD: function(a, b) {
+    findGCD: function (a, b) {
         var mod;
 
         a = Math.abs(a);
@@ -3036,17 +3442,17 @@ _.extend(Num, {
         return a;
     },
 
-    min: function() {
-        return _.min(_.toArray(arguments), function(num) {
+    min: function () {
+        return _.min(_.toArray(arguments), function (num) {
             return num.eval();
         });
     },
 
-    max: function() {
-        return _.max(_.toArray(arguments), function(num) {
+    max: function () {
+        return _.max(_.toArray(arguments), function (num) {
             return num.eval();
         });
-    }
+    },
 });
 
 Num.Neg = new Int(-1).addHint("negate");
@@ -3059,12 +3465,11 @@ Num.Zero = new Int(0);
 Num.One = new Int(1);
 Num.Ten = new Int(10);
 
-
 // set identities here
 Add.prototype.identity = Num.Zero;
 Mul.prototype.identity = Num.One;
 
-var parseError = function(str, hash) {
+var parseError = function (str, hash) {
     // return int location of parsing error
     throw new Error(hash.loc.first_column);
 };
@@ -3087,7 +3492,7 @@ parser.yy = {
     parseError: parseError,
 
     constants: ["e"],
-    symbolLexer: function(symbol) {
+    symbolLexer: function (symbol) {
         if (_.contains(parser.yy.constants, symbol)) {
             return "CONST";
         } else if (_.contains(parser.yy.functions, symbol)) {
@@ -3095,10 +3500,10 @@ parser.yy = {
         } else {
             return "VAR";
         }
-    }
+    },
 };
 
-export const parse = function(input, options) {
+export const parse = function (input, options) {
     try {
         if (options && options.functions) {
             // reserve the symbol "i" for complex numbers
@@ -3132,13 +3537,13 @@ Unit.prototype = new Symbol();
 //
 // "g" -> Unit("g")
 // "kg" -> 1000 * Unit("g")
-var unprefixify = function(symbol) {
+var unprefixify = function (symbol) {
     if (_(baseUnits).has(symbol) || _(derivedUnits).has(symbol)) {
         return new Unit(symbol);
     }
 
     // check for prefix
-    var prefix = _(_(siPrefixes).keys()).find(function(testPrefix) {
+    var prefix = _(_(siPrefixes).keys()).find(function (testPrefix) {
         return new RegExp("^" + testPrefix).test(symbol);
     });
 
@@ -3151,10 +3556,10 @@ var unprefixify = function(symbol) {
         //
         // Otherwise, we're trying to parse a unit label which is not
         // allowed (mwk, mBTU, etc).
-        if (_(baseUnits).has(base) ||
-            (derivedUnits[base] &&
-             derivedUnits[base].prefixes === hasPrefixes)) {
-
+        if (
+            _(baseUnits).has(base) ||
+            (derivedUnits[base] && derivedUnits[base].prefixes === hasPrefixes)
+        ) {
             return new Mul(siPrefixes[prefix], new Unit(base));
         } else {
             throw new Error(base + " does not allow prefixes");
@@ -3164,7 +3569,7 @@ var unprefixify = function(symbol) {
     }
 };
 
-export const unitParse = function(input) {
+export const unitParse = function (input) {
     try {
         var parseResult = unitParser.parse(input);
 
@@ -3185,15 +3590,15 @@ export const unitParse = function(input) {
 
         var unitArray = [];
 
-        _(parseResult.unit.num).each(function(unitSpec) {
+        _(parseResult.unit.num).each(function (unitSpec) {
             unitArray.push(
-                new Pow(unprefixify(unitSpec.name), new Int(unitSpec.pow))
+                new Pow(unprefixify(unitSpec.name), new Int(unitSpec.pow)),
             );
         });
 
-        _(parseResult.unit.denom).each(function(unitSpec) {
+        _(parseResult.unit.denom).each(function (unitSpec) {
             unitArray.push(
-                new Pow(unprefixify(unitSpec.name), new Int(-1 * unitSpec.pow))
+                new Pow(unprefixify(unitSpec.name), new Int(-1 * unitSpec.pow)),
             );
         });
 
@@ -3202,18 +3607,18 @@ export const unitParse = function(input) {
         if (parseResult.type === "unitMagnitude") {
             // in the first case we have a magnitude coefficient as well as the
             // unit itself.
-            var coefArray =
-                [new Float(+parseResult.magnitude)].concat(unitArray);
+            var coefArray = [new Float(+parseResult.magnitude)].concat(
+                unitArray,
+            );
             var expr = new Mul(coefArray);
             return {
                 parsed: true,
                 unit: unit,
                 expr: expr,
                 coefficient: parseResult.magnitude,
-                type: parseResult.type
+                type: parseResult.type,
             };
         } else {
-
             // in the second case it's just the unit with no magnitude.
             return {
                 parsed: true,
@@ -3228,10 +3633,14 @@ export const unitParse = function(input) {
 
 _.extend(Unit.prototype, {
     func: Unit,
-    args: function() { return [this.symbol]; },
-    recurse: function() { return this; },
+    args: function () {
+        return [this.symbol];
+    },
+    recurse: function () {
+        return this;
+    },
 
-    eval: function(vars, options) {
+    eval: function (vars, options) {
         // This is called when comparing units. A unit doesn't affect the
         // numerical value of its coefficient, so this needs to be 1.
         //
@@ -3242,16 +3651,24 @@ _.extend(Unit.prototype, {
         return 1;
     },
 
-    getUnits: function() { return [{unit: this.symbol, pow: 1}]; },
+    getUnits: function () {
+        return [{unit: this.symbol, pow: 1}];
+    },
 
-    codegen: function() { return "1"; },
+    codegen: function () {
+        return "1";
+    },
 
-    print: function() { return this.symbol; },
+    print: function () {
+        return this.symbol;
+    },
 
-    tex: function() { return this.symbol; },
+    tex: function () {
+        return this.symbol;
+    },
 
     // Simplify units by replacing prefixes with multiplication
-    collect: function(options) {
+    collect: function (options) {
         if (_(baseUnits).has(this.symbol)) {
             return this;
         } else if (_(derivedUnits).has(this.symbol)) {
@@ -3298,7 +3715,7 @@ var siPrefixes = {
 var hasPrefixes = {};
 var hasntPrefixes = {};
 
-var makeAlias = function(str, prefixes) {
+var makeAlias = function (str, prefixes) {
     var splits = str.split("|");
     var coefficientStr = splits[0].trim();
     var unitsStr = splits[1].trim();
@@ -3314,9 +3731,10 @@ var makeAlias = function(str, prefixes) {
     if (numdenomStr[0]) {
         numdenomStr[0]
             .split(" ")
-            .filter(function(x) {
+            .filter(function (x) {
                 return x !== "";
-            }).map(function(x) {
+            })
+            .map(function (x) {
                 numdenom.push(new Unit(x));
             });
     }
@@ -3324,9 +3742,10 @@ var makeAlias = function(str, prefixes) {
     if (numdenomStr[1]) {
         numdenomStr[1]
             .split(" ")
-            .filter(function(x) {
+            .filter(function (x) {
                 return x !== "";
-            }).map(function(x) {
+            })
+            .map(function (x) {
                 numdenom.push(new Pow(new Unit(x), Num.Div));
             });
     }
@@ -3366,27 +3785,27 @@ var derivedUnits = {
     u: makeAlias("| Da", hasntPrefixes),
 
     // length
-    "meter": makeAlias("| m", hasntPrefixes),
-    "meters": makeAlias("| m", hasntPrefixes),
-    "in": makeAlias("254 / 10000 | m", hasntPrefixes),
-    "ft": makeAlias("3048  / 10000 | m", hasntPrefixes),
-    "yd": makeAlias("9144  / 10000 | m", hasntPrefixes),
-    "mi": makeAlias("1609344 / 1000 | m", hasntPrefixes),
-    "ly": makeAlias("9.4607 x 10^15 | m", hasntPrefixes),
-    "nmi": makeAlias("1852 | m", hasntPrefixes),
-    "Å": makeAlias("10^-10 | m", hasntPrefixes),
-    "pc": makeAlias("3.0857 x 10^16 | m", hasntPrefixes),
+    meter: makeAlias("| m", hasntPrefixes),
+    meters: makeAlias("| m", hasntPrefixes),
+    in: makeAlias("254 / 10000 | m", hasntPrefixes),
+    ft: makeAlias("3048  / 10000 | m", hasntPrefixes),
+    yd: makeAlias("9144  / 10000 | m", hasntPrefixes),
+    mi: makeAlias("1609344 / 1000 | m", hasntPrefixes),
+    ly: makeAlias("9.4607 x 10^15 | m", hasntPrefixes),
+    nmi: makeAlias("1852 | m", hasntPrefixes),
+    Å: makeAlias("10^-10 | m", hasntPrefixes),
+    pc: makeAlias("3.0857 x 10^16 | m", hasntPrefixes),
 
     // time
-    "min": makeAlias("60 | s", hasntPrefixes),
-    "hr": makeAlias("3600 | s", hasntPrefixes),
-    "sec": makeAlias("| s", hasntPrefixes),
+    min: makeAlias("60 | s", hasntPrefixes),
+    hr: makeAlias("3600 | s", hasntPrefixes),
+    sec: makeAlias("| s", hasntPrefixes),
     // TODO(joel) make day work
-    "day": makeAlias("86400 | s", hasntPrefixes),
-    "wk": makeAlias("604800 | s", hasntPrefixes),
-    "fortnight": makeAlias("14 | day", hasntPrefixes),
-    "shake": makeAlias("10^-8 | s", hasntPrefixes),
-    "olympiad": makeAlias("126200000 | s", hasntPrefixes),
+    day: makeAlias("86400 | s", hasntPrefixes),
+    wk: makeAlias("604800 | s", hasntPrefixes),
+    fortnight: makeAlias("14 | day", hasntPrefixes),
+    shake: makeAlias("10^-8 | s", hasntPrefixes),
+    olympiad: makeAlias("126200000 | s", hasntPrefixes),
 
     // temperature
     "°C": makeAlias("1 | K", hasntPrefixes),
@@ -3394,113 +3813,113 @@ var derivedUnits = {
     "°R": makeAlias("5/9 | K", hasntPrefixes),
 
     // electric charge
-    "e": makeAlias("1.6021765314 x 10^-19 | C", hasntPrefixes),
+    e: makeAlias("1.6021765314 x 10^-19 | C", hasntPrefixes),
 
     // speed
-    "c": makeAlias("299792458 | m / s", hasntPrefixes),
-    "kn": makeAlias("514/1000 | m / s", hasntPrefixes),
-    "kt": makeAlias("| kn", hasntPrefixes),
-    "knot": makeAlias("| kn", hasntPrefixes),
+    c: makeAlias("299792458 | m / s", hasntPrefixes),
+    kn: makeAlias("514/1000 | m / s", hasntPrefixes),
+    kt: makeAlias("| kn", hasntPrefixes),
+    knot: makeAlias("| kn", hasntPrefixes),
 
     // energy
-    "J": makeAlias("| N m", hasPrefixes),
-    "BTU": makeAlias("1060 | J", hasntPrefixes),
-    "cal": makeAlias("4184 / 1000 | J", hasPrefixes),
-    "eV": makeAlias("1.602176514 x 10^-19 | J", hasPrefixes),
-    "erg": makeAlias("10^−7 | J", hasPrefixes),
+    J: makeAlias("| N m", hasPrefixes),
+    BTU: makeAlias("1060 | J", hasntPrefixes),
+    cal: makeAlias("4184 / 1000 | J", hasPrefixes),
+    eV: makeAlias("1.602176514 x 10^-19 | J", hasPrefixes),
+    erg: makeAlias("10^−7 | J", hasPrefixes),
 
     // power
-    "W": makeAlias("| J / s", hasPrefixes),
+    W: makeAlias("| J / s", hasPrefixes),
     "H-e": makeAlias("80 | W", hasntPrefixes),
 
     // force
-    "N": makeAlias("1000 | g m / s s", hasPrefixes),
+    N: makeAlias("1000 | g m / s s", hasPrefixes),
     // "lb": makeAlias("4448 / 1000 | N", hasntPrefixes),
     // 4.4482216152605
-    "lb": makeAlias("4448221615 / 1000000000 | N", hasntPrefixes),
-    "dyn": makeAlias("10^-5 | N", hasntPrefixes),
+    lb: makeAlias("4448221615 / 1000000000 | N", hasntPrefixes),
+    dyn: makeAlias("10^-5 | N", hasntPrefixes),
 
     // pressure
-    "Pa": makeAlias("1 | N / m m m", hasPrefixes),
-    "bar": makeAlias("10^5 | Pa", hasPrefixes),
+    Pa: makeAlias("1 | N / m m m", hasPrefixes),
+    bar: makeAlias("10^5 | Pa", hasPrefixes),
     "㏔": makeAlias("1/1000 | bar", hasntPrefixes),
     "㍴": makeAlias("| bar", hasntPrefixes),
-    "atm": makeAlias("101325 | Pa", hasntPrefixes),
-    "Torr": makeAlias("1/760 | atm", hasntPrefixes),
-    "mmHg": makeAlias("| Torr", hasntPrefixes),
+    atm: makeAlias("101325 | Pa", hasntPrefixes),
+    Torr: makeAlias("1/760 | atm", hasntPrefixes),
+    mmHg: makeAlias("| Torr", hasntPrefixes),
 
     // area
-    "ha": makeAlias("10^4 | m m", hasntPrefixes),
-    "b": makeAlias("10^−28 | m m", hasPrefixes),
-    "barn": makeAlias("| b", hasPrefixes),
-    "acre": makeAlias("4046.87 | m m", hasntPrefixes),
-    "skilodge": makeAlias("10^-31 | m m", hasntPrefixes),
-    "outhouse": makeAlias("10^-34 | m m", hasntPrefixes),
-    "shed": makeAlias("10^-52 | m m", hasntPrefixes),
+    ha: makeAlias("10^4 | m m", hasntPrefixes),
+    b: makeAlias("10^−28 | m m", hasPrefixes),
+    barn: makeAlias("| b", hasPrefixes),
+    acre: makeAlias("4046.87 | m m", hasntPrefixes),
+    skilodge: makeAlias("10^-31 | m m", hasntPrefixes),
+    outhouse: makeAlias("10^-34 | m m", hasntPrefixes),
+    shed: makeAlias("10^-52 | m m", hasntPrefixes),
 
     // volume
-    "L": makeAlias("1/1000 | m m m", hasPrefixes),
-    "gal": makeAlias("3785/1000 | L", hasPrefixes),
-    "cup": makeAlias("1/16 | gal", hasntPrefixes),
-    "qt": makeAlias("1/4 | gal", hasntPrefixes),
-    "quart": makeAlias("| qt", hasntPrefixes),
-    "p": makeAlias("1/8 | gal", hasntPrefixes),
-    "pt": makeAlias("| p", hasntPrefixes),
-    "pint": makeAlias("| p", hasntPrefixes),
+    L: makeAlias("1/1000 | m m m", hasPrefixes),
+    gal: makeAlias("3785/1000 | L", hasPrefixes),
+    cup: makeAlias("1/16 | gal", hasntPrefixes),
+    qt: makeAlias("1/4 | gal", hasntPrefixes),
+    quart: makeAlias("| qt", hasntPrefixes),
+    p: makeAlias("1/8 | gal", hasntPrefixes),
+    pt: makeAlias("| p", hasntPrefixes),
+    pint: makeAlias("| p", hasntPrefixes),
     "fl oz": makeAlias("1/8 | cup", hasntPrefixes),
     "fl. oz.": makeAlias("1/8 | cup", hasntPrefixes),
-    "tbsp": makeAlias("1/16 | cup", hasntPrefixes),
-    "tsp": makeAlias("1/3 | tbsp", hasntPrefixes),
+    tbsp: makeAlias("1/16 | cup", hasntPrefixes),
+    tsp: makeAlias("1/3 | tbsp", hasntPrefixes),
 
     // rotational
     // "rad":
-    "rev": makeAlias("2 pi | rad", hasntPrefixes),
-    "deg": makeAlias("180 pi | rad", hasntPrefixes),
+    rev: makeAlias("2 pi | rad", hasntPrefixes),
+    deg: makeAlias("180 pi | rad", hasntPrefixes),
     "°": makeAlias("| deg", hasntPrefixes),
-    "arcminute": makeAlias("1/60 | deg", hasntPrefixes),
-    "arcsec": makeAlias("1/3600 | deg", hasntPrefixes),
+    arcminute: makeAlias("1/60 | deg", hasntPrefixes),
+    arcsec: makeAlias("1/3600 | deg", hasntPrefixes),
 
     // dimensionless
     // "B": makeAlias("10 | dB", hasntPrefixes), // XXX danger - logarithmic
     // "dB"
     // "nP"
-    "Hu": makeAlias("1000 | dB", hasPrefixes),
-    "dozen": makeAlias("12 |", hasntPrefixes),
+    Hu: makeAlias("1000 | dB", hasPrefixes),
+    dozen: makeAlias("12 |", hasntPrefixes),
     // XXX
-    "mol": makeAlias("6.0221412927 x 10^23 |", hasPrefixes),
+    mol: makeAlias("6.0221412927 x 10^23 |", hasPrefixes),
     "%": makeAlias("1/100 |", hasntPrefixes),
-    "percent": makeAlias("| %", hasntPrefixes),
-    "ppm": makeAlias("1/1000000 |", hasntPrefixes),
+    percent: makeAlias("| %", hasntPrefixes),
+    ppm: makeAlias("1/1000000 |", hasntPrefixes),
 
     // electric / magnetic
-    "V": makeAlias("1000 | g m m / s s C", hasPrefixes),
-    "C": makeAlias("| A s", hasPrefixes),
-    "ampere": makeAlias("| A", hasntPrefixes),
-    "Ω": makeAlias("| V / A", hasPrefixes),
-    "ohm": makeAlias("| Ω", hasntPrefixes),
-    "F": makeAlias("| C / V", hasPrefixes),
-    "H": makeAlias("| ohm s", hasPrefixes),
-    "T": makeAlias("1000 | g / C s", hasPrefixes),
-    "Wb": makeAlias("1000 | g m m / C s", hasPrefixes),
+    V: makeAlias("1000 | g m m / s s C", hasPrefixes),
+    C: makeAlias("| A s", hasPrefixes),
+    ampere: makeAlias("| A", hasntPrefixes),
+    Ω: makeAlias("| V / A", hasPrefixes),
+    ohm: makeAlias("| Ω", hasntPrefixes),
+    F: makeAlias("| C / V", hasPrefixes),
+    H: makeAlias("| ohm s", hasPrefixes),
+    T: makeAlias("1000 | g / C s", hasPrefixes),
+    Wb: makeAlias("1000 | g m m / C s", hasPrefixes),
 
     // photometry
     // TODO not sure this is right
-    "lm": makeAlias("pi x 10^4 | cd / m m", hasntPrefixes),
-    "lx": makeAlias("| lm / m m", hasntPrefixes),
-    "nit": makeAlias("| cd / m m", hasntPrefixes),
-    "sb": makeAlias("10^4 | cd / m m", hasntPrefixes),
-    "stilb": makeAlias("1 | sb", hasntPrefixes),
-    "apostilb": makeAlias("1 / pi x 10^(-4) | sb", hasntPrefixes),
-    "blondel": makeAlias("| apostilb", hasntPrefixes),
-    "asb": makeAlias("| apostilb", hasntPrefixes),
-    "la": makeAlias("| lm", hasntPrefixes),
-    "Lb": makeAlias("| lm", hasntPrefixes),
-    "sk": makeAlias("10^-7 | lm", hasntPrefixes),
-    "skot": makeAlias("| sk", hasntPrefixes),
-    "bril": makeAlias("10^-11 | lm", hasntPrefixes),
+    lm: makeAlias("pi x 10^4 | cd / m m", hasntPrefixes),
+    lx: makeAlias("| lm / m m", hasntPrefixes),
+    nit: makeAlias("| cd / m m", hasntPrefixes),
+    sb: makeAlias("10^4 | cd / m m", hasntPrefixes),
+    stilb: makeAlias("1 | sb", hasntPrefixes),
+    apostilb: makeAlias("1 / pi x 10^(-4) | sb", hasntPrefixes),
+    blondel: makeAlias("| apostilb", hasntPrefixes),
+    asb: makeAlias("| apostilb", hasntPrefixes),
+    la: makeAlias("| lm", hasntPrefixes),
+    Lb: makeAlias("| lm", hasntPrefixes),
+    sk: makeAlias("10^-7 | lm", hasntPrefixes),
+    skot: makeAlias("| sk", hasntPrefixes),
+    bril: makeAlias("10^-11 | lm", hasntPrefixes),
 
     // other
-    "Hz": makeAlias("| / s", hasPrefixes),
+    Hz: makeAlias("| / s", hasPrefixes),
 };
 
 export const Zero = Num.Zero;

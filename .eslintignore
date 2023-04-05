@@ -1,5 +1,4 @@
 **/node_modules
-flow-typed/**/*.js
 coverage
 **/dist
 packages/**/build

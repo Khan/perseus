@@ -19,14 +19,14 @@
  * might need to be.
  */
 
-import {DeviceTypes, DeviceOrientations, LayoutModes} from "../consts.js";
+import {DeviceTypes, DeviceOrientations, LayoutModes} from "../consts";
 
 import {
     pageIndicatorHeightPx,
     toolbarHeightPx,
     navigationPadWidthPx,
     innerBorderWidthPx,
-} from "./common-style.js";
+} from "./common-style";
 
 const minButtonHeight = 48;
 const maxButtonSize = 64;

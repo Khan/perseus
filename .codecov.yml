@@ -23,4 +23,3 @@ ignore:
   - "packages/**/dist/index.js"
   - "packages/**/types.js"
   - "packages/**/*.cypress.jsx"
-  - "packages/**/*.flowtest.js"
