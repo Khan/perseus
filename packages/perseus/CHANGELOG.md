@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 4.0.2
+
+### Patch Changes
+
+-   90c1833e: Fix lint
+-   Updated dependencies [8e8d85cd]
+-   Updated dependencies [77391aa8]
+    -   @khanacademy/math-input@0.7.2
+    -   @khanacademy/simple-markdown@0.9.2
+    -   @khanacademy/pure-markdown@0.2.2
+
 ## 4.0.1
 
 ### Patch Changes

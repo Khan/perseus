@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 0.7.2
+
+### Patch Changes
+
+-   8e8d85cd: Fix imported React types in a couple of files
+
 ## 0.7.1
 
 ### Patch Changes
