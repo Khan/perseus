@@ -5,7 +5,7 @@ import * as fglob from "fast-glob";
 import {compiler, beautify} from "flowgen";
 
 const rootDir = path.join(__dirname, "..", "..");
-const files = fglob.sync("packages/simple-markdown/dist/**/*.d.ts", {
+const files = fglob.sync("packages/*/dist/**/*.d.ts", {
     cwd: rootDir,
 });
 
