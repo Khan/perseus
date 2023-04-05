@@ -208,6 +208,8 @@ jobs:
 
   publish_snapshot:
     name: Publish npm snapshot
+    # We don't publish snapshots on draft PRs
+    if: '! github.event.pull_request.draft'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
