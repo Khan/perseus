@@ -6,7 +6,6 @@ import {
     KeypadPageContainer,
     SecondaryKeypadButton,
     KeypadActionButton,
-    PlaceHolderButton,
 } from "./keypad-page-items";
 
 type Props = {
@@ -45,9 +44,18 @@ export default class PreAlgebraPage extends React.Component<Props> {
                     onClickKey={onClickKey}
                 />
                 {/* Row 2 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.LOG}
+                    onClickKey={onClickKey}
+                />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.LOG_N}
+                    onClickKey={onClickKey}
+                />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.LN}
+                    onClickKey={onClickKey}
+                />
                 <SecondaryKeypadButton
                     keyConfig={Keys.X}
                     onClickKey={onClickKey}
@@ -63,9 +71,18 @@ export default class PreAlgebraPage extends React.Component<Props> {
                     }}
                 />
                 {/* Row 3 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.EQUAL}
+                    onClickKey={onClickKey}
+                />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.LT}
+                    onClickKey={onClickKey}
+                />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.GT}
+                    onClickKey={onClickKey}
+                />
                 <SecondaryKeypadButton
                     keyConfig={Keys.PI}
                     onClickKey={onClickKey}
@@ -81,9 +98,18 @@ export default class PreAlgebraPage extends React.Component<Props> {
                     onClickKey={onClickKey}
                 />
                 {/* Row 4 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.NEQ}
+                    onClickKey={onClickKey}
+                />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.LEQ}
+                    onClickKey={onClickKey}
+                />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.GEQ}
+                    onClickKey={onClickKey}
+                />
                 <KeypadActionButton
                     keyConfig={Keys.DISMISS}
                     style={{

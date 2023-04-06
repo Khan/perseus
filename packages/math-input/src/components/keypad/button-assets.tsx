@@ -485,6 +485,24 @@ const buttonAsset: React.FC<{
                     />
                 </svg>
             );
+        case "LOG":
+            return <span>log</span>;
+        case "LOG_N":
+            return <span>logn</span>;
+        case "LN":
+            return <span>ln</span>;
+        case "EQUAL":
+            return <span>==</span>;
+        case "NEQ":
+            return <span>!=</span>;
+        case "LT":
+            return <span>&lt;</span>;
+        case "GT":
+            return <span>&gt;</span>;
+        case "LEQ":
+            return <span>&lt;=</span>;
+        case "GEQ":
+            return <span>&gt;=</span>;
 
         default:
             throw new Error(`Invalid asset ${id}`);

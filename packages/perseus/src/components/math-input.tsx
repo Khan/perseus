@@ -235,6 +235,19 @@ class MathInput extends React.Component<Props, State> {
             RADICAL: "\\nthroot",
             EXP_2: "^2",
             X: "x",
+            EQUAL: "=",
+            NEQ: "\\neq",
+            LT: "<",
+            LEQ: "\\leq",
+            GT: ">",
+            GEQ: "\\geq",
+            LOG_N: (input) => {
+                input.typedText("log_");
+                input.keystroke("Right");
+                input.typedText("(");
+                input.keystroke("Left");
+                input.keystroke("Left");
+            },
             EXP: (input: any) => {
                 const contents = input.latex();
                 input.typedText("^");
@@ -255,13 +268,19 @@ class MathInput extends React.Component<Props, State> {
             },
         };
 
-        return map[value] || value;
+        const rv = map[value];
+
+        if (!rv) {
+            throw new Error(
+                "Perseus Expression MathInput is not set up to handle this button",
+            );
+        }
+
+        return rv;
     }
 
     insert: (value: any) => void = (value) => {
-        console.log(value);
         value = this._convertToMathQuill(value);
-        console.log(value);
 
         const input = this.mathField();
         if (_(value).isFunction()) {
