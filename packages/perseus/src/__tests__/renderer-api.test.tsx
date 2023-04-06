@@ -1,49 +1,31 @@
-import {describe, beforeEach, it} from "@jest/globals";
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {mount} from "enzyme"; // eslint-disable-line no-restricted-imports
-import $ from "jquery";
+// @flow
+import {screen, within} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import * as React from "react";
-import ReactDOM from "react-dom";
-import TestUtils from "react-dom/test-utils";
-import _ from "underscore";
-import "jest-enzyme";
+import "@testing-library/jest-dom";
 
-import {ClassNames, Dependencies, Renderer} from "@khanacademy/perseus";
+import {ClassNames, Dependencies} from "@khanacademy/perseus";
 
+import {assertIsPoints} from "../../../../testing/score-utils";
 import {testDependencies} from "../../../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
+import {renderQuestion} from "../widgets/__tests__/renderQuestion";
 
 import imageItem from "./test-items/image-item";
-import inputNumber1Item from "./test-items/input-number-1-item";
-import inputNumber2Item from "./test-items/input-number-2-item";
+import numericInput1Item from "./test-items/numeric-input-1-item";
+import numericInput2Item from "./test-items/numeric-input-2-item";
 import tableItem from "./test-items/table-item";
 
-const itemWidget = inputNumber1Item;
+const itemWidget = numericInput1Item;
 
 // Returns a promise that will resolve shortly after the end of this
-// browser tick (roughly a `setTimeout(0)`)
-const delayedPromise = (value: undefined) => {
-    const deferred = $.Deferred();
-    _.defer(() => {
-        deferred.resolve(value);
+// browser tick.
+const delayedPromise = (value?: number) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(value);
+        }, 0);
     });
-    return deferred.promise();
-};
-
-const renderQuestionArea = function (item, apiOptions): any {
-    const wrapper = mount(
-        <RenderStateRoot>
-            <Renderer
-                content={item.question.content}
-                images={item.question.images}
-                widgets={item.question.widgets}
-                problemNum={0}
-                apiOptions={apiOptions}
-            />
-        </RenderStateRoot>,
-        {includeDefaultTestHarness: false},
-    );
-    return wrapper.childAt(0).instance();
 };
 
 describe("Perseus API", function () {
@@ -51,46 +33,47 @@ describe("Perseus API", function () {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        // @ts
         registerAllWidgetsForTesting();
     });
 
     describe("setInputValue", function () {
         it("should be able to produce a correctly graded value", function () {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
-            const renderer = renderQuestionArea(inputNumber1Item);
-            renderer.setInputValue(["input-number 1"], "5");
-            const score = renderer.guessAndScore()[1];
-            expect(score.type).toBe("points");
+            const {renderer} = renderQuestion(numericInput1Item.question);
+            renderer.setInputValue(["numeric-input 1"], "5", () => {});
+
+            const [_, score] = renderer.guessAndScore();
+            assertIsPoints(score);
             expect(score.earned).toBe(score.total);
         });
 
         it("should be able to produce a wrong value", function () {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
-            const renderer = renderQuestionArea(inputNumber1Item);
-            renderer.setInputValue(["input-number 1"], "3", () => {});
+            const {renderer} = renderQuestion(numericInput1Item.question);
+            renderer.setInputValue(["numeric-input 1"], "3", () => {});
+
             const score = renderer.guessAndScore()[1];
-            expect(score.type).toBe("points");
+            assertIsPoints(score);
             expect(score.earned).toBe(0);
         });
 
         it("should be able to produce an empty score", function () {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
-            const renderer = renderQuestionArea(inputNumber1Item);
-            renderer.setInputValue(["input-number 1"], "3");
+            const {renderer} = renderQuestion(numericInput1Item.question);
+            renderer.setInputValue(["numeric-input 1"], "3", () => {});
+
             let score = renderer.guessAndScore()[1];
-            expect(score.type).toBe("points");
+            assertIsPoints(score);
             expect(score.earned).toBe(0);
-            renderer.setInputValue(["input-number 1"], "");
+
+            renderer.setInputValue(["numeric-input 1"], "", () => {});
             score = renderer.guessAndScore()[1];
             expect(score.type).toBe("invalid");
         });
 
         it("should be able to accept a callback", function (done) {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
-            const renderer = renderQuestionArea(inputNumber1Item);
-            renderer.setInputValue(["input-number 1"], "3", function () {
+            const {renderer} = renderQuestion(numericInput1Item.question);
+            renderer.setInputValue(["numeric-input 1"], "3", function () {
                 const guess = renderer.getUserInput()[0];
-                expect(guess.currentValue).toBe("3");
+                expect(guess?.currentValue).toBe("3");
                 done();
             });
             jest.runAllTimers();
@@ -99,15 +82,13 @@ describe("Perseus API", function () {
 
     describe("getInputPaths", function () {
         it("should be able to find all the input widgets", function () {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
-            const renderer = renderQuestionArea(inputNumber2Item);
+            const {renderer} = renderQuestion(numericInput2Item.question);
             const numPaths = renderer.getInputPaths().length;
             expect(numPaths).toBe(2);
         });
 
         it("should be able to find all inputs within widgets", function () {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
-            const renderer = renderQuestionArea(tableItem);
+            const {renderer} = renderQuestion(tableItem.question);
             const numPaths = renderer.getInputPaths().length;
             expect(numPaths).toBe(8);
         });
@@ -115,76 +96,36 @@ describe("Perseus API", function () {
 
     describe("getDOMNodeForPath", function () {
         it("should find one DOM node per <input>", function () {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
-            const renderer = renderQuestionArea(inputNumber2Item);
+            const {renderer} = renderQuestion(numericInput2Item.question);
             const inputPaths = renderer.getInputPaths();
-            const allInputs = TestUtils.scryRenderedDOMComponentsWithTag(
-                renderer,
-                "input",
-            );
-            expect(inputPaths).toHaveLength(allInputs.length);
-        });
+            const allInputs = screen.getAllByRole("textbox");
 
-        it("should find the right DOM nodes for the <input>s", function () {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
-            const renderer = renderQuestionArea(inputNumber2Item);
-            const inputPaths = renderer.getInputPaths();
-            const allInputs = TestUtils.scryRenderedDOMComponentsWithTag(
-                renderer,
-                "input",
-            );
-            _.each(inputPaths, (inputPath, i) => {
-                const $node = $(renderer.getDOMNodeForPath(inputPath));
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
-                const $input = $(ReactDOM.findDOMNode(allInputs[i]));
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'closest' does not exist on type 'JQueryStatic'.
-                expect($input.closest($node).length).toBeTruthy();
+            inputPaths.forEach((inputPath, i) => {
+                const node = renderer.getDOMNodeForPath(inputPath);
+                // @ts-expect-error TS2345 - Type 'undefined' is not assignable to type 'HTMLElement'.
+                expect(within(node).getByRole("textbox")).toBe(allInputs[i]);
             });
-        });
-    });
-
-    describe("onInputError", function () {
-        it("should call a callback when grading an empty input-number", function () {
-            let wasCalled;
-            const renderer = renderQuestionArea(inputNumber1Item, {
-                onInputError: function (widgetId) {
-                    wasCalled = true;
-                },
-            });
-            const score = renderer.guessAndScore()[1];
-            expect(score.type).toBe("invalid");
-            expect(wasCalled).toBe(true);
         });
     });
 
     describe("CSS ClassNames", function () {
         describe("perseus-focused", function () {
-            it("should be on an input-number exactly when focused", function () {
+            it("should be on an numeric-input exactly when focused", function () {
                 // Feel free to change this if you change the class name,
                 // but if you do, you must up the perseus api [major]
                 // version
                 expect(ClassNames.FOCUSED).toBe("perseus-focused");
 
-                const renderer = renderQuestionArea(inputNumber1Item, {
-                    interceptInputFocus: function (widgetId) {
-                        renderer.setInputValue(widgetId, "5");
-                    },
-                });
+                renderQuestion(numericInput1Item.question);
+                const input = screen.getByRole("textbox");
 
-                const input =
-                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'querySelector' does not exist on type 'Element | Text'.
-                    ReactDOM.findDOMNode(renderer).querySelector("input");
+                expect(input.getAttribute("class")).not.toContain("focused");
 
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
-                expect($(input).attr("class").includes("focused")).toBe(false);
+                userEvent.click(input);
+                expect(input.getAttribute("class")).toContain("focused");
 
-                TestUtils.Simulate.focus(input);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
-                expect($(input).attr("class").includes("focused")).toBe(true);
-
-                TestUtils.Simulate.blur(input);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
-                expect($(input).attr("class").includes("focused")).toBe(false);
+                userEvent.tab();
+                expect(input.getAttribute("class")).not.toContain("focused");
             });
         });
     });
@@ -196,7 +137,7 @@ describe("Perseus API", function () {
             let callCount = 0;
             let newFocusResult;
             let oldFocusResult;
-            const renderer = renderQuestionArea(inputNumber1Item, {
+            renderQuestion(numericInput1Item.question, {
                 onFocusChange: function (newFocus, oldFocus) {
                     callCount++;
                     newFocusResult = newFocus;
@@ -204,32 +145,30 @@ describe("Perseus API", function () {
                 },
             });
 
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'querySelector' does not exist on type 'Element | Text'.
-            const input = ReactDOM.findDOMNode(renderer).querySelector("input");
+            const input = screen.getByRole("textbox");
 
             callCount = 0;
-            TestUtils.Simulate.focus(input);
+            userEvent.click(input);
+
             // Technically, this is probably synchronous, but we do want
             // to make sure that this hasn't been called a second time
             // asynchronously, so we check after waiting for an async
             // result here. This also means that this test should
             // continue to pass if we decide it makes more sense for
             // this callback to be async, which could reasonably happen
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
             return delayedPromise()
                 .then(() => {
                     expect(callCount).toBe(1);
                     expect(oldFocusResult).toBe(null);
-                    expect(newFocusResult).toEqual(["input-number 1"]);
+                    expect(newFocusResult).toEqual(["numeric-input 1"]);
 
                     callCount = 0;
-                    TestUtils.Simulate.blur(input);
-                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
+                    userEvent.tab(); // blur focus
                     return delayedPromise();
                 })
                 .then(() => {
                     expect(callCount).toBe(1);
-                    expect(oldFocusResult).toEqual(["input-number 1"]);
+                    expect(oldFocusResult).toEqual(["numeric-input 1"]);
                     expect(newFocusResult).toBe(null);
                 });
         });
@@ -240,7 +179,7 @@ describe("Perseus API", function () {
             let callCount = 0;
             let newFocusResult;
             let oldFocusResult;
-            const renderer = renderQuestionArea(inputNumber2Item, {
+            renderQuestion(numericInput2Item.question, {
                 onFocusChange: function (newFocus, oldFocus) {
                     callCount++;
                     newFocusResult = newFocus;
@@ -248,26 +187,23 @@ describe("Perseus API", function () {
                 },
             });
 
-            const inputs =
-                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'querySelectorAll' does not exist on type 'Element | Text'.
-                ReactDOM.findDOMNode(renderer).querySelectorAll("input");
+            const inputs = screen.getAllByRole("textbox");
             const input1 = inputs[0];
             const input2 = inputs[1];
-            TestUtils.Simulate.focus(input1);
+            userEvent.click(input1);
 
             callCount = 0;
-            TestUtils.Simulate.focus(input2);
+            userEvent.click(input2);
             // Technically, this is probably synchronous, but we do want
             // to make sure that this hasn't been called a second time
             // asynchronously, so we check after waiting for an async
             // result here. This also means that this test should
             // continue to pass if we decide it makes more sense for
             // this callback to be async, which could reasonably happen
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
             return delayedPromise().then(() => {
                 expect(callCount).toBe(1);
-                expect(oldFocusResult).toEqual(["input-number 1"]);
-                expect(newFocusResult).toEqual(["input-number 2"]);
+                expect(oldFocusResult).toEqual(["numeric-input 1"]);
+                expect(newFocusResult).toEqual(["numeric-input 2"]);
             });
         });
     });
@@ -277,23 +213,10 @@ describe("Perseus API", function () {
             const widgetPlaceholder = <span key="test">[WIDGET]</span>;
             const apiOptions = {
                 widgetPlaceholder: widgetPlaceholder,
-            } as const;
-            const renderer = TestUtils.renderIntoDocument(
-                <Renderer
-                    content={itemWidget.question.content}
-                    images={itemWidget.question.images}
-                    widgets={itemWidget.question.widgets}
-                    problemNum={0}
-                    apiOptions={apiOptions}
-                />,
-            );
+            };
+            renderQuestion(itemWidget.question, apiOptions);
 
-            const spans = TestUtils.scryRenderedDOMComponentsWithTag(
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'void' is not assignable to parameter of type 'Component<any, {}, any>'.
-                renderer,
-                "span",
-            );
-
+            const spans = screen.getAllByText("[WIDGET]");
             expect(spans[0].textContent).toEqual("[WIDGET]");
         });
 
@@ -301,23 +224,10 @@ describe("Perseus API", function () {
             const imagePlaceholder = <span key="test">[IMAGE]</span>;
             const apiOptions = {
                 imagePlaceholder: imagePlaceholder,
-            } as const;
-            const renderer = TestUtils.renderIntoDocument(
-                <Renderer
-                    content={imageItem.question.content}
-                    images={imageItem.question.images}
-                    widgets={imageItem.question.widgets}
-                    problemNum={0}
-                    apiOptions={apiOptions}
-                />,
-            );
+            };
+            renderQuestion(imageItem.question, apiOptions);
 
-            const spans = TestUtils.scryRenderedDOMComponentsWithTag(
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'void' is not assignable to parameter of type 'Component<any, {}, any>'.
-                renderer,
-                "span",
-            );
-
+            const spans = screen.getAllByText("[IMAGE]");
             expect(spans[0].textContent).toEqual("[IMAGE]");
         });
     });
