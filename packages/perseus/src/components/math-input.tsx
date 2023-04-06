@@ -142,7 +142,6 @@ class MathInput extends React.Component<Props, State> {
 
         // Ideally, we would be able to pass an initial value directly into
         // the constructor above
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         this.mathField().latex(this.props.value);
 
         initialized = true;
@@ -201,17 +200,69 @@ class MathInput extends React.Component<Props, State> {
     };
 
     _shouldShowButtons: () => boolean = () => {
-        if (this.props.buttonsVisible === "always") {
-            return true;
-        }
-        if (this.props.buttonsVisible === "never") {
-            return false;
-        }
-        return this.state.focused;
+        return true;
+        // if (this.props.buttonsVisible === "always") {
+        //     return true;
+        // }
+        // if (this.props.buttonsVisible === "never") {
+        //     return false;
+        // }
+        // return this.state.focused;
     };
 
-    insert: (arg1: any) => void = (value) => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
+    _convertToMathQuill(value: any) {
+        if (value?.startsWith?.("NUM_")) {
+            return value.slice(4);
+        }
+
+        const map = {
+            PLUS: "+",
+            MINUS: "-",
+            NEGATIVE: "-",
+            TIMES: "\\times",
+            CDOT: "\\cdot",
+            SIN: "\\sin",
+            COS: "\\cos",
+            TAN: "\\tan",
+            THETA: "\\theta",
+            PI: "\\pi",
+            LOG: "\\log",
+            LN: "\\ln",
+            LEFT_PAREN: "(",
+            RIGHT_PAREN: ")",
+            DECIMAL: ".",
+            SQRT: "\\sqrt",
+            RADICAL: "\\nthroot",
+            EXP_2: "^2",
+            X: "x",
+            EXP: (input: any) => {
+                const contents = input.latex();
+                input.typedText("^");
+
+                // If the input hasn't changed (for example, if we're
+                // attempting to add an exponent on an empty input or an empty
+                // denominator), insert our own "a^b"
+                if (input.latex() === contents) {
+                    input.typedText("a^b");
+                }
+            },
+            FRAC_INCLUSIVE: (input: any) => {
+                const contents = input.latex();
+                input.typedText("/");
+                if (input.latex() === contents) {
+                    input.cmd("\\frac");
+                }
+            },
+        };
+
+        return map[value] || value;
+    }
+
+    insert: (value: any) => void = (value) => {
+        console.log(value);
+        value = this._convertToMathQuill(value);
+        console.log(value);
+
         const input = this.mathField();
         if (_(value).isFunction()) {
             value(input);
@@ -223,7 +274,7 @@ class MathInput extends React.Component<Props, State> {
         input.focus();
     };
 
-    mathField: (arg1: any) => any = (options) => {
+    mathField: (options?: any) => any = (options) => {
         // The MathQuill API is now "versioned" through its own "InterVer"
         // system.
         // See: https://github.com/mathquill/mathquill/pull/459
@@ -238,13 +289,11 @@ class MathInput extends React.Component<Props, State> {
     };
 
     focus: () => void = () => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         this.mathField().focus();
         this.setState({focused: true});
     };
 
     blur: () => void = () => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         this.mathField().blur();
         this.setState({focused: false});
     };
