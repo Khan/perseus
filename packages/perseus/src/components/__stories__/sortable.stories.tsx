@@ -17,25 +17,13 @@ export default {
 export const SortableHorizontalExample: React.FC<StoryArgs> = (
     args,
 ): React.ReactElement => {
-    return (
-        <Sortable
-            layout="horizontal"
-            options={["a", "b", "c"]}
-            waitForKatexLoad={false}
-        />
-    );
+    return <Sortable layout="horizontal" options={["a", "b", "c"]} />;
 };
 
 export const SortableVerticalExample: React.FC<StoryArgs> = (
     args,
 ): React.ReactElement => {
-    return (
-        <Sortable
-            layout="vertical"
-            options={["a", "b", "c"]}
-            waitForKatexLoad={false}
-        />
-    );
+    return <Sortable layout="vertical" options={["a", "b", "c"]} />;
 };
 
 export const BasicSortableOptionsTest: React.FC<StoryArgs> = (

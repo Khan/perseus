@@ -1,6 +1,5 @@
 /* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import PropTypes from "prop-types";
@@ -8,7 +7,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {getDependencies} from "../dependencies";
 import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
@@ -392,7 +390,6 @@ type SortableProps = {
     }) => void;
     padding: boolean;
     linterContext: LinterContextProps;
-    waitForKatexLoad: boolean;
     options: ReadonlyArray<SortableOption>;
 };
 
@@ -405,7 +402,6 @@ type DefaultProps = {
     onMeasure: SortableProps["onMeasure"];
     padding: SortableProps["padding"];
     linterContext: SortableProps["linterContext"];
-    waitForKatexLoad: SortableProps["waitForKatexLoad"];
 };
 
 type ItemState = "disabled" | "static" | "dragging" | "animating";
@@ -420,7 +416,6 @@ type SortableItem = {
 
 type SortableState = {
     items: ReadonlyArray<SortableItem>;
-    katex: null | any;
 };
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
@@ -432,7 +427,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         margin: 5,
         onChange: function () {},
         linterContext: PerseusLinter.linterContextDefault,
-        waitForKatexLoad: true,
     };
 
     constructor(props: SortableProps) {
@@ -440,7 +434,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // Don't call this.setState() here!
         this.state = {
             items: Sortable.itemsFromProps(this.props),
-            katex: null,
         };
     }
 
@@ -479,14 +472,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this.measureItems();
             }, 0);
         }
-    }
-
-    componentDidMount() {
-        getDependencies()
-            .getKaTeX()
-            .then((katex) => {
-                this.setState({katex});
-            });
     }
 
     static itemsFromProps(props: {
@@ -584,15 +569,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }, 20);
 
     render(): React.ReactNode {
-        // We don't render the sortable until KaTeX has fully loaded, in case
-        // the draggables are rendering KaTeX content. This is un-optimal as
-        // we end up loading KaTeX even when we may not need it, however it
-        // helps to ensure that the dimensions of the draggables (and thus the
-        // sortable) will be correct when they render, if their contents are
-        // KaTeX-derived.
-        if (this.props.waitForKatexLoad && !this.state.katex) {
-            return <CircularSpinner />;
-        }
         const cards: Array<
             | React.ReactElement<React.ComponentProps<typeof Placeholder>>
             | React.ReactElement<React.ComponentProps<typeof Draggable>>
