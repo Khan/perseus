@@ -309,7 +309,6 @@ export type PerseusDependencies = {
     rendererTranslationComponents: JiptTranslationComponents;
     // KaTeX related dependencies
     getKaTeX: () => Promise<katex>;
-    loadMathjax: () => Promise<unknown>;
     logKaTeXError: (
         expression: string,
         error: Error,
