@@ -2,584 +2,548 @@
 
 exports[`renderer rendering should render a table when isMobile: false 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
-      >
-        <table>
-          <thead>
-            <tr>
-              <th
-                scope="col"
-              >
-                Heading 1
-              </th>
-              <th
-                scope="col"
-              >
-                Heading 2
-              </th>
-              <th
-                scope="col"
-              >
-                Heading 3
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                r1c1
-              </td>
-              <td>
-                r1c2
-              </td>
-              <td>
-                r1c3
-              </td>
-            </tr>
-            <tr>
-              <td>
-                r2c1
-              </td>
-              <td>
-                r2c2
-              </td>
-              <td>
-                r2c3
-              </td>
-            </tr>
-            <tr>
-              <td>
-                r3c1
-              </td>
-              <td>
-                r3c2
-              </td>
-              <td>
-                r3c3
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+            >
+              Heading 1
+            </th>
+            <th
+              scope="col"
+            >
+              Heading 2
+            </th>
+            <th
+              scope="col"
+            >
+              Heading 3
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              r1c1
+            </td>
+            <td>
+              r1c2
+            </td>
+            <td>
+              r1c3
+            </td>
+          </tr>
+          <tr>
+            <td>
+              r2c1
+            </td>
+            <td>
+              r2c2
+            </td>
+            <td>
+              r2c3
+            </td>
+          </tr>
+          <tr>
+            <td>
+              r3c1
+            </td>
+            <td>
+              r3c2
+            </td>
+            <td>
+              r3c3
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </span>
+  </div>
 </div>
 `;
 
 exports[`renderer rendering should render a table when isMobile: true 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
+        style="margin-left: -16px; margin-right: -16px;"
       >
         <div
-          style="margin-left: -16px; margin-right: -16px;"
+          style="padding-left: 0px; padding-right: 0px; transform: translate3d(0,0,0); overflow-x: auto;"
         >
-          <div
-            style="padding-left: 0px; padding-right: 0px; transform: translate3d(0,0,0); overflow-x: auto;"
+          <span
+            style="display: block; width: 100%; transform: scale(1, 1)  translate(0, 8px); transform-origin: 0 0; opacity: 0;"
           >
-            <span
-              style="display: block; width: 100%; transform: scale(1, 1)  translate(0, 8px); transform-origin: 0 0; opacity: 0;"
+            <table
+              tabindex="0"
             >
-              <table
-                tabindex="0"
-              >
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                    >
-                      Heading 1
-                    </th>
-                    <th
-                      scope="col"
-                    >
-                      Heading 2
-                    </th>
-                    <th
-                      scope="col"
-                    >
-                      Heading 3
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      r1c1
-                    </td>
-                    <td>
-                      r1c2
-                    </td>
-                    <td>
-                      r1c3
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      r2c1
-                    </td>
-                    <td>
-                      r2c2
-                    </td>
-                    <td>
-                      r2c3
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      r3c1
-                    </td>
-                    <td>
-                      r3c2
-                    </td>
-                    <td>
-                      r3c3
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </span>
-          </div>
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                  >
+                    Heading 1
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    Heading 2
+                  </th>
+                  <th
+                    scope="col"
+                  >
+                    Heading 3
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    r1c1
+                  </td>
+                  <td>
+                    r1c2
+                  </td>
+                  <td>
+                    r1c3
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    r2c1
+                  </td>
+                  <td>
+                    r2c2
+                  </td>
+                  <td>
+                    r2c3
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    r3c1
+                  </td>
+                  <td>
+                    r3c2
+                  </td>
+                  <td>
+                    r3c3
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </span>
         </div>
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;
 
 exports[`renderer rendering should render block math 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
-        <div
-          class="paragraph"
-        >
-          This is some block math
-        </div>
+        This is some block math
       </div>
+    </div>
+    <div
+      class="paragraph perseus-paragraph-centered"
+      data-perseus-paragraph-index="1"
+    >
       <div
-        class="paragraph perseus-paragraph-centered"
-        data-perseus-paragraph-index="1"
+        class="perseus-block-math"
       >
         <div
-          class="perseus-block-math"
+          class="perseus-block-math-inner"
+          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
         >
-          <div
-            class="perseus-block-math-inner"
-            style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+          <span
+            class="mock-TeX"
           >
-            <span
-              class="mock-TeX"
-            >
-              1 + 2
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="2"
-      >
-        <div
-          class="paragraph"
-        >
-          And a footer.
+            1 + 2
+          </span>
         </div>
       </div>
     </div>
-  </span>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="2"
+    >
+      <div
+        class="paragraph"
+      >
+        And a footer.
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`renderer rendering should render block math on mobile 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
-        <div
-          class="paragraph"
-        >
-          This is some block math
-        </div>
-      </div>
-      <div
-        class="paragraph perseus-paragraph-centered"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="perseus-block-math"
-          style="margin-left: -16px; margin-right: -16px;"
-        >
-          <div
-            class="perseus-block-math-inner"
-            style="overflow-x: auto; overflow-y: hidden; margin-top: -10px; margin-bottom: -10px; transform: translate3d(0,0,0); padding: 10px 16px 10px 16px;"
-          >
-            <span
-              style="display: block; width: 100%; transform: scale(1, 1)  translate(0, 8px); transform-origin: 0 0; opacity: 0;"
-            >
-              <span
-                class="mock-TeX"
-              >
-                1 + 2
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="2"
-      >
-        <div
-          class="paragraph"
-        >
-          And a footer.
-        </div>
+        This is some block math
       </div>
     </div>
-  </span>
-</div>
-`;
-
-exports[`renderer rendering should render columns 1`] = `
-<div>
-  <span
-    class="mock-KatexProvider"
-  >
     <div
-      class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
+      class="paragraph perseus-paragraph-centered"
+      data-perseus-paragraph-index="1"
     >
       <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
+        class="perseus-block-math"
+        style="margin-left: -16px; margin-right: -16px;"
       >
         <div
-          class="perseus-two-columns"
+          class="perseus-block-math-inner"
+          style="overflow-x: auto; overflow-y: hidden; margin-top: -10px; margin-bottom: -10px; transform: translate3d(0,0,0); padding: 10px 16px 10px 16px;"
         >
-          <div
-            class="perseus-column"
-          >
-            <div
-              class="perseus-column-content"
-            >
-              <div
-                class="paragraph"
-              >
-                Stuff in column 1
-              </div>
-            </div>
-          </div>
-          <div
-            class="perseus-column"
-          >
-            <div
-              class="perseus-column-content"
-            >
-              <div
-                class="paragraph"
-              >
-                Stuff in column 2
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
-exports[`renderer rendering should render the math 1`] = `
-<div>
-  <span
-    class="mock-KatexProvider"
-  >
-    <div
-      class="perseus-renderer perseus-renderer-responsive"
-    >
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="0"
-      >
-        <div
-          class="paragraph"
-        >
-          This is some inline math: 
           <span
-            style="white-space: nowrap;"
+            style="display: block; width: 100%; transform: scale(1, 1)  translate(0, 8px); transform-origin: 0 0; opacity: 0;"
           >
-            <span />
             <span
               class="mock-TeX"
             >
               1 + 2
             </span>
-            <span />
           </span>
         </div>
       </div>
     </div>
-  </span>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="2"
+    >
+      <div
+        class="paragraph"
+      >
+        And a footer.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should render columns 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="perseus-two-columns"
+      >
+        <div
+          class="perseus-column"
+        >
+          <div
+            class="perseus-column-content"
+          >
+            <div
+              class="paragraph"
+            >
+              Stuff in column 1
+            </div>
+          </div>
+        </div>
+        <div
+          class="perseus-column"
+        >
+          <div
+            class="perseus-column-content"
+          >
+            <div
+              class="paragraph"
+            >
+              Stuff in column 2
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renderer rendering should render the math 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        This is some inline math: 
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            1 + 2
+          </span>
+          <span />
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`renderer snapshots correct answer: correct answer 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
+        The total number of boxes the forklift can carry is 
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          The total number of boxes the forklift can carry is 
-          <div
-            class="perseus-widget-container widget-nohighlight widget-inline-block"
-          >
-            <div>
-              <div
-                class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+          <div>
+            <div
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+            >
+              <span
+                aria-atomic="true"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="srOnly_19bpjuy"
+                data-test-id="dropdown-live-region"
+              />
+              <button
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
+                type="button"
               >
                 <span
-                  aria-atomic="true"
-                  aria-live="polite"
-                  aria-relevant="additions text"
-                  class="srOnly_19bpjuy"
-                  data-test-id="dropdown-live-region"
-                />
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="listbox"
-                  class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
-                  type="button"
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  <span
-                    class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
-                  >
-                    less than or equal to
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="svg_aeiopc-o_O-caret_ntkmq"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <path
-                      d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
-                      fill="rgba(33,36,44,0.64)"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  less than or equal to
+                </span>
+                <svg
+                  aria-hidden="true"
+                  class="svg_aeiopc-o_O-caret_ntkmq"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
+                    fill="rgba(33,36,44,0.64)"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
-           
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              60
-            </span>
-            <span />
-          </span>
-          .
         </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;
 
 exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
+        The total number of boxes the forklift can carry is 
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          The total number of boxes the forklift can carry is 
-          <div
-            class="perseus-widget-container widget-nohighlight widget-inline-block"
-          >
-            <div>
-              <div
-                class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+          <div>
+            <div
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+            >
+              <span
+                aria-atomic="true"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="srOnly_19bpjuy"
+                data-test-id="dropdown-live-region"
+              />
+              <button
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
+                type="button"
               >
                 <span
-                  aria-atomic="true"
-                  aria-live="polite"
-                  aria-relevant="additions text"
-                  class="srOnly_19bpjuy"
-                  data-test-id="dropdown-live-region"
-                />
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="listbox"
-                  class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
-                  type="button"
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  <span
-                    class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
-                  >
-                    greater than or equal to
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="svg_aeiopc-o_O-caret_ntkmq"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <path
-                      d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
-                      fill="rgba(33,36,44,0.64)"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  greater than or equal to
+                </span>
+                <svg
+                  aria-hidden="true"
+                  class="svg_aeiopc-o_O-caret_ntkmq"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
+                    fill="rgba(33,36,44,0.64)"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
-           
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              60
-            </span>
-            <span />
-          </span>
-          .
         </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;
 
 exports[`renderer snapshots initial render: initial render 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
+        The total number of boxes the forklift can carry is 
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          The total number of boxes the forklift can carry is 
-          <div
-            class="perseus-widget-container widget-nohighlight widget-inline-block"
-          >
-            <div>
-              <div
-                class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+          <div>
+            <div
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+            >
+              <span
+                aria-atomic="true"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="srOnly_19bpjuy"
+                data-test-id="dropdown-live-region"
+              />
+              <button
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1"
+                type="button"
               >
                 <span
-                  aria-atomic="true"
-                  aria-live="polite"
-                  aria-relevant="additions text"
-                  class="srOnly_19bpjuy"
-                  data-test-id="dropdown-live-region"
-                />
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="listbox"
-                  class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1"
-                  type="button"
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  <span
-                    class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
-                  >
-                    greater/less than or equal to
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="svg_aeiopc-o_O-caret_ntkmq"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <path
-                      d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
-                      fill="rgba(33,36,44,0.64)"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  greater/less than or equal to
+                </span>
+                <svg
+                  aria-hidden="true"
+                  class="svg_aeiopc-o_O-caret_ntkmq"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
+                    fill="rgba(33,36,44,0.64)"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
-           
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              60
-            </span>
-            <span />
-          </span>
-          .
         </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;

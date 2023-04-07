@@ -9,7 +9,6 @@ import {
     icons,
     ApiOptions,
     Changeable,
-    Dependencies,
     Errors,
     PerseusError,
 } from "@khanacademy/perseus";
@@ -144,8 +143,6 @@ export default class ArticleEditor extends React.Component<
             isArticle: true,
         } as const;
 
-        const {KatexProvider} = Dependencies.getDependencies();
-
         const sections = this._sections();
 
         return (
@@ -212,19 +209,17 @@ export default class ArticleEditor extends React.Component<
                                         />
                                     </div>
                                 </div>
-                                <KatexProvider>
-                                    <Editor
-                                        {...section}
-                                        apiOptions={apiOptions}
-                                        imageUploader={imageUploader}
-                                        onChange={_.partial(
-                                            this._handleEditorChange,
-                                            i,
-                                        )}
-                                        placeholder="Type your section text here..."
-                                        ref={"editor" + i}
-                                    />
-                                </KatexProvider>
+                                <Editor
+                                    {...section}
+                                    apiOptions={apiOptions}
+                                    imageUploader={imageUploader}
+                                    onChange={_.partial(
+                                        this._handleEditorChange,
+                                        i,
+                                    )}
+                                    placeholder="Type your section text here..."
+                                    ref={"editor" + i}
+                                />
                             </div>
 
                             <div className="editor-preview">

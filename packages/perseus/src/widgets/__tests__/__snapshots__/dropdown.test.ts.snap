@@ -2,156 +2,148 @@
 
 exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
+        The total number of boxes the forklift can carry is 
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          The total number of boxes the forklift can carry is 
-          <div
-            class="perseus-widget-container widget-nohighlight widget-inline-block"
-          >
-            <div>
-              <div
-                class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+          <div>
+            <div
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+            >
+              <span
+                aria-atomic="true"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="srOnly_19bpjuy"
+                data-test-id="dropdown-live-region"
+              >
+                3 items
+              </span>
+              <button
+                aria-expanded="true"
+                aria-haspopup="listbox"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
+                type="button"
               >
                 <span
-                  aria-atomic="true"
-                  aria-live="polite"
-                  aria-relevant="additions text"
-                  class="srOnly_19bpjuy"
-                  data-test-id="dropdown-live-region"
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  3 items
+                  greater/less than or equal to
                 </span>
-                <button
-                  aria-expanded="true"
-                  aria-haspopup="listbox"
-                  class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1-o_O-focus_1qpi544"
-                  type="button"
+                <svg
+                  aria-hidden="true"
+                  class="svg_aeiopc-o_O-caret_ntkmq"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                 >
-                  <span
-                    class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
-                  >
-                    greater/less than or equal to
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="svg_aeiopc-o_O-caret_ntkmq"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <path
-                      d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
-                      fill="rgba(33,36,44,0.64)"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  <path
+                    d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
+                    fill="rgba(33,36,44,0.64)"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
-           
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              60
-            </span>
-            <span />
-          </span>
-          .
         </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;
 
 exports[`Dropdown widget should snapshot: initial render 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
+        The total number of boxes the forklift can carry is 
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
-          The total number of boxes the forklift can carry is 
-          <div
-            class="perseus-widget-container widget-nohighlight widget-inline-block"
-          >
-            <div>
-              <div
-                class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+          <div>
+            <div
+              class="default_xu2jcg-o_O-menuWrapper_wvrnr4"
+            >
+              <span
+                aria-atomic="true"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="srOnly_19bpjuy"
+                data-test-id="dropdown-live-region"
+              />
+              <button
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1"
+                type="button"
               >
                 <span
-                  aria-atomic="true"
-                  aria-live="polite"
-                  aria-relevant="additions text"
-                  class="srOnly_19bpjuy"
-                  data-test-id="dropdown-live-region"
-                />
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="listbox"
-                  class="button_vr44p2-o_O-shared_u51dsh-o_O-default_kjzwx1"
-                  type="button"
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
-                  <span
-                    class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
-                  >
-                    greater/less than or equal to
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="svg_aeiopc-o_O-caret_ntkmq"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <path
-                      d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
-                      fill="rgba(33,36,44,0.64)"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  greater/less than or equal to
+                </span>
+                <svg
+                  aria-hidden="true"
+                  class="svg_aeiopc-o_O-caret_ntkmq"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
+                    fill="rgba(33,36,44,0.64)"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
-           
-          <span
-            style="white-space: nowrap;"
-          >
-            <span />
-            <span
-              class="mock-TeX"
-            >
-              60
-            </span>
-            <span />
-          </span>
-          .
         </div>
+         
+        <span
+          style="white-space: nowrap;"
+        >
+          <span />
+          <span
+            class="mock-TeX"
+          >
+            60
+          </span>
+          <span />
+        </span>
+        .
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;

@@ -314,9 +314,6 @@ export type PerseusDependencies = {
         expression: string,
         error: Error,
     ) => Promise<Response | null | undefined>;
-    KatexProvider: React.ComponentType<{
-        children: React.ReactNode;
-    }>;
     // TODO(kevinb): Update `getKaTeX` to return the version of `katex` that
     // webapp (or mobile) wants perseus to use.
     shouldUseFutureKaTeX: (flag: boolean) => void;
