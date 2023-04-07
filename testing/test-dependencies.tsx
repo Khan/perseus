@@ -47,7 +47,6 @@ export const testDependencies: PerseusDependencies = {
     // Mocking this here so that we don't fail because of this issue.
     logKaTeXError: (expression: string, error: Error): Promise<any> =>
         Promise.resolve({}),
-    shouldUseFutureKaTeX: (flag: boolean) => {},
     TeX: ({children}: {children: React.ReactNode}) => (
         <span className="mock-TeX">{children}</span>
     ),

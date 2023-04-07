@@ -313,9 +313,6 @@ export type PerseusDependencies = {
         expression: string,
         error: Error,
     ) => Promise<Response | null | undefined>;
-    // TODO(kevinb): Update `getKaTeX` to return the version of `katex` that
-    // webapp (or mobile) wants perseus to use.
-    shouldUseFutureKaTeX: (flag: boolean) => void;
     TeX: React.ComponentType<TeXProps>;
     //misc
     staticUrl: StaticUrlFn;

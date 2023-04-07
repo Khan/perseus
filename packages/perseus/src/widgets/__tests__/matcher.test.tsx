@@ -31,7 +31,6 @@ describe("matcher widget", () => {
             TeX: ({children}: {children: React.ReactNode}) => (
                 <span className="tex-mock">{children}</span>
             ),
-            shouldUseFutureKaTeX: (flag: boolean) => {},
         });
     });
 
