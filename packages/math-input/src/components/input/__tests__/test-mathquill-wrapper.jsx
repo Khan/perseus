@@ -1,10 +1,10 @@
 import MathQuill from "mathquill";
 
-import MathWrapper from "../math-wrapper";
+import MathQuillWrapper from "../mathquill-wrapper";
 
 const MQ = MathQuill.getInterface(2);
 
-export default class TestMathWrapper extends MathWrapper {
+export default class TestMathQuillWrapper extends MathQuillWrapper {
     getContent() {
         return this.mathField.latex();
     }

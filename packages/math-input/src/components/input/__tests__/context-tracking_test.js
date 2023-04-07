@@ -1,7 +1,7 @@
 import Keys from "../../../data/keys";
 import * as CursorContexts from "../cursor-contexts";
 
-import TestMathWrapper from "./test-math-wrapper";
+import TestMathQuillWrapper from "./test-mathquill-wrapper";
 
 describe("Cursor context", () => {
     let mathField;
@@ -11,7 +11,7 @@ describe("Cursor context", () => {
         span = document.createElement("span");
         document.body.appendChild(span);
 
-        mathField = new TestMathWrapper(span);
+        mathField = new TestMathQuillWrapper(span);
     });
 
     afterEach(() => {

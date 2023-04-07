@@ -1,6 +1,6 @@
 import Keys from "../../../data/keys";
 
-import TestMathWrapper from "./test-math-wrapper";
+import TestMathQuillWrapper from "./test-mathquill-wrapper";
 
 const MQ = {L: "-1", R: "1"};
 const END_OF_EXPR = 0;
@@ -21,7 +21,7 @@ describe("MathQuill", () => {
         span = document.createElement("span");
         document.body.appendChild(span);
 
-        mathField = new TestMathWrapper(span);
+        mathField = new TestMathQuillWrapper(span);
     });
 
     afterEach(() => {

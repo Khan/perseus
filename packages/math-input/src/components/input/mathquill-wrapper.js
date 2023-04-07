@@ -118,7 +118,7 @@ const KeysForJumpContext = {
     [CursorContexts.IN_DENOMINATOR]: Keys.JUMP_OUT_DENOMINATOR,
 };
 
-class MathWrapper {
+class MathQuillWrapper {
     constructor(element, options = {}, callbacks = {}) {
         this.MQ = MathQuill.getInterface(2);
         this.mathField = this.MQ.MathField(element, {
@@ -956,4 +956,4 @@ class MathWrapper {
     }
 }
 
-export default MathWrapper;
+export default MathQuillWrapper;

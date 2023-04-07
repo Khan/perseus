@@ -16,7 +16,7 @@ import {
 
 import CursorHandle from "./cursor-handle";
 import DragListener from "./drag-listener";
-import MathWrapper from "./math-wrapper";
+import MathQuillWrapper from "./mathquill-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
 
 const constrainingFrictionFactor = 0.8;
@@ -85,7 +85,7 @@ class MathInput extends React.Component<Props, State> {
     componentDidMount() {
         this._isMounted = true;
 
-        this.mathField = new MathWrapper(
+        this.mathField = new MathQuillWrapper(
             this._mathContainer,
             {},
             {
