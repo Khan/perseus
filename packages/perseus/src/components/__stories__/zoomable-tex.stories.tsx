@@ -12,16 +12,18 @@ export default {
     title: "Perseus/Components/Zoomable Tex",
 } as Story;
 
-const ForceZoomWrapper: React.FC<{
+type Props = {
     children: React.ReactNode;
-}> = ({children}): React.ReactElement => (
+};
+
+const ForceZoomWrapper = ({children}: Props): React.ReactElement => (
     <>
         <h1>Click on equation to zoom/unzoom</h1>
         <div style={{width: "50px"}}>{children}</div>
     </>
 );
 
-export const KaTeX: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const KaTeX = (args: StoryArgs): React.ReactElement => {
     return (
         <ForceZoomWrapper>
             <ZoomableTex children="\sum_{i=1}^\infty\frac{1}{n^2} =\frac{\pi^2}{6}" />
@@ -29,7 +31,7 @@ export const KaTeX: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const ComplexKaTeX: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ComplexKaTeX = (args: StoryArgs): React.ReactElement => {
     return (
         <ForceZoomWrapper>
             {" "}

@@ -18,7 +18,7 @@ type Props = {
     multipleSelect: boolean;
 };
 
-const FocusRing: React.FC<Props> = function (props): React.ReactElement {
+const FocusRing = function (props: Props): React.ReactElement {
     const {visible, color, children, multipleSelect} = props;
 
     const borderColor = visible ? color : "transparent";

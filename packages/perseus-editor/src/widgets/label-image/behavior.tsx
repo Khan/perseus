@@ -10,7 +10,7 @@ import Checkbox from "../../components/checkbox";
 
 const {colors, typography} = globalStyles;
 
-type BehaviorProps = {
+type Props = {
     // Whether multiple answer choices may be selected for markers.
     multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
@@ -22,11 +22,11 @@ type BehaviorProps = {
     }) => void;
 };
 
-const Behavior: React.FC<BehaviorProps> = ({
+const Behavior = ({
     multipleAnswers,
     hideChoicesFromInstructions,
     onChange,
-}): React.ReactElement => (
+}: Props): React.ReactElement => (
     <div>
         <div className={css(styles.title)}>Behavior</div>
 

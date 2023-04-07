@@ -18,12 +18,10 @@ export default {
     title: "Perseus/Components/Simple Keypad Input",
 } as Story;
 
-export const EmptyPropsObject: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const EmptyPropsObject = (args: StoryArgs): React.ReactElement => {
     return <SimpleKeypadInput {...defaultObject} />;
 };
 
-export const CustomValue: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const CustomValue = (args: StoryArgs): React.ReactElement => {
     return <SimpleKeypadInput {...defaultObject} value="Test value" />;
 };

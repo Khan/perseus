@@ -141,13 +141,9 @@ type HeaderProps = {
     depth: number;
 };
 
-const Header: React.FC<HeaderProps> = ({
-    depth,
-    ...props
-}): React.ReactElement => {
+const Header = ({depth, ...props}: HeaderProps): React.ReactElement => {
     const headerLevel = Math.min(depth, 5) + 1;
     const HeaderTag = `h${headerLevel}`;
-    // @ts-expect-error [FEI-5003] - TS2559 - Type '{ children?: ReactNode; }' has no properties in common with type 'IntrinsicAttributes'.
     return <HeaderTag {...props} />;
 };
 
@@ -268,13 +264,13 @@ type LeafContainerProps = {
     path: Path;
     shape: Shape;
 };
-const LeafContainer: React.FC<LeafContainerProps> = ({
+const LeafContainer = ({
     name,
     controls,
     children,
     path,
     shape,
-}): React.ReactElement => {
+}: LeafContainerProps): React.ReactElement => {
     const hasPreviewHeading = shape.type === "content" || shape.type === "hint";
     const previewHeading = hasPreviewHeading && (
         <div className={css(styles.containerHeader)}>
@@ -314,9 +310,7 @@ type ArrayContainerProps = {
     shape: ArrayShape;
     actions: ArrayContainerActions;
 };
-const ArrayContainer: React.FC<ArrayContainerProps> = (
-    props,
-): React.ReactElement => {
+const ArrayContainer = (props: ArrayContainerProps): React.ReactElement => {
     const {name, controls, children, path, shape, actions} = props;
     return (
         <div className={css(styles.container)}>
@@ -347,12 +341,12 @@ type ObjectContainerProps = {
     children?: React.ReactNode;
     path: Path;
 };
-const ObjectContainer: React.FC<ObjectContainerProps> = ({
+const ObjectContainer = ({
     name,
     controls,
     children,
     path,
-}): React.ReactElement => {
+}: ObjectContainerProps): React.ReactElement => {
     const headingEditor = (
         <div className={css(styles.containerHeader)}>
             {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}

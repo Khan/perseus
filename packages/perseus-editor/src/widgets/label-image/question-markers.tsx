@@ -13,7 +13,7 @@ import type {MarkerType} from "@khanacademy/perseus";
 
 const {colors, typography} = globalStyles;
 
-type QuestionMarkersProps = {
+type Props = {
     // The list of possible answers in a specific order.
     choices: ReadonlyArray<string>;
     // The question image properties.
@@ -26,7 +26,7 @@ type QuestionMarkersProps = {
     onChange: (markers: ReadonlyArray<MarkerType>) => void;
 };
 
-export default class QuestionMarkers extends React.Component<QuestionMarkersProps> {
+export default class QuestionMarkers extends React.Component<Props> {
     _markers: Array<Marker | null | undefined> = [];
 
     openDropdownForMarkerIndices(indices: ReadonlyArray<number>) {

@@ -17,8 +17,8 @@ type WithForwardRef = {
 
 type PropsWithForwardRef = Props & WithForwardRef;
 
-const ChoiceNoneAbove: React.FC<PropsWithForwardRef> = function (
-    props,
+const ChoiceNoneAbove = function (
+    props: PropsWithForwardRef,
 ): React.ReactElement {
     const {showContent, content, forwardedRef, ...rest} = props;
 

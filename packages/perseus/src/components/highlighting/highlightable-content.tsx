@@ -31,7 +31,7 @@ import type {
     DOMRange,
 } from "./types";
 
-type HighlightableContentProps = {
+type Props = {
     // The highlightable content itself. Highlights will be defined relative to
     // the content specified here.
     children?: React.ReactElement<any>;
@@ -57,21 +57,18 @@ type HighlightableContentProps = {
     serializedHighlights: SerializedHighlightSet;
 };
 
-type HighlightableContentState = {
+type State = {
     // A cached list of DOMRanges, each representing one of the content's
     // semantic words. Sorted in document order.
     wordRanges: ReadonlyArray<DOMRange>;
 };
 
-class HighlightableContent extends React.PureComponent<
-    HighlightableContentProps,
-    HighlightableContentState
-> {
+class HighlightableContent extends React.PureComponent<Props, State> {
     // References to the mounted container and content divs.
     _container: HTMLElement | null | undefined;
     _content: HTMLElement | null | undefined;
 
-    state: HighlightableContentState = {
+    state: State = {
         wordRanges: [],
     };
 

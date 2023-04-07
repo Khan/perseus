@@ -17,7 +17,7 @@ type Props = JSX.LibraryManagedAttributes<
  * renderToString/renderA11yString.  If KaTeX can't process `children`
  * an empty string is rendered instead.
  */
-export const TestTeX: React.FC<Props> = (props): React.ReactElement => {
+export const TestTeX = (props: Props): React.ReactElement => {
     const {children, katexOptions, onRender} = props;
 
     const katexHtml = React.useMemo(() => {

@@ -13,7 +13,7 @@ type Story = {
     title: string;
 };
 
-export const SingleItem: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SingleItem = (args: StoryArgs): React.ReactElement => {
     const item = {
         _multi: {
             ...question1._multi,

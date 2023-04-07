@@ -31,7 +31,7 @@ type Props = {
 /**
  * Video Transcript Link Component.
  */
-const VideoTranscriptLink: React.FC<Props> = (props): React.ReactElement => {
+const VideoTranscriptLink = (props: Props): React.ReactElement => {
     const {location} = props;
     const {useVideo} = getDependencies();
     const [id, kind] = IS_URL.test(location)

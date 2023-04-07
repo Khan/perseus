@@ -13,10 +13,10 @@ export default {
     title: "Perseus/Widgets/PassageRef",
 } as Story;
 
-export const ShortPassage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ShortPassage = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={question1} />;
 };
 
-export const LongPassage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const LongPassage = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={question2} />;
 };

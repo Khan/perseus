@@ -16,24 +16,18 @@ const defaultObject = {
     onChange: () => {},
 } as const;
 
-export const EmptyPropsObject: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const EmptyPropsObject = (args: StoryArgs): React.ReactElement => {
     return <TextInput {...defaultObject} />;
 };
 
-export const TestValueProvided: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const TestValueProvided = (args: StoryArgs): React.ReactElement => {
     return <TextInput {...defaultObject} value="Test value" />;
 };
 
-export const AriaLabelTextProvided: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const AriaLabelTextProvided = (args: StoryArgs): React.ReactElement => {
     return <TextInput {...defaultObject} labelText="Test label" />;
 };
 
-export const Disabled: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Disabled = (args: StoryArgs): React.ReactElement => {
     return <TextInput {...defaultObject} disabled={true} />;
 };

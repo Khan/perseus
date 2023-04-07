@@ -20,20 +20,18 @@ const defaultObject = {
 } as const;
 const testExamples = ["Sample 1", "Sample 2", "Sample 3"];
 
-export const DefaultAndMostlyEmptyProps: React.FC<StoryArgs> = (
-    args,
+export const DefaultAndMostlyEmptyProps = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <InputWithExamples {...defaultObject} />;
 };
 
-export const ListOfExamples: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ListOfExamples = (args: StoryArgs): React.ReactElement => {
     return <InputWithExamples {...defaultObject} examples={testExamples} />;
 };
 
-export const AriaLabelTextWithListOfExamples: React.FC<StoryArgs> = (
-    args,
+export const AriaLabelTextWithListOfExamples = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <InputWithExamples
@@ -44,9 +42,7 @@ export const AriaLabelTextWithListOfExamples: React.FC<StoryArgs> = (
     );
 };
 
-export const DisabledInput: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const DisabledInput = (args: StoryArgs): React.ReactElement => {
     return (
         <InputWithExamples
             {...defaultObject}

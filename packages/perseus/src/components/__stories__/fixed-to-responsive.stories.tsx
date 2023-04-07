@@ -21,8 +21,8 @@ export default {
     title: "Perseus/Components/Fixed to Responsive",
 } as Story;
 
-export const SmallImageWithSmallContainer: React.FC<StoryArgs> = (
-    args,
+export const SmallImageWithSmallContainer = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeSmall}>
@@ -36,8 +36,8 @@ export const SmallImageWithSmallContainer: React.FC<StoryArgs> = (
     );
 };
 
-export const SmallImageWithMediumContainer: React.FC<StoryArgs> = (
-    args,
+export const SmallImageWithMediumContainer = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeMedium}>
@@ -51,8 +51,8 @@ export const SmallImageWithMediumContainer: React.FC<StoryArgs> = (
     );
 };
 
-export const LargeImageWithLargeContainer: React.FC<StoryArgs> = (
-    args,
+export const LargeImageWithLargeContainer = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeLarge}>
@@ -66,8 +66,8 @@ export const LargeImageWithLargeContainer: React.FC<StoryArgs> = (
     );
 };
 
-export const LargeImageWithSmallerContainer: React.FC<StoryArgs> = (
-    args,
+export const LargeImageWithSmallerContainer = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeSmall}>
@@ -81,9 +81,9 @@ export const LargeImageWithSmallerContainer: React.FC<StoryArgs> = (
     );
 };
 
-export const TwoOverlayedImagesInsteadOneResponsiveContainer: React.FC<
-    StoryArgs
-> = (args): React.ReactElement => {
+export const TwoOverlayedImagesInsteadOneResponsiveContainer = (
+    args: StoryArgs,
+): React.ReactElement => {
     return (
         <FixedToResponsive width={width} height={sizeSmall}>
             <img
@@ -104,8 +104,8 @@ export const TwoOverlayedImagesInsteadOneResponsiveContainer: React.FC<
     );
 };
 
-export const HeightConstrainingAnImage: React.FC<StoryArgs> = (
-    args,
+export const HeightConstrainingAnImage = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <FixedToResponsive
@@ -123,9 +123,7 @@ export const HeightConstrainingAnImage: React.FC<StoryArgs> = (
     );
 };
 
-export const AllowingFullBleed: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const AllowingFullBleed = (args: StoryArgs): React.ReactElement => {
     return (
         <FixedToResponsive
             width={width}

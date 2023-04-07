@@ -33,7 +33,7 @@ const Wrapper = (props) => (
     </div>
 );
 
-export const Empty: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Empty = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: [],
         choices: [],
@@ -50,7 +50,7 @@ export const Empty: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const WithAnswers: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const WithAnswers = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         choices: [

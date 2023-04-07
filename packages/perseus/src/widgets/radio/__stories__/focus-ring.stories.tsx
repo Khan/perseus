@@ -25,7 +25,7 @@ export default {
     },
 } as Story;
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     // faux choice is just for demonstration
     const fauxChoiceStyles = {
         height: "20px",

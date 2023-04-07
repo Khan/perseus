@@ -54,7 +54,7 @@ export default {
     },
 } as Story;
 
-export const Icon: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Icon = (args: StoryArgs): React.ReactElement => (
     <IconComponent
         style={{display: "block"}}
         icon={IconPaths.iconCheck}

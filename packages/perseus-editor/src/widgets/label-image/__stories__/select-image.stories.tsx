@@ -36,7 +36,7 @@ const WithState = () => {
     );
 };
 
-export const Empty: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Empty = (args: StoryArgs): React.ReactElement => {
     const props = {
         url: "",
         onChange: () => {},
@@ -45,7 +45,7 @@ export const Empty: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const Filled: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Filled = (args: StoryArgs): React.ReactElement => {
     const props = {
         url: "https://ka-perseus-images.s3.amazonaws.com/2ee5fc32e35c5178373b39fd304b325b2994c913.png",
         onChange: () => {},
@@ -54,6 +54,6 @@ export const Filled: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     return <WithState />;
 };

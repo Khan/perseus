@@ -3,11 +3,17 @@ import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
-const SideBySide: React.FC<{
+type Props = {
     leftTitle: string;
     left: React.ReactNode;
     perseusObject: any;
-}> = ({leftTitle = "Renderer", left, perseusObject}): React.ReactElement => {
+};
+
+const SideBySide = ({
+    leftTitle = "Renderer",
+    left,
+    perseusObject,
+}: Props): React.ReactElement => {
     return (
         <View style={styles.sideBySide}>
             {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}

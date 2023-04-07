@@ -12,7 +12,7 @@ type Story = {
     args: StoryArgs;
 };
 
-export const Question1: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Question1 = (args: StoryArgs): React.ReactElement => {
     return (
         <RendererWithDebugUI
             question={question1}

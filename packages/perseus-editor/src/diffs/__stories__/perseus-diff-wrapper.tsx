@@ -1,8 +1,10 @@
 import * as React from "react";
 
-const Wrapper: React.FC<{
+type Props = {
     children: React.ReactNode;
-}> = ({children}): React.ReactElement => {
+};
+
+const Wrapper = ({children}: Props): React.ReactElement => {
     return <div className="perseus-diff">{children}</div>;
 };
 

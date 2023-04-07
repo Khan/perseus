@@ -70,7 +70,7 @@ class WithState extends React.Component<
     }
 }
 
-export const Empty: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Empty = (args: StoryArgs): React.ReactElement => {
     const props = {
         choices: [],
         imageUrl: "",
@@ -82,7 +82,7 @@ export const Empty: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const Filled: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Filled = (args: StoryArgs): React.ReactElement => {
     const props = {
         choices: [],
         imageUrl:
@@ -102,6 +102,6 @@ export const Filled: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     return <WithState />;
 };

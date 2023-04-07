@@ -1899,10 +1899,8 @@ var markdownToHtml = function (source: string, state?: State | null): string {
 };
 
 // TODO: This needs definition
-type ReactMarkdownProps = any;
-var ReactMarkdown: React.FC<ReactMarkdownProps> = function (
-    props,
-): React.ReactElement {
+type Props = any;
+var ReactMarkdown = function (props): React.ReactElement {
     var divProps: Record<string, any> = {};
 
     for (var prop in props) {
@@ -2000,6 +1998,16 @@ type Exports = {
             [key: string]: any;
         },
     ) => ReactElement;
+    /**
+     * defaultParse is deprecated, please use `defaultImplicitParse`
+     * @deprecated
+     */
+    readonly defaultParse: (...args: any[]) => any;
+    /**
+     * defaultOutput is deprecated, please use `defaultReactOutput`
+     * @deprecated
+     */
+    readonly defaultOutput: (...args: any[]) => any;
 };
 
 export type {
@@ -2048,7 +2056,6 @@ var SimpleMarkdown: Exports = {
     // default wrappers:
     markdownToReact: markdownToReact,
     markdownToHtml: markdownToHtml,
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'FC<any>' is not assignable to type '(props: { [key: string]: any; source: string; }) => ReactElement'.
     ReactMarkdown: ReactMarkdown,
 
     defaultBlockParse: defaultBlockParse,

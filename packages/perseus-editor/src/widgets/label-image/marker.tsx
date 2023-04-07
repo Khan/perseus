@@ -17,7 +17,7 @@ import type {MarkerType} from "@khanacademy/perseus";
 
 const {colors, borderRadius} = globalStyles;
 
-type MarkerProps = MarkerType & {
+type Props = MarkerType & {
     // The list of possible answer choices.
     choices: ReadonlyArray<string>;
     // Callback for when any of the marker props are changed.
@@ -26,16 +26,16 @@ type MarkerProps = MarkerType & {
     onRemove: () => void;
 };
 
-type MarkerState = {
+type State = {
     // Whether answer choices dropdown is shown, controlled by the user clicking
     // on the marker icon.
     showDropdown: boolean;
 };
 
-export default class Marker extends React.Component<MarkerProps, MarkerState> {
+export default class Marker extends React.Component<Props, State> {
     _marker: HTMLElement | null | undefined;
 
-    constructor(props: MarkerProps) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -47,7 +47,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
         document.addEventListener("click", this.handleClick, true);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: MarkerProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         const {answers} = this.props;
 
         // Exclude those answers that are no longer present in choices.

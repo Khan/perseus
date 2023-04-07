@@ -27,9 +27,7 @@ const computeChildBounds = (
     };
 };
 
-export const ZoomableExample: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ZoomableExample = (args: StoryArgs): React.ReactElement => {
     return (
         <Zoomable computeChildBounds={computeChildBounds}>
             <span>

@@ -21,7 +21,7 @@ import {
 
 import type {DOMHighlight, Position, Rect, ZIndexes} from "./types";
 
-type HighlightRendererProps = {
+type Props = {
     // The DOMHighlight to render.
     highlight: DOMHighlight;
     // A unique key corresponding to the given `highlight`.
@@ -36,7 +36,7 @@ type HighlightRendererProps = {
     zIndexes: ZIndexes;
 };
 
-type HighlightRendererState = {
+type State = {
     // The set of rectangles that cover this highlight's content, relative to
     // the offset parent. This cache is updated on mount and on changes to
     // the `highlight` and `offsetParent` props.
@@ -50,17 +50,14 @@ type HighlightRendererState = {
     cachedHighlightRects: ReadonlyArray<Rect>;
 };
 
-class HighlightRenderer extends React.PureComponent<
-    HighlightRendererProps,
-    HighlightRendererState
-> {
-    state: HighlightRendererState = {
+class HighlightRenderer extends React.PureComponent<Props, State> {
+    state: State = {
         cachedHighlightRects: this._computeRects(this.props),
         // @ts-expect-error [FEI-5003] - TS2322 - Type '{ cachedHighlightRects: readonly Rect[]; tooltipIsHovered: boolean; }' is not assignable to type 'HighlightRendererState'.
         tooltipIsHovered: false,
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps: HighlightRendererProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         if (
             this.props.highlight !== nextProps.highlight ||
             this.props.offsetParent !== nextProps.offsetParent
@@ -76,7 +73,7 @@ class HighlightRenderer extends React.PureComponent<
      * coordinates relative to the offset parent. That way, we can use them
      * for CSS positioning.
      */
-    _computeRects(props: HighlightRendererProps): ReadonlyArray<Rect> {
+    _computeRects(props: Props): ReadonlyArray<Rect> {
         const {highlight, offsetParent} = props;
 
         // Get the set of rectangles that covers the range's text, relative to

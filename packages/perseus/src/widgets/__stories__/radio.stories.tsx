@@ -55,7 +55,7 @@ const buildApiOptions = (args: StoryArgs): APIOptions => {
     };
 };
 
-export const SingleSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SingleSelect = (args: StoryArgs): React.ReactElement => {
     return (
         <RendererWithDebugUI
             question={applyStoryArgs(questionWithPassage, args)}
@@ -65,9 +65,7 @@ export const SingleSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const MultiSelectSimple: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const MultiSelectSimple = (args: StoryArgs): React.ReactElement => {
     return (
         <RendererWithDebugUI
             question={applyStoryArgs(multiChoiceQuestionSimple, args)}
@@ -77,7 +75,7 @@ export const MultiSelectSimple: React.FC<StoryArgs> = (
     );
 };
 
-export const MultiSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const MultiSelect = (args: StoryArgs): React.ReactElement => {
     return (
         <RendererWithDebugUI
             question={applyStoryArgs(multiChoiceQuestion, args)}

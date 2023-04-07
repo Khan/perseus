@@ -110,6 +110,6 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
     }
 }
 
-export const Default: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Default = (args: StoryArgs): React.ReactElement => {
     return <WithState />;
 };

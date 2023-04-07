@@ -21,13 +21,11 @@ const Footer = (): React.ReactElement => {
     );
 };
 
-type TestKeypadContextWrapperProps = {
+type Props = {
     children: React.ReactElement;
 };
 
-const TestKeypadContextWrapper = (
-    props: TestKeypadContextWrapperProps,
-): React.ReactElement => {
+const TestKeypadContextWrapper = (props: Props): React.ReactElement => {
     const [keypadElement, setKeypadElement] = React.useState(null);
     const [renderer, setRenderer] = React.useState(null);
     const [scrollableElement, setScrollableElement] = React.useState(

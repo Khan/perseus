@@ -10,7 +10,6 @@ describe("choice icon", () => {
     describe.each([[true], [false]])("multipleSelect: %s", (multipleSelect) => {
         it("renders with the correct border radius", () => {
             // Arrange/Act
-            // @ts-expect-error [FEI-5003] - TS2739 - Type '{ multipleSelect: any; }' is missing the following properties from type 'Props': visible, color
             render(<FocusRing multipleSelect={multipleSelect} />);
 
             const focusRing = screen.getByTestId("focus-ring");

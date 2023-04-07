@@ -19,33 +19,33 @@ const defaultObject = {
     ruleName: "Test rule",
 } as const;
 
-export const DefaultLintContainerAndMessage: React.FC<StoryArgs> = (
-    args,
+export const DefaultLintContainerAndMessage = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Lint {...defaultObject} />;
 };
-export const Severity1DefaultLintAndMessage: React.FC<StoryArgs> = (
-    args,
+export const Severity1DefaultLintAndMessage = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Lint {...defaultObject} severity={1} />;
 };
-export const Severity2DefaultLintAndMessage: React.FC<StoryArgs> = (
-    args,
+export const Severity2DefaultLintAndMessage = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Lint {...defaultObject} severity={2} />;
 };
-export const Severity3DefaultLintAndMessage: React.FC<StoryArgs> = (
-    args,
+export const Severity3DefaultLintAndMessage = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Lint {...defaultObject} severity={3} />;
 };
-export const Severity4DefaultLintAndMessage: React.FC<StoryArgs> = (
-    args,
+export const Severity4DefaultLintAndMessage = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Lint {...defaultObject} severity={4} />;
 };
-export const InlineLintContainerAndMessage: React.FC<StoryArgs> = (
-    args,
+export const InlineLintContainerAndMessage = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Lint {...defaultObject} inline={true} />;
 };

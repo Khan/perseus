@@ -2,10 +2,12 @@ import * as React from "react";
 
 import type {TabbarItemType} from "./types";
 
-const IconAsset: React.FC<{
+type Props = {
     tintColor: string;
     type: TabbarItemType;
-}> = function ({tintColor, type}): React.ReactElement {
+};
+
+const IconAsset = function ({tintColor, type}: Props): React.ReactElement {
     if (type === "Geometry") {
         return (
             <svg

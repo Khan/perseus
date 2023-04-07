@@ -12,7 +12,7 @@ type GradedGroupSetStory = {
     args: StoryArgs;
 };
 
-export const Article1: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Article1 = (args: StoryArgs): React.ReactElement => {
     return (
         <RendererWithDebugUI
             apiOptions={{

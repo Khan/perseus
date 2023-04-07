@@ -12,16 +12,12 @@ export default {
     title: "Perseus/Components/Video Transcript Link",
 } as Story;
 
-export const YoutubeVideoLink: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const YoutubeVideoLink = (args: StoryArgs): React.ReactElement => {
     return (
         <VideoTranscriptLink location="https://www.youtube.com/watch?v=YoutubeId" />
     );
 };
 
-export const SlugVideoLink: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const SlugVideoLink = (args: StoryArgs): React.ReactElement => {
     return <VideoTranscriptLink location="slug-video-id" />;
 };

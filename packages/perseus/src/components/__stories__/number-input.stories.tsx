@@ -16,28 +16,26 @@ export default {
     title: "Perseus/Components/Number Input",
 } as Story;
 
-export const EmptyPropsObject: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const EmptyPropsObject = (args: StoryArgs): React.ReactElement => {
     return <NumberInput {...defaultObject} />;
 };
 
-export const SampleValue: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SampleValue = (args: StoryArgs): React.ReactElement => {
     return <NumberInput {...defaultObject} value={1234567890} />;
 };
 
-export const Placeholder: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Placeholder = (args: StoryArgs): React.ReactElement => {
     return <NumberInput {...defaultObject} placeholder="Sample placeholder" />;
 };
 
-export const SizeMini: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SizeMini = (args: StoryArgs): React.ReactElement => {
     return <NumberInput {...defaultObject} placeholder="Sample placeholder" />;
 };
 
-export const SizeSmall: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SizeSmall = (args: StoryArgs): React.ReactElement => {
     return <NumberInput {...defaultObject} size="small" />;
 };
 
-export const SizeNormal: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SizeNormal = (args: StoryArgs): React.ReactElement => {
     return <NumberInput {...defaultObject} size="normal" />;
 };

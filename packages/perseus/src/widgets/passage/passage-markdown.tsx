@@ -48,7 +48,7 @@ type HighlightNode = {
     content: string;
 };
 
-type RefStartProps = {
+type Props = {
     refContent: React.ReactNode;
 };
 
@@ -63,7 +63,7 @@ function getInitialParseState(): ParseState {
     };
 }
 
-class RefStart extends React.Component<RefStartProps> {
+class RefStart extends React.Component<Props> {
     render(): React.ReactNode {
         return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
     }

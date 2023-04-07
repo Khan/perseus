@@ -18,14 +18,12 @@ export default {
     title: "Perseus/Components/Inline Icon",
 } as Story;
 
-export const BasicIconPathAndSizing: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const BasicIconPathAndSizing = (args: StoryArgs): React.ReactElement => {
     return <InlineIcon {...defaultPath} />;
 };
 
-export const BasicIconWithAdditionalStyling: React.FC<StoryArgs> = (
-    args,
+export const BasicIconWithAdditionalStyling = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <InlineIcon
@@ -37,8 +35,6 @@ export const BasicIconWithAdditionalStyling: React.FC<StoryArgs> = (
     );
 };
 
-export const BasicIconWithAriaTitle: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const BasicIconWithAriaTitle = (args: StoryArgs): React.ReactElement => {
     return <InlineIcon {...defaultPath} title="Sample ARIA title" />;
 };

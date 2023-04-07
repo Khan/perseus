@@ -18,7 +18,7 @@ type State = {
     selectedPage: TabbarItemType;
 };
 
-const allPages: React.FC<Props> = function (props): React.ReactElement {
+const allPages = function (props: Props): React.ReactElement {
     const pages: Array<TabbarItemType> = ["Numbers"];
 
     if (props.preAlgebra) {

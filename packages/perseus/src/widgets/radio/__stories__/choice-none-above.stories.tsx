@@ -34,7 +34,7 @@ const ChoiceDefaults = {
     onChange: action("changed"),
 } as const;
 
-export const Example: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Example = (args: StoryArgs): React.ReactElement => {
     const combineProps = {...ChoiceDefaults, ...args} as const;
     return <ChoiceNoneAbove {...combineProps} />;
 };

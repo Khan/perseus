@@ -11,17 +11,14 @@ import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
 const {colors, typography} = globalStyles;
 
-type SelectImageProps = {
+type Props = {
     // Callback for when image URL is changed.
     onChange: (url: string) => void;
     // The selected image URL.
     url: string;
 };
 
-const SelectImage: React.FC<SelectImageProps> = ({
-    onChange,
-    url,
-}): React.ReactElement => (
+const SelectImage = ({onChange, url}: Props): React.ReactElement => (
     <div>
         <div className={css(styles.title)}>Image</div>
 

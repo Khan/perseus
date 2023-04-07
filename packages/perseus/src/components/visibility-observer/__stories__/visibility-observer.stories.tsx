@@ -136,8 +136,6 @@ class VisibilityTest extends React.Component<Props, State> {
     }
 }
 
-export const AlertWhenNotVisible: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const AlertWhenNotVisible = (args: StoryArgs): React.ReactElement => {
     return <VisibilityTest />;
 };

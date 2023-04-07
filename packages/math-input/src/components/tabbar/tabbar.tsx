@@ -23,12 +23,12 @@ type TabbarState = {
     selectedItem: number;
 };
 
-type TabbarProps = {
+type Props = {
     items: Array<TabbarItemType>;
     onSelect: (item: TabbarItemType) => void;
 };
 
-class Tabbar extends React.Component<TabbarProps, TabbarState> {
+class Tabbar extends React.Component<Props, TabbarState> {
     state: TabbarState = {
         selectedItem: 0,
     };

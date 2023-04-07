@@ -14,9 +14,7 @@ export default {
 
 const svgUrl = "http://www.khanacademy.org/images/ohnoes-concerned.svg";
 
-export const TextOnMouseover: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const TextOnMouseover = (args: StoryArgs): React.ReactElement => {
     return (
         <InfoTip>
             <span>Sample text</span>
@@ -24,9 +22,7 @@ export const TextOnMouseover: React.FC<StoryArgs> = (
     );
 };
 
-export const ImageOnMouseover: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ImageOnMouseover = (args: StoryArgs): React.ReactElement => {
     return (
         <InfoTip>
             <img alt="" src={svgUrl} />

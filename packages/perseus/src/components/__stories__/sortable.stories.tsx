@@ -14,8 +14,8 @@ export default {
     title: "Perseus/Components/Sortable",
 } as Story;
 
-export const SortableHorizontalExample: React.FC<StoryArgs> = (
-    args,
+export const SortableHorizontalExample = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <Sortable
@@ -26,8 +26,8 @@ export const SortableHorizontalExample: React.FC<StoryArgs> = (
     );
 };
 
-export const SortableVerticalExample: React.FC<StoryArgs> = (
-    args,
+export const SortableVerticalExample = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <Sortable
@@ -38,33 +38,33 @@ export const SortableVerticalExample: React.FC<StoryArgs> = (
     );
 };
 
-export const BasicSortableOptionsTest: React.FC<StoryArgs> = (
-    args,
+export const BasicSortableOptionsTest = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Sortable options={defaultOptions} />;
 };
 
-export const BasicSortableOptionsTestWithNoPadding: React.FC<StoryArgs> = (
-    args,
+export const BasicSortableOptionsTestWithNoPadding = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Sortable options={defaultOptions} padding={false} />;
 };
 
-export const BasicSortableOptionsTestWithLargeMargin: React.FC<StoryArgs> = (
-    args,
+export const BasicSortableOptionsTestWithLargeMargin = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Sortable options={defaultOptions} margin={64} />;
 };
 
-export const BasicSortableOptionsTestDisabled: React.FC<StoryArgs> = (
-    args,
+export const BasicSortableOptionsTestDisabled = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Sortable options={defaultOptions} disabled={true} />;
 };
 
-export const BasicSortableOptionsTestWithWidthAndHeightConstraints: React.FC<
-    StoryArgs
-> = (args): React.ReactElement => {
+export const BasicSortableOptionsTestWithWidthAndHeightConstraints = (
+    args: StoryArgs,
+): React.ReactElement => {
     return (
         <Sortable
             options={defaultOptions}

@@ -15,9 +15,7 @@ import * as React from "react";
 // TODO: This should be an enumeration of all of the possible legal values
 type KeyId = string;
 
-const buttonAsset: React.FC<{
-    id: KeyId;
-}> = function ({id}): React.ReactElement {
+const buttonAsset = function ({id}: {id: KeyId}): React.ReactElement {
     switch (id) {
         case "NUM_0":
             return (

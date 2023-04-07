@@ -19,7 +19,7 @@ import SelectImage from "./label-image/select-image";
 
 import type {MarkerType} from "@khanacademy/perseus";
 
-type LabelImageEditorProps = {
+type Props = {
     // List of answer choices to label question image with.
     choices: ReadonlyArray<string>;
     // The question image properties.
@@ -37,7 +37,7 @@ type LabelImageEditorProps = {
     onChange: (options: any) => void;
 };
 
-class LabelImageEditor extends React.Component<LabelImageEditorProps> {
+class LabelImageEditor extends React.Component<Props> {
     _questionMarkers: QuestionMarkers | null | undefined;
 
     static defaultProps: {
@@ -62,7 +62,7 @@ class LabelImageEditor extends React.Component<LabelImageEditorProps> {
 
     static widgetName = "label-image" as const;
 
-    componentDidUpdate(prevProps: LabelImageEditorProps) {
+    componentDidUpdate(prevProps: Props) {
         const coordsToMarkers: Record<string, any> = {};
 
         prevProps.markers.forEach(

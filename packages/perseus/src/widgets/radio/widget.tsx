@@ -502,7 +502,6 @@ class Radio extends React.Component<Props> {
         return (
             <BaseRadio
                 labelWrap={true}
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean | undefined' is not assignable to type 'boolean'.
                 multipleSelect={this.props.multipleSelect}
                 countChoices={this.props.countChoices}
                 numCorrect={this.props.numCorrect}

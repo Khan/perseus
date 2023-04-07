@@ -12,9 +12,7 @@ export default {
     title: "Perseus/Components/HUD",
 } as Story;
 
-export const TestMessageDisabled: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const TestMessageDisabled = (args: StoryArgs): React.ReactElement => {
     return (
         <Hud
             fixedPosition={false}
@@ -25,9 +23,7 @@ export const TestMessageDisabled: React.FC<StoryArgs> = (
     );
 };
 
-export const TestMessageEnabled: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const TestMessageEnabled = (args: StoryArgs): React.ReactElement => {
     return (
         <Hud
             fixedPosition={false}

@@ -13,9 +13,7 @@ export default {
     title: "Perseus/Widgets/Unit",
 } as Story;
 
-export const NonStaticRender: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const NonStaticRender = (args: StoryArgs): React.ReactElement => {
     return (
         <OldUnitInput
             apiOptions={{

@@ -14,9 +14,7 @@ const CROSS_OUT_LINE_SIZE = CHOICE_ICON_SIZE + CROSS_OUT_LINE_PADDING * 2;
  * The "cross-out line" that appears over the icon when the choice has been
  * `crossedOut`.
  */
-const CrossOutLine: React.FC<{
-    color: string;
-}> = function (props): React.ReactElement {
+const CrossOutLine = function (props: {color: string}): React.ReactElement {
     return (
         <svg
             width={CROSS_OUT_LINE_SIZE}

@@ -86,7 +86,7 @@ function getInstructionsText(
     return i18n._("Choose 1 answer:");
 }
 
-const BaseRadio: React.FC<Props> = function (props): React.ReactElement {
+const BaseRadio = function (props: Props): React.ReactElement {
     const {
         apiOptions,
         reviewModeRubric,

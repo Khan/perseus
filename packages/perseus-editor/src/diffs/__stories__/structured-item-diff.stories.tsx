@@ -33,7 +33,7 @@ const tags = {
     c: "c tag",
 } as const;
 
-export const ContentAdded: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ContentAdded = (args: StoryArgs): React.ReactElement => {
     const props = {
         before: {
             _multi: {
@@ -175,8 +175,8 @@ export const ContentAdded: React.FC<StoryArgs> = (args): React.ReactElement => {
 };
 
 // second instance
-export const ContentAddedRemovedAndChanged: React.FC<StoryArgs> = (
-    args,
+export const ContentAddedRemovedAndChanged = (
+    args: StoryArgs,
 ): React.ReactElement => {
     const props = {
         before: {
@@ -383,9 +383,7 @@ export const ContentAddedRemovedAndChanged: React.FC<StoryArgs> = (
 };
 
 // third instance
-export const MiscContentChanges: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const MiscContentChanges = (args: StoryArgs): React.ReactElement => {
     const props = {
         before: {
             _multi: {
@@ -681,9 +679,7 @@ export const MiscContentChanges: React.FC<StoryArgs> = (
 };
 
 // fourth
-export const ContentRemoved: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ContentRemoved = (args: StoryArgs): React.ReactElement => {
     const props = {
         before: {
             _multi: {
