@@ -17,7 +17,9 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
-    "scripts": {},
+    "scripts": {
+        "generate_icons": "SWCRC=true node -r @swc-node/register tools/svg-to-react/convert.ts tools/svg-to-react/icons src/components/iconography"
+    },
     "dependencies": {
         "performance-now": "^0.2.0"
     },
