@@ -128,13 +128,24 @@ const main = async () => {
             "utf-8",
         );
 
-        const optimizedSvg: string = optimize(rawSvg, {
-            plugins: [
-                // set of built-in plugins enabled by default
-                "preset-default",
-                "removeXMLNS",
-            ],
-        }).data;
+        let optimizedSvg;
+        try {
+            const result = optimize(rawSvg, {
+                plugins: [
+                    // set of built-in plugins enabled by default
+                    "preset-default",
+                    "removeXMLNS",
+                ],
+            });
+            optimizedSvg = result.data;
+        } catch (err: any) {
+            if (err.name === "SvgoParserError") {
+                console.error(`ERROR: ${filename} contains invalid SVG:`, err);
+            } else {
+                console.error(`ERROR: fatal error processing ${filename}`, err);
+            }
+            continue;
+        }
 
         const contents = optimizedSvg
             // Replace color so it can be passed in as props
