@@ -1,6 +1,4 @@
-/* eslint-disable import/no-commonjs */
-
-module.exports = {
+export default {
     addition: "PLUS",
     subtraction: "MINUS",
     cos: "COS",
