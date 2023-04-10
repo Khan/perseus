@@ -3,7 +3,7 @@
     "extends": "../tsconfig-shared.json",
     "compilerOptions": {
         "outDir": "./dist",
-        "rootDir": "src",
+        "rootDirs": ["src", "tools"],
     },
     "references": []
 }
