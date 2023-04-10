@@ -14,17 +14,17 @@ const Period = (props: {color: string}): React.ReactNode => {
             <g fill="none" fillRule="evenodd">
                 <g>
                     <path fill="none" d="M0 0h48v48H0z" />
-                    <circle fill={props.color} cx="24" cy="30" r="2" />
+                    <circle cx="24" cy="30" r="2" fill={props.color} />
                 </g>
                 <g transform="translate(-502 -420)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use fill="#FAFAFA" xlink:href="#a" />
+                    <use xlink:href="#a" fill="#FAFAFA" />
                     <g mask="url(#b)">
                         <g transform="translate(502 420)">
                             <path fill="none" d="M0 0h48v48H0z" />
-                            <circle fill="#3B3E40" cx="24" cy="30" r="2" />
+                            <circle cx="24" cy="30" r="2" fill="#3B3E40" />
                         </g>
                     </g>
                 </g>

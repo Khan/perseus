@@ -14,25 +14,25 @@ const Dismiss = (): React.ReactNode => {
             <g fill="none" fillRule="evenodd">
                 <path fill="none" d="M0 0h48v48H0z" />
                 <path
-                    d="m18 21 6 6 6-6"
-                    strokeLinecap="round"
-                    strokeWidth="2"
                     stroke="#71B307"
+                    strokeLinecap="round"
                     strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m18 21 6 6 6-6"
                 />
                 <g transform="translate(-50 -148)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use fill="#FAFAFA" xlink:href="#a" />
+                    <use xlink:href="#a" fill="#FAFAFA" />
                     <g mask="url(#b)">
                         <path fill="none" d="M50 148h48v48H50z" />
                         <path
                             stroke="#71B307"
-                            d="m68 169 6 6 6-6"
                             strokeLinecap="round"
-                            strokeWidth="2"
                             strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="m68 169 6 6 6-6"
                         />
                     </g>
                 </g>

@@ -16,56 +16,56 @@ const Percent = (props: {color: string}): React.ReactNode => {
                 <g transform="translate(12 12)">
                     <path fill="none" d="M0 0h24v24H0z" />
                     <path
-                        d="M16 4 8 20"
                         stroke={props.color}
-                        strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M16 4 8 20"
                     />
                     <circle
-                        stroke="#3B3E40"
-                        strokeWidth="2"
                         cx="7"
                         cy="7"
                         r="3"
-                    />
-                    <circle
                         stroke="#3B3E40"
                         strokeWidth="2"
+                    />
+                    <circle
                         cx="17"
                         cy="17"
                         r="3"
+                        stroke="#3B3E40"
+                        strokeWidth="2"
                     />
                 </g>
                 <g transform="translate(-186 -450)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use fill="#FAFAFA" xlink:href="#a" />
+                    <use xlink:href="#a" fill="#FAFAFA" />
                     <g mask="url(#b)">
                         <path fill="none" d="M186 450h48v48h-48z" />
                         <g transform="translate(198 462)">
                             <path fill="none" d="M0 0h24v24H0z" />
                             <path
-                                d="M16 4 8 20"
                                 stroke="#3B3E40"
-                                strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M16 4 8 20"
                             />
                             <circle
-                                stroke="#3B3E40"
-                                strokeWidth="2"
                                 cx="7"
                                 cy="7"
                                 r="3"
-                            />
-                            <circle
                                 stroke="#3B3E40"
                                 strokeWidth="2"
+                            />
+                            <circle
                                 cx="17"
                                 cy="17"
                                 r="3"
+                                stroke="#3B3E40"
+                                strokeWidth="2"
                             />
                         </g>
                     </g>

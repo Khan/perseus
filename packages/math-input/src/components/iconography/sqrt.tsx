@@ -15,23 +15,23 @@ const Sqrt = (props: {color: string}): React.ReactNode => {
                 <path fill="none" d="M0 0h48v48H0z" />
                 <path
                     stroke={props.color}
-                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m14 29 4 6 9-14h7"
                 />
                 <g transform="translate(-366 -722)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use fill="#FAFAFA" xlink:href="#a" />
+                    <use xlink:href="#a" fill="#FAFAFA" />
                     <g mask="url(#b)">
                         <path fill="none" d="M366 722h48v48h-48z" />
                         <path
                             stroke="#3B3E40"
-                            strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
+                            strokeWidth="2"
                             d="m380 751 4 6 9-14h7"
                         />
                     </g>

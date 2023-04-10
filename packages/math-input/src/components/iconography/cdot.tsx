@@ -15,18 +15,18 @@ const Cdot = (props: {color: string}): React.ReactNode => {
                 <path fill="none" d="M0 0h48v48H0z" />
                 <g transform="translate(12 12)">
                     <path fill="none" d="M0 0h24v24H0z" />
-                    <circle fill={props.color} cx="12" cy="12" r="3" />
+                    <circle cx="12" cy="12" r="3" fill={props.color} />
                 </g>
                 <g transform="translate(-118 -518)">
                     <mask id="b" fill="#fff">
                         <use xlinkhref="#a" />
                     </mask>
-                    <use fill="#FAFAFA" xlink:href="#a" />
+                    <use xlink:href="#a" fill="#FAFAFA" />
                     <g mask="url(#b)">
                         <path fill="none" d="M118 518h48v48h-48z" />
                         <g transform="translate(130 530)">
                             <path fill="none" d="M0 0h24v24H0z" />
-                            <circle fill="#3B3E40" cx="12" cy="12" r="3" />
+                            <circle cx="12" cy="12" r="3" fill="#3B3E40" />
                         </g>
                     </g>
                 </g>
