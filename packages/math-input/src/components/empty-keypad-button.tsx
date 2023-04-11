@@ -11,7 +11,7 @@ import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
 type Props = {
-    gestureManager: typeof GestureManager;
+    gestureManager: GestureManager;
 };
 
 class EmptyKeypadButton extends React.Component<Props> {
