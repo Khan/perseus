@@ -1,4 +1,10 @@
-import type {KeypadConfiguration} from "../consts";
+import type {KeypadType} from "../consts";
+import type {Key} from "../data/keys";
+
+type KeypadConfiguration = {
+    keypadType: KeypadType;
+    extraKeys: Array<Key>;
+};
 
 // naming convention: verb + noun
 // the noun should be one of the other properties in the object that's
