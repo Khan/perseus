@@ -10,7 +10,13 @@ import {View} from "../fake-react-native-web/index";
 
 import {offBlack} from "./common-style";
 
-class CornerDecal extends React.Component {
+import type {CSSProperties} from "aphrodite";
+
+type Props = {
+    style: CSSProperties | Array<CSSProperties>;
+};
+
+class CornerDecal extends React.Component<Props> {
     static propTypes = {
         style: PropTypes.any,
     };
