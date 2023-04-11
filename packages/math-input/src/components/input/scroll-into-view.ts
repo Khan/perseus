@@ -11,18 +11,6 @@
 
 import {toolbarHeightPx} from "../common-style";
 
-// Taken from https://dev.opera.com/articles/fixing-the-scrolltop-bug/
-function bodyOrHtml() {
-    if ("scrollingElement" in document) {
-        return document.scrollingElement;
-    }
-    // Fallback for legacy browsers
-    if (navigator.userAgent.indexOf("WebKit") !== -1) {
-        return document.body;
-    }
-    return document.documentElement;
-}
-
 export const scrollIntoView = (containerNode, keypadNode) => {
     // TODO(charlie): There's no need for us to be reading the keypad bounds
     // here, since they're pre-determined by logic in the store. We should
@@ -32,7 +20,7 @@ export const scrollIntoView = (containerNode, keypadNode) => {
     const containerTopPx = containerBounds.top;
 
     // Get the element that scrolls the document.
-    const scrollNode = bodyOrHtml();
+    const scrollNode = document.scrollingElement;
 
     const desiredMarginPx = 16;
 
@@ -58,7 +46,9 @@ export const scrollIntoView = (containerNode, keypadNode) => {
                 containerTopPx,
             );
 
-            scrollNode.scrollTop += scrollOffset;
+            if (scrollNode) {
+                scrollNode.scrollTop += scrollOffset;
+            }
             return;
         }
     }
@@ -66,7 +56,7 @@ export const scrollIntoView = (containerNode, keypadNode) => {
     // Alternatively, if the input is out of the viewport or nearly out
     // of the viewport, scroll it into view. We can do this regardless
     // of whether the keypad has been provided.
-    if (containerTopPx < desiredMarginPx) {
+    if (scrollNode && containerTopPx < desiredMarginPx) {
         scrollNode.scrollTop -= containerBounds.height + desiredMarginPx;
     }
 };
