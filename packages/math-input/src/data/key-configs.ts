@@ -14,7 +14,7 @@ export type KeyConfig = {
     ariaLabel: string;
 };
 
-const KeyConfigs = {
+const KeyConfigs: any = {
     // Basic math keys.
     [Keys.PLUS]: {
         type: KeyTypes.OPERATOR,
