@@ -1,3 +1,5 @@
+import type {KeypadConfiguration} from "../consts";
+
 // naming convention: verb + noun
 // the noun should be one of the other properties in the object that's
 // being dispatched
@@ -16,17 +18,15 @@ export const activateKeypad = () => {
 
 /**
  * Configure the keypad with the provided configuration parameters.
- *
- * See: `prop-types.js#keypadConfigurationPropType`.
  */
-export const configureKeypad = (configuration) => {
+export const configureKeypad = (configuration: KeypadConfiguration) => {
     return {
         type: "ConfigureKeypad",
         configuration,
     };
 };
 
-export const setPageSize = (pageWidthPx, pageHeightPx) => {
+export const setPageSize = (pageWidthPx: number, pageHeightPx: number) => {
     return {
         type: "SetPageSize",
         pageWidthPx,
