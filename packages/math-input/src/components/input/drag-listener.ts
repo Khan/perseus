@@ -9,6 +9,10 @@
 const touchSlopPx = 8;
 
 class DragListener {
+    _scrollListener: () => void;
+    _moveListener: (evt: TouchEvent) => void;
+    _endAndCancelListener: (evt: TouchEvent) => void;
+
     constructor(onDrag, initialEvent) {
         // We detect drags in two ways. First, by listening for the window
         // scroll event (we consider any legitimate scroll to be a drag).
