@@ -242,6 +242,11 @@ module.exports = {
             ...banImportExtension("jsx"),
             ...banImportExtension("ts"),
             ...banImportExtension("tsx"),
+            {
+                selector: "TSQualifiedName[left.name='React'][right.name='FC']",
+                message:
+                    "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
+            },
         ],
 
         /**

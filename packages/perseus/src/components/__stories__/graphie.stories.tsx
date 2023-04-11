@@ -16,8 +16,8 @@ export default {
     title: "Perseus/Components/Graphie",
 } as Story;
 
-export const SquareBoxSizeAndOtherwiseEmpty: React.FC<StoryArgs> = (
-    args,
+export const SquareBoxSizeAndOtherwiseEmpty = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <Graphie
@@ -28,8 +28,6 @@ export const SquareBoxSizeAndOtherwiseEmpty: React.FC<StoryArgs> = (
     );
 };
 
-export const PieChartGraphieLabels: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const PieChartGraphieLabels = (args: StoryArgs): React.ReactElement => {
     return <ItemRendererWithDebugUI item={itemWithPieChart} />;
 };

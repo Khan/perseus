@@ -31,7 +31,7 @@ const findAndFocusElement = (component?: Element | null) => {
     }
 };
 
-type OptionProps = {
+type Props = {
     // The value to use when the option is selected
     value: string;
     // The display of the option
@@ -65,7 +65,7 @@ const check = `M10,3.8C10,4,9.9,4.2,9.8,4.3L5.1,8.9L4.3,9.8C4.2,9.9,4,10,3.8,10
 
 export const optionHeight = 30;
 
-class Option extends React.Component<OptionProps> {
+class Option extends React.Component<Props> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'node' has no initializer and is not definitely assigned in the constructor.
     node: HTMLDivElement;
 

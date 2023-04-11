@@ -27,11 +27,13 @@ type ChoiceIconProps = {
     previouslyAnswered: boolean;
 };
 
-function ChoiceInner(props: {
+type ChoiceInnerProps = {
     pos: number;
     showCorrectness: boolean;
     correct: boolean | null | undefined;
-}) {
+};
+
+function ChoiceInner(props: ChoiceInnerProps) {
     const {pos, showCorrectness, correct} = props;
     const letter = getChoiceLetter(pos);
 
@@ -96,9 +98,7 @@ function getDynamicStyles(
     return {backgroundColor, borderColor, color, borderRadius};
 }
 
-const ChoiceIcon: React.FC<ChoiceIconProps> = function (
-    props,
-): React.ReactElement {
+const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     const {
         checked,
         crossedOut,

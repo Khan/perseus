@@ -15,9 +15,9 @@ import * as React from "react";
 // TODO: This should be an enumeration of all of the possible legal values
 type KeyId = string;
 
-const buttonAsset: React.FC<{
-    id: KeyId;
-}> = function ({id}): React.ReactElement {
+type Props = {id: KeyId};
+
+export default function ButtonAsset({id}: Props): React.ReactElement {
     switch (id) {
         case "NUM_0":
             return (
@@ -489,5 +489,4 @@ const buttonAsset: React.FC<{
         default:
             throw new Error(`Invalid asset ${id}`);
     }
-};
-export default buttonAsset;
+}

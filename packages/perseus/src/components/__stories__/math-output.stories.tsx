@@ -12,14 +12,12 @@ export default {
     title: "Perseus/Components/Math Ouput",
 } as Story;
 
-export const EmptyPropsObject: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const EmptyPropsObject = (args: StoryArgs): React.ReactElement => {
     return <MathOutput />;
 };
-export const StringValue: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const StringValue = (args: StoryArgs): React.ReactElement => {
     return <MathOutput value="Test string value" />;
 };
-export const NumericValue: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const NumericValue = (args: StoryArgs): React.ReactElement => {
     return <MathOutput value={1234567890} />;
 };

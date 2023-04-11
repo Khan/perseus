@@ -13,7 +13,7 @@ import {iconCheck, iconMinus} from "../../icon-paths";
 
 import type {InteractiveMarkerType} from "./types";
 
-type MarkerProps = InteractiveMarkerType & {
+type Props = InteractiveMarkerType & {
     // Whether this marker has been selected by user.
     showSelected: boolean;
     // Whether this marker should pulsate to draw user attention.
@@ -23,12 +23,12 @@ type MarkerProps = InteractiveMarkerType & {
     onKeyDown: (e: KeyboardEvent) => void;
 };
 
-type MarkerState = {
+type State = {
     // Whether the marker button has input focus.
     isFocused: boolean;
 };
 
-export default class Marker extends React.Component<MarkerProps, MarkerState> {
+export default class Marker extends React.Component<Props, State> {
     // The marker icon element.
     _icon: HTMLElement | null | undefined;
 
@@ -38,7 +38,7 @@ export default class Marker extends React.Component<MarkerProps, MarkerState> {
         selected: [],
     };
 
-    state: MarkerState = {
+    state: State = {
         isFocused: false,
     };
 

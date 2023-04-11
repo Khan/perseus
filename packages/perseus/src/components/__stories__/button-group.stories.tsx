@@ -30,9 +30,7 @@ const HarnassedButtonGroup = (
     );
 };
 
-export const ButtonsWithNoTitles: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ButtonsWithNoTitles = (args: StoryArgs): React.ReactElement => {
     return (
         <HarnassedButtonGroup
             buttons={[
@@ -44,9 +42,7 @@ export const ButtonsWithNoTitles: React.FC<StoryArgs> = (
     );
 };
 
-export const ButtonsWithTitles: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ButtonsWithTitles = (args: StoryArgs): React.ReactElement => {
     return (
         <HarnassedButtonGroup
             buttons={[

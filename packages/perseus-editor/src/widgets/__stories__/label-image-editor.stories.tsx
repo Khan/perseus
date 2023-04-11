@@ -93,6 +93,6 @@ class WithState extends React.Component<Empty, State> {
     }
 }
 
-export const Default: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Default = (args: StoryArgs): React.ReactElement => {
     return <WithState />;
 };

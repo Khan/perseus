@@ -87,12 +87,10 @@ class WithState extends React.Component<
     }
 }
 
-export const SingleSelect: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SingleSelect = (args: StoryArgs): React.ReactElement => {
     return <WithState />;
 };
 
-export const MultipleSelect: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const MultipleSelect = (args: StoryArgs): React.ReactElement => {
     return <WithState multipleSelect={true} />;
 };

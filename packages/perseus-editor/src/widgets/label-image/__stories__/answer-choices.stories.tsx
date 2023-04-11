@@ -57,16 +57,12 @@ class WithState extends React.Component<
     }
 }
 
-export const EmptyNonInteractive: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const EmptyNonInteractive = (args: StoryArgs): React.ReactElement => {
     const props = {choices: [], onChange: (...args) => {}} as const;
     return <Wrapper {...props} />;
 };
 
-export const FilledNonInteractive: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const FilledNonInteractive = (args: StoryArgs): React.ReactElement => {
     const props = {
         choices: [
             "Lamborghini",
@@ -81,6 +77,6 @@ export const FilledNonInteractive: React.FC<StoryArgs> = (
     return <Wrapper {...props} />;
 };
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     return <WithState />;
 };

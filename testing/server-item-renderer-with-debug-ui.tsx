@@ -16,10 +16,10 @@ type Props = {
     apiOptions?: APIOptions;
 };
 
-export const ServerItemRendererWithDebugUI: React.FC<Props> = ({
+export const ServerItemRendererWithDebugUI = ({
     item,
     apiOptions,
-}): React.ReactElement => {
+}: Props): React.ReactElement => {
     const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
     const options = apiOptions || Object.freeze({});

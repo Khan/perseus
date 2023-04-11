@@ -15,15 +15,13 @@ export default {
     title: "Perseus/Components/Graph",
 } as Story;
 
-export const SquareBoxSizeAndOtherwiseEmpty: React.FC<StoryArgs> = (
-    args,
+export const SquareBoxSizeAndOtherwiseEmpty = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <Graph box={[size, size]} />;
 };
 
-export const LabeledSquaredBox: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const LabeledSquaredBox = (args: StoryArgs): React.ReactElement => {
     return (
         <Graph box={[size, size]} labels={["First label", "Second label"]} />
     );

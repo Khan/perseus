@@ -2,18 +2,15 @@ import * as React from "react";
 
 import {Errors, Log} from "./logging/log";
 
-type ErrorBoundaryProps = {
+type Props = {
     children: React.ReactNode;
 };
-type ErrorBoundaryState = {
+type State = {
     error: string;
 };
 
-class ErrorBoundary extends React.Component<
-    ErrorBoundaryProps,
-    ErrorBoundaryState
-> {
-    constructor(props: ErrorBoundaryProps) {
+class ErrorBoundary extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = {error: ""};
     }

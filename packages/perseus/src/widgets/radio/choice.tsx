@@ -78,9 +78,7 @@ function uniqueId() {
     return `choice-${id++}`;
 }
 
-const Choice: React.FC<ChoicePropsWithForwardRef> = function (
-    props,
-): React.ReactElement {
+const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
     const {
         disabled = false,
         checked = false,

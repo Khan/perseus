@@ -10,7 +10,7 @@ import {
     iconTrash,
 } from "../../icon-paths";
 
-type ElementContainerProps = {
+type Props = {
     children: React.ReactElement<any> | ReadonlyArray<React.ReactElement<any>>;
     initiallyVisible: boolean;
     onDelete?: () => void | null | undefined;
@@ -19,12 +19,11 @@ type ElementContainerProps = {
     title: string | React.ReactElement<any>;
 };
 
-class ElementContainer extends React.Component<
-    ElementContainerProps,
-    {
-        show: boolean;
-    }
-> {
+type State = {
+    show: boolean;
+};
+
+class ElementContainer extends React.Component<Props, State> {
     static defaultProps: {
         initiallyVisible: boolean;
         title: string;
@@ -33,7 +32,7 @@ class ElementContainer extends React.Component<
         title: "More",
     };
 
-    constructor(props: ElementContainerProps) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {

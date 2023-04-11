@@ -127,9 +127,7 @@ type WidgetEditorState = {
     widgetInfo: WidgetInfo;
 };
 
-const _upgradeWidgetInfo: React.FC<WidgetEditorProps> = (
-    props,
-): React.ReactElement => {
+const _upgradeWidgetInfo = (props: WidgetEditorProps): React.ReactElement => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
@@ -368,7 +366,7 @@ const imageUrlsFromContent = function (content: string) {
     return _.map(allMatches(IMAGE_REGEX, content), (capture) => capture[1]);
 };
 
-type EditorProps = Readonly<{
+type Props = Readonly<{
     apiOptions: any;
     className?: string;
     content: string;
@@ -406,14 +404,14 @@ type DeafultProps = {
     };
 };
 
-type EditorState = {
+type State = {
     showKatexErrors: boolean;
     textAreaValue: string;
     katex?: katex;
 };
 
 // eslint-disable-next-line react/no-unsafe
-class Editor extends React.Component<EditorProps, EditorState> {
+class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
     deferredChange: any | null | undefined;
     widgetIds: any | null | undefined;
@@ -431,7 +429,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
         warnNoWidgets: false,
     };
 
-    state: EditorState = {
+    state: State = {
         katex: undefined,
         showKatexErrors: false,
         textAreaValue: this.props.content,
@@ -463,13 +461,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
     }
 
     // TODO(arun): This is a deprecated method, use the appropriate replacement
-    UNSAFE_componentWillReceiveProps(nextProps: EditorProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         if (this.props.content !== nextProps.content) {
             this.setState({textAreaValue: nextProps.content});
         }
     }
 
-    componentDidUpdate(prevProps: EditorProps) {
+    componentDidUpdate(prevProps: Props) {
         // TODO(alpert): Maybe fix React so this isn't necessary
         // eslint-disable-next-line react/no-string-refs
         const textarea = ReactDOM.findDOMNode(this.refs.textarea);
@@ -574,7 +572,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
      * Calculate the size of all the images in props.content, and send
      * those sizes to this.props.images using props.onChange.
      */
-    _sizeImages: (props: EditorProps) => void = (props: EditorProps) => {
+    _sizeImages: (props: Props) => void = (props: Props) => {
         const imageUrls = imageUrlsFromContent(props.content);
 
         // Discard any images in our dimension table that no

@@ -13,7 +13,7 @@ export default {
     title: "Perseus/Editor/Widgets/Label Image/Behavior",
 } as Story;
 
-export const Default: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Default = (args: StoryArgs): React.ReactElement => {
     const [state, setState] = React.useState({
         multipleAnswers: false,
         hideChoicesFromInstructions: false,

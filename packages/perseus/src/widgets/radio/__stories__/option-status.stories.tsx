@@ -26,13 +26,11 @@ export default {
     },
 } as Story;
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     return <OptionStatus {...args} />;
 };
 
-export const AllPossibleOutputs: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const AllPossibleOutputs = (args: StoryArgs): React.ReactElement => {
     return (
         <>
             <div>

@@ -94,18 +94,14 @@ const article = {
 
 type StoryArgs = Record<any, any>;
 
-export const Question1: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Question1 = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={question1} />;
 };
 
-export const MultipleDefinitions: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const MultipleDefinitions = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={question2} />;
 };
 
-export const ArticleDefintion: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ArticleDefintion = (args: StoryArgs): React.ReactElement => {
     return <ArticleRenderer json={article} useNewStyles />;
 };

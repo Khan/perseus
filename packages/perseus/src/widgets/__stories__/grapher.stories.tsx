@@ -17,44 +17,30 @@ export default {
 
 type StoryArgs = Record<any, any>;
 
-export const AbsoluteValueQuestion: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const AbsoluteValueQuestion = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={absoluteValueQuestion} />;
 };
 
-export const ExponentialQuestion: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ExponentialQuestion = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={exponentialQuestion} />;
 };
 
-export const LinearQuestion: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const LinearQuestion = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={linearQuestion} />;
 };
 
-export const LogarithmQuestion: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const LogarithmQuestion = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={logarithmQuestion} />;
 };
 
-export const QuadraticQuestion: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const QuadraticQuestion = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={quadraticQuestion} />;
 };
 
-export const SinusoidQuestion: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const SinusoidQuestion = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={sinusoidQuestion} />;
 };
 
-export const ComplexQuestion: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ComplexQuestion = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={multipleAvailableTypesQuestion} />;
 };

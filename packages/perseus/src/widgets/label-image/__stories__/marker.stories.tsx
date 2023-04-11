@@ -31,7 +31,7 @@ const Wrapper = (props) => (
 // TODO(jeremy): There are a bunch of props that we have to pass to the Marker
 // that are not used by it, but required because we share a props type.
 
-export const Unfilled: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Unfilled = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: [],
@@ -46,9 +46,7 @@ export const Unfilled: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const UnfilledPulsate: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const UnfilledPulsate = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: [],
@@ -63,9 +61,7 @@ export const UnfilledPulsate: React.FC<StoryArgs> = (
     return <Wrapper {...props} />;
 };
 
-export const UnfilledSelected: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const UnfilledSelected = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: [],
@@ -80,7 +76,7 @@ export const UnfilledSelected: React.FC<StoryArgs> = (
     return <Wrapper {...props} />;
 };
 
-export const Filled: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Filled = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["Fiat"],
@@ -95,9 +91,7 @@ export const Filled: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const FilledSelected: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const FilledSelected = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["Fiat"],
@@ -112,7 +106,7 @@ export const FilledSelected: React.FC<StoryArgs> = (
     return <Wrapper {...props} />;
 };
 
-export const Incorrect: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Incorrect = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["Fiat"],
@@ -128,9 +122,7 @@ export const Incorrect: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const IncorrectSelected: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const IncorrectSelected = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["Fiat"],
@@ -146,7 +138,7 @@ export const IncorrectSelected: React.FC<StoryArgs> = (
     return <Wrapper {...props} />;
 };
 
-export const Correct: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Correct = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["BMW", "Ferrari"],
@@ -162,9 +154,7 @@ export const Correct: React.FC<StoryArgs> = (args): React.ReactElement => {
     return <Wrapper {...props} />;
 };
 
-export const CorrectSelected: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const CorrectSelected = (args: StoryArgs): React.ReactElement => {
     const props = {
         answers: ["BMW", "Ferrari"],
         selected: ["BMW", "Ferrari"],

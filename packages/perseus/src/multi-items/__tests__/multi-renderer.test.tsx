@@ -23,9 +23,8 @@ import type {Item} from "../item-types";
 import type {Tree} from "../tree-types";
 
 // A little helper used in the render callback of a MultiRenderer.
-const SimpleLayout: React.FC<{
-    renderers: any;
-}> = ({renderers}): React.ReactElement => {
+type Props = {renderers: any};
+const SimpleLayout = ({renderers}: Props): React.ReactElement => {
     if (renderers == null) {
         throw new Error("renderers was null");
     }

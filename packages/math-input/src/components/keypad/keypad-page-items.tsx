@@ -7,9 +7,13 @@ import ButtonAsset from "./button-assets";
 import type {KeyConfig} from "../../data/key-configs";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-export const KeypadPageContainer: React.FC<{
+type KeypadPageContainerProps = {
     children: React.ReactNode;
-}> = ({children}): React.ReactElement => (
+};
+
+export const KeypadPageContainer = ({
+    children,
+}: KeypadPageContainerProps): React.ReactElement => (
     <View
         style={{
             backgroundColor: "#DBDCDD",
@@ -25,12 +29,19 @@ export const KeypadPageContainer: React.FC<{
     </View>
 );
 
-export const KeypadButton: React.FC<{
+type KeypadButtonProps = {
     keyConfig: KeyConfig;
     tintColor?: string;
     style?: StyleType;
     onClickKey: (keyConfig: string) => void;
-}> = ({keyConfig, onClickKey, tintColor, style}): React.ReactElement => (
+};
+
+export const KeypadButton = ({
+    keyConfig,
+    onClickKey,
+    tintColor,
+    style,
+}: KeypadButtonProps): React.ReactElement => (
     <Button
         onPress={() => onClickKey(keyConfig.id)}
         tintColor={tintColor}
@@ -40,11 +51,17 @@ export const KeypadButton: React.FC<{
     </Button>
 );
 
-export const SecondaryKeypadButton: React.FC<{
+type SecondaryKeypadButtonProps = {
     keyConfig: KeyConfig;
     style?: any;
     onClickKey: (keyConfig: string) => void;
-}> = ({keyConfig, onClickKey, style}): React.ReactElement => (
+};
+
+export const SecondaryKeypadButton = ({
+    keyConfig,
+    onClickKey,
+    style,
+}: SecondaryKeypadButtonProps): React.ReactElement => (
     <KeypadButton
         keyConfig={keyConfig}
         onClickKey={onClickKey}
@@ -53,11 +70,17 @@ export const SecondaryKeypadButton: React.FC<{
     />
 );
 
-export const KeypadActionButton: React.FC<{
+type KeypadActionButtonProps = {
     keyConfig: KeyConfig;
     style?: any;
     onClickKey: (keyConfig: string) => void;
-}> = ({keyConfig, onClickKey, style}): React.ReactElement => (
+};
+
+export const KeypadActionButton = ({
+    keyConfig,
+    onClickKey,
+    style,
+}: KeypadActionButtonProps): React.ReactElement => (
     <KeypadButton
         keyConfig={keyConfig}
         onClickKey={onClickKey}

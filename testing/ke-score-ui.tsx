@@ -4,11 +4,11 @@ import ReactJson from "react-json-view";
 
 import type {KEScore} from "../packages/perseus/src/types";
 
-export default ({
-    score,
-}: {
+type Props = {
     score: KEScore | null | undefined;
-}): React.ReactElement | null => {
+};
+
+export default ({score}: Props): React.ReactElement | null => {
     if (score == null) {
         return null;
     }

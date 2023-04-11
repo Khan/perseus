@@ -24,7 +24,7 @@ export default {
     ],
 } as Story;
 
-export const Example: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Example = (args: StoryArgs): React.ReactElement => {
     return (
         <TagsDiff
             title="tags"

@@ -26,13 +26,13 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const InlineIcon: React.FC<InlineIconProps> = ({
+const InlineIcon = ({
     path,
     width,
     height,
     style = {},
     title,
-}): React.ReactElement => (
+}: InlineIconProps): React.ReactElement => (
     <svg
         role="img"
         aria-hidden={!title}

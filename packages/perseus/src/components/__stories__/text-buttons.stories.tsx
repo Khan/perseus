@@ -12,51 +12,39 @@ export default {
     title: "Perseus/Components/Tex Buttons",
 } as Story;
 
-export const ButtonSetBasic: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ButtonSetBasic = (args: StoryArgs): React.ReactElement => {
     return <TexButtons sets={["basic"]} onInsert={() => {}} />;
 };
 
-export const ButtonSetBasicDiv: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ButtonSetBasicDiv = (args: StoryArgs): React.ReactElement => {
     return <TexButtons sets={["basic+div"]} onInsert={() => {}} />;
 };
 
-export const ButtonSetTrig: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ButtonSetTrig = (args: StoryArgs): React.ReactElement => {
     return <TexButtons sets={["trig"]} onInsert={() => {}} />;
 };
 
-export const ButtonSetPrealgebra: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ButtonSetPrealgebra = (args: StoryArgs): React.ReactElement => {
     return <TexButtons sets={["prealgebra"]} onInsert={() => {}} />;
 };
 
-export const ButtonSetLogarithms: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ButtonSetLogarithms = (args: StoryArgs): React.ReactElement => {
     return <TexButtons sets={["logarithms"]} onInsert={() => {}} />;
 };
 
-export const ButtonSetBasicRelations: React.FC<StoryArgs> = (
-    args,
+export const ButtonSetBasicRelations = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <TexButtons sets={["basic relations"]} onInsert={() => {}} />;
 };
 
-export const ButtonSetAdvancedRelations: React.FC<StoryArgs> = (
-    args,
+export const ButtonSetAdvancedRelations = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <TexButtons sets={["advanced relations"]} onInsert={() => {}} />;
 };
 
-export const ButtonSetMultiple: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ButtonSetMultiple = (args: StoryArgs): React.ReactElement => {
     return (
         <TexButtons
             sets={["basic", "trig", "advanced relations"]}

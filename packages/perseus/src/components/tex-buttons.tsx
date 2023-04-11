@@ -253,7 +253,7 @@ const buttonSets: ButtonSets = {
 
 export type ButtonSetsType = ReadonlyArray<keyof typeof buttonSets>;
 
-type TexButtonProps = {
+type Props = {
     sets: ButtonSetsType;
     onInsert: (arg1: Inserter) => void;
     className?: string;
@@ -264,7 +264,7 @@ const buttonSetsPropType = PropTypes.arrayOf(
     PropTypes.oneOf(_(buttonSets).keys()),
 );
 
-class TexButtons extends React.Component<TexButtonProps> {
+class TexButtons extends React.Component<Props> {
     static buttonSets: typeof buttonSets = buttonSets;
     static buttonSetsType: any = buttonSetsPropType;
 

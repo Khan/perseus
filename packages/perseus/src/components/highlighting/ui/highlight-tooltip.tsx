@@ -23,7 +23,7 @@ import {getRelativeRect} from "./util";
 
 import type {Rect} from "./types";
 
-type HighlightTooltipProps = {
+type Props = {
     label: string;
     onClick: () => unknown;
     onMouseEnter?: () => unknown;
@@ -33,7 +33,7 @@ type HighlightTooltipProps = {
     offsetParent: Element;
 };
 
-class HighlightTooltip extends React.PureComponent<HighlightTooltipProps> {
+class HighlightTooltip extends React.PureComponent<Props> {
     _getFocusRect(): Rect | null | undefined {
         const {focusNode, focusOffset, offsetParent} = this.props;
 

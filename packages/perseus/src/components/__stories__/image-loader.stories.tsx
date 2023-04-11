@@ -15,7 +15,7 @@ export default {
     title: "Perseus/Components/Image Loader",
 } as Story;
 
-export const SvgImage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const SvgImage = (args: StoryArgs): React.ReactElement => {
     return (
         <ImageLoader
             src={svgUrl}
@@ -29,7 +29,7 @@ export const SvgImage: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const PngImage: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const PngImage = (args: StoryArgs): React.ReactElement => {
     return (
         <ImageLoader
             src={imgUrl}
@@ -43,8 +43,8 @@ export const PngImage: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const InvalidImageWithChildrenForFailedLoading: React.FC<StoryArgs> = (
-    args,
+export const InvalidImageWithChildrenForFailedLoading = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <ImageLoader

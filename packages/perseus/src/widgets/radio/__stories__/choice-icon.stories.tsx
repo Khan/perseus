@@ -40,13 +40,11 @@ export default {
     args: defaultProps,
 };
 
-const Panel: React.FC<{
-    children: React.ReactNode;
-}> = (props): React.ReactElement => {
+const Panel = (props: {children: React.ReactNode}): React.ReactElement => {
     return <div style={{padding: "10px"}}>{props.children}</div>;
 };
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     return (
         <Panel>
             <ChoiceIcon {...args} />
@@ -54,7 +52,7 @@ export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const Default: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Default = (args: StoryArgs): React.ReactElement => {
     return (
         <Panel>
             <ChoiceIcon {...defaultProps} />
@@ -63,7 +61,7 @@ export const Default: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const Focused: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Focused = (args: StoryArgs): React.ReactElement => {
     return (
         <Panel>
             <ChoiceIcon {...defaultProps} focused={true} />
@@ -76,7 +74,7 @@ export const Focused: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const Checked: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Checked = (args: StoryArgs): React.ReactElement => {
     return (
         <Panel>
             <ChoiceIcon {...defaultProps} checked={true} />
@@ -89,7 +87,7 @@ export const Checked: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const CrossedOut: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const CrossedOut = (args: StoryArgs): React.ReactElement => {
     return (
         <Panel>
             <ChoiceIcon {...defaultProps} crossedOut={true} />
@@ -102,7 +100,7 @@ export const CrossedOut: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const Correct: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Correct = (args: StoryArgs): React.ReactElement => {
     return (
         <Panel>
             <ChoiceIcon
@@ -124,7 +122,7 @@ export const Correct: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const Incorrect: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Incorrect = (args: StoryArgs): React.ReactElement => {
     return (
         <Panel>
             <ChoiceIcon
@@ -146,7 +144,7 @@ export const Incorrect: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const AllPositions: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const AllPositions = (args: StoryArgs): React.ReactElement => {
     // @ts-expect-error [FEI-5003] - TS2554 - Expected 1-3 arguments, but got 0.
     const allLetters = Array(26).fill();
     return (

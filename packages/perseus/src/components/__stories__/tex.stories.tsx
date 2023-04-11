@@ -18,8 +18,6 @@ export default {
     },
 } as Story;
 
-export const BasicOperation: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const BasicOperation = (args: StoryArgs): React.ReactElement => {
     return <TeX setAssetStatus={() => {}} children={args.equation} />;
 };

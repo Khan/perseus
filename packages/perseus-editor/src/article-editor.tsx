@@ -44,7 +44,7 @@ type DefaultProps = {
     ) => React.ReactElement<React.ComponentProps<"span">>;
     useNewStyles: boolean;
 };
-type PerseusArticleEditorProps = DefaultProps & {
+type Props = DefaultProps & {
     apiOptions?: APIOptions;
     imageUploader?: (arg1: string, arg2: (arg1: string) => unknown) => unknown;
     // URL of the route to show on initial load of the preview frames.
@@ -54,10 +54,7 @@ type PerseusArticleEditorProps = DefaultProps & {
 type State = {
     highlightLint: boolean;
 };
-export default class ArticleEditor extends React.Component<
-    PerseusArticleEditorProps,
-    State
-> {
+export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         contentPaths: [],
         json: [{}],

@@ -45,9 +45,7 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
     );
 };
 
-export const DesktopKitchenSink: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
     const reviewModeRubric = {
         functions: ["f", "g", "h"],
         times: true,
@@ -88,11 +86,11 @@ export const DesktopKitchenSink: React.FC<StoryArgs> = (
     );
 };
 
-export const Desktop: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Desktop = (args: StoryArgs): React.ReactElement => {
     return <WrappedKeypadContext item={expressionItem3} customKeypad={false} />;
 };
 
-export const Mobile: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Mobile = (args: StoryArgs): React.ReactElement => {
     return (
         <div>
             <p>
@@ -107,9 +105,7 @@ export const Mobile: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const ExpressionItem2: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ExpressionItem2 = (args: StoryArgs): React.ReactElement => {
     return (
         <WrappedKeypadContext
             item={expressionItem2}
@@ -118,9 +114,7 @@ export const ExpressionItem2: React.FC<StoryArgs> = (
     );
 };
 
-export const ExpressionItem3: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ExpressionItem3 = (args: StoryArgs): React.ReactElement => {
     return (
         <WrappedKeypadContext
             item={expressionItem3}

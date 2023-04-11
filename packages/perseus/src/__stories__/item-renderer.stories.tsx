@@ -16,14 +16,10 @@ export default {
     title: "Perseus/Renderers/Item Renderer",
 } as Story;
 
-export const InputNumberItem: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
     return <ItemRendererWithDebugUI item={itemWithInput} />;
 };
 
-export const LabelImageItem: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
     return <ItemRendererWithDebugUI item={labelImageItem} />;
 };

@@ -18,7 +18,7 @@ import {PerseusError} from "../../perseus-error";
 
 import type {DOMRange} from "./types";
 
-type WordIndexerProps = {
+type Props = {
     // The content to display and traverse in search of words.
     children?: React.ReactElement<any>;
     // After each mount and update, this callback is called with the list of
@@ -26,7 +26,7 @@ type WordIndexerProps = {
     onWordsUpdate: (wordRanges: ReadonlyArray<DOMRange>) => unknown;
 };
 
-class WordIndexer extends React.PureComponent<WordIndexerProps> {
+class WordIndexer extends React.PureComponent<Props> {
     _container: HTMLElement | null | undefined;
     /* eslint-enable react/sort-comp */
 

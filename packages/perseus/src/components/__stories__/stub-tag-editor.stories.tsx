@@ -14,19 +14,15 @@ export default {
 
 const defaultValues = ["Test value 1", "Test value 2", "Test value 3"];
 
-export const ShowingTitle: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ShowingTitle = (args: StoryArgs): React.ReactElement => {
     return <StubTagEditor onChange={() => {}} showTitle={true} />;
 };
 
-export const NotShowingTitle: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const NotShowingTitle = (args: StoryArgs): React.ReactElement => {
     return <StubTagEditor onChange={() => {}} showTitle={false} />;
 };
 
-export const ShowingTitleWithValue: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const ShowingTitleWithValue = (args: StoryArgs): React.ReactElement => {
     return (
         <StubTagEditor
             onChange={() => {}}
@@ -36,8 +32,8 @@ export const ShowingTitleWithValue: React.FC<StoryArgs> = (
     );
 };
 
-export const NotShowingTitleWithValue: React.FC<StoryArgs> = (
-    args,
+export const NotShowingTitleWithValue = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <StubTagEditor

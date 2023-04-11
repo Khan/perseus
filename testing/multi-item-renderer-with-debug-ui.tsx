@@ -27,11 +27,11 @@ type Props = {
 
 // Renders an assessment item (aka {_multi: ...} that conforms to the
 // sample data simpleQuestionShape.
-export const MultiItemRendererWithDebugUI: React.FC<Props> = ({
+export const MultiItemRendererWithDebugUI = ({
     children,
     simpleItem,
     apiOptions,
-}): React.ReactElement => {
+}: Props): React.ReactElement => {
     // @ts-expect-error [FEI-5003] - TS2530 - Cannot find namespace 'MultiItems'.
     const ref = React.useRef<MultiItems.MultiRenderer>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);

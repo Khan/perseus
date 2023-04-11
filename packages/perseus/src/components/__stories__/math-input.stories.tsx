@@ -17,18 +17,14 @@ const defaultObject = {
     onChange: () => {},
 } as const;
 
-export const DefaultWithBasicButtonSet: React.FC<StoryArgs> = (
-    args,
+export const DefaultWithBasicButtonSet = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return <MathInput {...defaultObject} />;
 };
-export const AlwaysVisibleButtonSet: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const AlwaysVisibleButtonSet = (args: StoryArgs): React.ReactElement => {
     return <MathInput {...defaultObject} buttonsVisible="always" />;
 };
-export const DefaultWithAriaLabel: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const DefaultWithAriaLabel = (args: StoryArgs): React.ReactElement => {
     return <MathInput {...defaultObject} labelText="Sample label" />;
 };

@@ -12,8 +12,8 @@ export default {
     title: "Perseus/Components/Prop Check Box",
 } as Story;
 
-export const TestLabelWithCheckedObject: React.FC<StoryArgs> = (
-    args,
+export const TestLabelWithCheckedObject = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <PropCheckBox
@@ -25,8 +25,8 @@ export const TestLabelWithCheckedObject: React.FC<StoryArgs> = (
     );
 };
 
-export const TestLabelWithUncheckedObject: React.FC<StoryArgs> = (
-    args,
+export const TestLabelWithUncheckedObject = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <PropCheckBox
@@ -38,8 +38,8 @@ export const TestLabelWithUncheckedObject: React.FC<StoryArgs> = (
     );
 };
 
-export const TestLabelWithCheckedObjectLabelOnTheRight: React.FC<StoryArgs> = (
-    args,
+export const TestLabelWithCheckedObjectLabelOnTheRight = (
+    args: StoryArgs,
 ): React.ReactElement => {
     return (
         <PropCheckBox
@@ -51,9 +51,9 @@ export const TestLabelWithCheckedObjectLabelOnTheRight: React.FC<StoryArgs> = (
     );
 };
 
-export const TestLabelWithUncheckedObjectLabelOnTheRight: React.FC<
-    StoryArgs
-> = (args): React.ReactElement => {
+export const TestLabelWithUncheckedObjectLabelOnTheRight = (
+    args: StoryArgs,
+): React.ReactElement => {
     return (
         <PropCheckBox
             test={false}

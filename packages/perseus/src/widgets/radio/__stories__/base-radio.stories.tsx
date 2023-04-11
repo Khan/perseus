@@ -60,27 +60,27 @@ const defaultProps = {
     isLastUsedWidget: false,
 } as const;
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     const overwrittenProps = {...defaultProps, ...args} as const;
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const SingleSelectWithNothingSelected: React.FC<StoryArgs> = (
-    args,
+export const SingleSelectWithNothingSelected = (
+    args: StoryArgs,
 ): React.ReactElement => {
     const overwrittenProps = {...defaultProps, multipleSelect: false} as const;
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const MultipleSelectWithNothingSelected: React.FC<StoryArgs> = (
-    args,
+export const MultipleSelectWithNothingSelected = (
+    args: StoryArgs,
 ): React.ReactElement => {
     const overwrittenProps = {...defaultProps, multipleSelect: true} as const;
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const MultipleSelectWithCountChoicesLabel: React.FC<StoryArgs> = (
-    args,
+export const MultipleSelectWithCountChoicesLabel = (
+    args: StoryArgs,
 ): React.ReactElement => {
     const overwrittenProps = {
         ...defaultProps,
@@ -91,9 +91,7 @@ export const MultipleSelectWithCountChoicesLabel: React.FC<StoryArgs> = (
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const SingleSelected: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const SingleSelected = (args: StoryArgs): React.ReactElement => {
     const choices = Array(4)
         .fill(null)
         .map((_, i) => generateChoice({content: `Choice ${i + 1}`}));
@@ -107,9 +105,7 @@ export const SingleSelected: React.FC<StoryArgs> = (
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const MultipleSelected: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const MultipleSelected = (args: StoryArgs): React.ReactElement => {
     const choices = Array(4)
         .fill(null)
         .map((_, i) => generateChoice({content: `Choice ${i + 1}`}));
@@ -124,9 +120,7 @@ export const MultipleSelected: React.FC<StoryArgs> = (
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const SingleKitchenSink: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const SingleKitchenSink = (args: StoryArgs): React.ReactElement => {
     const choices = Array(4)
         .fill(null)
         .map((_, i) => {
@@ -162,9 +156,7 @@ export const SingleKitchenSink: React.FC<StoryArgs> = (
     return <BaseRadio {...overwrittenProps} />;
 };
 
-export const MultipleKitchenSink: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const MultipleKitchenSink = (args: StoryArgs): React.ReactElement => {
     const choices = Array(4)
         .fill(null)
         .map((_, i) => {

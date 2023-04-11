@@ -45,11 +45,11 @@ export default {
     args: defaultProps,
 } as Story;
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     return <Choice {...args} />;
 };
 
-export const Checked: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Checked = (args: StoryArgs): React.ReactElement => {
     const sharedProps = {
         ...defaultProps,
         checked: true,
@@ -73,7 +73,7 @@ export const Checked: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const ReviewMode: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const ReviewMode = (args: StoryArgs): React.ReactElement => {
     const sharedProps = {
         ...defaultProps,
         showCorrectness: true,
@@ -108,7 +108,7 @@ export const ReviewMode: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const Rationale: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Rationale = (args: StoryArgs): React.ReactElement => {
     const sharedProps = {
         ...defaultProps,
         checked: true,

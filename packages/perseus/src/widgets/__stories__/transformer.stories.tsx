@@ -9,6 +9,6 @@ export default {
 
 type StoryArgs = Record<any, any>;
 
-export const Question: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Question = (args: StoryArgs): React.ReactElement => {
     return <RendererWithDebugUI question={question} />;
 };

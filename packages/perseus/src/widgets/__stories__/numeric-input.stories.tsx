@@ -62,13 +62,13 @@ export const Question1 = (): React.ReactElement => {
     return <RendererWithDebugUI question={question1} />;
 };
 
-export const Interactive: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Interactive = (args: StoryArgs): React.ReactElement => {
     const props = generateProps(args);
 
     return <NumericInput {...props} />;
 };
 
-export const Sizes: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Sizes = (args: StoryArgs): React.ReactElement => {
     const smallProps = generateProps({...args, size: "small"});
     const normalProps = generateProps({...args, size: "normal"});
 
@@ -86,9 +86,7 @@ export const Sizes: React.FC<StoryArgs> = (args): React.ReactElement => {
     );
 };
 
-export const TextAlignment: React.FC<StoryArgs> = (
-    args,
-): React.ReactElement => {
+export const TextAlignment = (args: StoryArgs): React.ReactElement => {
     const leftProps = generateProps({...args, rightAlign: false});
     const rightProps = generateProps({...args, rightAlign: true});
 

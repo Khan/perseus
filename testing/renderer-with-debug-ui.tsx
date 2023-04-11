@@ -19,11 +19,11 @@ type Props = {
     reviewMode?: boolean;
 };
 
-export const RendererWithDebugUI: React.FC<Props> = ({
+export const RendererWithDebugUI = ({
     question,
     apiOptions,
     reviewMode = false,
-}): React.ReactElement => {
+}: Props): React.ReactElement => {
     registerAllWidgetsForTesting();
     const ref = React.useRef<Renderer | null | undefined>(null);
     const [state, setState] = React.useState<any>(null);

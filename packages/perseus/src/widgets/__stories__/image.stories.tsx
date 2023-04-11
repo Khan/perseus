@@ -16,7 +16,7 @@ type ImageStory = {
     args: StoryArgs;
 };
 
-export const Question1: React.FC<StoryArgs> = (args): React.ReactElement => {
+export const Question1 = (args: StoryArgs): React.ReactElement => {
     const apiOptions: APIOptions = {
         isMobile: args.isMobile,
     };

@@ -24,7 +24,7 @@ type DefaultProps = {
     style: CSSProperties | Array<CSSProperties>;
 };
 
-type LinkProps = DefaultProps & {
+type Props = DefaultProps & {
     children?: React.ReactNode;
     // An additional class name to add. This is supported so-as to allow
     // Perseus to add class-based styles to links when using this
@@ -66,7 +66,7 @@ type LinkProps = DefaultProps & {
 /**
  * A wrapper that creates an anchor tag with normalized styles
  */
-class Link extends React.Component<LinkProps> {
+class Link extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         highlighted: false,
         href: DEFAULT_HREF,

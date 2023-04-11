@@ -22,7 +22,7 @@ export type TrackedSelection = {
     proposedHighlight: DOMHighlight;
 };
 
-type SelectionTrackerProps = {
+type Props = {
     // A function that builds a DOMHighlight from the given DOMRange, if
     // possible. If it would not currently be valid to add a highlight over the
     // given DOMRange, returns null.
@@ -38,7 +38,7 @@ type SelectionTrackerProps = {
     enabled: boolean;
 };
 
-type SelectionTrackerState = {
+type State = {
     // The current state of the mouse button. We distinguish between down,
     // down and the selection has changed since going down, and up.
     mouseState: "down" | "down-and-selecting" | "up";
@@ -46,11 +46,8 @@ type SelectionTrackerState = {
     trackedSelection: TrackedSelection | null | undefined;
 };
 
-class SelectionTracker extends React.PureComponent<
-    SelectionTrackerProps,
-    SelectionTrackerState
-> {
-    state: SelectionTrackerState = {
+class SelectionTracker extends React.PureComponent<Props, State> {
+    state: State = {
         mouseState: "up",
         trackedSelection: null,
     };
@@ -59,7 +56,7 @@ class SelectionTracker extends React.PureComponent<
         this._updateListeners(false, this.props.enabled);
     }
 
-    componentDidUpdate(prevProps: SelectionTrackerProps) {
+    componentDidUpdate(prevProps: Props) {
         if (this.props.buildHighlight !== prevProps.buildHighlight) {
             // The highlight-building function changed, so the
             // proposedHighlight we built with it might be different, or no

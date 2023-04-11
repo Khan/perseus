@@ -21,7 +21,7 @@ import SelectionTracker from "./selection-tracker";
 import type {TrackedSelection} from "./selection-tracker";
 import type {DOMHighlight, DOMHighlightSet, DOMRange, ZIndexes} from "./types";
 
-type HighlightingUIProps = {
+type Props = {
     // A function that builds a DOMHighlight from the given DOMRange, if
     // possible. If it would not currently be valid to add a highlight over the
     // given DOMRange, returns null.
@@ -49,7 +49,7 @@ type HighlightingUIProps = {
     zIndexes: ZIndexes;
 };
 
-class HighlightingUI extends React.PureComponent<HighlightingUIProps> {
+class HighlightingUI extends React.PureComponent<Props> {
     _handleAddHighlight(highlightToAdd: DOMHighlight) {
         this.props.onAddHighlight(highlightToAdd);
 

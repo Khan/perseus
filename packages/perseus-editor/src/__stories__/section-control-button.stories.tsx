@@ -13,9 +13,9 @@ export default {
     title: "Perseus Editor/Widgets/Section Control Button",
 } as Story;
 
-export const ButtonForEditingSectionsOfContentWithInArticleEditor: React.FC<
-    StoryArgs
-> = (args): React.ReactElement => {
+export const ButtonForEditingSectionsOfContentWithInArticleEditor = (
+    args: StoryArgs,
+): React.ReactElement => {
     return (
         <SectionControlButton
             icon={icons.iconTrash}

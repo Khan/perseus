@@ -19,39 +19,39 @@ export default {
 
 type StoryArgs = Record<any, any>;
 
-export const Angle: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Angle = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={angleQuestion} />
 );
 
-export const Circle: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Circle = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={circleQuestion} />
 );
 
-export const Linear: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Linear = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={linearQuestion} />
 );
 
-export const LinearSystem: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const LinearSystem = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={linearSystemQuestion} />
 );
 
-export const Point: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Point = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={pointQuestion} />
 );
 
-export const Polygon: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Polygon = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={polygonQuestion} />
 );
 
-export const Ray: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Ray = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={rayQuestion} />
 );
 
-export const Segment: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Segment = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={segmentQuestion} />
 );
 
-export const Sinusoid: React.FC<StoryArgs> = (args): React.ReactElement => (
+export const Sinusoid = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={sinusoidQuestion} />
 );
 

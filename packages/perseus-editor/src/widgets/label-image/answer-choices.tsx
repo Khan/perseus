@@ -89,7 +89,7 @@ const DraggableGripIcon = () => (
 /**
  * A button link to add a new answer.
  */
-const AddAnswer: React.FC<AddAnswerProps> = ({onClick}): React.ReactElement => (
+const AddAnswer = ({onClick}: AddAnswerProps): React.ReactElement => (
     <Link
         className={css(styles.addAnswer, editorStyles.addAnswer)}
         onClick={onClick}
@@ -105,11 +105,11 @@ const AddAnswer: React.FC<AddAnswerProps> = ({onClick}): React.ReactElement => (
  *
  * TODO(michaelpolyak): Implement answer reordering, CP-117
  */
-const Answer: React.FC<AnswerProps> = ({
+const Answer = ({
     answer,
     onChange,
     onRemove,
-}): React.ReactElement => (
+}: AnswerProps): React.ReactElement => (
     <li className={css(styles.answer)}>
         <Link onClick={onRemove}>
             <Icon icon={removeIcon} size={24} color="#D92916" />
@@ -137,10 +137,10 @@ const Answer: React.FC<AnswerProps> = ({
 /**
  * The list of choices, handles adding, removing and reording of answers.
  */
-const AnswerChoices: React.FC<AnswerChoicesProps> = ({
+const AnswerChoices = ({
     choices,
     onChange,
-}): React.ReactElement => (
+}: AnswerChoicesProps): React.ReactElement => (
     <div>
         <div className={css(styles.title)}>Answer Choices</div>
 

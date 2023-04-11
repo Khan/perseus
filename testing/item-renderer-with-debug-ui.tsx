@@ -16,10 +16,10 @@ type Props = {
     apiOptions?: APIOptions;
 };
 
-export const ItemRendererWithDebugUI: React.FC<Props> = ({
+export const ItemRendererWithDebugUI = ({
     item,
     apiOptions,
-}): React.ReactElement => {
+}: Props): React.ReactElement => {
     const ref = React.useRef<ItemRenderer | null | undefined>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
 

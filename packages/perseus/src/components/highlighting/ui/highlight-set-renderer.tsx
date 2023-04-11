@@ -15,7 +15,7 @@ import HighlightTooltip from "./highlight-tooltip";
 
 import type {DOMHighlightSet, Position, ZIndexes} from "./types";
 
-type HighlightSetRendererProps = {
+type Props = {
     // Whether the highlights are user-editable. If false, highlights are
     // read-only.
     editable: boolean;
@@ -33,7 +33,7 @@ type HighlightSetRendererProps = {
     // highlights below content.
     zIndexes: ZIndexes;
 };
-type HighlightSetRendererState = {
+type State = {
     // If the user is currently hovering over a highlight, this field contains
     // its key.
     hoveredHighlightKey: string | null | undefined;
@@ -42,11 +42,8 @@ type HighlightSetRendererState = {
     hoveringTooltipFor: string | null | undefined;
 };
 
-class HighlightSetRenderer extends React.PureComponent<
-    HighlightSetRendererProps,
-    HighlightSetRendererState
-> {
-    state: HighlightSetRendererState = {
+class HighlightSetRenderer extends React.PureComponent<Props, State> {
+    state: State = {
         hoveredHighlightKey: null,
         hoveringTooltipFor: null,
     };
@@ -60,7 +57,7 @@ class HighlightSetRenderer extends React.PureComponent<
         this._updateEditListeners(false, this.props.editable);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: HighlightSetRendererProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this._updateEditListeners(this.props.editable, nextProps.editable);
 
         // If we were previously hovering over a highlight that has been

@@ -11,7 +11,7 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-type OptionStatusProps = {
+type Props = {
     // Was this option the correct answer?
     correct: boolean;
     // Did the user select this option as the answer?
@@ -47,9 +47,7 @@ function renderText(
     return i18n._("Incorrect");
 }
 
-const OptionStatus: React.FC<OptionStatusProps> = function (
-    props,
-): React.ReactElement {
+const OptionStatus = function (props: Props): React.ReactElement {
     const {checked, correct, crossedOut, previouslyAnswered, reviewMode} =
         props;
 
