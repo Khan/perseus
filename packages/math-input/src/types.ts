@@ -1,4 +1,9 @@
-import {BorderDirections, EchoAnimationTypes} from "./consts";
+import {
+    BorderDirections,
+    EchoAnimationTypes,
+    KeyTypes,
+    IconTypes,
+} from "./consts";
 
 import type {Key} from "./data/keys";
 
@@ -16,4 +21,17 @@ export type Echo = {
     borders: Border;
     id: Key;
     initialBounds: DOMRect;
+};
+
+export type Icon = {
+    type: keyof typeof IconTypes;
+    data: string;
+};
+
+export type KeyConfig = {
+    ariaLabel: string;
+    id: Key;
+    type: keyof typeof KeyTypes;
+    childKeyIds: Array<Key>;
+    icon: Icon;
 };

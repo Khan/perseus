@@ -8,7 +8,6 @@ import {connect} from "react-redux";
 
 import {KeyTypes, BorderDirections, BorderStyles} from "../consts";
 import {View} from "../fake-react-native-web/index";
-import {Border} from "../types";
 
 import {
     wonderBlocksBlue,
@@ -24,19 +23,21 @@ import CornerDecal from "./corner-decal";
 import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
+import type {KeyType} from "../consts";
+import type {Border, KeyConfig, Icon as IconType} from "../types";
 import type {CSSProperties} from "aphrodite";
 
 type Props = {
     ariaLabel: string;
     borders: Border;
-    childKeys: any;
+    childKeys: Array<KeyConfig>;
     disabled: boolean;
     focused: boolean;
     heightPx: number;
     widthPx: number;
     popoverEnabled: boolean;
-    type: any;
-    icon: any;
+    type: KeyType;
+    icon: IconType;
     style: CSSProperties | Array<CSSProperties>;
     onTouchCancel: (evt: React.TouchEvent<HTMLDivElement>) => void;
     onTouchEnd: (evt: React.TouchEvent<HTMLDivElement>) => void;
@@ -47,32 +48,6 @@ type Props = {
 // eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent<Props> {
     buttonSizeStyle: any;
-    // static propTypes = {
-    //     ariaLabel: PropTypes.string,
-    //     // The borders to display on the button. Typically, this should be set
-    //     // using one of the preset `BorderStyles` options.
-    //     borders: bordersPropType,
-    //     // Any additional keys that can be accessed by long-pressing on the
-    //     // button.
-    //     childKeys: PropTypes.arrayOf(keyConfigPropType),
-    //     // Whether the button should be rendered in a 'disabled' state, i.e.,
-    //     // without any touch feedback.
-    //     disabled: PropTypes.bool,
-    //     focused: PropTypes.bool,
-    //     heightPx: PropTypes.number.isRequired,
-    //     icon: iconPropType,
-    //     onTouchCancel: PropTypes.func,
-    //     onTouchEnd: PropTypes.func,
-    //     onTouchMove: PropTypes.func,
-    //     onTouchStart: PropTypes.func,
-    //     popoverEnabled: PropTypes.bool,
-    //     style: PropTypes.any,
-    //     type: PropTypes.oneOf(Object.keys(KeyTypes)).isRequired,
-    //     // NOTE(charlie): We may want to make this optional for phone layouts
-    //     // (and rely on Flexbox instead), since it might not be pixel perfect
-    //     // with borders and such.
-    //     widthPx: PropTypes.number.isRequired,
-    // };
 
     static defaultProps = {
         borders: BorderStyles.ALL,

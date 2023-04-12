@@ -12,19 +12,15 @@ import MathIcon from "./math-icon";
 import SvgIcon from "./svg-icon";
 import TextIcon from "./text-icon";
 
+import type {Icon as IconPropType} from "../types";
 import type {CSSProperties} from "aphrodite";
 
 const focusedColor = "#FFF";
 const unfocusedColor = offBlack;
 
-type IconProp = {
-    type: keyof typeof IconTypes;
-    data: string;
-};
-
 type Props = {
     focused: boolean;
-    icon: IconProp;
+    icon: IconPropType;
     style?: CSSProperties | Array<CSSProperties>;
 };
 
