@@ -1,5 +1,3 @@
-import KeyConfigs from "./data/key-configs";
-
 /**
  * Constants that are shared between multiple files.
  */
@@ -11,11 +9,6 @@ export const KeypadTypes = {
     FRACTION: "FRACTION",
     EXPRESSION: "EXPRESSION",
 } as const;
-
-export type KeypadConfiguration = {
-    keypadType: KeypadType;
-    extraKeys: keyof typeof KeyConfigs;
-};
 
 export type KeyType = // For numerals, variables, and any other characters that themselves
     // compose 'values'.

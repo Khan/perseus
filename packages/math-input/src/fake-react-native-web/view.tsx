@@ -24,7 +24,7 @@ type Props = {
     onTouchMove?: (arg1: React.TouchEvent<HTMLDivElement>) => void;
     onTouchStart?: (arg1: React.TouchEvent<HTMLDivElement>) => void;
     role?: string;
-    style?: CSSProperties;
+    style?: CSSProperties | Array<CSSProperties>;
 };
 
 class View extends React.Component<Props> {

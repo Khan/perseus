@@ -13,6 +13,12 @@ const coordsForEvent = (evt) => {
 };
 
 class GestureManager {
+    swipeEnabled: boolean;
+    trackEvents: boolean;
+    nodeManager: NodeManager;
+    popoverStateMachine: PopoverStateMachine;
+    gestureStateMachine: GestureStateMachine;
+
     constructor(options, handlers, disabledSwipeKeys, multiPressableKeys) {
         const {swipeEnabled} = options;
 
@@ -94,7 +100,7 @@ class GestureManager {
      * @param {string} id - the identifier of the DOM node in which the touch
      *                      occurred
      */
-    onTouchStart(evt, id) {
+    onTouchStart(evt: TouchEvent, id?) {
         if (!this.trackEvents) {
             return;
         }
@@ -124,7 +130,7 @@ class GestureManager {
      *
      * @param {TouchEvent} evt - the raw touch event from the browser
      */
-    onTouchMove(evt) {
+    onTouchMove(evt: TouchEvent) {
         if (!this.trackEvents) {
             return;
         }
@@ -148,7 +154,7 @@ class GestureManager {
      *
      * @param {TouchEvent} evt - the raw touch event from the browser
      */
-    onTouchEnd(evt) {
+    onTouchEnd(evt: TouchEvent) {
         if (!this.trackEvents) {
             return;
         }
@@ -169,7 +175,7 @@ class GestureManager {
      *
      * @param {TouchEvent} evt - the raw touch event from the browser
      */
-    onTouchCancel(evt) {
+    onTouchCancel(evt: TouchEvent) {
         if (!this.trackEvents) {
             return;
         }

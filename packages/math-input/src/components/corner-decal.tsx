@@ -3,18 +3,19 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {View} from "../fake-react-native-web/index";
 
 import {offBlack} from "./common-style";
 
-class CornerDecal extends React.Component {
-    static propTypes = {
-        style: PropTypes.any,
-    };
+import type {CSSProperties} from "aphrodite";
 
+type Props = {
+    style: CSSProperties | Array<CSSProperties>;
+};
+
+class CornerDecal extends React.Component<Props> {
     render() {
         const {style} = this.props;
 

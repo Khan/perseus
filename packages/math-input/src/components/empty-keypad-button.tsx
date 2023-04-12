@@ -2,7 +2,6 @@
  * A keypad button containing no symbols and triggering no actions on click.
  */
 
-import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
@@ -11,11 +10,11 @@ import KeyConfigs from "../data/key-configs";
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-class EmptyKeypadButton extends React.Component {
-    static propTypes = {
-        gestureManager: PropTypes.instanceOf(GestureManager),
-    };
+type Props = {
+    gestureManager: GestureManager;
+};
 
+class EmptyKeypadButton extends React.Component<Props> {
     render() {
         const {gestureManager, ...rest} = this.props;
 
@@ -26,10 +25,16 @@ class EmptyKeypadButton extends React.Component {
         // to focus them or trigger presses.
         return (
             <KeypadButton
-                onTouchStart={(evt) => gestureManager.onTouchStart(evt)}
-                onTouchEnd={(evt) => gestureManager.onTouchEnd(evt)}
-                onTouchMove={(evt) => gestureManager.onTouchMove(evt)}
-                onTouchCancel={(evt) => gestureManager.onTouchCancel(evt)}
+                onTouchStart={(evt: TouchEvent) =>
+                    gestureManager.onTouchStart(evt)
+                }
+                onTouchEnd={(evt: TouchEvent) => gestureManager.onTouchEnd(evt)}
+                onTouchMove={(evt: TouchEvent) =>
+                    gestureManager.onTouchMove(evt)
+                }
+                onTouchCancel={(evt: TouchEvent) =>
+                    gestureManager.onTouchCancel(evt)
+                }
                 {...KeyConfigs.NOOP}
                 {...rest}
             />
