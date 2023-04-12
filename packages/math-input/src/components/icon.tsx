@@ -53,6 +53,8 @@ class Icon extends React.PureComponent<Props> {
                 return (
                     <TextIcon character={icon.data} style={styleWithFocus} />
                 );
+            default:
+                throw new Error("No icon or symbol provided");
         }
     }
 }
