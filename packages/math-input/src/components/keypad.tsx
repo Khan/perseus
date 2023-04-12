@@ -18,11 +18,11 @@ import type {CSSProperties} from "aphrodite";
 
 type Props = {
     children: React.ReactNode;
-    active: boolean;
-    echoes: Array<Echo>;
-    popover: Popover;
-    removeEcho: () => void;
-    style: CSSProperties | Array<CSSProperties>;
+    active?: boolean;
+    echoes?: Array<Echo>;
+    popover?: Popover;
+    removeEcho?: () => void;
+    style?: CSSProperties | Array<CSSProperties>;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -84,7 +84,7 @@ class Keypad extends React.Component<Props> {
     };
 
     render() {
-        const {children, echoes, removeEcho, popover, style} = this.props;
+        const {children, echoes = [], removeEcho, popover, style} = this.props;
 
         // Translate the echo boxes, as they'll be positioned absolutely to
         // this relative container.
