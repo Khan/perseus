@@ -15,9 +15,9 @@ const coordsForEvent = (evt) => {
 class GestureManager {
     swipeEnabled: boolean;
     trackEvents: boolean;
-    nodeManager: any;
-    popoverStateMachine: any;
-    gestureStateMachine: any;
+    nodeManager: NodeManager;
+    popoverStateMachine: PopoverStateMachine;
+    gestureStateMachine: GestureStateMachine;
 
     constructor(options, handlers, disabledSwipeKeys, multiPressableKeys) {
         const {swipeEnabled} = options;

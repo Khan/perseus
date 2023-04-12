@@ -1,3 +1,5 @@
+import type {Key} from "../data/keys";
+
 /**
  * The state machine that backs our gesture system. In particular, this state
  * machine manages the interplay between focuses, touch ups, and swiping.
@@ -6,17 +8,60 @@
  * multi-touch interactions, tracking gesture state on a per-touch basis.
  */
 
-const defaults = {
+type Handlers = {
+    onFocus: (id: string) => void;
+    onBlur: () => void;
+    onTrigger: (id: string) => void;
+    onLongPress: (id: string) => void;
+    onSwipeChange: (x: number) => void;
+    onSwipeEnd: (x: number) => void;
+    onTouchEnd: (id: string) => void;
+};
+
+type Options = {
+    longPressWaitTimeMs: number;
+    swipeThresholdPx: number;
+    holdIntervalMs: number;
+};
+
+type TouchState = {
+    activeNodeId: Key;
+    pressAndHoldIntervalId: number | null;
+    longPressTimeoutId: number | null;
+    swipeLocked: boolean;
+    startX: number;
+};
+
+type TouchStateMap = Record<Key, TouchState>;
+
+type SwipeState = {
+    touchId: Key;
+    startX: number;
+};
+
+const defaultOptions: Options = {
     longPressWaitTimeMs: 50,
     swipeThresholdPx: 20,
     holdIntervalMs: 250,
 };
 
 class GestureStateMachine {
-    constructor(handlers, options, swipeDisabledNodeIds, multiPressableKeys) {
+    handlers: Handlers;
+    options: Options;
+    swipeDisabledNodeIds: Partial<[Key]>;
+    multiPressableKeys: Partial<[Key]>;
+    touchState: Partial<TouchStateMap>;
+    swipeState: SwipeState | null;
+
+    constructor(
+        handlers: Handlers,
+        options: Partial<Options>,
+        swipeDisabledNodeIds?: [Key],
+        multiPressableKeys?: [Key],
+    ) {
         this.handlers = handlers;
         this.options = {
-            ...defaults,
+            ...defaultOptions,
             ...options,
         };
         this.swipeDisabledNodeIds = swipeDisabledNodeIds || [];
