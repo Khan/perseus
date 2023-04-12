@@ -3,7 +3,6 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {View} from "../fake-react-native-web/index";
@@ -17,10 +16,6 @@ type Props = {
 };
 
 class CornerDecal extends React.Component<Props> {
-    static propTypes = {
-        style: PropTypes.any,
-    };
-
     render() {
         const {style} = this.props;
 
