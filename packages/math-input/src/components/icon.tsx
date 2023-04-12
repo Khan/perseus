@@ -25,7 +25,7 @@ type IconProp = {
 type Props = {
     focused: boolean;
     icon: IconProp;
-    style: CSSProperties | Array<CSSProperties>;
+    style?: CSSProperties | Array<CSSProperties>;
 };
 
 class Icon extends React.PureComponent<Props> {

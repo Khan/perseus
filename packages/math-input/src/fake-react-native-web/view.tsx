@@ -5,7 +5,7 @@ import type {CSSProperties} from "aphrodite";
 
 type Props = {
     ariaLabel?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     // The `dynamicStyle` prop is provided for animating dynamic
     // properties, as creating Aphrodite StyleSheets in animation loops is
     // expensive. `dynamicStyle` should be a raw style object, rather than

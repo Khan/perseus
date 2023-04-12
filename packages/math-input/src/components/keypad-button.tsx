@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 
 import {KeyTypes, BorderDirections, BorderStyles} from "../consts";
 import {View} from "../fake-react-native-web/index";
+import {Borders} from "../types";
 
 import {
     wonderBlocksBlue,
@@ -25,8 +26,29 @@ import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 import {bordersPropType, iconPropType, keyConfigPropType} from "./prop-types";
 
+import type {CSSProperties} from "aphrodite";
+
+type Props = {
+    ariaLabel: string;
+    borders: Borders;
+    childKeys: any;
+    disabled: boolean;
+    focused: boolean;
+    heightPx: number;
+    widthPx: number;
+    popoverEnabled: boolean;
+    type: any;
+    icon: any;
+    style: CSSProperties | Array<CSSProperties>;
+    onTouchCancel: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchEnd: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchMove: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchStart: (evt: React.TouchEvent<HTMLDivElement>) => void;
+};
+
 // eslint-disable-next-line react/no-unsafe
-class KeypadButton extends React.PureComponent {
+class KeypadButton extends React.PureComponent<Props> {
+    buttonSizeStyle: any;
     static propTypes = {
         ariaLabel: PropTypes.string,
         // The borders to display on the button. Typically, this should be set
@@ -126,7 +148,7 @@ class KeypadButton extends React.PureComponent {
         return [styles.focusBox, focusBackgroundStyle];
     };
 
-    _getButtonStyle = (type, borders, style) => {
+    _getButtonStyle = (type, borders, style?) => {
         // Select the appropriate style for the button.
         let backgroundStyle;
         switch (type) {
@@ -154,10 +176,12 @@ class KeypadButton extends React.PureComponent {
         }
 
         const borderStyle = [];
-        if (borders.indexOf(BorderDirections.LEFT) !== -1) {
+        if (borders.includes(BorderDirections.LEFT)) {
+            // @ts-expect-error TS2345
             borderStyle.push(styles.leftBorder);
         }
-        if (borders.indexOf(BorderDirections.BOTTOM) !== -1) {
+        if (borders.includes(BorderDirections.BOTTOM)) {
+            // @ts-expect-error TS2345
             borderStyle.push(styles.bottomBorder);
         }
 
@@ -197,10 +221,11 @@ class KeypadButton extends React.PureComponent {
             (!disabled && focused) || popoverEnabled || type === KeyTypes.ECHO;
         const buttonStyle = this._getButtonStyle(type, borders, style);
         const focusStyle = this._getFocusStyle(type);
-        const iconWrapperStyle = [
-            styles.iconWrapper,
-            disabled && styles.disabled,
-        ];
+        let iconWrapperStyle = [styles.iconWrapper];
+
+        if (disabled) {
+            iconWrapperStyle = [...iconWrapperStyle, styles.disabled];
+        }
 
         const eventHandlers = {
             onTouchCancel,
@@ -267,8 +292,6 @@ const focusBoxZIndex = 0;
 
 const styles = StyleSheet.create({
     buttonBase: {
-        // HACK(benkomalo): support old style flex box in Android browsers
-        "-webkit-box-flex": "1",
         flex: 1,
         cursor: "pointer",
         // Make the text unselectable
