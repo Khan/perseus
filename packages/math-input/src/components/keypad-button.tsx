@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 
 import {KeyTypes, BorderDirections, BorderStyles} from "../consts";
 import {View} from "../fake-react-native-web/index";
-import {Borders} from "../types";
+import {Border} from "../types";
 
 import {
     wonderBlocksBlue,
@@ -28,7 +28,7 @@ import type {CSSProperties} from "aphrodite";
 
 type Props = {
     ariaLabel: string;
-    borders: Borders;
+    borders: Border;
     childKeys: any;
     disabled: boolean;
     focused: boolean;

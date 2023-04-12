@@ -3,7 +3,6 @@
  * and manages the rendering of echo animations on top of those buttons.
  */
 
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
@@ -13,26 +12,24 @@ import {View} from "../fake-react-native-web/index";
 
 import EchoManager from "./echo-manager";
 import PopoverManager from "./popover-manager";
-import {echoPropType, popoverPropType} from "./prop-types";
+
+import type {Popover, Echo} from "../types";
+import type {CSSProperties} from "aphrodite";
+
+type Props = {
+    children: React.ReactNode;
+    active: boolean;
+    echoes: Array<Echo>;
+    popover: Popover;
+    removeEcho: () => void;
+    style: CSSProperties | Array<CSSProperties>;
+};
 
 // eslint-disable-next-line react/no-unsafe
-class Keypad extends React.Component {
-    static propTypes = {
-        children: PropTypes.oneOfType([
-            PropTypes.arrayOf(PropTypes.node),
-            PropTypes.node,
-        ]),
-        removeEcho: PropTypes.func.isRequired,
-        style: PropTypes.any,
-
-        // The props below are injected by redux
-
-        // Whether the keypad is active, i.e., whether it should be rendered as
-        // visible or invisible.
-        active: PropTypes.bool,
-        echoes: PropTypes.arrayOf(echoPropType).isRequired,
-        popover: popoverPropType,
-    };
+class Keypad extends React.Component<Props> {
+    _isMounted: boolean | undefined;
+    _resizeTimeout: number | null | undefined;
+    _container: DOMRect | null | undefined;
 
     componentDidMount() {
         this._isMounted = true;
@@ -54,7 +51,7 @@ class Keypad extends React.Component {
     }
 
     _computeContainer = () => {
-        const domNode = ReactDOM.findDOMNode(this);
+        const domNode = ReactDOM.findDOMNode(this) as Element;
         this._container = domNode.getBoundingClientRect();
     };
 
@@ -76,7 +73,7 @@ class Keypad extends React.Component {
         // Throttle resize events -- taken from:
         //    https://developer.mozilla.org/en-US/docs/Web/Events/resize
         if (this._resizeTimeout == null) {
-            this._resizeTimeout = setTimeout(() => {
+            this._resizeTimeout = window.setTimeout(() => {
                 this._resizeTimeout = null;
 
                 if (this._isMounted) {
@@ -96,9 +93,13 @@ class Keypad extends React.Component {
             return {
                 ...rest,
                 initialBounds: {
+                    // @ts-expect-error TS2533
                     top: initialBounds.top - this._container.top,
+                    // @ts-expect-error TS2533
                     right: initialBounds.right - this._container.left,
+                    // @ts-expect-error TS2533
                     bottom: initialBounds.bottom - this._container.top,
+                    // @ts-expect-error TS2533
                     left: initialBounds.left - this._container.left,
                     width: initialBounds.width,
                     height: initialBounds.height,
@@ -113,8 +114,11 @@ class Keypad extends React.Component {
             ...popover,
             bounds: {
                 bottom:
+                    // @ts-expect-error TS2533
                     this._container.height -
+                    // @ts-expect-error TS2533
                     (popover.bounds.bottom - this._container.top),
+                // @ts-expect-error TS2533
                 left: popover.bounds.left - this._container.left,
                 width: popover.bounds.width,
             },
