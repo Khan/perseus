@@ -120,12 +120,12 @@ const KeysForJumpContext = {
 
 class MathWrapper {
     MQ: any;
-    mathQuillInput: any;
+    mathField: any;
     callbacks: any;
 
     constructor(element, options = {}, callbacks = {}) {
         this.MQ = MathQuill.getInterface(2);
-        this.mathQuillInput = this.MQ.MathField(element, {
+        this.mathField = this.MQ.MathField(element, {
             // use a span instead of a textarea so that we don't bring up the
             // native keyboard on mobile when selecting the input
             substituteTextarea: function () {
@@ -139,7 +139,7 @@ class MathWrapper {
         // HACK(charlie): We shouldn't reaching into MathQuill internals like
         // this, but it's the easiest way to allow us to manage the focus state
         // ourselves.
-        const controller = this.mathQuillInput.__controller;
+        const controller = this.mathField.__controller;
         controller.cursor.show();
 
         // Set MathQuill's internal state to reflect the focus, otherwise it
@@ -149,14 +149,14 @@ class MathWrapper {
     }
 
     blur() {
-        const controller = this.mathQuillInput.__controller;
+        const controller = this.mathField.__controller;
         controller.cursor.hide();
         controller.blurred = true;
     }
 
     _writeNormalFunction(name: string) {
-        this.mathQuillInput.write(`\\${name}\\left(\\right)`);
-        this.mathQuillInput.keystroke("Left");
+        this.mathField.write(`\\${name}\\left(\\right)`);
+        this.mathField.keystroke("Left");
     }
 
     /**
@@ -166,13 +166,13 @@ class MathWrapper {
      * @returns {object} a cursor object, consisting of a cursor context
      */
     pressKey(key: string) {
-        const cursor = this.mathQuillInput.__controller.cursor;
+        const cursor = this.mathField.__controller.cursor;
 
         if (key in KeyActions) {
             const {str, fn} = KeyActions[key];
 
             if (str && fn) {
-                this.mathQuillInput[fn](str);
+                this.mathField[fn](str);
             }
         } else if (Object.keys(NormalCommands).includes(key)) {
             this._writeNormalFunction(NormalCommands[key]);
@@ -180,22 +180,22 @@ class MathWrapper {
             // If there's nothing to the left of the cursor, then we want to
             // leave the cursor to the left of the fraction after creating it.
             const shouldNavigateLeft = cursor[this.MQ.L] === MQ_END;
-            this.mathQuillInput.cmd("\\frac");
+            this.mathField.cmd("\\frac");
             if (shouldNavigateLeft) {
-                this.mathQuillInput.keystroke("Left");
+                this.mathField.keystroke("Left");
             }
         } else if (key === Keys.FRAC) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const shouldNavigateLeft = cursor[this.MQ.L] === MQ_END;
-            this.mathQuillInput.cmd("\\frac");
+            this.mathField.cmd("\\frac");
         } else if (key === Keys.LOG_N) {
-            this.mathQuillInput.write("log_{ }\\left(\\right)");
-            this.mathQuillInput.keystroke("Left"); // into parentheses
-            this.mathQuillInput.keystroke("Left"); // out of parentheses
-            this.mathQuillInput.keystroke("Left"); // into index
+            this.mathField.write("log_{ }\\left(\\right)");
+            this.mathField.keystroke("Left"); // into parentheses
+            this.mathField.keystroke("Left"); // out of parentheses
+            this.mathField.keystroke("Left"); // into index
         } else if (key === Keys.CUBE_ROOT) {
-            this.mathQuillInput.write("\\sqrt[3]{}");
-            this.mathQuillInput.keystroke("Left"); // under the root
+            this.mathField.write("\\sqrt[3]{}");
+            this.mathField.keystroke("Left"); // under the root
         } else if (
             key === Keys.EXP ||
             key === Keys.EXP_2 ||
@@ -218,9 +218,9 @@ class MathWrapper {
         } else if (key === Keys.RIGHT) {
             this._handleRightArrow(cursor);
         } else if (/^[a-zA-Z]$/.test(key)) {
-            this.mathQuillInput[WRITE](key);
+            this.mathField[WRITE](key);
         } else if (/^NUM_\d/.test(key)) {
-            this.mathQuillInput[WRITE](key[4]);
+            this.mathField[WRITE](key[4]);
         }
 
         if (!cursor.selection) {
@@ -259,10 +259,10 @@ class MathWrapper {
             if (el.hasAttribute("mq-root-block")) {
                 // If we're in the empty area place the cursor at the right
                 // end of the expression.
-                cursor.insAtRightEnd(this.mathQuillInput.__controller.root);
+                cursor.insAtRightEnd(this.mathField.__controller.root);
             } else {
                 // Otherwise place beside the element at x, y.
-                const controller = this.mathQuillInput.__controller;
+                const controller = this.mathField.__controller;
 
                 const pageX = x - document.body.scrollLeft;
                 const pageY = y - document.body.scrollTop;
@@ -275,7 +275,7 @@ class MathWrapper {
                 if (command && command.endNode) {
                     // NOTE(charlie): endNode should definitely be \left(.
                     cursor.insLeftOf(command.endNode);
-                    this.mathQuillInput.keystroke("Right");
+                    this.mathField.keystroke("Right");
                 }
             }
 
@@ -288,7 +288,7 @@ class MathWrapper {
     }
 
     getCursor() {
-        return this.mathQuillInput.__controller.cursor;
+        return this.mathField.__controller.cursor;
     }
 
     getSelection() {
@@ -296,11 +296,11 @@ class MathWrapper {
     }
 
     getContent() {
-        return this.mathQuillInput.latex();
+        return this.mathField.latex();
     }
 
     setContent(latex: string) {
-        this.mathQuillInput.latex(latex);
+        this.mathField.latex(latex);
     }
 
     isEmpty() {
@@ -335,10 +335,10 @@ class MathWrapper {
             this._selectNode(cursor.parent.parent, cursor);
 
             if (isRootEmpty) {
-                this.mathQuillInput.keystroke("Backspace");
+                this.mathField.keystroke("Backspace");
             }
         } else {
-            this.mathQuillInput.keystroke("Backspace");
+            this.mathField.keystroke("Backspace");
         }
     }
 
@@ -381,7 +381,7 @@ class MathWrapper {
 
                 // Jump into it!
                 cursor.insLeftOf(fractionNode);
-                this.mathQuillInput.keystroke("Right");
+                this.mathField.keystroke("Right");
                 break;
 
             case CursorContexts.IN_NUMERATOR:
@@ -393,7 +393,7 @@ class MathWrapper {
                 // the denominator, though I can't think of any.
                 const siblingDenominator = cursor.parent.parent.blocks[1];
                 while (cursor.parent !== siblingDenominator) {
-                    this.mathQuillInput.keystroke("Right");
+                    this.mathField.keystroke("Right");
                 }
                 break;
 
@@ -409,7 +409,7 @@ class MathWrapper {
                 // is to handle the standard case in which the subscript is the
                 // base of a custom log.
                 if (this._isParens(cursor[this.MQ.R])) {
-                    this.mathQuillInput.keystroke("Right");
+                    this.mathField.keystroke("Right");
                 }
                 break;
 
@@ -461,10 +461,10 @@ class MathWrapper {
             } else if (this._isNthRoot(grandparent) && leftNode === MQ_END) {
                 this._handleBackspaceInNthRoot(cursor);
             } else {
-                this.mathQuillInput.keystroke("Backspace");
+                this.mathField.keystroke("Backspace");
             }
         } else {
-            this.mathQuillInput.keystroke("Backspace");
+            this.mathField.keystroke("Backspace");
         }
     }
 
@@ -492,7 +492,7 @@ class MathWrapper {
         }
 
         // Otherwise, we default to the standard MathQull left behavior.
-        this.mathQuillInput.keystroke("Left");
+        this.mathField.keystroke("Left");
     }
 
     _handleRightArrow(cursor) {
@@ -503,10 +503,10 @@ class MathWrapper {
             // done by putting it to the left of ites parentheses and then
             // moving right once.
             cursor.insLeftOf(command.endNode);
-            this.mathQuillInput.keystroke("Right");
+            this.mathField.keystroke("Right");
         } else {
             // Otherwise, we default to the standard MathQull right behavior.
-            this.mathQuillInput.keystroke("Right");
+            this.mathField.keystroke("Right");
         }
     }
 
@@ -521,28 +521,28 @@ class MathWrapper {
             precedingNode === MQ_END ||
             invalidPrefixes.includes(precedingNode.ctrlSeq.trim());
         if (shouldPrefixWithParens) {
-            this.mathQuillInput.write("\\left(\\right)");
+            this.mathField.write("\\left(\\right)");
         }
 
         // Insert the appropriate exponent operator.
         switch (key) {
             case Keys.EXP:
-                this.mathQuillInput.cmd("^");
+                this.mathField.cmd("^");
                 break;
 
             case Keys.EXP_2:
             case Keys.EXP_3:
-                this.mathQuillInput.write(`^${key === Keys.EXP_2 ? 2 : 3}`);
+                this.mathField.write(`^${key === Keys.EXP_2 ? 2 : 3}`);
 
                 // If we enter a square or a cube, we should leave the cursor
                 // within the newly inserted parens, if they exist. This takes
                 // exactly four left strokes, since the cursor by default would
                 // end up to the right of the exponent.
                 if (shouldPrefixWithParens) {
-                    this.mathQuillInput.keystroke("Left");
-                    this.mathQuillInput.keystroke("Left");
-                    this.mathQuillInput.keystroke("Left");
-                    this.mathQuillInput.keystroke("Left");
+                    this.mathField.keystroke("Left");
+                    this.mathField.keystroke("Left");
+                    this.mathField.keystroke("Left");
+                    this.mathField.keystroke("Left");
                 }
                 break;
 
@@ -757,22 +757,20 @@ class MathWrapper {
             if (rootIsEmpty) {
                 // If there is not content under the root then simply delete
                 // the whole thing.
-                this.mathQuillInput.keystroke("Backspace");
+                this.mathField.keystroke("Backspace");
             } else {
                 // Replace the nthroot with a sqrt if there was content under
                 // the root.
 
                 // Start by deleting the selection.
-                this.mathQuillInput.keystroke("Backspace");
+                this.mathField.keystroke("Backspace");
 
                 // Replace the nth-root with a sqrt.
-                this.mathQuillInput.write(
-                    latex.replace(/^\\sqrt\[\]/, "\\sqrt"),
-                );
+                this.mathField.write(latex.replace(/^\\sqrt\[\]/, "\\sqrt"));
 
                 // Adjust the cursor to be to the left the sqrt.
                 if (reinsertionPoint === MQ_END) {
-                    this.mathQuillInput.moveToDirEnd(this.MQ.L);
+                    this.mathField.moveToDirEnd(this.MQ.L);
                 } else {
                     cursor.insRightOf(reinsertionPoint);
                 }
@@ -781,7 +779,7 @@ class MathWrapper {
             if (cursor[this.MQ.L] !== MQ_END) {
                 // If the cursor is not at the leftmost position inside the
                 // root's index, delete a character.
-                this.mathQuillInput.keystroke("Backspace");
+                this.mathField.keystroke("Backspace");
             } else {
                 // TODO(kevinb) verify that we want this behavior after testing
                 // Do nothing because we haven't completely deleted the
@@ -813,10 +811,10 @@ class MathWrapper {
             if (isLogBodyEmpty) {
                 // If there's no content inside the log's parens then delete the
                 // whole thing.
-                this.mathQuillInput.keystroke("Backspace");
+                this.mathField.keystroke("Backspace");
             }
         } else {
-            this.mathQuillInput.keystroke("Backspace");
+            this.mathField.keystroke("Backspace");
         }
     }
 
@@ -882,7 +880,7 @@ class MathWrapper {
             // This command contains math and there's some math to
             // the left of the cursor that we should delete normally
             // before doing anything special.
-            this.mathQuillInput.keystroke("Backspace");
+            this.mathField.keystroke("Backspace");
             return;
         }
 
@@ -919,13 +917,13 @@ class MathWrapper {
         // Delete the selection, but only if the parens were empty to
         // begin with.
         if (isEmpty) {
-            this.mathQuillInput.keystroke("Backspace");
+            this.mathField.keystroke("Backspace");
         }
     }
 
     _handleBackspaceAfterLigaturedSymbol(cursor) {
-        this.mathQuillInput.keystroke("Backspace");
-        this.mathQuillInput.keystroke("Backspace");
+        this.mathField.keystroke("Backspace");
+        this.mathField.keystroke("Backspace");
     }
 
     contextForCursor(cursor) {
