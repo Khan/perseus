@@ -112,6 +112,7 @@
     "rollup-plugin-styles": "^4.0.0",
     "sloc": "^0.2.1",
     "typescript": "4.9.5",
+    "typescript-coverage-report": "^0.7.0",
     "webpack-dev-server": "^4.9.0",
     "winston": "^3.7.2"
   },
@@ -142,6 +143,7 @@
     "cypress": "cypress open --component",
     "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
     "format": "prettier --write packages/**/*.ts packages/**/*.tsx testing/**/*.ts testing/**/*.tsx",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "type:coverage": "typescript-coverage-report -p \"packages/$PKG/tsconfig.json\""
   }
 }
