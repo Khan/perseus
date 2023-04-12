@@ -1,5 +1,4 @@
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
@@ -16,31 +15,38 @@ import {
 import ExpressionKeypad from "./expression-keypad";
 import FractionKeypad from "./fraction-keypad";
 import NavigationPad from "./navigation-pad";
-import {keyIdPropType} from "./prop-types";
 import Styles from "./styles";
 import * as zIndexes from "./z-indexes";
 
+import type {KeypadType} from "../consts";
+import type {Key} from "../data/keys";
+import type {CSSProperties} from "aphrodite";
+
 const {row, centered, fullWidth} = Styles;
 
+type Props = {
+    active?: boolean;
+    extraKeys?: Partial<Array<Key>>;
+    keypadType?: KeypadType;
+    layoutMode?: keyof typeof LayoutModes;
+    navigationPadEnabled?: boolean;
+    onDismiss?: () => void;
+    onElementMounted: (element: any) => void;
+    onPageSizeChange?: (width: number, height: number) => void;
+    style?: CSSProperties | Array<CSSProperties>;
+};
+
+type State = {
+    hasBeenActivated: boolean;
+};
+
 // eslint-disable-next-line react/no-unsafe
-class KeypadContainer extends React.Component {
-    static propTypes = {
-        active: PropTypes.bool,
-        extraKeys: PropTypes.arrayOf(keyIdPropType),
-        keypadType: PropTypes.oneOf(Object.keys(KeypadTypes)).isRequired,
-        layoutMode: PropTypes.oneOf(Object.keys(LayoutModes)).isRequired,
-        navigationPadEnabled: PropTypes.bool.isRequired,
-        onDismiss: PropTypes.func,
-        // A callback that should be triggered with the root React element on
-        // mount.
-        onElementMounted: PropTypes.func,
-        onPageSizeChange: PropTypes.func.isRequired,
-        style: PropTypes.any,
-    };
+class KeypadContainer extends React.Component<Props, State> {
+    _resizeTimeout: number | null | undefined;
+    hasMounted: boolean | undefined;
 
     state = {
         hasBeenActivated: false,
-        viewportWidth: "100vw",
     };
 
     UNSAFE_componentWillMount() {
@@ -89,7 +95,7 @@ class KeypadContainer extends React.Component {
         // Throttle the resize callbacks.
         // https://developer.mozilla.org/en-US/docs/Web/Events/resize
         if (this._resizeTimeout == null) {
-            this._resizeTimeout = setTimeout(() => {
+            this._resizeTimeout = window.setTimeout(() => {
                 this._resizeTimeout = null;
 
                 this._onResize();
@@ -98,13 +104,7 @@ class KeypadContainer extends React.Component {
     };
 
     _onResize = () => {
-        // Whenever the page resizes, we need to force an update, as the button
-        // heights and keypad width are computed based on horizontal space.
-        this.setState({
-            viewportWidth: window.innerWidth,
-        });
-
-        this.props.onPageSizeChange(window.innerWidth, window.innerHeight);
+        this.props.onPageSizeChange?.(window.innerWidth, window.innerHeight);
     };
 
     renderKeypad = () => {
@@ -154,10 +154,16 @@ class KeypadContainer extends React.Component {
         // NOTE(charlie): We render the transforms as pure inline styles to
         // avoid an Aphrodite bug in mobile Safari.
         //   See: https://github.com/Khan/aphrodite/issues/68.
-        const dynamicStyle = {
+        let dynamicStyle = {
             ...(active ? inlineStyles.active : inlineStyles.hidden),
-            ...(!active && !hasBeenActivated ? inlineStyles.invisible : {}),
         };
+
+        if (!active && !hasBeenActivated) {
+            dynamicStyle = {
+                ...dynamicStyle,
+                ...inlineStyles.invisible,
+            };
+        }
 
         const keypadContainerStyle = [
             row,

@@ -75,7 +75,7 @@ class ProvidedKeypad extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const {onElementMounted, ...rest} = this.props;
+        const {onElementMounted, onDismiss, style} = this.props;
 
         return (
             <Provider store={this.store}>
@@ -95,7 +95,8 @@ class ProvidedKeypad extends React.Component<Props> {
                         onElementMounted &&
                             onElementMounted(elementWithDispatchMethods);
                     }}
-                    {...rest}
+                    onDismiss={onDismiss}
+                    style={style}
                 />
             </Provider>
         );

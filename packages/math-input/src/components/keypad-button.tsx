@@ -3,7 +3,6 @@
  */
 
 import {StyleSheet, css} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
@@ -24,7 +23,6 @@ import {
 import CornerDecal from "./corner-decal";
 import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
-import {bordersPropType, iconPropType, keyConfigPropType} from "./prop-types";
 
 import type {CSSProperties} from "aphrodite";
 
@@ -49,32 +47,32 @@ type Props = {
 // eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent<Props> {
     buttonSizeStyle: any;
-    static propTypes = {
-        ariaLabel: PropTypes.string,
-        // The borders to display on the button. Typically, this should be set
-        // using one of the preset `BorderStyles` options.
-        borders: bordersPropType,
-        // Any additional keys that can be accessed by long-pressing on the
-        // button.
-        childKeys: PropTypes.arrayOf(keyConfigPropType),
-        // Whether the button should be rendered in a 'disabled' state, i.e.,
-        // without any touch feedback.
-        disabled: PropTypes.bool,
-        focused: PropTypes.bool,
-        heightPx: PropTypes.number.isRequired,
-        icon: iconPropType,
-        onTouchCancel: PropTypes.func,
-        onTouchEnd: PropTypes.func,
-        onTouchMove: PropTypes.func,
-        onTouchStart: PropTypes.func,
-        popoverEnabled: PropTypes.bool,
-        style: PropTypes.any,
-        type: PropTypes.oneOf(Object.keys(KeyTypes)).isRequired,
-        // NOTE(charlie): We may want to make this optional for phone layouts
-        // (and rely on Flexbox instead), since it might not be pixel perfect
-        // with borders and such.
-        widthPx: PropTypes.number.isRequired,
-    };
+    // static propTypes = {
+    //     ariaLabel: PropTypes.string,
+    //     // The borders to display on the button. Typically, this should be set
+    //     // using one of the preset `BorderStyles` options.
+    //     borders: bordersPropType,
+    //     // Any additional keys that can be accessed by long-pressing on the
+    //     // button.
+    //     childKeys: PropTypes.arrayOf(keyConfigPropType),
+    //     // Whether the button should be rendered in a 'disabled' state, i.e.,
+    //     // without any touch feedback.
+    //     disabled: PropTypes.bool,
+    //     focused: PropTypes.bool,
+    //     heightPx: PropTypes.number.isRequired,
+    //     icon: iconPropType,
+    //     onTouchCancel: PropTypes.func,
+    //     onTouchEnd: PropTypes.func,
+    //     onTouchMove: PropTypes.func,
+    //     onTouchStart: PropTypes.func,
+    //     popoverEnabled: PropTypes.bool,
+    //     style: PropTypes.any,
+    //     type: PropTypes.oneOf(Object.keys(KeyTypes)).isRequired,
+    //     // NOTE(charlie): We may want to make this optional for phone layouts
+    //     // (and rely on Flexbox instead), since it might not be pixel perfect
+    //     // with borders and such.
+    //     widthPx: PropTypes.number.isRequired,
+    // };
 
     static defaultProps = {
         borders: BorderStyles.ALL,
