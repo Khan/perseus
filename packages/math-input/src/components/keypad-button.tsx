@@ -47,7 +47,7 @@ type Props = {
 
 // eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent<Props> {
-    buttonSizeStyle: any;
+    buttonSizeStyle: CSSProperties | undefined;
 
     static defaultProps = {
         borders: BorderStyles.ALL,
