@@ -30,7 +30,7 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 type Props = {
     ariaLabel?: string;
     borders: Border;
-    childKeys?: Array<KeyConfig>;
+    childKeys?: ReadonlyArray<KeyConfig>;
     disabled?: boolean;
     focused?: boolean;
     heightPx?: number;

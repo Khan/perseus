@@ -21,7 +21,7 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     borders: Border;
-    childKeyIds: Array<Key>;
+    childKeyIds: ReadonlyArray<Key>;
     disabled: boolean;
     focused: boolean;
     gestureManager: GestureManager;

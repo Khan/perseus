@@ -19,7 +19,7 @@ const {row, column, centered, fullWidth} = Styles;
 
 type Props = {
     focused: boolean;
-    icons: Array<IconType>;
+    icons: ReadonlyArray<IconType>;
 };
 
 class MultiSymbolGrid extends React.Component<Props> {

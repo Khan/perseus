@@ -26,7 +26,7 @@ const {row, centered, fullWidth} = Styles;
 
 type Props = {
     active?: boolean;
-    extraKeys?: Array<Key>; // Not used?
+    extraKeys?: ReadonlyArray<Key>; // Not used?
     keypadType?: KeypadType;
     layoutMode?: keyof typeof LayoutModes;
     navigationPadEnabled?: boolean;

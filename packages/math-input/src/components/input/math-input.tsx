@@ -460,10 +460,10 @@ class MathInput extends React.Component<Props, State> {
 
             // Contains only DOMNodes without child elements.  These should
             // contain some amount of text though.
-            const leafElements: Array<null | HTMLElement> = [];
+            const leafElements: ReadonlyArray<null | HTMLElement> = [];
 
             // Contains only DOMNodes with child elements.
-            const nonLeafElements: Array<null | HTMLElement> = [];
+            const nonLeafElements: ReadonlyArray<null | HTMLElement> = [];
 
             let max = 0;
             const counts: {

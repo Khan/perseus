@@ -20,7 +20,7 @@ const animationDurationMs = 200;
 type Props = {
     // TODO(matthewc) should be something like Bound, but couldn't fix errors
     bounds: any;
-    childKeys: Array<KeyConfig>;
+    childKeys: ReadonlyArray<KeyConfig>;
 };
 
 // A container component used to position a popover absolutely at a specific

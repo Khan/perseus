@@ -10,7 +10,7 @@ import type {Border} from "../types";
 class NodeManager {
     _nodesById: Record<string, HTMLElement>;
     _bordersById: Record<string, Border>;
-    _orderedIds: Array<string>;
+    _orderedIds: ReadonlyArray<string>;
     _cachedBoundingBoxesById: Record<string, DOMRect>;
 
     constructor() {
@@ -52,7 +52,7 @@ class NodeManager {
     registerDOMNode(
         id: string,
         domNode: HTMLElement,
-        childIds: Array<string>,
+        childIds: ReadonlyArray<string>,
         borders: Border,
     ) {
         this._nodesById[id] = domNode;
