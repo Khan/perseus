@@ -5,6 +5,8 @@ import * as React from "react";
 import {TabbarItemForTesting as TabbarItem} from "./item";
 import Tabbar from "./tabbar";
 
+import type {TabbarItemType} from "./types";
+
 export default {title: "Tab Bar", decorators: [withKnobs]};
 
 export const InactiveBarItem = () => (
@@ -49,12 +51,19 @@ export const DisabledBarItem = () => (
             "Numbers",
         )}
         itemState="disabled"
+        onClick={action("onClick")}
     />
 );
 
 export const FullTabbar = () => (
     <Tabbar
-        items={array("items", ["Numbers", "Geometry", "Operators"])}
+        items={
+            array("items", [
+                "Numbers",
+                "Geometry",
+                "Operators",
+            ]) as Array<TabbarItemType>
+        }
         onSelect={action("selected-item")}
     />
 );
