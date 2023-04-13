@@ -20,6 +20,7 @@ type Props = {
 
 class ManyKeypadButton extends React.Component<Props> {
     render() {
+        // do we even need the ...rest?
         const {keys = [], ...rest} = this.props;
 
         // If we have no extra symbols, render an empty button. If we have just
