@@ -76,9 +76,7 @@ type Props = {
     itemType: TabbarItemType;
 };
 
-type State = Record<any, any>;
-
-class TabbarItem extends React.Component<Props, State> {
+class TabbarItem extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClick, itemType, itemState} = this.props;
         return (
