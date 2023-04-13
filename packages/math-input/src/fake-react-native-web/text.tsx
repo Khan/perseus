@@ -1,6 +1,7 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
     // a StyleSheet.
     dynamicStyle?: CSSProperties;
     numberOfLines?: number;
-    style?: CSSProperties;
+    style?: StyleType;
 };
 
 class Text extends React.Component<Props> {

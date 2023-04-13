@@ -1,6 +1,7 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
 type Props = {
@@ -24,7 +25,7 @@ type Props = {
     onTouchMove?: (arg1: React.TouchEvent<HTMLDivElement>) => void;
     onTouchStart?: (arg1: React.TouchEvent<HTMLDivElement>) => void;
     role?: string;
-    style?: CSSProperties | Array<CSSProperties>;
+    style?: StyleType;
 };
 
 class View extends React.Component<Props> {

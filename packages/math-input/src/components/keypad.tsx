@@ -14,7 +14,7 @@ import EchoManager from "./echo-manager";
 import PopoverManager from "./popover-manager";
 
 import type {Popover, Echo} from "../types";
-import type {CSSProperties} from "aphrodite";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     children: React.ReactNode;
@@ -22,7 +22,7 @@ type Props = {
     echoes?: Array<Echo>;
     popover?: Popover;
     removeEcho?: () => void;
-    style?: CSSProperties | Array<CSSProperties>;
+    style?: StyleType;
 };
 
 // eslint-disable-next-line react/no-unsafe
