@@ -8,7 +8,6 @@ describe("<TwoPageKeyPage />", () => {
         // Arrange
         const wrapper = mount(
             <TwoPageKeypad
-                paginationEnabled={true}
                 currentPage={1}
                 leftPage={<p>Left Page</p>}
                 rightPage={<p>Right Page</p>}
@@ -24,7 +23,6 @@ describe("<TwoPageKeyPage />", () => {
         // Arrange
         const wrapper = mount(
             <TwoPageKeypad
-                paginationEnabled={true}
                 currentPage={0}
                 leftPage={<p>Left Page</p>}
                 rightPage={<p>Right Page</p>}

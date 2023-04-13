@@ -3,7 +3,6 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
@@ -29,13 +28,6 @@ type Props = {
 };
 
 class TwoPageKeypad extends React.Component<Props> {
-    static propTypes = {
-        currentPage: PropTypes.oneOf([0, 1]).isRequired,
-        leftPage: PropTypes.node.isRequired,
-        paginationEnabled: PropTypes.bool.isRequired,
-        rightPage: PropTypes.node.isRequired,
-    };
-
     state = {
         selectedPage: "Numbers",
     };
