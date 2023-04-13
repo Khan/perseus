@@ -4,7 +4,6 @@
 
 import {StyleSheet} from "aphrodite";
 import katex from "katex";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -13,14 +12,16 @@ import {View} from "../fake-react-native-web/index";
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style";
 import Styles from "./styles";
 
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
 const {row, centered} = Styles;
 
-class MathIcon extends React.Component {
-    static propTypes = {
-        math: PropTypes.string.isRequired,
-        style: PropTypes.any,
-    };
+type Props = {
+    math: string;
+    style: StyleType;
+};
 
+class MathIcon extends React.Component<Props> {
     componentDidMount() {
         this._renderMath();
     }
