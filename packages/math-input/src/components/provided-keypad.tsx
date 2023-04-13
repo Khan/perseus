@@ -14,6 +14,7 @@ import {createStore} from "../store/index";
 
 import KeypadContainer from "./keypad-container";
 
+import type {MathQuillCursor, KeypadConfiguration, KeyHandler} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
@@ -46,7 +47,7 @@ class ProvidedKeypad extends React.Component<Props> {
         this.store.dispatch(dismissKeypad());
     };
 
-    configure: (configuration: any, cb: () => void) => void = (
+    configure: (configuration: KeypadConfiguration, cb: () => void) => void = (
         configuration,
         cb,
     ) => {
@@ -62,11 +63,11 @@ class ProvidedKeypad extends React.Component<Props> {
         setTimeout(() => cb && cb());
     };
 
-    setCursor: (cursor: any) => void = (cursor) => {
+    setCursor: (cursor: MathQuillCursor) => void = (cursor) => {
         this.store.dispatch(setCursor(cursor));
     };
 
-    setKeyHandler: (keyHandler: any) => void = (keyHandler) => {
+    setKeyHandler: (keyHandler: KeyHandler) => void = (keyHandler) => {
         this.store.dispatch(setKeyHandler(keyHandler));
     };
 

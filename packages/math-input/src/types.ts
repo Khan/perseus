@@ -5,6 +5,7 @@ import {
     IconTypes,
 } from "./consts";
 
+import type {KeypadType} from "./consts";
 import type {Key} from "./data/keys";
 
 export type Border = Partial<Array<keyof typeof BorderDirections>>;
@@ -44,3 +45,12 @@ export type KeyConfig = {
     childKeyIds: Array<Key>;
     icon: Icon;
 };
+
+export type KeypadConfiguration = {
+    keypadType: KeypadType;
+    extraKeys?: ReadonlyArray<Key>;
+};
+
+export type KeyHandler = (key: Key) => MathQuillCursor;
+
+export type MathQuillCursor = any;
