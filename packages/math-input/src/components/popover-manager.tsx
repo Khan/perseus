@@ -10,8 +10,7 @@ import KeyConfigs from "../data/key-configs";
 
 import MultiSymbolPopover from "./multi-symbol-popover";
 
-import type {Key} from "../data/keys";
-import type {Popover} from "../types";
+import type {Popover, KeyConfig} from "../types";
 
 // NOTE(charlie): These must be kept in sync with the transition durations and
 // classnames specified in popover.less.
@@ -21,7 +20,7 @@ const animationDurationMs = 200;
 type Props = {
     // TODO(matthewc) should be something like Bound, but couldn't fix errors
     bounds: any;
-    childKeys: Array<Key>;
+    childKeys: Array<KeyConfig>;
 };
 
 // A container component used to position a popover absolutely at a specific
