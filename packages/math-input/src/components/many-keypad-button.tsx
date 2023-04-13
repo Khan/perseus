@@ -3,7 +3,6 @@
  * 'default' symbol.
  */
 
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {KeyTypes} from "../consts";
@@ -11,22 +10,23 @@ import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
 
 import EmptyKeypadButton from "./empty-keypad-button";
-import {keyIdPropType} from "./prop-types";
 import TouchableKeypadButton from "./touchable-keypad-button";
 
-class ManyKeypadButton extends React.Component {
-    static propTypes = {
-        keys: PropTypes.arrayOf(keyIdPropType).isRequired,
-    };
+import type {Key} from "../data/keys";
 
+type Props = {
+    keys?: Array<Key>;
+};
+
+class ManyKeypadButton extends React.Component<Props> {
     render() {
-        const {keys, ...rest} = this.props;
+        const {keys = [], ...rest} = this.props;
 
         // If we have no extra symbols, render an empty button. If we have just
         // one, render a standard button. Otherwise, capture them all in a
         // single button.
         if (keys.length === 0) {
-            return <EmptyKeypadButton {...rest} />;
+            return <EmptyKeypadButton />;
         } else if (keys.length === 1) {
             const keyConfig = KeyConfigs[keys[0]];
             return <TouchableKeypadButton keyConfig={keyConfig} {...rest} />;

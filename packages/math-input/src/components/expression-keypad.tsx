@@ -110,10 +110,7 @@ class ExpressionKeypad extends React.Component<Props> {
                         keyConfig={KeyConfigs.NUM_1}
                         borders={BorderStyles.BOTTOM}
                     />
-                    <ManyKeypadButton
-                        keys={extraKeys}
-                        borders={BorderStyles.NONE}
-                    />
+                    <ManyKeypadButton keys={extraKeys} />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
