@@ -5,10 +5,7 @@
 import "../less/main.less";
 
 export {default as KeypadInput} from "./components/input/math-input";
-export {
-    keypadConfigurationPropType,
-    keypadElementPropType,
-} from "./components/prop-types";
+export {keypadElementPropType} from "./components/prop-types";
 export {default as Keypad} from "./components/provided-keypad";
 export {KeypadTypes} from "./consts";
 export {default as KeyConfigs} from "./data/key-configs";
