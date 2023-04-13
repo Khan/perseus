@@ -14,7 +14,6 @@ import KeyConfigs from "../data/key-configs";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
-import {keyIdPropType} from "./prop-types";
 
 import type {Key} from "../data/keys";
 import type {Border} from "../types";
@@ -26,7 +25,7 @@ type Props = {
     disabled: boolean;
     focused: boolean;
     gestureManager: GestureManager;
-    id: keyIdPropType.isRequired;
+    id: Key;
     popoverEnabled: boolean;
     style: StyleType;
     type: KeyType;
