@@ -21,7 +21,14 @@ import Tabbar from "./tabbar/tabbar";
 
 const {column, row, fullWidth} = Styles;
 
-class TwoPageKeypad extends React.Component {
+type Props = {
+    currentPage: number;
+    leftPage: React.ReactNode;
+    paginationEnabled: boolean;
+    rightPage: React.ReactNode;
+};
+
+class TwoPageKeypad extends React.Component<Props> {
     static propTypes = {
         currentPage: PropTypes.oneOf([0, 1]).isRequired,
         leftPage: PropTypes.node.isRequired,
