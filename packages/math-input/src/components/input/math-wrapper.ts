@@ -119,8 +119,8 @@ const KeysForJumpContext = {
 };
 
 class MathWrapper {
-    MQ: any;
-    mathField: any;
+    MQ: any; // MathQuill interface
+    mathField: any; // MathQuill input
     callbacks: any;
 
     constructor(element, options = {}, callbacks = {}) {

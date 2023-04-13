@@ -18,13 +18,12 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     onElementMounted?: (arg1: any) => void;
-    onDismiss?: () => unknown;
+    onDismiss?: () => void;
     style?: StyleType;
 };
 
 class ProvidedKeypad extends React.Component<Props> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'mounted' has no initializer and is not definitely assigned in the constructor.
-    mounted: boolean;
+    mounted?: boolean;
     store: any;
 
     UNSAFE_componentWillMount() {
@@ -47,8 +46,10 @@ class ProvidedKeypad extends React.Component<Props> {
         this.store.dispatch(dismissKeypad());
     };
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(configuration: any, cb: any) => void' is not assignable to type '() => void'.
-    configure: () => void = (configuration, cb) => {
+    configure: (configuration: any, cb: () => void) => void = (
+        configuration,
+        cb,
+    ) => {
         this.store.dispatch(configureKeypad(configuration));
 
         // HACK(charlie): In Perseus, triggering a focus causes the keypad to
@@ -61,8 +62,7 @@ class ProvidedKeypad extends React.Component<Props> {
         setTimeout(() => cb && cb());
     };
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(cursor: any) => void' is not assignable to type '() => void'.
-    setCursor: () => void = (cursor) => {
+    setCursor: (cursor: any) => void = (cursor) => {
         this.store.dispatch(setCursor(cursor));
     };
 

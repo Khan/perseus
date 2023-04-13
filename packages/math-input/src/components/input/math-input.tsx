@@ -13,6 +13,7 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style";
+import ProvidedKeypad from "../provided-keypad";
 
 import CursorHandle from "./cursor-handle";
 import DragListener from "./drag-listener";
@@ -22,9 +23,9 @@ import {scrollIntoView} from "./scroll-into-view";
 const constrainingFrictionFactor = 0.8;
 
 type Props = {
-    keypadElement: any;
+    keypadElement: ProvidedKeypad;
     onBlur: () => void;
-    onChange: any;
+    onChange: (value: string, cb: any) => void;
     onFocus: () => void;
     style: any;
     value: string;

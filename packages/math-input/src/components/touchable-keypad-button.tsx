@@ -16,7 +16,7 @@ import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
 import type {Key} from "../data/keys";
-import type {Border} from "../types";
+import type {Border, Icon} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
@@ -29,7 +29,7 @@ type Props = {
     popoverEnabled: boolean;
     style: StyleType;
     type: KeyType;
-    icon: any;
+    icon: Icon;
 };
 
 class TouchableKeypadButton extends React.Component<Props> {
