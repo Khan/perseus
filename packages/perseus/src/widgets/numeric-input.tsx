@@ -76,7 +76,6 @@ type Props = ExternalProps & {
     answerForms: NonNullable<ExternalProps["answerForms"]>;
     labelText: NonNullable<ExternalProps["labelText"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
-    multipleNumberInput: NonNullable<ExternalProps["multipleNumberInput"]>;
     currentValue: string;
 };
 
@@ -89,7 +88,6 @@ type DefaultProps = {
     answerForms: Props["answerForms"];
     labelText: Props["labelText"];
     linterContext: Props["linterContext"];
-    multipleNumberInput: Props["multipleNumberInput"];
 };
 
 type State = {
@@ -110,7 +108,6 @@ export class NumericInput extends React.Component<Props, State> {
         answerForms: [],
         labelText: "",
         linterContext: linterContextDefault,
-        multipleNumberInput: false,
     };
 
     static getUserInputFromProps(props: Props): UserInput {
