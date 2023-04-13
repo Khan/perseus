@@ -1,5 +1,5 @@
 /* eslint-disable react/sort-comp */
-import {components, Util, InputNumber} from "@khanacademy/perseus";
+import {components, Util} from "@khanacademy/perseus";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -47,30 +47,20 @@ const answerTypes = {
 
 type Props = {
     value: number;
-    simplify: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["simplify"];
-    size: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["size"];
-    inexact: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["reviewModeRubric"]["inexact"];
-    maxError: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["reviewModeRubric"]["maxError"];
-    answerType: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["answerType"];
-    rightAlign: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["rightAlign"];
+    simplify: "required" | "optional" | "enforced";
+    size: "normal" | "small";
+    inexact: boolean;
+    maxError: number | string;
+    answerType:
+        | "number"
+        | "decimal"
+        | "integer"
+        | "rational"
+        | "improper"
+        | "mixed"
+        | "percent"
+        | "pi";
+    rightAlign: boolean;
     onChange: (arg1: {
         value?: ParsedValue | 0;
         simplify?: Props["simplify"];
@@ -144,7 +134,7 @@ class InputNumberEditor extends React.Component<Props> {
                             value={this.props.simplify}
                             onChange={(e) => {
                                 this.props.onChange({
-                                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"optional" | "required" | "enforced" | undefined'.
+                                    // @ts-expect-error TS2322 - Type 'string' is not assignable to type '"required" | "optional" | "enforced" | undefined'.
                                     simplify: e.target.value,
                                 });
                             }}
@@ -218,7 +208,7 @@ class InputNumberEditor extends React.Component<Props> {
                     <select
                         value={this.props.answerType}
                         onChange={(e) => {
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
+                            // @ts-expect-error TS2322 - Type 'string' is not assignable to type '"number" | "decimal" | "integer" | "pi" | "rational" | "improper" | "mixed" | "percent" | undefined'
                             this.props.onChange({answerType: e.target.value});
                         }}
                     >

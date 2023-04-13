@@ -66,7 +66,6 @@ const NumericInputEditor: any = createReactClass({
             size: "normal",
             coefficient: false,
             labelText: "",
-            multipleNumberInput: false,
             rightAlign: false,
         };
     },
@@ -417,16 +416,6 @@ const NumericInputEditor: any = createReactClass({
 
         return (
             <div className="perseus-input-number-editor">
-                <div ref={(e) => (this.multInputOption = e)}>
-                    <select onChange={this.onMultipleInputChange}>
-                        <option value="simple-numeric-input">
-                            Ask for one correct solution
-                        </option>
-                        <option value="multiple-numeric-input">
-                            Ask for all correct solutions
-                        </option>
-                    </select>
-                </div>
                 <div className="ui-title">User input</div>
                 <div className="msg-title">
                     Message shown to user on attempt
@@ -478,15 +467,6 @@ const NumericInputEditor: any = createReactClass({
             status: newStatus,
             simplify: newStatus === "correct" ? "required" : "accepted",
         });
-    },
-
-    onMultipleInputChange: function (event) {
-        const newOption = event.target.value;
-        if (newOption === "multiple-numeric-input") {
-            this.props.onChange({multipleNumberInput: true});
-        } else {
-            this.props.onChange({multipleNumberInput: false});
-        }
     },
 
     updateAnswer: function (choiceIndex, update) {
