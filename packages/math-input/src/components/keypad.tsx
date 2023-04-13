@@ -87,7 +87,7 @@ class Keypad extends React.Component<Props> {
     };
 
     render() {
-        const {children, echoes, removeEcho, popover, style} = this.props;
+        const {children, echoes = [], removeEcho, popover, style} = this.props;
 
         // Translate the echo boxes, as they'll be positioned absolutely to
         // this relative container.
