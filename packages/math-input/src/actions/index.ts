@@ -3,7 +3,7 @@ import type {Key} from "../data/keys";
 
 type KeypadConfiguration = {
     keypadType: KeypadType;
-    extraKeys: Array<Key>;
+    extraKeys: ReadonlyArray<Key>;
 };
 
 // naming convention: verb + noun

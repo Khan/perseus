@@ -23,7 +23,7 @@ type Props = {
     // these are provided by Redux,
     // but if I make them required TS complains
     active?: boolean;
-    echoes?: Array<Echo>;
+    echoes?: ReadonlyArray<Echo>;
     popover?: Popover;
     removeEcho?: (animationId: string) => void;
 };

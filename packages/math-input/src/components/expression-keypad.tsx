@@ -27,7 +27,7 @@ type Props = {
     currentPage: number;
     cursorContext: CursorContext;
     dynamicJumpOut: boolean;
-    extraKeys?: Array<Key>;
+    extraKeys?: ReadonlyArray<Key>;
     roundTopLeft: boolean;
     roundTopRight: boolean;
 };
