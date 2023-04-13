@@ -18,11 +18,14 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     children: React.ReactNode;
+    style?: StyleType;
+
+    // these are provided by Redux,
+    // but if I make them required TS complains
     active?: boolean;
     echoes?: Array<Echo>;
     popover?: Popover;
-    removeEcho?: () => void;
-    style?: StyleType;
+    removeEcho?: (animationId: string) => void;
 };
 
 // eslint-disable-next-line react/no-unsafe

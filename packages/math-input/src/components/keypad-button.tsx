@@ -28,21 +28,21 @@ import type {Border, KeyConfig, Icon as IconType} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
-    ariaLabel: string;
+    ariaLabel?: string;
     borders: Border;
-    childKeys: Array<KeyConfig>;
-    disabled: boolean;
-    focused: boolean;
-    heightPx: number;
-    widthPx: number;
-    popoverEnabled: boolean;
+    childKeys?: Array<KeyConfig>;
+    disabled?: boolean;
+    focused?: boolean;
+    heightPx?: number;
+    widthPx?: number;
+    popoverEnabled?: boolean;
     type: KeyType;
     icon: IconType;
-    style: StyleType;
-    onTouchCancel: (evt: React.TouchEvent<HTMLDivElement>) => void;
-    onTouchEnd: (evt: React.TouchEvent<HTMLDivElement>) => void;
-    onTouchMove: (evt: React.TouchEvent<HTMLDivElement>) => void;
-    onTouchStart: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    style?: StyleType;
+    onTouchCancel?: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchEnd?: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchMove?: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchStart?: (evt: React.TouchEvent<HTMLDivElement>) => void;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -175,7 +175,7 @@ class KeypadButton extends React.PureComponent<Props> {
         const {
             ariaLabel,
             borders,
-            childKeys,
+            childKeys = [],
             disabled,
             focused,
             icon,
