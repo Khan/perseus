@@ -20,6 +20,8 @@ import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
 
+import type {Cursor} from "../../types";
+
 const constrainingFrictionFactor = 0.8;
 
 type Props = {
@@ -90,7 +92,7 @@ class MathInput extends React.Component<Props, State> {
             this._mathContainer,
             {},
             {
-                onCursorMove: (cursor) => {
+                onCursorMove: (cursor: Cursor) => {
                     // TODO(charlie): It's not great that there is so much coupling
                     // between this keypad and the input behavior. We should wrap
                     // this `MathInput` component in an intermediary component

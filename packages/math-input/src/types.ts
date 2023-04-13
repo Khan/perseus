@@ -5,6 +5,7 @@ import {
     IconTypes,
 } from "./consts";
 
+import type {CursorContext} from "./components/input/cursor-contexts";
 import type {KeypadType} from "./consts";
 import type {Key} from "./data/keys";
 
@@ -51,6 +52,8 @@ export type KeypadConfiguration = {
     extraKeys?: ReadonlyArray<Key>;
 };
 
-export type KeyHandler = (key: Key) => MathQuillCursor;
+export type KeyHandler = (key: Key) => Cursor;
 
-export type MathQuillCursor = any;
+export type Cursor = {
+    context: CursorContext;
+};
