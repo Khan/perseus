@@ -24,17 +24,20 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {row, centered, fullWidth} = Styles;
 
-type Props = {
+interface ReduxProps {
     active?: boolean;
-    extraKeys?: ReadonlyArray<Key>; // Not used?
+    extraKeys?: ReadonlyArray<Key>;
     keypadType?: KeypadType;
     layoutMode?: keyof typeof LayoutModes;
     navigationPadEnabled?: boolean;
+}
+
+interface Props extends ReduxProps {
     onDismiss?: () => void;
     onElementMounted: (element: any) => void;
     onPageSizeChange?: (width: number, height: number) => void;
     style?: StyleType;
-};
+}
 
 type State = {
     hasBeenActivated: boolean;
@@ -284,9 +287,11 @@ const inlineStyles = {
     },
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps: (state: any) => ReduxProps = (state) => {
     return {
-        ...state.keypad,
+        extraKeys: state.keypad.extraKeys,
+        keypadType: state.keypad.keypadType,
+        active: state.keypad.active,
         layoutMode: state.layout.layoutMode,
         navigationPadEnabled: state.layout.navigationPadEnabled,
     };

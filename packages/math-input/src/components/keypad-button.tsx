@@ -27,14 +27,17 @@ import type {KeyType} from "../consts";
 import type {Border, KeyConfig, Icon as IconType} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = {
+interface ReduxProps {
+    heightPx: number;
+    widthPx: number;
+}
+
+interface Props extends ReduxProps {
     ariaLabel?: string;
     borders: Border;
     childKeys?: ReadonlyArray<KeyConfig>;
     disabled?: boolean;
     focused?: boolean;
-    heightPx?: number;
-    widthPx?: number;
     popoverEnabled?: boolean;
     type: KeyType;
     icon: IconType;
@@ -46,7 +49,7 @@ type Props = {
     // NOTE(matthewc) this is a normal React thing, but TS
     // gets mad if I don't explicitly set it as a prop
     ref?: (any) => void;
-};
+}
 
 // eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent<Props> {
@@ -351,8 +354,11 @@ const styleForButtonDimensions = (heightPx, widthPx) => {
     }).buttonSize;
 };
 
-const mapStateToProps = (state) => {
-    return state.layout.buttonDimensions;
+const mapStateToProps: (state: any) => ReduxProps = (state) => {
+    return {
+        heightPx: state.layout.buttonDimensions.heightPx,
+        widthPx: state.layout.buttonDimensions.widthPx,
+    };
 };
 
 export default connect(mapStateToProps, null, null, {forwardRef: true})(
