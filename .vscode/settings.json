@@ -9,7 +9,9 @@
     "todo-tree.filtering.excludeGlobs": [
         "**/dist/**",
     ],
+
     "typescript.format.enable": false,
     "typescript.validate.enable": true,
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.tsserver.experimental.enableProjectDiagnostics": true
 }
