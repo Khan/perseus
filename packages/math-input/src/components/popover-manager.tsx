@@ -43,7 +43,7 @@ class PopoverContainer extends React.Component<Props> {
 }
 
 type PopoverManagerProps = {
-    popover?: Popover;
+    popover: Popover | null;
 };
 
 class PopoverManager extends React.Component<PopoverManagerProps> {

@@ -13,13 +13,14 @@ import {View} from "../fake-react-native-web/index";
 import EchoManager from "./echo-manager";
 import PopoverManager from "./popover-manager";
 
+import type {State} from "../store/types";
 import type {Popover, Echo} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface ReduxProps {
     active: boolean;
     echoes: ReadonlyArray<Echo>;
-    popover: Popover;
+    popover: Popover | null;
 }
 
 interface Props extends ReduxProps {
@@ -140,7 +141,7 @@ class Keypad extends React.Component<Props> {
     }
 }
 
-const mapStateToProps: (state: any) => ReduxProps = (state) => {
+const mapStateToProps: (state: State) => ReduxProps = (state) => {
     return {
         echoes: state.echoes.echoes,
         active: state.keypad.active,

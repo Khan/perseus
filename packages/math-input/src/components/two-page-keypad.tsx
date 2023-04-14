@@ -18,6 +18,8 @@ import Keypad from "./keypad";
 import Styles from "./styles";
 import Tabbar from "./tabbar/tabbar";
 
+import type {State} from "../store/types";
+
 const {column, row, fullWidth} = Styles;
 
 interface ReduxProps {
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps: (state: any) => ReduxProps = (state) => {
+const mapStateToProps: (state: State) => ReduxProps = (state) => {
     return {
         paginationEnabled: state.layout.paginationEnabled,
     };

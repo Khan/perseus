@@ -17,7 +17,16 @@ import {
 } from "../consts";
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
-import {Cursor, KeyHandler} from "../types";
+
+import type {Cursor, KeyHandler} from "../types";
+import type {
+    InputState,
+    KeypadState,
+    PagerState,
+    GestureState,
+    EchoState,
+    LayoutState,
+} from "./types";
 
 const keypadForType = {
     [KeypadTypes.FRACTION]: FractionKeypad,
@@ -35,7 +44,10 @@ export const createStore = () => {
         },
     };
 
-    const inputReducer = function (state = initialInputState, action: any) {
+    const inputReducer = function (
+        state = initialInputState,
+        action: any,
+    ): InputState {
         switch (action.type) {
             case "SetKeyHandler":
                 return {
@@ -82,7 +94,7 @@ export const createStore = () => {
         action: {
             type: string;
         },
-    ) {
+    ): KeypadState {
         switch (action.type) {
             case "DismissKeypad":
                 return {
@@ -146,7 +158,7 @@ export const createStore = () => {
         action: {
             type: string;
         },
-    ) {
+    ): PagerState {
         switch (action.type) {
             case "ConfigureKeypad":
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'configuration' does not exist on type '{ type: string; }'.
@@ -303,7 +315,10 @@ export const createStore = () => {
         ),
     } as const;
 
-    const gestureReducer = function (state = initialGestureState, action: any) {
+    const gestureReducer = function (
+        state = initialGestureState,
+        action: any,
+    ): GestureState {
         switch (action.type) {
             case "DismissKeypad":
                 // NOTE(charlie): In the past, we enforced the "gesture manager
@@ -351,7 +366,7 @@ export const createStore = () => {
         echoes: [],
     } as const;
 
-    const echoReducer = function (state = initialEchoState, action) {
+    const echoReducer = function (state = initialEchoState, action): EchoState {
         switch (action.type) {
             case "PressKey":
                 const keyConfig = KeyConfigs[action.key];
@@ -478,7 +493,10 @@ export const createStore = () => {
         };
     };
 
-    const layoutReducer = function (state = initialLayoutState, action: any) {
+    const layoutReducer = function (
+        state = initialLayoutState,
+        action: any,
+    ): LayoutState {
         switch (action.type) {
             case "ConfigureKeypad":
                 const {keypadType} = action.configuration;

@@ -24,6 +24,7 @@ import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
 import type {KeyType} from "../consts";
+import type {State} from "../store/types";
 import type {Border, KeyConfig, Icon as IconType} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -354,7 +355,7 @@ const styleForButtonDimensions = (heightPx, widthPx) => {
     }).buttonSize;
 };
 
-const mapStateToProps: (state: any) => ReduxProps = (state) => {
+const mapStateToProps: (state: State) => ReduxProps = (state) => {
     return {
         heightPx: state.layout.buttonDimensions.heightPx,
         widthPx: state.layout.buttonDimensions.widthPx,

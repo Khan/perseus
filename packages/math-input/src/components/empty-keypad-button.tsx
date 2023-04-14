@@ -10,6 +10,8 @@ import KeyConfigs from "../data/key-configs";
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
+import type {State} from "../store/types";
+
 interface ReduxProps {
     gestureManager: GestureManager;
 }
@@ -42,7 +44,7 @@ class EmptyKeypadButton extends React.Component<ReduxProps> {
     }
 }
 
-const mapStateToProps: (state: any) => ReduxProps = (state) => {
+const mapStateToProps: (state: State) => ReduxProps = (state) => {
     const {gestures} = state;
     return {
         gestureManager: gestures.gestureManager,

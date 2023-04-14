@@ -19,14 +19,14 @@ import Styles from "./styles";
 import * as zIndexes from "./z-indexes";
 
 import type {KeypadType} from "../consts";
-import type {Key} from "../data/keys";
+import type {State as ReduxState} from "../store/types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {row, centered, fullWidth} = Styles;
 
 interface ReduxProps {
     active?: boolean;
-    extraKeys?: ReadonlyArray<Key>;
+    extraKeys?: ReadonlyArray<string>;
     keypadType?: KeypadType;
     layoutMode?: keyof typeof LayoutModes;
     navigationPadEnabled?: boolean;
@@ -287,7 +287,7 @@ const inlineStyles = {
     },
 };
 
-const mapStateToProps: (state: any) => ReduxProps = (state) => {
+const mapStateToProps: (state: ReduxState) => ReduxProps = (state) => {
     return {
         extraKeys: state.keypad.extraKeys,
         keypadType: state.keypad.keypadType,
