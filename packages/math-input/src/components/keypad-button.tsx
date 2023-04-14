@@ -43,7 +43,7 @@ type Props = {
     onTouchEnd?: (evt: React.TouchEvent<HTMLDivElement>) => void;
     onTouchMove?: (evt: React.TouchEvent<HTMLDivElement>) => void;
     onTouchStart?: (evt: React.TouchEvent<HTMLDivElement>) => void;
-    // NOTE(matthewc) this is a normal React thing, but TS
+    // NOTE(matthewc)[LC-754] this is a normal React thing, but TS
     // gets mad if I don't explicitly set it as a prop
     ref?: (any) => void;
 };

@@ -15,12 +15,16 @@ import TouchableKeypadButton from "./touchable-keypad-button";
 import type {Key} from "../data/keys";
 
 type Props = {
-    keys?: Array<Key>;
+    keys: Array<Key>;
 };
 
 class ManyKeypadButton extends React.Component<Props> {
+    static defaultProps = {
+        keys: [],
+    };
+
     render() {
-        const {keys = [], ...rest} = this.props;
+        const {keys, ...rest} = this.props;
 
         // If we have no extra symbols, render an empty button. If we have just
         // one, render a standard button. Otherwise, capture them all in a
