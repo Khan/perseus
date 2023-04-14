@@ -732,9 +732,6 @@ export type PerseusNumericInputWidgetOptions = {
     size: string;
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
     coefficient: boolean;
-    // Whether we're asking for all correct solutions or only one
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    multipleNumberInput?: boolean;
     // Whether to right-align the text or not
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     rightAlign?: boolean;
