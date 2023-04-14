@@ -13,7 +13,7 @@ import {defaultKeypadType, keypadForType} from "./shared";
 import type {GestureState} from "./types";
 
 export const createStore = () => {
-    // TODO(matthewc): gestureReducer can't be moved from this file
+    // TODO(matthewc)[LC-752]: gestureReducer can't be moved from this file
     // because it depends on `store` being in scope (see note below)
     const createGestureManager = (swipeEnabled: boolean) => {
         return new GestureManager(

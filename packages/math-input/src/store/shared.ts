@@ -1,12 +1,12 @@
-import ExpressionKeypad from "../components/expression-keypad";
-import FractionKeypad from "../components/fraction-keypad";
+import {expressionKeypadLayout} from "../components/expression-keypad";
+import {fractionKeypadLayout} from "../components/fraction-keypad";
 import {KeypadTypes} from "../consts";
 
 const defaultKeypadType = KeypadTypes.EXPRESSION;
 
 const keypadForType = {
-    [KeypadTypes.FRACTION]: FractionKeypad,
-    [KeypadTypes.EXPRESSION]: ExpressionKeypad,
+    [KeypadTypes.FRACTION]: fractionKeypadLayout,
+    [KeypadTypes.EXPRESSION]: expressionKeypadLayout,
 } as const;
 
 export {keypadForType, defaultKeypadType};
