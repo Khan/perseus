@@ -38,6 +38,7 @@ type Props = {
 
 type State = {
     hasBeenActivated: boolean;
+    viewportWidth: string | number;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -47,6 +48,7 @@ class KeypadContainer extends React.Component<Props, State> {
 
     state = {
         hasBeenActivated: false,
+        viewportWidth: "100vw",
     };
 
     UNSAFE_componentWillMount() {
@@ -104,6 +106,11 @@ class KeypadContainer extends React.Component<Props, State> {
     };
 
     _onResize = () => {
+        // Whenever the page resizes, we need to force an update, as the button
+        // heights and keypad width are computed based on horizontal space.
+        this.setState({
+            viewportWidth: window.innerWidth,
+        });
         this.props.onPageSizeChange?.(window.innerWidth, window.innerHeight);
     };
 
