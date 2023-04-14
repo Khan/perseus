@@ -27,7 +27,7 @@ const constrainingFrictionFactor = 0.8;
 type Props = {
     keypadElement: ProvidedKeypad;
     onBlur: () => void;
-    onChange: (value: string, cb: any) => void;
+    onChange: (value: string, callback: any) => void;
     onFocus: () => void;
     style: any;
     value: string;
