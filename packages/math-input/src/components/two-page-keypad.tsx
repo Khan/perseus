@@ -20,12 +20,15 @@ import Tabbar from "./tabbar/tabbar";
 
 const {column, row, fullWidth} = Styles;
 
-type Props = {
+interface ReduxProps {
+    paginationEnabled: boolean;
+}
+
+interface Props extends ReduxProps {
     currentPage: number;
     leftPage: React.ReactNode;
-    paginationEnabled: boolean;
     rightPage: React.ReactNode;
-};
+}
 
 class TwoPageKeypad extends React.Component<Props> {
     state = {
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps: (state: any) => ReduxProps = (state) => {
     return {
         paginationEnabled: state.layout.paginationEnabled,
     };
