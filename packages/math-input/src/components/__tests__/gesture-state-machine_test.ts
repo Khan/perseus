@@ -1,5 +1,7 @@
 import GestureStateMachine from "../gesture-state-machine";
 
+import type {Handlers} from "../gesture-state-machine";
+
 const swipeThresholdPx = 5;
 const longPressWaitTimeMs = 5;
 const holdIntervalMs = 5;
@@ -20,10 +22,11 @@ const eventTrackers = (buffer) => {
     ];
     callbackNames.forEach((callbackName) => {
         handlers[callbackName] = function () {
+            // eslint-disable-next-line prefer-rest-params
             buffer.push([callbackName, ...arguments]);
         };
     });
-    return handlers;
+    return handlers as Handlers;
 };
 
 // Arbitrary node IDs (representative of arbitrary keys) to be used in testing.
@@ -48,6 +51,7 @@ describe("GestureStateMachine", () => {
                 longPressWaitTimeMs,
                 holdIntervalMs,
             },
+            // @ts-expect-error TS2322
             [NodeIds.swipeDisabled],
             [NodeIds.multiPressable],
         );

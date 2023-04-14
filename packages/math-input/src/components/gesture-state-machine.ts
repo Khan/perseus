@@ -8,7 +8,8 @@ import type {Key} from "../data/keys";
  * multi-touch interactions, tracking gesture state on a per-touch basis.
  */
 
-type Handlers = {
+// exported for tests
+export type Handlers = {
     onFocus: (id: string) => void;
     onBlur: () => void;
     onTrigger: (id: string) => void;

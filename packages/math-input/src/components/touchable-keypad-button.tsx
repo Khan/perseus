@@ -5,31 +5,34 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {KeyTypes} from "../consts";
+import {KeyType, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
-import {bordersPropType, keyIdPropType} from "./prop-types";
 
-class TouchableKeypadButton extends React.Component {
-    static propTypes = {
-        borders: bordersPropType,
-        childKeyIds: PropTypes.arrayOf(keyIdPropType),
-        disabled: PropTypes.bool,
-        focused: PropTypes.bool,
-        gestureManager: PropTypes.instanceOf(GestureManager),
-        id: keyIdPropType.isRequired,
-        popoverEnabled: PropTypes.bool,
-        style: PropTypes.any,
-        type: PropTypes.oneOf(Object.keys(KeyTypes)).isRequired,
-    };
+import type {Key} from "../data/keys";
+import type {Border} from "../types";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+type Props = {
+    borders: Border;
+    childKeyIds: Array<Key>;
+    disabled: boolean;
+    focused: boolean;
+    gestureManager: GestureManager;
+    id: Key;
+    popoverEnabled: boolean;
+    style: StyleType;
+    type: KeyType;
+    icon: any;
+};
+
+class TouchableKeypadButton extends React.Component<Props> {
     shouldComponentUpdate(newProps) {
         // We take advantage of a few different properties of our key
         // configuration system. Namely, we know that the other props flow
