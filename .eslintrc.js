@@ -66,6 +66,7 @@ module.exports = {
         "disable",
         "import",
         "jest",
+        "jsdoc",
         "monorepo",
         "promise",
         "react",
@@ -167,6 +168,11 @@ module.exports = {
          * jest
          */
         "jest/no-focused-tests": "error",
+
+        /**
+         * jsdoc
+         */
+        "jsdoc/valid-types": "error",
 
         /**
          * import

@@ -76,6 +76,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jsdoc": "^41.1.1",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-monorepo": "^0.3.2",
     "eslint-plugin-prettier": "^4.0.0",
