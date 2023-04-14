@@ -3,30 +3,28 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {IconTypes} from "../consts";
 
 import {offBlack} from "./common-style";
 import MathIcon from "./math-icon";
-import {iconPropType} from "./prop-types";
 import SvgIcon from "./svg-icon";
 import TextIcon from "./text-icon";
+
+import type {Icon as IconPropType} from "../types";
+import type {CSSProperties} from "aphrodite";
 
 const focusedColor = "#FFF";
 const unfocusedColor = offBlack;
 
-class Icon extends React.PureComponent {
-    static propTypes = {
-        focused: PropTypes.bool,
-        icon: iconPropType.isRequired,
-        // An Aphrodite style object, or an array of Aphrodite style objects.
-        // Note that custom styles will only be applied to text and math icons
-        // (and not SVG icons).
-        style: PropTypes.any,
-    };
+type Props = {
+    focused: boolean;
+    icon: IconPropType;
+    style?: CSSProperties | Array<CSSProperties>;
+};
 
+class Icon extends React.PureComponent<Props> {
     render() {
         const {focused, icon, style} = this.props;
 
@@ -55,9 +53,9 @@ class Icon extends React.PureComponent {
                 return (
                     <TextIcon character={icon.data} style={styleWithFocus} />
                 );
+            default:
+                throw new Error("No icon or symbol provided");
         }
-
-        throw new Error("No icon or symbol provided");
     }
 }
 

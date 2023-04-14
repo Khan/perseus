@@ -3,7 +3,6 @@
  */
 
 import {StyleSheet, css} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
@@ -23,36 +22,32 @@ import {
 import CornerDecal from "./corner-decal";
 import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
-import {bordersPropType, iconPropType, keyConfigPropType} from "./prop-types";
+
+import type {KeyType} from "../consts";
+import type {Border, KeyConfig, Icon as IconType} from "../types";
+import type {CSSProperties} from "aphrodite";
+
+type Props = {
+    ariaLabel: string;
+    borders: Border;
+    childKeys: Array<KeyConfig>;
+    disabled: boolean;
+    focused: boolean;
+    heightPx: number;
+    widthPx: number;
+    popoverEnabled: boolean;
+    type: KeyType;
+    icon: IconType;
+    style: CSSProperties | Array<CSSProperties>;
+    onTouchCancel: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchEnd: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchMove: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchStart: (evt: React.TouchEvent<HTMLDivElement>) => void;
+};
 
 // eslint-disable-next-line react/no-unsafe
-class KeypadButton extends React.PureComponent {
-    static propTypes = {
-        ariaLabel: PropTypes.string,
-        // The borders to display on the button. Typically, this should be set
-        // using one of the preset `BorderStyles` options.
-        borders: bordersPropType,
-        // Any additional keys that can be accessed by long-pressing on the
-        // button.
-        childKeys: PropTypes.arrayOf(keyConfigPropType),
-        // Whether the button should be rendered in a 'disabled' state, i.e.,
-        // without any touch feedback.
-        disabled: PropTypes.bool,
-        focused: PropTypes.bool,
-        heightPx: PropTypes.number.isRequired,
-        icon: iconPropType,
-        onTouchCancel: PropTypes.func,
-        onTouchEnd: PropTypes.func,
-        onTouchMove: PropTypes.func,
-        onTouchStart: PropTypes.func,
-        popoverEnabled: PropTypes.bool,
-        style: PropTypes.any,
-        type: PropTypes.oneOf(Object.keys(KeyTypes)).isRequired,
-        // NOTE(charlie): We may want to make this optional for phone layouts
-        // (and rely on Flexbox instead), since it might not be pixel perfect
-        // with borders and such.
-        widthPx: PropTypes.number.isRequired,
-    };
+class KeypadButton extends React.PureComponent<Props> {
+    buttonSizeStyle: CSSProperties | undefined;
 
     static defaultProps = {
         borders: BorderStyles.ALL,
@@ -126,7 +121,7 @@ class KeypadButton extends React.PureComponent {
         return [styles.focusBox, focusBackgroundStyle];
     };
 
-    _getButtonStyle = (type, borders, style) => {
+    _getButtonStyle = (type, borders, style?) => {
         // Select the appropriate style for the button.
         let backgroundStyle;
         switch (type) {
@@ -154,10 +149,12 @@ class KeypadButton extends React.PureComponent {
         }
 
         const borderStyle = [];
-        if (borders.indexOf(BorderDirections.LEFT) !== -1) {
+        if (borders.includes(BorderDirections.LEFT)) {
+            // @ts-expect-error TS2345
             borderStyle.push(styles.leftBorder);
         }
-        if (borders.indexOf(BorderDirections.BOTTOM) !== -1) {
+        if (borders.includes(BorderDirections.BOTTOM)) {
+            // @ts-expect-error TS2345
             borderStyle.push(styles.bottomBorder);
         }
 
@@ -197,10 +194,11 @@ class KeypadButton extends React.PureComponent {
             (!disabled && focused) || popoverEnabled || type === KeyTypes.ECHO;
         const buttonStyle = this._getButtonStyle(type, borders, style);
         const focusStyle = this._getFocusStyle(type);
-        const iconWrapperStyle = [
-            styles.iconWrapper,
-            disabled && styles.disabled,
-        ];
+        let iconWrapperStyle = [styles.iconWrapper];
+
+        if (disabled) {
+            iconWrapperStyle = [...iconWrapperStyle, styles.disabled];
+        }
 
         const eventHandlers = {
             onTouchCancel,
@@ -267,8 +265,6 @@ const focusBoxZIndex = 0;
 
 const styles = StyleSheet.create({
     buttonBase: {
-        // HACK(benkomalo): support old style flex box in Android browsers
-        "-webkit-box-flex": "1",
         flex: 1,
         cursor: "pointer",
         // Make the text unselectable
