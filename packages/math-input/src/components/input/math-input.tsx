@@ -39,7 +39,7 @@ type DefaultProps = {
 };
 
 type HandleState = {
-    animateIntoPosition?: boolean | null | undefined;
+    animateIntoPosition?: boolean;
     visible: boolean;
     x?: number;
     y?: number;
@@ -278,9 +278,7 @@ class MathInput extends React.Component<Props, State> {
         return this._keypadBounds;
     };
 
-    _updateCursorHandle: (arg1?: boolean | null | undefined) => void = (
-        animateIntoPosition,
-    ) => {
+    _updateCursorHandle: (arg1?: boolean) => void = (animateIntoPosition) => {
         const containerBounds = this._container.getBoundingClientRect();
         const cursor: any = this._container.querySelector(".mq-cursor");
         const cursorBounds = cursor.getBoundingClientRect();

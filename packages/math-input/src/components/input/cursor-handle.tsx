@@ -18,7 +18,7 @@ const cursorHeightPx = cursorHandleDistanceMultiplier * (cursorRadiusPx * 4);
 const cursorWidthPx = 4 * cursorRadiusPx;
 
 type Props = {
-    animateIntoPosition: boolean | null | undefined;
+    animateIntoPosition: boolean;
     onTouchCancel: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
     onTouchEnd: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
     onTouchMove: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
