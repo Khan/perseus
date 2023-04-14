@@ -274,7 +274,9 @@ module.exports = {
                 order: [
                     "type-annotations",
                     "static-variables",
+                    "instance-variables",
                     "static-methods",
+                    "constructor",
                     "lifecycle",
                     "everything-else",
                     "render",
