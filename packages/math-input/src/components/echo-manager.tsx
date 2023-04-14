@@ -2,7 +2,6 @@
  * A component that renders and animates the selection state effect effect.
  */
 
-import PropTypes from "prop-types";
 import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
@@ -10,23 +9,20 @@ import {KeyTypes, EchoAnimationTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
 import KeypadButton from "./keypad-button";
-import {
-    echoPropType,
-    bordersPropType,
-    boundingBoxPropType,
-    keyIdPropType,
-} from "./prop-types";
 import * as zIndexes from "./z-indexes";
 
-class Echo extends React.Component {
-    static propTypes = {
-        animationDurationMs: PropTypes.number.isRequired,
-        borders: bordersPropType,
-        id: keyIdPropType.isRequired,
-        initialBounds: boundingBoxPropType.isRequired,
-        onAnimationFinish: PropTypes.func.isRequired,
-    };
+import type {Key} from "../data/keys";
+import type {Border, Bound} from "../types";
 
+type EchoProps = {
+    animationDurationMs: number;
+    borders: Border;
+    id: Key;
+    initialBounds: Bound;
+    onAnimationFinish: () => void;
+};
+
+class Echo extends React.Component<EchoProps> {
     componentDidMount() {
         // NOTE(charlie): This is somewhat unfortunate, as the component is
         // encoding information about its own animation, of which it should be
@@ -41,7 +37,7 @@ class Echo extends React.Component {
         const {borders, id, initialBounds} = this.props;
         const {icon} = KeyConfigs[id];
 
-        const containerStyle = {
+        const containerStyle: any = {
             zIndex: zIndexes.echo,
             position: "absolute",
             pointerEvents: "none",
@@ -56,7 +52,6 @@ class Echo extends React.Component {
         return (
             <div style={containerStyle}>
                 <KeypadButton
-                    name={id}
                     icon={icon}
                     type={KeyTypes.ECHO}
                     borders={borders}
@@ -66,12 +61,20 @@ class Echo extends React.Component {
     }
 }
 
-class EchoManager extends React.Component {
-    static propTypes = {
-        echoes: PropTypes.arrayOf(echoPropType),
-        onAnimationFinish: PropTypes.func.isRequired,
-    };
+type EchoPropType = {
+    animationId: string;
+    animationType: keyof typeof EchoAnimationTypes;
+    borders: Border;
+    id: Key;
+    initialBounds: Bound;
+};
 
+type EchoManagerProps = {
+    echoes: Array<EchoPropType>;
+    onAnimationFinish?: (animationId: string) => void;
+};
+
+class EchoManager extends React.Component<EchoManagerProps> {
     _animationConfigForType = (animationType) => {
         // NOTE(charlie): These must be kept in sync with the transition
         // durations and classnames specified in echo.css.
@@ -95,7 +98,9 @@ class EchoManager extends React.Component {
                 break;
 
             default:
-                throw new Error("Invalid echo animation type:", animationType);
+                throw new Error(
+                    `Invalid echo animation type: ${animationType}`,
+                );
         }
 
         return {
@@ -142,7 +147,7 @@ class EchoManager extends React.Component {
                                                 animationDurationMs
                                             }
                                             onAnimationFinish={() =>
-                                                onAnimationFinish(animationId)
+                                                onAnimationFinish?.(animationId)
                                             }
                                             {...echo}
                                         />

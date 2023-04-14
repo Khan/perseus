@@ -4,7 +4,6 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {BorderStyles} from "../consts";
@@ -20,14 +19,16 @@ import {
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
 const {row, column, centered, stretch, roundedTopLeft} = Styles;
 
-class NavigationPad extends React.Component {
-    static propTypes = {
-        roundTopLeft: PropTypes.bool,
-        style: PropTypes.any,
-    };
+type Props = {
+    roundTopLeft: boolean;
+    style: StyleType;
+};
 
+class NavigationPad extends React.Component<Props> {
     render() {
         // TODO(charlie): Disable the navigational arrows depending on the
         // cursor context.

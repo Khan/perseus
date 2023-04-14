@@ -1,3 +1,4 @@
+import type {Border} from "../types";
 /**
  * A manager for our node-to-ID system. In particular, this class is
  * responsible for maintaing a mapping between DOM nodes and node IDs, and
@@ -7,6 +8,11 @@
  */
 
 class NodeManager {
+    _nodesById: Record<string, HTMLElement>;
+    _bordersById: Record<string, Border>;
+    _orderedIds: Array<string>;
+    _cachedBoundingBoxesById: Record<string, DOMRect>;
+
     constructor() {
         // A mapping from IDs to DOM nodes.
         this._nodesById = {};
@@ -43,7 +49,12 @@ class NodeManager {
      * @param {node} domNode - the DOM node linked to the identifier
      * @param {object} borders - an opaque object describing the node's borders
      */
-    registerDOMNode(id, domNode, childIds, borders) {
+    registerDOMNode(
+        id: string,
+        domNode: HTMLElement,
+        childIds: Array<string>,
+        borders: Border,
+    ) {
         this._nodesById[id] = domNode;
         this._bordersById[id] = borders;
 
@@ -57,6 +68,7 @@ class NodeManager {
         const seenIds = {};
         for (const id of allIds) {
             if (!seenIds[id]) {
+                // @ts-expect-error TS2345
                 orderedIds.push(id);
                 seenIds[id] = true;
             }
@@ -70,7 +82,7 @@ class NodeManager {
      *
      * @param {string} id - the identifier of the node to unregister
      */
-    unregisterDOMNode(id) {
+    unregisterDOMNode(id: string) {
         delete this._nodesById[id];
     }
 
@@ -83,7 +95,7 @@ class NodeManager {
      * @returns {null|string} - null or the identifier of the topmost node at
      *                          the given coordinates
      */
-    idForCoords(x, y) {
+    idForCoords(x: number, y: number): string | void {
         for (const id of this._orderedIds) {
             const domNode = this._nodesById[id];
             if (domNode) {
@@ -110,7 +122,7 @@ class NodeManager {
      * @returns {object} - the bounding client rect for the given node, along
      *                     with its borders
      */
-    layoutPropsForId(id) {
+    layoutPropsForId(id: string): {initialBounds: DOMRect; borders: Border} {
         if (!this._cachedBoundingBoxesById[id]) {
             const node = this._nodesById[id];
 

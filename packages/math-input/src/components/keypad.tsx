@@ -14,15 +14,18 @@ import EchoManager from "./echo-manager";
 import PopoverManager from "./popover-manager";
 
 import type {Popover, Echo} from "../types";
-import type {CSSProperties} from "aphrodite";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     children: React.ReactNode;
+    style?: StyleType;
+
+    // these are provided by Redux,
+    // but if I make them required TS complains
     active?: boolean;
     echoes?: Array<Echo>;
     popover?: Popover;
-    removeEcho?: () => void;
-    style?: CSSProperties | Array<CSSProperties>;
+    removeEcho?: (animationId: string) => void;
 };
 
 // eslint-disable-next-line react/no-unsafe

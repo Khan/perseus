@@ -4,7 +4,6 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {IconTypes} from "../consts";
@@ -12,17 +11,18 @@ import {View} from "../fake-react-native-web/index";
 
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style";
 import Icon from "./icon";
-import {iconPropType} from "./prop-types";
 import Styles from "./styles";
+
+import type {Icon as IconType} from "../types";
 
 const {row, column, centered, fullWidth} = Styles;
 
-class MultiSymbolGrid extends React.Component {
-    static propTypes = {
-        focused: PropTypes.bool,
-        icons: PropTypes.arrayOf(iconPropType).isRequired,
-    };
+type Props = {
+    focused: boolean;
+    icons: Array<IconType>;
+};
 
+class MultiSymbolGrid extends React.Component<Props> {
     render() {
         const {focused, icons} = this.props;
 
@@ -131,7 +131,7 @@ class MultiSymbolGrid extends React.Component {
             }
         }
 
-        throw new Error("Invalid number of icons:", icons.length);
+        throw new Error(`Invalid number of icons: ${icons.length}`);
     }
 }
 

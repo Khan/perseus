@@ -25,29 +25,29 @@ import MultiSymbolGrid from "./multi-symbol-grid";
 
 import type {KeyType} from "../consts";
 import type {Border, KeyConfig, Icon as IconType} from "../types";
-import type {CSSProperties} from "aphrodite";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
-    ariaLabel: string;
+    ariaLabel?: string;
     borders: Border;
     childKeys: Array<KeyConfig>;
     disabled: boolean;
     focused: boolean;
-    heightPx: number;
-    widthPx: number;
+    heightPx?: number;
+    widthPx?: number;
     popoverEnabled: boolean;
     type: KeyType;
     icon: IconType;
-    style: CSSProperties | Array<CSSProperties>;
-    onTouchCancel: (evt: React.TouchEvent<HTMLDivElement>) => void;
-    onTouchEnd: (evt: React.TouchEvent<HTMLDivElement>) => void;
-    onTouchMove: (evt: React.TouchEvent<HTMLDivElement>) => void;
-    onTouchStart: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    style?: StyleType;
+    onTouchCancel?: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchEnd?: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchMove?: (evt: React.TouchEvent<HTMLDivElement>) => void;
+    onTouchStart?: (evt: React.TouchEvent<HTMLDivElement>) => void;
 };
 
 // eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent<Props> {
-    buttonSizeStyle: CSSProperties | undefined;
+    buttonSizeStyle: StyleType | undefined;
 
     static defaultProps = {
         borders: BorderStyles.ALL,

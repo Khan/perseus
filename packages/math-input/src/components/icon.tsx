@@ -13,7 +13,7 @@ import SvgIcon from "./svg-icon";
 import TextIcon from "./text-icon";
 
 import type {Icon as IconPropType} from "../types";
-import type {CSSProperties} from "aphrodite";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const focusedColor = "#FFF";
 const unfocusedColor = offBlack;
@@ -21,14 +21,16 @@ const unfocusedColor = offBlack;
 type Props = {
     focused: boolean;
     icon: IconPropType;
-    style?: CSSProperties | Array<CSSProperties>;
+    style?: StyleType;
 };
 
 class Icon extends React.PureComponent<Props> {
     render() {
         const {focused, icon, style} = this.props;
 
-        let styleWithFocus = [focused ? styles.focused : styles.unfocused];
+        let styleWithFocus: StyleType = [
+            focused ? styles.focused : styles.unfocused,
+        ];
 
         if (style) {
             styleWithFocus = [

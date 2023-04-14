@@ -14,12 +14,12 @@ import {createStore} from "../store/index";
 
 import KeypadContainer from "./keypad-container";
 
-import type {CSSProperties} from "aphrodite";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => unknown;
-    style?: CSSProperties;
+    style?: StyleType;
 };
 
 class ProvidedKeypad extends React.Component<Props> {

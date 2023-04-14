@@ -20,7 +20,7 @@ import * as zIndexes from "./z-indexes";
 
 import type {KeypadType} from "../consts";
 import type {Key} from "../data/keys";
-import type {CSSProperties} from "aphrodite";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {row, centered, fullWidth} = Styles;
 
@@ -33,7 +33,7 @@ type Props = {
     onDismiss?: () => void;
     onElementMounted: (element: any) => void;
     onPageSizeChange?: (width: number, height: number) => void;
-    style?: CSSProperties | Array<CSSProperties>;
+    style?: StyleType;
 };
 
 type State = {

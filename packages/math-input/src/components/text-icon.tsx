@@ -10,13 +10,13 @@ import {View, Text} from "../fake-react-native-web/index";
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style";
 import Styles from "./styles";
 
-import type {CSSProperties} from "aphrodite";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {row, centered} = Styles;
 
 type Props = {
     character: string;
-    style?: CSSProperties | Array<CSSProperties>;
+    style?: StyleType;
 };
 
 class TextIcon extends React.Component<Props> {
