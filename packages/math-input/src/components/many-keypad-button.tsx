@@ -12,10 +12,8 @@ import Keys from "../data/keys";
 import EmptyKeypadButton from "./empty-keypad-button";
 import TouchableKeypadButton from "./touchable-keypad-button";
 
-import type {Key} from "../data/keys";
-
 type Props = {
-    keys: ReadonlyArray<Key>;
+    keys: ReadonlyArray<string>;
 };
 
 class ManyKeypadButton extends React.Component<Props> {

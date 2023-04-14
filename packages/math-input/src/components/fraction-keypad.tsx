@@ -15,16 +15,20 @@ import Keypad from "./keypad";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 
+import type {State} from "../store/types";
 import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, roundedTopLeft, roundedTopRight} = Styles;
 
-type Props = {
-    cursorContext: CursorContext;
+interface ReduxProps {
+    cursorContext?: CursorContext;
     dynamicJumpOut: boolean;
+}
+
+interface Props extends ReduxProps {
     roundTopLeft: boolean;
     roundTopRight: boolean;
-};
+}
 
 class FractionKeypad extends React.Component<Props> {
     static rows = 4;
@@ -164,9 +168,9 @@ class FractionKeypad extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: State): ReduxProps => {
     return {
-        cursorContext: state.input.cursor.context,
+        cursorContext: state.input.cursor?.context,
         dynamicJumpOut: !state.layout.navigationPadEnabled,
     };
 };

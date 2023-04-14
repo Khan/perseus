@@ -17,20 +17,23 @@ import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
 
-import type {Key} from "../data/keys";
+import type {State} from "../store/types";
 import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
 
-type Props = {
+interface ReduxProps {
     currentPage: number;
-    cursorContext: CursorContext;
+    cursorContext?: CursorContext;
     dynamicJumpOut: boolean;
-    extraKeys?: ReadonlyArray<Key>;
+}
+
+interface Props extends ReduxProps {
+    extraKeys?: ReadonlyArray<string>;
     roundTopLeft: boolean;
     roundTopRight: boolean;
-};
+}
 
 class ExpressionKeypad extends React.Component<Props> {
     static rows = 4;
@@ -308,10 +311,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: State): ReduxProps => {
     return {
         currentPage: state.pager.currentPage,
-        cursorContext: state.input.cursor.context,
+        cursorContext: state.input.cursor?.context,
         dynamicJumpOut: !state.layout.navigationPadEnabled,
     };
 };
