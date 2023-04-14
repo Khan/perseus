@@ -16,17 +16,17 @@ import PopoverManager from "./popover-manager";
 import type {Popover, Echo} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = {
+interface ReduxProps {
+    active: boolean;
+    echoes: ReadonlyArray<Echo>;
+    popover: Popover;
+}
+
+interface Props extends ReduxProps {
     children: React.ReactNode;
     style?: StyleType;
-
-    // these are provided by Redux,
-    // but if I make them required TS complains
-    active?: boolean;
-    echoes?: ReadonlyArray<Echo>;
-    popover?: Popover;
     removeEcho?: (animationId: string) => void;
-};
+}
 
 // eslint-disable-next-line react/no-unsafe
 class Keypad extends React.Component<Props> {
@@ -87,7 +87,7 @@ class Keypad extends React.Component<Props> {
     };
 
     render() {
-        const {children, echoes = [], removeEcho, popover, style} = this.props;
+        const {children, echoes, removeEcho, popover, style} = this.props;
 
         // Translate the echo boxes, as they'll be positioned absolutely to
         // this relative container.
@@ -140,9 +140,9 @@ class Keypad extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps: (state: any) => ReduxProps = (state) => {
     return {
-        ...state.echoes,
+        echoes: state.echoes.echoes,
         active: state.keypad.active,
         popover: state.gestures.popover,
     };
