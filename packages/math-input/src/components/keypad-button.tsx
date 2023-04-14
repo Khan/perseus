@@ -30,12 +30,12 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 type Props = {
     ariaLabel?: string;
     borders: Border;
-    childKeys?: Array<KeyConfig>;
-    disabled?: boolean;
-    focused?: boolean;
+    childKeys: Array<KeyConfig>;
+    disabled: boolean;
+    focused: boolean;
     heightPx?: number;
     widthPx?: number;
-    popoverEnabled?: boolean;
+    popoverEnabled: boolean;
     type: KeyType;
     icon: IconType;
     style?: StyleType;
@@ -175,7 +175,7 @@ class KeypadButton extends React.PureComponent<Props> {
         const {
             ariaLabel,
             borders,
-            childKeys = [],
+            childKeys,
             disabled,
             focused,
             icon,
