@@ -3,7 +3,6 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
@@ -14,24 +13,26 @@ import {View} from "../fake-react-native-web/index";
 import {valueGrey, controlGrey} from "./common-style";
 import * as CursorContexts from "./input/cursor-contexts";
 import ManyKeypadButton from "./many-keypad-button";
-import {cursorContextPropType, keyIdPropType} from "./prop-types";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
 
+import type {Key} from "../data/keys";
+import type {CursorContext} from "./input/cursor-contexts";
+
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
 
-class ExpressionKeypad extends React.Component {
-    static propTypes = {
-        currentPage: PropTypes.number.isRequired,
-        cursorContext: cursorContextPropType.isRequired,
-        dynamicJumpOut: PropTypes.bool,
-        extraKeys: PropTypes.arrayOf(keyIdPropType),
-        roundTopLeft: PropTypes.bool,
-        roundTopRight: PropTypes.bool,
-    };
+type Props = {
+    currentPage: number;
+    cursorContext: CursorContext;
+    dynamicJumpOut: boolean;
+    extraKeys?: Array<Key>;
+    roundTopLeft: boolean;
+    roundTopRight: boolean;
+};
 
+class ExpressionKeypad extends React.Component<Props> {
     static rows = 4;
     static columns = 5;
 

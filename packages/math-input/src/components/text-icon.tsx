@@ -3,7 +3,6 @@
  */
 
 import {StyleSheet} from "aphrodite";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {View, Text} from "../fake-react-native-web/index";
@@ -11,14 +10,16 @@ import {View, Text} from "../fake-react-native-web/index";
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style";
 import Styles from "./styles";
 
+import type {CSSProperties} from "aphrodite";
+
 const {row, centered} = Styles;
 
-class TextIcon extends React.Component {
-    static propTypes = {
-        character: PropTypes.string.isRequired,
-        style: PropTypes.any,
-    };
+type Props = {
+    character: string;
+    style?: CSSProperties | Array<CSSProperties>;
+};
 
+class TextIcon extends React.Component<Props> {
     render() {
         const {character, style} = this.props;
 

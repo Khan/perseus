@@ -9,9 +9,18 @@ import type {Key} from "./data/keys";
 
 export type Border = Partial<Array<keyof typeof BorderDirections>>;
 
+export type Bound = {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+    height: number;
+    width: number;
+};
+
 export type Popover = {
     parentId: Key;
-    bounds: DOMRect;
+    bounds: Partial<Bound>;
     childKeyIds: Array<Key>;
 };
 

@@ -3,7 +3,6 @@
  * with fractions, decimals, and percents.
  */
 
-import PropTypes from "prop-types";
 import * as React from "react";
 import {connect} from "react-redux";
 
@@ -13,20 +12,21 @@ import {View} from "../fake-react-native-web/index";
 
 import * as CursorContexts from "./input/cursor-contexts";
 import Keypad from "./keypad";
-import {cursorContextPropType} from "./prop-types";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 
+import type {CursorContext} from "./input/cursor-contexts";
+
 const {row, roundedTopLeft, roundedTopRight} = Styles;
 
-class FractionKeypad extends React.Component {
-    static propTypes = {
-        cursorContext: cursorContextPropType.isRequired,
-        dynamicJumpOut: PropTypes.bool,
-        roundTopLeft: PropTypes.bool,
-        roundTopRight: PropTypes.bool,
-    };
+type Props = {
+    cursorContext: CursorContext;
+    dynamicJumpOut: boolean;
+    roundTopLeft: boolean;
+    roundTopRight: boolean;
+};
 
+class FractionKeypad extends React.Component<Props> {
     static rows = 4;
     static columns = 4;
 

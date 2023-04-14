@@ -5,7 +5,26 @@
  * is present.
  */
 
+type ActiveNodesObjPopover = {
+    parentId: string;
+    childIds: Array<string>;
+};
+
+type ActiveNodesObj = {
+    popover: ActiveNodesObjPopover | null;
+    focus: string | null;
+};
+
+type Handlers = {
+    onActiveNodesChanged: (activeNodes: ActiveNodesObj) => void;
+    onClick: (keyId: string, domNodeId: string, inPopover: boolean) => void;
+};
+
 class PopoverStateMachine {
+    handlers: Handlers;
+    popovers: Record<string, Array<string>>;
+    activePopover: string | null;
+
     constructor(handlers) {
         this.handlers = handlers;
 
@@ -104,8 +123,8 @@ class PopoverStateMachine {
             this.activePopover = id;
             this.handlers.onActiveNodesChanged({
                 popover: {
-                    parentId: this.activePopover,
-                    childIds: this.popovers[this.activePopover],
+                    parentId: id,
+                    childIds: this.popovers[id],
                 },
                 focus: this._defaultNodeForPopover(this.activePopover),
             });

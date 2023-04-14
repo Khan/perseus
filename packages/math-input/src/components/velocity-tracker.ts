@@ -7,8 +7,18 @@
 
 import now from "performance-now";
 
+type Event = {
+    x: number;
+    t: number;
+};
+
 class VelocityTracker {
-    constructor(options) {
+    options: {
+        velocityTimeout: number;
+    };
+    _events: Array<Event>;
+
+    constructor(options?) {
         this.options = {
             velocityTimeout: 100,
             ...options,
@@ -24,7 +34,7 @@ class VelocityTracker {
      *
      * @param {number} x - the cumulative displacement of the event
      */
-    push(x) {
+    push(x: number) {
         this._events.push({
             x,
             t: now(),
@@ -42,7 +52,7 @@ class VelocityTracker {
      *
      * @returns {number} the velocity associated with the tracker
      */
-    getVelocity() {
+    getVelocity(): number {
         const events = this._getEvents();
 
         if (events.length < 2) {
@@ -63,7 +73,7 @@ class VelocityTracker {
      *                     that occurred in the past `velocityTimeout`
      *                     milliseconds
      */
-    _getEvents() {
+    _getEvents(): Array<Event> {
         const threshold = now() - this.options.velocityTimeout;
         const recentEvents = this._events.filter((event) => {
             return event.t > threshold;
