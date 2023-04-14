@@ -23,14 +23,17 @@ import type {CursorContext} from "./input/cursor-contexts";
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
 
-type Props = {
+interface ReduxProps {
     currentPage: number;
     cursorContext: CursorContext;
     dynamicJumpOut: boolean;
+}
+
+interface Props extends ReduxProps {
     extraKeys?: ReadonlyArray<Key>;
     roundTopLeft: boolean;
     roundTopRight: boolean;
-};
+}
 
 class ExpressionKeypad extends React.Component<Props> {
     static rows = 4;
@@ -308,7 +311,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps: (state: any) => ReduxProps = (state) => {
     return {
         currentPage: state.pager.currentPage,
         cursorContext: state.input.cursor.context,
