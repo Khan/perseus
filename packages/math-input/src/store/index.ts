@@ -17,16 +17,17 @@ import {
 } from "../consts";
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
+import {Cursor, KeyHandler} from "../types";
 
 const keypadForType = {
     [KeypadTypes.FRACTION]: FractionKeypad,
     [KeypadTypes.EXPRESSION]: ExpressionKeypad,
 } as const;
 
-export const createStore = (): any => {
+export const createStore = () => {
     const initialInputState: {
-        keyHandler: any;
-        cursor: any;
+        keyHandler: KeyHandler | null;
+        cursor: Cursor;
     } = {
         keyHandler: null,
         cursor: {
@@ -50,7 +51,7 @@ export const createStore = (): any => {
                     // still want to communicate with the other object
                     return {
                         ...state,
-                        cursor: state.keyHandler(keyConfig.id),
+                        cursor: state.keyHandler?.(keyConfig.id),
                     };
                 }
 

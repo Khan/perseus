@@ -5,6 +5,8 @@ import {
     IconTypes,
 } from "./consts";
 
+import type {CursorContext} from "./components/input/cursor-contexts";
+import type {KeypadType} from "./consts";
 import type {Key} from "./data/keys";
 
 export type Border = Partial<Array<keyof typeof BorderDirections>>;
@@ -43,4 +45,15 @@ export type KeyConfig = {
     type: keyof typeof KeyTypes;
     childKeyIds: Array<Key>;
     icon: Icon;
+};
+
+export type KeypadConfiguration = {
+    keypadType: KeypadType;
+    extraKeys?: ReadonlyArray<Key>;
+};
+
+export type KeyHandler = (key: Key) => Cursor;
+
+export type Cursor = {
+    context: CursorContext;
 };

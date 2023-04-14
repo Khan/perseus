@@ -62,7 +62,7 @@ export const FullTabbar = () => (
                 "Numbers",
                 "Geometry",
                 "Operators",
-            ]) as Array<TabbarItemType>
+            ]) as ReadonlyArray<TabbarItemType>
         }
         onSelect={action("selected-item")}
     />

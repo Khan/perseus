@@ -7,7 +7,7 @@
 
 type ActiveNodesObjPopover = {
     parentId: string;
-    childIds: Array<string>;
+    childIds: ReadonlyArray<string>;
 };
 
 type ActiveNodesObj = {
@@ -22,7 +22,7 @@ type Handlers = {
 
 class PopoverStateMachine {
     handlers: Handlers;
-    popovers: Record<string, Array<string>>;
+    popovers: Record<string, ReadonlyArray<string>>;
     activePopover: string | null;
 
     constructor(handlers) {

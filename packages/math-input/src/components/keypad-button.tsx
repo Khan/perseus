@@ -30,7 +30,7 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 type Props = {
     ariaLabel?: string;
     borders: Border;
-    childKeys: Array<KeyConfig>;
+    childKeys: ReadonlyArray<KeyConfig>;
     disabled: boolean;
     focused: boolean;
     heightPx?: number;
@@ -197,11 +197,10 @@ class KeypadButton extends React.PureComponent<Props> {
             (!disabled && focused) || popoverEnabled || type === KeyTypes.ECHO;
         const buttonStyle = this._getButtonStyle(type, borders, style);
         const focusStyle = this._getFocusStyle(type);
-        let iconWrapperStyle = [styles.iconWrapper];
-
-        if (disabled) {
-            iconWrapperStyle = [...iconWrapperStyle, styles.disabled];
-        }
+        const iconWrapperStyle = [
+            styles.iconWrapper,
+            disabled ? styles.disabled : undefined,
+        ];
 
         const eventHandlers = {
             onTouchCancel,

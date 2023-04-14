@@ -70,7 +70,7 @@ type EchoPropType = {
 };
 
 type EchoManagerProps = {
-    echoes: Array<EchoPropType>;
+    echoes: ReadonlyArray<EchoPropType>;
     onAnimationFinish?: (animationId: string) => void;
 };
 

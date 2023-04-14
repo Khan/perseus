@@ -28,16 +28,10 @@ class Icon extends React.PureComponent<Props> {
     render() {
         const {focused, icon, style} = this.props;
 
-        let styleWithFocus: StyleType = [
+        const styleWithFocus: StyleType = [
             focused ? styles.focused : styles.unfocused,
+            ...(Array.isArray(style) ? style : [style]),
         ];
-
-        if (style) {
-            styleWithFocus = [
-                ...styleWithFocus,
-                ...(Array.isArray(style) ? style : [style]),
-            ];
-        }
 
         switch (icon.type) {
             case IconTypes.MATH:

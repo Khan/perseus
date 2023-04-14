@@ -1,10 +1,4 @@
-import type {KeypadType} from "../consts";
-import type {Key} from "../data/keys";
-
-type KeypadConfiguration = {
-    keypadType: KeypadType;
-    extraKeys: Array<Key>;
-};
+import type {KeypadConfiguration, KeyHandler} from "../types";
 
 // naming convention: verb + noun
 // the noun should be one of the other properties in the object that's
@@ -48,7 +42,7 @@ export const removeEcho = (animationId) => {
 };
 
 // Input-related actions.
-export const setKeyHandler = (keyHandler) => {
+export const setKeyHandler = (keyHandler: KeyHandler) => {
     return {
         type: "SetKeyHandler",
         keyHandler,

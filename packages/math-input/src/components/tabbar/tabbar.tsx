@@ -24,7 +24,7 @@ type TabbarState = {
 };
 
 type Props = {
-    items: Array<TabbarItemType>;
+    items: ReadonlyArray<TabbarItemType>;
     onSelect: (item: TabbarItemType) => void;
 };
 

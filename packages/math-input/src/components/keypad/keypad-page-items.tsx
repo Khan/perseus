@@ -53,7 +53,7 @@ export const KeypadButton = ({
 
 type SecondaryKeypadButtonProps = {
     keyConfig: KeyConfig;
-    style?: any;
+    style?: StyleType;
     onClickKey: (keyConfig: string) => void;
 };
 
@@ -72,7 +72,7 @@ export const SecondaryKeypadButton = ({
 
 type KeypadActionButtonProps = {
     keyConfig: KeyConfig;
-    style?: any;
+    style?: StyleType;
     onClickKey: (keyConfig: string) => void;
 };
 

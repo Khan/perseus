@@ -73,7 +73,7 @@ class VelocityTracker {
      *                     that occurred in the past `velocityTimeout`
      *                     milliseconds
      */
-    _getEvents(): Array<Event> {
+    _getEvents(): ReadonlyArray<Event> {
         const threshold = now() - this.options.velocityTimeout;
         const recentEvents = this._events.filter((event) => {
             return event.t > threshold;

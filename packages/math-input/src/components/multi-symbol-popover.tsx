@@ -13,7 +13,7 @@ import TouchableKeypadButton from "./touchable-keypad-button";
 import * as zIndexes from "./z-indexes";
 
 type Prop = {
-    keys: Array<KeyConfig>;
+    keys: ReadonlyArray<KeyConfig>;
 };
 
 class MultiSymbolPopover extends React.Component<Prop> {
