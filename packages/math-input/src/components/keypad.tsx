@@ -141,7 +141,7 @@ class Keypad extends React.Component<Props> {
     }
 }
 
-const mapStateToProps: (state: State) => ReduxProps = (state) => {
+const mapStateToProps = (state: State): ReduxProps => {
     return {
         echoes: state.echoes.echoes,
         active: state.keypad.active,

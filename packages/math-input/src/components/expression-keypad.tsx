@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps: (state: State) => ReduxProps = (state) => {
+const mapStateToProps = (state: State): ReduxProps => {
     return {
         currentPage: state.pager.currentPage,
         cursorContext: state.input.cursor?.context,

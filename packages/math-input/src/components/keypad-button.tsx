@@ -355,7 +355,7 @@ const styleForButtonDimensions = (heightPx, widthPx) => {
     }).buttonSize;
 };
 
-const mapStateToProps: (state: State) => ReduxProps = (state) => {
+const mapStateToProps = (state: State): ReduxProps => {
     return {
         heightPx: state.layout.buttonDimensions.heightPx,
         widthPx: state.layout.buttonDimensions.widthPx,

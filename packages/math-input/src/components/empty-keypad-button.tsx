@@ -44,7 +44,7 @@ class EmptyKeypadButton extends React.Component<ReduxProps> {
     }
 }
 
-const mapStateToProps: (state: State) => ReduxProps = (state) => {
+const mapStateToProps = (state: State): ReduxProps => {
     const {gestures} = state;
     return {
         gestureManager: gestures.gestureManager,

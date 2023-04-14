@@ -168,7 +168,7 @@ class FractionKeypad extends React.Component<Props> {
     }
 }
 
-const mapStateToProps: (state: State) => ReduxProps = (state) => {
+const mapStateToProps = (state: State): ReduxProps => {
     return {
         cursorContext: state.input.cursor?.context,
         dynamicJumpOut: !state.layout.navigationPadEnabled,

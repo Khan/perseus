@@ -287,7 +287,7 @@ const inlineStyles = {
     },
 };
 
-const mapStateToProps: (state: ReduxState) => ReduxProps = (state) => {
+const mapStateToProps = (state: ReduxState): ReduxProps => {
     return {
         extraKeys: state.keypad.extraKeys,
         keypadType: state.keypad.keypadType,

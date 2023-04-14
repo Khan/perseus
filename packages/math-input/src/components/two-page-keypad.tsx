@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps: (state: State) => ReduxProps = (state) => {
+const mapStateToProps = (state: State): ReduxProps => {
     return {
         paginationEnabled: state.layout.paginationEnabled,
     };
