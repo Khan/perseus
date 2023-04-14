@@ -1034,7 +1034,7 @@ GraphUtils.createGraphie = function (el: any) {
          *                         the function at i
          * @param  {[]} rangeArray array of ranges over which the
          *                         corresponding functions are defined
-         * @return {Raphael set}
+         * @return {Set<any>}      set of paths
          */
         plotPiecewise: function (fnArray, rangeArray) {
             const paths = raphael.set();
@@ -1058,8 +1058,8 @@ GraphUtils.createGraphie = function (el: any) {
          * return a Raphael set of Raphael circle objects at those
          * coordinates
          *
-         * @param  {Array of arrays} endpointArray
-         * @return {Raphael set}
+         * @param  {Array<[number, number]>} endpointArray
+         * @return {Set<any>} set of circles
          */
         plotEndpointCircles: function (endpointArray) {
             const circles = raphael.set();
