@@ -7,6 +7,8 @@ import {Molecule} from "./molecule";
 import type {WidgetExports} from "../types";
 
 class Separator extends React.Component<any> {
+    arrowLength = 100;
+
     static propTypes = {
         // TODO(colin): figure out and add shape.
         data: PropTypes.any,
@@ -20,8 +22,6 @@ class Separator extends React.Component<any> {
     componentDidUpdate() {
         this.drawArrow();
     }
-
-    arrowLength = 100;
 
     drawArrow = () => {
         // eslint-disable-next-line react/no-string-refs

@@ -87,6 +87,9 @@ type OnInputErrorFunctionType = (
 
 // The new, MathQuill input expression widget
 export class Expression extends React.Component<Props, ExpressionState> {
+    _isMounted = false;
+    errorTimeout: null | number = null;
+
     //#region Previously a class extension
     /* Content creators input a list of answers which are matched from top to
      * bottom. The intent is that they can include spcific solutions which should
@@ -333,9 +336,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
         this._isMounted = false;
     };
-
-    _isMounted = false;
-    errorTimeout: null | number = null;
 
     simpleValidate: (
         rubric: Rubric,

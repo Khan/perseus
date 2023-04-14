@@ -17,6 +17,8 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 export default class SimpleKeypadInput extends React.Component<any> {
+    _isMounted = false;
+
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
@@ -26,8 +28,6 @@ export default class SimpleKeypadInput extends React.Component<any> {
     componentWillUnmount() {
         this._isMounted = false;
     }
-
-    _isMounted = false;
 
     focus() {
         // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
