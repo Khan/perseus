@@ -14,7 +14,7 @@ import WrappedServerItemRenderer, {
     ServerItemRenderer,
 } from "../server-item-renderer";
 import {registerWidget} from "../widgets";
-import InputNumberExport from "../widgets/input-number";
+import NumericInputExport from "../widgets/numeric-input";
 import RadioWidgetExport from "../widgets/radio";
 
 import MockAssetLoadingWidgetExport, {
@@ -63,7 +63,7 @@ const renderQuestion = (
 
 describe("server item renderer", () => {
     beforeAll(() => {
-        registerWidget("input-number", InputNumberExport);
+        registerWidget("numeric-input", NumericInputExport);
         registerWidget("radio", RadioWidgetExport);
         registerWidget("mock-widget", MockWidgetExport);
     });
@@ -476,11 +476,31 @@ describe("server item renderer", () => {
                   ],
                   "question": {
                     "input-number 1": {
-                      "answerType": "number",
+                      "answerForms": undefined,
+                      "answers": [
+                        {
+                          "answerForms": [
+                            "integer",
+                            "decimal",
+                            "proper",
+                            "improper",
+                            "mixed",
+                          ],
+                          "maxError": 0,
+                          "message": "",
+                          "simplify": "required",
+                          "status": "correct",
+                          "strict": false,
+                          "value": -42,
+                        },
+                      ],
+                      "coefficient": false,
                       "currentValue": "-42",
+                      "labelText": "",
+                      "multipleNumberInput": false,
                       "rightAlign": undefined,
-                      "simplify": "required",
                       "size": "normal",
+                      "static": false,
                     },
                   },
                 }
