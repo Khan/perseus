@@ -16,6 +16,7 @@ import {
 import Keypad from "./keypad";
 import Styles from "./styles";
 import Tabbar from "./tabbar/tabbar";
+import type {Popover, Echo} from "../types";
 
 const {column, row, fullWidth} = Styles;
 
@@ -24,6 +25,10 @@ interface Props {
     leftPage: React.ReactNode;
     rightPage: React.ReactNode;
     paginationEnabled: boolean;
+    active: boolean;
+    echoes: ReadonlyArray<Echo>;
+    popover: Popover | null;
+    removeEcho?: (animationId: string) => void;
 }
 
 class TwoPageKeypad extends React.Component<Props> {
@@ -32,13 +37,27 @@ class TwoPageKeypad extends React.Component<Props> {
     };
 
     render() {
-        const {leftPage, paginationEnabled, rightPage} = this.props;
+        const {
+            leftPage,
+            paginationEnabled,
+            rightPage,
+            active,
+            echoes,
+            popover,
+            removeEcho,
+        } = this.props;
 
         const {selectedPage} = this.state;
 
         if (paginationEnabled) {
             return (
-                <Keypad style={[column, styles.keypad]}>
+                <Keypad
+                    style={[column, styles.keypad]}
+                    active={active}
+                    echoes={echoes}
+                    popover={popover}
+                    removeEcho={removeEcho}
+                >
                     <Tabbar
                         items={["Numbers", "Operators"]}
                         onSelect={(selectedItem) => {
@@ -53,7 +72,13 @@ class TwoPageKeypad extends React.Component<Props> {
             );
         } else {
             return (
-                <Keypad style={styles.keypad}>
+                <Keypad
+                    style={styles.keypad}
+                    active={active}
+                    echoes={echoes}
+                    popover={popover}
+                    removeEcho={removeEcho}
+                >
                     <View style={row}>
                         <View style={fullWidth}>{leftPage}</View>
                         <View style={[styles.borderLeft, fullWidth]}>

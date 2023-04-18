@@ -5,29 +5,23 @@
 
 import * as React from "react";
 import ReactDOM from "react-dom";
-import {connect} from "react-redux";
 
-import {removeEcho} from "../actions/index";
 import {View} from "../fake-react-native-web/index";
 
 import EchoManager from "./echo-manager";
 import PopoverManager from "./popover-manager";
 
-import type {State} from "../store/types";
 import type {Popover, Echo} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-interface ReduxProps {
-    active: boolean;
-    echoes: ReadonlyArray<Echo>;
-    popover: Popover | null;
-}
-
-interface Props extends ReduxProps {
+type Props = {
     children: React.ReactNode;
     style?: StyleType;
     removeEcho?: (animationId: string) => void;
-}
+    active: boolean;
+    echoes: ReadonlyArray<Echo>;
+    popover: Popover | null;
+};
 
 // eslint-disable-next-line react/no-unsafe
 class Keypad extends React.Component<Props> {
@@ -141,22 +135,4 @@ class Keypad extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: State): ReduxProps => {
-    return {
-        echoes: state.echoes.echoes,
-        active: state.keypad.active,
-        popover: state.gestures.popover,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        removeEcho: (animationId) => {
-            dispatch(removeEcho(animationId));
-        },
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps, null, {
-    forwardRef: true,
-})(Keypad);
+export default Keypad;

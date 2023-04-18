@@ -16,9 +16,10 @@ import ManyKeypadButton from "./many-keypad-button";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
+import {removeEcho} from "../actions/index";
 
 import type {State} from "../store/types";
-import type {KeypadLayout} from "../types";
+import type {KeypadLayout, Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
@@ -29,12 +30,16 @@ interface ReduxProps {
     cursorContext?: CursorContext;
     dynamicJumpOut: boolean;
     paginationEnabled: boolean;
+    active: boolean;
+    echoes: ReadonlyArray<Echo>;
+    popover: Popover | null;
 }
 
 interface Props extends ReduxProps {
     extraKeys?: ReadonlyArray<string>;
     roundTopLeft: boolean;
     roundTopRight: boolean;
+    removeEcho?: (animationId: string) => void;
 }
 
 export const expressionKeypadLayout: KeypadLayout = {
@@ -57,6 +62,10 @@ class ExpressionKeypad extends React.Component<Props> {
             roundTopLeft,
             roundTopRight,
             paginationEnabled,
+            active,
+            echoes,
+            popover,
+            removeEcho,
         } = this.props;
 
         let dismissOrJumpOutKey;
@@ -295,6 +304,10 @@ class ExpressionKeypad extends React.Component<Props> {
                 rightPage={rightPage}
                 leftPage={leftPage}
                 paginationEnabled={paginationEnabled}
+                active={active}
+                echoes={echoes}
+                popover={popover}
+                removeEcho={removeEcho}
             />
         );
     }
@@ -321,9 +334,20 @@ const mapStateToProps = (state: State): ReduxProps => {
         cursorContext: state.input.cursor?.context,
         dynamicJumpOut: !state.layout.navigationPadEnabled,
         paginationEnabled: state.layout.paginationEnabled,
+        echoes: state.echoes.echoes,
+        active: state.keypad.active,
+        popover: state.gestures.popover,
     };
 };
 
-export default connect(mapStateToProps, null, null, {forwardRef: true})(
-    ExpressionKeypad,
-);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removeEcho: (animationId) => {
+            dispatch(removeEcho(animationId));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps, null, {
+    forwardRef: true,
+})(ExpressionKeypad);
