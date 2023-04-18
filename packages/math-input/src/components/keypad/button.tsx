@@ -65,8 +65,7 @@ type Props = {
     tintColor?: string;
 };
 
-type State = Record<any, any>;
-export default class Button extends React.Component<Props, State> {
+export default class Button extends React.Component<Props> {
     render(): React.ReactNode {
         const {onPress, children, style, tintColor} = this.props;
         return (

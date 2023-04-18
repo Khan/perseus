@@ -1,11 +1,12 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
 type Props = {
     ariaLabel?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     // The `dynamicStyle` prop is provided for animating dynamic
     // properties, as creating Aphrodite StyleSheets in animation loops is
     // expensive. `dynamicStyle` should be a raw style object, rather than
@@ -24,7 +25,7 @@ type Props = {
     onTouchMove?: (arg1: React.TouchEvent<HTMLDivElement>) => void;
     onTouchStart?: (arg1: React.TouchEvent<HTMLDivElement>) => void;
     role?: string;
-    style?: CSSProperties;
+    style?: StyleType;
 };
 
 class View extends React.Component<Props> {

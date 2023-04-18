@@ -14,17 +14,17 @@ import {createStore} from "../store/index";
 
 import KeypadContainer from "./keypad-container";
 
-import type {CSSProperties} from "aphrodite";
+import type {Cursor, KeypadConfiguration, KeyHandler} from "../types";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     onElementMounted?: (arg1: any) => void;
-    onDismiss?: () => unknown;
-    style?: CSSProperties;
+    onDismiss?: () => void;
+    style?: StyleType;
 };
 
 class ProvidedKeypad extends React.Component<Props> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'mounted' has no initializer and is not definitely assigned in the constructor.
-    mounted: boolean;
+    mounted?: boolean;
     store: any;
 
     UNSAFE_componentWillMount() {
@@ -47,8 +47,10 @@ class ProvidedKeypad extends React.Component<Props> {
         this.store.dispatch(dismissKeypad());
     };
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(configuration: any, cb: any) => void' is not assignable to type '() => void'.
-    configure: () => void = (configuration, cb) => {
+    configure: (configuration: KeypadConfiguration, cb: () => void) => void = (
+        configuration,
+        cb,
+    ) => {
         this.store.dispatch(configureKeypad(configuration));
 
         // HACK(charlie): In Perseus, triggering a focus causes the keypad to
@@ -61,12 +63,11 @@ class ProvidedKeypad extends React.Component<Props> {
         setTimeout(() => cb && cb());
     };
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(cursor: any) => void' is not assignable to type '() => void'.
-    setCursor: () => void = (cursor) => {
+    setCursor: (cursor: Cursor) => void = (cursor) => {
         this.store.dispatch(setCursor(cursor));
     };
 
-    setKeyHandler: (keyHandler: any) => void = (keyHandler) => {
+    setKeyHandler: (keyHandler: KeyHandler) => void = (keyHandler) => {
         this.store.dispatch(setKeyHandler(keyHandler));
     };
 
@@ -75,7 +76,7 @@ class ProvidedKeypad extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const {onElementMounted, ...rest} = this.props;
+        const {onElementMounted, onDismiss, style} = this.props;
 
         return (
             <Provider store={this.store}>
@@ -95,7 +96,8 @@ class ProvidedKeypad extends React.Component<Props> {
                         onElementMounted &&
                             onElementMounted(elementWithDispatchMethods);
                     }}
-                    {...rest}
+                    onDismiss={onDismiss}
+                    style={style}
                 />
             </Provider>
         );

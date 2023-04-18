@@ -13,18 +13,21 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style";
+import ProvidedKeypad from "../provided-keypad";
 
 import CursorHandle from "./cursor-handle";
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
 
+import type {Cursor} from "../../types";
+
 const constrainingFrictionFactor = 0.8;
 
 type Props = {
-    keypadElement: any;
+    keypadElement: ProvidedKeypad;
     onBlur: () => void;
-    onChange: any;
+    onChange: (value: string, callback: any) => void;
     onFocus: () => void;
     style: any;
     value: string;
@@ -36,7 +39,7 @@ type DefaultProps = {
 };
 
 type HandleState = {
-    animateIntoPosition?: boolean | null | undefined;
+    animateIntoPosition?: boolean;
     visible: boolean;
     x?: number;
     y?: number;
@@ -89,7 +92,7 @@ class MathInput extends React.Component<Props, State> {
             this._mathContainer,
             {},
             {
-                onCursorMove: (cursor) => {
+                onCursorMove: (cursor: Cursor) => {
                     // TODO(charlie): It's not great that there is so much coupling
                     // between this keypad and the input behavior. We should wrap
                     // this `MathInput` component in an intermediary component
@@ -275,9 +278,7 @@ class MathInput extends React.Component<Props, State> {
         return this._keypadBounds;
     };
 
-    _updateCursorHandle: (arg1?: boolean | null | undefined) => void = (
-        animateIntoPosition,
-    ) => {
+    _updateCursorHandle: (arg1?: boolean) => void = (animateIntoPosition) => {
         const containerBounds = this._container.getBoundingClientRect();
         const cursor: any = this._container.querySelector(".mq-cursor");
         const cursorBounds = cursor.getBoundingClientRect();
@@ -460,10 +461,10 @@ class MathInput extends React.Component<Props, State> {
 
             // Contains only DOMNodes without child elements.  These should
             // contain some amount of text though.
-            const leafElements: Array<null | HTMLElement> = [];
+            const leafElements: ReadonlyArray<null | HTMLElement> = [];
 
             // Contains only DOMNodes with child elements.
-            const nonLeafElements: Array<null | HTMLElement> = [];
+            const nonLeafElements: ReadonlyArray<null | HTMLElement> = [];
 
             let max = 0;
             const counts: {
