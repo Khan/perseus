@@ -34,7 +34,7 @@ type Props = {
     focused: boolean;
     popoverEnabled: boolean;
     type: KeyType;
-    icon: IconType;
+    icon?: IconType;
     heightPx: number;
     widthPx: number;
     style?: StyleType;
@@ -223,9 +223,11 @@ class KeypadButton extends React.PureComponent<Props> {
                 role: "button",
                 ariaLabel: childKeys[0].ariaLabel,
             };
-            const icons = childKeys.map((keyConfig) => {
-                return keyConfig.icon;
-            });
+            const icons: ReadonlyArray<IconType> = childKeys.map(
+                (keyConfig) => {
+                    return keyConfig.icon;
+                },
+            ) as any;
             return (
                 <View
                     style={buttonStyle}
@@ -252,7 +254,7 @@ class KeypadButton extends React.PureComponent<Props> {
                 <View style={buttonStyle} {...eventHandlers} {...a11yMarkup}>
                     {maybeFocusBox}
                     <View style={iconWrapperStyle}>
-                        <Icon icon={icon} focused={renderFocused} />
+                        <Icon icon={icon as IconType} focused={renderFocused} />
                     </View>
                     {maybeCornerDecal}
                 </View>

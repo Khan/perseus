@@ -7,7 +7,6 @@
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import {connect} from "react-redux";
 
 import {KeyType, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
@@ -16,56 +15,97 @@ import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
 import type {Key} from "../data/keys";
-import type {Border, Icon} from "../types";
+import type {Border, Icon, KeyConfig, Popover} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
-    borders: Border;
-    childKeyIds: ReadonlyArray<Key>;
-    disabled: boolean;
-    focused: boolean;
+    keyConfig: KeyConfig;
+    borders?: Border;
+    disabled?: boolean;
+    style?: StyleType;
+
     gestureManager: GestureManager;
-    id: Key;
-    popoverEnabled: boolean;
-    style: StyleType;
-    type: KeyType;
-    icon: Icon;
+    gestureFocus: any;
+    popover: Popover | null;
     heightPx: number;
     widthPx: number;
 };
 
+type ComputedProps = {
+    childKeyIds: ReadonlyArray<string>;
+    childKeys: any;
+    focused: boolean;
+    id: Key;
+    type: KeyType;
+    icon?: Icon;
+    popoverEnabled: boolean;
+};
+
 class TouchableKeypadButton extends React.Component<Props> {
-    shouldComponentUpdate(newProps) {
+    shouldComponentUpdate(newProps: Props) {
+        const newCompProps = this._getComputedProperties(newProps);
+        const oldCompProps = this._getComputedProperties(this.props);
+
         // We take advantage of a few different properties of our key
         // configuration system. Namely, we know that the other props flow
         // directly from the ID, and thus don't need to be checked. If a key has
         // a custom style, we bail out (this should be rare).
         return (
-            newProps.id !== this.props.id ||
+            newCompProps.id !== oldCompProps.id ||
             newProps.gestureManager !== this.props.gestureManager ||
-            newProps.focused !== this.props.focused ||
+            newCompProps.focused !== oldCompProps.focused ||
             newProps.disabled !== this.props.disabled ||
-            newProps.popoverEnabled !== this.props.popoverEnabled ||
-            newProps.type !== this.props.type ||
+            newCompProps.popoverEnabled !== oldCompProps.popoverEnabled ||
+            newCompProps.type !== oldCompProps.type ||
             !!newProps.style
         );
     }
 
     componentWillUnmount() {
-        const {gestureManager, id} = this.props;
+        const {gestureManager} = this.props;
+        const {id} = this._getComputedProperties(this.props);
         gestureManager.unregisterDOMNode(id);
     }
 
+    _extractFromKeyConfig(keyConfig: KeyConfig) {
+        const {ariaLabel, icon, type} = keyConfig;
+        return {ariaLabel, icon, type};
+    }
+
+    _getComputedProperties(props: Props): ComputedProps {
+        const {keyConfig, popover, gestureFocus} = props;
+        const {id, childKeyIds, type} = keyConfig;
+
+        const childKeys =
+            childKeyIds && childKeyIds.map((id) => KeyConfigs[id]);
+
+        // Override with the default child props, if the key is a multi-symbol key
+        // (but not a many-symbol key, which operates under different rules).
+        const useFirstChildProps =
+            type !== KeyTypes.MANY && childKeys && childKeys.length > 0;
+
+        return {
+            childKeyIds: childKeyIds,
+            id: id,
+
+            // Add in some gesture state.
+            focused: gestureFocus === id,
+            popoverEnabled: popover?.parentId === id,
+
+            // Pass down the child keys and any extracted props.
+            childKeys,
+            ...this._extractFromKeyConfig(
+                useFirstChildProps ? childKeys[0] : keyConfig,
+            ),
+        };
+    }
+
     render() {
-        const {
-            borders,
-            childKeyIds,
-            disabled,
-            gestureManager,
-            id,
-            style,
-            ...rest
-        } = this.props;
+        const {borders, disabled, gestureManager, style, heightPx, widthPx} =
+            this.props;
+
+        const {childKeyIds, id, icon, focused, popoverEnabled, type} =
+            this._getComputedProperties(this.props);
 
         // Only bind the relevant event handlers if the key is enabled.
         const eventHandlers = disabled
@@ -97,48 +137,17 @@ class TouchableKeypadButton extends React.Component<Props> {
                 borders={borders}
                 disabled={disabled}
                 style={styleWithAddons}
+                icon={icon}
+                focused={focused}
+                popoverEnabled={popoverEnabled}
+                type={type}
+                heightPx={heightPx}
+                widthPx={widthPx}
                 {...eventHandlers}
-                {...rest}
             />
         );
     }
 }
-
-const extractProps = (keyConfig) => {
-    const {ariaLabel, icon, type} = keyConfig;
-    return {ariaLabel, icon, type};
-};
-
-const mapStateToProps = (state, ownProps) => {
-    const {gestures} = state;
-
-    const {keyConfig, ...rest} = ownProps;
-    const {id, childKeyIds, type} = keyConfig;
-
-    const childKeys = childKeyIds && childKeyIds.map((id) => KeyConfigs[id]);
-
-    // Override with the default child props, if the key is a multi-symbol key
-    // (but not a many-symbol key, which operates under different rules).
-    const useFirstChildProps =
-        type !== KeyTypes.MANY && childKeys && childKeys.length > 0;
-
-    return {
-        ...rest,
-        childKeyIds: childKeyIds,
-        gestureManager: gestures.gestureManager,
-        id: id,
-
-        // Add in some gesture state.
-        focused: gestures.focus === id,
-        popoverEnabled: gestures.popover && gestures.popover.parentId === id,
-
-        // Pass down the child keys and any extracted props.
-        childKeys,
-        heightPx: state.layout.buttonDimensions.heightPx,
-        widthPx: state.layout.buttonDimensions.widthPx,
-        ...extractProps(useFirstChildProps ? childKeys[0] : keyConfig),
-    };
-};
 
 const styles = StyleSheet.create({
     preventScrolls: {
@@ -148,6 +157,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect(mapStateToProps, null, null, {forwardRef: true})(
-    TouchableKeypadButton,
-);
+export default TouchableKeypadButton;

@@ -11,6 +11,7 @@ import KeyConfigs from "../data/key-configs";
 import MultiSymbolPopover from "./multi-symbol-popover";
 
 import type {Popover, KeyConfig} from "../types";
+import GestureManager from "./gesture-manager";
 
 // NOTE(charlie): These must be kept in sync with the transition durations and
 // classnames specified in popover.less.
@@ -21,13 +22,26 @@ type Props = {
     // TODO(matthewc) should be something like Bound, but couldn't fix errors
     bounds: any;
     childKeys: ReadonlyArray<KeyConfig>;
+    gestureManager: GestureManager;
+    gestureFocus: any;
+    popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
 };
 
 // A container component used to position a popover absolutely at a specific
 // position.
 class PopoverContainer extends React.Component<Props> {
     render() {
-        const {bounds, childKeys} = this.props;
+        const {
+            bounds,
+            childKeys,
+            gestureManager,
+            gestureFocus,
+            popover,
+            heightPx,
+            widthPx,
+        } = this.props;
 
         const containerStyle = {
             position: "absolute",
@@ -36,7 +50,14 @@ class PopoverContainer extends React.Component<Props> {
 
         return (
             <div style={containerStyle}>
-                <MultiSymbolPopover keys={childKeys} />
+                <MultiSymbolPopover
+                    keys={childKeys}
+                    gestureManager={gestureManager}
+                    gestureFocus={gestureFocus}
+                    popover={popover}
+                    heightPx={heightPx}
+                    widthPx={widthPx}
+                />
             </div>
         );
     }
@@ -44,11 +65,16 @@ class PopoverContainer extends React.Component<Props> {
 
 type PopoverManagerProps = {
     popover: Popover | null;
+    gestureManager: GestureManager;
+    gestureFocus: any;
+    heightPx: number;
+    widthPx: number;
 };
 
 class PopoverManager extends React.Component<PopoverManagerProps> {
     render() {
-        const {popover} = this.props;
+        const {popover, gestureManager, gestureFocus, heightPx, widthPx} =
+            this.props;
 
         return popover ? (
             <CSSTransition
@@ -64,6 +90,11 @@ class PopoverManager extends React.Component<PopoverManagerProps> {
                     key={popover.childKeyIds[0]}
                     bounds={popover.bounds}
                     childKeys={popover.childKeyIds.map((id) => KeyConfigs[id])}
+                    popover={popover}
+                    gestureManager={gestureManager}
+                    gestureFocus={gestureFocus}
+                    heightPx={heightPx}
+                    widthPx={widthPx}
                 />
             </CSSTransition>
         ) : null;

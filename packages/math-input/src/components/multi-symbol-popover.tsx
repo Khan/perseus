@@ -11,14 +11,22 @@ import {KeyConfig} from "../types";
 
 import TouchableKeypadButton from "./touchable-keypad-button";
 import * as zIndexes from "./z-indexes";
+import GestureManager from "./gesture-manager";
+import type {Popover} from "../types";
 
 type Prop = {
     keys: ReadonlyArray<KeyConfig>;
+    gestureManager: GestureManager;
+    gestureFocus: any;
+    popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
 };
 
 class MultiSymbolPopover extends React.Component<Prop> {
     render() {
-        const {keys} = this.props;
+        const {keys, gestureManager, gestureFocus, popover, heightPx, widthPx} =
+            this.props;
 
         // TODO(charlie): We have to require this lazily because of a cyclic
         // dependence in our components.
@@ -30,6 +38,11 @@ class MultiSymbolPopover extends React.Component<Prop> {
                             key={key.id}
                             keyConfig={key}
                             borders={BorderStyles.NONE}
+                            gestureManager={gestureManager}
+                            gestureFocus={gestureFocus}
+                            popover={popover}
+                            heightPx={heightPx}
+                            widthPx={widthPx}
                         />
                     );
                 })}

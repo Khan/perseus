@@ -9,7 +9,7 @@ import type {CursorContext} from "./components/input/cursor-contexts";
 import type {KeypadType} from "./consts";
 import type {Key} from "./data/keys";
 
-export type Border = Partial<Array<keyof typeof BorderDirections>>;
+export type Border = Partial<ReadonlyArray<keyof typeof BorderDirections>>;
 
 export type Bound = {
     top: number;
@@ -40,11 +40,11 @@ export type Icon = {
 };
 
 export type KeyConfig = {
-    ariaLabel: string;
+    ariaLabel?: string;
     id: Key;
     type: keyof typeof KeyTypes;
-    childKeyIds: Array<Key>;
-    icon: Icon;
+    childKeyIds: ReadonlyArray<string>;
+    icon?: Icon;
 };
 
 export type KeypadConfiguration = {

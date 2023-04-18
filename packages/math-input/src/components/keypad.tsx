@@ -13,6 +13,7 @@ import PopoverManager from "./popover-manager";
 
 import type {Popover, Echo} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import GestureManager from "./gesture-manager";
 
 type Props = {
     children: React.ReactNode;
@@ -20,6 +21,8 @@ type Props = {
     removeEcho?: (animationId: string) => void;
     active: boolean;
     echoes: ReadonlyArray<Echo>;
+    gestureManager: GestureManager;
+    gestureFocus: any;
     popover: Popover | null;
     heightPx: number;
     widthPx: number;
@@ -92,6 +95,8 @@ class Keypad extends React.Component<Props> {
             style,
             heightPx,
             widthPx,
+            gestureManager,
+            gestureFocus,
         } = this.props;
 
         // Translate the echo boxes, as they'll be positioned absolutely to
@@ -141,7 +146,13 @@ class Keypad extends React.Component<Props> {
                     heightPx={heightPx}
                     widthPx={widthPx}
                 />
-                <PopoverManager popover={relativePopover} />
+                <PopoverManager
+                    popover={relativePopover}
+                    heightPx={heightPx}
+                    widthPx={widthPx}
+                    gestureManager={gestureManager}
+                    gestureFocus={gestureFocus}
+                />
             </View>
         );
     }

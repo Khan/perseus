@@ -18,6 +18,8 @@ import {
 } from "./common-style";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
+import GestureManager from "./gesture-manager";
+import type {Popover} from "../types";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -26,13 +28,34 @@ const {row, column, centered, stretch, roundedTopLeft} = Styles;
 type Props = {
     roundTopLeft: boolean;
     style: StyleType;
+    gestureManager: GestureManager;
+    gestureFocus: any;
+    popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
 };
 
 class NavigationPad extends React.Component<Props> {
     render() {
         // TODO(charlie): Disable the navigational arrows depending on the
         // cursor context.
-        const {roundTopLeft, style} = this.props;
+        const {
+            roundTopLeft,
+            style,
+            gestureManager,
+            gestureFocus,
+            popover,
+            heightPx,
+            widthPx,
+        } = this.props;
+
+        const sharedButtonProps = {
+            gestureManager,
+            gestureFocus,
+            popover,
+            heightPx,
+            widthPx,
+        };
 
         const containerStyle = [
             column,
@@ -49,6 +72,7 @@ class NavigationPad extends React.Component<Props> {
                         keyConfig={KeyConfigs.UP}
                         borders={BorderStyles.NONE}
                         style={[styles.navigationKey, styles.topArrow]}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[row, centered, stretch]}>
@@ -56,12 +80,14 @@ class NavigationPad extends React.Component<Props> {
                         keyConfig={KeyConfigs.LEFT}
                         borders={BorderStyles.NONE}
                         style={[styles.navigationKey, styles.leftArrow]}
+                        {...sharedButtonProps}
                     />
                     <View style={styles.horizontalSpacer} />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.RIGHT}
                         borders={BorderStyles.NONE}
                         style={[styles.navigationKey, styles.rightArrow]}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[row, centered]}>
@@ -69,6 +95,7 @@ class NavigationPad extends React.Component<Props> {
                         keyConfig={KeyConfigs.DOWN}
                         borders={BorderStyles.NONE}
                         style={[styles.navigationKey, styles.bottomArrow]}
+                        {...sharedButtonProps}
                     />
                 </View>
             </View>

@@ -15,6 +15,8 @@ import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import type {KeypadLayout, Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
+import type {Key} from "../data/keys";
+import GestureManager from "./gesture-manager";
 
 const {row, roundedTopLeft, roundedTopRight} = Styles;
 
@@ -28,6 +30,8 @@ type Props = {
     popover: Popover | null;
     heightPx: number;
     widthPx: number;
+    gestureManager: GestureManager;
+    gestureFocus: Key | null;
     removeEcho?: (animationId: string) => void;
 };
 
@@ -54,7 +58,17 @@ class FractionKeypad extends React.Component<Props> {
             removeEcho,
             heightPx,
             widthPx,
+            gestureManager,
+            gestureFocus,
         } = this.props;
+
+        const sharedButtonProps = {
+            popover,
+            heightPx,
+            widthPx,
+            gestureManager,
+            gestureFocus,
+        };
 
         let dismissOrJumpOutKey;
         if (dynamicJumpOut) {
@@ -100,20 +114,25 @@ class FractionKeypad extends React.Component<Props> {
                 removeEcho={removeEcho}
                 heightPx={heightPx}
                 widthPx={widthPx}
+                gestureManager={gestureManager}
+                gestureFocus={gestureFocus}
             >
                 <View style={row}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_7}
                         borders={BorderStyles.NONE}
                         style={roundTopLeft && roundedTopLeft}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_8}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_9}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.FRAC}
@@ -128,57 +147,72 @@ class FractionKeypad extends React.Component<Props> {
                             cursorContext === CursorContexts.IN_DENOMINATOR
                         }
                         style={roundTopRight && roundedTopRight}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={row}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_4}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_5}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_6}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
-                    <TouchableKeypadButton keyConfig={KeyConfigs.PERCENT} />
+                    <TouchableKeypadButton
+                        keyConfig={KeyConfigs.PERCENT}
+                        {...sharedButtonProps}
+                    />
                 </View>
                 <View style={row}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_1}
                         borders={BorderStyles.BOTTOM}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_2}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_3}
                         borders={BorderStyles.BOTTOM}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.BACKSPACE}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={row}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NEGATIVE}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_0}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.DECIMAL}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={dismissOrJumpOutKey}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                 </View>
             </Keypad>

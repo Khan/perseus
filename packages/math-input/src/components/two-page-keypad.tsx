@@ -17,6 +17,8 @@ import Keypad from "./keypad";
 import Styles from "./styles";
 import Tabbar from "./tabbar/tabbar";
 import type {Popover, Echo} from "../types";
+import type {Key} from "../data/keys";
+import GestureManager from "./gesture-manager";
 
 const {column, row, fullWidth} = Styles;
 
@@ -30,6 +32,8 @@ interface Props {
     popover: Popover | null;
     heightPx: number;
     widthPx: number;
+    gestureManager: GestureManager;
+    gestureFocus: Key | null;
     removeEcho?: (animationId: string) => void;
 }
 
@@ -48,6 +52,8 @@ class TwoPageKeypad extends React.Component<Props> {
             popover,
             heightPx,
             widthPx,
+            gestureManager,
+            gestureFocus,
             removeEcho,
         } = this.props;
 
@@ -63,6 +69,8 @@ class TwoPageKeypad extends React.Component<Props> {
                     heightPx={heightPx}
                     widthPx={widthPx}
                     removeEcho={removeEcho}
+                    gestureManager={gestureManager}
+                    gestureFocus={gestureFocus}
                 >
                     <Tabbar
                         items={["Numbers", "Operators"]}
@@ -86,6 +94,8 @@ class TwoPageKeypad extends React.Component<Props> {
                     heightPx={heightPx}
                     widthPx={widthPx}
                     removeEcho={removeEcho}
+                    gestureManager={gestureManager}
+                    gestureFocus={gestureFocus}
                 >
                     <View style={row}>
                         <View style={fullWidth}>{leftPage}</View>

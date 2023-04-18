@@ -17,6 +17,7 @@ import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
 import type {KeypadLayout, Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
+import type {Key} from "../data/keys";
 import GestureManager from "./gesture-manager";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
@@ -36,6 +37,7 @@ type Props = {
     heightPx: number;
     widthPx: number;
     gestureManager: GestureManager;
+    gestureFocus: Key | null;
     removeEcho?: (animationId: string) => void;
 };
 
@@ -65,8 +67,17 @@ class ExpressionKeypad extends React.Component<Props> {
             heightPx,
             widthPx,
             gestureManager,
+            gestureFocus,
             removeEcho,
         } = this.props;
+
+        const sharedButtonProps = {
+            gestureFocus,
+            popover,
+            heightPx,
+            widthPx,
+            gestureManager,
+        };
 
         let dismissOrJumpOutKey;
         if (dynamicJumpOut) {
@@ -116,87 +127,105 @@ class ExpressionKeypad extends React.Component<Props> {
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_7}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_4}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_1}
                         borders={BorderStyles.BOTTOM}
+                        {...sharedButtonProps}
                     />
-                    <ManyKeypadButton
-                        keys={extraKeys}
-                        gestureManager={gestureManager}
-                    />
+                    <ManyKeypadButton keys={extraKeys} {...sharedButtonProps} />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_8}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_5}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_2}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_0}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_9}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_6}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NUM_3}
                         borders={BorderStyles.BOTTOM}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.DECIMAL}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.DIVIDE}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.TIMES}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.MINUS}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.PLUS}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.FRAC}
                         style={roundTopRight && roundedTopRight}
+                        {...sharedButtonProps}
                     />
-                    <TouchableKeypadButton keyConfig={KeyConfigs.CDOT} />
+                    <TouchableKeypadButton
+                        keyConfig={KeyConfigs.CDOT}
+                        {...sharedButtonProps}
+                    />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.BACKSPACE}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={dismissOrJumpOutKey}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                 </View>
             </View>
@@ -215,87 +244,109 @@ class ExpressionKeypad extends React.Component<Props> {
                         keyConfig={KeyConfigs.EXP_2}
                         borders={BorderStyles.NONE}
                         style={roundTopLeft && roundedTopLeft}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.SQRT}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.LOG}
                         borders={BorderStyles.BOTTOM}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.SIN}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.EXP_3}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.CUBE_ROOT}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.LN}
                         borders={BorderStyles.BOTTOM}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.COS}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.EXP}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.RADICAL}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.LOG_N}
                         borders={BorderStyles.BOTTOM}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.TAN}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.GEQ}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.EQUAL}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
-                    <TouchableKeypadButton keyConfig={KeyConfigs.LEQ} />
+                    <TouchableKeypadButton
+                        keyConfig={KeyConfigs.LEQ}
+                        {...sharedButtonProps}
+                    />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.LEFT_PAREN}
                         borders={BorderStyles.LEFT}
+                        {...sharedButtonProps}
                     />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.GT}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.NEQ}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.LT}
                         borders={BorderStyles.BOTTOM}
+                        {...sharedButtonProps}
                     />
                     <TouchableKeypadButton
                         keyConfig={KeyConfigs.RIGHT_PAREN}
                         borders={BorderStyles.NONE}
+                        {...sharedButtonProps}
                     />
                 </View>
             </View>
@@ -312,6 +363,8 @@ class ExpressionKeypad extends React.Component<Props> {
                 popover={popover}
                 heightPx={heightPx}
                 widthPx={widthPx}
+                gestureManager={gestureManager}
+                gestureFocus={gestureFocus}
                 removeEcho={removeEcho}
             />
         );

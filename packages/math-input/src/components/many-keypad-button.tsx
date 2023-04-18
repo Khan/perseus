@@ -12,10 +12,15 @@ import Keys from "../data/keys";
 import EmptyKeypadButton from "./empty-keypad-button";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import GestureManager from "./gesture-manager";
+import type {Popover} from "../types";
 
 type Props = {
     keys: ReadonlyArray<string>;
     gestureManager: GestureManager;
+    gestureFocus: any;
+    popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
 };
 
 class ManyKeypadButton extends React.Component<Props> {
@@ -24,23 +29,33 @@ class ManyKeypadButton extends React.Component<Props> {
     };
 
     render() {
-        const {keys, gestureManager, ...rest} = this.props;
+        const {keys, gestureManager, gestureFocus, popover, heightPx, widthPx} =
+            this.props;
 
         // If we have no extra symbols, render an empty button. If we have just
         // one, render a standard button. Otherwise, capture them all in a
         // single button.
         if (keys.length === 0) {
             return <EmptyKeypadButton gestureManager={gestureManager} />;
-        } else if (keys.length === 1) {
-            const keyConfig = KeyConfigs[keys[0]];
-            return <TouchableKeypadButton keyConfig={keyConfig} {...rest} />;
         } else {
-            const keyConfig = {
-                id: Keys.MANY,
-                type: KeyTypes.MANY,
-                childKeyIds: keys,
-            };
-            return <TouchableKeypadButton keyConfig={keyConfig} {...rest} />;
+            const keyConfig =
+                keys.length === 1
+                    ? KeyConfigs[keys[0]]
+                    : {
+                          id: Keys.MANY,
+                          type: KeyTypes.MANY,
+                          childKeyIds: keys,
+                      };
+            return (
+                <TouchableKeypadButton
+                    keyConfig={keyConfig}
+                    gestureManager={gestureManager}
+                    gestureFocus={gestureFocus}
+                    popover={popover}
+                    heightPx={heightPx}
+                    widthPx={widthPx}
+                />
+            );
         }
     }
 }

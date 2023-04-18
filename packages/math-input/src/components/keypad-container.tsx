@@ -24,6 +24,7 @@ import type {State as ReduxState} from "../store/types";
 import type {Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import type {Key} from "../data/keys";
 
 const {row, centered, fullWidth} = Styles;
 
@@ -42,6 +43,7 @@ interface ReduxProps {
     heightPx: number;
     widthPx: number;
     gestureManager: GestureManager;
+    gestureFocus: Key | null;
 }
 
 interface Props extends ReduxProps {
@@ -144,6 +146,7 @@ class KeypadContainer extends React.Component<Props, State> {
             removeEcho,
             currentPage,
             gestureManager,
+            gestureFocus,
             paginationEnabled,
             heightPx,
             widthPx,
@@ -165,6 +168,8 @@ class KeypadContainer extends React.Component<Props, State> {
             popover,
             heightPx,
             widthPx,
+            gestureManager,
+            gestureFocus,
             removeEcho,
         };
 
@@ -185,7 +190,6 @@ class KeypadContainer extends React.Component<Props, State> {
                         {...keypadProps}
                         currentPage={currentPage}
                         paginationEnabled={paginationEnabled}
-                        gestureManager={gestureManager}
                     />
                 );
 
@@ -201,6 +205,11 @@ class KeypadContainer extends React.Component<Props, State> {
             navigationPadEnabled,
             onElementMounted,
             style,
+            gestureManager,
+            gestureFocus,
+            popover,
+            heightPx,
+            widthPx,
         } = this.props;
         const {hasBeenActivated} = this.state;
 
@@ -256,6 +265,11 @@ class KeypadContainer extends React.Component<Props, State> {
                         <NavigationPad
                             roundTopLeft={layoutMode === LayoutModes.COMPACT}
                             style={styles.navigationPadContainer}
+                            gestureManager={gestureManager}
+                            gestureFocus={gestureFocus}
+                            popover={popover}
+                            heightPx={heightPx}
+                            widthPx={widthPx}
                         />
                     )}
                     <View style={styles.keypadLayout}>
@@ -351,6 +365,7 @@ const mapStateToProps = (state: ReduxState): ReduxProps => {
         echoes: state.echoes.echoes,
         popover: state.gestures.popover,
         gestureManager: state.gestures.gestureManager,
+        gestureFocus: state.gestures.focus,
         heightPx: state.layout.buttonDimensions.heightPx,
         widthPx: state.layout.buttonDimensions.widthPx,
     };
