@@ -17,6 +17,7 @@ import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
 import type {KeypadLayout, Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
+import GestureManager from "./gesture-manager";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
@@ -32,6 +33,7 @@ type Props = {
     active: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
+    gestureManager: GestureManager;
     removeEcho?: (animationId: string) => void;
 };
 
@@ -58,6 +60,7 @@ class ExpressionKeypad extends React.Component<Props> {
             active,
             echoes,
             popover,
+            gestureManager,
             removeEcho,
         } = this.props;
 
@@ -118,7 +121,10 @@ class ExpressionKeypad extends React.Component<Props> {
                         keyConfig={KeyConfigs.NUM_1}
                         borders={BorderStyles.BOTTOM}
                     />
-                    <ManyKeypadButton keys={extraKeys} />
+                    <ManyKeypadButton
+                        keys={extraKeys}
+                        gestureManager={gestureManager}
+                    />
                 </View>
                 <View style={[column, oneColumn]}>
                     <TouchableKeypadButton

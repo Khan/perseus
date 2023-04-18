@@ -11,9 +11,11 @@ import Keys from "../data/keys";
 
 import EmptyKeypadButton from "./empty-keypad-button";
 import TouchableKeypadButton from "./touchable-keypad-button";
+import GestureManager from "./gesture-manager";
 
 type Props = {
     keys: ReadonlyArray<string>;
+    gestureManager: GestureManager;
 };
 
 class ManyKeypadButton extends React.Component<Props> {
@@ -22,13 +24,13 @@ class ManyKeypadButton extends React.Component<Props> {
     };
 
     render() {
-        const {keys, ...rest} = this.props;
+        const {keys, gestureManager, ...rest} = this.props;
 
         // If we have no extra symbols, render an empty button. If we have just
         // one, render a standard button. Otherwise, capture them all in a
         // single button.
         if (keys.length === 0) {
-            return <EmptyKeypadButton />;
+            return <EmptyKeypadButton gestureManager={gestureManager} />;
         } else if (keys.length === 1) {
             const keyConfig = KeyConfigs[keys[0]];
             return <TouchableKeypadButton keyConfig={keyConfig} {...rest} />;

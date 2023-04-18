@@ -17,6 +17,7 @@ import FractionKeypad from "./fraction-keypad";
 import NavigationPad from "./navigation-pad";
 import Styles from "./styles";
 import * as zIndexes from "./z-indexes";
+import GestureManager from "./gesture-manager";
 
 import type {KeypadType} from "../consts";
 import type {State as ReduxState} from "../store/types";
@@ -38,6 +39,7 @@ interface ReduxProps {
     paginationEnabled: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
+    gestureManager: GestureManager;
 }
 
 interface Props extends ReduxProps {
@@ -139,6 +141,7 @@ class KeypadContainer extends React.Component<Props, State> {
             popover,
             removeEcho,
             currentPage,
+            gestureManager,
             paginationEnabled,
         } = this.props;
 
@@ -176,6 +179,7 @@ class KeypadContainer extends React.Component<Props, State> {
                         {...keypadProps}
                         currentPage={currentPage}
                         paginationEnabled={paginationEnabled}
+                        gestureManager={gestureManager}
                     />
                 );
 
@@ -340,6 +344,7 @@ const mapStateToProps = (state: ReduxState): ReduxProps => {
         paginationEnabled: state.layout.paginationEnabled,
         echoes: state.echoes.echoes,
         popover: state.gestures.popover,
+        gestureManager: state.gestures.gestureManager,
     };
 };
 

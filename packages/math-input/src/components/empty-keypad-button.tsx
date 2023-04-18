@@ -3,22 +3,19 @@
  */
 
 import * as React from "react";
-import {connect} from "react-redux";
 
 import KeyConfigs from "../data/key-configs";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-import type {State} from "../store/types";
-
-interface ReduxProps {
+interface Props {
     gestureManager: GestureManager;
 }
 
-class EmptyKeypadButton extends React.Component<ReduxProps> {
+class EmptyKeypadButton extends React.Component<Props> {
     render() {
-        const {gestureManager, ...rest} = this.props;
+        const {gestureManager} = this.props;
 
         // Register touch events on the button, but don't register its DOM node
         // or compute focus state or anything like that. We want the gesture
@@ -38,19 +35,9 @@ class EmptyKeypadButton extends React.Component<ReduxProps> {
                     gestureManager.onTouchCancel(evt)
                 }
                 {...KeyConfigs.NOOP}
-                {...rest}
             />
         );
     }
 }
 
-const mapStateToProps = (state: State): ReduxProps => {
-    const {gestures} = state;
-    return {
-        gestureManager: gestures.gestureManager,
-    };
-};
-
-export default connect(mapStateToProps, null, null, {forwardRef: true})(
-    EmptyKeypadButton,
-);
+export default EmptyKeypadButton;
