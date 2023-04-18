@@ -35,7 +35,6 @@ import type {
     FilterCriterion,
     FocusPath,
     LinterContextProps,
-    PerseusDependencies,
     PerseusScore,
     WidgetInfo,
     WidgetProps,
@@ -223,10 +222,7 @@ class Renderer extends React.Component<Props, State> {
     // The i18n linter.
     _translationLinter: TranslationLinter;
 
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'lastRenderedMarkdown' has no initializer and is not definitely assigned in the constructor.
-    lastRenderedMarkdown: React.ReactElement<
-        React.ComponentProps<PerseusDependencies["KatexProvider"]>
-    >;
+    lastRenderedMarkdown: React.ReactNode;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'reuseMarkdown' has no initializer and is not definitely assigned in the constructor.
     reuseMarkdown: boolean;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'translationIndex' has no initializer and is not definitely assigned in the constructor.
@@ -1848,7 +1844,6 @@ class Renderer extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const apiOptions = this.getApiOptions();
-        const {KatexProvider} = getDependencies();
 
         if (this.reuseMarkdown) {
             return this.lastRenderedMarkdown;
@@ -1896,17 +1891,13 @@ class Renderer extends React.Component<Props, State> {
                 // calls its before_dom_insert we can lookup this component by
                 // this attribute and render the text with markdown.
                 return (
-                    <KatexProvider>
-                        <DefinitionProvider>
-                            <div
-                                data-perseus-component-index={
-                                    this.translationIndex
-                                }
-                            >
-                                {content}
-                            </div>
-                        </DefinitionProvider>
-                    </KatexProvider>
+                    <DefinitionProvider>
+                        <div
+                            data-perseus-component-index={this.translationIndex}
+                        >
+                            {content}
+                        </div>
+                    </DefinitionProvider>
                 );
             }
         }
@@ -1963,11 +1954,9 @@ class Renderer extends React.Component<Props, State> {
         });
 
         this.lastRenderedMarkdown = (
-            <KatexProvider>
-                <DefinitionProvider>
-                    <div className={className}>{markdownContents}</div>
-                </DefinitionProvider>
-            </KatexProvider>
+            <DefinitionProvider>
+                <div className={className}>{markdownContents}</div>
+            </DefinitionProvider>
         );
         return this.lastRenderedMarkdown;
     }

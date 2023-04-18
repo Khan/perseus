@@ -1,5 +1,101 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Sortable renders a spinner while waiting for the TeX renderer to load: first render: displays a spinner 1`] = `
+<div>
+  <div
+    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+  >
+    <svg
+      height="96"
+      viewBox="0 0 96 96"
+      width="96"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1kzk0y9"
+        d="M88.38 46.91a3.818 3.818 0 1 1 7.602 0h.006c.008.362.012.725.012 1.09 0 26.51-21.49 48-48 48S0 74.51 0 48 21.49 0 48 0c.365 0 .728.004 1.09.012v.005a3.818 3.818 0 1 1 0 7.602v.032c-.362-.01-.725-.015-1.09-.015C25.708 7.636 7.636 25.708 7.636 48c0 22.292 18.072 40.364 40.364 40.364 22.292 0 40.364-18.072 40.364-40.364 0-.365-.005-.728-.015-1.09h.032z"
+        fill-rule="nonzero"
+      />
+    </svg>
+  </div>
+  <div
+    style="display: none;"
+  >
+    <div
+      class="fake-tex"
+    >
+      1
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Sortable renders a spinner while waiting for the TeX renderer to load: second render: displays the sortable 1`] = `
+<div>
+  <ul
+    class="sortable_13d4756 perseus-sortable"
+  >
+    <li
+      class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+      style="position: static; margin: 0px 5px 0px 0px;"
+    >
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
+      >
+        <div
+          class="paragraph"
+          data-perseus-paragraph-index="0"
+        >
+          <div
+            class="paragraph"
+          >
+            a
+          </div>
+        </div>
+      </div>
+    </li>
+    <li
+      class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+      style="position: static; margin: 0px 5px 0px 0px;"
+    >
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
+      >
+        <div
+          class="paragraph"
+          data-perseus-paragraph-index="0"
+        >
+          <div
+            class="paragraph"
+          >
+            b
+          </div>
+        </div>
+      </div>
+    </li>
+    <li
+      class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
+      style="position: static; margin: 0px;"
+    >
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
+      >
+        <div
+          class="paragraph"
+          data-perseus-paragraph-index="0"
+        >
+          <div
+            class="paragraph"
+          >
+            c
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`Sortable should snapshot: first render 1`] = `
 <div>
   <ul
@@ -9,70 +105,58 @@ exports[`Sortable should snapshot: first render 1`] = `
       class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
       style="position: static; margin: 0px 5px 0px 0px;"
     >
-      <span
-        class="mock-KatexProvider"
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="perseus-renderer perseus-renderer-responsive"
+          class="paragraph"
+          data-perseus-paragraph-index="0"
         >
           <div
             class="paragraph"
-            data-perseus-paragraph-index="0"
           >
-            <div
-              class="paragraph"
-            >
-              a
-            </div>
+            a
           </div>
         </div>
-      </span>
+      </div>
     </li>
     <li
       class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
       style="position: static; margin: 0px 5px 0px 0px;"
     >
-      <span
-        class="mock-KatexProvider"
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="perseus-renderer perseus-renderer-responsive"
+          class="paragraph"
+          data-perseus-paragraph-index="0"
         >
           <div
             class="paragraph"
-            data-perseus-paragraph-index="0"
           >
-            <div
-              class="paragraph"
-            >
-              b
-            </div>
+            b
           </div>
         </div>
-      </span>
+      </div>
     </li>
     <li
       class="card_1s6cuhy-o_O-draggable_12to336-o_O-horizontalCard_9um937 perseus-interactive perseus-sortable-draggable"
       style="position: static; margin: 0px;"
     >
-      <span
-        class="mock-KatexProvider"
+      <div
+        class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="perseus-renderer perseus-renderer-responsive"
+          class="paragraph"
+          data-perseus-paragraph-index="0"
         >
           <div
             class="paragraph"
-            data-perseus-paragraph-index="0"
           >
-            <div
-              class="paragraph"
-            >
-              c
-            </div>
+            c
           </div>
         </div>
-      </span>
+      </div>
     </li>
   </ul>
 </div>

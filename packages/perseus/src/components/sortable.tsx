@@ -392,8 +392,8 @@ type SortableProps = {
     }) => void;
     padding: boolean;
     linterContext: LinterContextProps;
-    waitForKatexLoad: boolean;
     options: ReadonlyArray<SortableOption>;
+    waitForTexRendererToLoad: boolean;
 };
 
 type DefaultProps = {
@@ -405,7 +405,7 @@ type DefaultProps = {
     onMeasure: SortableProps["onMeasure"];
     padding: SortableProps["padding"];
     linterContext: SortableProps["linterContext"];
-    waitForKatexLoad: SortableProps["waitForKatexLoad"];
+    waitForTexRendererToLoad: SortableProps["waitForTexRendererToLoad"];
 };
 
 type ItemState = "disabled" | "static" | "dragging" | "animating";
@@ -420,7 +420,7 @@ type SortableItem = {
 
 type SortableState = {
     items: ReadonlyArray<SortableItem>;
-    katex: null | any;
+    texRendererLoaded: boolean;
 };
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
@@ -432,7 +432,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         margin: 5,
         onChange: function () {},
         linterContext: PerseusLinter.linterContextDefault,
-        waitForKatexLoad: true,
+        waitForTexRendererToLoad: true,
     };
 
     constructor(props: SortableProps) {
@@ -440,7 +440,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // Don't call this.setState() here!
         this.state = {
             items: Sortable.itemsFromProps(this.props),
-            katex: null,
+            texRendererLoaded: false,
         };
     }
 
@@ -479,14 +479,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this.measureItems();
             }, 0);
         }
-    }
-
-    componentDidMount() {
-        getDependencies()
-            .getKaTeX()
-            .then((katex) => {
-                this.setState({katex});
-            });
     }
 
     static itemsFromProps(props: {
@@ -584,15 +576,38 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }, 20);
 
     render(): React.ReactNode {
-        // We don't render the sortable until KaTeX has fully loaded, in case
-        // the draggables are rendering KaTeX content. This is un-optimal as
-        // we end up loading KaTeX even when we may not need it, however it
-        // helps to ensure that the dimensions of the draggables (and thus the
-        // sortable) will be correct when they render, if their contents are
-        // KaTeX-derived.
-        if (this.props.waitForKatexLoad && !this.state.katex) {
-            return <CircularSpinner />;
+        // To minimize layout shift, we display a spinner until our math
+        // renderer is ready to render the math inside the sortable. To
+        // do this, we:
+        // - render a dummy TeX component to force the math renderer to load
+        // - display a spinner until the TeX component calls its onRender
+        //   callback, signifying that the math is rendered (from which we can
+        //   infer that the math renderer has loaded)
+        //
+        // If we didn't do this, the user might see a sortable with empty
+        // cells on first render, and then the math would pop in a few moments
+        // later once the rendering library loaded.
+        if (
+            this.props.waitForTexRendererToLoad &&
+            !this.state.texRendererLoaded
+        ) {
+            const {TeX} = getDependencies();
+            return (
+                <>
+                    <CircularSpinner />
+                    <div style={{display: "none"}}>
+                        <TeX
+                            onRender={() =>
+                                this.setState({texRendererLoaded: true})
+                            }
+                        >
+                            1
+                        </TeX>
+                    </div>
+                </>
+            );
         }
+
         const cards: Array<
             | React.ReactElement<React.ComponentProps<typeof Placeholder>>
             | React.ReactElement<React.ComponentProps<typeof Draggable>>

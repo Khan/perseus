@@ -21,7 +21,7 @@ export const SortableHorizontalExample = (
         <Sortable
             layout="horizontal"
             options={["a", "b", "c"]}
-            waitForKatexLoad={false}
+            waitForTexRendererToLoad={false}
         />
     );
 };
@@ -33,7 +33,7 @@ export const SortableVerticalExample = (
         <Sortable
             layout="vertical"
             options={["a", "b", "c"]}
-            waitForKatexLoad={false}
+            waitForTexRendererToLoad={false}
         />
     );
 };

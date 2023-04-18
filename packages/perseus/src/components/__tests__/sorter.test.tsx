@@ -1,4 +1,3 @@
-import getRenderA11yString from "katex/dist/contrib/render-a11y-string";
 import * as React from "react";
 import "@testing-library/jest-dom";
 
@@ -25,12 +24,19 @@ describe("sorter widget", () => {
             getKaTeX: () => {
                 return Promise.resolve({});
             },
-            TeX: ({children}: {children: React.ReactNode}) => (
-                <span className="tex-mock">{children}</span>
-            ),
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Promise<any>' is not assignable to type '() => Promise<katexA11y>'.
-            getRenderA11yString: Promise.resolve(getRenderA11yString),
-            shouldUseFutureKaTeX: (flag: boolean) => {},
+            TeX: ({
+                children,
+                // alias onRender to onLoad to quiet the overzealous testing-library linter
+                onRender: onLoad,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => unknown;
+            }) => {
+                React.useLayoutEffect(() => {
+                    onLoad?.();
+                }, [onLoad]);
+                return <span className="tex-mock">{children}</span>;
+            },
         });
     });
 

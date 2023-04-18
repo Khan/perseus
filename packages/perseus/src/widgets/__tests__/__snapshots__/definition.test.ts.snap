@@ -2,104 +2,96 @@
 
 exports[`Definition widget should have a default snapshot: first render 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
-        <div
-          class="paragraph"
-        >
-          Read the excerpt and answer the question below. 
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="paragraph"
-        >
-          The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
-          <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
-          >
-            <button
-              aria-controls="uid-popover-0-wb-id"
-              aria-disabled="false"
-              aria-expanded="false"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
-              id="uid-popover-0-wb-id-anchor"
-              type="button"
-            >
-              <span
-                style="color: rgb(24, 101, 242);"
-              >
-                the Pequots
-              </span>
-            </button>
-          </div>
-          , upon these conditions.
-        </div>
+        Read the excerpt and answer the question below. 
       </div>
     </div>
-  </span>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
+        <div
+          class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
+        >
+          <button
+            aria-controls="uid-popover-0-wb-id"
+            aria-disabled="false"
+            aria-expanded="false"
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+            id="uid-popover-0-wb-id-anchor"
+            type="button"
+          >
+            <span
+              style="color: rgb(24, 101, 242);"
+            >
+              the Pequots
+            </span>
+          </button>
+        </div>
+        , upon these conditions.
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`Definition widget should have an open state snapshot: open state 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
-        <div
-          class="paragraph"
-        >
-          Read the excerpt and answer the question below. 
-        </div>
-      </div>
-      <div
-        class="paragraph"
-        data-perseus-paragraph-index="1"
-      >
-        <div
-          class="paragraph"
-        >
-          The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
-          <div
-            class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
-          >
-            <button
-              aria-controls="uid-popover-1-wb-id"
-              aria-disabled="false"
-              aria-expanded="true"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
-              id="uid-popover-1-wb-id-anchor"
-              type="button"
-            >
-              <span
-                style="color: rgb(24, 101, 242); border-bottom: 2px solid #1865f2;"
-              >
-                the Pequots
-              </span>
-            </button>
-          </div>
-          , upon these conditions.
-        </div>
+        Read the excerpt and answer the question below. 
       </div>
     </div>
-  </span>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
+        <div
+          class="perseus-widget-container widget-nohighlight perseus-widget__definition widget-inline"
+        >
+          <button
+            aria-controls="uid-popover-1-wb-id"
+            aria-disabled="false"
+            aria-expanded="true"
+            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+            id="uid-popover-1-wb-id-anchor"
+            type="button"
+          >
+            <span
+              style="color: rgb(24, 101, 242); border-bottom: 2px solid #1865f2;"
+            >
+              the Pequots
+            </span>
+          </button>
+        </div>
+        , upon these conditions.
+      </div>
+    </div>
+  </div>
 </div>
 `;

@@ -1,7 +1,6 @@
 // This defines a version of PerseusDependencies that is suitable for use in tests.
 // It should not make network requests, for example.
 import katex from "katex";
-import renderA11yString from "katex/dist/contrib/render-a11y-string";
 import * as React from "react";
 
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
@@ -38,8 +37,6 @@ export const testDependencies: PerseusDependencies = {
 
     // KaTeX
     getKaTeX: () => Promise.resolve(katex),
-    getRenderA11yString: () => Promise.resolve(renderA11yString),
-    loadMathjax: () => Promise.resolve(),
     // The KaTeX used in the 'should replace deprecated alignment tags in inline
     // math' test uses the `align` environment. This results in `array` nodes in
     // the parsed KaTeX node tree. When the Tex component tries to build an a11y
@@ -50,10 +47,6 @@ export const testDependencies: PerseusDependencies = {
     // Mocking this here so that we don't fail because of this issue.
     logKaTeXError: (expression: string, error: Error): Promise<any> =>
         Promise.resolve({}),
-    KatexProvider: ({children}: {children: React.ReactNode}) => (
-        <span className="mock-KatexProvider">{children}</span>
-    ),
-    shouldUseFutureKaTeX: (flag: boolean) => {},
     TeX: ({children}: {children: React.ReactNode}) => (
         <span className="mock-TeX">{children}</span>
     ),

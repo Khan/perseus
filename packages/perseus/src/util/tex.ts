@@ -1,8 +1,10 @@
 import $ from "jquery";
+import * as React from "react";
 
 import {getDependencies} from "../dependencies";
 
 import KhanMath from "./math";
+import reactRender from "./react-render";
 
 declare const MathJax: any;
 
@@ -94,84 +96,18 @@ export default {
             // Store the formula that we're using
             $elem.attr("data-math-formula", text);
 
-            const katex = await getDependencies().getKaTeX();
-            // Try to process the nodes with KaTeX first
-            try {
-                // Don't use the `trust: true` setting with KaTeX.  There is a
-                // security issue with it as outlined in https://hackerone.com/reports/844216.
-                // See https://khanacademy.atlassian.net/browse/FEI-2225 for
-                // additional context.
-                katex.render(text, $katexHolder[0], {colorIsTextColor: true});
-                // If that worked, and we previously formatted with
-                // mathjax, do some mathjax cleanup
-                if ($elem.attr("data-math-type") === "mathjax") {
-                    // Remove the old mathjax stuff
-                    if (typeof MathJax !== "undefined") {
-                        const jax = MathJax.Hub.getJaxFor(script);
-                        if (jax) {
-                            const e = jax.SourceElement();
-                            if (
-                                e.previousSibling &&
-                                e.previousSibling.className
-                            ) {
-                                jax.Remove();
-                            }
-                        }
+            const {TeX} = await getDependencies();
+            // We use createElement instead of JSX here because we can't name this file tex.tsx;
+            // that name is already taken.
+            reactRender(
+                React.createElement(TeX, {children: text}),
+                $katexHolder[0],
+                () => {
+                    if (callback) {
+                        doCallback(elem, callback);
                     }
-                }
-                $elem.attr("data-math-type", "katex");
-                // Call the callback
-                if (callback) {
-                    doCallback(elem, callback);
-                }
-                return;
-            } catch (err: any) {
-                getDependencies().logKaTeXError(text, err);
-
-                if (err instanceof katex.ParseError) {
-                    throw err;
-                }
-            }
-
-            // Otherwise, fallback to MathJax
-
-            // (Note: we don't need to do any katex cleanup here, because
-            // KaTeX is smart and cleans itself up)
-            $elem.attr("data-math-type", "mathjax");
-            // Update the script tag, or add one if necessary
-            if (!script) {
-                $mathjaxHolder.append(
-                    "<script type='math/tex'>" +
-                        text.replace(/<\//g, "< /") +
-                        "</script>",
-                );
-            } else {
-                if ("text" in script) {
-                    // IE8, etc
-                    script.text = text;
-                } else {
-                    script.textContent = text;
-                }
-            }
-            if (typeof MathJax !== "undefined") {
-                // Put the process, a debug log, and the callback into the
-                // MathJax queue
-                MathJax.Hub.Queue([
-                    "Reprocess",
-                    MathJax.Hub,
-                    $mathjaxHolder[0],
-                ]);
-                if (callback) {
-                    MathJax.Hub.Queue(function () {
-                        const cb = MathJax.Callback(function () {});
-                        doCallback(elem, function () {
-                            callback();
-                            cb();
-                        });
-                        return cb;
-                    });
-                }
-            }
+                },
+            );
         }
     },
 

@@ -2,160 +2,152 @@
 
 exports[`video widget should snapshot on mobile: first mobile render 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
-        <div
-          class="paragraph"
-        >
-          Watch the Biogeography: Where Life Lives video to find the answer.
-        </div>
+        Watch the Biogeography: Where Life Lives video to find the answer.
       </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="1"
       >
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="default_xu2jcg"
           >
             <div
-              class="default_xu2jcg"
+              class="fixed-to-responsive"
+              style="max-width: 1280px; max-height: 720px;"
             >
               <div
-                class="fixed-to-responsive"
-                style="max-width: 1280px; max-height: 720px;"
-              >
-                <div
-                  style="padding-bottom: 56.25%;"
-                />
-                <div
-                  class="default_xu2jcg-o_O-srOnly_19bpjuy"
-                >
-                  Khan Academy video wrapper
-                </div>
-                <iframe
-                  allowfullscreen=""
-                  class="perseus-video-widget"
-                  height="720"
-                  sandbox="allow-same-origin allow-scripts"
-                  src="https://www.khanacademy.org/embed_video?slug=biogeography-where-life-lives&internal_video_only=1"
-                  width="1280"
-                />
-              </div>
+                style="padding-bottom: 56.25%;"
+              />
               <div
-                class="default_xu2jcg-o_O-transcriptLink_18xwqfz"
+                class="default_xu2jcg-o_O-srOnly_19bpjuy"
               >
-                <span
-                  class="text_f1191h"
-                />
-                <div
-                  aria-hidden="true"
-                  class="default_xu2jcg-o_O-inlineStyles_sc01dy"
-                />
-                <a
-                  class="shared_htyo3s-o_O-resting_nelfll visited-no-recolor"
-                  href="/transcript/videoNotFound"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  See video transcript
-                </a>
+                Khan Academy video wrapper
               </div>
+              <iframe
+                allowfullscreen=""
+                class="perseus-video-widget"
+                height="720"
+                sandbox="allow-same-origin allow-scripts"
+                src="https://www.khanacademy.org/embed_video?slug=biogeography-where-life-lives&internal_video_only=1"
+                width="1280"
+              />
+            </div>
+            <div
+              class="default_xu2jcg-o_O-transcriptLink_18xwqfz"
+            >
+              <span
+                class="text_f1191h"
+              />
+              <div
+                aria-hidden="true"
+                class="default_xu2jcg-o_O-inlineStyles_sc01dy"
+              />
+              <a
+                class="shared_htyo3s-o_O-resting_nelfll visited-no-recolor"
+                href="/transcript/videoNotFound"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                See video transcript
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;
 
 exports[`video widget should snapshot: first render 1`] = `
 <div>
-  <span
-    class="mock-KatexProvider"
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="perseus-renderer perseus-renderer-responsive"
+      class="paragraph"
+      data-perseus-paragraph-index="0"
     >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="0"
       >
-        <div
-          class="paragraph"
-        >
-          Watch the Biogeography: Where Life Lives video to find the answer.
-        </div>
+        Watch the Biogeography: Where Life Lives video to find the answer.
       </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
       <div
         class="paragraph"
-        data-perseus-paragraph-index="1"
       >
         <div
-          class="paragraph"
+          class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="perseus-widget-container widget-nohighlight widget-block"
+            class="default_xu2jcg"
           >
             <div
-              class="default_xu2jcg"
+              class="fixed-to-responsive"
+              style="max-width: 1280px; max-height: 720px;"
             >
               <div
-                class="fixed-to-responsive"
-                style="max-width: 1280px; max-height: 720px;"
-              >
-                <div
-                  style="padding-bottom: 56.25%;"
-                />
-                <div
-                  class="default_xu2jcg-o_O-srOnly_19bpjuy"
-                >
-                  Khan Academy video wrapper
-                </div>
-                <iframe
-                  allowfullscreen=""
-                  class="perseus-video-widget"
-                  height="720"
-                  sandbox="allow-same-origin allow-scripts"
-                  src="https://www.khanacademy.org/embed_video?slug=biogeography-where-life-lives&internal_video_only=1"
-                  width="1280"
-                />
-              </div>
+                style="padding-bottom: 56.25%;"
+              />
               <div
-                class="default_xu2jcg-o_O-transcriptLink_18xwqfz"
+                class="default_xu2jcg-o_O-srOnly_19bpjuy"
               >
-                <span
-                  class="text_f1191h"
-                />
-                <div
-                  aria-hidden="true"
-                  class="default_xu2jcg-o_O-inlineStyles_sc01dy"
-                />
-                <a
-                  class="shared_htyo3s-o_O-resting_nelfll visited-no-recolor"
-                  href="/transcript/videoNotFound"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  See video transcript
-                </a>
+                Khan Academy video wrapper
               </div>
+              <iframe
+                allowfullscreen=""
+                class="perseus-video-widget"
+                height="720"
+                sandbox="allow-same-origin allow-scripts"
+                src="https://www.khanacademy.org/embed_video?slug=biogeography-where-life-lives&internal_video_only=1"
+                width="1280"
+              />
+            </div>
+            <div
+              class="default_xu2jcg-o_O-transcriptLink_18xwqfz"
+            >
+              <span
+                class="text_f1191h"
+              />
+              <div
+                aria-hidden="true"
+                class="default_xu2jcg-o_O-inlineStyles_sc01dy"
+              />
+              <a
+                class="shared_htyo3s-o_O-resting_nelfll visited-no-recolor"
+                href="/transcript/videoNotFound"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                See video transcript
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </span>
+  </div>
 </div>
 `;

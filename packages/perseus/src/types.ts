@@ -1,7 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
 import katex from "katex";
-// eslint-disable-next-line import/no-unresolved
-import katexA11y from "katex/dist/contrib/render-a11y-string";
 import * as React from "react";
 
 import type {SerializedHighlightSet} from "./components/highlighting/types";
@@ -311,18 +309,10 @@ export type PerseusDependencies = {
     rendererTranslationComponents: JiptTranslationComponents;
     // KaTeX related dependencies
     getKaTeX: () => Promise<katex>;
-    getRenderA11yString: () => Promise<katexA11y>;
-    loadMathjax: () => Promise<unknown>;
     logKaTeXError: (
         expression: string,
         error: Error,
     ) => Promise<Response | null | undefined>;
-    KatexProvider: React.ComponentType<{
-        children: React.ReactNode;
-    }>;
-    // TODO(kevinb): Update `getKaTeX` to return the version of `katex` that
-    // webapp (or mobile) wants perseus to use.
-    shouldUseFutureKaTeX: (flag: boolean) => void;
     TeX: React.ComponentType<TeXProps>;
     //misc
     staticUrl: StaticUrlFn;
