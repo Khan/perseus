@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 0.9.3
+
+### Patch Changes
+
+-   22c5d564: Remove the use of React.FC<> and use types named Props/State in more components
+
 ## 0.9.2
 
 ### Patch Changes

@@ -3,7 +3,7 @@
     "description": "SimpleMarkdown instance with non-react Perseus rules",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "publishConfig": {
         "access": "public"
     },
@@ -22,7 +22,7 @@
     },
     "dependencies": {
         "@khanacademy/perseus-error": "^0.2.1",
-        "@khanacademy/simple-markdown": "^0.9.2"
+        "@khanacademy/simple-markdown": "^0.9.3"
     },
     "devDependencies": {},
     "peerDependencies": {},
