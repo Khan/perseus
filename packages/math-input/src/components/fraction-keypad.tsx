@@ -16,6 +16,7 @@ import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 
 import type {State} from "../store/types";
+import type {KeypadLayout} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, roundedTopLeft, roundedTopRight} = Styles;
@@ -30,17 +31,17 @@ interface Props extends ReduxProps {
     roundTopRight: boolean;
 }
 
-class FractionKeypad extends React.Component<Props> {
-    static rows = 4;
-    static columns = 4;
-
+export const fractionKeypadLayout: KeypadLayout = {
+    rows: 4,
+    columns: 4,
+    numPages: 1,
     // Since we include a two-key popover in the top-right, when the popover
     // is visible, the keypad will expand to fill the equivalent of five
     // rows vertically.
-    static maxVisibleRows = 5;
+    maxVisibleRows: 5,
+};
 
-    static numPages = 1;
-
+class FractionKeypad extends React.Component<Props> {
     render() {
         const {cursorContext, dynamicJumpOut, roundTopLeft, roundTopRight} =
             this.props;

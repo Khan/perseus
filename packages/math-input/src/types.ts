@@ -57,3 +57,13 @@ export type KeyHandler = (key: Key) => Cursor;
 export type Cursor = {
     context: CursorContext;
 };
+
+export type KeypadLayout = {
+    rows: number;
+    columns: number;
+    numPages: number;
+    // Since we include a two-key popover in the top-right, when the popover
+    // is visible, the keypad will expand to fill the equivalent of five
+    // rows vertically.
+    maxVisibleRows: number;
+};

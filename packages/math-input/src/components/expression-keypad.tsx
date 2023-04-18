@@ -18,6 +18,7 @@ import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
 
 import type {State} from "../store/types";
+import type {KeypadLayout} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
@@ -35,17 +36,17 @@ interface Props extends ReduxProps {
     roundTopRight: boolean;
 }
 
+export const expressionKeypadLayout: KeypadLayout = {
+    rows: 4,
+    columns: 5,
+    numPages: 2,
+    // Since we include a two-key popover in the top-right, when the popover
+    // is visible, the keypad will expand to fill the equivalent of five
+    // rows vertically.
+    maxVisibleRows: 4,
+};
+
 class ExpressionKeypad extends React.Component<Props> {
-    static rows = 4;
-    static columns = 5;
-
-    // Though we include an infinite-key popover in the bottom-left, it's
-    // assumed that we don't need to accommodate cases in which that key
-    // contains more than four children.
-    static maxVisibleRows = 4;
-
-    static numPages = 2;
-
     render() {
         const {
             currentPage,
