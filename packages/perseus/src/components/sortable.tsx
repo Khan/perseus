@@ -1,5 +1,6 @@
 /* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import PropTypes from "prop-types";
@@ -7,6 +8,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {getDependencies} from "../dependencies";
 import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
@@ -391,6 +393,7 @@ type SortableProps = {
     padding: boolean;
     linterContext: LinterContextProps;
     options: ReadonlyArray<SortableOption>;
+    waitForTexRendererToLoad: boolean;
 };
 
 type DefaultProps = {
@@ -402,6 +405,7 @@ type DefaultProps = {
     onMeasure: SortableProps["onMeasure"];
     padding: SortableProps["padding"];
     linterContext: SortableProps["linterContext"];
+    waitForTexRendererToLoad: SortableProps["waitForTexRendererToLoad"];
 };
 
 type ItemState = "disabled" | "static" | "dragging" | "animating";
@@ -416,6 +420,7 @@ type SortableItem = {
 
 type SortableState = {
     items: ReadonlyArray<SortableItem>;
+    texRendererLoaded: boolean;
 };
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
@@ -427,6 +432,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         margin: 5,
         onChange: function () {},
         linterContext: PerseusLinter.linterContextDefault,
+        waitForTexRendererToLoad: true,
     };
 
     constructor(props: SortableProps) {
@@ -434,6 +440,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // Don't call this.setState() here!
         this.state = {
             items: Sortable.itemsFromProps(this.props),
+            texRendererLoaded: false,
         };
     }
 
@@ -569,6 +576,34 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }, 20);
 
     render(): React.ReactNode {
+        // The math renderer (KaTeX or MathJax) may be loaded asynchronously
+        // the first time the TeX component is used.
+        //
+        // To minimize layout shift, we display a spinner until our TeX renderer
+        // has successfully rendered a test element. If we didn't do this, the user
+        // might see a sortable with empty cells on first render, and then the math
+        // would pop in a few moments later once the rendering library loaded.
+        if (
+            this.props.waitForTexRendererToLoad &&
+            !this.state.texRendererLoaded
+        ) {
+            const {TeX} = getDependencies();
+            return (
+                <>
+                    <CircularSpinner />
+                    <div style={{display: "none"}}>
+                        <TeX
+                            onRender={() =>
+                                this.setState({texRendererLoaded: true})
+                            }
+                        >
+                            1
+                        </TeX>
+                    </div>
+                </>
+            );
+        }
+
         const cards: Array<
             | React.ReactElement<React.ComponentProps<typeof Placeholder>>
             | React.ReactElement<React.ComponentProps<typeof Draggable>>

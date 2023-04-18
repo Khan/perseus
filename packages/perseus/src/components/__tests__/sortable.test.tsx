@@ -16,11 +16,53 @@ describe("Sortable", () => {
     it("should snapshot", () => {
         // Arrange and Act
         const {container} = render(
-            <Sortable layout="horizontal" options={["a", "b", "c"]} />,
+            <Sortable
+                layout="horizontal"
+                options={["a", "b", "c"]}
+                waitForTexRendererToLoad={false}
+            />,
         );
 
         // Assert
         expect(container).toMatchSnapshot("first render");
+    });
+
+    it("renders a spinner while waiting for the TeX renderer to load", () => {
+        let simulateFakeTeXRendering = () => {};
+        function FakeTeX({
+            children,
+            onRender,
+        }: {
+            children: string;
+            onRender?: () => unknown;
+        }) {
+            simulateFakeTeXRendering = onRender || simulateFakeTeXRendering;
+            return <div className="fake-tex">{children}</div>;
+        }
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: FakeTeX,
+        });
+
+        // Act
+        const {container} = render(
+            <Sortable
+                waitForTexRendererToLoad={true}
+                layout="horizontal"
+                options={["a", "b", "c"]}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot("first render: displays a spinner");
+
+        // Act
+        simulateFakeTeXRendering();
+
+        // Assert
+        expect(container).toMatchSnapshot(
+            "second render: displays the sortable",
+        );
     });
 });
 
@@ -39,6 +81,7 @@ describe("moveOptionToIndex", () => {
                 ref={(r) => (sortable = r)}
                 layout="horizontal"
                 options={["a", "b", "c"]}
+                waitForTexRendererToLoad={false}
             />,
         );
 
@@ -61,6 +104,7 @@ describe("moveOptionToIndex", () => {
                 ref={(r) => (sortable = r)}
                 layout="horizontal"
                 options={["a", "b", "c"]}
+                waitForTexRendererToLoad={false}
             />,
         );
 
@@ -81,6 +125,7 @@ describe("moveOptionToIndex", () => {
                 ref={(r) => (sortable = r)}
                 layout="horizontal"
                 options={["a", "b", "c"]}
+                waitForTexRendererToLoad={false}
             />,
         );
 
@@ -101,6 +146,7 @@ describe("moveOptionToIndex", () => {
                 ref={(r) => (sortable = r)}
                 layout="horizontal"
                 options={["a", "b", "c"]}
+                waitForTexRendererToLoad={false}
             />,
         );
 

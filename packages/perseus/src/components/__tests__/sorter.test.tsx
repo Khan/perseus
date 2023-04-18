@@ -24,9 +24,19 @@ describe("sorter widget", () => {
             getKaTeX: () => {
                 return Promise.resolve({});
             },
-            TeX: ({children}: {children: React.ReactNode}) => (
-                <span className="tex-mock">{children}</span>
-            ),
+            TeX: ({
+                children,
+                // alias onRender to onLoad to quiet the overzealous testing-library linter
+                onRender: onLoad,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => unknown;
+            }) => {
+                React.useLayoutEffect(() => {
+                    onLoad?.();
+                }, [onLoad]);
+                return <span className="tex-mock">{children}</span>;
+            },
         });
     });
 

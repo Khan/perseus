@@ -28,9 +28,18 @@ describe("matcher widget", () => {
             getKaTeX: () => {
                 return Promise.resolve({});
             },
-            TeX: ({children}: {children: React.ReactNode}) => (
-                <span className="tex-mock">{children}</span>
-            ),
+            TeX: ({
+                children,
+                onRender: onLoad,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => unknown;
+            }) => {
+                React.useLayoutEffect(() => {
+                    onLoad?.();
+                }, [onLoad]);
+                return <span className="tex-mock">{children}</span>;
+            },
         });
     });
 
