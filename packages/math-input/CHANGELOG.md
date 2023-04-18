@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 1.0.0
+
+### Major Changes
+
+-   4c03a43d: Convert math-input to TS, changing the API in the process
+
+### Patch Changes
+
+-   22c5d564: Remove the use of React.FC<> and use types named Props/State in more components
+
 ## 0.7.2
 
 ### Patch Changes

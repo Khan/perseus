@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 2.0.3
+
+### Patch Changes
+
+-   472e20e1: Remove all references to multipleNumberInput (ie. Ask for (one|all) correct solution)
+-   22c5d564: Remove the use of React.FC<> and use types named Props/State in more components
+-   Updated dependencies [472e20e1]
+-   Updated dependencies [22c5d564]
+    -   @khanacademy/perseus@5.0.0
+
 ## 2.0.2
 
 ### Patch Changes
