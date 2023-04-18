@@ -576,13 +576,17 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }, 20);
 
     render(): React.ReactNode {
-        // The math renderer (KaTeX or MathJax) may be loaded asynchronously
-        // the first time the TeX component is used.
+        // To minimize layout shift, we display a spinner until our math
+        // renderer is ready to render the math inside the sortable. To
+        // do this, we:
+        // - render a dummy TeX component to force the math renderer to load
+        // - display a spinner until the TeX component calls its onRender
+        //   callback, signifying that the math is rendered (from which we can
+        //   infer that the math renderer has loaded)
         //
-        // To minimize layout shift, we display a spinner until our TeX renderer
-        // has successfully rendered a test element. If we didn't do this, the user
-        // might see a sortable with empty cells on first render, and then the math
-        // would pop in a few moments later once the rendering library loaded.
+        // If we didn't do this, the user might see a sortable with empty
+        // cells on first render, and then the math would pop in a few moments
+        // later once the rendering library loaded.
         if (
             this.props.waitForTexRendererToLoad &&
             !this.state.texRendererLoaded
