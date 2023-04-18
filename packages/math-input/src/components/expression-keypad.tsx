@@ -28,6 +28,7 @@ interface ReduxProps {
     currentPage: number;
     cursorContext?: CursorContext;
     dynamicJumpOut: boolean;
+    paginationEnabled: boolean;
 }
 
 interface Props extends ReduxProps {
@@ -55,6 +56,7 @@ class ExpressionKeypad extends React.Component<Props> {
             extraKeys,
             roundTopLeft,
             roundTopRight,
+            paginationEnabled,
         } = this.props;
 
         let dismissOrJumpOutKey;
@@ -292,6 +294,7 @@ class ExpressionKeypad extends React.Component<Props> {
                 currentPage={currentPage}
                 rightPage={rightPage}
                 leftPage={leftPage}
+                paginationEnabled={paginationEnabled}
             />
         );
     }
@@ -317,6 +320,7 @@ const mapStateToProps = (state: State): ReduxProps => {
         currentPage: state.pager.currentPage,
         cursorContext: state.input.cursor?.context,
         dynamicJumpOut: !state.layout.navigationPadEnabled,
+        paginationEnabled: state.layout.paginationEnabled,
     };
 };
 

@@ -4,7 +4,6 @@
 
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import {connect} from "react-redux";
 
 import {View} from "../fake-react-native-web/index";
 
@@ -18,18 +17,13 @@ import Keypad from "./keypad";
 import Styles from "./styles";
 import Tabbar from "./tabbar/tabbar";
 
-import type {State} from "../store/types";
-
 const {column, row, fullWidth} = Styles;
 
-interface ReduxProps {
-    paginationEnabled: boolean;
-}
-
-interface Props extends ReduxProps {
+interface Props {
     currentPage: number;
     leftPage: React.ReactNode;
     rightPage: React.ReactNode;
+    paginationEnabled: boolean;
 }
 
 class TwoPageKeypad extends React.Component<Props> {
@@ -92,12 +86,4 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = (state: State): ReduxProps => {
-    return {
-        paginationEnabled: state.layout.paginationEnabled,
-    };
-};
-
-export default connect(mapStateToProps, null, null, {forwardRef: true})(
-    TwoPageKeypad,
-);
+export default TwoPageKeypad;
