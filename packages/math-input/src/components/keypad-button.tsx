@@ -4,7 +4,6 @@
 
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-import {connect} from "react-redux";
 
 import {KeyTypes, BorderDirections, BorderStyles} from "../consts";
 import {View} from "../fake-react-native-web/index";
@@ -24,16 +23,10 @@ import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
 import type {KeyType} from "../consts";
-import type {State} from "../store/types";
 import type {Border, KeyConfig, Icon as IconType} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-interface ReduxProps {
-    heightPx: number;
-    widthPx: number;
-}
-
-interface Props extends ReduxProps {
+type Props = {
     ariaLabel?: string;
     borders: Border;
     childKeys: ReadonlyArray<KeyConfig>;
@@ -42,6 +35,8 @@ interface Props extends ReduxProps {
     popoverEnabled: boolean;
     type: KeyType;
     icon: IconType;
+    heightPx: number;
+    widthPx: number;
     style?: StyleType;
     onTouchCancel?: (evt: React.TouchEvent<HTMLDivElement>) => void;
     onTouchEnd?: (evt: React.TouchEvent<HTMLDivElement>) => void;
@@ -50,7 +45,7 @@ interface Props extends ReduxProps {
     // NOTE(matthewc)[LC-754] this is a normal React thing, but TS
     // gets mad if I don't explicitly set it as a prop
     ref?: (any) => void;
-}
+};
 
 // eslint-disable-next-line react/no-unsafe
 class KeypadButton extends React.PureComponent<Props> {
@@ -355,13 +350,4 @@ const styleForButtonDimensions = (heightPx, widthPx) => {
     }).buttonSize;
 };
 
-const mapStateToProps = (state: State): ReduxProps => {
-    return {
-        heightPx: state.layout.buttonDimensions.heightPx,
-        widthPx: state.layout.buttonDimensions.widthPx,
-    };
-};
-
-export default connect(mapStateToProps, null, null, {forwardRef: true})(
-    KeypadButton,
-);
+export default KeypadButton;

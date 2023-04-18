@@ -19,6 +19,8 @@ type EchoProps = {
     borders: Border;
     id: Key;
     initialBounds: Bound;
+    heightPx: number;
+    widthPx: number;
     onAnimationFinish: () => void;
 };
 
@@ -34,7 +36,7 @@ class Echo extends React.Component<EchoProps> {
     }
 
     render() {
-        const {borders, id, initialBounds} = this.props;
+        const {borders, id, initialBounds, heightPx, widthPx} = this.props;
         const {icon} = KeyConfigs[id];
 
         const containerStyle: any = {
@@ -55,6 +57,8 @@ class Echo extends React.Component<EchoProps> {
                     icon={icon}
                     type={KeyTypes.ECHO}
                     borders={borders}
+                    heightPx={heightPx}
+                    widthPx={widthPx}
                 />
             </div>
         );
@@ -71,6 +75,8 @@ type EchoPropType = {
 
 type EchoManagerProps = {
     echoes: ReadonlyArray<EchoPropType>;
+    heightPx: number;
+    widthPx: number;
     onAnimationFinish?: (animationId: string) => void;
 };
 
@@ -110,7 +116,7 @@ class EchoManager extends React.Component<EchoManagerProps> {
     };
 
     render() {
-        const {echoes, onAnimationFinish} = this.props;
+        const {echoes, heightPx, widthPx, onAnimationFinish} = this.props;
 
         return (
             <span>
@@ -143,6 +149,8 @@ class EchoManager extends React.Component<EchoManagerProps> {
                                         key={animationId}
                                     >
                                         <Echo
+                                            heightPx={heightPx}
+                                            widthPx={widthPx}
                                             animationDurationMs={
                                                 animationDurationMs
                                             }

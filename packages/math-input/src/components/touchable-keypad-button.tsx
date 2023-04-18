@@ -30,6 +30,8 @@ type Props = {
     style: StyleType;
     type: KeyType;
     icon: Icon;
+    heightPx: number;
+    widthPx: number;
 };
 
 class TouchableKeypadButton extends React.Component<Props> {
@@ -132,6 +134,8 @@ const mapStateToProps = (state, ownProps) => {
 
         // Pass down the child keys and any extracted props.
         childKeys,
+        heightPx: state.layout.buttonDimensions.heightPx,
+        widthPx: state.layout.buttonDimensions.widthPx,
         ...extractProps(useFirstChildProps ? childKeys[0] : keyConfig),
     };
 };

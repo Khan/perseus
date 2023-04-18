@@ -28,6 +28,8 @@ interface Props {
     active: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
     removeEcho?: (animationId: string) => void;
 }
 
@@ -44,6 +46,8 @@ class TwoPageKeypad extends React.Component<Props> {
             active,
             echoes,
             popover,
+            heightPx,
+            widthPx,
             removeEcho,
         } = this.props;
 
@@ -56,6 +60,8 @@ class TwoPageKeypad extends React.Component<Props> {
                     active={active}
                     echoes={echoes}
                     popover={popover}
+                    heightPx={heightPx}
+                    widthPx={widthPx}
                     removeEcho={removeEcho}
                 >
                     <Tabbar
@@ -77,6 +83,8 @@ class TwoPageKeypad extends React.Component<Props> {
                     active={active}
                     echoes={echoes}
                     popover={popover}
+                    heightPx={heightPx}
+                    widthPx={widthPx}
                     removeEcho={removeEcho}
                 >
                     <View style={row}>

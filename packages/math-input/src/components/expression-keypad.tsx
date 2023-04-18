@@ -33,6 +33,8 @@ type Props = {
     active: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
     gestureManager: GestureManager;
     removeEcho?: (animationId: string) => void;
 };
@@ -60,6 +62,8 @@ class ExpressionKeypad extends React.Component<Props> {
             active,
             echoes,
             popover,
+            heightPx,
+            widthPx,
             gestureManager,
             removeEcho,
         } = this.props;
@@ -306,6 +310,8 @@ class ExpressionKeypad extends React.Component<Props> {
                 active={active}
                 echoes={echoes}
                 popover={popover}
+                heightPx={heightPx}
+                widthPx={widthPx}
                 removeEcho={removeEcho}
             />
         );

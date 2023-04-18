@@ -26,6 +26,8 @@ type Props = {
     active: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
     removeEcho?: (animationId: string) => void;
 };
 
@@ -50,6 +52,8 @@ class FractionKeypad extends React.Component<Props> {
             echoes,
             popover,
             removeEcho,
+            heightPx,
+            widthPx,
         } = this.props;
 
         let dismissOrJumpOutKey;
@@ -94,6 +98,8 @@ class FractionKeypad extends React.Component<Props> {
                 echoes={echoes}
                 popover={popover}
                 removeEcho={removeEcho}
+                heightPx={heightPx}
+                widthPx={widthPx}
             >
                 <View style={row}>
                     <TouchableKeypadButton

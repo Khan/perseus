@@ -39,6 +39,8 @@ interface ReduxProps {
     paginationEnabled: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
     gestureManager: GestureManager;
 }
 
@@ -143,6 +145,8 @@ class KeypadContainer extends React.Component<Props, State> {
             currentPage,
             gestureManager,
             paginationEnabled,
+            heightPx,
+            widthPx,
         } = this.props;
 
         const keypadProps = {
@@ -159,6 +163,8 @@ class KeypadContainer extends React.Component<Props, State> {
             active,
             echoes,
             popover,
+            heightPx,
+            widthPx,
             removeEcho,
         };
 
@@ -345,6 +351,8 @@ const mapStateToProps = (state: ReduxState): ReduxProps => {
         echoes: state.echoes.echoes,
         popover: state.gestures.popover,
         gestureManager: state.gestures.gestureManager,
+        heightPx: state.layout.buttonDimensions.heightPx,
+        widthPx: state.layout.buttonDimensions.widthPx,
     };
 };
 

@@ -21,6 +21,8 @@ type Props = {
     active: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
+    heightPx: number;
+    widthPx: number;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -82,7 +84,15 @@ class Keypad extends React.Component<Props> {
     };
 
     render() {
-        const {children, echoes, removeEcho, popover, style} = this.props;
+        const {
+            children,
+            echoes,
+            removeEcho,
+            popover,
+            style,
+            heightPx,
+            widthPx,
+        } = this.props;
 
         // Translate the echo boxes, as they'll be positioned absolutely to
         // this relative container.
@@ -128,6 +138,8 @@ class Keypad extends React.Component<Props> {
                 <EchoManager
                     echoes={relativeEchoes}
                     onAnimationFinish={removeEcho}
+                    heightPx={heightPx}
+                    widthPx={widthPx}
                 />
                 <PopoverManager popover={relativePopover} />
             </View>

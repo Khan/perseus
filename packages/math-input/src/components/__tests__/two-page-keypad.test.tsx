@@ -15,6 +15,8 @@ describe("<TwoPageKeyPage />", () => {
                 active={true}
                 echoes={[]}
                 popover={null}
+                heightPx={40}
+                widthPx={40}
             />,
         );
 
@@ -34,6 +36,8 @@ describe("<TwoPageKeyPage />", () => {
                 active={true}
                 echoes={[]}
                 popover={null}
+                heightPx={40}
+                widthPx={40}
             />,
         );
 
