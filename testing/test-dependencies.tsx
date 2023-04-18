@@ -34,9 +34,6 @@ export const testDependencies: PerseusDependencies = {
         addComponent: (renderer) => -1,
         removeComponentAtIndex: (index) => {},
     },
-
-    // KaTeX
-    getKaTeX: () => Promise.resolve(katex),
     // The KaTeX used in the 'should replace deprecated alignment tags in inline
     // math' test uses the `align` environment. This results in `array` nodes in
     // the parsed KaTeX node tree. When the Tex component tries to build an a11y

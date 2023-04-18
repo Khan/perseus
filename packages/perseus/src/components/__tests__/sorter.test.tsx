@@ -21,9 +21,6 @@ describe("sorter widget", () => {
 
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            getKaTeX: () => {
-                return Promise.resolve({});
-            },
             TeX: ({
                 children,
                 // alias onRender to onLoad to quiet the overzealous testing-library linter

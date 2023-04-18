@@ -25,9 +25,6 @@ describe("matcher widget", () => {
 
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
-            getKaTeX: () => {
-                return Promise.resolve({});
-            },
             TeX: ({
                 children,
                 onRender: onLoad,

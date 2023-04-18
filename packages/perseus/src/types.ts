@@ -308,7 +308,6 @@ export type PerseusDependencies = {
     svgImageJiptLabels: JiptLabelStore;
     rendererTranslationComponents: JiptTranslationComponents;
     // KaTeX related dependencies
-    getKaTeX: () => Promise<katex>;
     logKaTeXError: (
         expression: string,
         error: Error,

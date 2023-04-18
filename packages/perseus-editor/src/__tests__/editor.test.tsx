@@ -43,7 +43,6 @@ describe("Editor", () => {
                     onChange={(props) => {}}
                 />,
             );
-            await testDependencies.getKaTeX();
 
             // Act
             const widgetDisclosure = screen.getByRole("link", {
@@ -75,7 +74,6 @@ describe("Editor", () => {
                     onChange={changeFn}
                 />,
             );
-            await testDependencies.getKaTeX();
 
             // Act
             const widgetDisclosure = screen.getByRole("link", {
