@@ -11,6 +11,10 @@ describe("<TwoPageKeyPage />", () => {
                 currentPage={1}
                 leftPage={<p>Left Page</p>}
                 rightPage={<p>Right Page</p>}
+                paginationEnabled={true}
+                active={true}
+                echoes={[]}
+                popover={null}
             />,
         );
 
@@ -26,6 +30,10 @@ describe("<TwoPageKeyPage />", () => {
                 currentPage={0}
                 leftPage={<p>Left Page</p>}
                 rightPage={<p>Right Page</p>}
+                paginationEnabled={true}
+                active={true}
+                echoes={[]}
+                popover={null}
             />,
         );
 

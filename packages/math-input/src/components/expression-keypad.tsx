@@ -4,7 +4,6 @@
 
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import {connect} from "react-redux";
 
 import {BorderStyles} from "../consts";
 import KeyConfigs from "../data/key-configs";
@@ -16,16 +15,16 @@ import ManyKeypadButton from "./many-keypad-button";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
-import {removeEcho} from "../actions/index";
-
-import type {State} from "../store/types";
 import type {KeypadLayout, Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
 
-interface ReduxProps {
+type Props = {
+    extraKeys?: ReadonlyArray<string>;
+    roundTopLeft: boolean;
+    roundTopRight: boolean;
     currentPage: number;
     cursorContext?: CursorContext;
     dynamicJumpOut: boolean;
@@ -33,14 +32,8 @@ interface ReduxProps {
     active: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
-}
-
-interface Props extends ReduxProps {
-    extraKeys?: ReadonlyArray<string>;
-    roundTopLeft: boolean;
-    roundTopRight: boolean;
     removeEcho?: (animationId: string) => void;
-}
+};
 
 export const expressionKeypadLayout: KeypadLayout = {
     rows: 4,
@@ -328,26 +321,4 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = (state: State): ReduxProps => {
-    return {
-        currentPage: state.pager.currentPage,
-        cursorContext: state.input.cursor?.context,
-        dynamicJumpOut: !state.layout.navigationPadEnabled,
-        paginationEnabled: state.layout.paginationEnabled,
-        echoes: state.echoes.echoes,
-        active: state.keypad.active,
-        popover: state.gestures.popover,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        removeEcho: (animationId) => {
-            dispatch(removeEcho(animationId));
-        },
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps, null, {
-    forwardRef: true,
-})(ExpressionKeypad);
+export default ExpressionKeypad;

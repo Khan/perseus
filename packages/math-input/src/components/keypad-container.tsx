@@ -2,7 +2,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {setPageSize} from "../actions/index";
+import {setPageSize, removeEcho} from "../actions/index";
 import {KeypadTypes, LayoutModes} from "../consts";
 import {View} from "../fake-react-native-web/index";
 
@@ -20,22 +20,31 @@ import * as zIndexes from "./z-indexes";
 
 import type {KeypadType} from "../consts";
 import type {State as ReduxState} from "../store/types";
+import type {Popover, Echo} from "../types";
+import type {CursorContext} from "./input/cursor-contexts";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {row, centered, fullWidth} = Styles;
 
 interface ReduxProps {
-    active?: boolean;
+    active: boolean;
     extraKeys?: ReadonlyArray<string>;
     keypadType?: KeypadType;
     layoutMode?: keyof typeof LayoutModes;
     navigationPadEnabled?: boolean;
+    currentPage: number;
+    cursorContext?: CursorContext;
+    dynamicJumpOut: boolean;
+    paginationEnabled: boolean;
+    echoes: ReadonlyArray<Echo>;
+    popover: Popover | null;
 }
 
 interface Props extends ReduxProps {
     onDismiss?: () => void;
     onElementMounted: (element: any) => void;
     onPageSizeChange?: (width: number, height: number) => void;
+    removeEcho?: (animationId: string) => void;
     style?: StyleType;
 }
 
@@ -118,8 +127,20 @@ class KeypadContainer extends React.Component<Props, State> {
     };
 
     renderKeypad = () => {
-        const {extraKeys, keypadType, layoutMode, navigationPadEnabled} =
-            this.props;
+        const {
+            extraKeys,
+            keypadType,
+            layoutMode,
+            navigationPadEnabled,
+            cursorContext,
+            dynamicJumpOut,
+            active,
+            echoes,
+            popover,
+            removeEcho,
+            currentPage,
+            paginationEnabled,
+        } = this.props;
 
         const keypadProps = {
             extraKeys,
@@ -130,6 +151,12 @@ class KeypadContainer extends React.Component<Props, State> {
             roundTopLeft:
                 layoutMode === LayoutModes.COMPACT && !navigationPadEnabled,
             roundTopRight: layoutMode === LayoutModes.COMPACT,
+            cursorContext,
+            dynamicJumpOut,
+            active,
+            echoes,
+            popover,
+            removeEcho,
         };
 
         // Select the appropriate keyboard given the type.
@@ -144,7 +171,13 @@ class KeypadContainer extends React.Component<Props, State> {
                 return <FractionKeypad {...keypadProps} />;
 
             case KeypadTypes.EXPRESSION:
-                return <ExpressionKeypad {...keypadProps} />;
+                return (
+                    <ExpressionKeypad
+                        {...keypadProps}
+                        currentPage={currentPage}
+                        paginationEnabled={paginationEnabled}
+                    />
+                );
 
             default:
                 throw new Error("Invalid keypad type: " + keypadType);
@@ -301,6 +334,12 @@ const mapStateToProps = (state: ReduxState): ReduxProps => {
         active: state.keypad.active,
         layoutMode: state.layout.layoutMode,
         navigationPadEnabled: state.layout.navigationPadEnabled,
+        currentPage: state.pager.currentPage,
+        cursorContext: state.input.cursor?.context,
+        dynamicJumpOut: !state.layout.navigationPadEnabled,
+        paginationEnabled: state.layout.paginationEnabled,
+        echoes: state.echoes.echoes,
+        popover: state.gestures.popover,
     };
 };
 
@@ -308,6 +347,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onPageSizeChange: (pageWidthPx, pageHeightPx) => {
             dispatch(setPageSize(pageWidthPx, pageHeightPx));
+        },
+        removeEcho: (animationId) => {
+            dispatch(removeEcho(animationId));
         },
     };
 };

@@ -4,7 +4,6 @@
  */
 
 import * as React from "react";
-import {connect} from "react-redux";
 
 import {BorderStyles} from "../consts";
 import KeyConfigs from "../data/key-configs";
@@ -14,27 +13,21 @@ import * as CursorContexts from "./input/cursor-contexts";
 import Keypad from "./keypad";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
-import {removeEcho} from "../actions/index";
-
-import type {State} from "../store/types";
 import type {KeypadLayout, Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, roundedTopLeft, roundedTopRight} = Styles;
 
-interface ReduxProps {
+type Props = {
+    roundTopLeft: boolean;
+    roundTopRight: boolean;
     cursorContext?: CursorContext;
     dynamicJumpOut: boolean;
     active: boolean;
     echoes: ReadonlyArray<Echo>;
     popover: Popover | null;
-}
-
-interface Props extends ReduxProps {
-    roundTopLeft: boolean;
-    roundTopRight: boolean;
     removeEcho?: (animationId: string) => void;
-}
+};
 
 export const fractionKeypadLayout: KeypadLayout = {
     rows: 4,
@@ -187,24 +180,4 @@ class FractionKeypad extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: State): ReduxProps => {
-    return {
-        cursorContext: state.input.cursor?.context,
-        dynamicJumpOut: !state.layout.navigationPadEnabled,
-        echoes: state.echoes.echoes,
-        active: state.keypad.active,
-        popover: state.gestures.popover,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        removeEcho: (animationId) => {
-            dispatch(removeEcho(animationId));
-        },
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps, null, {
-    forwardRef: true,
-})(FractionKeypad);
+export default FractionKeypad;
