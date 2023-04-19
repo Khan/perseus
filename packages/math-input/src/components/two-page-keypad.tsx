@@ -13,12 +13,13 @@ import {
     innerBorderWidthPx,
     offBlack16,
 } from "./common-style";
+import GestureManager from "./gesture-manager";
 import Keypad from "./keypad";
 import Styles from "./styles";
 import Tabbar from "./tabbar/tabbar";
-import type {Popover, Echo} from "../types";
+
 import type {Key} from "../data/keys";
-import GestureManager from "./gesture-manager";
+import type {Popover, Echo} from "../types";
 
 const {column, row, fullWidth} = Styles;
 

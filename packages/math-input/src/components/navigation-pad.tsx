@@ -16,11 +16,11 @@ import {
     valueGrey,
     offBlack16,
 } from "./common-style";
+import GestureManager from "./gesture-manager";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
-import GestureManager from "./gesture-manager";
-import type {Popover} from "../types";
 
+import type {Popover} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {row, column, centered, stretch, roundedTopLeft} = Styles;

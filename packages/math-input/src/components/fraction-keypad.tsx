@@ -9,14 +9,15 @@ import {BorderStyles} from "../consts";
 import KeyConfigs from "../data/key-configs";
 import {View} from "../fake-react-native-web/index";
 
+import GestureManager from "./gesture-manager";
 import * as CursorContexts from "./input/cursor-contexts";
 import Keypad from "./keypad";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
+
+import type {Key} from "../data/keys";
 import type {KeypadLayout, Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
-import type {Key} from "../data/keys";
-import GestureManager from "./gesture-manager";
 
 const {row, roundedTopLeft, roundedTopRight} = Styles;
 

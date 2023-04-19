@@ -10,8 +10,9 @@ import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
 
 import EmptyKeypadButton from "./empty-keypad-button";
-import TouchableKeypadButton from "./touchable-keypad-button";
 import GestureManager from "./gesture-manager";
+import TouchableKeypadButton from "./touchable-keypad-button";
+
 import type {Popover} from "../types";
 
 type Props = {

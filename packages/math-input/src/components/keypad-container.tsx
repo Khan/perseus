@@ -14,17 +14,17 @@ import {
 } from "./common-style";
 import ExpressionKeypad from "./expression-keypad";
 import FractionKeypad from "./fraction-keypad";
+import GestureManager from "./gesture-manager";
 import NavigationPad from "./navigation-pad";
 import Styles from "./styles";
 import * as zIndexes from "./z-indexes";
-import GestureManager from "./gesture-manager";
 
 import type {KeypadType} from "../consts";
+import type {Key} from "../data/keys";
 import type {State as ReduxState} from "../store/types";
 import type {Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-import type {Key} from "../data/keys";
 
 const {row, centered, fullWidth} = Styles;
 

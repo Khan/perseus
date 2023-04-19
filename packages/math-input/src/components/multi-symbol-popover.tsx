@@ -9,9 +9,10 @@ import {BorderStyles} from "../consts";
 import {View} from "../fake-react-native-web/index";
 import {KeyConfig} from "../types";
 
+import GestureManager from "./gesture-manager";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import * as zIndexes from "./z-indexes";
-import GestureManager from "./gesture-manager";
+
 import type {Popover} from "../types";
 
 type Prop = {

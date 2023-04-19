@@ -8,10 +8,10 @@ import {CSSTransition} from "react-transition-group";
 
 import KeyConfigs from "../data/key-configs";
 
+import GestureManager from "./gesture-manager";
 import MultiSymbolPopover from "./multi-symbol-popover";
 
 import type {Popover, KeyConfig} from "../types";
-import GestureManager from "./gesture-manager";
 
 // NOTE(charlie): These must be kept in sync with the transition durations and
 // classnames specified in popover.less.

@@ -9,11 +9,11 @@ import ReactDOM from "react-dom";
 import {View} from "../fake-react-native-web/index";
 
 import EchoManager from "./echo-manager";
+import GestureManager from "./gesture-manager";
 import PopoverManager from "./popover-manager";
 
 import type {Popover, Echo} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-import GestureManager from "./gesture-manager";
 
 type Props = {
     children: React.ReactNode;

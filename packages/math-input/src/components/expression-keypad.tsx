@@ -10,15 +10,16 @@ import KeyConfigs from "../data/key-configs";
 import {View} from "../fake-react-native-web/index";
 
 import {valueGrey, controlGrey} from "./common-style";
+import GestureManager from "./gesture-manager";
 import * as CursorContexts from "./input/cursor-contexts";
 import ManyKeypadButton from "./many-keypad-button";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
+
+import type {Key} from "../data/keys";
 import type {KeypadLayout, Popover, Echo} from "../types";
 import type {CursorContext} from "./input/cursor-contexts";
-import type {Key} from "../data/keys";
-import GestureManager from "./gesture-manager";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
