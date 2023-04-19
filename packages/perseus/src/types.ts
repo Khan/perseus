@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
-import katex from "katex";
 import * as React from "react";
 
 import type {SerializedHighlightSet} from "./components/highlighting/types";

@@ -3,14 +3,13 @@ import {
     linterContextProps,
     linterContextDefault,
 } from "@khanacademy/perseus-linter";
-import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Sortable from "../components/sortable";
-import {getDependencies} from "../dependencies";
+import {SpinnerUntilTexCanRender} from "../components/spinner-until-tex-can-render";
 import {ApiOptions} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
@@ -22,10 +21,10 @@ const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type State = {
-    leftHeight: number,
-    rightHeight: number,
-    texRendererLoaded: boolean,
-}
+    leftHeight: number;
+    rightHeight: number;
+    texRendererLoaded: boolean;
+};
 
 class Matcher extends React.Component<any, any> {
     static propTypes = {
@@ -58,36 +57,11 @@ class Matcher extends React.Component<any, any> {
         texRendererLoaded: false,
     };
 
-    render(): React.ReactNode {
-        // To minimize layout shift, we display a spinner until our math
-        // renderer is ready to render the math inside the sortable. To
-        // do this, we:
-        // - render a dummy TeX component to force the math renderer to load
-        // - display a spinner until the TeX component calls its onRender
-        //   callback, signifying that the math is rendered (from which we can
-        //   infer that the math renderer has loaded)
-        //
-        // If we didn't do this, the user might see a sortable with empty
-        // cells on first render, and then the math would pop in a few moments
-        // later once the rendering library loaded.
-        if (!this.state.texRendererLoaded) {
-            const {TeX} = getDependencies();
-            return (
-                <>
-                    <CircularSpinner />
-                    <div style={{display: "none"}}>
-                        <TeX
-                            onRender={() =>
-                                this.setState({texRendererLoaded: true})
-                            }
-                        >
-                            1
-                        </TeX>
-                    </div>
-                </>
-            );
-        }
+    render(): React.ReactElement {
+        return <SpinnerUntilTexCanRender children={this.renderWithTex} />;
+    }
 
+    renderWithTex: () => React.ReactElement = () => {
         // Use the same random() function to shuffle both columns sequentially
         const rng = seededRNG(this.props.problemNum);
 
@@ -173,7 +147,7 @@ class Matcher extends React.Component<any, any> {
                 </tbody>
             </table>
         );
-    }
+    };
 
     changeAndTrack: (arg1: any) => void = (e) => {
         this.props.onChange(e);

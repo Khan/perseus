@@ -1,6 +1,5 @@
 /* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
 import PropTypes from "prop-types";
@@ -8,10 +7,11 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {getDependencies} from "../dependencies";
 import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
+
+import {SpinnerUntilTexCanRender} from "./spinner-until-tex-can-render";
 
 import type {LinterContextProps} from "../types";
 
@@ -576,38 +576,10 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     }, 20);
 
     render(): React.ReactNode {
-        // To minimize layout shift, we display a spinner until our math
-        // renderer is ready to render the math inside the sortable. To
-        // do this, we:
-        // - render a dummy TeX component to force the math renderer to load
-        // - display a spinner until the TeX component calls its onRender
-        //   callback, signifying that the math is rendered (from which we can
-        //   infer that the math renderer has loaded)
-        //
-        // If we didn't do this, the user might see a sortable with empty
-        // cells on first render, and then the math would pop in a few moments
-        // later once the rendering library loaded.
-        if (
-            this.props.waitForTexRendererToLoad &&
-            !this.state.texRendererLoaded
-        ) {
-            const {TeX} = getDependencies();
-            return (
-                <>
-                    <CircularSpinner />
-                    <div style={{display: "none"}}>
-                        <TeX
-                            onRender={() =>
-                                this.setState({texRendererLoaded: true})
-                            }
-                        >
-                            1
-                        </TeX>
-                    </div>
-                </>
-            );
-        }
+        return <SpinnerUntilTexCanRender children={this.renderWithTex} />;
+    }
 
+    renderWithTex: () => React.ReactElement = () => {
         const cards: Array<
             | React.ReactElement<React.ComponentProps<typeof Placeholder>>
             | React.ReactElement<React.ComponentProps<typeof Draggable>>
@@ -705,7 +677,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         );
 
         return <ul className={className}>{cards}</ul>;
-    }
+    };
 
     onMouseDown(key: SortableItem["key"]) {
         // Static -> Dragging
