@@ -8,7 +8,7 @@ export default {
 
 export const Basic = () => {
     const [value, setValue] = React.useState("");
-    const [keypadElement, setKeypadElement] = React.useState(null);
+    const [keypadElement, setKeypadElement] = React.useState<any>(null);
     const [keypadType, setKeypadType] = React.useState<
         keyof typeof KeypadTypes
     >(KeypadTypes.FRACTION);
