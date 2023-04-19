@@ -8,8 +8,10 @@ export default {
 
 export const Basic = () => {
     const [value, setValue] = React.useState("");
-    const [keypadElement, setKeypadElement] = React.useState();
-    const [keypadType, setKeypadType] = React.useState(KeypadTypes.FRACTION);
+    const [keypadElement, setKeypadElement] = React.useState(null);
+    const [keypadType, setKeypadType] = React.useState<
+        keyof typeof KeypadTypes
+    >(KeypadTypes.FRACTION);
 
     React.useEffect(() => {
         keypadElement?.configure({
@@ -46,14 +48,10 @@ export const Basic = () => {
                     callback();
                 }}
                 onFocus={() => {
-                    if (keypadElement) {
-                        keypadElement?.activate();
-                    }
+                    keypadElement?.activate();
                 }}
                 onBlur={() => {
-                    if (keypadElement) {
-                        keypadElement?.dismiss();
-                    }
+                    keypadElement?.dismiss();
                 }}
             />
 
