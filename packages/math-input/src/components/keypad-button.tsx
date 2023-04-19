@@ -41,7 +41,7 @@ interface Props extends ReduxProps {
     focused: boolean;
     popoverEnabled: boolean;
     type: KeyType;
-    icon: IconType;
+    icon?: IconType;
     style?: StyleType;
     onTouchCancel?: (evt: React.TouchEvent<HTMLDivElement>) => void;
     onTouchEnd?: (evt: React.TouchEvent<HTMLDivElement>) => void;
@@ -230,7 +230,7 @@ class KeypadButton extends React.PureComponent<Props> {
             };
             const icons = childKeys.map((keyConfig) => {
                 return keyConfig.icon;
-            });
+            }) as ReadonlyArray<IconType>;
             return (
                 <View
                     style={buttonStyle}
@@ -257,7 +257,7 @@ class KeypadButton extends React.PureComponent<Props> {
                 <View style={buttonStyle} {...eventHandlers} {...a11yMarkup}>
                     {maybeFocusBox}
                     <View style={iconWrapperStyle}>
-                        <Icon icon={icon} focused={renderFocused} />
+                        <Icon icon={icon as IconType} focused={renderFocused} />
                     </View>
                     {maybeCornerDecal}
                 </View>

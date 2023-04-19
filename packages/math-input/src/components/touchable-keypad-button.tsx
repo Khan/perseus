@@ -15,25 +15,37 @@ import KeyConfigs from "../data/key-configs";
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
+import type {State} from "../store/types";
 import type {Key} from "../data/keys";
-import type {Border, Icon} from "../types";
+import type {Border, Icon, KeyConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+type OwnProps = {
+    keyConfig: KeyConfig;
+    borders?: Border;
+    disabled?: boolean;
+    style?: StyleType;
+};
+
 type Props = {
-    borders: Border;
-    childKeyIds: ReadonlyArray<Key>;
-    disabled: boolean;
-    focused: boolean;
+    borders?: Border;
+    disabled?: boolean;
+    style?: StyleType;
+
+    // from mapStateToProps
+    childKeyIds: ReadonlyArray<string>;
     gestureManager: GestureManager;
     id: Key;
+    focused: boolean;
     popoverEnabled: boolean;
-    style: StyleType;
+    childKeys: ReadonlyArray<KeyConfig>;
+    ariaLabel?: string;
+    icon?: Icon;
     type: KeyType;
-    icon: Icon;
 };
 
 class TouchableKeypadButton extends React.Component<Props> {
-    shouldComponentUpdate(newProps) {
+    shouldComponentUpdate(newProps: Props) {
         // We take advantage of a few different properties of our key
         // configuration system. Namely, we know that the other props flow
         // directly from the ID, and thus don't need to be checked. If a key has
@@ -102,12 +114,12 @@ class TouchableKeypadButton extends React.Component<Props> {
     }
 }
 
-const extractProps = (keyConfig) => {
+const extractProps = (keyConfig: KeyConfig) => {
     const {ariaLabel, icon, type} = keyConfig;
     return {ariaLabel, icon, type};
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
     const {gestures} = state;
 
     const {keyConfig, ...rest} = ownProps;
@@ -128,7 +140,7 @@ const mapStateToProps = (state, ownProps) => {
 
         // Add in some gesture state.
         focused: gestures.focus === id,
-        popoverEnabled: gestures.popover && gestures.popover.parentId === id,
+        popoverEnabled: !!(gestures.popover?.parentId === id),
 
         // Pass down the child keys and any extracted props.
         childKeys,
