@@ -15,8 +15,8 @@ import KeyConfigs from "../data/key-configs";
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-import type {State} from "../store/types";
 import type {Key} from "../data/keys";
+import type {State} from "../store/types";
 import type {Border, Icon, KeyConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
