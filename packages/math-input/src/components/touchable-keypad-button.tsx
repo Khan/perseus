@@ -20,19 +20,17 @@ import type {Key} from "../data/keys";
 import type {Border, Icon, KeyConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type OwnProps = {
+interface SharedProps {
+    borders?: Border;
+    disabled?: boolean;
+    style?: StyleType;
+}
+
+interface OwnProps extends SharedProps {
     keyConfig: KeyConfig;
-    borders?: Border;
-    disabled?: boolean;
-    style?: StyleType;
-};
+}
 
-type Props = {
-    borders?: Border;
-    disabled?: boolean;
-    style?: StyleType;
-
-    // from mapStateToProps
+interface Props extends SharedProps {
     childKeyIds: ReadonlyArray<string>;
     gestureManager: GestureManager;
     id: Key;
@@ -42,7 +40,7 @@ type Props = {
     ariaLabel?: string;
     icon?: Icon;
     type: KeyType;
-};
+}
 
 class TouchableKeypadButton extends React.Component<Props> {
     shouldComponentUpdate(newProps: Props) {
