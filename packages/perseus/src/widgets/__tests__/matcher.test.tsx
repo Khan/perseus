@@ -172,5 +172,5 @@ describe("matcher widget", () => {
 
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
-    })
+    });
 });
