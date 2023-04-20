@@ -305,11 +305,6 @@ export type PerseusDependencies = {
     graphieMovablesJiptLabels: JiptLabelStore;
     svgImageJiptLabels: JiptLabelStore;
     rendererTranslationComponents: JiptTranslationComponents;
-    // KaTeX related dependencies
-    logKaTeXError: (
-        expression: string,
-        error: Error,
-    ) => Promise<Response | null | undefined>;
     TeX: React.ComponentType<TeXProps>;
     //misc
     staticUrl: StaticUrlFn;
