@@ -151,4 +151,26 @@ describe("matcher widget", () => {
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
     });
+
+    it("is scored incorrect if the math renderer hasn't loaded yet", () => {
+        // Arrange: stub the TeX renderer to never call its onRender prop,
+        // which is how the matcher knows the math renderer is ready.
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: () => {
+                return null;
+            },
+        });
+
+        const apiOptions: APIOptions = {
+            isMobile: false,
+        };
+        const {renderer} = renderQuestion(question1, apiOptions);
+
+        // Act
+        renderer.guessAndScore();
+
+        // Assert
+        expect(renderer).toHaveBeenAnsweredIncorrectly();
+    })
 });
