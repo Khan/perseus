@@ -45,7 +45,7 @@ export type NonManyKeyConfig = {
     icon: Icon;
 
     childKeyIds?: ReadonlyArray<string>;
-    ariaLabel?: string;
+    ariaLabel: string;
 };
 
 export type KeyConfig =
