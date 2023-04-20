@@ -39,13 +39,29 @@ export type Icon = {
     data: string;
 };
 
-export type KeyConfig = {
-    id: Key;
-    type: keyof typeof KeyTypes;
-    childKeyIds: ReadonlyArray<string>;
+export type NonManyKeyConfig = {
+    id: Omit<Omit<Key, "MANY">, "FRAC_MULTI">;
+    type: Omit<Omit<keyof typeof KeyTypes, "MANY">, "FRAC_MULTI">;
+    icon: Icon;
+
+    childKeyIds?: ReadonlyArray<string>;
     ariaLabel?: string;
-    icon?: Icon;
 };
+
+export type KeyConfig =
+    | NonManyKeyConfig
+    | {
+          id: "MANY";
+          type: "MANY";
+          childKeyIds: ReadonlyArray<string>;
+          ariaLabel?: string;
+      }
+    | {
+          id: "FRAC_MULTI";
+          type: "FRAC_MULTI";
+          childKeyIds: ReadonlyArray<string>;
+          ariaLabel?: string;
+      };
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;

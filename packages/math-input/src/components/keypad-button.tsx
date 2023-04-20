@@ -23,9 +23,13 @@ import CornerDecal from "./corner-decal";
 import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
-import type {KeyType} from "../consts";
 import type {State} from "../store/types";
-import type {Border, KeyConfig, Icon as IconType} from "../types";
+import type {
+    Border,
+    NonManyKeyConfig,
+    Icon as IconType,
+    KeyConfig,
+} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface ReduxProps {
@@ -36,11 +40,11 @@ interface ReduxProps {
 interface Props extends ReduxProps {
     ariaLabel?: string;
     borders: Border;
-    childKeys: ReadonlyArray<KeyConfig>;
+    childKeys: ReadonlyArray<NonManyKeyConfig>;
     disabled: boolean;
     focused: boolean;
     popoverEnabled: boolean;
-    type: KeyType;
+    type: KeyConfig["type"];
     icon?: IconType;
     style?: StyleType;
     onTouchCancel?: (evt: React.TouchEvent<HTMLDivElement>) => void;

@@ -9,15 +9,14 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {KeyType, KeyTypes} from "../consts";
+import {KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-import type {Key} from "../data/keys";
 import type {State} from "../store/types";
-import type {Border, Icon, KeyConfig} from "../types";
+import type {Border, Icon, KeyConfig, NonManyKeyConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface SharedProps {
@@ -31,15 +30,15 @@ interface OwnProps extends SharedProps {
 }
 
 interface Props extends SharedProps {
-    childKeyIds: ReadonlyArray<string>;
+    childKeyIds?: ReadonlyArray<string>;
     gestureManager: GestureManager;
-    id: Key;
+    id: KeyConfig["id"];
     focused: boolean;
     popoverEnabled: boolean;
-    childKeys: ReadonlyArray<KeyConfig>;
+    childKeys?: ReadonlyArray<NonManyKeyConfig>;
     ariaLabel?: string;
     icon?: Icon;
-    type: KeyType;
+    type: KeyConfig["type"];
 }
 
 class TouchableKeypadButton extends React.Component<Props> {
@@ -112,7 +111,7 @@ class TouchableKeypadButton extends React.Component<Props> {
     }
 }
 
-const extractProps = (keyConfig: KeyConfig) => {
+const extractProps = (keyConfig: NonManyKeyConfig) => {
     const {ariaLabel, icon, type} = keyConfig;
     return {ariaLabel, icon, type};
 };
