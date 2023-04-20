@@ -5,6 +5,7 @@ import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
 import {testDependencies} from "../../../../testing/test-dependencies";
+import {wait} from "../../../../testing/wait";
 import {question1} from "../__testdata__/input-number.testdata";
 import Editor from "../editor";
 
@@ -23,6 +24,7 @@ describe("Editor", () => {
             ]);
             Widgets.registerWidgets([InputNumberWidget]);
             Widgets.registerEditors([InputNumberEditor]);
+            jest.useRealTimers();
         });
 
         test("clicking on the widget editor should open it", async () => {
@@ -43,6 +45,7 @@ describe("Editor", () => {
                     onChange={(props) => {}}
                 />,
             );
+            await wait();
 
             // Act
             const widgetDisclosure = screen.getByRole("link", {
@@ -74,6 +77,7 @@ describe("Editor", () => {
                     onChange={changeFn}
                 />,
             );
+            await wait();
 
             // Act
             const widgetDisclosure = screen.getByRole("link", {
