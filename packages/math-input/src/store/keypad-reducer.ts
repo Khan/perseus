@@ -3,6 +3,12 @@ import Keys from "../data/keys";
 
 import {defaultKeypadType} from "./shared";
 
+import type {
+    DismissKeypadAction,
+    ActivateKeypadAction,
+    ConfigureKeypadAction,
+    PressKeyAction,
+} from "./actions";
 import type {KeypadState} from "./types";
 
 const initialKeypadState = {
@@ -11,11 +17,15 @@ const initialKeypadState = {
     active: false,
 } as const;
 
+type Action =
+    | DismissKeypadAction
+    | ActivateKeypadAction
+    | ConfigureKeypadAction
+    | PressKeyAction;
+
 const keypadReducer = function (
-    state = initialKeypadState,
-    action: {
-        type: string;
-    },
+    state: KeypadState = initialKeypadState,
+    action: Action,
 ): KeypadState {
     switch (action.type) {
         case "DismissKeypad":
@@ -35,12 +45,10 @@ const keypadReducer = function (
                 ...state,
                 // Default `extraKeys` to the empty array.
                 extraKeys: [],
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'configuration' does not exist on type '{ type: string; }'.
                 ...action.configuration,
             };
 
         case "PressKey":
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'key' does not exist on type '{ type: string; }'.
             const keyConfig = KeyConfigs[action.key];
             // NOTE(charlie): Our keypad system operates by triggering key
             // presses with key IDs in a dumb manner, such that the keys

@@ -3,6 +3,7 @@ import * as Redux from "redux";
 import GestureManager from "../components/gesture-manager";
 import Keys from "../data/keys";
 
+import {onSwipeChange, onSwipeEnd, setActiveNodes, pressKey} from "./actions";
 import echoReducer from "./echo-reducer";
 import inputReducer from "./input-reducer";
 import keypadReducer from "./keypad-reducer";
@@ -10,6 +11,8 @@ import layoutReducer from "./layout-reducer";
 import pagerReducer from "./pager-reducer";
 import {defaultKeypadType, keypadForType} from "./shared";
 
+import type {Key} from "../data/keys";
+import type {LayoutProps} from "../types";
 import type {GestureState} from "./types";
 
 export const createStore = () => {
@@ -21,31 +24,28 @@ export const createStore = () => {
                 swipeEnabled,
             },
             {
-                onSwipeChange: (dx) => {
-                    store.dispatch({
-                        type: "OnSwipeChange",
-                        dx,
-                    });
+                onSwipeChange: (dx: number) => {
+                    store.dispatch(onSwipeChange(dx));
                 },
-                onSwipeEnd: (dx) => {
-                    store.dispatch({
-                        type: "OnSwipeEnd",
-                        dx,
-                    });
+                onSwipeEnd: (dx: number) => {
+                    store.dispatch(onSwipeEnd(dx));
                 },
                 onActiveNodesChanged: (activeNodes) => {
-                    store.dispatch({
-                        type: "SetActiveNodes",
-                        activeNodes,
-                    });
+                    store.dispatch(setActiveNodes(activeNodes));
                 },
-                onClick: (key, layoutProps, inPopover) => {
-                    store.dispatch({
-                        type: "PressKey",
-                        key,
-                        ...layoutProps,
-                        inPopover,
-                    });
+                onClick: (
+                    key: Key,
+                    layoutProps: LayoutProps,
+                    inPopover: boolean,
+                ) => {
+                    store.dispatch(
+                        pressKey(
+                            key,
+                            layoutProps.borders,
+                            layoutProps.initialBounds,
+                            inPopover,
+                        ),
+                    );
                 },
             },
             [],

@@ -2,9 +2,9 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {setPageSize} from "../actions/index";
 import {KeypadTypes, LayoutModes} from "../consts";
 import {View} from "../fake-react-native-web/index";
+import {setPageSize} from "../store/actions";
 
 import {
     innerBorderColor,

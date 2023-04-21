@@ -4,6 +4,7 @@ import {DeviceOrientations, DeviceTypes, LayoutModes} from "../consts";
 
 import {defaultKeypadType, keypadForType} from "./shared";
 
+import type {SetPageSizeAction, ConfigureKeypadAction} from "./actions";
 import type {LayoutState} from "./types";
 
 const initialLayoutState = {
@@ -89,9 +90,11 @@ const layoutParametersForDimensions = (
     };
 };
 
+type Action = SetPageSizeAction | ConfigureKeypadAction;
+
 const layoutReducer = function (
-    state = initialLayoutState,
-    action: any,
+    state: LayoutState = initialLayoutState,
+    action: Action,
 ): LayoutState {
     switch (action.type) {
         case "ConfigureKeypad":

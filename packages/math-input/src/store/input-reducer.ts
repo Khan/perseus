@@ -3,6 +3,11 @@ import {KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
 import type {Cursor, KeyHandler} from "../types";
+import type {
+    PressKeyAction,
+    SetKeyHandlerAction,
+    SetCursorAction,
+} from "./actions";
 import type {InputState} from "./types";
 
 const initialInputState: {
@@ -15,9 +20,11 @@ const initialInputState: {
     },
 };
 
+type Action = PressKeyAction | SetKeyHandlerAction | SetCursorAction;
+
 const inputReducer = function (
-    state = initialInputState,
-    action: any,
+    state: InputState = initialInputState,
+    action: Action,
 ): InputState {
     switch (action.type) {
         case "SetKeyHandler":

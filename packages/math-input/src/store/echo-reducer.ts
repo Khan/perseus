@@ -1,6 +1,7 @@
 import {EchoAnimationTypes, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
+import type {PressKeyAction, RemoveEchoAction} from "./actions";
 import type {EchoState} from "./types";
 
 // Used to generate unique animation IDs for the echo animations. The actual
@@ -11,7 +12,12 @@ const initialEchoState = {
     echoes: [],
 } as const;
 
-const echoReducer = function (state = initialEchoState, action): EchoState {
+type Action = PressKeyAction | RemoveEchoAction;
+
+const echoReducer = function (
+    state: EchoState = initialEchoState,
+    action: Action,
+): EchoState {
     switch (action.type) {
         case "PressKey":
             const keyConfig = KeyConfigs[action.key];
@@ -42,7 +48,6 @@ const echoReducer = function (state = initialEchoState, action): EchoState {
 
         case "RemoveEcho":
             const remainingEchoes = state.echoes.filter((echo) => {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'animationId' does not exist on type 'never'.
                 return echo.animationId !== action.animationId;
             });
             return {
