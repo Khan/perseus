@@ -2,7 +2,6 @@ import {
     components,
     icons,
     preprocessTex,
-    Dependencies,
     Errors,
     Log,
     PerseusError,
@@ -405,9 +404,7 @@ type DeafultProps = {
 };
 
 type State = {
-    showKatexErrors: boolean;
     textAreaValue: string;
-    katex?: katex;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -430,8 +427,6 @@ class Editor extends React.Component<Props, State> {
     };
 
     state: State = {
-        katex: undefined,
-        showKatexErrors: false,
         textAreaValue: this.props.content,
     };
 
@@ -450,14 +445,6 @@ class Editor extends React.Component<Props, State> {
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
             .on("copy cut", this._maybeCopyWidgets)
             .on("paste", this._maybePasteWidgets);
-
-        Dependencies.getDependencies()
-            .getKaTeX()
-            .then((katex) => {
-                this.setState({
-                    katex,
-                });
-            });
     }
 
     // TODO(arun): This is a deprecated method, use the appropriate replacement
@@ -1192,9 +1179,7 @@ class Editor extends React.Component<Props, State> {
             );
         }
 
-        const {katex} = this.state;
-
-        if (this.props.widgetEnabled && katex) {
+        if (this.props.widgetEnabled) {
             pieces = Util.split(this.props.content, rWidgetSplit);
             widgets = {};
             underlayPieces = [];
