@@ -13,7 +13,19 @@ import {defaultKeypadType, keypadForType} from "./shared";
 
 import type {Key} from "../data/keys";
 import type {LayoutProps} from "../types";
+import type {
+    DismissKeypadAction,
+    ActivateKeypadAction,
+    ConfigureKeypadAction,
+    SetActiveNodesAction,
+} from "./actions";
 import type {GestureState} from "./types";
+
+type GestureAction =
+    | DismissKeypadAction
+    | ActivateKeypadAction
+    | ConfigureKeypadAction
+    | SetActiveNodesAction;
 
 export const createStore = () => {
     // TODO(matthewc)[LC-752]: gestureReducer can't be moved from this file
@@ -62,8 +74,8 @@ export const createStore = () => {
     } as const;
 
     const gestureReducer = function (
-        state = initialGestureState,
-        action: any,
+        state: GestureState = initialGestureState,
+        action: GestureAction,
     ): GestureState {
         switch (action.type) {
             case "DismissKeypad":

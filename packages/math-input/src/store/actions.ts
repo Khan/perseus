@@ -129,7 +129,7 @@ export const onSwipeEnd = (dx: number): OnSwipeEndAction => {
 
 export type SetActiveNodesAction = {
     type: "SetActiveNodes";
-    activeNodes: ActiveNodesObj;
+    activeNodes: any;
 };
 
 export const setActiveNodes = (
