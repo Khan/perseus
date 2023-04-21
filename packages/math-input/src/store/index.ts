@@ -21,7 +21,7 @@ import pagerReducer from "./pager-reducer";
 import {defaultKeypadType, keypadForType} from "./shared";
 
 import type {Key} from "../data/keys";
-import type {LayoutProps} from "../types";
+import type {LayoutProps, ActiveNodesObj} from "../types";
 import type {
     DismissKeypadAction,
     ActivateKeypadAction,
@@ -51,7 +51,7 @@ export const createStore = () => {
                 onSwipeEnd: (dx: number) => {
                     store.dispatch(onSwipeEnd(dx));
                 },
-                onActiveNodesChanged: (activeNodes) => {
+                onActiveNodesChanged: (activeNodes: ActiveNodesObj) => {
                     store.dispatch(setActiveNodes(activeNodes));
                 },
                 onClick: (
