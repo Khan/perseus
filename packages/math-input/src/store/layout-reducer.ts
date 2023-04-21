@@ -2,6 +2,7 @@ import {tabletCutoffPx} from "../components/common-style";
 import {computeLayoutParameters} from "../components/compute-layout-parameters";
 import {DeviceOrientations, DeviceTypes, LayoutModes} from "../consts";
 
+import {ConfigureKeypadActionType, SetPageSizeActionType} from "./actions";
 import {defaultKeypadType, keypadForType} from "./shared";
 
 import type {SetPageSizeAction, ConfigureKeypadAction} from "./actions";
@@ -97,7 +98,7 @@ const layoutReducer = function (
     action: Action,
 ): LayoutState {
     switch (action.type) {
-        case "ConfigureKeypad":
+        case ConfigureKeypadActionType:
             const {keypadType} = action.configuration;
             const gridDimensions = {
                 numRows: keypadForType[keypadType].rows,
@@ -115,7 +116,7 @@ const layoutReducer = function (
                 gridDimensions,
             };
 
-        case "SetPageSize":
+        case SetPageSizeActionType:
             const {pageWidthPx, pageHeightPx} = action;
             const pageDimensions = {pageWidthPx, pageHeightPx} as const;
 

@@ -3,7 +3,16 @@ import * as Redux from "redux";
 import GestureManager from "../components/gesture-manager";
 import Keys from "../data/keys";
 
-import {onSwipeChange, onSwipeEnd, setActiveNodes, pressKey} from "./actions";
+import {
+    onSwipeChange,
+    onSwipeEnd,
+    setActiveNodes,
+    pressKey,
+    DismissKeypadActionType,
+    ActivateKeypadActionType,
+    ConfigureKeypadActionType,
+    SetActiveNodesActionType,
+} from "./actions";
 import echoReducer from "./echo-reducer";
 import inputReducer from "./input-reducer";
 import keypadReducer from "./keypad-reducer";
@@ -78,7 +87,7 @@ export const createStore = () => {
         action: GestureAction,
     ): GestureState {
         switch (action.type) {
-            case "DismissKeypad":
+            case DismissKeypadActionType:
                 // NOTE(charlie): In the past, we enforced the "gesture manager
                 // will not receive any events when the keypad is hidden"
                 // assumption by assuming that the keypad would be hidden when
@@ -91,17 +100,17 @@ export const createStore = () => {
                 state.gestureManager.disableEventTracking();
                 return state;
 
-            case "ActivateKeypad":
+            case ActivateKeypadActionType:
                 state.gestureManager.enableEventTracking();
                 return state;
 
-            case "SetActiveNodes":
+            case SetActiveNodesActionType:
                 return {
                     ...state,
                     ...action.activeNodes,
                 };
 
-            case "ConfigureKeypad":
+            case ConfigureKeypadActionType:
                 const {keypadType} = action.configuration;
                 const {numPages} = keypadForType[keypadType];
                 const swipeEnabled = numPages > 1;

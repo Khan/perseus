@@ -2,6 +2,12 @@ import * as CursorContexts from "../components/input/cursor-contexts";
 import {KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
+import {
+    SetKeyHandlerActionType,
+    SetCursorActionType,
+    PressKeyActionType,
+} from "./actions";
+
 import type {Cursor, KeyHandler} from "../types";
 import type {
     PressKeyAction,
@@ -27,13 +33,13 @@ const inputReducer = function (
     action: Action,
 ): InputState {
     switch (action.type) {
-        case "SetKeyHandler":
+        case SetKeyHandlerActionType:
             return {
                 ...state,
                 keyHandler: action.keyHandler,
             };
 
-        case "PressKey":
+        case PressKeyActionType:
             const keyConfig = KeyConfigs[action.key];
             if (keyConfig.type !== KeyTypes.KEYPAD_NAVIGATION) {
                 // This is probably an anti-pattern but it works for the
@@ -48,7 +54,7 @@ const inputReducer = function (
             // TODO(kevinb) get state from MathQuill and store it?
             return state;
 
-        case "SetCursor":
+        case SetCursorActionType:
             return {
                 ...state,
                 cursor: action.cursor,

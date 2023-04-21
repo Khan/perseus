@@ -2,6 +2,13 @@ import VelocityTracker from "../components/velocity-tracker";
 import {KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
+import {
+    ConfigureKeypadActionType,
+    SetPageSizeActionType,
+    OnSwipeChangeActionType,
+    OnSwipeEndActionType,
+    PressKeyActionType,
+} from "./actions";
 import {defaultKeypadType, keypadForType} from "./shared";
 
 import type {
@@ -41,7 +48,7 @@ const pagerReducer = function (
     action: Action,
 ): PagerState {
     switch (action.type) {
-        case "ConfigureKeypad":
+        case ConfigureKeypadActionType:
             const {keypadType} = action.configuration;
             const {numPages} = keypadForType[keypadType];
             return {
@@ -52,13 +59,13 @@ const pagerReducer = function (
                 dx: 0,
             };
 
-        case "SetPageSize":
+        case SetPageSizeActionType:
             return {
                 ...state,
                 pageWidthPx: action.pageWidthPx,
             };
 
-        case "PressKey":
+        case PressKeyActionType:
             const keyConfig = KeyConfigs[action.key];
 
             // Reset the keypad page if the user performs a math operation.
@@ -76,7 +83,7 @@ const pagerReducer = function (
             }
             return state;
 
-        case "OnSwipeChange":
+        case OnSwipeChangeActionType:
             state.velocityTracker.push(action.dx);
 
             return {
@@ -85,7 +92,7 @@ const pagerReducer = function (
                 dx: action.dx,
             };
 
-        case "OnSwipeEnd":
+        case OnSwipeEndActionType:
             const {pageWidthPx, velocityTracker} = state;
             const {dx} = action;
             const velocity = velocityTracker.getVelocity();

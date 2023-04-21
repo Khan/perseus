@@ -1,6 +1,8 @@
 import {EchoAnimationTypes, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
+import {RemoveEchoActionType, PressKeyActionType} from "./actions";
+
 import type {PressKeyAction, RemoveEchoAction} from "./actions";
 import type {EchoState} from "./types";
 
@@ -19,7 +21,7 @@ const echoReducer = function (
     action: Action,
 ): EchoState {
     switch (action.type) {
-        case "PressKey":
+        case PressKeyActionType:
             const keyConfig = KeyConfigs[action.key];
 
             // Add in the echo animation if the user performs a math
@@ -46,7 +48,7 @@ const echoReducer = function (
             }
             return state;
 
-        case "RemoveEcho":
+        case RemoveEchoActionType:
             const remainingEchoes = state.echoes.filter((echo) => {
                 return echo.animationId !== action.animationId;
             });
