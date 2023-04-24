@@ -23,6 +23,7 @@ const MIN_VIEWPORT_HEIGHT = 480;
 type Props = {
     width: number;
     height: number;
+    children: React.ReactNode;
     className?: string;
     constrainHeight?: boolean;
     allowFullBleed?: boolean;
