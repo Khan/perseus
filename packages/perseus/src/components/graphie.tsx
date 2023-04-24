@@ -1,10 +1,10 @@
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InteractiveUtil from "../interactive2/interactive-util";
+import {Coord} from "../interactive2/types";
 import {Errors, Log} from "../logging/log";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
@@ -18,28 +18,44 @@ const createGraphie = GraphUtils.createGraphie;
 const {deepEq, nestedMap} = Util;
 const {assert} = InteractiveUtil;
 
-type Props = any;
+type Size = [width: number, height: number];
+
+type Props = {
+    addMouseLayer?: boolean;
+    box: Size;
+    children: React.ReactNode;
+    isMobile?: boolean;
+    onClick: (at: Coord) => void;
+    onMouseDown: (at: Coord) => void;
+    onMouseMove: (at: Coord) => void;
+    onMouseUp: (at: Coord) => void;
+    options: {
+        snapStep?: [x: number, y: number];
+        labels?: ReadonlyArray<any>;
+    };
+    range: [Coord, Coord];
+    responsive?: boolean;
+    setDrawingAreaAvailable?: () => void;
+    setup: (
+        graphie: any,
+        options: {
+            range: [Coord, Coord];
+            scale: [xScale: number, yScale: number];
+        },
+    ) => void;
+};
+
+type DefaultProps = {
+    range: Props["range"];
+    options: Props["options"];
+    responsive: Props["responsive"];
+    addMouseLayer: Props["addMouseLayer"];
+};
 
 class Graphie extends React.Component<Props> {
-    static propTypes = {
-        addMouseLayer: PropTypes.bool,
-        box: PropTypes.arrayOf(PropTypes.number).isRequired,
-        children: PropTypes.node,
-        isMobile: PropTypes.bool,
-        onClick: PropTypes.func,
-        onMouseDown: PropTypes.func,
-        onMouseMove: PropTypes.func,
-        onMouseUp: PropTypes.func,
-        options: PropTypes.shape({
-            snapStep: PropTypes.arrayOf(PropTypes.number),
-        }),
-        range: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-        responsive: PropTypes.bool,
-        setDrawingAreaAvailable: PropTypes.func,
-        setup: PropTypes.func.isRequired,
-    };
+    graphieDivRef = React.createRef<HTMLDivElement>();
 
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         range: [
             [-10, 10],
             [-10, 10],
@@ -102,21 +118,30 @@ class Graphie extends React.Component<Props> {
     };
 
     // bounds-checked range
-    _range: () => ReadonlyArray<[number, number]> = () => {
-        return _.map(this.props.range, (dimRange) => {
-            if (dimRange[0] >= dimRange[1]) {
+    _range: () => [Coord, Coord] = () => {
+        const boundsCheckRange = (range: Coord): Coord => {
+            if (range[0] >= range[1]) {
                 return [-10, 10];
             }
-            return dimRange;
-        });
+            return range;
+        };
+        return [
+            boundsCheckRange(this.props.range[0]),
+            boundsCheckRange(this.props.range[1]),
+        ];
     };
 
-    _box: () => ReadonlyArray<number> = () => {
-        return _.map(this.props.box, (pixelDim) => {
+    _box: () => Size = () => {
+        const ensureMinSize = (pixelDim: number): number => {
             // 340 = default size in the editor. exact value
             // is arbitrary; this is just a safety check.
             return pixelDim > 0 ? pixelDim : 340;
-        });
+        };
+
+        return [
+            ensureMinSize(this.props.box[0]),
+            ensureMinSize(this.props.box[1]),
+        ];
     };
 
     _scale: () => ReadonlyArray<number> = () => {
@@ -131,8 +156,7 @@ class Graphie extends React.Component<Props> {
     _setupGraphie: () => void = () => {
         this._removeMovables();
 
-        // eslint-disable-next-line react/no-string-refs
-        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+        const graphieDiv = ReactDOM.findDOMNode(this.graphieDivRef.current);
         // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
         // @ts-expect-error [FEI-5003] - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
@@ -342,8 +366,7 @@ class Graphie extends React.Component<Props> {
     render(): React.ReactNode {
         return (
             <div className="graphie-container">
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div className="graphie" ref="graphieDiv" />
+                <div className="graphie" ref={this.graphieDivRef} />
             </div>
         );
     }
