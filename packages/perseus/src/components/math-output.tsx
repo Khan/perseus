@@ -1,6 +1,5 @@
 /* eslint-disable react/sort-comp */
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -11,22 +10,33 @@ import TexWrangler from "../tex-wrangler";
 
 const ModifyTex = TexWrangler.modifyTex;
 
-class MathOutput extends React.Component<any, any> {
-    static propTypes = {
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        className: PropTypes.string,
-        labelText: PropTypes.string,
-        onFocus: PropTypes.func,
-        onBlur: PropTypes.func,
-    };
+type Props = {
+    value: string | number;
+    className?: string;
+    labelText?: string;
+    onFocus: () => void;
+    onBlur: () => void;
+};
 
-    static defaultProps: any = {
+type DefaultProps = {
+    value: Props["value"];
+    onFocus: Props["onFocus"];
+    onBlur: Props["onBlur"];
+};
+
+type State = {
+    focused: boolean;
+    selectorNamespace: string;
+};
+
+class MathOutput extends React.Component<Props, State> {
+    static defaultProps: DefaultProps = {
         value: "",
         onFocus: function () {},
         onBlur: function () {},
     };
 
-    state: any = {
+    state: State = {
         focused: false,
         selectorNamespace: _.uniqueId("math-output"),
     };
