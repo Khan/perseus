@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /**
  * A wrapper for a component that would otherwise have a fixed width and
  * height, that magically makes it reponsive while preserving its aspect ratio.
@@ -15,41 +14,46 @@
  * </FixedToResponsive>
  */
 import classNames from "classnames";
-import createReactClass from "create-react-class";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import {negativePhoneMargin} from "../styles/constants";
 
 const MIN_VIEWPORT_HEIGHT = 480;
 
-const FixedToResponsive: any = createReactClass({
-    displayName: "FixedToResponsive",
+type Props = {
+    width: number;
+    height: number;
+    className?: string;
+    constrainHeight?: boolean;
+    allowFullBleed?: boolean;
+};
 
-    propTypes: {
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        className: PropTypes.string,
-        constrainHeight: PropTypes.bool,
-        allowFullBleed: PropTypes.bool,
-    },
+type DefaultProps = {
+    className: Props["className"];
+    constrainHeight: Props["constrainHeight"];
+    allowFullBleed: Props["allowFullBleed"];
+};
 
-    getDefaultProps: function () {
-        return {
-            className: "",
-            constrainHeight: false,
-            allowFullBleed: false,
-        };
-    },
+type State = {
+    viewportHeight: number | null;
+    viewportWidth: number | null;
+};
 
-    getInitialState: function () {
-        return {
-            viewportHeight: null,
-            viewportWidth: null,
-        };
-    },
+class FixedToResponsive extends React.Component<Props, State> {
+    _isMounted = false;
 
-    componentDidMount: function () {
+    static defaultProps: DefaultProps = {
+        className: "",
+        constrainHeight: false,
+        allowFullBleed: false,
+    };
+
+    state: State = {
+        viewportHeight: null,
+        viewportWidth: null,
+    };
+
+    componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
@@ -70,13 +74,13 @@ const FixedToResponsive: any = createReactClass({
         } else {
             this._cacheViewportSize();
         }
-    },
+    }
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         this._isMounted = false;
-    },
+    }
 
-    _cacheViewportSize: function () {
+    _cacheViewportSize: () => void = (): void => {
         if (this._isMounted) {
             this.setState({
                 viewportHeight: Math.max(
@@ -86,9 +90,9 @@ const FixedToResponsive: any = createReactClass({
                 viewportWidth: window.innerWidth,
             });
         }
-    },
+    };
 
-    render: function () {
+    render() {
         // The ideal behavior for responsified, fixed size child components is
         // that they shrink when they need to (while preserving aspect ratio)
         // but never grow larger than their original dimensions. We accomplish
@@ -158,7 +162,7 @@ const FixedToResponsive: any = createReactClass({
             );
         }
         return container;
-    },
-});
+    }
+}
 
 export default FixedToResponsive;
