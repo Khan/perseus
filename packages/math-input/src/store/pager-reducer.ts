@@ -2,22 +2,9 @@ import VelocityTracker from "../components/velocity-tracker";
 import {KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
-import {
-    ConfigureKeypadActionType,
-    SetPageSizeActionType,
-    OnSwipeChangeActionType,
-    OnSwipeEndActionType,
-    PressKeyActionType,
-} from "./actions";
 import {defaultKeypadType, keypadForType} from "./shared";
 
-import type {
-    SetPageSizeAction,
-    ConfigureKeypadAction,
-    PressKeyAction,
-    OnSwipeChangeAction,
-    OnSwipeEndAction,
-} from "./actions";
+import type {Action} from "./actions";
 import type {PagerState} from "./types";
 
 // We default to the right-most page. This is done so-as to enforce a
@@ -36,19 +23,12 @@ const initialPagerState = {
     velocityTracker: new VelocityTracker(),
 } as const;
 
-type Action =
-    | SetPageSizeAction
-    | ConfigureKeypadAction
-    | PressKeyAction
-    | OnSwipeChangeAction
-    | OnSwipeEndAction;
-
 const pagerReducer = function (
     state: PagerState = initialPagerState,
     action: Action,
 ): PagerState {
     switch (action.type) {
-        case ConfigureKeypadActionType:
+        case "ConfigureKeypad":
             const {keypadType} = action.configuration;
             const {numPages} = keypadForType[keypadType];
             return {
@@ -59,13 +39,13 @@ const pagerReducer = function (
                 dx: 0,
             };
 
-        case SetPageSizeActionType:
+        case "SetPageSize":
             return {
                 ...state,
                 pageWidthPx: action.pageWidthPx,
             };
 
-        case PressKeyActionType:
+        case "PressKey":
             const keyConfig = KeyConfigs[action.key];
 
             // Reset the keypad page if the user performs a math operation.
@@ -83,7 +63,7 @@ const pagerReducer = function (
             }
             return state;
 
-        case OnSwipeChangeActionType:
+        case "OnSwipeChange":
             state.velocityTracker.push(action.dx);
 
             return {
@@ -92,7 +72,7 @@ const pagerReducer = function (
                 dx: action.dx,
             };
 
-        case OnSwipeEndActionType:
+        case "OnSwipeEnd":
             const {pageWidthPx, velocityTracker} = state;
             const {dx} = action;
             const velocity = velocityTracker.getVelocity();

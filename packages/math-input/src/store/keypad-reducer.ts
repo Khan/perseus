@@ -1,20 +1,9 @@
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
 
-import {
-    DismissKeypadActionType,
-    ActivateKeypadActionType,
-    ConfigureKeypadActionType,
-    PressKeyActionType,
-} from "./actions";
 import {defaultKeypadType} from "./shared";
 
-import type {
-    DismissKeypadAction,
-    ActivateKeypadAction,
-    ConfigureKeypadAction,
-    PressKeyAction,
-} from "./actions";
+import type {Action} from "./actions";
 import type {KeypadState} from "./types";
 
 const initialKeypadState = {
@@ -23,30 +12,24 @@ const initialKeypadState = {
     active: false,
 } as const;
 
-type Action =
-    | DismissKeypadAction
-    | ActivateKeypadAction
-    | ConfigureKeypadAction
-    | PressKeyAction;
-
 const keypadReducer = function (
     state: KeypadState = initialKeypadState,
     action: Action,
 ): KeypadState {
     switch (action.type) {
-        case DismissKeypadActionType:
+        case "DismissKeypad":
             return {
                 ...state,
                 active: false,
             };
 
-        case ActivateKeypadActionType:
+        case "ActivateKeypad":
             return {
                 ...state,
                 active: true,
             };
 
-        case ConfigureKeypadActionType:
+        case "ConfigureKeypad":
             return {
                 ...state,
                 // Default `extraKeys` to the empty array.
@@ -54,7 +37,7 @@ const keypadReducer = function (
                 ...action.configuration,
             };
 
-        case PressKeyActionType:
+        case "PressKey":
             const keyConfig = KeyConfigs[action.key];
             // NOTE(charlie): Our keypad system operates by triggering key
             // presses with key IDs in a dumb manner, such that the keys

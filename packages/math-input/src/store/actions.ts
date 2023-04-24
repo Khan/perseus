@@ -11,37 +11,31 @@ import type {
 // the noun should be one of the other properties in the object that's
 // being dispatched
 
-export const DismissKeypadActionType = "DismissKeypad";
-
-export type DismissKeypadAction = {
-    type: typeof DismissKeypadActionType;
+type DismissKeypadAction = {
+    type: "DismissKeypad";
 };
 
 export const dismissKeypad = (): DismissKeypadAction => {
     return {
-        type: DismissKeypadActionType,
+        type: "DismissKeypad",
     };
 };
 
-export const ActivateKeypadActionType = "ActivateKeypad";
-
-export type ActivateKeypadAction = {
-    type: typeof ActivateKeypadActionType;
+type ActivateKeypadAction = {
+    type: "ActivateKeypad";
 };
 
 export const activateKeypad = (): ActivateKeypadAction => {
     return {
-        type: ActivateKeypadActionType,
+        type: "ActivateKeypad",
     };
 };
 
 /**
  * Configure the keypad with the provided configuration parameters.
  */
-export const ConfigureKeypadActionType = "ConfigureKeypad";
-
-export type ConfigureKeypadAction = {
-    type: typeof ConfigureKeypadActionType;
+type ConfigureKeypadAction = {
+    type: "ConfigureKeypad";
     configuration: KeypadConfiguration;
 };
 
@@ -49,15 +43,13 @@ export const configureKeypad = (
     configuration: KeypadConfiguration,
 ): ConfigureKeypadAction => {
     return {
-        type: ConfigureKeypadActionType,
+        type: "ConfigureKeypad",
         configuration,
     };
 };
 
-export const SetPageSizeActionType = "SetPageSize";
-
-export type SetPageSizeAction = {
-    type: typeof SetPageSizeActionType;
+type SetPageSizeAction = {
+    type: "SetPageSize";
     pageWidthPx: number;
     pageHeightPx: number;
 };
@@ -67,88 +59,76 @@ export const setPageSize = (
     pageHeightPx: number,
 ): SetPageSizeAction => {
     return {
-        type: SetPageSizeActionType,
+        type: "SetPageSize",
         pageWidthPx,
         pageHeightPx,
     };
 };
 
-export const RemoveEchoActionType = "RemoveEcho";
-
-export type RemoveEchoAction = {
-    type: typeof RemoveEchoActionType;
+type RemoveEchoAction = {
+    type: "RemoveEcho";
     animationId: string;
 };
 
 export const removeEcho = (animationId: string): RemoveEchoAction => {
     return {
-        type: RemoveEchoActionType,
+        type: "RemoveEcho",
         animationId,
     };
 };
 
 // Input-related actions.
-export const SetKeyHandlerActionType = "SetKeyHandler";
-
-export type SetKeyHandlerAction = {
-    type: typeof SetKeyHandlerActionType;
+type SetKeyHandlerAction = {
+    type: "SetKeyHandler";
     keyHandler: KeyHandler;
 };
 
 export const setKeyHandler = (keyHandler: KeyHandler): SetKeyHandlerAction => {
     return {
-        type: SetKeyHandlerActionType,
+        type: "SetKeyHandler",
         keyHandler,
     };
 };
 
-export const SetCursorActionType = "SetCursor";
-
-export type SetCursorAction = {
-    type: typeof SetCursorActionType;
+type SetCursorAction = {
+    type: "SetCursor";
     cursor: Cursor;
 };
 
 export const setCursor = (cursor: Cursor): SetCursorAction => {
     return {
-        type: SetCursorActionType,
+        type: "SetCursor",
         cursor,
     };
 };
 
 // Gesture actions
-export const OnSwipeChangeActionType = "OnSwipeChange";
-
-export type OnSwipeChangeAction = {
-    type: typeof OnSwipeChangeActionType;
+type OnSwipeChangeAction = {
+    type: "OnSwipeChange";
     dx: number;
 };
 
 export const onSwipeChange = (dx: number): OnSwipeChangeAction => {
     return {
-        type: OnSwipeChangeActionType,
+        type: "OnSwipeChange",
         dx,
     };
 };
 
-export const OnSwipeEndActionType = "OnSwipeEnd";
-
-export type OnSwipeEndAction = {
-    type: typeof OnSwipeEndActionType;
+type OnSwipeEndAction = {
+    type: "OnSwipeEnd";
     dx: number;
 };
 
 export const onSwipeEnd = (dx: number): OnSwipeEndAction => {
     return {
-        type: OnSwipeEndActionType,
+        type: "OnSwipeEnd",
         dx,
     };
 };
 
-export const SetActiveNodesActionType = "SetActiveNodes";
-
-export type SetActiveNodesAction = {
-    type: typeof SetActiveNodesActionType;
+type SetActiveNodesAction = {
+    type: "SetActiveNodes";
     activeNodes: any;
 };
 
@@ -156,15 +136,13 @@ export const setActiveNodes = (
     activeNodes: ActiveNodesObj,
 ): SetActiveNodesAction => {
     return {
-        type: SetActiveNodesActionType,
+        type: "SetActiveNodes",
         activeNodes,
     };
 };
 
-export const PressKeyActionType = "PressKey";
-
-export type PressKeyAction = {
-    type: typeof PressKeyActionType;
+type PressKeyAction = {
+    type: "PressKey";
     key: Key;
     borders: Border;
     initialBounds: DOMRect;
@@ -178,10 +156,23 @@ export const pressKey = (
     inPopover: any,
 ): PressKeyAction => {
     return {
-        type: PressKeyActionType,
+        type: "PressKey",
         key,
         borders,
         initialBounds,
         inPopover,
     };
 };
+
+export type Action =
+    | DismissKeypadAction
+    | ActivateKeypadAction
+    | ConfigureKeypadAction
+    | SetPageSizeAction
+    | RemoveEchoAction
+    | SetKeyHandlerAction
+    | SetCursorAction
+    | OnSwipeChangeAction
+    | OnSwipeEndAction
+    | SetActiveNodesAction
+    | PressKeyAction;

@@ -3,16 +3,7 @@ import * as Redux from "redux";
 import GestureManager from "../components/gesture-manager";
 import Keys from "../data/keys";
 
-import {
-    onSwipeChange,
-    onSwipeEnd,
-    setActiveNodes,
-    pressKey,
-    DismissKeypadActionType,
-    ActivateKeypadActionType,
-    ConfigureKeypadActionType,
-    SetActiveNodesActionType,
-} from "./actions";
+import {onSwipeChange, onSwipeEnd, setActiveNodes, pressKey} from "./actions";
 import echoReducer from "./echo-reducer";
 import inputReducer from "./input-reducer";
 import keypadReducer from "./keypad-reducer";
@@ -22,19 +13,8 @@ import {defaultKeypadType, keypadForType} from "./shared";
 
 import type {Key} from "../data/keys";
 import type {LayoutProps, ActiveNodesObj} from "../types";
-import type {
-    DismissKeypadAction,
-    ActivateKeypadAction,
-    ConfigureKeypadAction,
-    SetActiveNodesAction,
-} from "./actions";
+import type {Action} from "./actions";
 import type {GestureState} from "./types";
-
-type GestureAction =
-    | DismissKeypadAction
-    | ActivateKeypadAction
-    | ConfigureKeypadAction
-    | SetActiveNodesAction;
 
 export const createStore = () => {
     // TODO(matthewc)[LC-752]: gestureReducer can't be moved from this file
@@ -84,10 +64,10 @@ export const createStore = () => {
 
     const gestureReducer = function (
         state: GestureState = initialGestureState,
-        action: GestureAction,
+        action: Action,
     ): GestureState {
         switch (action.type) {
-            case DismissKeypadActionType:
+            case "DismissKeypad":
                 // NOTE(charlie): In the past, we enforced the "gesture manager
                 // will not receive any events when the keypad is hidden"
                 // assumption by assuming that the keypad would be hidden when
@@ -100,17 +80,17 @@ export const createStore = () => {
                 state.gestureManager.disableEventTracking();
                 return state;
 
-            case ActivateKeypadActionType:
+            case "ActivateKeypad":
                 state.gestureManager.enableEventTracking();
                 return state;
 
-            case SetActiveNodesActionType:
+            case "SetActiveNodes":
                 return {
                     ...state,
                     ...action.activeNodes,
                 };
 
-            case ConfigureKeypadActionType:
+            case "ConfigureKeypad":
                 const {keypadType} = action.configuration;
                 const {numPages} = keypadForType[keypadType];
                 const swipeEnabled = numPages > 1;

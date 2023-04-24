@@ -1,9 +1,7 @@
 import {EchoAnimationTypes, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
-import {RemoveEchoActionType, PressKeyActionType} from "./actions";
-
-import type {PressKeyAction, RemoveEchoAction} from "./actions";
+import type {Action} from "./actions";
 import type {EchoState} from "./types";
 
 // Used to generate unique animation IDs for the echo animations. The actual
@@ -14,14 +12,12 @@ const initialEchoState = {
     echoes: [],
 } as const;
 
-type Action = PressKeyAction | RemoveEchoAction;
-
 const echoReducer = function (
     state: EchoState = initialEchoState,
     action: Action,
 ): EchoState {
     switch (action.type) {
-        case PressKeyActionType:
+        case "PressKey":
             const keyConfig = KeyConfigs[action.key];
 
             // Add in the echo animation if the user performs a math
@@ -48,7 +44,7 @@ const echoReducer = function (
             }
             return state;
 
-        case RemoveEchoActionType:
+        case "RemoveEcho":
             const remainingEchoes = state.echoes.filter((echo) => {
                 return echo.animationId !== action.animationId;
             });
