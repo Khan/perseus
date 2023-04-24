@@ -5,6 +5,7 @@ import {Errors} from "./logging/log";
 import {PerseusError} from "./perseus-error";
 import KhanAnswerTypes from "./util/answer-types";
 
+import type {Range} from "./perseus-types";
 import type {Widget, PerseusScore, KEScore} from "./types";
 
 type WordPosition = {
@@ -495,8 +496,6 @@ function tickStepFromNumTicks(span: number, numTicks: number): number {
     return step;
 }
 
-type Range = [number, number]; // [min, max]
-
 const constrainTickStep = (step: number, range: Range): number => {
     const span = range[1] - range[0];
     const numTicks = span / step;
@@ -519,7 +518,7 @@ const constrainTickStep = (step: number, range: Range): number => {
  * Specifically, we aim for 10 or fewer ticks per graph axis.
  */
 function constrainedTickStepsFromTickSteps(
-    tickSteps: Coordinates,
+    tickSteps: [x: number, y: number],
     ranges: [Range, Range],
 ): Coordinates {
     return [

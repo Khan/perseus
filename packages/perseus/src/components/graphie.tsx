@@ -12,30 +12,31 @@ import GraphUtils from "../util/graph-utils";
 import GraphieClasses from "./graphie-classes";
 import Movables from "./graphie-movables";
 
+import type {Range, Size} from "../perseus-types";
+
 const GraphieMovable = GraphieClasses.GraphieMovable;
 
 const createGraphie = GraphUtils.createGraphie;
 const {deepEq, nestedMap} = Util;
 const {assert} = InteractiveUtil;
 
-type Size = [width: number, height: number];
-
 type Props = {
     addMouseLayer?: boolean;
     box: Size;
-    children: React.ReactNode;
-    isMobile?: boolean;
-    onClick: (at: Coord) => void;
-    onMouseDown: (at: Coord) => void;
-    onMouseMove: (at: Coord) => void;
-    onMouseUp: (at: Coord) => void;
-    options: {
-        snapStep?: [x: number, y: number];
-        labels?: ReadonlyArray<any>;
-    };
     range: [Coord, Coord];
+    ranges?: [Range, Range];
+    gridStep?: [number, number];
+    step?: [number, number];
+    scale?: [number, number];
+
+    isMobile?: boolean;
     responsive?: boolean;
-    setDrawingAreaAvailable?: () => void;
+
+    children?: React.ReactNode;
+
+    options: any;
+
+    setDrawingAreaAvailable?: (boolean) => void;
     setup: (
         graphie: any,
         options: {
@@ -43,6 +44,11 @@ type Props = {
             scale: [xScale: number, yScale: number];
         },
     ) => void;
+
+    onClick?: (at: Coord) => void;
+    onMouseDown?: (at: Coord) => void;
+    onMouseMove?: (at: Coord) => void;
+    onMouseUp?: (at: Coord) => void;
 };
 
 type DefaultProps = {

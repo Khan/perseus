@@ -476,15 +476,15 @@ class Grapher extends React.Component<Props> {
     _calculateMobileTickStep(
         gridStep: JSX.LibraryManagedAttributes<
             typeof Graphie,
-            React.ComponentProps<typeof Graphie>
+            Required<React.ComponentProps<typeof Graphie>>
         >["gridStep"],
         step: JSX.LibraryManagedAttributes<
             typeof Graphie,
-            React.ComponentProps<typeof Graphie>
+            Required<React.ComponentProps<typeof Graphie>>
         >["step"],
         ranges: JSX.LibraryManagedAttributes<
             typeof Graphie,
-            React.ComponentProps<typeof Graphie>
+            Required<React.ComponentProps<typeof Graphie>>
         >["ranges"],
     ): any {
         const tickStep = Util.constrainedTickStepsFromTickSteps(step, ranges);

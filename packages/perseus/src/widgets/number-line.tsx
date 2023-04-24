@@ -192,7 +192,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 });
 
 type Props = ChangeableProps & {
-    range: ReadonlyArray<number>;
+    range: [number, number];
     labelRange: ReadonlyArray<number | null>;
     labelStyle: string;
     labelTicks: boolean;

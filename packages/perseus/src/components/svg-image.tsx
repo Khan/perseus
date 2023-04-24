@@ -15,6 +15,7 @@ import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import ImageLoader from "./image-loader";
 
+import type {Range, Size} from "../perseus-types";
 import type {Alignment, Dimensions} from "../types";
 import type {ImageProps} from "./image-loader";
 
@@ -141,8 +142,8 @@ type Props = {
     alt: string;
     constrainHeight?: boolean;
     extraGraphie?: {
-        box: ReadonlyArray<any>;
-        range: ReadonlyArray<any>;
+        box: Size;
+        range: [x: Range, y: Range];
         labels: ReadonlyArray<any>;
     };
     height?: number;
@@ -203,7 +204,7 @@ type State = {
     labelsRendered: LabelsRenderedMap;
     labelDataIsLocalized: boolean;
     labels: ReadonlyArray<Label>;
-    range: ReadonlyArray<any>;
+    range: [x: Range, y: Range];
 };
 
 class SvgImage extends React.Component<Props, State> {
@@ -240,10 +241,7 @@ class SvgImage extends React.Component<Props, State> {
             labelDataIsLocalized: false,
             labels: [],
             labelsRendered: {},
-            range: [
-                [0, 0],
-                [0, 0],
-            ],
+            range: [[0, 0], [0, 0] as [number, number]],
         };
     }
 
@@ -405,7 +403,7 @@ class SvgImage extends React.Component<Props, State> {
     ) => void = (
         data: {
             labels: ReadonlyArray<any>;
-            range: ReadonlyArray<any>;
+            range: [Range, Range];
         },
         localized: boolean,
     ) => {
@@ -719,14 +717,12 @@ class SvgImage extends React.Component<Props, State> {
                 );
             }
 
-            const scale = [40 * this.props.scale, 40 * this.props.scale];
-
             graphie = (
                 <Graphie
                     // eslint-disable-next-line react/no-string-refs
                     ref="graphie"
                     box={box}
-                    scale={scale}
+                    scale={[40 * this.props.scale, 40 * this.props.scale]}
                     range={this.state.range}
                     options={_.pick(this.state, "labels")}
                     responsive={responsive}
