@@ -81,7 +81,7 @@ type Props = {
     message: string;
     enabled: boolean;
     onClick: () => void;
-    fixedPosition: boolean;
+    fixedPosition?: boolean;
 };
 
 const HUD = ({message, enabled, onClick, fixedPosition = true}: Props) => {
