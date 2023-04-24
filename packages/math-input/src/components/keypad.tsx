@@ -7,8 +7,8 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {removeEcho} from "../actions/index";
 import {View} from "../fake-react-native-web/index";
+import {removeEcho} from "../store/actions";
 
 import EchoManager from "./echo-manager";
 import PopoverManager from "./popover-manager";

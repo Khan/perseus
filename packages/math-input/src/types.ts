@@ -67,3 +67,15 @@ export type KeypadLayout = {
     // rows vertically.
     maxVisibleRows: number;
 };
+
+type ActiveNodesObjPopover = {
+    parentId: string;
+    childIds: ReadonlyArray<string>;
+};
+
+export type ActiveNodesObj = {
+    popover: ActiveNodesObjPopover | null;
+    focus: string | null;
+};
+
+export type LayoutProps = {initialBounds: DOMRect; borders: Border};
