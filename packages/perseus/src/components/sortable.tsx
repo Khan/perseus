@@ -1,9 +1,8 @@
-/* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -11,12 +10,14 @@ import _ from "underscore";
 import {getDependencies} from "../dependencies";
 import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
-import Util from "../util";
+import Util, {Position} from "../util";
 
 import type {LinterContextProps} from "../types";
 
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
+
+type Layout = typeof HORIZONTAL | typeof VERTICAL;
 
 const STATIC = "static";
 const DRAGGING = "dragging";
@@ -38,14 +39,15 @@ const addOffsetParentScroll = ($el: any, position: any) => {
     };
 };
 
-// A placeholder that appears in the sortable whenever an item is dragged.
-class Placeholder extends React.Component<any> {
-    static propTypes = {
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-    };
+type PlaceholderProps = {
+    layout: Layout;
+    width: number;
+    height: number;
+    margin?: string;
+};
 
+// A placeholder that appears in the sortable whenever an item is dragged.
+class Placeholder extends React.Component<PlaceholderProps> {
     render(): React.ReactNode {
         const {layout} = this.props;
         const className = css(
@@ -66,8 +68,35 @@ class Placeholder extends React.Component<any> {
     }
 }
 
-type DraggableProps = any;
-type DraggableState = any;
+type DraggableProps = {
+    content: string;
+    endPosition: {left: number; top: number} | Record<string, never>;
+    includePadding: boolean;
+    layout: Layout;
+    width?: number;
+    height?: number;
+    margin?: string;
+    onAnimationEnd: () => void;
+    onMouseDown: () => void;
+    onMouseMove: () => void;
+    onMouseUp: () => void;
+    onRender: () => void;
+    type: typeof STATIC | typeof DRAGGING | typeof ANIMATING | typeof DISABLED;
+    linterContext: LinterContextProps;
+};
+
+type DefaultDraggableProps = {
+    includePadding: DraggableProps["includePadding"];
+    type: DraggableProps["type"];
+    linterContext: DraggableProps["linterContext"];
+};
+
+type DraggableState = {
+    startPosition: Position;
+    startMouse: Position;
+    mouse: Position;
+    dragging?: boolean;
+};
 
 // A draggable item in the sortable. Can be in one of four states:
 //     Static:    The item is not being interacted with.
@@ -85,21 +114,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_mounted' has no initializer and is not definitely assigned in the constructor.
     _mounted: boolean;
 
-    static propTypes = {
-        content: PropTypes.string.isRequired,
-        endPosition: PropTypes.object.isRequired,
-        includePadding: PropTypes.bool,
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        onAnimationEnd: PropTypes.func.isRequired,
-        onMouseDown: PropTypes.func.isRequired,
-        onMouseMove: PropTypes.func.isRequired,
-        onMouseUp: PropTypes.func.isRequired,
-        onRender: PropTypes.func.isRequired,
-        type: PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
-        linterContext: PerseusLinter.linterContextProps,
-    };
-
-    static defaultProps = {
+    static defaultProps: DefaultDraggableProps = {
         includePadding: true,
         type: STATIC,
         linterContext: PerseusLinter.linterContextDefault,
@@ -109,6 +124,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         startPosition: {left: 0, top: 0},
         startMouse: {left: 0, top: 0},
         mouse: {left: 0, top: 0},
+        dragging: false,
     };
 
     componentDidMount() {
@@ -409,11 +425,12 @@ type DefaultProps = {
 };
 
 type ItemState = "disabled" | "static" | "dragging" | "animating";
+
 type SortableItem = {
     option: SortableOption;
     key: number;
     type: ItemState;
-    endPosition: any;
+    endPosition: Position | Record<string, never>;
     width: number;
     height: number;
 };
@@ -517,8 +534,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // explictly set on Draggables - this prevents them from changing size
         // or shape while being dragged.
 
-        // @ts-expect-error [FEI-5003] - TS2740 - Type 'readonly SortableItem[]' is missing the following properties from type 'SortableItem': option, key, type, endPosition, and 2 more.
-        let items: SortableItem = _.clone(this.state.items);
+        let items: ReadonlyArray<SortableItem> = [...this.state.items];
 
         // Fetches a jQuery list of elements for each item
         const $items = _.map(
@@ -554,15 +570,13 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             syncHeight = _.max(heights);
         }
 
-        // @ts-expect-error [FEI-5003] - TS2740 - Type 'any[]' is missing the following properties from type 'SortableItem': option, key, type, endPosition, and 2 more.
         items = _.map(items, function (item, i) {
             item.width = syncWidth || widths[i];
             item.height = syncHeight || heights[i];
             return item;
         });
 
-        // @ts-expect-error [FEI-5003] - TS2740 - Type 'SortableItem' is missing the following properties from type 'readonly SortableItem[]': length, concat, join, slice, and 18 more.
-        this.setState({items: items}, () => {
+        this.setState({items}, () => {
             this.props.onMeasure &&
                 this.props.onMeasure({widths: widths, heights: heights});
         });
