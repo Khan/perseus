@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {Coord} from "../interactive2/types";
+import {PerseusImageBackground} from "../perseus-types";
 import {interactiveSizes} from "../styles/constants";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
@@ -13,7 +14,7 @@ import SvgImage from "./svg-image";
 
 const defaultBackgroundImage = {
     url: null,
-} as const;
+};
 
 /* Style objects */
 const defaultInstructionsStyle = {
@@ -46,23 +47,20 @@ type Props = {
     gridStep: [number, number];
     snapStep: [number, number];
     markings: string;
-    backgroundImage: {
-        url: string | null;
-        width?: number;
-        height?: number;
-    };
+    backgroundImage: PerseusImageBackground;
     showProtractor: boolean;
     showRuler: boolean;
     rulerLabel: string;
     rulerTicks: number;
-    onGraphieUpdated: ((graphie: any) => void) | null;
-    instructions?: string | null;
-    onClick: (() => void) | null;
-    onMouseDown: (() => void) | null;
-    onMouseUp: (() => void) | null;
-    onMouseMove: (() => void) | null;
-    setDrawingAreaAvailable?: () => void;
+    instructions?: string;
     isMobile: boolean;
+
+    onGraphieUpdated?: (graphie: any) => void;
+    onClick?: (Coord) => void;
+    onMouseDown?: (Coord) => void;
+    onMouseUp?: (Coord) => void;
+    onMouseMove?: (Coord) => void;
+    setDrawingAreaAvailable?: (boolean) => void;
 };
 
 type DefaultProps = {
@@ -77,10 +75,6 @@ type DefaultProps = {
     showRuler: Props["showRuler"];
     rulerLabel: Props["rulerLabel"];
     rulerTicks: Props["rulerTicks"];
-    instructions: Props["instructions"];
-    onGraphieUpdated: Props["onGraphieUpdated"];
-    onClick: Props["onClick"];
-    onMouseDown: Props["onMouseDown"];
     isMobile: Props["isMobile"];
 };
 
@@ -108,10 +102,6 @@ class Graph extends React.Component<Props> {
         showRuler: false,
         rulerLabel: "",
         rulerTicks: 10,
-        instructions: null,
-        onGraphieUpdated: null,
-        onClick: null,
-        onMouseDown: null,
         isMobile: false,
     };
 
