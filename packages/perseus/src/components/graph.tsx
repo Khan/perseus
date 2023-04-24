@@ -1,10 +1,10 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe, react/sort-comp */
+/* eslint-disable react/no-unsafe, react/sort-comp */
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {Coord} from "../interactive2/types";
 import {interactiveSizes} from "../styles/constants";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
@@ -38,7 +38,53 @@ function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
-class Graph extends React.Component<any> {
+type Props = {
+    box: [number, number];
+    labels: ReadonlyArray<string>;
+    range: [Coord, Coord];
+    step: [number, number];
+    gridStep: [number, number];
+    snapStep: [number, number];
+    markings: string;
+    backgroundImage: {
+        url: string | null;
+        width?: number;
+        height?: number;
+    };
+    showProtractor: boolean;
+    showRuler: boolean;
+    rulerLabel: string;
+    rulerTicks: number;
+    onGraphieUpdated: ((graphie: any) => void) | null;
+    instructions?: string | null;
+    onClick: (() => void) | null;
+    onMouseDown: (() => void) | null;
+    onMouseUp: (() => void) | null;
+    onMouseMove: (() => void) | null;
+    setDrawingAreaAvailable?: () => void;
+    isMobile: boolean;
+};
+
+type DefaultProps = {
+    labels: Props["labels"];
+    range: Props["range"];
+    step: Props["step"];
+    gridStep: Props["gridStep"];
+    snapStep: Props["snapStep"];
+    markings: Props["markings"];
+    backgroundImage: Props["backgroundImage"];
+    showProtractor: Props["showProtractor"];
+    showRuler: Props["showRuler"];
+    rulerLabel: Props["rulerLabel"];
+    rulerTicks: Props["rulerTicks"];
+    instructions: Props["instructions"];
+    onGraphieUpdated: Props["onGraphieUpdated"];
+    onClick: Props["onClick"];
+    onMouseDown: Props["onMouseDown"];
+    isMobile: Props["isMobile"];
+};
+
+class Graph extends React.Component<Props> {
     protractor: any;
     ruler: any;
     _graphie: any;
@@ -47,29 +93,7 @@ class Graph extends React.Component<any> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     _shouldSetupGraphie: boolean;
 
-    static propTypes = {
-        box: PropTypes.array.isRequired,
-        labels: PropTypes.arrayOf(PropTypes.string),
-        range: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-        step: PropTypes.arrayOf(PropTypes.number),
-        gridStep: PropTypes.arrayOf(PropTypes.number),
-        snapStep: PropTypes.arrayOf(PropTypes.number),
-        markings: PropTypes.string,
-        backgroundImage: PropTypes.shape({
-            url: PropTypes.string,
-        }),
-        showProtractor: PropTypes.bool,
-        showRuler: PropTypes.bool,
-        rulerLabel: PropTypes.string,
-        rulerTicks: PropTypes.number,
-        onGraphieUpdated: PropTypes.func,
-        instructions: PropTypes.string,
-        onClick: PropTypes.func,
-        setDrawingAreaAvailable: PropTypes.func,
-        isMobile: PropTypes.bool,
-    };
-
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         labels: ["x", "y"],
         range: [
             [-10, 10],
