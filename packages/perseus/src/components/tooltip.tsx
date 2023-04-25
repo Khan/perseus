@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unsafe */
 /**
  * A generic tooltip library for React.js
  *
@@ -40,136 +41,135 @@
 // TODO(joel/aria) fix z-index issues https://s3.amazonaws.com/uploads.hipchat.com/6574/29028/yOApjwmgiMhEZYJ/Screen%20Shot%202014-05-30%20at%203.34.18%20PM.png
 // z-index: 3 on perseus-formats-tooltip seemed to work
 
-import createReactClass from "create-react-class";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import type {Property} from "csstype";
+
 const zIndex = 10;
 
-const Triangle = createReactClass({
-    propTypes: {
-        color: PropTypes.string.isRequired,
-        left: PropTypes.number.isRequired,
-        top: PropTypes.number.isRequired,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        horizontalDirection: PropTypes.oneOf(["left", "right"]).isRequired,
-        verticalDirection: PropTypes.oneOf(["top", "bottom"]).isRequired,
-    },
+type HorizontalDirection = "left" | "right";
+type VerticalDirection = "top" | "bottom";
 
-    render: function () {
-        let borderLeft;
-        let borderRight;
-        let borderTop;
-        let borderBottom;
+type TriangleProps = {
+    color: string;
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+    horizontalDirection: HorizontalDirection;
+    verticalDirection: VerticalDirection;
+};
 
-        const hBorder = `${this.props.width}px solid transparent`;
-        if (this.props.horizontalDirection === "right") {
-            borderLeft = hBorder;
-        } else {
-            borderRight = hBorder;
-        }
+const Triangle = (props: TriangleProps) => {
+    let borderLeft;
+    let borderRight;
+    let borderTop;
+    let borderBottom;
 
-        const vBorder = `${this.props.height}px solid ${this.props.color}`;
-        if (this.props.verticalDirection === "top") {
-            borderTop = vBorder;
-        } else {
-            borderBottom = vBorder;
-        }
+    const hBorder = `${props.width}px solid transparent`;
+    if (props.horizontalDirection === "right") {
+        borderLeft = hBorder;
+    } else {
+        borderRight = hBorder;
+    }
 
-        return (
-            <div
-                style={{
-                    display: "block",
-                    height: 0,
-                    width: 0,
-                    position: "absolute",
-                    left: this.props.left,
-                    top: this.props["top"],
-                    borderLeft: borderLeft,
-                    borderRight: borderRight,
-                    borderTop: borderTop,
-                    borderBottom: borderBottom,
-                }}
-            />
-        );
-    },
-});
+    const vBorder = `${props.height}px solid ${props.color}`;
+    if (props.verticalDirection === "top") {
+        borderTop = vBorder;
+    } else {
+        borderBottom = vBorder;
+    }
 
-const TooltipArrow = createReactClass({
-    propTypes: {
-        position: PropTypes.string,
-        visibility: PropTypes.string,
-        left: PropTypes.number,
-        top: PropTypes.number,
-        color: PropTypes.string.isRequired, // a css color
-        border: PropTypes.string.isRequired, // a css color
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        horizontalDirection: PropTypes.oneOf(["left", "right"]).isRequired,
-        verticalDirection: PropTypes.oneOf(["top", "bottom"]).isRequired,
-    },
+    return (
+        <div
+            style={{
+                display: "block",
+                height: 0,
+                width: 0,
+                position: "absolute",
+                left: props.left,
+                top: props["top"],
+                borderLeft: borderLeft,
+                borderRight: borderRight,
+                borderTop: borderTop,
+                borderBottom: borderBottom,
+            }}
+        />
+    );
+};
 
-    getDefaultProps: function () {
-        return {
-            position: "relative",
-            visibility: "visible",
-            left: 0,
-            top: 0,
-        };
-    },
+type TooltipArrowProps = {
+    position: Property.Position;
+    visibility: Property.Visibility;
+    left: number;
+    top: number;
+    color: string; // a css color
+    border: string; // a css color
+    width: number;
+    height: number;
+    horizontalDirection: HorizontalDirection;
+    verticalDirection: VerticalDirection;
+    zIndex?: number;
+};
 
+const TooltipArrow = (props: TooltipArrowProps) => {
     // TODO(aria): Think about adding a box-shadow to the triangle here
     // See http://css-tricks.com/triangle-with-shadow/
-    render: function () {
-        //const isRight = (this.props.horizontalDirection === "right");
-        const isTop = this.props.verticalDirection === "top";
 
-        const frontTopOffset = isTop ? 0 : 1;
-        const borderTopOffset = isTop ? 0 : -1;
+    //const isRight = (this.props.horizontalDirection === "right");
+    const isTop = props.verticalDirection === "top";
 
-        return (
-            <div
-                style={{
-                    display: "block",
-                    position: this.props.position,
-                    visibility: this.props.visibility,
-                    left: this.props.left,
-                    top: this.props["top"],
-                    width: this.props.width + 2,
-                    height: this.props.height + 1,
-                    marginTop: -1,
-                    marginBottom: -2,
-                    zIndex: zIndex,
-                }}
-            >
-                {/* The background triangle used to create the effect of a
+    const frontTopOffset = isTop ? 0 : 1;
+    const borderTopOffset = isTop ? 0 : -1;
+
+    return (
+        <div
+            style={{
+                display: "block",
+                position: props.position,
+                visibility: props.visibility,
+                left: props.left,
+                top: props["top"],
+                width: props.width + 2,
+                height: props.height + 1,
+                marginTop: -1,
+                marginBottom: -2,
+                zIndex: zIndex,
+            }}
+        >
+            {/* The background triangle used to create the effect of a
                 border around the foreground triangle*/}
-                <Triangle
-                    horizontalDirection={this.props.horizontalDirection}
-                    verticalDirection={this.props.verticalDirection}
-                    color={this.props.border}
-                    left={0}
-                    top={borderTopOffset}
-                    width={this.props.width + 2} // one extra for the diagonal
-                    height={this.props.height + 2}
-                />
-                {/* The foreground triangle covers all but the left/right edges
+            <Triangle
+                horizontalDirection={props.horizontalDirection}
+                verticalDirection={props.verticalDirection}
+                color={props.border}
+                left={0}
+                top={borderTopOffset}
+                width={props.width + 2} // one extra for the diagonal
+                height={props.height + 2}
+            />
+            {/* The foreground triangle covers all but the left/right edges
                 of the background triangle */}
-                <Triangle
-                    horizontalDirection={this.props.horizontalDirection}
-                    verticalDirection={this.props.verticalDirection}
-                    color={this.props.color}
-                    left={1}
-                    top={frontTopOffset}
-                    width={this.props.width}
-                    height={this.props.height}
-                />
-            </div>
-        );
-    },
-});
+            <Triangle
+                horizontalDirection={props.horizontalDirection}
+                verticalDirection={props.verticalDirection}
+                color={props.color}
+                left={1}
+                top={frontTopOffset}
+                width={props.width}
+                height={props.height}
+            />
+        </div>
+    );
+};
+
+TooltipArrow.defaultProps = {
+    position: "relative",
+    visibility: "visible",
+    left: 0,
+    top: 0,
+};
 
 const VERTICAL_CORNERS = {
     top: {
@@ -201,52 +201,61 @@ const HORIZONTAL_ALIGNMNENTS = {
     },
 } as const;
 
-// eslint-disable-next-line react/no-unsafe
-const Tooltip = createReactClass({
-    propTypes: {
-        show: PropTypes.bool.isRequired,
-        className: PropTypes.string,
-        arrowSize: PropTypes.number,
-        borderColor: PropTypes.string,
-        verticalPosition: PropTypes.oneOf(Object.keys(VERTICAL_CORNERS)),
-        horizontalPosition: PropTypes.oneOf(Object.keys(HORIZONTAL_CORNERS)),
-        horizontalAlign: PropTypes.oneOf(Object.keys(HORIZONTAL_ALIGNMNENTS)),
-        children: PropTypes.arrayOf(PropTypes.element).isRequired,
-        targetContainerStyle: PropTypes.any, // style object
-    },
+type Props = {
+    show: boolean;
+    className: string;
+    arrowSize: number;
+    borderColor: string;
+    verticalPosition: keyof typeof VERTICAL_CORNERS;
+    horizontalPosition: keyof typeof HORIZONTAL_CORNERS;
+    horizontalAlign: keyof typeof HORIZONTAL_ALIGNMNENTS;
+    children: React.ReactNode;
+    targetContainerStyle: any; // style object
+};
 
-    getDefaultProps: function () {
-        return {
-            className: "",
-            arrowSize: 10,
-            borderColor: "#ccc",
-            verticalPosition: "bottom",
-            horizontalPosition: "left",
-            horizontalAlign: "left",
-            targetContainerStyle: {},
-        };
-    },
+type DefaultProps = {
+    className: Props["className"];
+    arrowSize: Props["arrowSize"];
+    borderColor: Props["borderColor"];
+    verticalPosition: Props["verticalPosition"];
+    horizontalPosition: Props["horizontalPosition"];
+    horizontalAlign: Props["horizontalAlign"];
+    targetContainerStyle: Props["targetContainerStyle"];
+};
 
-    getInitialState: function () {
-        return {
-            height: null, // used for offsetting "top" positioned tooltips
-        };
-    },
+type State = {
+    height: number | null;
+};
 
-    componentDidMount: function () {
+class Tooltip extends React.Component<Props, State> {
+    static defaultProps: DefaultProps = {
+        className: "",
+        arrowSize: 10,
+        borderColor: "#ccc",
+        verticalPosition: "bottom",
+        horizontalPosition: "left",
+        horizontalAlign: "left",
+        targetContainerStyle: {},
+    };
+
+    state: State = {
+        height: null, // used for offsetting "top" positioned tooltips
+    };
+
+    componentDidMount() {
         this._updateHeight();
-    },
+    }
 
-    UNSAFE_componentWillReceiveProps: function () {
+    UNSAFE_componentWillReceiveProps() {
         // If the contents have changed, reset our measure of the height
         this.setState({height: null});
-    },
+    }
 
-    componentDidUpdate: function () {
+    componentDidUpdate() {
         this._updateHeight();
-    },
+    }
 
-    _renderToolTipDiv: function (isTooltipAbove) {
+    _renderToolTipDiv(isTooltipAbove?: boolean) {
         const settings = Object.assign(
             {},
             HORIZONTAL_CORNERS[this.props.horizontalPosition],
@@ -348,6 +357,7 @@ const Tooltip = createReactClass({
                             zIndex: zIndex - 1,
                         }}
                     >
+                        {/* @ts-expect-error TS2533 - First child is target, rest is tooltip content */}
                         {this.props.children.slice(1)}
                     </div>
 
@@ -355,9 +365,9 @@ const Tooltip = createReactClass({
                 </div>
             </div>
         );
-    },
+    }
 
-    _updateHeight: function () {
+    _updateHeight() {
         const tooltipContainer = ReactDOM.findDOMNode(
             // eslint-disable-next-line react/no-string-refs
             this.refs.tooltipContainer,
@@ -366,9 +376,9 @@ const Tooltip = createReactClass({
         if (height !== this.state.height) {
             this.setState({height});
         }
-    },
+    }
 
-    render: function () {
+    render() {
         const isTooltipAbove = this.props.verticalPosition === "top";
 
         /* We wrap the entire output in a span so that it displays inline */
@@ -379,14 +389,15 @@ const Tooltip = createReactClass({
                 {/* We wrap our input in a div so that we can put the tooltip in a
                 div above/below it */}
                 <div style={this.props.targetContainerStyle}>
+                    {/* @ts-expect-error TS2533 - First child is target, rest is tooltip content */}
                     {this.props.children[0]}
                 </div>
 
                 {!isTooltipAbove && this._renderToolTipDiv()}
             </span>
         );
-    },
-});
+    }
+}
 
 // Sorry.  // Apology-Oriented-Programming
 export default Tooltip;
