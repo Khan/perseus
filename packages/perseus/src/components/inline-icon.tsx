@@ -1,4 +1,18 @@
-/* eslint-disable react/forbid-prop-types */
+import * as React from "react";
+
+type InlineIconProps = {
+    // An SVG path to render.
+    path: string;
+    // The path's viewBox dimensions.
+    // We set the viewport height to 1em and scale the width accordingly.
+    height: number;
+    width: number;
+    style?: React.CSSProperties;
+    // A11y description for this icon. If absent, icon is marked
+    // aria-hidden=true
+    title?: string;
+};
+
 /**
  * A stripped version of Icon.jsx from webapp. Takes an SVG icon and renders it
  * inline like Font Awesome did.
@@ -23,9 +37,6 @@
  *   <InlineIcon {...editIcon} />
  *
  */
-import PropTypes from "prop-types";
-import * as React from "react";
-
 const InlineIcon = ({
     path,
     width,
@@ -45,33 +56,5 @@ const InlineIcon = ({
         <path d={path} fill="currentColor" />
     </svg>
 );
-
-InlineIcon.propTypes = {
-    // An SVG path to render.
-    path: PropTypes.string.isRequired,
-
-    // The path's viewBox dimensions.
-    // We set the viewport height to 1em and scale the width accordingly.
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-
-    style: PropTypes.object,
-
-    // A11y description for this icon. If absent, icon is marked
-    // aria-hidden=true
-    title: PropTypes.string,
-};
-export type InlineIconProps = {
-    // An SVG path to render.
-    path: string;
-    // The path's viewBox dimensions.
-    // We set the viewport height to 1em and scale the width accordingly.
-    height: number;
-    width: number;
-    style?: any;
-    // A11y description for this icon. If absent, icon is marked
-    // aria-hidden=true
-    title?: string;
-};
 
 export default InlineIcon;
