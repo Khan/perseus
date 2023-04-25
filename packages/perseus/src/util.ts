@@ -518,7 +518,7 @@ const constrainTickStep = (step: number, range: Range): number => {
  * Specifically, we aim for 10 or fewer ticks per graph axis.
  */
 function constrainedTickStepsFromTickSteps(
-    tickSteps: [x: number, y: number],
+    tickSteps: [number, number],
     ranges: [Range, Range],
 ): Coordinates {
     return [

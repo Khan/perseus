@@ -144,7 +144,7 @@ type Props = {
     constrainHeight?: boolean;
     extraGraphie?: {
         box: Size;
-        range: [x: Coord, y: Coord];
+        range: [Coord, Coord];
         labels: ReadonlyArray<any>;
     };
     height?: number;

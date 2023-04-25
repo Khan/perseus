@@ -1141,13 +1141,13 @@ export type PerseusInteractionGraph = {
     // The Axis labels.  e.g. ["x", "y"]
     labels: ReadonlyArray<string>;
     // The Axis ranges. e.g. [[-10, 10], [-10, 10]]
-    range: [x: Range, y: Range];
+    range: [Range, Range];
     // The steps in the grid. default [1, 1]
-    gridStep: Readonly<[xStep: number, yStep: number]>;
+    gridStep: Readonly<[number, number]>;
     // What to show on the graph.  "graph", "grid", or "none"
     markings: string;
     // The snap steps. default [0.5, 0.5]
-    snapStep?: Readonly<[xStep: number, yStep: number]>;
+    snapStep?: Readonly<[number, number]>;
     // Whether the grid is valid or not.  Do the numbers all make sense?
     // NOTE(jeremy) The editor for this widget sometimes stores the graph
     // editor validation error message into this field. It seems innocuous
@@ -1165,7 +1165,7 @@ export type PerseusInteractionGraph = {
     // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16
     rulerTicks?: number;
     // This controls the number (and position) of the tick marks for the X and Y axis. e.g. [1, 1]
-    tickStep: Readonly<[xStep: number, yStep: number]>;
+    tickStep: Readonly<[number, number]>;
 };
 
 export type PerseusInteractionElement =
