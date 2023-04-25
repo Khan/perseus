@@ -38,7 +38,7 @@ type QueryParams = {
     [param: string]: string;
 };
 
-type Position = {
+export type Position = {
     top: number;
     left: number;
 };

@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Sortable from "../components/sortable";
+import Sortable, {Layout} from "../components/sortable";
 import {getDependencies} from "../dependencies";
 import {ApiOptions} from "../perseus-api";
 import Renderer from "../renderer";
@@ -142,7 +142,7 @@ class Matcher extends React.Component<any, any> {
                         <td className={css(styles.column)}>
                             <Sortable
                                 options={left}
-                                layout="vertical"
+                                layout={Layout.VERTICAL}
                                 padding={this.props.padding}
                                 disabled={!this.props.orderMatters}
                                 constraints={constraints}
@@ -158,7 +158,7 @@ class Matcher extends React.Component<any, any> {
                             <Sortable
                                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                                 options={right}
-                                layout="vertical"
+                                layout={Layout.VERTICAL}
                                 padding={this.props.padding}
                                 constraints={constraints}
                                 onMeasure={this.onMeasureRight}
