@@ -3,8 +3,8 @@
 
 import type {Coord} from "./interactive2/types";
 
-export type Range = [min: number, max: number];
-export type Size = [width: number, height: number];
+export type Range = [number, number];
+export type Size = [number, number];
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<string, never>;
