@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InteractiveUtil from "../interactive2/interactive-util";
-import {Coord} from "../interactive2/types";
 import {Errors, Log} from "../logging/log";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
@@ -12,6 +11,7 @@ import GraphUtils from "../util/graph-utils";
 import GraphieClasses from "./graphie-classes";
 import Movables from "./graphie-movables";
 
+import type {Coord} from "../interactive2/types";
 import type {Range, Size} from "../perseus-types";
 
 const GraphieMovable = GraphieClasses.GraphieMovable;
@@ -34,6 +34,7 @@ type Props = {
 
     children?: React.ReactNode;
 
+    // TODO(LC-772) - type this prop!
     options: any;
 
     setDrawingAreaAvailable?: (boolean) => void;

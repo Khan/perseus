@@ -6,6 +6,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
+import {Coord} from "../interactive2/types";
 import {Errors, Log} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 import Util from "../util";
@@ -15,7 +16,7 @@ import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import ImageLoader from "./image-loader";
 
-import type {Range, Size} from "../perseus-types";
+import type {Size} from "../perseus-types";
 import type {Alignment, Dimensions} from "../types";
 import type {ImageProps} from "./image-loader";
 
@@ -143,7 +144,7 @@ type Props = {
     constrainHeight?: boolean;
     extraGraphie?: {
         box: Size;
-        range: [x: Range, y: Range];
+        range: [x: Coord, y: Coord];
         labels: ReadonlyArray<any>;
     };
     height?: number;
@@ -204,7 +205,7 @@ type State = {
     labelsRendered: LabelsRenderedMap;
     labelDataIsLocalized: boolean;
     labels: ReadonlyArray<Label>;
-    range: [x: Range, y: Range];
+    range: [Coord, Coord];
 };
 
 class SvgImage extends React.Component<Props, State> {
@@ -241,7 +242,7 @@ class SvgImage extends React.Component<Props, State> {
             labelDataIsLocalized: false,
             labels: [],
             labelsRendered: {},
-            range: [[0, 0], [0, 0] as [number, number]],
+            range: [[0, 0], [0, 0] as Coord],
         };
     }
 
@@ -403,7 +404,7 @@ class SvgImage extends React.Component<Props, State> {
     ) => void = (
         data: {
             labels: ReadonlyArray<any>;
-            range: [Range, Range];
+            range: [Coord, Coord];
         },
         localized: boolean,
     ) => {
