@@ -1,5 +1,4 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Body} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import Tooltip from "../tooltip";
