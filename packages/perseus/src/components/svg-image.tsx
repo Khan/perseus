@@ -718,8 +718,6 @@ class SvgImage extends React.Component<Props, State> {
                 );
             }
 
-            const x = this.state.range[0][1];
-
             // TODO: the "40" scale factor was introduced in D14974 but is not
             // documented where it came from.
             graphie = (
