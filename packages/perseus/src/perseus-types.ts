@@ -218,13 +218,14 @@ export type PerseusWidget =
     | UnitInputWidget
     | VideoWidget;
 
+// A background image applied to various widgets.
 export type PerseusImageBackground = {
     // The URL of the image
     url: string | null | undefined;
     // The width of the image
-    width: number;
+    width?: number;
     // The height of the image
-    height: number;
+    height?: number;
     // The top offset of the image
     // NOTE: perseus_data.go says this is required, but nullable, even though
     // it isn't necessary at all.

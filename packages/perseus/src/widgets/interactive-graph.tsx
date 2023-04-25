@@ -43,7 +43,7 @@ const TRASH_ICON_URI =
 
 const defaultBackgroundImage = {
     url: null,
-} as const;
+};
 
 const eq = Util.eq;
 const deepEq = Util.deepEq;
@@ -417,7 +417,6 @@ class InteractiveGraph extends React.Component<Props, State> {
             [-10, 10],
         ],
         step: [1, 1],
-        // @ts-expect-error [FEI-5003] - TS2739 - Type '{ readonly url: null; }' is missing the following properties from type 'PerseusImageBackground': width, height
         backgroundImage: defaultBackgroundImage,
         markings: "graph",
         showTooltips: false,
@@ -1984,9 +1983,10 @@ class InteractiveGraph extends React.Component<Props, State> {
             instructions = undefined;
         }
 
-        const onMouseDown = this.isClickToAddPoints()
-            ? this.handleAddPointsMouseDown
-            : null;
+        let onMouseDown;
+        if (this.isClickToAddPoints()) {
+            onMouseDown = this.handleAddPointsMouseDown;
+        }
 
         const gridStep =
             this.props.gridStep ||

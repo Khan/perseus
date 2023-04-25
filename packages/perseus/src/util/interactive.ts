@@ -36,6 +36,8 @@ import KhanMath from "./math";
 
 import type {Coord} from "../interactive2/types";
 
+export type MouseHandler = (position: Coord) => void;
+
 const {getCanUse3dTransform} = InteractiveUtil;
 
 function sum(array: any) {
@@ -109,7 +111,15 @@ _.extend(GraphUtils.Graphie.prototype, {
     // in the way of mouse events. This adds another SVG element on top
     // of everything else where we can add invisible shapes with mouse
     // handlers wherever we want.
-    addMouseLayer: function (options) {
+    addMouseLayer: function (options: {
+        onClick?: MouseHandler;
+        onMouseMove?: MouseHandler;
+        onMouseDown?: MouseHandler;
+        onMouseOver?: MouseHandler;
+        onMouseOut?: MouseHandler;
+        allowScratchpad?: boolean;
+        setDrawingAreaAvailable?: (available: boolean) => void;
+    }) {
         const graph = this;
         options = _.extend(
             {
@@ -149,10 +159,11 @@ _.extend(GraphUtils.Graphie.prototype, {
                     isClickingCanvas = true;
 
                     if (options.onMouseMove) {
+                        const handler = options.onMouseMove;
                         $(document).bind("vmousemove.mouseLayer", function (e) {
                             if (isClickingCanvas) {
                                 e.preventDefault();
-                                options.onMouseMove(graph.getMouseCoord(e));
+                                handler(graph.getMouseCoord(e));
                             }
                         });
                     }
@@ -170,18 +181,20 @@ _.extend(GraphUtils.Graphie.prototype, {
                 }
             });
             if (options.onMouseOver) {
+                const handler = options.onMouseOver;
                 $(graph.mouselayer.canvas).on("vmouseover", function (e) {
-                    options.onMouseOver(graph.getMouseCoord(e));
+                    handler(graph.getMouseCoord(e));
                 });
             }
             if (options.onMouseOut) {
+                const handler = options.onMouseOut;
                 $(graph.mouselayer.canvas).on("vmouseout", function (e) {
-                    options.onMouseOut(graph.getMouseCoord(e));
+                    handler(graph.getMouseCoord(e));
                 });
             }
         }
         if (!options.allowScratchpad) {
-            options.setDrawingAreaAvailable(false);
+            options.setDrawingAreaAvailable?.(false);
         }
 
         // Add mouse and visible wrapper layers for DOM-node-wrapped movables

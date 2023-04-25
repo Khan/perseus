@@ -1,10 +1,11 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe, react/sort-comp */
+/* eslint-disable react/no-unsafe */
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {Coord} from "../interactive2/types";
+import {PerseusImageBackground} from "../perseus-types";
 import {interactiveSizes} from "../styles/constants";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
@@ -13,7 +14,7 @@ import SvgImage from "./svg-image";
 
 const defaultBackgroundImage = {
     url: null,
-} as const;
+};
 
 /* Style objects */
 const defaultInstructionsStyle = {
@@ -38,7 +39,46 @@ function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
-class Graph extends React.Component<any> {
+type Props = {
+    box: Readonly<[number, number]>;
+    labels: ReadonlyArray<string>;
+    range: Readonly<[Coord, Coord]>;
+    step: Readonly<[number, number]>;
+    gridStep: Readonly<[number, number]>;
+    snapStep: Readonly<[number, number]>;
+    markings: string;
+    backgroundImage: PerseusImageBackground;
+    showProtractor: boolean;
+    showRuler: boolean;
+    rulerLabel: string;
+    rulerTicks: number;
+    instructions?: string;
+    isMobile: boolean;
+
+    onGraphieUpdated?: (graphie: any) => void;
+    onClick?: (Coord) => void;
+    onMouseDown?: (Coord) => void;
+    onMouseUp?: (Coord) => void;
+    onMouseMove?: (Coord) => void;
+    setDrawingAreaAvailable?: (boolean) => void;
+};
+
+type DefaultProps = {
+    labels: Props["labels"];
+    range: Props["range"];
+    step: Props["step"];
+    gridStep: Props["gridStep"];
+    snapStep: Props["snapStep"];
+    markings: Props["markings"];
+    backgroundImage: Props["backgroundImage"];
+    showProtractor: Props["showProtractor"];
+    showRuler: Props["showRuler"];
+    rulerLabel: Props["rulerLabel"];
+    rulerTicks: Props["rulerTicks"];
+    isMobile: Props["isMobile"];
+};
+
+class Graph extends React.Component<Props> {
     protractor: any;
     ruler: any;
     _graphie: any;
@@ -47,29 +87,7 @@ class Graph extends React.Component<any> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     _shouldSetupGraphie: boolean;
 
-    static propTypes = {
-        box: PropTypes.array.isRequired,
-        labels: PropTypes.arrayOf(PropTypes.string),
-        range: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-        step: PropTypes.arrayOf(PropTypes.number),
-        gridStep: PropTypes.arrayOf(PropTypes.number),
-        snapStep: PropTypes.arrayOf(PropTypes.number),
-        markings: PropTypes.string,
-        backgroundImage: PropTypes.shape({
-            url: PropTypes.string,
-        }),
-        showProtractor: PropTypes.bool,
-        showRuler: PropTypes.bool,
-        rulerLabel: PropTypes.string,
-        rulerTicks: PropTypes.number,
-        onGraphieUpdated: PropTypes.func,
-        instructions: PropTypes.string,
-        onClick: PropTypes.func,
-        setDrawingAreaAvailable: PropTypes.func,
-        isMobile: PropTypes.bool,
-    };
-
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         labels: ["x", "y"],
         range: [
             [-10, 10],
@@ -84,65 +102,11 @@ class Graph extends React.Component<any> {
         showRuler: false,
         rulerLabel: "",
         rulerTicks: 10,
-        instructions: null,
-        onGraphieUpdated: null,
-        onClick: null,
-        onMouseDown: null,
         isMobile: false,
     };
 
-    render(): React.ReactNode {
-        let image;
-        const imageData = this.props.backgroundImage;
-        if (imageData.url) {
-            const scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
-            image = (
-                // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
-                <SvgImage
-                    src={imageData.url}
-                    width={imageData.width}
-                    height={imageData.height}
-                    scale={scale}
-                    responsive={false}
-                />
-            );
-        } else {
-            image = null;
-        }
-
-        return (
-            <div
-                className="graphie-container above-scratchpad"
-                style={{
-                    width: this.props.box[0],
-                    height: this.props.box[1],
-                }}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
-                onMouseOut={this.onMouseOut}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
-                onMouseOver={this.onMouseOver}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onClick' does not exist on type 'Graph'.
-                onClick={this.onClick}
-            >
-                {image}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div className="graphie" ref="graphieDiv" />
-            </div>
-        );
-    }
-
     componentDidMount() {
         this._setupGraphie(true);
-    }
-
-    componentDidUpdate() {
-        // Only setupGraphie once per componentDidUpdate().
-        // See explanation in setupGraphie().
-        this._hasSetupGraphieThisUpdate = false;
-        if (this._shouldSetupGraphie) {
-            this._setupGraphie(false);
-            this._shouldSetupGraphie = false;
-        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: any) {
@@ -164,6 +128,16 @@ class Graph extends React.Component<any> {
                 self._shouldSetupGraphie = true;
             }
         });
+    }
+
+    componentDidUpdate() {
+        // Only setupGraphie once per componentDidUpdate().
+        // See explanation in setupGraphie().
+        this._hasSetupGraphieThisUpdate = false;
+        if (this._shouldSetupGraphie) {
+            this._setupGraphie(false);
+            this._shouldSetupGraphie = false;
+        }
     }
 
     /* Reset the graphie canvas to its initial state
@@ -412,6 +386,46 @@ class Graph extends React.Component<any> {
             "snapStep",
         );
     };
+
+    render(): React.ReactNode {
+        let image;
+        const imageData = this.props.backgroundImage;
+        if (imageData.url) {
+            const scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
+            image = (
+                // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
+                <SvgImage
+                    src={imageData.url}
+                    width={imageData.width}
+                    height={imageData.height}
+                    scale={scale}
+                    responsive={false}
+                />
+            );
+        } else {
+            image = null;
+        }
+
+        return (
+            <div
+                className="graphie-container above-scratchpad"
+                style={{
+                    width: this.props.box[0],
+                    height: this.props.box[1],
+                }}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
+                onMouseOut={this.onMouseOut}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
+                onMouseOver={this.onMouseOver}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onClick' does not exist on type 'Graph'.
+                onClick={this.onClick}
+            >
+                {image}
+                {/* eslint-disable-next-line react/no-string-refs */}
+                <div className="graphie" ref="graphieDiv" />
+            </div>
+        );
+    }
 }
 
 export default Graph;
