@@ -185,7 +185,7 @@ describe("Sortable.itemsFromProps", () => {
                 "height": 0,
                 "key": 0,
                 "option": "a",
-                "type": "static",
+                "state": "static",
                 "width": 0,
               },
               {
@@ -193,7 +193,7 @@ describe("Sortable.itemsFromProps", () => {
                 "height": 0,
                 "key": 1,
                 "option": "b",
-                "type": "static",
+                "state": "static",
                 "width": 0,
               },
               {
@@ -201,7 +201,7 @@ describe("Sortable.itemsFromProps", () => {
                 "height": 0,
                 "key": 2,
                 "option": "c",
-                "type": "static",
+                "state": "static",
                 "width": 0,
               },
             ]
