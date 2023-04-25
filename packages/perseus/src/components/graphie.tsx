@@ -42,7 +42,7 @@ type Props = {
         graphie: any,
         options: {
             range: [Coord, Coord];
-            scale: [xScale: number, yScale: number];
+            scale: [number, number];
         },
     ) => void;
 
