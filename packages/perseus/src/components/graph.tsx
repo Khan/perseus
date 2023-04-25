@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unsafe, react/sort-comp */
+/* eslint-disable react/no-unsafe */
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -105,58 +105,8 @@ class Graph extends React.Component<Props> {
         isMobile: false,
     };
 
-    render(): React.ReactNode {
-        let image;
-        const imageData = this.props.backgroundImage;
-        if (imageData.url) {
-            const scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
-            image = (
-                // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
-                <SvgImage
-                    src={imageData.url}
-                    width={imageData.width}
-                    height={imageData.height}
-                    scale={scale}
-                    responsive={false}
-                />
-            );
-        } else {
-            image = null;
-        }
-
-        return (
-            <div
-                className="graphie-container above-scratchpad"
-                style={{
-                    width: this.props.box[0],
-                    height: this.props.box[1],
-                }}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
-                onMouseOut={this.onMouseOut}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
-                onMouseOver={this.onMouseOver}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onClick' does not exist on type 'Graph'.
-                onClick={this.onClick}
-            >
-                {image}
-                {/* eslint-disable-next-line react/no-string-refs */}
-                <div className="graphie" ref="graphieDiv" />
-            </div>
-        );
-    }
-
     componentDidMount() {
         this._setupGraphie(true);
-    }
-
-    componentDidUpdate() {
-        // Only setupGraphie once per componentDidUpdate().
-        // See explanation in setupGraphie().
-        this._hasSetupGraphieThisUpdate = false;
-        if (this._shouldSetupGraphie) {
-            this._setupGraphie(false);
-            this._shouldSetupGraphie = false;
-        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: any) {
@@ -178,6 +128,16 @@ class Graph extends React.Component<Props> {
                 self._shouldSetupGraphie = true;
             }
         });
+    }
+
+    componentDidUpdate() {
+        // Only setupGraphie once per componentDidUpdate().
+        // See explanation in setupGraphie().
+        this._hasSetupGraphieThisUpdate = false;
+        if (this._shouldSetupGraphie) {
+            this._setupGraphie(false);
+            this._shouldSetupGraphie = false;
+        }
     }
 
     /* Reset the graphie canvas to its initial state
@@ -426,6 +386,46 @@ class Graph extends React.Component<Props> {
             "snapStep",
         );
     };
+
+    render(): React.ReactNode {
+        let image;
+        const imageData = this.props.backgroundImage;
+        if (imageData.url) {
+            const scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
+            image = (
+                // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
+                <SvgImage
+                    src={imageData.url}
+                    width={imageData.width}
+                    height={imageData.height}
+                    scale={scale}
+                    responsive={false}
+                />
+            );
+        } else {
+            image = null;
+        }
+
+        return (
+            <div
+                className="graphie-container above-scratchpad"
+                style={{
+                    width: this.props.box[0],
+                    height: this.props.box[1],
+                }}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
+                onMouseOut={this.onMouseOut}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
+                onMouseOver={this.onMouseOver}
+                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onClick' does not exist on type 'Graph'.
+                onClick={this.onClick}
+            >
+                {image}
+                {/* eslint-disable-next-line react/no-string-refs */}
+                <div className="graphie" ref="graphieDiv" />
+            </div>
+        );
+    }
 }
 
 export default Graph;
