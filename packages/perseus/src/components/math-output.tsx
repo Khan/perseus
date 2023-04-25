@@ -18,11 +18,7 @@ type Props = {
     onBlur: () => void;
 };
 
-type DefaultProps = {
-    value: Props["value"];
-    onFocus: Props["onFocus"];
-    onBlur: Props["onBlur"];
-};
+type DefaultProps = Pick<Props, "value" | "onFocus" | "onBlur">;
 
 type State = {
     focused: boolean;
