@@ -8,7 +8,6 @@ import _ from "underscore";
 
 import Graphie from "../components/graphie";
 import InfoTip from "../components/info-tip";
-import MathOutput from "../components/math-output";
 import NumberInput from "../components/number-input";
 import InteractiveUtil from "../interactive2/interactive-util";
 import * as Changeable from "../mixins/changeable";
@@ -17,6 +16,7 @@ import Util from "../util";
 import KhanColors from "../util/colors";
 import KhanMath from "../util/math";
 
+import type {Range} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
 const {assert} = InteractiveUtil;
@@ -231,9 +231,7 @@ class Histogram extends React.Component<any, any> {
             range: range,
             data: data,
             scale: [
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Coordinates'.
                 Util.scaleFromExtent(range[0], this.props.box[0]),
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'Coordinates'.
                 Util.scaleFromExtent(range[1], this.props.box[1]),
             ],
         } as const;
@@ -352,8 +350,8 @@ class Histogram extends React.Component<any, any> {
     };
 
     /* Convenience functions that help calculate props based on other props. */
-    _range = (props) => {
-        const defaultRange = [
+    _range = (props): [Range, Range] => {
+        const defaultRange: [Range, Range] = [
             [0, 100],
             [-1, 10],
         ];
@@ -361,7 +359,7 @@ class Histogram extends React.Component<any, any> {
         return props.data ? this._getRangeForData(props.data) : defaultRange;
     };
 
-    _getRangeForData = (data: any) => {
+    _getRangeForData = (data: any): [Range, Range] => {
         // Find first/last non-zero entry and add some padding
         const padding = 10;
         const firstIndex = _.indexOf(

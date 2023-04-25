@@ -1,2 +1,2 @@
-export type Coord = [number, number];
-export type Line = [Coord, Coord];
+export type Coord = [number, number]; // x, y
+export type Line = [Coord, Coord]; // start, end

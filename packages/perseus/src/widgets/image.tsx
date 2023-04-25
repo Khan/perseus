@@ -12,7 +12,7 @@ import Renderer from "../renderer";
 import {baseUnitPx} from "../styles/constants";
 import mediaQueries from "../styles/media-queries";
 
-import type {PerseusImageWidgetOptions} from "../perseus-types";
+import type {Range, PerseusImageWidgetOptions} from "../perseus-types";
 import type {
     ChangeFn,
     PerseusScore,
@@ -21,7 +21,7 @@ import type {
 } from "../types";
 
 const defaultBoxSize = 400;
-const defaultRange = [0, 10];
+const defaultRange: Range = [0, 10];
 const defaultBackgroundImage = {
     url: null,
     width: 0,
