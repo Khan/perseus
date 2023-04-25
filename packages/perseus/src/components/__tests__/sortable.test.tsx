@@ -4,7 +4,7 @@ import "@testing-library/jest-dom"; // Imports custom mathers
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import Sortable from "../sortable";
+import Sortable, {Layout} from "../sortable";
 
 describe("Sortable", () => {
     beforeEach(() => {
@@ -17,7 +17,7 @@ describe("Sortable", () => {
         // Arrange and Act
         const {container} = render(
             <Sortable
-                layout="horizontal"
+                layout={Layout.HORIZONTAL}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -48,7 +48,7 @@ describe("Sortable", () => {
         const {container} = render(
             <Sortable
                 waitForTexRendererToLoad={true}
-                layout="horizontal"
+                layout={Layout.HORIZONTAL}
                 options={["a", "b", "c"]}
             />,
         );
@@ -79,7 +79,7 @@ describe("moveOptionToIndex", () => {
         render(
             <Sortable
                 ref={(r) => (sortable = r)}
-                layout="horizontal"
+                layout={Layout.HORIZONTAL}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -102,7 +102,7 @@ describe("moveOptionToIndex", () => {
         render(
             <Sortable
                 ref={(r) => (sortable = r)}
-                layout="horizontal"
+                layout={Layout.HORIZONTAL}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -123,7 +123,7 @@ describe("moveOptionToIndex", () => {
         render(
             <Sortable
                 ref={(r) => (sortable = r)}
-                layout="horizontal"
+                layout={Layout.HORIZONTAL}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -144,7 +144,7 @@ describe("moveOptionToIndex", () => {
         render(
             <Sortable
                 ref={(r) => (sortable = r)}
-                layout="horizontal"
+                layout={Layout.HORIZONTAL}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
@@ -220,7 +220,7 @@ describe("Sortable.itemsFromProps", () => {
 
         // Assert
         items.forEach((item) => {
-            expect(item.type).toBe("disabled");
+            expect(item.state).toBe("disabled");
         });
     });
     it("sets the item type to static if disabled is false", () => {
@@ -235,7 +235,7 @@ describe("Sortable.itemsFromProps", () => {
 
         // Assert
         items.forEach((item) => {
-            expect(item.type).toBe("static");
+            expect(item.state).toBe("static");
         });
     });
 });
