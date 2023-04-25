@@ -1983,9 +1983,10 @@ class InteractiveGraph extends React.Component<Props, State> {
             instructions = undefined;
         }
 
-        const onMouseDown = this.isClickToAddPoints()
-            ? this.handleAddPointsMouseDown
-            : undefined;
+        let onMouseDown;
+        if (this.isClickToAddPoints()) {
+            onMouseDown = this.handleAddPointsMouseDown;
+        }
 
         const gridStep =
             this.props.gridStep ||
