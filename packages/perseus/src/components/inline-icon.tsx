@@ -1,13 +1,13 @@
 import * as React from "react";
 
-export type InlineIconProps = {
+type InlineIconProps = {
     // An SVG path to render.
     path: string;
     // The path's viewBox dimensions.
     // We set the viewport height to 1em and scale the width accordingly.
     height: number;
     width: number;
-    style?: any;
+    style?: React.CSSProperties;
     // A11y description for this icon. If absent, icon is marked
     // aria-hidden=true
     title?: string;
