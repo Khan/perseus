@@ -40,12 +40,12 @@ function numSteps(range: any, step: any) {
 }
 
 type Props = {
-    box: [number, number];
+    box: Readonly<[number, number]>;
     labels: ReadonlyArray<string>;
-    range: [Coord, Coord];
-    step: [number, number];
-    gridStep: [number, number];
-    snapStep: [number, number];
+    range: Readonly<[Coord, Coord]>;
+    step: Readonly<[number, number]>;
+    gridStep: Readonly<[number, number]>;
+    snapStep: Readonly<[number, number]>;
     markings: string;
     backgroundImage: PerseusImageBackground;
     showProtractor: boolean;
