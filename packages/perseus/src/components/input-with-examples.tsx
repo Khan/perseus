@@ -10,7 +10,7 @@ import Util from "../util";
 import MathInput from "./math-input";
 import MathOutput from "./math-output";
 import TextInput from "./text-input";
-import Tooltip from "./tooltip";
+import Tooltip, {HorizontalDirection, VerticalDirection} from "./tooltip";
 
 import type {LinterContextProps} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
@@ -184,9 +184,9 @@ class InputWithExamples extends React.Component<Props, State> {
                 // eslint-disable-next-line react/no-string-refs
                 ref="tooltip"
                 className="perseus-formats-tooltip preview-measure"
-                horizontalPosition="left"
-                horizontalAlign="left"
-                verticalPosition="bottom"
+                horizontalPosition={HorizontalDirection.Left}
+                horizontalAlign={HorizontalDirection.Left}
+                verticalPosition={VerticalDirection.Bottom}
                 arrowSize={10}
                 borderColor="#ccc"
                 show={showExamples}
