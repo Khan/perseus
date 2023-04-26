@@ -8,9 +8,9 @@
  * import Tooltip from "./tooltip";
  * <Tooltip
  *     className="class-for-tooltip-contents"
- *     horizontalPosition="left" // one of "left", "right"
- *     horizontalAlign="left" // one of "left", "right"
- *     verticalPosition="bottom" // one of "top", "bottom"
+ *     horizontalPosition={HoriziontalDirection.Left}
+ *     horizontalAlign={HoriziontalDirection.Left}
+ *     verticalPosition={VerticalDirection.Top}
  *     arrowSize={10} // arrow size in pixels
  *     borderColor="#ccc" // color of the border for the tooltip
  *     show={true} // whether the tooltip should currently be visible
@@ -53,7 +53,10 @@ export enum HorizontalDirection {
     Right = "right",
 }
 
-type VerticalDirection = "top" | "bottom";
+export enum VerticalDirection {
+    Top = "top",
+    Bottom = "bottom",
+}
 
 type TriangleProps = {
     color: string;
@@ -210,8 +213,8 @@ type Props = {
     className: string;
     arrowSize: number;
     borderColor: string;
-    verticalPosition: keyof typeof VERTICAL_CORNERS;
-    horizontalPosition: keyof typeof HORIZONTAL_CORNERS;
+    verticalPosition: VerticalDirection;
+    horizontalPosition: HorizontalDirection;
     horizontalAlign: HorizontalDirection.Left;
     children: React.ReactNode;
     targetContainerStyle: any; // style object
@@ -236,7 +239,7 @@ class Tooltip extends React.Component<Props, State> {
         className: "",
         arrowSize: 10,
         borderColor: "#ccc",
-        verticalPosition: "bottom",
+        verticalPosition: VerticalDirection.Bottom,
         horizontalPosition: HorizontalDirection.Left,
         horizontalAlign: HorizontalDirection.Left,
         targetContainerStyle: {},
@@ -274,7 +277,7 @@ class Tooltip extends React.Component<Props, State> {
             // We put an absolutely positioned arrow in the correct place
             arrowAbove = (
                 <TooltipArrow
-                    verticalDirection="top"
+                    verticalDirection={VerticalDirection.Top}
                     horizontalDirection={this.props.horizontalAlign}
                     position="absolute"
                     color="white"
@@ -291,7 +294,7 @@ class Tooltip extends React.Component<Props, State> {
             // content by the correct amount
             arrowBelow = (
                 <TooltipArrow
-                    verticalDirection="top"
+                    verticalDirection={VerticalDirection.Top}
                     horizontalDirection={this.props.horizontalAlign}
                     visibility="hidden"
                     color="white"
@@ -306,7 +309,7 @@ class Tooltip extends React.Component<Props, State> {
         } else {
             arrowAbove = (
                 <TooltipArrow
-                    verticalDirection="bottom"
+                    verticalDirection={VerticalDirection.Bottom}
                     horizontalDirection={this.props.horizontalAlign}
                     color="white"
                     border={this.props.borderColor}
