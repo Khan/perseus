@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import Tooltip from "../tooltip";
+import Tooltip, {HorizontalDirection} from "../tooltip";
 
 import type {Meta} from "@storybook/react";
 
@@ -16,7 +16,7 @@ export const Shown = () => {
             <Tooltip
                 show={true}
                 horizontalPosition="left"
-                horizontalAlign="left"
+                horizontalAlign={HorizontalDirection.Left}
                 verticalPosition="bottom"
             >
                 <span>this</span>
@@ -36,7 +36,7 @@ export const Hidden = () => {
             <Tooltip
                 show={false}
                 horizontalPosition="left"
-                horizontalAlign="left"
+                horizontalAlign={HorizontalDirection.Left}
                 verticalPosition="bottom"
             >
                 <span>this</span>

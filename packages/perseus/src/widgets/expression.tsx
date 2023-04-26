@@ -9,7 +9,7 @@ import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import MathInput from "../components/math-input";
-import Tooltip from "../components/tooltip";
+import Tooltip, {HorizontalDirection} from "../components/tooltip";
 import {iconExclamationSign} from "../icon-paths";
 import {Errors as PerseusErrors, Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
@@ -479,7 +479,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 <Tooltip
                     className="error-text-container"
                     horizontalPosition="right"
-                    horizontalAlign="left"
+                    horizontalAlign={HorizontalDirection.Left}
                     verticalPosition="top"
                     arrowSize={10}
                     borderColor="#fcc335"

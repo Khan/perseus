@@ -48,7 +48,11 @@ import type {Property} from "csstype";
 
 const zIndex = 10;
 
-type HorizontalDirection = "left" | "right";
+export enum HorizontalDirection {
+    Left = "left",
+    Right = "right",
+}
+
 type VerticalDirection = "top" | "bottom";
 
 type TriangleProps = {
@@ -208,7 +212,7 @@ type Props = {
     borderColor: string;
     verticalPosition: keyof typeof VERTICAL_CORNERS;
     horizontalPosition: keyof typeof HORIZONTAL_CORNERS;
-    horizontalAlign: keyof typeof HORIZONTAL_ALIGNMNENTS;
+    horizontalAlign: HorizontalDirection.Left;
     children: React.ReactNode;
     targetContainerStyle: any; // style object
 };
@@ -233,8 +237,8 @@ class Tooltip extends React.Component<Props, State> {
         arrowSize: 10,
         borderColor: "#ccc",
         verticalPosition: "bottom",
-        horizontalPosition: "left",
-        horizontalAlign: "left",
+        horizontalPosition: HorizontalDirection.Left,
+        horizontalAlign: HorizontalDirection.Left,
         targetContainerStyle: {},
     };
 
