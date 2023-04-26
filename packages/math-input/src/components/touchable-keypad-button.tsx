@@ -137,7 +137,7 @@ const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
 
         // Add in some gesture state.
         focused: gestures.focus === id,
-        popoverEnabled: !!(gestures.popover?.parentId === id),
+        popoverEnabled: gestures.popover?.parentId === id,
 
         // Pass down the child keys and any extracted props.
         childKeys,
