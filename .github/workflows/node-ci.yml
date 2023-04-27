@@ -1,11 +1,13 @@
 name: Node CI
 
 on:
+  workflow_dispatch:
   pull_request:
     # edited is needed because that's the trigger when the base branch is
     # changed on a PR
     # The rest are the defaults.
     types: [edited, opened, synchronize, reopened]
+
 
 jobs:
   changeset:
