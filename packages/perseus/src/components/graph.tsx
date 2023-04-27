@@ -4,13 +4,14 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import {Coord} from "../interactive2/types";
 import {PerseusImageBackground} from "../perseus-types";
 import {interactiveSizes} from "../styles/constants";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
 
 import SvgImage from "./svg-image";
+
+import type {Coord} from "../interactive2/types";
 
 const defaultBackgroundImage = {
     url: null,
