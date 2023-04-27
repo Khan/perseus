@@ -14,7 +14,7 @@ import {
     innerBorderWidthPx,
     offBlack16,
 } from "./common-style";
-import Keypad from "./keypad";
+import Keypad from "./keypadv2";
 import Styles from "./styles";
 import Tabbar from "./tabbar/tabbar";
 

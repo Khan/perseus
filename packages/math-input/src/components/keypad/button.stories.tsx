@@ -1,3 +1,4 @@
+import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
 import {withKnobs} from "@storybook/addon-knobs";
 import * as React from "react";
@@ -17,13 +18,15 @@ export default {
 };
 
 export const Button = () => (
-    <div
+    <View
         style={{
-            width: 58,
+            backgroundColor: "#DBDCDD",
+            padding: 20,
+            width: 58 + 20 * 2,
         }}
     >
-        <KeypadButton onPress={action("pressed")}>
+        <KeypadButton style={{width: 58}} onPress={action("pressed")}>
             <p>1</p>
         </KeypadButton>
-    </div>
+    </View>
 );

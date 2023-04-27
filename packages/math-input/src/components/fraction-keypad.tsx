@@ -11,7 +11,7 @@ import {BorderStyles} from "../enums";
 import {View} from "../fake-react-native-web/index";
 
 import {CursorContext} from "./input/cursor-contexts";
-import Keypad from "./keypad";
+import Keypad from "./keypadv2";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 

@@ -14,52 +14,40 @@ type Props = {
     preAlgebra: boolean;
     trigonometry: boolean;
 };
-type State = {
-    selectedPage: TabbarItemType;
-};
 
-const allPages = function (props: Props): React.ReactElement {
-    const pages: Array<TabbarItemType> = ["Numbers"];
+const Keypad = (props: Props) => {
+    const [selectedPage, setSelectedPage] =
+        React.useState<TabbarItemType>("Numbers");
 
+    const {onClickKey} = props;
+
+    const availablePages: Array<TabbarItemType> = ["Numbers"];
     if (props.preAlgebra) {
-        pages.push("Operators");
+        availablePages.push("Operators");
     }
     if (props.trigonometry) {
-        pages.push("Geometry");
+        availablePages.push("Geometry");
     }
-    // @ts-expect-error [FEI-5003] - TS2739 - Type 'TabbarItemType[]' is missing the following properties from type 'ReactElement<any, string | JSXElementConstructor<any>>': type, props, key
-    return pages;
+
+    return (
+        <View>
+            <Tabbar
+                items={availablePages}
+                onSelect={(tabbarItem: TabbarItemType) => {
+                    setSelectedPage(tabbarItem);
+                }}
+            />
+            {selectedPage === "Numbers" && (
+                <NumericInputPage onClickKey={onClickKey} />
+            )}
+            {selectedPage === "Operators" && (
+                <PreAlgebraPage onClickKey={onClickKey} />
+            )}
+            {selectedPage === "Geometry" && (
+                <TrigonometryPage onClickKey={onClickKey} />
+            )}
+        </View>
+    );
 };
 
-export default class Keypad extends React.Component<Props, State> {
-    state: State = {
-        selectedPage: "Numbers",
-    };
-    render(): React.ReactNode {
-        const {selectedPage} = this.state;
-        const {onClickKey} = this.props;
-
-        const availablePages = allPages(this.props);
-
-        return (
-            <View>
-                <Tabbar
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
-                    items={availablePages}
-                    onSelect={(tabbarItem: TabbarItemType) => {
-                        this.setState({selectedPage: tabbarItem});
-                    }}
-                />
-                {selectedPage === "Numbers" && (
-                    <NumericInputPage onClickKey={onClickKey} />
-                )}
-                {selectedPage === "Operators" && (
-                    <PreAlgebraPage onClickKey={onClickKey} />
-                )}
-                {selectedPage === "Geometry" && (
-                    <TrigonometryPage onClickKey={onClickKey} />
-                )}
-            </View>
-        );
-    }
-}
+export default Keypad;
