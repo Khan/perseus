@@ -1,5 +1,5 @@
 import {
-    BorderDirections,
+    BorderDirection,
     EchoAnimationTypes,
     IconTypes,
     KeyType,
@@ -9,7 +9,7 @@ import Keys from "./data/keys";
 
 import type {CursorContext} from "./components/input/cursor-contexts";
 
-export type Border = Partial<Array<keyof typeof BorderDirections>>;
+export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
 export type Bound = {
     top: number;

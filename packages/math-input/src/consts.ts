@@ -42,18 +42,17 @@ export enum LayoutMode {
     COMPACT = "COMPACT",
 }
 
-export const BorderDirections = {
-    LEFT: "LEFT" as const,
-    BOTTOM: "BOTTOM" as const,
-} as const;
+export enum BorderDirection {
+    LEFT = "LEFT",
+    BOTTOM = "BOTTOM",
+}
+
 export const BorderStyles: {
-    [style: string]: ReadonlyArray<
-        typeof BorderDirections[keyof typeof BorderDirections]
-    >;
+    [style: string]: ReadonlyArray<BorderDirection>;
 } = {
-    LEFT: ["LEFT"],
-    BOTTOM: ["BOTTOM"],
-    ALL: ["LEFT", "BOTTOM"],
+    LEFT: [BorderDirection.LEFT],
+    BOTTOM: [BorderDirection.BOTTOM],
+    ALL: [BorderDirection.LEFT, BorderDirection.BOTTOM],
     NONE: [],
 };
 

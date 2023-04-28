@@ -6,7 +6,7 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {BorderDirections, BorderStyles, KeyType} from "../consts";
+import {BorderDirection, BorderStyles, KeyType} from "../consts";
 import {View} from "../fake-react-native-web/index";
 
 import {
@@ -155,11 +155,11 @@ class KeypadButton extends React.PureComponent<Props> {
         }
 
         const borderStyle = [];
-        if (borders.includes(BorderDirections.LEFT)) {
+        if (borders.includes(BorderDirection.LEFT)) {
             // @ts-expect-error TS2345
             borderStyle.push(styles.leftBorder);
         }
-        if (borders.includes(BorderDirections.BOTTOM)) {
+        if (borders.includes(BorderDirection.BOTTOM)) {
             // @ts-expect-error TS2345
             borderStyle.push(styles.bottomBorder);
         }
