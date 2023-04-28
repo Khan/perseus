@@ -19,7 +19,7 @@
  * might need to be.
  */
 
-import {DeviceTypes, DeviceOrientations, LayoutModes} from "../consts";
+import {DeviceTypes, DeviceOrientation, LayoutModes} from "../consts";
 
 import {
     pageIndicatorHeightPx,
@@ -69,7 +69,7 @@ export const computeLayoutParameters = (
     // Then, compute the button dimensions based on the provided parameters.
     let buttonDimensions;
     if (deviceType === DeviceTypes.PHONE) {
-        const isLandscape = deviceOrientation === DeviceOrientations.LANDSCAPE;
+        const isLandscape = deviceOrientation === DeviceOrientation.LANDSCAPE;
 
         // In many cases, the browser chrome will already have been factored
         // into `pageHeightPx`. But we have no way of knowing if that's

@@ -27,10 +27,10 @@ export enum KeyType {
     ECHO = "ECHO",
 }
 
-export const DeviceOrientations = {
-    LANDSCAPE: "LANDSCAPE",
-    PORTRAIT: "PORTRAIT",
-} as const;
+export enum DeviceOrientation {
+    LANDSCAPE = "LANDSCAPE",
+    PORTRAIT = "PORTRAIT",
+}
 
 export const DeviceTypes = {
     PHONE: "PHONE",
