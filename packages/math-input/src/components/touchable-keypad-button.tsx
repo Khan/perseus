@@ -9,7 +9,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {KeyType, KeyTypes} from "../consts";
+import {KeyType} from "../consts";
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
 
@@ -118,7 +118,7 @@ const mapStateToProps = (state, ownProps) => {
     // Override with the default child props, if the key is a multi-symbol key
     // (but not a many-symbol key, which operates under different rules).
     const useFirstChildProps =
-        type !== KeyTypes.MANY && childKeys && childKeys.length > 0;
+        type !== KeyType.MANY && childKeys && childKeys.length > 0;
 
     return {
         ...rest,

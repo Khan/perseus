@@ -1,5 +1,5 @@
 import * as CursorContexts from "../components/input/cursor-contexts";
-import {KeyTypes} from "../consts";
+import {KeyType} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
 import type {Cursor, KeyHandler} from "../types";
@@ -29,7 +29,7 @@ const inputReducer = function (
 
         case "PressKey":
             const keyConfig = KeyConfigs[action.key];
-            if (keyConfig.type !== KeyTypes.KEYPAD_NAVIGATION) {
+            if (keyConfig.type !== KeyType.KEYPAD_NAVIGATION) {
                 // This is probably an anti-pattern but it works for the
                 // case where we don't actually control the state but we
                 // still want to communicate with the other object

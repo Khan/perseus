@@ -1,8 +1,8 @@
 import {
     BorderDirections,
     EchoAnimationTypes,
-    KeyTypes,
     IconTypes,
+    KeyType,
     KeypadType,
 } from "./consts";
 import Keys from "./data/keys";
@@ -42,7 +42,7 @@ export type Icon = {
 export type KeyConfig = {
     ariaLabel: string;
     id: Keys;
-    type: keyof typeof KeyTypes;
+    type: KeyType;
     childKeyIds: Array<Keys>;
     icon: Icon;
 };

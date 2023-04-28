@@ -5,7 +5,7 @@
 import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
-import {KeyTypes, EchoAnimationTypes} from "../consts";
+import {KeyType, EchoAnimationTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
 
@@ -53,7 +53,7 @@ class Echo extends React.Component<EchoProps> {
             <div style={containerStyle}>
                 <KeypadButton
                     icon={icon}
-                    type={KeyTypes.ECHO}
+                    type={KeyType.ECHO}
                     borders={borders}
                 />
             </div>

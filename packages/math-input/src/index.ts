@@ -12,8 +12,7 @@ export {keypadElementPropType} from "./components/prop-types";
 export {default as Keypad} from "./components/provided-keypad";
 export {default as KeyConfigs} from "./data/key-configs";
 export {Keys};
-export {KeypadType} from "./consts";
+export {KeyType, KeypadType} from "./consts";
 
-export type {KeyType} from "./consts";
 export type {CursorContext} from "./components/input/cursor-contexts";
 export type {CursorContexts};
