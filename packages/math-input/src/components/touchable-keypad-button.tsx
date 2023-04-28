@@ -9,9 +9,9 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {KeyType} from "../enums";
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
+import {KeyType} from "../enums";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";

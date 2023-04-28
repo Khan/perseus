@@ -6,8 +6,8 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {BorderStyles} from "../enums";
 import KeyConfigs from "../data/key-configs";
+import {BorderStyles} from "../enums";
 import {View} from "../fake-react-native-web/index";
 
 import {valueGrey, controlGrey} from "./common-style";

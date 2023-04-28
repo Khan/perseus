@@ -7,8 +7,8 @@
 import $ from "jquery";
 import MathQuill from "mathquill";
 
-import {DecimalSeparator} from "../../enums";
 import Keys from "../../data/keys";
+import {DecimalSeparator} from "../../enums";
 import {decimalSeparator} from "../../utils";
 
 import {CursorContext} from "./cursor-contexts";
