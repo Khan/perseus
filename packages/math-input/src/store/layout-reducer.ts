@@ -1,6 +1,6 @@
 import {tabletCutoffPx} from "../components/common-style";
 import {computeLayoutParameters} from "../components/compute-layout-parameters";
-import {DeviceOrientation, DeviceType, LayoutModes} from "../consts";
+import {DeviceOrientation, DeviceType, LayoutMode} from "../consts";
 
 import {defaultKeypadType, keypadForType} from "./shared";
 
@@ -22,7 +22,7 @@ const initialLayoutState = {
         pageWidthPx: 0,
         pageHeightPx: 0,
     },
-    layoutMode: LayoutModes.FULLSCREEN,
+    layoutMode: LayoutMode.FULLSCREEN,
     paginationEnabled: false,
     navigationPadEnabled: false,
 } as const;

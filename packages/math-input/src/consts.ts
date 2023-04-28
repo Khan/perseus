@@ -37,10 +37,10 @@ export enum DeviceType {
     TABLET = "TABLET",
 }
 
-export const LayoutModes = {
-    FULLSCREEN: "FULLSCREEN",
-    COMPACT: "COMPACT",
-} as const;
+export enum LayoutMode {
+    FULLSCREEN = "FULLSCREEN",
+    COMPACT = "COMPACT",
+}
 
 export const BorderDirections = {
     LEFT: "LEFT" as const,

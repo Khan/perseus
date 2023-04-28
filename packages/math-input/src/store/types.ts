@@ -1,6 +1,6 @@
 import GestureManager from "../components/gesture-manager";
 import VelocityTracker from "../components/velocity-tracker";
-import {LayoutModes, KeypadType} from "../consts";
+import {LayoutMode, KeypadType} from "../consts";
 import Keys from "../data/keys";
 
 import type {Cursor, KeyHandler, Popover, Echo} from "../types";
@@ -66,7 +66,7 @@ export interface LayoutState {
         pageWidthPx: number;
         pageHeightPx: number;
     };
-    layoutMode: keyof typeof LayoutModes;
+    layoutMode: LayoutMode;
     paginationEnabled: boolean;
     navigationPadEnabled: boolean;
 }

@@ -2,7 +2,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {LayoutModes, KeypadType} from "../consts";
+import {LayoutMode, KeypadType} from "../consts";
 import {View} from "../fake-react-native-web/index";
 import {setPageSize} from "../store/actions";
 
@@ -27,7 +27,7 @@ interface ReduxProps {
     active?: boolean;
     extraKeys?: ReadonlyArray<string>;
     keypadType?: KeypadType;
-    layoutMode?: keyof typeof LayoutModes;
+    layoutMode?: LayoutMode;
     navigationPadEnabled?: boolean;
 }
 
@@ -127,8 +127,8 @@ class KeypadContainer extends React.Component<Props, State> {
             // crop themselves. At least we're colocating all the layout
             // information in this component, though.
             roundTopLeft:
-                layoutMode === LayoutModes.COMPACT && !navigationPadEnabled,
-            roundTopRight: layoutMode === LayoutModes.COMPACT,
+                layoutMode === LayoutMode.COMPACT && !navigationPadEnabled,
+            roundTopRight: layoutMode === LayoutMode.COMPACT,
         };
 
         // Select the appropriate keyboard given the type.
@@ -185,7 +185,7 @@ class KeypadContainer extends React.Component<Props, State> {
         const keypadStyle = [
             row,
             styles.keypadBorder,
-            layoutMode === LayoutModes.FULLSCREEN
+            layoutMode === LayoutMode.FULLSCREEN
                 ? styles.fullscreen
                 : styles.compact,
         ];
@@ -210,7 +210,7 @@ class KeypadContainer extends React.Component<Props, State> {
                 >
                     {navigationPadEnabled && (
                         <NavigationPad
-                            roundTopLeft={layoutMode === LayoutModes.COMPACT}
+                            roundTopLeft={layoutMode === LayoutMode.COMPACT}
                             style={styles.navigationPadContainer}
                         />
                     )}

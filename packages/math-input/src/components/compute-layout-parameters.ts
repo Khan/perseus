@@ -19,7 +19,7 @@
  * might need to be.
  */
 
-import {DeviceType, DeviceOrientation, LayoutModes} from "../consts";
+import {DeviceType, DeviceOrientation, LayoutMode} from "../consts";
 
 import {
     pageIndicatorHeightPx,
@@ -151,7 +151,7 @@ export const computeLayoutParameters = (
         buttonDimensions,
         layoutMode:
             keypadWidth >= pageWidthPx
-                ? LayoutModes.FULLSCREEN
-                : LayoutModes.COMPACT,
+                ? LayoutMode.FULLSCREEN
+                : LayoutMode.COMPACT,
     };
 };
