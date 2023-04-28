@@ -62,10 +62,10 @@ export enum IconType {
     TEXT = "TEXT",
 }
 
-export const DecimalSeparators = {
-    COMMA: "COMMA",
-    PERIOD: "PERIOD",
-} as const;
+export enum DecimalSeparator {
+    COMMA = "COMMA",
+    PERIOD = "PERIOD",
+}
 
 export const EchoAnimationTypes = {
     SLIDE_AND_FADE: "SLIDE_AND_FADE",

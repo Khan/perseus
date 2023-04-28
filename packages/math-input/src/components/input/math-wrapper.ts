@@ -7,7 +7,7 @@
 import $ from "jquery";
 import MathQuill from "mathquill";
 
-import {DecimalSeparators} from "../../consts";
+import {DecimalSeparator} from "../../consts";
 import Keys from "../../data/keys";
 import {decimalSeparator} from "../../utils";
 
@@ -16,7 +16,7 @@ import * as CursorContexts from "./cursor-contexts";
 // Keeping `window` in place for test suite and GitHub Pages.
 // If it does not exist, fall back to CommonJS require. - jsatk
 
-const decimalSymbol = decimalSeparator === DecimalSeparators.COMMA ? "," : ".";
+const decimalSymbol = decimalSeparator === DecimalSeparator.COMMA ? "," : ".";
 
 enum ActionType {
     WRITE = "write",

@@ -3,7 +3,7 @@
  */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
-import {DecimalSeparators, IconType, KeyType} from "../consts";
+import {DecimalSeparator, IconType, KeyType} from "../consts";
 import {decimalSeparator} from "../utils";
 
 import Keys from "./keys";
@@ -46,7 +46,7 @@ const KeyConfigs: any = {
         // I18N: A label for a decimal symbol.
         ariaLabel: i18n._("Decimal"),
         icon:
-            decimalSeparator === DecimalSeparators.COMMA
+            decimalSeparator === DecimalSeparator.COMMA
                 ? {
                       // TODO(charlie): Get an SVG icon for the comma, or verify with
                       // design that the text-rendered version is acceptable.
