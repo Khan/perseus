@@ -67,8 +67,8 @@ export enum DecimalSeparator {
     PERIOD = "PERIOD",
 }
 
-export const EchoAnimationTypes = {
-    SLIDE_AND_FADE: "SLIDE_AND_FADE",
-    FADE_ONLY: "FADE_ONLY",
-    LONG_FADE_ONLY: "LONG_FADE_ONLY",
-} as const;
+export enum EchoAnimationType {
+    SLIDE_AND_FADE = "SLIDE_AND_FADE",
+    FADE_ONLY = "FADE_ONLY",
+    LONG_FADE_ONLY = "LONG_FADE_ONLY",
+}

@@ -1,4 +1,4 @@
-import {EchoAnimationTypes, KeyType} from "../consts";
+import {EchoAnimationType, KeyType} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
 import type {Action} from "./actions";
@@ -33,8 +33,8 @@ const echoReducer = function (
                         {
                             animationId: "" + _lastAnimationId++,
                             animationType: action.inPopover
-                                ? EchoAnimationTypes.LONG_FADE_ONLY
-                                : EchoAnimationTypes.FADE_ONLY,
+                                ? EchoAnimationType.LONG_FADE_ONLY
+                                : EchoAnimationType.FADE_ONLY,
                             borders: action.borders,
                             id: keyConfig.id,
                             initialBounds: action.initialBounds,

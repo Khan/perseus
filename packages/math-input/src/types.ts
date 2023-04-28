@@ -1,6 +1,6 @@
 import {
     BorderDirection,
-    EchoAnimationTypes,
+    EchoAnimationType,
     IconType,
     KeyType,
     KeypadType,
@@ -28,7 +28,7 @@ export type Popover = {
 
 export type Echo = {
     animationId: string;
-    animationType: keyof typeof EchoAnimationTypes;
+    animationType: EchoAnimationType;
     borders: Border;
     id: Keys;
     initialBounds: DOMRect;

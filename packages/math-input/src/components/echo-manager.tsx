@@ -5,7 +5,7 @@
 import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
-import {KeyType, EchoAnimationTypes} from "../consts";
+import {KeyType, EchoAnimationType} from "../consts";
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
 
@@ -63,7 +63,7 @@ class Echo extends React.Component<EchoProps> {
 
 type EchoPropType = {
     animationId: string;
-    animationType: keyof typeof EchoAnimationTypes;
+    animationType: EchoAnimationType;
     borders: Border;
     id: Keys;
     initialBounds: Bound;
@@ -82,17 +82,17 @@ class EchoManager extends React.Component<EchoManagerProps> {
         let animationTransitionName;
 
         switch (animationType) {
-            case EchoAnimationTypes.SLIDE_AND_FADE:
+            case EchoAnimationType.SLIDE_AND_FADE:
                 animationDurationMs = 400;
                 animationTransitionName = "echo-slide-and-fade";
                 break;
 
-            case EchoAnimationTypes.FADE_ONLY:
+            case EchoAnimationType.FADE_ONLY:
                 animationDurationMs = 300;
                 animationTransitionName = "echo-fade-only";
                 break;
 
-            case EchoAnimationTypes.LONG_FADE_ONLY:
+            case EchoAnimationType.LONG_FADE_ONLY:
                 animationDurationMs = 400;
                 animationTransitionName = "echo-long-fade-only";
                 break;
@@ -114,7 +114,7 @@ class EchoManager extends React.Component<EchoManagerProps> {
 
         return (
             <span>
-                {Object.keys(EchoAnimationTypes).map((animationType) => {
+                {Object.keys(EchoAnimationType).map((animationType) => {
                     // Collect the relevant parameters for the animation type, and
                     // filter for the appropriate echoes.
                     const {animationDurationMs, animationTransitionName} =
