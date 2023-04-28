@@ -2,13 +2,10 @@
  * Constants that are shared between multiple files.
  */
 
-export type KeypadType = "FRACTION" | "EXPRESSION";
-
-// TODO: Retire this in favour of KeypadType (above)
-export const KeypadTypes = {
-    FRACTION: "FRACTION",
-    EXPRESSION: "EXPRESSION",
-} as const;
+export enum KeypadType {
+    FRACTION = "FRACTION",
+    EXPRESSION = "EXPRESSION",
+}
 
 export type KeyType = // For numerals, variables, and any other characters that themselves
     // compose 'values'.

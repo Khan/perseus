@@ -3,11 +3,11 @@ import {
     EchoAnimationTypes,
     KeyTypes,
     IconTypes,
+    KeypadType,
 } from "./consts";
 import Keys from "./data/keys";
 
 import type {CursorContext} from "./components/input/cursor-contexts";
-import type {KeypadType} from "./consts";
 
 export type Border = Partial<Array<keyof typeof BorderDirections>>;
 

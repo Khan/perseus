@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {Keypad, KeypadInput, KeypadTypes} from "./index";
+import {Keypad, KeypadInput, KeypadType} from "./index";
 
 export default {
     title: "Full MathInput",
@@ -9,9 +9,9 @@ export default {
 export const Basic = () => {
     const [value, setValue] = React.useState("");
     const [keypadElement, setKeypadElement] = React.useState<any>(null);
-    const [keypadType, setKeypadType] = React.useState<
-        keyof typeof KeypadTypes
-    >(KeypadTypes.FRACTION);
+    const [keypadType, setKeypadType] = React.useState<KeypadType>(
+        KeypadType.FRACTION,
+    );
 
     React.useEffect(() => {
         keypadElement?.configure({
@@ -22,9 +22,9 @@ export const Basic = () => {
 
     function handleChangeKeypadType() {
         setKeypadType(
-            keypadType === KeypadTypes.FRACTION
-                ? KeypadTypes.EXPRESSION
-                : KeypadTypes.FRACTION,
+            keypadType === KeypadType.FRACTION
+                ? KeypadType.EXPRESSION
+                : KeypadType.FRACTION,
         );
     }
 
@@ -33,7 +33,7 @@ export const Basic = () => {
             <div style={{padding: "1rem 0"}}>
                 <button onClick={handleChangeKeypadType}>
                     {`Use ${
-                        keypadType === KeypadTypes.FRACTION
+                        keypadType === KeypadType.FRACTION
                             ? "Expression"
                             : "Fraction"
                     } Keypad`}
