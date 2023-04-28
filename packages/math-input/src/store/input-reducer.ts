@@ -1,4 +1,4 @@
-import * as CursorContexts from "../components/input/cursor-contexts";
+import {CursorContext} from "../components/input/cursor-contexts";
 import {KeyType} from "../consts";
 import KeyConfigs from "../data/key-configs";
 
@@ -12,7 +12,7 @@ const initialInputState: {
 } = {
     keyHandler: null,
     cursor: {
-        context: CursorContexts.NONE,
+        context: CursorContext.NONE,
     },
 };
 

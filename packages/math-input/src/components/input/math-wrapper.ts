@@ -11,7 +11,7 @@ import {DecimalSeparator} from "../../consts";
 import Keys from "../../data/keys";
 import {decimalSeparator} from "../../utils";
 
-import * as CursorContexts from "./cursor-contexts";
+import {CursorContext} from "./cursor-contexts";
 
 // Keeping `window` in place for test suite and GitHub Pages.
 // If it does not exist, fall back to CommonJS require. - jsatk
@@ -112,12 +112,12 @@ const ValidLeaves = [
 ];
 
 const KeysForJumpContext = {
-    [CursorContexts.IN_PARENS]: Keys.JUMP_OUT_PARENTHESES,
-    [CursorContexts.IN_SUPER_SCRIPT]: Keys.JUMP_OUT_EXPONENT,
-    [CursorContexts.IN_SUB_SCRIPT]: Keys.JUMP_OUT_BASE,
-    [CursorContexts.BEFORE_FRACTION]: Keys.JUMP_INTO_NUMERATOR,
-    [CursorContexts.IN_NUMERATOR]: Keys.JUMP_OUT_NUMERATOR,
-    [CursorContexts.IN_DENOMINATOR]: Keys.JUMP_OUT_DENOMINATOR,
+    [CursorContext.IN_PARENS]: Keys.JUMP_OUT_PARENTHESES,
+    [CursorContext.IN_SUPER_SCRIPT]: Keys.JUMP_OUT_EXPONENT,
+    [CursorContext.IN_SUB_SCRIPT]: Keys.JUMP_OUT_BASE,
+    [CursorContext.BEFORE_FRACTION]: Keys.JUMP_INTO_NUMERATOR,
+    [CursorContext.IN_NUMERATOR]: Keys.JUMP_OUT_NUMERATOR,
+    [CursorContext.IN_DENOMINATOR]: Keys.JUMP_OUT_DENOMINATOR,
 };
 
 class MathWrapper {
@@ -364,13 +364,13 @@ class MathWrapper {
         }
 
         switch (context) {
-            case CursorContexts.IN_PARENS:
+            case CursorContext.IN_PARENS:
                 // Insert at the end of the parentheses, and then navigate right
                 // once more to get 'beyond' the parentheses.
                 cursor.insRightOf(cursor.parent.parent);
                 break;
 
-            case CursorContexts.BEFORE_FRACTION:
+            case CursorContext.BEFORE_FRACTION:
                 // Find the nearest fraction to the right of the cursor.
                 let fractionNode;
                 let visitor = cursor;
@@ -386,7 +386,7 @@ class MathWrapper {
                 this.mathField.keystroke("Right");
                 break;
 
-            case CursorContexts.IN_NUMERATOR:
+            case CursorContext.IN_NUMERATOR:
                 // HACK(charlie): I can't find a better way to do this. The goal
                 // is to place the cursor at the start of the matching
                 // denominator. So, we identify the appropriate node, and
@@ -399,11 +399,11 @@ class MathWrapper {
                 }
                 break;
 
-            case CursorContexts.IN_DENOMINATOR:
+            case CursorContext.IN_DENOMINATOR:
                 cursor.insRightOf(cursor.parent.parent);
                 break;
 
-            case CursorContexts.IN_SUB_SCRIPT:
+            case CursorContext.IN_SUB_SCRIPT:
                 // Insert just beyond the superscript.
                 cursor.insRightOf(cursor.parent.parent);
 
@@ -415,7 +415,7 @@ class MathWrapper {
                 }
                 break;
 
-            case CursorContexts.IN_SUPER_SCRIPT:
+            case CursorContext.IN_SUPER_SCRIPT:
                 // Insert just beyond the superscript.
                 cursor.insRightOf(cursor.parent.parent);
                 break;
@@ -939,7 +939,7 @@ class MathWrapper {
         let visitor = cursor;
         while (visitor[this.MQ.R] !== ActionType.MQ_END) {
             if (this._isFraction(visitor[this.MQ.R])) {
-                return CursorContexts.BEFORE_FRACTION;
+                return CursorContext.BEFORE_FRACTION;
             } else if (!this._isLeaf(visitor[this.MQ.R])) {
                 break;
             }
@@ -949,17 +949,17 @@ class MathWrapper {
         // If that didn't work, check if the parent or grandparent is a special
         // context, so that we can jump outwards.
         if (this._isParens(cursor.parent && cursor.parent.parent)) {
-            return CursorContexts.IN_PARENS;
+            return CursorContext.IN_PARENS;
         } else if (this._isNumerator(cursor.parent)) {
-            return CursorContexts.IN_NUMERATOR;
+            return CursorContext.IN_NUMERATOR;
         } else if (this._isDenominator(cursor.parent)) {
-            return CursorContexts.IN_DENOMINATOR;
+            return CursorContext.IN_DENOMINATOR;
         } else if (this._isSubScript(cursor.parent)) {
-            return CursorContexts.IN_SUB_SCRIPT;
+            return CursorContext.IN_SUB_SCRIPT;
         } else if (this._isSuperScript(cursor.parent)) {
-            return CursorContexts.IN_SUPER_SCRIPT;
+            return CursorContext.IN_SUPER_SCRIPT;
         } else {
-            return CursorContexts.NONE;
+            return CursorContext.NONE;
         }
     }
 

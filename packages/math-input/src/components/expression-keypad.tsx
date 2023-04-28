@@ -11,7 +11,7 @@ import KeyConfigs from "../data/key-configs";
 import {View} from "../fake-react-native-web/index";
 
 import {valueGrey, controlGrey} from "./common-style";
-import * as CursorContexts from "./input/cursor-contexts";
+import {CursorContext} from "./input/cursor-contexts";
 import ManyKeypadButton from "./many-keypad-button";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
@@ -19,7 +19,6 @@ import TwoPageKeypad from "./two-page-keypad";
 
 import type {State} from "../store/types";
 import type {KeypadLayout} from "../types";
-import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
@@ -60,31 +59,31 @@ class ExpressionKeypad extends React.Component<Props> {
         let dismissOrJumpOutKey;
         if (dynamicJumpOut) {
             switch (cursorContext) {
-                case CursorContexts.IN_PARENS:
+                case CursorContext.IN_PARENS:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_PARENTHESES;
                     break;
 
-                case CursorContexts.IN_SUPER_SCRIPT:
+                case CursorContext.IN_SUPER_SCRIPT:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_EXPONENT;
                     break;
 
-                case CursorContexts.IN_SUB_SCRIPT:
+                case CursorContext.IN_SUB_SCRIPT:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_BASE;
                     break;
 
-                case CursorContexts.BEFORE_FRACTION:
+                case CursorContext.BEFORE_FRACTION:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_INTO_NUMERATOR;
                     break;
 
-                case CursorContexts.IN_NUMERATOR:
+                case CursorContext.IN_NUMERATOR:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_NUMERATOR;
                     break;
 
-                case CursorContexts.IN_DENOMINATOR:
+                case CursorContext.IN_DENOMINATOR:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_DENOMINATOR;
                     break;
 
-                case CursorContexts.NONE:
+                case CursorContext.NONE:
                 default:
                     dismissOrJumpOutKey = KeyConfigs.DISMISS;
                     break;
