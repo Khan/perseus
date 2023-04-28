@@ -18,44 +18,46 @@ import * as CursorContexts from "./cursor-contexts";
 
 const decimalSymbol = decimalSeparator === DecimalSeparators.COMMA ? "," : ".";
 
-const WRITE = "write";
-const CMD = "cmd";
-const KEYSTROKE = "keystroke";
-const MQ_END = 0;
+enum ActionType {
+    WRITE = "write",
+    CMD = "cmd",
+    KEYSTROKE = "keystroke",
+    MQ_END = 0,
+}
 
 // A mapping from keys that can be pressed on a keypad to the way in which
 // MathQuill should modify its input in response to that key-press. Any keys
 // that do not provide explicit actions (like the numeral keys) will merely
 // write their contents to MathQuill.
-const KeyActions = {
-    [Keys.PLUS]: {str: "+", fn: WRITE},
-    [Keys.MINUS]: {str: "-", fn: WRITE},
-    [Keys.NEGATIVE]: {str: "-", fn: WRITE},
-    [Keys.TIMES]: {str: "\\times", fn: WRITE},
-    [Keys.DIVIDE]: {str: "\\div", fn: WRITE},
+const KeyActions: {[K in Keys]?: {str: string; fn: ActionType}} = {
+    [Keys.PLUS]: {str: "+", fn: ActionType.WRITE},
+    [Keys.MINUS]: {str: "-", fn: ActionType.WRITE},
+    [Keys.NEGATIVE]: {str: "-", fn: ActionType.WRITE},
+    [Keys.TIMES]: {str: "\\times", fn: ActionType.WRITE},
+    [Keys.DIVIDE]: {str: "\\div", fn: ActionType.WRITE},
     [Keys.DECIMAL]: {
         str: decimalSymbol,
-        fn: WRITE,
+        fn: ActionType.WRITE,
     },
-    [Keys.EQUAL]: {str: "=", fn: WRITE},
-    [Keys.NEQ]: {str: "\\neq", fn: WRITE},
-    [Keys.CDOT]: {str: "\\cdot", fn: WRITE},
-    [Keys.PERCENT]: {str: "%", fn: WRITE},
-    [Keys.LEFT_PAREN]: {str: "(", fn: CMD},
-    [Keys.RIGHT_PAREN]: {str: ")", fn: CMD},
-    [Keys.SQRT]: {str: "sqrt", fn: CMD},
-    [Keys.PI]: {str: "pi", fn: CMD},
-    [Keys.THETA]: {str: "theta", fn: CMD},
-    [Keys.RADICAL]: {str: "nthroot", fn: CMD},
-    [Keys.LT]: {str: "<", fn: WRITE},
-    [Keys.LEQ]: {str: "\\leq", fn: WRITE},
-    [Keys.GT]: {str: ">", fn: WRITE},
-    [Keys.GEQ]: {str: "\\geq", fn: WRITE},
-    [Keys.UP]: {str: "Up", fn: KEYSTROKE},
-    [Keys.DOWN]: {str: "Down", fn: KEYSTROKE},
+    [Keys.EQUAL]: {str: "=", fn: ActionType.WRITE},
+    [Keys.NEQ]: {str: "\\neq", fn: ActionType.WRITE},
+    [Keys.CDOT]: {str: "\\cdot", fn: ActionType.WRITE},
+    [Keys.PERCENT]: {str: "%", fn: ActionType.WRITE},
+    [Keys.LEFT_PAREN]: {str: "(", fn: ActionType.CMD},
+    [Keys.RIGHT_PAREN]: {str: ")", fn: ActionType.CMD},
+    [Keys.SQRT]: {str: "sqrt", fn: ActionType.CMD},
+    [Keys.PI]: {str: "pi", fn: ActionType.CMD},
+    [Keys.THETA]: {str: "theta", fn: ActionType.CMD},
+    [Keys.RADICAL]: {str: "nthroot", fn: ActionType.CMD},
+    [Keys.LT]: {str: "<", fn: ActionType.WRITE},
+    [Keys.LEQ]: {str: "\\leq", fn: ActionType.WRITE},
+    [Keys.GT]: {str: ">", fn: ActionType.WRITE},
+    [Keys.GEQ]: {str: "\\geq", fn: ActionType.WRITE},
+    [Keys.UP]: {str: "Up", fn: ActionType.KEYSTROKE},
+    [Keys.DOWN]: {str: "Down", fn: ActionType.KEYSTROKE},
     // The `FRAC_EXCLUSIVE` variant is handled manually, since we may need to do
     // some additional navigation depending on the cursor position.
-    [Keys.FRAC_INCLUSIVE]: {str: "/", fn: CMD},
+    [Keys.FRAC_INCLUSIVE]: {str: "/", fn: ActionType.CMD},
 };
 
 const NormalCommands = {
@@ -179,14 +181,14 @@ class MathWrapper {
         } else if (key === Keys.FRAC_EXCLUSIVE) {
             // If there's nothing to the left of the cursor, then we want to
             // leave the cursor to the left of the fraction after creating it.
-            const shouldNavigateLeft = cursor[this.MQ.L] === MQ_END;
+            const shouldNavigateLeft = cursor[this.MQ.L] === ActionType.MQ_END;
             this.mathField.cmd("\\frac");
             if (shouldNavigateLeft) {
                 this.mathField.keystroke("Left");
             }
         } else if (key === Keys.FRAC) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const shouldNavigateLeft = cursor[this.MQ.L] === MQ_END;
+            const shouldNavigateLeft = cursor[this.MQ.L] === ActionType.MQ_END;
             this.mathField.cmd("\\frac");
         } else if (key === Keys.LOG_N) {
             this.mathField.write("log_{ }\\left(\\right)");
@@ -218,9 +220,9 @@ class MathWrapper {
         } else if (key === Keys.RIGHT) {
             this._handleRightArrow(cursor);
         } else if (/^[a-zA-Z]$/.test(key)) {
-            this.mathField[WRITE](key);
+            this.mathField[ActionType.WRITE](key);
         } else if (/^NUM_\d/.test(key)) {
-            this.mathField[WRITE](key[4]);
+            this.mathField[ActionType.WRITE](key[4]);
         }
 
         if (!cursor.selection) {
@@ -325,7 +327,7 @@ class MathWrapper {
     // when upgrading MathQuill.
 
     _handleBackspaceInNthRoot(cursor) {
-        const isAtLeftEnd = cursor[this.MQ.L] === MQ_END;
+        const isAtLeftEnd = cursor[this.MQ.L] === ActionType.MQ_END;
 
         const isRootEmpty = this._isInsideEmptyNode(
             cursor.parent.parent.blocks[0].ends,
@@ -372,7 +374,7 @@ class MathWrapper {
                 // Find the nearest fraction to the right of the cursor.
                 let fractionNode;
                 let visitor = cursor;
-                while (visitor[this.MQ.R] !== MQ_END) {
+                while (visitor[this.MQ.R] !== ActionType.MQ_END) {
                     if (this._isFraction(visitor[this.MQ.R])) {
                         fractionNode = visitor[this.MQ.R];
                     }
@@ -458,7 +460,10 @@ class MathWrapper {
                 leftNode.ctrlSeq === "\\le "
             ) {
                 this._handleBackspaceAfterLigaturedSymbol(cursor);
-            } else if (this._isNthRoot(grandparent) && leftNode === MQ_END) {
+            } else if (
+                this._isNthRoot(grandparent) &&
+                leftNode === ActionType.MQ_END
+            ) {
                 this._handleBackspaceInNthRoot(cursor);
             } else {
                 this.mathField.keystroke("Backspace");
@@ -476,10 +481,10 @@ class MathWrapper {
         // the entire expression, rather than between the `s` and the left
         // parenthesis.
         // From the cursor's perspective, this requires that our left node is
-        // the MQ_END node, that our grandparent is the left parenthesis, and
+        // the ActionType.MQ_END node, that our grandparent is the left parenthesis, and
         // the nodes to the left of our grandparent comprise a valid function
         // name.
-        if (cursor[this.MQ.L] === MQ_END) {
+        if (cursor[this.MQ.L] === ActionType.MQ_END) {
             const parent = cursor.parent;
             const grandparent = parent.parent;
             if (grandparent.ctrlSeq === "\\left(") {
@@ -518,7 +523,7 @@ class MathWrapper {
 
         const precedingNode = cursor[this.MQ.L];
         const shouldPrefixWithParens =
-            precedingNode === MQ_END ||
+            precedingNode === ActionType.MQ_END ||
             invalidPrefixes.includes(precedingNode.ctrlSeq.trim());
         if (shouldPrefixWithParens) {
             this.mathField.write("\\left(\\right)");
@@ -737,7 +742,10 @@ class MathWrapper {
     }
 
     _isInsideEmptyNode(cursor) {
-        return cursor[this.MQ.L] === MQ_END && cursor[this.MQ.R] === MQ_END;
+        return (
+            cursor[this.MQ.L] === ActionType.MQ_END &&
+            cursor[this.MQ.R] === ActionType.MQ_END
+        );
     }
 
     _handleBackspaceInRootIndex(cursor) {
@@ -769,14 +777,14 @@ class MathWrapper {
                 this.mathField.write(latex.replace(/^\\sqrt\[\]/, "\\sqrt"));
 
                 // Adjust the cursor to be to the left the sqrt.
-                if (reinsertionPoint === MQ_END) {
+                if (reinsertionPoint === ActionType.MQ_END) {
                     this.mathField.moveToDirEnd(this.MQ.L);
                 } else {
                     cursor.insRightOf(reinsertionPoint);
                 }
             }
         } else {
-            if (cursor[this.MQ.L] !== MQ_END) {
+            if (cursor[this.MQ.L] !== ActionType.MQ_END) {
                 // If the cursor is not at the leftmost position inside the
                 // root's index, delete a character.
                 this.mathField.keystroke("Backspace");
@@ -796,7 +804,7 @@ class MathWrapper {
             cursor.insLeftOf(command?.startNode);
             cursor.startSelection();
 
-            if (grandparent[this.MQ.R] !== MQ_END) {
+            if (grandparent[this.MQ.R] !== ActionType.MQ_END) {
                 cursor.insRightOf(grandparent[this.MQ.R]);
             } else {
                 cursor.insRightOf(grandparent);
@@ -836,7 +844,7 @@ class MathWrapper {
             // the parens.
             cursor.insLeftOf(command.startNode);
             cursor.startSelection();
-            if (rightNode === MQ_END) {
+            if (rightNode === ActionType.MQ_END) {
                 cursor.insAtRightEnd(cursor.parent);
             } else {
                 cursor.insLeftOf(rightNode);
@@ -876,7 +884,7 @@ class MathWrapper {
         // - \log(|x+1) => |\log(x+1)|
         // - \log(|) => |
 
-        if (cursor[this.MQ.L] !== MQ_END) {
+        if (cursor[this.MQ.L] !== ActionType.MQ_END) {
             // This command contains math and there's some math to
             // the left of the cursor that we should delete normally
             // before doing anything special.
@@ -929,7 +937,7 @@ class MathWrapper {
     contextForCursor(cursor) {
         // First, try to find any fraction to the right, unimpeded.
         let visitor = cursor;
-        while (visitor[this.MQ.R] !== MQ_END) {
+        while (visitor[this.MQ.R] !== ActionType.MQ_END) {
             if (this._isFraction(visitor[this.MQ.R])) {
                 return CursorContexts.BEFORE_FRACTION;
             } else if (!this._isLeaf(visitor[this.MQ.R])) {

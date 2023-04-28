@@ -7,17 +7,17 @@ import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 import {KeyTypes, EchoAnimationTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import Keys from "../data/keys";
 
 import KeypadButton from "./keypad-button";
 import * as zIndexes from "./z-indexes";
 
-import type {Key} from "../data/keys";
 import type {Border, Bound} from "../types";
 
 type EchoProps = {
     animationDurationMs: number;
     borders: Border;
-    id: Key;
+    id: Keys;
     initialBounds: Bound;
     onAnimationFinish: () => void;
 };
@@ -65,7 +65,7 @@ type EchoPropType = {
     animationId: string;
     animationType: keyof typeof EchoAnimationTypes;
     borders: Border;
-    id: Key;
+    id: Keys;
     initialBounds: Bound;
 };
 

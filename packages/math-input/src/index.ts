@@ -11,9 +11,14 @@ export {KeypadTypes} from "./consts";
 export {default as KeyConfigs} from "./data/key-configs";
 
 import * as CursorContexts from "./components/input/cursor-contexts";
+import Keys from "./data/keys";
 
-export {CursorContexts};
+export type {CursorContexts};
 
+type Key = typeof Keys;
+
+export {Keys};
+
+export type {Key}; // Deprecated, use Keys enum instead
 export type {KeypadType, KeyType} from "./consts";
-export type {Key} from "./data/keys";
 export type {CursorContext} from "./components/input/cursor-contexts";

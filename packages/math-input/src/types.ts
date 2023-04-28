@@ -4,10 +4,10 @@ import {
     KeyTypes,
     IconTypes,
 } from "./consts";
+import Keys from "./data/keys";
 
 import type {CursorContext} from "./components/input/cursor-contexts";
 import type {KeypadType} from "./consts";
-import type {Key} from "./data/keys";
 
 export type Border = Partial<Array<keyof typeof BorderDirections>>;
 
@@ -21,16 +21,16 @@ export type Bound = {
 };
 
 export type Popover = {
-    parentId: Key;
+    parentId: Keys;
     bounds: Partial<Bound>;
-    childKeyIds: Array<Key>;
+    childKeyIds: Array<Keys>;
 };
 
 export type Echo = {
     animationId: string;
     animationType: keyof typeof EchoAnimationTypes;
     borders: Border;
-    id: Key;
+    id: Keys;
     initialBounds: DOMRect;
 };
 
@@ -41,18 +41,18 @@ export type Icon = {
 
 export type KeyConfig = {
     ariaLabel: string;
-    id: Key;
+    id: Keys;
     type: keyof typeof KeyTypes;
-    childKeyIds: Array<Key>;
+    childKeyIds: Array<Keys>;
     icon: Icon;
 };
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;
-    extraKeys?: ReadonlyArray<Key>;
+    extraKeys?: ReadonlyArray<Keys>;
 };
 
-export type KeyHandler = (key: Key) => Cursor;
+export type KeyHandler = (key: Keys) => Cursor;
 
 export type Cursor = {
     context: CursorContext;

@@ -1,4 +1,5 @@
-import type {Key} from "../data/keys";
+import Keys from "../data/keys";
+
 import type {
     KeypadConfiguration,
     KeyHandler,
@@ -143,14 +144,14 @@ export const setActiveNodes = (
 
 type PressKeyAction = {
     type: "PressKey";
-    key: Key;
+    key: Keys;
     borders: Border;
     initialBounds: DOMRect;
     inPopover: boolean;
 };
 
 export const pressKey = (
-    key: Key,
+    key: Keys,
     borders: Border,
     initialBounds: DOMRect,
     inPopover: any,

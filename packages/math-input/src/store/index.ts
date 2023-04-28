@@ -11,7 +11,6 @@ import layoutReducer from "./layout-reducer";
 import pagerReducer from "./pager-reducer";
 import {defaultKeypadType, keypadForType} from "./shared";
 
-import type {Key} from "../data/keys";
 import type {LayoutProps, ActiveNodesObj} from "../types";
 import type {Action} from "./actions";
 import type {GestureState} from "./types";
@@ -35,7 +34,7 @@ export const createStore = () => {
                     store.dispatch(setActiveNodes(activeNodes));
                 },
                 onClick: (
-                    key: Key,
+                    key: Keys,
                     layoutProps: LayoutProps,
                     inPopover: boolean,
                 ) => {

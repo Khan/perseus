@@ -11,21 +11,21 @@ import {connect} from "react-redux";
 
 import {KeyType, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import Keys from "../data/keys";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-import type {Key} from "../data/keys";
 import type {Border, Icon} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     borders: Border;
-    childKeyIds: ReadonlyArray<Key>;
+    childKeyIds: ReadonlyArray<Keys>;
     disabled: boolean;
     focused: boolean;
     gestureManager: GestureManager;
-    id: Key;
+    id: Keys;
     popoverEnabled: boolean;
     style: StyleType;
     type: KeyType;
