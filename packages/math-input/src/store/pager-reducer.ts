@@ -1,6 +1,6 @@
 import VelocityTracker from "../components/velocity-tracker";
-import {KeyType} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import {KeyType} from "../enums";
 
 import {defaultKeypadType, keypadForType} from "./shared";
 

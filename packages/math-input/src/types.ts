@@ -1,11 +1,11 @@
+import Keys from "./data/keys";
 import {
     BorderDirection,
     EchoAnimationType,
     IconType,
     KeyType,
     KeypadType,
-} from "./consts";
-import Keys from "./data/keys";
+} from "./enums";
 
 import type {CursorContext} from "./components/input/cursor-contexts";
 

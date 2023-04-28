@@ -1,5 +1,5 @@
-import {EchoAnimationType, KeyType} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import {EchoAnimationType, KeyType} from "../enums";
 
 import type {Action} from "./actions";
 import type {EchoState} from "./types";

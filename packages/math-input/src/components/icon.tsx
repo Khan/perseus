@@ -5,7 +5,7 @@
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {IconType} from "../consts";
+import {IconType} from "../enums";
 
 import {offBlack} from "./common-style";
 import MathIcon from "./math-icon";

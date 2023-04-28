@@ -12,4 +12,4 @@ export {keypadElementPropType} from "./components/prop-types";
 export {default as Keypad} from "./components/provided-keypad";
 export {default as KeyConfigs} from "./data/key-configs";
 export {Keys};
-export {KeyType, KeypadType} from "./consts";
+export {KeyType, KeypadType} from "./enums";

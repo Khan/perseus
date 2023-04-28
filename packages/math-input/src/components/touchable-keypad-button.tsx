@@ -9,7 +9,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {KeyType} from "../consts";
+import {KeyType} from "../enums";
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
 

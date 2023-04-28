@@ -1,6 +1,6 @@
 import {CursorContext} from "../components/input/cursor-contexts";
-import {KeyType} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import {KeyType} from "../enums";
 
 import type {Cursor, KeyHandler} from "../types";
 import type {Action} from "./actions";

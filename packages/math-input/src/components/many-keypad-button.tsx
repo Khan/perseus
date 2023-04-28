@@ -5,9 +5,9 @@
 
 import * as React from "react";
 
-import {KeyType} from "../consts";
 import KeyConfigs from "../data/key-configs";
 import Keys from "../data/keys";
+import {KeyType} from "../enums";
 
 import EmptyKeypadButton from "./empty-keypad-button";
 import TouchableKeypadButton from "./touchable-keypad-button";

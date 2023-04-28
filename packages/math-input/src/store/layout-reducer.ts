@@ -1,6 +1,6 @@
 import {tabletCutoffPx} from "../components/common-style";
 import {computeLayoutParameters} from "../components/compute-layout-parameters";
-import {DeviceOrientation, DeviceType, LayoutMode} from "../consts";
+import {DeviceOrientation, DeviceType, LayoutMode} from "../enums";
 
 import {defaultKeypadType, keypadForType} from "./shared";
 

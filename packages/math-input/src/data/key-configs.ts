@@ -3,7 +3,7 @@
  */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
-import {DecimalSeparator, IconType, KeyType} from "../consts";
+import {DecimalSeparator, IconType, KeyType} from "../enums";
 import {decimalSeparator} from "../utils";
 
 import Keys from "./keys";

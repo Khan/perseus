@@ -1,7 +1,7 @@
 import GestureManager from "../components/gesture-manager";
 import VelocityTracker from "../components/velocity-tracker";
-import {LayoutMode, KeypadType} from "../consts";
 import Keys from "../data/keys";
+import {LayoutMode, KeypadType} from "../enums";
 
 import type {Cursor, KeyHandler, Popover, Echo} from "../types";
 

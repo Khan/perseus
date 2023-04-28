@@ -19,7 +19,7 @@
  * might need to be.
  */
 
-import {DeviceType, DeviceOrientation, LayoutMode} from "../consts";
+import {DeviceType, DeviceOrientation, LayoutMode} from "../enums";
 
 import {
     pageIndicatorHeightPx,

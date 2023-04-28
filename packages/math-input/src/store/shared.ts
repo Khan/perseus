@@ -1,6 +1,6 @@
 import {expressionKeypadLayout} from "../components/expression-keypad";
 import {fractionKeypadLayout} from "../components/fraction-keypad";
-import {KeypadType} from "../consts";
+import {KeypadType} from "../enums";
 
 const defaultKeypadType = KeypadType.EXPRESSION;
 
