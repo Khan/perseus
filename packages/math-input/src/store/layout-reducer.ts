@@ -1,6 +1,6 @@
 import {tabletCutoffPx} from "../components/common-style";
 import {computeLayoutParameters} from "../components/compute-layout-parameters";
-import {DeviceOrientation, DeviceTypes, LayoutModes} from "../consts";
+import {DeviceOrientation, DeviceType, LayoutModes} from "../consts";
 
 import {defaultKeypadType, keypadForType} from "./shared";
 
@@ -52,14 +52,14 @@ const layoutParametersForDimensions = (
             : DeviceOrientation.PORTRAIT;
     const deviceType =
         Math.min(pageWidthPx, pageHeightPx) > tabletCutoffPx
-            ? DeviceTypes.TABLET
-            : DeviceTypes.PHONE;
+            ? DeviceType.TABLET
+            : DeviceType.PHONE;
 
     // Using that information, make some decisions (or assumptions)
     // about the resulting layout.
-    const navigationPadEnabled = deviceType === DeviceTypes.TABLET;
+    const navigationPadEnabled = deviceType === DeviceType.TABLET;
     const paginationEnabled =
-        deviceType === DeviceTypes.PHONE &&
+        deviceType === DeviceType.PHONE &&
         deviceOrientation === DeviceOrientation.PORTRAIT;
 
     const deviceInfo = {deviceOrientation, deviceType} as const;

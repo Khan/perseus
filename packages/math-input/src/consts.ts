@@ -32,10 +32,10 @@ export enum DeviceOrientation {
     PORTRAIT = "PORTRAIT",
 }
 
-export const DeviceTypes = {
-    PHONE: "PHONE",
-    TABLET: "TABLET",
-} as const;
+export enum DeviceType {
+    PHONE = "PHONE",
+    TABLET = "TABLET",
+}
 
 export const LayoutModes = {
     FULLSCREEN: "FULLSCREEN",

@@ -19,7 +19,7 @@
  * might need to be.
  */
 
-import {DeviceTypes, DeviceOrientation, LayoutModes} from "../consts";
+import {DeviceType, DeviceOrientation, LayoutModes} from "../consts";
 
 import {
     pageIndicatorHeightPx,
@@ -68,7 +68,7 @@ export const computeLayoutParameters = (
 
     // Then, compute the button dimensions based on the provided parameters.
     let buttonDimensions;
-    if (deviceType === DeviceTypes.PHONE) {
+    if (deviceType === DeviceType.PHONE) {
         const isLandscape = deviceOrientation === DeviceOrientation.LANDSCAPE;
 
         // In many cases, the browser chrome will already have been factored
@@ -129,7 +129,7 @@ export const computeLayoutParameters = (
             widthPx: buttonWidthPx,
             heightPx: buttonHeightPx,
         };
-    } else if (deviceType === DeviceTypes.TABLET) {
+    } else if (deviceType === DeviceType.TABLET) {
         buttonDimensions = {
             widthPx: maxButtonSize,
             heightPx: maxButtonSize,
