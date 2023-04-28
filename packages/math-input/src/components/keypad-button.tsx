@@ -24,7 +24,7 @@ import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
 import type {State} from "../store/types";
-import type {Border, KeyConfig, Icon as IconType} from "../types";
+import type {Border, KeyConfig, IconConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface ReduxProps {
@@ -40,7 +40,7 @@ interface Props extends ReduxProps {
     focused: boolean;
     popoverEnabled: boolean;
     type: KeyType;
-    icon: IconType;
+    icon: IconConfig;
     style?: StyleType;
     onTouchCancel?: (evt: React.TouchEvent<HTMLDivElement>) => void;
     onTouchEnd?: (evt: React.TouchEvent<HTMLDivElement>) => void;

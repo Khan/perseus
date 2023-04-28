@@ -1,7 +1,7 @@
 import {
     BorderDirection,
     EchoAnimationTypes,
-    IconTypes,
+    IconType,
     KeyType,
     KeypadType,
 } from "./consts";
@@ -34,8 +34,8 @@ export type Echo = {
     initialBounds: DOMRect;
 };
 
-export type Icon = {
-    type: keyof typeof IconTypes;
+export type IconConfig = {
+    type: IconType;
     data: string;
 };
 
@@ -44,7 +44,7 @@ export type KeyConfig = {
     id: Keys;
     type: KeyType;
     childKeyIds: Array<Keys>;
-    icon: Icon;
+    icon: IconConfig;
 };
 
 export type KeypadConfiguration = {

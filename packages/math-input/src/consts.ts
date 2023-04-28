@@ -56,11 +56,11 @@ export const BorderStyles: {
     NONE: [],
 };
 
-export const IconTypes = {
-    MATH: "MATH",
-    SVG: "SVG",
-    TEXT: "TEXT",
-} as const;
+export enum IconType {
+    MATH = "MATH",
+    SVG = "SVG",
+    TEXT = "TEXT",
+}
 
 export const DecimalSeparators = {
     COMMA: "COMMA",

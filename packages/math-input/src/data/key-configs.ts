@@ -3,7 +3,7 @@
  */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
-import {DecimalSeparators, IconTypes, KeyType} from "../consts";
+import {DecimalSeparators, IconType, KeyType} from "../consts";
 import {decimalSeparator} from "../utils";
 
 import Keys from "./keys";
@@ -50,11 +50,11 @@ const KeyConfigs: any = {
                 ? {
                       // TODO(charlie): Get an SVG icon for the comma, or verify with
                       // design that the text-rendered version is acceptable.
-                      type: IconTypes.TEXT,
+                      type: IconType.TEXT,
                       data: ",",
                   }
                 : {
-                      type: IconTypes.SVG,
+                      type: IconType.SVG,
                       data: Keys.PERIOD,
                   },
     },
@@ -181,7 +181,7 @@ const KeyConfigs: any = {
         type: KeyType.VALUE,
         ariaLabel: i18n._("Pi"),
         icon: {
-            type: IconTypes.MATH,
+            type: IconType.MATH,
             data: "\\pi",
         },
     },
@@ -189,7 +189,7 @@ const KeyConfigs: any = {
         type: KeyType.VALUE,
         ariaLabel: i18n._("Theta"),
         icon: {
-            type: IconTypes.MATH,
+            type: IconType.MATH,
             data: "\\theta",
         },
     },
@@ -283,7 +283,7 @@ for (const num of NUMBERS) {
         type: KeyType.VALUE,
         ariaLabel: textRepresentation,
         icon: {
-            type: IconTypes.TEXT,
+            type: IconType.TEXT,
             data: textRepresentation,
         },
     };
@@ -327,7 +327,7 @@ for (const letter of LETTERS) {
             type: KeyType.VALUE,
             ariaLabel: textRepresentation,
             icon: {
-                type: IconTypes.MATH,
+                type: IconType.MATH,
                 data: textRepresentation,
             },
         };
@@ -339,7 +339,7 @@ for (const key of Object.keys(KeyConfigs)) {
         id: key,
         // Default to an SVG icon indexed by the key name.
         icon: {
-            type: IconTypes.SVG,
+            type: IconType.SVG,
             data: key,
         },
         ...KeyConfigs[key],
