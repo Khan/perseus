@@ -2,7 +2,11 @@
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
     "exclude": ["**/dist"],
-    "include": ["**/src"],
+    "include": [
+        "packages/*/src",
+        "testing",
+        "utils",
+    ],
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,

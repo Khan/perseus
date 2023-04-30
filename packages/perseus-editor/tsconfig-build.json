@@ -15,8 +15,8 @@
         }
     },
     "references": [
-        {"path": "../kas"},
-        {"path": "../kmath"},
-        {"path": "../perseus"},
+        {"path": "../kas/tsconfig-build.json"},
+        {"path": "../kmath/tsconfig-build.json"},
+        {"path": "../perseus/tsconfig-build.json"},
     ]
 }
