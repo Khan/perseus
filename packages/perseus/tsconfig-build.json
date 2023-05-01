@@ -15,11 +15,11 @@
         }
     },
     "references": [
-        {"path": "../kas"},
-        {"path": "../kmath"},
-        {"path": "../math-input"},
-        {"path": "../perseus-linter"},
-        {"path": "../pure-markdown"},
-        {"path": "../simple-markdown"},
+        {"path": "../kas/tsconfig-build.json"},
+        {"path": "../kmath/tsconfig-build.json"},
+        {"path": "../math-input/tsconfig-build.json"},
+        {"path": "../perseus-linter/tsconfig-build.json"},
+        {"path": "../pure-markdown/tsconfig-build.json"},
+        {"path": "../simple-markdown/tsconfig-build.json"},
     ]
 }

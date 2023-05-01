@@ -5,14 +5,14 @@
     // in each package directory.
     "files": [],
     "references": [
-        {"path": "./packages/kas"},
-        {"path": "./packages/kmath"},
-        {"path": "./packages/math-input"},
-        {"path": "./packages/perseus"},
-        {"path": "./packages/perseus-editor"},
-        {"path": "./packages/perseus-error"},
-        {"path": "./packages/perseus-linter"},
-        {"path": "./packages/pure-markdown"},
-        {"path": "./packages/simple-markdown"},
+        {"path": "./packages/kas/tsconfig-build.json"},
+        {"path": "./packages/kmath/tsconfig-build.json"},
+        {"path": "./packages/math-input/tsconfig-build.json"},
+        {"path": "./packages/perseus/tsconfig-build.json"},
+        {"path": "./packages/perseus-editor/tsconfig-build.json"},
+        {"path": "./packages/perseus-error/tsconfig-build.json"},
+        {"path": "./packages/perseus-linter/tsconfig-build.json"},
+        {"path": "./packages/pure-markdown/tsconfig-build.json"},
+        {"path": "./packages/simple-markdown/tsconfig-build.json"},
     ]
 }
