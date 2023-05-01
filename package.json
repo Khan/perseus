@@ -113,6 +113,7 @@
     "rollup-plugin-styles": "^4.0.0",
     "sloc": "^0.2.1",
     "typescript": "4.9.5",
+    "typescript-coverage-report": "^0.7.0",
     "webpack-dev-server": "^4.9.0",
     "winston": "^3.7.2"
   },
@@ -130,6 +131,7 @@
     "watch": "rollup -c config/build/rollup.config.js --watch",
     "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules && rm -rf .nyc_output && rm -f packages/*/*.tsbuildinfo",
     "coverage": "cross-env NODE_OPTIONS=--max_old_space_size=4096 yarn run jest --coverage",
+    "coverage:types": "typescript-coverage-report",
     "extract-strings": "SWCRC=true node -r @swc-node/register utils/extract-strings.ts",
     "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
     "lint:timing": "cross-env TIMING=1 yarn lint",
