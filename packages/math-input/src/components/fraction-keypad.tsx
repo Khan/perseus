@@ -6,18 +6,17 @@
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {BorderStyles} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import {BorderStyles} from "../enums";
 import {View} from "../fake-react-native-web/index";
 
-import * as CursorContexts from "./input/cursor-contexts";
+import {CursorContext} from "./input/cursor-contexts";
 import Keypad from "./keypad";
 import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 
 import type {State} from "../store/types";
 import type {KeypadLayout} from "../types";
-import type {CursorContext} from "./input/cursor-contexts";
 
 const {row, roundedTopLeft, roundedTopRight} = Styles;
 
@@ -49,31 +48,31 @@ class FractionKeypad extends React.Component<Props> {
         let dismissOrJumpOutKey;
         if (dynamicJumpOut) {
             switch (cursorContext) {
-                case CursorContexts.IN_PARENS:
+                case CursorContext.IN_PARENS:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_PARENTHESES;
                     break;
 
-                case CursorContexts.IN_SUPER_SCRIPT:
+                case CursorContext.IN_SUPER_SCRIPT:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_EXPONENT;
                     break;
 
-                case CursorContexts.IN_SUB_SCRIPT:
+                case CursorContext.IN_SUB_SCRIPT:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_BASE;
                     break;
 
-                case CursorContexts.BEFORE_FRACTION:
+                case CursorContext.BEFORE_FRACTION:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_INTO_NUMERATOR;
                     break;
 
-                case CursorContexts.IN_NUMERATOR:
+                case CursorContext.IN_NUMERATOR:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_NUMERATOR;
                     break;
 
-                case CursorContexts.IN_DENOMINATOR:
+                case CursorContext.IN_DENOMINATOR:
                     dismissOrJumpOutKey = KeyConfigs.JUMP_OUT_DENOMINATOR;
                     break;
 
-                case CursorContexts.NONE:
+                case CursorContext.NONE:
                 default:
                     dismissOrJumpOutKey = KeyConfigs.DISMISS;
                     break;
@@ -107,8 +106,8 @@ class FractionKeypad extends React.Component<Props> {
                             // then when the cursor was inside a parenthetical
                             // expression in a numerator or denominator, this check
                             // would fail.
-                            cursorContext === CursorContexts.IN_NUMERATOR ||
-                            cursorContext === CursorContexts.IN_DENOMINATOR
+                            cursorContext === CursorContext.IN_NUMERATOR ||
+                            cursorContext === CursorContext.IN_DENOMINATOR
                         }
                         style={roundTopRight && roundedTopRight}
                     />

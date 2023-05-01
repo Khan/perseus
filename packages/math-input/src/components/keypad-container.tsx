@@ -2,7 +2,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {KeypadTypes, LayoutModes} from "../consts";
+import {LayoutMode, KeypadType} from "../enums";
 import {View} from "../fake-react-native-web/index";
 import {setPageSize} from "../store/actions";
 
@@ -18,7 +18,6 @@ import NavigationPad from "./navigation-pad";
 import Styles from "./styles";
 import * as zIndexes from "./z-indexes";
 
-import type {KeypadType} from "../consts";
 import type {State as ReduxState} from "../store/types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -28,7 +27,7 @@ interface ReduxProps {
     active?: boolean;
     extraKeys?: ReadonlyArray<string>;
     keypadType?: KeypadType;
-    layoutMode?: keyof typeof LayoutModes;
+    layoutMode?: LayoutMode;
     navigationPadEnabled?: boolean;
 }
 
@@ -128,8 +127,8 @@ class KeypadContainer extends React.Component<Props, State> {
             // crop themselves. At least we're colocating all the layout
             // information in this component, though.
             roundTopLeft:
-                layoutMode === LayoutModes.COMPACT && !navigationPadEnabled,
-            roundTopRight: layoutMode === LayoutModes.COMPACT,
+                layoutMode === LayoutMode.COMPACT && !navigationPadEnabled,
+            roundTopRight: layoutMode === LayoutMode.COMPACT,
         };
 
         // Select the appropriate keyboard given the type.
@@ -140,10 +139,10 @@ class KeypadContainer extends React.Component<Props, State> {
         // clear what that format would look like exactly. Plus, there aren't
         // very many of them. So to keep us moving, we'll just hardcode.
         switch (keypadType) {
-            case KeypadTypes.FRACTION:
+            case KeypadType.FRACTION:
                 return <FractionKeypad {...keypadProps} />;
 
-            case KeypadTypes.EXPRESSION:
+            case KeypadType.EXPRESSION:
                 return <ExpressionKeypad {...keypadProps} />;
 
             default:
@@ -186,7 +185,7 @@ class KeypadContainer extends React.Component<Props, State> {
         const keypadStyle = [
             row,
             styles.keypadBorder,
-            layoutMode === LayoutModes.FULLSCREEN
+            layoutMode === LayoutMode.FULLSCREEN
                 ? styles.fullscreen
                 : styles.compact,
         ];
@@ -211,7 +210,7 @@ class KeypadContainer extends React.Component<Props, State> {
                 >
                     {navigationPadEnabled && (
                         <NavigationPad
-                            roundTopLeft={layoutMode === LayoutModes.COMPACT}
+                            roundTopLeft={layoutMode === LayoutMode.COMPACT}
                             style={styles.navigationPadContainer}
                         />
                     )}

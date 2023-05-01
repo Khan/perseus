@@ -6,20 +6,19 @@
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {IconTypes} from "../consts";
+import {IconType} from "../enums";
 import {View} from "../fake-react-native-web/index";
+import {IconConfig} from "../types";
 
 import {iconSizeHeightPx, iconSizeWidthPx} from "./common-style";
 import Icon from "./icon";
 import Styles from "./styles";
 
-import type {Icon as IconType} from "../types";
-
 const {row, column, centered, fullWidth} = Styles;
 
 type Props = {
     focused: boolean;
-    icons: ReadonlyArray<IconType>;
+    icons: ReadonlyArray<IconConfig>;
 };
 
 class MultiSymbolGrid extends React.Component<Props> {
@@ -32,7 +31,7 @@ class MultiSymbolGrid extends React.Component<Props> {
         // Supporting other types of icons is possible but would require
         // some styles coercion and doesn't seem worthwhile right now.
         icons.forEach((icon) => {
-            if (icon.type !== IconTypes.MATH) {
+            if (icon.type !== IconType.MATH) {
                 throw new Error(
                     `Received invalid icon: type=${icon.type}, ` +
                         `data=${icon.data}`,

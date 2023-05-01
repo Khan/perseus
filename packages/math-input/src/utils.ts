@@ -1,6 +1,6 @@
 import {getDecimalSeparator} from "@khanacademy/wonder-blocks-i18n";
 
-import {DecimalSeparators} from "./consts";
+import {DecimalSeparator} from "./enums";
 
 // NOTES(kevinb):
 // - In order to get the correct decimal separator for the current locale,
@@ -10,5 +10,5 @@ import {DecimalSeparators} from "./consts";
 //   listed here.  Much of the Arab world uses U+066C.
 export const decimalSeparator: string =
     getDecimalSeparator() === ","
-        ? DecimalSeparators.COMMA
-        : DecimalSeparators.PERIOD;
+        ? DecimalSeparator.COMMA
+        : DecimalSeparator.PERIOD;

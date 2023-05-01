@@ -1,15 +1,15 @@
+import Keys from "./data/keys";
 import {
-    BorderDirections,
-    EchoAnimationTypes,
-    KeyTypes,
-    IconTypes,
-} from "./consts";
+    BorderDirection,
+    EchoAnimationType,
+    IconType,
+    KeyType,
+    KeypadType,
+} from "./enums";
 
 import type {CursorContext} from "./components/input/cursor-contexts";
-import type {KeypadType} from "./consts";
-import type {Key} from "./data/keys";
 
-export type Border = Partial<Array<keyof typeof BorderDirections>>;
+export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
 export type Bound = {
     top: number;
@@ -21,38 +21,38 @@ export type Bound = {
 };
 
 export type Popover = {
-    parentId: Key;
+    parentId: Keys;
     bounds: Partial<Bound>;
-    childKeyIds: Array<Key>;
+    childKeyIds: Array<Keys>;
 };
 
 export type Echo = {
     animationId: string;
-    animationType: keyof typeof EchoAnimationTypes;
+    animationType: EchoAnimationType;
     borders: Border;
-    id: Key;
+    id: Keys;
     initialBounds: DOMRect;
 };
 
-export type Icon = {
-    type: keyof typeof IconTypes;
+export type IconConfig = {
+    type: IconType;
     data: string;
 };
 
 export type KeyConfig = {
     ariaLabel: string;
-    id: Key;
-    type: keyof typeof KeyTypes;
-    childKeyIds: Array<Key>;
-    icon: Icon;
+    id: Keys;
+    type: KeyType;
+    childKeyIds: Array<Keys>;
+    icon: IconConfig;
 };
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;
-    extraKeys?: ReadonlyArray<Key>;
+    extraKeys?: ReadonlyArray<Keys>;
 };
 
-export type KeyHandler = (key: Key) => Cursor;
+export type KeyHandler = (key: Keys) => Cursor;
 
 export type Cursor = {
     context: CursorContext;

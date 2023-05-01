@@ -6,8 +6,8 @@
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {BorderStyles} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import {BorderStyles} from "../enums";
 import {View} from "../fake-react-native-web/index";
 
 import {

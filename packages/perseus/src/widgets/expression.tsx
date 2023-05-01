@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as KAS from "@khanacademy/kas";
-import {KeypadInput, KeypadTypes} from "@khanacademy/math-input";
+import {KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
@@ -552,7 +552,7 @@ const keypadConfigurationForProps = (
 ) => {
     // Always use the Expression keypad, regardless of the button sets that have
     // been enabled.
-    const keypadType = KeypadTypes.EXPRESSION;
+    const keypadType = KeypadType.EXPRESSION;
 
     // Extract any and all variables and constants from the answer forms.
     const uniqueExtraVariables: Record<string, any> = {};

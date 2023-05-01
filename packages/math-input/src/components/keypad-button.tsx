@@ -6,7 +6,7 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {KeyTypes, BorderDirections, BorderStyles} from "../consts";
+import {BorderDirection, BorderStyles, KeyType} from "../enums";
 import {View} from "../fake-react-native-web/index";
 
 import {
@@ -23,9 +23,8 @@ import CornerDecal from "./corner-decal";
 import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
-import type {KeyType} from "../consts";
 import type {State} from "../store/types";
-import type {Border, KeyConfig, Icon as IconType} from "../types";
+import type {Border, KeyConfig, IconConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface ReduxProps {
@@ -41,7 +40,7 @@ interface Props extends ReduxProps {
     focused: boolean;
     popoverEnabled: boolean;
     type: KeyType;
-    icon: IconType;
+    icon: IconConfig;
     style?: StyleType;
     onTouchCancel?: (evt: React.TouchEvent<HTMLDivElement>) => void;
     onTouchEnd?: (evt: React.TouchEvent<HTMLDivElement>) => void;
@@ -102,7 +101,7 @@ class KeypadButton extends React.PureComponent<Props> {
         // object. This method must be called whenever a property that
         // influences the possible outcomes of `this._getFocusStyle` and
         // `this._getButtonStyle` changes (such as `this.buttonSizeStyle`).
-        for (const type of Object.keys(KeyTypes)) {
+        for (const type of Object.values(KeyType)) {
             css(View.styles.initial, ...this._getFocusStyle(type));
 
             for (const borders of Object.values(BorderStyles)) {
@@ -114,11 +113,11 @@ class KeypadButton extends React.PureComponent<Props> {
         }
     };
 
-    _getFocusStyle = (type) => {
+    _getFocusStyle = (type: KeyType) => {
         let focusBackgroundStyle;
         if (
-            type === KeyTypes.INPUT_NAVIGATION ||
-            type === KeyTypes.KEYPAD_NAVIGATION
+            type === KeyType.INPUT_NAVIGATION ||
+            type === KeyType.KEYPAD_NAVIGATION
         ) {
             focusBackgroundStyle = styles.light;
         } else {
@@ -132,35 +131,35 @@ class KeypadButton extends React.PureComponent<Props> {
         // Select the appropriate style for the button.
         let backgroundStyle;
         switch (type) {
-            case KeyTypes.EMPTY:
+            case KeyType.EMPTY:
                 backgroundStyle = styles.empty;
                 break;
 
-            case KeyTypes.MANY:
-            case KeyTypes.VALUE:
+            case KeyType.MANY:
+            case KeyType.VALUE:
                 backgroundStyle = styles.value;
                 break;
 
-            case KeyTypes.OPERATOR:
+            case KeyType.OPERATOR:
                 backgroundStyle = styles.operator;
                 break;
 
-            case KeyTypes.INPUT_NAVIGATION:
-            case KeyTypes.KEYPAD_NAVIGATION:
+            case KeyType.INPUT_NAVIGATION:
+            case KeyType.KEYPAD_NAVIGATION:
                 backgroundStyle = styles.control;
                 break;
 
-            case KeyTypes.ECHO:
+            case KeyType.ECHO:
                 backgroundStyle = null;
                 break;
         }
 
         const borderStyle = [];
-        if (borders.includes(BorderDirections.LEFT)) {
+        if (borders.includes(BorderDirection.LEFT)) {
             // @ts-expect-error TS2345
             borderStyle.push(styles.leftBorder);
         }
-        if (borders.includes(BorderDirections.BOTTOM)) {
+        if (borders.includes(BorderDirection.BOTTOM)) {
             // @ts-expect-error TS2345
             borderStyle.push(styles.bottomBorder);
         }
@@ -169,7 +168,7 @@ class KeypadButton extends React.PureComponent<Props> {
             styles.buttonBase,
             backgroundStyle,
             ...borderStyle,
-            type === KeyTypes.ECHO && styles.echo,
+            type === KeyType.ECHO && styles.echo,
             this.buttonSizeStyle,
             // React Native allows you to set the 'style' props on user defined
             // components.
@@ -198,7 +197,7 @@ class KeypadButton extends React.PureComponent<Props> {
         // We render in the focus state if the key is focused, or if it's an
         // echo.
         const renderFocused =
-            (!disabled && focused) || popoverEnabled || type === KeyTypes.ECHO;
+            (!disabled && focused) || popoverEnabled || type === KeyType.ECHO;
         const buttonStyle = this._getButtonStyle(type, borders, style);
         const focusStyle = this._getFocusStyle(type);
         const iconWrapperStyle = [
@@ -219,9 +218,9 @@ class KeypadButton extends React.PureComponent<Props> {
             childKeys &&
             childKeys.length > 0 && <CornerDecal style={styles.decalInset} />;
 
-        if (type === KeyTypes.EMPTY) {
+        if (type === KeyType.EMPTY) {
             return <View style={buttonStyle} {...eventHandlers} />;
-        } else if (type === KeyTypes.MANY) {
+        } else if (type === KeyType.MANY) {
             // TODO(charlie): Make the long-press interaction accessible. See
             // the TODO in key-configs.js for more.
             const manyButtonA11yMarkup = {

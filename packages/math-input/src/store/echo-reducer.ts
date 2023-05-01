@@ -1,5 +1,5 @@
-import {EchoAnimationTypes, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import {EchoAnimationType, KeyType} from "../enums";
 
 import type {Action} from "./actions";
 import type {EchoState} from "./types";
@@ -23,8 +23,8 @@ const echoReducer = function (
             // Add in the echo animation if the user performs a math
             // operation.
             if (
-                keyConfig.type === KeyTypes.VALUE ||
-                keyConfig.type === KeyTypes.OPERATOR
+                keyConfig.type === KeyType.VALUE ||
+                keyConfig.type === KeyType.OPERATOR
             ) {
                 return {
                     ...state,
@@ -33,8 +33,8 @@ const echoReducer = function (
                         {
                             animationId: "" + _lastAnimationId++,
                             animationType: action.inPopover
-                                ? EchoAnimationTypes.LONG_FADE_ONLY
-                                : EchoAnimationTypes.FADE_ONLY,
+                                ? EchoAnimationType.LONG_FADE_ONLY
+                                : EchoAnimationType.FADE_ONLY,
                             borders: action.borders,
                             id: keyConfig.id,
                             initialBounds: action.initialBounds,

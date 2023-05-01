@@ -9,27 +9,27 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {KeyType, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import Keys from "../data/keys";
+import {KeyType} from "../enums";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-import type {Key} from "../data/keys";
-import type {Border, Icon} from "../types";
+import type {Border, IconConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     borders: Border;
-    childKeyIds: ReadonlyArray<Key>;
+    childKeyIds: ReadonlyArray<Keys>;
     disabled: boolean;
     focused: boolean;
     gestureManager: GestureManager;
-    id: Key;
+    id: Keys;
     popoverEnabled: boolean;
     style: StyleType;
     type: KeyType;
-    icon: Icon;
+    icon: IconConfig;
 };
 
 class TouchableKeypadButton extends React.Component<Props> {
@@ -118,7 +118,7 @@ const mapStateToProps = (state, ownProps) => {
     // Override with the default child props, if the key is a multi-symbol key
     // (but not a many-symbol key, which operates under different rules).
     const useFirstChildProps =
-        type !== KeyTypes.MANY && childKeys && childKeys.length > 0;
+        type !== KeyType.MANY && childKeys && childKeys.length > 0;
 
     return {
         ...rest,
