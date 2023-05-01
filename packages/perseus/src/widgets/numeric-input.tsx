@@ -16,6 +16,8 @@ import type {
     PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
+    MathFormat,
+    Simplify,
 } from "../perseus-types";
 import type {
     FocusPath,
@@ -125,7 +127,7 @@ export class NumericInput extends React.Component<Props, State> {
         const answerStrings = correctAnswers.map((answer) => {
             // Figure out how this answer is supposed to be
             // displayed
-            let format = "decimal";
+            let format: MathFormat = "decimal";
             if (answer.answerForms && answer.answerForms[0]) {
                 // NOTE(johnsullivan): This isn't exactly ideal, but
                 // it does behave well for all the currently known
@@ -134,12 +136,10 @@ export class NumericInput extends React.Component<Props, State> {
                 format = answer.answerForms[0];
             }
 
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
             let answerString = KhanMath.toNumericString(answer.value, format);
             if (answer.maxError) {
                 answerString +=
                     " \u00B1 " +
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
                     KhanMath.toNumericString(answer.maxError, format);
             }
             return answerString;
@@ -193,13 +193,11 @@ export class NumericInput extends React.Component<Props, State> {
         let result = correctAnswers
             .map((answer) => {
                 // The coefficient is an attribute of the widget
-                let localValue = currentValue;
+                let localValue: string | number = currentValue;
                 if (rubric.coefficient) {
                     if (!localValue) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
                         localValue = 1;
                     } else if (localValue === "-") {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
                         localValue = -1;
                     }
                 }
@@ -215,8 +213,9 @@ export class NumericInput extends React.Component<Props, State> {
 
         if (!result) {
             // Otherwise, if the guess is not correct
-            const otherAnswers = [].concat(
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            const otherAnswers = (
+                [] as ReadonlyArray<PerseusNumericInputAnswer>
+            ).concat(
                 rubric.answers.filter((answer) => answer.status === "ungraded"),
                 rubric.answers.filter((answer) => answer.status === "wrong"),
             );
@@ -233,11 +232,8 @@ export class NumericInput extends React.Component<Props, State> {
                 ).correct;
             });
             result = {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
                 empty: match ? match.status === "ungraded" : false,
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
                 correct: match ? match.status === "correct" : false,
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'message' does not exist on type 'never'.
                 message: match ? match.message : null,
                 guess: currentValue,
             };
@@ -270,7 +266,7 @@ export class NumericInput extends React.Component<Props, State> {
     examples: () => ReadonlyArray<string> = () => {
         // if the set of specified forms are empty, allow all forms
         const forms =
-            this.props.answerForms?.length !== 0
+            this.props.answerForms.length !== 0
                 ? this.props.answerForms
                 : Object.keys(formExamples).map((name) => {
                       return {
@@ -279,10 +275,7 @@ export class NumericInput extends React.Component<Props, State> {
                       };
                   });
 
-        let examples = _.map(forms, (form) => {
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusNumericInputAnswerForm | { name: string; simplify: string; }' is not assignable to parameter of type 'PerseusNumericInputAnswerForm'.
-            return formExamples[form.name](form);
-        });
+        let examples = forms.map((form) => formExamples[form.name](form));
         // Ensure no duplicate tooltip text from simplified and unsimplified
         // versions of the same format
         examples = _.uniq(examples);
@@ -291,12 +284,12 @@ export class NumericInput extends React.Component<Props, State> {
     };
 
     shouldShowExamples: () => boolean = () => {
-        const noFormsAccepted = this.props.answerForms?.length === 0;
+        const noFormsAccepted = this.props.answerForms.length === 0;
         // To check if all answer forms are accepted, we must first
         // find the *names* of all accepted forms, and see if they are
         // all present, ignoring duplicates
         const answerFormNames: ReadonlyArray<string> = _.uniq(
-            this.props.answerForms?.map((form) => form.name),
+            this.props.answerForms.map((form) => form.name),
         );
         const allFormsAccepted =
             answerFormNames.length >= Object.keys(formExamples).length;
@@ -455,8 +448,7 @@ export const unionAnswerForms: (
     // uniqueBy takes a list of elements and a function which compares whether
     // two elements are equal, and returns a list of unique elements. This is
     // just a helper function here, but works generally.
-    const uniqueBy = function (list, iteratee: any) {
-        // @ts-expect-error [FEI-5003] - TS2347 - Untyped function calls may not accept type arguments.
+    const uniqueBy = function <T>(list: Array<T>, iteratee: any) {
         return list.reduce<Array<any>>((uniqueList, element) => {
             // For each element, decide whether it's already in the list of
             // unique items.
@@ -481,7 +473,7 @@ export const unionAnswerForms: (
 
 type RenderProps = {
     answerForms: ReadonlyArray<{
-        simplify: "required" | "correct" | "enforced" | null | undefined;
+        simplify: Simplify | null | undefined;
         name: "integer" | "decimal" | "proper" | "improper" | "mixed" | "pi";
     }>;
     labelText: string;
@@ -534,20 +526,31 @@ const propsTransform = function (
         answerForms: unionAnswerForms(
             // Pull out the name of each form and whether that form has
             // required simplification.
-            widgetOptions.answers.map((answer) => {
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly MathFormat[] | undefined' is not assignable to parameter of type 'Collection<any>'.
-                return _.map(answer.answerForms, (form) => {
-                    return {
-                        simplify: answer.simplify,
-                        name: form,
-                    };
-                });
-            }),
+            widgetOptions.answers
+                .map((answer) => {
+                    if (!answer.answerForms) {
+                        return;
+                    }
+
+                    return answer.answerForms.map(
+                        (form): PerseusNumericInputAnswerForm => {
+                            return {
+                                simplify: answer.simplify,
+                                name: form,
+                            };
+                        },
+                    );
+                })
+                .filter(isDefined),
         ),
     });
 
     return rendererProps;
 };
+
+function isDefined<T>(value: T | null | undefined): value is T {
+    return value !== null && value !== undefined;
+}
 
 export default {
     name: "numeric-input",

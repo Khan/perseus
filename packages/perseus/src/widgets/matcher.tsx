@@ -91,15 +91,16 @@ class Matcher extends React.Component<any, any> {
         // Use the same random() function to shuffle both columns sequentially
         const rng = seededRNG(this.props.problemNum);
 
-        let left;
-        if (!this.props.orderMatters) {
-            // If the order doesn't matter, don't shuffle the left column
-            left = this.props.left;
-        } else {
-            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
-        }
+        const left: ReadonlyArray<SortableOption> = !this.props.orderMatters
+            ? // If the order doesn't matter, don't shuffle the left column
+              this.props.left
+            : shuffle(this.props.left, rng, /* ensurePermuted */ true);
 
-        const right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
+        const right: ReadonlyArray<SortableOption> = shuffle(
+            this.props.right,
+            rng,
+            /* ensurePermuted */ true,
+        );
 
         const showLabels = _.any(this.props.labels);
         const constraints = {
@@ -156,7 +157,6 @@ class Matcher extends React.Component<any, any> {
                         </td>
                         <td className={css(styles.column, styles.columnRight)}>
                             <Sortable
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                                 options={right}
                                 layout={Layout.VERTICAL}
                                 padding={this.props.padding}

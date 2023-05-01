@@ -716,14 +716,10 @@ export type MathFormat =
     | "percent"
     | "pi";
 
+export type Simplify = "required" | "correct" | "enforced" | "optional";
+
 export type PerseusNumericInputAnswerForm = {
-    simplify:
-        | "required"
-        | "correct"
-        | "enforced"
-        | "optional"
-        | null
-        | undefined;
+    simplify: Simplify | null | undefined;
     name: MathFormat;
 };
 
@@ -762,7 +758,7 @@ export type PerseusNumericInputAnswer = {
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
     maxError: number | null | undefined;
     // Unsimplified answers are Ungraded, Accepted, or Wrong. Options: "required", "correct", or "enforced"
-    simplify: string | null | undefined;
+    simplify: Simplify | null | undefined;
 };
 
 export type PerseusNumberLineWidgetOptions = {
