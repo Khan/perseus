@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 2.0.0
+
+### Major Changes
+
+-   b585fe29: Switch most @khanacademy/math-input psuedo-enums to enums
+
+### Patch Changes
+
+-   0c1cf562: Removal of an unused keypad style
+
 ## 1.0.0
 
 ### Major Changes
