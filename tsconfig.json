@@ -1,12 +1,7 @@
 // This file is used by the `typecheck` command in package.json
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
-    "exclude": ["**/dist"],
-    "include": [
-        "packages/*/src",
-        "testing",
-        "utils",
-    ],
+    "exclude": ["**/dist", "coverage", "coverage-ts"],
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,

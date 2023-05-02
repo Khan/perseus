@@ -131,7 +131,7 @@
     "watch": "rollup -c config/build/rollup.config.js --watch",
     "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules && rm -rf .nyc_output && rm -f packages/*/*.tsbuildinfo",
     "coverage": "cross-env NODE_OPTIONS=--max_old_space_size=4096 yarn run jest --coverage",
-    "coverage:types": "typescript-coverage-report",
+    "coverage:types": "cross-env NODE_OPTIONS=--max_old_space_size=8192 typescript-coverage-report",
     "extract-strings": "SWCRC=true node -r @swc-node/register utils/extract-strings.ts",
     "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
     "lint:timing": "cross-env TIMING=1 yarn lint",
