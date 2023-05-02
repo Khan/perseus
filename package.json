@@ -25,7 +25,7 @@
     "@cypress/code-coverage": "^3.10.0",
     "@cypress/react": "^7.0.2",
     "@jest/globals": "^29.5.0",
-    "@khanacademy/eslint-config": "^1.1.0",
+    "@khanacademy/eslint-config": "^1.2.0",
     "@khanacademy/wonder-stuff-i18n": "^2.1.0",
     "@popperjs/core": "^2.10.1",
     "@rollup/plugin-alias": "^3.1.9",
