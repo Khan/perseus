@@ -1,5 +1,6 @@
 **/node_modules
 coverage
+coverage-ts
 **/dist
 packages/**/build
 **/*.template
