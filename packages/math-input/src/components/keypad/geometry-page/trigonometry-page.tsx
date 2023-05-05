@@ -1,72 +1,72 @@
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
-
+import Keys from "../../../data/key-configs";
 import {
     KeypadPageContainer,
-    KeypadButton,
     SecondaryKeypadButton,
     KeypadActionButton,
-} from "./keypad-page-items";
+} from "../keypad-page-items";
 
 type Props = {
     onClickKey: (keyConfig: string) => void;
 };
 
-export default class NumericInputPage extends React.Component<Props> {
+export default class TrigonometryInputPage extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClickKey} = this.props;
         return (
             <KeypadPageContainer>
                 {/* Row 1 */}
-                <KeypadButton keyConfig={Keys.NUM_7} onClickKey={onClickKey} />
-                <KeypadButton keyConfig={Keys.NUM_8} onClickKey={onClickKey} />
-                <KeypadButton keyConfig={Keys.NUM_9} onClickKey={onClickKey} />
                 <SecondaryKeypadButton
-                    keyConfig={Keys.TIMES}
+                    keyConfig={Keys.SIN}
                     onClickKey={onClickKey}
                 />
                 <SecondaryKeypadButton
+                    keyConfig={Keys.COS}
+                    onClickKey={onClickKey}
+                />
+                <SecondaryKeypadButton
+                    keyConfig={Keys.TAN}
+                    onClickKey={onClickKey}
+                />
+
+                <SecondaryKeypadButton
                     keyConfig={Keys.LEFT_PAREN}
                     onClickKey={onClickKey}
+                    style={{
+                        gridColumn: 5,
+                    }}
                 />
                 <SecondaryKeypadButton
                     keyConfig={Keys.RIGHT_PAREN}
                     onClickKey={onClickKey}
+                    style={{
+                        gridColumn: 6,
+                    }}
                 />
-
                 {/* Row 2 */}
-                <KeypadButton keyConfig={Keys.NUM_4} onClickKey={onClickKey} />
-                <KeypadButton keyConfig={Keys.NUM_5} onClickKey={onClickKey} />
-                <KeypadButton keyConfig={Keys.NUM_6} onClickKey={onClickKey} />
-
                 <SecondaryKeypadButton
-                    keyConfig={Keys.MINUS}
+                    keyConfig={Keys.X}
                     onClickKey={onClickKey}
+                    style={{
+                        gridColumn: 5,
+                    }}
                 />
-
                 <SecondaryKeypadButton
                     keyConfig={Keys.FRAC_INCLUSIVE}
                     onClickKey={onClickKey}
                     style={{
-                        gridColumn: "5 / 7",
+                        gridColumn: 6,
                     }}
                 />
                 {/* Row 3 */}
-                <KeypadButton keyConfig={Keys.NUM_1} onClickKey={onClickKey} />
-                <KeypadButton keyConfig={Keys.NUM_2} onClickKey={onClickKey} />
-                <KeypadButton keyConfig={Keys.NUM_3} onClickKey={onClickKey} />
-
                 <SecondaryKeypadButton
-                    keyConfig={Keys.PLUS}
-                    style={{
-                        gridColumn: "4",
-                        gridRowStart: "3",
-                        gridRowEnd: "5",
-                    }}
+                    keyConfig={Keys.PI}
                     onClickKey={onClickKey}
+                    style={{
+                        gridColumn: 5,
+                    }}
                 />
-
                 <KeypadActionButton
                     keyConfig={Keys.BACKSPACE}
                     style={{
@@ -74,18 +74,7 @@ export default class NumericInputPage extends React.Component<Props> {
                     }}
                     onClickKey={onClickKey}
                 />
-
                 {/* Row 4 */}
-                <KeypadButton keyConfig={Keys.NUM_0} onClickKey={onClickKey} />
-                <KeypadButton
-                    keyConfig={Keys.DECIMAL}
-                    onClickKey={onClickKey}
-                />
-                <KeypadButton
-                    keyConfig={Keys.NEGATIVE}
-                    onClickKey={onClickKey}
-                />
-
                 <KeypadActionButton
                     keyConfig={Keys.DISMISS}
                     style={{

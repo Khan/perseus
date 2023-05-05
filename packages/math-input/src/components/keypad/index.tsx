@@ -3,17 +3,18 @@ import * as React from "react";
 
 import Tabbar from "../tabbar/tabbar";
 
-import NumericInputPage from "./numeric-input-page";
-import PreAlgebraPage from "./pre-algebra-page";
-import TrigonometryPage from "./trigonometry-page";
+import TrigonometryPage from "./geometry-page/trigonometry-page";
+import NumericInputPage from "./numbers-page/numeric-input-page";
+import OperatorsPage, {
+    OperatorsButtonSets,
+} from "./operators-page/operators-page";
 
 import type {TabbarItemType} from "../tabbar/types";
 
 type Props = {
     onClickKey: (keyConfig: string) => void;
-    preAlgebra: boolean;
-    trigonometry: boolean;
-};
+    trigonometry?: boolean;
+} & OperatorsButtonSets;
 type State = {
     selectedPage: TabbarItemType;
 };
@@ -21,7 +22,12 @@ type State = {
 const allPages = function (props: Props): React.ReactElement {
     const pages: Array<TabbarItemType> = ["Numbers"];
 
-    if (props.preAlgebra) {
+    if (
+        props.preAlgebra ||
+        props.logarithms ||
+        props.relations ||
+        props.advancedRelations
+    ) {
         pages.push("Operators");
     }
     if (props.trigonometry) {
@@ -54,7 +60,7 @@ export default class Keypad extends React.Component<Props, State> {
                     <NumericInputPage onClickKey={onClickKey} />
                 )}
                 {selectedPage === "Operators" && (
-                    <PreAlgebraPage onClickKey={onClickKey} />
+                    <OperatorsPage {...this.props} />
                 )}
                 {selectedPage === "Geometry" && (
                     <TrigonometryPage onClickKey={onClickKey} />

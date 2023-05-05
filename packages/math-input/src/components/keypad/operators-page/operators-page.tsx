@@ -1,16 +1,24 @@
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
-
+import Keys from "../../../data/key-configs";
 import {
     KeypadPageContainer,
     SecondaryKeypadButton,
     KeypadActionButton,
     PlaceHolderButton,
-} from "./keypad-page-items";
+} from "../keypad-page-items";
+
+import {PreAlgebra} from "./pre-algebra-buttons";
 
 type Props = {
     onClickKey: (keyConfig: string) => void;
+} & OperatorsButtonSets;
+
+export type OperatorsButtonSets = {
+    preAlgebra?: boolean;
+    logarithms?: boolean;
+    relations?: boolean;
+    advancedRelations?: boolean;
 };
 
 export default class PreAlgebraPage extends React.Component<Props> {
@@ -19,22 +27,11 @@ export default class PreAlgebraPage extends React.Component<Props> {
         return (
             <KeypadPageContainer>
                 {/* Row 1 */}
-                <SecondaryKeypadButton
-                    keyConfig={Keys.EXP_2}
-                    onClickKey={onClickKey}
-                />
-                <SecondaryKeypadButton
-                    keyConfig={Keys.EXP}
-                    onClickKey={onClickKey}
-                />
-                <SecondaryKeypadButton
-                    keyConfig={Keys.SQRT}
-                    onClickKey={onClickKey}
-                />
-                <SecondaryKeypadButton
-                    keyConfig={Keys.RADICAL}
-                    onClickKey={onClickKey}
-                />
+                {this.props.preAlgebra ? (
+                    <PreAlgebra onClickKey={onClickKey} />
+                ) : (
+                    <PlaceHolderButton count={4} />
+                )}
 
                 <SecondaryKeypadButton
                     keyConfig={Keys.LEFT_PAREN}
@@ -45,9 +42,12 @@ export default class PreAlgebraPage extends React.Component<Props> {
                     onClickKey={onClickKey}
                 />
                 {/* Row 2 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
+                {/* TODO: implement logarithms buttons */}
+                {this.props.logarithms ? (
+                    <PlaceHolderButton count={3} />
+                ) : (
+                    <PlaceHolderButton count={3} />
+                )}
                 <SecondaryKeypadButton
                     keyConfig={Keys.X}
                     onClickKey={onClickKey}
@@ -63,9 +63,12 @@ export default class PreAlgebraPage extends React.Component<Props> {
                     }}
                 />
                 {/* Row 3 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
+                {/* TODO: implement relatons buttons */}
+                {this.props.relations ? (
+                    <PlaceHolderButton count={3} />
+                ) : (
+                    <PlaceHolderButton count={3} />
+                )}
                 <SecondaryKeypadButton
                     keyConfig={Keys.PI}
                     onClickKey={onClickKey}
@@ -81,9 +84,12 @@ export default class PreAlgebraPage extends React.Component<Props> {
                     onClickKey={onClickKey}
                 />
                 {/* Row 4 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
+                {/* TODO: implement advancedRelations buttons */}
+                {this.props.advancedRelations ? (
+                    <PlaceHolderButton count={3} />
+                ) : (
+                    <PlaceHolderButton count={3} />
+                )}
                 <KeypadActionButton
                     keyConfig={Keys.DISMISS}
                     style={{
