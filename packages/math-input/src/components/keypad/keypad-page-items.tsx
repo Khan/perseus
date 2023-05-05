@@ -89,24 +89,37 @@ export const KeypadActionButton = ({
     />
 );
 
-export const PlaceHolderButton = (): React.ReactElement => (
-    <View
-        style={{
-            height: "100%",
-            width: "100%",
-            boxSizing: "border-box",
-            borderRadius: 7,
-            border: "4px solid transparent",
-        }}
-    >
-        <View
-            style={{
-                background: "rgba(33, 36, 44, 0.04)",
-                width: "100%",
-                height: "100%",
-                borderRadius: 4,
-                border: `1px solid transparent`,
-            }}
-        />
-    </View>
+/**
+ * A placeholder button for the keypad. Optional count prop to render multiple
+ * buttons. Defaults to 1.
+ */
+export const PlaceHolderButtons = ({
+    count = 1,
+}: {
+    count?: number;
+}): React.ReactElement => (
+    <React.Fragment>
+        {Array.from({length: count}).map((_, index) => (
+            <View
+                key={index}
+                style={{
+                    height: "100%",
+                    width: "100%",
+                    boxSizing: "border-box",
+                    borderRadius: 7,
+                    border: "4px solid transparent",
+                }}
+            >
+                <View
+                    style={{
+                        background: "rgba(33, 36, 44, 0.04)",
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: 4,
+                        border: `1px solid transparent`,
+                    }}
+                />
+            </View>
+        ))}
+    </React.Fragment>
 );

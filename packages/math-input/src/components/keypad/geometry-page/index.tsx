@@ -1,53 +1,50 @@
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
-
+import Keys from "../../../data/key-configs";
 import {
     KeypadPageContainer,
     SecondaryKeypadButton,
     KeypadActionButton,
-    PlaceHolderButton,
-} from "./keypad-page-items";
+} from "../keypad-page-items";
 
 type Props = {
     onClickKey: (keyConfig: string) => void;
 };
 
-export default class PreAlgebraPage extends React.Component<Props> {
+export default class GeometryInputPage extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClickKey} = this.props;
         return (
             <KeypadPageContainer>
                 {/* Row 1 */}
                 <SecondaryKeypadButton
-                    keyConfig={Keys.EXP_2}
+                    keyConfig={Keys.SIN}
                     onClickKey={onClickKey}
                 />
                 <SecondaryKeypadButton
-                    keyConfig={Keys.EXP}
+                    keyConfig={Keys.COS}
                     onClickKey={onClickKey}
                 />
                 <SecondaryKeypadButton
-                    keyConfig={Keys.SQRT}
-                    onClickKey={onClickKey}
-                />
-                <SecondaryKeypadButton
-                    keyConfig={Keys.RADICAL}
+                    keyConfig={Keys.TAN}
                     onClickKey={onClickKey}
                 />
 
                 <SecondaryKeypadButton
                     keyConfig={Keys.LEFT_PAREN}
                     onClickKey={onClickKey}
+                    style={{
+                        gridColumn: 5,
+                    }}
                 />
                 <SecondaryKeypadButton
                     keyConfig={Keys.RIGHT_PAREN}
                     onClickKey={onClickKey}
+                    style={{
+                        gridColumn: 6,
+                    }}
                 />
                 {/* Row 2 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
                 <SecondaryKeypadButton
                     keyConfig={Keys.X}
                     onClickKey={onClickKey}
@@ -63,9 +60,6 @@ export default class PreAlgebraPage extends React.Component<Props> {
                     }}
                 />
                 {/* Row 3 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
                 <SecondaryKeypadButton
                     keyConfig={Keys.PI}
                     onClickKey={onClickKey}
@@ -76,14 +70,11 @@ export default class PreAlgebraPage extends React.Component<Props> {
                 <KeypadActionButton
                     keyConfig={Keys.BACKSPACE}
                     style={{
-                        gridColumn: 6,
+                        gridColumn: "6",
                     }}
                     onClickKey={onClickKey}
                 />
                 {/* Row 4 */}
-                <PlaceHolderButton />
-                <PlaceHolderButton />
-                <PlaceHolderButton />
                 <KeypadActionButton
                     keyConfig={Keys.DISMISS}
                     style={{
