@@ -3,11 +3,10 @@ import * as React from "react";
 
 import Tabbar from "../tabbar/tabbar";
 
-import TrigonometryPage from "./geometry-page/trigonometry-page";
-import NumericInputPage from "./numbers-page/numeric-input-page";
-import OperatorsPage, {
-    OperatorsButtonSets,
-} from "./operators-page/operators-page";
+import GeometryPage from "./geometry-page";
+import NumbersPage from "./numbers-page";
+import OperatorsPage from "./operators-page";
+import {OperatorsButtonSets} from "./operators-page/types";
 
 import type {TabbarItemType} from "../tabbar/types";
 
@@ -23,6 +22,7 @@ const allPages = function (props: Props): React.ReactElement {
     const pages: Array<TabbarItemType> = ["Numbers"];
 
     if (
+        // OperatorsButtonSets
         props.preAlgebra ||
         props.logarithms ||
         props.relations ||
@@ -57,13 +57,13 @@ export default class Keypad extends React.Component<Props, State> {
                     }}
                 />
                 {selectedPage === "Numbers" && (
-                    <NumericInputPage onClickKey={onClickKey} />
+                    <NumbersPage onClickKey={onClickKey} />
                 )}
                 {selectedPage === "Operators" && (
                     <OperatorsPage {...this.props} />
                 )}
                 {selectedPage === "Geometry" && (
-                    <TrigonometryPage onClickKey={onClickKey} />
+                    <GeometryPage onClickKey={onClickKey} />
                 )}
             </View>
         );

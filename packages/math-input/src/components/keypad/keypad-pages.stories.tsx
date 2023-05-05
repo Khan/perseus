@@ -2,9 +2,9 @@ import {action} from "@storybook/addon-actions";
 import {withKnobs} from "@storybook/addon-knobs";
 import * as React from "react";
 
-import TrigonometryInputPage from "./geometry-page/trigonometry-page";
-import NumericInputPage from "./numbers-page/numeric-input-page";
-import PrealgebraInputPage from "./operators-page/operators-page";
+import GeometryInputPage from "./geometry-page";
+import NumbersPage from "./numbers-page";
+import PrealgebraInputPage from "./operators-page";
 
 export default {
     title: "Keypad pages",
@@ -18,7 +18,7 @@ export default {
 };
 
 export const NumericInput = (): React.ReactElement => (
-    <NumericInputPage onClickKey={action("onClickKey")} />
+    <NumbersPage onClickKey={action("onClickKey")} />
 );
 
 export const PreAlgebraInput = (): React.ReactElement => (
@@ -26,5 +26,5 @@ export const PreAlgebraInput = (): React.ReactElement => (
 );
 
 export const TrigonometryInput = (): React.ReactElement => (
-    <TrigonometryInputPage onClickKey={action("onClickKey")} />
+    <GeometryInputPage onClickKey={action("onClickKey")} />
 );

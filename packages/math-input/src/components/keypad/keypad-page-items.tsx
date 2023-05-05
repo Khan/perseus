@@ -89,15 +89,17 @@ export const KeypadActionButton = ({
     />
 );
 
-// Add optional `count` prop to render multiple placeholder buttons;
-// else, will render a single placeholder button.
-export const PlaceHolderButton = ({
-    count,
+/**
+ * A placeholder button for the keypad. Optional count prop to render multiple
+ * buttons. Defaults to 1.
+ */
+export const PlaceHolderButtons = ({
+    count = 1,
 }: {
     count?: number;
 }): React.ReactElement => (
     <React.Fragment>
-        {Array.from({length: count || 1}).map((_, index) => (
+        {Array.from({length: count}).map((_, index) => (
             <View
                 key={index}
                 style={{

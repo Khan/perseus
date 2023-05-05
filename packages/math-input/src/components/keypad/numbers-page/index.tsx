@@ -12,7 +12,7 @@ type Props = {
     onClickKey: (keyConfig: string) => void;
 };
 
-export default class NumericInputPage extends React.Component<Props> {
+export default class NumbersPage extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClickKey} = this.props;
         return (
