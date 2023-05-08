@@ -8,7 +8,7 @@ import {
     PlaceHolderButtons,
 } from "../keypad-page-items";
 
-import {BasicRelations} from "./basic-relations.buttons";
+import {BasicRelations} from "./basic-relations-buttons";
 import {PreAlgebra} from "./pre-algebra-buttons";
 import {OperatorsButtonSets} from "./types";
 
