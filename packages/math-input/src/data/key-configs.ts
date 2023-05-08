@@ -14,7 +14,10 @@ export type KeyConfig = {
     ariaLabel: string;
 };
 
-const KeyConfigs: any = {
+// I tried to make the below {[key in Keys]: KeyConfig}
+// but we are doing all kinds of sneaky magic that makes it hard to
+// type this safely. Leaving it for now as a generic index signature.
+const KeyConfigs: {[key: string]: any} = {
     // Basic math keys.
     [Keys.PLUS]: {
         type: KeyType.OPERATOR,
@@ -254,22 +257,24 @@ const KeyConfigs: any = {
         // I18N: A label for a button that will dismiss/hide a keypad.
         ariaLabel: i18n._("Dismiss"),
     },
-};
 
-// Add in any multi-function buttons. By default, these keys will mix in any
-// configuration settings from their default child key (i.e., the first key in
-// the `childKeyIds` array).
-// TODO(charlie): Make the multi-function button's long-press interaction
-// accessible.
-// NOTE(kevinb): This is only used in the mobile native app.
-KeyConfigs[Keys.FRAC_MULTI] = {
-    childKeyIds: [Keys.FRAC_INCLUSIVE, Keys.FRAC_EXCLUSIVE],
-};
+    // Add in any multi-function buttons. By default, these keys will mix in any
+    // configuration settings from their default child key (i.e., the first key in
+    // the `childKeyIds` array).
+    // TODO(charlie): Make the multi-function button's long-press interaction
+    // accessible.
+    // NOTE(kevinb): This is only used in the mobile native app.
+    [Keys.FRAC_MULTI]: {
+        childKeyIds: [Keys.FRAC_INCLUSIVE, Keys.FRAC_EXCLUSIVE],
+    },
 
-// TODO(charlie): Use the numeral color for the 'Many' key.
-KeyConfigs[Keys.MANY] = {
-    type: KeyType.MANY,
-    // childKeyIds will be configured by the client.
+    // TODO(charlie): Use the numeral color for the 'Many' key.
+    [Keys.MANY]: {
+        type: KeyType.MANY,
+        // childKeyIds will be configured by the client.
+    },
+
+    [Keys.PERIOD]: {},
 };
 
 // Add in every numeral.

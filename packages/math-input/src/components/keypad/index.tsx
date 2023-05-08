@@ -10,7 +10,7 @@ import {OperatorsButtonSets} from "./operators-page/types";
 
 import type {TabbarItemType} from "../tabbar/types";
 
-type Props = {
+export type Props = {
     onClickKey: (keyConfig: string) => void;
     trigonometry?: boolean;
 } & OperatorsButtonSets;
@@ -25,7 +25,7 @@ const allPages = function (props: Props): React.ReactElement {
         // OperatorsButtonSets
         props.preAlgebra ||
         props.logarithms ||
-        props.relations ||
+        props.basicRelations ||
         props.advancedRelations
     ) {
         pages.push("Operators");
