@@ -16,7 +16,7 @@ type Props = {
     onClickKey: (keyConfig: string) => void;
 } & OperatorsButtonSets;
 
-export default class GeometryPage extends React.Component<Props> {
+export default class OperatorsPage extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClickKey} = this.props;
         return (
