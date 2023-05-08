@@ -40,7 +40,7 @@ export default class OperatorsPage extends React.Component<Props> {
                 {/* Row 2 */}
                 <Logarithms
                     onClickKey={onClickKey}
-                    placeholder={!this.props.preAlgebra}
+                    placeholder={!this.props.logarithms}
                 />
                 <SecondaryKeypadButton
                     keyConfig={Keys.X}
