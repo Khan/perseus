@@ -10,7 +10,7 @@ import {OperatorsButtonSets} from "./operators-page/types";
 
 import type {TabbarItemType} from "../tabbar/types";
 
-type Props = {
+export type Props = {
     onClickKey: (keyConfig: string) => void;
     trigonometry?: boolean;
 } & OperatorsButtonSets;
