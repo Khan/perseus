@@ -5,6 +5,7 @@ import Tabbar from "../tabbar/tabbar";
 
 import GeometryPage from "./geometry-page";
 import NumbersPage from "./numbers-page";
+import {NumbersPageOptions} from "./numbers-page/types";
 import OperatorsPage from "./operators-page";
 import {OperatorsButtonSets} from "./operators-page/types";
 
@@ -13,7 +14,8 @@ import type {TabbarItemType} from "../tabbar/types";
 export type Props = {
     onClickKey: (keyConfig: string) => void;
     trigonometry?: boolean;
-} & OperatorsButtonSets;
+} & OperatorsButtonSets &
+    NumbersPageOptions;
 type State = {
     selectedPage: TabbarItemType;
 };
@@ -43,7 +45,6 @@ export default class Keypad extends React.Component<Props, State> {
     };
     render(): React.ReactNode {
         const {selectedPage} = this.state;
-        const {onClickKey} = this.props;
 
         const availablePages = allPages(this.props);
 
@@ -56,14 +57,12 @@ export default class Keypad extends React.Component<Props, State> {
                         this.setState({selectedPage: tabbarItem});
                     }}
                 />
-                {selectedPage === "Numbers" && (
-                    <NumbersPage onClickKey={onClickKey} />
-                )}
+                {selectedPage === "Numbers" && <NumbersPage {...this.props} />}
                 {selectedPage === "Operators" && (
                     <OperatorsPage {...this.props} />
                 )}
                 {selectedPage === "Geometry" && (
-                    <GeometryPage onClickKey={onClickKey} />
+                    <GeometryPage {...this.props} />
                 )}
             </View>
         );
