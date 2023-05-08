@@ -8,6 +8,7 @@ import {
     PlaceHolderButtons,
 } from "../keypad-page-items";
 
+import {AdvancedRelations} from "./advanced-relations-buttons";
 import {BasicRelations} from "./basic-relations-buttons";
 import {PreAlgebra} from "./pre-algebra-buttons";
 import {OperatorsButtonSets} from "./types";
@@ -60,7 +61,7 @@ export default class OperatorsPage extends React.Component<Props> {
                 {/* TODO: implement relatons buttons */}
                 <BasicRelations
                     onClickKey={onClickKey}
-                    placeholder={!this.props.basicRelations}
+                    placeholder={!this.props.advancedRelations}
                 />
                 <SecondaryKeypadButton
                     keyConfig={Keys.PI}
@@ -77,12 +78,10 @@ export default class OperatorsPage extends React.Component<Props> {
                     onClickKey={onClickKey}
                 />
                 {/* Row 4 */}
-                {/* TODO: implement advancedRelations buttons */}
-                {this.props.advancedRelations ? (
-                    <PlaceHolderButtons count={3} />
-                ) : (
-                    <PlaceHolderButtons count={3} />
-                )}
+                <AdvancedRelations
+                    onClickKey={onClickKey}
+                    placeholder={!this.props.basicRelations}
+                />
                 <KeypadActionButton
                     keyConfig={Keys.DISMISS}
                     style={{
