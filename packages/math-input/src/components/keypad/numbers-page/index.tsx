@@ -29,18 +29,22 @@ export default class NumbersPage extends React.Component<Props> {
                         this.props.divisionKey
                             ? {
                                   gridColumn: "4",
-                                  gridRow: "4",
+                                  gridRow: "1",
                               }
                             : {
-                                  gridColumn: "4",
-                                  gridRowStart: "3",
-                                  gridRowEnd: "5",
+                                  display: "none",
                               }
                     }
                     onClickKey={onClickKey}
                 />
                 <SecondaryKeypadButton
                     keyConfig={Keys.TIMES}
+                    style={
+                        this.props.divisionKey && {
+                            gridColumn: "4",
+                            gridRow: "2",
+                        }
+                    }
                     onClickKey={onClickKey}
                 />
                 <SecondaryKeypadButton
@@ -59,6 +63,12 @@ export default class NumbersPage extends React.Component<Props> {
 
                 <SecondaryKeypadButton
                     keyConfig={Keys.MINUS}
+                    style={
+                        this.props.divisionKey && {
+                            gridColumn: "4",
+                            gridRow: "3",
+                        }
+                    }
                     onClickKey={onClickKey}
                 />
 
