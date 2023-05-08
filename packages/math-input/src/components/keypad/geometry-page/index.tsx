@@ -11,7 +11,7 @@ type Props = {
     onClickKey: (keyConfig: string) => void;
 };
 
-export default class GeometryInputPage extends React.Component<Props> {
+export default class GeometryPage extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClickKey} = this.props;
         return (
