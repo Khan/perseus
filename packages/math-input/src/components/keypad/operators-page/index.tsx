@@ -10,6 +10,7 @@ import {
 
 import {AdvancedRelations} from "./advanced-relations-buttons";
 import {BasicRelations} from "./basic-relations-buttons";
+import {Logarithms} from "./logarithms-buttons";
 import {PreAlgebra} from "./pre-algebra-buttons";
 import {OperatorsButtonSets} from "./types";
 
@@ -37,12 +38,10 @@ export default class OperatorsPage extends React.Component<Props> {
                     onClickKey={onClickKey}
                 />
                 {/* Row 2 */}
-                {/* TODO: implement logarithms buttons */}
-                {this.props.logarithms ? (
-                    <PlaceHolderButtons count={3} />
-                ) : (
-                    <PlaceHolderButtons count={3} />
-                )}
+                <Logarithms
+                    onClickKey={onClickKey}
+                    placeholder={!this.props.preAlgebra}
+                />
                 <SecondaryKeypadButton
                     keyConfig={Keys.X}
                     onClickKey={onClickKey}
