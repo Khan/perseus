@@ -18,7 +18,7 @@ export default {
         trigonometry: {control: "boolean", defaultValue: false},
         preAlgebra: {control: "boolean", defaultValue: false},
         logarithms: {control: "boolean", defaultValue: false},
-        relations: {control: "boolean", defaultValue: false},
+        basicRelations: {control: "boolean", defaultValue: false},
         advancedRelations: {control: "boolean", defaultValue: false},
     },
 };
