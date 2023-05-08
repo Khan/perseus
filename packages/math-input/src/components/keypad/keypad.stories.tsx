@@ -15,11 +15,11 @@ export default {
     },
     component: Keypad,
     argTypes: {
-        trigonometry: {control: "boolean"},
-        preAlgebra: {control: "boolean"},
-        logarithms: {control: "boolean"},
-        relations: {control: "boolean"},
-        advancedRelations: {control: "boolean"},
+        trigonometry: {control: "boolean", defaultValue: false},
+        preAlgebra: {control: "boolean", defaultValue: false},
+        logarithms: {control: "boolean", defaultValue: false},
+        relations: {control: "boolean", defaultValue: false},
+        advancedRelations: {control: "boolean", defaultValue: false},
     },
 };
 
