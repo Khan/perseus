@@ -29,7 +29,7 @@ export const KeypadPageContainer = ({
     </View>
 );
 
-type KeypadButtonProps = {
+export type KeypadButtonProps = {
     keyConfig: KeyConfig;
     tintColor?: string;
     style?: StyleType;
