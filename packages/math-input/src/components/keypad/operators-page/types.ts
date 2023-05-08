@@ -1,6 +1,6 @@
 export type OperatorsButtonSets = {
     preAlgebra?: boolean;
     logarithms?: boolean;
-    relations?: boolean;
+    basicRelations?: boolean;
     advancedRelations?: boolean;
 };

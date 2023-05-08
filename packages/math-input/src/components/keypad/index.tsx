@@ -25,7 +25,7 @@ const allPages = function (props: Props): React.ReactElement {
         // OperatorsButtonSets
         props.preAlgebra ||
         props.logarithms ||
-        props.relations ||
+        props.basicRelations ||
         props.advancedRelations
     ) {
         pages.push("Operators");
