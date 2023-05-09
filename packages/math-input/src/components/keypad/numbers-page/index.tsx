@@ -38,7 +38,9 @@ export default class NumbersPage extends React.Component<Props> {
                     onClickKey={onClickKey}
                 />
                 <SecondaryKeypadButton
-                    keyConfig={Keys.TIMES}
+                    keyConfig={
+                        this.props.multiplicationDot ? Keys.CDOT : Keys.TIMES
+                    }
                     style={
                         this.props.divisionKey && {
                             gridColumn: "4",
