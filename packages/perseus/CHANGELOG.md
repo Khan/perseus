@@ -1,5 +1,47 @@
 # @khanacademy/perseus
 
+## 6.0.0
+
+### Major Changes
+
+-   4a368030: Remove getKaTeX from the PerseusDependencies type
+
+    perseus-editor now detects KaTeX rendering errors by calling KaTeX directly,
+    rather than using getKaTeX from PerseusDependencies.
+
+    The logKaTeXError method, which was unused by Perseus, has been removed from
+    the PerseusDependencies type as well.
+
+    Clients should update their code by removing the getKaTeX and logKaTeXError
+    properties from their PerseusDependencies object. If they want to log an error
+    when TeX fails to render, they should do so in their TeX component.
+
+-   9c4a6c96: Remove obsolete properties from the PerseusDependencies type
+
+    We are in the process of migrating the webapp and mobile repos to use
+    MathJax 3 as their math renderer instead of KaTeX. This change removes some of
+    Perseus's dependencies on KaTeX.
+
+    Clients should update their code by removing the `getRenderA11yString`,
+    `loadMathjax`, `KatexProvider`, and `shouldUseFutureKaTeX` properties from
+    their PerseusDependencies object.
+
+### Patch Changes
+
+-   5cc23179: Upgraded <Lint> component to use TypeScript types for props
+-   e0a087d0: Upgraded <InlineIcon> component to use TypeScript types for props
+-   b062ad47: Upgraded <MathOutput> component to use TypeScript types for props
+-   8a47076d: Upgraded <Tooltip> component to use TypeScript types for props
+-   09ab3260: Upgraded HUD component to use TypeScript types for props
+-   5432857d: Upgraded <Sortable> component (not widget) to use TypeScript types for props
+-   40c2736d: Upgraded Graphie component to use TypeScript types for props
+-   b585fe29: Switch most @khanacademy/math-input psuedo-enums to enums
+-   91617cfa: Upgraded FixedToResponsive component to use TypeScript types for props
+-   e284e7c1: Upgraded Graph component to use TypeScript types for props
+-   Updated dependencies [b585fe29]
+-   Updated dependencies [0c1cf562]
+    -   @khanacademy/math-input@2.0.0
+
 ## 5.0.0
 
 ### Major Changes

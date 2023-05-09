@@ -1,5 +1,47 @@
 # @khanacademy/perseus-editor
 
+## 2.1.0
+
+### Minor Changes
+
+-   4a368030: Remove getKaTeX from the PerseusDependencies type
+
+    perseus-editor now detects KaTeX rendering errors by calling KaTeX directly,
+    rather than using getKaTeX from PerseusDependencies.
+
+    The logKaTeXError method, which was unused by Perseus, has been removed from
+    the PerseusDependencies type as well.
+
+    Clients should update their code by removing the getKaTeX and logKaTeXError
+    properties from their PerseusDependencies object. If they want to log an error
+    when TeX fails to render, they should do so in their TeX component.
+
+### Patch Changes
+
+-   9c4a6c96: Remove obsolete properties from the PerseusDependencies type
+
+    We are in the process of migrating the webapp and mobile repos to use
+    MathJax 3 as their math renderer instead of KaTeX. This change removes some of
+    Perseus's dependencies on KaTeX.
+
+    Clients should update their code by removing the `getRenderA11yString`,
+    `loadMathjax`, `KatexProvider`, and `shouldUseFutureKaTeX` properties from
+    their PerseusDependencies object.
+
+-   Updated dependencies [4a368030]
+-   Updated dependencies [5cc23179]
+-   Updated dependencies [e0a087d0]
+-   Updated dependencies [b062ad47]
+-   Updated dependencies [8a47076d]
+-   Updated dependencies [09ab3260]
+-   Updated dependencies [5432857d]
+-   Updated dependencies [40c2736d]
+-   Updated dependencies [b585fe29]
+-   Updated dependencies [91617cfa]
+-   Updated dependencies [e284e7c1]
+-   Updated dependencies [9c4a6c96]
+    -   @khanacademy/perseus@6.0.0
+
 ## 2.0.3
 
 ### Patch Changes

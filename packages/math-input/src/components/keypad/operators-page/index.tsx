@@ -1,51 +1,47 @@
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
-
+import Keys from "../../../data/key-configs";
 import {
     KeypadPageContainer,
     SecondaryKeypadButton,
     KeypadActionButton,
-} from "./keypad-page-items";
+    PlaceHolderButtons,
+} from "../keypad-page-items";
+
+import {BasicRelations} from "./basic-relations-buttons";
+import {PreAlgebra} from "./pre-algebra-buttons";
+import {OperatorsButtonSets} from "./types";
 
 type Props = {
     onClickKey: (keyConfig: string) => void;
-};
+} & OperatorsButtonSets;
 
-export default class TrigonometryInputPage extends React.Component<Props> {
+export default class OperatorsPage extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClickKey} = this.props;
         return (
             <KeypadPageContainer>
                 {/* Row 1 */}
-                <SecondaryKeypadButton
-                    keyConfig={Keys.SIN}
+                <PreAlgebra
                     onClickKey={onClickKey}
-                />
-                <SecondaryKeypadButton
-                    keyConfig={Keys.COS}
-                    onClickKey={onClickKey}
-                />
-                <SecondaryKeypadButton
-                    keyConfig={Keys.TAN}
-                    onClickKey={onClickKey}
+                    placeholder={!this.props.preAlgebra}
                 />
 
                 <SecondaryKeypadButton
                     keyConfig={Keys.LEFT_PAREN}
                     onClickKey={onClickKey}
-                    style={{
-                        gridColumn: 5,
-                    }}
                 />
                 <SecondaryKeypadButton
                     keyConfig={Keys.RIGHT_PAREN}
                     onClickKey={onClickKey}
-                    style={{
-                        gridColumn: 6,
-                    }}
                 />
                 {/* Row 2 */}
+                {/* TODO: implement logarithms buttons */}
+                {this.props.logarithms ? (
+                    <PlaceHolderButtons count={3} />
+                ) : (
+                    <PlaceHolderButtons count={3} />
+                )}
                 <SecondaryKeypadButton
                     keyConfig={Keys.X}
                     onClickKey={onClickKey}
@@ -61,6 +57,11 @@ export default class TrigonometryInputPage extends React.Component<Props> {
                     }}
                 />
                 {/* Row 3 */}
+                {/* TODO: implement relatons buttons */}
+                <BasicRelations
+                    onClickKey={onClickKey}
+                    placeholder={!this.props.basicRelations}
+                />
                 <SecondaryKeypadButton
                     keyConfig={Keys.PI}
                     onClickKey={onClickKey}
@@ -71,11 +72,17 @@ export default class TrigonometryInputPage extends React.Component<Props> {
                 <KeypadActionButton
                     keyConfig={Keys.BACKSPACE}
                     style={{
-                        gridColumn: "6",
+                        gridColumn: 6,
                     }}
                     onClickKey={onClickKey}
                 />
                 {/* Row 4 */}
+                {/* TODO: implement advancedRelations buttons */}
+                {this.props.advancedRelations ? (
+                    <PlaceHolderButtons count={3} />
+                ) : (
+                    <PlaceHolderButtons count={3} />
+                )}
                 <KeypadActionButton
                     keyConfig={Keys.DISMISS}
                     style={{

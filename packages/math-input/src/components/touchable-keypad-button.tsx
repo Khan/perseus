@@ -9,14 +9,15 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
-import {KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import Keys from "../data/keys";
+import {KeyType} from "../enums";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
 import type {State} from "../store/types";
-import type {Border, Icon, KeyConfig, NonManyKeyConfig} from "../types";
+import type {Border, IconConfig, KeyConfig, NonManyKeyConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface SharedProps {
@@ -32,13 +33,13 @@ interface OwnProps extends SharedProps {
 interface Props extends SharedProps {
     childKeyIds?: ReadonlyArray<string>;
     gestureManager: GestureManager;
-    id: KeyConfig["id"];
+    id: Keys | "MANY";
     focused: boolean;
     popoverEnabled: boolean;
     childKeys?: ReadonlyArray<NonManyKeyConfig>;
     ariaLabel?: string;
-    icon?: Icon;
-    type: KeyConfig["type"];
+    icon: IconConfig;
+    type: KeyType;
 }
 
 class TouchableKeypadButton extends React.Component<Props> {
@@ -120,14 +121,19 @@ const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
     const {gestures} = state;
 
     const {keyConfig, ...rest} = ownProps;
-    const {id, childKeyIds, type} = keyConfig;
+    const {id, type} = keyConfig;
 
-    const childKeys = childKeyIds && childKeyIds.map((id) => KeyConfigs[id]);
+    const childKeyIds =
+        "childKeyIds" in keyConfig ? keyConfig.childKeyIds : undefined;
+
+    const childKeys = childKeyIds
+        ? childKeyIds.map((id) => KeyConfigs[id])
+        : undefined;
 
     // Override with the default child props, if the key is a multi-symbol key
     // (but not a many-symbol key, which operates under different rules).
     const useFirstChildProps =
-        type !== KeyTypes.MANY && childKeys && childKeys.length > 0;
+        type !== KeyType.MANY && childKeys && childKeys.length > 0;
 
     return {
         ...rest,

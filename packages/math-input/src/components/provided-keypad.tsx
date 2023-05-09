@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unsafe */
 import * as React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
@@ -9,7 +8,7 @@ import {
     configureKeypad,
     setCursor,
     setKeyHandler,
-} from "../actions/index";
+} from "../store/actions";
 import {createStore} from "../store/index";
 
 import KeypadContainer from "./keypad-container";
@@ -24,19 +23,11 @@ type Props = {
 };
 
 class ProvidedKeypad extends React.Component<Props> {
-    mounted?: boolean;
     store: any;
 
-    UNSAFE_componentWillMount() {
+    constructor(props) {
+        super(props);
         this.store = createStore();
-    }
-
-    componentDidMount() {
-        this.mounted = true;
-    }
-
-    componentWillUnmount() {
-        this.mounted = false;
     }
 
     activate: () => void = () => {

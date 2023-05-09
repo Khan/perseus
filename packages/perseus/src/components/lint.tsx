@@ -1,3 +1,47 @@
+import {StyleSheet, css} from "aphrodite";
+import * as React from "react";
+import ReactDOM from "react-dom";
+
+import * as constants from "../styles/constants";
+
+import InlineIcon from "./inline-icon";
+
+const exclamationIcon = {
+    path: "M6 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-9a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z",
+    height: 12,
+    width: 12,
+} as const;
+
+enum Severity {
+    Error = 1,
+    Warning = 2,
+    Recommendation = 3,
+    OfflineReportingOnly = 4,
+}
+
+type Props = {
+    // The children are the linty content we're highlighting
+    children: React.ReactNode;
+    // Inline lint is highlighted differently than block lint.
+    inline?: boolean;
+    // This is the text that appears in the tooltip
+    message: string;
+    // This is used as the fragment id (hash) in the URL of the link
+    ruleName: string;
+    // Lint warnings inside tables are handled specially
+    insideTable: boolean;
+    // Should lint highlighting be rendered as a block to the left of
+    // the lint instead of on the right gutter?
+    blockHighlight?: boolean;
+    // How important this lint message is for the editor. Severity goes
+    // from 1 (indicating an error) to 4 (offline reporting only)
+    severity?: Severity;
+};
+
+type State = {
+    tooltipAbove: boolean;
+};
+
 /**
  * This component renders "lint" nodes in a markdown parse tree. Lint nodes
  * are inserted into the tree by the Perseus linter (see
@@ -20,45 +64,8 @@
  * that has a right margin (like anything blockquoted) the circle will appear
  * to the left of where it belongs.  And if there is more
  **/
-import {StyleSheet, css} from "aphrodite";
-import PropTypes from "prop-types";
-import * as React from "react";
-import ReactDOM from "react-dom";
-
-import * as constants from "../styles/constants";
-
-import InlineIcon from "./inline-icon";
-
-const exclamationIcon = {
-    path: "M6 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-9a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z",
-    height: 12,
-    width: 12,
-} as const;
-
-type Props = any;
-type State = any;
-
 class Lint extends React.Component<Props, State> {
-    _positionTimeout: number | null | undefined;
-
-    static propTypes = {
-        // The children are the linty content we're highlighting
-        children: PropTypes.node,
-        // Inline lint is highlighted differently than block lint.
-        inline: PropTypes.bool,
-        // This is the text that appears in the tooltip
-        message: PropTypes.string.isRequired,
-        // This is used as the fragment id (hash) in the URL of the link
-        ruleName: PropTypes.string.isRequired,
-        // Lint warnings inside tables are handled specially
-        insideTable: PropTypes.bool.isRequired,
-        // Should lint highlighting be rendered as a block to the left of
-        // the lint instead of on the right gutter?
-        blockHighlight: PropTypes.bool,
-        // How important this lint message is for the editor. Severity goes
-        // from 1 (indicating an error) to 4 (offline reporting only)
-        severity: PropTypes.number,
-    };
+    _positionTimeout: number | undefined;
 
     state: State = {
         tooltipAbove: true,
@@ -73,7 +80,6 @@ class Lint extends React.Component<Props, State> {
     componentWillUnmount() {
         // TODO(somewhatabstract): Use WB timing
         // eslint-disable-next-line no-restricted-syntax
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         window.clearTimeout(this._positionTimeout);
     }
 
@@ -98,11 +104,11 @@ class Lint extends React.Component<Props, State> {
         let severityStyle;
         let warningText;
         let warningTextStyle;
-        if (this.props.severity === 1) {
+        if (this.props.severity === Severity.Error) {
             severityStyle = styles.indicatorError;
             warningText = "Error";
             warningTextStyle = styles.publishBlockingError;
-        } else if (this.props.severity === 2) {
+        } else if (this.props.severity === Severity.Warning) {
             severityStyle = styles.indicatorWarning;
             warningText = "Warning";
             warningTextStyle = styles.warning;

@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import Sortable from "../components/sortable";
+import Sortable, {Layout} from "../components/sortable";
 import {getDependencies} from "../dependencies";
 import {ApiOptions} from "../perseus-api";
 import Renderer from "../renderer";
@@ -20,6 +20,12 @@ import type {WidgetExports} from "../types";
 
 const {shuffle, seededRNG} = Util;
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
+
+type State = {
+    leftHeight: number;
+    rightHeight: number;
+    texRendererLoaded: boolean;
+};
 
 class Matcher extends React.Component<any, any> {
     static propTypes = {
@@ -46,27 +52,40 @@ class Matcher extends React.Component<any, any> {
         linterContext: linterContextDefault,
     };
 
-    state: any = {
+    state: State = {
         leftHeight: 0,
         rightHeight: 0,
-        katex: null,
+        texRendererLoaded: false,
     };
 
-    componentDidMount() {
-        getDependencies()
-            .getKaTeX()
-            .then((katex) => this.setState({katex}));
-    }
-
-    render(): React.ReactNode {
-        // We don't render the Matcher until KaTeX has fully loaded, in case
-        // the sortables are rendering KaTeX content. This is un-optimal as
-        // we end up loading KaTeX even when we may not need it, however it
-        // helps to ensure that the dimensions of the sortables (and thus the
-        // Matcher) will be correct when they render, if their contents are
-        // KaTeX-derived.
-        if (!this.state.katex) {
-            return <CircularSpinner />;
+    render(): React.ReactElement {
+        // To minimize layout shift, we display a spinner until our math
+        // renderer is ready to render the math inside the matcher. To
+        // do this, we:
+        // - render a dummy TeX component to force the math renderer to load
+        // - display a spinner until the TeX component calls its onRender
+        //   callback, signifying that the math is rendered (from which we can
+        //   infer that the math renderer has loaded)
+        //
+        // If we didn't do this, the user might see a matcher with empty
+        // columns on first render, and then the math would pop in a few
+        // moments later once the rendering library loaded.
+        if (!this.state.texRendererLoaded) {
+            const {TeX} = getDependencies();
+            return (
+                <>
+                    <CircularSpinner />
+                    <div style={{display: "none"}}>
+                        <TeX
+                            onRender={() => {
+                                this.setState({texRendererLoaded: true});
+                            }}
+                        >
+                            1
+                        </TeX>
+                    </div>
+                </>
+            );
         }
 
         // Use the same random() function to shuffle both columns sequentially
@@ -123,7 +142,7 @@ class Matcher extends React.Component<any, any> {
                         <td className={css(styles.column)}>
                             <Sortable
                                 options={left}
-                                layout="vertical"
+                                layout={Layout.VERTICAL}
                                 padding={this.props.padding}
                                 disabled={!this.props.orderMatters}
                                 constraints={constraints}
@@ -139,7 +158,7 @@ class Matcher extends React.Component<any, any> {
                             <Sortable
                                 // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                                 options={right}
-                                layout="vertical"
+                                layout={Layout.VERTICAL}
                                 padding={this.props.padding}
                                 constraints={constraints}
                                 onMeasure={this.onMeasureRight}
@@ -172,10 +191,10 @@ class Matcher extends React.Component<any, any> {
     };
 
     getUserInput: () => any = () => {
-        // If KaTeX hasn't loaded then we won't be able to get the contents
-        // of the sortables on the left and right, so we just return empty
-        // arrays until we render for the first time.
-        if (!this.state.katex) {
+        // If the math renderer hasn't loaded then we won't be able to get the
+        // contents of the sortables on the left and right, so we just return
+        // empty arrays until we render for the first time.
+        if (!this.state.texRendererLoaded) {
             return {
                 left: [],
                 right: [],

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     },
 });
 
-type Props = {
+export type Props = {
     onPress: () => void;
     children: React.ReactNode;
     style?: StyleType;

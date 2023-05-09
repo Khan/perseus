@@ -1,6 +1,7 @@
-import {EchoAnimationTypes, KeyTypes} from "../consts";
 import KeyConfigs from "../data/key-configs";
+import {EchoAnimationType, KeyType} from "../enums";
 
+import type {Action} from "./actions";
 import type {EchoState} from "./types";
 
 // Used to generate unique animation IDs for the echo animations. The actual
@@ -11,7 +12,10 @@ const initialEchoState = {
     echoes: [],
 } as const;
 
-const echoReducer = function (state = initialEchoState, action): EchoState {
+const echoReducer = function (
+    state: EchoState = initialEchoState,
+    action: Action,
+): EchoState {
     switch (action.type) {
         case "PressKey":
             const keyConfig = KeyConfigs[action.key];
@@ -19,8 +23,8 @@ const echoReducer = function (state = initialEchoState, action): EchoState {
             // Add in the echo animation if the user performs a math
             // operation.
             if (
-                keyConfig.type === KeyTypes.VALUE ||
-                keyConfig.type === KeyTypes.OPERATOR
+                keyConfig.type === KeyType.VALUE ||
+                keyConfig.type === KeyType.OPERATOR
             ) {
                 return {
                     ...state,
@@ -29,8 +33,8 @@ const echoReducer = function (state = initialEchoState, action): EchoState {
                         {
                             animationId: "" + _lastAnimationId++,
                             animationType: action.inPopover
-                                ? EchoAnimationTypes.LONG_FADE_ONLY
-                                : EchoAnimationTypes.FADE_ONLY,
+                                ? EchoAnimationType.LONG_FADE_ONLY
+                                : EchoAnimationType.FADE_ONLY,
                             borders: action.borders,
                             id: keyConfig.id,
                             initialBounds: action.initialBounds,
@@ -42,7 +46,6 @@ const echoReducer = function (state = initialEchoState, action): EchoState {
 
         case "RemoveEcho":
             const remainingEchoes = state.echoes.filter((echo) => {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'animationId' does not exist on type 'never'.
                 return echo.animationId !== action.animationId;
             });
             return {

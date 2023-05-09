@@ -5,14 +5,14 @@
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {IconTypes} from "../consts";
+import {IconType} from "../enums";
 
 import {offBlack} from "./common-style";
 import MathIcon from "./math-icon";
 import SvgIcon from "./svg-icon";
 import TextIcon from "./text-icon";
 
-import type {Icon as IconPropType} from "../types";
+import type {IconConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const focusedColor = "#FFF";
@@ -20,7 +20,7 @@ const unfocusedColor = offBlack;
 
 type Props = {
     focused: boolean;
-    icon: IconPropType;
+    icon: IconConfig;
     style?: StyleType;
 };
 
@@ -34,10 +34,10 @@ class Icon extends React.PureComponent<Props> {
         ];
 
         switch (icon.type) {
-            case IconTypes.MATH:
+            case IconType.MATH:
                 return <MathIcon math={icon.data} style={styleWithFocus} />;
 
-            case IconTypes.SVG:
+            case IconType.SVG:
                 // TODO(charlie): Support passing style objects to `SvgIcon`.
                 // This will require migrating the individual icons to use
                 // `currentColor` and accept a `className` prop, rather than
@@ -49,7 +49,7 @@ class Icon extends React.PureComponent<Props> {
                     />
                 );
 
-            case IconTypes.TEXT:
+            case IconType.TEXT:
                 return (
                     <TextIcon character={icon.data} style={styleWithFocus} />
                 );

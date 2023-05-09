@@ -6,6 +6,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
+import {Coord} from "../interactive2/types";
 import {Errors, Log} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 import Util from "../util";
@@ -15,6 +16,7 @@ import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import ImageLoader from "./image-loader";
 
+import type {Size} from "../perseus-types";
 import type {Alignment, Dimensions} from "../types";
 import type {ImageProps} from "./image-loader";
 
@@ -141,8 +143,8 @@ type Props = {
     alt: string;
     constrainHeight?: boolean;
     extraGraphie?: {
-        box: ReadonlyArray<any>;
-        range: ReadonlyArray<any>;
+        box: Size;
+        range: [Coord, Coord];
         labels: ReadonlyArray<any>;
     };
     height?: number;
@@ -203,7 +205,7 @@ type State = {
     labelsRendered: LabelsRenderedMap;
     labelDataIsLocalized: boolean;
     labels: ReadonlyArray<Label>;
-    range: ReadonlyArray<any>;
+    range: [Coord, Coord];
 };
 
 class SvgImage extends React.Component<Props, State> {
@@ -240,10 +242,7 @@ class SvgImage extends React.Component<Props, State> {
             labelDataIsLocalized: false,
             labels: [],
             labelsRendered: {},
-            range: [
-                [0, 0],
-                [0, 0],
-            ],
+            range: [[0, 0], [0, 0] as Coord],
         };
     }
 
@@ -405,7 +404,7 @@ class SvgImage extends React.Component<Props, State> {
     ) => void = (
         data: {
             labels: ReadonlyArray<any>;
-            range: ReadonlyArray<any>;
+            range: [Coord, Coord];
         },
         localized: boolean,
     ) => {
@@ -719,14 +718,14 @@ class SvgImage extends React.Component<Props, State> {
                 );
             }
 
-            const scale = [40 * this.props.scale, 40 * this.props.scale];
-
+            // TODO: the "40" scale factor was introduced in D14974 but is not
+            // documented where it came from.
             graphie = (
                 <Graphie
                     // eslint-disable-next-line react/no-string-refs
                     ref="graphie"
                     box={box}
-                    scale={scale}
+                    scale={[40 * this.props.scale, 40 * this.props.scale]}
                     range={this.state.range}
                     options={_.pick(this.state, "labels")}
                     responsive={responsive}

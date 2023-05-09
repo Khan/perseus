@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
-import katex from "katex";
 import * as React from "react";
 
 import type {SerializedHighlightSet} from "./components/highlighting/types";
@@ -307,12 +305,6 @@ export type PerseusDependencies = {
     graphieMovablesJiptLabels: JiptLabelStore;
     svgImageJiptLabels: JiptLabelStore;
     rendererTranslationComponents: JiptTranslationComponents;
-    // KaTeX related dependencies
-    getKaTeX: () => Promise<katex>;
-    logKaTeXError: (
-        expression: string,
-        error: Error,
-    ) => Promise<Response | null | undefined>;
     TeX: React.ComponentType<TeXProps>;
     //misc
     staticUrl: StaticUrlFn;

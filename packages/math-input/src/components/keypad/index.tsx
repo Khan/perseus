@@ -3,17 +3,17 @@ import * as React from "react";
 
 import Tabbar from "../tabbar/tabbar";
 
-import NumericInputPage from "./numeric-input-page";
-import PreAlgebraPage from "./pre-algebra-page";
-import TrigonometryPage from "./trigonometry-page";
+import GeometryPage from "./geometry-page";
+import NumbersPage from "./numbers-page";
+import OperatorsPage from "./operators-page";
+import {OperatorsButtonSets} from "./operators-page/types";
 
 import type {TabbarItemType} from "../tabbar/types";
 
-type Props = {
+export type Props = {
     onClickKey: (keyConfig: string) => void;
-    preAlgebra: boolean;
-    trigonometry: boolean;
-};
+    trigonometry?: boolean;
+} & OperatorsButtonSets;
 type State = {
     selectedPage: TabbarItemType;
 };
@@ -21,7 +21,13 @@ type State = {
 const allPages = function (props: Props): React.ReactElement {
     const pages: Array<TabbarItemType> = ["Numbers"];
 
-    if (props.preAlgebra) {
+    if (
+        // OperatorsButtonSets
+        props.preAlgebra ||
+        props.logarithms ||
+        props.basicRelations ||
+        props.advancedRelations
+    ) {
         pages.push("Operators");
     }
     if (props.trigonometry) {
@@ -31,7 +37,7 @@ const allPages = function (props: Props): React.ReactElement {
     return pages;
 };
 
-export default class PreAlgebraKeypad extends React.Component<Props, State> {
+export default class Keypad extends React.Component<Props, State> {
     state: State = {
         selectedPage: "Numbers",
     };
@@ -51,13 +57,13 @@ export default class PreAlgebraKeypad extends React.Component<Props, State> {
                     }}
                 />
                 {selectedPage === "Numbers" && (
-                    <NumericInputPage onClickKey={onClickKey} />
+                    <NumbersPage onClickKey={onClickKey} />
                 )}
                 {selectedPage === "Operators" && (
-                    <PreAlgebraPage onClickKey={onClickKey} />
+                    <OperatorsPage {...this.props} />
                 )}
                 {selectedPage === "Geometry" && (
-                    <TrigonometryPage onClickKey={onClickKey} />
+                    <GeometryPage onClickKey={onClickKey} />
                 )}
             </View>
         );

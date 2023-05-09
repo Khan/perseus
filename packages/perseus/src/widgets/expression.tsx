@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as KAS from "@khanacademy/kas";
-import {KeypadInput, KeypadTypes} from "@khanacademy/math-input";
+import {KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
@@ -9,7 +9,10 @@ import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import MathInput from "../components/math-input";
-import Tooltip from "../components/tooltip";
+import Tooltip, {
+    HorizontalDirection,
+    VerticalDirection,
+} from "../components/tooltip";
 import {iconExclamationSign} from "../icon-paths";
 import {Errors as PerseusErrors, Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
@@ -478,9 +481,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
             <span className="error-tooltip" role="tooltip">
                 <Tooltip
                     className="error-text-container"
-                    horizontalPosition="right"
-                    horizontalAlign="left"
-                    verticalPosition="top"
+                    horizontalPosition={HorizontalDirection.Right}
+                    horizontalAlign={HorizontalDirection.Left}
+                    verticalPosition={VerticalDirection.Top}
                     arrowSize={10}
                     borderColor="#fcc335"
                     show={this.state.showErrorText}
@@ -549,7 +552,7 @@ const keypadConfigurationForProps = (
 ) => {
     // Always use the Expression keypad, regardless of the button sets that have
     // been enabled.
-    const keypadType = KeypadTypes.EXPRESSION;
+    const keypadType = KeypadType.EXPRESSION;
 
     // Extract any and all variables and constants from the answer forms.
     const uniqueExtraVariables: Record<string, any> = {};

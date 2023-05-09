@@ -3,6 +3,9 @@
 
 import type {Coord} from "./interactive2/types";
 
+export type Range = [number, number];
+export type Size = [number, number];
+
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<string, never>;
 
@@ -218,13 +221,14 @@ export type PerseusWidget =
     | UnitInputWidget
     | VideoWidget;
 
+// A background image applied to various widgets.
 export type PerseusImageBackground = {
     // The URL of the image
     url: string | null | undefined;
     // The width of the image
-    width: number;
+    width?: number;
     // The height of the image
-    height: number;
+    height?: number;
     // The top offset of the image
     // NOTE: perseus_data.go says this is required, but nullable, even though
     // it isn't necessary at all.
@@ -475,10 +479,10 @@ export type PerseusImageWidgetOptions = {
     labels?: ReadonlyArray<PerseusImageLabel>;
     // The range on the image render for labels
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    range?: ReadonlyArray<ReadonlyArray<number>>;
+    range?: [Range, Range];
     // The box on the image render for labels. The same as backgroundImage.width and backgroundImage.height
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    box?: ReadonlyArray<number>;
+    box?: Size;
 };
 
 export type PerseusImageLabel = {
@@ -1134,17 +1138,17 @@ export type PerseusInteractionGraph = {
     // "canvas", "graph"
     editableSettings?: ReadonlyArray<"canvas" | "graph">;
     // The Grid Canvas size. e.g. [400, 140]
-    box: ReadonlyArray<number>;
+    box: Size;
     // The Axis labels.  e.g. ["x", "y"]
     labels: ReadonlyArray<string>;
     // The Axis ranges. e.g. [[-10, 10], [-10, 10]]
-    range: ReadonlyArray<ReadonlyArray<number>>;
+    range: [Range, Range];
     // The steps in the grid. default [1, 1]
-    gridStep: ReadonlyArray<number>;
+    gridStep: Readonly<[number, number]>;
     // What to show on the graph.  "graph", "grid", or "none"
     markings: string;
     // The snap steps. default [0.5, 0.5]
-    snapStep?: ReadonlyArray<number>;
+    snapStep?: Readonly<[number, number]>;
     // Whether the grid is valid or not.  Do the numbers all make sense?
     // NOTE(jeremy) The editor for this widget sometimes stores the graph
     // editor validation error message into this field. It seems innocuous
@@ -1162,7 +1166,7 @@ export type PerseusInteractionGraph = {
     // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16
     rulerTicks?: number;
     // This controls the number (and position) of the tick marks for the X and Y axis. e.g. [1, 1]
-    tickStep: ReadonlyArray<number>;
+    tickStep: Readonly<[number, number]>;
 };
 
 export type PerseusInteractionElement =

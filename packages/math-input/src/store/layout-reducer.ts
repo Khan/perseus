@@ -1,9 +1,10 @@
 import {tabletCutoffPx} from "../components/common-style";
 import {computeLayoutParameters} from "../components/compute-layout-parameters";
-import {DeviceOrientations, DeviceTypes, LayoutModes} from "../consts";
+import {DeviceOrientation, DeviceType, LayoutMode} from "../enums";
 
 import {defaultKeypadType, keypadForType} from "./shared";
 
+import type {Action} from "./actions";
 import type {LayoutState} from "./types";
 
 const initialLayoutState = {
@@ -21,7 +22,7 @@ const initialLayoutState = {
         pageWidthPx: 0,
         pageHeightPx: 0,
     },
-    layoutMode: LayoutModes.FULLSCREEN,
+    layoutMode: LayoutMode.FULLSCREEN,
     paginationEnabled: false,
     navigationPadEnabled: false,
 } as const;
@@ -47,19 +48,19 @@ const layoutParametersForDimensions = (
     // Determine the device type and orientation.
     const deviceOrientation =
         pageWidthPx > pageHeightPx
-            ? DeviceOrientations.LANDSCAPE
-            : DeviceOrientations.PORTRAIT;
+            ? DeviceOrientation.LANDSCAPE
+            : DeviceOrientation.PORTRAIT;
     const deviceType =
         Math.min(pageWidthPx, pageHeightPx) > tabletCutoffPx
-            ? DeviceTypes.TABLET
-            : DeviceTypes.PHONE;
+            ? DeviceType.TABLET
+            : DeviceType.PHONE;
 
     // Using that information, make some decisions (or assumptions)
     // about the resulting layout.
-    const navigationPadEnabled = deviceType === DeviceTypes.TABLET;
+    const navigationPadEnabled = deviceType === DeviceType.TABLET;
     const paginationEnabled =
-        deviceType === DeviceTypes.PHONE &&
-        deviceOrientation === DeviceOrientations.PORTRAIT;
+        deviceType === DeviceType.PHONE &&
+        deviceOrientation === DeviceOrientation.PORTRAIT;
 
     const deviceInfo = {deviceOrientation, deviceType} as const;
     const layoutOptions = {
@@ -90,8 +91,8 @@ const layoutParametersForDimensions = (
 };
 
 const layoutReducer = function (
-    state = initialLayoutState,
-    action: any,
+    state: LayoutState = initialLayoutState,
+    action: Action,
 ): LayoutState {
     switch (action.type) {
         case "ConfigureKeypad":

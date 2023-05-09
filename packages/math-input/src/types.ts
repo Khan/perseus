@@ -1,15 +1,15 @@
+import Keys from "./data/keys";
 import {
-    BorderDirections,
-    EchoAnimationTypes,
-    KeyTypes,
-    IconTypes,
-} from "./consts";
+    BorderDirection,
+    EchoAnimationType,
+    IconType,
+    KeyType,
+    KeypadType,
+} from "./enums";
 
 import type {CursorContext} from "./components/input/cursor-contexts";
-import type {KeypadType} from "./consts";
-import type {Key} from "./data/keys";
 
-export type Border = Partial<ReadonlyArray<keyof typeof BorderDirections>>;
+export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
 export type Bound = {
     top: number;
@@ -21,54 +21,46 @@ export type Bound = {
 };
 
 export type Popover = {
-    parentId: Key;
+    parentId: Keys;
     bounds: Partial<Bound>;
-    childKeyIds: Array<Key>;
+    childKeyIds: Array<Keys>;
 };
 
 export type Echo = {
     animationId: string;
-    animationType: keyof typeof EchoAnimationTypes;
+    animationType: EchoAnimationType;
     borders: Border;
-    id: Key;
+    id: Keys;
     initialBounds: DOMRect;
 };
 
-export type Icon = {
-    type: keyof typeof IconTypes;
+export type IconConfig = {
+    type: IconType;
     data: string;
 };
 
 export type NonManyKeyConfig = {
-    id: Omit<Omit<Key, "MANY">, "FRAC_MULTI">;
-    type: Omit<Omit<keyof typeof KeyTypes, "MANY">, "FRAC_MULTI">;
-    icon: Icon;
-
-    childKeyIds?: ReadonlyArray<string>;
+    id: Keys;
+    type: KeyType;
+    icon: IconConfig;
     ariaLabel: string;
 };
 
-export type KeyConfig =
-    | NonManyKeyConfig
-    | {
-          id: "MANY";
-          type: "MANY";
-          childKeyIds: ReadonlyArray<string>;
-          ariaLabel?: string;
-      }
-    | {
-          id: "FRAC_MULTI";
-          type: "FRAC_MULTI";
-          childKeyIds: ReadonlyArray<string>;
-          ariaLabel?: string;
-      };
+export type ManyKeyConfig = {
+    id: "MANY";
+    type: KeyType.MANY;
+    childKeyIds: ReadonlyArray<string>;
+    ariaLabel?: string;
+};
+
+export type KeyConfig = NonManyKeyConfig | ManyKeyConfig;
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;
-    extraKeys?: ReadonlyArray<Key>;
+    extraKeys?: ReadonlyArray<Keys>;
 };
 
-export type KeyHandler = (key: Key) => Cursor;
+export type KeyHandler = (key: Keys) => Cursor;
 
 export type Cursor = {
     context: CursorContext;
@@ -83,3 +75,15 @@ export type KeypadLayout = {
     // rows vertically.
     maxVisibleRows: number;
 };
+
+type ActiveNodesObjPopover = {
+    parentId: string;
+    childIds: ReadonlyArray<string>;
+};
+
+export type ActiveNodesObj = {
+    popover: ActiveNodesObjPopover | null;
+    focus: string | null;
+};
+
+export type LayoutProps = {initialBounds: DOMRect; borders: Border};

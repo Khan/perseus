@@ -1,19 +1,18 @@
 import * as React from "react";
 
-import Keys from "../../data/key-configs";
-
+import Keys from "../../../data/key-configs";
 import {
     KeypadPageContainer,
     KeypadButton,
     SecondaryKeypadButton,
     KeypadActionButton,
-} from "./keypad-page-items";
+} from "../keypad-page-items";
 
 type Props = {
     onClickKey: (keyConfig: string) => void;
 };
 
-export default class NumericInputPage extends React.Component<Props> {
+export default class NumbersPage extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClickKey} = this.props;
         return (

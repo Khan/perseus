@@ -487,6 +487,31 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             );
 
         default:
-            throw new Error(`Invalid asset ${id}`);
+            // placeholder
+            return (
+                <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="black"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <text
+                        y="20"
+                        textLength="100%"
+                        lengthAdjust="spacingAndGlyphs"
+                    >
+                        {id}
+                    </text>
+                    <text
+                        y="35"
+                        textLength="100%"
+                        lengthAdjust="spacingAndGlyphs"
+                        fill="red"
+                    >
+                        placeholder
+                    </text>
+                </svg>
+            );
     }
 }

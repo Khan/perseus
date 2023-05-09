@@ -1,9 +1,8 @@
-/* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -11,17 +10,21 @@ import _ from "underscore";
 import {getDependencies} from "../dependencies";
 import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
-import Util from "../util";
+import Util, {Position} from "../util";
 
 import type {LinterContextProps} from "../types";
 
-const HORIZONTAL = "horizontal";
-const VERTICAL = "vertical";
+export enum Layout {
+    HORIZONTAL = "horizontal",
+    VERTICAL = "vertical",
+}
 
-const STATIC = "static";
-const DRAGGING = "dragging";
-const ANIMATING = "animating";
-const DISABLED = "disabled";
+enum ItemState {
+    STATIC = "static",
+    DRAGGING = "dragging",
+    ANIMATING = "animating",
+    DISABLED = "disabled",
+}
 
 // Augment the given position with the scroll position of the offset parent.
 const addOffsetParentScroll = ($el: any, position: any) => {
@@ -38,20 +41,21 @@ const addOffsetParentScroll = ($el: any, position: any) => {
     };
 };
 
-// A placeholder that appears in the sortable whenever an item is dragged.
-class Placeholder extends React.Component<any> {
-    static propTypes = {
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-    };
+type PlaceholderProps = {
+    layout: Layout;
+    width: number;
+    height: number;
+    margin?: string;
+};
 
+// A placeholder that appears in the sortable whenever an item is dragged.
+class Placeholder extends React.Component<PlaceholderProps> {
     render(): React.ReactNode {
         const {layout} = this.props;
         const className = css(
             styles.card,
             styles.placeholder,
-            layout === HORIZONTAL && styles.horizontalCard,
+            layout === Layout.HORIZONTAL && styles.horizontalCard,
         );
         const style: any = {
             width: this.props.width,
@@ -66,8 +70,35 @@ class Placeholder extends React.Component<any> {
     }
 }
 
-type DraggableProps = any;
-type DraggableState = any;
+type DraggableProps = {
+    content: string;
+    endPosition: {left: number; top: number} | Record<string, never>;
+    includePadding: boolean;
+    layout: Layout;
+    width?: number;
+    height?: number;
+    margin?: string;
+    onAnimationEnd: () => void;
+    onMouseDown: () => void;
+    onMouseMove: () => void;
+    onMouseUp: () => void;
+    onRender: () => void;
+    state: ItemState;
+    linterContext: LinterContextProps;
+};
+
+type DefaultDraggableProps = {
+    includePadding: DraggableProps["includePadding"];
+    type: DraggableProps["state"];
+    linterContext: DraggableProps["linterContext"];
+};
+
+type DraggableState = {
+    startPosition: Position;
+    startMouse: Position;
+    mouse: Position;
+    dragging?: boolean;
+};
 
 // A draggable item in the sortable. Can be in one of four states:
 //     Static:    The item is not being interacted with.
@@ -85,23 +116,9 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_mounted' has no initializer and is not definitely assigned in the constructor.
     _mounted: boolean;
 
-    static propTypes = {
-        content: PropTypes.string.isRequired,
-        endPosition: PropTypes.object.isRequired,
-        includePadding: PropTypes.bool,
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        onAnimationEnd: PropTypes.func.isRequired,
-        onMouseDown: PropTypes.func.isRequired,
-        onMouseMove: PropTypes.func.isRequired,
-        onMouseUp: PropTypes.func.isRequired,
-        onRender: PropTypes.func.isRequired,
-        type: PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
-        linterContext: PerseusLinter.linterContextProps,
-    };
-
-    static defaultProps = {
+    static defaultProps: DefaultDraggableProps = {
         includePadding: true,
-        type: STATIC,
+        type: ItemState.STATIC,
         linterContext: PerseusLinter.linterContextDefault,
     };
 
@@ -109,6 +126,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         startPosition: {left: 0, top: 0},
         startMouse: {left: 0, top: 0},
         mouse: {left: 0, top: 0},
+        dragging: false,
     };
 
     componentDidMount() {
@@ -163,7 +181,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
     };
 
     render(): React.ReactNode {
-        const {includePadding, layout, type} = this.props;
+        const {includePadding, layout, state: type} = this.props;
 
         // We need to keep backwards compatbility with rules specified directly
         // in CSS. Hence the hacky tacking on of manual classNames.
@@ -172,10 +190,10 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             css(
                 styles.card,
                 styles.draggable,
-                layout === HORIZONTAL && styles.horizontalCard,
-                layout === VERTICAL && styles.verticalCard,
-                type === DRAGGING && styles.dragging,
-                type === DISABLED && styles.disabled,
+                layout === Layout.HORIZONTAL && styles.horizontalCard,
+                layout === Layout.VERTICAL && styles.verticalCard,
+                type === ItemState.DRAGGING && styles.dragging,
+                type === ItemState.DISABLED && styles.disabled,
                 !includePadding && styles.unpaddedCard,
             ) +
             " " +
@@ -190,7 +208,10 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             position: "static",
         };
 
-        if (this.props.type === DRAGGING || this.props.type === ANIMATING) {
+        if (
+            this.props.state === ItemState.DRAGGING ||
+            this.props.state === ItemState.ANIMATING
+        ) {
             _.extend(style, {position: "absolute"}, this.getCurrentPosition());
         }
 
@@ -226,11 +247,11 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
     }
 
     componentDidUpdate(prevProps: DraggableProps) {
-        if (this.props.type === prevProps.type) {
+        if (this.props.state === prevProps.state) {
             return;
         }
 
-        if (this.props.type === ANIMATING) {
+        if (this.props.state === ItemState.ANIMATING) {
             // Start animating
             const current = this.getCurrentPosition();
             const duration =
@@ -254,7 +275,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                 // Animating -> Static
                 complete: this.props.onAnimationEnd,
             });
-        } else if (this.props.type === STATIC) {
+        } else if (this.props.state === ItemState.STATIC) {
             // Ensure that any animations are done
             // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'finish' does not exist on type 'JQueryStatic'.
             $(ReactDOM.findDOMNode(this)).finish();
@@ -274,7 +295,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
     };
 
     onMouseDown = (event) => {
-        if (this.props.type !== STATIC) {
+        if (this.props.state !== ItemState.STATIC) {
             return;
         }
 
@@ -329,7 +350,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
 
     onMouseMove: (arg1: any) => void = (event) => {
         const notDragging =
-            this.props.type !== DRAGGING || !this.state.dragging;
+            this.props.state !== ItemState.DRAGGING || !this.state.dragging;
 
         if (notDragging) {
             return;
@@ -355,7 +376,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
 
     onMouseUp: (arg1: any) => void = (event) => {
         const notDragging =
-            this.props.type !== DRAGGING || !this.state.dragging;
+            this.props.state !== ItemState.DRAGGING || !this.state.dragging;
 
         if (notDragging) {
             return;
@@ -372,7 +393,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         }
     };
 }
-type SortableLayoutKind = "horizontal" | "vertical";
+
 export type SortableOption = string;
 
 type SortableProps = {
@@ -383,7 +404,7 @@ type SortableProps = {
           }
         | Record<any, any>;
     disabled: boolean;
-    layout: SortableLayoutKind;
+    layout: Layout;
     margin: number;
     onChange: (arg1: any) => void;
     onMeasure: (arg1: {
@@ -408,12 +429,11 @@ type DefaultProps = {
     waitForTexRendererToLoad: SortableProps["waitForTexRendererToLoad"];
 };
 
-type ItemState = "disabled" | "static" | "dragging" | "animating";
 type SortableItem = {
     option: SortableOption;
     key: number;
-    type: ItemState;
-    endPosition: any;
+    state: ItemState;
+    endPosition: Position | Record<string, never>;
     width: number;
     height: number;
 };
@@ -424,7 +444,7 @@ type SortableState = {
 };
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
-        layout: HORIZONTAL,
+        layout: Layout.HORIZONTAL,
         padding: true,
         disabled: false,
         constraints: {},
@@ -485,12 +505,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         disabled: boolean;
         options: ReadonlyArray<SortableOption>;
     }): ReadonlyArray<SortableItem> {
-        const type: ItemState = props.disabled ? DISABLED : STATIC;
+        const state: ItemState = props.disabled
+            ? ItemState.DISABLED
+            : ItemState.STATIC;
         return props.options.map((option: SortableOption, i) => {
             return {
                 option: option,
                 key: i,
-                type: type,
+                state,
                 endPosition: {},
                 width: 0,
                 height: 0,
@@ -517,8 +539,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // explictly set on Draggables - this prevents them from changing size
         // or shape while being dragged.
 
-        // @ts-expect-error [FEI-5003] - TS2740 - Type 'readonly SortableItem[]' is missing the following properties from type 'SortableItem': option, key, type, endPosition, and 2 more.
-        let items: SortableItem = _.clone(this.state.items);
+        let items: ReadonlyArray<SortableItem> = [...this.state.items];
 
         // Fetches a jQuery list of elements for each item
         const $items = _.map(
@@ -540,7 +561,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         if (constraints?.width) {
             // Items must be at least as wide as the specified constraint
             syncWidth = _.max(widths.concat(constraints.width));
-        } else if (layout === VERTICAL) {
+        } else if (layout === Layout.VERTICAL) {
             // Sync widths to get a clean column
             syncWidth = _.max(widths);
         }
@@ -549,20 +570,18 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         if (constraints?.height) {
             // Items must be at least as high as the specified constraint
             syncHeight = _.max(heights.concat(constraints.height));
-        } else if (layout === HORIZONTAL) {
+        } else if (layout === Layout.HORIZONTAL) {
             // Sync widths to get a clean row
             syncHeight = _.max(heights);
         }
 
-        // @ts-expect-error [FEI-5003] - TS2740 - Type 'any[]' is missing the following properties from type 'SortableItem': option, key, type, endPosition, and 2 more.
         items = _.map(items, function (item, i) {
             item.width = syncWidth || widths[i];
             item.height = syncHeight || heights[i];
             return item;
         });
 
-        // @ts-expect-error [FEI-5003] - TS2740 - Type 'SortableItem' is missing the following properties from type 'readonly SortableItem[]': length, concat, join, slice, and 18 more.
-        this.setState({items: items}, () => {
+        this.setState({items}, () => {
             this.props.onMeasure &&
                 this.props.onMeasure({widths: widths, heights: heights});
         });
@@ -618,23 +637,26 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // in CSS. See sortable.less for details.
         const className = css(styles.sortable) + " perseus-sortable";
 
-        const syncWidth = this.props.constraints?.width || layout === VERTICAL;
+        const syncWidth =
+            this.props.constraints?.width || layout === Layout.VERTICAL;
         const syncHeight =
-            this.props.constraints?.height || layout === HORIZONTAL;
+            this.props.constraints?.height || layout === Layout.HORIZONTAL;
 
         _.each(
             this.state.items,
             function (item, i, items) {
                 const isLast = i === items.length - 1;
-                const isStatic = item.type === STATIC || item.type === DISABLED;
+                const isStatic =
+                    item.state === ItemState.STATIC ||
+                    item.state === ItemState.DISABLED;
                 let margin;
 
                 // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                if (this.props.layout === HORIZONTAL) {
+                if (this.props.layout === Layout.HORIZONTAL) {
                     // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 " + this.props.margin + "px 0 0"; // right
                     // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                } else if (this.props.layout === VERTICAL) {
+                } else if (this.props.layout === Layout.VERTICAL) {
                     // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 0 " + this.props.margin + "px 0"; // bottom
                 }
@@ -643,7 +665,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                     <Draggable
                         content={item.option}
                         key={item.key}
-                        type={item.type}
+                        state={item.state}
                         // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                         ref={item.key}
                         width={syncWidth ? item.width : undefined}
@@ -688,7 +710,10 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                     />,
                 );
 
-                if (item.type === DRAGGING || item.type === ANIMATING) {
+                if (
+                    item.state === ItemState.DRAGGING ||
+                    item.state === ItemState.ANIMATING
+                ) {
                     cards.push(
                         <Placeholder
                             key={"placeholder_" + item.key}
@@ -711,7 +736,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // Static -> Dragging
         const items = _.map(this.state.items, function (item) {
             if (item.key === key) {
-                item.type = DRAGGING;
+                item.state = ItemState.DRAGGING;
             }
             return item;
         });
@@ -772,7 +797,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         items.splice(currentIndex, 1);
 
-        if (this.props.layout === HORIZONTAL) {
+        if (this.props.layout === Layout.HORIZONTAL) {
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             const midWidth = $draggable.offset().left - $sortable.offset().left;
             let sumWidth = 0;
@@ -816,7 +841,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this.state.items,
                 function (item) {
                     if (item.key === key) {
-                        item.type = ANIMATING;
+                        item.state = ItemState.ANIMATING;
                         const $placeholder = $(
                             // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                             ReactDOM.findDOMNode(
@@ -853,7 +878,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // Animating -> Static
         const items = _.map(this.state.items, function (item) {
             if (item.key === key) {
-                item.type = STATIC;
+                item.state = ItemState.STATIC;
             }
             return item;
         });

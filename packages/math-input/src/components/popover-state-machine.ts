@@ -1,19 +1,11 @@
+import type {ActiveNodesObj} from "../types";
+
 /**
  * A state machine for the popover state. In particular, this class manages the
  * mapping of parent nodes to their children, and translates touch events that
  * traverse various nodes to actions that are conditioned on whether a popover
  * is present.
  */
-
-type ActiveNodesObjPopover = {
-    parentId: string;
-    childIds: ReadonlyArray<string>;
-};
-
-type ActiveNodesObj = {
-    popover: ActiveNodesObjPopover | null;
-    focus: string | null;
-};
 
 type Handlers = {
     onActiveNodesChanged: (activeNodes: ActiveNodesObj) => void;

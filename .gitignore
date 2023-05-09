@@ -4,6 +4,7 @@ dist
 .DS_Store
 yarn-error.log
 coverage
+coverage-ts
 storybook-static
 .nyc_output
-tsconfig.tsbuildinfo
+*.tsbuildinfo
