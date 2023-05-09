@@ -61,7 +61,7 @@ export default class OperatorsPage extends React.Component<Props> {
                 {/* TODO: implement relatons buttons */}
                 <BasicRelations
                     onClickKey={onClickKey}
-                    placeholder={!this.props.advancedRelations}
+                    placeholder={!this.props.basicRelations}
                 />
                 <SecondaryKeypadButton
                     keyConfig={Keys.PI}
@@ -80,7 +80,7 @@ export default class OperatorsPage extends React.Component<Props> {
                 {/* Row 4 */}
                 <AdvancedRelations
                     onClickKey={onClickKey}
-                    placeholder={!this.props.basicRelations}
+                    placeholder={!this.props.advancedRelations}
                 />
                 <KeypadActionButton
                     keyConfig={Keys.DISMISS}
