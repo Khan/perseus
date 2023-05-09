@@ -6,10 +6,7 @@ import * as React from "react";
 
 const {InlineIcon} = components;
 
-type InlineIconProps = JSX.LibraryManagedAttributes<
-    typeof InlineIcon,
-    React.ComponentProps<typeof InlineIcon>
->;
+type InlineIconProps = React.ElementConfig<typeof InlineIcon>;
 
 type SectionControlButtonProps = {
     icon: InlineIconProps;

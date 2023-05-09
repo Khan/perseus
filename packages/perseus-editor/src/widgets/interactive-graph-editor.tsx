@@ -19,10 +19,7 @@ const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
 const DeprecationMixin = Util.DeprecationMixin;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
-type InteractiveGraphProps = JSX.LibraryManagedAttributes<
-    typeof InteractiveGraph,
-    React.ComponentProps<typeof InteractiveGraph>
->;
+type InteractiveGraphProps = React.ElementConfig<typeof InteractiveGraph>;
 
 const defaultBackgroundImage = {
     url: null,

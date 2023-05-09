@@ -59,11 +59,7 @@ type Hint = any; // TODO(mdr)
 type Score = any; // TODO(mdr)
 type SerializedState = any; // TODO(mdr)
 
-type RendererProps = JSX.LibraryManagedAttributes<
-    typeof Renderer,
-    // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
-    React.ComponentProps<typeof Renderer>
->;
+type RendererProps = React.ElementConfig<typeof Renderer>;
 
 type ContentRendererElement = React.ReactElement<any>;
 type HintRendererElement = React.ReactElement<any>;
@@ -305,7 +301,6 @@ class MultiRenderer extends React.Component<Props, State> {
             makeRenderer: () => (
                 <HintsRenderer
                     {...this._getRendererProps()}
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     findExternalWidgets={findExternalWidgets}
                     hints={[hint]}
                 />
@@ -505,7 +500,6 @@ class MultiRenderer extends React.Component<Props, State> {
             (renderers as any).firstN = (n: any) => (
                 <HintsRenderer
                     {...this._getRendererProps()}
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     findExternalWidgets={
                         hintRendererDatas[0]
                             ? hintRendererDatas[0].findExternalWidgets

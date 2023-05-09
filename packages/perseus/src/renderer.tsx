@@ -146,7 +146,7 @@ export type Widget = {
 type Props = {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
-    findExternalWidgets: any;
+    findExternalWidgets?: any;
     highlightedWidgets?: ReadonlyArray<any>;
     images: PerseusRenderer["images"];
     keypadElement?: any; // TODO(kevinb): add proper types,

@@ -6,10 +6,7 @@ import "katex/dist/katex.css";
 
 import type {PerseusDependencies} from "../packages/perseus/src/types";
 
-type Props = JSX.LibraryManagedAttributes<
-    PerseusDependencies["TeX"],
-    React.ComponentProps<PerseusDependencies["TeX"]>
->;
+type Props = React.ElementConfig<PerseusDependencies["TeX"]>;
 
 /**
  * A test version of TeX that can be used in tests and doesn't rely on

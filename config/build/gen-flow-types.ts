@@ -64,6 +64,11 @@ for (const inFile of files) {
                 "replacing 'React.Element<>' with 'React.Element<any>'",
             );
         }
+        // FYI: We have a custom TypeScript type named React.ElementConfig<T>
+        // has aliases this type (LibraryManagedAttributes). This means that
+        // this transform likely won't ever be used, but it is useful to leave
+        // it here as a reference for how we do this transform.
+        // See types/react.d.ts
         if (contents.includes("JSX.LibraryManagedAttributes")) {
             contents = contents.replace(
                 /JSX\.LibraryManagedAttributes<\s+([^,]+),\s+React\.(Element|Component)Props<[^>]+>\s+>/gm,

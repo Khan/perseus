@@ -14,21 +14,13 @@ type RenderResult = ReturnType<typeof render>;
 export const renderQuestion = (
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
-    extraProps?: JSX.LibraryManagedAttributes<
-        typeof Perseus.Renderer,
-        // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
-        React.ComponentProps<typeof Perseus.Renderer>
-    >,
+    extraProps?: React.ElementConfig<typeof Perseus.Renderer>,
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
     rerender: (
         question: PerseusRenderer,
-        extraProps?: JSX.LibraryManagedAttributes<
-            typeof Perseus.Renderer,
-            // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
-            React.ComponentProps<typeof Perseus.Renderer>
-        >,
+        extraProps?: React.ElementConfig<typeof Perseus.Renderer>,
     ) => void;
     unmount: RenderResult["unmount"];
 } => {

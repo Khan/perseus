@@ -47,30 +47,16 @@ const answerTypes = {
 
 type Props = {
     value: number;
-    simplify: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["simplify"];
-    size: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["size"];
-    inexact: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
+    simplify: React.ComponentProps<typeof InputNumber.widget>["simplify"];
+    size: React.ComponentProps<typeof InputNumber.widget>["size"];
+    inexact: React.ComponentProps<
+        typeof InputNumber.widget
     >["reviewModeRubric"]["inexact"];
-    maxError: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
+    maxError: React.ComponentProps<
+        typeof InputNumber.widget
     >["reviewModeRubric"]["maxError"];
-    answerType: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["answerType"];
-    rightAlign: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["rightAlign"];
+    answerType: React.ComponentProps<typeof InputNumber.widget>["answerType"];
+    rightAlign: React.ComponentProps<typeof InputNumber.widget>["rightAlign"];
     onChange: (arg1: {
         value?: ParsedValue | 0;
         simplify?: Props["simplify"];

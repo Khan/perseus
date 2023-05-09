@@ -32,10 +32,7 @@ const renderQuestion = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
     optionalProps: Partial<
-        JSX.LibraryManagedAttributes<
-            typeof WrappedServerItemRenderer,
-            React.ComponentProps<typeof WrappedServerItemRenderer>
-        >
+        React.ElementConfig<typeof WrappedServerItemRenderer>
     > = Object.freeze({}),
 ): {
     container: HTMLElement;
