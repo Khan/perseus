@@ -27,7 +27,6 @@ class MultiSymbolPopover extends React.Component<Prop> {
                 {keys.map((key) => {
                     return (
                         <TouchableKeypadButton
-                            key={key.id}
                             keyConfig={key}
                             borders={BorderStyles.NONE}
                         />

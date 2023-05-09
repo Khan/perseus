@@ -258,21 +258,11 @@ const KeyConfigs: {[key: string]: any} = {
         ariaLabel: i18n._("Dismiss"),
     },
 
-    // Add in any multi-function buttons. By default, these keys will mix in any
-    // configuration settings from their default child key (i.e., the first key in
-    // the `childKeyIds` array).
-    // TODO(charlie): Make the multi-function button's long-press interaction
-    // accessible.
-    // NOTE(kevinb): This is only used in the mobile native app.
-    [Keys.FRAC_MULTI]: {
-        childKeyIds: [Keys.FRAC_INCLUSIVE, Keys.FRAC_EXCLUSIVE],
-    },
-
     // TODO(charlie): Use the numeral color for the 'Many' key.
-    [Keys.MANY]: {
-        type: KeyType.MANY,
-        // childKeyIds will be configured by the client.
-    },
+    // MANY: {
+    //     type: KeyType.MANY,
+    //     // childKeyIds will be configured by the client.
+    // },
 
     [Keys.PERIOD]: {},
 };

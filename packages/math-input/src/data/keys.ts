@@ -59,14 +59,9 @@ enum Keys {
 
     NOOP = "NOOP", // mobile native only
 
-    // Multi-functional keys.
     // A custom key that captures an arbitrary number of symbols but has no
     // 'default' symbol or action.
-    FRAC_MULTI = "FRAC_MULTI", // mobile native only
-
-    // A custom key that captures an arbitrary number of symbols but has no
-    // 'default' symbol or action.
-    MANY = "MANY",
+    // MANY = "MANY",
 }
 
 export default Keys;

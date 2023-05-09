@@ -24,7 +24,7 @@ import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
 import type {State} from "../store/types";
-import type {Border, KeyConfig, IconConfig} from "../types";
+import type {Border, NonManyKeyConfig, IconConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface ReduxProps {
@@ -35,7 +35,7 @@ interface ReduxProps {
 interface Props extends ReduxProps {
     ariaLabel?: string;
     borders: Border;
-    childKeys: ReadonlyArray<KeyConfig>;
+    childKeys: ReadonlyArray<NonManyKeyConfig>;
     disabled: boolean;
     focused: boolean;
     popoverEnabled: boolean;
@@ -229,7 +229,7 @@ class KeypadButton extends React.PureComponent<Props> {
             };
             const icons = childKeys.map((keyConfig) => {
                 return keyConfig.icon;
-            });
+            }) as ReadonlyArray<IconConfig>;
             return (
                 <View
                     style={buttonStyle}
@@ -256,7 +256,10 @@ class KeypadButton extends React.PureComponent<Props> {
                 <View style={buttonStyle} {...eventHandlers} {...a11yMarkup}>
                     {maybeFocusBox}
                     <View style={iconWrapperStyle}>
-                        <Icon icon={icon} focused={renderFocused} />
+                        <Icon
+                            icon={icon as IconConfig}
+                            focused={renderFocused}
+                        />
                     </View>
                     {maybeCornerDecal}
                 </View>

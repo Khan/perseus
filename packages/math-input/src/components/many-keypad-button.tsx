@@ -6,8 +6,8 @@
 import * as React from "react";
 
 import KeyConfigs from "../data/key-configs";
-import Keys from "../data/keys";
 import {KeyType} from "../enums";
+import {KeyConfig} from "../types";
 
 import EmptyKeypadButton from "./empty-keypad-button";
 import TouchableKeypadButton from "./touchable-keypad-button";
@@ -33,8 +33,8 @@ class ManyKeypadButton extends React.Component<Props> {
             const keyConfig = KeyConfigs[keys[0]];
             return <TouchableKeypadButton keyConfig={keyConfig} {...rest} />;
         } else {
-            const keyConfig = {
-                id: Keys.MANY,
+            const keyConfig: KeyConfig = {
+                id: "MANY",
                 type: KeyType.MANY,
                 childKeyIds: keys,
             };

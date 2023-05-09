@@ -39,13 +39,21 @@ export type IconConfig = {
     data: string;
 };
 
-export type KeyConfig = {
-    ariaLabel: string;
+export type NonManyKeyConfig = {
     id: Keys;
     type: KeyType;
-    childKeyIds: Array<Keys>;
     icon: IconConfig;
+    ariaLabel: string;
 };
+
+export type ManyKeyConfig = {
+    id: "MANY";
+    type: KeyType.MANY;
+    childKeyIds: ReadonlyArray<string>;
+    ariaLabel?: string;
+};
+
+export type KeyConfig = NonManyKeyConfig | ManyKeyConfig;
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;

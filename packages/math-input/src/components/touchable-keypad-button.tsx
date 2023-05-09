@@ -16,24 +16,34 @@ import {KeyType} from "../enums";
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-import type {Border, IconConfig} from "../types";
+import type {State} from "../store/types";
+import type {Border, IconConfig, KeyConfig, NonManyKeyConfig} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = {
-    borders: Border;
-    childKeyIds: ReadonlyArray<Keys>;
-    disabled: boolean;
-    focused: boolean;
+interface SharedProps {
+    borders?: Border;
+    disabled?: boolean;
+    style?: StyleType;
+}
+
+interface OwnProps extends SharedProps {
+    keyConfig: KeyConfig;
+}
+
+interface Props extends SharedProps {
+    childKeyIds?: ReadonlyArray<string>;
     gestureManager: GestureManager;
-    id: Keys;
+    id: Keys | "MANY";
+    focused: boolean;
     popoverEnabled: boolean;
-    style: StyleType;
-    type: KeyType;
+    childKeys?: ReadonlyArray<NonManyKeyConfig>;
+    ariaLabel?: string;
     icon: IconConfig;
-};
+    type: KeyType;
+}
 
 class TouchableKeypadButton extends React.Component<Props> {
-    shouldComponentUpdate(newProps) {
+    shouldComponentUpdate(newProps: Props) {
         // We take advantage of a few different properties of our key
         // configuration system. Namely, we know that the other props flow
         // directly from the ID, and thus don't need to be checked. If a key has
@@ -102,18 +112,23 @@ class TouchableKeypadButton extends React.Component<Props> {
     }
 }
 
-const extractProps = (keyConfig) => {
+const extractProps = (keyConfig: NonManyKeyConfig) => {
     const {ariaLabel, icon, type} = keyConfig;
     return {ariaLabel, icon, type};
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
     const {gestures} = state;
 
     const {keyConfig, ...rest} = ownProps;
-    const {id, childKeyIds, type} = keyConfig;
+    const {id, type} = keyConfig;
 
-    const childKeys = childKeyIds && childKeyIds.map((id) => KeyConfigs[id]);
+    const childKeyIds =
+        "childKeyIds" in keyConfig ? keyConfig.childKeyIds : undefined;
+
+    const childKeys = childKeyIds
+        ? childKeyIds.map((id) => KeyConfigs[id])
+        : undefined;
 
     // Override with the default child props, if the key is a multi-symbol key
     // (but not a many-symbol key, which operates under different rules).
@@ -128,7 +143,7 @@ const mapStateToProps = (state, ownProps) => {
 
         // Add in some gesture state.
         focused: gestures.focus === id,
-        popoverEnabled: gestures.popover && gestures.popover.parentId === id,
+        popoverEnabled: gestures.popover?.parentId === id,
 
         // Pass down the child keys and any extracted props.
         childKeys,
