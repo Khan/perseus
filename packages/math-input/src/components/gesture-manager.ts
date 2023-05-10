@@ -3,6 +3,7 @@
  * connects our various bits of logic for managing gestures and interactions,
  * and links them together.
  */
+import * as React from "react";
 
 import GestureStateMachine from "./gesture-state-machine";
 import NodeManager from "./node-manager";
@@ -100,7 +101,7 @@ class GestureManager {
      * @param {string} id - the identifier of the DOM node in which the touch
      *                      occurred
      */
-    onTouchStart(evt: TouchEvent, id?) {
+    onTouchStart(evt: React.TouchEvent<Element>, id?: string) {
         if (!this.trackEvents) {
             return;
         }
@@ -130,7 +131,7 @@ class GestureManager {
      *
      * @param {TouchEvent} evt - the raw touch event from the browser
      */
-    onTouchMove(evt: TouchEvent) {
+    onTouchMove(evt: React.TouchEvent<Element>) {
         if (!this.trackEvents) {
             return;
         }
@@ -154,7 +155,7 @@ class GestureManager {
      *
      * @param {TouchEvent} evt - the raw touch event from the browser
      */
-    onTouchEnd(evt: TouchEvent) {
+    onTouchEnd(evt: React.TouchEvent<Element>) {
         if (!this.trackEvents) {
             return;
         }
@@ -175,7 +176,7 @@ class GestureManager {
      *
      * @param {TouchEvent} evt - the raw touch event from the browser
      */
-    onTouchCancel(evt: TouchEvent) {
+    onTouchCancel(evt: React.TouchEvent<Element>) {
         if (!this.trackEvents) {
             return;
         }

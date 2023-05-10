@@ -4,7 +4,7 @@ import * as React from "react";
 import Button from "./button";
 import ButtonAsset from "./button-assets";
 
-import type {KeyConfig} from "../../data/key-configs";
+import type {KeyConfig} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type KeypadPageContainerProps = {

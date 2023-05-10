@@ -14,7 +14,7 @@ export interface InputState {
     // Information about where the cursor is, which we use to
     // conditionally render buttons to help navigate
     // where the cursor should go next
-    cursor: Cursor | undefined;
+    cursor: Cursor | undefined | void;
 }
 
 // Managing high-level keypad state

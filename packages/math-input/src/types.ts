@@ -59,7 +59,7 @@ export type KeypadConfiguration = {
     extraKeys?: ReadonlyArray<Keys>;
 };
 
-export type KeyHandler = (key: Keys) => Cursor;
+export type KeyHandler = (key: Keys) => Cursor | void;
 
 export type Cursor = {
     context: CursorContext;
