@@ -31,13 +31,16 @@ export interface KeypadState {
 
 // Pagination for keypad types with multiple pages
 export interface PagerState {
-    animateToPosition: boolean;
     // On keypad types with multiple pages
     // which page we are on
     currentPage: number;
-    dx: number;
+    // Used for pagination
     numPages: number;
+    // Used for swiping pages
+    dx: number;
+    // Used for swiping pages
     pageWidthPx: number;
+    // Used for swiping pages
     velocityTracker: VelocityTracker;
 }
 
