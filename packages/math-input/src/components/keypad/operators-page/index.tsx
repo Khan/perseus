@@ -5,7 +5,6 @@ import {
     KeypadPageContainer,
     SecondaryKeypadButton,
     KeypadActionButton,
-    PlaceHolderButtons,
 } from "../keypad-page-items";
 
 import {AdvancedRelations} from "./advanced-relations-buttons";
