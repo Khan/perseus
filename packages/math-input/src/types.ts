@@ -11,14 +11,14 @@ import type {CursorContext} from "./components/input/cursor-contexts";
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
-export type Bound = {
+export interface Bound {
     top: number;
     right: number;
     bottom: number;
     left: number;
     height: number;
     width: number;
-};
+}
 
 export type Popover = {
     parentId: Keys;

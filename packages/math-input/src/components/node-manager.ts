@@ -1,4 +1,4 @@
-import type {LayoutProps} from "../types";
+import {LayoutProps, Bound} from "../types";
 /**
  * A manager for our node-to-ID system. In particular, this class is
  * responsible for maintaing a mapping between DOM nodes and node IDs, and
@@ -10,7 +10,7 @@ import type {LayoutProps} from "../types";
 class NodeManager {
     _nodesById: Record<string, HTMLElement>;
     _orderedIds: ReadonlyArray<string>;
-    _cachedBoundingBoxesById: Record<string, DOMRect>;
+    _cachedBoundingBoxesById: Record<string, Bound>;
 
     constructor() {
         // A mapping from IDs to DOM nodes.

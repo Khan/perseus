@@ -14,7 +14,7 @@ import EchoManager from "./echo-manager";
 import PopoverManager from "./popover-manager";
 
 import type {State} from "../store/types";
-import type {Popover, Echo} from "../types";
+import type {Bound, Popover, Echo} from "../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface ReduxProps {
@@ -33,7 +33,7 @@ interface Props extends ReduxProps {
 class Keypad extends React.Component<Props> {
     _isMounted: boolean | undefined;
     _resizeTimeout: number | null | undefined;
-    _container: DOMRect | null | undefined;
+    _container: Bound | null | undefined;
 
     componentDidMount() {
         this._isMounted = true;
