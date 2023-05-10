@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unsafe */
 /* eslint-disable react/sort-comp */
 import {
@@ -7,8 +6,9 @@ import {
     InteractiveGraphWidget,
     SizingUtils,
     Util,
+    PerseusImageBackground,
+    APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
-import createReactClass from "create-react-class";
 import * as React from "react";
 import _ from "underscore";
 
@@ -34,46 +34,80 @@ const deprecatedProps = {
     },
 } as const;
 
-const InteractiveGraphEditor: any = createReactClass({
-    displayName: "InteractiveGraphEditor",
-    className: "perseus-widget-interactive-graph",
+type Props = {
+    apiOptions: APIOptionsWithDefaults;
 
-    statics: {
-        widgetName: "interactive-graph",
-    },
+    labels: ReadonlyArray<string>;
+    range: [x: [min: number, max: number], y: [min: number, max: number]];
+    step: [x: number, y: number];
+    gridStep: [x: number, y: number];
+    snapStep: [x: number, y: number];
+    box: [x: number, y: number];
 
-    getDefaultProps: function () {
-        return {
-            labels: ["x", "y"],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            valid: true,
-            backgroundImage: defaultBackgroundImage,
-            markings: "graph",
-            showProtractor: false,
-            showRuler: false,
-            showTooltips: false,
-            rulerLabel: "",
-            rulerTicks: 10,
-            correct: {
-                type: "linear",
-                coords: null,
-            },
-        };
-    },
+    valid: boolean;
+    backgroundImage: PerseusImageBackground;
+    markings: string; // STOPSHIP
+    showProtractor: boolean;
+    showRuler: boolean;
+    showTooltips: boolean;
+    rulerLabel: string;
+    rulerTicks: number;
+    correct: any; // STOPSHIP
+
+    onChange: (props: Partial<Props>) => void;
+};
+
+type DefaultProps = {
+    labels: Props["labels"];
+    range: Props["range"];
+    step: Props["step"];
+    valid: Props["valid"];
+    backgroundImage: Props["backgroundImage"];
+    markings: Props["markings"];
+    showProtractor: Props["showProtractor"];
+    showRuler: Props["showRuler"];
+    showTooltips: Props["showTooltips"];
+    rulerLabel: Props["rulerLabel"];
+    rulerTicks: Props["rulerTicks"];
+    correct: Props["correct"];
+};
+
+class InteractiveGraphEditor extends React.Component<Props> {
+    displayName = "InteractiveGraphEditor";
+    className = "perseus-widget-interactive-graph";
+
+    static widgetName = "interactive-graph";
+
+    static defaultProps: DefaultProps = {
+        labels: ["x", "y"],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        step: [1, 1],
+        valid: true,
+        backgroundImage: defaultBackgroundImage,
+        markings: "graph",
+        showProtractor: false,
+        showRuler: false,
+        showTooltips: false,
+        rulerLabel: "",
+        rulerTicks: 10,
+        correct: {
+            type: "linear",
+            coords: null,
+        },
+    };
 
     // TODO(jack): Use versioning instead of DeprecationMixin
-    deprecatedProps: deprecatedProps,
+    deprecatedProps = deprecatedProps;
 
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
         DeprecationMixin.UNSAFE_componentWillMount.call(this);
-    },
+    }
 
-    render: function () {
+    render() {
         let graph;
         let equationString;
 
@@ -262,16 +296,16 @@ const InteractiveGraphEditor: any = createReactClass({
                 {graph}
             </div>
         );
-    },
+    }
 
-    changeMatchType: function (e) {
+    changeMatchType(e) {
         const correct = _.extend({}, this.props.correct, {
             match: e.target.value,
         });
         this.props.onChange({correct: correct});
-    },
+    }
 
-    serialize: function () {
+    serialize() {
         const json = _.pick(
             this.props,
             "step",
@@ -318,7 +352,7 @@ const InteractiveGraphEditor: any = createReactClass({
             );
         }
         return json;
-    },
-});
+    }
+}
 
 export default InteractiveGraphEditor;

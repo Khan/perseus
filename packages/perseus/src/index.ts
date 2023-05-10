@@ -124,6 +124,7 @@ export type {ParsedValue} from "./util";
 export type {
     MathFormat,
     InputNumberWidget,
+    PerseusImageBackground,
     PerseusRadioWidgetOptions,
     PerseusRenderer,
 } from "./perseus-types";
