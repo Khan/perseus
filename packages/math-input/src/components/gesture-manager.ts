@@ -198,8 +198,8 @@ class GestureManager {
      *                              intercepting touch events
      * @param {object} borders - an opaque object describing the node's borders
      */
-    registerDOMNode(id, domNode, childIds, borders) {
-        this.nodeManager.registerDOMNode(id, domNode, childIds, borders);
+    registerDOMNode(id, domNode, childIds) {
+        this.nodeManager.registerDOMNode(id, domNode, childIds);
         this.popoverStateMachine.registerPopover(id, childIds);
     }
 

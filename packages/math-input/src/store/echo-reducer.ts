@@ -35,7 +35,6 @@ const echoReducer = function (
                             animationType: action.inPopover
                                 ? EchoAnimationType.LONG_FADE_ONLY
                                 : EchoAnimationType.FADE_ONLY,
-                            borders: action.borders,
                             id: keyConfig.id,
                             initialBounds: action.initialBounds,
                         },
