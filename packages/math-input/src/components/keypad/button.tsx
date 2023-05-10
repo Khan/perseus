@@ -1,10 +1,11 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color from "@khanacademy/wonder-blocks-color";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {View, StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {connect} from "react-redux";
 
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import {State} from "../../store/types";
 
 const styles = StyleSheet.create({
     base: {
@@ -65,7 +66,7 @@ export type Props = {
     tintColor?: string;
 };
 
-export default class Button extends React.Component<Props> {
+class Button extends React.Component<Props> {
     render(): React.ReactNode {
         const {onPress, children, style, tintColor} = this.props;
         return (
@@ -101,3 +102,11 @@ export default class Button extends React.Component<Props> {
         );
     }
 }
+
+function mapStateToProps(state: State) {
+    return {
+        gestureManager: state.gestures.gestureManager,
+    };
+}
+
+export default connect(mapStateToProps, null, null, {forwardRef: true})(Button);
