@@ -14,14 +14,11 @@ import * as React from "react";
 
 import Keys from "../../data/keys";
 
-// TODO: This should be an enumeration of all of the possible legal values
-type KeyId = Keys;
-
-type Props = {id: KeyId};
+type Props = {id: Keys};
 
 export default function ButtonAsset({id}: Props): React.ReactElement {
     switch (id) {
-        case "NUM_0":
+        case Keys.NUM_0:
             return (
                 <svg
                     width="40"
@@ -36,7 +33,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_1":
+        case Keys.NUM_1:
             return (
                 <svg
                     width="40"
@@ -51,7 +48,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_2":
+        case Keys.NUM_2:
             return (
                 <svg
                     width="40"
@@ -66,7 +63,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_3":
+        case Keys.NUM_3:
             return (
                 <svg
                     width="40"
@@ -81,7 +78,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_4":
+        case Keys.NUM_4:
             return (
                 <svg
                     width="40"
@@ -96,7 +93,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_5":
+        case Keys.NUM_5:
             return (
                 <svg
                     width="40"
@@ -111,7 +108,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_6":
+        case Keys.NUM_6:
             return (
                 <svg
                     width="40"
@@ -126,7 +123,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_7":
+        case Keys.NUM_7:
             return (
                 <svg
                     width="40"
@@ -141,7 +138,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_8":
+        case Keys.NUM_8:
             return (
                 <svg
                     width="40"
@@ -156,7 +153,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NUM_9":
+        case Keys.NUM_9:
             return (
                 <svg
                     width="40"
@@ -171,7 +168,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "LEFT_PAREN":
+        case Keys.LEFT_PAREN:
             return (
                 <svg
                     width="40"
@@ -189,7 +186,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "RIGHT_PAREN":
+        case Keys.RIGHT_PAREN:
             return (
                 <svg
                     width="40"
@@ -207,7 +204,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "MINUS":
+        case Keys.MINUS:
             return (
                 <svg
                     width="40"
@@ -225,7 +222,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "PLUS":
+        case Keys.PLUS:
             return (
                 <svg
                     width="40"
@@ -250,7 +247,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "TIMES":
+        case Keys.TIMES:
             return (
                 <svg
                     width="40"
@@ -276,7 +273,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 </svg>
             );
 
-        case "BACKSPACE":
+        case Keys.BACKSPACE:
             return (
                 <svg
                     width="40"
@@ -310,7 +307,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "FRAC_INCLUSIVE":
+        case Keys.FRAC_INCLUSIVE:
             return (
                 <svg
                     width="40"
@@ -327,7 +324,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "NEGATIVE":
+        case Keys.NEGATIVE:
             return (
                 <svg
                     width="40"
@@ -344,7 +341,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "DECIMAL":
+        case Keys.DECIMAL:
             return (
                 <svg
                     width="40"
@@ -366,7 +363,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     </defs>
                 </svg>
             );
-        case "RADICAL":
+        case Keys.RADICAL:
             return (
                 <svg
                     width="40"
@@ -383,7 +380,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "SQRT":
+        case Keys.SQRT:
             return (
                 <svg
                     width="40"
@@ -401,7 +398,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "EXP_2":
+        case Keys.EXP_2:
             return (
                 <svg
                     width="40"
@@ -418,7 +415,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "EXP":
+        case Keys.EXP:
             return (
                 <svg
                     width="40"
@@ -435,14 +432,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "PI":
-            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
-            return <span>pi</span>;
-        case "X":
-            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
-            return <span>x</span>;
-
-        case "TAN":
+        case Keys.TAN:
             return (
                 <svg
                     width="40"
@@ -457,7 +447,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "COS":
+        case Keys.COS:
             return (
                 <svg
                     width="40"
@@ -472,7 +462,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "SIN":
+        case Keys.SIN:
             return (
                 <svg
                     width="40"
@@ -488,86 +478,97 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 </svg>
             );
 
-        case "PERCENT":
-        case "CDOT":
-        case "EQUAL":
-        case "NEQ":
-        case "GT":
-        case "LT":
-        case "GEQ":
-        case "LEQ":
-        case "FRAC_EXCLUSIVE":
-        case "FRAC":
-        case "EXP_3":
-        case "CUBE_ROOT":
-        case "LN":
-        case "LOG":
-        case "LOG_N":
-        case "THETA":
-        case "NOOP":
-        case "UP":
-        case "DOWN":
-        case "LEFT":
-        case "RIGHT":
-        case "JUMP_OUT_PARENTHESES":
-        case "JUMP_OUT_EXPONENT":
-        case "JUMP_OUT_BASE":
-        case "JUMP_INTO_NUMERATOR":
-        case "JUMP_OUT_NUMERATOR":
-        case "JUMP_OUT_DENOMINATOR":
-        case "PERIOD":
-        case "a":
-        case "b":
-        case "c":
-        case "d":
-        case "e":
-        case "f":
-        case "g":
-        case "h":
-        case "i":
-        case "j":
-        case "k":
-        case "l":
-        case "m":
-        case "n":
-        case "o":
-        case "p":
-        case "q":
-        case "r":
-        case "s":
-        case "t":
-        case "u":
-        case "v":
-        case "w":
-        case "x":
-        case "y":
-        case "z":
-        case "A":
-        case "B":
-        case "C":
-        case "D":
-        case "E":
-        case "F":
-        case "G":
-        case "H":
-        case "I":
-        case "J":
-        case "K":
-        case "L":
-        case "M":
-        case "N":
-        case "O":
-        case "P":
-        case "Q":
-        case "R":
-        case "S":
-        case "T":
-        case "U":
-        case "V":
-        case "W":
-        case "Y":
-        case "Z":
-        case "DIVIDE":
+        /**
+         * ANYTHING BELOW IS NOT YET CORRECTLY HANDLED
+         */
+
+        case Keys.PI:
+            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
+            return <span>pi</span>;
+        case Keys.X:
+            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
+            return <span>x</span>;
+        case Keys.MANY:
+        case Keys.PERCENT:
+        case Keys.CDOT:
+        case Keys.EQUAL:
+        case Keys.NEQ:
+        case Keys.GT:
+        case Keys.LT:
+        case Keys.GEQ:
+        case Keys.LEQ:
+        case Keys.FRAC_EXCLUSIVE:
+        case Keys.FRAC:
+        case Keys.EXP_3:
+        case Keys.CUBE_ROOT:
+        case Keys.LN:
+        case Keys.LOG:
+        case Keys.LOG_N:
+        case Keys.THETA:
+        case Keys.NOOP:
+        case Keys.UP:
+        case Keys.DOWN:
+        case Keys.LEFT:
+        case Keys.RIGHT:
+        case Keys.JUMP_OUT_PARENTHESES:
+        case Keys.JUMP_OUT_EXPONENT:
+        case Keys.JUMP_OUT_BASE:
+        case Keys.JUMP_INTO_NUMERATOR:
+        case Keys.JUMP_OUT_NUMERATOR:
+        case Keys.JUMP_OUT_DENOMINATOR:
+        case Keys.PERIOD:
+        case Keys.a:
+        case Keys.b:
+        case Keys.c:
+        case Keys.d:
+        case Keys.e:
+        case Keys.f:
+        case Keys.g:
+        case Keys.h:
+        case Keys.i:
+        case Keys.j:
+        case Keys.k:
+        case Keys.l:
+        case Keys.m:
+        case Keys.n:
+        case Keys.o:
+        case Keys.p:
+        case Keys.q:
+        case Keys.r:
+        case Keys.s:
+        case Keys.t:
+        case Keys.u:
+        case Keys.v:
+        case Keys.w:
+        case Keys.x:
+        case Keys.y:
+        case Keys.z:
+        case Keys.A:
+        case Keys.B:
+        case Keys.C:
+        case Keys.D:
+        case Keys.E:
+        case Keys.F:
+        case Keys.G:
+        case Keys.H:
+        case Keys.I:
+        case Keys.J:
+        case Keys.K:
+        case Keys.L:
+        case Keys.M:
+        case Keys.N:
+        case Keys.O:
+        case Keys.P:
+        case Keys.Q:
+        case Keys.R:
+        case Keys.S:
+        case Keys.T:
+        case Keys.U:
+        case Keys.V:
+        case Keys.W:
+        case Keys.Y:
+        case Keys.Z:
+        case Keys.DIVIDE:
             // placeholder
             return (
                 <svg
@@ -595,10 +596,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 </svg>
             );
         default:
-            return assertUnreachable(id);
+            // this line forces an exhaustive check of all keys;
+            // if a key is not handled, the compiler will complain.
+            const unhandledKey: never = id;
+            throw new Error(`Unhandled key: ${unhandledKey}`);
     }
 }
-
-const assertUnreachable = (id: never): never => {
-    throw new Error(`Unhandled SVG case: ${id}`);
-};

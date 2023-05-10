@@ -16,12 +16,7 @@ import {KeyType} from "../../enums";
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-import type {
-    Border,
-    IconConfig,
-    KeyConfig,
-    NonManyKeyConfig,
-} from "../../types";
+import type {Border, IconConfig, KeyConfig} from "../../types";
 import type {State} from "./store/types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -41,9 +36,9 @@ interface Props extends SharedProps {
     id: Keys | "MANY";
     focused: boolean;
     popoverEnabled: boolean;
-    childKeys?: ReadonlyArray<NonManyKeyConfig>;
+    childKeys?: ReadonlyArray<KeyConfig>;
     ariaLabel?: string;
-    icon: IconConfig;
+    icon?: IconConfig;
     type: KeyType;
 }
 
@@ -116,7 +111,7 @@ class TouchableKeypadButton extends React.Component<Props> {
     }
 }
 
-const extractProps = (keyConfig: NonManyKeyConfig) => {
+const extractProps = (keyConfig: KeyConfig) => {
     const {ariaLabel, icon, type} = keyConfig;
     return {ariaLabel, icon, type};
 };

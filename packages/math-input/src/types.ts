@@ -38,21 +38,17 @@ export type IconConfig = {
     data: string;
 };
 
-export type NonManyKeyConfig = {
+/*
+ * KeyConfig is the configuration for a single key on the keypad.
+ * childKeyIds is used for "MANY" keys, which are collections of keys
+ **/
+export type KeyConfig = {
     id: Keys;
     type: KeyType;
-    icon: IconConfig;
-    ariaLabel: string;
-};
-
-export type ManyKeyConfig = {
-    id: "MANY";
-    type: KeyType.MANY;
-    childKeyIds: ReadonlyArray<string>;
+    icon?: IconConfig;
     ariaLabel?: string;
+    childKeyIds?: ReadonlyArray<string>;
 };
-
-export type KeyConfig = NonManyKeyConfig | ManyKeyConfig;
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;

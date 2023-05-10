@@ -35,12 +35,12 @@ interface ReduxProps {
 interface Props extends ReduxProps {
     ariaLabel?: string;
     borders: Border;
-    childKeys: ReadonlyArray<NonManyKeyConfig>;
+    childKeys: ReadonlyArray<KeyConfig>;
     disabled: boolean;
     focused: boolean;
     popoverEnabled: boolean;
     type: KeyType;
-    icon: IconConfig;
+    icon?: IconConfig;
     style?: StyleType;
     onTouchCancel?: (evt: React.TouchEvent<HTMLDivElement>) => void;
     onTouchEnd?: (evt: React.TouchEvent<HTMLDivElement>) => void;

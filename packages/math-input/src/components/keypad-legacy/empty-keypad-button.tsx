@@ -27,14 +27,16 @@ class EmptyKeypadButton extends React.Component<ReduxProps> {
         // to focus them or trigger presses.
         return (
             <KeypadButton
-                onTouchStart={(evt: TouchEvent) =>
+                onTouchStart={(evt: React.TouchEvent<HTMLDivElement>) =>
                     gestureManager.onTouchStart(evt)
                 }
-                onTouchEnd={(evt: TouchEvent) => gestureManager.onTouchEnd(evt)}
-                onTouchMove={(evt: TouchEvent) =>
+                onTouchEnd={(evt: React.TouchEvent<HTMLDivElement>) =>
+                    gestureManager.onTouchEnd(evt)
+                }
+                onTouchMove={(evt: React.TouchEvent<HTMLDivElement>) =>
                     gestureManager.onTouchMove(evt)
                 }
-                onTouchCancel={(evt: TouchEvent) =>
+                onTouchCancel={(evt: React.TouchEvent<HTMLDivElement>) =>
                     gestureManager.onTouchCancel(evt)
                 }
                 {...KeyConfigs.NOOP}

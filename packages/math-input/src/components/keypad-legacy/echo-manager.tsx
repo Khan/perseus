@@ -36,6 +36,10 @@ class Echo extends React.Component<EchoProps> {
         const {id, initialBounds} = this.props;
         const {icon} = KeyConfigs[id];
 
+        if (!icon) {
+            return null;
+        }
+
         const containerStyle: any = {
             zIndex: zIndexes.echo,
             position: "absolute",
