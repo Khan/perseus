@@ -6,13 +6,15 @@ import ReactJson from "react-json-view";
 type Props = {
     leftTitle: string;
     left: React.ReactNode;
-    perseusObject: any;
+    rightTitle?: string;
+    jsonObject: any;
 };
 
 const SideBySide = ({
     leftTitle = "Renderer",
     left,
-    perseusObject,
+    rightTitle = "Perseus JSON",
+    jsonObject,
 }: Props): React.ReactElement => {
     return (
         <View style={styles.sideBySide}>
@@ -22,13 +24,13 @@ const SideBySide = ({
                 {left}
             </View>
             <View style={styles.rightPanel}>
-                <HeadingMedium>Perseus JSON</HeadingMedium>
+                <HeadingMedium>{rightTitle}</HeadingMedium>
                 <ReactJson
                     style={{marginTop: "10px"}}
                     quotesOnKeys={false}
                     enableClipboard={false}
                     collapsed={5}
-                    src={perseusObject}
+                    src={jsonObject}
                 />
             </View>
         </View>

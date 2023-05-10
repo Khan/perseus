@@ -14,7 +14,9 @@ Dependencies.setDependencies(storybookTestDependencies);
 export const decorators = [
     (Story) => (
         <RenderStateRoot>
-            <Story />
+            <div class="framework-perseus">
+                <Story />
+            </div>
         </RenderStateRoot>
     ),
 ];
