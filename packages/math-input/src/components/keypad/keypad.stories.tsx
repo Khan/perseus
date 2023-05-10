@@ -5,6 +5,10 @@ import * as React from "react";
 
 import Keypad, {Props as KeypadProps} from "./index";
 
+const opsPage = "Operators Page";
+const numsPage = "Numbers Page";
+const geoPage = "Geometry Page";
+
 export default {
     title: "Full Keypad",
     parameters: {
@@ -15,11 +19,55 @@ export default {
     },
     component: Keypad,
     argTypes: {
-        trigonometry: {control: "boolean", defaultValue: false},
-        preAlgebra: {control: "boolean", defaultValue: false},
-        logarithms: {control: "boolean", defaultValue: false},
-        basicRelations: {control: "boolean", defaultValue: false},
-        advancedRelations: {control: "boolean", defaultValue: false},
+        advancedRelations: {
+            control: "boolean",
+            defaultValue: false,
+            table: {
+                category: opsPage,
+            },
+        },
+        basicRelations: {
+            control: "boolean",
+            defaultValue: false,
+            table: {
+                category: opsPage,
+            },
+        },
+        divisionKey: {
+            control: "boolean",
+            defaultValue: false,
+            table: {
+                category: numsPage,
+            },
+        },
+        logarithms: {
+            control: "boolean",
+            defaultValue: false,
+            table: {
+                category: opsPage,
+            },
+        },
+        multiplicationDot: {
+            control: "boolean",
+            defaultValue: false,
+            table: {
+                category: numsPage,
+            },
+        },
+        preAlgebra: {
+            control: "boolean",
+            defaultValue: false,
+            table: {
+                category: opsPage,
+            },
+        },
+        trigonometry: {
+            control: "boolean",
+            defaultValue: false,
+            table: {
+                category: geoPage,
+            },
+        },
     },
 };
 

@@ -8,9 +8,11 @@ import {
     KeypadActionButton,
 } from "../keypad-page-items";
 
+import {NumbersPageOptions} from "./types";
+
 type Props = {
     onClickKey: (keyConfig: string) => void;
-};
+} & NumbersPageOptions;
 
 export default class NumbersPage extends React.Component<Props> {
     render(): React.ReactNode {
@@ -22,7 +24,27 @@ export default class NumbersPage extends React.Component<Props> {
                 <KeypadButton keyConfig={Keys.NUM_8} onClickKey={onClickKey} />
                 <KeypadButton keyConfig={Keys.NUM_9} onClickKey={onClickKey} />
                 <SecondaryKeypadButton
+                    keyConfig={Keys.DIVIDE}
+                    style={
+                        this.props.divisionKey
+                            ? {
+                                  gridColumn: "4",
+                                  gridRow: "1",
+                              }
+                            : {
+                                  display: "none",
+                              }
+                    }
+                    onClickKey={onClickKey}
+                />
+                <SecondaryKeypadButton
                     keyConfig={Keys.TIMES}
+                    style={
+                        this.props.divisionKey && {
+                            gridColumn: "4",
+                            gridRow: "2",
+                        }
+                    }
                     onClickKey={onClickKey}
                 />
                 <SecondaryKeypadButton
@@ -41,6 +63,12 @@ export default class NumbersPage extends React.Component<Props> {
 
                 <SecondaryKeypadButton
                     keyConfig={Keys.MINUS}
+                    style={
+                        this.props.divisionKey && {
+                            gridColumn: "4",
+                            gridRow: "3",
+                        }
+                    }
                     onClickKey={onClickKey}
                 />
 
@@ -58,11 +86,18 @@ export default class NumbersPage extends React.Component<Props> {
 
                 <SecondaryKeypadButton
                     keyConfig={Keys.PLUS}
-                    style={{
-                        gridColumn: "4",
-                        gridRowStart: "3",
-                        gridRowEnd: "5",
-                    }}
+                    style={
+                        this.props.divisionKey
+                            ? {
+                                  gridColumn: "4",
+                                  gridRow: "4",
+                              }
+                            : {
+                                  gridColumn: "4",
+                                  gridRowStart: "3",
+                                  gridRowEnd: "5",
+                              }
+                    }
                     onClickKey={onClickKey}
                 />
 
