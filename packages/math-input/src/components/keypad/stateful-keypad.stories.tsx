@@ -8,5 +8,14 @@ export default {
 };
 
 export function Base() {
-    return <StatefulKeypad handleClickKey={action("handleClickKey")} />;
+    return (
+        <StatefulKeypad
+            handleClickKey={(key) => {
+                // eslint-disable-next-line no-console
+                console.log(key);
+                action("handleClickKey");
+            }}
+            showKeypad
+        />
+    );
 }
