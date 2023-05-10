@@ -15,6 +15,13 @@ export function Base() {
                 console.log(key);
                 action("handleClickKey");
             }}
+            trigonometry
+            preAlgebra
+            logarithms
+            basicRelations
+            advancedRelations
+            multiplicationDot
+            divisionKey
             showKeypad
         />
     );

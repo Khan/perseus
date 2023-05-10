@@ -14,9 +14,26 @@ import Keypad from "./index";
 type Props = {
     handleClickKey: KeyHandler;
     showKeypad: boolean;
+    trigonometry: boolean;
+    preAlgebra: boolean;
+    logarithms: boolean;
+    basicRelations: boolean;
+    advancedRelations: boolean;
+    multiplicationDot: boolean;
+    divisionKey: boolean;
 };
 
-function StatefulKeypad({handleClickKey, showKeypad}: Props) {
+function StatefulKeypad({
+    handleClickKey,
+    showKeypad,
+    trigonometry,
+    preAlgebra,
+    logarithms,
+    basicRelations,
+    advancedRelations,
+    multiplicationDot,
+    divisionKey,
+}: Props) {
     const [store, setStore] = React.useState<any>();
 
     React.useEffect(() => {
@@ -42,13 +59,13 @@ function StatefulKeypad({handleClickKey, showKeypad}: Props) {
         <Provider store={store}>
             <Keypad
                 onClickKey={handleClickKey}
-                trigonometry
-                preAlgebra
-                logarithms
-                basicRelations
-                advancedRelations
-                multiplicationDot
-                divisionKey
+                trigonometry={trigonometry}
+                preAlgebra={preAlgebra}
+                logarithms={logarithms}
+                basicRelations={basicRelations}
+                advancedRelations={advancedRelations}
+                multiplicationDot={multiplicationDot}
+                divisionKey={divisionKey}
             />
         </Provider>
     );
