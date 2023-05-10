@@ -5,7 +5,7 @@ import {createStore} from "../../store/index";
 
 import Keypad from "./index";
 
-function StatefulKeypad() {
+function StatefulKeypad({handleClickKey}) {
     const [store, setStore] = React.useState();
 
     React.useEffect(() => {
@@ -21,7 +21,7 @@ function StatefulKeypad() {
     return (
         <Provider store={store}>
             <Keypad
-                onClickKey={console.log}
+                onClickKey={handleClickKey}
                 trigonometry
                 preAlgebra
                 logarithms

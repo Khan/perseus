@@ -1,4 +1,3 @@
-import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color from "@khanacademy/wonder-blocks-color";
 import {View, StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
@@ -6,6 +5,8 @@ import * as React from "react";
 import {connect} from "react-redux";
 
 import {State} from "../../store/types";
+import {KeyConfig} from "../../types";
+import GestureManager from "../gesture-manager";
 
 const styles = StyleSheet.create({
     base: {
@@ -52,52 +53,60 @@ const styles = StyleSheet.create({
     outerBoxPressed: {
         border: "2px solid #1B50B3",
     },
-    clickable: {
-        width: "100%",
-        height: "100%",
-        boxSizing: "border-box",
-    },
 });
 
-export type Props = {
+type OwnProps = {
     onPress: () => void;
     children: React.ReactNode;
     style?: StyleType;
     tintColor?: string;
+    keyConfig: KeyConfig;
 };
+
+type ReduxProps = {
+    gestureManager: GestureManager;
+};
+
+export type Props = OwnProps & ReduxProps;
 
 class Button extends React.Component<Props> {
     render(): React.ReactNode {
-        const {onPress, children, style, tintColor} = this.props;
+        const {children, style, tintColor, gestureManager, keyConfig} =
+            this.props;
+        const hovered = false;
+        const focused = false;
+        const pressed = false;
         return (
-            <View style={style}>
-                <Clickable onClick={onPress} style={styles.clickable}>
-                    {({hovered, focused, pressed}) => {
-                        return (
-                            <View
-                                style={[
-                                    styles.outerBoxBase,
-                                    hovered && styles.outerBoxHover,
-                                    pressed && styles.outerBoxPressed,
-                                ]}
-                            >
-                                <View
-                                    style={[
-                                        styles.base,
-                                        tintColor != null
-                                            ? {background: tintColor}
-                                            : undefined,
-                                        hovered && styles.hovered,
-                                        focused && styles.focused,
-                                        pressed && styles.pressed,
-                                    ]}
-                                >
-                                    {children}
-                                </View>
-                            </View>
-                        );
-                    }}
-                </Clickable>
+            <View
+                style={style}
+                onTouchStart={(evt) =>
+                    gestureManager.onTouchStart(evt, keyConfig.id)
+                }
+                onTouchEnd={(evt) => gestureManager.onTouchEnd(evt)}
+                onTouchMove={(evt) => gestureManager.onTouchMove(evt)}
+                onTouchCancel={(evt) => gestureManager.onTouchCancel(evt)}
+            >
+                <View
+                    style={[
+                        styles.outerBoxBase,
+                        hovered && styles.outerBoxHover,
+                        pressed && styles.outerBoxPressed,
+                    ]}
+                >
+                    <View
+                        style={[
+                            styles.base,
+                            tintColor != null
+                                ? {background: tintColor}
+                                : undefined,
+                            hovered && styles.hovered,
+                            focused && styles.focused,
+                            pressed && styles.pressed,
+                        ]}
+                    >
+                        {children}
+                    </View>
+                </View>
             </View>
         );
     }

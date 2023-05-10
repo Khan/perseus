@@ -60,7 +60,6 @@ export const createStore = () => {
         state: GestureState = initialGestureState,
         action: Action,
     ): GestureState {
-        console.log(action);
         switch (action.type) {
             case "DismissKeypad":
                 // NOTE(charlie): In the past, we enforced the "gesture manager

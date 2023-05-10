@@ -43,6 +43,7 @@ export const KeypadButton = ({
     style,
 }: KeypadButtonProps): React.ReactElement => (
     <Button
+        keyConfig={keyConfig}
         onPress={() => onClickKey(keyConfig.id)}
         tintColor={tintColor}
         style={style}

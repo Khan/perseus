@@ -25,7 +25,7 @@ class GestureManager {
         this.swipeEnabled = swipeEnabled;
 
         // Events aren't tracked until event tracking is enabled.
-        this.trackEvents = false;
+        this.trackEvents = true;
 
         this.nodeManager = new NodeManager();
         this.popoverStateMachine = new PopoverStateMachine({
