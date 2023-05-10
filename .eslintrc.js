@@ -273,6 +273,11 @@ module.exports = {
         /**
          * react
          */
+        // This rule results in false-positives when using the React.ElementConfig<T>
+        // alias defined in types/react.d.ts in some components.  Since TypeScript is
+        // already checking that components are only using props defined in the
+        // component's `Props` type.
+        "react/prop-types": "off",
         "react/sort-comp": [
             "error",
             {
