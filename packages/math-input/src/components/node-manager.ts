@@ -1,4 +1,4 @@
-import type {Border, LayoutProps} from "../types";
+import {LayoutProps, Bound} from "../types";
 /**
  * A manager for our node-to-ID system. In particular, this class is
  * responsible for maintaing a mapping between DOM nodes and node IDs, and
@@ -9,17 +9,12 @@ import type {Border, LayoutProps} from "../types";
 
 class NodeManager {
     _nodesById: Record<string, HTMLElement>;
-    _bordersById: Record<string, Border>;
     _orderedIds: ReadonlyArray<string>;
-    _cachedBoundingBoxesById: Record<string, DOMRect>;
+    _cachedBoundingBoxesById: Record<string, Bound>;
 
     constructor() {
         // A mapping from IDs to DOM nodes.
         this._nodesById = {};
-
-        // A mapping from IDs to the borders around the DOM nodes, which can be
-        // useful for layout purposes.
-        this._bordersById = {};
 
         // An ordered list of IDs, where DOM nodes that are "higher" on the
         // page come earlier in the list. Note that an ID may be present in
@@ -53,10 +48,8 @@ class NodeManager {
         id: string,
         domNode: HTMLElement,
         childIds: ReadonlyArray<string>,
-        borders: Border,
     ) {
         this._nodesById[id] = domNode;
-        this._bordersById[id] = borders;
 
         // Make sure that any children appear first.
         // TODO(charlie): This is a very simplistic system that wouldn't
@@ -133,7 +126,6 @@ class NodeManager {
 
         return {
             initialBounds: this._cachedBoundingBoxesById[id],
-            borders: this._bordersById[id],
         };
     }
 }

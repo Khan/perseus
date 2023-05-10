@@ -1,11 +1,11 @@
 import Keys from "../data/keys";
 
 import type {
+    Bound,
     KeypadConfiguration,
     KeyHandler,
     Cursor,
     ActiveNodesObj,
-    Border,
 } from "../types";
 
 // naming convention: verb + noun
@@ -145,21 +145,18 @@ export const setActiveNodes = (
 type PressKeyAction = {
     type: "PressKey";
     key: Keys;
-    borders: Border;
-    initialBounds: DOMRect;
+    initialBounds: Bound;
     inPopover: boolean;
 };
 
 export const pressKey = (
     key: Keys,
-    borders: Border,
-    initialBounds: DOMRect,
+    initialBounds: Bound,
     inPopover: any,
 ): PressKeyAction => {
     return {
         type: "PressKey",
         key,
-        borders,
         initialBounds,
         inPopover,
     };

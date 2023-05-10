@@ -39,12 +39,7 @@ export const createStore = () => {
                     inPopover: boolean,
                 ) => {
                     store.dispatch(
-                        pressKey(
-                            key,
-                            layoutProps.borders,
-                            layoutProps.initialBounds,
-                            inPopover,
-                        ),
+                        pressKey(key, layoutProps.initialBounds, inPopover),
                     );
                 },
             },

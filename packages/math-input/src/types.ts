@@ -11,14 +11,14 @@ import type {CursorContext} from "./components/input/cursor-contexts";
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
-export type Bound = {
+export interface Bound {
     top: number;
     right: number;
     bottom: number;
     left: number;
     height: number;
     width: number;
-};
+}
 
 export type Popover = {
     parentId: Keys;
@@ -29,9 +29,8 @@ export type Popover = {
 export type Echo = {
     animationId: string;
     animationType: EchoAnimationType;
-    borders: Border;
     id: Keys;
-    initialBounds: DOMRect;
+    initialBounds: Bound;
 };
 
 export type IconConfig = {
@@ -86,4 +85,4 @@ export type ActiveNodesObj = {
     focus: string | null;
 };
 
-export type LayoutProps = {initialBounds: DOMRect; borders: Border};
+export type LayoutProps = {initialBounds: Bound};

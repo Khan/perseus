@@ -12,11 +12,10 @@ import {KeyType, EchoAnimationType} from "../enums";
 import KeypadButton from "./keypad-button";
 import * as zIndexes from "./z-indexes";
 
-import type {Border, Bound} from "../types";
+import type {Bound, Echo as EchoType} from "../types";
 
 type EchoProps = {
     animationDurationMs: number;
-    borders: Border;
     id: Keys;
     initialBounds: Bound;
     onAnimationFinish: () => void;
@@ -34,7 +33,7 @@ class Echo extends React.Component<EchoProps> {
     }
 
     render() {
-        const {borders, id, initialBounds} = this.props;
+        const {id, initialBounds} = this.props;
         const {icon} = KeyConfigs[id];
 
         const containerStyle: any = {
@@ -51,26 +50,14 @@ class Echo extends React.Component<EchoProps> {
         // applied via StyleSheet, will override our inlines.
         return (
             <div style={containerStyle}>
-                <KeypadButton
-                    icon={icon}
-                    type={KeyType.ECHO}
-                    borders={borders}
-                />
+                <KeypadButton icon={icon} type={KeyType.ECHO} />
             </div>
         );
     }
 }
 
-type EchoPropType = {
-    animationId: string;
-    animationType: EchoAnimationType;
-    borders: Border;
-    id: Keys;
-    initialBounds: Bound;
-};
-
 type EchoManagerProps = {
-    echoes: ReadonlyArray<EchoPropType>;
+    echoes: ReadonlyArray<EchoType>;
     onAnimationFinish?: (animationId: string) => void;
 };
 

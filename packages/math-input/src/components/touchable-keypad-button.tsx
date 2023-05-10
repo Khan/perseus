@@ -99,7 +99,6 @@ class TouchableKeypadButton extends React.Component<Props> {
                         id,
                         ReactDOM.findDOMNode(node),
                         childKeyIds,
-                        borders,
                     )
                 }
                 borders={borders}
