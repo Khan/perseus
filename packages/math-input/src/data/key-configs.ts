@@ -4,29 +4,26 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
 import {DecimalSeparator, IconType, KeyType} from "../enums";
-import {IconConfig, KeyConfig} from "../types";
+import {KeyConfig} from "../types";
 import {decimalSeparator} from "../utils";
 
 import Key from "./keys";
 
-const getKeyConfigFields = ({
-    key,
-    keyType = "OPERATOR",
-    iconType = IconType.SVG,
-    ariaLabel = key,
-    data = key,
-}: {
+type KeyConfigMapper = (args: {
     key: Key;
     keyType?: KeyType;
     iconType?: IconType;
     ariaLabel?: string;
     data?: string;
-}): {
-    id: Key;
-    type: KeyType;
-    icon: IconConfig;
-    ariaLabel: string;
-} => ({
+}) => KeyConfig;
+
+const getDefaultOperatorFields: KeyConfigMapper = ({
+    key,
+    keyType = "OPERATOR",
+    iconType = IconType.SVG,
+    ariaLabel = key,
+    data = key,
+}) => ({
     id: key,
     type: keyType,
     ariaLabel,
@@ -36,50 +33,79 @@ const getKeyConfigFields = ({
     },
 });
 
-// I tried to make the below {[key in Keys"]: KeyConfig}
-// but we are doing all kinds of sneaky magic that makes it hard to
-// type this safely. Leaving it for now as a generic index signature.
+const getDefaultValueFields: KeyConfigMapper = ({
+    key,
+    keyType = "VALUE",
+    iconType = IconType.MATH,
+    ariaLabel = key,
+    data = key,
+}) => ({
+    id: key,
+    type: keyType,
+    ariaLabel,
+    icon: {
+        type: iconType,
+        data,
+    },
+});
+
+const getDefaultNumberFields: KeyConfigMapper = ({
+    key,
+    data = key.replace("NUM_", ""),
+    keyType = "VALUE",
+    iconType = IconType.TEXT,
+    ariaLabel = data,
+}) => ({
+    id: key,
+    type: keyType,
+    ariaLabel,
+    icon: {
+        type: iconType,
+        data,
+    },
+});
+
 const KeyConfigs: {
     [key in Key]: KeyConfig;
 } = {
     // Basic math
-    ["PLUS"]: {
-        ...getKeyConfigFields({
+    PLUS: {
+        ...getDefaultOperatorFields({
             key: "PLUS",
             // I18N: A label for a 'plus' sign.
             ariaLabel: i18n._("Plus"),
         }),
     },
-    ["MINUS"]: {
-        ...getKeyConfigFields({
+    MINUS: {
+        ...getDefaultOperatorFields({
             key: "MINUS",
             // I18N: A label for a 'minus' sign.
             ariaLabel: i18n._("Minus"),
         }),
     },
-    ["NEGATIVE"]: {
-        ...getKeyConfigFields({
+    NEGATIVE: {
+        ...getDefaultOperatorFields({
             key: "NEGATIVE",
             // I18N: A label for a 'negative' sign.
             ariaLabel: i18n._("Negative"),
         }),
     },
-    ["TIMES"]: {
-        ...getKeyConfigFields({
+    TIMES: {
+        ...getDefaultOperatorFields({
             key: "TIMES",
             // I18N: A label for a 'multiply' sign.
             ariaLabel: i18n._("Multiply"),
         }),
     },
-    ["DIVIDE"]: {
-        ...getKeyConfigFields({
+    DIVIDE: {
+        ...getDefaultOperatorFields({
             key: "DIVIDE",
             // I18N: A label for a 'divide' sign.
             ariaLabel: i18n._("Divide"),
         }),
     },
-    ["DECIMAL"]: {
-        ...getKeyConfigFields({
+    DECIMAL: {
+        ...getDefaultOperatorFields({
             key: "DECIMAL",
             keyType: "VALUE",
             // I18N: A label for a 'decimal' sign (represented as '.' or ',').
@@ -98,72 +124,72 @@ const KeyConfigs: {
                       data: "PERIOD",
                   },
     },
-    ["PERIOD"]: {
-        ...getKeyConfigFields({
+    PERIOD: {
+        ...getDefaultOperatorFields({
             key: "PERIOD",
             keyType: "VALUE",
             ariaLabel: ".",
         }),
     },
-    ["PERCENT"]: {
-        ...getKeyConfigFields({
+    PERCENT: {
+        ...getDefaultOperatorFields({
             key: "PERCENT",
             // I18N: A label for a 'percent' sign (represented as '%').
             ariaLabel: i18n._("Percent"),
         }),
     },
-    ["CDOT"]: {
-        ...getKeyConfigFields({
+    CDOT: {
+        ...getDefaultOperatorFields({
             key: "CDOT",
             // I18N: A label for a 'centered dot' multiplication sign (represented as '⋅').
             ariaLabel: i18n._("Multiply"),
         }),
     },
-    ["EQUAL"]: {
-        ...getKeyConfigFields({
+    EQUAL: {
+        ...getDefaultOperatorFields({
             key: "EQUAL",
             // I18N: A label for an 'equals' sign (represented as '=').
             ariaLabel: i18n._("Equals sign"),
         }),
     },
-    ["NEQ"]: {
-        ...getKeyConfigFields({
+    NEQ: {
+        ...getDefaultOperatorFields({
             key: "NEQ",
             // I18N: A label for a 'not-equals' sign (represented as '≠').
             ariaLabel: i18n._("Not-equals sign"),
         }),
     },
-    ["GT"]: {
-        ...getKeyConfigFields({
+    GT: {
+        ...getDefaultOperatorFields({
             key: "GT",
             // I18N: A label for a 'greater than' sign (represented as '>').
             ariaLabel: i18n._("Greater than sign"),
         }),
     },
-    ["LT"]: {
-        ...getKeyConfigFields({
+    LT: {
+        ...getDefaultOperatorFields({
             key: "LT",
             // I18N: A label for a 'less than' sign (represented as '<').
             ariaLabel: i18n._("Less than sign"),
         }),
     },
-    ["GEQ"]: {
-        ...getKeyConfigFields({
+    GEQ: {
+        ...getDefaultOperatorFields({
             key: "GEQ",
             // I18N: A label for a 'greater than or equal to' sign (represented as '≥').
             ariaLabel: i18n._("Greater than or equal to sign"),
         }),
     },
-    ["LEQ"]: {
-        ...getKeyConfigFields({
+    LEQ: {
+        ...getDefaultOperatorFields({
             key: "LEQ",
             // I18N: A label for a 'less than or equal to' sign (represented as '≤').
             ariaLabel: i18n._("Less than or equal to sign"),
         }),
     },
     // mobile native
-    ["FRAC_INCLUSIVE"]: {
-        ...getKeyConfigFields({
+    FRAC_INCLUSIVE: {
+        ...getDefaultOperatorFields({
             key: "FRAC_INCLUSIVE",
             // I18N: A label for a button that creates a new fraction and puts the
             // current expression in the numerator of that fraction.
@@ -171,8 +197,8 @@ const KeyConfigs: {
         }),
     },
     // mobile native
-    ["FRAC_EXCLUSIVE"]: {
-        ...getKeyConfigFields({
+    FRAC_EXCLUSIVE: {
+        ...getDefaultOperatorFields({
             key: "FRAC_EXCLUSIVE",
             // I18N: A label for a button that creates a new fraction next to the
             // cursor.
@@ -180,206 +206,202 @@ const KeyConfigs: {
         }),
     },
     // mobile web
-    ["FRAC"]: {
-        ...getKeyConfigFields({
+    FRAC: {
+        ...getDefaultOperatorFields({
             key: "FRAC",
             // I18N: A label for a button that creates a new fraction next to the
             // cursor.
             ariaLabel: i18n._("Fraction, excluding the current expression"),
         }),
     },
-    ["EXP"]: {
-        ...getKeyConfigFields({
+    EXP: {
+        ...getDefaultOperatorFields({
             key: "EXP",
             // I18N: A label for a button that will allow the user to input a
             // custom exponent.
             ariaLabel: i18n._("Custom exponent"),
         }),
     },
-    ["EXP_2"]: {
-        ...getKeyConfigFields({
+    EXP_2: {
+        ...getDefaultOperatorFields({
             key: "EXP_2",
             // I18N: A label for a button that will square (take to the second
             // power) some math.
             ariaLabel: i18n._("Square"),
         }),
     },
-    ["EXP_3"]: {
-        ...getKeyConfigFields({
+    EXP_3: {
+        ...getDefaultOperatorFields({
             key: "EXP_3",
             // I18N: A label for a button that will cube (take to the third power)
             // some math.
             ariaLabel: i18n._("Cube"),
         }),
     },
-    ["SQRT"]: {
-        ...getKeyConfigFields({
+    SQRT: {
+        ...getDefaultOperatorFields({
             key: "SQRT",
             // I18N: A label for a button that will allow the user to input a
             // square root.
             ariaLabel: i18n._("Square root"),
         }),
     },
-    ["CUBE_ROOT"]: {
-        ...getKeyConfigFields({
+    CUBE_ROOT: {
+        ...getDefaultOperatorFields({
             key: "CUBE_ROOT",
             // I18N: A label for a button that will allow the user to input a
             // cube root.
             ariaLabel: i18n._("Cube root"),
         }),
     },
-    ["RADICAL"]: {
-        ...getKeyConfigFields({
+    RADICAL: {
+        ...getDefaultOperatorFields({
             key: "RADICAL",
             // I18N: A label for a button that will allow the user to input a
             // radical with a custom root.
             ariaLabel: i18n._("Radical with custom root"),
         }),
     },
-    ["LEFT_PAREN"]: {
-        ...getKeyConfigFields({
+    LEFT_PAREN: {
+        ...getDefaultOperatorFields({
             key: "LEFT_PAREN",
             // I18N: A label for a button that will allow the user to input a
             // left parenthesis (i.e. '(')
             ariaLabel: i18n._("Left parenthesis"),
         }),
     },
-    ["RIGHT_PAREN"]: {
-        ...getKeyConfigFields({
+    RIGHT_PAREN: {
+        ...getDefaultOperatorFields({
             key: "RIGHT_PAREN",
             // I18N: A label for a button that will allow the user to input a
             // right parenthesis (i.e. ')')
             ariaLabel: i18n._("Right parenthesis"),
         }),
     },
-    ["LN"]: {
-        ...getKeyConfigFields({
+    LN: {
+        ...getDefaultOperatorFields({
             key: "LN",
             // I18N: A label for a button that will allow the user to input a
             // natural logarithm.
             ariaLabel: i18n._("Natural logarithm"),
         }),
     },
-    ["LOG"]: {
-        ...getKeyConfigFields({
+    LOG: {
+        ...getDefaultOperatorFields({
             key: "LOG",
             // I18N: A label for a button that will allow the user to input a
             // logarithm with base 10.
             ariaLabel: i18n._("Logarithm with base 10"),
         }),
     },
-    ["LOG_N"]: {
-        ...getKeyConfigFields({
+    LOG_N: {
+        ...getDefaultOperatorFields({
             key: "LOG_N",
             // I18N: A label for a button that will allow the user to input a
             // logarithm with a custom base.
             ariaLabel: i18n._("Logarithm with custom base"),
         }),
     },
-    ["SIN"]: {
-        ...getKeyConfigFields({
+    SIN: {
+        ...getDefaultOperatorFields({
             key: "SIN",
             // I18N: A label for a button that will allow the user to input a
             // sine function.
             ariaLabel: i18n._("Sine"),
         }),
     },
-    ["COS"]: {
-        ...getKeyConfigFields({
+    COS: {
+        ...getDefaultOperatorFields({
             key: "COS",
             // I18N: A label for a button that will allow the user to input a
             // cosine function.
             ariaLabel: i18n._("Cosine"),
         }),
     },
-    ["TAN"]: {
-        ...getKeyConfigFields({
+    TAN: {
+        ...getDefaultOperatorFields({
             key: "TAN",
             // I18N: A label for a button that will allow the user to input a
             // tangent function.
             ariaLabel: i18n._("Tangent"),
         }),
     },
-    ["PI"]: {
-        ...getKeyConfigFields({
+    PI: {
+        ...getDefaultValueFields({
             key: "PI",
-            keyType: "VALUE",
-            iconType: IconType.MATH,
             data: "\\pi",
             // I18N: A label for a button that will allow the user to input the
             // mathematical constant pi (i.e., π)
             ariaLabel: i18n._("Pi"),
         }),
     },
-    ["THETA"]: {
-        ...getKeyConfigFields({
+    THETA: {
+        ...getDefaultValueFields({
             key: "THETA",
-            keyType: "VALUE",
-            iconType: IconType.MATH,
             data: "\\theta",
             // I18N: A label for a button that will allow the user to input the
             // mathematical constant theta (i.e., θ)
             ariaLabel: i18n._("Theta"),
         }),
     },
-    ["NOOP"]: {
-        ...getKeyConfigFields({
+    NOOP: {
+        ...getDefaultOperatorFields({
             key: "NOOP",
             keyType: "EMPTY",
         }),
     },
     // Input navigation
-    ["UP"]: {
-        ...getKeyConfigFields({
+    UP: {
+        ...getDefaultOperatorFields({
             key: "UP",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._("Up arrow"),
         }),
     },
-    ["RIGHT"]: {
-        ...getKeyConfigFields({
+    RIGHT: {
+        ...getDefaultOperatorFields({
             key: "RIGHT",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._("Right arrow"),
         }),
     },
-    ["DOWN"]: {
-        ...getKeyConfigFields({
+    DOWN: {
+        ...getDefaultOperatorFields({
             key: "DOWN",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._("Down arrow"),
         }),
     },
-    ["LEFT"]: {
-        ...getKeyConfigFields({
+    LEFT: {
+        ...getDefaultOperatorFields({
             key: "LEFT",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._("Left arrow"),
         }),
     },
-    ["JUMP_OUT_PARENTHESES"]: {
-        ...getKeyConfigFields({
+    JUMP_OUT_PARENTHESES: {
+        ...getDefaultOperatorFields({
             key: "JUMP_OUT_PARENTHESES",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._("Navigate right out of a set of parentheses"),
         }),
     },
-    ["JUMP_OUT_EXPONENT"]: {
-        ...getKeyConfigFields({
+    JUMP_OUT_EXPONENT: {
+        ...getDefaultOperatorFields({
             key: "JUMP_OUT_EXPONENT",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._("Navigate right out of an exponent"),
         }),
     },
-    ["JUMP_OUT_BASE"]: {
-        ...getKeyConfigFields({
+    JUMP_OUT_BASE: {
+        ...getDefaultOperatorFields({
             key: "JUMP_OUT_BASE",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._("Navigate right out of a base"),
         }),
     },
-    ["JUMP_INTO_NUMERATOR"]: {
-        ...getKeyConfigFields({
+    JUMP_INTO_NUMERATOR: {
+        ...getDefaultOperatorFields({
             key: "JUMP_INTO_NUMERATOR",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._(
@@ -387,8 +409,8 @@ const KeyConfigs: {
             ),
         }),
     },
-    ["JUMP_OUT_NUMERATOR"]: {
-        ...getKeyConfigFields({
+    JUMP_OUT_NUMERATOR: {
+        ...getDefaultOperatorFields({
             key: "JUMP_OUT_NUMERATOR",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._(
@@ -396,8 +418,8 @@ const KeyConfigs: {
             ),
         }),
     },
-    ["JUMP_OUT_DENOMINATOR"]: {
-        ...getKeyConfigFields({
+    JUMP_OUT_DENOMINATOR: {
+        ...getDefaultOperatorFields({
             key: "JUMP_OUT_DENOMINATOR",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._(
@@ -405,8 +427,8 @@ const KeyConfigs: {
             ),
         }),
     },
-    ["BACKSPACE"]: {
-        ...getKeyConfigFields({
+    BACKSPACE: {
+        ...getDefaultOperatorFields({
             key: "BACKSPACE",
             keyType: "INPUT_NAVIGATION",
             ariaLabel: i18n._("Delete"),
@@ -414,8 +436,8 @@ const KeyConfigs: {
     },
 
     // Keypad navigation
-    ["DISMISS"]: {
-        ...getKeyConfigFields({
+    DISMISS: {
+        ...getDefaultOperatorFields({
             key: "DISMISS",
             keyType: "KEYPAD_NAVIGATION",
             // I18N: A label for a button that will dismiss/hide a keypad.
@@ -424,573 +446,325 @@ const KeyConfigs: {
     },
 
     // TODO(charlie): Use the numeral color for the 'Many' key.
-    ["MANY"]: {
-        ...getKeyConfigFields({
+    MANY: {
+        ...getDefaultOperatorFields({
             key: "MANY",
             keyType: "MANY",
         }),
     },
 
     // NUMBERS
-    ["NUM_0"]: {
-        type: "VALUE",
-        ariaLabel: "0",
-        icon: {
-            type: IconType.TEXT,
-            data: "0",
-        },
-        id: "NUM_0",
+    NUM_0: {
+        ...getDefaultNumberFields({
+            key: "NUM_0",
+        }),
     },
-    ["NUM_1"]: {
-        type: "VALUE",
-        ariaLabel: "1",
-        icon: {
-            type: IconType.TEXT,
-            data: "1",
-        },
-        id: "NUM_1",
+    NUM_1: {
+        ...getDefaultNumberFields({
+            key: "NUM_1",
+        }),
     },
-    ["NUM_2"]: {
-        type: "VALUE",
-        ariaLabel: "2",
-        icon: {
-            type: IconType.TEXT,
-            data: "2",
-        },
-        id: "NUM_2",
+    NUM_2: {
+        ...getDefaultNumberFields({
+            key: "NUM_2",
+        }),
     },
-    ["NUM_3"]: {
-        type: "VALUE",
-        ariaLabel: "3",
-        icon: {
-            type: IconType.TEXT,
-            data: "3",
-        },
-        id: "NUM_3",
+    NUM_3: {
+        ...getDefaultNumberFields({
+            key: "NUM_3",
+        }),
     },
-    ["NUM_4"]: {
-        type: "VALUE",
-        ariaLabel: "4",
-        icon: {
-            type: IconType.TEXT,
-            data: "4",
-        },
-        id: "NUM_4",
+    NUM_4: {
+        ...getDefaultNumberFields({
+            key: "NUM_4",
+        }),
     },
-    ["NUM_5"]: {
-        type: "VALUE",
-        ariaLabel: "5",
-        icon: {
-            type: IconType.TEXT,
-            data: "5",
-        },
-        id: "NUM_5",
+    NUM_5: {
+        ...getDefaultNumberFields({
+            key: "NUM_5",
+        }),
     },
-    ["NUM_6"]: {
-        type: "VALUE",
-        ariaLabel: "6",
-        icon: {
-            type: IconType.TEXT,
-            data: "6",
-        },
-        id: "NUM_6",
+    NUM_6: {
+        ...getDefaultNumberFields({
+            key: "NUM_6",
+        }),
     },
-    ["NUM_7"]: {
-        type: "VALUE",
-        ariaLabel: "7",
-        icon: {
-            type: IconType.TEXT,
-            data: "7",
-        },
-        id: "NUM_7",
+    NUM_7: {
+        ...getDefaultNumberFields({
+            key: "NUM_7",
+        }),
     },
-    ["NUM_8"]: {
-        type: "VALUE",
-        ariaLabel: "8",
-        icon: {
-            type: IconType.TEXT,
-            data: "8",
-        },
-        id: "NUM_8",
+    NUM_8: {
+        ...getDefaultNumberFields({
+            key: "NUM_8",
+        }),
     },
-    ["NUM_9"]: {
-        type: "VALUE",
-        ariaLabel: "9",
-        icon: {
-            type: IconType.TEXT,
-            data: "9",
-        },
-        id: "NUM_9",
+    NUM_9: {
+        ...getDefaultNumberFields({
+            key: "NUM_9",
+        }),
     },
 
-    // LETTERS (value handled below)
-    ["A"]: {
-        type: "VALUE",
-        ariaLabel: "A",
-        icon: {
-            type: IconType.MATH,
-            data: "B",
-        },
-        id: "A",
+    // LETTERS
+    A: {
+        ...getDefaultValueFields({
+            key: "A",
+        }),
     },
-    ["B"]: {
-        type: "VALUE",
-        ariaLabel: "B",
-        icon: {
-            type: IconType.MATH,
-            data: "B",
-        },
-        id: "B",
+    B: {
+        ...getDefaultValueFields({
+            key: "B",
+        }),
     },
-    ["C"]: {
-        type: "VALUE",
-        ariaLabel: "C",
-        icon: {
-            type: IconType.MATH,
-            data: "C",
-        },
-        id: "C",
+    C: {
+        ...getDefaultValueFields({
+            key: "C",
+        }),
     },
-    ["D"]: {
-        type: "VALUE",
-        ariaLabel: "D",
-        icon: {
-            type: IconType.MATH,
-            data: "D",
-        },
-        id: "D",
+    D: {
+        ...getDefaultValueFields({
+            key: "D",
+        }),
     },
-    ["E"]: {
-        type: "VALUE",
-        ariaLabel: "E",
-        icon: {
-            type: IconType.MATH,
-            data: "E",
-        },
-        id: "E",
+    E: {
+        ...getDefaultValueFields({
+            key: "E",
+        }),
     },
-    ["F"]: {
-        type: "VALUE",
-        ariaLabel: "F",
-        icon: {
-            type: IconType.MATH,
-            data: "F",
-        },
-        id: "F",
+    F: {
+        ...getDefaultValueFields({
+            key: "F",
+        }),
     },
-    ["G"]: {
-        type: "VALUE",
-        ariaLabel: "G",
-        icon: {
-            type: IconType.MATH,
-            data: "G",
-        },
-        id: "G",
+    G: {
+        ...getDefaultValueFields({
+            key: "G",
+        }),
     },
-    ["H"]: {
-        type: "VALUE",
-        ariaLabel: "H",
-        icon: {
-            type: IconType.MATH,
-            data: "H",
-        },
-        id: "H",
+    H: {
+        ...getDefaultValueFields({
+            key: "H",
+        }),
     },
-    ["I"]: {
-        type: "VALUE",
-        ariaLabel: "I",
-        icon: {
-            type: IconType.MATH,
-            data: "I",
-        },
-        id: "I",
+    I: {
+        ...getDefaultValueFields({
+            key: "I",
+        }),
     },
-    ["J"]: {
-        type: "VALUE",
-        ariaLabel: "J",
-        icon: {
-            type: IconType.MATH,
-            data: "J",
-        },
-        id: "J",
+    J: {
+        ...getDefaultValueFields({
+            key: "J",
+        }),
     },
-    ["K"]: {
-        type: "VALUE",
-        ariaLabel: "K",
-        icon: {
-            type: IconType.MATH,
-            data: "K",
-        },
-        id: "K",
+    K: {
+        ...getDefaultValueFields({
+            key: "K",
+        }),
     },
-    ["L"]: {
-        type: "VALUE",
-        ariaLabel: "L",
-        icon: {
-            type: IconType.MATH,
-            data: "L",
-        },
-        id: "L",
+    L: {
+        ...getDefaultValueFields({
+            key: "L",
+        }),
     },
-    ["M"]: {
-        type: "VALUE",
-        ariaLabel: "M",
-        icon: {
-            type: IconType.MATH,
-            data: "M",
-        },
-        id: "M",
+    M: {
+        ...getDefaultValueFields({
+            key: "M",
+        }),
     },
-    ["N"]: {
-        type: "VALUE",
-        ariaLabel: "N",
-        icon: {
-            type: IconType.MATH,
-            data: "N",
-        },
-        id: "N",
+    N: {
+        ...getDefaultValueFields({
+            key: "N",
+        }),
     },
-    ["O"]: {
-        type: "VALUE",
-        ariaLabel: "O",
-        icon: {
-            type: IconType.MATH,
-            data: "O",
-        },
-        id: "O",
+    O: {
+        ...getDefaultValueFields({
+            key: "O",
+        }),
     },
-    ["P"]: {
-        type: "VALUE",
-        ariaLabel: "P",
-        icon: {
-            type: IconType.MATH,
-            data: "P",
-        },
-        id: "P",
+    P: {
+        ...getDefaultValueFields({
+            key: "P",
+        }),
     },
-    ["Q"]: {
-        type: "VALUE",
-        ariaLabel: "Q",
-        icon: {
-            type: IconType.MATH,
-            data: "Q",
-        },
-        id: "Q",
+    Q: {
+        ...getDefaultValueFields({
+            key: "Q",
+        }),
     },
-    ["R"]: {
-        type: "VALUE",
-        ariaLabel: "R",
-        icon: {
-            type: IconType.MATH,
-            data: "R",
-        },
-        id: "R",
+    R: {
+        ...getDefaultValueFields({
+            key: "R",
+        }),
     },
-    ["S"]: {
-        type: "VALUE",
-        ariaLabel: "S",
-        icon: {
-            type: IconType.MATH,
-            data: "S",
-        },
-        id: "S",
+    S: {
+        ...getDefaultValueFields({
+            key: "S",
+        }),
     },
-    ["T"]: {
-        type: "VALUE",
-        ariaLabel: "T",
-        icon: {
-            type: IconType.MATH,
-            data: "T",
-        },
-        id: "T",
+    T: {
+        ...getDefaultValueFields({
+            key: "T",
+        }),
     },
-    ["U"]: {
-        type: "VALUE",
-        ariaLabel: "U",
-        icon: {
-            type: IconType.MATH,
-            data: "U",
-        },
-        id: "U",
+    U: {
+        ...getDefaultValueFields({
+            key: "U",
+        }),
     },
-    ["V"]: {
-        type: "VALUE",
-        ariaLabel: "V",
-        icon: {
-            type: IconType.MATH,
-            data: "V",
-        },
-        id: "V",
+    V: {
+        ...getDefaultValueFields({
+            key: "V",
+        }),
     },
-    ["W"]: {
-        type: "VALUE",
-        ariaLabel: "W",
-        icon: {
-            type: IconType.MATH,
-            data: "W",
-        },
-        id: "W",
+    W: {
+        ...getDefaultValueFields({
+            key: "W",
+        }),
     },
-    ["X"]: {
-        type: "VALUE",
-        ariaLabel: "X",
-        icon: {
-            type: IconType.MATH,
-            data: "X",
-        },
-        id: "X",
+    X: {
+        ...getDefaultValueFields({
+            key: "X",
+        }),
     },
-    ["Y"]: {
-        type: "VALUE",
-        ariaLabel: "Y",
-        icon: {
-            type: IconType.MATH,
-            data: "Y",
-        },
-        id: "Y",
+    Y: {
+        ...getDefaultValueFields({
+            key: "Y",
+        }),
     },
-    ["Z"]: {
-        type: "VALUE",
-        ariaLabel: "Z",
-        icon: {
-            type: IconType.MATH,
-            data: "Z",
-        },
-        id: "Z",
+    Z: {
+        ...getDefaultValueFields({
+            key: "Z",
+        }),
     },
-    ["a"]: {
-        type: "VALUE",
-        ariaLabel: "a",
-        icon: {
-            type: IconType.MATH,
-            data: "a",
-        },
-        id: "a",
+    a: {
+        ...getDefaultValueFields({
+            key: "a",
+        }),
     },
-    ["b"]: {
-        type: "VALUE",
-        ariaLabel: "b",
-        icon: {
-            type: IconType.MATH,
-            data: "b",
-        },
-        id: "b",
+    b: {
+        ...getDefaultValueFields({
+            key: "b",
+        }),
     },
-    ["c"]: {
-        type: "VALUE",
-        ariaLabel: "c",
-        icon: {
-            type: IconType.MATH,
-            data: "c",
-        },
-        id: "c",
+    c: {
+        ...getDefaultValueFields({
+            key: "c",
+        }),
     },
-    ["d"]: {
-        type: "VALUE",
-        ariaLabel: "d",
-        icon: {
-            type: IconType.MATH,
-            data: "d",
-        },
-        id: "d",
+    d: {
+        ...getDefaultValueFields({
+            key: "d",
+        }),
     },
-    ["e"]: {
-        type: "VALUE",
-        ariaLabel: "e",
-        icon: {
-            type: IconType.MATH,
-            data: "e",
-        },
-        id: "e",
+    e: {
+        ...getDefaultValueFields({
+            key: "e",
+        }),
     },
-    ["f"]: {
-        type: "VALUE",
-        ariaLabel: "f",
-        icon: {
-            type: IconType.MATH,
-            data: "f",
-        },
-        id: "f",
+    f: {
+        ...getDefaultValueFields({
+            key: "f",
+        }),
     },
-    ["g"]: {
-        type: "VALUE",
-        ariaLabel: "g",
-        icon: {
-            type: IconType.MATH,
-            data: "g",
-        },
-        id: "g",
+    g: {
+        ...getDefaultValueFields({
+            key: "g",
+        }),
     },
-    ["h"]: {
-        type: "VALUE",
-        ariaLabel: "h",
-        icon: {
-            type: IconType.MATH,
-            data: "h",
-        },
-        id: "h",
+    h: {
+        ...getDefaultValueFields({
+            key: "h",
+        }),
     },
-    ["i"]: {
-        type: "VALUE",
-        ariaLabel: "i",
-        icon: {
-            type: IconType.MATH,
-            data: "i",
-        },
-        id: "i",
+    i: {
+        ...getDefaultValueFields({
+            key: "i",
+        }),
     },
-    ["j"]: {
-        type: "VALUE",
-        ariaLabel: "j",
-        icon: {
-            type: IconType.MATH,
-            data: "j",
-        },
-        id: "j",
+    j: {
+        ...getDefaultValueFields({
+            key: "j",
+        }),
     },
-    ["k"]: {
-        type: "VALUE",
-        ariaLabel: "k",
-        icon: {
-            type: IconType.MATH,
-            data: "k",
-        },
-        id: "k",
+    k: {
+        ...getDefaultValueFields({
+            key: "k",
+        }),
     },
-    ["l"]: {
-        type: "VALUE",
-        ariaLabel: "l",
-        icon: {
-            type: IconType.MATH,
-            data: "l",
-        },
-        id: "l",
+    l: {
+        ...getDefaultValueFields({
+            key: "l",
+        }),
     },
-    ["m"]: {
-        type: "VALUE",
-        ariaLabel: "m",
-        icon: {
-            type: IconType.MATH,
-            data: "m",
-        },
-        id: "m",
+    m: {
+        ...getDefaultValueFields({
+            key: "m",
+        }),
     },
-    ["n"]: {
-        type: "VALUE",
-        ariaLabel: "n",
-        icon: {
-            type: IconType.MATH,
-            data: "n",
-        },
-        id: "n",
+    n: {
+        ...getDefaultValueFields({
+            key: "n",
+        }),
     },
-    ["o"]: {
-        type: "VALUE",
-        ariaLabel: "o",
-        icon: {
-            type: IconType.MATH,
-            data: "o",
-        },
-        id: "o",
+    o: {
+        ...getDefaultValueFields({
+            key: "o",
+        }),
     },
-    ["p"]: {
-        type: "VALUE",
-        ariaLabel: "p",
-        icon: {
-            type: IconType.MATH,
-            data: "p",
-        },
-        id: "p",
+    p: {
+        ...getDefaultValueFields({
+            key: "p",
+        }),
     },
-    ["q"]: {
-        type: "VALUE",
-        ariaLabel: "q",
-        icon: {
-            type: IconType.MATH,
-            data: "q",
-        },
-        id: "q",
+    q: {
+        ...getDefaultValueFields({
+            key: "q",
+        }),
     },
-    ["r"]: {
-        type: "VALUE",
-        ariaLabel: "r",
-        icon: {
-            type: IconType.MATH,
-            data: "r",
-        },
-        id: "r",
+    r: {
+        ...getDefaultValueFields({
+            key: "r",
+        }),
     },
-    ["s"]: {
-        type: "VALUE",
-        ariaLabel: "s",
-        icon: {
-            type: IconType.MATH,
-            data: "s",
-        },
-        id: "s",
+    s: {
+        ...getDefaultValueFields({
+            key: "s",
+        }),
     },
-    ["t"]: {
-        type: "VALUE",
-        ariaLabel: "y",
-        icon: {
-            type: IconType.MATH,
-            data: "y",
-        },
-        id: "y",
+    t: {
+        ...getDefaultValueFields({
+            key: "t",
+        }),
     },
-    ["u"]: {
-        type: "VALUE",
-        ariaLabel: "u",
-        icon: {
-            type: IconType.MATH,
-            data: "u",
-        },
-        id: "u",
+    u: {
+        ...getDefaultValueFields({
+            key: "u",
+        }),
     },
-    ["v"]: {
-        type: "VALUE",
-        ariaLabel: "v",
-        icon: {
-            type: IconType.MATH,
-            data: "v",
-        },
-        id: "v",
+    v: {
+        ...getDefaultValueFields({
+            key: "v",
+        }),
     },
-    ["w"]: {
-        type: "VALUE",
-        ariaLabel: "w",
-        icon: {
-            type: IconType.MATH,
-            data: "w",
-        },
-        id: "w",
+    w: {
+        ...getDefaultValueFields({
+            key: "w",
+        }),
     },
-    ["x"]: {
-        type: "VALUE",
-        ariaLabel: "x",
-        icon: {
-            type: IconType.MATH,
-            data: "x",
-        },
-        id: "x",
+    x: {
+        ...getDefaultValueFields({
+            key: "x",
+        }),
     },
-    ["y"]: {
-        type: "VALUE",
-        ariaLabel: "y",
-        icon: {
-            type: IconType.MATH,
-            data: "y",
-        },
-        id: "y",
+    y: {
+        ...getDefaultValueFields({
+            key: "y",
+        }),
     },
-    ["z"]: {
-        type: "VALUE",
-        ariaLabel: "z",
-        icon: {
-            type: IconType.MATH,
-            data: "z",
-        },
-        id: "z",
+    z: {
+        ...getDefaultValueFields({
+            key: "z",
+        }),
     },
 };
 
