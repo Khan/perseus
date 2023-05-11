@@ -58,7 +58,7 @@ export const ServerItemRendererWithDebugUI = ({
                     <KEScoreUI score={state} />
                 </>
             }
-            perseusObject={item}
+            jsonObject={item}
         />
     );
 };

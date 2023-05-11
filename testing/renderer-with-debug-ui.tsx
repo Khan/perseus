@@ -85,7 +85,7 @@ export const RendererWithDebugUI = ({
                     )}
                 </>
             }
-            perseusObject={question}
+            jsonObject={question}
         />
     );
 };

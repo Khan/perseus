@@ -76,6 +76,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
+    // @ts-expect-error - TS2749 - 'InteractiveGraph' refers to a value, but is being used as a type here. Did you mean 'typeof InteractiveGraph'?
+    // eslint-disable-next-line no-undef
+    graphRef = React.createRef<InteractiveGraph>();
+
     static widgetName = "interactive-graph";
 
     static defaultProps: DefaultProps = {
@@ -125,7 +129,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
         if (this.props.valid === true) {
             // TODO(aria): send these down all at once
             const graphProps = {
-                ref: "graph",
                 box: this.props.box,
                 range: this.props.range,
                 labels: this.props.labels,
@@ -158,6 +161,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // bother passing.
                 // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 <InteractiveGraph
+                    ref={this.graphRef}
                     {...graphProps}
                     containerSizeClass={sizeClass}
                     apiOptions={{
@@ -322,8 +326,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "snapStep",
         );
 
-        // eslint-disable-next-line react/no-string-refs
-        const graph = this.refs.graph;
+        const graph = this.graphRef.current;
         if (graph) {
             const correct = graph && graph.getUserInput();
             _.extend(json, {
