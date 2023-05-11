@@ -4,12 +4,26 @@
  * and links them together.
  */
 
+import Keys from "../data/keys";
+import {ActiveNodesObj, LayoutProps} from "../types";
+
 import GestureStateMachine from "./gesture-state-machine";
 import NodeManager from "./node-manager";
 import PopoverStateMachine from "./popover-state-machine";
 
 const coordsForEvent = (evt) => {
     return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];
+};
+
+type Options = {
+    swipeEnabled: boolean;
+};
+
+type Handlers = {
+    onSwipeChange?: (dx: number) => void;
+    onSwipeEnd?: (dx: number) => void;
+    onActiveNodesChanged: (activeNodes: ActiveNodesObj) => void;
+    onClick: (key: Keys, layoutProps: LayoutProps, inPopover: boolean) => void;
 };
 
 class GestureManager {
@@ -19,7 +33,12 @@ class GestureManager {
     popoverStateMachine: PopoverStateMachine;
     gestureStateMachine: GestureStateMachine;
 
-    constructor(options, handlers, disabledSwipeKeys, multiPressableKeys) {
+    constructor(
+        options: Options,
+        handlers: Handlers,
+        disabledSwipeKeys: ReadonlyArray<Keys>,
+        multiPressableKeys: ReadonlyArray<Keys>,
+    ) {
         const {swipeEnabled} = options;
 
         this.swipeEnabled = swipeEnabled;
