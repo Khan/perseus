@@ -3,7 +3,6 @@ import {ComponentStory} from "@storybook/react";
 import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
-import Keys from "../../data/keys";
 
 import {KeypadButton, KeypadButtonProps} from "./keypad-page-items";
 
