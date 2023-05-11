@@ -12,8 +12,7 @@ import type {PagerState} from "./types";
 // layout, where our default page appears on the far right.
 const getDefaultPage = (numPages) => numPages - 1;
 
-const initialPagerState = {
-    animateToPosition: false,
+const initialPagerState: PagerState = {
     currentPage: getDefaultPage(keypadForType[defaultKeypadType].numPages),
     // The cumulative differential in the horizontal direction for the
     // current swipe.
@@ -21,7 +20,7 @@ const initialPagerState = {
     numPages: keypadForType[defaultKeypadType].numPages,
     pageWidthPx: 0,
     velocityTracker: new VelocityTracker(),
-} as const;
+};
 
 const pagerReducer = function (
     state: PagerState = initialPagerState,
@@ -34,7 +33,6 @@ const pagerReducer = function (
             return {
                 ...state,
                 numPages,
-                animateToPosition: false,
                 currentPage: getDefaultPage(numPages),
                 dx: 0,
             };
@@ -55,7 +53,6 @@ const pagerReducer = function (
             ) {
                 return {
                     ...state,
-                    animateToPosition: true,
                     // We start at the right-most page.
                     currentPage: getDefaultPage(state.numPages),
                     dx: 0,
@@ -68,7 +65,6 @@ const pagerReducer = function (
 
             return {
                 ...state,
-                animateToPosition: false,
                 dx: action.dx,
             };
 
@@ -97,7 +93,6 @@ const pagerReducer = function (
                 );
                 return {
                     ...state,
-                    animateToPosition: true,
                     currentPage: nextPage,
                     dx: 0,
                 };
@@ -105,7 +100,6 @@ const pagerReducer = function (
                 const prevPage = Math.max(state.currentPage - 1, 0);
                 return {
                     ...state,
-                    animateToPosition: true,
                     currentPage: prevPage,
                     dx: 0,
                 };
@@ -113,7 +107,6 @@ const pagerReducer = function (
 
             return {
                 ...state,
-                animateToPosition: true,
                 dx: 0,
             };
 

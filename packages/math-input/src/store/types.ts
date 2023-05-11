@@ -31,26 +31,39 @@ export interface KeypadState {
 
 // Pagination for keypad types with multiple pages
 export interface PagerState {
-    animateToPosition: boolean;
     // On keypad types with multiple pages
     // which page we are on
     currentPage: number;
-    dx: number;
+    // Used for pagination
     numPages: number;
+    // Used for swiping pages
+    dx: number;
+    // Used for swiping pages
     pageWidthPx: number;
+    // Used for swiping pages
     velocityTracker: VelocityTracker;
 }
 
+// Handles things like:
+// long-press: to open multikey popover
+// swipe: for pagination
+// press: regular pushing of a button
 export interface GestureState {
+    // The current multikey popover?
     popover: Popover | null;
+    // ?? Maybe which key is currently focused?
     focus: Keys | null;
+    // Complex object that interprets touches as actions
     gestureManager: GestureManager;
 }
 
+// Manages the animations for pressing keys
 export interface EchoState {
+    // Which echoes are in the process of animating
     echoes: ReadonlyArray<Echo>;
 }
 
+// Layout (size, where to put buttons, etc)
 export interface LayoutState {
     gridDimensions: {
         numRows: number;
