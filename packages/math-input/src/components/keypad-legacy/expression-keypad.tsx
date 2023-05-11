@@ -24,7 +24,6 @@ const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
 
 interface ReduxProps {
-    currentPage: number;
     cursorContext?: CursorContext;
     dynamicJumpOut: boolean;
 }
@@ -48,7 +47,6 @@ export const expressionKeypadLayout: KeypadLayout = {
 class ExpressionKeypad extends React.Component<Props> {
     render() {
         const {
-            currentPage,
             cursorContext,
             dynamicJumpOut,
             extraKeys,
@@ -286,13 +284,7 @@ class ExpressionKeypad extends React.Component<Props> {
             </View>
         );
 
-        return (
-            <TwoPageKeypad
-                currentPage={currentPage}
-                rightPage={rightPage}
-                leftPage={leftPage}
-            />
-        );
+        return <TwoPageKeypad rightPage={rightPage} leftPage={leftPage} />;
     }
 }
 
@@ -313,7 +305,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: State): ReduxProps => {
     return {
-        currentPage: state.pager.currentPage,
         cursorContext: state.input.cursor?.context,
         dynamicJumpOut: !state.layout.navigationPadEnabled,
     };

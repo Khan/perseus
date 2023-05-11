@@ -1,7 +1,6 @@
 import Keys from "../../../data/keys";
 import {LayoutMode, KeypadType} from "../../../enums";
 import GestureManager from "../gesture-manager";
-import VelocityTracker from "../velocity-tracker";
 
 import type {Cursor, KeyHandler, Popover, Echo} from "../../../types";
 
@@ -27,21 +26,6 @@ export interface KeypadState {
     keypadType: KeypadType;
     // Whether or not to show the keypad
     active: boolean;
-}
-
-// Pagination for keypad types with multiple pages
-export interface PagerState {
-    // On keypad types with multiple pages
-    // which page we are on
-    currentPage: number;
-    // Used for pagination
-    numPages: number;
-    // Used for swiping pages
-    dx: number;
-    // Used for swiping pages
-    pageWidthPx: number;
-    // Used for swiping pages
-    velocityTracker: VelocityTracker;
 }
 
 // Handles things like:
@@ -87,7 +71,6 @@ export interface LayoutState {
 export interface State {
     input: InputState;
     keypad: KeypadState;
-    pager: PagerState;
     gestures: GestureState;
     echoes: EchoState;
     layout: LayoutState;
