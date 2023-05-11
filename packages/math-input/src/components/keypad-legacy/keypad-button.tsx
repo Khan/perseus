@@ -6,7 +6,7 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {BorderDirection, BorderStyles, KeyType} from "../../enums";
+import {BorderDirection, BorderStyles, KeyType, KeyTypes} from "../../enums";
 import {View} from "../../fake-react-native-web/index";
 import {
     wonderBlocksBlue,
@@ -35,7 +35,7 @@ interface ReduxProps {
 interface Props extends ReduxProps {
     ariaLabel?: string;
     borders: Border;
-    childKeys: ReadonlyArray<KeyConfig>;
+    childKeys: ReadonlyArray<NonManyKeyConfig>;
     disabled: boolean;
     focused: boolean;
     popoverEnabled: boolean;
@@ -101,7 +101,7 @@ class KeypadButton extends React.PureComponent<Props> {
         // object. This method must be called whenever a property that
         // influences the possible outcomes of `this._getFocusStyle` and
         // `this._getButtonStyle` changes (such as `this.buttonSizeStyle`).
-        for (const type of Object.values(KeyType)) {
+        for (const type of KeyTypes) {
             css(View.styles.initial, ...this._getFocusStyle(type));
 
             for (const borders of Object.values(BorderStyles)) {
@@ -115,10 +115,7 @@ class KeypadButton extends React.PureComponent<Props> {
 
     _getFocusStyle = (type: KeyType) => {
         let focusBackgroundStyle;
-        if (
-            type === KeyType.INPUT_NAVIGATION ||
-            type === KeyType.KEYPAD_NAVIGATION
-        ) {
+        if (type === "INPUT_NAVIGATION" || type === "KEYPAD_NAVIGATION") {
             focusBackgroundStyle = styles.light;
         } else {
             focusBackgroundStyle = styles.bright;
@@ -131,25 +128,25 @@ class KeypadButton extends React.PureComponent<Props> {
         // Select the appropriate style for the button.
         let backgroundStyle;
         switch (type) {
-            case KeyType.EMPTY:
+            case "EMPTY":
                 backgroundStyle = styles.empty;
                 break;
 
-            case KeyType.MANY:
-            case KeyType.VALUE:
+            case "MANY":
+            case "VALUE":
                 backgroundStyle = styles.value;
                 break;
 
-            case KeyType.OPERATOR:
+            case "OPERATOR":
                 backgroundStyle = styles.operator;
                 break;
 
-            case KeyType.INPUT_NAVIGATION:
-            case KeyType.KEYPAD_NAVIGATION:
+            case "INPUT_NAVIGATION":
+            case "KEYPAD_NAVIGATION":
                 backgroundStyle = styles.control;
                 break;
 
-            case KeyType.ECHO:
+            case "ECHO":
                 backgroundStyle = null;
                 break;
         }
@@ -168,7 +165,7 @@ class KeypadButton extends React.PureComponent<Props> {
             styles.buttonBase,
             backgroundStyle,
             ...borderStyle,
-            type === KeyType.ECHO && styles.echo,
+            type === "ECHO" && styles.echo,
             this.buttonSizeStyle,
             // React Native allows you to set the 'style' props on user defined
             // components.
@@ -197,7 +194,7 @@ class KeypadButton extends React.PureComponent<Props> {
         // We render in the focus state if the key is focused, or if it's an
         // echo.
         const renderFocused =
-            (!disabled && focused) || popoverEnabled || type === KeyType.ECHO;
+            (!disabled && focused) || popoverEnabled || type === "ECHO";
         const buttonStyle = this._getButtonStyle(type, borders, style);
         const focusStyle = this._getFocusStyle(type);
         const iconWrapperStyle = [
@@ -218,9 +215,9 @@ class KeypadButton extends React.PureComponent<Props> {
             childKeys &&
             childKeys.length > 0 && <CornerDecal style={styles.decalInset} />;
 
-        if (type === KeyType.EMPTY) {
+        if (type === "EMPTY") {
             return <View style={buttonStyle} {...eventHandlers} />;
-        } else if (type === KeyType.MANY) {
+        } else if (type === "MANY") {
             // TODO(charlie): Make the long-press interaction accessible. See
             // the TODO in key-configs.js for more.
             const manyButtonA11yMarkup = {

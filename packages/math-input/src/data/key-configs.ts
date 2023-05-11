@@ -4,52 +4,87 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
 import {DecimalSeparator, IconType, KeyType} from "../enums";
-import {KeyConfig} from "../types";
+import {IconConfig, KeyConfig} from "../types";
 import {decimalSeparator} from "../utils";
 
-import Keys from "./keys";
+import Key from "./keys";
 
-// I tried to make the below {[key in Keys]: KeyConfig}
+const getKeyConfigFields = ({
+    key,
+    keyType = "OPERATOR",
+    iconType = IconType.SVG,
+    ariaLabel = key,
+    data = key,
+}: {
+    key: Key;
+    keyType?: KeyType;
+    iconType?: IconType;
+    ariaLabel?: string;
+    data?: string;
+}): {
+    id: Key;
+    type: KeyType;
+    icon: IconConfig;
+    ariaLabel: string;
+} => ({
+    id: key,
+    type: keyType,
+    ariaLabel,
+    icon: {
+        type: iconType,
+        data,
+    },
+});
+
+// I tried to make the below {[key in Keys"]: KeyConfig}
 // but we are doing all kinds of sneaky magic that makes it hard to
 // type this safely. Leaving it for now as a generic index signature.
 const KeyConfigs: {
-    [key in Keys]: KeyConfig;
+    [key in Key]: KeyConfig;
 } = {
-    // Basic math keys.
-    [Keys.PLUS]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a plus sign.
-        ariaLabel: i18n._("Plus"),
-        id: Keys.PLUS,
+    // Basic math
+    ["PLUS"]: {
+        ...getKeyConfigFields({
+            key: "PLUS",
+            // I18N: A label for a 'plus' sign.
+            ariaLabel: i18n._("Plus"),
+        }),
     },
-    [Keys.MINUS]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a minus sign.
-        ariaLabel: i18n._("Minus"),
-        id: Keys.MINUS,
+    ["MINUS"]: {
+        ...getKeyConfigFields({
+            key: "MINUS",
+            // I18N: A label for a 'minus' sign.
+            ariaLabel: i18n._("Minus"),
+        }),
     },
-    [Keys.NEGATIVE]: {
-        type: KeyType.VALUE,
-        // I18N: A label for a minus sign.
-        ariaLabel: i18n._("Negative"),
-        id: Keys.NEGATIVE,
+    ["NEGATIVE"]: {
+        ...getKeyConfigFields({
+            key: "NEGATIVE",
+            // I18N: A label for a 'negative' sign.
+            ariaLabel: i18n._("Negative"),
+        }),
     },
-    [Keys.TIMES]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a multiplication sign (represented with an 'x').
-        ariaLabel: i18n._("Multiply"),
-        id: Keys.TIMES,
+    ["TIMES"]: {
+        ...getKeyConfigFields({
+            key: "TIMES",
+            // I18N: A label for a 'multiply' sign.
+            ariaLabel: i18n._("Multiply"),
+        }),
     },
-    [Keys.DIVIDE]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a division sign.
-        ariaLabel: i18n._("Divide"),
-        id: Keys.DIVIDE,
+    ["DIVIDE"]: {
+        ...getKeyConfigFields({
+            key: "DIVIDE",
+            // I18N: A label for a 'divide' sign.
+            ariaLabel: i18n._("Divide"),
+        }),
     },
-    [Keys.DECIMAL]: {
-        type: KeyType.VALUE,
-        // I18N: A label for a decimal symbol.
-        ariaLabel: i18n._("Decimal"),
+    ["DECIMAL"]: {
+        ...getKeyConfigFields({
+            key: "DECIMAL",
+            keyType: "VALUE",
+            // I18N: A label for a 'decimal' sign (represented as '.' or ',').
+            ariaLabel: i18n._("Decimal"),
+        }),
         icon:
             decimalSeparator === DecimalSeparator.COMMA
                 ? {
@@ -60,835 +95,903 @@ const KeyConfigs: {
                   }
                 : {
                       type: IconType.SVG,
-                      data: Keys.PERIOD,
+                      data: "PERIOD",
                   },
-        id: Keys.DECIMAL,
     },
-    [Keys.PERIOD]: {
-        type: KeyType.VALUE,
-        ariaLabel: ".",
-        icon: {
-            type: IconType.SVG,
-            data: Keys.PERIOD,
-        },
-        id: Keys.PERIOD,
+    ["PERIOD"]: {
+        ...getKeyConfigFields({
+            key: "PERIOD",
+            keyType: "VALUE",
+            ariaLabel: ".",
+        }),
     },
-    [Keys.PERCENT]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a percent sign.
-        ariaLabel: i18n._("Percent"),
-        id: Keys.PERCENT,
+    ["PERCENT"]: {
+        ...getKeyConfigFields({
+            key: "PERCENT",
+            // I18N: A label for a 'percent' sign (represented as '%').
+            ariaLabel: i18n._("Percent"),
+        }),
     },
-    [Keys.CDOT]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a multiplication sign (represented as a dot).
-        ariaLabel: i18n._("Multiply"),
-        id: Keys.CDOT,
+    ["CDOT"]: {
+        ...getKeyConfigFields({
+            key: "CDOT",
+            // I18N: A label for a 'centered dot' multiplication sign (represented as '⋅').
+            ariaLabel: i18n._("Multiply"),
+        }),
     },
-    [Keys.EQUAL]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Equals sign"),
-        id: Keys.EQUAL,
+    ["EQUAL"]: {
+        ...getKeyConfigFields({
+            key: "EQUAL",
+            // I18N: A label for an 'equals' sign (represented as '=').
+            ariaLabel: i18n._("Equals sign"),
+        }),
     },
-    [Keys.NEQ]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Not-equals sign"),
-        id: Keys.NEQ,
+    ["NEQ"]: {
+        ...getKeyConfigFields({
+            key: "NEQ",
+            // I18N: A label for a 'not-equals' sign (represented as '≠').
+            ariaLabel: i18n._("Not-equals sign"),
+        }),
     },
-    [Keys.GT]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a 'greater than' sign (represented as '>').
-        ariaLabel: i18n._("Greater than sign"),
-        id: Keys.GT,
+    ["GT"]: {
+        ...getKeyConfigFields({
+            key: "GT",
+            // I18N: A label for a 'greater than' sign (represented as '>').
+            ariaLabel: i18n._("Greater than sign"),
+        }),
     },
-    [Keys.LT]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a 'less than' sign (represented as '<').
-        ariaLabel: i18n._("Less than sign"),
-        id: Keys.LT,
+    ["LT"]: {
+        ...getKeyConfigFields({
+            key: "LT",
+            // I18N: A label for a 'less than' sign (represented as '<').
+            ariaLabel: i18n._("Less than sign"),
+        }),
     },
-    [Keys.GEQ]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Greater than or equal to sign"),
-        id: Keys.GEQ,
+    ["GEQ"]: {
+        ...getKeyConfigFields({
+            key: "GEQ",
+            // I18N: A label for a 'greater than or equal to' sign (represented as '≥').
+            ariaLabel: i18n._("Greater than or equal to sign"),
+        }),
     },
-    [Keys.LEQ]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Less than or equal to sign"),
-        id: Keys.LEQ,
+    ["LEQ"]: {
+        ...getKeyConfigFields({
+            key: "LEQ",
+            // I18N: A label for a 'less than or equal to' sign (represented as '≤').
+            ariaLabel: i18n._("Less than or equal to sign"),
+        }),
     },
     // mobile native
-    [Keys.FRAC_INCLUSIVE]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that creates a new fraction and puts the
-        // current expression in the numerator of that fraction.
-        ariaLabel: i18n._("Fraction, with current expression in numerator"),
-        id: Keys.FRAC_INCLUSIVE,
+    ["FRAC_INCLUSIVE"]: {
+        ...getKeyConfigFields({
+            key: "FRAC_INCLUSIVE",
+            // I18N: A label for a button that creates a new fraction and puts the
+            // current expression in the numerator of that fraction.
+            ariaLabel: i18n._("Fraction, with current expression in numerator"),
+        }),
     },
     // mobile native
-    [Keys.FRAC_EXCLUSIVE]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that creates a new fraction next to the
-        // cursor.
-        ariaLabel: i18n._("Fraction, excluding the current expression"),
-        id: Keys.FRAC_EXCLUSIVE,
+    ["FRAC_EXCLUSIVE"]: {
+        ...getKeyConfigFields({
+            key: "FRAC_EXCLUSIVE",
+            // I18N: A label for a button that creates a new fraction next to the
+            // cursor.
+            ariaLabel: i18n._("Fraction, excluding the current expression"),
+        }),
     },
     // mobile web
-    [Keys.FRAC]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that creates a new fraction next to the
-        // cursor.
-        ariaLabel: i18n._("Fraction, excluding the current expression"),
-        id: Keys.FRAC,
+    ["FRAC"]: {
+        ...getKeyConfigFields({
+            key: "FRAC",
+            // I18N: A label for a button that creates a new fraction next to the
+            // cursor.
+            ariaLabel: i18n._("Fraction, excluding the current expression"),
+        }),
     },
-    [Keys.EXP]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that will allow the user to input a custom
-        // exponent.
-        ariaLabel: i18n._("Custom exponent"),
-        id: Keys.EXP,
+    ["EXP"]: {
+        ...getKeyConfigFields({
+            key: "EXP",
+            // I18N: A label for a button that will allow the user to input a
+            // custom exponent.
+            ariaLabel: i18n._("Custom exponent"),
+        }),
     },
-    [Keys.EXP_2]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that will square (take to the second
-        // power) some math.
-        ariaLabel: i18n._("Square"),
-        id: Keys.EXP_2,
+    ["EXP_2"]: {
+        ...getKeyConfigFields({
+            key: "EXP_2",
+            // I18N: A label for a button that will square (take to the second
+            // power) some math.
+            ariaLabel: i18n._("Square"),
+        }),
     },
-    [Keys.EXP_3]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that will cube (take to the third power)
-        // some math.
-        ariaLabel: i18n._("Cube"),
-        id: Keys.EXP_3,
+    ["EXP_3"]: {
+        ...getKeyConfigFields({
+            key: "EXP_3",
+            // I18N: A label for a button that will cube (take to the third power)
+            // some math.
+            ariaLabel: i18n._("Cube"),
+        }),
     },
-    [Keys.SQRT]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Square root"),
-        id: Keys.SQRT,
+    ["SQRT"]: {
+        ...getKeyConfigFields({
+            key: "SQRT",
+            // I18N: A label for a button that will allow the user to input a
+            // square root.
+            ariaLabel: i18n._("Square root"),
+        }),
     },
-    [Keys.CUBE_ROOT]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Cube root"),
-        id: Keys.CUBE_ROOT,
+    ["CUBE_ROOT"]: {
+        ...getKeyConfigFields({
+            key: "CUBE_ROOT",
+            // I18N: A label for a button that will allow the user to input a
+            // cube root.
+            ariaLabel: i18n._("Cube root"),
+        }),
     },
-    [Keys.RADICAL]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Radical with custom root"),
-        id: Keys.RADICAL,
+    ["RADICAL"]: {
+        ...getKeyConfigFields({
+            key: "RADICAL",
+            // I18N: A label for a button that will allow the user to input a
+            // radical with a custom root.
+            ariaLabel: i18n._("Radical with custom root"),
+        }),
     },
-    [Keys.LEFT_PAREN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Left parenthesis"),
-        id: Keys.LEFT_PAREN,
+    ["LEFT_PAREN"]: {
+        ...getKeyConfigFields({
+            key: "LEFT_PAREN",
+            // I18N: A label for a button that will allow the user to input a
+            // left parenthesis (i.e. '(')
+            ariaLabel: i18n._("Left parenthesis"),
+        }),
     },
-    [Keys.RIGHT_PAREN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Right parenthesis"),
-        id: Keys.RIGHT_PAREN,
+    ["RIGHT_PAREN"]: {
+        ...getKeyConfigFields({
+            key: "RIGHT_PAREN",
+            // I18N: A label for a button that will allow the user to input a
+            // right parenthesis (i.e. ')')
+            ariaLabel: i18n._("Right parenthesis"),
+        }),
     },
-    [Keys.LN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Natural logarithm"),
-        id: Keys.LN,
+    ["LN"]: {
+        ...getKeyConfigFields({
+            key: "LN",
+            // I18N: A label for a button that will allow the user to input a
+            // natural logarithm.
+            ariaLabel: i18n._("Natural logarithm"),
+        }),
     },
-    [Keys.LOG]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Logarithm with base 10"),
-        id: Keys.LOG,
+    ["LOG"]: {
+        ...getKeyConfigFields({
+            key: "LOG",
+            // I18N: A label for a button that will allow the user to input a
+            // logarithm with base 10.
+            ariaLabel: i18n._("Logarithm with base 10"),
+        }),
     },
-    [Keys.LOG_N]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Logarithm with custom base"),
-        id: Keys.LOG_N,
+    ["LOG_N"]: {
+        ...getKeyConfigFields({
+            key: "LOG_N",
+            // I18N: A label for a button that will allow the user to input a
+            // logarithm with a custom base.
+            ariaLabel: i18n._("Logarithm with custom base"),
+        }),
     },
-    [Keys.SIN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Sine"),
-        id: Keys.SIN,
+    ["SIN"]: {
+        ...getKeyConfigFields({
+            key: "SIN",
+            // I18N: A label for a button that will allow the user to input a
+            // sine function.
+            ariaLabel: i18n._("Sine"),
+        }),
     },
-    [Keys.COS]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Cosine"),
-        id: Keys.COS,
+    ["COS"]: {
+        ...getKeyConfigFields({
+            key: "COS",
+            // I18N: A label for a button that will allow the user to input a
+            // cosine function.
+            ariaLabel: i18n._("Cosine"),
+        }),
     },
-    [Keys.TAN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Tangent"),
-        id: Keys.TAN,
+    ["TAN"]: {
+        ...getKeyConfigFields({
+            key: "TAN",
+            // I18N: A label for a button that will allow the user to input a
+            // tangent function.
+            ariaLabel: i18n._("Tangent"),
+        }),
     },
-    [Keys.PI]: {
-        type: KeyType.VALUE,
-        ariaLabel: i18n._("Pi"),
-        icon: {
-            type: IconType.MATH,
+    ["PI"]: {
+        ...getKeyConfigFields({
+            key: "PI",
+            keyType: "VALUE",
+            iconType: IconType.MATH,
             data: "\\pi",
-        },
-        id: Keys.PI,
+            // I18N: A label for a button that will allow the user to input the
+            // mathematical constant pi (i.e., π)
+            ariaLabel: i18n._("Pi"),
+        }),
     },
-    [Keys.THETA]: {
-        type: KeyType.VALUE,
-        ariaLabel: i18n._("Theta"),
-        icon: {
-            type: IconType.MATH,
+    ["THETA"]: {
+        ...getKeyConfigFields({
+            key: "THETA",
+            keyType: "VALUE",
+            iconType: IconType.MATH,
             data: "\\theta",
-        },
-        id: Keys.THETA,
+            // I18N: A label for a button that will allow the user to input the
+            // mathematical constant theta (i.e., θ)
+            ariaLabel: i18n._("Theta"),
+        }),
     },
-    [Keys.NOOP]: {
-        type: KeyType.EMPTY,
-        id: Keys.NOOP,
+    ["NOOP"]: {
+        ...getKeyConfigFields({
+            key: "NOOP",
+            keyType: "EMPTY",
+        }),
+    },
+    // Input navigation
+    ["UP"]: {
+        ...getKeyConfigFields({
+            key: "UP",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Up arrow"),
+        }),
+    },
+    ["RIGHT"]: {
+        ...getKeyConfigFields({
+            key: "RIGHT",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Right arrow"),
+        }),
+    },
+    ["DOWN"]: {
+        ...getKeyConfigFields({
+            key: "DOWN",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Down arrow"),
+        }),
+    },
+    ["LEFT"]: {
+        ...getKeyConfigFields({
+            key: "LEFT",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Left arrow"),
+        }),
+    },
+    ["JUMP_OUT_PARENTHESES"]: {
+        ...getKeyConfigFields({
+            key: "JUMP_OUT_PARENTHESES",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Navigate right out of a set of parentheses"),
+        }),
+    },
+    ["JUMP_OUT_EXPONENT"]: {
+        ...getKeyConfigFields({
+            key: "JUMP_OUT_EXPONENT",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Navigate right out of an exponent"),
+        }),
+    },
+    ["JUMP_OUT_BASE"]: {
+        ...getKeyConfigFields({
+            key: "JUMP_OUT_BASE",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Navigate right out of a base"),
+        }),
+    },
+    ["JUMP_INTO_NUMERATOR"]: {
+        ...getKeyConfigFields({
+            key: "JUMP_INTO_NUMERATOR",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._(
+                "Navigate right into the numerator of a fraction",
+            ),
+        }),
+    },
+    ["JUMP_OUT_NUMERATOR"]: {
+        ...getKeyConfigFields({
+            key: "JUMP_OUT_NUMERATOR",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._(
+                "Navigate right out of the numerator and into the denominator",
+            ),
+        }),
+    },
+    ["JUMP_OUT_DENOMINATOR"]: {
+        ...getKeyConfigFields({
+            key: "JUMP_OUT_DENOMINATOR",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._(
+                "Navigate right out of the denominator of a fraction",
+            ),
+        }),
+    },
+    ["BACKSPACE"]: {
+        ...getKeyConfigFields({
+            key: "BACKSPACE",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Delete"),
+        }),
     },
 
-    // Input navigation keys.
-    [Keys.UP]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Up arrow"),
-        id: Keys.UP,
-    },
-    [Keys.RIGHT]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Right arrow"),
-        id: Keys.RIGHT,
-    },
-    [Keys.DOWN]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Down arrow"),
-        id: Keys.DOWN,
-    },
-    [Keys.LEFT]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Left arrow"),
-        id: Keys.LEFT,
-    },
-    [Keys.JUMP_OUT_PARENTHESES]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Navigate right out of a set of parentheses"),
-        id: Keys.JUMP_OUT_PARENTHESES,
-    },
-    [Keys.JUMP_OUT_EXPONENT]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Navigate right out of an exponent"),
-        id: Keys.JUMP_OUT_EXPONENT,
-    },
-    [Keys.JUMP_OUT_BASE]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Navigate right out of a base"),
-        id: Keys.JUMP_OUT_BASE,
-    },
-    [Keys.JUMP_INTO_NUMERATOR]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Navigate right into the numerator of a fraction"),
-        id: Keys.JUMP_INTO_NUMERATOR,
-    },
-    [Keys.JUMP_OUT_NUMERATOR]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._(
-            "Navigate right out of the numerator and into the denominator",
-        ),
-        id: Keys.JUMP_OUT_NUMERATOR,
-    },
-    [Keys.JUMP_OUT_DENOMINATOR]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._(
-            "Navigate right out of the denominator of a fraction",
-        ),
-        id: Keys.JUMP_OUT_DENOMINATOR,
-    },
-    [Keys.BACKSPACE]: {
-        type: KeyType.INPUT_NAVIGATION,
-        // I18N: A label for a button that will delete some input.
-        ariaLabel: i18n._("Delete"),
-        id: Keys.BACKSPACE,
-    },
-
-    // Keypad navigation keys.
-    [Keys.DISMISS]: {
-        type: KeyType.KEYPAD_NAVIGATION,
-        // I18N: A label for a button that will dismiss/hide a keypad.
-        ariaLabel: i18n._("Dismiss"),
-        id: Keys.DISMISS,
+    // Keypad navigation
+    ["DISMISS"]: {
+        ...getKeyConfigFields({
+            key: "DISMISS",
+            keyType: "KEYPAD_NAVIGATION",
+            // I18N: A label for a button that will dismiss/hide a keypad.
+            ariaLabel: i18n._("Dismiss"),
+        }),
     },
 
     // TODO(charlie): Use the numeral color for the 'Many' key.
-    [Keys.MANY]: {
-        id: Keys.MANY,
-        type: KeyType.MANY,
+    ["MANY"]: {
+        ...getKeyConfigFields({
+            key: "MANY",
+            keyType: "MANY",
+        }),
     },
 
     // NUMBERS
-    [Keys.NUM_0]: {
-        type: KeyType.VALUE,
+    ["NUM_0"]: {
+        type: "VALUE",
         ariaLabel: "0",
         icon: {
             type: IconType.TEXT,
             data: "0",
         },
-        id: Keys.NUM_0,
+        id: "NUM_0",
     },
-    [Keys.NUM_1]: {
-        type: KeyType.VALUE,
+    ["NUM_1"]: {
+        type: "VALUE",
         ariaLabel: "1",
         icon: {
             type: IconType.TEXT,
             data: "1",
         },
-        id: Keys.NUM_1,
+        id: "NUM_1",
     },
-    [Keys.NUM_2]: {
-        type: KeyType.VALUE,
+    ["NUM_2"]: {
+        type: "VALUE",
         ariaLabel: "2",
         icon: {
             type: IconType.TEXT,
             data: "2",
         },
-        id: Keys.NUM_2,
+        id: "NUM_2",
     },
-    [Keys.NUM_3]: {
-        type: KeyType.VALUE,
+    ["NUM_3"]: {
+        type: "VALUE",
         ariaLabel: "3",
         icon: {
             type: IconType.TEXT,
             data: "3",
         },
-        id: Keys.NUM_3,
+        id: "NUM_3",
     },
-    [Keys.NUM_4]: {
-        type: KeyType.VALUE,
+    ["NUM_4"]: {
+        type: "VALUE",
         ariaLabel: "4",
         icon: {
             type: IconType.TEXT,
             data: "4",
         },
-        id: Keys.NUM_4,
+        id: "NUM_4",
     },
-    [Keys.NUM_5]: {
-        type: KeyType.VALUE,
+    ["NUM_5"]: {
+        type: "VALUE",
         ariaLabel: "5",
         icon: {
             type: IconType.TEXT,
             data: "5",
         },
-        id: Keys.NUM_5,
+        id: "NUM_5",
     },
-    [Keys.NUM_6]: {
-        type: KeyType.VALUE,
+    ["NUM_6"]: {
+        type: "VALUE",
         ariaLabel: "6",
         icon: {
             type: IconType.TEXT,
             data: "6",
         },
-        id: Keys.NUM_6,
+        id: "NUM_6",
     },
-    [Keys.NUM_7]: {
-        type: KeyType.VALUE,
+    ["NUM_7"]: {
+        type: "VALUE",
         ariaLabel: "7",
         icon: {
             type: IconType.TEXT,
             data: "7",
         },
-        id: Keys.NUM_7,
+        id: "NUM_7",
     },
-    [Keys.NUM_8]: {
-        type: KeyType.VALUE,
+    ["NUM_8"]: {
+        type: "VALUE",
         ariaLabel: "8",
         icon: {
             type: IconType.TEXT,
             data: "8",
         },
-        id: Keys.NUM_8,
+        id: "NUM_8",
     },
-    [Keys.NUM_9]: {
-        type: KeyType.VALUE,
+    ["NUM_9"]: {
+        type: "VALUE",
         ariaLabel: "9",
         icon: {
             type: IconType.TEXT,
             data: "9",
         },
-        id: Keys.NUM_9,
+        id: "NUM_9",
     },
 
     // LETTERS (value handled below)
-    [Keys.A]: {
-        type: KeyType.VALUE,
+    ["A"]: {
+        type: "VALUE",
         ariaLabel: "A",
         icon: {
             type: IconType.MATH,
             data: "B",
         },
-        id: Keys.A,
+        id: "A",
     },
-    [Keys.B]: {
-        type: KeyType.VALUE,
+    ["B"]: {
+        type: "VALUE",
         ariaLabel: "B",
         icon: {
             type: IconType.MATH,
             data: "B",
         },
-        id: Keys.B,
+        id: "B",
     },
-    [Keys.C]: {
-        type: KeyType.VALUE,
+    ["C"]: {
+        type: "VALUE",
         ariaLabel: "C",
         icon: {
             type: IconType.MATH,
             data: "C",
         },
-        id: Keys.C,
+        id: "C",
     },
-    [Keys.D]: {
-        type: KeyType.VALUE,
+    ["D"]: {
+        type: "VALUE",
         ariaLabel: "D",
         icon: {
             type: IconType.MATH,
             data: "D",
         },
-        id: Keys.D,
+        id: "D",
     },
-    [Keys.E]: {
-        type: KeyType.VALUE,
+    ["E"]: {
+        type: "VALUE",
         ariaLabel: "E",
         icon: {
             type: IconType.MATH,
             data: "E",
         },
-        id: Keys.E,
+        id: "E",
     },
-    [Keys.F]: {
-        type: KeyType.VALUE,
+    ["F"]: {
+        type: "VALUE",
         ariaLabel: "F",
         icon: {
             type: IconType.MATH,
             data: "F",
         },
-        id: Keys.F,
+        id: "F",
     },
-    [Keys.G]: {
-        type: KeyType.VALUE,
+    ["G"]: {
+        type: "VALUE",
         ariaLabel: "G",
         icon: {
             type: IconType.MATH,
             data: "G",
         },
-        id: Keys.G,
+        id: "G",
     },
-    [Keys.H]: {
-        type: KeyType.VALUE,
+    ["H"]: {
+        type: "VALUE",
         ariaLabel: "H",
         icon: {
             type: IconType.MATH,
             data: "H",
         },
-        id: Keys.H,
+        id: "H",
     },
-    [Keys.I]: {
-        type: KeyType.VALUE,
+    ["I"]: {
+        type: "VALUE",
         ariaLabel: "I",
         icon: {
             type: IconType.MATH,
             data: "I",
         },
-        id: Keys.I,
+        id: "I",
     },
-    [Keys.J]: {
-        type: KeyType.VALUE,
+    ["J"]: {
+        type: "VALUE",
         ariaLabel: "J",
         icon: {
             type: IconType.MATH,
             data: "J",
         },
-        id: Keys.J,
+        id: "J",
     },
-    [Keys.K]: {
-        type: KeyType.VALUE,
+    ["K"]: {
+        type: "VALUE",
         ariaLabel: "K",
         icon: {
             type: IconType.MATH,
             data: "K",
         },
-        id: Keys.K,
+        id: "K",
     },
-    [Keys.L]: {
-        type: KeyType.VALUE,
+    ["L"]: {
+        type: "VALUE",
         ariaLabel: "L",
         icon: {
             type: IconType.MATH,
             data: "L",
         },
-        id: Keys.L,
+        id: "L",
     },
-    [Keys.M]: {
-        type: KeyType.VALUE,
+    ["M"]: {
+        type: "VALUE",
         ariaLabel: "M",
         icon: {
             type: IconType.MATH,
             data: "M",
         },
-        id: Keys.M,
+        id: "M",
     },
-    [Keys.N]: {
-        type: KeyType.VALUE,
+    ["N"]: {
+        type: "VALUE",
         ariaLabel: "N",
         icon: {
             type: IconType.MATH,
             data: "N",
         },
-        id: Keys.N,
+        id: "N",
     },
-    [Keys.O]: {
-        type: KeyType.VALUE,
+    ["O"]: {
+        type: "VALUE",
         ariaLabel: "O",
         icon: {
             type: IconType.MATH,
             data: "O",
         },
-        id: Keys.O,
+        id: "O",
     },
-    [Keys.P]: {
-        type: KeyType.VALUE,
+    ["P"]: {
+        type: "VALUE",
         ariaLabel: "P",
         icon: {
             type: IconType.MATH,
             data: "P",
         },
-        id: Keys.P,
+        id: "P",
     },
-    [Keys.Q]: {
-        type: KeyType.VALUE,
+    ["Q"]: {
+        type: "VALUE",
         ariaLabel: "Q",
         icon: {
             type: IconType.MATH,
             data: "Q",
         },
-        id: Keys.Q,
+        id: "Q",
     },
-    [Keys.R]: {
-        type: KeyType.VALUE,
+    ["R"]: {
+        type: "VALUE",
         ariaLabel: "R",
         icon: {
             type: IconType.MATH,
             data: "R",
         },
-        id: Keys.R,
+        id: "R",
     },
-    [Keys.S]: {
-        type: KeyType.VALUE,
+    ["S"]: {
+        type: "VALUE",
         ariaLabel: "S",
         icon: {
             type: IconType.MATH,
             data: "S",
         },
-        id: Keys.S,
+        id: "S",
     },
-    [Keys.T]: {
-        type: KeyType.VALUE,
+    ["T"]: {
+        type: "VALUE",
         ariaLabel: "T",
         icon: {
             type: IconType.MATH,
             data: "T",
         },
-        id: Keys.T,
+        id: "T",
     },
-    [Keys.U]: {
-        type: KeyType.VALUE,
+    ["U"]: {
+        type: "VALUE",
         ariaLabel: "U",
         icon: {
             type: IconType.MATH,
             data: "U",
         },
-        id: Keys.U,
+        id: "U",
     },
-    [Keys.V]: {
-        type: KeyType.VALUE,
+    ["V"]: {
+        type: "VALUE",
         ariaLabel: "V",
         icon: {
             type: IconType.MATH,
             data: "V",
         },
-        id: Keys.V,
+        id: "V",
     },
-    [Keys.W]: {
-        type: KeyType.VALUE,
+    ["W"]: {
+        type: "VALUE",
         ariaLabel: "W",
         icon: {
             type: IconType.MATH,
             data: "W",
         },
-        id: Keys.W,
+        id: "W",
     },
-    [Keys.X]: {
-        type: KeyType.VALUE,
+    ["X"]: {
+        type: "VALUE",
         ariaLabel: "X",
         icon: {
             type: IconType.MATH,
             data: "X",
         },
-        id: Keys.X,
+        id: "X",
     },
-    [Keys.Y]: {
-        type: KeyType.VALUE,
+    ["Y"]: {
+        type: "VALUE",
         ariaLabel: "Y",
         icon: {
             type: IconType.MATH,
             data: "Y",
         },
-        id: Keys.Y,
+        id: "Y",
     },
-    [Keys.Z]: {
-        type: KeyType.VALUE,
+    ["Z"]: {
+        type: "VALUE",
         ariaLabel: "Z",
         icon: {
             type: IconType.MATH,
             data: "Z",
         },
-        id: Keys.Z,
+        id: "Z",
     },
-    [Keys.a]: {
-        type: KeyType.VALUE,
+    ["a"]: {
+        type: "VALUE",
         ariaLabel: "a",
         icon: {
             type: IconType.MATH,
             data: "a",
         },
-        id: Keys.a,
+        id: "a",
     },
-    [Keys.b]: {
-        type: KeyType.VALUE,
+    ["b"]: {
+        type: "VALUE",
         ariaLabel: "b",
         icon: {
             type: IconType.MATH,
             data: "b",
         },
-        id: Keys.b,
+        id: "b",
     },
-    [Keys.c]: {
-        type: KeyType.VALUE,
+    ["c"]: {
+        type: "VALUE",
         ariaLabel: "c",
         icon: {
             type: IconType.MATH,
             data: "c",
         },
-        id: Keys.c,
+        id: "c",
     },
-    [Keys.d]: {
-        type: KeyType.VALUE,
+    ["d"]: {
+        type: "VALUE",
         ariaLabel: "d",
         icon: {
             type: IconType.MATH,
             data: "d",
         },
-        id: Keys.d,
+        id: "d",
     },
-    [Keys.e]: {
-        type: KeyType.VALUE,
+    ["e"]: {
+        type: "VALUE",
         ariaLabel: "e",
         icon: {
             type: IconType.MATH,
             data: "e",
         },
-        id: Keys.e,
+        id: "e",
     },
-    [Keys.f]: {
-        type: KeyType.VALUE,
+    ["f"]: {
+        type: "VALUE",
         ariaLabel: "f",
         icon: {
             type: IconType.MATH,
             data: "f",
         },
-        id: Keys.f,
+        id: "f",
     },
-    [Keys.g]: {
-        type: KeyType.VALUE,
+    ["g"]: {
+        type: "VALUE",
         ariaLabel: "g",
         icon: {
             type: IconType.MATH,
             data: "g",
         },
-        id: Keys.g,
+        id: "g",
     },
-    [Keys.h]: {
-        type: KeyType.VALUE,
+    ["h"]: {
+        type: "VALUE",
         ariaLabel: "h",
         icon: {
             type: IconType.MATH,
             data: "h",
         },
-        id: Keys.h,
+        id: "h",
     },
-    [Keys.i]: {
-        type: KeyType.VALUE,
+    ["i"]: {
+        type: "VALUE",
         ariaLabel: "i",
         icon: {
             type: IconType.MATH,
             data: "i",
         },
-        id: Keys.i,
+        id: "i",
     },
-    [Keys.j]: {
-        type: KeyType.VALUE,
+    ["j"]: {
+        type: "VALUE",
         ariaLabel: "j",
         icon: {
             type: IconType.MATH,
             data: "j",
         },
-        id: Keys.j,
+        id: "j",
     },
-    [Keys.k]: {
-        type: KeyType.VALUE,
+    ["k"]: {
+        type: "VALUE",
         ariaLabel: "k",
         icon: {
             type: IconType.MATH,
             data: "k",
         },
-        id: Keys.k,
+        id: "k",
     },
-    [Keys.l]: {
-        type: KeyType.VALUE,
+    ["l"]: {
+        type: "VALUE",
         ariaLabel: "l",
         icon: {
             type: IconType.MATH,
             data: "l",
         },
-        id: Keys.l,
+        id: "l",
     },
-    [Keys.m]: {
-        type: KeyType.VALUE,
+    ["m"]: {
+        type: "VALUE",
         ariaLabel: "m",
         icon: {
             type: IconType.MATH,
             data: "m",
         },
-        id: Keys.m,
+        id: "m",
     },
-    [Keys.n]: {
-        type: KeyType.VALUE,
+    ["n"]: {
+        type: "VALUE",
         ariaLabel: "n",
         icon: {
             type: IconType.MATH,
             data: "n",
         },
-        id: Keys.n,
+        id: "n",
     },
-    [Keys.o]: {
-        type: KeyType.VALUE,
+    ["o"]: {
+        type: "VALUE",
         ariaLabel: "o",
         icon: {
             type: IconType.MATH,
             data: "o",
         },
-        id: Keys.o,
+        id: "o",
     },
-    [Keys.p]: {
-        type: KeyType.VALUE,
+    ["p"]: {
+        type: "VALUE",
         ariaLabel: "p",
         icon: {
             type: IconType.MATH,
             data: "p",
         },
-        id: Keys.p,
+        id: "p",
     },
-    [Keys.q]: {
-        type: KeyType.VALUE,
+    ["q"]: {
+        type: "VALUE",
         ariaLabel: "q",
         icon: {
             type: IconType.MATH,
             data: "q",
         },
-        id: Keys.q,
+        id: "q",
     },
-    [Keys.r]: {
-        type: KeyType.VALUE,
+    ["r"]: {
+        type: "VALUE",
         ariaLabel: "r",
         icon: {
             type: IconType.MATH,
             data: "r",
         },
-        id: Keys.r,
+        id: "r",
     },
-    [Keys.s]: {
-        type: KeyType.VALUE,
+    ["s"]: {
+        type: "VALUE",
         ariaLabel: "s",
         icon: {
             type: IconType.MATH,
             data: "s",
         },
-        id: Keys.s,
+        id: "s",
     },
-    [Keys.t]: {
-        type: KeyType.VALUE,
+    ["t"]: {
+        type: "VALUE",
         ariaLabel: "y",
         icon: {
             type: IconType.MATH,
             data: "y",
         },
-        id: Keys.y,
+        id: "y",
     },
-    [Keys.u]: {
-        type: KeyType.VALUE,
+    ["u"]: {
+        type: "VALUE",
         ariaLabel: "u",
         icon: {
             type: IconType.MATH,
             data: "u",
         },
-        id: Keys.u,
+        id: "u",
     },
-    [Keys.v]: {
-        type: KeyType.VALUE,
+    ["v"]: {
+        type: "VALUE",
         ariaLabel: "v",
         icon: {
             type: IconType.MATH,
             data: "v",
         },
-        id: Keys.v,
+        id: "v",
     },
-    [Keys.w]: {
-        type: KeyType.VALUE,
+    ["w"]: {
+        type: "VALUE",
         ariaLabel: "w",
         icon: {
             type: IconType.MATH,
             data: "w",
         },
-        id: Keys.w,
+        id: "w",
     },
-    [Keys.x]: {
-        type: KeyType.VALUE,
+    ["x"]: {
+        type: "VALUE",
         ariaLabel: "x",
         icon: {
             type: IconType.MATH,
             data: "x",
         },
-        id: Keys.x,
+        id: "x",
     },
-    [Keys.y]: {
-        type: KeyType.VALUE,
+    ["y"]: {
+        type: "VALUE",
         ariaLabel: "y",
         icon: {
             type: IconType.MATH,
             data: "y",
         },
-        id: Keys.y,
+        id: "y",
     },
-    [Keys.z]: {
-        type: KeyType.VALUE,
+    ["z"]: {
+        type: "VALUE",
         ariaLabel: "z",
         icon: {
             type: IconType.MATH,
             data: "z",
         },
-        id: Keys.z,
+        id: "z",
     },
 };
-
-for (const key of Object.keys(KeyConfigs)) {
-    KeyConfigs[key] = {
-        id: key,
-        // Default to an SVG icon indexed by the key name.
-        icon: {
-            type: IconType.SVG,
-            data: key,
-        },
-        ...KeyConfigs[key],
-    };
-}
 
 export default KeyConfigs;

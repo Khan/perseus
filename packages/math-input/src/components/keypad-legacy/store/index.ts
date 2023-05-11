@@ -1,6 +1,6 @@
 import * as Redux from "redux";
 
-import Keys from "../../../data/keys";
+import Key from "../../../data/keys";
 import GestureManager from "../gesture-manager";
 
 import {onSwipeChange, onSwipeEnd, setActiveNodes, pressKey} from "./actions";
@@ -33,7 +33,7 @@ export const createStore = () => {
                     store.dispatch(setActiveNodes(activeNodes));
                 },
                 onClick: (
-                    key: Keys,
+                    key: Key,
                     layoutProps: LayoutProps,
                     inPopover: boolean,
                 ) => {
@@ -43,7 +43,7 @@ export const createStore = () => {
                 },
             },
             [],
-            [Keys.BACKSPACE, Keys.UP, Keys.RIGHT, Keys.DOWN, Keys.LEFT],
+            ["BACKSPACE", "UP", "RIGHT", "DOWN", "LEFT"],
         );
     };
 

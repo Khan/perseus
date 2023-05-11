@@ -7,25 +7,26 @@ export enum KeypadType {
     EXPRESSION = "EXPRESSION",
 }
 
-export enum KeyType {
-    EMPTY = "EMPTY",
+export const KeyTypes = [
+    "EMPTY",
     // For numerals, variables, and any other characters that themselves
     // compose 'values'.
-    VALUE = "VALUE",
+    "VALUE",
     // For buttons that insert or adjust math in an input.
-    OPERATOR = "OPERATOR",
+    "OPERATOR",
     // For buttons that move the cursor in an input (including via
     // deletion).
-    INPUT_NAVIGATION = "INPUT_NAVIGATION",
+    "INPUT_NAVIGATION",
     // For buttons that modify the broader keypad state (e.g., by changing
     // the visible pane).
-    KEYPAD_NAVIGATION = "KEYPAD_NAVIGATION",
+    "KEYPAD_NAVIGATION",
     // For buttons that house multiple buttons and have no action
     // themselves.
-    MANY = "MANY",
+    "MANY",
     // For the echo animation that appears on press.
-    ECHO = "ECHO",
-}
+    "ECHO",
+];
+export type KeyType = typeof KeyTypes[number];
 
 export enum DeviceOrientation {
     LANDSCAPE = "LANDSCAPE",

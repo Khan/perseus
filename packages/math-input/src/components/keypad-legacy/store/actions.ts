@@ -1,4 +1,4 @@
-import Keys from "../../../data/keys";
+import Key from "../../../data/keys";
 
 import type {
     Bound,
@@ -144,13 +144,13 @@ export const setActiveNodes = (
 
 type PressKeyAction = {
     type: "PressKey";
-    key: Keys;
+    key: Key;
     initialBounds: Bound;
     inPopover: boolean;
 };
 
 export const pressKey = (
-    key: Keys,
+    key: Key,
     initialBounds: Bound,
     inPopover: any,
 ): PressKeyAction => {

@@ -5,6 +5,8 @@
  */
 import * as React from "react";
 
+import Key from "../data/keys";
+
 import GestureStateMachine from "./gesture-state-machine";
 import NodeManager from "./node-manager";
 import PopoverStateMachine from "./popover-state-machine";
@@ -20,7 +22,12 @@ class GestureManager {
     popoverStateMachine: PopoverStateMachine;
     gestureStateMachine: GestureStateMachine;
 
-    constructor(options, handlers, disabledSwipeKeys, multiPressableKeys) {
+    constructor(
+        options,
+        handlers,
+        disabledSwipeKeys: Key[],
+        multiPressableKeys: Key[],
+    ) {
         const {swipeEnabled} = options;
 
         this.swipeEnabled = swipeEnabled;

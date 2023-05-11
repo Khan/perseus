@@ -7,7 +7,7 @@
 import $ from "jquery";
 import MathQuill from "mathquill";
 
-import Keys from "../../data/keys";
+import Key from "../../data/keys";
 import {DecimalSeparator} from "../../enums";
 import {decimalSeparator} from "../../utils";
 
@@ -29,43 +29,43 @@ enum ActionType {
 // MathQuill should modify its input in response to that key-press. Any keys
 // that do not provide explicit actions (like the numeral keys) will merely
 // write their contents to MathQuill.
-const KeyActions: {[K in Keys]?: {str: string; fn: ActionType}} = {
-    [Keys.PLUS]: {str: "+", fn: ActionType.WRITE},
-    [Keys.MINUS]: {str: "-", fn: ActionType.WRITE},
-    [Keys.NEGATIVE]: {str: "-", fn: ActionType.WRITE},
-    [Keys.TIMES]: {str: "\\times", fn: ActionType.WRITE},
-    [Keys.DIVIDE]: {str: "\\div", fn: ActionType.WRITE},
-    [Keys.DECIMAL]: {
+const KeyActions: {[K in Key]?: {str: string; fn: ActionType}} = {
+    ["PLUS"]: {str: "+", fn: ActionType.WRITE},
+    ["MINUS"]: {str: "-", fn: ActionType.WRITE},
+    ["NEGATIVE"]: {str: "-", fn: ActionType.WRITE},
+    ["TIMES"]: {str: "\\times", fn: ActionType.WRITE},
+    ["DIVIDE"]: {str: "\\div", fn: ActionType.WRITE},
+    ["DECIMAL"]: {
         str: decimalSymbol,
         fn: ActionType.WRITE,
     },
-    [Keys.EQUAL]: {str: "=", fn: ActionType.WRITE},
-    [Keys.NEQ]: {str: "\\neq", fn: ActionType.WRITE},
-    [Keys.CDOT]: {str: "\\cdot", fn: ActionType.WRITE},
-    [Keys.PERCENT]: {str: "%", fn: ActionType.WRITE},
-    [Keys.LEFT_PAREN]: {str: "(", fn: ActionType.CMD},
-    [Keys.RIGHT_PAREN]: {str: ")", fn: ActionType.CMD},
-    [Keys.SQRT]: {str: "sqrt", fn: ActionType.CMD},
-    [Keys.PI]: {str: "pi", fn: ActionType.CMD},
-    [Keys.THETA]: {str: "theta", fn: ActionType.CMD},
-    [Keys.RADICAL]: {str: "nthroot", fn: ActionType.CMD},
-    [Keys.LT]: {str: "<", fn: ActionType.WRITE},
-    [Keys.LEQ]: {str: "\\leq", fn: ActionType.WRITE},
-    [Keys.GT]: {str: ">", fn: ActionType.WRITE},
-    [Keys.GEQ]: {str: "\\geq", fn: ActionType.WRITE},
-    [Keys.UP]: {str: "Up", fn: ActionType.KEYSTROKE},
-    [Keys.DOWN]: {str: "Down", fn: ActionType.KEYSTROKE},
+    ["EQUAL"]: {str: "=", fn: ActionType.WRITE},
+    ["NEQ"]: {str: "\\neq", fn: ActionType.WRITE},
+    ["CDOT"]: {str: "\\cdot", fn: ActionType.WRITE},
+    ["PERCENT"]: {str: "%", fn: ActionType.WRITE},
+    ["LEFT_PAREN"]: {str: "(", fn: ActionType.CMD},
+    ["RIGHT_PAREN"]: {str: ")", fn: ActionType.CMD},
+    ["SQRT"]: {str: "sqrt", fn: ActionType.CMD},
+    ["PI"]: {str: "pi", fn: ActionType.CMD},
+    ["THETA"]: {str: "theta", fn: ActionType.CMD},
+    ["RADICAL"]: {str: "nthroot", fn: ActionType.CMD},
+    ["LT"]: {str: "<", fn: ActionType.WRITE},
+    ["LEQ"]: {str: "\\leq", fn: ActionType.WRITE},
+    ["GT"]: {str: ">", fn: ActionType.WRITE},
+    ["GEQ"]: {str: "\\geq", fn: ActionType.WRITE},
+    ["UP"]: {str: "Up", fn: ActionType.KEYSTROKE},
+    ["DOWN"]: {str: "Down", fn: ActionType.KEYSTROKE},
     // The `FRAC_EXCLUSIVE` variant is handled manually, since we may need to do
     // some additional navigation depending on the cursor position.
-    [Keys.FRAC_INCLUSIVE]: {str: "/", fn: ActionType.CMD},
+    ["FRAC_INCLUSIVE"]: {str: "/", fn: ActionType.CMD},
 };
 
 const NormalCommands = {
-    [Keys.LOG]: "log",
-    [Keys.LN]: "ln",
-    [Keys.SIN]: "sin",
-    [Keys.COS]: "cos",
-    [Keys.TAN]: "tan",
+    ["LOG"]: "log",
+    ["LN"]: "ln",
+    ["SIN"]: "sin",
+    ["COS"]: "cos",
+    ["TAN"]: "tan",
 };
 
 const ArithmeticOperators = ["+", "-", "\\cdot", "\\times", "\\div"];
@@ -112,12 +112,12 @@ const ValidLeaves = [
 ];
 
 const KeysForJumpContext = {
-    [CursorContext.IN_PARENS]: Keys.JUMP_OUT_PARENTHESES,
-    [CursorContext.IN_SUPER_SCRIPT]: Keys.JUMP_OUT_EXPONENT,
-    [CursorContext.IN_SUB_SCRIPT]: Keys.JUMP_OUT_BASE,
-    [CursorContext.BEFORE_FRACTION]: Keys.JUMP_INTO_NUMERATOR,
-    [CursorContext.IN_NUMERATOR]: Keys.JUMP_OUT_NUMERATOR,
-    [CursorContext.IN_DENOMINATOR]: Keys.JUMP_OUT_DENOMINATOR,
+    [CursorContext.IN_PARENS]: "JUMP_OUT_PARENTHESES",
+    [CursorContext.IN_SUPER_SCRIPT]: "JUMP_OUT_EXPONENT",
+    [CursorContext.IN_SUB_SCRIPT]: "JUMP_OUT_BASE",
+    [CursorContext.BEFORE_FRACTION]: "JUMP_INTO_NUMERATOR",
+    [CursorContext.IN_NUMERATOR]: "JUMP_OUT_NUMERATOR",
+    [CursorContext.IN_DENOMINATOR]: "JUMP_OUT_DENOMINATOR",
 };
 
 class MathWrapper {
@@ -178,7 +178,7 @@ class MathWrapper {
             }
         } else if (Object.keys(NormalCommands).includes(key)) {
             this._writeNormalFunction(NormalCommands[key]);
-        } else if (key === Keys.FRAC_EXCLUSIVE) {
+        } else if (key === "FRAC_EXCLUSIVE") {
             // If there's nothing to the left of the cursor, then we want to
             // leave the cursor to the left of the fraction after creating it.
             const shouldNavigateLeft = cursor[this.MQ.L] === ActionType.MQ_END;
@@ -186,38 +186,34 @@ class MathWrapper {
             if (shouldNavigateLeft) {
                 this.mathField.keystroke("Left");
             }
-        } else if (key === Keys.FRAC) {
+        } else if (key === "FRAC") {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const shouldNavigateLeft = cursor[this.MQ.L] === ActionType.MQ_END;
             this.mathField.cmd("\\frac");
-        } else if (key === Keys.LOG_N) {
+        } else if (key === "LOG_N") {
             this.mathField.write("log_{ }\\left(\\right)");
             this.mathField.keystroke("Left"); // into parentheses
             this.mathField.keystroke("Left"); // out of parentheses
             this.mathField.keystroke("Left"); // into index
-        } else if (key === Keys.CUBE_ROOT) {
+        } else if (key === "CUBE_ROOT") {
             this.mathField.write("\\sqrt[3]{}");
             this.mathField.keystroke("Left"); // under the root
-        } else if (
-            key === Keys.EXP ||
-            key === Keys.EXP_2 ||
-            key === Keys.EXP_3
-        ) {
+        } else if (key === "EXP" || key === "EXP_2" || key === "EXP_3") {
             this._handleExponent(cursor, key);
         } else if (
-            key === Keys.JUMP_OUT_PARENTHESES ||
-            key === Keys.JUMP_OUT_EXPONENT ||
-            key === Keys.JUMP_OUT_BASE ||
-            key === Keys.JUMP_INTO_NUMERATOR ||
-            key === Keys.JUMP_OUT_NUMERATOR ||
-            key === Keys.JUMP_OUT_DENOMINATOR
+            key === "JUMP_OUT_PARENTHESES" ||
+            key === "JUMP_OUT_EXPONENT" ||
+            key === "JUMP_OUT_BASE" ||
+            key === "JUMP_INTO_NUMERATOR" ||
+            key === "JUMP_OUT_NUMERATOR" ||
+            key === "JUMP_OUT_DENOMINATOR"
         ) {
             this._handleJumpOut(cursor, key);
-        } else if (key === Keys.BACKSPACE) {
+        } else if (key === "BACKSPACE") {
             this._handleBackspace(cursor);
-        } else if (key === Keys.LEFT) {
+        } else if (key === "LEFT") {
             this._handleLeftArrow(cursor);
-        } else if (key === Keys.RIGHT) {
+        } else if (key === "RIGHT") {
             this._handleRightArrow(cursor);
         } else if (/^[a-zA-Z]$/.test(key)) {
             this.mathField[ActionType.WRITE](key);
@@ -531,13 +527,13 @@ class MathWrapper {
 
         // Insert the appropriate exponent operator.
         switch (key) {
-            case Keys.EXP:
+            case "EXP":
                 this.mathField.cmd("^");
                 break;
 
-            case Keys.EXP_2:
-            case Keys.EXP_3:
-                this.mathField.write(`^${key === Keys.EXP_2 ? 2 : 3}`);
+            case "EXP_2":
+            case "EXP_3":
+                this.mathField.write(`^${key === "EXP_2" ? 2 : 3}`);
 
                 // If we enter a square or a cube, we should leave the cursor
                 // within the newly inserted parens, if they exist. This takes

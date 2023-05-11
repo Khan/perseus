@@ -1,7 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import Keys from "../../data/keys";
 import {KeyConfig} from "../../types";
 
 import Button from "./button";
@@ -49,7 +48,7 @@ export const KeypadButton = ({
         tintColor={tintColor}
         style={style}
     >
-        <ButtonAsset id={Keys[keyConfig.id]} />
+        <ButtonAsset id={keyConfig.id} />
     </Button>
 );
 

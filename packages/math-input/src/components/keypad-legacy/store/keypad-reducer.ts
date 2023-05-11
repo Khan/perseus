@@ -1,5 +1,5 @@
 import KeyConfigs from "../../../data/key-configs";
-import Keys from "../../../data/keys";
+import Key from "../../../data/keys";
 
 import {defaultKeypadType} from "./shared";
 
@@ -7,7 +7,7 @@ import type {Action} from "./actions";
 import type {KeypadState} from "./types";
 
 const initialKeypadState = {
-    extraKeys: ["x", "y", Keys.THETA, Keys.PI],
+    extraKeys: ["x", "y", "THETA", "PI"] as Key[],
     keypadType: defaultKeypadType,
     active: false,
 } as const;
@@ -46,7 +46,7 @@ const keypadReducer = function (
             // right actions when they occur. Hence, we figure off a
             // dismissal here rather than dispatching a dismiss action in
             // the first place.
-            if (keyConfig.id === Keys.DISMISS) {
+            if (keyConfig.id === "DISMISS") {
                 return keypadReducer(state, {type: "DismissKeypad"});
             }
             return state;
