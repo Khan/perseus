@@ -1,5 +1,4 @@
 import KeyConfigs from "../../../data/key-configs";
-import Key from "../../../data/keys";
 
 import {defaultKeypadType} from "./shared";
 
@@ -7,7 +6,7 @@ import type {Action} from "./actions";
 import type {KeypadState} from "./types";
 
 const initialKeypadState = {
-    extraKeys: ["x", "y", "THETA", "PI"] as Key[],
+    extraKeys: ["x", "y", "THETA", "PI"] as const,
     keypadType: defaultKeypadType,
     active: false,
 } as const;
