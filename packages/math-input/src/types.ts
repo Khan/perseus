@@ -40,7 +40,7 @@ export type IconConfig = {
 
 export type NonManyKeyConfig = {
     id: Key;
-    type: KeyType;
+    type: Exclude<KeyType, "MANY">;
     icon: IconConfig;
     ariaLabel: string;
 };
