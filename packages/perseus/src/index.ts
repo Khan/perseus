@@ -125,6 +125,7 @@ export type {
     MathFormat,
     InputNumberWidget,
     PerseusImageBackground,
+    PerseusInteractiveGraphWidgetOptions,
     PerseusRadioWidgetOptions,
     PerseusRenderer,
 } from "./perseus-types";

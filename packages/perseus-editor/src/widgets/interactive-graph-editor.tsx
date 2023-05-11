@@ -8,11 +8,15 @@ import {
     Util,
     PerseusImageBackground,
     APIOptionsWithDefaults,
+    PerseusInteractiveGraphWidgetOptions,
 } from "@khanacademy/perseus";
+import {StyleType, View} from "@khanacademy/wonder-blocks-core";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
 import _ from "underscore";
 
 import GraphSettings from "../components/graph-settings";
+import GraphTypeSelector from "../components/graph-type-selector";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
@@ -36,6 +40,23 @@ const deprecatedProps = {
 
 type Range = [number, number]; // [min, max]
 
+// Renders the given children in a View laid out horizontally.
+const Row = (props: {style?: StyleType; children: React.ReactNode}) => {
+    const {children, style} = props;
+
+    return (
+        <View
+            style={{
+                ...style,
+                flexDirection: "row",
+                marginTop: Spacing.xSmall_8,
+            }}
+        >
+            {children}
+        </View>
+    );
+};
+
 type Props = {
     apiOptions: APIOptionsWithDefaults;
 
@@ -56,6 +77,7 @@ type Props = {
     rulerTicks: number;
     correct: any; // STOPSHIP
 
+    graph: InteractiveGraphProps["graph"];
     onChange: (props: Partial<Props>) => void;
 };
 
@@ -81,22 +103,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
     static widgetName = "interactive-graph";
 
     static defaultProps: DefaultProps = {
-        labels: ["x", "y"],
-        range: [
-            [-10, 10],
-            [-10, 10],
-        ],
-        step: [1, 1],
+        ...InteractiveGraph.defaultProps,
         valid: true,
         backgroundImage: defaultBackgroundImage,
-        markings: "graph",
-        showProtractor: false,
-        showRuler: false,
         showTooltips: false,
-        rulerLabel: "",
-        rulerTicks: 10,
         correct: {
-            type: "linear",
+            type: InteractiveGraph.defaultProps.graph.type,
             coords: null,
         },
     };
@@ -177,8 +189,26 @@ class InteractiveGraphEditor extends React.Component<Props> {
         }
 
         return (
-            <div className="perseus-widget-interactive-graph">
-                <div>
+            <View>
+                <Row>
+                    <span>Type of Graph:</span>
+                    <GraphTypeSelector
+                        graphType={
+                            this.props.graph?.type ??
+                            InteractiveGraph.defaultProps.graph.type
+                        }
+                        onChange={(
+                            type: Required<InteractiveGraphProps>["graph"]["type"],
+                        ) => {
+                            this.props.onChange({
+                                graph: {type},
+                                correct: {type},
+                            });
+                        }}
+                    />
+                </Row>
+
+                <Row>
                     Correct answer{" "}
                     <InfoTip>
                         <p>
@@ -188,7 +218,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>{" "}
                     : {equationString}
-                </div>
+                </Row>
 
                 <GraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
@@ -296,7 +326,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </div>
                 )}
                 {graph}
-            </div>
+            </View>
         );
     }
 
@@ -307,7 +337,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({correct: correct});
     }
 
-    serialize() {
+    serialize(): PerseusInteractiveGraphWidgetOptions {
         const json = _.pick(
             this.props,
             "step",
