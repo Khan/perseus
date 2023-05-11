@@ -8,7 +8,6 @@ import echoReducer from "./echo-reducer";
 import inputReducer from "./input-reducer";
 import keypadReducer from "./keypad-reducer";
 import layoutReducer from "./layout-reducer";
-import pagerReducer from "./pager-reducer";
 import {defaultKeypadType, keypadForType} from "./shared";
 
 import type {LayoutProps, ActiveNodesObj} from "../types";
@@ -102,7 +101,6 @@ export const createStore = () => {
     const reducer = Redux.combineReducers({
         input: inputReducer,
         keypad: keypadReducer,
-        pager: pagerReducer,
         gestures: gestureReducer,
         echoes: echoReducer,
         layout: layoutReducer,

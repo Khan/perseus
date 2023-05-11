@@ -27,7 +27,6 @@ interface ReduxProps {
 }
 
 interface Props extends ReduxProps {
-    currentPage: number;
     leftPage: React.ReactNode;
     rightPage: React.ReactNode;
 }
