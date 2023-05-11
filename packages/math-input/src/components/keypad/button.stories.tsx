@@ -9,15 +9,17 @@ import {KeypadButton, KeypadButtonProps} from "./keypad-page-items";
 
 export default {
     title: "Keypad Button",
+    args: {
+        keyConfig: KeyConfigs["PLUS"],
+        tintColor: "#F6F6F7",
+    },
     argTypes: {
         keyConfig: {
             control: "select",
             options: {...KeyConfigs},
-            defaultValue: KeyConfigs[Keys.PLUS],
         },
         tintColor: {
             control: "color",
-            defaultValue: "#F6F6F7",
         },
     },
 };
@@ -58,6 +60,7 @@ export const AllButtons: ComponentStory<typeof KeypadButton> = ({
     >
         {Object.keys(KeyConfigs).map((key) => (
             <div
+                key={key}
                 style={{
                     width: 58,
                     margin: "auto",
