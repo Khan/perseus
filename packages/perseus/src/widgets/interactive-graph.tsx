@@ -1679,16 +1679,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         this.angle?.remove();
     };
 
-    toggleShowAngles: () => void = () => {
-        if (this.props.graph.type !== "polygon") {
-            throw makeInvalidTypeError("toggleShowAngles", "polygon");
-        }
-        const graph = _.extend({}, this.props.graph, {
-            showAngles: !this.props.graph.showAngles,
-        });
-        this.onChange({graph: graph});
-    };
-
     toggleShowSides: () => void = () => {
         if (this.props.graph.type !== "polygon") {
             throw makeInvalidTypeError("toggleShowSides", "polygon");

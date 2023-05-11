@@ -19,6 +19,7 @@ import _ from "underscore";
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphSettings from "../components/graph-settings";
 import GraphTypeSelector from "../components/graph-type-selector";
+import SegmentCountSelector from "../components/segment-count-selector";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
@@ -234,7 +235,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </Row>
                 )}
                 {this.props.correct?.type === "polygon" && (
-                    <View>
+                    <>
                         <Row>
                             <FieldLabel>Number of sides:</FieldLabel>
                             <select
@@ -355,7 +356,24 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 <p>Displays the side lengths.</p>
                             </InfoTip>
                         </Row>
-                    </View>
+                    </>
+                )}
+                {this.props.correct?.type === "segment" && (
+                    <Row>
+                        <FieldLabel>Number of segments: </FieldLabel>
+                        <SegmentCountSelector
+                            numSegments={this.props.correct?.numSegments}
+                            onChange={(sides) => {
+                                this.props.onChange({
+                                    correct: {
+                                        type: "segment",
+                                        numSegments: sides,
+                                        coords: null,
+                                    },
+                                });
+                            }}
+                        />
+                    </Row>
                 )}
 
                 <Row>
@@ -369,7 +387,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </InfoTip>
                     : {equationString}
                 </Row>
-
                 <GraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
@@ -387,7 +404,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     rulerTicks={this.props.rulerTicks}
                     onChange={this.props.onChange}
                 />
-
                 {this.props.correct.type === "polygon" && (
                     <div className="type-settings">
                         <label>
