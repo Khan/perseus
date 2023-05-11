@@ -1,6 +1,6 @@
-import GestureStateMachine from "../gesture-state-machine";
+import GestureStateMachine from "../keypad-v1/gesture-state-machine";
 
-import type {Handlers} from "../gesture-state-machine";
+import type {Handlers} from "../keypad-v1/gesture-state-machine";
 
 const swipeThresholdPx = 5;
 const longPressWaitTimeMs = 5;

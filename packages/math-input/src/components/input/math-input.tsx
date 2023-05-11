@@ -13,7 +13,7 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style";
-import ProvidedKeypad from "../provided-keypad";
+import ProvidedKeypad from "../keypad-v1/provided-keypad";
 
 import CursorHandle from "./cursor-handle";
 import DragListener from "./drag-listener";

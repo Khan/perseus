@@ -1,4 +1,4 @@
-import NodeManager from "../node-manager";
+import NodeManager from "../keypad-v1/node-manager";
 
 describe("NodeManager", () => {
     let nodeManager;
