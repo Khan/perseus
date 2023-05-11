@@ -46,7 +46,7 @@ export type NonManyKeyConfig = {
 };
 
 export type ManyKeyConfig = Omit<NonManyKeyConfig, "type"> & {
-    type: "MANY";
+    type: Extract<KeyType, "MANY">;
     childKeyIds: ReadonlyArray<string>;
 };
 
