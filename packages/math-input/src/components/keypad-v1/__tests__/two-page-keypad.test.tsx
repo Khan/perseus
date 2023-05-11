@@ -1,7 +1,7 @@
 import {mount} from "enzyme";
 import * as React from "react";
 
-import TwoPageKeypad from "../keypad-v1/two-page-keypad";
+import TwoPageKeypad from "../two-page-keypad";
 
 describe("<TwoPageKeyPage />", () => {
     xit("defaults to selecting the right page", () => {
