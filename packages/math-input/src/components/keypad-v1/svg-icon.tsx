@@ -4,7 +4,7 @@
 
 import * as React from "react";
 
-import * as Iconography from "../iconography/index";
+import * as Iconography from "./iconography/index";
 
 type Props = {
     color: string;
