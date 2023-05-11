@@ -1,5 +1,25 @@
 # @khanacademy/math-input
 
+## 3.0.0
+
+### Major Changes
+
+-   ec37eb3d: Export v2 keypad, rename v1 keypad to ProvidedKeypad
+
+### Minor Changes
+
+-   46417c53: add division key boolean
+-   97438065: Add prop to Keypad to switch between · and × for multiplication
+-   85d9132a: Added Basic Relations buttons
+-   42297993: Add advanced relations buttons
+-   e86cc72f: Keypad API: Button sets on keypad switched to optional booleans. Added all designed button sets as props, but not all are yet implemented.
+-   c0a15907: adds logarithm buttons
+
+### Patch Changes
+
+-   1ffbe3ef:
+-   d9759ea6: Fix dom errors from SVG markup and adjust stories to remove warnings
+
 ## 2.0.0
 
 ### Major Changes

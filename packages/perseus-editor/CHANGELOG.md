@@ -1,5 +1,17 @@
 # @khanacademy/perseus-editor
 
+## 2.2.0
+
+### Minor Changes
+
+-   e86cc72f: Keypad API: Button sets on keypad switched to optional booleans. Added all designed button sets as props, but not all are yet implemented.
+
+### Patch Changes
+
+-   Updated dependencies [e86cc72f]
+-   Updated dependencies [ec37eb3d]
+    -   @khanacademy/perseus@6.1.0
+
 ## 2.1.0
 
 ### Minor Changes
