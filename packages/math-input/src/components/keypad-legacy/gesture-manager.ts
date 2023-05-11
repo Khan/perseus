@@ -5,7 +5,7 @@
  */
 import * as React from "react";
 
-import Key from "../data/keys";
+import Key from "../../data/keys";
 
 import GestureStateMachine from "./gesture-state-machine";
 import NodeManager from "./node-manager";
@@ -25,8 +25,8 @@ class GestureManager {
     constructor(
         options,
         handlers,
-        disabledSwipeKeys: Key[],
-        multiPressableKeys: Key[],
+        disabledSwipeKeys: Array<Key>,
+        multiPressableKeys: Array<Key>,
     ) {
         const {swipeEnabled} = options;
 

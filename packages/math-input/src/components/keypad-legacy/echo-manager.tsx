@@ -5,9 +5,9 @@
 import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
-import KeyConfigs from "../data/key-configs";
-import Key from "../data/keys";
-import {EchoAnimationType} from "../enums";
+import KeyConfigs from "../../data/key-configs";
+import Key from "../../data/keys";
+import {EchoAnimationType} from "../../enums";
 
 import KeypadButton from "./keypad-button";
 import * as zIndexes from "./z-indexes";
