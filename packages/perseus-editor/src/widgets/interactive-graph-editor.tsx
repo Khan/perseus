@@ -8,13 +8,13 @@ import {
     Util,
     PerseusImageBackground,
     APIOptionsWithDefaults,
-    PerseusInteractiveGraphWidgetOptions,
 } from "@khanacademy/perseus";
 import {StyleType, View} from "@khanacademy/wonder-blocks-core";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
 import _ from "underscore";
 
+import GraphPointsCountSelector from "../components/graph-points-count-selector";
 import GraphSettings from "../components/graph-settings";
 import GraphTypeSelector from "../components/graph-type-selector";
 
@@ -191,7 +191,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
         return (
             <View>
                 <Row>
-                    <span>Type of Graph:</span>
+                    <span style={{marginRight: Spacing.xSmall_8}}>
+                        Type of Graph:
+                    </span>
                     <GraphTypeSelector
                         graphType={
                             this.props.graph?.type ??
@@ -207,6 +209,24 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         }}
                     />
                 </Row>
+                {this.props.graph?.type === "point" && (
+                    <Row>
+                        <span style={{marginRight: Spacing.xSmall_8}}>
+                            Number of Points:
+                        </span>
+                        <GraphPointsCountSelector
+                            numPoints={this.props.graph?.numPoints}
+                            onChange={(points) => {
+                                this.props.onChange({
+                                    correct: {
+                                        type: "point",
+                                        numPoints: points,
+                                    },
+                                });
+                            }}
+                        />
+                    </Row>
+                )}
 
                 <Row>
                     Correct answer{" "}
@@ -337,7 +357,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({correct: correct});
     }
 
-    serialize(): PerseusInteractiveGraphWidgetOptions {
+    serialize() /* STOPSHIP : PerseusInteractiveGraphWidgetOptions */ {
         const json = _.pick(
             this.props,
             "step",
