@@ -1,3 +1,0 @@
----
-"@khanacademy/math-input": patch
----

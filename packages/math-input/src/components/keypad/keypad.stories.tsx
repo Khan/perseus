@@ -18,52 +18,54 @@ export default {
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
     },
     component: Keypad,
+    args: {
+        advancedRelations: false,
+        basicRelations: false,
+        divisionKey: false,
+        logarithms: false,
+        multiplicationDot: false,
+        preAlgebra: false,
+        trigonometry: false,
+    },
     argTypes: {
         advancedRelations: {
             control: "boolean",
-            defaultValue: false,
             table: {
                 category: opsPage,
             },
         },
         basicRelations: {
             control: "boolean",
-            defaultValue: false,
             table: {
                 category: opsPage,
             },
         },
         divisionKey: {
             control: "boolean",
-            defaultValue: false,
             table: {
                 category: numsPage,
             },
         },
         logarithms: {
             control: "boolean",
-            defaultValue: false,
             table: {
                 category: opsPage,
             },
         },
         multiplicationDot: {
             control: "boolean",
-            defaultValue: false,
             table: {
                 category: numsPage,
             },
         },
         preAlgebra: {
             control: "boolean",
-            defaultValue: false,
             table: {
                 category: opsPage,
             },
         },
         trigonometry: {
             control: "boolean",
-            defaultValue: false,
             table: {
                 category: geoPage,
             },

@@ -4,50 +4,113 @@
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
 import {DecimalSeparator, IconType, KeyType} from "../enums";
+import {KeyConfig} from "../types";
 import {decimalSeparator} from "../utils";
 
-import Keys from "./keys";
+import Key from "./keys";
 
-export type KeyConfig = {
-    id: string;
-    type: string;
-    ariaLabel: string;
-};
+type KeyConfigMapper = (args: {
+    key: Key;
+    keyType?: KeyType;
+    iconType?: IconType;
+    ariaLabel?: string;
+    data?: string;
+}) => KeyConfig;
 
-// I tried to make the below {[key in Keys]: KeyConfig}
-// but we are doing all kinds of sneaky magic that makes it hard to
-// type this safely. Leaving it for now as a generic index signature.
-const KeyConfigs: {[key: string]: any} = {
-    // Basic math keys.
-    [Keys.PLUS]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a plus sign.
-        ariaLabel: i18n._("Plus"),
+const getDefaultOperatorFields: KeyConfigMapper = ({
+    key,
+    keyType = "OPERATOR",
+    iconType = IconType.SVG,
+    ariaLabel = key,
+    data = key,
+}) => ({
+    id: key,
+    type: keyType,
+    ariaLabel,
+    icon: {
+        type: iconType,
+        data,
     },
-    [Keys.MINUS]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a minus sign.
-        ariaLabel: i18n._("Minus"),
+});
+
+const getDefaultValueFields: KeyConfigMapper = ({
+    key,
+    keyType = "VALUE",
+    iconType = IconType.MATH,
+    ariaLabel = key,
+    data = key,
+}) => ({
+    id: key,
+    type: keyType,
+    ariaLabel,
+    icon: {
+        type: iconType,
+        data,
     },
-    [Keys.NEGATIVE]: {
-        type: KeyType.VALUE,
-        // I18N: A label for a minus sign.
-        ariaLabel: i18n._("Negative"),
+});
+
+const getDefaultNumberFields: KeyConfigMapper = ({
+    key,
+    data = key.replace("NUM_", ""),
+    keyType = "VALUE",
+    iconType = IconType.TEXT,
+    ariaLabel = data,
+}) => ({
+    id: key,
+    type: keyType,
+    ariaLabel,
+    icon: {
+        type: iconType,
+        data,
     },
-    [Keys.TIMES]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a multiplication sign (represented with an 'x').
-        ariaLabel: i18n._("Multiply"),
+});
+
+const KeyConfigs: {
+    [key in Key]: KeyConfig;
+} = {
+    // Basic math
+    PLUS: {
+        ...getDefaultOperatorFields({
+            key: "PLUS",
+            // I18N: A label for a 'plus' sign.
+            ariaLabel: i18n._("Plus"),
+        }),
     },
-    [Keys.DIVIDE]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a division sign.
-        ariaLabel: i18n._("Divide"),
+    MINUS: {
+        ...getDefaultOperatorFields({
+            key: "MINUS",
+            // I18N: A label for a 'minus' sign.
+            ariaLabel: i18n._("Minus"),
+        }),
     },
-    [Keys.DECIMAL]: {
-        type: KeyType.VALUE,
-        // I18N: A label for a decimal symbol.
-        ariaLabel: i18n._("Decimal"),
+    NEGATIVE: {
+        ...getDefaultOperatorFields({
+            key: "NEGATIVE",
+            // I18N: A label for a 'negative' sign.
+            ariaLabel: i18n._("Negative"),
+        }),
+    },
+    TIMES: {
+        ...getDefaultOperatorFields({
+            key: "TIMES",
+            // I18N: A label for a 'multiply' sign.
+            ariaLabel: i18n._("Multiply"),
+        }),
+    },
+    DIVIDE: {
+        ...getDefaultOperatorFields({
+            key: "DIVIDE",
+            // I18N: A label for a 'divide' sign.
+            ariaLabel: i18n._("Divide"),
+        }),
+    },
+    DECIMAL: {
+        ...getDefaultOperatorFields({
+            key: "DECIMAL",
+            keyType: "VALUE",
+            // I18N: A label for a 'decimal' sign (represented as '.' or ',').
+            ariaLabel: i18n._("Decimal"),
+        }),
         icon:
             decimalSeparator === DecimalSeparator.COMMA
                 ? {
@@ -58,287 +121,651 @@ const KeyConfigs: {[key: string]: any} = {
                   }
                 : {
                       type: IconType.SVG,
-                      data: Keys.PERIOD,
+                      data: "PERIOD",
                   },
     },
-    [Keys.PERCENT]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a percent sign.
-        ariaLabel: i18n._("Percent"),
+    PERIOD: {
+        ...getDefaultOperatorFields({
+            key: "PERIOD",
+            keyType: "VALUE",
+            ariaLabel: ".",
+        }),
     },
-    [Keys.CDOT]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a multiplication sign (represented as a dot).
-        ariaLabel: i18n._("Multiply"),
+    PERCENT: {
+        ...getDefaultOperatorFields({
+            key: "PERCENT",
+            // I18N: A label for a 'percent' sign (represented as '%').
+            ariaLabel: i18n._("Percent"),
+        }),
     },
-    [Keys.EQUAL]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Equals sign"),
+    CDOT: {
+        ...getDefaultOperatorFields({
+            key: "CDOT",
+            // I18N: A label for a 'centered dot' multiplication sign (represented as '⋅').
+            ariaLabel: i18n._("Multiply"),
+        }),
     },
-    [Keys.NEQ]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Not-equals sign"),
+    EQUAL: {
+        ...getDefaultOperatorFields({
+            key: "EQUAL",
+            // I18N: A label for an 'equals' sign (represented as '=').
+            ariaLabel: i18n._("Equals sign"),
+        }),
     },
-    [Keys.GT]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a 'greater than' sign (represented as '>').
-        ariaLabel: i18n._("Greater than sign"),
+    NEQ: {
+        ...getDefaultOperatorFields({
+            key: "NEQ",
+            // I18N: A label for a 'not-equals' sign (represented as '≠').
+            ariaLabel: i18n._("Not-equals sign"),
+        }),
     },
-    [Keys.LT]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a 'less than' sign (represented as '<').
-        ariaLabel: i18n._("Less than sign"),
+    GT: {
+        ...getDefaultOperatorFields({
+            key: "GT",
+            // I18N: A label for a 'greater than' sign (represented as '>').
+            ariaLabel: i18n._("Greater than sign"),
+        }),
     },
-    [Keys.GEQ]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Greater than or equal to sign"),
+    LT: {
+        ...getDefaultOperatorFields({
+            key: "LT",
+            // I18N: A label for a 'less than' sign (represented as '<').
+            ariaLabel: i18n._("Less than sign"),
+        }),
     },
-    [Keys.LEQ]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Less than or equal to sign"),
+    GEQ: {
+        ...getDefaultOperatorFields({
+            key: "GEQ",
+            // I18N: A label for a 'greater than or equal to' sign (represented as '≥').
+            ariaLabel: i18n._("Greater than or equal to sign"),
+        }),
+    },
+    LEQ: {
+        ...getDefaultOperatorFields({
+            key: "LEQ",
+            // I18N: A label for a 'less than or equal to' sign (represented as '≤').
+            ariaLabel: i18n._("Less than or equal to sign"),
+        }),
     },
     // mobile native
-    [Keys.FRAC_INCLUSIVE]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that creates a new fraction and puts the
-        // current expression in the numerator of that fraction.
-        ariaLabel: i18n._("Fraction, with current expression in numerator"),
+    FRAC_INCLUSIVE: {
+        ...getDefaultOperatorFields({
+            key: "FRAC_INCLUSIVE",
+            // I18N: A label for a button that creates a new fraction and puts the
+            // current expression in the numerator of that fraction.
+            ariaLabel: i18n._("Fraction, with current expression in numerator"),
+        }),
     },
     // mobile native
-    [Keys.FRAC_EXCLUSIVE]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that creates a new fraction next to the
-        // cursor.
-        ariaLabel: i18n._("Fraction, excluding the current expression"),
+    FRAC_EXCLUSIVE: {
+        ...getDefaultOperatorFields({
+            key: "FRAC_EXCLUSIVE",
+            // I18N: A label for a button that creates a new fraction next to the
+            // cursor.
+            ariaLabel: i18n._("Fraction, excluding the current expression"),
+        }),
     },
     // mobile web
-    [Keys.FRAC]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that creates a new fraction next to the
-        // cursor.
-        ariaLabel: i18n._("Fraction, excluding the current expression"),
+    FRAC: {
+        ...getDefaultOperatorFields({
+            key: "FRAC",
+            // I18N: A label for a button that creates a new fraction next to the
+            // cursor.
+            ariaLabel: i18n._("Fraction, excluding the current expression"),
+        }),
     },
-    [Keys.EXP]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that will allow the user to input a custom
-        // exponent.
-        ariaLabel: i18n._("Custom exponent"),
+    EXP: {
+        ...getDefaultOperatorFields({
+            key: "EXP",
+            // I18N: A label for a button that will allow the user to input a
+            // custom exponent.
+            ariaLabel: i18n._("Custom exponent"),
+        }),
     },
-    [Keys.EXP_2]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that will square (take to the second
-        // power) some math.
-        ariaLabel: i18n._("Square"),
+    EXP_2: {
+        ...getDefaultOperatorFields({
+            key: "EXP_2",
+            // I18N: A label for a button that will square (take to the second
+            // power) some math.
+            ariaLabel: i18n._("Square"),
+        }),
     },
-    [Keys.EXP_3]: {
-        type: KeyType.OPERATOR,
-        // I18N: A label for a button that will cube (take to the third power)
-        // some math.
-        ariaLabel: i18n._("Cube"),
+    EXP_3: {
+        ...getDefaultOperatorFields({
+            key: "EXP_3",
+            // I18N: A label for a button that will cube (take to the third power)
+            // some math.
+            ariaLabel: i18n._("Cube"),
+        }),
     },
-    [Keys.SQRT]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Square root"),
+    SQRT: {
+        ...getDefaultOperatorFields({
+            key: "SQRT",
+            // I18N: A label for a button that will allow the user to input a
+            // square root.
+            ariaLabel: i18n._("Square root"),
+        }),
     },
-    [Keys.CUBE_ROOT]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Cube root"),
+    CUBE_ROOT: {
+        ...getDefaultOperatorFields({
+            key: "CUBE_ROOT",
+            // I18N: A label for a button that will allow the user to input a
+            // cube root.
+            ariaLabel: i18n._("Cube root"),
+        }),
     },
-    [Keys.RADICAL]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Radical with custom root"),
+    RADICAL: {
+        ...getDefaultOperatorFields({
+            key: "RADICAL",
+            // I18N: A label for a button that will allow the user to input a
+            // radical with a custom root.
+            ariaLabel: i18n._("Radical with custom root"),
+        }),
     },
-    [Keys.LEFT_PAREN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Left parenthesis"),
+    LEFT_PAREN: {
+        ...getDefaultOperatorFields({
+            key: "LEFT_PAREN",
+            // I18N: A label for a button that will allow the user to input a
+            // left parenthesis (i.e. '(')
+            ariaLabel: i18n._("Left parenthesis"),
+        }),
     },
-    [Keys.RIGHT_PAREN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Right parenthesis"),
+    RIGHT_PAREN: {
+        ...getDefaultOperatorFields({
+            key: "RIGHT_PAREN",
+            // I18N: A label for a button that will allow the user to input a
+            // right parenthesis (i.e. ')')
+            ariaLabel: i18n._("Right parenthesis"),
+        }),
     },
-    [Keys.LN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Natural logarithm"),
+    LN: {
+        ...getDefaultOperatorFields({
+            key: "LN",
+            // I18N: A label for a button that will allow the user to input a
+            // natural logarithm.
+            ariaLabel: i18n._("Natural logarithm"),
+        }),
     },
-    [Keys.LOG]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Logarithm with base 10"),
+    LOG: {
+        ...getDefaultOperatorFields({
+            key: "LOG",
+            // I18N: A label for a button that will allow the user to input a
+            // logarithm with base 10.
+            ariaLabel: i18n._("Logarithm with base 10"),
+        }),
     },
-    [Keys.LOG_N]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Logarithm with custom base"),
+    LOG_N: {
+        ...getDefaultOperatorFields({
+            key: "LOG_N",
+            // I18N: A label for a button that will allow the user to input a
+            // logarithm with a custom base.
+            ariaLabel: i18n._("Logarithm with custom base"),
+        }),
     },
-    [Keys.SIN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Sine"),
+    SIN: {
+        ...getDefaultOperatorFields({
+            key: "SIN",
+            // I18N: A label for a button that will allow the user to input a
+            // sine function.
+            ariaLabel: i18n._("Sine"),
+        }),
     },
-    [Keys.COS]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Cosine"),
+    COS: {
+        ...getDefaultOperatorFields({
+            key: "COS",
+            // I18N: A label for a button that will allow the user to input a
+            // cosine function.
+            ariaLabel: i18n._("Cosine"),
+        }),
     },
-    [Keys.TAN]: {
-        type: KeyType.OPERATOR,
-        ariaLabel: i18n._("Tangent"),
+    TAN: {
+        ...getDefaultOperatorFields({
+            key: "TAN",
+            // I18N: A label for a button that will allow the user to input a
+            // tangent function.
+            ariaLabel: i18n._("Tangent"),
+        }),
     },
-    [Keys.PI]: {
-        type: KeyType.VALUE,
-        ariaLabel: i18n._("Pi"),
-        icon: {
-            type: IconType.MATH,
+    PI: {
+        ...getDefaultValueFields({
+            key: "PI",
             data: "\\pi",
-        },
+            // I18N: A label for a button that will allow the user to input the
+            // mathematical constant pi (i.e., π)
+            ariaLabel: i18n._("Pi"),
+        }),
     },
-    [Keys.THETA]: {
-        type: KeyType.VALUE,
-        ariaLabel: i18n._("Theta"),
-        icon: {
-            type: IconType.MATH,
+    THETA: {
+        ...getDefaultValueFields({
+            key: "THETA",
             data: "\\theta",
-        },
+            // I18N: A label for a button that will allow the user to input the
+            // mathematical constant theta (i.e., θ)
+            ariaLabel: i18n._("Theta"),
+        }),
     },
-    [Keys.NOOP]: {
-        type: KeyType.EMPTY,
+    NOOP: {
+        ...getDefaultOperatorFields({
+            key: "NOOP",
+            keyType: "EMPTY",
+        }),
+    },
+    // Input navigation
+    UP: {
+        ...getDefaultOperatorFields({
+            key: "UP",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Up arrow"),
+        }),
+    },
+    RIGHT: {
+        ...getDefaultOperatorFields({
+            key: "RIGHT",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Right arrow"),
+        }),
+    },
+    DOWN: {
+        ...getDefaultOperatorFields({
+            key: "DOWN",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Down arrow"),
+        }),
+    },
+    LEFT: {
+        ...getDefaultOperatorFields({
+            key: "LEFT",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Left arrow"),
+        }),
+    },
+    JUMP_OUT_PARENTHESES: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_OUT_PARENTHESES",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Navigate right out of a set of parentheses"),
+        }),
+    },
+    JUMP_OUT_EXPONENT: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_OUT_EXPONENT",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Navigate right out of an exponent"),
+        }),
+    },
+    JUMP_OUT_BASE: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_OUT_BASE",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Navigate right out of a base"),
+        }),
+    },
+    JUMP_INTO_NUMERATOR: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_INTO_NUMERATOR",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._(
+                "Navigate right into the numerator of a fraction",
+            ),
+        }),
+    },
+    JUMP_OUT_NUMERATOR: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_OUT_NUMERATOR",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._(
+                "Navigate right out of the numerator and into the denominator",
+            ),
+        }),
+    },
+    JUMP_OUT_DENOMINATOR: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_OUT_DENOMINATOR",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._(
+                "Navigate right out of the denominator of a fraction",
+            ),
+        }),
+    },
+    BACKSPACE: {
+        ...getDefaultOperatorFields({
+            key: "BACKSPACE",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: i18n._("Delete"),
+        }),
     },
 
-    // Input navigation keys.
-    [Keys.UP]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Up arrow"),
-    },
-    [Keys.RIGHT]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Right arrow"),
-    },
-    [Keys.DOWN]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Down arrow"),
-    },
-    [Keys.LEFT]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Left arrow"),
-    },
-    [Keys.JUMP_OUT_PARENTHESES]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Navigate right out of a set of parentheses"),
-    },
-    [Keys.JUMP_OUT_EXPONENT]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Navigate right out of an exponent"),
-    },
-    [Keys.JUMP_OUT_BASE]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Navigate right out of a base"),
-    },
-    [Keys.JUMP_INTO_NUMERATOR]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._("Navigate right into the numerator of a fraction"),
-    },
-    [Keys.JUMP_OUT_NUMERATOR]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._(
-            "Navigate right out of the numerator and into the denominator",
-        ),
-    },
-    [Keys.JUMP_OUT_DENOMINATOR]: {
-        type: KeyType.INPUT_NAVIGATION,
-        ariaLabel: i18n._(
-            "Navigate right out of the denominator of a fraction",
-        ),
-    },
-    [Keys.BACKSPACE]: {
-        type: KeyType.INPUT_NAVIGATION,
-        // I18N: A label for a button that will delete some input.
-        ariaLabel: i18n._("Delete"),
-    },
-
-    // Keypad navigation keys.
-    [Keys.DISMISS]: {
-        type: KeyType.KEYPAD_NAVIGATION,
-        // I18N: A label for a button that will dismiss/hide a keypad.
-        ariaLabel: i18n._("Dismiss"),
+    // Keypad navigation
+    DISMISS: {
+        ...getDefaultOperatorFields({
+            key: "DISMISS",
+            keyType: "KEYPAD_NAVIGATION",
+            // I18N: A label for a button that will dismiss/hide a keypad.
+            ariaLabel: i18n._("Dismiss"),
+        }),
     },
 
     // TODO(charlie): Use the numeral color for the 'Many' key.
-    // MANY: {
-    //     type: KeyType.MANY,
-    //     // childKeyIds will be configured by the client.
-    // },
+    MANY: {
+        ...getDefaultOperatorFields({
+            key: "MANY",
+            keyType: "MANY",
+        }),
+    },
 
-    [Keys.PERIOD]: {},
+    // NUMBERS
+    NUM_0: {
+        ...getDefaultNumberFields({
+            key: "NUM_0",
+        }),
+    },
+    NUM_1: {
+        ...getDefaultNumberFields({
+            key: "NUM_1",
+        }),
+    },
+    NUM_2: {
+        ...getDefaultNumberFields({
+            key: "NUM_2",
+        }),
+    },
+    NUM_3: {
+        ...getDefaultNumberFields({
+            key: "NUM_3",
+        }),
+    },
+    NUM_4: {
+        ...getDefaultNumberFields({
+            key: "NUM_4",
+        }),
+    },
+    NUM_5: {
+        ...getDefaultNumberFields({
+            key: "NUM_5",
+        }),
+    },
+    NUM_6: {
+        ...getDefaultNumberFields({
+            key: "NUM_6",
+        }),
+    },
+    NUM_7: {
+        ...getDefaultNumberFields({
+            key: "NUM_7",
+        }),
+    },
+    NUM_8: {
+        ...getDefaultNumberFields({
+            key: "NUM_8",
+        }),
+    },
+    NUM_9: {
+        ...getDefaultNumberFields({
+            key: "NUM_9",
+        }),
+    },
+
+    // LETTERS
+    A: {
+        ...getDefaultValueFields({
+            key: "A",
+        }),
+    },
+    B: {
+        ...getDefaultValueFields({
+            key: "B",
+        }),
+    },
+    C: {
+        ...getDefaultValueFields({
+            key: "C",
+        }),
+    },
+    D: {
+        ...getDefaultValueFields({
+            key: "D",
+        }),
+    },
+    E: {
+        ...getDefaultValueFields({
+            key: "E",
+        }),
+    },
+    F: {
+        ...getDefaultValueFields({
+            key: "F",
+        }),
+    },
+    G: {
+        ...getDefaultValueFields({
+            key: "G",
+        }),
+    },
+    H: {
+        ...getDefaultValueFields({
+            key: "H",
+        }),
+    },
+    I: {
+        ...getDefaultValueFields({
+            key: "I",
+        }),
+    },
+    J: {
+        ...getDefaultValueFields({
+            key: "J",
+        }),
+    },
+    K: {
+        ...getDefaultValueFields({
+            key: "K",
+        }),
+    },
+    L: {
+        ...getDefaultValueFields({
+            key: "L",
+        }),
+    },
+    M: {
+        ...getDefaultValueFields({
+            key: "M",
+        }),
+    },
+    N: {
+        ...getDefaultValueFields({
+            key: "N",
+        }),
+    },
+    O: {
+        ...getDefaultValueFields({
+            key: "O",
+        }),
+    },
+    P: {
+        ...getDefaultValueFields({
+            key: "P",
+        }),
+    },
+    Q: {
+        ...getDefaultValueFields({
+            key: "Q",
+        }),
+    },
+    R: {
+        ...getDefaultValueFields({
+            key: "R",
+        }),
+    },
+    S: {
+        ...getDefaultValueFields({
+            key: "S",
+        }),
+    },
+    T: {
+        ...getDefaultValueFields({
+            key: "T",
+        }),
+    },
+    U: {
+        ...getDefaultValueFields({
+            key: "U",
+        }),
+    },
+    V: {
+        ...getDefaultValueFields({
+            key: "V",
+        }),
+    },
+    W: {
+        ...getDefaultValueFields({
+            key: "W",
+        }),
+    },
+    X: {
+        ...getDefaultValueFields({
+            key: "X",
+        }),
+    },
+    Y: {
+        ...getDefaultValueFields({
+            key: "Y",
+        }),
+    },
+    Z: {
+        ...getDefaultValueFields({
+            key: "Z",
+        }),
+    },
+    a: {
+        ...getDefaultValueFields({
+            key: "a",
+        }),
+    },
+    b: {
+        ...getDefaultValueFields({
+            key: "b",
+        }),
+    },
+    c: {
+        ...getDefaultValueFields({
+            key: "c",
+        }),
+    },
+    d: {
+        ...getDefaultValueFields({
+            key: "d",
+        }),
+    },
+    e: {
+        ...getDefaultValueFields({
+            key: "e",
+        }),
+    },
+    f: {
+        ...getDefaultValueFields({
+            key: "f",
+        }),
+    },
+    g: {
+        ...getDefaultValueFields({
+            key: "g",
+        }),
+    },
+    h: {
+        ...getDefaultValueFields({
+            key: "h",
+        }),
+    },
+    i: {
+        ...getDefaultValueFields({
+            key: "i",
+        }),
+    },
+    j: {
+        ...getDefaultValueFields({
+            key: "j",
+        }),
+    },
+    k: {
+        ...getDefaultValueFields({
+            key: "k",
+        }),
+    },
+    l: {
+        ...getDefaultValueFields({
+            key: "l",
+        }),
+    },
+    m: {
+        ...getDefaultValueFields({
+            key: "m",
+        }),
+    },
+    n: {
+        ...getDefaultValueFields({
+            key: "n",
+        }),
+    },
+    o: {
+        ...getDefaultValueFields({
+            key: "o",
+        }),
+    },
+    p: {
+        ...getDefaultValueFields({
+            key: "p",
+        }),
+    },
+    q: {
+        ...getDefaultValueFields({
+            key: "q",
+        }),
+    },
+    r: {
+        ...getDefaultValueFields({
+            key: "r",
+        }),
+    },
+    s: {
+        ...getDefaultValueFields({
+            key: "s",
+        }),
+    },
+    t: {
+        ...getDefaultValueFields({
+            key: "t",
+        }),
+    },
+    u: {
+        ...getDefaultValueFields({
+            key: "u",
+        }),
+    },
+    v: {
+        ...getDefaultValueFields({
+            key: "v",
+        }),
+    },
+    w: {
+        ...getDefaultValueFields({
+            key: "w",
+        }),
+    },
+    x: {
+        ...getDefaultValueFields({
+            key: "x",
+        }),
+    },
+    y: {
+        ...getDefaultValueFields({
+            key: "y",
+        }),
+    },
+    z: {
+        ...getDefaultValueFields({
+            key: "z",
+        }),
+    },
 };
-
-// Add in every numeral.
-const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-for (const num of NUMBERS) {
-    // TODO(charlie): Consider removing the SVG icons that we have for the
-    // numeral keys. They can be rendered just as easily with text (though that
-    // would mean that we'd be using text beyond the variable key).
-    const textRepresentation = `${num}`;
-    KeyConfigs[`NUM_${num}`] = {
-        type: KeyType.VALUE,
-        ariaLabel: textRepresentation,
-        icon: {
-            type: IconType.TEXT,
-            data: textRepresentation,
-        },
-    };
-}
-
-// Add in every variable.
-const LETTERS = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-];
-for (const letter of LETTERS) {
-    const lowerCaseVariable = letter.toLowerCase();
-    const upperCaseVariable = letter.toUpperCase();
-
-    for (const textRepresentation of [lowerCaseVariable, upperCaseVariable]) {
-        KeyConfigs[textRepresentation] = {
-            type: KeyType.VALUE,
-            ariaLabel: textRepresentation,
-            icon: {
-                type: IconType.MATH,
-                data: textRepresentation,
-            },
-        };
-    }
-}
-
-for (const key of Object.keys(KeyConfigs)) {
-    KeyConfigs[key] = {
-        id: key,
-        // Default to an SVG icon indexed by the key name.
-        icon: {
-            type: IconType.SVG,
-            data: key,
-        },
-        ...KeyConfigs[key],
-    };
-}
 
 export default KeyConfigs;

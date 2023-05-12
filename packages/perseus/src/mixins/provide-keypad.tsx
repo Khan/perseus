@@ -10,7 +10,7 @@
  * extend a `ProvideKeypad` component instead of using this mixin.
  */
 
-import {Keypad} from "@khanacademy/math-input";
+import {LegacyKeypad} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -90,7 +90,7 @@ const ProvideKeypad = {
             document.body?.appendChild(_this._keypadContainer);
 
             reactRender(
-                <Keypad
+                <LegacyKeypad
                     onElementMounted={(element) => {
                         // NOTE(kevinb): The reason why this setState works is
                         // b/c we're calling it manually from item-renderer.jsx

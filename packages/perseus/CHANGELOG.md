@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 6.1.0
+
+### Minor Changes
+
+-   e86cc72f: Keypad API: Button sets on keypad switched to optional booleans. Added all designed button sets as props, but not all are yet implemented.
+
+### Patch Changes
+
+-   ec37eb3d: Export v2 keypad, rename v1 keypad to ProvidedKeypad
+-   Updated dependencies [46417c53]
+-   Updated dependencies [97438065]
+-   Updated dependencies [85d9132a]
+-   Updated dependencies [42297993]
+-   Updated dependencies [1ffbe3ef]
+-   Updated dependencies [e86cc72f]
+-   Updated dependencies [ec37eb3d]
+-   Updated dependencies [c0a15907]
+-   Updated dependencies [d9759ea6]
+    -   @khanacademy/math-input@3.0.0
+
 ## 6.0.0
 
 ### Major Changes

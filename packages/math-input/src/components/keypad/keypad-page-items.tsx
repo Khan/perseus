@@ -1,10 +1,11 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
+import {KeyConfig} from "../../types";
+
 import Button from "./button";
 import ButtonAsset from "./button-assets";
 
-import type {KeyConfig} from "../../data/key-configs";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type KeypadPageContainerProps = {
