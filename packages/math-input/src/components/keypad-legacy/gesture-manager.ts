@@ -3,6 +3,9 @@
  * connects our various bits of logic for managing gestures and interactions,
  * and links them together.
  */
+import * as React from "react";
+
+import Key from "../../data/keys";
 
 import GestureStateMachine from "./gesture-state-machine";
 import NodeManager from "./node-manager";
@@ -19,7 +22,12 @@ class GestureManager {
     popoverStateMachine: PopoverStateMachine;
     gestureStateMachine: GestureStateMachine;
 
-    constructor(options, handlers, disabledSwipeKeys, multiPressableKeys) {
+    constructor(
+        options,
+        handlers,
+        disabledSwipeKeys: Array<Key>,
+        multiPressableKeys: Array<Key>,
+    ) {
         const {swipeEnabled} = options;
 
         this.swipeEnabled = swipeEnabled;
@@ -96,11 +104,14 @@ class GestureManager {
      * Handle a touch-start event that originated in a node registered with the
      * gesture system.
      *
-     * @param {TouchEvent} evt - the raw touch event from the browser
+     * @param {React.TouchEvent<HTMLDivElement>} evt - the raw touch event from the browser
      * @param {string} id - the identifier of the DOM node in which the touch
      *                      occurred
      */
-    onTouchStart(evt: TouchEvent, id?) {
+    onTouchStart(
+        evt: React.TouchEvent<HTMLDivElement>,
+        id?: string | undefined,
+    ) {
         if (!this.trackEvents) {
             return;
         }
@@ -128,9 +139,9 @@ class GestureManager {
      * Handle a touch-move event that originated in a node registered with the
      * gesture system.
      *
-     * @param {TouchEvent} evt - the raw touch event from the browser
+     * @param {React.TouchEvent<HTMLDivElement>} evt - the raw touch event from the browser
      */
-    onTouchMove(evt: TouchEvent) {
+    onTouchMove(evt: React.TouchEvent<HTMLDivElement>) {
         if (!this.trackEvents) {
             return;
         }
@@ -152,9 +163,9 @@ class GestureManager {
      * Handle a touch-end event that originated in a node registered with the
      * gesture system.
      *
-     * @param {TouchEvent} evt - the raw touch event from the browser
+     * @param {React.TouchEvent<HTMLDivElement>} evt - the raw touch event from the browser
      */
-    onTouchEnd(evt: TouchEvent) {
+    onTouchEnd(evt: React.TouchEvent<HTMLDivElement>) {
         if (!this.trackEvents) {
             return;
         }
@@ -173,9 +184,9 @@ class GestureManager {
      * Handle a touch-cancel event that originated in a node registered with the
      * gesture system.
      *
-     * @param {TouchEvent} evt - the raw touch event from the browser
+     * @param {React.TouchEvent<HTMLDivElement>} evt - the raw touch event from the browser
      */
-    onTouchCancel(evt: TouchEvent) {
+    onTouchCancel(evt: React.TouchEvent<HTMLDivElement>) {
         if (!this.trackEvents) {
             return;
         }

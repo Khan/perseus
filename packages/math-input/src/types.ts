@@ -1,4 +1,4 @@
-import Keys from "./data/keys";
+import Key from "./data/keys";
 import {
     BorderDirection,
     EchoAnimationType,
@@ -21,15 +21,15 @@ export interface Bound {
 }
 
 export type Popover = {
-    parentId: Keys;
+    parentId: Key;
     bounds: Partial<Bound>;
-    childKeyIds: Array<Keys>;
+    childKeyIds: Array<Key>;
 };
 
 export type Echo = {
     animationId: string;
     animationType: EchoAnimationType;
-    id: Keys;
+    id: Key;
     initialBounds: Bound;
 };
 
@@ -39,27 +39,25 @@ export type IconConfig = {
 };
 
 export type NonManyKeyConfig = {
-    id: Keys;
-    type: KeyType;
+    id: Key;
+    type: Exclude<KeyType, "MANY">;
     icon: IconConfig;
     ariaLabel: string;
 };
 
-export type ManyKeyConfig = {
-    id: "MANY";
-    type: KeyType.MANY;
+export type ManyKeyConfig = Omit<NonManyKeyConfig, "type"> & {
+    type: Extract<KeyType, "MANY">;
     childKeyIds: ReadonlyArray<string>;
-    ariaLabel?: string;
 };
 
 export type KeyConfig = NonManyKeyConfig | ManyKeyConfig;
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;
-    extraKeys?: ReadonlyArray<Keys>;
+    extraKeys?: ReadonlyArray<Key>;
 };
 
-export type KeyHandler = (key: Keys) => Cursor;
+export type KeyHandler = (key: Key) => Cursor;
 
 export type Cursor = {
     context: CursorContext;

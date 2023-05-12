@@ -1,4 +1,4 @@
-import Keys from "../../data/keys";
+import Key from "../../data/keys";
 
 /**
  * The state machine that backs our gesture system. In particular, this state
@@ -26,17 +26,17 @@ type Options = {
 };
 
 type TouchState = {
-    activeNodeId: Keys;
+    activeNodeId: Key;
     pressAndHoldIntervalId: number | null;
     longPressTimeoutId: number | null;
     swipeLocked: boolean;
     startX: number;
 };
 
-type TouchStateMap = Record<Keys, TouchState>;
+type TouchStateMap = Record<Key, TouchState>;
 
 type SwipeState = {
-    touchId: Keys;
+    touchId: Key;
     startX: number;
 };
 
@@ -49,16 +49,16 @@ const defaultOptions: Options = {
 class GestureStateMachine {
     handlers: Handlers;
     options: Options;
-    swipeDisabledNodeIds: Partial<[Keys]>;
-    multiPressableKeys: Partial<[Keys]>;
+    swipeDisabledNodeIds: Partial<Key[]>;
+    multiPressableKeys: Partial<Key[]>;
     touchState: Partial<TouchStateMap>;
     swipeState: SwipeState | null;
 
     constructor(
         handlers: Handlers,
         options: Partial<Options>,
-        swipeDisabledNodeIds?: [Keys],
-        multiPressableKeys?: [Keys],
+        swipeDisabledNodeIds?: Key[],
+        multiPressableKeys?: Key[],
     ) {
         this.handlers = handlers;
         this.options = {

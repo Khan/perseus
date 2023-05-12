@@ -10,18 +10,13 @@ import ReactDOM from "react-dom";
 import {connect} from "react-redux";
 
 import KeyConfigs from "../../data/key-configs";
-import Keys from "../../data/keys";
+import Key from "../../data/keys";
 import {KeyType} from "../../enums";
 
 import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
-import type {
-    Border,
-    IconConfig,
-    KeyConfig,
-    NonManyKeyConfig,
-} from "../../types";
+import type {Border, IconConfig, KeyConfig} from "../../types";
 import type {State} from "./store/types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -38,12 +33,12 @@ interface OwnProps extends SharedProps {
 interface Props extends SharedProps {
     childKeyIds?: ReadonlyArray<string>;
     gestureManager: GestureManager;
-    id: Keys | "MANY";
+    id: Key;
     focused: boolean;
     popoverEnabled: boolean;
-    childKeys?: ReadonlyArray<NonManyKeyConfig>;
+    childKeys?: ReadonlyArray<KeyConfig>;
     ariaLabel?: string;
-    icon: IconConfig;
+    icon?: IconConfig;
     type: KeyType;
 }
 
@@ -116,7 +111,7 @@ class TouchableKeypadButton extends React.Component<Props> {
     }
 }
 
-const extractProps = (keyConfig: NonManyKeyConfig) => {
+const extractProps = (keyConfig: KeyConfig) => {
     const {ariaLabel, icon, type} = keyConfig;
     return {ariaLabel, icon, type};
 };
@@ -130,14 +125,14 @@ const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
     const childKeyIds =
         "childKeyIds" in keyConfig ? keyConfig.childKeyIds : undefined;
 
-    const childKeys = childKeyIds
+    const childKeys: readonly KeyConfig[] | undefined = childKeyIds
         ? childKeyIds.map((id) => KeyConfigs[id])
         : undefined;
 
     // Override with the default child props, if the key is a multi-symbol key
     // (but not a many-symbol key, which operates under different rules).
     const useFirstChildProps =
-        type !== KeyType.MANY && childKeys && childKeys.length > 0;
+        type !== "MANY" && childKeys && childKeys.length > 0;
 
     return {
         ...rest,

@@ -12,10 +12,9 @@ no copying and pasting is necessary.
 */
 import * as React from "react";
 
-// TODO: This should be an enumeration of all of the possible legal values
-type KeyId = string;
+import Key from "../../data/keys";
 
-type Props = {id: KeyId};
+type Props = {id: Key};
 
 export default function ButtonAsset({id}: Props): React.ReactElement {
     switch (id) {
@@ -433,13 +432,6 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "PI":
-            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
-            return <span>pi</span>;
-        case "X":
-            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
-            return <span>x</span>;
-
         case "TAN":
             return (
                 <svg
@@ -486,7 +478,97 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 </svg>
             );
 
-        default:
+        /**
+         * ANYTHING BELOW IS NOT YET CORRECTLY HANDLED
+         */
+
+        case "PI":
+            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
+            return <span>pi</span>;
+        case "X":
+            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
+            return <span>x</span>;
+        case "MANY":
+        case "PERCENT":
+        case "CDOT":
+        case "EQUAL":
+        case "NEQ":
+        case "GT":
+        case "LT":
+        case "GEQ":
+        case "LEQ":
+        case "FRAC_EXCLUSIVE":
+        case "FRAC":
+        case "EXP_3":
+        case "CUBE_ROOT":
+        case "LN":
+        case "LOG":
+        case "LOG_N":
+        case "THETA":
+        case "NOOP":
+        case "UP":
+        case "DOWN":
+        case "LEFT":
+        case "RIGHT":
+        case "JUMP_OUT_PARENTHESES":
+        case "JUMP_OUT_EXPONENT":
+        case "JUMP_OUT_BASE":
+        case "JUMP_INTO_NUMERATOR":
+        case "JUMP_OUT_NUMERATOR":
+        case "JUMP_OUT_DENOMINATOR":
+        case "PERIOD":
+        case "a":
+        case "b":
+        case "c":
+        case "d":
+        case "e":
+        case "f":
+        case "g":
+        case "h":
+        case "i":
+        case "j":
+        case "k":
+        case "l":
+        case "m":
+        case "n":
+        case "o":
+        case "p":
+        case "q":
+        case "r":
+        case "s":
+        case "t":
+        case "u":
+        case "v":
+        case "w":
+        case "x":
+        case "y":
+        case "z":
+        case "A":
+        case "B":
+        case "C":
+        case "D":
+        case "E":
+        case "F":
+        case "G":
+        case "H":
+        case "I":
+        case "J":
+        case "K":
+        case "L":
+        case "M":
+        case "N":
+        case "O":
+        case "P":
+        case "Q":
+        case "R":
+        case "S":
+        case "T":
+        case "U":
+        case "V":
+        case "W":
+        case "Y":
+        case "Z":
+        case "DIVIDE":
             // placeholder
             return (
                 <svg
@@ -513,5 +595,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     </text>
                 </svg>
             );
+        default:
+            // this line forces an exhaustive check of all keys;
+            // if a key is not handled, the compiler will complain.
+            const unhandledKey: never = id;
+            throw new Error(`Unhandled key: ${unhandledKey}`);
     }
 }

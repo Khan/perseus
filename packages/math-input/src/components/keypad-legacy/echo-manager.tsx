@@ -6,8 +6,8 @@ import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 import KeyConfigs from "../../data/key-configs";
-import Keys from "../../data/keys";
-import {KeyType, EchoAnimationType} from "../../enums";
+import Key from "../../data/keys";
+import {EchoAnimationType} from "../../enums";
 
 import KeypadButton from "./keypad-button";
 import * as zIndexes from "./z-indexes";
@@ -16,7 +16,7 @@ import type {Bound, Echo as EchoType} from "../../types";
 
 type EchoProps = {
     animationDurationMs: number;
-    id: Keys;
+    id: Key;
     initialBounds: Bound;
     onAnimationFinish: () => void;
 };
@@ -50,7 +50,7 @@ class Echo extends React.Component<EchoProps> {
         // applied via StyleSheet, will override our inlines.
         return (
             <div style={containerStyle}>
-                <KeypadButton icon={icon} type={KeyType.ECHO} />
+                <KeypadButton icon={icon} type={"ECHO"} />
             </div>
         );
     }

@@ -5,7 +5,6 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import Keys from "../../data/keys";
 import {View} from "../../fake-react-native-web/index";
 import {
     cursorHandleRadiusPx,
@@ -783,16 +782,16 @@ class MathInput extends React.Component<Props, State> {
         key,
     ) => {
         const keyMap = {
-            "+": Keys.PLUS,
-            "-": Keys.MINUS,
-            "*": Keys.TIMES,
-            "/": Keys.DIVIDE,
-            ".": Keys.DECIMAL,
-            "%": Keys.PERCENT,
-            "=": Keys.EQUAL,
-            ">": Keys.GT,
-            "<": Keys.LT,
-            "^": Keys.EXP,
+            "+": "PLUS",
+            "-": "MINUS",
+            "*": "TIMES",
+            "/": "DIVIDE",
+            ".": "DECIMAL",
+            "%": "PERCENT",
+            "=": "EQUAL",
+            ">": "GT",
+            "<": "LT",
+            "^": "EXP",
         } as const;
 
         // Numbers
@@ -802,7 +801,7 @@ class MathInput extends React.Component<Props, State> {
 
         // Movement keys
         else if (key === "Backspace") {
-            return Keys.BACKSPACE;
+            return "BACKSPACE";
         }
 
         // Operators
