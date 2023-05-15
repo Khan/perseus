@@ -5,7 +5,7 @@
  */
 import * as React from "react";
 
-import Keys from "../../data/keys";
+import Key from "../../data/keys";
 import {ActiveNodesObj, LayoutProps} from "../../types";
 
 import GestureStateMachine from "./gesture-state-machine";
@@ -24,7 +24,7 @@ type Handlers = {
     onSwipeChange?: (dx: number) => void;
     onSwipeEnd?: (dx: number) => void;
     onActiveNodesChanged: (activeNodes: ActiveNodesObj) => void;
-    onClick: (key: Keys, layoutProps: LayoutProps, inPopover: boolean) => void;
+    onClick: (key: Key, layoutProps: LayoutProps, inPopover: boolean) => void;
 };
 
 class GestureManager {
@@ -37,8 +37,8 @@ class GestureManager {
     constructor(
         options: Options,
         handlers: Handlers,
-        disabledSwipeKeys: ReadonlyArray<Keys>,
-        multiPressableKeys: ReadonlyArray<Keys>,
+        disabledSwipeKeys: ReadonlyArray<Key>,
+        multiPressableKeys: ReadonlyArray<Key>,
     ) {
         const {swipeEnabled} = options;
 

@@ -1,4 +1,4 @@
-import Keys from "../../../data/keys";
+import Key from "../../../data/keys";
 import {LayoutMode, KeypadType} from "../../../enums";
 import GestureManager from "../gesture-manager";
 
@@ -36,7 +36,7 @@ export interface GestureState {
     // The current multikey popover?
     popover: Popover | null;
     // ?? Maybe which key is currently focused?
-    focus: Keys | null;
+    focus: Key | null;
     // Complex object that interprets touches as actions
     gestureManager: GestureManager;
 }
