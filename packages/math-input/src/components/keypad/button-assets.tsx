@@ -24,7 +24,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M183.25,63.2C170.25,42.79,151.15,32,128,32S85.75,42.79,72.75,63.2C62,80.18,56,103.19,56,128s6,47.82,16.75,64.8c13,20.41,32.1,31.2,55.25,31.2s42.25-10.79,55.25-31.2c10.8-17,16.75-40,16.75-64.8S194.05,80.18,183.25,63.2ZM128,208c-38.68,0-56-40.18-56-80s17.32-80,56-80,56,40.18,56,80S166.68,208,128,208Z" />
@@ -36,7 +36,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M144,48V208a8,8,0,0,1-16,0V62.13L100.12,78.86a8,8,0,1,1-8.24-13.72l40-24A8,8,0,0,1,144,48Z" />
@@ -48,7 +48,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M176,208a8,8,0,0,1-8,8H88a8,8,0,0,1-6.4-12.8l71.94-95.92a32,32,0,1,0-51.1-38.53,32.5,32.5,0,0,0-3.78,6.46A8,8,0,1,1,84,68.8a48,48,0,1,1,82.33,48.09L104,200h64A8,8,0,0,1,176,208Z" />
@@ -60,7 +60,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M176,160a56,56,0,0,1-93.33,41.74,8,8,0,1,1,10.66-11.92A40,40,0,1,0,120,120a8,8,0,0,1-6.4-12.8L152,56H88a8,8,0,0,1,0-16h80a8,8,0,0,1,6.4,12.8l-39.84,53.12A56.1,56.1,0,0,1,176,160Z" />
@@ -72,7 +72,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M184,152a8,8,0,0,1-8,8H160v48a8,8,0,0,1-16,0V160H72a8,8,0,0,1-7.53-10.69l40-112a8,8,0,0,1,15.06,5.38L83.35,144H144V96a8,8,0,0,1,16,0v48h16A8,8,0,0,1,184,152Z" />
@@ -84,7 +84,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M176,160a56,56,0,0,1-93.33,41.74,8,8,0,1,1,10.66-11.92,40,40,0,1,0,.77-60.3,8,8,0,0,1-13-7.66L96.16,46.43A8,8,0,0,1,104,40h64a8,8,0,0,1,0,16H110.56l-10.32,51.6A56,56,0,0,1,176,160Z" />
@@ -96,7 +96,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M128,104a56,56,0,0,0-15.62,2.23L143,51.93A8,8,0,1,0,129,44.08l-49.55,88A56,56,0,1,0,128,104Zm0,96a40,40,0,1,1,40-40A40,40,0,0,1,128,200Z" />
@@ -108,7 +108,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M175.66,50.3l-48,160a8,8,0,0,1-15.32-4.6L157.25,56H88a8,8,0,0,1,0-16h80a8,8,0,0,1,7.66,10.3Z" />
@@ -120,7 +120,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M155.55,119.27a48,48,0,1,0-55.1,0,56,56,0,1,0,55.1,0ZM96,80a32,32,0,1,1,32,32A32,32,0,0,1,96,80Zm32,128a40,40,0,1,1,40-40A40,40,0,0,1,128,208Z" />
@@ -132,7 +132,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M128,40a56,56,0,1,0,15.62,109.77L113,204.07A8,8,0,1,0,127,211.92l49.55-88A56,56,0,0,0,128,40Zm0,96a40,40,0,1,1,40-40A40,40,0,0,1,128,136Z" />
@@ -180,7 +180,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z" />
@@ -192,7 +192,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" />
@@ -204,7 +204,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" />
@@ -217,7 +217,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M216,40H68.53a16.08,16.08,0,0,0-13.72,7.77L9.14,123.88a8,8,0,0,0,0,8.24l45.67,76.11A16.08,16.08,0,0,0,68.53,216H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM61.67,204.12,68.53,200h0ZM216,200H68.53l-43.2-72,43.2-72H216ZM106.34,146.34,124.69,128l-18.35-18.34a8,8,0,0,1,11.32-11.32L136,116.69l18.34-18.35a8,8,0,0,1,11.32,11.32L147.31,128l18.35,18.34a8,8,0,0,1-11.32,11.32L136,139.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Z" />
@@ -226,17 +226,15 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "DISMISS":
             return (
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
                 >
                     <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M10 12C10 10.8954 10.8954 10 12 10H28C29.1046 10 30 10.8954 30 12V21H28V12L12 12V21H10V12ZM19 14C19 13.4477 19.4477 13 20 13C20.5523 13 21 13.4477 21 14C21 14.5523 20.5523 15 20 15C19.4477 15 19 14.5523 19 14ZM17 13C16.4477 13 16 13.4477 16 14C16 14.5523 16.4477 15 17 15C17.5523 15 18 14.5523 18 14C18 13.4477 17.5523 13 17 13ZM13 14C13 13.4477 13.4477 13 14 13C14.5523 13 15 13.4477 15 14C15 14.5523 14.5523 15 14 15C13.4477 15 13 14.5523 13 14ZM20 16C19.4477 16 19 16.4477 19 17C19 17.5523 19.4477 18 20 18C20.5523 18 21 17.5523 21 17C21 16.4477 20.5523 16 20 16ZM16 17C16 16.4477 16.4477 16 17 16C17.5523 16 18 16.4477 18 17C18 17.5523 17.5523 18 17 18C16.4477 18 16 17.5523 16 17ZM14 16C13.4477 16 13 16.4477 13 17C13 17.5523 13.4477 18 14 18C14.5523 18 15 17.5523 15 17C15 16.4477 14.5523 16 14 16ZM22 14C22 13.4477 22.4477 13 23 13C23.5523 13 24 13.4477 24 14C24 14.5523 23.5523 15 23 15C22.4477 15 22 14.5523 22 14ZM23 16C22.4477 16 22 16.4477 22 17C22 17.5523 22.4477 18 23 18C23.5523 18 24 17.5523 24 17C24 16.4477 23.5523 16 23 16ZM25 14C25 13.4477 25.4477 13 26 13C26.5523 13 27 13.4477 27 14C27 14.5523 26.5523 15 26 15C25.4477 15 25 14.5523 25 14ZM26 16C25.4477 16 25 16.4477 25 17C25 17.5523 25.4477 18 26 18C26.5523 18 27 17.5523 27 17C27 16.4477 26.5523 16 26 16ZM16 20C16 19.4477 16.4477 19 17 19H23C23.5523 19 24 19.4477 24 20C24 20.5523 23.5523 21 23 21H17C16.4477 21 16 20.5523 16 20ZM26.7071 25.7071C27.0976 25.3166 27.0976 24.6834 26.7071 24.2929C26.3166 23.9024 25.6834 23.9024 25.2929 24.2929L20 29.5858L14.7071 24.2929C14.3166 23.9024 13.6834 23.9024 13.2929 24.2929C12.9024 24.6834 12.9024 25.3166 13.2929 25.7071L19.2929 31.7071C19.6834 32.0976 20.3166 32.0976 20.7071 31.7071L26.7071 25.7071Z"
-                        fill="#21242C"
+                        transform="scale(1,-1) translate(0, -260)"
+                        d="M205.66,125.66a8,8,0,0,1-11.32,0L128,59.31,61.66,125.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,125.66Z"
                     />
                 </svg>
             );
@@ -282,7 +280,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path
@@ -299,7 +297,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path
@@ -330,19 +328,13 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "SQRT":
             return (
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
                 >
-                    <path
-                        d="M10 21L14 27L23 13H30"
-                        stroke="#21242C"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
+                    <path d="M240,72V96a8,8,0,0,1-16,0V80H125.55L79.49,202.81a8,8,0,0,1-15,0l-48-128a8,8,0,1,1,15-5.62L72,177.22l40.51-108A8,8,0,0,1,120,64H232A8,8,0,0,1,240,72Z" />
                 </svg>
             );
         case "EXP_2":
@@ -430,7 +422,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM128,80a16,16,0,1,0-16-16A16,16,0,0,0,128,80Zm0,96a16,16,0,1,0,16,16A16,16,0,0,0,128,176Z" />
@@ -442,7 +434,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M224,160a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,160ZM40,104H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Z" />
@@ -454,7 +446,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M205.66,61.64l-144,144a8,8,0,0,1-11.32-11.32l144-144a8,8,0,0,1,11.32,11.31ZM50.54,101.44a36,36,0,0,1,50.92-50.91h0a36,36,0,0,1-50.92,50.91ZM56,76A20,20,0,1,0,90.14,61.84h0A20,20,0,0,0,56,76ZM216,180a36,36,0,1,1-10.54-25.46h0A35.76,35.76,0,0,1,216,180Zm-16,0a20,20,0,1,0-5.86,14.14A19.87,19.87,0,0,0,200,180Z" />
@@ -466,31 +458,72 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Z" />
                 </svg>
             );
-        /**
-         * ANYTHING BELOW IS NOT YET CORRECTLY HANDLED
-         */
-
         case "PI":
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="32"
                     height="32"
-                    fill="#000000"
+                    fill="currentColor"
                     viewBox="0 0 256 256"
                 >
                     <path d="M232,172a36,36,0,0,1-72,0V72H96V200a8,8,0,0,1-16,0V72H72a40,40,0,0,0-40,40,8,8,0,0,1-16,0A56.06,56.06,0,0,1,72,56H224a8,8,0,0,1,0,16H176V172a20,20,0,0,0,40,0,8,8,0,0,1,16,0Z" />
                 </svg>
             );
+        case "x":
+            // MATHEMATICAL ITALIC SMALL CHI
+            // https://en.wikipedia.org/wiki/Chi_(letter)#Mathematical_chi
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <text
+                        fontSize="200px"
+                        x="50%"
+                        y="50%"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                    >
+                        𝜒
+                    </text>
+                </svg>
+            );
         case "X":
-            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
-            return <span>x</span>;
+            // MATHEMATICAL ITALIC CAPITAL CHI
+            // https://en.wikipedia.org/wiki/Chi_(letter)#Mathematical_chi
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <text
+                        fontSize="200px"
+                        x="50%"
+                        y="50%"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                    >
+                        𝛸
+                    </text>
+                </svg>
+            );
+
+        /**
+         * ANYTHING BELOW IS NOT YET HANDLED
+         */
         case "MANY":
         case "NEQ":
         case "GT":
@@ -539,7 +572,6 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "u":
         case "v":
         case "w":
-        case "x":
         case "y":
         case "z":
         case "A":
