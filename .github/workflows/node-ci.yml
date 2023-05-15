@@ -16,7 +16,14 @@ jobs:
         os: [ubuntu-latest]
         node-version: [16.x]
     steps:
+      # We don't need changesets for infrastructure-type files (tests, stories,
+      # etc).
       - uses: Khan/actions@check-for-changeset-v0
+        if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+        with:
+          exclude: .github/,.storybook/
+          exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
+          exclude_globs: '**/__tests__/*'
 
   lint:
     name: Lint, Typecheck, and Test
