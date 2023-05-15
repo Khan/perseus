@@ -308,23 +308,6 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         // TODO(ned): Per the notes in `KeyConfigs`, shouldn't this be a comma
         // that we replace with the period icon for i18n? Duplicating for now.
         case "DECIMAL":
-            return (
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    viewBox="0 0 256 256"
-                >
-                    <path
-                        d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Z"
-                        // moves decimal down to baseline of number icons,
-                        // otherwise indistinguishable from cdot
-                        transform="translate(0 80)"
-                    />
-                </svg>
-            );
-        case "DECIMAL":
         case "PERIOD":
             return (
                 <svg
