@@ -324,6 +324,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
+        case "DECIMAL":
         case "PERIOD":
             return (
                 <svg
