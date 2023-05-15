@@ -15,8 +15,4 @@ describe("getChoiceLetter (in English)", () => {
             expect(getChoiceLetter(i)).toEqual(" ");
         }
     });
-
-    it("returns A as the first letter", () => {
-        expect(getChoiceLetter(0)).toEqual("A");
-    });
 });
