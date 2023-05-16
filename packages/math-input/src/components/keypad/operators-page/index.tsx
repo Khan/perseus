@@ -42,7 +42,7 @@ export default class OperatorsPage extends React.Component<Props> {
                     placeholder={!this.props.logarithms}
                 />
                 <SecondaryKeypadButton
-                    keyConfig={Keys.X}
+                    keyConfig={Keys.x}
                     onClickKey={onClickKey}
                     style={{
                         gridColumn: 5,

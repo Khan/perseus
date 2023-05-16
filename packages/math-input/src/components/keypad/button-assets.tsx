@@ -207,103 +207,67 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "MINUS":
             return (
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
                 >
-                    <path
-                        d="M27 20H13"
-                        stroke="#21242C"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
+                    <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z" />
                 </svg>
             );
         case "PLUS":
             return (
+                // Phosphor Icons - Plus Bold
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
                 >
-                    <path
-                        d="M27 20H13"
-                        stroke="#21242C"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                    <path
-                        d="M20 13V27"
-                        stroke="#21242C"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
+                    <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" />{" "}
                 </svg>
             );
         case "TIMES":
             return (
+                // Phosphor Icons - X Bold
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="#000000"
+                    viewBox="0 0 256 256"
                 >
-                    <path
-                        d="M24.9498 24.9493L15.0503 15.0498"
-                        stroke="#21242C"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                    <path
-                        d="M24.9498 15.0507L15.0503 24.9502"
-                        stroke="#21242C"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
+                    <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" />
                 </svg>
             );
 
         case "BACKSPACE":
             return (
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
                 >
-                    <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M10 20L16 14H28.1716V26L16 26L10 20ZM8.58579 18.5858L14.5858 12.5858C14.9609 12.2107 15.4696 12 16 12H28.1716C29.2761 12 30.1716 12.8954 30.1716 14V26C30.1716 27.1046 29.2761 28 28.1716 28H16C15.4696 28 14.9609 27.7893 14.5858 27.4142L8.58579 21.4142C7.80474 20.6332 7.80474 19.3668 8.58579 18.5858ZM22.4645 17.2929L21.1716 18.5858L19.8787 17.2929C19.4882 16.9024 18.855 16.9024 18.4645 17.2929C18.074 17.6834 18.074 18.3166 18.4645 18.7071L19.7574 20L18.4645 21.2929C18.074 21.6834 18.074 22.3166 18.4645 22.7071C18.855 23.0976 19.4882 23.0976 19.8787 22.7071L21.1716 21.4142L22.4645 22.7071C22.855 23.0976 23.4882 23.0976 23.8787 22.7071C24.2693 22.3166 24.2693 21.6834 23.8787 21.2929L22.5858 20L23.8787 18.7071C24.2693 18.3166 24.2693 17.6834 23.8787 17.2929C23.4882 16.9024 22.855 16.9024 22.4645 17.2929Z"
-                        fill="#21242C"
-                    />
+                    <path d="M216,40H68.53a16.08,16.08,0,0,0-13.72,7.77L9.14,123.88a8,8,0,0,0,0,8.24l45.67,76.11A16.08,16.08,0,0,0,68.53,216H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM61.67,204.12,68.53,200h0ZM216,200H68.53l-43.2-72,43.2-72H216ZM106.34,146.34,124.69,128l-18.35-18.34a8,8,0,0,1,11.32-11.32L136,116.69l18.34-18.35a8,8,0,0,1,11.32,11.32L147.31,128l18.35,18.34a8,8,0,0,1-11.32,11.32L136,139.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Z" />
                 </svg>
             );
         case "DISMISS":
             return (
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
                 >
                     <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M10 12C10 10.8954 10.8954 10 12 10H28C29.1046 10 30 10.8954 30 12V21H28V12L12 12V21H10V12ZM19 14C19 13.4477 19.4477 13 20 13C20.5523 13 21 13.4477 21 14C21 14.5523 20.5523 15 20 15C19.4477 15 19 14.5523 19 14ZM17 13C16.4477 13 16 13.4477 16 14C16 14.5523 16.4477 15 17 15C17.5523 15 18 14.5523 18 14C18 13.4477 17.5523 13 17 13ZM13 14C13 13.4477 13.4477 13 14 13C14.5523 13 15 13.4477 15 14C15 14.5523 14.5523 15 14 15C13.4477 15 13 14.5523 13 14ZM20 16C19.4477 16 19 16.4477 19 17C19 17.5523 19.4477 18 20 18C20.5523 18 21 17.5523 21 17C21 16.4477 20.5523 16 20 16ZM16 17C16 16.4477 16.4477 16 17 16C17.5523 16 18 16.4477 18 17C18 17.5523 17.5523 18 17 18C16.4477 18 16 17.5523 16 17ZM14 16C13.4477 16 13 16.4477 13 17C13 17.5523 13.4477 18 14 18C14.5523 18 15 17.5523 15 17C15 16.4477 14.5523 16 14 16ZM22 14C22 13.4477 22.4477 13 23 13C23.5523 13 24 13.4477 24 14C24 14.5523 23.5523 15 23 15C22.4477 15 22 14.5523 22 14ZM23 16C22.4477 16 22 16.4477 22 17C22 17.5523 22.4477 18 23 18C23.5523 18 24 17.5523 24 17C24 16.4477 23.5523 16 23 16ZM25 14C25 13.4477 25.4477 13 26 13C26.5523 13 27 13.4477 27 14C27 14.5523 26.5523 15 26 15C25.4477 15 25 14.5523 25 14ZM26 16C25.4477 16 25 16.4477 25 17C25 17.5523 25.4477 18 26 18C26.5523 18 27 17.5523 27 17C27 16.4477 26.5523 16 26 16ZM16 20C16 19.4477 16.4477 19 17 19H23C23.5523 19 24 19.4477 24 20C24 20.5523 23.5523 21 23 21H17C16.4477 21 16 20.5523 16 20ZM26.7071 25.7071C27.0976 25.3166 27.0976 24.6834 26.7071 24.2929C26.3166 23.9024 25.6834 23.9024 25.2929 24.2929L20 29.5858L14.7071 24.2929C14.3166 23.9024 13.6834 23.9024 13.2929 24.2929C12.9024 24.6834 12.9024 25.3166 13.2929 25.7071L19.2929 31.7071C19.6834 32.0976 20.3166 32.0976 20.7071 31.7071L26.7071 25.7071Z"
-                        fill="#21242C"
+                        // flip to point down
+                        transform="scale(1,-1) translate(0, -260)"
+                        d="M205.66,125.66a8,8,0,0,1-11.32,0L128,59.31,61.66,125.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,125.66Z"
                     />
                 </svg>
             );
@@ -341,26 +305,24 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
+        // TODO(ned): Per the notes in `KeyConfigs`, shouldn't this be a comma
+        // that we replace with the period icon for i18n? Duplicating for now.
         case "DECIMAL":
+        case "PERIOD":
             return (
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
                 >
-                    <g clipPath="url(#clip0)">
-                        <circle cx="20" cy="20" r="1.5" fill="#21242C" />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0">
-                            <path
-                                d="M18.5 18.5H21.5V21.5H18.5V18.5Z"
-                                fill="white"
-                            />
-                        </clipPath>
-                    </defs>
+                    <path
+                        d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Z"
+                        // moves decimal down to baseline of number icons,
+                        // otherwise indistinguishable from cdot
+                        transform="translate(0 80)"
+                    />
                 </svg>
             );
         case "RADICAL":
@@ -383,19 +345,13 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "SQRT":
             return (
                 <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
                 >
-                    <path
-                        d="M10 21L14 27L23 13H30"
-                        stroke="#21242C"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
+                    <path d="M240,72V96a8,8,0,0,1-16,0V80H125.55L79.49,202.81a8,8,0,0,1-15,0l-48-128a8,8,0,1,1,15-5.62L72,177.22l40.51-108A8,8,0,0,1,120,64H232A8,8,0,0,1,240,72Z" />
                 </svg>
             );
         case "EXP_2":
@@ -477,21 +433,115 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
+        case "DIVIDE":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM128,80a16,16,0,1,0-16-16A16,16,0,0,0,128,80Zm0,96a16,16,0,1,0,16,16A16,16,0,0,0,128,176Z" />
+                </svg>
+            );
+        case "EQUAL":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <path d="M224,160a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,160ZM40,104H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Z" />
+                </svg>
+            );
+        case "PERCENT":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <path d="M205.66,61.64l-144,144a8,8,0,0,1-11.32-11.32l144-144a8,8,0,0,1,11.32,11.31ZM50.54,101.44a36,36,0,0,1,50.92-50.91h0a36,36,0,0,1-50.92,50.91ZM56,76A20,20,0,1,0,90.14,61.84h0A20,20,0,0,0,56,76ZM216,180a36,36,0,1,1-10.54-25.46h0A35.76,35.76,0,0,1,216,180Zm-16,0a20,20,0,1,0-5.86,14.14A19.87,19.87,0,0,0,200,180Z" />
+                </svg>
+            );
+        case "CDOT":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Z" />
+                </svg>
+            );
+        case "PI":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <path d="M232,172a36,36,0,0,1-72,0V72H96V200a8,8,0,0,1-16,0V72H72a40,40,0,0,0-40,40,8,8,0,0,1-16,0A56.06,56.06,0,0,1,72,56H224a8,8,0,0,1,0,16H176V172a20,20,0,0,0,40,0,8,8,0,0,1,16,0Z" />
+                </svg>
+            );
+        case "x":
+            // MATHEMATICAL ITALIC SMALL CHI
+            // https://en.wikipedia.org/wiki/Chi_(letter)#Mathematical_chi
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <text
+                        fontSize="200px"
+                        x="50%"
+                        y="50%"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                    >
+                        𝜒
+                    </text>
+                </svg>
+            );
+        case "X":
+            // MATHEMATICAL ITALIC CAPITAL CHI
+            // https://en.wikipedia.org/wiki/Chi_(letter)#Mathematical_chi
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                >
+                    <text
+                        fontSize="200px"
+                        x="50%"
+                        y="50%"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                    >
+                        𝛸
+                    </text>
+                </svg>
+            );
 
         /**
-         * ANYTHING BELOW IS NOT YET CORRECTLY HANDLED
+         * ANYTHING BELOW IS NOT YET HANDLED
          */
-
-        case "PI":
-            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
-            return <span>pi</span>;
-        case "X":
-            //TODO(NickR): use correct font, size, and color for this. It's not an SVG asset
-            return <span>x</span>;
         case "MANY":
-        case "PERCENT":
-        case "CDOT":
-        case "EQUAL":
         case "NEQ":
         case "GT":
         case "LT":
@@ -516,7 +566,6 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "JUMP_INTO_NUMERATOR":
         case "JUMP_OUT_NUMERATOR":
         case "JUMP_OUT_DENOMINATOR":
-        case "PERIOD":
         case "a":
         case "b":
         case "c":
@@ -540,7 +589,6 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "u":
         case "v":
         case "w":
-        case "x":
         case "y":
         case "z":
         case "A":
@@ -568,7 +616,6 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "W":
         case "Y":
         case "Z":
-        case "DIVIDE":
             // placeholder
             return (
                 <svg
