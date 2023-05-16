@@ -46,7 +46,7 @@ export default class GeometryPage extends React.Component<Props> {
                 />
                 {/* Row 2 */}
                 <SecondaryKeypadButton
-                    keyConfig={Keys.X}
+                    keyConfig={Keys.x}
                     onClickKey={onClickKey}
                     style={{
                         gridColumn: 5,

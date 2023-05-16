@@ -271,6 +271,33 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
+        case "FRAC":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <g transform="translate(12 12)">
+                            <path fill="none" d="M0 0h24v24H0z" />
+                            <path
+                                d="M8 16.997c0-.55.453-.997.997-.997h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997H8.997c-.55 0-.997-.453-.997-.997v-6.006zM10 18h4v4h-4v-4z"
+                                fill="currentColor"
+                            />
+                            <rect
+                                fill="currentColor"
+                                x="2"
+                                y="11"
+                                width="20"
+                                height="2"
+                                rx="1"
+                            />
+                            <path
+                                d="M8 .997C8 .447 8.453 0 8.997 0h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997H8.997C8.447 8 8 7.547 8 7.003V.997zM10 2h4v4h-4V2z"
+                                fill="currentColor"
+                            />
+                        </g>
+                    </g>
+                </svg>
+            );
         case "FRAC_INCLUSIVE":
             return (
                 <svg
@@ -354,6 +381,46 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     <path d="M240,72V96a8,8,0,0,1-16,0V80H125.55L79.49,202.81a8,8,0,0,1-15,0l-48-128a8,8,0,1,1,15-5.62L72,177.22l40.51-108A8,8,0,0,1,120,64H232A8,8,0,0,1,240,72Z" />
                 </svg>
             );
+        case "CUBE_ROOT":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g
+                        fill="none"
+                        fillRule="evenodd"
+                        transform="translate(0, -4)"
+                    >
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path
+                            d="M17.91 23.12c1.66 0 2.76-.81 2.76-1.98 0-.96-.86-1.51-1.57-1.58.79-.13 1.46-.72 1.46-1.5 0-1.1-.95-1.83-2.65-1.83-1.23 0-2.11.45-2.67 1.08l.83 1.08c.47-.42 1.05-.64 1.66-.64.64 0 1.12.19 1.12.61 0 .35-.39.52-1.08.52-.25 0-.77 0-.9-.01v1.53c.1-.01.61-.01.9-.01.91 0 1.19.18 1.19.56 0 .37-.38.65-1.12.65-.58 0-1.34-.23-1.82-.7l-.87 1.17c.52.6 1.48 1.05 2.76 1.05z"
+                            fill="currentColor"
+                        />
+                        <path
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M14 29l4 6 9-14h7"
+                        />
+                    </g>
+                </svg>
+            );
+        case "EXP":
+            return (
+                <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        fill="#21242C"
+                        d="M28 8C28 7.44772 28.4477 7 29 7H35C35.5523 7 36 7.44772 36 8V14C36 14.5523 35.5523 15 35 15H29C28.4477 15 28 14.5523 28 14V8ZM30 9H34V13H30V9ZM14 13C14 12.4477 14.4477 12 15 12H25C25.5523 12 26 12.4477 26 13V27C26 27.5523 25.5523 28 25 28H15C14.4477 28 14 27.5523 14 27V13ZM16 14H24V26H16V14Z"
+                    />
+                </svg>
+            );
         case "EXP_2":
             return (
                 <svg
@@ -371,20 +438,21 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
-        case "EXP":
+        case "EXP_3":
             return (
                 <svg
-                    width="40"
-                    height="40"
+                    width="42"
+                    height="42"
                     viewBox="0 0 40 40"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
+                        transform="translate(0, -8)"
                         fillRule="evenodd"
                         clipRule="evenodd"
-                        d="M28 8C28 7.44772 28.4477 7 29 7H35C35.5523 7 36 7.44772 36 8V14C36 14.5523 35.5523 15 35 15H29C28.4477 15 28 14.5523 28 14V8ZM30 9H34V13H30V9ZM14 13C14 12.4477 14.4477 12 15 12H25C25.5523 12 26 12.4477 26 13V27C26 27.5523 25.5523 28 25 28H15C14.4477 28 14 27.5523 14 27V13ZM16 14H24V26H16V14Z"
                         fill="#21242C"
+                        d="M14 21c0-.552.456-1 1.002-1h9.996A1 1 0 0 1 26 21v14c0 .552-.456 1-1.002 1h-9.996A1 1 0 0 1 14 35V21zm2 1h8v12h-8V22zM30.92 23.12c1.66 0 2.76-.81 2.76-1.98 0-.96-.86-1.51-1.57-1.58.79-.13 1.46-.72 1.46-1.5 0-1.1-.95-1.83-2.65-1.83-1.23 0-2.11.45-2.67 1.08l.83 1.08c.47-.42 1.05-.64 1.66-.64.64 0 1.12.19 1.12.61 0 .35-.39.52-1.08.52-.25 0-.77 0-.9-.01v1.53c.1-.01.61-.01.9-.01.91 0 1.19.18 1.19.56 0 .37-.38.65-1.12.65-.58 0-1.34-.23-1.82-.7l-.87 1.17c.52.6 1.48 1.05 2.76 1.05z"
                     />
                 </svg>
             );
@@ -455,6 +523,122 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     viewBox="0 0 256 256"
                 >
                     <path d="M224,160a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,160ZM40,104H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Z" />
+                </svg>
+            );
+        case "GT":
+            return (
+                <svg width="44" height="44" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M16 30l16-6-16-6"
+                        />
+                    </g>
+                </svg>
+            );
+        case "LT":
+            return (
+                <svg width="44" height="44" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M32 30l-16-6 16-6"
+                        />
+                    </g>
+                </svg>
+            );
+        case "GEQ":
+            return (
+                <svg width="44" height="44" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            d="M16 33h16M16 30l16-6-16-6"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </g>
+                </svg>
+            );
+        case "LEQ":
+            return (
+                <svg width="44" height="44" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            d="M16 33h16M32 30l-16-6 16-6"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </g>
+                </svg>
+            );
+        case "NEQ":
+            return (
+                <svg width="44" height="44" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            d="M19 33l10-18M16 21h17M16 27h17"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </g>
+                </svg>
+            );
+        case "LN":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path
+                            d="M20.836 29v-9.338h-1.778V29h1.778zm8.106 0v-4.774c0-1.316-.714-2.156-2.198-2.156-1.106 0-1.932.532-2.366 1.05v-.882H22.6V29h1.778v-4.55c.294-.406.84-.798 1.54-.798.756 0 1.246.322 1.246 1.26V29h1.778z"
+                            fill="currentColor"
+                        />
+                    </g>
+                </svg>
+            );
+        case "LOG":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path
+                            d="M16.776 29v-9.338h-1.778V29h1.778zm4.9.168c2.24 0 3.584-1.624 3.584-3.556 0-1.918-1.344-3.542-3.584-3.542-2.226 0-3.57 1.624-3.57 3.542 0 1.932 1.344 3.556 3.57 3.556zm0-1.582c-1.106 0-1.722-.91-1.722-1.974 0-1.05.616-1.96 1.722-1.96 1.106 0 1.736.91 1.736 1.96 0 1.064-.63 1.974-1.736 1.974zm7.672 4.158c1.666 0 3.654-.63 3.654-3.206v-6.3H31.21v.868c-.546-.686-1.274-1.036-2.086-1.036-1.708 0-2.982 1.232-2.982 3.444 0 2.254 1.288 3.444 2.982 3.444.826 0 1.554-.392 2.086-1.064v.686c0 1.33-1.008 1.708-1.862 1.708-.854 0-1.568-.238-2.114-.84l-.798 1.288c.854.742 1.75 1.008 2.912 1.008zm.336-4.368c-1.008 0-1.708-.7-1.708-1.862 0-1.162.7-1.862 1.708-1.862.588 0 1.232.322 1.526.77v2.184c-.294.434-.938.77-1.526.77z"
+                            fill="currentColor"
+                        />
+                    </g>
+                </svg>
+            );
+        case "LOG_N":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path
+                            d="M30 28.997c0-.55.453-.997.997-.997h6.006c.55 0 .997.453.997.997v6.006c0 .55-.453.997-.997.997h-6.006c-.55 0-.997-.453-.997-.997v-6.006zM32 30h4v4h-4v-4zM12.776 29v-9.338h-1.778V29h1.778zm4.9.168c2.24 0 3.584-1.624 3.584-3.556 0-1.918-1.344-3.542-3.584-3.542-2.226 0-3.57 1.624-3.57 3.542 0 1.932 1.344 3.556 3.57 3.556zm0-1.582c-1.106 0-1.722-.91-1.722-1.974 0-1.05.616-1.96 1.722-1.96 1.106 0 1.736.91 1.736 1.96 0 1.064-.63 1.974-1.736 1.974zm7.672 4.158c1.666 0 3.654-.63 3.654-3.206v-6.3H27.21v.868c-.546-.686-1.274-1.036-2.086-1.036-1.708 0-2.982 1.232-2.982 3.444 0 2.254 1.288 3.444 2.982 3.444.826 0 1.554-.392 2.086-1.064v.686c0 1.33-1.008 1.708-1.862 1.708-.854 0-1.568-.238-2.114-.84l-.798 1.288c.854.742 1.75 1.008 2.912 1.008zm.336-4.368c-1.008 0-1.708-.7-1.708-1.862 0-1.162.7-1.862 1.708-1.862.588 0 1.232.322 1.526.77v2.184c-.294.434-.938.77-1.526.77z"
+                            fill="currentColor"
+                        />
+                    </g>
                 </svg>
             );
         case "PERCENT":
@@ -542,18 +726,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
          * ANYTHING BELOW IS NOT YET HANDLED
          */
         case "MANY":
-        case "NEQ":
-        case "GT":
-        case "LT":
-        case "GEQ":
-        case "LEQ":
         case "FRAC_EXCLUSIVE":
-        case "FRAC":
-        case "EXP_3":
-        case "CUBE_ROOT":
-        case "LN":
-        case "LOG":
-        case "LOG_N":
         case "THETA":
         case "NOOP":
         case "UP":
