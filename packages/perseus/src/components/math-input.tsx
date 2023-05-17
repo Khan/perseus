@@ -39,6 +39,9 @@ const customKeyTranslator = {
     // If there's something in the input that can become part of a
     // fraction, typing "/" puts it in the numerator. If not, typing
     // "/" does nothing. In that case, enter a \frac.
+    PHI: (mathQuill) => {
+        mathQuill.cmd("\\phi");
+    },
     FRAC: (mathQuill) => {
         const contents = mathQuill.latex();
         mathQuill.typedText("/");
