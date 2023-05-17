@@ -223,12 +223,26 @@ class MathInput extends React.Component<Props, State> {
         return this.state.focused;
     };
 
-    insert: (keyPressed: Key) => void = (keyPressed: Key) => {
+    insert: (value: any) => void = (value) => {
         // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const input = this.mathField();
-        const inputModifier = customKeyTranslator[keyPressed];
+        const inputModifier = customKeyTranslator[value];
         if (inputModifier) {
             inputModifier(input);
+            input.focus();
+            return;
+        }
+
+        // note(Matthew): I'm not sure this is still being used
+        // but it fails tests when I remove it and the way we call
+        // methods directly on components makes it difficult to confirm
+        // if it's dead code
+        if (_(value).isFunction()) {
+            value(input);
+        } else if (value[0] === "\\") {
+            input.cmd(value).focus();
+        } else {
+            input.write(value).focus();
         }
         input.focus();
     };
