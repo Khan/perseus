@@ -9,6 +9,12 @@ import {
 
 import type {CursorContext} from "./components/input/cursor-contexts";
 
+export interface MathQuillInterface {
+    write: (input: string) => void;
+    cmd: (input: string) => void;
+    keystroke: (input: string) => void;
+}
+
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
 export interface Bound {
