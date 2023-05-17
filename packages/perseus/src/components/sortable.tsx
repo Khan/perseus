@@ -72,7 +72,7 @@ class Placeholder extends React.Component<PlaceholderProps> {
 
 type DraggableProps = {
     content: string;
-    endPosition: {left: number; top: number} | Record<string, never>;
+    endPosition?: {left: number; top: number};
     includePadding: boolean;
     layout: Layout;
     width?: number;
@@ -251,7 +251,10 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             return;
         }
 
-        if (this.props.state === ItemState.ANIMATING) {
+        if (
+            this.props.state === ItemState.ANIMATING &&
+            this.props.endPosition
+        ) {
             // Start animating
             const current = this.getCurrentPosition();
             const duration =
@@ -433,7 +436,7 @@ type SortableItem = {
     option: SortableOption;
     key: number;
     state: ItemState;
-    endPosition: Position | Record<string, never>;
+    endPosition?: Position;
     width: number;
     height: number;
 };
@@ -513,7 +516,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 option: option,
                 key: i,
                 state,
-                endPosition: {},
                 width: 0,
                 height: 0,
             };

@@ -7,7 +7,7 @@ export type Range = [number, number];
 export type Size = [number, number];
 
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
-type Empty = Record<string, never>;
+type Empty = Record<never, never>;
 
 export type PerseusItem = {
     // The details of the question being asked to the user.
