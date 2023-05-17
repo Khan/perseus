@@ -1,3 +1,4 @@
+import {Keys as Key} from "@khanacademy/math-input";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -9,8 +10,7 @@ const prettyBig = {fontSize: "150%"} as const;
 const slightlyBig = {fontSize: "120%"} as const;
 const symbStyle = {fontSize: "130%"} as const;
 
-type Inserter = string | ((input: any) => void);
-type ButtonSet = (props: any) => [React.ReactNode, Inserter];
+type ButtonSet = (props: any) => [React.ReactNode, Key];
 
 type ButtonSets = {
     readonly [key: string]: ReadonlyArray<ButtonSet>;
@@ -26,13 +26,13 @@ const basic: ReadonlyArray<ButtonSet> = [
         <span key="plus" style={slightlyBig}>
             +
         </span>,
-        "+",
+        "PLUS",
     ],
     () => [
         <span key="minus" style={prettyBig}>
             -
         </span>,
-        "-",
+        "MINUS",
     ],
 
     // TODO(joel) - display as \cdot when appropriate
@@ -43,14 +43,14 @@ const basic: ReadonlyArray<ButtonSet> = [
                 <TeX key="times" style={prettyBig}>
                     {i18n.doNotTranslate("\\times")}
                 </TeX>,
-                "\\times",
+                "TIMES",
             ];
         }
         return [
             <TeX key="times" style={prettyBig}>
                 {i18n.doNotTranslate("\\cdot")}
             </TeX>,
-            "\\cdot",
+            "CDOT",
         ];
     },
     () => {
@@ -59,17 +59,7 @@ const basic: ReadonlyArray<ButtonSet> = [
             <TeX key="frac" style={prettyBig}>
                 {i18n.doNotTranslate("\\frac{x}{y}")}
             </TeX>,
-
-            // If there's something in the input that can become part of a
-            // fraction, typing "/" puts it in the numerator. If not, typing
-            // "/" does nothing. In that case, enter a \frac.
-            (input: any) => {
-                const contents = input.latex();
-                input.typedText("/");
-                if (input.latex() === contents) {
-                    input.cmd("\\frac");
-                }
-            },
+            "FRAC",
         ];
     },
 ];
@@ -82,7 +72,7 @@ const buttonSets: ButtonSets = {
             const {TeX} = getDependencies();
             return [
                 <TeX key="div">{i18n.doNotTranslate("\\div")}</TeX>,
-                "\\div",
+                "DIVIDE",
             ];
         },
     ]),
@@ -90,24 +80,15 @@ const buttonSets: ButtonSets = {
     trig: [
         () => {
             const {TeX} = getDependencies();
-            return [
-                <TeX key="sin">{i18n.doNotTranslate("\\sin")}</TeX>,
-                "\\sin",
-            ];
+            return [<TeX key="sin">{i18n.doNotTranslate("\\sin")}</TeX>, "SIN"];
         },
         () => {
             const {TeX} = getDependencies();
-            return [
-                <TeX key="cos">{i18n.doNotTranslate("\\cos")}</TeX>,
-                "\\cos",
-            ];
+            return [<TeX key="cos">{i18n.doNotTranslate("\\cos")}</TeX>, "COS"];
         },
         () => {
             const {TeX} = getDependencies();
-            return [
-                <TeX key="tan">{i18n.doNotTranslate("\\tan")}</TeX>,
-                "\\tan",
-            ];
+            return [<TeX key="tan">{i18n.doNotTranslate("\\tan")}</TeX>, "TAN"];
         },
         () => {
             const {TeX} = getDependencies();
@@ -115,7 +96,7 @@ const buttonSets: ButtonSets = {
                 <TeX key="theta" style={symbStyle}>
                     {i18n.doNotTranslate("\\theta")}
                 </TeX>,
-                "\\theta",
+                "THETA",
             ];
         },
         () => {
@@ -130,7 +111,7 @@ const buttonSets: ButtonSets = {
                         {i18n.doNotTranslate("\\phi")}
                     </TeX>
                 </span>,
-                "\\phi",
+                "PHI",
             ];
         },
     ],
@@ -140,7 +121,7 @@ const buttonSets: ButtonSets = {
             const {TeX} = getDependencies();
             return [
                 <TeX key="sqrt">{i18n.doNotTranslate("\\sqrt{x}")}</TeX>,
-                "\\sqrt",
+                "SQRT",
             ];
         },
         // TODO(joel) - how does desmos do this?
@@ -148,10 +129,7 @@ const buttonSets: ButtonSets = {
             const {TeX} = getDependencies();
             return [
                 <TeX key="nthroot">{i18n.doNotTranslate("\\sqrt[3]{x}")}</TeX>,
-                (input: any) => {
-                    input.typedText("nthroot3");
-                    input.keystroke("Right");
-                },
+                "NTHROOT3",
             ];
         },
         () => {
@@ -160,17 +138,7 @@ const buttonSets: ButtonSets = {
                 <TeX key="pow" style={slightlyBig}>
                     {i18n.doNotTranslate("a^b")}
                 </TeX>,
-                (input: any) => {
-                    const contents = input.latex();
-                    input.typedText("^");
-
-                    // If the input hasn't changed (for example, if we're
-                    // attempting to add an exponent on an empty input or an empty
-                    // denominator), insert our own "a^b"
-                    if (input.latex() === contents) {
-                        input.typedText("a^b");
-                    }
-                },
+                "POW",
             ];
         },
         () => {
@@ -179,7 +147,7 @@ const buttonSets: ButtonSets = {
                 <TeX key="pi" style={slightlyBig}>
                     {i18n.doNotTranslate("\\pi")}
                 </TeX>,
-                "\\pi",
+                "PI",
             ];
         },
     ],
@@ -187,26 +155,17 @@ const buttonSets: ButtonSets = {
     logarithms: [
         () => {
             const {TeX} = getDependencies();
-            return [
-                <TeX key="log">{i18n.doNotTranslate("\\log")}</TeX>,
-                "\\log",
-            ];
+            return [<TeX key="log">{i18n.doNotTranslate("\\log")}</TeX>, "LOG"];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="ln">{i18n.doNotTranslate("\\ln")}</TeX>, "\\ln"];
+            return [<TeX key="ln">{i18n.doNotTranslate("\\ln")}</TeX>, "LN"];
         },
         () => {
             const {TeX} = getDependencies();
             return [
                 <TeX key="log_b">{i18n.doNotTranslate("\\log_b")}</TeX>,
-                (input) => {
-                    input.typedText("log_");
-                    input.keystroke("Right");
-                    input.typedText("(");
-                    input.keystroke("Left");
-                    input.keystroke("Left");
-                },
+                "LOG_B",
             ];
         },
     ],
@@ -214,39 +173,30 @@ const buttonSets: ButtonSets = {
     "basic relations": [
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="eq">{"="}</TeX>, "="];
+            return [<TeX key="eq">{"="}</TeX>, "EQUAL"];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="lt">{i18n.doNotTranslate("\\lt")}</TeX>, "\\lt"];
+            return [<TeX key="lt">{i18n.doNotTranslate("\\lt")}</TeX>, "LT"];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="gt">{i18n.doNotTranslate("\\gt")}</TeX>, "\\gt"];
+            return [<TeX key="gt">{i18n.doNotTranslate("\\gt")}</TeX>, "GT"];
         },
     ],
 
     "advanced relations": [
         () => {
             const {TeX} = getDependencies();
-            return [
-                <TeX key="neq">{i18n.doNotTranslate("\\neq")}</TeX>,
-                "\\neq",
-            ];
+            return [<TeX key="neq">{i18n.doNotTranslate("\\neq")}</TeX>, "NEQ"];
         },
         () => {
             const {TeX} = getDependencies();
-            return [
-                <TeX key="leq">{i18n.doNotTranslate("\\leq")}</TeX>,
-                "\\leq",
-            ];
+            return [<TeX key="leq">{i18n.doNotTranslate("\\leq")}</TeX>, "LEQ"];
         },
         () => {
             const {TeX} = getDependencies();
-            return [
-                <TeX key="geq">{i18n.doNotTranslate("\\geq")}</TeX>,
-                "\\geq",
-            ];
+            return [<TeX key="geq">{i18n.doNotTranslate("\\geq")}</TeX>, "GEQ"];
         },
     ],
 };
@@ -255,7 +205,7 @@ export type ButtonSetsType = ReadonlyArray<keyof typeof buttonSets>;
 
 type Props = {
     sets: ButtonSetsType;
-    onInsert: (arg1: Inserter) => void;
+    onInsert: (arg1: Key) => void;
     className?: string;
     convertDotToTimes?: boolean;
 };

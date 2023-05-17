@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as KAS from "@khanacademy/kas";
-import {KeypadInput, KeypadType} from "@khanacademy/math-input";
+import {KeypadInput, KeypadType, Keys as Key} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
@@ -413,11 +413,11 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     // HACK(joel)
-    insert: (text: string) => void = (text: string) => {
+    insert(keyPressed: Key) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error [FEI-5003] - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
-        this.refs.input.insert(text);
-    };
+        this.refs.input.insert(keyPressed);
+    }
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<any>> = () => {
         // The widget itself is an input, so we return a single empty list to
