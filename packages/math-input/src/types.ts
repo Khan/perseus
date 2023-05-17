@@ -13,6 +13,8 @@ export interface MathQuillInterface {
     write: (input: string) => void;
     cmd: (input: string) => void;
     keystroke: (input: string) => void;
+    typedText: (input: string) => void;
+    latex: () => string;
 }
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;

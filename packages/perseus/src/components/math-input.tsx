@@ -39,37 +39,12 @@ const customKeyTranslator = {
     // If there's something in the input that can become part of a
     // fraction, typing "/" puts it in the numerator. If not, typing
     // "/" does nothing. In that case, enter a \frac.
-    PHI: (mathQuill) => {
-        mathQuill.cmd("\\phi");
-    },
     FRAC: (mathQuill) => {
         const contents = mathQuill.latex();
         mathQuill.typedText("/");
         if (mathQuill.latex() === contents) {
             mathQuill.cmd("\\frac");
         }
-    },
-    NTHROOT3: (mathQuill) => {
-        mathQuill.typedText("nthroot3");
-        mathQuill.keystroke("Right");
-    },
-    POW: (mathQuill) => {
-        const contents = mathQuill.latex();
-        mathQuill.typedText("^");
-
-        // If the input hasn't changed (for example, if we're
-        // attempting to add an exponent on an empty input or an empty
-        // denominator), insert our own "a^b"
-        if (mathQuill.latex() === contents) {
-            mathQuill.typedText("a^b");
-        }
-    },
-    LOG_B: (mathQuill) => {
-        mathQuill.typedText("log_");
-        mathQuill.keystroke("Right");
-        mathQuill.typedText("(");
-        mathQuill.keystroke("Left");
-        mathQuill.keystroke("Left");
     },
 };
 
@@ -252,7 +227,9 @@ class MathInput extends React.Component<Props, State> {
         // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const input = this.mathField();
         const inputModifier = customKeyTranslator[keyPressed];
-        inputModifier(input);
+        if (inputModifier) {
+            inputModifier(input);
+        }
         input.focus();
     };
 
