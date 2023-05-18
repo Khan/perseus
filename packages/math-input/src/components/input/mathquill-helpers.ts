@@ -1,0 +1,233 @@
+import {MathFieldActionType} from "../../types";
+
+import MQ from "./mathquill-instance";
+
+const Numerals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const GreekLetters = ["\\theta", "\\pi"];
+const Letters = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+];
+
+// We only consider numerals, variables, and Greek Letters to be proper
+// leaf nodes.
+const ValidLeaves = [
+    ...Numerals,
+    ...GreekLetters,
+    ...Letters.map((letter) => letter.toLowerCase()),
+    ...Letters.map((letter) => letter.toUpperCase()),
+];
+
+export function isFraction(node) {
+    return node.jQ && node.jQ.hasClass("mq-fraction");
+}
+
+export function isNumerator(node) {
+    return node.jQ && node.jQ.hasClass("mq-numerator");
+}
+
+export function isDenominator(node) {
+    return node.jQ && node.jQ.hasClass("mq-denominator");
+}
+
+export function isSubScript(node) {
+    // NOTE(charlie): MyScript has a structure whereby its superscripts seem
+    // to be represented as a parent node with 'mq-sup-only' containing a
+    // single child with 'mq-sup'.
+    return (
+        node.jQ &&
+        (node.jQ.hasClass("mq-sub-only") || node.jQ.hasClass("mq-sub"))
+    );
+}
+
+export function isSuperScript(node) {
+    // NOTE(charlie): MyScript has a structure whereby its superscripts seem
+    // to be represented as a parent node with 'mq-sup-only' containing a
+    // single child with 'mq-sup'.
+    return (
+        node.jQ &&
+        (node.jQ.hasClass("mq-sup-only") || node.jQ.hasClass("mq-sup"))
+    );
+}
+
+export function isParens(node) {
+    return node && node.ctrlSeq === "\\left(";
+}
+
+export function isLeaf(node) {
+    return node && node.ctrlSeq && ValidLeaves.includes(node.ctrlSeq.trim());
+}
+
+export function isSquareRoot(node) {
+    return (
+        node.blocks &&
+        node.blocks[0].jQ &&
+        node.blocks[0].jQ.hasClass("mq-sqrt-stem")
+    );
+}
+
+export function isNthRoot(node) {
+    return (
+        node.blocks &&
+        node.blocks[0].jQ &&
+        node.blocks[0].jQ.hasClass("mq-nthroot")
+    );
+}
+
+export function isNthRootIndex(node) {
+    return node.jQ && node.jQ.hasClass("mq-nthroot");
+}
+
+export function isInsideLogIndex(cursor) {
+    const grandparent = cursor.parent.parent;
+
+    if (grandparent && grandparent.jQ.hasClass("mq-supsub")) {
+        const command = maybeFindCommandBeforeParens(grandparent);
+
+        if (command && command.name === "\\log") {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+export function isInsideEmptyNode(cursor) {
+    return (
+        cursor[MQ.L] === MathFieldActionType.MQ_END &&
+        cursor[MQ.R] === MathFieldActionType.MQ_END
+    );
+}
+
+export function selectNode(node, cursor) {
+    cursor.insLeftOf(node);
+    cursor.startSelection();
+    cursor.insRightOf(node);
+    cursor.select();
+    cursor.endSelection();
+}
+
+/**
+ * Return the start node, end node, and full name of the command of which
+ * the initial node is a part, or `null` if the node is not part of a
+ * command.
+ *
+ * @param {node} initialNode - the node to included as part of the command
+ * @returns {null|object} - `null` or an object containing the start node
+ *                          (`startNode`), end node (`endNode`), and full
+ *                          name (`name`) of the command
+ * @private
+ */
+export function maybeFindCommand(initialNode) {
+    if (!initialNode) {
+        return null;
+    }
+
+    // MathQuill stores commands as separate characters so that
+    // users can delete commands one character at a time.  We iterate over
+    // the nodes from right to left until we hit a sequence starting with a
+    // '\\', which signifies the start of a command; then we iterate from
+    // left to right until we hit a '\\left(', which signifies the end of a
+    // command.  If we encounter any character that doesn't belong in a
+    // command, we return null.  We match a single character at a time.
+    // Ex) ['\\l', 'o', 'g ', '\\left(', ...]
+    const commandCharRegex = /^[a-z]$/;
+    const commandStartRegex = /^\\[a-z]$/;
+    const commandEndSeq = "\\left(";
+
+    // Note: We allowlist the set of valid commands, since relying solely on
+    // a command being prefixed with a backslash leads to undesired
+    // behavior. For example, Greek symbols, left parentheses, and square
+    // roots all get treated as commands.
+    const validCommands = ["\\log", "\\ln", "\\cos", "\\sin", "\\tan"];
+
+    let name = "";
+    let startNode;
+    let endNode;
+
+    // Collect the portion of the command from the current node, leftwards
+    // until the start of the command.
+    let node = initialNode;
+    while (node !== 0) {
+        const ctrlSeq = node.ctrlSeq.trim();
+        if (commandCharRegex.test(ctrlSeq)) {
+            name = ctrlSeq + name;
+        } else if (commandStartRegex.test(ctrlSeq)) {
+            name = ctrlSeq + name;
+            startNode = node;
+            break;
+        } else {
+            break;
+        }
+
+        node = node[MQ.L];
+    }
+
+    // If we hit the start of a command, then grab the rest of it by
+    // iterating rightwards to compute the full name of the command, along
+    // with its terminal node.
+    if (startNode) {
+        // Next, iterate from the start to the right.
+        node = initialNode[MQ.R];
+        while (node !== 0) {
+            const ctrlSeq = node.ctrlSeq.trim();
+            if (commandCharRegex.test(ctrlSeq)) {
+                // If we have a single character, add it to the command
+                // name.
+                name = name + ctrlSeq;
+            } else if (ctrlSeq === commandEndSeq) {
+                // If we hit the command end delimiter (the left
+                // parentheses surrounding its arguments), stop.
+                endNode = node;
+                break;
+            }
+
+            node = node[MQ.R];
+        }
+        if (validCommands.includes(name)) {
+            return {name, startNode, endNode};
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
+
+/**
+ * Return the start node, end node, and full name of the command to the left
+ * of `\\left(`, or `null` if there is no command.
+ *
+ * @param {node} leftParenNode - node where .ctrlSeq == `\\left(`
+ * @returns {null|object} - `null` or an object containing the start node
+ *                          (`startNode`), end node (`endNode`), and full
+ *                          name (`name`) of the command
+ * @private
+ */
+export function maybeFindCommandBeforeParens(leftParenNode) {
+    return maybeFindCommand(leftParenNode[MQ.L]);
+}

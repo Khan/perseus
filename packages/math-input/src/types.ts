@@ -9,6 +9,13 @@ import {
 
 import type {CursorContext} from "./components/input/cursor-contexts";
 
+export enum MathFieldActionType {
+    WRITE = "write",
+    CMD = "cmd",
+    KEYSTROKE = "keystroke",
+    MQ_END = 0,
+}
+
 export interface MathQuillInterface {
     L: "L";
     R: "R";
