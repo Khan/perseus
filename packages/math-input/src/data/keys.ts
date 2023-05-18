@@ -108,6 +108,13 @@ type Key =
     | "W"
     | "X"
     | "Y"
-    | "Z";
+    | "Z"
+
+    // Currently only used by
+    // Perseus' Expression MathInput
+    | "PHI"
+    | "NTHROOT3"
+    | "POW"
+    | "LOG_B";
 
 export default Key;

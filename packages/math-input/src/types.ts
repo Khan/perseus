@@ -9,6 +9,24 @@ import {
 
 import type {CursorContext} from "./components/input/cursor-contexts";
 
+export interface MathQuillInterface {
+    // Write LaTeX
+    // https://docs.mathquill.com/en/latest/Api_Methods/#writelatex_string
+    write: (input: string) => void;
+    // Enter a LaTeX command
+    // https://docs.mathquill.com/en/latest/Api_Methods/#cmdlatex_string
+    cmd: (input: string) => void;
+    // Simulates keystrokes given a string like "Ctrl-Home Del"
+    // https://docs.mathquill.com/en/latest/Api_Methods/#keystrokekeys
+    keystroke: (input: string) => void;
+    // Simulates typing text, one character at a time
+    // https://docs.mathquill.com/en/latest/Api_Methods/#typedtexttext
+    typedText: (input: string) => void;
+    // Returns the contents as LaTeX
+    // https://docs.mathquill.com/en/latest/Api_Methods/#latex
+    latex: () => string;
+}
+
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
 export interface Bound {

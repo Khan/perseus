@@ -739,6 +739,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "JUMP_INTO_NUMERATOR":
         case "JUMP_OUT_NUMERATOR":
         case "JUMP_OUT_DENOMINATOR":
+        case "PHI":
+        case "NTHROOT3":
+        case "POW":
+        case "LOG_B":
         case "a":
         case "b":
         case "c":
