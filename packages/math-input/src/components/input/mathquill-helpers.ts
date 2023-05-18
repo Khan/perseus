@@ -1,5 +1,6 @@
 import {MathFieldActionType} from "../../types";
 
+import {CursorContext} from "./cursor-contexts";
 import MQ from "./mathquill-instance";
 
 const Numerals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -230,4 +231,33 @@ export function maybeFindCommand(initialNode) {
  */
 export function maybeFindCommandBeforeParens(leftParenNode) {
     return maybeFindCommand(leftParenNode[MQ.L]);
+}
+
+export function contextForCursor(cursor) {
+    // First, try to find any fraction to the right, unimpeded.
+    let visitor = cursor;
+    while (visitor[MQ.R] !== MathFieldActionType.MQ_END) {
+        if (isFraction(visitor[MQ.R])) {
+            return CursorContext.BEFORE_FRACTION;
+        } else if (!isLeaf(visitor[MQ.R])) {
+            break;
+        }
+        visitor = visitor[MQ.R];
+    }
+
+    // If that didn't work, check if the parent or grandparent is a special
+    // context, so that we can jump outwards.
+    if (isParens(cursor.parent && cursor.parent.parent)) {
+        return CursorContext.IN_PARENS;
+    } else if (isNumerator(cursor.parent)) {
+        return CursorContext.IN_NUMERATOR;
+    } else if (isDenominator(cursor.parent)) {
+        return CursorContext.IN_DENOMINATOR;
+    } else if (isSubScript(cursor.parent)) {
+        return CursorContext.IN_SUB_SCRIPT;
+    } else if (isSuperScript(cursor.parent)) {
+        return CursorContext.IN_SUPER_SCRIPT;
+    } else {
+        return CursorContext.NONE;
+    }
 }

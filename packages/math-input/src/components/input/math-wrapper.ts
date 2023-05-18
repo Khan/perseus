@@ -10,16 +10,10 @@ import Key from "../../data/keys";
 import {MathFieldInterface, MathFieldActionType} from "../../types";
 import keyTranslator from "../key-translator";
 
-import {CursorContext} from "./cursor-contexts";
 import handleBackspace from "./handle-backspace";
+import handleJumpOut from "./handle-jump-out";
 import {
-    isFraction,
-    isParens,
-    isLeaf,
-    isNumerator,
-    isDenominator,
-    isSubScript,
-    isSuperScript,
+    contextForCursor,
     maybeFindCommand,
     maybeFindCommandBeforeParens,
 } from "./mathquill-helpers";
@@ -43,15 +37,21 @@ const NormalCommands = {
 const ArithmeticOperators = ["+", "-", "\\cdot", "\\times", "\\div"];
 const EqualityOperators = ["=", "\\neq", "<", "\\leq", ">", "\\geq"];
 
-const KeysForJumpContext = {
-    [CursorContext.IN_PARENS]: "JUMP_OUT_PARENTHESES",
-    [CursorContext.IN_SUPER_SCRIPT]: "JUMP_OUT_EXPONENT",
-    [CursorContext.IN_SUB_SCRIPT]: "JUMP_OUT_BASE",
-    [CursorContext.BEFORE_FRACTION]: "JUMP_INTO_NUMERATOR",
-    [CursorContext.IN_NUMERATOR]: "JUMP_OUT_NUMERATOR",
-    [CursorContext.IN_DENOMINATOR]: "JUMP_OUT_DENOMINATOR",
-};
-
+// Notes about MathQuill
+//
+// MathQuill's stores its layout as nested linked lists.  Each node in the
+// list has MQ.L '-1' and MQ.R '1' properties that define links to
+// the left and right nodes respectively.  They also have
+//
+// ctrlSeq: contains the latex code snippet that defines that node.
+// jQ: jQuery object for the DOM node(s) for this MathQuill node.
+// ends: pointers to the nodes at the ends of the container.
+// parent: parent node.
+// blocks: an array containing one or more nodes that make up the node.
+// sub?: subscript node if there is one as is the case in log_n
+//
+// All of the code below is super fragile.  Please be especially careful
+// when upgrading MathQuill.
 class MathWrapper {
     mathField: MathFieldInterface; // MathQuill input
     callbacks: any;
@@ -113,7 +113,7 @@ class MathWrapper {
             key === "JUMP_OUT_NUMERATOR" ||
             key === "JUMP_OUT_DENOMINATOR"
         ) {
-            this._handleJumpOut(cursor, key);
+            handleJumpOut(this.mathField, cursor, key);
         } else if (key === "BACKSPACE") {
             handleBackspace(this.mathField);
         } else if (key === "LEFT") {
@@ -137,7 +137,7 @@ class MathWrapper {
         // on the MathField, as that handler isn't triggered on navigation
         // events.
         return {
-            context: this.contextForCursor(cursor),
+            context: contextForCursor(cursor),
         };
     }
 
@@ -182,7 +182,7 @@ class MathWrapper {
 
             if (this.callbacks.onCursorMove) {
                 this.callbacks.onCursorMove({
-                    context: this.contextForCursor(cursor),
+                    context: contextForCursor(cursor),
                 });
             }
         }
@@ -207,106 +207,6 @@ class MathWrapper {
     isEmpty() {
         const cursor = this.getCursor();
         return cursor.parent.id === 1 && cursor[1] === 0 && cursor[-1] === 0;
-    }
-
-    // Notes about MathQuill
-    //
-    // MathQuill's stores its layout as nested linked lists.  Each node in the
-    // list has MQ.L '-1' and MQ.R '1' properties that define links to
-    // the left and right nodes respectively.  They also have
-    //
-    // ctrlSeq: contains the latex code snippet that defines that node.
-    // jQ: jQuery object for the DOM node(s) for this MathQuill node.
-    // ends: pointers to the nodes at the ends of the container.
-    // parent: parent node.
-    // blocks: an array containing one or more nodes that make up the node.
-    // sub?: subscript node if there is one as is the case in log_n
-    //
-    // All of the code below is super fragile.  Please be especially careful
-    // when upgrading MathQuill.
-
-    /**
-     * Advances the cursor to the next logical position.
-     *
-     * @param {cursor} cursor
-     * @private
-     */
-    _handleJumpOut(cursor, key) {
-        const context = this.contextForCursor(cursor);
-
-        // Validate that the current cursor context matches the key's intent.
-        if (KeysForJumpContext[context] !== key) {
-            // If we don't have a valid cursor context, yet the user was able
-            // to trigger a jump-out key, that's a broken invariant. Rather
-            // than throw an error (which would kick the user out of the
-            // exercise), we do nothing, as a fallback strategy. The user can
-            // still move the cursor manually.
-            return;
-        }
-
-        switch (context) {
-            case CursorContext.IN_PARENS:
-                // Insert at the end of the parentheses, and then navigate right
-                // once more to get 'beyond' the parentheses.
-                cursor.insRightOf(cursor.parent.parent);
-                break;
-
-            case CursorContext.BEFORE_FRACTION:
-                // Find the nearest fraction to the right of the cursor.
-                let fractionNode;
-                let visitor = cursor;
-                while (visitor[MQ.R] !== MathFieldActionType.MQ_END) {
-                    if (isFraction(visitor[MQ.R])) {
-                        fractionNode = visitor[MQ.R];
-                    }
-                    visitor = visitor[MQ.R];
-                }
-
-                // Jump into it!
-                cursor.insLeftOf(fractionNode);
-                this.mathField.keystroke("Right");
-                break;
-
-            case CursorContext.IN_NUMERATOR:
-                // HACK(charlie): I can't find a better way to do this. The goal
-                // is to place the cursor at the start of the matching
-                // denominator. So, we identify the appropriate node, and
-                // continue rightwards until we find ourselves inside of it.
-                // It's possible that there are cases in which we don't reach
-                // the denominator, though I can't think of any.
-                const siblingDenominator = cursor.parent.parent.blocks[1];
-                while (cursor.parent !== siblingDenominator) {
-                    this.mathField.keystroke("Right");
-                }
-                break;
-
-            case CursorContext.IN_DENOMINATOR:
-                cursor.insRightOf(cursor.parent.parent);
-                break;
-
-            case CursorContext.IN_SUB_SCRIPT:
-                // Insert just beyond the superscript.
-                cursor.insRightOf(cursor.parent.parent);
-
-                // Navigate right once more, if we're right before parens. This
-                // is to handle the standard case in which the subscript is the
-                // base of a custom log.
-                if (isParens(cursor[MQ.R])) {
-                    this.mathField.keystroke("Right");
-                }
-                break;
-
-            case CursorContext.IN_SUPER_SCRIPT:
-                // Insert just beyond the superscript.
-                cursor.insRightOf(cursor.parent.parent);
-                break;
-
-            default:
-                throw new Error(
-                    `Attempted to 'Jump Out' from node, but found no ` +
-                        `appropriate cursor context: ${context}`,
-                );
-        }
     }
 
     _handleLeftArrow(cursor) {
@@ -390,39 +290,6 @@ class MathWrapper {
             default:
                 throw new Error(`Invalid exponent key: ${key}`);
         }
-    }
-
-    contextForCursor(cursor) {
-        // First, try to find any fraction to the right, unimpeded.
-        let visitor = cursor;
-        while (visitor[MQ.R] !== MathFieldActionType.MQ_END) {
-            if (isFraction(visitor[MQ.R])) {
-                return CursorContext.BEFORE_FRACTION;
-            } else if (!isLeaf(visitor[MQ.R])) {
-                break;
-            }
-            visitor = visitor[MQ.R];
-        }
-
-        // If that didn't work, check if the parent or grandparent is a special
-        // context, so that we can jump outwards.
-        if (isParens(cursor.parent && cursor.parent.parent)) {
-            return CursorContext.IN_PARENS;
-        } else if (isNumerator(cursor.parent)) {
-            return CursorContext.IN_NUMERATOR;
-        } else if (isDenominator(cursor.parent)) {
-            return CursorContext.IN_DENOMINATOR;
-        } else if (isSubScript(cursor.parent)) {
-            return CursorContext.IN_SUB_SCRIPT;
-        } else if (isSuperScript(cursor.parent)) {
-            return CursorContext.IN_SUPER_SCRIPT;
-        } else {
-            return CursorContext.NONE;
-        }
-    }
-
-    _isAtTopLevel(cursor) {
-        return !cursor.parent.parent;
     }
 }
 
