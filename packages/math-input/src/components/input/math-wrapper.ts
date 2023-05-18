@@ -30,6 +30,11 @@ function buildNormalFunctionCallback(command: string) {
 
 const customKeyTranslator = {
     ...keyTranslator,
+    // note(Matthew): in all likelihood, this should be moved
+    // to the shared key2MathQuill translator. During this refactor
+    // I tried to keep logic the same while deduplicating code.
+    // Perseus' Expression MathInput treats this stuff differently
+    // (or doesn't do anything with them at all), so I kept it that way
     BACKSPACE: handleBackspace,
     EXP: handleExponent,
     EXP_2: handleExponent,
