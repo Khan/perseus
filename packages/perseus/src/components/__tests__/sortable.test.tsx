@@ -181,7 +181,6 @@ describe("Sortable.itemsFromProps", () => {
         expect(items).toMatchInlineSnapshot(`
             [
               {
-                "endPosition": {},
                 "height": 0,
                 "key": 0,
                 "option": "a",
@@ -189,7 +188,6 @@ describe("Sortable.itemsFromProps", () => {
                 "width": 0,
               },
               {
-                "endPosition": {},
                 "height": 0,
                 "key": 1,
                 "option": "b",
@@ -197,7 +195,6 @@ describe("Sortable.itemsFromProps", () => {
                 "width": 0,
               },
               {
-                "endPosition": {},
                 "height": 0,
                 "key": 2,
                 "option": "c",
