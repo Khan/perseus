@@ -17,9 +17,9 @@ import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
 import JsonEditor from "./components/json-editor";
+import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
-import SectionControlButton from "./section-control-button";
 
 import type {APIOptions} from "@khanacademy/perseus";
 
