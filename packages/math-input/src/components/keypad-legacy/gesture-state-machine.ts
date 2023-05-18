@@ -14,8 +14,8 @@ export type Handlers = {
     onBlur: () => void;
     onTrigger: (id: string) => void;
     onLongPress: (id: string) => void;
-    onSwipeChange: (x: number) => void;
-    onSwipeEnd: (x: number) => void;
+    onSwipeChange?: (x: number) => void;
+    onSwipeEnd?: (x: number) => void;
     onTouchEnd: (id: string) => void;
 };
 
@@ -49,16 +49,16 @@ const defaultOptions: Options = {
 class GestureStateMachine {
     handlers: Handlers;
     options: Options;
-    swipeDisabledNodeIds: Partial<Key[]>;
-    multiPressableKeys: Partial<Key[]>;
+    swipeDisabledNodeIds: ReadonlyArray<Key>;
+    multiPressableKeys: ReadonlyArray<Key>;
     touchState: Partial<TouchStateMap>;
     swipeState: SwipeState | null;
 
     constructor(
         handlers: Handlers,
         options: Partial<Options>,
-        swipeDisabledNodeIds?: Key[],
-        multiPressableKeys?: Key[],
+        swipeDisabledNodeIds?: ReadonlyArray<Key>,
+        multiPressableKeys?: ReadonlyArray<Key>,
     ) {
         this.handlers = handlers;
         this.options = {
@@ -234,7 +234,7 @@ class GestureStateMachine {
             // Only respect the finger that started a swipe. Any other lingering
             // gestures are ignored.
             if (this.swipeState.touchId === touchId) {
-                this.handlers.onSwipeChange(pageX - this.swipeState.startX);
+                this.handlers.onSwipeChange?.(pageX - this.swipeState.startX);
             }
         } else if (this.touchState[touchId]) {
             // It could be touch events started outside the keypad and
@@ -256,7 +256,7 @@ class GestureStateMachine {
                     touchId,
                     startX,
                 };
-                this.handlers.onSwipeChange(pageX - this.swipeState.startX);
+                this.handlers.onSwipeChange?.(pageX - this.swipeState.startX);
             } else {
                 const id = getId();
                 if (id !== activeNodeId) {
@@ -279,7 +279,7 @@ class GestureStateMachine {
             // Only respect the finger that started a swipe. Any other lingering
             // gestures are ignored.
             if (this.swipeState.touchId === touchId) {
-                this.handlers.onSwipeEnd(pageX - this.swipeState.startX);
+                this.handlers.onSwipeEnd?.(pageX - this.swipeState.startX);
                 this.swipeState = null;
             }
         } else if (this.touchState[touchId]) {
@@ -313,7 +313,7 @@ class GestureStateMachine {
         // displacement.
         if (this.swipeState) {
             if (this.swipeState.touchId === touchId) {
-                this.handlers.onSwipeEnd(0);
+                this.handlers.onSwipeEnd?.(0);
                 this.swipeState = null;
             }
         } else if (this.touchState[touchId]) {

@@ -10,6 +10,12 @@ import {
 import type {CursorContext} from "./components/input/cursor-contexts";
 
 export interface MathQuillInterface {
+    L: "L";
+    R: "R";
+    MathField: (mount: HTMLDivElement, options: any) => MathFieldInterface;
+}
+
+export interface MathFieldInterface {
     // Write LaTeX
     // https://docs.mathquill.com/en/latest/Api_Methods/#writelatex_string
     write: (input: string) => void;
@@ -22,9 +28,22 @@ export interface MathQuillInterface {
     // Simulates typing text, one character at a time
     // https://docs.mathquill.com/en/latest/Api_Methods/#typedtexttext
     typedText: (input: string) => void;
-    // Returns the contents as LaTeX
+    // () => {}: Gets the contents as LaTeX
+    // (string) => {}: Sets the contents as LaTeX
     // https://docs.mathquill.com/en/latest/Api_Methods/#latex
-    latex: () => string;
+    latex: (input?: string) => string;
+    // Moves the cursor to the end of the mathfield in the direction specified
+    // https://docs.mathquill.com/en/latest/Api_Methods/#movetodirenddirection
+    moveToDirEnd: (direction: "L" | "R") => void;
+    // Selects the contents
+    // https://docs.mathquill.com/en/latest/Api_Methods/#select
+    select: () => void;
+    // Clears the selection
+    // https://docs.mathquill.com/en/latest/Api_Methods/#clearselection
+    clearSelection: () => void;
+    // This isn't part of the MathQuill public API
+    // I don't know what it is and it feels wrong using it
+    __controller: any;
 }
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;

@@ -1,5 +1,9 @@
 import Key from "../data/keys";
-import {MathQuillInterface} from "../types";
+import {DecimalSeparator} from "../enums";
+import {MathFieldInterface} from "../types";
+import {decimalSeparator} from "../utils";
+
+import MQ from "./input/mathquill-instance";
 
 enum ActionType {
     WRITE = "write",
@@ -8,13 +12,15 @@ enum ActionType {
     MQ_END = 0,
 }
 
-type MathQuillCallback = (mathQuill: MathQuillInterface) => void;
+type MathQuillCallback = (mathQuill: MathFieldInterface) => void;
+
+const decimalSymbol = decimalSeparator === DecimalSeparator.COMMA ? "," : ".";
 
 function buildGenericCallback(
     str: string,
     type: ActionType = ActionType.WRITE,
 ): MathQuillCallback {
-    return function (mathQuill: MathQuillInterface) {
+    return function (mathQuill: MathFieldInterface) {
         switch (type) {
             case ActionType.WRITE: {
                 mathQuill.write(str);
@@ -35,7 +41,7 @@ function buildGenericCallback(
 const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
     CDOT: buildGenericCallback("\\cdot"),
     COS: buildGenericCallback("cos"),
-    DECIMAL: buildGenericCallback("."),
+    DECIMAL: buildGenericCallback(decimalSymbol),
     DIVIDE: buildGenericCallback("\\div"),
     EQUAL: buildGenericCallback("="),
     EXP: buildGenericCallback("^"),
@@ -46,7 +52,6 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
     LEQ: buildGenericCallback("\\leq"),
     LN: buildGenericCallback("\\ln"),
     LOG: buildGenericCallback("\\log"),
-    LOG_N: buildGenericCallback("log_{ }"),
     LT: buildGenericCallback("<"),
     MINUS: buildGenericCallback("-"),
     NEGATIVE: buildGenericCallback("-"),
@@ -72,12 +77,35 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
     UP: buildGenericCallback("Up", ActionType.KEYSTROKE),
     DOWN: buildGenericCallback("Down", ActionType.KEYSTROKE),
 
+    CUBE_ROOT: (mathQuill) => {
+        mathQuill.write("\\sqrt[3]{}");
+        mathQuill.keystroke("Left"); // under the root
+    },
+
+    FRAC_EXCLUSIVE: (mathQuill) => {
+        const cursor = mathQuill.__controller.cursor;
+        // If there's nothing to the left of the cursor, then we want to
+        // leave the cursor to the left of the fraction after creating it.
+        const shouldNavigateLeft = cursor[MQ.L] === ActionType.MQ_END;
+        mathQuill.cmd("\\frac");
+        if (shouldNavigateLeft) {
+            mathQuill.keystroke("Left");
+        }
+    },
+
     LOG_B: (mathQuill) => {
         mathQuill.typedText("log_");
         mathQuill.keystroke("Right");
         mathQuill.typedText("(");
         mathQuill.keystroke("Left");
         mathQuill.keystroke("Left");
+    },
+
+    LOG_N: (mathQuill) => {
+        mathQuill.write("log_{ }\\left(\\right)");
+        mathQuill.keystroke("Left"); // into parentheses
+        mathQuill.keystroke("Left"); // out of parentheses
+        mathQuill.keystroke("Left"); // into index
     },
 
     NTHROOT3: (mathQuill) => {
@@ -99,9 +127,7 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
 
     // These need to be overwritten by the consumer
     // if they're going to be used
-    CUBE_ROOT: null,
     FRAC: null,
-    FRAC_EXCLUSIVE: null,
     RIGHT: null,
     LEFT: null,
     BACKSPACE: null,

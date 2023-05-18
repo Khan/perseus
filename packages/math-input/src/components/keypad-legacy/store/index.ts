@@ -3,7 +3,7 @@ import * as Redux from "redux";
 import Key from "../../../data/keys";
 import GestureManager from "../gesture-manager";
 
-import {onSwipeChange, onSwipeEnd, setActiveNodes, pressKey} from "./actions";
+import {setActiveNodes, pressKey} from "./actions";
 import echoReducer from "./echo-reducer";
 import inputReducer from "./input-reducer";
 import keypadReducer from "./keypad-reducer";
@@ -23,12 +23,6 @@ export const createStore = () => {
                 swipeEnabled,
             },
             {
-                onSwipeChange: (dx: number) => {
-                    store.dispatch(onSwipeChange(dx));
-                },
-                onSwipeEnd: (dx: number) => {
-                    store.dispatch(onSwipeEnd(dx));
-                },
                 onActiveNodesChanged: (activeNodes: ActiveNodesObj) => {
                     store.dispatch(setActiveNodes(activeNodes));
                 },

@@ -6,6 +6,7 @@
 import * as React from "react";
 
 import Key from "../../data/keys";
+import {ActiveNodesObj, LayoutProps} from "../../types";
 
 import GestureStateMachine from "./gesture-state-machine";
 import NodeManager from "./node-manager";
@@ -13,6 +14,17 @@ import PopoverStateMachine from "./popover-state-machine";
 
 const coordsForEvent = (evt) => {
     return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];
+};
+
+type Options = {
+    swipeEnabled: boolean;
+};
+
+type Handlers = {
+    onSwipeChange?: (dx: number) => void;
+    onSwipeEnd?: (dx: number) => void;
+    onActiveNodesChanged: (activeNodes: ActiveNodesObj) => void;
+    onClick: (key: Key, layoutProps: LayoutProps, inPopover: boolean) => void;
 };
 
 class GestureManager {
@@ -23,10 +35,10 @@ class GestureManager {
     gestureStateMachine: GestureStateMachine;
 
     constructor(
-        options,
-        handlers,
-        disabledSwipeKeys: Array<Key>,
-        multiPressableKeys: Array<Key>,
+        options: Options,
+        handlers: Handlers,
+        disabledSwipeKeys: ReadonlyArray<Key>,
+        multiPressableKeys: ReadonlyArray<Key>,
     ) {
         const {swipeEnabled} = options;
 

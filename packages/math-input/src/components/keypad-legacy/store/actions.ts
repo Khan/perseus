@@ -104,30 +104,6 @@ export const setCursor = (cursor: Cursor): SetCursorAction => {
 };
 
 // Gesture actions
-type OnSwipeChangeAction = {
-    type: "OnSwipeChange";
-    dx: number;
-};
-
-export const onSwipeChange = (dx: number): OnSwipeChangeAction => {
-    return {
-        type: "OnSwipeChange",
-        dx,
-    };
-};
-
-type OnSwipeEndAction = {
-    type: "OnSwipeEnd";
-    dx: number;
-};
-
-export const onSwipeEnd = (dx: number): OnSwipeEndAction => {
-    return {
-        type: "OnSwipeEnd",
-        dx,
-    };
-};
-
 type SetActiveNodesAction = {
     type: "SetActiveNodes";
     activeNodes: any;
@@ -170,7 +146,5 @@ export type Action =
     | RemoveEchoAction
     | SetKeyHandlerAction
     | SetCursorAction
-    | OnSwipeChangeAction
-    | OnSwipeEndAction
     | SetActiveNodesAction
     | PressKeyAction;
