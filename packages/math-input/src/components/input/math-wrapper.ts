@@ -7,7 +7,12 @@
 import $ from "jquery";
 
 import Key from "../../data/keys";
-import {MathFieldInterface, Cursor, MathFieldCursor} from "../../types";
+import {
+    MathFieldInterface,
+    Cursor,
+    MathFieldCursor,
+    MathQuillUpdaterCallback,
+} from "../../types";
 import keyTranslator from "../key-translator";
 
 import handleArrow from "./key-handlers/handle-arrow";
@@ -28,7 +33,7 @@ function buildNormalFunctionCallback(command: string) {
     };
 }
 
-const customKeyTranslator = {
+const customKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
     ...keyTranslator,
     // note(Matthew): in all likelihood, this should be moved
     // to the shared key2MathQuill translator. During this refactor

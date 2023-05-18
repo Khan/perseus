@@ -58,6 +58,11 @@ export enum MathFieldActionType {
 // we reach into the internals to get it
 export type MathFieldCursor = any;
 
+export type MathQuillUpdaterCallback = (
+    mathQuill: MathFieldInterface,
+    key: Key,
+) => void;
+
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
 export interface Bound {
