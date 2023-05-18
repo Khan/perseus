@@ -10,6 +10,12 @@ import {
 import type {CursorContext} from "./components/input/cursor-contexts";
 
 export interface MathQuillInterface {
+    L: "L";
+    R: "R";
+    MathField: (mount: HTMLDivElement, options: any) => MathFieldInterface;
+}
+
+export interface MathFieldInterface {
     // Write LaTeX
     // https://docs.mathquill.com/en/latest/Api_Methods/#writelatex_string
     write: (input: string) => void;
@@ -26,9 +32,15 @@ export interface MathQuillInterface {
     // (string) => {}: Sets the contents as LaTeX
     // https://docs.mathquill.com/en/latest/Api_Methods/#latex
     latex: (input?: string) => string;
-    // Move the cursor to the left end of the editable field
-    // https://docs.mathquill.com/en/latest/Api_Methods/#movetoleftend-movetorightend
-    moveToLeftEnd: () => void;
+    // Moves the cursor to the end of the mathfield in the direction specified
+    // https://docs.mathquill.com/en/latest/Api_Methods/#movetodirenddirection
+    moveToDirEnd: (direction: "L" | "R") => void;
+    // Selects the contents
+    // https://docs.mathquill.com/en/latest/Api_Methods/#select
+    select: () => void;
+    // Clears the selection
+    // https://docs.mathquill.com/en/latest/Api_Methods/#clearselection
+    clearSelection: () => void;
     // This isn't part of the MathQuill public API
     // I don't know what it is and it feels wrong using it
     __controller: any;

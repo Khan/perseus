@@ -1,6 +1,6 @@
 import Key from "../data/keys";
 import {DecimalSeparator} from "../enums";
-import {MathQuillInterface} from "../types";
+import {MathFieldInterface} from "../types";
 import {decimalSeparator} from "../utils";
 
 enum ActionType {
@@ -10,7 +10,7 @@ enum ActionType {
     MQ_END = 0,
 }
 
-type MathQuillCallback = (mathQuill: MathQuillInterface) => void;
+type MathQuillCallback = (mathQuill: MathFieldInterface) => void;
 
 const decimalSymbol = decimalSeparator === DecimalSeparator.COMMA ? "," : ".";
 
@@ -18,7 +18,7 @@ function buildGenericCallback(
     str: string,
     type: ActionType = ActionType.WRITE,
 ): MathQuillCallback {
-    return function (mathQuill: MathQuillInterface) {
+    return function (mathQuill: MathFieldInterface) {
         switch (type) {
             case ActionType.WRITE: {
                 mathQuill.write(str);
