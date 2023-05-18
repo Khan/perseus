@@ -1,4 +1,9 @@
-import {MathFieldActionType} from "../../types";
+import Key from "../../data/keys";
+import {
+    MathFieldInterface,
+    MathFieldActionType,
+    MathFieldCursor,
+} from "../../types";
 
 import {CursorContext} from "./cursor-contexts";
 import {isFraction, isParens, contextForCursor} from "./mathquill-helpers";
@@ -15,11 +20,12 @@ const KeysForJumpContext = {
 
 /**
  * Advances the cursor to the next logical position.
- *
- * @param {cursor} cursor
- * @private
  */
-function handleJumpOut(mathField, cursor, key) {
+function handleJumpOut(
+    mathField: MathFieldInterface,
+    cursor: MathFieldCursor,
+    key: Key,
+): void {
     const context = contextForCursor(cursor);
 
     // Validate that the current cursor context matches the key's intent.

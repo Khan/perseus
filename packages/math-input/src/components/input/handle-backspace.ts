@@ -1,4 +1,8 @@
-import {MathFieldActionType} from "../../types";
+import {
+    MathFieldActionType,
+    MathFieldInterface,
+    MathFieldCursor,
+} from "../../types";
 
 import {
     isFraction,
@@ -13,7 +17,10 @@ import {
 } from "./mathquill-helpers";
 import MQ from "./mathquill-instance";
 
-function handleBackspaceInNthRoot(mathField, cursor) {
+function handleBackspaceInNthRoot(
+    mathField: MathFieldInterface,
+    cursor: MathFieldCursor,
+) {
     const isAtLeftEnd = cursor[MQ.L] === MathFieldActionType.MQ_END;
 
     const isRootEmpty = isInsideEmptyNode(cursor.parent.parent.blocks[0].ends);
@@ -29,7 +36,10 @@ function handleBackspaceInNthRoot(mathField, cursor) {
     }
 }
 
-function handleBackspaceInRootIndex(mathField, cursor) {
+function handleBackspaceInRootIndex(
+    mathField: MathFieldInterface,
+    cursor: MathFieldCursor,
+) {
     if (isInsideEmptyNode(cursor)) {
         // When deleting the index in a nthroot, we change from the nthroot
         // to a sqrt, e.g. \sqrt[|]{35x-5} => |\sqrt{35x-5}.  If there's no
@@ -77,7 +87,10 @@ function handleBackspaceInRootIndex(mathField, cursor) {
     }
 }
 
-function handleBackspaceInLogIndex(mathField, cursor) {
+function handleBackspaceInLogIndex(
+    mathField: MathFieldInterface,
+    cursor: MathFieldCursor,
+) {
     if (isInsideEmptyNode(cursor)) {
         const grandparent = cursor.parent.parent;
         const command = maybeFindCommandBeforeParens(grandparent);
@@ -106,7 +119,7 @@ function handleBackspaceInLogIndex(mathField, cursor) {
     }
 }
 
-function handleBackspaceOutsideParens(cursor) {
+function handleBackspaceOutsideParens(cursor: MathFieldCursor) {
     // In this case the node with '\\left(' for its ctrlSeq
     // is the parent of the expression contained within the
     // parentheses.
@@ -139,7 +152,10 @@ function handleBackspaceOutsideParens(cursor) {
     }
 }
 
-function handleBackspaceInsideParens(mathField, cursor) {
+function handleBackspaceInsideParens(
+    mathField: MathFieldInterface,
+    cursor: MathFieldCursor,
+) {
     // Handle situations when the cursor is inside parens or a
     // command that uses parens, e.g. \log() or \tan()
     //
@@ -209,7 +225,7 @@ function handleBackspaceInsideParens(mathField, cursor) {
     }
 }
 
-function handleBackspaceAfterLigaturedSymbol(mathField) {
+function handleBackspaceAfterLigaturedSymbol(mathField: MathFieldInterface) {
     mathField.keystroke("Backspace");
     mathField.keystroke("Backspace");
 }
@@ -217,11 +233,8 @@ function handleBackspaceAfterLigaturedSymbol(mathField) {
 /**
  * Selects and deletes part of the expression based on the cursor location.
  * See inline comments for precise behavior of different cases.
- *
- * @param {cursor} cursor
- * @private
  */
-function handleBackspace(mathField) {
+function handleBackspace(mathField: MathFieldInterface) {
     const cursor = getCursor(mathField);
     if (!cursor.selection) {
         const parent = cursor.parent;

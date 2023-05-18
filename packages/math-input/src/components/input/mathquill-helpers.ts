@@ -1,4 +1,8 @@
-import {MathFieldActionType} from "../../types";
+import {
+    MathFieldActionType,
+    MathFieldCursor,
+    MathFieldInterface,
+} from "../../types";
 
 import {CursorContext} from "./cursor-contexts";
 import MQ from "./mathquill-instance";
@@ -43,23 +47,23 @@ const ValidLeaves = [
     ...Letters.map((letter) => letter.toUpperCase()),
 ];
 
-export function getCursor(mathField) {
+export function getCursor(mathField: MathFieldInterface): MathFieldCursor {
     return mathField.__controller.cursor;
 }
 
-export function isFraction(node) {
+export function isFraction(node): boolean {
     return node.jQ && node.jQ.hasClass("mq-fraction");
 }
 
-export function isNumerator(node) {
+export function isNumerator(node): boolean {
     return node.jQ && node.jQ.hasClass("mq-numerator");
 }
 
-export function isDenominator(node) {
+export function isDenominator(node): boolean {
     return node.jQ && node.jQ.hasClass("mq-denominator");
 }
 
-export function isSubScript(node) {
+export function isSubScript(node): boolean {
     // NOTE(charlie): MyScript has a structure whereby its superscripts seem
     // to be represented as a parent node with 'mq-sup-only' containing a
     // single child with 'mq-sup'.
@@ -69,7 +73,7 @@ export function isSubScript(node) {
     );
 }
 
-export function isSuperScript(node) {
+export function isSuperScript(node): boolean {
     // NOTE(charlie): MyScript has a structure whereby its superscripts seem
     // to be represented as a parent node with 'mq-sup-only' containing a
     // single child with 'mq-sup'.
@@ -79,15 +83,15 @@ export function isSuperScript(node) {
     );
 }
 
-export function isParens(node) {
+export function isParens(node): boolean {
     return node && node.ctrlSeq === "\\left(";
 }
 
-export function isLeaf(node) {
+export function isLeaf(node): boolean {
     return node && node.ctrlSeq && ValidLeaves.includes(node.ctrlSeq.trim());
 }
 
-export function isSquareRoot(node) {
+export function isSquareRoot(node): boolean {
     return (
         node.blocks &&
         node.blocks[0].jQ &&
@@ -95,7 +99,7 @@ export function isSquareRoot(node) {
     );
 }
 
-export function isNthRoot(node) {
+export function isNthRoot(node): boolean {
     return (
         node.blocks &&
         node.blocks[0].jQ &&
@@ -103,11 +107,11 @@ export function isNthRoot(node) {
     );
 }
 
-export function isNthRootIndex(node) {
+export function isNthRootIndex(node): boolean {
     return node.jQ && node.jQ.hasClass("mq-nthroot");
 }
 
-export function isInsideLogIndex(cursor) {
+export function isInsideLogIndex(cursor: MathFieldCursor): boolean {
     const grandparent = cursor.parent.parent;
 
     if (grandparent && grandparent.jQ.hasClass("mq-supsub")) {
@@ -121,7 +125,7 @@ export function isInsideLogIndex(cursor) {
     return false;
 }
 
-export function isInsideEmptyNode(cursor) {
+export function isInsideEmptyNode(cursor: MathFieldCursor): boolean {
     return (
         cursor[MQ.L] === MathFieldActionType.MQ_END &&
         cursor[MQ.R] === MathFieldActionType.MQ_END
@@ -237,7 +241,7 @@ export function maybeFindCommandBeforeParens(leftParenNode) {
     return maybeFindCommand(leftParenNode[MQ.L]);
 }
 
-export function contextForCursor(cursor) {
+export function contextForCursor(cursor: MathFieldCursor): CursorContext {
     // First, try to find any fraction to the right, unimpeded.
     let visitor = cursor;
     while (visitor[MQ.R] !== MathFieldActionType.MQ_END) {

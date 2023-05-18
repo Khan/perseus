@@ -9,13 +9,6 @@ import {
 
 import type {CursorContext} from "./components/input/cursor-contexts";
 
-export enum MathFieldActionType {
-    WRITE = "write",
-    CMD = "cmd",
-    KEYSTROKE = "keystroke",
-    MQ_END = 0,
-}
-
 export interface MathQuillInterface {
     L: "L";
     R: "R";
@@ -52,6 +45,18 @@ export interface MathFieldInterface {
     // I don't know what it is and it feels wrong using it
     __controller: any;
 }
+
+export enum MathFieldActionType {
+    WRITE = "write",
+    CMD = "cmd",
+    KEYSTROKE = "keystroke",
+    MQ_END = 0,
+}
+
+// The MathQuill MathField Cursor
+// it's not part of the public API for MathQuill,
+// we reach into the internals to get it
+export type MathFieldCursor = any;
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 

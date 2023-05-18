@@ -7,7 +7,12 @@
 import $ from "jquery";
 
 import Key from "../../data/keys";
-import {MathFieldInterface, MathFieldActionType} from "../../types";
+import {
+    MathFieldInterface,
+    MathFieldActionType,
+    Cursor,
+    MathFieldCursor,
+} from "../../types";
 import keyTranslator from "../key-translator";
 
 import handleBackspace from "./handle-backspace";
@@ -89,11 +94,8 @@ class MathWrapper {
 
     /**
      * Handle a key press and return the resulting cursor state.
-     *
-     * @param {Key} key - an enum representing the key that was pressed
-     * @returns {object} a cursor object, consisting of a cursor context
      */
-    pressKey(key: Key) {
+    pressKey(key: Key): Cursor {
         const cursor = this.getCursor();
         const translator = customKeyTranslator[key];
 
@@ -139,13 +141,6 @@ class MathWrapper {
 
     /**
      * Place the cursor beside the node located at the given coordinates.
-     *
-     * @param {number} x - the x coordinate in the viewport
-     * @param {number} y - the y coordinate in the viewport
-     * @param {Node} hitNode - the node next to which the cursor should be
-     *                         placed; if provided, the coordinates will be used
-     *                         to determine on which side of the node the cursor
-     *                         should be placed
      */
     setCursorPosition(x: number, y: number, hitNode: HTMLElement) {
         const el = hitNode || document.elementFromPoint(x, y);
@@ -209,7 +204,7 @@ class MathWrapper {
 
     // note(Matthew): extracted this logic to keep this file focused,
     // but it's part of the public MathWrapper API
-    contextForCursor(cursor) {
+    contextForCursor(cursor: MathFieldCursor) {
         return contextForCursor(cursor);
     }
 
@@ -218,7 +213,7 @@ class MathWrapper {
         this.mathField.keystroke("Left");
     }
 
-    _handleLeftArrow(cursor) {
+    _handleLeftArrow(cursor: MathFieldCursor) {
         // If we're inside a function, and just after the left parentheses, we
         // need to skip the entire function name, rather than move the cursor
         // inside of it. For example, when hitting left from within the
@@ -245,7 +240,7 @@ class MathWrapper {
         this.mathField.keystroke("Left");
     }
 
-    _handleRightArrow(cursor) {
+    _handleRightArrow(cursor: MathFieldCursor) {
         const command = maybeFindCommand(cursor[MQ.R]);
         if (command) {
             // Similarly, if a function is to our right, then we need to place
@@ -260,7 +255,7 @@ class MathWrapper {
         }
     }
 
-    _handleExponent(cursor, key) {
+    _handleExponent(cursor: MathFieldCursor, key: Key) {
         // If there's an invalid operator preceding the cursor (anything that
         // knowingly cannot be raised to a power), add an empty set of
         // parentheses and apply the exponent to that.
