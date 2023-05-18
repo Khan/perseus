@@ -108,9 +108,15 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                                 } else if (props.images) {
                                     setImages(props.images);
                                 }
-                                setOptions(
-                                    editorRef.current?.serialize() || {},
-                                );
+                                // We need to wait for one tick so that the editor
+                                // has been re-rendered with the changed props. If
+                                // we don't wait, we get the values from the n-1
+                                // render and miss the latest change.
+                                setTimeout(() => {
+                                    setOptions(
+                                        editorRef.current?.serialize() || {},
+                                    );
+                                }, 0);
                             }}
                         />
                     </View>
