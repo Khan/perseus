@@ -7,41 +7,50 @@
 import $ from "jquery";
 
 import Key from "../../data/keys";
-import {
-    MathFieldInterface,
-    MathFieldActionType,
-    Cursor,
-    MathFieldCursor,
-} from "../../types";
+import {MathFieldInterface, Cursor, MathFieldCursor} from "../../types";
 import keyTranslator from "../key-translator";
 
-import handleBackspace from "./handle-backspace";
-import handleJumpOut from "./handle-jump-out";
+import handleArrow from "./key-handlers/handle-arrow";
+import handleBackspace from "./key-handlers/handle-backspace";
+import handleExponent from "./key-handlers/handle-exponent";
+import handleJumpOut from "./key-handlers/handle-jump-out";
 import {
     getCursor,
     contextForCursor,
     maybeFindCommand,
-    maybeFindCommandBeforeParens,
 } from "./mathquill-helpers";
 import MQ from "./mathquill-instance";
 
+function buildNormalFunctionCallback(command: string) {
+    return function (mathField: MathFieldInterface) {
+        mathField.write(`\\${command}\\left(\\right)`);
+        mathField.keystroke("Left");
+    };
+}
+
 const customKeyTranslator = {
     ...keyTranslator,
+    BACKSPACE: handleBackspace,
+    EXP: handleExponent,
+    EXP_2: handleExponent,
+    EXP_3: handleExponent,
     FRAC: (mathQuill) => {
         mathQuill.cmd("\\frac");
     },
+    JUMP_OUT_PARENTHESES: handleJumpOut,
+    JUMP_OUT_EXPONENT: handleJumpOut,
+    JUMP_OUT_BASE: handleJumpOut,
+    JUMP_INTO_NUMERATOR: handleJumpOut,
+    JUMP_OUT_NUMERATOR: handleJumpOut,
+    JUMP_OUT_DENOMINATOR: handleJumpOut,
+    LEFT: handleArrow,
+    RIGHT: handleArrow,
+    LOG: buildNormalFunctionCallback("log"),
+    LN: buildNormalFunctionCallback("ln"),
+    SIN: buildNormalFunctionCallback("sin"),
+    COS: buildNormalFunctionCallback("cos"),
+    TAN: buildNormalFunctionCallback("tan"),
 };
-
-const NormalCommands = {
-    ["LOG"]: "log",
-    ["LN"]: "ln",
-    ["SIN"]: "sin",
-    ["COS"]: "cos",
-    ["TAN"]: "tan",
-};
-
-const ArithmeticOperators = ["+", "-", "\\cdot", "\\times", "\\div"];
-const EqualityOperators = ["=", "\\neq", "<", "\\leq", ">", "\\geq"];
 
 // Notes about MathQuill
 //
@@ -99,26 +108,7 @@ class MathWrapper {
         const cursor = this.getCursor();
         const translator = customKeyTranslator[key];
 
-        if (Object.keys(NormalCommands).includes(key)) {
-            this._writeNormalFunction(NormalCommands[key]);
-        } else if (key === "EXP" || key === "EXP_2" || key === "EXP_3") {
-            this._handleExponent(cursor, key);
-        } else if (
-            key === "JUMP_OUT_PARENTHESES" ||
-            key === "JUMP_OUT_EXPONENT" ||
-            key === "JUMP_OUT_BASE" ||
-            key === "JUMP_INTO_NUMERATOR" ||
-            key === "JUMP_OUT_NUMERATOR" ||
-            key === "JUMP_OUT_DENOMINATOR"
-        ) {
-            handleJumpOut(this.mathField, cursor, key);
-        } else if (key === "BACKSPACE") {
-            handleBackspace(this.mathField);
-        } else if (key === "LEFT") {
-            this._handleLeftArrow(cursor);
-        } else if (key === "RIGHT") {
-            this._handleRightArrow(cursor);
-        } else if (translator) {
+        if (translator) {
             translator(this.mathField, key);
         }
 
@@ -185,6 +175,12 @@ class MathWrapper {
         return getCursor(this.mathField);
     }
 
+    // note(Matthew): extracted this logic to keep this file focused,
+    // but it's part of the public MathWrapper API
+    contextForCursor(cursor: MathFieldCursor) {
+        return contextForCursor(cursor);
+    }
+
     getSelection() {
         return this.getCursor().selection;
     }
@@ -200,100 +196,6 @@ class MathWrapper {
     isEmpty() {
         const cursor = this.getCursor();
         return cursor.parent.id === 1 && cursor[1] === 0 && cursor[-1] === 0;
-    }
-
-    // note(Matthew): extracted this logic to keep this file focused,
-    // but it's part of the public MathWrapper API
-    contextForCursor(cursor: MathFieldCursor) {
-        return contextForCursor(cursor);
-    }
-
-    _writeNormalFunction(name: string) {
-        this.mathField.write(`\\${name}\\left(\\right)`);
-        this.mathField.keystroke("Left");
-    }
-
-    _handleLeftArrow(cursor: MathFieldCursor) {
-        // If we're inside a function, and just after the left parentheses, we
-        // need to skip the entire function name, rather than move the cursor
-        // inside of it. For example, when hitting left from within the
-        // parentheses in `cos()`, we want to place the cursor to the left of
-        // the entire expression, rather than between the `s` and the left
-        // parenthesis.
-        // From the cursor's perspective, this requires that our left node is
-        // the ActionType.MQ_END node, that our grandparent is the left parenthesis, and
-        // the nodes to the left of our grandparent comprise a valid function
-        // name.
-        if (cursor[MQ.L] === MathFieldActionType.MQ_END) {
-            const parent = cursor.parent;
-            const grandparent = parent.parent;
-            if (grandparent.ctrlSeq === "\\left(") {
-                const command = maybeFindCommandBeforeParens(grandparent);
-                if (command) {
-                    cursor.insLeftOf(command.startNode);
-                    return;
-                }
-            }
-        }
-
-        // Otherwise, we default to the standard MathQull left behavior.
-        this.mathField.keystroke("Left");
-    }
-
-    _handleRightArrow(cursor: MathFieldCursor) {
-        const command = maybeFindCommand(cursor[MQ.R]);
-        if (command) {
-            // Similarly, if a function is to our right, then we need to place
-            // the cursor at the start of its parenthetical content, which is
-            // done by putting it to the left of ites parentheses and then
-            // moving right once.
-            cursor.insLeftOf(command.endNode);
-            this.mathField.keystroke("Right");
-        } else {
-            // Otherwise, we default to the standard MathQull right behavior.
-            this.mathField.keystroke("Right");
-        }
-    }
-
-    _handleExponent(cursor: MathFieldCursor, key: Key) {
-        // If there's an invalid operator preceding the cursor (anything that
-        // knowingly cannot be raised to a power), add an empty set of
-        // parentheses and apply the exponent to that.
-        const invalidPrefixes = [...ArithmeticOperators, ...EqualityOperators];
-
-        const precedingNode = cursor[MQ.L];
-        const shouldPrefixWithParens =
-            precedingNode === MathFieldActionType.MQ_END ||
-            invalidPrefixes.includes(precedingNode.ctrlSeq.trim());
-        if (shouldPrefixWithParens) {
-            this.mathField.write("\\left(\\right)");
-        }
-
-        // Insert the appropriate exponent operator.
-        switch (key) {
-            case "EXP":
-                this.mathField.cmd("^");
-                break;
-
-            case "EXP_2":
-            case "EXP_3":
-                this.mathField.write(`^${key === "EXP_2" ? 2 : 3}`);
-
-                // If we enter a square or a cube, we should leave the cursor
-                // within the newly inserted parens, if they exist. This takes
-                // exactly four left strokes, since the cursor by default would
-                // end up to the right of the exponent.
-                if (shouldPrefixWithParens) {
-                    this.mathField.keystroke("Left");
-                    this.mathField.keystroke("Left");
-                    this.mathField.keystroke("Left");
-                    this.mathField.keystroke("Left");
-                }
-                break;
-
-            default:
-                throw new Error(`Invalid exponent key: ${key}`);
-        }
     }
 }
 

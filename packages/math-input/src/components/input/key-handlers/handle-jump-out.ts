@@ -1,13 +1,13 @@
-import Key from "../../data/keys";
+import Key from "../../../data/keys";
+import {MathFieldInterface, MathFieldActionType} from "../../../types";
+import {CursorContext} from "../cursor-contexts";
 import {
-    MathFieldInterface,
-    MathFieldActionType,
-    MathFieldCursor,
-} from "../../types";
-
-import {CursorContext} from "./cursor-contexts";
-import {isFraction, isParens, contextForCursor} from "./mathquill-helpers";
-import MQ from "./mathquill-instance";
+    isFraction,
+    isParens,
+    contextForCursor,
+    getCursor,
+} from "../mathquill-helpers";
+import MQ from "../mathquill-instance";
 
 const KeysForJumpContext = {
     [CursorContext.IN_PARENS]: "JUMP_OUT_PARENTHESES",
@@ -21,11 +21,8 @@ const KeysForJumpContext = {
 /**
  * Advances the cursor to the next logical position.
  */
-function handleJumpOut(
-    mathField: MathFieldInterface,
-    cursor: MathFieldCursor,
-    key: Key,
-): void {
+function handleJumpOut(mathField: MathFieldInterface, key: Key): void {
+    const cursor = getCursor(mathField);
     const context = contextForCursor(cursor);
 
     // Validate that the current cursor context matches the key's intent.
