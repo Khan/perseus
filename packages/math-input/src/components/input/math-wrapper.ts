@@ -8,15 +8,9 @@ import $ from "jquery";
 import MathQuill from "mathquill";
 
 import Key from "../../data/keys";
-import {DecimalSeparator} from "../../enums";
-import {decimalSeparator} from "../../utils";
+import keyTranslator from "../key-translator";
 
 import {CursorContext} from "./cursor-contexts";
-
-// Keeping `window` in place for test suite and GitHub Pages.
-// If it does not exist, fall back to CommonJS require. - jsatk
-
-const decimalSymbol = decimalSeparator === DecimalSeparator.COMMA ? "," : ".";
 
 enum ActionType {
     WRITE = "write",
@@ -25,39 +19,8 @@ enum ActionType {
     MQ_END = 0,
 }
 
-// A mapping from keys that can be pressed on a keypad to the way in which
-// MathQuill should modify its input in response to that key-press. Any keys
-// that do not provide explicit actions (like the numeral keys) will merely
-// write their contents to MathQuill.
-const KeyActions: {[K in Key]?: {str: string; fn: ActionType}} = {
-    ["PLUS"]: {str: "+", fn: ActionType.WRITE},
-    ["MINUS"]: {str: "-", fn: ActionType.WRITE},
-    ["NEGATIVE"]: {str: "-", fn: ActionType.WRITE},
-    ["TIMES"]: {str: "\\times", fn: ActionType.WRITE},
-    ["DIVIDE"]: {str: "\\div", fn: ActionType.WRITE},
-    ["DECIMAL"]: {
-        str: decimalSymbol,
-        fn: ActionType.WRITE,
-    },
-    ["EQUAL"]: {str: "=", fn: ActionType.WRITE},
-    ["NEQ"]: {str: "\\neq", fn: ActionType.WRITE},
-    ["CDOT"]: {str: "\\cdot", fn: ActionType.WRITE},
-    ["PERCENT"]: {str: "%", fn: ActionType.WRITE},
-    ["LEFT_PAREN"]: {str: "(", fn: ActionType.CMD},
-    ["RIGHT_PAREN"]: {str: ")", fn: ActionType.CMD},
-    ["SQRT"]: {str: "sqrt", fn: ActionType.CMD},
-    ["PI"]: {str: "pi", fn: ActionType.CMD},
-    ["THETA"]: {str: "theta", fn: ActionType.CMD},
-    ["RADICAL"]: {str: "nthroot", fn: ActionType.CMD},
-    ["LT"]: {str: "<", fn: ActionType.WRITE},
-    ["LEQ"]: {str: "\\leq", fn: ActionType.WRITE},
-    ["GT"]: {str: ">", fn: ActionType.WRITE},
-    ["GEQ"]: {str: "\\geq", fn: ActionType.WRITE},
-    ["UP"]: {str: "Up", fn: ActionType.KEYSTROKE},
-    ["DOWN"]: {str: "Down", fn: ActionType.KEYSTROKE},
-    // The `FRAC_EXCLUSIVE` variant is handled manually, since we may need to do
-    // some additional navigation depending on the cursor position.
-    ["FRAC_INCLUSIVE"]: {str: "/", fn: ActionType.CMD},
+const customKeyTranslator = {
+    ...keyTranslator,
 };
 
 const NormalCommands = {
@@ -167,16 +130,11 @@ class MathWrapper {
      * @param {Key} key - an enum representing the key that was pressed
      * @returns {object} a cursor object, consisting of a cursor context
      */
-    pressKey(key: string) {
+    pressKey(key: Key) {
         const cursor = this.mathField.__controller.cursor;
+        const translator = customKeyTranslator[key];
 
-        if (key in KeyActions) {
-            const {str, fn} = KeyActions[key];
-
-            if (str && fn) {
-                this.mathField[fn](str);
-            }
-        } else if (Object.keys(NormalCommands).includes(key)) {
+        if (Object.keys(NormalCommands).includes(key)) {
             this._writeNormalFunction(NormalCommands[key]);
         } else if (key === "FRAC_EXCLUSIVE") {
             // If there's nothing to the left of the cursor, then we want to
@@ -187,17 +145,12 @@ class MathWrapper {
                 this.mathField.keystroke("Left");
             }
         } else if (key === "FRAC") {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const shouldNavigateLeft = cursor[this.MQ.L] === ActionType.MQ_END;
             this.mathField.cmd("\\frac");
         } else if (key === "LOG_N") {
             this.mathField.write("log_{ }\\left(\\right)");
             this.mathField.keystroke("Left"); // into parentheses
             this.mathField.keystroke("Left"); // out of parentheses
             this.mathField.keystroke("Left"); // into index
-        } else if (key === "CUBE_ROOT") {
-            this.mathField.write("\\sqrt[3]{}");
-            this.mathField.keystroke("Left"); // under the root
         } else if (key === "EXP" || key === "EXP_2" || key === "EXP_3") {
             this._handleExponent(cursor, key);
         } else if (
@@ -215,10 +168,8 @@ class MathWrapper {
             this._handleLeftArrow(cursor);
         } else if (key === "RIGHT") {
             this._handleRightArrow(cursor);
-        } else if (/^[a-zA-Z]$/.test(key)) {
-            this.mathField[ActionType.WRITE](key);
-        } else if (/^NUM_\d/.test(key)) {
-            this.mathField[ActionType.WRITE](key[4]);
+        } else if (translator) {
+            translator(this.mathField);
         }
 
         if (!cursor.selection) {

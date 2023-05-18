@@ -76,6 +76,11 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
     UP: buildGenericCallback("Up", ActionType.KEYSTROKE),
     DOWN: buildGenericCallback("Down", ActionType.KEYSTROKE),
 
+    CUBE_ROOT: (mathQuill) => {
+        mathQuill.write("\\sqrt[3]{}");
+        mathQuill.keystroke("Left"); // under the root
+    },
+
     LOG_B: (mathQuill) => {
         mathQuill.typedText("log_");
         mathQuill.keystroke("Right");
@@ -103,7 +108,6 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
 
     // These need to be overwritten by the consumer
     // if they're going to be used
-    CUBE_ROOT: null,
     FRAC: null,
     FRAC_EXCLUSIVE: null,
     RIGHT: null,

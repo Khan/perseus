@@ -10,7 +10,7 @@ export const Basic = () => {
     const [value, setValue] = React.useState("");
     const [keypadElement, setKeypadElement] = React.useState<any>(null);
     const [keypadType, setKeypadType] = React.useState<KeypadType>(
-        KeypadType.FRACTION,
+        KeypadType.EXPRESSION,
     );
 
     React.useEffect(() => {
