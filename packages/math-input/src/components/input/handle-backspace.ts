@@ -8,6 +8,7 @@ import {
     isInsideLogIndex,
     isInsideEmptyNode,
     selectNode,
+    getCursor,
     maybeFindCommandBeforeParens,
 } from "./mathquill-helpers";
 import MQ from "./mathquill-instance";
@@ -221,7 +222,7 @@ function handleBackspaceAfterLigaturedSymbol(mathField) {
  * @private
  */
 function handleBackspace(mathField) {
-    const cursor = mathField.__controller.cursor;
+    const cursor = getCursor(mathField);
     if (!cursor.selection) {
         const parent = cursor.parent;
         const grandparent = parent.parent;

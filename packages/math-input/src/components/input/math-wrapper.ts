@@ -13,6 +13,7 @@ import keyTranslator from "../key-translator";
 import handleBackspace from "./handle-backspace";
 import handleJumpOut from "./handle-jump-out";
 import {
+    getCursor,
     contextForCursor,
     maybeFindCommand,
     maybeFindCommandBeforeParens,
@@ -86,11 +87,6 @@ class MathWrapper {
         controller.blurred = true;
     }
 
-    _writeNormalFunction(name: string) {
-        this.mathField.write(`\\${name}\\left(\\right)`);
-        this.mathField.keystroke("Left");
-    }
-
     /**
      * Handle a key press and return the resulting cursor state.
      *
@@ -98,7 +94,7 @@ class MathWrapper {
      * @returns {object} a cursor object, consisting of a cursor context
      */
     pressKey(key: Key) {
-        const cursor = this.mathField.__controller.cursor;
+        const cursor = this.getCursor();
         const translator = customKeyTranslator[key];
 
         if (Object.keys(NormalCommands).includes(key)) {
@@ -137,7 +133,7 @@ class MathWrapper {
         // on the MathField, as that handler isn't triggered on navigation
         // events.
         return {
-            context: contextForCursor(cursor),
+            context: this.contextForCursor(cursor),
         };
     }
 
@@ -182,14 +178,16 @@ class MathWrapper {
 
             if (this.callbacks.onCursorMove) {
                 this.callbacks.onCursorMove({
-                    context: contextForCursor(cursor),
+                    context: this.contextForCursor(cursor),
                 });
             }
         }
     }
 
+    // note(Matthew): extracted this logic to share it elsewhere,
+    // but it's part of the public MathWrapper API
     getCursor() {
-        return this.mathField.__controller.cursor;
+        return getCursor(this.mathField);
     }
 
     getSelection() {
@@ -207,6 +205,17 @@ class MathWrapper {
     isEmpty() {
         const cursor = this.getCursor();
         return cursor.parent.id === 1 && cursor[1] === 0 && cursor[-1] === 0;
+    }
+
+    // note(Matthew): extracted this logic to keep this file focused,
+    // but it's part of the public MathWrapper API
+    contextForCursor(cursor) {
+        return contextForCursor(cursor);
+    }
+
+    _writeNormalFunction(name: string) {
+        this.mathField.write(`\\${name}\\left(\\right)`);
+        this.mathField.keystroke("Left");
     }
 
     _handleLeftArrow(cursor) {

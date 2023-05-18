@@ -43,6 +43,10 @@ const ValidLeaves = [
     ...Letters.map((letter) => letter.toUpperCase()),
 ];
 
+export function getCursor(mathField) {
+    return mathField.__controller.cursor;
+}
+
 export function isFraction(node) {
     return node.jQ && node.jQ.hasClass("mq-fraction");
 }
