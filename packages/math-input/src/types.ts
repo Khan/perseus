@@ -22,9 +22,16 @@ export interface MathQuillInterface {
     // Simulates typing text, one character at a time
     // https://docs.mathquill.com/en/latest/Api_Methods/#typedtexttext
     typedText: (input: string) => void;
-    // Returns the contents as LaTeX
+    // () => {}: Gets the contents as LaTeX
+    // (string) => {}: Sets the contents as LaTeX
     // https://docs.mathquill.com/en/latest/Api_Methods/#latex
-    latex: () => string;
+    latex: (input?: string) => string;
+    // Move the cursor to the left end of the editable field
+    // https://docs.mathquill.com/en/latest/Api_Methods/#movetoleftend-movetorightend
+    moveToLeftEnd: () => void;
+    // This isn't part of the MathQuill public API
+    // I don't know what it is and it feels wrong using it
+    __controller: any;
 }
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;

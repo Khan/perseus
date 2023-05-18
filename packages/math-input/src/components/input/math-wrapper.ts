@@ -8,6 +8,7 @@ import $ from "jquery";
 import MathQuill from "mathquill";
 
 import Key from "../../data/keys";
+import {MathQuillInterface} from "../../types";
 import keyTranslator from "../key-translator";
 
 import {CursorContext} from "./cursor-contexts";
@@ -88,7 +89,7 @@ const KeysForJumpContext = {
 
 class MathWrapper {
     MQ: any; // MathQuill interface
-    mathField: any; // MathQuill input
+    mathField: MathQuillInterface; // MathQuill input
     callbacks: any;
 
     constructor(element, options = {}, callbacks = {}) {
@@ -721,7 +722,7 @@ class MathWrapper {
 
                 // Adjust the cursor to be to the left the sqrt.
                 if (reinsertionPoint === ActionType.MQ_END) {
-                    this.mathField.moveToDirEnd(this.MQ.L);
+                    this.mathField.moveToLeftEnd();
                 } else {
                     cursor.insRightOf(reinsertionPoint);
                 }
