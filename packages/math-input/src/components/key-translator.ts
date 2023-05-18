@@ -50,7 +50,6 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
     LEQ: buildGenericCallback("\\leq"),
     LN: buildGenericCallback("\\ln"),
     LOG: buildGenericCallback("\\log"),
-    LOG_N: buildGenericCallback("log_{ }"),
     LT: buildGenericCallback("<"),
     MINUS: buildGenericCallback("-"),
     NEGATIVE: buildGenericCallback("-"),
@@ -87,6 +86,13 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
         mathQuill.typedText("(");
         mathQuill.keystroke("Left");
         mathQuill.keystroke("Left");
+    },
+
+    LOG_N: (mathQuill) => {
+        mathQuill.write("log_{ }\\left(\\right)");
+        mathQuill.keystroke("Left"); // into parentheses
+        mathQuill.keystroke("Left"); // out of parentheses
+        mathQuill.keystroke("Left"); // into index
     },
 
     NTHROOT3: (mathQuill) => {

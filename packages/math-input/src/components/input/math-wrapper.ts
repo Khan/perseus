@@ -21,6 +21,9 @@ enum ActionType {
 
 const customKeyTranslator = {
     ...keyTranslator,
+    FRAC: (mathQuill) => {
+        mathQuill.cmd("\\frac");
+    },
 };
 
 const NormalCommands = {
@@ -144,13 +147,6 @@ class MathWrapper {
             if (shouldNavigateLeft) {
                 this.mathField.keystroke("Left");
             }
-        } else if (key === "FRAC") {
-            this.mathField.cmd("\\frac");
-        } else if (key === "LOG_N") {
-            this.mathField.write("log_{ }\\left(\\right)");
-            this.mathField.keystroke("Left"); // into parentheses
-            this.mathField.keystroke("Left"); // out of parentheses
-            this.mathField.keystroke("Left"); // into index
         } else if (key === "EXP" || key === "EXP_2" || key === "EXP_3") {
             this._handleExponent(cursor, key);
         } else if (
