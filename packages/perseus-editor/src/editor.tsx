@@ -18,6 +18,7 @@ import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
 import DragTarget from "./components/drag-target";
+import WidgetSelect from "./components/widget-select";
 import KatexErrorView from "./katex-error-view";
 import SectionControlButton from "./section-control-button";
 
@@ -65,49 +66,6 @@ const makeStartWithAParagraphAlways = (content) => {
     const newlines = match[1];
     return "\n\n".slice(0, 2 - newlines.length) + content;
 };
-
-type WidgetSelectProps = {
-    onChange?: (widgetType: string) => unknown;
-};
-
-class WidgetSelect extends React.Component<WidgetSelectProps> {
-    shouldComponentUpdate() {
-        return false;
-    }
-
-    handleChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
-        const widgetType = e.currentTarget.value;
-        if (widgetType === "") {
-            // TODO(alpert): Not sure if change will trigger here
-            // but might as well be safe
-            return;
-        }
-        if (this.props.onChange) {
-            this.props.onChange(widgetType);
-        }
-    };
-
-    render(): React.ReactNode {
-        const widgets = Widgets.getPublicWidgets();
-        const orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
-            return widgets[name].displayName;
-        });
-        const addWidgetString = "Add a widget\u2026";
-        return (
-            <select value="" onChange={this.handleChange}>
-                <option value="">{addWidgetString}</option>
-                <option disabled>--</option>
-                {_.map(orderedWidgetNames, (name) => {
-                    return (
-                        <option key={name} value={name}>
-                            {widgets[name].displayName}
-                        </option>
-                    );
-                })}
-            </select>
-        );
-    }
-}
 
 type WidgetEditorProps = {
     // Unserialized props
@@ -1254,10 +1212,7 @@ class Editor extends React.Component<Props, State> {
             // }, this);
 
             this.widgetIds = _.keys(widgets);
-            widgetsDropDown = (
-                // eslint-disable-next-line react/no-string-refs
-                <WidgetSelect ref="widgetSelect" onChange={this._addWidget} />
-            );
+            widgetsDropDown = <WidgetSelect onChange={this._addWidget} />;
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
