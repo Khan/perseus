@@ -12,7 +12,7 @@ enum ActionType {
     MQ_END = 0,
 }
 
-type MathQuillCallback = (mathQuill: MathFieldInterface) => void;
+type MathQuillCallback = (mathQuill: MathFieldInterface, key: Key) => void;
 
 const decimalSymbol = decimalSeparator === DecimalSeparator.COMMA ? "," : ".";
 
@@ -38,7 +38,7 @@ function buildGenericCallback(
     };
 }
 
-const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
+const keyToMathquillMap: Record<Key, MathQuillCallback> = {
     CDOT: buildGenericCallback("\\cdot"),
     COS: buildGenericCallback("cos"),
     DECIMAL: buildGenericCallback(decimalSymbol),
@@ -127,19 +127,19 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
 
     // These need to be overwritten by the consumer
     // if they're going to be used
-    FRAC: null,
-    RIGHT: null,
-    LEFT: null,
-    BACKSPACE: null,
-    DISMISS: null,
-    JUMP_OUT_PARENTHESES: null,
-    JUMP_OUT_EXPONENT: null,
-    JUMP_OUT_BASE: null,
-    JUMP_INTO_NUMERATOR: null,
-    JUMP_OUT_NUMERATOR: null,
-    JUMP_OUT_DENOMINATOR: null,
-    NOOP: null,
-    MANY: null,
+    FRAC: () => {},
+    RIGHT: () => {},
+    LEFT: () => {},
+    BACKSPACE: () => {},
+    DISMISS: () => {},
+    JUMP_OUT_PARENTHESES: () => {},
+    JUMP_OUT_EXPONENT: () => {},
+    JUMP_OUT_BASE: () => {},
+    JUMP_INTO_NUMERATOR: () => {},
+    JUMP_OUT_NUMERATOR: () => {},
+    JUMP_OUT_DENOMINATOR: () => {},
+    NOOP: () => {},
+    MANY: () => {},
 
     NUM_0: buildGenericCallback("0"),
     NUM_1: buildGenericCallback("1"),

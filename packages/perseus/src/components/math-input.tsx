@@ -228,7 +228,7 @@ class MathInput extends React.Component<Props, State> {
         const input = this.mathField();
         const inputModifier = customKeyTranslator[value];
         if (inputModifier) {
-            inputModifier(input);
+            inputModifier(input, value);
             input.focus();
             return;
         }

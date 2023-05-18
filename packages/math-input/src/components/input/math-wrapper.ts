@@ -119,7 +119,7 @@ class MathWrapper {
         } else if (key === "RIGHT") {
             this._handleRightArrow(cursor);
         } else if (translator) {
-            translator(this.mathField);
+            translator(this.mathField, key);
         }
 
         if (!cursor.selection) {
