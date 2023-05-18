@@ -1,4 +1,4 @@
-import {Keys as Key} from "@khanacademy/math-input";
+import {Keys} from "@khanacademy/math-input";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -10,7 +10,7 @@ const prettyBig = {fontSize: "150%"} as const;
 const slightlyBig = {fontSize: "120%"} as const;
 const symbStyle = {fontSize: "130%"} as const;
 
-type ButtonSet = (props: any) => [React.ReactNode, Key];
+type ButtonSet = (props: any) => [React.ReactNode, Keys];
 
 type ButtonSets = {
     readonly [key: string]: ReadonlyArray<ButtonSet>;
@@ -205,7 +205,7 @@ export type ButtonSetsType = ReadonlyArray<keyof typeof buttonSets>;
 
 type Props = {
     sets: ButtonSetsType;
-    onInsert: (arg1: Key) => void;
+    onInsert: (key: Keys) => void;
     className?: string;
     convertDotToTimes?: boolean;
 };

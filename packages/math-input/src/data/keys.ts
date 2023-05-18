@@ -110,6 +110,7 @@ type Key =
     | "Y"
     | "Z"
 
+    // Currently only used by
     // Perseus' Expression MathInput
     | "PHI"
     | "NTHROOT3"

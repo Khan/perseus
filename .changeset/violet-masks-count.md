@@ -3,4 +3,4 @@
 "@khanacademy/perseus": minor
 ---
 
-Central Key2MathQuill translator. TeXButtons send keypresses, not strings/functions anymore.
+Centralize Key2MathQuill translator. TeXButtons send keypresses, not strings/functions anymore.

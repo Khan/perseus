@@ -1,4 +1,4 @@
-import {Keys as Key, keyTranslator} from "@khanacademy/math-input";
+import {keyTranslator} from "@khanacademy/math-input";
 import classNames from "classnames";
 import $ from "jquery";
 import MathQuill from "mathquill";
@@ -223,7 +223,7 @@ class MathInput extends React.Component<Props, State> {
         return this.state.focused;
     };
 
-    insert: (value: any) => void = (value) => {
+    insert(value: any): void {
         // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const input = this.mathField();
         const inputModifier = customKeyTranslator[value];
@@ -245,7 +245,7 @@ class MathInput extends React.Component<Props, State> {
             input.write(value).focus();
         }
         input.focus();
-    };
+    }
 
     mathField: (arg1: any) => any = (options) => {
         // The MathQuill API is now "versioned" through its own "InterVer"
