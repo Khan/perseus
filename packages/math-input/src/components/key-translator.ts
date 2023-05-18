@@ -3,6 +3,8 @@ import {DecimalSeparator} from "../enums";
 import {MathFieldInterface} from "../types";
 import {decimalSeparator} from "../utils";
 
+import MQ from "./input/mathquill-instance";
+
 enum ActionType {
     WRITE = "write",
     CMD = "cmd",
@@ -80,6 +82,17 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
         mathQuill.keystroke("Left"); // under the root
     },
 
+    FRAC_EXCLUSIVE: (mathQuill) => {
+        const cursor = mathQuill.__controller.cursor;
+        // If there's nothing to the left of the cursor, then we want to
+        // leave the cursor to the left of the fraction after creating it.
+        const shouldNavigateLeft = cursor[MQ.L] === ActionType.MQ_END;
+        mathQuill.cmd("\\frac");
+        if (shouldNavigateLeft) {
+            mathQuill.keystroke("Left");
+        }
+    },
+
     LOG_B: (mathQuill) => {
         mathQuill.typedText("log_");
         mathQuill.keystroke("Right");
@@ -115,7 +128,6 @@ const keyToMathquillMap: Record<Key, MathQuillCallback | null> = {
     // These need to be overwritten by the consumer
     // if they're going to be used
     FRAC: null,
-    FRAC_EXCLUSIVE: null,
     RIGHT: null,
     LEFT: null,
     BACKSPACE: null,

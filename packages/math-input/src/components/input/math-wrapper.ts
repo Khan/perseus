@@ -5,13 +5,13 @@
  */
 
 import $ from "jquery";
-import MathQuill from "mathquill";
 
 import Key from "../../data/keys";
-import {MathQuillInterface, MathFieldInterface} from "../../types";
+import {MathFieldInterface} from "../../types";
 import keyTranslator from "../key-translator";
 
 import {CursorContext} from "./cursor-contexts";
+import MQ from "./mathquill-instance";
 
 enum ActionType {
     WRITE = "write",
@@ -88,13 +88,11 @@ const KeysForJumpContext = {
 };
 
 class MathWrapper {
-    MQ: MathQuillInterface; // MathQuill interface
     mathField: MathFieldInterface; // MathQuill input
     callbacks: any;
 
     constructor(element, options = {}, callbacks = {}) {
-        this.MQ = MathQuill.getInterface(2);
-        this.mathField = this.MQ.MathField(element, {
+        this.mathField = MQ.MathField(element, {
             // use a span instead of a textarea so that we don't bring up the
             // native keyboard on mobile when selecting the input
             substituteTextarea: function () {
@@ -140,14 +138,6 @@ class MathWrapper {
 
         if (Object.keys(NormalCommands).includes(key)) {
             this._writeNormalFunction(NormalCommands[key]);
-        } else if (key === "FRAC_EXCLUSIVE") {
-            // If there's nothing to the left of the cursor, then we want to
-            // leave the cursor to the left of the fraction after creating it.
-            const shouldNavigateLeft = cursor[this.MQ.L] === ActionType.MQ_END;
-            this.mathField.cmd("\\frac");
-            if (shouldNavigateLeft) {
-                this.mathField.keystroke("Left");
-            }
         } else if (key === "EXP" || key === "EXP_2" || key === "EXP_3") {
             this._handleExponent(cursor, key);
         } else if (
@@ -217,7 +207,7 @@ class MathWrapper {
                 // Unless that would leave us mid-command, in which case, we
                 // need to adjust and place the cursor inside the parens
                 // following the command.
-                const command = this._maybeFindCommand(cursor[this.MQ.L]);
+                const command = this._maybeFindCommand(cursor[MQ.L]);
                 if (command && command.endNode) {
                     // NOTE(charlie): endNode should definitely be \left(.
                     cursor.insLeftOf(command.endNode);
@@ -257,7 +247,7 @@ class MathWrapper {
     // Notes about MathQuill
     //
     // MathQuill's stores its layout as nested linked lists.  Each node in the
-    // list has this.MQ.L '-1' and this.MQ.R '1' properties that define links to
+    // list has MQ.L '-1' and MQ.R '1' properties that define links to
     // the left and right nodes respectively.  They also have
     //
     // ctrlSeq: contains the latex code snippet that defines that node.
@@ -271,7 +261,7 @@ class MathWrapper {
     // when upgrading MathQuill.
 
     _handleBackspaceInNthRoot(cursor) {
-        const isAtLeftEnd = cursor[this.MQ.L] === ActionType.MQ_END;
+        const isAtLeftEnd = cursor[MQ.L] === ActionType.MQ_END;
 
         const isRootEmpty = this._isInsideEmptyNode(
             cursor.parent.parent.blocks[0].ends,
@@ -318,11 +308,11 @@ class MathWrapper {
                 // Find the nearest fraction to the right of the cursor.
                 let fractionNode;
                 let visitor = cursor;
-                while (visitor[this.MQ.R] !== ActionType.MQ_END) {
-                    if (this._isFraction(visitor[this.MQ.R])) {
-                        fractionNode = visitor[this.MQ.R];
+                while (visitor[MQ.R] !== ActionType.MQ_END) {
+                    if (this._isFraction(visitor[MQ.R])) {
+                        fractionNode = visitor[MQ.R];
                     }
-                    visitor = visitor[this.MQ.R];
+                    visitor = visitor[MQ.R];
                 }
 
                 // Jump into it!
@@ -354,7 +344,7 @@ class MathWrapper {
                 // Navigate right once more, if we're right before parens. This
                 // is to handle the standard case in which the subscript is the
                 // base of a custom log.
-                if (this._isParens(cursor[this.MQ.R])) {
+                if (this._isParens(cursor[MQ.R])) {
                     this.mathField.keystroke("Right");
                 }
                 break;
@@ -383,7 +373,7 @@ class MathWrapper {
         if (!cursor.selection) {
             const parent = cursor.parent;
             const grandparent = parent.parent;
-            const leftNode = cursor[this.MQ.L];
+            const leftNode = cursor[MQ.L];
 
             if (this._isFraction(leftNode)) {
                 this._selectNode(leftNode, cursor);
@@ -428,7 +418,7 @@ class MathWrapper {
         // the ActionType.MQ_END node, that our grandparent is the left parenthesis, and
         // the nodes to the left of our grandparent comprise a valid function
         // name.
-        if (cursor[this.MQ.L] === ActionType.MQ_END) {
+        if (cursor[MQ.L] === ActionType.MQ_END) {
             const parent = cursor.parent;
             const grandparent = parent.parent;
             if (grandparent.ctrlSeq === "\\left(") {
@@ -445,7 +435,7 @@ class MathWrapper {
     }
 
     _handleRightArrow(cursor) {
-        const command = this._maybeFindCommand(cursor[this.MQ.R]);
+        const command = this._maybeFindCommand(cursor[MQ.R]);
         if (command) {
             // Similarly, if a function is to our right, then we need to place
             // the cursor at the start of its parenthetical content, which is
@@ -465,7 +455,7 @@ class MathWrapper {
         // parentheses and apply the exponent to that.
         const invalidPrefixes = [...ArithmeticOperators, ...EqualityOperators];
 
-        const precedingNode = cursor[this.MQ.L];
+        const precedingNode = cursor[MQ.L];
         const shouldPrefixWithParens =
             precedingNode === ActionType.MQ_END ||
             invalidPrefixes.includes(precedingNode.ctrlSeq.trim());
@@ -553,7 +543,7 @@ class MathWrapper {
                 break;
             }
 
-            node = node[this.MQ.L];
+            node = node[MQ.L];
         }
 
         // If we hit the start of a command, then grab the rest of it by
@@ -561,7 +551,7 @@ class MathWrapper {
         // with its terminal node.
         if (startNode) {
             // Next, iterate from the start to the right.
-            node = initialNode[this.MQ.R];
+            node = initialNode[MQ.R];
             while (node !== 0) {
                 const ctrlSeq = node.ctrlSeq.trim();
                 if (commandCharRegex.test(ctrlSeq)) {
@@ -575,7 +565,7 @@ class MathWrapper {
                     break;
                 }
 
-                node = node[this.MQ.R];
+                node = node[MQ.R];
             }
             if (validCommands.includes(name)) {
                 return {name, startNode, endNode};
@@ -598,7 +588,7 @@ class MathWrapper {
      * @private
      */
     _maybeFindCommandBeforeParens(leftParenNode) {
-        return this._maybeFindCommand(leftParenNode[this.MQ.L]);
+        return this._maybeFindCommand(leftParenNode[MQ.L]);
     }
 
     _selectNode(node, cursor) {
@@ -687,8 +677,8 @@ class MathWrapper {
 
     _isInsideEmptyNode(cursor) {
         return (
-            cursor[this.MQ.L] === ActionType.MQ_END &&
-            cursor[this.MQ.R] === ActionType.MQ_END
+            cursor[MQ.L] === ActionType.MQ_END &&
+            cursor[MQ.R] === ActionType.MQ_END
         );
     }
 
@@ -700,7 +690,7 @@ class MathWrapper {
 
             const grandparent = cursor.parent.parent;
             const latex = grandparent.latex();
-            const reinsertionPoint = grandparent[this.MQ.L];
+            const reinsertionPoint = grandparent[MQ.L];
 
             this._selectNode(grandparent, cursor);
 
@@ -722,13 +712,13 @@ class MathWrapper {
 
                 // Adjust the cursor to be to the left the sqrt.
                 if (reinsertionPoint === ActionType.MQ_END) {
-                    this.mathField.moveToDirEnd(this.MQ.L);
+                    this.mathField.moveToDirEnd(MQ.L);
                 } else {
                     cursor.insRightOf(reinsertionPoint);
                 }
             }
         } else {
-            if (cursor[this.MQ.L] !== ActionType.MQ_END) {
+            if (cursor[MQ.L] !== ActionType.MQ_END) {
                 // If the cursor is not at the leftmost position inside the
                 // root's index, delete a character.
                 this.mathField.keystroke("Backspace");
@@ -748,8 +738,8 @@ class MathWrapper {
             cursor.insLeftOf(command?.startNode);
             cursor.startSelection();
 
-            if (grandparent[this.MQ.R] !== ActionType.MQ_END) {
-                cursor.insRightOf(grandparent[this.MQ.R]);
+            if (grandparent[MQ.R] !== ActionType.MQ_END) {
+                cursor.insRightOf(grandparent[MQ.R]);
             } else {
                 cursor.insRightOf(grandparent);
             }
@@ -757,8 +747,7 @@ class MathWrapper {
             cursor.select();
             cursor.endSelection();
 
-            const isLogBodyEmpty =
-                grandparent[this.MQ.R].contentjQ.text() === "";
+            const isLogBodyEmpty = grandparent[MQ.R].contentjQ.text() === "";
 
             if (isLogBodyEmpty) {
                 // If there's no content inside the log's parens then delete the
@@ -779,8 +768,8 @@ class MathWrapper {
         // (x+1)| => |(x+1)|
         // \log(x+1)| => |\log(x+1)|
 
-        const leftNode = cursor[this.MQ.L];
-        const rightNode = cursor[this.MQ.R];
+        const leftNode = cursor[MQ.L];
+        const rightNode = cursor[MQ.R];
         const command = this._maybeFindCommandBeforeParens(leftNode);
 
         if (command && command.startNode) {
@@ -828,7 +817,7 @@ class MathWrapper {
         // - \log(|x+1) => |\log(x+1)|
         // - \log(|) => |
 
-        if (cursor[this.MQ.L] !== ActionType.MQ_END) {
+        if (cursor[MQ.L] !== ActionType.MQ_END) {
             // This command contains math and there's some math to
             // the left of the cursor that we should delete normally
             // before doing anything special.
@@ -842,12 +831,12 @@ class MathWrapper {
         // has a subscript as is the case in log_n then move the cursor into
         // the subscript, e.g. \log_{5}(|x+1) => \log_{5|}(x+1)
 
-        if (grandparent[this.MQ.L].sub) {
+        if (grandparent[MQ.L].sub) {
             // if there is a subscript
-            if (grandparent[this.MQ.L].sub.jQ.text()) {
+            if (grandparent[MQ.L].sub.jQ.text()) {
                 // and it contains text
                 // move the cursor to the right end of the subscript
-                cursor.insAtRightEnd(grandparent[this.MQ.L].sub);
+                cursor.insAtRightEnd(grandparent[MQ.L].sub);
                 return;
             }
         }
@@ -881,13 +870,13 @@ class MathWrapper {
     contextForCursor(cursor) {
         // First, try to find any fraction to the right, unimpeded.
         let visitor = cursor;
-        while (visitor[this.MQ.R] !== ActionType.MQ_END) {
-            if (this._isFraction(visitor[this.MQ.R])) {
+        while (visitor[MQ.R] !== ActionType.MQ_END) {
+            if (this._isFraction(visitor[MQ.R])) {
                 return CursorContext.BEFORE_FRACTION;
-            } else if (!this._isLeaf(visitor[this.MQ.R])) {
+            } else if (!this._isLeaf(visitor[MQ.R])) {
                 break;
             }
-            visitor = visitor[this.MQ.R];
+            visitor = visitor[MQ.R];
         }
 
         // If that didn't work, check if the parent or grandparent is a special
