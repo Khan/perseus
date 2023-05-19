@@ -1,9 +1,4 @@
 import {
-    MathFieldActionType,
-    MathFieldInterface,
-    MathFieldCursor,
-} from "../../../types";
-import {
     isFraction,
     isSquareRoot,
     isNthRoot,
@@ -15,6 +10,11 @@ import {
     maybeFindCommandBeforeParens,
 } from "../mathquill-helpers";
 import MQ from "../mathquill-instance";
+import {
+    MathFieldActionType,
+    MathFieldInterface,
+    MathFieldCursor,
+} from "../mathquill-types";
 
 function handleBackspaceInNthRoot(
     mathField: MathFieldInterface,

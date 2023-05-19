@@ -1,5 +1,4 @@
 import Key from "../../../data/keys";
-import {MathFieldInterface, MathFieldActionType} from "../../../types";
 import {CursorContext} from "../cursor-contexts";
 import {
     isFraction,
@@ -8,6 +7,7 @@ import {
     getCursor,
 } from "../mathquill-helpers";
 import MQ from "../mathquill-instance";
+import {MathFieldInterface, MathFieldActionType} from "../mathquill-types";
 
 const KeysForJumpContext = {
     [CursorContext.IN_PARENS]: "JUMP_OUT_PARENTHESES",

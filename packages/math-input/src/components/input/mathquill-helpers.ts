@@ -1,11 +1,10 @@
+import {CursorContext} from "./cursor-contexts";
+import MQ from "./mathquill-instance";
 import {
     MathFieldActionType,
     MathFieldCursor,
     MathFieldInterface,
-} from "../../types";
-
-import {CursorContext} from "./cursor-contexts";
-import MQ from "./mathquill-instance";
+} from "./mathquill-types";
 
 const Numerals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const GreekLetters = ["\\theta", "\\pi"];
@@ -149,7 +148,6 @@ export function selectNode(node, cursor) {
  * @returns {null|object} - `null` or an object containing the start node
  *                          (`startNode`), end node (`endNode`), and full
  *                          name (`name`) of the command
- * @private
  */
 export function maybeFindCommand(initialNode) {
     if (!initialNode) {
@@ -235,7 +233,6 @@ export function maybeFindCommand(initialNode) {
  * @returns {null|object} - `null` or an object containing the start node
  *                          (`startNode`), end node (`endNode`), and full
  *                          name (`name`) of the command
- * @private
  */
 export function maybeFindCommandBeforeParens(leftParenNode) {
     return maybeFindCommand(leftParenNode[MQ.L]);

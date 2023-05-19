@@ -1,7 +1,7 @@
 import Key from "../../../data/keys";
-import {MathFieldInterface, MathFieldActionType} from "../../../types";
 import {getCursor} from "../mathquill-helpers";
 import MQ from "../mathquill-instance";
+import {MathFieldInterface, MathFieldActionType} from "../mathquill-types";
 
 const ArithmeticOperators = ["+", "-", "\\cdot", "\\times", "\\div"];
 const EqualityOperators = ["=", "\\neq", "<", "\\leq", ">", "\\geq"];

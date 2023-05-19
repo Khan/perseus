@@ -1,15 +1,15 @@
 import Key from "../../../data/keys";
 import {
-    MathFieldInterface,
-    MathFieldActionType,
-    MathFieldCursor,
-} from "../../../types";
-import {
     maybeFindCommand,
     maybeFindCommandBeforeParens,
     getCursor,
 } from "../mathquill-helpers";
 import MQ from "../mathquill-instance";
+import {
+    MathFieldInterface,
+    MathFieldActionType,
+    MathFieldCursor,
+} from "../mathquill-types";
 
 function handleLeftArrow(
     mathField: MathFieldInterface,

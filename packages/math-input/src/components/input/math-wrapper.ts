@@ -1,18 +1,23 @@
-/**
- * This file contains a wrapper around MathQuill so that we can provide a
- * more regular interface for the functionality we need while insulating us
- * from MathQuill changes.
- */
+// Notes about MathQuill
+//
+// MathQuill's stores its layout as nested linked lists.  Each node in the
+// list has MQ.L '-1' and MQ.R '1' properties that define links to
+// the left and right nodes respectively.  They also have
+//
+// ctrlSeq: contains the latex code snippet that defines that node.
+// jQ: jQuery object for the DOM node(s) for this MathQuill node.
+// ends: pointers to the nodes at the ends of the container.
+// parent: parent node.
+// blocks: an array containing one or more nodes that make up the node.
+// sub?: subscript node if there is one as is the case in log_n
+//
+// All of the code below is super fragile.  Please be especially careful
+// when upgrading MathQuill.
 
 import $ from "jquery";
 
 import Key from "../../data/keys";
-import {
-    MathFieldInterface,
-    Cursor,
-    MathFieldCursor,
-    MathQuillUpdaterCallback,
-} from "../../types";
+import {Cursor} from "../../types";
 import keyTranslator from "../key-translator";
 
 import handleArrow from "./key-handlers/handle-arrow";
@@ -25,6 +30,11 @@ import {
     maybeFindCommand,
 } from "./mathquill-helpers";
 import MQ from "./mathquill-instance";
+import {
+    MathFieldInterface,
+    MathFieldCursor,
+    MathQuillUpdaterCallback,
+} from "./mathquill-types";
 
 function buildNormalFunctionCallback(command: string) {
     return function (mathField: MathFieldInterface) {
@@ -62,21 +72,11 @@ const customKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
     TAN: buildNormalFunctionCallback("tan"),
 };
 
-// Notes about MathQuill
-//
-// MathQuill's stores its layout as nested linked lists.  Each node in the
-// list has MQ.L '-1' and MQ.R '1' properties that define links to
-// the left and right nodes respectively.  They also have
-//
-// ctrlSeq: contains the latex code snippet that defines that node.
-// jQ: jQuery object for the DOM node(s) for this MathQuill node.
-// ends: pointers to the nodes at the ends of the container.
-// parent: parent node.
-// blocks: an array containing one or more nodes that make up the node.
-// sub?: subscript node if there is one as is the case in log_n
-//
-// All of the code below is super fragile.  Please be especially careful
-// when upgrading MathQuill.
+/**
+ * This file contains a wrapper around MathQuill so that we can provide a
+ * more regular interface for the functionality we need while insulating us
+ * from MathQuill changes.
+ */
 class MathWrapper {
     mathField: MathFieldInterface; // MathQuill input
     callbacks: any;
@@ -113,6 +113,9 @@ class MathWrapper {
 
     /**
      * Handle a key press and return the resulting cursor state.
+     *
+     * @param {Key} key - an enum representing the key that was pressed
+     * @returns {object} a cursor object, consisting of a cursor context
      */
     pressKey(key: Key): Cursor {
         const cursor = this.getCursor();
@@ -141,6 +144,13 @@ class MathWrapper {
 
     /**
      * Place the cursor beside the node located at the given coordinates.
+     *
+     * @param {number} x - the x coordinate in the viewport
+     * @param {number} y - the y coordinate in the viewport
+     * @param {Node} hitNode - the node next to which the cursor should be
+     *                         placed; if provided, the coordinates will be used
+     *                         to determine on which side of the node the cursor
+     *                         should be placed
      */
     setCursorPosition(x: number, y: number, hitNode: HTMLElement) {
         const el = hitNode || document.elementFromPoint(x, y);
