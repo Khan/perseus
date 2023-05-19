@@ -32,7 +32,7 @@ const USAGE =
  */
 const _changeMultiple = function (
     component: {props: ChangeableProps},
-    newProps: Record<any, any>,
+    newProps: Record<string, any>,
     callback?: () => unknown,
 ) {
     // Omit "default" props:
@@ -113,13 +113,24 @@ export const change: ChangeFn = function (
     );
 };
 
-export function changeSingleProp(
-    component: {props: ChangeableProps},
-    name: string,
-    value: any,
+export function changeSingleProp<
+    Props extends ChangeableProps,
+    Name extends keyof Props,
+>(
+    component: {props: Props},
+    name: Name,
+    value: Props[Name],
     callback?: () => unknown,
 ) {
     _changeMultiple(component, {[name]: value}, callback);
+}
+
+export function changeMultipleProps<Props extends ChangeableProps>(
+    component: {props: Props},
+    props: Partial<Props>,
+    callback?: () => unknown,
+) {
+    _changeMultiple(component, props, callback);
 }
 
 export const propTypes = {

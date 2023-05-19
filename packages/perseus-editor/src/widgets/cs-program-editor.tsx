@@ -12,7 +12,6 @@ import {
     Log,
 } from "@khanacademy/perseus";
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -23,7 +22,7 @@ const {InfoTip, PropCheckBox} = components;
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 
-type Props = typeof PairEditor.defaultProps &
+type PairEditorProps = typeof PairEditor.defaultProps &
     Changeable.ChangeableProps & {
         name: string;
         value: string;
@@ -32,14 +31,10 @@ type Props = typeof PairEditor.defaultProps &
 /**
  * This is used for editing a name/value pair.
  */
-class PairEditor extends React.Component<Props> {
+class PairEditor extends React.Component<PairEditorProps> {
     static defaultProps = {
         name: "",
         value: "",
-    };
-
-    change = (...args) => {
-        return Changeable.change.apply(this, args);
     };
 
     serialize = () => {
@@ -73,20 +68,15 @@ class PairEditor extends React.Component<Props> {
     }
 }
 
+type Props = Changeable.ChangeableProps & {
+    name: string;
+    pairs: Array<{name: string; value: string}>;
+};
+
 /**
  * This is used for editing a set of name/value pairs.
  */
-class PairsEditor extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        pairs: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string,
-                value: PropTypes.string,
-            }),
-        ).isRequired,
-    };
-
+class PairsEditor extends React.Component<Props> {
     change = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -100,7 +90,7 @@ class PairsEditor extends React.Component<any> {
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
         }
-        this.change("pairs", pairs);
+        Changeable.changeSingleProp(this, "pairs", pairs);
     };
 
     serialize = () => {
@@ -139,17 +129,24 @@ function isolateProgramID(programUrl: string) {
     return programUrl;
 }
 
+type CSProgramEditorProps = typeof CSProgramEditor.defaultProps &
+    Changeable.ChangeableProps & {
+        programID: string;
+        programType: any; // TODO
+        settings: Array<{name: string; value: string}>;
+        showEditor: boolean;
+        showButtons: boolean;
+        width: number;
+        height: number;
+    };
+
 /**
  * This is the main editor for this widget, to specify all the options.
  */
-class CSProgramEditor extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-    };
-
+class CSProgramEditor extends React.Component<CSProgramEditorProps> {
     static widgetName = "cs-program" as const;
 
-    static defaultProps: any = {
+    static defaultProps = {
         programID: "",
         programType: null,
         settings: [{name: "", value: ""}],
@@ -159,13 +156,8 @@ class CSProgramEditor extends React.Component<any> {
         height: DEFAULT_HEIGHT,
     };
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
     _handleSettingsChange: (arg1: any) => void = (settings) => {
-        this.change({settings: settings.pairs});
+        Changeable.changeMultipleProps(this, {settings: settings.pairs});
     };
 
     _handleProgramIDChange: (arg1: string) => void = (programID) => {
@@ -180,7 +172,7 @@ class CSProgramEditor extends React.Component<any> {
         $.getJSON(baseUrl)
             .done((programInfo) => {
                 const programType = programInfo.userAuthoredContentType;
-                this.change({
+                Changeable.changeMultipleProps(this, {
                     width: programInfo.width,
                     height: programInfo.height,
                     programID: programID,
@@ -200,7 +192,7 @@ class CSProgramEditor extends React.Component<any> {
                         },
                     },
                 );
-                this.change({
+                Changeable.changeMultipleProps(this, {
                     width: DEFAULT_WIDTH,
                     height: DEFAULT_HEIGHT,
                     programID: programID,

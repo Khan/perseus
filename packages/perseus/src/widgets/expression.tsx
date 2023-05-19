@@ -365,8 +365,8 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return KAS.parse(insertBraces(value), options);
     };
 
-    changeAndTrack = (e: any, cb: () => void) => {
-        Changeable.changeSingleProp(this, "value", e, cb);
+    changeAndTrack = (value: string, cb: () => void) => {
+        Changeable.changeSingleProp(this, "value", value, cb);
         this.props.trackInteraction();
     };
 
