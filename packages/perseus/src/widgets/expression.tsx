@@ -352,10 +352,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return Expression.getUserInputFromProps(this.props);
     };
 
-    change: (...args: any) => any | undefined = (...args: any) => {
-        return Changeable.change.apply(this, args);
-    };
-
     parse: (value: string, props: Props) => any = (
         value: string,
         props: Props,
@@ -369,11 +365,8 @@ export class Expression extends React.Component<Props, ExpressionState> {
         return KAS.parse(insertBraces(value), options);
     };
 
-    changeAndTrack: (e: any, cb: () => void) => void = (
-        e: any,
-        cb: () => void,
-    ) => {
-        this.change("value", e, cb);
+    changeAndTrack = (e: any, cb: () => void) => {
+        Changeable.changeSingleProp(this, "value", e, cb);
         this.props.trackInteraction();
     };
 

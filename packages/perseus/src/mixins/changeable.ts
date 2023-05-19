@@ -31,14 +31,9 @@ const USAGE =
  * figured out which way it was called.
  */
 const _changeMultiple = function (
-    component: any,
-    newProps:
-        | string
-        | Record<any, any>
-        | {
-              [key: string]: any;
-          },
-    callback,
+    component: {props: ChangeableProps},
+    newProps: Record<any, any>,
+    callback?: () => unknown,
 ) {
     // Omit "default" props:
     // ref and key come from react, and don't actually represent
@@ -54,7 +49,7 @@ const _changeMultiple = function (
  * Helper function for changing a single prop
  */
 const _changeSingle = function (
-    component: any,
+    component: {props: ChangeableProps},
     propName: string,
     value: any,
     callback,
@@ -118,6 +113,15 @@ export const change: ChangeFn = function (
     );
 };
 
+export function changeSingleProp(
+    component: {props: ChangeableProps},
+    name: string,
+    value: any,
+    callback?: () => unknown,
+) {
+    _changeMultiple(component, {[name]: value}, callback);
+}
+
 export const propTypes = {
     onChange: PropTypes.func.isRequired,
 } as const;
@@ -127,7 +131,7 @@ export type ChangeableProps = {
         values: {
             [key: string]: any;
         },
-        callback?: () => unknown | null | undefined,
+        callback?: () => unknown,
         silent?: boolean,
     ) => unknown;
 };
