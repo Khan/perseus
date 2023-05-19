@@ -39,7 +39,7 @@ export function V2KeypadWithMathquill() {
 
         const mathQuillCallback = keyTranslator[key];
         if (mathQuillCallback) {
-            mathQuillCallback(mathQuill);
+            mathQuillCallback(mathQuill, key);
         } else {
             // eslint-disable-next-line no-console
             console.warn(`No translation to Mathquill for: ${key}`);

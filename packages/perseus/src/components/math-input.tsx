@@ -223,12 +223,12 @@ class MathInput extends React.Component<Props, State> {
         return this.state.focused;
     };
 
-    insert(value: any): void {
+    insert: (value: any) => void = (value) => {
         // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const input = this.mathField();
         const inputModifier = customKeyTranslator[value];
         if (inputModifier) {
-            inputModifier(input);
+            inputModifier(input, value);
             input.focus();
             return;
         }
@@ -245,7 +245,7 @@ class MathInput extends React.Component<Props, State> {
             input.write(value).focus();
         }
         input.focus();
-    }
+    };
 
     mathField: (arg1: any) => any = (options) => {
         // The MathQuill API is now "versioned" through its own "InterVer"
