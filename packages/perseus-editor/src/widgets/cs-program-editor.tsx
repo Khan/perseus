@@ -23,16 +23,16 @@ const {InfoTip, PropCheckBox} = components;
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 
+type Props = typeof PairEditor.defaultProps &
+    Changeable.ChangeableProps & {
+        name: string;
+        value: string;
+    };
+
 /**
  * This is used for editing a name/value pair.
  */
-class PairEditor extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        name: PropTypes.string,
-        value: PropTypes.string,
-    };
-
+class PairEditor extends React.Component<Props> {
     static defaultProps = {
         name: "",
         value: "",
@@ -53,7 +53,9 @@ class PairEditor extends React.Component<any> {
                     Name:{" "}
                     <BlurInput
                         value={this.props.name}
-                        onChange={this.change("name")}
+                        onChange={(value) =>
+                            Changeable.changeSingleProp(this, "name", value)
+                        }
                     />
                 </label>
                 <label>
@@ -61,7 +63,9 @@ class PairEditor extends React.Component<any> {
                     Value:{" "}
                     <BlurInput
                         value={this.props.value}
-                        onChange={this.change("value")}
+                        onChange={(value) =>
+                            Changeable.changeSingleProp(this, "name", value)
+                        }
                     />
                 </label>
             </fieldset>

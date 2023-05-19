@@ -1,40 +1,33 @@
 import {
     components,
-    ApiOptions,
+    APIOptionsWithDefaults,
     Categorizer as CategorizerWidget,
     Changeable,
     EditorJsonify,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {PropCheckBox, TextListEditor} = components;
 const Categorizer = CategorizerWidget.widget;
 
-type Props = any;
-
-class CategorizerEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        items: PropTypes.arrayOf(PropTypes.string),
-        categories: PropTypes.arrayOf(PropTypes.string),
-        values: PropTypes.arrayOf(PropTypes.number),
-        randomizeItems: PropTypes.bool,
+type Props = typeof CategorizerEditor.defaultProps &
+    Changeable.ChangeableProps & {
+        apiOptions: APIOptionsWithDefaults;
+        items: Array<string>;
+        categories: Array<string>;
+        values: Array<number>;
+        randomizeItems: boolean;
     };
 
+class CategorizerEditor extends React.Component<Props> {
     static widgetName = "categorizer" as const;
 
-    static defaultProps: Props = {
+    static defaultProps = {
         items: [],
         categories: [],
         values: [],
         randomizeItems: false,
-    };
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
     };
 
     serialize: () => any = () => {
@@ -56,8 +49,7 @@ class CategorizerEditor extends React.Component<Props> {
                 <TextListEditor
                     options={this.props.categories}
                     onChange={(cat) => {
-                        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
-                        this.change("categories", cat);
+                        Changeable.changeSingleProp(this, "categories", cat);
                     }}
                     layout="horizontal"
                 />

@@ -10,7 +10,6 @@ import type {PerseusGroupWidgetOptions} from "../perseus-types";
 import type {Widget} from "../renderer";
 import type {
     APIOptions,
-    ChangeFn,
     FocusPath,
     PerseusScore,
     WidgetExports,
@@ -43,10 +42,6 @@ class Group extends React.Component<Props> {
         // the group with the correct number.
         this.forceUpdate();
     }
-
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
 
     getUserInput: () => any = () => {
         return this.rendererRef?.getUserInput();
@@ -141,7 +136,11 @@ class Group extends React.Component<Props> {
         // has occurred.
         const onInteractWithWidget = (id) => {
             if (this.rendererRef) {
-                this.change("widgets", this.rendererRef.props.widgets);
+                Changeable.changeSingleProp(
+                    this,
+                    "widgets",
+                    this.rendererRef.props.widgets,
+                );
             }
         };
 

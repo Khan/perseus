@@ -112,11 +112,6 @@ export class GradedGroup extends React.Component<Props, State> {
         return nextProps !== this.props || nextState !== this.state;
     }
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
     // This is a little strange because the id of the widget that actually
     // changed is going to be lost in favor of the group widget's id. The
     // widgets prop also wasn't actually changed, and this only serves to
@@ -131,7 +126,7 @@ export class GradedGroup extends React.Component<Props, State> {
 
         // eslint-disable-next-line react/no-string-refs
         if (this.refs.renderer) {
-            this.change("widgets", this.props.widgets);
+            Changeable.changeSingleProp(this, "widgets", this.props.widgets);
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'emptyWidgets' does not exist on type 'ReactInstance'.
             const emptyWidgets = this.refs.renderer.emptyWidgets();

@@ -502,7 +502,13 @@ const GraphSettings = createReactClass({
                                     {value: "grid", content: "Grid"},
                                     {value: "none", content: "None"},
                                 ]}
-                                onChange={this.change("markings")}
+                                onChange={(value) =>
+                                    Changeable.changeSingleProp(
+                                        this,
+                                        "markings",
+                                        value,
+                                    )
+                                }
                             />
                         </div>
                         <div className="perseus-widget-left-col">

@@ -50,11 +50,6 @@ export class Categorizer extends React.Component<Props, State> {
         uniqueId: _.uniqueId("perseus_radio_"),
     };
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
     getUserInput: () => UserInput = () => {
         return Categorizer.getUserInputFromProps(this.props);
     };
@@ -213,7 +208,7 @@ export class Categorizer extends React.Component<Props, State> {
         const values = [...this.props.values];
         // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
         values[itemNum] = catNum;
-        this.change("values", values);
+        Changeable.changeSingleProp(this, "values", values);
         this.props.trackInteraction();
     };
 
