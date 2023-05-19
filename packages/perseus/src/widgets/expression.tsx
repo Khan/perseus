@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import * as KAS from "@khanacademy/kas";
 import {KeypadInput, KeypadType, Keys as Key} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable react/sort-comp */
 import createReactClass from "create-react-class";
