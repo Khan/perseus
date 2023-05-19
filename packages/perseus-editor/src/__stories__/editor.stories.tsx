@@ -81,39 +81,46 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
     });
 
     return (
-        <SideBySide
-            leftTitle="Editor"
-            left={
-                <View style={{width: "360px", margin: "20px"}}>
-                    <Editor
-                        ref={editorRef}
-                        apiOptions={ApiOptions.defaults}
-                        content={content}
-                        placeholder=""
-                        widgets={widgets}
-                        images={images}
-                        disabled={false}
-                        widgetEnabled={true}
-                        immutableWidgets={false}
-                        showWordCount={true}
-                        warnNoPrompt={false}
-                        warnNoWidgets={true}
-                        onChange={(props: Partial<PerseusRenderer>) => {
-                            action("onChange")(props);
-                            if (props.content) {
-                                setContent(props.content);
-                            } else if (props.widgets) {
-                                setWidgets(props.widgets);
-                            } else if (props.images) {
-                                setImages(props.images);
-                            }
-                            setOptions(editorRef.current?.serialize() || {});
-                        }}
-                    />
-                </View>
-            }
-            rightTitle="Serialized Widget Options"
-            jsonObject={options}
-        />
+        // Many of the editor components use scoped CSS that requires this
+        // class to be above it.
+        // TODO: Refactor to aphrodite styles instead of scoped CSS in Less.
+        <div className="framework-perseus">
+            <SideBySide
+                leftTitle="Editor"
+                left={
+                    <View style={{width: "360px", margin: "20px"}}>
+                        <Editor
+                            ref={editorRef}
+                            apiOptions={ApiOptions.defaults}
+                            content={content}
+                            placeholder=""
+                            widgets={widgets}
+                            images={images}
+                            disabled={false}
+                            widgetEnabled={true}
+                            immutableWidgets={false}
+                            showWordCount={true}
+                            warnNoPrompt={false}
+                            warnNoWidgets={true}
+                            onChange={(props: Partial<PerseusRenderer>) => {
+                                action("onChange")(props);
+                                if (props.content) {
+                                    setContent(props.content);
+                                } else if (props.widgets) {
+                                    setWidgets(props.widgets);
+                                } else if (props.images) {
+                                    setImages(props.images);
+                                }
+                                setOptions(
+                                    editorRef.current?.serialize() || {},
+                                );
+                            }}
+                        />
+                    </View>
+                }
+                rightTitle="Serialized Widget Options"
+                jsonObject={options}
+            />
+        </div>
     );
 };
