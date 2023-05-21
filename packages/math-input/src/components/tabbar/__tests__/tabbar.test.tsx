@@ -3,20 +3,6 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 
 import Tabbar from "../tabbar";
-import {TabbarItemType} from "../types";
-
-function StatefulTabbar() {
-    const [selectedItem, setSelectedItem] =
-        React.useState<TabbarItemType>("Numbers");
-
-    return (
-        <Tabbar
-            items={["Numbers", "Geometry", "Operators"]}
-            selectedItem={selectedItem}
-            onSelectItem={setSelectedItem}
-        />
-    );
-}
 
 describe("<Tabbar />", () => {
     it("renders the numbers page", () => {
