@@ -26,7 +26,7 @@ const allPages = function (props: Props): ReadonlyArray<TabbarItemType> {
     const pages: Array<TabbarItemType> = ["Numbers"];
 
     if (props.extraKeys?.length) {
-        pages.push("Extra");
+        pages.push("Extras");
     }
 
     if (
