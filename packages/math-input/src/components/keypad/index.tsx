@@ -1,6 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
+import Key from "../../data/keys";
 import Tabbar from "../tabbar/tabbar";
 
 import GeometryPage from "./geometry-page";
@@ -14,14 +15,19 @@ import type {TabbarItemType} from "../tabbar/types";
 export type Props = {
     onClickKey: (keyConfig: string) => void;
     trigonometry?: boolean;
+    extraKeys?: ReadonlyArray<Key>;
 } & OperatorsButtonSets &
     NumbersPageOptions;
 type State = {
     selectedPage: TabbarItemType;
 };
 
-const allPages = function (props: Props): React.ReactElement {
+const allPages = function (props: Props): ReadonlyArray<TabbarItemType> {
     const pages: Array<TabbarItemType> = ["Numbers"];
+
+    if (props.extraKeys?.length) {
+        pages.push("Extra");
+    }
 
     if (
         // OperatorsButtonSets
@@ -32,10 +38,11 @@ const allPages = function (props: Props): React.ReactElement {
     ) {
         pages.push("Operators");
     }
+
     if (props.trigonometry) {
         pages.push("Geometry");
     }
-    // @ts-expect-error [FEI-5003] - TS2739 - Type 'TabbarItemType[]' is missing the following properties from type 'ReactElement<any, string | JSXElementConstructor<any>>': type, props, key
+
     return pages;
 };
 
@@ -43,6 +50,7 @@ export default class Keypad extends React.Component<Props, State> {
     state: State = {
         selectedPage: "Numbers",
     };
+
     render(): React.ReactNode {
         const {selectedPage} = this.state;
 
@@ -51,9 +59,9 @@ export default class Keypad extends React.Component<Props, State> {
         return (
             <View>
                 <Tabbar
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     items={availablePages}
-                    onSelect={(tabbarItem: TabbarItemType) => {
+                    selectedItem={selectedPage}
+                    onSelectItem={(tabbarItem: TabbarItemType) => {
                         this.setState({selectedPage: tabbarItem});
                     }}
                 />

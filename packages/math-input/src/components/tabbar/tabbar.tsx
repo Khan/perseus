@@ -19,41 +19,29 @@ const styles = StyleSheet.create({
     },
 });
 
-type TabbarState = {
-    selectedItem: number;
-};
-
 type Props = {
     items: ReadonlyArray<TabbarItemType>;
-    onSelect: (item: TabbarItemType) => void;
+    selectedItem: TabbarItemType;
+    onSelectItem: (item: TabbarItemType) => void;
 };
 
-class Tabbar extends React.Component<Props, TabbarState> {
-    state: TabbarState = {
-        selectedItem: 0,
-    };
-    render(): React.ReactNode {
-        const {items, onSelect} = this.props;
-        return (
-            <View style={styles.tabbar}>
-                {items.map((item, index) => (
-                    <TabbarItem
-                        key={`tabbar-item-${index}`}
-                        itemState={
-                            index === this.state.selectedItem
-                                ? "active"
-                                : "inactive"
-                        }
-                        itemType={item}
-                        onClick={() => {
-                            this.setState({selectedItem: index});
-                            onSelect(item);
-                        }}
-                    />
-                ))}
-            </View>
-        );
-    }
+function Tabbar(props: Props): React.ReactElement {
+    const {items, selectedItem, onSelectItem} = props;
+
+    return (
+        <View style={styles.tabbar}>
+            {items.map((item) => (
+                <TabbarItem
+                    key={`tabbar-item-${item}`}
+                    itemState={item === selectedItem ? "active" : "inactive"}
+                    itemType={item}
+                    onClick={() => {
+                        onSelectItem(item);
+                    }}
+                />
+            ))}
+        </View>
+    );
 }
 
 export default Tabbar;
