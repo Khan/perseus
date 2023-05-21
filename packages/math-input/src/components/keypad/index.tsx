@@ -4,6 +4,7 @@ import * as React from "react";
 import Key from "../../data/keys";
 import Tabbar from "../tabbar/tabbar";
 
+import ExtrasPage from "./extras-page";
 import GeometryPage from "./geometry-page";
 import NumbersPage from "./numbers-page";
 import {NumbersPageOptions} from "./numbers-page/types";
@@ -15,11 +16,16 @@ import type {TabbarItemType} from "../tabbar/types";
 export type Props = {
     onClickKey: (keyConfig: string) => void;
     trigonometry?: boolean;
-    extraKeys?: ReadonlyArray<Key>;
+    extraKeys: ReadonlyArray<Key>;
 } & OperatorsButtonSets &
     NumbersPageOptions;
+
 type State = {
     selectedPage: TabbarItemType;
+};
+
+type DefaultProps = {
+    extraKeys: Props["extraKeys"];
 };
 
 const allPages = function (props: Props): ReadonlyArray<TabbarItemType> {
@@ -51,6 +57,10 @@ export default class Keypad extends React.Component<Props, State> {
         selectedPage: "Numbers",
     };
 
+    static defaultProps: DefaultProps = {
+        extraKeys: [],
+    };
+
     render(): React.ReactNode {
         const {selectedPage} = this.state;
 
@@ -66,6 +76,7 @@ export default class Keypad extends React.Component<Props, State> {
                     }}
                 />
                 {selectedPage === "Numbers" && <NumbersPage {...this.props} />}
+                {selectedPage === "Extras" && <ExtrasPage {...this.props} />}
                 {selectedPage === "Operators" && (
                     <OperatorsPage {...this.props} />
                 )}

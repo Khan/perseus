@@ -54,7 +54,7 @@ export function V2KeypadWithMathquill() {
             />
             <div>
                 <Keypad
-                    extraKeys={["x", "y", "PI", "THETA"]}
+                    extraKeys={["a", "b", "c"]}
                     onClickKey={handleClickKey}
                     advancedRelations
                     basicRelations
