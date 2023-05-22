@@ -1,3 +1,4 @@
+import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
@@ -73,6 +74,10 @@ export default class Keypad extends React.Component<Props, State> {
                     selectedItem={selectedPage}
                     onSelectItem={(tabbarItem: TabbarItemType) => {
                         this.setState({selectedPage: tabbarItem});
+                    }}
+                    style={{
+                        background: Color.white,
+                        border: `1px solid ${Color.offBlack16}`,
                     }}
                 />
                 {selectedPage === "Numbers" && <NumbersPage {...this.props} />}

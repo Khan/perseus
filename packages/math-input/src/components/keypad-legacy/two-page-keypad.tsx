@@ -2,6 +2,7 @@
  * A keypad with two pages of keys.
  */
 
+import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
@@ -54,6 +55,11 @@ class TwoPageKeypad extends React.Component<Props, State> {
                         onSelectItem={(selectedItem) => {
                             this.setState({selectedPage: selectedItem});
                         }}
+                        style={{
+                            background: Color.offWhite,
+                            borderTop: `1px solid ${Color.offBlack50}`,
+                            borderBottom: `1px solid ${Color.offBlack50}`,
+                        }}
                     />
                     <View style={styles.borderTop}>
                         {selectedPage === "Numbers" && rightPage}
@@ -94,6 +100,7 @@ const styles = StyleSheet.create({
             `${innerBorderColor}`,
         boxSizing: "content-box",
     },
+    tabbarWrapper: {},
 });
 
 const mapStateToProps = (state: ReduxState): ReduxProps => {
