@@ -1,10 +1,11 @@
 import Color from "@khanacademy/wonder-blocks-color";
-import {StyleSheet} from "aphrodite";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Key from "../../data/keys";
 import Tabbar from "../tabbar/tabbar";
+import {TabbarItemType} from "../tabbar/types";
 
 import ExtrasPage from "./extras-page";
 import GeometryPage from "./geometry-page";
@@ -12,8 +13,6 @@ import NumbersPage from "./numbers-page";
 import {NumbersPageOptions} from "./numbers-page/types";
 import OperatorsPage from "./operators-page";
 import {OperatorsButtonSets} from "./operators-page/types";
-
-import type {TabbarItemType} from "../tabbar/types";
 
 export type Props = {
     onClickKey: (keyConfig: string) => void;
@@ -30,7 +29,7 @@ type DefaultProps = {
     extraKeys: Props["extraKeys"];
 };
 
-const allPages = function (props: Props): ReadonlyArray<TabbarItemType> {
+function allPages(props: Props): ReadonlyArray<TabbarItemType> {
     const pages: Array<TabbarItemType> = ["Numbers"];
 
     if (props.extraKeys?.length) {
@@ -52,7 +51,7 @@ const allPages = function (props: Props): ReadonlyArray<TabbarItemType> {
     }
 
     return pages;
-};
+}
 
 export default class Keypad extends React.Component<Props, State> {
     state: State = {
