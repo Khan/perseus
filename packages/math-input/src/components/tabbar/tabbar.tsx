@@ -11,11 +11,10 @@ const styles = StyleSheet.create({
     tabbar: {
         display: "flex",
         flexDirection: "row",
-        background: Color.offWhite,
+        background: Color.white,
         paddingTop: 2,
         paddingBottom: 2,
-        borderTop: `1px solid ${Color.offBlack50}`,
-        borderBottom: `1px solid ${Color.offBlack50}`,
+        border: `1px solid ${Color.offBlack16}`,
     },
 });
 

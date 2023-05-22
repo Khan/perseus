@@ -1,3 +1,4 @@
+import Color from "@khanacademy/wonder-blocks-color";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import MathQuill from "mathquill";
 import * as React from "react";
@@ -68,7 +69,11 @@ export function V2KeypadWithMathquill() {
                 dismissEnabled
             >
                 <div
-                    style={{width: "100%", marginBottom: "1em"}}
+                    style={{
+                        width: "100%",
+                        marginBottom: "1em",
+                        border: `1px solid ${Color.offBlack16}`,
+                    }}
                     ref={mathquillWrapperRef}
                 />
             </Popover>
