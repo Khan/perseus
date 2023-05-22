@@ -55,16 +55,26 @@ export const DisabledBarItem = () => (
     />
 );
 
-export const FullTabbar = () => (
-    <Tabbar
-        items={
-            array("items", [
-                "Numbers",
-                "Geometry",
-                "Operators",
-            ]) as ReadonlyArray<TabbarItemType>
-        }
-        selectedItem="Numbers"
-        onSelectItem={action("selected-item")}
-    />
-);
+function StatefulTabbarWrapper() {
+    const [selectedItem, setSelectedItem] =
+        React.useState<TabbarItemType>("Numbers");
+
+    return (
+        <Tabbar
+            items={
+                array("items", [
+                    "Numbers",
+                    "Geometry",
+                    "Operators",
+                ]) as ReadonlyArray<TabbarItemType>
+            }
+            selectedItem={selectedItem}
+            onSelectItem={(selection) => {
+                setSelectedItem(selection);
+                action("selected-item");
+            }}
+        />
+    );
+}
+
+export const FullTabbar = () => <StatefulTabbarWrapper />;
