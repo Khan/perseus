@@ -1,3 +1,4 @@
+import {Popover} from "@khanacademy/wonder-blocks-popover";
 import MathQuill from "mathquill";
 import * as React from "react";
 
@@ -18,6 +19,7 @@ const mathQuillConfig = {
 };
 
 export function V2KeypadWithMathquill() {
+    const containerRef = React.useRef<HTMLDivElement>(null);
     const mathquillWrapperRef = React.useRef<HTMLDivElement>(null);
     const [mathQuill, setMathQuill] = React.useState<MathQuill>();
 
@@ -47,24 +49,30 @@ export function V2KeypadWithMathquill() {
     }
 
     return (
-        <div style={{maxWidth: "400px", margin: "2em"}}>
-            <div
-                ref={mathquillWrapperRef}
-                style={{width: "100%", marginBottom: "1em"}}
-            />
-            <div>
-                <Keypad
-                    extraKeys={["a", "b", "c"]}
-                    onClickKey={handleClickKey}
-                    advancedRelations
-                    basicRelations
-                    divisionKey
-                    logarithms
-                    multiplicationDot
-                    preAlgebra
-                    trigonometry
+        <div style={{maxWidth: "400px", margin: "2em"}} ref={containerRef}>
+            <Popover
+                content={
+                    <div>
+                        <Keypad
+                            extraKeys={["a", "b", "c"]}
+                            onClickKey={handleClickKey}
+                            advancedRelations
+                            basicRelations
+                            divisionKey
+                            logarithms
+                            multiplicationDot
+                            preAlgebra
+                            trigonometry
+                        />
+                    </div>
+                }
+                dismissEnabled
+            >
+                <div
+                    ref={mathquillWrapperRef}
+                    style={{width: "100%", marginBottom: "1em"}}
                 />
-            </div>
+            </Popover>
         </div>
     );
 }
