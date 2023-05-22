@@ -19,7 +19,6 @@ const mathQuillConfig = {
 };
 
 export function V2KeypadWithMathquill() {
-    const containerRef = React.useRef<HTMLDivElement>(null);
     const mathquillWrapperRef = React.useRef<HTMLDivElement>(null);
     const [mathQuill, setMathQuill] = React.useState<MathQuill>();
 
@@ -49,7 +48,7 @@ export function V2KeypadWithMathquill() {
     }
 
     return (
-        <div style={{maxWidth: "400px", margin: "2em"}} ref={containerRef}>
+        <div style={{maxWidth: "400px", margin: "2em"}}>
             <Popover
                 content={
                     <div>
@@ -69,8 +68,8 @@ export function V2KeypadWithMathquill() {
                 dismissEnabled
             >
                 <div
-                    ref={mathquillWrapperRef}
                     style={{width: "100%", marginBottom: "1em"}}
+                    ref={mathquillWrapperRef}
                 />
             </Popover>
         </div>
