@@ -1,4 +1,5 @@
 import Color from "@khanacademy/wonder-blocks-color";
+import {StyleSheet} from "aphrodite";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
@@ -75,10 +76,7 @@ export default class Keypad extends React.Component<Props, State> {
                     onSelectItem={(tabbarItem: TabbarItemType) => {
                         this.setState({selectedPage: tabbarItem});
                     }}
-                    style={{
-                        background: Color.white,
-                        border: `1px solid ${Color.offBlack16}`,
-                    }}
+                    style={styles.tabbar}
                 />
                 {selectedPage === "Numbers" && <NumbersPage {...this.props} />}
                 {selectedPage === "Extras" && <ExtrasPage {...this.props} />}
@@ -92,3 +90,10 @@ export default class Keypad extends React.Component<Props, State> {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    tabbar: {
+        background: Color.white,
+        border: `1px solid ${Color.offBlack16}`,
+    },
+});

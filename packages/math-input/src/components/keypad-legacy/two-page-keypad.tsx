@@ -55,11 +55,7 @@ class TwoPageKeypad extends React.Component<Props, State> {
                         onSelectItem={(selectedItem) => {
                             this.setState({selectedPage: selectedItem});
                         }}
-                        style={{
-                            background: Color.offWhite,
-                            borderTop: `1px solid ${Color.offBlack50}`,
-                            borderBottom: `1px solid ${Color.offBlack50}`,
-                        }}
+                        style={styles.tabbar}
                     />
                     <View style={styles.borderTop}>
                         {selectedPage === "Numbers" && rightPage}
@@ -100,7 +96,11 @@ const styles = StyleSheet.create({
             `${innerBorderColor}`,
         boxSizing: "content-box",
     },
-    tabbarWrapper: {},
+    tabbar: {
+        background: Color.offWhite,
+        borderTop: `1px solid ${Color.offBlack50}`,
+        borderBottom: `1px solid ${Color.offBlack50}`,
+    },
 });
 
 const mapStateToProps = (state: ReduxState): ReduxProps => {
