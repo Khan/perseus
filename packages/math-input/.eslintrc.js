@@ -8,7 +8,7 @@ module.exports = {
             "error",
             {
                 packageDir: [__dirname, path.join(__dirname, "../../")],
-                devDependencies: ['**/*.stories.tsx'],
+                devDependencies: ["**/*.stories.tsx", "**/*.test.tsx"],
             },
         ],
     },
