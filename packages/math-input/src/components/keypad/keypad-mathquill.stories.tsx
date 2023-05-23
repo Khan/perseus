@@ -1,3 +1,5 @@
+import Color from "@khanacademy/wonder-blocks-color";
+import {Popover} from "@khanacademy/wonder-blocks-popover";
 import MathQuill from "mathquill";
 import * as React from "react";
 
@@ -48,23 +50,33 @@ export function V2KeypadWithMathquill() {
 
     return (
         <div style={{maxWidth: "400px", margin: "2em"}}>
-            <div
-                ref={mathquillWrapperRef}
-                style={{width: "100%", marginBottom: "1em"}}
-            />
-            <div>
-                <Keypad
-                    extraKeys={["a", "b", "c"]}
-                    onClickKey={handleClickKey}
-                    advancedRelations
-                    basicRelations
-                    divisionKey
-                    logarithms
-                    multiplicationDot
-                    preAlgebra
-                    trigonometry
+            <Popover
+                content={
+                    <div>
+                        <Keypad
+                            extraKeys={["a", "b", "c"]}
+                            onClickKey={handleClickKey}
+                            advancedRelations
+                            basicRelations
+                            divisionKey
+                            logarithms
+                            multiplicationDot
+                            preAlgebra
+                            trigonometry
+                        />
+                    </div>
+                }
+                dismissEnabled
+            >
+                <div
+                    style={{
+                        width: "100%",
+                        marginBottom: "1em",
+                        border: `1px solid ${Color.offBlack16}`,
+                    }}
+                    ref={mathquillWrapperRef}
                 />
-            </div>
+            </Popover>
         </div>
     );
 }
