@@ -93,6 +93,5 @@ export default class Keypad extends React.Component<Props, State> {
 const styles = StyleSheet.create({
     tabbar: {
         background: Color.white,
-        border: `1px solid ${Color.offBlack16}`,
     },
 });
