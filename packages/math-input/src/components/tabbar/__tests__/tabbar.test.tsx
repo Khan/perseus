@@ -1,11 +1,12 @@
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
+import "@testing-library/jest-dom";
 
 import Tabbar from "../tabbar";
 
 describe("<Tabbar />", () => {
-    it("renders the numbers page", () => {
+    it("renders one tab", () => {
         // Arrange
         render(
             <Tabbar
@@ -16,10 +17,12 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        expect(screen.getByRole("button", {name: "Numbers"}));
+        expect(
+            screen.getByRole("button", {name: "Numbers"}),
+        ).toBeInTheDocument();
     });
 
-    it("renders all tabs", () => {
+    it("renders many tabs", () => {
         // Arrange
         render(
             <Tabbar
@@ -30,10 +33,18 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        expect(screen.getByRole("button", {name: "Numbers"}));
-        expect(screen.getByRole("button", {name: "Extras"}));
-        expect(screen.getByRole("button", {name: "Geometry"}));
-        expect(screen.getByRole("button", {name: "Operators"}));
+        expect(
+            screen.getByRole("button", {name: "Numbers"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Extras"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Geometry"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Operators"}),
+        ).toBeInTheDocument();
     });
 
     it("handles callback", () => {
