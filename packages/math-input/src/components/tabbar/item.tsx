@@ -80,7 +80,11 @@ class TabbarItem extends React.Component<Props> {
     render(): React.ReactNode {
         const {onClick, itemType, itemState} = this.props;
         return (
-            <Clickable onClick={onClick} disabled={itemState === "disabled"}>
+            <Clickable
+                onClick={onClick}
+                disabled={itemState === "disabled"}
+                aria-label={itemType}
+            >
                 {({hovered, focused, pressed}) => {
                     const tintColor = imageTintColor(
                         itemState,
