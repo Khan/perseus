@@ -325,6 +325,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         // eslint-disable-next-line react/no-string-refs
         const graph = this.refs.graph;
         if (graph) {
+            // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
             const correct = graph && graph.getUserInput();
             _.extend(json, {
                 graph: {type: correct.type},
