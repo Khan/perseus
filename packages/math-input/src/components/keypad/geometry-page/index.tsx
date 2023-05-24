@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
+import {ClickKeyCallback} from "../../../types";
 import {
     KeypadPageContainer,
     SecondaryKeypadButton,
@@ -8,7 +9,7 @@ import {
 } from "../keypad-page-items";
 
 type Props = {
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
 };
 
 export default class GeometryPage extends React.Component<Props> {

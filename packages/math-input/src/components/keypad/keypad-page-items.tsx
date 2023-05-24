@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import {KeyConfig} from "../../types";
+import {KeyConfig, ClickKeyCallback} from "../../types";
 
 import Button from "./button";
 import ButtonAsset from "./button-assets";
@@ -30,11 +30,14 @@ export const KeypadPageContainer = ({
     </View>
 );
 
-export type KeypadButtonProps = {
+type SharedButtonProps = {
     keyConfig: KeyConfig;
-    tintColor?: string;
     style?: StyleType;
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
+};
+
+export type KeypadButtonProps = SharedButtonProps & {
+    tintColor?: string;
 };
 
 export const KeypadButton = ({
@@ -52,17 +55,11 @@ export const KeypadButton = ({
     </Button>
 );
 
-type SecondaryKeypadButtonProps = {
-    keyConfig: KeyConfig;
-    style?: StyleType;
-    onClickKey: (keyConfig: string) => void;
-};
-
 export const SecondaryKeypadButton = ({
     keyConfig,
     onClickKey,
     style,
-}: SecondaryKeypadButtonProps): React.ReactElement => (
+}: SharedButtonProps): React.ReactElement => (
     <KeypadButton
         keyConfig={keyConfig}
         onClickKey={onClickKey}
@@ -71,17 +68,11 @@ export const SecondaryKeypadButton = ({
     />
 );
 
-type KeypadActionButtonProps = {
-    keyConfig: KeyConfig;
-    style?: StyleType;
-    onClickKey: (keyConfig: string) => void;
-};
-
 export const KeypadActionButton = ({
     keyConfig,
     onClickKey,
     style,
-}: KeypadActionButtonProps): React.ReactElement => (
+}: SharedButtonProps): React.ReactElement => (
     <KeypadButton
         keyConfig={keyConfig}
         onClickKey={onClickKey}

@@ -1,6 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
+import {ClickKeyCallback} from "../../types";
 import Tabbar from "../tabbar/tabbar";
 
 import GeometryPage from "./geometry-page";
@@ -12,7 +13,7 @@ import {OperatorsButtonSets} from "./operators-page/types";
 import type {TabbarItemType} from "../tabbar/types";
 
 export type Props = {
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
     trigonometry?: boolean;
 } & OperatorsButtonSets &
     NumbersPageOptions;

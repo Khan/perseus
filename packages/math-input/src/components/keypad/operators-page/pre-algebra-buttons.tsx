@@ -1,10 +1,11 @@
 import React from "react";
 
 import Keys from "../../../data/key-configs";
+import {ClickKeyCallback} from "../../../types";
 import {PlaceHolderButtons, SecondaryKeypadButton} from "../keypad-page-items";
 
 type Props = {
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
     placeholder?: boolean;
 };
 
