@@ -20,7 +20,7 @@ export type SineCoefficient = [
     number, // phase
     number, // verticalOffset
 ];
-export type QuadraticCoefficient = [a: number, b: number, c: number];
+export type QuadraticCoefficient = [number, number, number]; // a, b, c
 
 export function sign(val: number): 0 | 1 | -1 {
     if (eq(val, 0)) {
