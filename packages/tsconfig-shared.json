@@ -1,6 +1,16 @@
 // This file is used by the tsconfig.json files in each package.
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
+    "exclude": [
+        "dist",
+        "**/*.test.*",
+        "**/__tests__/**",
+        "**/*.testdata.*",
+        "**/__testdata__/**",
+        "**/*.stories.*",
+        "**/__stories__/**",
+        "**/*.cypress.*"
+    ],
     "extends": "../tsconfig-common.json",
     "compilerOptions": {
         "composite": true,
