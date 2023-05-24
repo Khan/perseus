@@ -16,13 +16,11 @@ const SegmentCountSelector = ({
             onChange(num);
         }}
     >
-        {_.map(_.range(1, 7), function (n) {
-            return (
-                <option key={n} value={n}>
-                    {`${n} segment${n > 1 ? "s" : ""}`}
-                </option>
-            );
-        })}
+        {_.range(1, 7).map((n) => (
+            <option key={n} value={n}>
+                {`${n} segment${n > 1 ? "s" : ""}`}
+            </option>
+        ))}
     </select>
 );
 
