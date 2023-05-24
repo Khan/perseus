@@ -15,10 +15,10 @@ const {eq, deepEq} = Util;
 export type Range = [number, number];
 
 export type SineCoefficient = [
-    amplitude: number,
-    angularFrequency: number,
-    phase: number,
-    verticalOffset: number,
+    number, // amplitude
+    number, // angularFrequency
+    number, // phase
+    number, // verticalOffset
 ];
 export type QuadraticCoefficient = [a: number, b: number, c: number];
 
