@@ -34,15 +34,17 @@ const deprecatedProps = {
     },
 } as const;
 
+type Range = [number, number]; // [min, max]
+
 type Props = {
     apiOptions: APIOptionsWithDefaults;
 
     labels: ReadonlyArray<string>;
-    range: [x: [min: number, max: number], y: [min: number, max: number]];
-    step: [x: number, y: number];
-    gridStep: [x: number, y: number];
-    snapStep: [x: number, y: number];
-    box: [x: number, y: number];
+    range: [Range, Range]; // x, y
+    step: [number, number]; // x, y
+    gridStep: [number, number]; // x, y
+    snapStep: [number, number]; // x, y
+    box: [number, number]; // x, y
 
     valid: boolean;
     backgroundImage: PerseusImageBackground;
