@@ -61,7 +61,7 @@ export const ItemRendererWithDebugUI = ({
                     <KEScoreUI score={state} />
                 </>
             }
-            perseusObject={item}
+            jsonObject={item}
         />
     );
 };
