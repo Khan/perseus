@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable camelcase */
 /* eslint-disable react/no-did-update-set-state */
