@@ -7,6 +7,7 @@ import {
     SizingUtils,
     Util,
     PerseusImageBackground,
+    PerseusInteractiveGraphWidgetOptions,
     APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
 import {StyleType, View} from "@khanacademy/wonder-blocks-core";
@@ -357,7 +358,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         this.props.onChange({correct: correct});
     }
 
-    serialize() /* STOPSHIP : PerseusInteractiveGraphWidgetOptions */ {
+    serialize(): PerseusInteractiveGraphWidgetOptions {
         const json = _.pick(
             this.props,
             "step",
