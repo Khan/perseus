@@ -4,6 +4,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Key from "../../data/keys";
+import {ClickKeyCallback} from "../../types";
 import Tabbar from "../tabbar/tabbar";
 import {TabbarItemType} from "../tabbar/types";
 
@@ -15,7 +16,7 @@ import OperatorsPage from "./operators-page";
 import {OperatorsButtonSets} from "./operators-page/types";
 
 export type Props = {
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
     trigonometry?: boolean;
     extraKeys: ReadonlyArray<Key>;
 } & OperatorsButtonSets &

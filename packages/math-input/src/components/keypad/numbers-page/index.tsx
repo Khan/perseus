@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
+import {ClickKeyCallback} from "../../../types";
 import {
     KeypadPageContainer,
     KeypadButton,
@@ -11,7 +12,7 @@ import {
 import {NumbersPageOptions} from "./types";
 
 type Props = {
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
 } & NumbersPageOptions;
 
 export default class NumbersPage extends React.Component<Props> {

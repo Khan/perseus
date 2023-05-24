@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
+import {ClickKeyCallback} from "../../../types";
 import {
     KeypadPageContainer,
     SecondaryKeypadButton,
@@ -14,7 +15,7 @@ import {PreAlgebra} from "./pre-algebra-buttons";
 import {OperatorsButtonSets} from "./types";
 
 type Props = {
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
 } & OperatorsButtonSets;
 
 export default class OperatorsPage extends React.Component<Props> {
