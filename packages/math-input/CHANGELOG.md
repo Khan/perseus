@@ -1,5 +1,12 @@
 # @khanacademy/math-input
 
+## 4.1.0
+
+### Minor Changes
+
+-   a7f56710: add support for extraKeys to the v2 MathInput Keypad
+-   a7f56710: Make tabbar accept styles, create v2 keypad popover example
+
 ## 4.0.0
 
 ### Major Changes

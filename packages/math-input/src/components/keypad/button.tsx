@@ -61,16 +61,21 @@ const styles = StyleSheet.create({
 export type Props = {
     onPress: () => void;
     children: React.ReactNode;
+    ariaLabel: string;
     style?: StyleType;
     tintColor?: string;
 };
 
 export default class Button extends React.Component<Props> {
     render(): React.ReactNode {
-        const {onPress, children, style, tintColor} = this.props;
+        const {onPress, ariaLabel, children, style, tintColor} = this.props;
         return (
             <View style={style}>
-                <Clickable onClick={onPress} style={styles.clickable}>
+                <Clickable
+                    onClick={onPress}
+                    style={styles.clickable}
+                    aria-label={ariaLabel}
+                >
                     {({hovered, focused, pressed}) => {
                         return (
                             <View

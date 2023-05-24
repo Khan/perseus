@@ -50,6 +50,7 @@ export const KeypadButton = ({
         onPress={() => onClickKey(keyConfig.id)}
         tintColor={tintColor}
         style={style}
+        ariaLabel={keyConfig.id}
     >
         <ButtonAsset id={keyConfig.id} />
     </Button>

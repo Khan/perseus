@@ -2,6 +2,7 @@
  * A keypad with two pages of keys.
  */
 
+import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
@@ -14,11 +15,11 @@ import {
     offBlack16,
 } from "../common-style";
 import Tabbar from "../tabbar/tabbar";
+import {TabbarItemType} from "../tabbar/types";
 
 import Keypad from "./keypad";
+import {State as ReduxState} from "./store/types";
 import Styles from "./styles";
-
-import type {State} from "./store/types";
 
 const {column, row, fullWidth} = Styles;
 
@@ -31,8 +32,12 @@ interface Props extends ReduxProps {
     rightPage: React.ReactNode;
 }
 
-class TwoPageKeypad extends React.Component<Props> {
-    state = {
+type State = {
+    selectedPage: TabbarItemType;
+};
+
+class TwoPageKeypad extends React.Component<Props, State> {
+    state: State = {
         selectedPage: "Numbers",
     };
 
@@ -46,9 +51,11 @@ class TwoPageKeypad extends React.Component<Props> {
                 <Keypad style={[column, styles.keypad]}>
                     <Tabbar
                         items={["Numbers", "Operators"]}
-                        onSelect={(selectedItem) => {
+                        selectedItem={selectedPage}
+                        onSelectItem={(selectedItem) => {
                             this.setState({selectedPage: selectedItem});
                         }}
+                        style={styles.tabbar}
                     />
                     <View style={styles.borderTop}>
                         {selectedPage === "Numbers" && rightPage}
@@ -89,9 +96,14 @@ const styles = StyleSheet.create({
             `${innerBorderColor}`,
         boxSizing: "content-box",
     },
+    tabbar: {
+        background: Color.offWhite,
+        borderTop: `1px solid ${Color.offBlack50}`,
+        borderBottom: `1px solid ${Color.offBlack50}`,
+    },
 });
 
-const mapStateToProps = (state: State): ReduxProps => {
+const mapStateToProps = (state: ReduxState): ReduxProps => {
     return {
         paginationEnabled: state.layout.paginationEnabled,
     };
