@@ -1,9 +1,8 @@
 {
-    "exclude": ["dist", "**/*.test.*", "**/*.testdata.*", "**/*.stories.*", "**/*.cypress.*"],
     "extends": "../tsconfig-shared.json",
     "compilerOptions": {
         "outDir": "./dist",
-        "rootDir": "src",
+        "rootDir": "src"
     },
     "references": []
 }
