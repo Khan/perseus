@@ -377,7 +377,19 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 )}
 
                 <Row>
-                    <FieldLabel>Correct answer</FieldLabel>
+                    <FieldLabel>Correct answer:</FieldLabel>
+                    <Typography.BodyMonospace
+                        style={{
+                            fontSize: 12,
+                            backgroundColor: "#eee",
+                            paddingInline: Spacing.xxSmall_6,
+                            borderColor: "#ccc",
+                            borderStyle: "solid",
+                            borderWidth: 1,
+                        }}
+                    >
+                        {equationString}
+                    </Typography.BodyMonospace>
                     <InfoTip>
                         <p>
                             Graph the correct answer in the graph below and
@@ -385,7 +397,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             represent the correct answer.
                         </p>
                     </InfoTip>
-                    : {equationString}
                 </Row>
                 <GraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
