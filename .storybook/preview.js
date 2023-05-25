@@ -4,6 +4,9 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {Dependencies} from "@khanacademy/perseus";
 import {storybookTestDependencies} from "../testing/test-dependencies";
 
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
+
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
 
