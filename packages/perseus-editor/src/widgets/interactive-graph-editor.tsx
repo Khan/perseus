@@ -12,6 +12,7 @@ import {
 } from "@khanacademy/perseus";
 import {StyleType, View} from "@khanacademy/wonder-blocks-core";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
+import * as Typography from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import _ from "underscore";
 
@@ -55,6 +56,14 @@ const Row = (props: {style?: StyleType; children: React.ReactNode}) => {
         >
             {children}
         </View>
+    );
+};
+
+const FieldLabel = (props: {children: string}) => {
+    return (
+        <Typography.LabelSmall style={{marginRight: Spacing.xSmall_8}}>
+            {props.children}
+        </Typography.LabelSmall>
     );
 };
 
@@ -192,9 +201,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         return (
             <View>
                 <Row>
-                    <span style={{marginRight: Spacing.xSmall_8}}>
-                        Type of Graph:
-                    </span>
+                    <FieldLabel>Type of Graph:</FieldLabel>
                     <GraphTypeSelector
                         graphType={
                             this.props.graph?.type ??
@@ -210,13 +217,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         }}
                     />
                 </Row>
-                {this.props.graph?.type === "point" && (
+                {this.props.correct?.type === "point" && (
                     <Row>
-                        <span style={{marginRight: Spacing.xSmall_8}}>
-                            Number of Points:
-                        </span>
+                        <FieldLabel>Number of Points:</FieldLabel>
                         <GraphPointsCountSelector
-                            numPoints={this.props.graph?.numPoints}
+                            numPoints={this.props.correct?.numPoints}
                             onChange={(points) => {
                                 this.props.onChange({
                                     correct: {
@@ -228,16 +233,140 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         />
                     </Row>
                 )}
+                {this.props.correct?.type === "polygon" && (
+                    <View>
+                        <Row>
+                            <FieldLabel>Number of sides:</FieldLabel>
+                            <select
+                                key="polygon-select"
+                                value={this.props.correct?.numSides || 3}
+                                onChange={(e) => {
+                                    // Convert numbers, leave UNLIMITED intact:
+                                    const num =
+                                        +e.target.value || e.target.value;
+                                    const graph = {
+                                        ...this.props.correct,
+                                        numSides: num,
+                                        coords: null,
+                                        snapTo: "grid", // reset the snap for
+                                        // UNLIMITED, which only
+                                        // supports "grid"
+                                    };
+
+                                    this.props.onChange({correct: graph});
+                                }}
+                            >
+                                {_.map(_.range(3, 13), function (n) {
+                                    return (
+                                        <option key={n} value={n}>
+                                            {`${n} sides`}
+                                        </option>
+                                    );
+                                })}
+                                <option value={"unlimited"}>
+                                    unlimited sides
+                                </option>
+                            </select>
+                        </Row>
+                        <Row>
+                            <FieldLabel>Snap to:</FieldLabel>
+                            <select
+                                key="polygon-snap"
+                                value={this.props.correct?.snapTo}
+                                onChange={(e) => {
+                                    const graph = {
+                                        ...this.props.correct,
+                                        snapTo: e.target.value,
+                                        coords: null,
+                                    };
+
+                                    this.props.onChange({correct: graph});
+                                }}
+                            >
+                                <option value="grid">grid</option>
+                                {this.props.correct?.numSides !==
+                                    "unlimited" && (
+                                    <React.Fragment>
+                                        <option value="angles">
+                                            interior angles
+                                        </option>
+                                        <option value="sides">
+                                            side measures
+                                        </option>
+                                    </React.Fragment>
+                                )}
+                            </select>
+                            <InfoTip>
+                                <p>
+                                    These options affect the movement of the
+                                    vertex points. The grid option will guide
+                                    the points to the nearest half step along
+                                    the grid.
+                                </p>
+                                <p>
+                                    The interior angle and side measure options
+                                    guide the points to the nearest whole angle
+                                    or side
+                                </p>{" "}
+                                measure respectively.
+                            </InfoTip>
+                        </Row>
+                        <Row>
+                            <Typography.LabelSmall tag="label">
+                                Show angle measures:{" "}
+                                <input
+                                    type="checkbox"
+                                    checked={this.props.correct?.showAngles}
+                                    onChange={() => {
+                                        this.props.onChange({
+                                            correct: {
+                                                ...this.props.correct,
+                                                showAngles:
+                                                    !this.props.correct
+                                                        .showAngles,
+                                            },
+                                        });
+                                    }}
+                                />
+                            </Typography.LabelSmall>
+                            <InfoTip>
+                                <p>Displays the interior angle measures.</p>
+                            </InfoTip>
+                        </Row>
+                        <Row>
+                            <Typography.LabelSmall tag="label">
+                                Show side measures:{" "}
+                                <input
+                                    type="checkbox"
+                                    checked={this.props.correct?.showSides}
+                                    onChange={() => {
+                                        this.props.onChange({
+                                            correct: {
+                                                ...this.props.correct,
+                                                showSides:
+                                                    !this.props.correct
+                                                        .showSides,
+                                            },
+                                        });
+                                    }}
+                                />
+                            </Typography.LabelSmall>
+                            <InfoTip>
+                                <p>Displays the side lengths.</p>
+                            </InfoTip>
+                        </Row>
+                    </View>
+                )}
 
                 <Row>
-                    Correct answer{" "}
+                    <FieldLabel>Correct answer</FieldLabel>
                     <InfoTip>
                         <p>
                             Graph the correct answer in the graph below and
                             ensure the equation or point coordinates displayed
                             represent the correct answer.
                         </p>
-                    </InfoTip>{" "}
+                    </InfoTip>
                     : {equationString}
                 </Row>
 
