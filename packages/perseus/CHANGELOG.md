@@ -1,5 +1,30 @@
 # @khanacademy/perseus
 
+## 6.2.1
+
+### Patch Changes
+
+-   Updated dependencies [a7f56710]
+-   Updated dependencies [a7f56710]
+    -   @khanacademy/math-input@4.1.0
+
+## 6.2.0
+
+### Minor Changes
+
+-   e900688e: Centralize Key2MathQuill translator. TeXButtons send keypresses, not strings/functions anymore.
+
+### Patch Changes
+
+-   83d93e8f: Remove the use of Record<string, never> which is unsafe
+-   3a3c317d: Refactor MathWrapper to use shared key2MathQuill translator
+-   Updated dependencies [0d352105]
+-   Updated dependencies [c4b8d862]
+-   Updated dependencies [47055ffc]
+-   Updated dependencies [e900688e]
+-   Updated dependencies [3a3c317d]
+    -   @khanacademy/math-input@4.0.0
+
 ## 6.1.0
 
 ### Minor Changes

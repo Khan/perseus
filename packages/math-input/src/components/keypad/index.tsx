@@ -1,27 +1,41 @@
+import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import Key from "../../data/keys";
+import {ClickKeyCallback} from "../../types";
 import Tabbar from "../tabbar/tabbar";
+import {TabbarItemType} from "../tabbar/types";
 
+import ExtrasPage from "./extras-page";
 import GeometryPage from "./geometry-page";
 import NumbersPage from "./numbers-page";
 import {NumbersPageOptions} from "./numbers-page/types";
 import OperatorsPage from "./operators-page";
 import {OperatorsButtonSets} from "./operators-page/types";
 
-import type {TabbarItemType} from "../tabbar/types";
-
 export type Props = {
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
     trigonometry?: boolean;
+    extraKeys: ReadonlyArray<Key>;
 } & OperatorsButtonSets &
     NumbersPageOptions;
+
 type State = {
     selectedPage: TabbarItemType;
 };
 
-const allPages = function (props: Props): React.ReactElement {
+type DefaultProps = {
+    extraKeys: Props["extraKeys"];
+};
+
+function allPages(props: Props): ReadonlyArray<TabbarItemType> {
     const pages: Array<TabbarItemType> = ["Numbers"];
+
+    if (props.extraKeys?.length) {
+        pages.push("Extras");
+    }
 
     if (
         // OperatorsButtonSets
@@ -32,17 +46,23 @@ const allPages = function (props: Props): React.ReactElement {
     ) {
         pages.push("Operators");
     }
+
     if (props.trigonometry) {
         pages.push("Geometry");
     }
-    // @ts-expect-error [FEI-5003] - TS2739 - Type 'TabbarItemType[]' is missing the following properties from type 'ReactElement<any, string | JSXElementConstructor<any>>': type, props, key
+
     return pages;
-};
+}
 
 export default class Keypad extends React.Component<Props, State> {
     state: State = {
         selectedPage: "Numbers",
     };
+
+    static defaultProps: DefaultProps = {
+        extraKeys: [],
+    };
+
     render(): React.ReactNode {
         const {selectedPage} = this.state;
 
@@ -51,13 +71,15 @@ export default class Keypad extends React.Component<Props, State> {
         return (
             <View>
                 <Tabbar
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                     items={availablePages}
-                    onSelect={(tabbarItem: TabbarItemType) => {
+                    selectedItem={selectedPage}
+                    onSelectItem={(tabbarItem: TabbarItemType) => {
                         this.setState({selectedPage: tabbarItem});
                     }}
+                    style={styles.tabbar}
                 />
                 {selectedPage === "Numbers" && <NumbersPage {...this.props} />}
+                {selectedPage === "Extras" && <ExtrasPage {...this.props} />}
                 {selectedPage === "Operators" && (
                     <OperatorsPage {...this.props} />
                 )}
@@ -68,3 +90,9 @@ export default class Keypad extends React.Component<Props, State> {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    tabbar: {
+        background: Color.white,
+    },
+});

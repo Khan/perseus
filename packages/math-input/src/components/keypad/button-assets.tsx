@@ -677,6 +677,39 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     <path d="M232,172a36,36,0,0,1-72,0V72H96V200a8,8,0,0,1-16,0V72H72a40,40,0,0,0-40,40,8,8,0,0,1-16,0A56.06,56.06,0,0,1,72,56H224a8,8,0,0,1,0,16H176V172a20,20,0,0,0,40,0,8,8,0,0,1,16,0Z" />
                 </svg>
             );
+        case "a":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 384 512"
+                >
+                    <path d="M221.5 51.7C216.6 39.8 204.9 32 192 32s-24.6 7.8-29.5 19.7l-120 288-40 96c-6.8 16.3 .9 35 17.2 41.8s35-.9 41.8-17.2L93.3 384H290.7l31.8 76.3c6.8 16.3 25.5 24 41.8 17.2s24-25.5 17.2-41.8l-40-96-120-288zM264 320H120l72-172.8L264 320z" />
+                </svg>
+            );
+        case "b":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 320 512"
+                >
+                    <path d="M64 32C28.7 32 0 60.7 0 96V256 416c0 35.3 28.7 64 64 64H192c70.7 0 128-57.3 128-128c0-46.5-24.8-87.3-62-109.7c18.7-22.3 30-51 30-82.3c0-70.7-57.3-128-128-128H64zm96 192H64V96h96c35.3 0 64 28.7 64 64s-28.7 64-64 64zM64 288h96 32c35.3 0 64 28.7 64 64s-28.7 64-64 64H64V288z" />
+                </svg>
+            );
+        case "c":
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 384 512"
+                >
+                    <path d="M329.1 142.9c-62.5-62.5-155.8-62.5-218.3 0s-62.5 163.8 0 226.3s155.8 62.5 218.3 0c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3c-87.5 87.5-221.3 87.5-308.8 0s-87.5-229.3 0-316.8s221.3-87.5 308.8 0c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0z" />
+                </svg>
+            );
         case "x":
             // MATHEMATICAL ITALIC SMALL CHI
             // https://en.wikipedia.org/wiki/Chi_(letter)#Mathematical_chi
@@ -739,9 +772,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "JUMP_INTO_NUMERATOR":
         case "JUMP_OUT_NUMERATOR":
         case "JUMP_OUT_DENOMINATOR":
-        case "a":
-        case "b":
-        case "c":
+        case "PHI":
+        case "NTHROOT3":
+        case "POW":
+        case "LOG_B":
         case "d":
         case "e":
         case "f":

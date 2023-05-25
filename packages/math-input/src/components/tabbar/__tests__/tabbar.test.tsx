@@ -1,65 +1,65 @@
-import {mount} from "enzyme";
+import {render, screen} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import * as React from "react";
+import "@testing-library/jest-dom";
 
 import Tabbar from "../tabbar";
 
 describe("<Tabbar />", () => {
-    it("defaults to selecting the first item", () => {
+    it("renders one tab", () => {
         // Arrange
-        const wrapper = mount(
+        render(
             <Tabbar
-                items={["Numbers", "Geometry", "Operators"]}
-                onSelect={() => {}}
+                items={["Numbers"]}
+                selectedItem={"Numbers"}
+                onSelectItem={() => {}}
             />,
         );
 
         // Assert
-        expect(wrapper).toHaveState("selectedItem", 0);
-        const firstItem = wrapper.find("TabbarItem").first();
-        expect(firstItem).toHaveProp("itemState", "active");
+        expect(
+            screen.getByRole("button", {name: "Numbers"}),
+        ).toBeInTheDocument();
     });
 
-    it("selects the second item", () => {
+    it("renders many tabs", () => {
         // Arrange
-        const wrapper = mount(
+        render(
             <Tabbar
-                items={["Numbers", "Geometry", "Operators"]}
-                onSelect={() => {}}
+                items={["Numbers", "Extras", "Geometry", "Operators"]}
+                selectedItem={"Numbers"}
+                onSelectItem={() => {}}
             />,
         );
 
-        // Act
-        let secondItem = wrapper.find("TabbarItem").at(1);
-        secondItem.simulate("click");
-
         // Assert
-        expect(wrapper).toHaveState("selectedItem", 1);
-        const firstItem = wrapper.find("TabbarItem").at(0);
-        expect(firstItem).toHaveProp("itemState", "inactive");
-        // NOTE: we have to re-get the second item to get it's updated state
-        secondItem = wrapper.find("TabbarItem").at(1);
-        expect(secondItem).toHaveProp("itemState", "active");
+        expect(
+            screen.getByRole("button", {name: "Numbers"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Extras"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Geometry"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Operators"}),
+        ).toBeInTheDocument();
     });
 
-    it("tapping an already selected item doesn't change selection", () => {
+    it("handles callback", () => {
         // Arrange
-        const wrapper = mount(
+        const mockSelectCallback = jest.fn();
+        render(
             <Tabbar
-                items={["Numbers", "Geometry", "Operators"]}
-                onSelect={() => {}}
+                items={["Numbers", "Geometry"]}
+                selectedItem={"Numbers"}
+                onSelectItem={mockSelectCallback}
             />,
         );
 
         // Assert
-        expect(wrapper).toHaveState("selectedItem", 0);
-        const firstItem = wrapper.find("TabbarItem").first();
-        expect(firstItem).toHaveProp("itemState", "active");
-
-        // Act
-        firstItem.simulate("click");
-
-        // Assert
-        expect(wrapper).toHaveState("selectedItem", 0);
-        expect(firstItem).toHaveProp("itemState", "active");
+        userEvent.click(screen.getByRole("button", {name: "Geometry"}));
+        expect(mockSelectCallback).toHaveBeenCalledWith("Geometry");
     });
 });

@@ -1,3 +1,4 @@
+import {keyTranslator} from "@khanacademy/math-input";
 import classNames from "classnames";
 import $ from "jquery";
 import MathQuill from "mathquill";
@@ -31,6 +32,20 @@ type DefaultProps = {
 
 type State = {
     focused: boolean;
+};
+
+const customKeyTranslator = {
+    ...keyTranslator,
+    // If there's something in the input that can become part of a
+    // fraction, typing "/" puts it in the numerator. If not, typing
+    // "/" does nothing. In that case, enter a \frac.
+    FRAC: (mathQuill) => {
+        const contents = mathQuill.latex();
+        mathQuill.typedText("/");
+        if (mathQuill.latex() === contents) {
+            mathQuill.cmd("\\frac");
+        }
+    },
 };
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
@@ -208,9 +223,20 @@ class MathInput extends React.Component<Props, State> {
         return this.state.focused;
     };
 
-    insert: (arg1: any) => void = (value) => {
+    insert: (value: any) => void = (value) => {
         // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const input = this.mathField();
+        const inputModifier = customKeyTranslator[value];
+        if (inputModifier) {
+            inputModifier(input, value);
+            input.focus();
+            return;
+        }
+
+        // note(Matthew): I'm not sure this is still being used
+        // but it fails tests when I remove it and the way we call
+        // methods directly on components makes it difficult to confirm
+        // if it's dead code
         if (_(value).isFunction()) {
             value(input);
         } else if (value[0] === "\\") {

@@ -766,6 +766,26 @@ const KeyConfigs: {
             key: "z",
         }),
     },
+    PHI: {
+        ...getDefaultValueFields({
+            key: "PHI",
+        }),
+    },
+    NTHROOT3: {
+        ...getDefaultValueFields({
+            key: "NTHROOT3",
+        }),
+    },
+    POW: {
+        ...getDefaultValueFields({
+            key: "POW",
+        }),
+    },
+    LOG_B: {
+        ...getDefaultValueFields({
+            key: "LOG_B",
+        }),
+    },
 };
 
 export default KeyConfigs;

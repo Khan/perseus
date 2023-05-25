@@ -1,5 +1,47 @@
 # @khanacademy/math-input
 
+## 4.1.0
+
+### Minor Changes
+
+-   a7f56710: add support for extraKeys to the v2 MathInput Keypad
+-   a7f56710: Make tabbar accept styles, create v2 keypad popover example
+
+## 4.0.0
+
+### Major Changes
+
+-   c4b8d862: Type safety changes that touch our external exports. These are breaking changes to any consumers of the Key data and types.
+
+### Minor Changes
+
+-   0d352105: Added remaining missing keys for current pages
+-   e900688e: Centralize Key2MathQuill translator. TeXButtons send keypresses, not strings/functions anymore.
+
+### Patch Changes
+
+-   47055ffc: Switch several icons to Phosphor equivalents:
+
+    -   All numbers 0-9
+    -   Minus
+    -   Plus
+    -   Times
+    -   Backspace
+    -   Decimal (though this one is supposed to be a , per the code elsewhere)
+    -   Period (same as decimal right now)
+    -   Divide
+    -   Equal
+    -   Percent
+    -   Centered Dot (same icon as Period/Decimal, without y-axis transform)
+    -   Pi
+    -   X with mathematical chi
+    -   x with small mathematical chi
+    -   Square root with "radical"
+    -   Dismiss with caret
+    -   Operators tab icon with "radical"
+
+-   3a3c317d: Refactor MathWrapper to use shared key2MathQuill translator
+
 ## 3.0.0
 
 ### Major Changes

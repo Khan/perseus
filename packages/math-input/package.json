@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "3.0.0",
+    "version": "4.1.0",
     "publishConfig": {
         "access": "public"
     },
@@ -26,6 +26,7 @@
         "@khanacademy/wonder-blocks-color": "^2.0.1",
         "@khanacademy/wonder-blocks-core": "^5.0.4",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
+        "@khanacademy/wonder-blocks-popover": "^2.0.11",
         "@khanacademy/wonder-stuff-core": "^1.2.2",
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",
