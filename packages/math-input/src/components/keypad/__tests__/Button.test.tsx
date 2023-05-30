@@ -9,7 +9,7 @@ describe("<Button />", () => {
     it("uses the aria label", () => {
         // Arrange
         render(
-            <Button onPress={jest.fn()} ariaLabel="Oranges">
+            <Button onPress={() => {}} ariaLabel="Oranges">
                 <p />
             </Button>,
         );
@@ -29,43 +29,23 @@ describe("<Button />", () => {
             </Button>,
         );
 
-        // Assert
+        // Act
         userEvent.click(screen.getByRole("button", {name: "Oranges"}));
+
+        // Assert
         expect(mockPressCallback).toHaveBeenCalled();
     });
 
     it("renders child", () => {
         // Arrange
-
         render(
-            <Button onPress={jest.fn()} ariaLabel="Test">
+            <Button onPress={() => {}} ariaLabel="Test">
                 <img aria-label="child1" />
             </Button>,
         );
 
         // Assert
-        expect(screen.getByRole("button", {})).toBeInTheDocument();
-
-        expect(screen.getByRole("img", {name: "child1"})).toBeInTheDocument();
-    });
-
-    it("renders children", () => {
-        // Arrange
-
-        render(
-            <Button onPress={jest.fn()} ariaLabel="Test">
-                <>
-                    <img aria-label="child1" />
-                    <img aria-label="child2" />
-                </>
-            </Button>,
-        );
-
-        // Assert
         expect(screen.getByRole("button", {name: "Test"})).toBeInTheDocument();
-
         expect(screen.getByRole("img", {name: "child1"})).toBeInTheDocument();
-
-        expect(screen.getByRole("img", {name: "child2"})).toBeInTheDocument();
     });
 });

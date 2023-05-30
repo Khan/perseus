@@ -7,11 +7,11 @@ import Keys from "../../../data/key-configs";
 import {KeypadButton} from "../keypad-page-items";
 
 describe("<KeypadButton />", () => {
-    it("uses the aria label", () => {
+    it("uses the aria label from the key config", () => {
         // Arrange
         render(
             <KeypadButton
-                onClickKey={(config) => jest.fn()}
+                onClickKey={(config) => {}}
                 keyConfig={Keys.LEFT_PAREN}
             />,
         );
@@ -32,8 +32,10 @@ describe("<KeypadButton />", () => {
             />,
         );
 
-        // Assert
+        // Act
         userEvent.click(screen.getByRole("button", {name: "LEFT_PAREN"}));
+
+        // Assert
         expect(mockClickKeyCallback).toHaveBeenCalled();
     });
 });
