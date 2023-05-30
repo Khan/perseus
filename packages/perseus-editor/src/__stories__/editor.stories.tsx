@@ -7,6 +7,9 @@ import * as React from "react";
 import SideBySide from "../../../../testing/side-by-side";
 import {question1} from "../__testdata__/input-number.testdata";
 import Editor from "../editor";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+
+registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
     title: "Perseus/Editor",
