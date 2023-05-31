@@ -25,7 +25,8 @@ describe("Keypad v2", () => {
             () => {
                 renderSingleKeypad((key) => {});
 
-                // currently clicking on the bottom left due to button re-rendering after mousedown but before mouseup (only in Cypress)
+                /* currently clicking on the bottom left due to button re-rendering
+                after mousedown but before mouseup (only in Cypress) */
                 cy.get('[aria-label="' + tab["name"] + '"]').click(
                     "bottomLeft",
                 );
@@ -45,10 +46,7 @@ describe("Keypad v2", () => {
                 " key",
             () => {
                 const onClickKeySpy = cy.spy().as("onClickKeySpy");
-                const handleClickKey = (key) => {
-                    onClickKeySpy(key);
-                };
-                renderSingleKeypad(handleClickKey);
+                renderSingleKeypad(onClickKeySpy);
                 cy.get('[aria-label="' + tab["name"] + '"]').click();
                 cy.get('[aria-label="' + tab["specialButton"] + '"]').click();
                 cy.get("@onClickKeySpy").should(
