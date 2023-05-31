@@ -237,11 +237,14 @@ describe("static function validate", () => {
             coefficient: false,
         };
 
-        const useInput = {
+        const userInput = {
+            // (pi / 12) * 173 = 45.291
+            // within the 0.01 margin of error
+            // to trigger the pi validation flow
             currentValue: "45.282",
         } as const;
 
-        const score = NumericInput.validate(useInput, rubric);
+        const score = NumericInput.validate(userInput, rubric);
 
         expect(score.message).not.toBe(errors.APPROXIMATED_PI_ERROR);
         expect(score.message?.includes("pi")).toBeFalsy();
