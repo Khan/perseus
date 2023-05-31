@@ -20,6 +20,7 @@ import GraphPointsCountSelector from "../components/graph-points-count-selector"
 import GraphSettings from "../components/graph-settings";
 import GraphTypeSelector from "../components/graph-type-selector";
 import SegmentCountSelector from "../components/segment-count-selector";
+import {parsePointCount} from "../util/points";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
@@ -242,16 +243,16 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 key="polygon-select"
                                 value={this.props.correct?.numSides || 3}
                                 onChange={(e) => {
-                                    // Convert numbers, leave UNLIMITED intact:
-                                    const num =
-                                        +e.target.value || e.target.value;
                                     const graph = {
                                         ...this.props.correct,
-                                        numSides: num,
+                                        numSides: parsePointCount(
+                                            e.target.value,
+                                        ),
                                         coords: null,
-                                        snapTo: "grid", // reset the snap for
-                                        // UNLIMITED, which only
-                                        // supports "grid"
+                                        // reset the snap for UNLIMITED, which
+                                        // only supports "grid"
+                                        // From: D6578
+                                        snapTo: "grid",
                                     };
 
                                     this.props.onChange({correct: graph});

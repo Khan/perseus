@@ -1,7 +1,6 @@
 import * as React from "react";
 
-const UNLIMITED = "unlimited" as const;
-type PointValue = number | typeof UNLIMITED;
+import {PointValue, UNLIMITED, parsePointCount} from "../util/points";
 
 const GraphPointsCountSelector = ({
     numPoints = 1,
@@ -15,9 +14,7 @@ const GraphPointsCountSelector = ({
             key="point-select"
             value={numPoints}
             onChange={(e) => {
-                // Convert numbers, leave UNLIMITED intact:
-                const num = +e.target.value || UNLIMITED;
-                onChange(num);
+                onChange(parsePointCount(e.target.value));
             }}
         >
             {[...Array(7).keys()].map((n) => (
