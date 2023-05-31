@@ -84,3 +84,5 @@ export type ActiveNodesObj = {
 };
 
 export type LayoutProps = {initialBounds: Bound};
+
+export type ClickKeyCallback = (key: Key) => void;

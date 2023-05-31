@@ -273,6 +273,11 @@ module.exports = {
         /**
          * react
          */
+        // This rule results in false-positives when using some types of React
+        // components (such as functional components or hooks). Since
+        // TypeScript is already checking that components are only using props
+        // defined in the component's `Props` type.
+        "react/prop-types": "off",
         "react/sort-comp": [
             "error",
             {
