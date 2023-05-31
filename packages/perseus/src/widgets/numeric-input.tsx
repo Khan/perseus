@@ -150,7 +150,12 @@ export class NumericInput extends React.Component<Props, State> {
     }
 
     static validate(useInput: UserInput, rubric: Rubric): PerseusScore {
-        const allAnswerForms = answerFormButtons.map((e) => e["value"]);
+        const allAnswerForms = answerFormButtons
+            .map((e) => e["value"])
+            // Don't default to validating the answer as a pi answer
+            // if answerForm isn't set on the answer
+            // https://khanacademy.atlassian.net/browse/LC-691
+            .filter((e) => e !== "pi");
 
         const createValidator = (answer: PerseusNumericInputAnswer) => {
             const stringAnswer = `${answer.value}`;

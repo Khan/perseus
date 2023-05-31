@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {errors} from "../../util/answer-types";
 import {
     question1AndAnswer,
     multipleAnswers,
@@ -210,6 +211,43 @@ describe("static function validate", () => {
               "type": "invalid",
             }
         `);
+    });
+
+    // Don't default to validating the answer as a pi answer
+    // if answerForm isn't set on the answer.
+    // The answer value, userInput.currentValue, and
+    // the omission of answerForms in the answer are
+    // important to the test.
+    // https://khanacademy.atlassian.net/browse/LC-691
+    it("doesn't default to validating pi", () => {
+        const rubric: Rubric = {
+            answers: [
+                {
+                    maxError: null,
+                    message: "",
+                    simplify: "required",
+                    status: "correct",
+                    strict: true,
+                    value: 45.289,
+                },
+            ],
+            labelText: "",
+            size: "normal",
+            static: false,
+            coefficient: false,
+        };
+
+        const userInput = {
+            // (pi / 12) * 173 = 45.291
+            // within the 0.01 margin of error
+            // to trigger the pi validation flow
+            currentValue: "45.282",
+        } as const;
+
+        const score = NumericInput.validate(userInput, rubric);
+
+        expect(score.message).not.toBe(errors.APPROXIMATED_PI_ERROR);
+        expect(score.message?.includes("pi")).toBeFalsy();
     });
 
     it("with a strict answer", () => {
