@@ -12,7 +12,6 @@ const GraphPointsCountSelector = ({
 }) => {
     return (
         <select
-            key="point-select"
             value={numPoints}
             onChange={(e) => {
                 // Convert numbers, leave UNLIMITED intact:
