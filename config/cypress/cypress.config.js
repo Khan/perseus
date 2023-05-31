@@ -32,7 +32,7 @@ module.exports = defineConfig({
     video: false,
 
     component: {
-        specPattern: "packages/perseus/src/**/*.cypress.{js,ts,jsx,tsx}",
+        specPattern: ["packages/**/*.cypress.{js,ts,jsx,tsx}"],
         indexHtmlFile: "config/cypress/component-index.html",
         supportFile: "config/cypress/support.js",
         devServer: {
