@@ -1,8 +1,6 @@
 import renderSingleKeypad from "../../../../../../testing/render-keypad-with-cypress";
 
-type StringDictionary = {[key: string]: string};
-type TabArray = StringDictionary[];
-const tabs: TabArray = [
+const tabs = [
     {name: "Operators", specialButton: "EXP_2"},
     {name: "Extras", specialButton: "PI"},
 
@@ -11,49 +9,25 @@ const tabs: TabArray = [
 ];
 
 describe("Keypad v2", () => {
-    it("renders", () => {
-        renderSingleKeypad((key) => {});
-    });
-
     tabs.forEach((tab) => {
-        it(
-            "switches to the " +
-                tab["name"] +
-                " tab when we press on the " +
-                tab["name"] +
-                " button",
-            () => {
-                renderSingleKeypad((key) => {});
+        it(`switches to the correct tab: ${tab.name}`, () => {
+            renderSingleKeypad((key) => {});
 
-                /* currently clicking on the bottom left due to button re-rendering
-                after mousedown but before mouseup (only in Cypress) */
-                cy.get('[aria-label="' + tab["name"] + '"]').click(
-                    "bottomLeft",
-                );
-                cy.get('[aria-label="' + tab["specialButton"] + '"]').should(
-                    "exist",
-                );
-            },
-        );
+            // currently clicking on the bottom left due to button re-rendering
+            // after mousedown but before mouseup (only in Cypress)
+            cy.get('[aria-label="' + tab.name + '"]').click("bottomLeft");
+            cy.get('[aria-label="' + tab.specialButton + '"]').should("exist");
+        });
 
-        it(
-            "while in the " +
-                tab["name"] +
-                " tab it can type the " +
-                tab["specialButton"] +
-                " character when we press on the " +
-                tab["specialButton"] +
-                " key",
-            () => {
-                const onClickKeySpy = cy.spy().as("onClickKeySpy");
-                renderSingleKeypad(onClickKeySpy);
-                cy.get('[aria-label="' + tab["name"] + '"]').click();
-                cy.get('[aria-label="' + tab["specialButton"] + '"]').click();
-                cy.get("@onClickKeySpy").should(
-                    "have.been.calledOnceWithExactly",
-                    tab["specialButton"],
-                );
-            },
-        );
+        it(`calls ${tab.specialButton} key callback in  ${tab.name} tab`, () => {
+            const onClickKeySpy = cy.spy().as("onClickKeySpy");
+            renderSingleKeypad(onClickKeySpy);
+            cy.get('[aria-label="' + tab.name + '"]').click();
+            cy.get('[aria-label="' + tab.specialButton + '"]').click();
+            cy.get("@onClickKeySpy").should(
+                "have.been.calledOnceWithExactly",
+                tab.specialButton,
+            );
+        });
     });
 });
