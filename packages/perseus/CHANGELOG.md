@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 6.2.2
+
+### Patch Changes
+
+-   5fba7c60: Remove pi as a default answerForm for numeric-input
+-   Updated dependencies [31ed8380]
+-   Updated dependencies [937d2308]
+    -   @khanacademy/math-input@4.1.1
+
 ## 6.2.1
 
 ### Patch Changes
