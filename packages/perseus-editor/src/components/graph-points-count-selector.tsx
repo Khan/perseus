@@ -11,7 +11,6 @@ const GraphPointsCountSelector = ({
 }) => {
     return (
         <select
-            key="point-select"
             value={numPoints}
             onChange={(e) => {
                 onChange(parsePointCount(e.target.value));
