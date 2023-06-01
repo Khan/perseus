@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 2.3.0
+
+### Minor Changes
+
+-   5d88d8c5: Restore point count selector in `interactive-graph` widget editor
+-   2e5683d3: Re-enable editing of 'polygon' graph type in interactive-graph-editor
+-   5675178b: Re-enable editing of 'line segment' graph type in interactive-graph-editor
+-   d2cf7b67: Re-introduce graph type selector for interactive graph editor
+
+### Patch Changes
+
+-   d28cbf34: Enhance formatting of the 'Correct answer' field on interactive-graph widget editor (to be more legible)
+-   Updated dependencies [5fba7c60]
+    -   @khanacademy/perseus@6.2.2
+
 ## 2.2.2
 
 ### Patch Changes

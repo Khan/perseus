@@ -1,5 +1,12 @@
 # @khanacademy/math-input
 
+## 4.1.1
+
+### Patch Changes
+
+-   31ed8380: Add math-input v2 keypad tests
+-   937d2308: Added basic Cypress testing for the v2 math-input keypad
+
 ## 4.1.0
 
 ### Minor Changes
