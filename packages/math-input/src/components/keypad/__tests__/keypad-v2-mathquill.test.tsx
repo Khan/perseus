@@ -156,4 +156,25 @@ describe("Keypad v2 with MathQuill", () => {
             "c=\\sqrt{a^2+b^2}",
         );
     });
+
+    it("can write the Pythagorean theorem (simple) with typing", () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
+        );
+
+        // Act
+        userEvent.type(screen.getByRole("textbox", {}), "a^2+");
+        userEvent.dblClick(screen.getByTestId("mathquill-input"));
+
+        // b^2
+        userEvent.click(screen.getByRole("button", {name: "Extras"}));
+        userEvent.click(screen.getByRole("button", {name: "b"}));
+        userEvent.click(screen.getByRole("button", {name: "Operators"}));
+        userEvent.click(screen.getByRole("button", {name: "EXP_2"}));
+
+        // Assert
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2");
+    });
 });
