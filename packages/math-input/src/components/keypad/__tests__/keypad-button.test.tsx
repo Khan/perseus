@@ -18,7 +18,7 @@ describe("<KeypadButton />", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "LEFT_PAREN"}),
+            screen.getByRole("button", {name: "Left parenthesis"}),
         ).toBeInTheDocument();
     });
 
@@ -33,7 +33,7 @@ describe("<KeypadButton />", () => {
         );
 
         // Act
-        userEvent.click(screen.getByRole("button", {name: "LEFT_PAREN"}));
+        userEvent.click(screen.getByRole("button", {name: "Left parenthesis"}));
 
         // Assert
         expect(mockClickKeyCallback).toHaveBeenCalled();

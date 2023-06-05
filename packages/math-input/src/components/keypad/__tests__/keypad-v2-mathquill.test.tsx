@@ -25,7 +25,7 @@ function V2KeypadWithMathquill(props: Props) {
             const mathQuillInstance = MQ.MathField(
                 mathquillWrapperRef.current,
                 {
-                    autoCommands: "pi theta phi sqrt nthroot",
+                    autoCommands: "pi theta phi Square root nthroot",
                     charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
                     supSubsRequireOperand: true,
                     spaceBehavesLikeTab: true,
@@ -102,20 +102,27 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
         userEvent.click(screen.getByRole("button", {name: "a"}));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "EXP_2"}));
+        userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // +
         userEvent.click(screen.getByRole("button", {name: "Numbers"}));
-        userEvent.click(screen.getByRole("button", {name: "PLUS"}));
+        userEvent.click(screen.getByRole("button", {name: "Plus"}));
 
-        // b^2
+        // b^2 =
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
         userEvent.click(screen.getByRole("button", {name: "b"}));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "EXP_2"}));
+        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        userEvent.click(screen.getByRole("button", {name: "Equals sign"}));
+
+        // c^2
+        userEvent.click(screen.getByRole("button", {name: "Extras"}));
+        userEvent.click(screen.getByRole("button", {name: "c"}));
+        userEvent.click(screen.getByRole("button", {name: "Operators"}));
+        userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2");
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2=c^2");
     });
 
     it("can write the Pythagorean theorem (complex)", () => {
@@ -128,28 +135,28 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
         userEvent.click(screen.getByTestId("mathquill-input"));
 
-        // c = /sqrt
+        // c = /Square root
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
         userEvent.click(screen.getByRole("button", {name: "c"}));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "EQUAL"}));
-        userEvent.click(screen.getByRole("button", {name: "SQRT"}));
+        userEvent.click(screen.getByRole("button", {name: "Equals sign"}));
+        userEvent.click(screen.getByRole("button", {name: "Square root"}));
 
         // a^2
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
         userEvent.click(screen.getByRole("button", {name: "a"}));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "EXP_2"}));
+        userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // +
         userEvent.click(screen.getByRole("button", {name: "Numbers"}));
-        userEvent.click(screen.getByRole("button", {name: "PLUS"}));
+        userEvent.click(screen.getByRole("button", {name: "Plus"}));
 
         // b^2
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
         userEvent.click(screen.getByRole("button", {name: "b"}));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "EXP_2"}));
+        userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
@@ -168,7 +175,7 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.type(screen.getByRole("textbox", {}), "a", {});
         userEvent.dblClick(screen.getByTestId("mathquill-input"));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "EXP_2"}));
+        userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         userEvent.type(screen.getByRole("textbox", {}), "+"), {skipClick: true};
 
@@ -177,9 +184,10 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
         userEvent.click(screen.getByRole("button", {name: "b"}));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "EXP_2"}));
+        userEvent.click(screen.getByRole("button", {name: "Square"}));
+        userEvent.type(screen.getByRole("textbox", {}), "=c^2");
 
         // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2");
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2=c^2");
     });
 });
