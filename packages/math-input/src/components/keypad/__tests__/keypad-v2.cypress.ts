@@ -1,4 +1,5 @@
 import renderSingleKeypad from "../../../../../../testing/render-keypad-with-cypress";
+import KeyConfigs from "../../../data/key-configs";
 
 const tabs = [
     {name: "Operators", specialButton: "EXP_2"},
@@ -16,14 +17,22 @@ describe("Keypad v2", () => {
             // currently clicking on the bottom left due to button re-rendering
             // after mousedown but before mouseup (only in Cypress)
             cy.get('[aria-label="' + tab.name + '"]').click("bottomLeft");
-            cy.get('[aria-label="' + tab.specialButton + '"]').should("exist");
+            cy.get(
+                '[aria-label="' +
+                    KeyConfigs[tab.specialButton].ariaLabel +
+                    '"]',
+            ).should("exist");
         });
 
         it(`calls ${tab.specialButton} key callback in  ${tab.name} tab`, () => {
             const onClickKeySpy = cy.spy().as("onClickKeySpy");
             renderSingleKeypad(onClickKeySpy);
             cy.get('[aria-label="' + tab.name + '"]').click();
-            cy.get('[aria-label="' + tab.specialButton + '"]').click();
+            cy.get(
+                '[aria-label="' +
+                    KeyConfigs[tab.specialButton].ariaLabel +
+                    '"]',
+            ).click();
             cy.get("@onClickKeySpy").should(
                 "have.been.calledOnceWithExactly",
                 tab.specialButton,
