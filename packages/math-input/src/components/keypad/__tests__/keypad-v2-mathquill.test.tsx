@@ -72,6 +72,7 @@ function V2KeypadWithMathquill(props: Props) {
                     </div>
                 }
                 dismissEnabled
+                opened
             >
                 <div
                     style={{
@@ -173,14 +174,12 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Act
         userEvent.type(screen.getByRole("textbox", {}), "a", {});
-        userEvent.dblClick(screen.getByTestId("mathquill-input"));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
         userEvent.click(screen.getByRole("button", {name: "Square"}));
 
-        userEvent.type(screen.getByRole("textbox", {}), "+"), {skipClick: true};
+        userEvent.type(screen.getByRole("textbox", {}), "+");
 
         // b^2
-        userEvent.click(screen.getByTestId("mathquill-input"));
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
         userEvent.click(screen.getByRole("button", {name: "b"}));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
