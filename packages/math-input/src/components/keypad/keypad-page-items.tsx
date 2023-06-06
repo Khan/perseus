@@ -1,7 +1,6 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import KeyConfigs from "../../data/key-configs";
 import {KeyConfig, ClickKeyCallback} from "../../types";
 
 import Button from "./button";
@@ -51,7 +50,7 @@ export const KeypadButton = ({
         onPress={() => onClickKey(keyConfig.id)}
         tintColor={tintColor}
         style={style}
-        ariaLabel={KeyConfigs[keyConfig.id].ariaLabel}
+        ariaLabel={keyConfig.ariaLabel}
     >
         <ButtonAsset id={keyConfig.id} />
     </Button>

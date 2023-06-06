@@ -12,44 +12,38 @@ import keyTranslator from "../../key-translator";
 import Keypad from "../index";
 
 type Props = {
-    onChangeMathInput: (mathInputTex) => void;
+    onChangeMathInput: (mathInputTex: string) => void;
 };
 
 function V2KeypadWithMathquill(props: Props) {
     const mathquillWrapperRef = React.useRef<HTMLDivElement>(null);
-    const [mathQuill, setMathQuill] = React.useState<MathQuill>();
+    const [mathField, setMathField] = React.useState();
 
     React.useEffect(() => {
-        if (!mathQuill && mathquillWrapperRef.current) {
+        if (!mathField && mathquillWrapperRef.current) {
             const MQ = MathQuill.getInterface(2);
-            const mathQuillInstance = MQ.MathField(
+            const mathFieldInstance = MQ.MathField(
                 mathquillWrapperRef.current,
                 {
-                    autoCommands: "pi theta phi Square root nthroot",
                     charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
-                    supSubsRequireOperand: true,
-                    spaceBehavesLikeTab: true,
                     handlers: {
                         edit: () =>
-                            props.onChangeMathInput(mathQuillInstance.latex()),
+                            props.onChangeMathInput(mathFieldInstance.latex()),
                     },
                 },
             );
-            setMathQuill(mathQuillInstance);
+            setMathField(mathFieldInstance);
         }
-    }, [mathQuill, props]);
+    }, [mathField, props]);
 
     function handleClickKey(key: Key) {
-        if (!mathQuill) {
+        if (!mathField) {
             return;
         }
 
-        const mathQuillCallback = keyTranslator[key];
-        if (mathQuillCallback) {
-            mathQuillCallback(mathQuill, key);
-        } else {
-            // eslint-disable-next-line no-console
-            console.warn(`No translation to Mathquill for: ${key}`);
+        const mathFieldCallback = keyTranslator[key];
+        if (mathFieldCallback) {
+            mathFieldCallback(mathField, key);
         }
     }
 
@@ -81,7 +75,6 @@ function V2KeypadWithMathquill(props: Props) {
                         border: `1px solid ${Color.offBlack16}`,
                     }}
                     ref={mathquillWrapperRef}
-                    data-test-id="mathquill-input"
                 />
             </Popover>
         </div>
@@ -97,7 +90,6 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
-        userEvent.click(screen.getByTestId("mathquill-input"));
 
         // a^2
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
@@ -134,7 +126,6 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
-        userEvent.click(screen.getByTestId("mathquill-input"));
 
         // c = /Square root
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
@@ -165,7 +156,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it("can write the Pythagorean theorem (simple) with typing", () => {
+    it("writes the Pythagorean theorem using typing/clicking together", () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -173,18 +164,20 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
-        userEvent.type(screen.getByRole("textbox", {}), "a", {});
+
+        // Argument is empty because mathquill generates textarea w/o label
+        userEvent.type(screen.getByRole("textbox"), "a");
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
         userEvent.click(screen.getByRole("button", {name: "Square"}));
 
-        userEvent.type(screen.getByRole("textbox", {}), "+");
+        userEvent.type(screen.getByRole("textbox"), "+");
 
         // b^2
         userEvent.click(screen.getByRole("button", {name: "Extras"}));
         userEvent.click(screen.getByRole("button", {name: "b"}));
         userEvent.click(screen.getByRole("button", {name: "Operators"}));
         userEvent.click(screen.getByRole("button", {name: "Square"}));
-        userEvent.type(screen.getByRole("textbox", {}), "=c^2");
+        userEvent.type(screen.getByRole("textbox"), "=c^2");
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2=c^2");

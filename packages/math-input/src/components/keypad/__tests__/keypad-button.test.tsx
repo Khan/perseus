@@ -36,6 +36,6 @@ describe("<KeypadButton />", () => {
         userEvent.click(screen.getByRole("button", {name: "Left parenthesis"}));
 
         // Assert
-        expect(mockClickKeyCallback).toHaveBeenCalled();
+        expect(mockClickKeyCallback).toHaveBeenCalledWith("LEFT_PAREN");
     });
 });
