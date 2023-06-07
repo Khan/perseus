@@ -16,19 +16,20 @@ type Props = {
 };
 
 function V2KeypadWithMathquill(props: Props) {
-    const mathquillWrapperRef = React.useRef<HTMLDivElement>(null);
+    const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
     const [mathField, setMathField] = React.useState();
 
     React.useEffect(() => {
-        if (!mathField && mathquillWrapperRef.current) {
+        if (!mathField && mathFieldWrapperRef.current) {
             const MQ = MathQuill.getInterface(2);
             const mathFieldInstance = MQ.MathField(
-                mathquillWrapperRef.current,
+                mathFieldWrapperRef.current,
                 {
                     charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
                     handlers: {
-                        edit: () =>
-                            props.onChangeMathInput(mathFieldInstance.latex()),
+                        edit: (mathField) => {
+                            props.onChangeMathInput(mathFieldInstance.latex());
+                        },
                     },
                 },
             );
@@ -74,7 +75,7 @@ function V2KeypadWithMathquill(props: Props) {
                         marginBottom: "1em",
                         border: `1px solid ${Color.offBlack16}`,
                     }}
-                    ref={mathquillWrapperRef}
+                    ref={mathFieldWrapperRef}
                 />
             </Popover>
         </div>
