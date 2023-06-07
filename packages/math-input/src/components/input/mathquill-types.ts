@@ -70,7 +70,7 @@ export enum MathFieldActionType {
 // we reach into the internals to get it
 export type MathFieldCursor = any;
 
-export type MathQuillUpdaterCallback = (
-    mathQuill: MathFieldInterface,
+export type MathFieldUpdaterCallback = (
+    mathField: MathFieldInterface,
     key: Key,
 ) => void;

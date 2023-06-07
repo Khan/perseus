@@ -9,7 +9,7 @@ import "@testing-library/jest-dom";
 import Key from "../../../data/keys";
 import {createMathField} from "../../input/mathquill-instance";
 import {MathFieldInterface} from "../../input/mathquill-types";
-import keyTranslator from "../../key-translator";
+import keyTranslator from "../../key-handlers/key-translator";
 import Keypad from "../index";
 
 type Props = {
@@ -184,5 +184,48 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2=c^2");
+    });
+
+    it("deletes from the input using the backspace button", () => {
+        // Arrange
+        const mockMathInputCallback = jest.fn();
+        render(
+            <V2KeypadWithMathquill onChangeMathInput={mockMathInputCallback} />,
+        );
+
+        // Act
+        // Write `a^2+b^2=c^2` using the keypad
+        const buttonPressesForFormula = [
+            "Extras",
+            "a",
+            "Operators",
+            "Square",
+            "Numbers",
+            "Plus",
+            "Extras",
+            "b",
+            "Operators",
+            "Square",
+            "Equals sign",
+            "Extras",
+            "c",
+            "Operators",
+            "Square",
+        ];
+        buttonPressesForFormula.forEach((button) => {
+            userEvent.click(screen.getByRole("button", {name: button}));
+        });
+
+        // Assert
+        // make sure the formula was typed correctly
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2=c^2");
+
+        userEvent.click(screen.getByRole("button", {name: "Numbers"}));
+        // delete: need 14 backspaces in MathQuill to delete `a^2+b^2=c^2`
+        for (let i = 0; i < 14; i++) {
+            userEvent.click(screen.getByRole("button", {name: "Delete"}));
+        }
+
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith("");
     });
 });

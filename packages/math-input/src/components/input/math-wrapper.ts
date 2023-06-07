@@ -18,12 +18,9 @@ import $ from "jquery";
 
 import Key from "../../data/keys";
 import {Cursor} from "../../types";
-import keyTranslator from "../key-translator";
+import handleBackspace from "../key-handlers/handle-backspace";
+import keyTranslator from "../key-handlers/key-translator";
 
-import handleArrow from "./key-handlers/handle-arrow";
-import handleBackspace from "./key-handlers/handle-backspace";
-import handleExponent from "./key-handlers/handle-exponent";
-import handleJumpOut from "./key-handlers/handle-jump-out";
 import {
     getCursor,
     contextForCursor,
@@ -33,43 +30,18 @@ import MQ, {createMathField} from "./mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldCursor,
-    MathQuillUpdaterCallback,
+    MathFieldUpdaterCallback,
 } from "./mathquill-types";
 
-function buildNormalFunctionCallback(command: string) {
-    return function (mathField: MathFieldInterface) {
-        mathField.write(`\\${command}\\left(\\right)`);
-        mathField.keystroke("Left");
-    };
-}
-
-const customKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
+const mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
     ...keyTranslator,
-    // note(Matthew): in all likelihood, this should be moved
-    // to the shared key2MathQuill translator. During this refactor
-    // I tried to keep logic the same while deduplicating code.
-    // Perseus' Expression MathInput treats this stuff differently
-    // (or doesn't do anything with them at all), so I kept it that way
+    // note(Matthew): our mobile backspace logic is really complicated
+    // and for some reason doesn't really work in the desktop experience.
+    // So we default to the basic backspace functionality in the
+    // key translator and overwrite it with the complicated logic here
+    // until we can unify the experiences (if we even want to).
+    // https://khanacademy.atlassian.net/browse/LC-906
     BACKSPACE: handleBackspace,
-    EXP: handleExponent,
-    EXP_2: handleExponent,
-    EXP_3: handleExponent,
-    FRAC: (mathQuill) => {
-        mathQuill.cmd("\\frac");
-    },
-    JUMP_OUT_PARENTHESES: handleJumpOut,
-    JUMP_OUT_EXPONENT: handleJumpOut,
-    JUMP_OUT_BASE: handleJumpOut,
-    JUMP_INTO_NUMERATOR: handleJumpOut,
-    JUMP_OUT_NUMERATOR: handleJumpOut,
-    JUMP_OUT_DENOMINATOR: handleJumpOut,
-    LEFT: handleArrow,
-    RIGHT: handleArrow,
-    LOG: buildNormalFunctionCallback("log"),
-    LN: buildNormalFunctionCallback("ln"),
-    SIN: buildNormalFunctionCallback("sin"),
-    COS: buildNormalFunctionCallback("cos"),
-    TAN: buildNormalFunctionCallback("tan"),
 };
 
 /**
@@ -78,10 +50,10 @@ const customKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
  * from MathQuill changes.
  */
 class MathWrapper {
-    mathField: MathFieldInterface; // MathQuill input
+    mathField: MathFieldInterface; // MathQuill MathField input
     callbacks: any;
 
-    constructor(element, options = {}, callbacks = {}) {
+    constructor(element, callbacks = {}) {
         this.mathField = createMathField(element, () => {
             return {
                 // use a span instead of a textarea so that we don't bring up the
@@ -121,7 +93,7 @@ class MathWrapper {
      */
     pressKey(key: Key): Cursor {
         const cursor = this.getCursor();
-        const translator = customKeyTranslator[key];
+        const translator = mobileKeyTranslator[key];
 
         if (translator) {
             translator(this.mathField, key);

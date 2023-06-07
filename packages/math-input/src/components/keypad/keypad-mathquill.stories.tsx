@@ -5,7 +5,7 @@ import * as React from "react";
 import Key from "../../data/keys";
 import {createMathField} from "../input/mathquill-instance";
 import {MathFieldInterface} from "../input/mathquill-types";
-import keyTranslator from "../key-translator";
+import keyTranslator from "../key-handlers/key-translator";
 
 import Keypad from "./index";
 
@@ -31,9 +31,9 @@ export function V2KeypadWithMathquill() {
             return;
         }
 
-        const mathQuillCallback = keyTranslator[key];
-        if (mathQuillCallback) {
-            mathQuillCallback(mathField, key);
+        const mathFieldCallback = keyTranslator[key];
+        if (mathFieldCallback) {
+            mathFieldCallback(mathField, key);
         } else {
             // eslint-disable-next-line no-console
             console.warn(`No translation to Mathquill for: ${key}`);
