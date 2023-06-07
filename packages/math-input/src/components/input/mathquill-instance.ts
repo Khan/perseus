@@ -2,6 +2,8 @@ import MathQuill from "mathquill";
 
 import {MathQuillInterface, MathFieldConfig} from "./mathquill-types";
 
+// We only need one MathQuill instance and that contains some
+// MQ constants and the MathField constructor
 export const mathQuillInstance = MathQuill.getInterface(
     2,
 ) as MathQuillInterface;
@@ -36,6 +38,20 @@ function createBaseConfig(): MathFieldConfig {
     };
 }
 
+/**
+ * We wanted to accomplish two things:
+ * 1. We wanted to centralize (as much as possible) MathQuill logic. So
+ *    that we only need to import it and get an interface in one place.
+ *    We wanted to have smart defaults for a MathField config and put them
+ *    in an easy-to-maintain area.
+ * 2. We recognize that not all use-cases are the same, so we wanted to make
+ *    sure we could customize the MathField.
+ * So I'm trying to closely follow the MathQuill pattern of (container, config),
+ * but instead of an object config, it's an optional callback that takes
+ * our shared base config, allows the consumer to extend or overwrite it, and
+ * uses the possibly modified config to make a MathField. If no config is
+ * provided, then just use the base config.
+ */
 export function createMathField(
     container: HTMLDivElement | HTMLSpanElement,
     configCallback?: (baseConfig: MathFieldConfig) => MathFieldConfig,
