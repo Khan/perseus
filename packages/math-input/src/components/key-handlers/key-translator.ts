@@ -7,6 +7,10 @@ import {
     MathQuillUpdaterCallback,
 } from "../input/mathquill-types";
 
+import handleArrow from "./handle-arrow";
+import handleExponent from "./handle-exponent";
+import handleJumpOut from "./handle-jump-out";
+
 enum ActionType {
     WRITE = "write",
     CMD = "cmd",
@@ -38,20 +42,41 @@ function buildGenericCallback(
     };
 }
 
+function buildNormalFunctionCallback(command: string) {
+    return function (mathField: MathFieldInterface) {
+        mathField.write(`\\${command}\\left(\\right)`);
+        mathField.keystroke("Left");
+    };
+}
+
 const keyToMathquillMap: Record<Key, MathQuillUpdaterCallback> = {
+    EXP: handleExponent,
+    EXP_2: handleExponent,
+    EXP_3: handleExponent,
+
+    JUMP_OUT_PARENTHESES: handleJumpOut,
+    JUMP_OUT_EXPONENT: handleJumpOut,
+    JUMP_OUT_BASE: handleJumpOut,
+    JUMP_INTO_NUMERATOR: handleJumpOut,
+    JUMP_OUT_NUMERATOR: handleJumpOut,
+    JUMP_OUT_DENOMINATOR: handleJumpOut,
+
+    LEFT: handleArrow,
+    RIGHT: handleArrow,
+
+    LOG: buildNormalFunctionCallback("log"),
+    LN: buildNormalFunctionCallback("ln"),
+    SIN: buildNormalFunctionCallback("sin"),
+    COS: buildNormalFunctionCallback("cos"),
+    TAN: buildNormalFunctionCallback("tan"),
+
     CDOT: buildGenericCallback("\\cdot"),
-    COS: buildGenericCallback("cos"),
     DECIMAL: buildGenericCallback(decimalSymbol),
     DIVIDE: buildGenericCallback("\\div"),
     EQUAL: buildGenericCallback("="),
-    EXP: buildGenericCallback("^"),
-    EXP_2: buildGenericCallback("^2"),
-    EXP_3: buildGenericCallback("^3"),
     GEQ: buildGenericCallback("\\geq"),
     GT: buildGenericCallback(">"),
     LEQ: buildGenericCallback("\\leq"),
-    LN: buildGenericCallback("\\ln"),
-    LOG: buildGenericCallback("\\log"),
     LT: buildGenericCallback("<"),
     MINUS: buildGenericCallback("-"),
     NEGATIVE: buildGenericCallback("-"),
@@ -59,13 +84,12 @@ const keyToMathquillMap: Record<Key, MathQuillUpdaterCallback> = {
     PERCENT: buildGenericCallback("%"),
     PERIOD: buildGenericCallback("."),
     PLUS: buildGenericCallback("+"),
-    SIN: buildGenericCallback("sin"),
-    TAN: buildGenericCallback("tan"),
     TIMES: buildGenericCallback("\\times"),
 
     // The `FRAC_EXCLUSIVE` variant is handled manually, since we may need to do
     // some additional navigation depending on the cursor position.
     FRAC_INCLUSIVE: buildGenericCallback("/", ActionType.CMD),
+    FRAC: buildGenericCallback("\\frac", ActionType.CMD),
     LEFT_PAREN: buildGenericCallback("(", ActionType.CMD),
     RIGHT_PAREN: buildGenericCallback(")", ActionType.CMD),
     SQRT: buildGenericCallback("sqrt", ActionType.CMD),
@@ -74,6 +98,7 @@ const keyToMathquillMap: Record<Key, MathQuillUpdaterCallback> = {
     THETA: buildGenericCallback("theta", ActionType.CMD),
     RADICAL: buildGenericCallback("nthroot", ActionType.CMD),
 
+    BACKSPACE: buildGenericCallback("Backspace", ActionType.KEYSTROKE),
     UP: buildGenericCallback("Up", ActionType.KEYSTROKE),
     DOWN: buildGenericCallback("Down", ActionType.KEYSTROKE),
 
@@ -127,17 +152,7 @@ const keyToMathquillMap: Record<Key, MathQuillUpdaterCallback> = {
 
     // These need to be overwritten by the consumer
     // if they're going to be used
-    FRAC: () => {},
-    RIGHT: () => {},
-    LEFT: () => {},
-    BACKSPACE: () => {},
     DISMISS: () => {},
-    JUMP_OUT_PARENTHESES: () => {},
-    JUMP_OUT_EXPONENT: () => {},
-    JUMP_OUT_BASE: () => {},
-    JUMP_INTO_NUMERATOR: () => {},
-    JUMP_OUT_NUMERATOR: () => {},
-    JUMP_OUT_DENOMINATOR: () => {},
     NOOP: () => {},
     MANY: () => {},
 
