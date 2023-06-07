@@ -1,12 +1,11 @@
-import Key from "../data/keys";
-import {DecimalSeparator} from "../enums";
-import {decimalSeparator} from "../utils";
-
-import MQ from "./input/mathquill-instance";
+import Key from "../../data/keys";
+import {DecimalSeparator} from "../../enums";
+import {decimalSeparator} from "../../utils";
+import MQ from "../input/mathquill-instance";
 import {
     MathFieldInterface,
     MathQuillUpdaterCallback,
-} from "./input/mathquill-types";
+} from "../input/mathquill-types";
 
 enum ActionType {
     WRITE = "write",

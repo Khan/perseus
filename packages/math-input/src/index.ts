@@ -13,4 +13,4 @@ export type {default as Keys} from "./data/keys";
 export {type KeyType, KeypadType} from "./enums";
 
 export {default as Keypad} from "./components/keypad/index";
-export {default as keyTranslator} from "./components/key-translator";
+export {default as keyTranslator} from "./components/key-handlers/key-translator";

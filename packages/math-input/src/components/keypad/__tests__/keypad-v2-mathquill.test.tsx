@@ -8,7 +8,7 @@ import * as React from "react";
 import "@testing-library/jest-dom";
 
 import Key from "../../../data/keys";
-import keyTranslator from "../../key-translator";
+import keyTranslator from "../../key-handlers/key-translator";
 import Keypad from "../index";
 
 type Props = {
