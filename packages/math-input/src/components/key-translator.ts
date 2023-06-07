@@ -5,7 +5,7 @@ import {decimalSeparator} from "../utils";
 import MQ from "./input/mathquill-instance";
 import {
     MathFieldInterface,
-    MathQuillUpdaterCallback,
+    MathFieldUpdaterCallback,
 } from "./input/mathquill-types";
 
 enum ActionType {
@@ -20,7 +20,7 @@ const decimalSymbol = decimalSeparator === DecimalSeparator.COMMA ? "," : ".";
 function buildGenericCallback(
     str: string,
     type: ActionType = ActionType.WRITE,
-): MathQuillUpdaterCallback {
+): MathFieldUpdaterCallback {
     return function (mathQuill: MathFieldInterface) {
         switch (type) {
             case ActionType.WRITE: {
@@ -39,7 +39,7 @@ function buildGenericCallback(
     };
 }
 
-const keyToMathquillMap: Record<Key, MathQuillUpdaterCallback> = {
+const keyToMathquillMap: Record<Key, MathFieldUpdaterCallback> = {
     CDOT: buildGenericCallback("\\cdot"),
     COS: buildGenericCallback("cos"),
     DECIMAL: buildGenericCallback(decimalSymbol),

@@ -87,21 +87,17 @@ class MathInput extends React.Component<Props, State> {
     componentDidMount() {
         this._isMounted = true;
 
-        this.mathField = new MathWrapper(
-            this._mathContainer,
-            {},
-            {
-                onCursorMove: (cursor: Cursor) => {
-                    // TODO(charlie): It's not great that there is so much coupling
-                    // between this keypad and the input behavior. We should wrap
-                    // this `MathInput` component in an intermediary component
-                    // that translates accesses on the keypad into vanilla props,
-                    // to make this input keypad-agnostic.
-                    this.props.keypadElement &&
-                        this.props.keypadElement.setCursor(cursor);
-                },
+        this.mathField = new MathWrapper(this._mathContainer, {
+            onCursorMove: (cursor: Cursor) => {
+                // TODO(charlie): It's not great that there is so much coupling
+                // between this keypad and the input behavior. We should wrap
+                // this `MathInput` component in an intermediary component
+                // that translates accesses on the keypad into vanilla props,
+                // to make this input keypad-agnostic.
+                this.props.keypadElement &&
+                    this.props.keypadElement.setCursor(cursor);
             },
-        );
+        });
 
         // NOTE(charlie): MathQuill binds this handler to manage its
         // drag-to-select behavior. For reasons that I can't explain, the event

@@ -33,7 +33,7 @@ import MQ from "./mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldCursor,
-    MathQuillUpdaterCallback,
+    MathFieldUpdaterCallback,
 } from "./mathquill-types";
 
 function buildNormalFunctionCallback(command: string) {
@@ -43,7 +43,7 @@ function buildNormalFunctionCallback(command: string) {
     };
 }
 
-const customKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
+const customKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
     ...keyTranslator,
     // note(Matthew): in all likelihood, this should be moved
     // to the shared key2MathQuill translator. During this refactor
@@ -78,10 +78,10 @@ const customKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
  * from MathQuill changes.
  */
 class MathWrapper {
-    mathField: MathFieldInterface; // MathQuill input
+    mathField: MathFieldInterface; // MathQuill MathField input
     callbacks: any;
 
-    constructor(element, options = {}, callbacks = {}) {
+    constructor(element, callbacks = {}) {
         this.mathField = MQ.MathField(element, {
             // use a span instead of a textarea so that we don't bring up the
             // native keyboard on mobile when selecting the input

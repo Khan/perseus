@@ -21,27 +21,27 @@ const mathQuillConfig = {
 
 export function V2KeypadWithMathquill() {
     const mathquillWrapperRef = React.useRef<HTMLDivElement>(null);
-    const [mathQuill, setMathQuill] = React.useState<MathQuill>();
+    const [mathField, setMathField] = React.useState<MathQuill>();
 
     React.useEffect(() => {
-        if (!mathQuill && mathquillWrapperRef.current) {
+        if (!mathField && mathquillWrapperRef.current) {
             const MQ = MathQuill.getInterface(2);
-            const mathQuillInstance = MQ.MathField(
+            const mathFieldInstance = MQ.MathField(
                 mathquillWrapperRef.current,
                 mathQuillConfig,
             );
-            setMathQuill(mathQuillInstance);
+            setMathField(mathFieldInstance);
         }
-    }, [mathQuill]);
+    }, [mathField]);
 
     function handleClickKey(key: Key) {
-        if (!mathQuill) {
+        if (!mathField) {
             return;
         }
 
-        const mathQuillCallback = keyTranslator[key];
-        if (mathQuillCallback) {
-            mathQuillCallback(mathQuill, key);
+        const mathFieldCallback = keyTranslator[key];
+        if (mathFieldCallback) {
+            mathFieldCallback(mathField, key);
         } else {
             // eslint-disable-next-line no-console
             console.warn(`No translation to Mathquill for: ${key}`);
