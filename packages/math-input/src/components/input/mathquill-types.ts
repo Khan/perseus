@@ -5,7 +5,7 @@ export interface MathQuillInterface {
     R: "R";
     MathField: (
         mount: HTMLDivElement | HTMLSpanElement,
-        options: any,
+        options: MathFieldConfig,
     ) => MathFieldInterface;
 }
 
