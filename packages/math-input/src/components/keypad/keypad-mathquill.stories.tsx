@@ -4,7 +4,7 @@ import MathQuill from "mathquill";
 import * as React from "react";
 
 import Key from "../../data/keys";
-import keyTranslator from "../key-translator";
+import keyTranslator from "../key-handlers/key-translator";
 
 import Keypad from "./index";
 
