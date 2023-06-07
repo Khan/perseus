@@ -72,7 +72,7 @@ class MathInput extends React.Component<Props, State> {
         window.addEventListener("mouseup", this.handleMouseUp);
 
         // Ideally, we would be able to pass an initial value directly into
-        // the constructor above
+        // the constructor
         this.mathField()?.latex(this.props.value);
     }
 
@@ -170,7 +170,7 @@ class MathInput extends React.Component<Props, State> {
                     return {
                         ...baseConfig,
                         handlers: {
-                            edited: (mathField) => {
+                            edit: (mathField) => {
                                 // This handler is guaranteed to be called on change, but
                                 // unlike React it sometimes generates false positives.
                                 // One of these is on initialization (with an empty string

@@ -10,7 +10,14 @@ const prettyBig = {fontSize: "150%"} as const;
 const slightlyBig = {fontSize: "120%"} as const;
 const symbStyle = {fontSize: "130%"} as const;
 
-type ButtonSet = (props: any) => [React.ReactNode, Keys];
+type ButtonSet = (props: any) => [
+    // inside of button
+    React.ReactNode,
+    // the key message it sends on click
+    Keys,
+    // label
+    string,
+];
 
 type ButtonSets = {
     readonly [key: string]: ReadonlyArray<ButtonSet>;
@@ -27,12 +34,14 @@ const basic: ReadonlyArray<ButtonSet> = [
             +
         </span>,
         "PLUS",
+        i18n._("Plus"),
     ],
     () => [
         <span key="minus" style={prettyBig}>
             -
         </span>,
         "MINUS",
+        i18n._("Minus"),
     ],
 
     // TODO(joel) - display as \cdot when appropriate
@@ -44,6 +53,7 @@ const basic: ReadonlyArray<ButtonSet> = [
                     {i18n.doNotTranslate("\\times")}
                 </TeX>,
                 "TIMES",
+                i18n._("Multiply"),
             ];
         }
         return [
@@ -51,6 +61,7 @@ const basic: ReadonlyArray<ButtonSet> = [
                 {i18n.doNotTranslate("\\cdot")}
             </TeX>,
             "CDOT",
+            i18n._("Multiply"),
         ];
     },
     () => {
@@ -60,6 +71,7 @@ const basic: ReadonlyArray<ButtonSet> = [
                 {i18n.doNotTranslate("\\frac{x}{y}")}
             </TeX>,
             "FRAC",
+            i18n._("Fraction, excluding the current expression"),
         ];
     },
 ];
@@ -73,6 +85,7 @@ const buttonSets: ButtonSets = {
             return [
                 <TeX key="div">{i18n.doNotTranslate("\\div")}</TeX>,
                 "DIVIDE",
+                i18n._("Divide"),
             ];
         },
     ]),
@@ -80,15 +93,27 @@ const buttonSets: ButtonSets = {
     trig: [
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="sin">{i18n.doNotTranslate("\\sin")}</TeX>, "SIN"];
+            return [
+                <TeX key="sin">{i18n.doNotTranslate("\\sin")}</TeX>,
+                "SIN",
+                i18n._("Sine"),
+            ];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="cos">{i18n.doNotTranslate("\\cos")}</TeX>, "COS"];
+            return [
+                <TeX key="cos">{i18n.doNotTranslate("\\cos")}</TeX>,
+                "COS",
+                i18n._("Cosine"),
+            ];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="tan">{i18n.doNotTranslate("\\tan")}</TeX>, "TAN"];
+            return [
+                <TeX key="tan">{i18n.doNotTranslate("\\tan")}</TeX>,
+                "TAN",
+                i18n._("Tangent"),
+            ];
         },
         () => {
             const {TeX} = getDependencies();
@@ -97,6 +122,7 @@ const buttonSets: ButtonSets = {
                     {i18n.doNotTranslate("\\theta")}
                 </TeX>,
                 "THETA",
+                i18n._("Theta"),
             ];
         },
         () => {
@@ -112,6 +138,7 @@ const buttonSets: ButtonSets = {
                     </TeX>
                 </span>,
                 "PHI",
+                i18n._("Phi"),
             ];
         },
     ],
@@ -122,6 +149,7 @@ const buttonSets: ButtonSets = {
             return [
                 <TeX key="sqrt">{i18n.doNotTranslate("\\sqrt{x}")}</TeX>,
                 "SQRT",
+                i18n._("Square root"),
             ];
         },
         // TODO(joel) - how does desmos do this?
@@ -130,6 +158,7 @@ const buttonSets: ButtonSets = {
             return [
                 <TeX key="nthroot">{i18n.doNotTranslate("\\sqrt[3]{x}")}</TeX>,
                 "NTHROOT3",
+                i18n._("Cube root"),
             ];
         },
         () => {
@@ -139,6 +168,7 @@ const buttonSets: ButtonSets = {
                     {i18n.doNotTranslate("a^b")}
                 </TeX>,
                 "POW",
+                i18n._("Exponent"),
             ];
         },
         () => {
@@ -148,6 +178,7 @@ const buttonSets: ButtonSets = {
                     {i18n.doNotTranslate("\\pi")}
                 </TeX>,
                 "PI",
+                i18n._("Pi"),
             ];
         },
     ],
@@ -155,17 +186,26 @@ const buttonSets: ButtonSets = {
     logarithms: [
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="log">{i18n.doNotTranslate("\\log")}</TeX>, "LOG"];
+            return [
+                <TeX key="log">{i18n.doNotTranslate("\\log")}</TeX>,
+                "LOG",
+                i18n._("Logarithm with base 10"),
+            ];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="ln">{i18n.doNotTranslate("\\ln")}</TeX>, "LN"];
+            return [
+                <TeX key="ln">{i18n.doNotTranslate("\\ln")}</TeX>,
+                "LN",
+                i18n._("Natural logarithm"),
+            ];
         },
         () => {
             const {TeX} = getDependencies();
             return [
                 <TeX key="log_b">{i18n.doNotTranslate("\\log_b")}</TeX>,
                 "LOG_B",
+                i18n._("Logarithm with custom base"),
             ];
         },
     ],
@@ -173,30 +213,50 @@ const buttonSets: ButtonSets = {
     "basic relations": [
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="eq">{"="}</TeX>, "EQUAL"];
+            return [<TeX key="eq">{"="}</TeX>, "EQUAL", i18n._("Equals sign")];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="lt">{i18n.doNotTranslate("\\lt")}</TeX>, "LT"];
+            return [
+                <TeX key="lt">{i18n.doNotTranslate("\\lt")}</TeX>,
+                "LT",
+                i18n._("Less than sign"),
+            ];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="gt">{i18n.doNotTranslate("\\gt")}</TeX>, "GT"];
+            return [
+                <TeX key="gt">{i18n.doNotTranslate("\\gt")}</TeX>,
+                "GT",
+                i18n._("Greater than sign"),
+            ];
         },
     ],
 
     "advanced relations": [
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="neq">{i18n.doNotTranslate("\\neq")}</TeX>, "NEQ"];
+            return [
+                <TeX key="neq">{i18n.doNotTranslate("\\neq")}</TeX>,
+                "NEQ",
+                i18n._("Not-equals sign"),
+            ];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="leq">{i18n.doNotTranslate("\\leq")}</TeX>, "LEQ"];
+            return [
+                <TeX key="leq">{i18n.doNotTranslate("\\leq")}</TeX>,
+                "LEQ",
+                i18n._("Less than or equal to sign"),
+            ];
         },
         () => {
             const {TeX} = getDependencies();
-            return [<TeX key="geq">{i18n.doNotTranslate("\\geq")}</TeX>, "GEQ"];
+            return [
+                <TeX key="geq">{i18n.doNotTranslate("\\geq")}</TeX>,
+                "GEQ",
+                i18n._("Greater than or equal to sign"),
+            ];
         },
     ],
 };
@@ -242,6 +302,7 @@ class TexButtons extends React.Component<Props> {
                         // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'key' does not exist on type 'boolean | ReactChild | ReactFragment | ReactPortal'.
                         key={symbol[0].key}
                         type="button"
+                        aria-label={symbol[2]}
                     >
                         {symbol[0]}
                     </button>
