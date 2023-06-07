@@ -28,10 +28,8 @@ function V2KeypadWithMathquill(props: Props) {
                     return {
                         ...baseConfig,
                         handlers: {
-                            edit: () => {
-                                props.onChangeMathInput(
-                                    mathFieldInstance.latex(),
-                                );
+                            edit: (mathField) => {
+                                props.onChangeMathInput(mathField.latex());
                             },
                         },
                     };
