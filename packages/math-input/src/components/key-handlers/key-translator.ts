@@ -89,6 +89,7 @@ const keyToMathquillMap: Record<Key, MathQuillUpdaterCallback> = {
     // The `FRAC_EXCLUSIVE` variant is handled manually, since we may need to do
     // some additional navigation depending on the cursor position.
     FRAC_INCLUSIVE: buildGenericCallback("/", ActionType.CMD),
+    FRAC: buildGenericCallback("\\frac", ActionType.CMD),
     LEFT_PAREN: buildGenericCallback("(", ActionType.CMD),
     RIGHT_PAREN: buildGenericCallback(")", ActionType.CMD),
     SQRT: buildGenericCallback("sqrt", ActionType.CMD),
@@ -104,10 +105,6 @@ const keyToMathquillMap: Record<Key, MathQuillUpdaterCallback> = {
     CUBE_ROOT: (mathQuill) => {
         mathQuill.write("\\sqrt[3]{}");
         mathQuill.keystroke("Left"); // under the root
-    },
-
-    FRAC: (mathQuill) => {
-        mathQuill.cmd("\\frac");
     },
 
     FRAC_EXCLUSIVE: (mathQuill) => {

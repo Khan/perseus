@@ -33,7 +33,7 @@ import {
     MathQuillUpdaterCallback,
 } from "./mathquill-types";
 
-const customKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
+const mobileKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
     ...keyTranslator,
     // note(Matthew): our mobile backspace logic is really complicated
     // and for some reason doesn't really work in the desktop experience.
@@ -91,7 +91,7 @@ class MathWrapper {
      */
     pressKey(key: Key): Cursor {
         const cursor = this.getCursor();
-        const translator = customKeyTranslator[key];
+        const translator = mobileKeyTranslator[key];
 
         if (translator) {
             translator(this.mathField, key);
