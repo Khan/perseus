@@ -1,7 +1,11 @@
-import {keyTranslator} from "@khanacademy/math-input";
+import {
+    keyTranslator,
+    createMathField,
+    mathQuillInstance,
+    MathFieldInterface,
+} from "@khanacademy/math-input";
 import classNames from "classnames";
 import $ from "jquery";
-import MathQuill from "mathquill";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -52,6 +56,8 @@ const customKeyTranslator = {
 class MathInput extends React.Component<Props, State> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'mouseDown' has no initializer and is not definitely assigned in the constructor.
     mouseDown: boolean;
+    __mathFieldWrapperRef: HTMLSpanElement | null = null;
+    __mathField: MathFieldInterface | null = null;
 
     static defaultProps: DefaultProps = {
         value: "",
@@ -65,100 +71,9 @@ class MathInput extends React.Component<Props, State> {
         window.addEventListener("mousedown", this.handleMouseDown);
         window.addEventListener("mouseup", this.handleMouseUp);
 
-        let initialized = false;
-
-        // Initialize MathQuill.MathField instance
-        this.mathField({
-            // LaTeX commands that, when typed, are immediately replaced by the
-            // appropriate symbol. This does not include ln, log, or any of the
-            // trig functions; those are always interpreted as commands.
-            autoCommands: "pi theta phi sqrt nthroot",
-
-            // Pop the cursor out of super/subscripts on arithmetic operators
-            // or (in)equalities.
-            charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
-
-            // Prevent excessive super/subscripts or fractions from being
-            // created without operands, e.g. when somebody holds down a key
-            supSubsRequireOperand: true,
-
-            // The name of this option is somewhat misleading, as tabbing in
-            // MathQuill breaks you out of a nested context (fraction/script)
-            // if you're in one, but moves focus to the next input if you're
-            // not. Spaces (with this option enabled) are just ignored in the
-            // latter case.
-            //
-            // TODO(alex): In order to allow inputting mixed numbers, we will
-            // have to accept spaces in certain cases. The desired behavior is
-            // still to escape nested contexts if currently in one, but to
-            // insert a space if not (we don't expect mixed numbers in nested
-            // contexts). We should also limit to one consecutive space.
-            spaceBehavesLikeTab: true,
-
-            handlers: {
-                edited: (mathField) => {
-                    // This handler is guaranteed to be called on change, but
-                    // unlike React it sometimes generates false positives.
-                    // One of these is on initialization (with an empty string
-                    // value), so we have to guard against that below.
-                    let value = mathField.latex();
-
-                    // Provide a MathQuill-compatible way to generate the
-                    // not-equals sign without pasting unicode or typing TeX
-                    value = value.replace(/<>/g, "\\ne");
-
-                    // Use the specified symbol to represent multiplication
-                    // TODO(alex): Add an option to disallow variables, in
-                    // which case 'x' should get converted to '\\times'
-                    if (this.props.convertDotToTimes) {
-                        value = value.replace(/\\cdot/g, "\\times");
-
-                        // Preserve cursor position in the common case:
-                        // typing '*' to insert a multiplication sign.
-                        // We do this by modifying internal MathQuill state
-                        // directly, instead of waiting for `.latex()` to be
-                        // called in `componentDidUpdate()`.
-                        const left = mathField.__controller.cursor[MathQuill.L];
-                        if (left && left.ctrlSeq === "\\cdot ") {
-                            mathField.__controller.backspace();
-                            mathField.cmd("\\times");
-                        }
-                    } else {
-                        value = value.replace(/\\times/g, "\\cdot");
-                    }
-
-                    if (initialized && this.props.value !== value) {
-                        this.props.onChange(value);
-                    }
-                },
-                enter: () => {
-                    // NOTE(kevinb): This isn't how answers to exercises are
-                    // submitted.  The actual mechanism for this can be found
-                    // in exercise-problem-template.jsx, see `handleSubmit`.
-
-                    // This handler is called when the user presses the enter
-                    // key. Since this isn't an actual <input> element, we have
-                    // to manually trigger the usually automatic form submit.
-                    // eslint-disable-next-line react/no-string-refs
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'submit' does not exist on type 'JQueryStatic'.
-                    $(ReactDOM.findDOMNode(this.refs.mathinput)).submit();
-                },
-                upOutOf: (mathField) => {
-                    // This handler is called when the user presses the up
-                    // arrow key, but there is nowhere in the expression to go
-                    // up to (no numerator or exponent). For ease of use,
-                    // interpret this as an attempt to create an exponent.
-                    mathField.typedText("^");
-                },
-            },
-        });
-
         // Ideally, we would be able to pass an initial value directly into
         // the constructor above
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
-        this.mathField().latex(this.props.value);
-
-        initialized = true;
+        this.mathField()?.latex(this.props.value);
     }
 
     componentWillUnmount() {
@@ -224,12 +139,11 @@ class MathInput extends React.Component<Props, State> {
     };
 
     insert: (value: any) => void = (value) => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
         const input = this.mathField();
         const inputModifier = customKeyTranslator[value];
         if (inputModifier) {
             inputModifier(input, value);
-            input.focus();
+            input?.focus();
             return;
         }
 
@@ -240,36 +154,95 @@ class MathInput extends React.Component<Props, State> {
         if (_(value).isFunction()) {
             value(input);
         } else if (value[0] === "\\") {
-            input.cmd(value).focus();
+            input?.cmd(value).focus();
         } else {
-            input.write(value).focus();
+            input?.write(value).focus();
         }
-        input.focus();
+        input?.focus();
     };
 
-    mathField: (arg1: any) => any = (options) => {
-        // The MathQuill API is now "versioned" through its own "InterVer"
-        // system.
-        // See: https://github.com/mathquill/mathquill/pull/459
-        const MQ = MathQuill.getInterface(2);
+    mathField: () => MathFieldInterface | null = () => {
+        if (!this.__mathField && this.__mathFieldWrapperRef) {
+            // Initialize MathQuill.MathField instance
+            this.__mathField = createMathField(
+                this.__mathFieldWrapperRef,
+                (baseConfig) => {
+                    return {
+                        ...baseConfig,
+                        handlers: {
+                            edited: (mathField) => {
+                                // This handler is guaranteed to be called on change, but
+                                // unlike React it sometimes generates false positives.
+                                // One of these is on initialization (with an empty string
+                                // value), so we have to guard against that below.
+                                let value = mathField.latex();
 
-        // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
-        // seeing that node for the first time, then returns the associated
-        // MathQuill object for that node. It is stable - will always return
-        // the same object when called on the same DOM node.
-        // eslint-disable-next-line react/no-string-refs
-        return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
+                                // Provide a MathQuill-compatible way to generate the
+                                // not-equals sign without pasting unicode or typing TeX
+                                value = value.replace(/<>/g, "\\ne");
+
+                                // Use the specified symbol to represent multiplication
+                                // TODO(alex): Add an option to disallow variables, in
+                                // which case 'x' should get converted to '\\times'
+                                if (this.props.convertDotToTimes) {
+                                    value = value.replace(/\\cdot/g, "\\times");
+
+                                    // Preserve cursor position in the common case:
+                                    // typing '*' to insert a multiplication sign.
+                                    // We do this by modifying internal MathQuill state
+                                    // directly, instead of waiting for `.latex()` to be
+                                    // called in `componentDidUpdate()`.
+                                    const left =
+                                        mathField.__controller.cursor[
+                                            mathQuillInstance.L
+                                        ];
+                                    if (left && left.ctrlSeq === "\\cdot ") {
+                                        mathField.__controller.backspace();
+                                        mathField.cmd("\\times");
+                                    }
+                                } else {
+                                    value = value.replace(/\\times/g, "\\cdot");
+                                }
+
+                                if (this.props.value !== value) {
+                                    this.props.onChange(value);
+                                }
+                            },
+                            enter: () => {
+                                // NOTE(kevinb): This isn't how answers to exercises are
+                                // submitted.  The actual mechanism for this can be found
+                                // in exercise-problem-template.jsx, see `handleSubmit`.
+
+                                // This handler is called when the user presses the enter
+                                // key. Since this isn't an actual <input> element, we have
+                                // to manually trigger the usually automatic form submit.
+                                if (this.__mathFieldWrapperRef) {
+                                    $(this.__mathFieldWrapperRef).submit();
+                                }
+                            },
+                            upOutOf: (mathField) => {
+                                // This handler is called when the user presses the up
+                                // arrow key, but there is nowhere in the expression to go
+                                // up to (no numerator or exponent). For ease of use,
+                                // interpret this as an attempt to create an exponent.
+                                mathField.typedText("^");
+                            },
+                        },
+                    };
+                },
+            );
+        }
+
+        return this.__mathField;
     };
 
     focus: () => void = () => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
-        this.mathField().focus();
+        this.mathField()?.focus();
         this.setState({focused: true});
     };
 
     blur: () => void = () => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
-        this.mathField().blur();
+        this.mathField()?.blur();
         this.setState({focused: false});
     };
 
@@ -305,8 +278,7 @@ class MathInput extends React.Component<Props, State> {
                 <div style={{display: "inline-block"}}>
                     <span
                         className={className}
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="mathinput"
+                        ref={(ref) => (this.__mathFieldWrapperRef = ref)}
                         aria-label={this.props.labelText}
                         onFocus={this.handleFocus}
                         onBlur={this.handleBlur}

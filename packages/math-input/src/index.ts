@@ -14,3 +14,8 @@ export {type KeyType, KeypadType} from "./enums";
 
 export {default as Keypad} from "./components/keypad/index";
 export {default as keyTranslator} from "./components/key-handlers/key-translator";
+export {
+    createMathField,
+    mathQuillInstance,
+} from "./components/input/mathquill-instance";
+export {MathFieldInterface} from "./components/input/mathquill-types";

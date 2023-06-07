@@ -1,6 +1,6 @@
 import Key from "../../data/keys";
 import {getCursor} from "../input/mathquill-helpers";
-import MQ from "../input/mathquill-instance";
+import {mathQuillInstance} from "../input/mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldActionType,
@@ -19,7 +19,7 @@ export default function handleExponent(
     // parentheses and apply the exponent to that.
     const invalidPrefixes = [...ArithmeticOperators, ...EqualityOperators];
 
-    const precedingNode = cursor[MQ.L];
+    const precedingNode = cursor[mathQuillInstance.L];
     const shouldPrefixWithParens =
         precedingNode === MathFieldActionType.MQ_END ||
         invalidPrefixes.includes(precedingNode.ctrlSeq.trim());

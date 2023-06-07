@@ -9,7 +9,7 @@ import {
     getCursor,
     maybeFindCommandBeforeParens,
 } from "../input/mathquill-helpers";
-import MQ from "../input/mathquill-instance";
+import {mathQuillInstance} from "../input/mathquill-instance";
 import {
     MathFieldActionType,
     MathFieldInterface,
@@ -20,7 +20,8 @@ function handleBackspaceInNthRoot(
     mathField: MathFieldInterface,
     cursor: MathFieldCursor,
 ) {
-    const isAtLeftEnd = cursor[MQ.L] === MathFieldActionType.MQ_END;
+    const isAtLeftEnd =
+        cursor[mathQuillInstance.L] === MathFieldActionType.MQ_END;
 
     const isRootEmpty = isInsideEmptyNode(cursor.parent.parent.blocks[0].ends);
 
@@ -46,7 +47,7 @@ function handleBackspaceInRootIndex(
 
         const grandparent = cursor.parent.parent;
         const latex = grandparent.latex();
-        const reinsertionPoint = grandparent[MQ.L];
+        const reinsertionPoint = grandparent[mathQuillInstance.L];
 
         selectNode(grandparent, cursor);
 
@@ -68,13 +69,13 @@ function handleBackspaceInRootIndex(
 
             // Adjust the cursor to be to the left the sqrt.
             if (reinsertionPoint === MathFieldActionType.MQ_END) {
-                mathField.moveToDirEnd(MQ.L);
+                mathField.moveToDirEnd(mathQuillInstance.L);
             } else {
                 cursor.insRightOf(reinsertionPoint);
             }
         }
     } else {
-        if (cursor[MQ.L] !== MathFieldActionType.MQ_END) {
+        if (cursor[mathQuillInstance.L] !== MathFieldActionType.MQ_END) {
             // If the cursor is not at the leftmost position inside the
             // root's index, delete a character.
             mathField.keystroke("Backspace");
@@ -97,8 +98,8 @@ function handleBackspaceInLogIndex(
         cursor.insLeftOf(command?.startNode);
         cursor.startSelection();
 
-        if (grandparent[MQ.R] !== MathFieldActionType.MQ_END) {
-            cursor.insRightOf(grandparent[MQ.R]);
+        if (grandparent[mathQuillInstance.R] !== MathFieldActionType.MQ_END) {
+            cursor.insRightOf(grandparent[mathQuillInstance.R]);
         } else {
             cursor.insRightOf(grandparent);
         }
@@ -106,7 +107,8 @@ function handleBackspaceInLogIndex(
         cursor.select();
         cursor.endSelection();
 
-        const isLogBodyEmpty = grandparent[MQ.R].contentjQ.text() === "";
+        const isLogBodyEmpty =
+            grandparent[mathQuillInstance.R].contentjQ.text() === "";
 
         if (isLogBodyEmpty) {
             // If there's no content inside the log's parens then delete the
@@ -127,8 +129,8 @@ function handleBackspaceOutsideParens(cursor: MathFieldCursor) {
     // (x+1)| => |(x+1)|
     // \log(x+1)| => |\log(x+1)|
 
-    const leftNode = cursor[MQ.L];
-    const rightNode = cursor[MQ.R];
+    const leftNode = cursor[mathQuillInstance.L];
+    const rightNode = cursor[mathQuillInstance.R];
     const command = maybeFindCommandBeforeParens(leftNode);
 
     if (command && command.startNode) {
@@ -179,7 +181,7 @@ function handleBackspaceInsideParens(
     // - \log(|x+1) => |\log(x+1)|
     // - \log(|) => |
 
-    if (cursor[MQ.L] !== MathFieldActionType.MQ_END) {
+    if (cursor[mathQuillInstance.L] !== MathFieldActionType.MQ_END) {
         // This command contains math and there's some math to
         // the left of the cursor that we should delete normally
         // before doing anything special.
@@ -193,12 +195,12 @@ function handleBackspaceInsideParens(
     // has a subscript as is the case in log_n then move the cursor into
     // the subscript, e.g. \log_{5}(|x+1) => \log_{5|}(x+1)
 
-    if (grandparent[MQ.L].sub) {
+    if (grandparent[mathQuillInstance.L].sub) {
         // if there is a subscript
-        if (grandparent[MQ.L].sub.jQ.text()) {
+        if (grandparent[mathQuillInstance.L].sub.jQ.text()) {
             // and it contains text
             // move the cursor to the right end of the subscript
-            cursor.insAtRightEnd(grandparent[MQ.L].sub);
+            cursor.insAtRightEnd(grandparent[mathQuillInstance.L].sub);
             return;
         }
     }
@@ -238,7 +240,7 @@ function handleBackspace(mathField: MathFieldInterface) {
     if (!cursor.selection) {
         const parent = cursor.parent;
         const grandparent = parent.parent;
-        const leftNode = cursor[MQ.L];
+        const leftNode = cursor[mathQuillInstance.L];
 
         if (isFraction(leftNode)) {
             selectNode(leftNode, cursor);

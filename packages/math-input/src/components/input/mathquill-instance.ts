@@ -2,7 +2,9 @@ import MathQuill from "mathquill";
 
 import {MathQuillInterface, MathFieldConfig} from "./mathquill-types";
 
-const MQ = MathQuill.getInterface(2) as MathQuillInterface;
+export const mathQuillInstance = MathQuill.getInterface(
+    2,
+) as MathQuillInterface;
 
 function createBaseConfig(): MathFieldConfig {
     return {
@@ -35,13 +37,11 @@ function createBaseConfig(): MathFieldConfig {
 }
 
 export function createMathField(
-    container: HTMLDivElement,
+    container: HTMLDivElement | HTMLSpanElement,
     configCallback?: (baseConfig: MathFieldConfig) => MathFieldConfig,
 ) {
     const baseConfig = createBaseConfig();
     const config = configCallback ? configCallback(baseConfig) : baseConfig;
 
-    return MQ.MathField(container, config);
+    return mathQuillInstance.MathField(container, config);
 }
-
-export default MQ;

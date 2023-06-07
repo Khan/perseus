@@ -6,7 +6,7 @@ import {
     contextForCursor,
     getCursor,
 } from "../input/mathquill-helpers";
-import MQ from "../input/mathquill-instance";
+import {mathQuillInstance} from "../input/mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldActionType,
@@ -49,11 +49,13 @@ function handleJumpOut(mathField: MathFieldInterface, key: Key): void {
             // Find the nearest fraction to the right of the cursor.
             let fractionNode;
             let visitor = cursor;
-            while (visitor[MQ.R] !== MathFieldActionType.MQ_END) {
-                if (isFraction(visitor[MQ.R])) {
-                    fractionNode = visitor[MQ.R];
+            while (
+                visitor[mathQuillInstance.R] !== MathFieldActionType.MQ_END
+            ) {
+                if (isFraction(visitor[mathQuillInstance.R])) {
+                    fractionNode = visitor[mathQuillInstance.R];
                 }
-                visitor = visitor[MQ.R];
+                visitor = visitor[mathQuillInstance.R];
             }
 
             // Jump into it!
@@ -85,7 +87,7 @@ function handleJumpOut(mathField: MathFieldInterface, key: Key): void {
             // Navigate right once more, if we're right before parens. This
             // is to handle the standard case in which the subscript is the
             // base of a custom log.
-            if (isParens(cursor[MQ.R])) {
+            if (isParens(cursor[mathQuillInstance.R])) {
                 mathField.keystroke("Right");
             }
             break;

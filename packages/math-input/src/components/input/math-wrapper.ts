@@ -26,7 +26,7 @@ import {
     contextForCursor,
     maybeFindCommand,
 } from "./mathquill-helpers";
-import MQ, {createMathField} from "./mathquill-instance";
+import {createMathField, mathQuillInstance} from "./mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldCursor,
@@ -147,7 +147,7 @@ class MathWrapper {
                 // Unless that would leave us mid-command, in which case, we
                 // need to adjust and place the cursor inside the parens
                 // following the command.
-                const command = maybeFindCommand(cursor[MQ.L]);
+                const command = maybeFindCommand(cursor[mathQuillInstance.L]);
                 if (command && command.endNode) {
                     // NOTE(charlie): endNode should definitely be \left(.
                     cursor.insLeftOf(command.endNode);
