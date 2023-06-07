@@ -18,12 +18,12 @@ import $ from "jquery";
 
 import Key from "../../data/keys";
 import {Cursor} from "../../types";
-import keyTranslator from "../key-translator";
+import handleArrow from "../key-handlers/handle-arrow";
+import handleBackspace from "../key-handlers/handle-backspace";
+import handleExponent from "../key-handlers/handle-exponent";
+import handleJumpOut from "../key-handlers/handle-jump-out";
+import keyTranslator from "../key-handlers/key-translator";
 
-import handleArrow from "./key-handlers/handle-arrow";
-import handleBackspace from "./key-handlers/handle-backspace";
-import handleExponent from "./key-handlers/handle-exponent";
-import handleJumpOut from "./key-handlers/handle-jump-out";
 import {
     getCursor,
     contextForCursor,

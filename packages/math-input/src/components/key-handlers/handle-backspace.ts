@@ -8,13 +8,13 @@ import {
     selectNode,
     getCursor,
     maybeFindCommandBeforeParens,
-} from "../mathquill-helpers";
-import MQ from "../mathquill-instance";
+} from "../input/mathquill-helpers";
+import MQ from "../input/mathquill-instance";
 import {
     MathFieldActionType,
     MathFieldInterface,
     MathFieldCursor,
-} from "../mathquill-types";
+} from "../input/mathquill-types";
 
 function handleBackspaceInNthRoot(
     mathField: MathFieldInterface,
