@@ -29,7 +29,7 @@ import {
     contextForCursor,
     maybeFindCommand,
 } from "./mathquill-helpers";
-import MQ from "./mathquill-instance";
+import MQ, {createMathField} from "./mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldCursor,
@@ -82,12 +82,14 @@ class MathWrapper {
     callbacks: any;
 
     constructor(element, options = {}, callbacks = {}) {
-        this.mathField = MQ.MathField(element, {
-            // use a span instead of a textarea so that we don't bring up the
-            // native keyboard on mobile when selecting the input
-            substituteTextarea: function () {
-                return document.createElement("span");
-            },
+        this.mathField = createMathField(element, () => {
+            return {
+                // use a span instead of a textarea so that we don't bring up the
+                // native keyboard on mobile when selecting the input
+                substituteTextarea: function () {
+                    return document.createElement("span");
+                },
+            };
         });
         this.callbacks = callbacks;
     }

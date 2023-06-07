@@ -1,9 +1,10 @@
 import Color from "@khanacademy/wonder-blocks-color";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
-import MathQuill from "mathquill";
 import * as React from "react";
 
 import Key from "../../data/keys";
+import {createMathField} from "../input/mathquill-instance";
+import {MathFieldInterface} from "../input/mathquill-types";
 import keyTranslator from "../key-translator";
 
 import Keypad from "./index";
@@ -12,36 +13,27 @@ export default {
     title: "v2 Keypad With Mathquill",
 };
 
-const mathQuillConfig = {
-    autoCommands: "pi theta phi sqrt nthroot",
-    charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
-    supSubsRequireOperand: true,
-    spaceBehavesLikeTab: true,
-};
-
 export function V2KeypadWithMathquill() {
-    const mathquillWrapperRef = React.useRef<HTMLDivElement>(null);
-    const [mathQuill, setMathQuill] = React.useState<MathQuill>();
+    const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
+    const [mathField, setMathField] = React.useState<MathFieldInterface>();
 
     React.useEffect(() => {
-        if (!mathQuill && mathquillWrapperRef.current) {
-            const MQ = MathQuill.getInterface(2);
-            const mathQuillInstance = MQ.MathField(
-                mathquillWrapperRef.current,
-                mathQuillConfig,
+        if (!mathField && mathFieldWrapperRef.current) {
+            const mathFieldInstance = createMathField(
+                mathFieldWrapperRef.current,
             );
-            setMathQuill(mathQuillInstance);
+            setMathField(mathFieldInstance);
         }
-    }, [mathQuill]);
+    }, [mathField]);
 
     function handleClickKey(key: Key) {
-        if (!mathQuill) {
+        if (!mathField) {
             return;
         }
 
         const mathQuillCallback = keyTranslator[key];
         if (mathQuillCallback) {
-            mathQuillCallback(mathQuill, key);
+            mathQuillCallback(mathField, key);
         } else {
             // eslint-disable-next-line no-console
             console.warn(`No translation to Mathquill for: ${key}`);
@@ -74,7 +66,7 @@ export function V2KeypadWithMathquill() {
                         marginBottom: "1em",
                         border: `1px solid ${Color.offBlack16}`,
                     }}
-                    ref={mathquillWrapperRef}
+                    ref={mathFieldWrapperRef}
                 />
             </Popover>
         </div>

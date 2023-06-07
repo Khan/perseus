@@ -2,12 +2,13 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MathQuill from "mathquill";
 import * as React from "react";
 
 import "@testing-library/jest-dom";
 
 import Key from "../../../data/keys";
+import {createMathField} from "../../input/mathquill-instance";
+import {MathFieldInterface} from "../../input/mathquill-types";
 import keyTranslator from "../../key-translator";
 import Keypad from "../index";
 
@@ -17,20 +18,23 @@ type Props = {
 
 function V2KeypadWithMathquill(props: Props) {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
-    const [mathField, setMathField] = React.useState();
+    const [mathField, setMathField] = React.useState<MathFieldInterface>();
 
     React.useEffect(() => {
         if (!mathField && mathFieldWrapperRef.current) {
-            const MQ = MathQuill.getInterface(2);
-            const mathFieldInstance = MQ.MathField(
+            const mathFieldInstance = createMathField(
                 mathFieldWrapperRef.current,
-                {
-                    charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
-                    handlers: {
-                        edit: (mathField) => {
-                            props.onChangeMathInput(mathFieldInstance.latex());
+                (baseConfig) => {
+                    return {
+                        ...baseConfig,
+                        handlers: {
+                            edit: () => {
+                                props.onChangeMathInput(
+                                    mathFieldInstance.latex(),
+                                );
+                            },
                         },
-                    },
+                    };
                 },
             );
             setMathField(mathFieldInstance);

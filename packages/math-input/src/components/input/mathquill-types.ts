@@ -6,6 +6,27 @@ export interface MathQuillInterface {
     MathField: (mount: HTMLDivElement, options: any) => MathFieldInterface;
 }
 
+type MathQuillDir = "L" | "R";
+
+export type MathFieldConfig = {
+    spaceBehavesLikeTab?: boolean;
+    leftRightIntoCmdGoes?: string;
+    restrictMismatchedBrackets?: boolean;
+    sumStartsWithNEquals?: boolean;
+    supSubsRequireOperand?: boolean;
+    charsThatBreakOutOfSupSub?: string;
+    autoSubscriptNumerals?: boolean;
+    autoCommands?: string;
+    autoOperatorNames?: string;
+    maxDepth?: number;
+    substituteTextarea?: () => HTMLElement;
+    handlers?: {
+        edit?: (mathField: MathFieldInterface) => void;
+        upOutOf?: (mathField: MathFieldInterface) => void;
+        moveOutOf?: (dir: MathQuillDir, mathField: MathFieldInterface) => void;
+    };
+};
+
 export interface MathFieldInterface {
     // Write LaTeX
     // https://docs.mathquill.com/en/latest/Api_Methods/#writelatex_string
