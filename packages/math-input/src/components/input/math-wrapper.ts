@@ -30,10 +30,10 @@ import MQ from "./mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldCursor,
-    MathQuillUpdaterCallback,
+    MathFieldUpdaterCallback,
 } from "./mathquill-types";
 
-const mobileKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
+const mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
     ...keyTranslator,
     // note(Matthew): our mobile backspace logic is really complicated
     // and for some reason doesn't really work in the desktop experience.
@@ -50,10 +50,10 @@ const mobileKeyTranslator: Record<Key, MathQuillUpdaterCallback> = {
  * from MathQuill changes.
  */
 class MathWrapper {
-    mathField: MathFieldInterface; // MathQuill input
+    mathField: MathFieldInterface; // MathQuill MathField input
     callbacks: any;
 
-    constructor(element, options = {}, callbacks = {}) {
+    constructor(element, callbacks = {}) {
         this.mathField = MQ.MathField(element, {
             // use a span instead of a textarea so that we don't bring up the
             // native keyboard on mobile when selecting the input
