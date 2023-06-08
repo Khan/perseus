@@ -18,4 +18,4 @@ export {
     createMathField,
     mathQuillInstance,
 } from "./components/input/mathquill-instance";
-export {MathFieldInterface} from "./components/input/mathquill-types";
+export {type MathFieldInterface} from "./components/input/mathquill-types";
