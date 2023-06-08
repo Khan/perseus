@@ -62,6 +62,12 @@ export interface MathFieldInterface {
     // Clears the selection
     // https://docs.mathquill.com/en/latest/Api_Methods/#clearselection
     clearSelection: () => void;
+    // Custom helper in our MathQuill fork
+    // check to see if cursor is on right end
+    cursorAtRightEnd: () => boolean;
+    // Custom helper in our MathQuill fork
+    // check to see if cursor is on left end
+    cursorAtLeftEnd: () => boolean;
     // This isn't part of the MathQuill public API
     // I don't know what it is and it feels wrong using it
     __controller: any;
