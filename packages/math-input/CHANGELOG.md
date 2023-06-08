@@ -1,5 +1,16 @@
 # @khanacademy/math-input
 
+## 4.2.0
+
+### Minor Changes
+
+-   d497118e: MathInput exports tools for generating MathFields, replacing the need for direct MathQuill access
+
+### Patch Changes
+
+-   e7d21b67: Add keypress logic from MathInput to key translator
+-   eceb4510: Updated aria-labels to be more descriptive and tests that used aria-labels.
+
 ## 4.1.1
 
 ### Patch Changes

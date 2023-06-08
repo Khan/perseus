@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 6.3.0
+
+### Minor Changes
+
+-   d497118e: MathInput exports tools for generating MathFields, replacing the need for direct MathQuill access
+
+### Patch Changes
+
+-   Updated dependencies [e7d21b67]
+-   Updated dependencies [d497118e]
+-   Updated dependencies [eceb4510]
+    -   @khanacademy/math-input@4.2.0
+
 ## 6.2.2
 
 ### Patch Changes
