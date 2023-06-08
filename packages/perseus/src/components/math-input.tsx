@@ -166,70 +166,68 @@ class MathInput extends React.Component<Props, State> {
             // Initialize MathQuill.MathField instance
             this.__mathField = createMathField(
                 this.__mathFieldWrapperRef,
-                (baseConfig) => {
-                    return {
-                        ...baseConfig,
-                        handlers: {
-                            edit: (mathField) => {
-                                // This handler is guaranteed to be called on change, but
-                                // unlike React it sometimes generates false positives.
-                                // One of these is on initialization (with an empty string
-                                // value), so we have to guard against that below.
-                                let value = mathField.latex();
+                (baseConfig) => ({
+                    ...baseConfig,
+                    handlers: {
+                        edit: (mathField) => {
+                            // This handler is guaranteed to be called on change, but
+                            // unlike React it sometimes generates false positives.
+                            // One of these is on initialization (with an empty string
+                            // value), so we have to guard against that below.
+                            let value = mathField.latex();
 
-                                // Provide a MathQuill-compatible way to generate the
-                                // not-equals sign without pasting unicode or typing TeX
-                                value = value.replace(/<>/g, "\\ne");
+                            // Provide a MathQuill-compatible way to generate the
+                            // not-equals sign without pasting unicode or typing TeX
+                            value = value.replace(/<>/g, "\\ne");
 
-                                // Use the specified symbol to represent multiplication
-                                // TODO(alex): Add an option to disallow variables, in
-                                // which case 'x' should get converted to '\\times'
-                                if (this.props.convertDotToTimes) {
-                                    value = value.replace(/\\cdot/g, "\\times");
+                            // Use the specified symbol to represent multiplication
+                            // TODO(alex): Add an option to disallow variables, in
+                            // which case 'x' should get converted to '\\times'
+                            if (this.props.convertDotToTimes) {
+                                value = value.replace(/\\cdot/g, "\\times");
 
-                                    // Preserve cursor position in the common case:
-                                    // typing '*' to insert a multiplication sign.
-                                    // We do this by modifying internal MathQuill state
-                                    // directly, instead of waiting for `.latex()` to be
-                                    // called in `componentDidUpdate()`.
-                                    const left =
-                                        mathField.__controller.cursor[
-                                            mathQuillInstance.L
-                                        ];
-                                    if (left && left.ctrlSeq === "\\cdot ") {
-                                        mathField.__controller.backspace();
-                                        mathField.cmd("\\times");
-                                    }
-                                } else {
-                                    value = value.replace(/\\times/g, "\\cdot");
+                                // Preserve cursor position in the common case:
+                                // typing '*' to insert a multiplication sign.
+                                // We do this by modifying internal MathQuill state
+                                // directly, instead of waiting for `.latex()` to be
+                                // called in `componentDidUpdate()`.
+                                const left =
+                                    mathField.__controller.cursor[
+                                        mathQuillInstance.L
+                                    ];
+                                if (left && left.ctrlSeq === "\\cdot ") {
+                                    mathField.__controller.backspace();
+                                    mathField.cmd("\\times");
                                 }
+                            } else {
+                                value = value.replace(/\\times/g, "\\cdot");
+                            }
 
-                                if (this.props.value !== value) {
-                                    this.props.onChange(value);
-                                }
-                            },
-                            enter: () => {
-                                // NOTE(kevinb): This isn't how answers to exercises are
-                                // submitted.  The actual mechanism for this can be found
-                                // in exercise-problem-template.jsx, see `handleSubmit`.
-
-                                // This handler is called when the user presses the enter
-                                // key. Since this isn't an actual <input> element, we have
-                                // to manually trigger the usually automatic form submit.
-                                if (this.__mathFieldWrapperRef) {
-                                    $(this.__mathFieldWrapperRef).submit();
-                                }
-                            },
-                            upOutOf: (mathField) => {
-                                // This handler is called when the user presses the up
-                                // arrow key, but there is nowhere in the expression to go
-                                // up to (no numerator or exponent). For ease of use,
-                                // interpret this as an attempt to create an exponent.
-                                mathField.typedText("^");
-                            },
+                            if (this.props.value !== value) {
+                                this.props.onChange(value);
+                            }
                         },
-                    };
-                },
+                        enter: () => {
+                            // NOTE(kevinb): This isn't how answers to exercises are
+                            // submitted.  The actual mechanism for this can be found
+                            // in exercise-problem-template.jsx, see `handleSubmit`.
+
+                            // This handler is called when the user presses the enter
+                            // key. Since this isn't an actual <input> element, we have
+                            // to manually trigger the usually automatic form submit.
+                            if (this.__mathFieldWrapperRef) {
+                                $(this.__mathFieldWrapperRef).submit();
+                            }
+                        },
+                        upOutOf: (mathField) => {
+                            // This handler is called when the user presses the up
+                            // arrow key, but there is nowhere in the expression to go
+                            // up to (no numerator or exponent). For ease of use,
+                            // interpret this as an attempt to create an exponent.
+                            mathField.typedText("^");
+                        },
+                    },
+                }),
             );
         }
 

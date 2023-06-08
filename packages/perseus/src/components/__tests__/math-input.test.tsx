@@ -46,6 +46,8 @@ describe("Perseus' MathInput", () => {
         render(<MathInput onChange={mockOnChange} buttonSets={["basic"]} />);
 
         // Act
+        // focusing the input triggers the popover
+        screen.getByRole("textbox").focus();
         userEvent.type(screen.getByRole("textbox"), "1");
         userEvent.click(screen.getByRole("button", {name: "Plus"}));
         userEvent.type(screen.getByRole("textbox"), "2");
