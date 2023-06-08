@@ -1,5 +1,5 @@
 import {CursorContext} from "./cursor-contexts";
-import MQ from "./mathquill-instance";
+import {mathQuillInstance} from "./mathquill-instance";
 import {
     MathFieldActionType,
     MathFieldCursor,
@@ -126,8 +126,8 @@ export function isInsideLogIndex(cursor: MathFieldCursor): boolean {
 
 export function isInsideEmptyNode(cursor: MathFieldCursor): boolean {
     return (
-        cursor[MQ.L] === MathFieldActionType.MQ_END &&
-        cursor[MQ.R] === MathFieldActionType.MQ_END
+        cursor[mathQuillInstance.L] === MathFieldActionType.MQ_END &&
+        cursor[mathQuillInstance.R] === MathFieldActionType.MQ_END
     );
 }
 
@@ -191,7 +191,7 @@ export function maybeFindCommand(initialNode) {
             break;
         }
 
-        node = node[MQ.L];
+        node = node[mathQuillInstance.L];
     }
 
     // If we hit the start of a command, then grab the rest of it by
@@ -199,7 +199,7 @@ export function maybeFindCommand(initialNode) {
     // with its terminal node.
     if (startNode) {
         // Next, iterate from the start to the right.
-        node = initialNode[MQ.R];
+        node = initialNode[mathQuillInstance.R];
         while (node !== 0) {
             const ctrlSeq = node.ctrlSeq.trim();
             if (commandCharRegex.test(ctrlSeq)) {
@@ -213,7 +213,7 @@ export function maybeFindCommand(initialNode) {
                 break;
             }
 
-            node = node[MQ.R];
+            node = node[mathQuillInstance.R];
         }
         if (validCommands.includes(name)) {
             return {name, startNode, endNode};
@@ -235,19 +235,19 @@ export function maybeFindCommand(initialNode) {
  *                          name (`name`) of the command
  */
 export function maybeFindCommandBeforeParens(leftParenNode) {
-    return maybeFindCommand(leftParenNode[MQ.L]);
+    return maybeFindCommand(leftParenNode[mathQuillInstance.L]);
 }
 
 export function contextForCursor(cursor: MathFieldCursor): CursorContext {
     // First, try to find any fraction to the right, unimpeded.
     let visitor = cursor;
-    while (visitor[MQ.R] !== MathFieldActionType.MQ_END) {
-        if (isFraction(visitor[MQ.R])) {
+    while (visitor[mathQuillInstance.R] !== MathFieldActionType.MQ_END) {
+        if (isFraction(visitor[mathQuillInstance.R])) {
             return CursorContext.BEFORE_FRACTION;
-        } else if (!isLeaf(visitor[MQ.R])) {
+        } else if (!isLeaf(visitor[mathQuillInstance.R])) {
             break;
         }
-        visitor = visitor[MQ.R];
+        visitor = visitor[mathQuillInstance.R];
     }
 
     // If that didn't work, check if the parent or grandparent is a special

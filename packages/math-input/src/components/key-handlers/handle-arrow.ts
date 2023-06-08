@@ -4,7 +4,7 @@ import {
     maybeFindCommandBeforeParens,
     getCursor,
 } from "../input/mathquill-helpers";
-import MQ from "../input/mathquill-instance";
+import {mathQuillInstance} from "../input/mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldActionType,
@@ -25,7 +25,7 @@ function handleLeftArrow(
     // the ActionType.MQ_END node, that our grandparent is the left parenthesis, and
     // the nodes to the left of our grandparent comprise a valid function
     // name.
-    if (cursor[MQ.L] === MathFieldActionType.MQ_END) {
+    if (cursor[mathQuillInstance.L] === MathFieldActionType.MQ_END) {
         const parent = cursor.parent;
         const grandparent = parent.parent;
         if (grandparent.ctrlSeq === "\\left(") {
@@ -45,7 +45,7 @@ function handleRightArrow(
     mathField: MathFieldInterface,
     cursor: MathFieldCursor,
 ) {
-    const command = maybeFindCommand(cursor[MQ.R]);
+    const command = maybeFindCommand(cursor[mathQuillInstance.R]);
     if (command) {
         // Similarly, if a function is to our right, then we need to place
         // the cursor at the start of its parenthetical content, which is

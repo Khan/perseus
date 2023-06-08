@@ -1,7 +1,7 @@
 import Key from "../../data/keys";
 import {DecimalSeparator} from "../../enums";
 import {decimalSeparator} from "../../utils";
-import MQ from "../input/mathquill-instance";
+import {mathQuillInstance} from "../input/mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldUpdaterCallback,
@@ -111,7 +111,8 @@ const keyToMathquillMap: Record<Key, MathFieldUpdaterCallback> = {
         const cursor = mathQuill.__controller.cursor;
         // If there's nothing to the left of the cursor, then we want to
         // leave the cursor to the left of the fraction after creating it.
-        const shouldNavigateLeft = cursor[MQ.L] === ActionType.MQ_END;
+        const shouldNavigateLeft =
+            cursor[mathQuillInstance.L] === ActionType.MQ_END;
         mathQuill.cmd("\\frac");
         if (shouldNavigateLeft) {
             mathQuill.keystroke("Left");

@@ -3,22 +3,52 @@ import Key from "../../data/keys";
 export interface MathQuillInterface {
     L: "L";
     R: "R";
-    MathField: (mount: HTMLDivElement, options: any) => MathFieldInterface;
+    MathField: (
+        mount: HTMLDivElement | HTMLSpanElement,
+        config: MathFieldConfig,
+    ) => MathFieldInterface;
 }
 
+type MathQuillDir = "L" | "R";
+
+export type MathFieldConfig = {
+    spaceBehavesLikeTab?: boolean;
+    leftRightIntoCmdGoes?: string;
+    restrictMismatchedBrackets?: boolean;
+    sumStartsWithNEquals?: boolean;
+    supSubsRequireOperand?: boolean;
+    charsThatBreakOutOfSupSub?: string;
+    autoSubscriptNumerals?: boolean;
+    autoCommands?: string;
+    autoOperatorNames?: string;
+    maxDepth?: number;
+    substituteTextarea?: () => HTMLElement;
+    handlers?: {
+        edit?: (mathField: MathFieldInterface) => void;
+        upOutOf?: (mathField: MathFieldInterface) => void;
+        moveOutOf?: (dir: MathQuillDir, mathField: MathFieldInterface) => void;
+    };
+};
+
 export interface MathFieldInterface {
+    // Puts the focus on the editable field.
+    // http://docs.mathquill.com/en/latest/Api_Methods/#focus
+    focus: () => MathFieldInterface;
+    // Removes focus from the editable field.
+    // http://docs.mathquill.com/en/latest/Api_Methods/#blur
+    blur: () => MathFieldInterface;
     // Write LaTeX
     // https://docs.mathquill.com/en/latest/Api_Methods/#writelatex_string
-    write: (input: string) => void;
+    write: (input: string) => MathFieldInterface;
     // Enter a LaTeX command
     // https://docs.mathquill.com/en/latest/Api_Methods/#cmdlatex_string
-    cmd: (input: string) => void;
+    cmd: (input: string) => MathFieldInterface;
     // Simulates keystrokes given a string like "Ctrl-Home Del"
     // https://docs.mathquill.com/en/latest/Api_Methods/#keystrokekeys
-    keystroke: (input: string) => void;
+    keystroke: (input: string) => MathFieldInterface;
     // Simulates typing text, one character at a time
     // https://docs.mathquill.com/en/latest/Api_Methods/#typedtexttext
-    typedText: (input: string) => void;
+    typedText: (input: string) => MathFieldInterface;
     // () => {}: Gets the contents as LaTeX
     // (string) => {}: Sets the contents as LaTeX
     // https://docs.mathquill.com/en/latest/Api_Methods/#latex

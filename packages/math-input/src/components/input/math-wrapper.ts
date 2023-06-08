@@ -26,7 +26,7 @@ import {
     contextForCursor,
     maybeFindCommand,
 } from "./mathquill-helpers";
-import MQ from "./mathquill-instance";
+import {createMathField, mathQuillInstance} from "./mathquill-instance";
 import {
     MathFieldInterface,
     MathFieldCursor,
@@ -54,12 +54,14 @@ class MathWrapper {
     callbacks: any;
 
     constructor(element, callbacks = {}) {
-        this.mathField = MQ.MathField(element, {
-            // use a span instead of a textarea so that we don't bring up the
-            // native keyboard on mobile when selecting the input
-            substituteTextarea: function () {
-                return document.createElement("span");
-            },
+        this.mathField = createMathField(element, () => {
+            return {
+                // use a span instead of a textarea so that we don't bring up the
+                // native keyboard on mobile when selecting the input
+                substituteTextarea: function () {
+                    return document.createElement("span");
+                },
+            };
         });
         this.callbacks = callbacks;
     }
@@ -145,7 +147,7 @@ class MathWrapper {
                 // Unless that would leave us mid-command, in which case, we
                 // need to adjust and place the cursor inside the parens
                 // following the command.
-                const command = maybeFindCommand(cursor[MQ.L]);
+                const command = maybeFindCommand(cursor[mathQuillInstance.L]);
                 if (command && command.endNode) {
                     // NOTE(charlie): endNode should definitely be \left(.
                     cursor.insLeftOf(command.endNode);
