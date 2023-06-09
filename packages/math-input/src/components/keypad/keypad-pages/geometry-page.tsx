@@ -17,19 +17,16 @@ export default function GeometryPage(props: Props) {
                 keyConfig={Keys.SIN}
                 onClickKey={onClickKey}
                 coord={[0, 0]}
-                secondary
             />
             <KeypadButton
                 keyConfig={Keys.COS}
                 onClickKey={onClickKey}
                 coord={[1, 0]}
-                secondary
             />
             <KeypadButton
                 keyConfig={Keys.TAN}
                 onClickKey={onClickKey}
                 coord={[2, 0]}
-                secondary
             />
         </>
     );

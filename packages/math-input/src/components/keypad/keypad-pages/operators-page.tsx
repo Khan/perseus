@@ -30,25 +30,21 @@ export default function OperatorsPage(props: Props) {
                         keyConfig={Keys.EXP_2}
                         onClickKey={onClickKey}
                         coord={[0, 0]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.EXP}
                         onClickKey={onClickKey}
                         coord={[1, 0]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.SQRT}
                         onClickKey={onClickKey}
                         coord={[2, 0]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.RADICAL}
                         onClickKey={onClickKey}
                         coord={[3, 0]}
-                        secondary
                     />
                 </>
             )}
@@ -60,19 +56,16 @@ export default function OperatorsPage(props: Props) {
                         keyConfig={Keys.LOG}
                         onClickKey={onClickKey}
                         coord={[0, 1]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.LOG_N}
                         onClickKey={onClickKey}
                         coord={[1, 1]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.LN}
                         onClickKey={onClickKey}
                         coord={[2, 1]}
-                        secondary
                     />
                 </>
             )}
@@ -84,19 +77,16 @@ export default function OperatorsPage(props: Props) {
                         keyConfig={Keys.EQUAL}
                         onClickKey={onClickKey}
                         coord={[0, 2]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.LT}
                         onClickKey={onClickKey}
                         coord={[1, 2]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.GT}
                         onClickKey={onClickKey}
                         coord={[2, 2]}
-                        secondary
                     />
                 </>
             )}
@@ -108,19 +98,16 @@ export default function OperatorsPage(props: Props) {
                         keyConfig={Keys.NEQ}
                         onClickKey={onClickKey}
                         coord={[0, 3]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.LEQ}
                         onClickKey={onClickKey}
                         coord={[1, 3]}
-                        secondary
                     />
                     <KeypadButton
                         keyConfig={Keys.GEQ}
                         onClickKey={onClickKey}
                         coord={[2, 3]}
-                        secondary
                     />
                 </>
             )}
