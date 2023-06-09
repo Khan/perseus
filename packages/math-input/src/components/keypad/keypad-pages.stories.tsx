@@ -2,9 +2,9 @@ import {action} from "@storybook/addon-actions";
 import {withKnobs} from "@storybook/addon-knobs";
 import * as React from "react";
 
-import GeometryInputPage from "./geometry-page";
-import NumbersPage from "./numbers-page";
-import PrealgebraInputPage from "./operators-page";
+import GeometryInputPage from "./keypad-pages/geometry-page";
+import NumbersPage from "./keypad-pages/numbers-page";
+import PrealgebraInputPage from "./keypad-pages/operators-page";
 
 export default {
     title: "Keypad pages",

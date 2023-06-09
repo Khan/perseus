@@ -2,40 +2,33 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useState} from "react";
 
 import Key from "../../data/keys";
 import {ClickKeyCallback} from "../../types";
 import Tabbar from "../tabbar/tabbar";
 import {TabbarItemType} from "../tabbar/types";
 
-import ExtrasPage from "./extras-page";
-import GeometryPage from "./geometry-page";
-import NumbersPage from "./numbers-page";
-import {NumbersPageOptions} from "./numbers-page/types";
-import OperatorsPage from "./operators-page";
-import {OperatorsButtonSets} from "./operators-page/types";
+import ExtrasPage from "./keypad-pages/extras-page";
+import GeometryPage from "./keypad-pages/geometry-page";
+import NumbersPage from "./keypad-pages/numbers-page";
+import OperatorsPage from "./keypad-pages/operators-page";
+import SharedKeys from "./shared-keys";
 
 export type Props = {
     onClickKey: ClickKeyCallback;
     trigonometry?: boolean;
     extraKeys: ReadonlyArray<Key>;
-} & OperatorsButtonSets &
-    NumbersPageOptions;
-
-type State = {
-    selectedPage: TabbarItemType;
-};
-
-type DefaultProps = {
-    extraKeys: Props["extraKeys"];
+    multiplicationDot?: boolean;
+    divisionKey?: boolean;
+    preAlgebra?: boolean;
+    logarithms?: boolean;
+    basicRelations?: boolean;
+    advancedRelations?: boolean;
 };
 
 function allPages(props: Props): ReadonlyArray<TabbarItemType> {
     const pages: Array<TabbarItemType> = ["Numbers"];
-
-    if (props.extraKeys?.length) {
-        pages.push("Extras");
-    }
 
     if (
         // OperatorsButtonSets
@@ -51,44 +44,101 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
         pages.push("Geometry");
     }
 
+    if (props.extraKeys?.length) {
+        pages.push("Extras");
+    }
+
     return pages;
 }
 
-export default class Keypad extends React.Component<Props, State> {
-    state: State = {
-        selectedPage: "Numbers",
-    };
+type GridProps = {
+    children: React.ReactNode;
+};
 
-    static defaultProps: DefaultProps = {
-        extraKeys: [],
-    };
+function Grid(props: GridProps) {
+    return (
+        <View
+            style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(6, 1fr)",
+                gridTemplateRows: "repeat(4, 1fr)",
+                maxHeight: 200,
+                maxWidth: 300,
+            }}
+        >
+            {props.children}
+        </View>
+    );
+}
 
-    render(): React.ReactNode {
-        const {selectedPage} = this.state;
+export default function Keypad(props: Props) {
+    const [selectedPage, setSelectedPage] = useState<TabbarItemType>("Numbers");
 
-        const availablePages = allPages(this.props);
+    const availablePages = allPages(props);
 
-        return (
-            <View>
-                <Tabbar
-                    items={availablePages}
-                    selectedItem={selectedPage}
-                    onSelectItem={(tabbarItem: TabbarItemType) => {
-                        this.setState({selectedPage: tabbarItem});
-                    }}
-                    style={styles.tabbar}
-                />
-                {selectedPage === "Numbers" && <NumbersPage {...this.props} />}
-                {selectedPage === "Extras" && <ExtrasPage {...this.props} />}
-                {selectedPage === "Operators" && (
-                    <OperatorsPage {...this.props} />
-                )}
-                {selectedPage === "Geometry" && (
-                    <GeometryPage {...this.props} />
-                )}
+    const {
+        onClickKey,
+        extraKeys = [],
+        multiplicationDot,
+        divisionKey,
+        preAlgebra,
+        logarithms,
+        basicRelations,
+        advancedRelations,
+    } = props;
+
+    return (
+        <View>
+            <Tabbar
+                items={availablePages}
+                selectedItem={selectedPage}
+                onSelectItem={(tabbarItem: TabbarItemType) => {
+                    setSelectedPage(tabbarItem);
+                }}
+                style={styles.tabbar}
+            />
+
+            <View
+                style={{
+                    backgroundColor: "#DBDCDD",
+                    display: "flex",
+                    flexDirection: "row",
+                }}
+            >
+                <Grid>
+                    {selectedPage === "Numbers" && (
+                        <NumbersPage
+                            onClickKey={onClickKey}
+                            multiplicationDot={multiplicationDot}
+                            divisionKey={divisionKey}
+                        />
+                    )}
+                    {selectedPage === "Extras" && (
+                        <ExtrasPage
+                            onClickKey={onClickKey}
+                            extraKeys={extraKeys}
+                        />
+                    )}
+                    {selectedPage === "Operators" && (
+                        <OperatorsPage
+                            onClickKey={onClickKey}
+                            preAlgebra={preAlgebra}
+                            logarithms={logarithms}
+                            basicRelations={basicRelations}
+                            advancedRelations={advancedRelations}
+                        />
+                    )}
+                    {selectedPage === "Geometry" && (
+                        <GeometryPage onClickKey={onClickKey} />
+                    )}
+                    <SharedKeys
+                        onClickKey={onClickKey}
+                        multiplicationDot={multiplicationDot}
+                    />
+                </Grid>
             </View>
-        );
-    }
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({

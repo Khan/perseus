@@ -46,7 +46,20 @@ export function V2KeypadWithMathquill() {
                 content={
                     <div>
                         <Keypad
-                            extraKeys={["a", "b", "c"]}
+                            extraKeys={[
+                                "a",
+                                "b",
+                                "c",
+                                "d",
+                                "e",
+                                "f",
+                                "g",
+                                "h",
+                                "i",
+                                "j",
+                                "k",
+                                "l",
+                            ]}
                             onClickKey={handleClickKey}
                             advancedRelations
                             basicRelations
@@ -59,6 +72,7 @@ export function V2KeypadWithMathquill() {
                     </div>
                 }
                 dismissEnabled
+                opened
             >
                 <div
                     style={{

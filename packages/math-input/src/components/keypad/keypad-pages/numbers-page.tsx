@@ -1,0 +1,87 @@
+import * as React from "react";
+
+import Keys from "../../../data/key-configs";
+import {ClickKeyCallback} from "../../../types";
+import {KeypadButton} from "../keypad-button";
+
+type Props = {
+    onClickKey: ClickKeyCallback;
+    multiplicationDot?: boolean;
+    divisionKey?: boolean;
+};
+
+export default function NumbersPage(props: Props) {
+    const {onClickKey} = props;
+    return (
+        <>
+            {/* Row 1 */}
+            <KeypadButton
+                keyConfig={Keys.NUM_7}
+                onClickKey={onClickKey}
+                coord={[0, 0]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_8}
+                onClickKey={onClickKey}
+                coord={[1, 0]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_9}
+                onClickKey={onClickKey}
+                coord={[2, 0]}
+            />
+
+            {/* Row 2 */}
+            <KeypadButton
+                keyConfig={Keys.NUM_4}
+                onClickKey={onClickKey}
+                coord={[0, 1]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_5}
+                onClickKey={onClickKey}
+                coord={[1, 1]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_6}
+                onClickKey={onClickKey}
+                coord={[2, 1]}
+            />
+
+            {/* Row 3 */}
+            <KeypadButton
+                keyConfig={Keys.NUM_1}
+                onClickKey={onClickKey}
+                coord={[0, 2]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_2}
+                onClickKey={onClickKey}
+                coord={[1, 2]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_3}
+                onClickKey={onClickKey}
+                coord={[2, 2]}
+            />
+
+            {/* Row 4 */}
+            <KeypadButton
+                keyConfig={Keys.NUM_0}
+                onClickKey={onClickKey}
+                coord={[0, 3]}
+            />
+            <KeypadButton
+                keyConfig={Keys.DECIMAL}
+                onClickKey={onClickKey}
+                coord={[1, 3]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NEGATIVE}
+                onClickKey={onClickKey}
+                coord={[2, 3]}
+            />
+            <div />
+        </>
+    );
+}

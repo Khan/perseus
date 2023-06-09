@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
 });
 
 export type Props = {
+    coord: readonly [number, number];
     onPress: () => void;
     children: React.ReactNode;
     ariaLabel: string;
@@ -70,7 +71,13 @@ export default class Button extends React.Component<Props> {
     render(): React.ReactNode {
         const {onPress, ariaLabel, children, style, tintColor} = this.props;
         return (
-            <View style={style}>
+            <View
+                style={{
+                    gridColumn: this.props.coord[0] + 1,
+                    gridRow: this.props.coord[1] + 1,
+                    ...style,
+                }}
+            >
                 <Clickable
                     onClick={onPress}
                     style={styles.clickable}

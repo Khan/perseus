@@ -9,7 +9,7 @@ describe("<Button />", () => {
     it("uses the aria label", () => {
         // Arrange
         render(
-            <Button onPress={() => {}} ariaLabel="Oranges">
+            <Button onPress={() => {}} ariaLabel="Oranges" coord={[0, 0]}>
                 <p />
             </Button>,
         );
@@ -24,7 +24,11 @@ describe("<Button />", () => {
         // Arrange
         const mockPressCallback = jest.fn();
         render(
-            <Button onPress={mockPressCallback} ariaLabel="Oranges">
+            <Button
+                onPress={mockPressCallback}
+                ariaLabel="Oranges"
+                coord={[0, 0]}
+            >
                 <p />
             </Button>,
         );
@@ -39,7 +43,7 @@ describe("<Button />", () => {
     it("renders child", () => {
         // Arrange
         render(
-            <Button onPress={() => {}} ariaLabel="Test">
+            <Button onPress={() => {}} ariaLabel="Test" coord={[0, 0]}>
                 <img aria-label="child1" />
             </Button>,
         );

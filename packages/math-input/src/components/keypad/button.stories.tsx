@@ -4,7 +4,7 @@ import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
 
-import {KeypadButton, KeypadButtonProps} from "./keypad-page-items";
+import {KeypadButton, KeypadButtonProps} from "./keypad-button";
 
 export default {
     title: "Keypad Button",
@@ -70,6 +70,7 @@ export const AllButtons: ComponentStory<typeof KeypadButton> = ({
                 <KeypadButton
                     keyConfig={KeyConfigs[key]}
                     onClickKey={action("pressed")}
+                    coord={[0, 0]}
                 />
             </div>
         ))}
