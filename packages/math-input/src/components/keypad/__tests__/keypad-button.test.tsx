@@ -11,7 +11,7 @@ describe("<KeypadButton />", () => {
         // Arrange
         render(
             <KeypadButton
-                onClickKey={(config) => {}}
+                onClickKey={() => {}}
                 keyConfig={Keys.LEFT_PAREN}
                 coord={[0, 0]}
             />,
