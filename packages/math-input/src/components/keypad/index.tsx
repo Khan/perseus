@@ -51,26 +51,6 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
     return pages;
 }
 
-type GridProps = {
-    children: React.ReactNode;
-};
-
-function Grid(props: GridProps) {
-    return (
-        <View
-            style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(6, 1fr)",
-                gridTemplateRows: "repeat(4, 1fr)",
-                maxHeight: 200,
-                maxWidth: 300,
-            }}
-        >
-            {props.children}
-        </View>
-    );
-}
-
 export default function Keypad(props: Props) {
     const [selectedPage, setSelectedPage] = useState<TabbarItemType>("Numbers");
 
@@ -105,7 +85,15 @@ export default function Keypad(props: Props) {
                     flexDirection: "row",
                 }}
             >
-                <Grid>
+                <View
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(6, 1fr)",
+                        gridTemplateRows: "repeat(4, 1fr)",
+                        maxHeight: 200,
+                        maxWidth: 300,
+                    }}
+                >
                     {selectedPage === "Numbers" && (
                         <NumbersPage onClickKey={onClickKey} />
                     )}
@@ -132,7 +120,7 @@ export default function Keypad(props: Props) {
                         multiplicationDot={multiplicationDot}
                         divisionKey={divisionKey}
                     />
-                </Grid>
+                </View>
             </View>
         </View>
     );
