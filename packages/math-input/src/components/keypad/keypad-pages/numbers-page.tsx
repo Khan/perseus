@@ -79,7 +79,6 @@ export default function NumbersPage(props: Props) {
                 onClickKey={onClickKey}
                 coord={[2, 3]}
             />
-            <div />
         </>
     );
 }
