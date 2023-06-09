@@ -80,47 +80,37 @@ export default function Keypad(props: Props) {
 
             <View
                 style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(6, 1fr)",
+                    gridTemplateRows: "repeat(4, 1fr)",
                     backgroundColor: "#DBDCDD",
-                    display: "flex",
-                    flexDirection: "row",
+                    maxHeight: 200,
+                    maxWidth: 300,
                 }}
             >
-                <View
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(6, 1fr)",
-                        gridTemplateRows: "repeat(4, 1fr)",
-                        maxHeight: 200,
-                        maxWidth: 300,
-                    }}
-                >
-                    {selectedPage === "Numbers" && (
-                        <NumbersPage onClickKey={onClickKey} />
-                    )}
-                    {selectedPage === "Extras" && (
-                        <ExtrasPage
-                            onClickKey={onClickKey}
-                            extraKeys={extraKeys}
-                        />
-                    )}
-                    {selectedPage === "Operators" && (
-                        <OperatorsPage
-                            onClickKey={onClickKey}
-                            preAlgebra={preAlgebra}
-                            logarithms={logarithms}
-                            basicRelations={basicRelations}
-                            advancedRelations={advancedRelations}
-                        />
-                    )}
-                    {selectedPage === "Geometry" && (
-                        <GeometryPage onClickKey={onClickKey} />
-                    )}
-                    <SharedKeys
+                {selectedPage === "Numbers" && (
+                    <NumbersPage onClickKey={onClickKey} />
+                )}
+                {selectedPage === "Extras" && (
+                    <ExtrasPage onClickKey={onClickKey} extraKeys={extraKeys} />
+                )}
+                {selectedPage === "Operators" && (
+                    <OperatorsPage
                         onClickKey={onClickKey}
-                        multiplicationDot={multiplicationDot}
-                        divisionKey={divisionKey}
+                        preAlgebra={preAlgebra}
+                        logarithms={logarithms}
+                        basicRelations={basicRelations}
+                        advancedRelations={advancedRelations}
                     />
-                </View>
+                )}
+                {selectedPage === "Geometry" && (
+                    <GeometryPage onClickKey={onClickKey} />
+                )}
+                <SharedKeys
+                    onClickKey={onClickKey}
+                    multiplicationDot={multiplicationDot}
+                    divisionKey={divisionKey}
+                />
             </View>
         </View>
     );
