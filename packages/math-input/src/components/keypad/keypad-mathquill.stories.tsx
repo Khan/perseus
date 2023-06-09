@@ -1,5 +1,5 @@
 import Color from "@khanacademy/wonder-blocks-color";
-import {Popover} from "@khanacademy/wonder-blocks-popover";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
 import Key from "../../data/keys";
@@ -44,22 +44,14 @@ export function V2KeypadWithMathquill() {
         <div style={{maxWidth: "400px", margin: "2em"}}>
             <Popover
                 content={
-                    <div>
+                    <PopoverContentCore
+                        style={{
+                            padding: 10,
+                            maxWidth: "initial",
+                        }}
+                    >
                         <Keypad
-                            extraKeys={[
-                                "a",
-                                "b",
-                                "c",
-                                "d",
-                                "e",
-                                "f",
-                                "g",
-                                "h",
-                                "i",
-                                "j",
-                                "k",
-                                "l",
-                            ]}
+                            extraKeys={["a", "b", "c"]}
                             onClickKey={handleClickKey}
                             advancedRelations
                             basicRelations
@@ -69,7 +61,7 @@ export function V2KeypadWithMathquill() {
                             preAlgebra
                             trigonometry
                         />
-                    </div>
+                    </PopoverContentCore>
                 }
                 dismissEnabled
                 opened

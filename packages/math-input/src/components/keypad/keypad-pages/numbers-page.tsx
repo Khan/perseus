@@ -6,8 +6,6 @@ import {KeypadButton} from "../keypad-button";
 
 type Props = {
     onClickKey: ClickKeyCallback;
-    multiplicationDot?: boolean;
-    divisionKey?: boolean;
 };
 
 export default function NumbersPage(props: Props) {

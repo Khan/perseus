@@ -107,11 +107,7 @@ export default function Keypad(props: Props) {
             >
                 <Grid>
                     {selectedPage === "Numbers" && (
-                        <NumbersPage
-                            onClickKey={onClickKey}
-                            multiplicationDot={multiplicationDot}
-                            divisionKey={divisionKey}
-                        />
+                        <NumbersPage onClickKey={onClickKey} />
                     )}
                     {selectedPage === "Extras" && (
                         <ExtrasPage
@@ -134,6 +130,7 @@ export default function Keypad(props: Props) {
                     <SharedKeys
                         onClickKey={onClickKey}
                         multiplicationDot={multiplicationDot}
+                        divisionKey={divisionKey}
                     />
                 </Grid>
             </View>

@@ -8,10 +8,11 @@ import {KeypadButton} from "./keypad-button";
 type Props = {
     onClickKey: ClickKeyCallback;
     multiplicationDot?: boolean;
+    divisionKey?: boolean;
 };
 
 export default function SharedKeys(props: Props) {
-    const {onClickKey, multiplicationDot} = props;
+    const {onClickKey, divisionKey, multiplicationDot} = props;
 
     return (
         <>
@@ -36,12 +37,14 @@ export default function SharedKeys(props: Props) {
                 coord={[4, 1]}
                 secondary
             />
-            <KeypadButton
-                keyConfig={Keys.DIVIDE}
-                onClickKey={onClickKey}
-                coord={[5, 1]}
-                secondary
-            />
+            {divisionKey && (
+                <KeypadButton
+                    keyConfig={Keys.DIVIDE}
+                    onClickKey={onClickKey}
+                    coord={[5, 1]}
+                    secondary
+                />
+            )}
 
             {/* Row 3 */}
             <KeypadButton
