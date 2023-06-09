@@ -19,6 +19,7 @@
     "source": "src/index.ts",
     "scripts": {},
     "dependencies": {
+        "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992",
         "performance-now": "^0.2.0"
     },
     "devDependencies": {
@@ -31,7 +32,6 @@
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
-        "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992",
         "perseus-build-settings": "^0.1.0",
         "prop-types": "15.6.1",
         "react": "^16.8.0",
@@ -51,7 +51,6 @@
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
-        "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992",
         "prop-types": "15.6.1",
         "react": "^16.8.0",
         "react-dom": "^16.8.0",

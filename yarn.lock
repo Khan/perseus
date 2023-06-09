@@ -15550,7 +15550,7 @@ pirates@^4.0.1, pirates@^4.0.4, pirates@^4.0.5:
 pjs@3.x:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/pjs/-/pjs-3.1.0.tgz#c65f505e34e386ef0e3b5ea8d42049c4173b599a"
-  integrity sha1-xl9QXjTjhu8OO16o1CBJxBc7WZo=
+  integrity sha512-NMO75UrGcS0rwzC+kyF3G0SoDSBEYJGQ+J1rLuK8kpEez7k3A/xesUPVUrYghJUG2bb2ojODpgY0z9oIf5gjJw==
 
 pkg-dir@^3.0.0:
   version "3.0.0"
