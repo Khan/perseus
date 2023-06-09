@@ -11,8 +11,8 @@ import ButtonAsset from "./button-assets";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 export type KeypadButtonProps = {
-    // 0 indexed x,y position in keypad CSS grid
-    coord: readonly [column: number, row: number];
+    // 0 indexed [x, y] position in keypad CSS grid
+    coord: readonly [number, number];
     keyConfig: KeyConfig;
     onClickKey: ClickKeyCallback;
     // Apply action button styles
