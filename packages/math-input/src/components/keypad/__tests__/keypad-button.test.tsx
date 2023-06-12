@@ -4,15 +4,16 @@ import * as React from "react";
 import "@testing-library/jest-dom";
 
 import Keys from "../../../data/key-configs";
-import {KeypadButton} from "../keypad-page-items";
+import {KeypadButton} from "../keypad-button";
 
 describe("<KeypadButton />", () => {
     it("uses the aria label from the key config", () => {
         // Arrange
         render(
             <KeypadButton
-                onClickKey={(config) => {}}
+                onClickKey={() => {}}
                 keyConfig={Keys.LEFT_PAREN}
+                coord={[0, 0]}
             />,
         );
 
@@ -29,6 +30,7 @@ describe("<KeypadButton />", () => {
             <KeypadButton
                 onClickKey={mockClickKeyCallback}
                 keyConfig={Keys.LEFT_PAREN}
+                coord={[0, 0]}
             />,
         );
 
