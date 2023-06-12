@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 4.3.0
+
+### Minor Changes
+
+-   cf29ed88: Update layout of MathInput's keypad
+
 ## 4.2.0
 
 ### Minor Changes
