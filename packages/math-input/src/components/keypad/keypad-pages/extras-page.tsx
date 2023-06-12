@@ -2,11 +2,12 @@ import * as React from "react";
 
 import Keys from "../../../data/key-configs";
 import Key from "../../../data/keys";
+import {ClickKeyCallback} from "../../../types";
 import {KeypadButton} from "../keypad-button";
 
 type Props = {
     extraKeys: ReadonlyArray<Key>;
-    onClickKey: (keyConfig: string) => void;
+    onClickKey: ClickKeyCallback;
 };
 
 const columns = 4;
