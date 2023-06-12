@@ -89,3 +89,14 @@ Trigonometry.args = {
     preAlgebra: true,
     trigonometry: true,
 };
+
+export const Everything = Template.bind({});
+Everything.args = {
+    advancedRelations: true,
+    basicRelations: true,
+    divisionKey: true,
+    logarithms: true,
+    multiplicationDot: false,
+    preAlgebra: true,
+    trigonometry: true,
+};
