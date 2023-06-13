@@ -71,7 +71,7 @@ const IconAsset = function ({tintColor, type}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <g
-                        clip-path="url(#clip0_4011_87172)"
+                        clipPath="url(#clip0_4011_87172)"
                         fillRule="evenodd"
                         clipRule="evenodd"
                         fill={tintColor}
