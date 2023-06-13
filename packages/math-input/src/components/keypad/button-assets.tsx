@@ -197,14 +197,14 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M12 20c0-.5523.4477-1 1-1h14c.5523 0 1 .4477 1 1s-.4477 1-1 1H13c-.5523 0-1-.4477-1-1z"
                         fill="#21242C"
                     />
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M20 28c-.5523 0-1-.4477-1-1V13c0-.5523.4477-1 1-1s1 .4477 1 1v14c0 .5523-.4477 1-1 1z"
                         fill="#21242C"
                     />
@@ -220,8 +220,8 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M12 20c0-.5523.4477-1 1-1h14c.5523 0 1 .4477 1 1s-.4477 1-1 1H13c-.5523 0-1-.4477-1-1z"
                         fill="#21242C"
                     />
@@ -237,14 +237,14 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M14.3432 14.3428c.3905-.3905 1.0237-.3905 1.4142 0l9.8995 9.8995c.3905.3906.3905 1.0237 0 1.4143-.3905.3905-1.0237.3905-1.4142 0l-9.8995-9.8995c-.3905-.3906-.3905-1.0237 0-1.4143z"
                         fill="#21242C"
                     />
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M14.3431 25.6573c-.3905-.3905-.3905-1.0237 0-1.4142l9.8995-9.8995c.3905-.3905 1.0237-.3905 1.4142 0 .3905.3905.3905 1.0237 0 1.4142l-9.8995 9.8995c-.3905.3905-1.0237.3905-1.4142 0z"
                         fill="#21242C"
                     />
@@ -259,7 +259,7 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                 >
-                    <g clip-path="url(#clip0_874_41555)">
+                    <g clipPath="url(#clip0_874_41555)">
                         <circle cx="20" cy="20" r="1.5" fill="#21242C" />
                     </g>
                     <defs>
@@ -283,8 +283,8 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M20 16c.8284 0 1.5-.6716 1.5-1.5S20.8284 13 20 13s-1.5.6716-1.5 1.5.6716 1.5 1.5 1.5zm-8 4c0-.5523.4477-1 1-1h14c.5523 0 1 .4477 1 1s-.4477 1-1 1H13c-.5523 0-1-.4477-1-1zm9.5 5.5c0 .8284-.6716 1.5-1.5 1.5s-1.5-.6716-1.5-1.5.6716-1.5 1.5-1.5 1.5.6716 1.5 1.5z"
                         fill="#21242C"
                     />
@@ -301,8 +301,8 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M22.6402 9.2318c.4243.35357.4816.9841.128 1.4084-4.6909 5.6292-4.6909 13.0905 0 18.7196.3536.4243.2963 1.0549-.128 1.4084-.4243.3536-1.0549.2963-1.4084-.128-5.3091-6.3708-5.3091-14.9095 0-21.28036.3535-.42428.9841-.4816 1.4084-.12804z"
                         fill="#21242C"
                     />
@@ -318,8 +318,8 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M18.3598 9.2318c.4243-.35356 1.0549-.29624 1.4084.12804 5.3091 6.37086 5.3091 14.90956 0 21.28036-.3535.4243-.9841.4816-1.4084.128-.4242-.3535-.4816-.9841-.128-1.4084 4.691-5.6291 4.691-13.0904 0-18.7196-.3536-.4243-.2962-1.05483.128-1.4084z"
                         fill="#21242C"
                     />
@@ -336,8 +336,8 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M10 20l6-6h12.1716v12H16l-6-6zm-1.41421-1.4142l6.00001-6C14.9609 12.2107 15.4696 12 16 12h12.1716c1.1045 0 2 .8954 2 2v12c0 1.1046-.8955 2-2 2H16c-.5304 0-1.0391-.2107-1.4142-.5858l-6.00001-6c-.78105-.781-.78105-2.0474 0-2.8284zm13.87871-1.2929l-1.2929 1.2929-1.2929-1.2929c-.3905-.3905-1.0237-.3905-1.4142 0-.3905.3905-.3905 1.0237 0 1.4142L19.7574 20l-1.2929 1.2929c-.3905.3905-.3905 1.0237 0 1.4142.3905.3905 1.0237.3905 1.4142 0l1.2929-1.2929 1.2929 1.2929c.3905.3905 1.0237.3905 1.4142 0 .3906-.3905.3906-1.0237 0-1.4142L22.5858 20l1.2929-1.2929c.3906-.3905.3906-1.0237 0-1.4142-.3905-.3905-1.0237-.3905-1.4142 0z"
                         fill="#21242C"
                     />
@@ -389,8 +389,8 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M12.9571 13.2929c.3905.3905.3905 1.0237 0 1.4142C11.6871 15.9771 11 17.9485 11 20c0 2.0515.6871 4.0229 1.9571 5.2929.3905.3905.3905 1.0237 0 1.4142-.3905.3905-1.0237.3905-1.4142 0C9.81292 24.9771 9 22.4485 9 20c0-2.4485.81292-4.9771 2.5429-6.7071.3905-.3905 1.0237-.3905 1.4142 0zM14 20c0-.5523.4477-1 1-1h10c.5523 0 1 .4477 1 1s-.4477 1-1 1H15c-.5523 0-1-.4477-1-1zm14.4571-6.7071c-.3905-.3905-1.0237-.3905-1.4142 0-.3905.3905-.3905 1.0237 0 1.4142C28.3129 15.9771 29 17.9485 29 20c0 2.0515-.6871 4.0229-1.9571 5.2929-.3905.3905-.3905 1.0237 0 1.4142.3905.3905 1.0237.3905 1.4142 0C30.1871 24.9771 31 22.4485 31 20c0-2.4485-.8129-4.9771-2.5429-6.7071z"
                         fill="#21242C"
                     />
@@ -407,9 +407,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M9 9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V9Zm2 1h4v4h-4v-4Zm12 2a1 1 0 0 0-.841.46l-8.174 12.714-3.153-4.729a1 1 0 0 0-1.664 1.11l4 6a1 1 0 0 0 1.673-.014L23.546 14H30a1 1 0 1 0 0-2h-7Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -424,9 +424,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M22.159 12.46A1 1 0 0 1 23 12h7a1 1 0 1 1 0 2h-6.454l-8.705 13.54a1 1 0 0 1-1.673.015l-4-6a1 1 0 0 1 1.664-1.11l3.153 4.73 8.174-12.716Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -441,9 +441,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M9.684 9.246a3.052 3.052 0 0 0-.33 1.023l.798.143c.209.033.368.02.478-.038.11-.063.2-.186.27-.369a1.05 1.05 0 0 1 .154-.324c.07-.1.152-.186.247-.259.1-.073.21-.13.33-.17.125-.044.26-.066.407-.066.334 0 .59.091.77.275.184.183.275.449.275.797 0 .165-.024.317-.071.457a.746.746 0 0 1-.248.357 1.297 1.297 0 0 1-.5.231 3.359 3.359 0 0 1-.82.083v1.067c.4 0 .715.029.946.088.235.055.41.135.528.242a.674.674 0 0 1 .231.38c.033.146.05.31.05.494 0 .14-.028.28-.083.424a1.116 1.116 0 0 1-.632.649c-.158.07-.343.104-.556.104-.169 0-.319-.024-.45-.071a1.197 1.197 0 0 1-.347-.198 1.738 1.738 0 0 1-.28-.308 3.794 3.794 0 0 1-.232-.385.457.457 0 0 0-.33-.242.809.809 0 0 0-.49.06l-.67.275c.12.356.262.668.423.935.162.264.354.484.578.66.227.176.49.308.786.396.297.088.64.132 1.029.132a3.55 3.55 0 0 0 1.05-.154c.338-.106.633-.264.886-.473a2.3 2.3 0 0 0 .605-.775c.15-.312.225-.671.225-1.078 0-.92-.458-1.531-1.375-1.832a2.24 2.24 0 0 0 .523-.247 1.47 1.47 0 0 0 .621-.864 2.47 2.47 0 0 0 .083-.67c0-.287-.057-.555-.17-.804a1.9 1.9 0 0 0-.48-.654 2.254 2.254 0 0 0-.77-.44c-.3-.11-.641-.165-1.022-.165-.36 0-.695.05-1.007.148a2.47 2.47 0 0 0-.825.435 2.42 2.42 0 0 0-.605.731ZM23 12a1 1 0 0 0-.841.46l-8.174 12.714-3.153-4.729a1 1 0 0 0-1.664 1.11l4 6a1 1 0 0 0 1.673-.014L23.546 14H30a1 1 0 1 0 0-2h-7Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -458,9 +458,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M28 8a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V8Zm2 1h4v4h-4V9Zm-16 4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H15a1 1 0 0 1-1-1V13Zm2 1h8v12h-8V14Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -475,9 +475,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M33.58 13.746a.52.52 0 0 0-.386-.137h-1.793c-.161 0-.334.016-.517.05a4.09 4.09 0 0 0-.555.126l1.694-1.733c.212-.216.414-.43.605-.643.19-.213.357-.431.5-.655a3.22 3.22 0 0 0 .347-.715c.084-.25.126-.52.126-.814 0-.34-.06-.653-.181-.935a2.033 2.033 0 0 0-.512-.72 2.293 2.293 0 0 0-.797-.468 2.952 2.952 0 0 0-1.029-.17c-.36 0-.695.05-1.006.148a2.43 2.43 0 0 0-.83.435 2.42 2.42 0 0 0-.606.731 3.049 3.049 0 0 0-.33 1.023l.803.143c.205.033.363.02.473-.038.114-.063.204-.186.27-.369a1.05 1.05 0 0 1 .154-.324 1.18 1.18 0 0 1 .247-.259c.1-.073.21-.13.33-.17.125-.044.26-.066.407-.066.334 0 .592.093.776.28.183.183.275.453.275.809 0 .201-.026.394-.077.577a2.407 2.407 0 0 1-.231.545 4.17 4.17 0 0 1-.385.544 9.098 9.098 0 0 1-.534.578l-2.365 2.37a.897.897 0 0 0-.264.616V15h5.533v-.89a.48.48 0 0 0-.143-.364ZM14 13a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H15a1 1 0 0 1-1-1V13Zm2 1h8v12h-8V14Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -492,9 +492,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M28.684 8.246a3.049 3.049 0 0 0-.33 1.023l.798.143c.209.033.368.02.478-.038.11-.063.2-.186.27-.369a1.05 1.05 0 0 1 .154-.324 1.18 1.18 0 0 1 .247-.259c.1-.073.21-.13.33-.17.125-.044.26-.066.407-.066.334 0 .59.091.77.275.183.183.275.449.275.797 0 .165-.024.317-.071.457a.746.746 0 0 1-.248.357 1.298 1.298 0 0 1-.5.231 3.36 3.36 0 0 1-.82.083v1.067c.4 0 .715.029.946.088.235.055.41.135.528.242a.674.674 0 0 1 .231.38c.033.146.05.31.05.494 0 .14-.028.28-.083.424a1.118 1.118 0 0 1-.632.649c-.158.07-.343.104-.556.104-.169 0-.319-.024-.45-.071a1.195 1.195 0 0 1-.347-.198 1.738 1.738 0 0 1-.28-.308 3.794 3.794 0 0 1-.232-.385.457.457 0 0 0-.33-.242.809.809 0 0 0-.49.06l-.67.275c.12.356.262.668.423.935.161.264.354.484.578.66.227.176.49.308.786.396.297.088.64.132 1.029.132.366 0 .716-.051 1.05-.154.337-.106.633-.264.886-.473a2.3 2.3 0 0 0 .605-.775c.15-.312.225-.671.225-1.078 0-.92-.458-1.531-1.375-1.832a2.24 2.24 0 0 0 .523-.247 1.471 1.471 0 0 0 .621-.863 2.47 2.47 0 0 0 .083-.672c0-.286-.057-.554-.17-.803a1.9 1.9 0 0 0-.48-.654 2.254 2.254 0 0 0-.77-.44c-.3-.11-.641-.165-1.022-.165-.36 0-.695.05-1.007.148a2.47 2.47 0 0 0-.825.435 2.42 2.42 0 0 0-.605.731ZM14 13a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H15a1 1 0 0 1-1-1V13Zm2 1h8v12h-8V14Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -554,9 +554,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M12 17a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm0 6a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -571,9 +571,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M12.058 14.664a1 1 0 0 1 1.278-.605l14 5a1 1 0 0 1 0 1.883l-14 5a1 1 0 1 1-.672-1.884L24.027 20l-11.363-4.058a1 1 0 0 1-.606-1.278Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -588,9 +588,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M27.942 14.664a1 1 0 0 1-.606 1.278L15.973 20l11.363 4.058a1 1 0 0 1-.672 1.884l-14-5a1 1 0 0 1 0-1.884l14-5a1 1 0 0 1 1.278.606Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -605,9 +605,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M12 29a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm.058-14.336a1 1 0 0 1 1.278-.605l14 5a1 1 0 0 1 0 1.883l-14 5a1 1 0 1 1-.672-1.884L24.027 20l-11.363-4.058a1 1 0 0 1-.606-1.278Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -622,9 +622,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M12 29a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm15.942-14.336a1 1 0 0 1-.606 1.278L15.973 20l11.363 4.058a1 1 0 0 1-.672 1.884l-14-5a1 1 0 0 1 0-1.884l14-5a1 1 0 0 1 1.278.606Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -639,15 +639,15 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 >
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M12 17a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm0 6a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M16 26.928a1 1 0 0 1-.366-1.366l7-12.125a1 1 0 0 1 1.732 1l-7 12.125a1 1 0 0 1-1.366.366Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -696,9 +696,9 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                     <path
                         fill="#21242C"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M32 26a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-6Zm5 2h-4v4h4v-4Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                     />
                 </svg>
             );
@@ -785,14 +785,14 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M12.9571 13.2929c.3905.3905.3905 1.0237 0 1.4142C11.6871 15.9771 11 17.9485 11 20c0 2.0515.6871 4.0229 1.9571 5.2929.3905.3905.3905 1.0237 0 1.4142-.3905.3905-1.0237.3905-1.4142 0C9.81292 24.9771 9 22.4485 9 20c0-2.4485.81292-4.9771 2.5429-6.7071.3905-.3905 1.0237-.3905 1.4142 0zm4.5858 0c.3905-.3905 1.0237-.3905 1.4142 0C20.6871 15.0229 21.5 17.5515 21.5 20c0 2.4485-.8129 4.9771-2.5429 6.7071-.3905.3905-1.0237.3905-1.4142 0-.3905-.3905-.3905-1.0237 0-1.4142C18.8129 24.0229 19.5 22.0515 19.5 20c0-2.0515-.6871-4.0229-1.9571-5.2929-.3905-.3905-.3905-1.0237 0-1.4142z"
                         fill="#21242C"
                     />
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M25.5429 16.2929c.3905-.3905 1.0237-.3905 1.4142 0l3 3c.3905.3905.3905 1.0237 0 1.4142l-3 3c-.3905.3905-1.0237.3905-1.4142 0-.3905-.3905-.3905-1.0237 0-1.4142L26.8358 21H16.25c-.5523 0-1-.4477-1-1s.4477-1 1-1h10.5858l-1.2929-1.2929c-.3905-.3905-.3905-1.0237 0-1.4142z"
                         fill="#1865F2"
                     />
@@ -808,14 +808,14 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M18.2929 15.2929c.3905-.3905 1.0237-.3905 1.4142 0L26 21.5858V20c0-.5523.4477-1 1-1s1 .4477 1 1v4.003c-.0004.1345-.0273.2627-.0759.3798-.0477.1152-.1178.2234-.2105.3177a.809004.809004 0 01-.0131.0131c-.1797.1765-.4259.2856-.6975.2864H23c-.5523 0-1-.4477-1-1s.4477-1 1-1h1.5858l-6.2929-6.2929c-.3905-.3905-.3905-1.0237 0-1.4142zM31 33c-.5523 0-1-.4477-1-1V16c0-.5523.4477-1 1-1s1 .4477 1 1v16c0 .5523-.4477 1-1 1z"
                         fill="#1865F2"
                     />
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M9 9c-.55228 0-1 .44772-1 1v6c0 .5523.44772 1 1 1h6c.5523 0 1-.4477 1-1v-6c0-.55228-.4477-1-1-1H9zm5 2h-4v4h4v-4z"
                         fill="#21242C"
                     />
@@ -831,28 +831,28 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M9 11c.55228 0 1 .4477 1 1v16c0 .5523-.44772 1-1 1s-1-.4477-1-1V12c0-.5523.44772-1 1-1zm5 1c0-.5523.4477-1 1-1h3.9998c.0001 0 0 0 0 0 .1356 0 .2651.027.383.0759.1171.0484.2268.1201.3222.2149l.0042.0042c.1931.1942.29.448.2908.702V16c0 .5523-.4477 1-1 1s-1-.4477-1-1v-1.5858l-4.2929 4.2929c-.3905.3905-1.0237.3905-1.4142 0-.3905-.3905-.3905-1.0237 0-1.4142L16.5858 13H15c-.5523 0-1-.4477-1-1z"
                         fill="#1865F2"
                     />
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M23 23c-.5523 0-1 .4477-1 1v6c0 .5523.4477 1 1 1h6c.5523 0 1-.4477 1-1v-6c0-.5523-.4477-1-1-1h-6zm5 2h-4v4h4v-4z"
                         fill="#21242C"
                     />
-                    <g clip-path="url(#clip0_874_41680)">
+                    <g clipPath="url(#clip0_874_41680)">
                         <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M20 20c0-.5523.4477-1 1-1h10c.5523 0 1 .4477 1 1s-.4477 1-1 1H21c-.5523 0-1-.4477-1-1z"
                             fill="#21242C"
                         />
                     </g>
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M23 9c-.5523 0-1 .44772-1 1v6c0 .5523.4477 1 1 1h6c.5523 0 1-.4477 1-1v-6c0-.55228-.4477-1-1-1h-6zm5 2h-4v4h4v-4z"
                         fill="#1865F2"
                     />
@@ -877,22 +877,22 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M26 13c.5523 0 1 .4477 1 1v11.5858l1.2929-1.2929c.3905-.3905 1.0237-.3905 1.4142 0 .3905.3905.3905 1.0237 0 1.4142l-3 3c-.3905.3905-1.0237.3905-1.4142 0l-3-3c-.3905-.3905-.3905-1.0237 0-1.4142.3905-.3905 1.0237-.3905 1.4142 0L25 25.5858V14c0-.5523.4477-1 1-1zM13 23c-.5523 0-1 .4477-1 1v6c0 .5523.4477 1 1 1h6c.5523 0 1-.4477 1-1v-6c0-.5523-.4477-1-1-1h-6zm5 2h-4v4h4v-4z"
                         fill="#1865F2"
                     />
-                    <g clip-path="url(#clip0_874_41686)">
+                    <g clipPath="url(#clip0_874_41686)">
                         <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M10 20c0-.5523.4477-1 1-1h10c.5523 0 1 .4477 1 1s-.4477 1-1 1H11c-.5523 0-1-.4477-1-1z"
                             fill="#21242C"
                         />
                     </g>
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M13 9c-.5523 0-1 .44772-1 1v6c0 .5523.4477 1 1 1h6c.5523 0 1-.4477 1-1v-6c0-.55228-.4477-1-1-1h-6zm5 2h-4v4h4v-4z"
                         fill="#21242C"
                     />
@@ -918,28 +918,28 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M31 11c.5523 0 1 .4477 1 1v16c0 .5523-.4477 1-1 1s-1-.4477-1-1V12c0-.5523.4477-1 1-1zm-9 9c0-.5523.4477-1 1-1h4c.5523 0 1 .4477 1 1v4c0 .5523-.4477 1-1 1s-1-.4477-1-1v-1.5858l-4.2929 4.2929c-.3905.3905-1.0237.3905-1.4142 0-.3905-.3905-.3905-1.0237 0-1.4142L24.5858 21H23c-.5523 0-1-.4477-1-1z"
                         fill="#1865F2"
                     />
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M11 23c-.5523 0-1 .4477-1 1v6c0 .5523.4477 1 1 1h6c.5523 0 1-.4477 1-1v-6c0-.5523-.4477-1-1-1h-6zm5 2h-4v4h4v-4z"
                         fill="#21242C"
                     />
-                    <g clip-path="url(#clip0_874_41692)">
+                    <g clipPath="url(#clip0_874_41692)">
                         <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M8 20c0-.5523.44772-1 1-1h10c.5523 0 1 .4477 1 1s-.4477 1-1 1H9c-.55228 0-1-.4477-1-1z"
                             fill="#21242C"
                         />
                     </g>
                     <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M11 9c-.5523 0-1 .44772-1 1v6c0 .5523.4477 1 1 1h6c.5523 0 1-.4477 1-1v-6c0-.55228-.4477-1-1-1h-6zm5 2h-4v4h4v-4z"
                         fill="#21242C"
                     />
