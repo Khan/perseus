@@ -31,3 +31,26 @@ export const question1: PerseusRenderer = {
         },
     },
 };
+
+export const question2: PerseusRenderer = {
+    content: "**Match the equivalent expressions.**\\n\\n[[☃ matcher 2]]",
+    images: {},
+    widgets: {
+        "matcher 2": {
+            alignment: "default",
+            graded: true,
+            options: {
+                labels: ['","'],
+                left: [
+                    '$2 \\\\text{ groups of } 8$","$8+8+8+8+8$","$2\\\\times5$',
+                ],
+                orderMatters: false,
+                padding: true,
+                right: ['$8+8$","$5\\\\times8$","$2\\\\text { fives}$'],
+            },
+            static: false,
+            type: "matcher",
+            version: {major: 0, minor: 0},
+        },
+    },
+};
