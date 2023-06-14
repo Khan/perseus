@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 4.3.1
+
+### Patch Changes
+
+-   bec7c91c: Update icons in MathInput's v2 keypad
+
 ## 4.3.0
 
 ### Minor Changes
