@@ -1,4 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -24,7 +25,7 @@ export default function OperatorsPage(props: Props) {
     } = props;
 
     return (
-        <View style={styles.grid} aria-label="Operators" role="group">
+        <View style={styles.grid} aria-label={i18n._("Operators")} role="group">
             {/* Row 1 */}
             {preAlgebra && (
                 <>

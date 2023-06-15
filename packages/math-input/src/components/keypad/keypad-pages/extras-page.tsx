@@ -1,4 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -25,7 +26,11 @@ export default function ExtrasPage(props: Props) {
         },
     });
     return (
-        <View style={styles.grid} aria-label="Extra Keys" role="group">
+        <View
+            style={styles.grid}
+            aria-label={i18n._("Extra Keys")}
+            role="group"
+        >
             {extraKeys.map((key, i) => {
                 // Map 1D array to Cartesian coordinates
                 const coordX = i % columns;

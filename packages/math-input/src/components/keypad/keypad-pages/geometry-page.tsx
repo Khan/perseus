@@ -1,4 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -13,7 +14,7 @@ type Props = {
 export default function GeometryPage(props: Props) {
     const {onClickKey} = props;
     return (
-        <View style={styles.grid} aria-label="Geometry" role="group">
+        <View style={styles.grid} aria-label={i18n._("Geometry")} role="group">
             {/* Row 1 */}
             <KeypadButton
                 keyConfig={Keys.SIN}

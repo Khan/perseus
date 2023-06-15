@@ -83,8 +83,6 @@ export default function Keypad(props: Props) {
                 role="grid"
                 tabIndex="0"
                 aria-label="Keypad"
-                aria-rowcount="4"
-                aria-colcount="5"
             >
                 {selectedPage === "Numbers" && (
                     <NumbersPage onClickKey={onClickKey} />
