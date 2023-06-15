@@ -28,8 +28,8 @@ import {
 } from "./mathquill-helpers";
 import {createMathField, mathQuillInstance} from "./mathquill-instance";
 import {
-    MathFieldCursor,
     MathFieldInterface,
+    MathFieldCursor,
     MathFieldUpdaterCallback,
 } from "./mathquill-types";
 
