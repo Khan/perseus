@@ -17,9 +17,7 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        expect(
-            screen.getByRole("button", {name: "Numbers"}),
-        ).toBeInTheDocument();
+        expect(screen.getByRole("tab", {name: "Numbers"})).toBeInTheDocument();
     });
 
     it("renders many tabs", () => {
@@ -33,17 +31,11 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
+        expect(screen.getByRole("tab", {name: "Numbers"})).toBeInTheDocument();
+        expect(screen.getByRole("tab", {name: "Extras"})).toBeInTheDocument();
+        expect(screen.getByRole("tab", {name: "Geometry"})).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Numbers"}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("button", {name: "Extras"}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("button", {name: "Geometry"}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("button", {name: "Operators"}),
+            screen.getByRole("tab", {name: "Operators"}),
         ).toBeInTheDocument();
     });
 
@@ -59,7 +51,7 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        userEvent.click(screen.getByRole("button", {name: "Geometry"}));
+        userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
         expect(mockSelectCallback).toHaveBeenCalledWith("Geometry");
     });
 });

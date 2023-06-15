@@ -1,3 +1,5 @@
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
@@ -11,42 +13,7 @@ type Props = {
 export default function NumbersPage(props: Props) {
     const {onClickKey} = props;
     return (
-        <>
-            {/* Row 1 */}
-            <KeypadButton
-                keyConfig={Keys.NUM_7}
-                onClickKey={onClickKey}
-                coord={[0, 0]}
-            />
-            <KeypadButton
-                keyConfig={Keys.NUM_8}
-                onClickKey={onClickKey}
-                coord={[1, 0]}
-            />
-            <KeypadButton
-                keyConfig={Keys.NUM_9}
-                onClickKey={onClickKey}
-                coord={[2, 0]}
-            />
-
-            {/* Row 2 */}
-            <KeypadButton
-                keyConfig={Keys.NUM_4}
-                onClickKey={onClickKey}
-                coord={[0, 1]}
-            />
-            <KeypadButton
-                keyConfig={Keys.NUM_5}
-                onClickKey={onClickKey}
-                coord={[1, 1]}
-            />
-            <KeypadButton
-                keyConfig={Keys.NUM_6}
-                onClickKey={onClickKey}
-                coord={[2, 1]}
-            />
-
-            {/* Row 3 */}
+        <View style={styles.grid} aria-label="Numberpad" role="group">
             <KeypadButton
                 keyConfig={Keys.NUM_1}
                 onClickKey={onClickKey}
@@ -62,8 +29,36 @@ export default function NumbersPage(props: Props) {
                 onClickKey={onClickKey}
                 coord={[2, 2]}
             />
-
-            {/* Row 4 */}
+            <KeypadButton
+                keyConfig={Keys.NUM_4}
+                onClickKey={onClickKey}
+                coord={[0, 1]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_5}
+                onClickKey={onClickKey}
+                coord={[1, 1]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_6}
+                onClickKey={onClickKey}
+                coord={[2, 1]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_7}
+                onClickKey={onClickKey}
+                coord={[0, 0]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_8}
+                onClickKey={onClickKey}
+                coord={[1, 0]}
+            />
+            <KeypadButton
+                keyConfig={Keys.NUM_9}
+                onClickKey={onClickKey}
+                coord={[2, 0]}
+            />
             <KeypadButton
                 keyConfig={Keys.NUM_0}
                 onClickKey={onClickKey}
@@ -79,6 +74,14 @@ export default function NumbersPage(props: Props) {
                 onClickKey={onClickKey}
                 coord={[2, 3]}
             />
-        </>
+        </View>
     );
 }
+const styles = StyleSheet.create({
+    grid: {
+        display: "grid",
+        gridRow: "1/5",
+        gridColumn: "span 3",
+        gridTemplateColumns: "repeat(3, 1fr)",
+    },
+});

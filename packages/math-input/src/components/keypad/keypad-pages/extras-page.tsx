@@ -1,3 +1,5 @@
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
@@ -14,8 +16,16 @@ const columns = 4;
 
 export default function ExtrasPage(props: Props) {
     const {extraKeys, onClickKey} = props;
+    const styles = StyleSheet.create({
+        grid: {
+            display: "grid",
+            gridRow: "1/" + (Math.ceil(extraKeys.length / columns) + 1),
+            gridColumn: "span 4",
+            gridTemplateColumns: "repeat(4, 1fr)",
+        },
+    });
     return (
-        <>
+        <View style={styles.grid} aria-label="Extra Keys" role="group">
             {extraKeys.map((key, i) => {
                 // Map 1D array to Cartesian coordinates
                 const coordX = i % columns;
@@ -29,6 +39,6 @@ export default function ExtrasPage(props: Props) {
                     />
                 );
             })}
-        </>
+        </View>
     );
 }

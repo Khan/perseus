@@ -78,7 +78,14 @@ export default function Keypad(props: Props) {
                 style={styles.tabbar}
             />
 
-            <View style={styles.grid}>
+            <View
+                style={styles.grid}
+                role="grid"
+                tabIndex="0"
+                aria-label="Keypad"
+                aria-rowcount="4"
+                aria-colcount="5"
+            >
                 {selectedPage === "Numbers" && (
                     <NumbersPage onClickKey={onClickKey} />
                 )}

@@ -1,3 +1,5 @@
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Keys from "../../data/key-configs";
@@ -15,8 +17,7 @@ export default function SharedKeys(props: Props) {
     const {onClickKey, divisionKey, multiplicationDot} = props;
 
     return (
-        <>
-            {/* Row 1 */}
+        <View style={styles.grid} aria-label="Sidebar" role="group">
             <KeypadButton
                 keyConfig={Keys.PLUS}
                 onClickKey={onClickKey}
@@ -73,6 +74,14 @@ export default function SharedKeys(props: Props) {
                 coord={[5, 3]}
                 action
             />
-        </>
+        </View>
     );
 }
+const styles = StyleSheet.create({
+    grid: {
+        display: "grid",
+        gridRow: "1/5",
+        gridColumn: "5/-1",
+        gridTemplateColumns: "subgrid",
+    },
+});

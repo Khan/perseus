@@ -1,3 +1,5 @@
+import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
@@ -22,7 +24,7 @@ export default function OperatorsPage(props: Props) {
     } = props;
 
     return (
-        <>
+        <View style={styles.grid} aria-label="Operators" role="group">
             {/* Row 1 */}
             {preAlgebra && (
                 <>
@@ -111,6 +113,14 @@ export default function OperatorsPage(props: Props) {
                     />
                 </>
             )}
-        </>
+        </View>
     );
 }
+const styles = StyleSheet.create({
+    grid: {
+        display: "grid",
+        gridRow: "1/5",
+        gridColumn: "span 4",
+        gridTemplateColumns: "repeat(3, 1fr)",
+    },
+});
