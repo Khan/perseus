@@ -18,7 +18,7 @@ const {InfoTip, PropCheckBox, TexButtons} = components;
 const {getDependencies} = Dependencies;
 
 // An answer can be considered correct, wrong, or ungraded.
-const CONSIDERED = ["correct", "wrong", "ungraded"];
+const CONSIDERED = ["correct", "wrong", "ungraded"] as const;
 
 const answerFormType = PropTypes.shape({
     considered: PropTypes.oneOf(CONSIDERED).isRequired,
@@ -433,8 +433,8 @@ class ExpressionEditor extends React.Component<any, any> {
 }
 
 // Find the next element in arr after val, wrapping around to the first.
-const findNextIn = function (arr: Array<string>, val: any) {
-    let ix = _(arr).indexOf(val);
+const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
+    let ix = arr.indexOf(val);
     ix = (ix + 1) % arr.length;
     return arr[ix];
 };

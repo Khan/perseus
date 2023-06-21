@@ -335,7 +335,7 @@ export type PerseusExpressionAnswerForm = {
     // The answer expression must be fully expanded and simplified
     simplify: boolean;
     // Whether the form is considered "correct", "wrong", or "ungraded"
-    considered: string;
+    considered: "correct" | "wrong" | "ungraded";
     // A key to identify the answer form in a list
     // NOTE: perseus-format.js says this is required even though it isn't necessary.
     key?: string;
