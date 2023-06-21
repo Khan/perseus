@@ -238,7 +238,13 @@ export function maybeFindCommandBeforeParens(leftParenNode) {
     return maybeFindCommand(leftParenNode[mathQuillInstance.L]);
 }
 
-export function getCursorContext(mathField: MathFieldInterface): CursorContext {
+export function getCursorContext(
+    mathField?: MathFieldInterface,
+): CursorContext {
+    if (!mathField) {
+        return CursorContext.NONE;
+    }
+
     // First, try to find any fraction to the right, unimpeded.
     const cursor = getCursor(mathField);
     let visitor = cursor;

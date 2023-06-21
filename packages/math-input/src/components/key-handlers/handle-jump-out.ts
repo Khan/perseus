@@ -43,6 +43,7 @@ function handleJumpOut(mathField: MathFieldInterface, key: Key): void {
             // Insert at the end of the parentheses, and then navigate right
             // once more to get 'beyond' the parentheses.
             cursor.insRightOf(cursor.parent.parent);
+            mathField.keystroke("Right");
             break;
 
         case CursorContext.BEFORE_FRACTION:
