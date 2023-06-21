@@ -363,8 +363,7 @@ const constraints = {
 constraints.standard = null;
 
 const onMove = {
-    // @ts-expect-error [FEI-5003] - TS2355 - A function whose declared type is neither 'void' nor 'any' must return a value.
-    updatePoints: function (coord: Coord, prevCoord: Coord): undefined {
+    updatePoints: function (coord: Coord, prevCoord: Coord): void {
         const actualDelta = kvector.subtract(coord, prevCoord);
         // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly updatePoints: (coord: Coord, prevCoord: Coord) => undefined; }'.
         _.each(this.state.points, function (point) {
