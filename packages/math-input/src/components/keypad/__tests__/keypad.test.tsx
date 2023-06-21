@@ -12,7 +12,6 @@ const contextToKeyAria = {
     [CursorContext.IN_NUMERATOR]: keyConfigs.JUMP_OUT_NUMERATOR.ariaLabel,
     [CursorContext.IN_DENOMINATOR]: keyConfigs.JUMP_OUT_DENOMINATOR.ariaLabel,
     [CursorContext.BEFORE_FRACTION]: keyConfigs.JUMP_INTO_NUMERATOR.ariaLabel,
-    [CursorContext.NONE]: keyConfigs.JUMP_INTO_NUMERATOR.ariaLabel,
 };
 
 describe("keypad", () => {
