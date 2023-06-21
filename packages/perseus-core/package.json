@@ -21,7 +21,7 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/event-schemas": "git+ssh://git@github.com:Khan/event-schemas.git#v160.0.0"
+        "@khanacademy/event-schemas": "git+ssh://git@github.com:Khan/event-schemas.git#v162.0.0"
     },
     "devDependencies": {},
     "peerDependencies": {},

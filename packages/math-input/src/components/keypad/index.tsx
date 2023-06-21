@@ -29,7 +29,7 @@ export type Props = {
     basicRelations?: boolean;
     advancedRelations?: boolean;
 
-    sendEvent?: SendEvent;
+    sendEvent: SendEvent;
 };
 
 const defaultProps = {

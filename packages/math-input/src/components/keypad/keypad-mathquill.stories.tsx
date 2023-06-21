@@ -75,6 +75,10 @@ export function V2KeypadWithMathquill() {
                             multiplicationDot
                             preAlgebra
                             trigonometry
+                            sendEvent={async (event) => {
+                                // eslint-disable-next-line no-console
+                                console.log("Send Event:", event);
+                            }}
                         />
                     </PopoverContentCore>
                 }

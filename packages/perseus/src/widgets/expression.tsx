@@ -12,6 +12,7 @@ import Tooltip, {
     HorizontalDirection,
     VerticalDirection,
 } from "../components/tooltip";
+import {getDependencies} from "../dependencies";
 import {iconExclamationSign} from "../icon-paths";
 import {Errors as PerseusErrors, Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
@@ -23,6 +24,17 @@ import type {
     PerseusExpressionAnswerForm,
 } from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+
+const sendExpressionEvaluatedEvent = (
+    result: "correct" | "incorrect" | "invalid",
+) => {
+    getDependencies().analytics.sendEvent({
+        eventType: "ContentLibraryMathInputBoxEvaluated",
+        eventSchemaVersion: 2,
+        virtualKeypadVersion: "PERSEUS_MATH_INPUT", // STOPSHIP: Or do we push that onto host application?
+        evaluationResult: result,
+    });
+};
 
 type InputPath = ReadonlyArray<string>;
 
@@ -198,6 +210,8 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // we did, whether it's considered correct, incorrect, or ungraded
         if (!matchingAnswerForm) {
             if (firstUngradedResult) {
+                sendExpressionEvaluatedEvent("invalid");
+
                 // While we didn't directly match with any answer form, we
                 // did at some point get an "ungraded" validation result,
                 // which might indicate e.g. a mismatch in variable casing.
@@ -212,6 +226,8 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 };
             }
             if (allEmpty) {
+                sendExpressionEvaluatedEvent("invalid");
+
                 // If everything graded as empty, it's invalid.
                 return {
                     type: "invalid",
@@ -220,6 +236,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
             }
             // We fell through all the possibilities and we're not empty,
             // so the answer is considered incorrect.
+            sendExpressionEvaluatedEvent("incorrect");
             return {
                 type: "points",
                 earned: 0,
@@ -234,6 +251,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 userInput,
                 matchMessage,
             );
+            sendExpressionEvaluatedEvent("invalid");
             return {
                 type: "invalid",
                 message: apiResult === false ? null : matchMessage,
@@ -245,6 +263,12 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // TODO(eater): Seems silly to translate result to this
         // invalid/points thing and immediately translate it back in
         // ItemRenderer.scoreInput()
+        sendExpressionEvaluatedEvent(
+            matchingAnswerForm.considered === "correct"
+                ? "correct"
+                : "incorrect",
+        );
+
         return {
             type: "points",
             earned: matchingAnswerForm.considered === "correct" ? 1 : 0,

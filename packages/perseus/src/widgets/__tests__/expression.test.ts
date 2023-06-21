@@ -19,9 +19,22 @@ const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
     const {renderer} = renderQuestion(itemData.question);
     userEvent.type(screen.getByRole("textbox"), input);
     const [_, score] = renderer.guessAndScore();
+
     expect(score).toMatchObject({
         type: "points",
         earned: isCorrect ? 1 : 0,
+    });
+
+    expect(testDependencies.analytics.sendEvent).toHaveBeenCalledWith({
+        eventType: "ContentLibraryMathInputBoxEvaluated",
+        eventSchemaVersion: 2,
+        virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+        evaluationResult:
+            score.type === "invalid"
+                ? "invalid"
+                : score.earned === 1
+                ? "correct"
+                : "incorrect",
     });
 };
 
@@ -38,6 +51,13 @@ const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
     }
     const [_, score] = renderer.guessAndScore();
     expect(score).toMatchObject({type: "invalid"});
+
+    expect(testDependencies.analytics.sendEvent).toHaveBeenCalledWith({
+        eventType: "ContentLibraryMathInputBoxEvaluated",
+        eventSchemaVersion: 1,
+        virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+        isCorrectAnswer: "invalid",
+    });
 };
 
 describe("Expression Widget", function () {
@@ -48,11 +68,11 @@ describe("Expression Widget", function () {
     });
 
     describe("grading", function () {
-        it("should not grade a thing that doesn't parse", function () {
+        it("should not grade a thing that doesn't parse", async () => {
             assertInvalid(expressionItem2, "+++");
         });
 
-        it("should not grade a thing that is empty", function () {
+        it("should not grade a thing that is empty", async () => {
             assertInvalid(expressionItem2, "");
         });
     });

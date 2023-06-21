@@ -13,7 +13,7 @@ type RemoveUnsupportedKeys<T> = {
         ? never
         : P extends `currentPageURL` // STOPSHIP: To be removed from schema!
         ? never
-        : P /* he he */]: T[P];
+        : P]: T[P];
 };
 
 // Perseus does not have access to all of the data in a CEDAR event, so we
