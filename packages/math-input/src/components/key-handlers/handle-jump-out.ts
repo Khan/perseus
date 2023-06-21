@@ -3,7 +3,7 @@ import {CursorContext} from "../input/cursor-contexts";
 import {
     isFraction,
     isParens,
-    contextForCursor,
+    getCursorContext,
     getCursor,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
@@ -26,7 +26,7 @@ const KeysForJumpContext = {
  */
 function handleJumpOut(mathField: MathFieldInterface, key: Key): void {
     const cursor = getCursor(mathField);
-    const context = contextForCursor(cursor);
+    const context = getCursorContext(mathField);
 
     // Validate that the current cursor context matches the key's intent.
     if (KeysForJumpContext[context] !== key) {
