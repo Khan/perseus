@@ -11,6 +11,8 @@ import React16EnzymeAdapter from "enzyme-adapter-react-16"; // eslint-disable-li
 import jestSerializerHtml from "jest-serializer-html";
 import {addSerializer} from "jest-specific-snapshot";
 
+import {testDependencies} from "../../testing/test-dependencies";
+
 // Prevent aphrodite from trying to inject styles into the CSSOM
 StyleSheetTestUtils.suppressStyleInjection();
 

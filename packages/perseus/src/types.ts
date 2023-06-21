@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import type {AnalyticsSink} from "./analytics/types";
 import type {SerializedHighlightSet} from "./components/highlighting/types";
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
@@ -309,6 +310,7 @@ export type PerseusDependencies = {
     //misc
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
+    analytics: AnalyticsSink;
     // video widget
     // This is used as a hook to fetch data about a video which is used to
     // add a link to the video transcript.  The return value conforms to

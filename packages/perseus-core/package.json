@@ -1,0 +1,29 @@
+{
+    "name": "@khanacademy/perseus-core",
+    "description": "Shared Perseus infrastructure",
+    "author": "Khan Academy",
+    "license": "MIT",
+    "version": "0.0.1",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Khan/perseus.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Khan/perseus/issues"
+    },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
+    "scripts": {
+        "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
+    },
+    "dependencies": {
+        "@khanacademy/event-schemas": "git+ssh://git@github.com:Khan/event-schemas.git#v160.0.0"
+    },
+    "devDependencies": {},
+    "peerDependencies": {},
+    "keywords": []
+}
