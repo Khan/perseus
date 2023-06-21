@@ -28,6 +28,10 @@ export type Props = {
     advancedRelations?: boolean;
 };
 
+const defaultProps = {
+    extraKeys: [],
+};
+
 function allPages(props: Props): ReadonlyArray<TabbarItemType> {
     const pages: Array<TabbarItemType> = ["Numbers"];
 
@@ -61,7 +65,7 @@ export default function Keypad(props: Props) {
     const {
         onClickKey,
         cursorContext,
-        extraKeys = [],
+        extraKeys,
         multiplicationDot,
         divisionKey,
         preAlgebra,
@@ -110,6 +114,8 @@ export default function Keypad(props: Props) {
         </View>
     );
 }
+
+Keypad.defaultProps = defaultProps;
 
 const styles = StyleSheet.create({
     tabbar: {
