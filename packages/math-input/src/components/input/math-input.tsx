@@ -595,7 +595,7 @@ class MathInput extends React.Component<Props, State> {
         // In that event, we need to update the cursor context ourselves.
         this.props.keypadElement &&
             this.props.keypadElement.setCursor({
-                context: this.mathField.contextForCursor(cursor),
+                context: this.mathField.contextForCursor(),
             });
     };
 
