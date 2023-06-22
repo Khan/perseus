@@ -15,7 +15,7 @@ import NumbersPage from "./keypad-pages/numbers-page";
 import OperatorsPage from "./keypad-pages/operators-page";
 import SharedKeys from "./shared-keys";
 
-import type {SendEvent} from "@khanacademy/perseus-core";
+import type {SendEventFn} from "@khanacademy/perseus-core";
 
 export type Props = {
     onClickKey: ClickKeyCallback;
@@ -29,7 +29,7 @@ export type Props = {
     basicRelations?: boolean;
     advancedRelations?: boolean;
 
-    sendEvent: SendEvent;
+    sendEvent: SendEventFn;
 };
 
 const defaultProps = {

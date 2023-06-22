@@ -19,4 +19,4 @@ type RemoveUnsupportedKeys<T> = {
 export type PerseusAnalyticsEvent = RemoveUnsupportedKeys<AnalyticsEvent>;
 
 /** A function to send analytics events. */
-export type SendEvent = (event: PerseusAnalyticsEvent) => Promise<void>;
+export type SendEventFn = (event: PerseusAnalyticsEvent) => Promise<void>;
