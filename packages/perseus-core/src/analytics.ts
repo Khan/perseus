@@ -6,14 +6,10 @@ import type {AnalyticsEvent} from "@khanacademy/event-schemas";
 //
 // This type removes keys that Perseus cannot fill in. It is expected that the
 // hosting application will populate these missing values. We represent this as
-// a type so taht the host can easily detect which fields in the type are
+// a type so that the host can easily detect which fields in the type are
 // missing at "compile time".
 type RemoveUnsupportedKeys<T> = {
-    [P in keyof T as P extends `contentPath_${string}`
-        ? never
-        : P extends `currentPageURL` // STOPSHIP: To be removed from schema!
-        ? never
-        : P]: T[P];
+    [P in keyof T as P extends `contentPath_${string}` ? never : P]: T[P];
 };
 
 // Perseus does not have access to all of the data in a CEDAR event, so we
