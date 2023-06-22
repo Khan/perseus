@@ -19,7 +19,7 @@
     "source": "src/index.ts",
     "scripts": {},
     "dependencies": {
-        "@khanacademy/perseus-core": "0.0.1",
+        "@khanacademy/perseus-core": "0.0.0",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#a9ae54e057c5c1acc8244a5627acbff29901d992",
         "performance-now": "^0.2.0"
     },
