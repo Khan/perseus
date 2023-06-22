@@ -60,8 +60,8 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
     return pages;
 }
 
-// The main (v2) Keypad. Use this to present an accessible, onscreen keypad to
-// learners for entering math expressions.
+// The main (v2) Keypad. Use this component to present an accessible, onscreen
+// keypad to learners for entering math expressions.
 export default function Keypad(props: Props) {
     const [selectedPage, setSelectedPage] =
         React.useState<TabbarItemType>("Numbers");
