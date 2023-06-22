@@ -29,7 +29,7 @@ const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
 const assertCorrect = (itemData: PerseusItem, input) => {
     assertComplete(itemData, input, true);
 
-    expect(testDependencies.analytics.sendEvent).toHaveBeenCalledWith({
+    expect(testDependencies.analytics).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
             virtualKeypadVersion: "PERSEUS_MATH_INPUT",
@@ -41,7 +41,7 @@ const assertCorrect = (itemData: PerseusItem, input) => {
 const assertIncorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, false);
 
-    expect(testDependencies.analytics.sendEvent).toHaveBeenCalledWith({
+    expect(testDependencies.analytics).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
             virtualKeypadVersion: "PERSEUS_MATH_INPUT",
@@ -59,7 +59,7 @@ const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
     const [_, score] = renderer.guessAndScore();
     expect(score).toMatchObject({type: "invalid"});
 
-    expect(testDependencies.analytics.sendEvent).toHaveBeenCalledWith({
+    expect(testDependencies.analytics).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
             virtualKeypadVersion: "PERSEUS_MATH_INPUT",

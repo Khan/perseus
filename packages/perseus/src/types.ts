@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import type {Analytics} from "./analytics/types";
 import type {SerializedHighlightSet} from "./components/highlighting/types";
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
 import type {PerseusWidget} from "./perseus-types";
 import type {SizeClass} from "./util/sizing-utils";
+import type {SendEventFn} from "@khanacademy/perseus-core";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
@@ -319,7 +319,7 @@ export type PerseusDependencies = {
     //misc
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
-    analytics: Analytics;
+    analytics: SendEventFn;
 
     // video widget
     // This is used as a hook to fetch data about a video which is used to

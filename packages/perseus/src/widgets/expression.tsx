@@ -28,7 +28,7 @@ import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 const sendExpressionEvaluatedEvent = (
     result: "correct" | "incorrect" | "invalid",
 ) => {
-    getDependencies().analytics.sendEvent({
+    getDependencies().analytics({
         type: "perseus:expression-evaluated",
         payload: {
             virtualKeypadVersion: "PERSEUS_MATH_INPUT", // STOPSHIP: Or do we push that onto host application?
