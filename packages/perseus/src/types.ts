@@ -129,6 +129,7 @@ export type Path = ReadonlyArray<string>;
 
 type StubTagEditorType = any; // from "./components/stub-tag-editor";
 
+// APIOptions provides different ways to customize the behaviour of Perseus.
 export type APIOptions = Readonly<{
     isArticle?: boolean;
     // This should actually be required since renderer.jsx sets defaults for
@@ -300,6 +301,12 @@ export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
 // An object for dependency injection, to allow different clients
 // to provide different methods for logging, translation, network
 // requests, etc.
+//
+// NOTE: You should avoid adding new dependencies here as this type was added
+// as a quick fix to get around the fact that some of the dependencies Perseus
+// needs are used in places where neither `APIOptions` nor a React Context
+// could be used. Aim to shrink the footprint of PerseusDependencies and try to
+// use alternative methods where possible.
 export type PerseusDependencies = {
     // JIPT
     JIPT: JIPT;
@@ -312,7 +319,7 @@ export type PerseusDependencies = {
     //misc
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
-    analytics: AnalyticsSink;
+    analytics: Analytics;
 
     // video widget
     // This is used as a hook to fetch data about a video which is used to
