@@ -29,10 +29,11 @@ const sendExpressionEvaluatedEvent = (
     result: "correct" | "incorrect" | "invalid",
 ) => {
     getDependencies().analytics.sendEvent({
-        eventType: "ContentLibraryMathInputBoxEvaluated",
-        eventSchemaVersion: 2,
-        virtualKeypadVersion: "PERSEUS_MATH_INPUT", // STOPSHIP: Or do we push that onto host application?
-        evaluationResult: result,
+        type: "perseus:expression-evaluated",
+        payload: {
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT", // STOPSHIP: Or do we push that onto host application?
+            result,
+        },
     });
 };
 

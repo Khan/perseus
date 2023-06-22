@@ -24,24 +24,31 @@ const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
         type: "points",
         earned: isCorrect ? 1 : 0,
     });
+};
+
+const assertCorrect = (itemData: PerseusItem, input) => {
+    assertComplete(itemData, input, true);
 
     expect(testDependencies.analytics.sendEvent).toHaveBeenCalledWith({
-        eventType: "ContentLibraryMathInputBoxEvaluated",
-        eventSchemaVersion: 2,
-        virtualKeypadVersion: "PERSEUS_MATH_INPUT",
-        evaluationResult:
-            score.type === "invalid"
-                ? "invalid"
-                : score.earned === 1
-                ? "correct"
-                : "incorrect",
+        type: "perseus:expression-evaluated",
+        payload: {
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+            result: "correct",
+        },
     });
 };
 
-const assertCorrect = (itemData: PerseusItem, input) =>
-    assertComplete(itemData, input, true);
-const assertIncorrect = (itemData: PerseusItem, input: string) =>
+const assertIncorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, false);
+
+    expect(testDependencies.analytics.sendEvent).toHaveBeenCalledWith({
+        type: "perseus:expression-evaluated",
+        payload: {
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+            result: "incorrect",
+        },
+    });
+};
 
 // TODO: actually Assert that message is being set on the score object.
 const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
@@ -53,10 +60,11 @@ const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
     expect(score).toMatchObject({type: "invalid"});
 
     expect(testDependencies.analytics.sendEvent).toHaveBeenCalledWith({
-        eventType: "ContentLibraryMathInputBoxEvaluated",
-        eventSchemaVersion: 1,
-        virtualKeypadVersion: "PERSEUS_MATH_INPUT",
-        isCorrectAnswer: "invalid",
+        type: "perseus:expression-evaluated",
+        payload: {
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+            result: "invalid",
+        },
     });
 };
 
