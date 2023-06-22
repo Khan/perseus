@@ -70,6 +70,7 @@ const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
 
 describe("Expression Widget", function () {
     beforeEach(() => {
+        jest.spyOn(testDependencies, "analytics");
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );

@@ -98,10 +98,9 @@ export const testDependencies: PerseusDependencies = {
         protocol: "protocol-test-interface",
     },
 
-    // We use a jest.fn() here so it's easy to assert on sent events
-    // anywhere we use testDependencies.
-    // Note: See config/test/test-setup.ts for additional setup.
-    analytics: jest.fn(),
+    analytics: async (event) => {
+        console.log("⚡️ Sending analytics event:", event);
+    },
 
     isDevServer: false,
     kaLocale: "en",
