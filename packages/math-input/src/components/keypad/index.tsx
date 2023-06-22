@@ -5,6 +5,7 @@ import * as React from "react";
 
 import Key from "../../data/keys";
 import {ClickKeyCallback} from "../../types";
+import {CursorContext} from "../input/cursor-contexts";
 import Tabbar from "../tabbar/tabbar";
 import {TabbarItemType} from "../tabbar/types";
 
@@ -16,6 +17,7 @@ import SharedKeys from "./shared-keys";
 
 export type Props = {
     onClickKey: ClickKeyCallback;
+    cursorContext?: CursorContext;
     trigonometry?: boolean;
     extraKeys: ReadonlyArray<Key>;
     multiplicationDot?: boolean;
@@ -24,6 +26,10 @@ export type Props = {
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
+};
+
+const defaultProps = {
+    extraKeys: [],
 };
 
 function allPages(props: Props): ReadonlyArray<TabbarItemType> {
@@ -58,7 +64,8 @@ export default function Keypad(props: Props) {
 
     const {
         onClickKey,
-        extraKeys = [],
+        cursorContext,
+        extraKeys,
         multiplicationDot,
         divisionKey,
         preAlgebra,
@@ -99,6 +106,7 @@ export default function Keypad(props: Props) {
                 )}
                 <SharedKeys
                     onClickKey={onClickKey}
+                    cursorContext={cursorContext}
                     multiplicationDot={multiplicationDot}
                     divisionKey={divisionKey}
                 />
@@ -106,6 +114,8 @@ export default function Keypad(props: Props) {
         </View>
     );
 }
+
+Keypad.defaultProps = defaultProps;
 
 const styles = StyleSheet.create({
     tabbar: {

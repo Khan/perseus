@@ -3,6 +3,8 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
 import Key from "../../data/keys";
+import {CursorContext} from "../input/cursor-contexts";
+import {getCursorContext} from "../input/mathquill-helpers";
 import {createMathField} from "../input/mathquill-instance";
 import {MathFieldInterface} from "../input/mathquill-types";
 import keyTranslator from "../key-handlers/key-translator";
@@ -16,11 +18,22 @@ export default {
 export function V2KeypadWithMathquill() {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
     const [mathField, setMathField] = React.useState<MathFieldInterface>();
+    const [cursorContext, setCursorContext] = React.useState<CursorContext>(
+        CursorContext.NONE,
+    );
 
     React.useEffect(() => {
         if (!mathField && mathFieldWrapperRef.current) {
             const mathFieldInstance = createMathField(
                 mathFieldWrapperRef.current,
+                (baseConfig) => ({
+                    ...baseConfig,
+                    handlers: {
+                        edit: (_mathField) => {
+                            setCursorContext(getCursorContext(_mathField));
+                        },
+                    },
+                }),
             );
             setMathField(mathFieldInstance);
         }
@@ -34,6 +47,7 @@ export function V2KeypadWithMathquill() {
         const mathFieldCallback = keyTranslator[key];
         if (mathFieldCallback) {
             mathFieldCallback(mathField, key);
+            setCursorContext(getCursorContext(mathField));
         } else {
             // eslint-disable-next-line no-console
             console.warn(`No translation to Mathquill for: ${key}`);
@@ -53,6 +67,7 @@ export function V2KeypadWithMathquill() {
                         <Keypad
                             extraKeys={["x", "y", "PI", "THETA"]}
                             onClickKey={handleClickKey}
+                            cursorContext={cursorContext}
                             advancedRelations
                             basicRelations
                             divisionKey

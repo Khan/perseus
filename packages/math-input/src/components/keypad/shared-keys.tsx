@@ -2,17 +2,44 @@ import * as React from "react";
 
 import Keys from "../../data/key-configs";
 import {ClickKeyCallback} from "../../types";
+import {CursorContext} from "../input/cursor-contexts";
 
 import {KeypadButton} from "./keypad-button";
 
 type Props = {
     onClickKey: ClickKeyCallback;
+    cursorContext?: CursorContext;
     multiplicationDot?: boolean;
     divisionKey?: boolean;
 };
 
+function getCursorContextConfig(cursorContext?: CursorContext) {
+    if (!cursorContext) {
+        return null;
+    }
+
+    switch (cursorContext) {
+        case CursorContext.NONE:
+            return null;
+        case CursorContext.IN_PARENS:
+            return Keys.JUMP_OUT_PARENTHESES;
+        case CursorContext.IN_SUPER_SCRIPT:
+            return Keys.JUMP_OUT_EXPONENT;
+        case CursorContext.IN_SUB_SCRIPT:
+            return Keys.JUMP_OUT_BASE;
+        case CursorContext.IN_NUMERATOR:
+            return Keys.JUMP_OUT_NUMERATOR;
+        case CursorContext.IN_DENOMINATOR:
+            return Keys.JUMP_OUT_DENOMINATOR;
+        case CursorContext.BEFORE_FRACTION:
+            return Keys.JUMP_INTO_NUMERATOR;
+    }
+}
+
 export default function SharedKeys(props: Props) {
-    const {onClickKey, divisionKey, multiplicationDot} = props;
+    const {onClickKey, cursorContext, divisionKey, multiplicationDot} = props;
+
+    const cursorKeyConfig = getCursorContextConfig(cursorContext);
 
     return (
         <>
@@ -48,6 +75,12 @@ export default function SharedKeys(props: Props) {
 
             {/* Row 3 */}
             <KeypadButton
+                keyConfig={Keys.FRAC_INCLUSIVE}
+                onClickKey={onClickKey}
+                coord={[3, 2]}
+                secondary
+            />
+            <KeypadButton
                 keyConfig={Keys.LEFT_PAREN}
                 onClickKey={onClickKey}
                 coord={[4, 2]}
@@ -61,12 +94,14 @@ export default function SharedKeys(props: Props) {
             />
 
             {/* Row 4 */}
-            <KeypadButton
-                keyConfig={Keys.FRAC_INCLUSIVE}
-                onClickKey={onClickKey}
-                coord={[4, 3]}
-                secondary
-            />
+            {cursorKeyConfig && (
+                <KeypadButton
+                    keyConfig={cursorKeyConfig}
+                    onClickKey={onClickKey}
+                    coord={[4, 3]}
+                    secondary
+                />
+            )}
             <KeypadButton
                 keyConfig={Keys.BACKSPACE}
                 onClickKey={onClickKey}

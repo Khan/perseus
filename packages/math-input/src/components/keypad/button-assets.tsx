@@ -821,6 +821,30 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                     />
                 </svg>
             );
+        case "JUMP_OUT_BASE":
+            return (
+                <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    style={{display: "block", transform: "scale(1,-1)"}}
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M18.2929 15.2929c.3905-.3905 1.0237-.3905 1.4142 0L26 21.5858V20c0-.5523.4477-1 1-1s1 .4477 1 1v4.003c-.0004.1345-.0273.2627-.0759.3798-.0477.1152-.1178.2234-.2105.3177a.809004.809004 0 01-.0131.0131c-.1797.1765-.4259.2856-.6975.2864H23c-.5523 0-1-.4477-1-1s.4477-1 1-1h1.5858l-6.2929-6.2929c-.3905-.3905-.3905-1.0237 0-1.4142zM31 33c-.5523 0-1-.4477-1-1V16c0-.5523.4477-1 1-1s1 .4477 1 1v16c0 .5523-.4477 1-1 1z"
+                        fill="#1865F2"
+                    />
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M9 9c-.55228 0-1 .44772-1 1v6c0 .5523.44772 1 1 1h6c.5523 0 1-.4477 1-1v-6c0-.55228-.4477-1-1-1H9zm5 2h-4v4h4v-4z"
+                        fill="#21242C"
+                    />
+                </svg>
+            );
         case "JUMP_INTO_NUMERATOR":
             return (
                 <svg
@@ -964,7 +988,6 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
         case "DOWN":
         case "LEFT":
         case "RIGHT":
-        case "JUMP_OUT_BASE":
         case "PHI":
         case "NTHROOT3":
         case "POW":

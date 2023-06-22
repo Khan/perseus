@@ -23,15 +23,11 @@ import keyTranslator from "../key-handlers/key-translator";
 
 import {
     getCursor,
-    contextForCursor,
+    getCursorContext,
     maybeFindCommand,
 } from "./mathquill-helpers";
 import {createMathField, mathQuillInstance} from "./mathquill-instance";
-import {
-    MathFieldInterface,
-    MathFieldCursor,
-    MathFieldUpdaterCallback,
-} from "./mathquill-types";
+import {MathFieldInterface, MathFieldUpdaterCallback} from "./mathquill-types";
 
 const mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
     ...keyTranslator,
@@ -112,7 +108,7 @@ class MathWrapper {
         // on the MathField, as that handler isn't triggered on navigation
         // events.
         return {
-            context: this.contextForCursor(cursor),
+            context: this.contextForCursor(),
         };
     }
 
@@ -157,7 +153,7 @@ class MathWrapper {
 
             if (this.callbacks.onCursorMove) {
                 this.callbacks.onCursorMove({
-                    context: this.contextForCursor(cursor),
+                    context: this.contextForCursor(),
                 });
             }
         }
@@ -171,8 +167,8 @@ class MathWrapper {
 
     // note(Matthew): extracted this logic to keep this file focused,
     // but it's part of the public MathWrapper API
-    contextForCursor(cursor: MathFieldCursor) {
-        return contextForCursor(cursor);
+    contextForCursor() {
+        return getCursorContext(this.mathField);
     }
 
     getSelection() {
