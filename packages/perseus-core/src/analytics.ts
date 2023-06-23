@@ -1,7 +1,5 @@
-// Perseus does not have access to all of the data in a CEDAR event, so we
-// remove those traits/keys using a utility type. The hosting application is
-// expected to fill in the missing pieces of data before dispatching the event
-// further.
+// A type union of all the events that any package in the Perseus ecosystem can
+// send.
 export type PerseusAnalyticsEvent = {
     type: "perseus:expression-evaluated";
     payload: {
