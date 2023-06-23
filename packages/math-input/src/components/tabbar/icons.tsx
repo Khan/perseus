@@ -70,7 +70,7 @@ const IconAsset = function ({tintColor, type}: Props): React.ReactElement {
                     fill="none"
                     viewBox="0 0 32 32"
                 >
-                    <g clip-path="url(#a)">
+                    <g clipPath="url(#a)">
                         <path
                             fill={tintColor}
                             fillRule="evenodd"
