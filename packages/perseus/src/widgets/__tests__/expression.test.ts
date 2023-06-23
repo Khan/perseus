@@ -77,11 +77,11 @@ describe("Expression Widget", function () {
     });
 
     describe("grading", function () {
-        it("should not grade a thing that doesn't parse", async () => {
+        it("should not grade a thing that doesn't parse", () => {
             assertInvalid(expressionItem2, "+++");
         });
 
-        it("should not grade a thing that is empty", async () => {
+        it("should not grade a thing that is empty", () => {
             assertInvalid(expressionItem2, "");
         });
     });
