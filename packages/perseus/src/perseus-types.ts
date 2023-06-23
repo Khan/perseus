@@ -327,6 +327,12 @@ export type PerseusExpressionWidgetOptions = {
     buttonsVisible?: "always" | "never" | "focused";
 };
 
+export const PerseusExpressionAnswerFormConsidered = [
+    "correct",
+    "wrong",
+    "ungraded",
+] as const;
+
 export type PerseusExpressionAnswerForm = {
     // The Katex form of the expression.  e.g. "x\\cdot3=y"
     value: string;
@@ -335,7 +341,7 @@ export type PerseusExpressionAnswerForm = {
     // The answer expression must be fully expanded and simplified
     simplify: boolean;
     // Whether the form is considered "correct", "wrong", or "ungraded"
-    considered: "correct" | "wrong" | "ungraded";
+    considered: typeof PerseusExpressionAnswerFormConsidered[number];
     // A key to identify the answer form in a list
     // NOTE: perseus-format.js says this is required even though it isn't necessary.
     key?: string;
