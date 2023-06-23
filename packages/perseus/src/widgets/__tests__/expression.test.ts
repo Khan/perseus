@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {PerseusItem} from "../../perseus-types";
 import {
     expressionItem2,
     expressionItem3,
@@ -15,9 +15,7 @@ import {Expression} from "../expression";
 
 import {renderQuestion} from "./renderQuestion";
 
-type Item = any;
-
-const assertComplete = (itemData: Item, input, isCorrect: boolean) => {
+const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
     const {renderer} = renderQuestion(itemData.question);
     userEvent.type(screen.getByRole("textbox"), input);
     const [_, score] = renderer.guessAndScore();
@@ -27,13 +25,13 @@ const assertComplete = (itemData: Item, input, isCorrect: boolean) => {
     });
 };
 
-const assertCorrect = (itemData: Item, input) =>
+const assertCorrect = (itemData: PerseusItem, input) =>
     assertComplete(itemData, input, true);
-const assertIncorrect = (itemData: Item, input: string) =>
+const assertIncorrect = (itemData: PerseusItem, input: string) =>
     assertComplete(itemData, input, false);
 
 // TODO: actually Assert that message is being set on the score object.
-const assertInvalid = (itemData: Item, input, message?: string) => {
+const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
     const {renderer} = renderQuestion(itemData.question);
     if (input.length) {
         userEvent.type(screen.getByRole("textbox"), input);
@@ -47,7 +45,6 @@ describe("Expression Widget", function () {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        registerAllWidgetsForTesting();
     });
 
     describe("grading", function () {

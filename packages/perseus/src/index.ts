@@ -65,6 +65,7 @@ export {default as KhanMath} from "./util/math";
 export {default as LoadingContext} from "./loading-context";
 export {default as mediaQueries} from "./styles/media-queries";
 export {default as PerseusMarkdown} from "./perseus-markdown";
+export {PerseusExpressionAnswerFormConsidered} from "./perseus-types";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";

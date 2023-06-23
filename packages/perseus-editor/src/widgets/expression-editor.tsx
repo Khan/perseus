@@ -5,6 +5,7 @@ import {
     Changeable,
     Dependencies,
     Expression,
+    PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
@@ -17,11 +18,9 @@ import SortableArea from "../components/sortable";
 const {InfoTip, PropCheckBox, TexButtons} = components;
 const {getDependencies} = Dependencies;
 
-// An answer can be considered correct, wrong, or ungraded.
-const CONSIDERED = ["correct", "wrong", "ungraded"];
-
 const answerFormType = PropTypes.shape({
-    considered: PropTypes.oneOf(CONSIDERED).isRequired,
+    considered: PropTypes.oneOf(PerseusExpressionAnswerFormConsidered)
+        .isRequired,
     value: PropTypes.string.isRequired,
     form: PropTypes.bool.isRequired,
     simplify: PropTypes.bool.isRequired,
@@ -433,8 +432,8 @@ class ExpressionEditor extends React.Component<any, any> {
 }
 
 // Find the next element in arr after val, wrapping around to the first.
-const findNextIn = function (arr: Array<string>, val: any) {
-    let ix = _(arr).indexOf(val);
+const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
+    let ix = arr.indexOf(val);
     ix = (ix + 1) % arr.length;
     return arr[ix];
 };
@@ -442,7 +441,8 @@ const findNextIn = function (arr: Array<string>, val: any) {
 class AnswerOption extends React.Component<any, any> {
     static propTypes = {
         ...Changeable.propTypes,
-        considered: PropTypes.oneOf(CONSIDERED).isRequired,
+        considered: PropTypes.oneOf(PerseusExpressionAnswerFormConsidered)
+            .isRequired,
         expressionProps: PropTypes.object.isRequired,
 
         // Must the answer have the same form as this answer.
@@ -560,7 +560,10 @@ class AnswerOption extends React.Component<any, any> {
     };
 
     toggleConsidered = () => {
-        const newVal = findNextIn(CONSIDERED, this.props.considered);
+        const newVal = findNextIn(
+            PerseusExpressionAnswerFormConsidered,
+            this.props.considered,
+        );
         this.change({considered: newVal});
     };
 }

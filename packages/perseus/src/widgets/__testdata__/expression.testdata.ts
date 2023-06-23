@@ -71,7 +71,7 @@ export const expressionItem3Options: PerseusExpressionWidgetOptions = {
             value: "x+1",
         },
         {
-            considered: "incorrect",
+            considered: "wrong",
             form: false,
             simplify: false,
             value: "y+1",

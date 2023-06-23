@@ -1770,7 +1770,7 @@ class Renderer extends React.Component<Props, State> {
             return widgetIsGraded && !widgetIsStatic;
         });
 
-        const widgetScores: Record<string, any> = {};
+        const widgetScores: Record<string, PerseusScore> = {};
         _.each(gradedWidgetIds, (id) => {
             const props = widgetProps[id];
             const widget = this.getWidgetInstance(id);
