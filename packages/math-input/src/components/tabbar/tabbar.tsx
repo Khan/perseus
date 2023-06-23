@@ -50,7 +50,6 @@ function Tabbar(props: Props): React.ReactElement {
             <View>
                 {onClickClose && (
                     <TabbarItem
-                        key={`tabbar-item-dismiss`}
                         itemState="inactive"
                         itemType="Dismiss"
                         onClick={onClickClose}
