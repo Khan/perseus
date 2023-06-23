@@ -83,6 +83,7 @@ export default function Keypad(props: Props) {
                     setSelectedPage(tabbarItem);
                 }}
                 style={styles.tabbar}
+                onClickClose={() => onClickKey("DISMISS")}
             />
 
             <View style={styles.grid}>
