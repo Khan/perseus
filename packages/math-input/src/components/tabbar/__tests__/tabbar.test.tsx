@@ -62,4 +62,54 @@ describe("<Tabbar />", () => {
         userEvent.click(screen.getByRole("button", {name: "Geometry"}));
         expect(mockSelectCallback).toHaveBeenCalledWith("Geometry");
     });
+
+    it("shows dismiss button with a onClickClose callback", () => {
+        // Arrange
+        render(
+            <Tabbar
+                items={["Numbers"]}
+                selectedItem={"Numbers"}
+                onSelectItem={() => {}}
+                onClickClose={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Dismiss"}),
+        ).toBeInTheDocument();
+    });
+
+    it("does not show dismiss button without onClickClose callback", () => {
+        // Arrange
+        render(
+            <Tabbar
+                items={["Numbers"]}
+                selectedItem={"Numbers"}
+                onSelectItem={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {name: "Dismiss"}),
+        ).not.toBeInTheDocument();
+    });
+
+    it("handles onClickClose callback", () => {
+        // Arrange
+        const mockClickCloseCallback = jest.fn();
+        render(
+            <Tabbar
+                items={["Numbers", "Geometry"]}
+                selectedItem={"Numbers"}
+                onSelectItem={() => {}}
+                onClickClose={mockClickCloseCallback}
+            />,
+        );
+
+        // Assert
+        userEvent.click(screen.getByRole("button", {name: "Dismiss"}));
+        expect(mockClickCloseCallback).toHaveBeenCalled();
+    });
 });
