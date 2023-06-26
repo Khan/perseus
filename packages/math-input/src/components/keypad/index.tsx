@@ -81,7 +81,7 @@ export default function Keypad(props: Props) {
             <View
                 style={styles.grid}
                 role="grid"
-                tabIndex="0"
+                tabIndex={0}
                 aria-label="Keypad"
             >
                 {selectedPage === "Numbers" && (
