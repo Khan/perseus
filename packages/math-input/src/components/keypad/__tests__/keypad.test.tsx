@@ -24,6 +24,9 @@ describe("keypad", () => {
                     <Keypad
                         onClickKey={() => {}}
                         cursorContext={context as CursorContext}
+                        sendEvent={async () => {
+                            /* TODO: verify correct analytics event sent */
+                        }}
                     />,
                 );
 
