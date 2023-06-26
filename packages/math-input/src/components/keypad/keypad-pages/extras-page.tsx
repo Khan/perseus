@@ -14,7 +14,6 @@ const columns = 4;
 
 export default function ExtrasPage(props: Props) {
     const {extraKeys, onClickKey} = props;
-
     return (
         <>
             {extraKeys.map((key, i) => {

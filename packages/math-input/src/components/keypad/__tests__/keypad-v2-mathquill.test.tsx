@@ -1,5 +1,4 @@
 import Color from "@khanacademy/wonder-blocks-color";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
