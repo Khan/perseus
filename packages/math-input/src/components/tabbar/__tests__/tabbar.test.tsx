@@ -67,9 +67,7 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        expect(
-            screen.getByRole("button", {name: "Dismiss"}),
-        ).toBeInTheDocument();
+        expect(screen.getByRole("tab", {name: "Dismiss"})).toBeInTheDocument();
     });
 
     it("does not show dismiss button without onClickClose callback", () => {
@@ -84,7 +82,7 @@ describe("<Tabbar />", () => {
 
         // Assert
         expect(
-            screen.queryByRole("button", {name: "Dismiss"}),
+            screen.queryByRole("tab", {name: "Dismiss"}),
         ).not.toBeInTheDocument();
     });
 
@@ -101,7 +99,7 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        userEvent.click(screen.getByRole("button", {name: "Dismiss"}));
+        userEvent.click(screen.getByRole("tab", {name: "Dismiss"}));
         expect(mockClickCloseCallback).toHaveBeenCalled();
     });
 });

@@ -82,11 +82,6 @@ export default function NumbersPage(props: Props) {
                 onClickKey={onClickKey}
                 coord={[2, 3]}
             />
-            <KeypadButton
-                keyConfig={Keys.NEGATIVE}
-                onClickKey={onClickKey}
-                coord={[4, 0]}
-            />
         </>
     );
 }
