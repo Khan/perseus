@@ -15,6 +15,8 @@ import NumbersPage from "./keypad-pages/numbers-page";
 import OperatorsPage from "./keypad-pages/operators-page";
 import SharedKeys from "./shared-keys";
 
+import type {SendEventFn} from "@khanacademy/perseus-core";
+
 export type Props = {
     onClickKey: ClickKeyCallback;
     cursorContext?: CursorContext;
@@ -26,6 +28,8 @@ export type Props = {
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
+
+    sendEvent: SendEventFn;
 };
 
 const defaultProps = {
@@ -56,6 +60,8 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
     return pages;
 }
 
+// The main (v2) Keypad. Use this component to present an accessible, onscreen
+// keypad to learners for entering math expressions.
 export default function Keypad(props: Props) {
     const [selectedPage, setSelectedPage] =
         React.useState<TabbarItemType>("Numbers");

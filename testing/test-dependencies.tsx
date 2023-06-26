@@ -98,6 +98,10 @@ export const testDependencies: PerseusDependencies = {
         protocol: "protocol-test-interface",
     },
 
+    analytics: async (event) => {
+        console.log("⚡️ Sending analytics event:", event);
+    },
+
     isDevServer: false,
     kaLocale: "en",
     isMobile: false,

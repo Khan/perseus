@@ -66,7 +66,6 @@ describe("renderer", () => {
         // _after_ and breaks it because we do setState() in the callback,
         // and by that point the component has been unmounted.
         jest.runOnlyPendingTimers();
-        jest.clearAllMocks();
     });
 
     describe("snapshots", () => {

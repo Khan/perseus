@@ -15,6 +15,9 @@ const renderSingleKeypad = (handleClickKey) =>
             multiplicationDot
             preAlgebra
             trigonometry
+            sendEvent={async () => {
+                /* no-op */
+            }}
         />,
     );
 export default renderSingleKeypad;

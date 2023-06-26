@@ -19,16 +19,36 @@ const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
     const {renderer} = renderQuestion(itemData.question);
     userEvent.type(screen.getByRole("textbox"), input);
     const [_, score] = renderer.guessAndScore();
+
     expect(score).toMatchObject({
         type: "points",
         earned: isCorrect ? 1 : 0,
     });
 };
 
-const assertCorrect = (itemData: PerseusItem, input) =>
+const assertCorrect = (itemData: PerseusItem, input) => {
     assertComplete(itemData, input, true);
-const assertIncorrect = (itemData: PerseusItem, input: string) =>
+
+    expect(testDependencies.analytics).toHaveBeenCalledWith({
+        type: "perseus:expression-evaluated",
+        payload: {
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+            result: "correct",
+        },
+    });
+};
+
+const assertIncorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, false);
+
+    expect(testDependencies.analytics).toHaveBeenCalledWith({
+        type: "perseus:expression-evaluated",
+        payload: {
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+            result: "incorrect",
+        },
+    });
+};
 
 // TODO: actually Assert that message is being set on the score object.
 const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
@@ -38,21 +58,30 @@ const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
     }
     const [_, score] = renderer.guessAndScore();
     expect(score).toMatchObject({type: "invalid"});
+
+    expect(testDependencies.analytics).toHaveBeenCalledWith({
+        type: "perseus:expression-evaluated",
+        payload: {
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+            result: "invalid",
+        },
+    });
 };
 
 describe("Expression Widget", function () {
     beforeEach(() => {
+        jest.spyOn(testDependencies, "analytics");
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     describe("grading", function () {
-        it("should not grade a thing that doesn't parse", function () {
+        it("should not grade a thing that doesn't parse", () => {
             assertInvalid(expressionItem2, "+++");
         });
 
-        it("should not grade a thing that is empty", function () {
+        it("should not grade a thing that is empty", () => {
             assertInvalid(expressionItem2, "");
         });
     });

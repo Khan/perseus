@@ -1,0 +1,19 @@
+{
+    "extends": "../tsconfig-shared.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "src",
+        "paths": {
+            // NOTE(kevinb): We have to repeat this here because TS doesn't do
+            // intelligent merge of tsconfig.json files when using `extends`.
+            "@khanacademy/*": [
+                "../*/src"
+            ]
+        }
+    },
+    "references": [
+        /* Add in-repo pacakge references here, like this:
+           {"path": "../path/to/package/tsconfig-build.json"}
+        */
+    ]
+}

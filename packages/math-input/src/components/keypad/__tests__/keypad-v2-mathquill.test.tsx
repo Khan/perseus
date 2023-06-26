@@ -65,6 +65,7 @@ function V2KeypadWithMathquill(props: Props) {
                             multiplicationDot
                             preAlgebra
                             trigonometry
+                            sendEvent={async () => {}}
                         />
                     </div>
                 }
