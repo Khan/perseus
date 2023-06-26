@@ -32,7 +32,6 @@ const assertCorrect = (itemData: PerseusItem, input) => {
     expect(testDependencies.analytics).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
-            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
             result: "correct",
         },
     });
@@ -44,7 +43,6 @@ const assertIncorrect = (itemData: PerseusItem, input: string) => {
     expect(testDependencies.analytics).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
-            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
             result: "incorrect",
         },
     });
@@ -62,7 +60,6 @@ const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
     expect(testDependencies.analytics).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
-            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
             result: "invalid",
         },
     });

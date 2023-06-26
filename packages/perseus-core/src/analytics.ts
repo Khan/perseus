@@ -3,7 +3,6 @@
 export type PerseusAnalyticsEvent = {
     type: "perseus:expression-evaluated";
     payload: {
-        virtualKeypadVersion: string;
         result: "correct" | "incorrect" | "invalid";
     };
 };
