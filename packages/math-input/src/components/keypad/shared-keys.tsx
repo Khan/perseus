@@ -43,7 +43,6 @@ export default function SharedKeys(props: Props) {
 
     return (
         <>
-            {/* Row 1 */}
             <KeypadButton
                 keyConfig={Keys.PLUS}
                 onClickKey={onClickKey}

@@ -92,7 +92,12 @@ export default function Keypad(props: Props) {
                 onClickClose={() => onClickKey("DISMISS")}
             />
 
-            <View style={styles.grid}>
+            <View
+                style={styles.grid}
+                role="grid"
+                tabIndex={0}
+                aria-label="Keypad"
+            >
                 {selectedPage === "Numbers" && (
                     <NumbersPage onClickKey={onClickKey} />
                 )}
