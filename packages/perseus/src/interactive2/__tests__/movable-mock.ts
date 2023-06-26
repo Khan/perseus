@@ -7,7 +7,6 @@ import _ from "underscore";
 import Movable from "../movable";
 
 const createMock = function (): any {
-    // @ts-expect-error [FEI-5003] - TS2350 - Only a void function can be called with the 'new' keyword.
     const movable = new Movable(null, {
         mouseTarget: null,
     });

@@ -503,16 +503,14 @@ class Matrix extends React.Component<Props, State> {
         value,
         cb,
     ) => {
-        const answers = _.map(this.props.answers, _.clone);
+        const answers = this.props.answers.map((answer) => [...answer]);
         if (!answers[row]) {
             answers[row] = [];
         }
-        // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
         answers[row][column] = value;
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
         this.props.onChange(
             {
-                answers: answers,
+                answers,
             },
             cb,
         );
