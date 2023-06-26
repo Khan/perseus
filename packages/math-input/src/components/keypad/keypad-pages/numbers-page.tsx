@@ -1,6 +1,3 @@
-import {View} from "@khanacademy/wonder-blocks-core";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
@@ -17,7 +14,7 @@ export default function NumbersPage(props: Props) {
     // allows us to visually mimic a keypad without affecting a11y. The visual order of the
     // keys in the keypad is determined by their coordinates, not their order in the DOM.
     return (
-        <View style={styles.grid} aria-label={i18n._("Numberpad")} role="group">
+        <>
             {/* Row 4 */}
             <KeypadButton
                 keyConfig={Keys.NUM_1}
@@ -90,14 +87,6 @@ export default function NumbersPage(props: Props) {
                 onClickKey={onClickKey}
                 coord={[4, 0]}
             />
-        </View>
+        </>
     );
 }
-const styles = StyleSheet.create({
-    grid: {
-        display: "grid",
-        gridRow: "1/5",
-        gridColumn: "span 4",
-        gridTemplateColumns: "repeat(3, 1fr)",
-    },
-});
