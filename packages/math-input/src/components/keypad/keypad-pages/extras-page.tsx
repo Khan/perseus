@@ -10,7 +10,7 @@ type Props = {
     onClickKey: ClickKeyCallback;
 };
 
-const columns = 4;
+const columns = 3;
 
 export default function ExtrasPage(props: Props) {
     const {extraKeys, onClickKey} = props;

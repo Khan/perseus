@@ -3,11 +3,13 @@ import * as React from "react";
 import Keys from "../../data/key-configs";
 import {ClickKeyCallback} from "../../types";
 import {CursorContext} from "../input/cursor-contexts";
+import {TabbarItemType} from "../tabbar/types";
 
 import {KeypadButton} from "./keypad-button";
 
 type Props = {
     onClickKey: ClickKeyCallback;
+    selectedPage: TabbarItemType;
     cursorContext?: CursorContext;
     multiplicationDot?: boolean;
     divisionKey?: boolean;
@@ -37,9 +39,21 @@ function getCursorContextConfig(cursorContext?: CursorContext) {
 }
 
 export default function SharedKeys(props: Props) {
-    const {onClickKey, cursorContext, divisionKey, multiplicationDot} = props;
+    const {
+        onClickKey,
+        cursorContext,
+        divisionKey,
+        multiplicationDot,
+        selectedPage,
+    } = props;
 
     const cursorKeyConfig = getCursorContextConfig(cursorContext);
+
+    // Fraction position depends on the page
+    const fractionCoord: readonly [number, number] =
+        selectedPage === "Numbers" || selectedPage === "Operators"
+            ? [3, 1]
+            : [3, 0];
 
     return (
         <>
@@ -53,6 +67,12 @@ export default function SharedKeys(props: Props) {
                 keyConfig={Keys.MINUS}
                 onClickKey={onClickKey}
                 coord={[5, 0]}
+                secondary
+            />
+            <KeypadButton
+                keyConfig={Keys.FRAC_INCLUSIVE}
+                onClickKey={onClickKey}
+                coord={fractionCoord}
                 secondary
             />
 
@@ -73,12 +93,6 @@ export default function SharedKeys(props: Props) {
             )}
 
             {/* Row 3 */}
-            <KeypadButton
-                keyConfig={Keys.FRAC_INCLUSIVE}
-                onClickKey={onClickKey}
-                coord={[3, 2]}
-                secondary
-            />
             <KeypadButton
                 keyConfig={Keys.LEFT_PAREN}
                 onClickKey={onClickKey}
