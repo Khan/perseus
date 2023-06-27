@@ -48,7 +48,9 @@ export default function SharedKeys(props: Props) {
     } = props;
 
     const cursorKeyConfig = getCursorContextConfig(cursorContext);
-    const fracCoord: readonly [number, number] =
+
+    // Fraction position depends on the page
+    const fractionCoord: readonly [number, number] =
         selectedPage === "Numbers" || selectedPage === "Operators"
             ? [3, 1]
             : [3, 0];
@@ -70,7 +72,7 @@ export default function SharedKeys(props: Props) {
             <KeypadButton
                 keyConfig={Keys.FRAC_INCLUSIVE}
                 onClickKey={onClickKey}
-                coord={fracCoord}
+                coord={fractionCoord}
                 secondary
             />
 
