@@ -1,5 +1,12 @@
 # @khanacademy/perseus
 
+## 6.4.1
+
+### Patch Changes
+
+-   Updated dependencies [0cd9f3c4]
+    -   @khanacademy/math-input@5.0.1
+
 ## 6.4.0
 
 ### Minor Changes
