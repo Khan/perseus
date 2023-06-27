@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 5.0.1
+
+### Patch Changes
+
+-   0cd9f3c4: Export getCursorContext helper from MathInput
+
 ## 5.0.0
 
 ### Major Changes
