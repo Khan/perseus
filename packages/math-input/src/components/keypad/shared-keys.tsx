@@ -67,6 +67,12 @@ export default function SharedKeys(props: Props) {
                 coord={[5, 0]}
                 secondary
             />
+            <KeypadButton
+                keyConfig={Keys.FRAC_INCLUSIVE}
+                onClickKey={onClickKey}
+                coord={fracCoord}
+                secondary
+            />
 
             {/* Row 2 */}
             <KeypadButton
@@ -85,12 +91,6 @@ export default function SharedKeys(props: Props) {
             )}
 
             {/* Row 3 */}
-            <KeypadButton
-                keyConfig={Keys.FRAC_INCLUSIVE}
-                onClickKey={onClickKey}
-                coord={fracCoord}
-                secondary
-            />
             <KeypadButton
                 keyConfig={Keys.LEFT_PAREN}
                 onClickKey={onClickKey}
