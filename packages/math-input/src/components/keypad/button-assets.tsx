@@ -706,12 +706,17 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    viewBox="0 0 256 256"
+                    width="40"
+                    height="40"
+                    fill="none"
+                    viewBox="0 0 40 40"
                 >
-                    <path d="M205.66,61.64l-144,144a8,8,0,0,1-11.32-11.32l144-144a8,8,0,0,1,11.32,11.31ZM50.54,101.44a36,36,0,0,1,50.92-50.91h0a36,36,0,0,1-50.92,50.91ZM56,76A20,20,0,1,0,90.14,61.84h0A20,20,0,0,0,56,76ZM216,180a36,36,0,1,1-10.54-25.46h0A35.76,35.76,0,0,1,216,180Zm-16,0a20,20,0,1,0-5.86,14.14A19.87,19.87,0,0,0,200,180Z" />
+                    <path
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                        d="M24.447 11.106a1 1 0 0 1 .447 1.341l-8 16a1 1 0 1 1-1.788-.894l8-16a1 1 0 0 1 1.341-.447ZM15 13a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-4 2a4 4 0 1 1 8 0 4 4 0 0 1-8 0Zm12 10a2 2 0 1 1 4 0 2 2 0 0 1-4 0Zm2-4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"
+                        clip-rule="evenodd"
+                    />
                 </svg>
             );
         case "PI":
