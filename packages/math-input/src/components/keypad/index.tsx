@@ -2,6 +2,7 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useEffect} from "react";
 
 import Key from "../../data/keys";
 import {ClickKeyCallback} from "../../types";
@@ -78,7 +79,16 @@ export default function Keypad(props: Props) {
         logarithms,
         basicRelations,
         advancedRelations,
+        sendEvent,
     } = props;
+
+    useEffect(() => {
+        sendEvent({
+            type: "perseus:keypad-opened",
+            payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
+        });
+        return () => {};
+    }, [sendEvent]);
 
     return (
         <View>
