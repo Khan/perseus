@@ -131,6 +131,7 @@ export default function Keypad(props: Props) {
                     cursorContext={cursorContext}
                     multiplicationDot={multiplicationDot}
                     divisionKey={divisionKey}
+                    selectedPage={selectedPage}
                 />
             </View>
         </View>

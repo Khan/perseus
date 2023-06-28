@@ -82,6 +82,12 @@ export default function NumbersPage(props: Props) {
                 onClickKey={onClickKey}
                 coord={[2, 3]}
             />
+            <KeypadButton
+                keyConfig={Keys.PERCENT}
+                onClickKey={onClickKey}
+                coord={[3, 0]}
+                secondary
+            />
         </>
     );
 }

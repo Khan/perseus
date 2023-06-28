@@ -1,5 +1,30 @@
 # @khanacademy/math-input
 
+## 5.0.1
+
+### Patch Changes
+
+-   0cd9f3c4: Export getCursorContext helper from MathInput
+
+## 5.0.0
+
+### Major Changes
+
+-   bfe68075: Update contextForCursor to further abstract MathQuill cursor
+
+### Minor Changes
+
+-   0b37940d: Add optional dismiss button to tabbar
+-   1bad1cbe: Improved A11Y of Keypad
+-   1f3fdc6c: Introduce analytics API
+-   5f71cd01: Rearrange buttons in MathInput v2 keypad
+
+### Patch Changes
+
+-   d609230e: Improve TypeScript types and documentation for Mathquill
+-   Updated dependencies [1f3fdc6c]
+    -   @khanacademy/perseus-core@0.0.1
+
 ## 4.3.1
 
 ### Patch Changes

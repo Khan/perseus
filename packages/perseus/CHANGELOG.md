@@ -1,5 +1,30 @@
 # @khanacademy/perseus
 
+## 6.4.1
+
+### Patch Changes
+
+-   Updated dependencies [0cd9f3c4]
+    -   @khanacademy/math-input@5.0.1
+
+## 6.4.0
+
+### Minor Changes
+
+-   1f3fdc6c: Introduce analytics API
+
+### Patch Changes
+
+-   Updated dependencies [1f3fdc6c]
+-   Updated dependencies [d609230e]
+-   Updated dependencies [0b37940d]
+-   Updated dependencies [bfe68075]
+-   Updated dependencies [1bad1cbe]
+-   Updated dependencies [1f3fdc6c]
+-   Updated dependencies [5f71cd01]
+    -   @khanacademy/perseus-core@0.0.1
+    -   @khanacademy/math-input@5.0.0
+
 ## 6.3.2
 
 ### Patch Changes
