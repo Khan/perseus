@@ -18,17 +18,20 @@ import SharedKeys from "./shared-keys";
 import type {SendEventFn} from "@khanacademy/perseus-core";
 
 export type Props = {
-    onClickKey: ClickKeyCallback;
-    cursorContext?: CursorContext;
-    trigonometry?: boolean;
     extraKeys: ReadonlyArray<Key>;
+    cursorContext?: CursorContext;
+    showDismiss?: boolean;
+
     multiplicationDot?: boolean;
     divisionKey?: boolean;
+
+    trigonometry?: boolean;
     preAlgebra?: boolean;
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
 
+    onClickKey: ClickKeyCallback;
     sendEvent: SendEventFn;
 };
 
@@ -78,6 +81,7 @@ export default function Keypad(props: Props) {
         logarithms,
         basicRelations,
         advancedRelations,
+        showDismiss,
     } = props;
 
     return (
@@ -89,7 +93,9 @@ export default function Keypad(props: Props) {
                     setSelectedPage(tabbarItem);
                 }}
                 style={styles.tabbar}
-                onClickClose={() => onClickKey("DISMISS")}
+                onClickClose={
+                    showDismiss ? () => onClickKey("DISMISS") : undefined
+                }
             />
 
             <View
