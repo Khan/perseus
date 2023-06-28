@@ -19,7 +19,7 @@ import type {SendEventFn} from "@khanacademy/perseus-core";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;
-    cursorContext?: CursorContext;
+    cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     showDismiss?: boolean;
 
     multiplicationDot?: boolean;

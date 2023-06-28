@@ -24,7 +24,9 @@ describe("keypad", () => {
                 render(
                     <Keypad
                         onClickKey={() => {}}
-                        cursorContext={context as CursorContext}
+                        cursorContext={
+                            context as typeof CursorContext[keyof typeof CursorContext]
+                        }
                         sendEvent={async () => {
                             /* TODO: verify correct analytics event sent */
                         }}

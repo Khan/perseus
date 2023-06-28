@@ -24,7 +24,7 @@ const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;
 
 interface ReduxProps {
-    cursorContext?: CursorContext;
+    cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     dynamicJumpOut: boolean;
 }
 
