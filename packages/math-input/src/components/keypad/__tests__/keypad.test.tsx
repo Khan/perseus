@@ -1,5 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
+import "@testing-library/jest-dom";
 
 import keyConfigs from "../../../data/key-configs";
 import {CursorContext} from "../../input/cursor-contexts";
@@ -35,8 +36,40 @@ describe("keypad", () => {
                     screen.getByRole("button", {
                         name: ariaLabel,
                     }),
-                );
+                ).toBeInTheDocument();
             });
         });
+    });
+
+    it(`shows optional dismiss button`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                sendEvent={async () => {}}
+                showDismiss
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("tab", {
+                name: "Dismiss",
+            }),
+        ).toBeInTheDocument();
+    });
+
+    it(`hides optional dismiss button`, () => {
+        // Arrange
+        // Act
+        render(<Keypad onClickKey={() => {}} sendEvent={async () => {}} />);
+
+        // Assert
+        expect(
+            screen.queryByRole("tab", {
+                name: "Dismiss",
+            }),
+        ).not.toBeInTheDocument();
     });
 });
