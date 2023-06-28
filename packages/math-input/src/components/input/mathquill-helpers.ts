@@ -240,7 +240,7 @@ export function maybeFindCommandBeforeParens(leftParenNode) {
 
 export function getCursorContext(
     mathField?: MathFieldInterface,
-): CursorContext {
+): typeof CursorContext[keyof typeof CursorContext] {
     if (!mathField) {
         return CursorContext.NONE;
     }

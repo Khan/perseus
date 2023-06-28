@@ -1,3 +1,4 @@
+import {CursorContext} from "./components/input/cursor-contexts";
 import Key from "./data/keys";
 import {
     BorderDirection,
@@ -6,8 +7,6 @@ import {
     KeyType,
     KeypadType,
 } from "./enums";
-
-import type {CursorContext} from "./components/input/cursor-contexts";
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
@@ -60,7 +59,7 @@ export type KeypadConfiguration = {
 export type KeyHandler = (key: Key) => Cursor;
 
 export type Cursor = {
-    context: CursorContext;
+    context: typeof CursorContext[keyof typeof CursorContext];
 };
 
 export type KeypadLayout = {

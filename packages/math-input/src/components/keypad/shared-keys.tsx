@@ -10,12 +10,14 @@ import {KeypadButton} from "./keypad-button";
 type Props = {
     onClickKey: ClickKeyCallback;
     selectedPage: TabbarItemType;
-    cursorContext?: CursorContext;
+    cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     multiplicationDot?: boolean;
     divisionKey?: boolean;
 };
 
-function getCursorContextConfig(cursorContext?: CursorContext) {
+function getCursorContextConfig(
+    cursorContext?: typeof CursorContext[keyof typeof CursorContext],
+) {
     if (!cursorContext) {
         return null;
     }
