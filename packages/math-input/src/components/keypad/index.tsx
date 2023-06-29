@@ -2,6 +2,7 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {useEffect} from "react";
 
 import Key from "../../data/keys";
 import {ClickKeyCallback} from "../../types";
@@ -68,6 +69,7 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
 export default function Keypad(props: Props) {
     const [selectedPage, setSelectedPage] =
         React.useState<TabbarItemType>("Numbers");
+    const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     const availablePages = allPages(props);
 
@@ -82,7 +84,20 @@ export default function Keypad(props: Props) {
         basicRelations,
         advancedRelations,
         showDismiss,
+        sendEvent,
     } = props;
+
+    useEffect(() => {
+        return () => {
+            if (isMounted) {
+                sendEvent({
+                    type: "perseus:keypad-closed",
+                    payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
+                });
+                setIsMounted(false);
+            }
+        };
+    }, [sendEvent, isMounted]);
 
     return (
         <View>

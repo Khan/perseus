@@ -18,6 +18,7 @@ export default {
 export function V2KeypadWithMathquill() {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
     const [mathField, setMathField] = React.useState<MathFieldInterface>();
+    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(true);
     const [cursorContext, setCursorContext] = React.useState<
         typeof CursorContext[keyof typeof CursorContext]
     >(CursorContext.NONE);
@@ -42,6 +43,10 @@ export function V2KeypadWithMathquill() {
     function handleClickKey(key: Key) {
         if (!mathField) {
             return;
+        }
+
+        if (key === "DISMISS") {
+            setKeypadOpen(false);
         }
 
         const mathFieldCallback = keyTranslator[key];
@@ -79,11 +84,12 @@ export function V2KeypadWithMathquill() {
                                 // eslint-disable-next-line no-console
                                 console.log("Send Event:", event);
                             }}
+                            showDismiss
                         />
                     </PopoverContentCore>
                 }
                 dismissEnabled
-                opened
+                opened={keypadOpen}
             >
                 <div
                     style={{
@@ -94,6 +100,9 @@ export function V2KeypadWithMathquill() {
                     ref={mathFieldWrapperRef}
                 />
             </Popover>
+            <button onClick={() => setKeypadOpen(!keypadOpen)}>
+                {keypadOpen ? "close keypad" : "open keypad"}
+            </button>
         </div>
     );
 }
