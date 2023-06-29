@@ -100,13 +100,15 @@ export default {
             // We use createElement instead of JSX here because we can't name this file tex.tsx;
             // that name is already taken.
             reactRender(
-                React.createElement(TeX, {children: text}),
+                React.createElement(TeX, {
+                    children: text,
+                    onRender: () => {
+                        if (callback) {
+                            doCallback(elem, callback);
+                        }
+                    },
+                }),
                 $katexHolder[0],
-                () => {
-                    if (callback) {
-                        doCallback(elem, callback);
-                    }
-                },
             );
         }
     },
