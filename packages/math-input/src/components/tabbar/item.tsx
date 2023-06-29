@@ -50,6 +50,11 @@ const styles = StyleSheet.create({
         height: 3,
         marginLeft: 3,
     },
+    clickable: {
+        ":focus": {
+            outline: `none`,
+        },
+    },
 });
 
 function imageTintColor(
@@ -84,6 +89,7 @@ class TabbarItem extends React.Component<Props> {
                 onClick={onClick}
                 disabled={itemState === "disabled"}
                 aria-label={itemType}
+                style={styles.clickable}
                 aria-selected={itemState === "active"}
                 role="tab"
             >
