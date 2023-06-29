@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 6.0.0
+
+### Major Changes
+
+-   36e3a212: Make v2 keypad dismiss button optional, hidden by default
+
+### Patch Changes
+
+-   fa735526: Fix issue with uses of CursorContext not being converted by flowgen
+
 ## 5.0.1
 
 ### Patch Changes
