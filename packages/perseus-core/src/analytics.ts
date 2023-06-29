@@ -13,6 +13,12 @@ export type PerseusAnalyticsEvent =
           payload: {
               virtualKeypadVersion: string;
           };
+      }
+    | {
+          type: "perseus:keypad-opened";
+          payload: {
+              virtualKeypadVersion: string;
+          };
       };
 // Add more events here as needed. Note that each event should have a `type`
 // key and a payload that varies by type.

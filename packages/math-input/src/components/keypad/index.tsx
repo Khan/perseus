@@ -88,6 +88,13 @@ export default function Keypad(props: Props) {
     } = props;
 
     useEffect(() => {
+        if (!isMounted) {
+            sendEvent({
+                type: "perseus:keypad-opened",
+                payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
+            });
+            setIsMounted(true);
+        }
         return () => {
             if (isMounted) {
                 sendEvent({
