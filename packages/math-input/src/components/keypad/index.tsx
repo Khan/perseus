@@ -2,7 +2,6 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import {useEffect} from "react";
 
 import Key from "../../data/keys";
 import {ClickKeyCallback} from "../../types";
@@ -19,17 +18,20 @@ import SharedKeys from "./shared-keys";
 import type {SendEventFn} from "@khanacademy/perseus-core";
 
 export type Props = {
-    onClickKey: ClickKeyCallback;
-    cursorContext?: CursorContext;
-    trigonometry?: boolean;
     extraKeys: ReadonlyArray<Key>;
+    cursorContext?: typeof CursorContext[keyof typeof CursorContext];
+    showDismiss?: boolean;
+
     multiplicationDot?: boolean;
     divisionKey?: boolean;
+
+    trigonometry?: boolean;
     preAlgebra?: boolean;
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
 
+    onClickKey: ClickKeyCallback;
     sendEvent: SendEventFn;
 };
 
@@ -79,16 +81,8 @@ export default function Keypad(props: Props) {
         logarithms,
         basicRelations,
         advancedRelations,
-        sendEvent,
+        showDismiss,
     } = props;
-
-    useEffect(() => {
-        sendEvent({
-            type: "perseus:keypad-opened",
-            payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
-        });
-        return () => {};
-    }, [sendEvent]);
 
     return (
         <View>
@@ -99,7 +93,9 @@ export default function Keypad(props: Props) {
                     setSelectedPage(tabbarItem);
                 }}
                 style={styles.tabbar}
-                onClickClose={() => onClickKey("DISMISS")}
+                onClickClose={
+                    showDismiss ? () => onClickKey("DISMISS") : undefined
+                }
             />
 
             <View

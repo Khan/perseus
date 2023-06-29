@@ -21,7 +21,7 @@ import type {State} from "./store/types";
 const {row, roundedTopLeft, roundedTopRight} = Styles;
 
 interface ReduxProps {
-    cursorContext?: CursorContext;
+    cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     dynamicJumpOut: boolean;
 }
 
