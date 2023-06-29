@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 6.4.3
+
+### Patch Changes
+
+-   12b65f5e: Fix an issue where Graphie labels were sometimes incorrectly positioned when
+    MathJax 3 was injected as the TeX renderer.
+-   Updated dependencies [8d1745c1]
+    -   @khanacademy/math-input@6.0.1
+
 ## 6.4.2
 
 ### Patch Changes

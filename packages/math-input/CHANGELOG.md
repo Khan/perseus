@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 6.0.1
+
+### Patch Changes
+
+-   8d1745c1: Removed double focus outline from keypad buttons
+
 ## 6.0.0
 
 ### Major Changes
