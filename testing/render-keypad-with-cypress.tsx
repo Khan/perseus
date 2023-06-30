@@ -15,7 +15,7 @@ const renderSingleKeypad = (handleClickKey) =>
             multiplicationDot
             preAlgebra
             trigonometry
-            sendEvent={async () => {
+            onAnalyticsEvent={async () => {
                 /* no-op */
             }}
         />,

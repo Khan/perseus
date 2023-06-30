@@ -1,1 +1,1 @@
-export type {PerseusAnalyticsEvent, SendEventFn} from "./analytics";
+export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
