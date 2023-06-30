@@ -3,4 +3,4 @@
 "@khanacademy/perseus-core": patch
 ---
 
-on keypad opened CEDAR event integration
+Add keypad opened and closed analytics events

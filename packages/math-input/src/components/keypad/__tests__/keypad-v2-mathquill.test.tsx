@@ -256,7 +256,7 @@ describe("Keypad v2 with MathQuill", () => {
             <V2KeypadWithMathquill
                 onChangeMathInput={() => {}}
                 keypadClosed={true}
-                sendEvent={(event) => mockSendEvent(event.type)}
+                sendEvent={mockSendEvent}
             />,
         );
 
@@ -264,9 +264,10 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
 
         // Assert
-        expect(mockSendEvent).toHaveBeenLastCalledWith(
-            "math-input:keypad-opened",
-        );
+        expect(mockSendEvent).toHaveBeenLastCalledWith({
+            type: "math-input:keypad-opened",
+            payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
+        });
     });
 
     // Keypad event tests
@@ -276,7 +277,7 @@ describe("Keypad v2 with MathQuill", () => {
         render(
             <V2KeypadWithMathquill
                 onChangeMathInput={() => {}}
-                sendEvent={(event) => mockSendEvent(event.type)}
+                sendEvent={mockSendEvent}
             />,
         );
 
@@ -284,8 +285,9 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
 
         // Assert
-        expect(mockSendEvent).toHaveBeenLastCalledWith(
-            "math-input:keypad-closed",
-        );
+        expect(mockSendEvent).toHaveBeenLastCalledWith({
+            type: "math-input:keypad-closed",
+            payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
+        });
     });
 });
