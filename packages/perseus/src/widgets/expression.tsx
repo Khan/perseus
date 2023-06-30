@@ -53,6 +53,14 @@ const insertBraces = (value) => {
 
 type Rubric = PerseusExpressionWidgetOptions;
 
+type RenderProps = {
+    buttonSets: PerseusExpressionWidgetOptions["buttonSets"];
+    buttonsVisible?: PerseusExpressionWidgetOptions["buttonsVisible"];
+    functions: PerseusExpressionWidgetOptions["functions"];
+    times: PerseusExpressionWidgetOptions["times"];
+    keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
+};
+
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
 export type Props = ExternalProps &
@@ -640,16 +648,6 @@ const propUpgrades = {
     }),
 } as const;
 
-type RenderProps = {
-    buttonSets: any;
-    buttonsVisible?: "always" | "focused" | "never";
-    functions: ReadonlyArray<string>;
-    keypadConfiguration: {
-        extraKeys: ReadonlyArray<any | string>;
-        keypadType: any;
-    };
-    times: boolean;
-};
 const ExpressionWithDependencies = React.forwardRef<
     Expression,
     Omit<
