@@ -3,7 +3,9 @@
 export type PerseusAnalyticsEvent = {
     type: "perseus:expression-evaluated";
     payload: {
-        virtualKeypadVersion: string;
+        // Keypad version can be supplied by Perseus sometimes, but not always.
+        // The host application will need to fill this in if it's not present.
+        virtualKeypadVersion?: string;
         result: "correct" | "incorrect" | "invalid";
     };
 };
