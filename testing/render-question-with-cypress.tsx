@@ -3,7 +3,10 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
 import AssetContext from "../packages/perseus/src/asset-context";
+import {DependenciesContext} from "../packages/perseus/src/dependencies";
 import * as Perseus from "../packages/perseus/src/index";
+
+import {cypressDependenciesV2} from "./test-dependencies";
 
 import type {PerseusRenderer} from "../packages/perseus/src/perseus-types";
 import type {APIOptions} from "../packages/perseus/src/types";
@@ -42,16 +45,18 @@ const renderQuestion = (
         <div className="framework-perseus">
             <AssetContext.Provider value={{assetStatuses, setAssetStatus}}>
                 <RenderStateRoot>
-                    <Perseus.Renderer
-                        ref={(node) => (renderer = node)}
-                        content={question.content}
-                        images={question.images}
-                        widgets={question.widgets}
-                        problemNum={0}
-                        apiOptions={apiOptions}
-                        reviewMode={reviewMode}
-                        onRender={onRender}
-                    />
+                    <DependenciesContext.Provider value={cypressDependenciesV2}>
+                        <Perseus.Renderer
+                            ref={(node) => (renderer = node)}
+                            content={question.content}
+                            images={question.images}
+                            widgets={question.widgets}
+                            problemNum={0}
+                            apiOptions={apiOptions}
+                            reviewMode={reviewMode}
+                            onRender={onRender}
+                        />
+                    </DependenciesContext.Provider>
                 </RenderStateRoot>
             </AssetContext.Provider>
         </div>,

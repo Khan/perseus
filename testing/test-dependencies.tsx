@@ -126,9 +126,19 @@ export const storybookTestDependencies: PerseusDependencies = {
     staticUrl: (str) => str,
 };
 
+export const storybookDependenciesV2: PerseusDependenciesV2 = {
+    ...testDependenciesV2,
+    // Override if necessary
+};
+
 export const cypressTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestTeX,
     // $FlowIgnore[incompatible-type]
     staticUrl: (str) => str,
+};
+
+export const cypressDependenciesV2: PerseusDependenciesV2 = {
+    ...testDependenciesV2,
+    // Override if necessary
 };

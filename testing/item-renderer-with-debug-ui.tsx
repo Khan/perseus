@@ -3,6 +3,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import * as React from "react";
 
+import {useDependencies} from "../packages/perseus/src/dependencies";
 import {ItemRenderer} from "../packages/perseus/src/index";
 
 import KEScoreUI from "./ke-score-ui";
@@ -23,6 +24,12 @@ export const ItemRendererWithDebugUI = ({
     const ref = React.useRef<ItemRenderer | null | undefined>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
 
+    // We provide the dependencies in `.storybook/preview.js` so we can just
+    // pipe it through here. If this component is used outside of Storybook,
+    // the caller will need to provide the dependencies through the
+    // DependenciesContext.Provider.
+    const deps = useDependencies();
+
     return (
         <SideBySide
             leftTitle="Renderer"
@@ -35,6 +42,7 @@ export const ItemRendererWithDebugUI = ({
                         apiOptions={apiOptions}
                         item={item}
                         savedState={null}
+                        dependencies={deps}
                     />
                     <div id="workarea" />
                     <div id="hintsarea" />

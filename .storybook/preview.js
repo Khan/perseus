@@ -2,7 +2,12 @@ import * as React from "react";
 import Color from "@khanacademy/wonder-blocks-color";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {Dependencies} from "@khanacademy/perseus";
-import {storybookTestDependencies} from "../testing/test-dependencies";
+
+import {DependenciesContext} from "../packages/perseus/src/dependencies";
+import {
+    storybookTestDependencies,
+    storybookDependenciesV2,
+} from "../testing/test-dependencies";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
@@ -14,7 +19,9 @@ Dependencies.setDependencies(storybookTestDependencies);
 export const decorators = [
     (Story) => (
         <RenderStateRoot>
-            <Story />
+            <DependenciesContext.Provider value={storybookDependenciesV2}>
+                <Story />
+            </DependenciesContext.Provider>
         </RenderStateRoot>
     ),
 ];
