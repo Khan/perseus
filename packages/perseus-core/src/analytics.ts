@@ -9,13 +9,13 @@ export type PerseusAnalyticsEvent =
           };
       }
     | {
-          type: "perseus:keypad-closed";
+          type: "math-input:keypad-closed";
           payload: {
               virtualKeypadVersion: string;
           };
       }
     | {
-          type: "perseus:keypad-opened";
+          type: "math-input:keypad-opened";
           payload: {
               virtualKeypadVersion: string;
           };

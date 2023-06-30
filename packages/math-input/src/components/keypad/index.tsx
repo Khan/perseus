@@ -90,7 +90,7 @@ export default function Keypad(props: Props) {
     useEffect(() => {
         if (!isMounted) {
             sendEvent({
-                type: "perseus:keypad-opened",
+                type: "math-input:keypad-opened",
                 payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
             });
             setIsMounted(true);
@@ -98,7 +98,7 @@ export default function Keypad(props: Props) {
         return () => {
             if (isMounted) {
                 sendEvent({
-                    type: "perseus:keypad-closed",
+                    type: "math-input:keypad-closed",
                     payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
                 });
                 setIsMounted(false);

@@ -248,15 +248,15 @@ describe("Keypad v2 with MathQuill", () => {
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("");
     });
 
-    // CEDAR keypad tests
-    it("fires the keypad open CEDAR event on open", () => {
+    // Keypad event tests
+    it("fires the keypad open event on open", () => {
         // Arrange
-        const mockSendCEDAREvent = jest.fn();
+        const mockSendEvent = jest.fn();
         render(
             <V2KeypadWithMathquill
                 onChangeMathInput={() => {}}
                 keypadClosed={true}
-                sendEvent={(event) => mockSendCEDAREvent(event.type)}
+                sendEvent={(event) => mockSendEvent(event.type)}
             />,
         );
 
@@ -264,8 +264,28 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
 
         // Assert
-        expect(mockSendCEDAREvent).toHaveBeenLastCalledWith(
-            "perseus:keypad-opened",
+        expect(mockSendEvent).toHaveBeenLastCalledWith(
+            "math-input:keypad-opened",
+        );
+    });
+
+    // Keypad event tests
+    it("fires the keypad open event on close", () => {
+        // Arrange
+        const mockSendEvent = jest.fn();
+        render(
+            <V2KeypadWithMathquill
+                onChangeMathInput={() => {}}
+                sendEvent={(event) => mockSendEvent(event.type)}
+            />,
+        );
+
+        // Act
+        userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
+
+        // Assert
+        expect(mockSendEvent).toHaveBeenLastCalledWith(
+            "math-input:keypad-closed",
         );
     });
 });
