@@ -1,3 +1,4 @@
+import {PerseusAnalyticsEvent} from "@khanacademy/perseus-core";
 import Color from "@khanacademy/wonder-blocks-color";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {render, screen} from "@testing-library/react";
@@ -14,11 +15,15 @@ import Keypad from "../index";
 
 type Props = {
     onChangeMathInput: (mathInputTex: string) => void;
+    keypadClosed?: boolean;
+    sendEvent?: (event: PerseusAnalyticsEvent) => Promise<void>;
 };
 
 function V2KeypadWithMathquill(props: Props) {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
     const [mathField, setMathField] = React.useState<MathFieldInterface>();
+    const {onChangeMathInput, keypadClosed, sendEvent} = props;
+    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(!keypadClosed);
 
     React.useEffect(() => {
         if (!mathField && mathFieldWrapperRef.current) {
@@ -29,7 +34,7 @@ function V2KeypadWithMathquill(props: Props) {
                         ...baseConfig,
                         handlers: {
                             edit: (mathField) => {
-                                props.onChangeMathInput(mathField.latex());
+                                onChangeMathInput(mathField.latex());
                             },
                         },
                     };
@@ -37,11 +42,15 @@ function V2KeypadWithMathquill(props: Props) {
             );
             setMathField(mathFieldInstance);
         }
-    }, [mathField, props]);
+    }, [mathField, onChangeMathInput]);
 
     function handleClickKey(key: Key) {
         if (!mathField) {
             return;
+        }
+
+        if (key === "DISMISS") {
+            setKeypadOpen(false);
         }
 
         const mathFieldCallback = keyTranslator[key];
@@ -65,12 +74,13 @@ function V2KeypadWithMathquill(props: Props) {
                             multiplicationDot
                             preAlgebra
                             trigonometry
-                            sendEvent={async () => {}}
+                            sendEvent={sendEvent ? sendEvent : async () => {}}
+                            showDismiss
                         />
                     </div>
                 }
                 dismissEnabled
-                opened
+                opened={keypadOpen}
             >
                 <div
                     style={{
@@ -81,6 +91,12 @@ function V2KeypadWithMathquill(props: Props) {
                     ref={mathFieldWrapperRef}
                 />
             </Popover>
+            <button
+                aria-label="Keypad toggle"
+                onClick={() => setKeypadOpen(!keypadOpen)}
+            >
+                {keypadOpen ? "close keypad" : "open keypad"}
+            </button>
         </div>
     );
 }
@@ -230,5 +246,48 @@ describe("Keypad v2 with MathQuill", () => {
         }
 
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("");
+    });
+
+    // Keypad event tests
+    it("fires the keypad open event on open", () => {
+        // Arrange
+        const mockSendEvent = jest.fn();
+        render(
+            <V2KeypadWithMathquill
+                onChangeMathInput={() => {}}
+                keypadClosed={true}
+                sendEvent={mockSendEvent}
+            />,
+        );
+
+        // Act
+        userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
+
+        // Assert
+        expect(mockSendEvent).toHaveBeenLastCalledWith({
+            type: "math-input:keypad-opened",
+            payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
+        });
+    });
+
+    // Keypad event tests
+    it("fires the keypad open event on close", () => {
+        // Arrange
+        const mockSendEvent = jest.fn();
+        render(
+            <V2KeypadWithMathquill
+                onChangeMathInput={() => {}}
+                sendEvent={mockSendEvent}
+            />,
+        );
+
+        // Act
+        userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
+
+        // Assert
+        expect(mockSendEvent).toHaveBeenLastCalledWith({
+            type: "math-input:keypad-closed",
+            payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
+        });
     });
 });
