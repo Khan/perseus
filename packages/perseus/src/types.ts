@@ -319,7 +319,6 @@ export type PerseusDependencies = {
     //misc
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
-    analytics: SendEventFn;
 
     // video widget
     // This is used as a hook to fetch data about a video which is used to
@@ -339,6 +338,18 @@ export type PerseusDependencies = {
     isDevServer: boolean;
     kaLocale: string;
     isMobile: boolean;
+};
+
+/**
+ * The modern iteration of Perseus Depedndencies. These dependencies are
+ * provided to Perseus through its entrypoints (for example:
+ * ServerItemRenderer) and then attached to the DependenciesContext so they are
+ * available anywhere down the React render tree.
+ *
+ * Prefer using this type over `PerseusDependencies` when possible.
+ */
+export type PerseusDependenciesV2 = {
+    analytics: {sendEvent: SendEventFn};
 };
 
 export type APIOptionsWithDefaults = Readonly<

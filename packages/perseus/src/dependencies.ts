@@ -1,4 +1,6 @@
-import type {PerseusDependencies} from "./types";
+import * as React from "react";
+
+import type {PerseusDependencies, PerseusDependenciesV2} from "./types";
 
 let _dependencies: PerseusDependencies | null | undefined = null;
 
@@ -18,4 +20,17 @@ export const getDependencies = (): PerseusDependencies => {
             "Make sure Perseus is being imported from javascript/perseus/perseus.js.",
         ].join("\n"),
     );
+};
+
+export const DependenciesContext = React.createContext<PerseusDependenciesV2>({
+    analytics: {sendEvent: async () => {}},
+});
+
+/**
+ * useDependencies provides easy access to the current Perseus dependencies.
+ */
+export const useDependencies = (): PerseusDependenciesV2 => {
+    const deps = React.useContext(DependenciesContext);
+
+    return deps;
 };

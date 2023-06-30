@@ -3,7 +3,10 @@ import {screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {PerseusItem} from "../../perseus-types";
 import {
@@ -15,7 +18,11 @@ import {Expression} from "../expression";
 
 import {renderQuestion} from "./renderQuestion";
 
-const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
+const assertComplete = (
+    itemData: PerseusItem,
+    input: string,
+    isCorrect: boolean,
+) => {
     const {renderer} = renderQuestion(itemData.question);
     userEvent.type(screen.getByRole("textbox"), input);
     const [_, score] = renderer.guessAndScore();
@@ -26,10 +33,10 @@ const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
     });
 };
 
-const assertCorrect = (itemData: PerseusItem, input) => {
+const assertCorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, true);
 
-    expect(testDependencies.analytics).toHaveBeenCalledWith({
+    expect(testDependenciesV2.analytics.sendEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
             result: "correct",
@@ -40,7 +47,7 @@ const assertCorrect = (itemData: PerseusItem, input) => {
 const assertIncorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, false);
 
-    expect(testDependencies.analytics).toHaveBeenCalledWith({
+    expect(testDependenciesV2.analytics.sendEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
             result: "incorrect",
@@ -49,7 +56,11 @@ const assertIncorrect = (itemData: PerseusItem, input: string) => {
 };
 
 // TODO: actually Assert that message is being set on the score object.
-const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
+const assertInvalid = (
+    itemData: PerseusItem,
+    input: string,
+    message?: string,
+) => {
     const {renderer} = renderQuestion(itemData.question);
     if (input.length) {
         userEvent.type(screen.getByRole("textbox"), input);
@@ -57,7 +68,7 @@ const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
     const [_, score] = renderer.guessAndScore();
     expect(score).toMatchObject({type: "invalid"});
 
-    expect(testDependencies.analytics).toHaveBeenCalledWith({
+    expect(testDependenciesV2.analytics.sendEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
             result: "invalid",
@@ -67,7 +78,7 @@ const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
 
 describe("Expression Widget", function () {
     beforeEach(() => {
-        jest.spyOn(testDependencies, "analytics");
+        jest.spyOn(testDependenciesV2.analytics, "sendEvent");
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
