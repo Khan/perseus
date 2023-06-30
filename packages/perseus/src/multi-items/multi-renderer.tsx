@@ -40,6 +40,7 @@ import {StyleSheet, css} from "aphrodite"; // eslint-disable-line import/no-extr
 import lens from "hubble"; // eslint-disable-line import/no-extraneous-dependencies
 import * as React from "react";
 
+import {DependenciesContext} from "../dependencies";
 import HintsRenderer from "../hints-renderer";
 import {Errors, Log} from "../logging/log";
 import Renderer from "../renderer";
@@ -49,7 +50,12 @@ import {itemToTree} from "./items";
 import {buildMapper} from "./trees";
 
 import type {Widget} from "../renderer";
-import type {APIOptions, FilterCriterion, PerseusScore} from "../types";
+import type {
+    APIOptions,
+    FilterCriterion,
+    PerseusDependenciesV2,
+    PerseusScore,
+} from "../types";
 import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
 import type {Shape, ArrayShape} from "./shape-types";
 import type {Tree} from "./tree-types";
@@ -108,6 +114,8 @@ type Props = {
     onInteractWithWidget?: (id: string) => void;
     apiOptions?: APIOptions;
     reviewMode?: boolean | null | undefined;
+
+    dependencies: PerseusDependenciesV2;
 };
 type State = {
     // We cache functions to generate renderers and refs in `rendererDataTree`,
@@ -546,9 +554,13 @@ class MultiRenderer extends React.Component<Props, State> {
 
         // Pass the renderer tree to the `children` function, which will
         // determine the actual content of this component.
-        return this.props.children({
-            renderers: this._getRenderers(),
-        });
+        return (
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                {this.props.children({
+                    renderers: this._getRenderers(),
+                })}
+            </DependenciesContext.Provider>
+        );
     }
 }
 
