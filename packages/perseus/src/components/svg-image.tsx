@@ -6,7 +6,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
-import {Coord} from "../interactive2/types";
 import {Errors, Log} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 import Util from "../util";
@@ -16,6 +15,7 @@ import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import ImageLoader from "./image-loader";
 
+import type {Coord} from "../interactive2/types";
 import type {Size} from "../perseus-types";
 import type {Alignment, Dimensions} from "../types";
 import type {ImageProps} from "./image-loader";

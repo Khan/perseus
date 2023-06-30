@@ -47,13 +47,7 @@ export const KeypadButton = ({
             >
                 {({hovered, focused, pressed}) => {
                     return (
-                        <View
-                            style={[
-                                styles.outerBoxBase,
-                                hovered && styles.outerBoxHover,
-                                pressed && styles.outerBoxPressed,
-                            ]}
-                        >
+                        <View style={[styles.outerBoxBase]}>
                             <View
                                 style={[
                                     styles.base,
@@ -91,7 +85,7 @@ const styles = StyleSheet.create({
         padding: 1,
     },
     hovered: {
-        border: `1px solid ${Color.blue}`,
+        border: `2px solid ${Color.blue}`,
         padding: 1,
         boxShadow: "none",
     },
@@ -114,15 +108,13 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         border: "2px solid transparent",
     },
-    outerBoxHover: {
-        border: `2px solid ${Color.blue}`,
-    },
-    outerBoxPressed: {
-        border: "2px solid #1B50B3",
-    },
     clickable: {
         width: "100%",
         height: "100%",
         boxSizing: "border-box",
+
+        ":focus": {
+            outline: `none`,
+        },
     },
 });
