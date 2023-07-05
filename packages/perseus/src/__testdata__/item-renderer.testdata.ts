@@ -254,7 +254,13 @@ export const satPassageItem: PerseusItem = {
         "major": 0,
         "minor": 1
     },
-    "hints": [],
+    "hints": [{
+        content:
+            "Consider the return of Rose and Phebe, and the changes that the young characters see in each other.",
+        images: {},
+        replace: false,
+        widgets: {},
+    }],
     _multi: null,
     answer: null,
 };
