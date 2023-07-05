@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 2.3.8
+
+### Patch Changes
+
+-   f7af06d9: Fix a bug in the exercise editor where the "KaTeX Errors" pane would display
+    for any chemistry expression, reporting that commands like `\ce` don't exist in
+    KaTeX even though they do.
+    -   @khanacademy/perseus@6.4.4
+
 ## 2.3.7
 
 ### Patch Changes
