@@ -7,6 +7,7 @@ import * as Perseus from "../packages/perseus/src/index";
 
 import KEScoreUI from "./ke-score-ui";
 import SideBySide from "./side-by-side";
+import {testDependenciesV2} from "./test-dependencies";
 
 import type {PerseusItem} from "../packages/perseus/src/perseus-types";
 import type {APIOptions, KEScore} from "../packages/perseus/src/types";
@@ -34,6 +35,7 @@ export const ServerItemRendererWithDebugUI = ({
                         problemNum={0}
                         apiOptions={options}
                         item={item}
+                        dependencies={testDependenciesV2}
                     />
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button

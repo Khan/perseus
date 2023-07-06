@@ -2,6 +2,9 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
+// eslint-disable-next-line import/no-relative-packages
+import {testDependenciesV2} from "../../../../../testing/test-dependencies";
+import {DependenciesContext} from "../../dependencies";
 import * as Perseus from "../../index";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
@@ -32,18 +35,21 @@ export const renderQuestion = (
     unmount: RenderResult["unmount"];
 } => {
     registerAllWidgetsForTesting();
+
     let renderer: Perseus.Renderer | null = null;
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
-            <Perseus.Renderer
-                ref={(node) => (renderer = node)}
-                content={question.content}
-                images={question.images}
-                widgets={question.widgets}
-                problemNum={0}
-                apiOptions={apiOptions}
-                {...extraProps}
-            />
+            <DependenciesContext.Provider value={testDependenciesV2}>
+                <Perseus.Renderer
+                    ref={(node) => (renderer = node)}
+                    content={question.content}
+                    images={question.images}
+                    widgets={question.widgets}
+                    problemNum={0}
+                    apiOptions={apiOptions}
+                    {...extraProps}
+                />
+            </DependenciesContext.Provider>
         </RenderStateRoot>,
     );
     if (!renderer) {
@@ -56,15 +62,17 @@ export const renderQuestion = (
     ) => {
         rerender(
             <RenderStateRoot>
-                <Perseus.Renderer
-                    ref={(node) => (renderer = node)}
-                    content={question.content}
-                    images={question.images}
-                    widgets={question.widgets}
-                    problemNum={0}
-                    apiOptions={apiOptions}
-                    {...extraProps}
-                />
+                <DependenciesContext.Provider value={testDependenciesV2}>
+                    <Perseus.Renderer
+                        ref={(node) => (renderer = node)}
+                        content={question.content}
+                        images={question.images}
+                        widgets={question.widgets}
+                        problemNum={0}
+                        apiOptions={apiOptions}
+                        {...extraProps}
+                    />
+                </DependenciesContext.Provider>
             </RenderStateRoot>,
         );
         if (!renderer) {

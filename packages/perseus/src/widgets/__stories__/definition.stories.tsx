@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../../../../../testing/test-dependencies";
 import ArticleRenderer from "../../article-renderer";
 
 export default {
@@ -103,5 +104,11 @@ export const MultipleDefinitions = (args: StoryArgs): React.ReactElement => {
 };
 
 export const ArticleDefintion = (args: StoryArgs): React.ReactElement => {
-    return <ArticleRenderer json={article} useNewStyles />;
+    return (
+        <ArticleRenderer
+            json={article}
+            useNewStyles
+            dependencies={storybookDependenciesV2}
+        />
+    );
 };

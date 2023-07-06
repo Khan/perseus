@@ -11,6 +11,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
 import Objective from "./interactive2/objective_";
 import LoadingContext from "./loading-context";
@@ -19,7 +20,13 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
-import type {APIOptions, KEScore, FocusPath, RendererInterface} from "./types";
+import type {
+    APIOptions,
+    KEScore,
+    FocusPath,
+    RendererInterface,
+    PerseusDependenciesV2,
+} from "./types";
 
 const {mapObject} = Objective;
 
@@ -35,6 +42,8 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
         reviewMode?: boolean;
         // from KeypadContext
         keypadElement?: any | null | undefined;
+
+        dependencies: PerseusDependenciesV2;
     };
 
 type HOCProps = {
@@ -423,22 +432,24 @@ export class ServerItemRenderer
         );
 
         return (
-            <div>
-                <div>{questionRenderer}</div>
-                <div
-                    className={
-                        // Avoid adding any horizontal padding when applying the
-                        // mobile hint styles, which are flush to the left.
-                        // NOTE(charlie): We may still want to apply this
-                        // padding for desktop exercises.
-                        apiOptions.isMobile
-                            ? undefined
-                            : css(styles.hintsContainer)
-                    }
-                >
-                    {hintsRenderer}
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                <div>
+                    <div>{questionRenderer}</div>
+                    <div
+                        className={
+                            // Avoid adding any horizontal padding when applying the
+                            // mobile hint styles, which are flush to the left.
+                            // NOTE(charlie): We may still want to apply this
+                            // padding for desktop exercises.
+                            apiOptions.isMobile
+                                ? undefined
+                                : css(styles.hintsContainer)
+                        }
+                    >
+                        {hintsRenderer}
+                    </div>
                 </div>
-            </div>
+            </DependenciesContext.Provider>
         );
     }
 }
