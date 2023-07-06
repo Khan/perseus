@@ -52,7 +52,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
               </legend>
               <div
                 aria-hidden="true"
-                class="instructions instructions_125m8j1"
+                class="instructions instructions_f9jkqj"
               >
                 Choose all answers that apply:
               </div>
@@ -612,7 +612,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
               </legend>
               <div
                 aria-hidden="true"
-                class="instructions instructions_125m8j1"
+                class="instructions instructions_f9jkqj"
               >
                 Choose 1 answer:
               </div>
@@ -1184,7 +1184,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
               </legend>
               <div
                 aria-hidden="true"
-                class="instructions instructions_125m8j1"
+                class="instructions instructions_f9jkqj"
               >
                 Choose 1 answer:
               </div>
@@ -1756,7 +1756,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
               </legend>
               <div
                 aria-hidden="true"
-                class="instructions instructions_125m8j1"
+                class="instructions instructions_f9jkqj"
               >
                 Choose 1 answer:
               </div>
@@ -2328,7 +2328,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
               </legend>
               <div
                 aria-hidden="true"
-                class="instructions instructions_125m8j1"
+                class="instructions instructions_f9jkqj"
               >
                 Choose 1 answer:
               </div>
@@ -2900,7 +2900,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
               </legend>
               <div
                 aria-hidden="true"
-                class="instructions instructions_125m8j1"
+                class="instructions instructions_f9jkqj"
               >
                 Choose 1 answer:
               </div>
@@ -3472,7 +3472,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
               </legend>
               <div
                 aria-hidden="true"
-                class="instructions instructions_125m8j1"
+                class="instructions instructions_f9jkqj"
               >
                 Choose 1 answer:
               </div>
