@@ -319,7 +319,6 @@ export type PerseusDependencies = {
     //misc
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
-    analytics: AnalyticsEventHandlerFn;
 
     // video widget
     // This is used as a hook to fetch data about a video which is used to
