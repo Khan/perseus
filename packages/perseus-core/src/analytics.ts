@@ -26,5 +26,7 @@ export type PerseusAnalyticsEvent =
 // key and a payload that varies by type.
 // | {type: "b"; payload: {name: string}};
 
-/** A function to send analytics events. */
-export type SendEventFn = (event: PerseusAnalyticsEvent) => Promise<void>;
+/** A function that is called when Perseus emits an analytics event. */
+export type AnalyticsEventHandlerFn = (
+    event: PerseusAnalyticsEvent,
+) => Promise<void>;

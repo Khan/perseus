@@ -27,7 +27,7 @@ describe("keypad", () => {
                         cursorContext={
                             context as typeof CursorContext[keyof typeof CursorContext]
                         }
-                        sendEvent={async () => {
+                        onAnalyticsEvent={async () => {
                             /* TODO: verify correct analytics event sent */
                         }}
                     />,
@@ -49,7 +49,7 @@ describe("keypad", () => {
         render(
             <Keypad
                 onClickKey={() => {}}
-                sendEvent={async () => {}}
+                onAnalyticsEvent={async () => {}}
                 showDismiss
             />,
         );
@@ -65,7 +65,9 @@ describe("keypad", () => {
     it(`hides optional dismiss button`, () => {
         // Arrange
         // Act
-        render(<Keypad onClickKey={() => {}} sendEvent={async () => {}} />);
+        render(
+            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
+        );
 
         // Assert
         expect(
