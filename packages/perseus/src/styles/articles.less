@@ -129,7 +129,9 @@
         margin-top: 32px;
     }
 
-    h4, h5, h6 {
+    h4,
+    h5,
+    h6 {
         font-family: inherit;
         font-size: 22px;
         font-weight: 700;
@@ -175,7 +177,8 @@
 
     // Some images use an image widget, but some are just inlined in the
     // paragraph. Inlined images need legacy typography, too.
-    .unresponsive-svg-image, .svg-image {
+    .unresponsive-svg-image,
+    .svg-image {
         .legacy-typography;
     }
     .perseus-block-math {
@@ -201,7 +204,12 @@
     // If the article starts with a heading, remove its unnecessary top margin.
     > .clearfix:first-child {
         > .perseus-renderer:first-child > .paragraph:first-child {
-            h1, h2, h3, h4, h5, h6 {
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
                 &:first-child {
                     margin-top: 0;
                 }
@@ -235,10 +243,10 @@
         color: @gray17;
         font-size: 18px;
         padding: 16px;
-        white-space: pre-wrap;
+        white-space: pre;
+        overflow: auto;
         margin: 0 -16px 32px -16px;
     }
-
 }
 
 // HACK(emily): This is a copy of a bunch of the mixins from the block of
@@ -343,7 +351,8 @@
         // 06/08/2016, there are 188 articles and exercises that use H4 (and
         // just 8 that use H5 or H6). As such, we provide style support for H4,
         // since it's still quite common--but we just replicate the H3 style.
-        h3, h4 {
+        h3,
+        h4 {
             .header(@fontSize, @lineHeight, @gray41, @paddingTopMultiplier);
         }
     }
@@ -421,7 +430,6 @@
 
     .math(@blockMathTextSize; @blockMathLineHeight;
           @inlineMathTextSize; @inlineMathLineHeight) {
-
         .katex {
             font-size: @inlineMathTextSize;
             line-height: @inlineMathLineHeight;
@@ -446,7 +454,6 @@
 
     .code(@codeTextSize; @codeTextLineHeight;
           @codeBlockHorizontalMarginMultiplier) {
-
         code {
             font-family: Courier, monospace;
         }
@@ -458,9 +465,8 @@
             font-size: @codeTextSize;
             line-height: @codeTextLineHeight;
             padding: @baseUnit;
-            white-space: pre-wrap;
-            // NOTE(pamela): This rule previously included negative margins.
-            // However, negative margins overlap with question answers (A/B/C)
+            white-space: pre;
+            overflow: auto;
         }
     }
 
@@ -529,7 +535,8 @@
     // Support for nested lists
     .perseus-renderer > .paragraph ol,
     .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
-        ol, ul:not(.perseus-widget-radio) {
+        ol,
+        ul:not(.perseus-widget-radio) {
             padding-top: 1.5 * @baseUnit;
         }
     }
@@ -537,7 +544,7 @@
     // Disable the Safari tap highlight for block math, which is now tappable
     // via the tap-to-zoom functionality.
     .perseus-block-math {
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-touch-callout: none;
     }
 
@@ -652,7 +659,8 @@
 
     // Some images use an image widget, but some are just inlined in the
     // paragraph. Inlined images need legacy typography, too.
-    .unresponsive-svg-image, .svg-image {
+    .unresponsive-svg-image,
+    .svg-image {
         .legacy-typography;
     }
 
@@ -672,8 +680,6 @@
         }
     }
 }
-
-
 
 /* Derived from the MIT-licensed zoom.js:
    https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/
@@ -704,7 +710,7 @@ img.zoom-img {
 }
 
 .zoom-transition {
-    transition:         transform @zoomAnimationDurationMs ease;
+    transition: transform @zoomAnimationDurationMs ease;
 }
 
 .zoom-overlay {
@@ -739,7 +745,7 @@ img.zoom-img {
     bottom: 0;
     background: white;
     opacity: 0;
-    transition:         opacity @zoomAnimationDurationMs;
+    transition: opacity @zoomAnimationDurationMs;
 }
 
 .zoom-overlay-open > .zoom-backdrop {
