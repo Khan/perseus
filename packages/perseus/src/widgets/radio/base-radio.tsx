@@ -496,13 +496,13 @@ const styles: StyleDeclaration = StyleSheet.create({
     responsiveContainer: {
         overflow: "auto",
         marginLeft: styleConstants.negativePhoneMargin,
-        marginRight: styleConstants.negativePhoneMargin,
         paddingLeft: styleConstants.phoneMargin,
         // paddingRight is handled by responsiveFieldset
     },
 
     responsiveFieldset: {
         paddingRight: styleConstants.phoneMargin,
+        minWidth: "auto",
     },
 });
 
