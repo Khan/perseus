@@ -1,9 +1,10 @@
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {question1, question2} from "../__testdata__/passage-ref.testdata";
 
-type StoryArgs = Record<any, any>;
+import type {PerseusRenderer} from "../../perseus-types";
 
 type Story = {
     title: string;
@@ -13,10 +14,20 @@ export default {
     title: "Perseus/Widgets/PassageRef",
 } as Story;
 
-export const ShortPassage = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
-};
+const Template = (props: {question: PerseusRenderer}): React.ReactElement => (
+    <View
+        style={{
+            paddingLeft: 20,
+        }}
+    >
+        <RendererWithDebugUI question={props.question} />
+    </View>
+);
 
-export const LongPassage = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question2} />;
-};
+export const ShortPassage = (): React.ReactElement => (
+    <Template question={question1} />
+);
+
+export const LongPassage = (): React.ReactElement => (
+    <Template question={question2} />
+);

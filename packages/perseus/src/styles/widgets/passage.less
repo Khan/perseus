@@ -1,4 +1,4 @@
-.perseus-widget-passage-container {
+#perseus-widget-passage-container {
     // NOTE(mdr): This is similar to Wonder Blocks "BodySerif" typesetting, but
     //     not quite: it's a bit smaller, for consistency with the sorta-small
     //     type styles in rest of the Perseus.
@@ -8,7 +8,7 @@
     @font-size: 16px;
     @line-height: 20px;
 
-    .perseus-widget-passage {
+    #perseus-widget-passage {
         line-height: @line-height;
         margin: 22px;
         position: relative;
@@ -31,35 +31,38 @@
         //     switch to the BodySerif component (TP-3112), and remove this
         //     special font-family rule.
         div.paragraph {
-            font-family: "minion-pro", KaTeX_Main, Times, "Times New Roman", serif;
+            font-family: "minion-pro", KaTeX_Main, Times, "Times New Roman",
+                serif;
+        }
+
+        .passage-title div.paragraph {
+            font-family: "Noto Serif", serif;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 22px;
+
+            margin: 0 0 10px;
+        }
+
+        // note(matthewc): If you need to change any of this,
+        // check that line numbers line up correctly.
+        // The margin should probably be 0 or the line height
+        .passage-text div.paragraph {
+            font-weight: 400;
+            font-size: @font-size;
+            line-height: @line-height;
+            text-indent: 20px;
+            margin: 0;
+
+            span {
+                text-indent: 0;
+            }
         }
     }
     .katex {
         line-height: @line-height - 2;
     }
-    .passage-title div.paragraph {
-        font-family: "Noto Serif", serif;
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 22px;
 
-        margin: 0 0 10px;
-    }
-
-    // note(matthewc): If you need to change any of this,
-    // check that line numbers line up correctly.
-    // The margin should probably be 0 or the line height
-    .passage-text div.paragraph {
-        font-weight: 400;
-        font-size: @font-size;
-        line-height: @line-height;
-        text-indent: 20px;
-        margin: 0;
-
-        span {
-            text-indent: 0;
-        }
-    }
     .footnotes {
         margin-top: 22px;
         div.paragraph {
@@ -68,10 +71,10 @@
         }
     }
     .perseus-highlight {
-        background-color: #FFFABE;
+        background-color: #fffabe;
     }
     .perseus-review-highlight {
-        background-color: #EEE7B2;
+        background-color: #eee7b2;
     }
     .perseus-passage-square-label,
     .perseus-passage-circle-label,
@@ -138,7 +141,6 @@
 }
 
 .perseus-widget-passage-editor {
-
     .perseus-single-editor {
         font-family: Times, "Times New Roman", serif;
 

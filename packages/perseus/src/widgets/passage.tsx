@@ -512,9 +512,9 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 
         return (
             <div>
-                <div className="perseus-widget-passage-container">
+                <div id="perseus-widget-passage-container">
                     {this._renderInstructions(parseState)}
-                    <div className="perseus-widget-passage">
+                    <div id="perseus-widget-passage">
                         {hasTitle && (
                             <h3 className="passage-title">
                                 <Renderer
