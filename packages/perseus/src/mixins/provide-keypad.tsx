@@ -12,7 +12,6 @@
  */
 
 import {MobileKeypad} from "@khanacademy/math-input";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -39,18 +38,6 @@ export type KeypadApiOptions = {
 // TODO(LP-10789): replace this with a React Context object to pass information
 // between Perseus and the Keypad.
 const ProvideKeypad = {
-    propTypes: {
-        apiOptions: PropTypes.shape({
-            customKeypad: PropTypes.bool,
-            nativeKeypadProxy: PropTypes.func,
-        }),
-        // An Aphrodite style object, to be applied to the keypad container.
-        // Note that, given our awkward structure of injecting the keypad, this
-        // style won't be applied or updated dynamically. Rather, it will only
-        // be applied in `componentDidMount`.
-        keypadStyle: PropTypes.any,
-    },
-
     getInitialState(): {
         keypadElement: any | null;
     } {
