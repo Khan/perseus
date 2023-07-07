@@ -412,6 +412,7 @@ const styles: StyleDeclaration = StyleSheet.create({
         color: styleConstants.gray17,
         fontSize: 14,
         lineHeight: 1.25,
+        fontFamily: "inherit",
         fontStyle: "normal",
         fontWeight: "bold",
         marginBottom: 16,
