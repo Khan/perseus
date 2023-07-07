@@ -5,6 +5,7 @@
 
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import * as React from "react";
 
 import ProvideKeypad from "./mixins/provide-keypad";
@@ -12,30 +13,33 @@ import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-import type {KeypadProps} from "./mixins/provide-keypad";
-import type {PerseusRenderer} from "./perseus-types";
-import type {APIOptions} from "./types";
+const rendererProps = PropTypes.shape({
+    content: PropTypes.string,
+    widgets: PropTypes.objectOf(PropTypes.any),
+    images: PropTypes.objectOf(PropTypes.any),
+});
 
-type Props = {
-    apiOptions: APIOptions;
-    json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
-
-    // Whether to use the new Bibliotron styles for articles
-    useNewStyles: boolean;
-    linterContext: PerseusLinter.LinterContextProps;
-    legacyPerseusLint?: ReadonlyArray<string>;
-} & KeypadProps;
-
-type DefaultProps = {
-    apiOptions: Props["apiOptions"];
-    useNewStyles: Props["useNewStyles"];
-    linterContext: Props["linterContext"];
-};
-
-class ArticleRenderer extends React.Component<Props, any> {
+class ArticleRenderer extends React.Component<any, any> {
     _currentFocus: any;
 
-    static defaultProps: DefaultProps = {
+    static propTypes = {
+        ...ProvideKeypad.propTypes,
+        apiOptions: PropTypes.shape({
+            onFocusChange: PropTypes.func,
+            isMobile: PropTypes.bool,
+        }),
+        json: PropTypes.oneOfType([
+            rendererProps,
+            PropTypes.arrayOf(rendererProps),
+        ]).isRequired,
+
+        // Whether to use the new Bibliotron styles for articles
+        useNewStyles: PropTypes.bool,
+        linterContext: PerseusLinter.linterContextProps,
+        legacyPerseusLint: PropTypes.arrayOf(PropTypes.string),
+    };
+
+    static defaultProps: any = {
         apiOptions: {},
         useNewStyles: false,
         linterContext: PerseusLinter.linterContextDefault,
@@ -147,7 +151,7 @@ class ArticleRenderer extends React.Component<Props, any> {
         }
     };
 
-    _sections: () => ReadonlyArray<PerseusRenderer> = () => {
+    _sections: () => any = () => {
         return Array.isArray(this.props.json)
             ? this.props.json
             : [this.props.json];
@@ -178,6 +182,7 @@ class ArticleRenderer extends React.Component<Props, any> {
                         {...section}
                         ref={refForSection}
                         key={i}
+                        key_={i}
                         keypadElement={this.keypadElement()}
                         apiOptions={{
                             ...apiOptions,
