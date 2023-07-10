@@ -1,4 +1,6 @@
-#perseus-widget-passage-container {
+// this selector increases specificity to beat out other stylesheets while still
+//   allowing for more than one passage widget on a page
+[id^="perseus-widget-passage-container"] {
     // NOTE(mdr): This is similar to Wonder Blocks "BodySerif" typesetting, but
     //     not quite: it's a bit smaller, for consistency with the sorta-small
     //     type styles in rest of the Perseus.
@@ -8,7 +10,7 @@
     @font-size: 16px;
     @line-height: 20px;
 
-    #perseus-widget-passage {
+    [id^="perseus-widget-passage"] {
         line-height: @line-height;
         margin: 22px;
         position: relative;
