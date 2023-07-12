@@ -1,3 +1,4 @@
+#!/usr/bin/env -S node -r @swc-node/register
 /**
  * Pre-publish checks to verify that our publish will go smoothly.
  */
