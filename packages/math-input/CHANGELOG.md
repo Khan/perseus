@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 6.0.3
+
+### Patch Changes
+
+-   037a2db6: Update MathQuill version
+
 ## 6.0.2
 
 ### Patch Changes
