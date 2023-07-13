@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 6.5.0
+
+### Minor Changes
+
+-   cc4bfe06: Switches out wrapped code blocks for horizontally-scrolling code blocks to account for python indentation syntax.
+-   9916bce4: Changed radio widget instruction font.
+
+### Patch Changes
+
+-   Updated dependencies [037a2db6]
+    -   @khanacademy/math-input@6.0.3
+
 ## 6.4.4
 
 ### Patch Changes
