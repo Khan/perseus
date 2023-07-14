@@ -570,7 +570,13 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 
 // That's All, Folks! => -thats-all-folks
 const joinString = (title: string): string =>
-    "-"  + title.toLowerCase().replace(/[^\w\s]/gi, '').trim().split(/\s+/).join("-");
+    "-"  +
+    title
+        .toLowerCase()
+        .replace(/[^\w\s]/gi, '')
+        .trim()
+        .split(/\s+/)
+        .join("-");
 
 export default {
     name: "passage",
