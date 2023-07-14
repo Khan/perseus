@@ -84,14 +84,11 @@ class PlotterEditor extends React.Component<Props, State> {
         plotDimensions: [275, 200],
         labelInterval: 1,
 
-        get picUrl() {
-            const staticUrl = Dependencies.getDependencies().staticUrl;
-            if (staticUrl) {
-                return staticUrl("/images/badges/earth-small.png");
-            }
-
-            return null;
-        },
+        // CAUTION(jeremy): picUrl used to be a getter here. Please do not
+        // restore this getter as it used getDependencies(). That is not
+        // reliable as sometimes that the dependencies are not provided by the
+        // host application at this point causing an error.
+        // get picUrl() {}
     };
 
     state: State = {
@@ -118,18 +115,19 @@ class PlotterEditor extends React.Component<Props, State> {
         }
     }
 
-    fetchPic: (arg1: string) => any = (url) => {
-        if (this.state.loadedUrl !== url) {
+    fetchPic(url: string) {
+        const staticUrl = Dependencies.getDependencies().staticUrl(url);
+        if (this.state.loadedUrl !== staticUrl) {
             const pic = new Image();
-            pic.src = url;
+            pic.src = staticUrl;
             pic.onload = () => {
                 this.setState({
                     pic: pic,
-                    loadedUrl: url,
+                    loadedUrl: staticUrl,
                 });
             };
         }
-    };
+    }
 
     render(): React.ReactNode {
         const setFromScale = _.contains(
