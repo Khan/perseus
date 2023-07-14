@@ -513,9 +513,9 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 
         return (
             <div>
-                <div id={"perseus-widget-passage-container-" + joinedTitle}>
+                <div id={"perseus-widget-passage-container" + joinedTitle}>
                     {this._renderInstructions(parseState)}
-                    <div id={"perseus-widget-passage-" + joinedTitle}>
+                    <div id={"perseus-widget-passage" + joinedTitle}>
                         {hasTitle && (
                             <h3 className="passage-title">
                                 <Renderer
@@ -568,8 +568,9 @@ export class Passage extends React.Component<PassageProps, PassageState> {
     }
 }
 
+// That's All, Folks! => -thats-all-folks
 const joinString = (title: string): string =>
-    title.toLowerCase().split(" ").join("-");
+    "-"  + title.toLowerCase().replace(/[^\w\s]/gi, '').trim().split(/\s+/).join("-");
 
 export default {
     name: "passage",
