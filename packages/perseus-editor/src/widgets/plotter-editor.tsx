@@ -92,14 +92,11 @@ class PlotterEditor extends React.Component<Props, State> {
         plotDimensions: [275, 200],
         labelInterval: 1,
 
-        get picUrl() {
-            const staticUrl = Dependencies.getDependencies().staticUrl;
-            if (staticUrl) {
-                return staticUrl("/images/badges/earth-small.png");
-            }
-
-            return null;
-        },
+        // NOTE(jeremy): We _cannot_ expand this to a fully, static URL here
+        // because the Perseus dependencies may not be set yet (because these
+        // default props are derived at file parse time, not when the component
+        //is new'd. See `constructor()`.
+        picUrl: "/images/badges/earth-small.png",
     };
 
     state: State = {
@@ -110,6 +107,15 @@ class PlotterEditor extends React.Component<Props, State> {
         maxX: null,
         tickStep: null,
     };
+
+    constructor(props: Props) {
+        super(props);
+
+        // Tell the parent what the full picUrl is.
+        props.onChange({
+            picUrl: Dependencies.getDependencies().staticUrl(props.picUrl),
+        });
+    }
 
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
@@ -380,11 +386,7 @@ class PlotterEditor extends React.Component<Props, State> {
         );
     }
 
-    handleChangeTickStep: (arg1: number) => void = (value) => {
-        this.setState({
-            tickStep: value,
-        });
-    };
+    handleChangeTickStep: (arg1: number) => void = (value) => {};
 
     handleChangeRange: (arg1: [number, number]) => void = (newValue) => {
         this.setState({
