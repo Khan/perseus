@@ -64,7 +64,15 @@ const widgetPropTypes = {
 const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 
 type Props = any;
-type State = any;
+
+type State = {
+    editing: "starting" | "correct";
+    pic: HTMLImageElement | null;
+    loadedUrl: string | null;
+    minX: number | null;
+    maxX: number | null;
+    tickStep: number | null;
+};
 
 class PlotterEditor extends React.Component<Props, State> {
     static propTypes = widgetPropTypes;
@@ -332,7 +340,7 @@ class PlotterEditor extends React.Component<Props, State> {
                 )}
                 <div>
                     Editing values:{" "}
-                    {["correct", "starting"].map((editing) => (
+                    {(["correct", "starting"] as const).map((editing) => (
                         <label key={editing}>
                             <input
                                 type="radio"
@@ -482,9 +490,9 @@ class PlotterEditor extends React.Component<Props, State> {
         });
     };
 
-    changeEditing: (arg1: string) => void = (editing) => {
-        this.setState({editing: editing});
-    };
+    changeEditing(editing: "starting" | "correct") {
+        this.setState({editing});
+    }
 
     setCategoriesFromScale: () => void = () => {
         const scale = this.state.tickStep || 1;
