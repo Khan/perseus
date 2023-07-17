@@ -1,3 +1,4 @@
+#!/usr/bin/env -S node -r @swc-node/register
 import * as fs from "fs";
 import * as path from "path";
 

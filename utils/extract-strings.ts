@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node -r @swc-node/register
 /**
  * Extracts i18n strings from each package and writes them out to <package>/dist/strings.js.
  *
