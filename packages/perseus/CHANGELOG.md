@@ -1,5 +1,12 @@
 # @khanacademy/perseus
 
+## 6.5.1
+
+### Patch Changes
+
+-   6ec8d96e: Clarify parameter type for APIOptions.trackInteraction
+-   a022ff6c: Switch from `classname` to `id` for passage wrappers.
+
 ## 6.5.0
 
 ### Minor Changes
