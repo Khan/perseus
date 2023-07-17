@@ -87,7 +87,7 @@
     "eslint-plugin-storybook": "^0.5.7",
     "eslint-plugin-testing-library": "^5.0.0",
     "fast-glob": "^3.2.11",
-    "flowgen": "git+https://git@github.com/Khan/flowgen.git#fa8050929948fb4313f738301285fb44625678c4",
+    "flowgen": "git+https://git@github.com/Khan/flowgen.git#a098eaf64c752760c2ec5dc003062e3ad26e42b5",
     "jest": "^29.0.1",
     "jest-environment-jsdom": "^28.0.2",
     "jest-enzyme": "^7.1.2",
