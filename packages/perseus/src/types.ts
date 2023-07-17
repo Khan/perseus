@@ -183,7 +183,11 @@ export type APIOptions = Readonly<{
     // include type and id, both strings, at least and can optionally
     // include a boolean "correct" value. This is used for keeping
     // track of widget interactions.
-    trackInteraction?: () => unknown;
+    trackInteraction?: (args: {
+        type: string;
+        id: string;
+        correct?: boolean;
+    }) => void;
     // A boolean that indicates whether or not a custom keypad is
     // being used.  For mobile web this will be the ProvidedKeypad
     // component.  In this situation we use the MathInput component
@@ -462,6 +466,10 @@ export type WidgetProps<RenderProps, Rubric> = RenderProps & {
     findWidgets: (arg1: FilterCriterion) => ReadonlyArray<Widget>;
     reviewModeRubric: Rubric;
     onChange: ChangeHandler;
+    // This is slightly different from the `trackInteraction` function in
+    // APIOptions. This provides the widget an easy way to notify the renderer
+    // of an interaction. The Renderer then enriches the data provided with the
+    // widget's id and type before calling APIOptions.trackInteraction.
     trackInteraction: (extraData?: any) => void;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
