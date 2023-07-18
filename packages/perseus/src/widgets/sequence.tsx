@@ -9,16 +9,13 @@ import {PerseusSequenceWidgetOptions} from "../perseus-types";
 import Renderer from "../renderer";
 import Util from "../util";
 
-import type {PerseusRenderer} from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
 
 type Rubric = PerseusSequenceWidgetOptions;
 
 type ExternalProps = WidgetProps<PerseusSequenceWidgetOptions, Rubric>;
 
-type Props = ExternalProps & {
-    json: ReadonlyArray<PerseusRenderer>;
-};
+type Props = ExternalProps;
 
 type DefaultProps = {
     json: Props["json"];
