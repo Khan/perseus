@@ -1,5 +1,19 @@
 # @khanacademy/math-input
 
+## 6.0.3
+
+### Patch Changes
+
+-   037a2db6: Update MathQuill version
+
+## 6.0.2
+
+### Patch Changes
+
+-   71c631ea: Add keypad opened and closed analytics events
+-   Updated dependencies [71c631ea]
+    -   @khanacademy/perseus-core@0.0.2
+
 ## 6.0.1
 
 ### Patch Changes

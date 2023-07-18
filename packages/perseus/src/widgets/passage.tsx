@@ -509,12 +509,13 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         );
         // Check if the title has any non-empty text in it.
         const hasTitle = /\S/.test(this.props.passageTitle);
+        const joinedTitle = joinString(this.props.passageTitle);
 
         return (
             <div>
-                <div className="perseus-widget-passage-container">
+                <div id={"perseus-widget-passage-container" + joinedTitle}>
                     {this._renderInstructions(parseState)}
-                    <div className="perseus-widget-passage">
+                    <div id={"perseus-widget-passage" + joinedTitle}>
                         {hasTitle && (
                             <h3 className="passage-title">
                                 <Renderer
@@ -566,6 +567,16 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         );
     }
 }
+
+// That's All, Folks! => -thats-all-folks
+const joinString = (title: string): string =>
+    "-" +
+    title
+        .toLowerCase()
+        .replace(/[^\w\s]/gi, "")
+        .trim()
+        .split(/\s+/)
+        .join("-");
 
 export default {
     name: "passage",

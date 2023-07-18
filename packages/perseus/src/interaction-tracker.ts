@@ -1,3 +1,5 @@
+import type {APIOptions} from "./types";
+
 /**
  * This alternate version of `.track` does nothing as an optimization.
  */
@@ -19,7 +21,7 @@ class InteractionTracker {
     widgetType: string;
 
     constructor(
-        trackApi: any, // original apiOptions.trackInteraction
+        trackApi: APIOptions["trackInteraction"],
         widgetType: string,
         widgetID: string,
         setting: "" | "all", // "" means track once
@@ -44,7 +46,7 @@ class InteractionTracker {
      * @param extraData Any extra data to track about the event.
      * @private
      */
-    _track: (extraData: unknown) => void = (extraData: unknown) => {
+    _track: (extraData: Record<string, any>) => void = (extraData) => {
         if (this._tracked && !this.setting) {
             return;
         }
@@ -52,7 +54,6 @@ class InteractionTracker {
         this.trackApi({
             type: this.widgetType,
             id: this.widgetID,
-            // @ts-expect-error [FEI-5003] - TS2698 - Spread types may only be created from object types.
             ...extraData,
         });
     };

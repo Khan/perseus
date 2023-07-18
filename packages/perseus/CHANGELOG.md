@@ -1,5 +1,32 @@
 # @khanacademy/perseus
 
+## 6.5.1
+
+### Patch Changes
+
+-   6ec8d96e: Clarify parameter type for APIOptions.trackInteraction
+-   a022ff6c: Switch from `classname` to `id` for passage wrappers.
+
+## 6.5.0
+
+### Minor Changes
+
+-   cc4bfe06: Switches out wrapped code blocks for horizontally-scrolling code blocks to account for python indentation syntax.
+-   9916bce4: Changed radio widget instruction font.
+
+### Patch Changes
+
+-   Updated dependencies [037a2db6]
+    -   @khanacademy/math-input@6.0.3
+
+## 6.4.4
+
+### Patch Changes
+
+-   Updated dependencies [71c631ea]
+    -   @khanacademy/math-input@6.0.2
+    -   @khanacademy/perseus-core@0.0.2
+
 ## 6.4.3
 
 ### Patch Changes

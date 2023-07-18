@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 0.0.2
+
+### Patch Changes
+
+-   71c631ea: Add keypad opened and closed analytics events
+
 ## 0.0.1
 
 ### Patch Changes
