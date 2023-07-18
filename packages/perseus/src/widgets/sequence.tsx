@@ -1,36 +1,36 @@
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "@khanacademy/perseus-linter";
-import PropTypes from "prop-types";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconOk} from "../icon-paths";
 import * as Changeable from "../mixins/changeable";
-import {ApiOptions} from "../perseus-api";
+import {PerseusSequenceWidgetOptions} from "../perseus-types";
 import Renderer from "../renderer";
 import Util from "../util";
 
-import type {WidgetExports} from "../types";
+import type {PerseusRenderer} from "../perseus-types";
+import type {WidgetExports, WidgetProps} from "../types";
 
-class Sequence extends React.Component<any, any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        json: PropTypes.arrayOf(
-            PropTypes.shape({
-                content: PropTypes.string,
-                images: PropTypes.objectOf(PropTypes.any),
-                widgets: PropTypes.objectOf(PropTypes.any),
-            }),
-        ),
-        trackInteraction: PropTypes.func.isRequired,
-        linterContext: linterContextProps,
-    };
+type Rubric = PerseusSequenceWidgetOptions;
 
-    static defaultProps: any = {
+type ExternalProps = WidgetProps<PerseusSequenceWidgetOptions, Rubric>;
+
+type Props = ExternalProps & {
+    json: ReadonlyArray<PerseusRenderer>;
+};
+
+type DefaultProps = {
+    json: Props["json"];
+    linterContext: Props["linterContext"];
+};
+
+type State = {
+    visible: number;
+};
+
+class Sequence extends React.Component<Props, State> {
+    static defaultProps: DefaultProps = {
         json: [
             {
                 content: "",
@@ -41,7 +41,7 @@ class Sequence extends React.Component<any, any> {
         linterContext: linterContextDefault,
     };
 
-    state: any = {
+    state = {
         visible: 1,
     };
 
