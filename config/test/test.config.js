@@ -42,7 +42,7 @@ const pkgMap = fs
 module.exports = {
     rootDir: path.join(__dirname, "../../"),
     transform: {
-        "^.+\\.(j|t)sx?$": "<rootDir>/config/test/test.transform.js",
+        "^.+\\.(j|t)sx?$": "@swc/jest",
         // Compile .svg files using a custom transformer that returns the
         // basename of the file being transformed.
         "^.+.svg$": "<rootDir>/config/test/svg.transform.js",
