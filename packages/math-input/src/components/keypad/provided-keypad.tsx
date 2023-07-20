@@ -1,11 +1,11 @@
+import {StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import Key from "../../data/keys";
 import {View} from "../../fake-react-native-web/index";
-
-import type {Cursor, KeypadConfiguration, KeyHandler} from "../../types";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import {Cursor, KeypadConfiguration, KeyHandler} from "../../types";
 
 import Keypad from "./index";
 
@@ -65,8 +65,17 @@ class ProvidedKeypad extends React.Component<Props, State> {
         return ReactDOM.findDOMNode(this);
     };
 
+    _handleClickKey(key: Key) {
+        if (key === "DISMISS") {
+            this.dismiss();
+            return;
+        }
+
+        this.state.keyHandler?.(key);
+    }
+
     render(): React.ReactNode {
-        const {active, cursor, keyHandler, keypadConfig} = this.state;
+        const {active, cursor, keypadConfig} = this.state;
 
         const containerStyle = [
             styles.keypadContainer,
@@ -74,7 +83,6 @@ class ProvidedKeypad extends React.Component<Props, State> {
         ];
 
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
-        const onClickKey = keyHandler || (() => {});
 
         return (
             <View
@@ -103,7 +111,7 @@ class ProvidedKeypad extends React.Component<Props, State> {
                 <Keypad
                     sendEvent={async () => {}}
                     extraKeys={keypadConfig?.extraKeys}
-                    onClickKey={onClickKey}
+                    onClickKey={(key) => this._handleClickKey(key)}
                     cursorContext={cursor?.context}
                     multiplicationDot={isExpression}
                     divisionKey={isExpression}
@@ -112,6 +120,7 @@ class ProvidedKeypad extends React.Component<Props, State> {
                     logarithms={isExpression}
                     basicRelations={isExpression}
                     advancedRelations={isExpression}
+                    showDismiss
                 />
             </View>
         );
