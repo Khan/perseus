@@ -71,7 +71,8 @@ class ProvidedKeypad extends React.Component<Props, State> {
             return;
         }
 
-        this.state.keyHandler?.(key);
+        const cursor = this.state.keyHandler?.(key);
+        this.setState({cursor});
     }
 
     render(): React.ReactNode {
