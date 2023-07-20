@@ -1,9 +1,11 @@
 import * as React from "react";
 
-import {LegacyKeypad, KeypadInput, KeypadType} from "./index";
+import ProvidedKeypad from "./components/keypad/provided-keypad";
+
+import {KeypadInput, KeypadType} from "./index";
 
 export default {
-    title: "Full MathInput",
+    title: "Full MathInput (v2 Keypad)",
 };
 
 export const Basic = () => {
@@ -55,7 +57,7 @@ export const Basic = () => {
                 }}
             />
 
-            <LegacyKeypad
+            <ProvidedKeypad
                 onElementMounted={(node) => {
                     if (node && !keypadElement) {
                         setKeypadElement(node);
