@@ -4,7 +4,11 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import ExpressionEditor from "../expression-editor";
 
-import type {PerseusRenderer, APIOptions} from "@khanacademy/perseus";
+import type {
+    PerseusRenderer,
+    APIOptions,
+    PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus";
 
 type StoryArgs = Record<any, any>;
 
@@ -19,12 +23,7 @@ export default {
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<string, never>;
 
-type State = {
-    answerForms: any;
-    times: boolean;
-    buttonSets: ReadonlyArray<string>;
-    functions: ReadonlyArray<string>;
-};
+type State = PerseusExpressionWidgetOptions;
 
 class WithDebug extends React.Component<Empty, State> {
     constructor(props) {
