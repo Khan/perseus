@@ -37,10 +37,16 @@ function ExerciseChrome() {
 
 function MobileKeypad(props) {
     const {setShowKeypadCallback, keyHandler, cursorContext} = props;
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
-        setShowKeypadCallback?.(setShow);
+        setShowKeypadCallback?.(() => {
+            console.log("here");
+            return (visibility) => {
+                console.log("hello");
+                setShow(visibility);
+            };
+        });
     }, [setShowKeypadCallback]);
 
     const wrapperStyles = {
@@ -65,14 +71,17 @@ function MobileKeypad(props) {
 function ExerciseFooter() {
     return (
         <keypadContext.Consumer>
-            {({keyHandler, cursorContext, config, setShowKeypadCallback}) => (
-                <MobileKeypad
-                    keyHandler={keyHandler}
-                    cursorContext={cursorContext}
-                    config={config}
-                    setShowKeypadCallback={setShowKeypadCallback}
-                />
-            )}
+            {({keyHandler, cursorContext, config, setShowKeypadCallback}) => {
+                console.log(keyHandler);
+                return (
+                    <MobileKeypad
+                        keyHandler={keyHandler}
+                        cursorContext={cursorContext}
+                        config={config}
+                        setShowKeypadCallback={setShowKeypadCallback}
+                    />
+                );
+            }}
         </keypadContext.Consumer>
     );
 }

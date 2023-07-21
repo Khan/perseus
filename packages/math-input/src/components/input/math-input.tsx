@@ -133,8 +133,9 @@ class MathInput extends React.Component<Props, State> {
                 if (!this._container.contains(evt.target)) {
                     let touchDidStartInOrBelowKeypad = false;
                     if (
-                        this.props.keypadElement &&
-                        this.props.keypadElement.getDOMNode()
+                        true
+                        // this.props.keypadElement &&
+                        // this.props.keypadElement.getDOMNode()
                     ) {
                         const bounds = this._getKeypadBounds();
                         for (let i = 0; i < evt.changedTouches.length; i++) {
@@ -209,9 +210,9 @@ class MathInput extends React.Component<Props, State> {
     }
 
     UNSAFE_componentWillReceiveProps(props: Props) {
-        if (this.props.keypadElement !== props.keypadElement) {
-            this._clearKeypadBoundsCache();
-        }
+        // if (this.props.keypadElement !== props.keypadElement) {
+        //     this._clearKeypadBoundsCache();
+        // }
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
@@ -261,11 +262,21 @@ class MathInput extends React.Component<Props, State> {
 
     /** Gets and cache they bounds of the keypadElement */
     _getKeypadBounds: () => any = () => {
-        if (!this._keypadBounds) {
-            const node = this.props.keypadElement.getDOMNode();
-            this._cacheKeypadBounds(node);
-        }
-        return this._keypadBounds;
+        // if (!this._keypadBounds) {
+        //     const node = this.props.keypadElement.getDOMNode();
+        //     this._cacheKeypadBounds(node);
+        // }
+        // return this._keypadBounds;
+        return {
+            x: 0,
+            y: 345,
+            width: 375,
+            height: 242,
+            top: 345,
+            right: 375,
+            bottom: 587,
+            left: 0,
+        };
     };
 
     _updateCursorHandle: (arg1?: boolean) => void = (animateIntoPosition) => {
@@ -336,7 +347,7 @@ class MathInput extends React.Component<Props, State> {
     focus: () => void = () => {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
-        this.props.setKeyHandler?.((key) => {
+        this.props.setKeyHandler?.(() => (key) => {
             const cursor = this.mathField.pressKey(key);
 
             // Trigger an `onChange` if the value in the input changed, and hide
@@ -357,6 +368,7 @@ class MathInput extends React.Component<Props, State> {
                 hideCursor();
             }
 
+            console.log("returning cursor");
             return cursor;
         });
 
@@ -375,10 +387,10 @@ class MathInput extends React.Component<Props, State> {
                     // that the higher level controller tells us when the
                     // keypad is settled (then scrollIntoView wouldn't have
                     // to make assumptions about that either).
-                    const maybeKeypadNode =
-                        this.props.keypadElement &&
-                        this.props.keypadElement.getDOMNode();
-                    scrollIntoView(this._container, maybeKeypadNode);
+                    // const maybeKeypadNode =
+                    //     this.props.keypadElement &&
+                    //     this.props.keypadElement.getDOMNode();
+                    // scrollIntoView(this._container, maybeKeypadNode);
                 }
             });
         });

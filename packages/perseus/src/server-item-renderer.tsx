@@ -137,6 +137,7 @@ export class ServerItemRenderer
         newFocus: FocusPath,
         oldFocus: FocusPath,
     ) => {
+        console.log("_handleFocusChange");
         if (newFocus != null) {
             this._setCurrentFocus(newFocus);
         } else {
@@ -147,6 +148,7 @@ export class ServerItemRenderer
     // Sets the current focus path and element and
     // send an onChangeFocus event back to our parent.
     _setCurrentFocus(newFocus: FocusPath) {
+        console.log("150");
         const {
             apiOptions: {isMobile, onFocusChange},
             keypadElement,
@@ -180,6 +182,7 @@ export class ServerItemRenderer
             );
         }
 
+        console.log("184", isMobile);
         if (isMobile) {
             showKeypadCallback?.(!!didFocusInput);
         }
