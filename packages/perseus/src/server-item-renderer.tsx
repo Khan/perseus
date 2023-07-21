@@ -35,6 +35,7 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
         reviewMode?: boolean;
         // from KeypadContext
         keypadElement?: any | null | undefined;
+        showKeypadCallback: (visibility: boolean) => void;
     };
 
 type HOCProps = {
@@ -149,6 +150,7 @@ export class ServerItemRenderer
         const {
             apiOptions: {isMobile, onFocusChange},
             keypadElement,
+            showKeypadCallback,
         } = this.props;
 
         // By the time this happens, newFocus cannot be a prefix of
@@ -178,12 +180,8 @@ export class ServerItemRenderer
             );
         }
 
-        if (keypadElement && isMobile) {
-            if (didFocusInput) {
-                keypadElement.activate();
-            } else {
-                keypadElement.dismiss();
-            }
+        if (isMobile) {
+            showKeypadCallback?.(!!didFocusInput);
         }
     }
 

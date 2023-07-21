@@ -58,8 +58,10 @@ export type KeypadConfiguration = {
 
 export type KeyHandler = (key: Key) => Cursor;
 
+export type CursorContext = typeof CursorContext[keyof typeof CursorContext];
+
 export type Cursor = {
-    context: typeof CursorContext[keyof typeof CursorContext];
+    context: CursorContext;
 };
 
 export type KeypadLayout = {

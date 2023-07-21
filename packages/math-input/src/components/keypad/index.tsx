@@ -168,6 +168,6 @@ const styles = StyleSheet.create({
         gridTemplateRows: "repeat(4, 1fr)",
         backgroundColor: "#DBDCDD",
         maxHeight: 200,
-        maxWidth: 300,
+        // maxWidth: 300,
     },
 });

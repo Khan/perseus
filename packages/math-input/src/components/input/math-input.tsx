@@ -5,6 +5,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import keypadContext from "../../context";
 import {View} from "../../fake-react-native-web/index";
 import {
     cursorHandleRadiusPx,
@@ -89,13 +90,7 @@ class MathInput extends React.Component<Props, State> {
 
         this.mathField = new MathWrapper(this._mathContainer, {
             onCursorMove: (cursor: Cursor) => {
-                // TODO(charlie): It's not great that there is so much coupling
-                // between this keypad and the input behavior. We should wrap
-                // this `MathInput` component in an intermediary component
-                // that translates accesses on the keypad into vanilla props,
-                // to make this input keypad-agnostic.
-                this.props.keypadElement &&
-                    this.props.keypadElement.setCursor(cursor);
+                this.props.setCursorContext?.(cursor);
             },
         });
 
@@ -341,7 +336,7 @@ class MathInput extends React.Component<Props, State> {
     focus: () => void = () => {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
-        this.props.keypadElement.setKeyHandler((key) => {
+        this.props.setKeyHandler?.((key) => {
             const cursor = this.mathField.pressKey(key);
 
             // Trigger an `onChange` if the value in the input changed, and hide
@@ -593,10 +588,9 @@ class MathInput extends React.Component<Props, State> {
             cursor.insAtLeftEnd(this.mathField.mathField.__controller.root);
         }
         // In that event, we need to update the cursor context ourselves.
-        this.props.keypadElement &&
-            this.props.keypadElement.setCursor({
-                context: this.mathField.contextForCursor(),
-            });
+        this.props.setCursorContext?.({
+            context: this.mathField.contextForCursor(),
+        });
     };
 
     handleTouchStart: (arg1: React.TouchEvent<HTMLDivElement>) => void = (
@@ -986,4 +980,16 @@ const inlineStyles = {
     },
 } as const;
 
-export default MathInput;
+const ref = React.forwardRef((props, ref) => (
+    <keypadContext.Consumer>
+        {({setCursorContext, setKeyHandler}) => (
+            <MathInput
+                {...props}
+                ref={ref}
+                setCursorContext={setCursorContext}
+                setKeyHandler={setKeyHandler}
+            />
+        )}
+    </keypadContext.Consumer>
+));
+export default ref;
