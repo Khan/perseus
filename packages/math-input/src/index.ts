@@ -16,6 +16,7 @@ export {type KeyType, KeypadType} from "./enums";
 
 export {default as Keypad} from "./components/keypad/index";
 export {default as keyTranslator} from "./components/key-handlers/key-translator";
+export {default as KeypadContext} from "./components/keypad-context";
 export {
     createMathField,
     mathQuillInstance,

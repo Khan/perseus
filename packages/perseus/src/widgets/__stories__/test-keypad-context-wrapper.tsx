@@ -1,9 +1,7 @@
-import {LegacyKeypad} from "@khanacademy/math-input";
+import {LegacyKeypad, KeypadContext} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import KeypadContext from "../../keypad-context";
 
 const Footer = (): React.ReactElement => {
     return (
