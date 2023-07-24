@@ -26,6 +26,7 @@ export default {
         multiplicationDot: false,
         preAlgebra: false,
         trigonometry: false,
+        sendEvent: () => {},
     },
     argTypes: {
         advancedRelations: {
