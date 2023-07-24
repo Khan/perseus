@@ -12,7 +12,7 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style";
-import ProvidedKeypad from "../keypad-legacy";
+import LegacyKeypad from "../keypad-legacy";
 
 import CursorHandle from "./cursor-handle";
 import DragListener from "./drag-listener";
@@ -24,7 +24,7 @@ import type {Cursor} from "../../types";
 const constrainingFrictionFactor = 0.8;
 
 type Props = {
-    keypadElement: ProvidedKeypad;
+    keypadElement: LegacyKeypad;
     onBlur: () => void;
     onChange: (value: string, callback: any) => void;
     onFocus: () => void;
