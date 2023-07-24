@@ -12,7 +12,7 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style";
-import ProvidedKeypad from "../keypad-legacy/provided-keypad";
+import ProvidedKeypad from "../keypad-legacy";
 
 import CursorHandle from "./cursor-handle";
 import DragListener from "./drag-listener";

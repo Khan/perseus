@@ -14,8 +14,7 @@ import {
     innerBorderWidthPx,
     offBlack16,
 } from "../common-style";
-import Tabbar from "../tabbar/tabbar";
-import {TabbarItemType} from "../tabbar/types";
+import Tabbar, {TabbarItemType} from "../tabbar";
 
 import Keypad from "./keypad";
 import {State as ReduxState} from "./store/types";
