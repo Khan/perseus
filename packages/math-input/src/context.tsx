@@ -11,7 +11,7 @@ type KeypadContext = {
     setKeyHandler: (handler: KeyHandler) => void;
     config: KeypadConfiguration | null;
     setConfig: (config: KeypadConfiguration) => void;
-    showKeypadCallback: (visible: boolean) => void;
+    showKeypadCallback: VisibilityCallback;
     setShowKeypadCallback: (cb: VisibilityCallback) => void;
 };
 

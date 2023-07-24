@@ -37,7 +37,7 @@ function ExerciseChrome() {
 
 function MobileKeypad(props) {
     const {setShowKeypadCallback, keyHandler, cursorContext} = props;
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(true);
 
     useEffect(() => {
         setShowKeypadCallback?.(() => {
@@ -57,11 +57,13 @@ function MobileKeypad(props) {
         transform: show ? "translate3d(0, 0, 0)" : "translate3d(0, 100%, 0)",
     };
 
+    console.log(cursorContext);
+
     return (
         <div style={wrapperStyles}>
             <Keypad
                 onClickKey={keyHandler}
-                cursorContext={cursorContext}
+                cursorContext={cursorContext?.context}
                 sendEvent={async () => {}}
             />
         </div>
