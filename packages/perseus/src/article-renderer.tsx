@@ -34,6 +34,9 @@ class ArticleRenderer extends React.Component<any, any> {
         ]).isRequired,
 
         // Whether to use the new Bibliotron styles for articles
+        /**
+         * @deprecated Does nothing
+         */
         useNewStyles: PropTypes.bool,
         linterContext: PerseusLinter.linterContextProps,
         legacyPerseusLint: PropTypes.arrayOf(PropTypes.string),
@@ -167,7 +170,6 @@ class ArticleRenderer extends React.Component<any, any> {
         const classes = classNames({
             "framework-perseus": true,
             "perseus-article": true,
-            "bibliotron-article": this.props.useNewStyles,
             // NOTE(charlie): For exercises, this is applied outside of Perseus
             // (in webapp).
             [ApiClassNames.MOBILE]: apiOptions.isMobile,
