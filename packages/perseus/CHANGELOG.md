@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 6.6.0
+
+### Minor Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   077b125e: Extend argument object type for APIOptions.trackInteraction callback to support the arbitrary data each widget may add
+
+### Patch Changes
+
+-   Updated dependencies [04e68d1c]
+-   Updated dependencies [d0f28dbd]
+-   Updated dependencies [acafa72d]
+-   Updated dependencies [54590cc7]
+    -   @khanacademy/math-input@7.0.0
+
 ## 6.5.1
 
 ### Patch Changes
