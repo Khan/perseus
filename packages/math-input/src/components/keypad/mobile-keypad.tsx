@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import Key from "../../data/keys";
 import {View} from "../../fake-react-native-web/index";
-import {Cursor, KeypadConfiguration, KeyHandler} from "../../types";
+import {Cursor, KeypadConfiguration, KeyHandler, KeypadAPI} from "../../types";
 
 import Keypad from "./index";
 
@@ -33,7 +33,7 @@ type State = {
     cursor?: Cursor;
 };
 
-class MobileKeypad extends React.Component<Props, State> {
+class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     hasMounted = false;
 
     state: State = {
