@@ -5,7 +5,7 @@ import MobileKeypad from "./components/keypad/mobile-keypad";
 import {KeypadInput, KeypadType, LegacyKeypad} from "./index";
 
 export default {
-    title: "Full MathInput (v2 Keypad)",
+    title: "Full Mobile MathInput",
 };
 
 export const Basic = () => {
