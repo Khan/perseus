@@ -33,7 +33,7 @@ type State = {
     cursor?: Cursor;
 };
 
-class ProvidedKeypad extends React.Component<Props, State> {
+class MobileKeypad extends React.Component<Props, State> {
     hasMounted = false;
 
     state: State = {
@@ -155,4 +155,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ProvidedKeypad;
+export default MobileKeypad;
