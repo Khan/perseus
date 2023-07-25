@@ -167,9 +167,5 @@ const styles = StyleSheet.create({
         gridTemplateColumns: "repeat(6, 1fr)",
         gridTemplateRows: "repeat(4, 1fr)",
         backgroundColor: "#DBDCDD",
-        maxHeight: 200,
-        // STOPSHIP we need a maxWidth somewhere for desktop
-        // but can't have it in mobile
-        // maxWidth: 300,
     },
 });
