@@ -12,19 +12,18 @@ import {
     wonderBlocksBlue,
     offBlack,
 } from "../common-style";
-import LegacyKeypad from "../keypad-legacy";
 
 import CursorHandle from "./cursor-handle";
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
 
-import type {Cursor} from "../../types";
+import type {Cursor, KeypadAPI} from "../../types";
 
 const constrainingFrictionFactor = 0.8;
 
 type Props = {
-    keypadElement: LegacyKeypad;
+    keypadElement?: KeypadAPI;
     onBlur: () => void;
     onChange: (value: string, callback: any) => void;
     onFocus: () => void;
@@ -267,7 +266,7 @@ class MathInput extends React.Component<Props, State> {
     /** Gets and cache they bounds of the keypadElement */
     _getKeypadBounds: () => any = () => {
         if (!this._keypadBounds) {
-            const node = this.props.keypadElement.getDOMNode();
+            const node = this.props.keypadElement?.getDOMNode();
             this._cacheKeypadBounds(node);
         }
         return this._keypadBounds;
@@ -341,7 +340,7 @@ class MathInput extends React.Component<Props, State> {
     focus: () => void = () => {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
-        this.props.keypadElement.setKeyHandler((key) => {
+        this.props.keypadElement?.setKeyHandler((key) => {
             const cursor = this.mathField.pressKey(key);
 
             // Trigger an `onChange` if the value in the input changed, and hide
