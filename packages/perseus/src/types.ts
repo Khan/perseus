@@ -109,6 +109,19 @@ export type Path = ReadonlyArray<string>;
 
 type StubTagEditorType = any; // from "./components/stub-tag-editor";
 
+type TrackInteractionArgs = {
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Each widget can pass on additional, arbitrary, arguments.
+    // Currently, these are not defined in this type.
+    [key: string]: any;
+};
+
 // APIOptions provides different ways to customize the behaviour of Perseus.
 export type APIOptions = Readonly<{
     isArticle?: boolean;
@@ -162,15 +175,7 @@ export type APIOptions = Readonly<{
     // A function that is called when the user has interacted with a widget. It
     // also includes any extra parameters that the originating widget provided.
     // This is used for keeping track of widget interactions.
-    trackInteraction?: (
-        args: {
-            // The widget type that this interaction originates from
-            type: string;
-            // The widget id that this interaction originates from
-            id: string;
-            correct?: boolean;
-        } & Record<string, unknown>,
-    ) => void;
+    trackInteraction?: (args: TrackInteractionArgs) => void;
     // A boolean that indicates whether or not a custom keypad is
     // being used.  For mobile web this will be the ProvidedKeypad
     // component.  In this situation we use the MathInput component
