@@ -1,4 +1,4 @@
-import type {APIOptions} from "./types";
+import type {APIOptions, Tracking} from "./types";
 
 /**
  * This alternate version of `.track` does nothing as an optimization.
@@ -12,7 +12,7 @@ class InteractionTracker {
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_tracked' has no initializer and is not definitely assigned in the constructor.
     _tracked: boolean;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'setting' has no initializer and is not definitely assigned in the constructor.
-    setting: string;
+    setting: Tracking;
     track: (extraData?: any) => void;
     trackApi: any;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetID' has no initializer and is not definitely assigned in the constructor.
@@ -24,7 +24,7 @@ class InteractionTracker {
         trackApi: APIOptions["trackInteraction"],
         widgetType: string,
         widgetID: string,
-        setting: "" | "all", // "" means track once
+        setting: Tracking,
     ) {
         if (!trackApi) {
             this.track = _noop;

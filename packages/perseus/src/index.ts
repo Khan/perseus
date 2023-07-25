@@ -128,6 +128,7 @@ export type {
     PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
     PerseusRadioWidgetOptions,
+    PerseusExpressionWidgetOptions,
     PerseusRenderer,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
