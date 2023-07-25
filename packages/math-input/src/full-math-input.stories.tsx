@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import MobileKeypad from "./components/keypad/mobile-keypad";
+import {KeypadAPI} from "./types";
 
 import {KeypadInput, KeypadType, LegacyKeypad} from "./index";
 
@@ -11,19 +12,22 @@ export default {
 export const Basic = () => {
     const [value, setValue] = React.useState("");
     // Reference to the keypad
-    const [keypadElement, setKeypadElement] = React.useState<any>(null);
+    const [keypadElement, setKeypadElement] = React.useState<KeypadAPI>();
     // Whether to use Expression or Fraction keypad
     const [expression, setExpression] = React.useState<boolean>(true);
     // Whether to use v1 or v2 keypad
     const [legacyKeypad, setLegacyKeypad] = React.useState<boolean>(false);
 
     React.useEffect(() => {
-        keypadElement?.configure({
-            keypadType: expression
-                ? KeypadType.EXPRESSION
-                : KeypadType.FRACTION,
-            extraKeys: expression ? ["x", "y", "PI", "THETA"] : [],
-        });
+        keypadElement?.configure(
+            {
+                keypadType: expression
+                    ? KeypadType.EXPRESSION
+                    : KeypadType.FRACTION,
+                extraKeys: expression ? ["x", "y", "PI", "THETA"] : [],
+            },
+            () => {},
+        );
     }, [keypadElement, expression]);
 
     return (
