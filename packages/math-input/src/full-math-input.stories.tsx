@@ -2,7 +2,7 @@ import * as React from "react";
 
 import MobileKeypad from "./components/keypad/mobile-keypad";
 
-import {KeypadInput, KeypadType} from "./index";
+import {KeypadInput, KeypadType, LegacyKeypad} from "./index";
 
 export default {
     title: "Full MathInput (v2 Keypad)",
@@ -10,35 +10,30 @@ export default {
 
 export const Basic = () => {
     const [value, setValue] = React.useState("");
+    // Reference to the keypad
     const [keypadElement, setKeypadElement] = React.useState<any>(null);
-    const [keypadType, setKeypadType] = React.useState<KeypadType>(
-        KeypadType.EXPRESSION,
-    );
+    // Whether to use Expression or Fraction keypad
+    const [expression, setExpression] = React.useState<boolean>(true);
+    // Whether to use v1 or v2 keypad
+    const [legacyKeypad, setLegacyKeypad] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         keypadElement?.configure({
-            keypadType: keypadType,
-            extraKeys: ["x", "y", "PI", "THETA"],
-        });
-    }, [keypadElement, keypadType]);
-
-    function handleChangeKeypadType() {
-        setKeypadType(
-            keypadType === KeypadType.FRACTION
+            keypadType: expression
                 ? KeypadType.EXPRESSION
                 : KeypadType.FRACTION,
-        );
-    }
+            extraKeys: expression ? ["x", "y", "PI", "THETA"] : [],
+        });
+    }, [keypadElement, expression]);
 
     return (
         <div>
             <div style={{padding: "1rem 0"}}>
-                <button onClick={handleChangeKeypadType}>
-                    {`Use ${
-                        keypadType === KeypadType.FRACTION
-                            ? "Expression"
-                            : "Fraction"
-                    } Keypad`}
+                <button onClick={() => setExpression(!expression)}>
+                    {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
+                </button>
+                <button onClick={() => setLegacyKeypad(!legacyKeypad)}>
+                    {`Use ${legacyKeypad ? "New" : "Legacy"} Keypad`}
                 </button>
             </div>
 
@@ -57,13 +52,23 @@ export const Basic = () => {
                 }}
             />
 
-            <MobileKeypad
-                onElementMounted={(node) => {
-                    if (node && !keypadElement) {
-                        setKeypadElement(node);
-                    }
-                }}
-            />
+            {legacyKeypad ? (
+                <LegacyKeypad
+                    onElementMounted={(node) => {
+                        if (node) {
+                            setKeypadElement(node);
+                        }
+                    }}
+                />
+            ) : (
+                <MobileKeypad
+                    onElementMounted={(node) => {
+                        if (node) {
+                            setKeypadElement(node);
+                        }
+                    }}
+                />
+            )}
         </div>
     );
 };
