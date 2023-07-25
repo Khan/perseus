@@ -28,7 +28,7 @@ export {getCursorContext} from "./components/input/mathquill-helpers";
 export {default as LegacyKeypad} from "./components/keypad-legacy";
 
 // v2 Keypad
-export {default as Keypad} from "./components/keypad";
+export {default as Keypad} from "./components/keypad/keypad";
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";

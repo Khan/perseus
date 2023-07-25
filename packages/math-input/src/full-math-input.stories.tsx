@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ProvidedKeypad from "./components/keypad/provided-keypad";
+import MobileKeypad from "./components/keypad/mobile-keypad";
 
 import {KeypadInput, KeypadType} from "./index";
 
@@ -57,7 +57,7 @@ export const Basic = () => {
                 }}
             />
 
-            <ProvidedKeypad
+            <MobileKeypad
                 onElementMounted={(node) => {
                     if (node && !keypadElement) {
                         setKeypadElement(node);

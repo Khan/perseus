@@ -7,7 +7,18 @@ import Key from "../../data/keys";
 import {View} from "../../fake-react-native-web/index";
 import {Cursor, KeypadConfiguration, KeyHandler} from "../../types";
 
-import Keypad from "./index";
+import Keypad from "./keypad";
+
+/**
+ * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same
+ * external API so that it can be hot-swapped with the v1 keypad and
+ * is responsible for connecting the keypad with MathInput and the Renderer.
+ *
+ * Ideally this strategy of attaching methods on the class component for
+ * other components to call will be replaced props/callbacks since React
+ * doesn't support this type of code anymore (functional components
+ * can't have methods attached to them).
+ */
 
 type Props = {
     onElementMounted?: (arg1: any) => void;

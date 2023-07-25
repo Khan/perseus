@@ -11,7 +11,7 @@ import Key from "../../../data/keys";
 import {createMathField} from "../../input/mathquill-instance";
 import {MathFieldInterface} from "../../input/mathquill-types";
 import keyTranslator from "../../key-handlers/key-translator";
-import Keypad from "../index";
+import Keypad from "../keypad";
 
 type Props = {
     onChangeMathInput: (mathInputTex: string) => void;
