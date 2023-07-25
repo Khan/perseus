@@ -45,7 +45,9 @@ class MobileKeypad extends React.Component<Props, State> {
     };
 
     dismiss: () => void = () => {
-        this.setState({active: false});
+        this.setState({active: false}, () => {
+            this.props.onDismiss?.();
+        });
     };
 
     configure: (configuration: KeypadConfiguration, cb: () => void) => void = (
@@ -54,6 +56,8 @@ class MobileKeypad extends React.Component<Props, State> {
     ) => {
         this.setState({keypadConfig: configuration});
 
+        // TODO(matthewc)[LC-1080]: this was brought in from v1's ProvidedKeypad.
+        // We need to investigate whether we still need this.
         // HACK(charlie): In Perseus, triggering a focus causes the keypad to
         // animate into view and re-configure. We'd like to provide the option
         // to re-render the re-configured keypad before animating it into view,
@@ -101,6 +105,8 @@ class MobileKeypad extends React.Component<Props, State> {
                 style={containerStyle}
                 ref={(element) => {
                     if (!this.hasMounted && element) {
+                        // TODO(matthewc)[LC-1081]: clean up this weird
+                        // object and type the onElementMounted callback
                         // Append the dispatch methods that we want to expose
                         // externally to the returned React element.
                         const elementWithDispatchMethods = {
@@ -121,6 +127,7 @@ class MobileKeypad extends React.Component<Props, State> {
                 }}
             >
                 <Keypad
+                    // TODO(jeremy)
                     sendEvent={async () => {}}
                     extraKeys={keypadConfig?.extraKeys}
                     onClickKey={(key) => this._handleClickKey(key)}
