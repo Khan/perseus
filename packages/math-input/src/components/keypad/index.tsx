@@ -7,8 +7,7 @@ import {useEffect} from "react";
 import Key from "../../data/keys";
 import {ClickKeyCallback} from "../../types";
 import {CursorContext} from "../input/cursor-contexts";
-import Tabbar from "../tabbar/tabbar";
-import {TabbarItemType} from "../tabbar/types";
+import Tabbar from "../tabbar";
 
 import ExtrasPage from "./keypad-pages/extras-page";
 import GeometryPage from "./keypad-pages/geometry-page";
@@ -16,6 +15,7 @@ import NumbersPage from "./keypad-pages/numbers-page";
 import OperatorsPage from "./keypad-pages/operators-page";
 import SharedKeys from "./shared-keys";
 
+import type {TabbarItemType} from "../tabbar";
 import type {SendEventFn} from "@khanacademy/perseus-core";
 
 export type Props = {
