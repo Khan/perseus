@@ -9,7 +9,7 @@ import {createMathField} from "../input/mathquill-instance";
 import {MathFieldInterface} from "../input/mathquill-types";
 import keyTranslator from "../key-handlers/key-translator";
 
-import Keypad from "./keypad";
+import Keypad from "./index";
 
 export default {
     title: "v2 Keypad With Mathquill",

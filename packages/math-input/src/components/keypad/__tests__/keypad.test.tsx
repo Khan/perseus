@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 
 import keyConfigs from "../../../data/key-configs";
 import {CursorContext} from "../../input/cursor-contexts";
-import Keypad from "../keypad";
+import Keypad from "../index";
 
 const contextToKeyAria = {
     [CursorContext.IN_PARENS]: keyConfigs.JUMP_OUT_PARENTHESES.ariaLabel,

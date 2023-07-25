@@ -7,7 +7,7 @@ import Key from "../../data/keys";
 import {View} from "../../fake-react-native-web/index";
 import {Cursor, KeypadConfiguration, KeyHandler} from "../../types";
 
-import Keypad from "./keypad";
+import Keypad from "./index";
 
 /**
  * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same
