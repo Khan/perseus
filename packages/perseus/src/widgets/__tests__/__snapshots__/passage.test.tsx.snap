@@ -97,7 +97,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
         >
           <div>
             <div
-              id="perseus-widget-passage-container-passage-1"
+              class="perseus-widget-passage-container"
             >
               <div
                 class="perseus-widget-passage-instructions"
@@ -136,7 +136,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                 </div>
               </div>
               <div
-                id="perseus-widget-passage-passage-1"
+                class="perseus-widget-passage"
               >
                 <h3
                   class="passage-title"
@@ -590,7 +590,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
         >
           <div>
             <div
-              id="perseus-widget-passage-container-passage-2"
+              class="perseus-widget-passage-container"
             >
               <div
                 class="perseus-widget-passage-instructions"
@@ -626,7 +626,7 @@ exports[`passage widget should snapshot multiple passages (mobile: false) 1`] = 
                 </div>
               </div>
               <div
-                id="perseus-widget-passage-passage-2"
+                class="perseus-widget-passage"
               >
                 <h3
                   class="passage-title"
@@ -956,7 +956,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
         >
           <div>
             <div
-              id="perseus-widget-passage-container-passage-1"
+              class="perseus-widget-passage-container"
             >
               <div
                 class="perseus-widget-passage-instructions"
@@ -995,7 +995,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                 </div>
               </div>
               <div
-                id="perseus-widget-passage-passage-1"
+                class="perseus-widget-passage"
               >
                 <h3
                   class="passage-title"
@@ -1449,7 +1449,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
         >
           <div>
             <div
-              id="perseus-widget-passage-container-passage-2"
+              class="perseus-widget-passage-container"
             >
               <div
                 class="perseus-widget-passage-instructions"
@@ -1485,7 +1485,7 @@ exports[`passage widget should snapshot multiple passages (mobile: true) 1`] = `
                 </div>
               </div>
               <div
-                id="perseus-widget-passage-passage-2"
+                class="perseus-widget-passage"
               >
                 <h3
                   class="passage-title"
@@ -1778,7 +1778,7 @@ exports[`passage widget should snapshot simple passage (mobile: false) 1`] = `
         >
           <div>
             <div
-              id="perseus-widget-passage-container-"
+              class="perseus-widget-passage-container"
             >
               <div
                 class="perseus-widget-passage-instructions"
@@ -1787,7 +1787,7 @@ exports[`passage widget should snapshot simple passage (mobile: false) 1`] = `
 
               </div>
               <div
-                id="perseus-widget-passage-"
+                class="perseus-widget-passage"
               >
                 <h3
                   class="perseus-sr-only"
@@ -1875,7 +1875,7 @@ exports[`passage widget should snapshot simple passage (mobile: true) 1`] = `
         >
           <div>
             <div
-              id="perseus-widget-passage-container-"
+              class="perseus-widget-passage-container"
             >
               <div
                 class="perseus-widget-passage-instructions"
@@ -1884,7 +1884,7 @@ exports[`passage widget should snapshot simple passage (mobile: true) 1`] = `
 
               </div>
               <div
-                id="perseus-widget-passage-"
+                class="perseus-widget-passage"
               >
                 <h3
                   class="perseus-sr-only"
