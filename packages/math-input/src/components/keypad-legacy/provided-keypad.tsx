@@ -12,7 +12,12 @@ import {
 } from "./store/actions";
 import {createStore} from "./store/index";
 
-import type {Cursor, KeypadConfiguration, KeyHandler} from "../../types";
+import type {
+    Cursor,
+    KeypadConfiguration,
+    KeyHandler,
+    KeypadAPI,
+} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
@@ -21,7 +26,7 @@ type Props = {
     style?: StyleType;
 };
 
-class ProvidedKeypad extends React.Component<Props> {
+class ProvidedKeypad extends React.Component<Props> implements KeypadAPI {
     store: any;
 
     constructor(props) {
