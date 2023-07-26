@@ -324,7 +324,7 @@ const ImageEditor: any = createReactClass({
 
         try {
             const size = await Util.getImageSizeModern(url);
-            this.setUrl(url, size[0], size[0], true);
+            this.setUrl(url, size[0], size[1], true);
         } catch (error) {
             this.setState({
                 backgroundImageError:
