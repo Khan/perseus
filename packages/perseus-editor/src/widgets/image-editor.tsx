@@ -12,6 +12,7 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 import Editor from "../editor";
+import {isBooleanObject} from "util/types";
 
 const {InfoTip, InlineIcon, RangeInput} = components;
 
@@ -97,6 +98,26 @@ const ImageEditor: any = createReactClass({
 
         const imageSettings = (
             <div className="image-settings">
+                <div>
+                    <label>
+                        <div>Preview:</div>
+                        <img
+                            src={backgroundImage.url}
+                            style={{
+                                width: "100%",
+                            }}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <div>Dimensions:</div>
+                        <p>
+                            {backgroundImage.width}x{backgroundImage.height}
+                        </p>
+                    </label>
+                </div>
+
                 <div>
                     <label>
                         <div>
