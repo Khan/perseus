@@ -277,7 +277,10 @@ const ImageEditor: any = createReactClass({
     // silently load the image when the component mounts
     // silently update url and sizes when the image loads
     // noisily load the image in response to the author changing it
-    onUrlChange: async function (url: string | undefined | null, silent) {
+    onUrlChange: async function (
+        url: string | undefined | null,
+        silent: boolean,
+    ) {
         // Check if we've been passed something that looks like a URL
         if (!url) {
             this.setUrl(url, 0, 0, silent);
