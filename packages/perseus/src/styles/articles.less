@@ -45,15 +45,13 @@
         .body-text;
         margin: 0 auto;
         max-width: @articleMaxWidth;
-    }
-    .perseus-renderer
-        > .paragraph
-        .paragraph
-        > div:not(.perseus-widget-passage-container) {
-        // These are actual paragraphs
-        .body-text;
-        margin-bottom: @paragraphSpacing;
-        margin-top: 0;
+
+        .paragraph {
+            // These are actual paragraphs
+            .body-text;
+            margin-bottom: @paragraphSpacing;
+            margin-top: 0;
+        }
 
         // Inline math should have the same font-size as the surrounding text.
         // There is no wrapping element around .katex to indicate that it is
@@ -63,10 +61,12 @@
         .katex {
             font-size: 100%;
         }
+
+        ul:not(.perseus-widget-radio) {
+            .body-text;
+        }
     }
-    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
-        .body-text;
-    }
+
     table {
         .body-text;
         margin-bottom: @paragraphSpacing;

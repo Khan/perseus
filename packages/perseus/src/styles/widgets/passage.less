@@ -1,3 +1,7 @@
+// first one is to beat out specificity of article styles
+.framework-perseus.perseus-article
+    .perseus-renderer
+    .perseus-widget-passage-container,
 .perseus-widget-passage-container {
     // NOTE(mdr): This is similar to Wonder Blocks "BodySerif" typesetting, but
     //     not quite: it's a bit smaller, for consistency with the sorta-small
@@ -47,7 +51,7 @@
         // note(matthewc): If you need to change any of this,
         // check that line numbers line up correctly.
         // The margin should probably be 0 or the line height
-        .passage-text div.paragraph {
+        > .passage-text div.paragraph {
             font-weight: 400;
             font-size: @font-size;
             line-height: @line-height;
