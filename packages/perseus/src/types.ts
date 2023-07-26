@@ -197,6 +197,10 @@ export type APIOptions = Readonly<{
     // from the math-input repo instead of the existing perseus math
     // input components.
     customKeypad?: boolean;
+    // Whether to use v1 (Legacy) Keypad for MathInput mobile or
+    // use the new v2 Keypad
+    // TODO(matthewc)[LC-1088]: remove after v2 release
+    useV2Keypad?: boolean;
     // If this is provided, it is called instead of appending an instance
     // of `math-input`'s keypad to the body. This is used by the native
     // apps so they can have the keypad be defined on the native side.
@@ -359,6 +363,7 @@ export type APIOptionsWithDefaults = Readonly<
         inModal: NonNullable<APIOptions["inModal"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
+        useV2Keypad: NonNullable<APIOptions["useV2Keypad"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         onInputError: NonNullable<APIOptions["onInputError"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
