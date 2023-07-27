@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {KeypadAPI} from "./types";
 
-import {KeypadInput, KeypadType, Keypad} from "./index";
+import {KeypadInput, KeypadType, MobileKeypad} from "./index";
 
 export default {
     title: "Full Mobile MathInput",
@@ -55,7 +55,7 @@ export const Basic = () => {
                 }}
             />
 
-            <Keypad
+            <MobileKeypad
                 onElementMounted={(node) => {
                     if (node) {
                         setKeypadElement(node);

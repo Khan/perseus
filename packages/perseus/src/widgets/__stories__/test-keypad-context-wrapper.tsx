@@ -1,4 +1,4 @@
-import {KeypadContext, Keypad} from "@khanacademy/math-input";
+import {KeypadContext, MobileKeypad} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -8,7 +8,7 @@ const Footer = (): React.ReactElement => {
         <View style={styles.keypadContainer}>
             <KeypadContext.Consumer>
                 {({setKeypadElement, renderer}) => (
-                    <Keypad
+                    <MobileKeypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => renderer && renderer.blur()}
                         style={styles.keypad}
