@@ -1,5 +1,43 @@
 # @khanacademy/perseus
 
+## 7.0.0
+
+### Major Changes
+
+-   f9ee9d24: Move KeypadContext from Perseus to MathInput
+
+### Minor Changes
+
+-   b18986d3: Adds useV2Keypad API option for switching between new and legacy keypads
+
+### Patch Changes
+
+-   b18986d3: Replace Legacy/Mobile keypads with a component that switches between them
+-   Updated dependencies [f9ee9d24]
+-   Updated dependencies [b18986d3]
+    -   @khanacademy/math-input@8.0.0
+
+## 6.7.0
+
+### Minor Changes
+
+-   a0c71567: Make KaTeX CSS styles also apply to MathJax 3
+
+## 6.6.0
+
+### Minor Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   077b125e: Extend argument object type for APIOptions.trackInteraction callback to support the arbitrary data each widget may add
+
+### Patch Changes
+
+-   Updated dependencies [04e68d1c]
+-   Updated dependencies [d0f28dbd]
+-   Updated dependencies [acafa72d]
+-   Updated dependencies [54590cc7]
+    -   @khanacademy/math-input@7.0.0
+
 ## 6.5.1
 
 ### Patch Changes

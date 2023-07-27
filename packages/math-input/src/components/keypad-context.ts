@@ -8,7 +8,7 @@
  */
 import * as React from "react";
 
-import type {RendererInterface} from "./types";
+import type {RendererInterface} from "@khanacademy/perseus-core";
 
 type KeypadContext = {
     setKeypadElement: (keypadElement?: HTMLElement | null | undefined) => void;

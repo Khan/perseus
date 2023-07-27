@@ -1,5 +1,27 @@
 # @khanacademy/math-input
 
+## 8.0.0
+
+### Major Changes
+
+-   f9ee9d24: Move KeypadContext from Perseus to MathInput
+-   b18986d3: Replace Legacy/Mobile keypads with a component that switches between them
+
+## 7.0.0
+
+### Major Changes
+
+-   04e68d1c: Change keypadElement from LegacyKeypad to KeypadAPI
+
+### Minor Changes
+
+-   acafa72d: Add MobileKeypad to v2 keypad in MathInput
+
+### Patch Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   54590cc7: Add index.ts files to some dirs in MathInput for organization
+
 ## 6.0.3
 
 ### Patch Changes

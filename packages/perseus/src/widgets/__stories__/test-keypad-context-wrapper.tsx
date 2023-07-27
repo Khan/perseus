@@ -1,16 +1,14 @@
-import {LegacyKeypad} from "@khanacademy/math-input";
+import {KeypadContext, Keypad} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import KeypadContext from "../../keypad-context";
 
 const Footer = (): React.ReactElement => {
     return (
         <View style={styles.keypadContainer}>
             <KeypadContext.Consumer>
-                {({keypadElement, setKeypadElement, renderer}) => (
-                    <LegacyKeypad
+                {({setKeypadElement, renderer}) => (
+                    <Keypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => renderer && renderer.blur()}
                         style={styles.keypad}

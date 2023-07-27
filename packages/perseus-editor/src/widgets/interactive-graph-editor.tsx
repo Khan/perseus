@@ -81,13 +81,13 @@ type Props = {
 
     valid: boolean;
     backgroundImage: PerseusImageBackground;
-    markings: string; // STOPSHIP
+    markings: string; // TODO(jeremy)
     showProtractor: boolean;
     showRuler: boolean;
     showTooltips: boolean;
     rulerLabel: string;
     rulerTicks: number;
-    correct: any; // STOPSHIP
+    correct: any; // TODO(jeremy)
 
     graph: InteractiveGraphProps["graph"];
     onChange: (props: Partial<Props>) => void;

@@ -10,17 +10,6 @@ import type {Result} from "@khanacademy/wonder-blocks-data";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
-type State = any;
-
-export interface RendererInterface {
-    getSerializedState(): State;
-    restoreSerializedState(state: State, callback?: () => void): void;
-    scoreInput(): KEScore;
-    blur(): void;
-    focus(): boolean | null | undefined;
-    props: any;
-}
-
 export type Dimensions = {
     width?: number;
     height?: number;
@@ -50,15 +39,6 @@ export type PerseusScore =
           total: number;
           message?: string | null | undefined;
       };
-
-export type KEScore = {
-    empty: boolean;
-    correct: boolean;
-    message?: string | null | undefined;
-    suppressAlmostThere?: boolean | null | undefined;
-    guess: any;
-    state: any;
-};
 
 export type Hint = {
     widgets: WidgetDict;
@@ -197,6 +177,10 @@ export type APIOptions = Readonly<{
     // from the math-input repo instead of the existing perseus math
     // input components.
     customKeypad?: boolean;
+    // Whether to use v1 (Legacy) Keypad for MathInput mobile or
+    // use the new v2 Keypad
+    // TODO [LC-1088]: remove after v2 release
+    useV2Keypad?: boolean;
     // If this is provided, it is called instead of appending an instance
     // of `math-input`'s keypad to the body. This is used by the native
     // apps so they can have the keypad be defined on the native side.
@@ -370,6 +354,7 @@ export type APIOptionsWithDefaults = Readonly<
         inModal: NonNullable<APIOptions["inModal"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
+        useV2Keypad: NonNullable<APIOptions["useV2Keypad"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         onInputError: NonNullable<APIOptions["onInputError"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
