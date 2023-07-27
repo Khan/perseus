@@ -12,7 +12,6 @@ import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 import Editor from "../editor";
-import {isBooleanObject} from "util/types";
 
 const {InfoTip, InlineIcon, RangeInput} = components;
 

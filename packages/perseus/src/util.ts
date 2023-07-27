@@ -839,13 +839,13 @@ function captureScratchpadTouchStart(e: TouchEvent) {
 }
 
 async function getImageSizeModern(url: string): Promise<[number, number]> {
-    let image = new Image();
+    const image = new Image();
 
     return new Promise((resolve, reject) => {
         // Handle the success case
         image.onload = () => {
             resolve([image.naturalWidth, image.naturalHeight]);
-        }
+        };
 
         // Handle the error case
         image.onerror = reject;
