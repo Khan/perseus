@@ -33,7 +33,7 @@ export type Props = {
     advancedRelations?: boolean;
 
     onClickKey: ClickKeyCallback;
-    sendEvent: SendEventFn;
+    sendEvent?: SendEventFn;
 };
 
 const defaultProps = {
@@ -89,7 +89,7 @@ export default function Keypad(props: Props) {
 
     useEffect(() => {
         if (!isMounted) {
-            sendEvent({
+            sendEvent?.({
                 type: "math-input:keypad-opened",
                 payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
             });
@@ -97,7 +97,7 @@ export default function Keypad(props: Props) {
         }
         return () => {
             if (isMounted) {
-                sendEvent({
+                sendEvent?.({
                     type: "math-input:keypad-closed",
                     payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
                 });
