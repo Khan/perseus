@@ -159,21 +159,28 @@ export type APIOptions = Readonly<{
     // Function that takes dimensions and returns a React component
     // to display while an image is loading
     imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
-    // Function that takes an object argument. The object should
-    // include type and id, both strings, at least and can optionally
-    // include a boolean "correct" value. This is used for keeping
-    // track of widget interactions.
-    trackInteraction?: (args: {
-        type: string;
-        id: string;
-        correct?: boolean;
-    }) => void;
+    // A function that is called when the user has interacted with a widget. It
+    // also includes any extra parameters that the originating widget provided.
+    // This is used for keeping track of widget interactions.
+    trackInteraction?: (
+        args: {
+            // The widget type that this interaction originates from
+            type: string;
+            // The widget id that this interaction originates from
+            id: string;
+            correct?: boolean;
+        } & Record<string, unknown>,
+    ) => void;
     // A boolean that indicates whether or not a custom keypad is
     // being used.  For mobile web this will be the ProvidedKeypad
     // component.  In this situation we use the MathInput component
     // from the math-input repo instead of the existing perseus math
     // input components.
     customKeypad?: boolean;
+    // Whether to use v1 (Legacy) Keypad for MathInput mobile or
+    // use the new v2 Keypad
+    // TODO [LC-1088]: remove after v2 release
+    useV2Keypad?: boolean;
     // If this is provided, it is called instead of appending an instance
     // of `math-input`'s keypad to the body. This is used by the native
     // apps so they can have the keypad be defined on the native side.
@@ -336,6 +343,7 @@ export type APIOptionsWithDefaults = Readonly<
         inModal: NonNullable<APIOptions["inModal"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
+        useV2Keypad: NonNullable<APIOptions["useV2Keypad"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         onInputError: NonNullable<APIOptions["onInputError"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
@@ -355,7 +363,12 @@ export type LinterContextProps = {
     // additional properties can be added to the context by widgets
 };
 
-export type Tracking = "" | "all";
+export type Tracking =
+    // Track interactions once
+    | ""
+    // Track all interactions
+    | "all";
+
 export type Alignment =
     | "default"
     | "block"

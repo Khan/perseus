@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 2.3.12
+
+### Patch Changes
+
+-   Updated dependencies [a0c71567]
+    -   @khanacademy/perseus@6.7.0
+
+## 2.3.11
+
+### Patch Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   Updated dependencies [d0f28dbd]
+-   Updated dependencies [077b125e]
+    -   @khanacademy/perseus@6.6.0
+
 ## 2.3.10
 
 ### Patch Changes
