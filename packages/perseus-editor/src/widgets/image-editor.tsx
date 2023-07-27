@@ -101,6 +101,7 @@ const ImageEditor: any = createReactClass({
                     <label>
                         <div>Preview:</div>
                         <img
+                            alt="Editor preview of image"
                             src={backgroundImage.url}
                             style={{
                                 width: "100%",
