@@ -14,10 +14,9 @@ import type {
     DeviceType,
     Hint,
     ImageUploader,
-    RendererInterface,
     Version,
-    KEScore,
 } from "@khanacademy/perseus";
+import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 

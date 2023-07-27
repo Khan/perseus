@@ -6,7 +6,8 @@ import {PerseusError} from "./perseus-error";
 import KhanAnswerTypes from "./util/answer-types";
 
 import type {Range} from "./perseus-types";
-import type {Widget, PerseusScore, KEScore} from "./types";
+import type {Widget, PerseusScore} from "./types";
+import type {KEScore} from "@khanacademy/perseus-core";
 
 type WordPosition = {
     start: number;

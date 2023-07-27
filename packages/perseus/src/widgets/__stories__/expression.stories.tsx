@@ -1,7 +1,7 @@
+import {KeypadContext} from "@khanacademy/math-input";
 import * as React from "react";
 
 import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
-import KeypadContext from "../../keypad-context";
 import {
     expressionItem2,
     expressionItem3,

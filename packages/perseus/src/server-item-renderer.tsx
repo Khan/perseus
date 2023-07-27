@@ -19,7 +19,8 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
-import type {APIOptions, KEScore, FocusPath, RendererInterface} from "./types";
+import type {APIOptions, FocusPath} from "./types";
+import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
 
 const {mapObject} = Objective;
 

@@ -27,6 +27,9 @@ export {getCursorContext} from "./components/input/mathquill-helpers";
 // Wrapper around v1 and v2 keypads to switch between them
 export {default as Keypad} from "./components/keypad-switch";
 
+// Context used to pass data/refs around
+export {default as KeypadContext} from "./components/keypad-context";
+
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";
 
