@@ -10,17 +10,6 @@ import type {Result} from "@khanacademy/wonder-blocks-data";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
-type State = any;
-
-export interface RendererInterface {
-    getSerializedState(): State;
-    restoreSerializedState(state: State, callback?: () => void): void;
-    scoreInput(): KEScore;
-    blur(): void;
-    focus(): boolean | null | undefined;
-    props: any;
-}
-
 export type Dimensions = {
     width?: number;
     height?: number;
@@ -50,15 +39,6 @@ export type PerseusScore =
           total: number;
           message?: string | null | undefined;
       };
-
-export type KEScore = {
-    empty: boolean;
-    correct: boolean;
-    message?: string | null | undefined;
-    suppressAlmostThere?: boolean | null | undefined;
-    guess: any;
-    state: any;
-};
 
 export type Hint = {
     widgets: WidgetDict;
