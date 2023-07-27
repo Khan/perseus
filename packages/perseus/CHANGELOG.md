@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 6.7.0
+
+### Minor Changes
+
+-   a0c71567: Make KaTeX CSS styles also apply to MathJax 3
+
 ## 6.6.0
 
 ### Minor Changes
