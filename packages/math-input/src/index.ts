@@ -24,11 +24,8 @@ export {CursorContext} from "./components/input/cursor-contexts";
 // Helper to get cursor context from MathField
 export {getCursorContext} from "./components/input/mathquill-helpers";
 
-// v1 Keypad
-export {default as LegacyKeypad} from "./components/keypad-legacy";
-
-// v2 Keypad
-export {default as Keypad, MobileKeypad} from "./components/keypad";
+// Wrapper around v1 and v2 keypads to switch between them
+export {default as Keypad} from "./components/keypad-switch";
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";
