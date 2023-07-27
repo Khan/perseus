@@ -199,7 +199,7 @@ export type APIOptions = Readonly<{
     customKeypad?: boolean;
     // Whether to use v1 (Legacy) Keypad for MathInput mobile or
     // use the new v2 Keypad
-    // TODO(matthewc)[LC-1088]: remove after v2 release
+    // TODO [LC-1088]: remove after v2 release
     useV2Keypad?: boolean;
     // If this is provided, it is called instead of appending an instance
     // of `math-input`'s keypad to the body. This is used by the native
