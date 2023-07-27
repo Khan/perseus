@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Update image editor so it has a small preview
+Fixes a bug where images don't get dimensions in the image editor, and adds small preview to the image editor
