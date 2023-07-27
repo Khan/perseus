@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import MobileKeypad from "./components/keypad/mobile-keypad";
 import {KeypadAPI} from "./types";
 
-import {KeypadInput, KeypadType, LegacyKeypad} from "./index";
+import {KeypadInput, KeypadType, Keypad} from "./index";
 
 export default {
     title: "Full Mobile MathInput",
@@ -16,7 +15,7 @@ export const Basic = () => {
     // Whether to use Expression or Fraction keypad
     const [expression, setExpression] = React.useState<boolean>(true);
     // Whether to use v1 or v2 keypad
-    const [legacyKeypad, setLegacyKeypad] = React.useState<boolean>(false);
+    const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
 
     React.useEffect(() => {
         keypadElement?.configure(
@@ -36,8 +35,8 @@ export const Basic = () => {
                 <button onClick={() => setExpression(!expression)}>
                     {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
                 </button>
-                <button onClick={() => setLegacyKeypad(!legacyKeypad)}>
-                    {`Use ${legacyKeypad ? "New" : "Legacy"} Keypad`}
+                <button onClick={() => setV2Keypad(!v2Keypad)}>
+                    {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
                 </button>
             </div>
 
@@ -56,23 +55,14 @@ export const Basic = () => {
                 }}
             />
 
-            {legacyKeypad ? (
-                <LegacyKeypad
-                    onElementMounted={(node) => {
-                        if (node) {
-                            setKeypadElement(node);
-                        }
-                    }}
-                />
-            ) : (
-                <MobileKeypad
-                    onElementMounted={(node) => {
-                        if (node) {
-                            setKeypadElement(node);
-                        }
-                    }}
-                />
-            )}
+            <Keypad
+                onElementMounted={(node) => {
+                    if (node) {
+                        setKeypadElement(node);
+                    }
+                }}
+                useV2Keypad={v2Keypad}
+            />
         </div>
     );
 };
