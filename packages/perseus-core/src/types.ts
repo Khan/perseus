@@ -1,6 +1,7 @@
 // Types that can be shared between Perseus packages
 // ideally without causing circular dependencies
 
+// TODO: this should be typed
 type State = any;
 
 export interface RendererInterface {
