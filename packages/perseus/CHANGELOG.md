@@ -1,5 +1,22 @@
 # @khanacademy/perseus
 
+## 7.0.0
+
+### Major Changes
+
+-   f9ee9d24: Move KeypadContext from Perseus to MathInput
+
+### Minor Changes
+
+-   b18986d3: Adds useV2Keypad API option for switching between new and legacy keypads
+
+### Patch Changes
+
+-   b18986d3: Replace Legacy/Mobile keypads with a component that switches between them
+-   Updated dependencies [f9ee9d24]
+-   Updated dependencies [b18986d3]
+    -   @khanacademy/math-input@8.0.0
+
 ## 6.7.0
 
 ### Minor Changes
