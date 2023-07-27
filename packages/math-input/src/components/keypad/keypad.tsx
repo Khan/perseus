@@ -16,7 +16,7 @@ import OperatorsPage from "./keypad-pages/operators-page";
 import SharedKeys from "./shared-keys";
 
 import type {TabbarItemType} from "../tabbar";
-import type {SendEventFn} from "@khanacademy/perseus-core";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;
@@ -33,7 +33,7 @@ export type Props = {
     advancedRelations?: boolean;
 
     onClickKey: ClickKeyCallback;
-    sendEvent: SendEventFn;
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 const defaultProps = {
@@ -84,12 +84,12 @@ export default function Keypad(props: Props) {
         basicRelations,
         advancedRelations,
         showDismiss,
-        sendEvent,
+        onAnalyticsEvent,
     } = props;
 
     useEffect(() => {
         if (!isMounted) {
-            sendEvent({
+            onAnalyticsEvent({
                 type: "math-input:keypad-opened",
                 payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
             });
@@ -97,14 +97,14 @@ export default function Keypad(props: Props) {
         }
         return () => {
             if (isMounted) {
-                sendEvent({
+                onAnalyticsEvent({
                     type: "math-input:keypad-closed",
                     payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
                 });
                 setIsMounted(false);
             }
         };
-    }, [sendEvent, isMounted]);
+    }, [onAnalyticsEvent, isMounted]);
 
     return (
         <View>
