@@ -102,7 +102,7 @@ export const ApiOptions = {
 
         // Whether to use v1 (Legacy) Keypad for MathInput mobile or
         // use the new v2 Keypad
-        // TODO(matthewc)[LC-1088]: remove after v2 release
+        // TODO [LC-1088]: remove after v2 release
         useV2Keypad: PropTypes.bool,
 
         // A function, called with a bool indicating whether use of the
