@@ -1,7 +1,7 @@
 // Types that can be shared between Perseus packages
 // ideally without causing circular dependencies
 
-type State = any;
+type State = unknown;
 
 export interface RendererInterface {
     getSerializedState(): State;
