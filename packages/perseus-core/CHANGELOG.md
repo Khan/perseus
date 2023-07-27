@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 0.1.0
+
+### Minor Changes
+
+-   b4c06409: Add perseus-core to changeset
+
 ## 0.0.2
 
 ### Patch Changes

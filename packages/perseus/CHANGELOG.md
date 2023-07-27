@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 7.0.1
+
+### Patch Changes
+
+-   5611204a: Adds back the export of the unwrapped keypad for Khanmigo
+-   Updated dependencies [b4c06409]
+-   Updated dependencies [5611204a]
+-   Updated dependencies [b4430dce]
+    -   @khanacademy/perseus-core@0.1.0
+    -   @khanacademy/math-input@8.1.0
+
 ## 7.0.0
 
 ### Major Changes

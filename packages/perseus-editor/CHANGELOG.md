@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 2.4.0
+
+### Minor Changes
+
+-   97d02dac: Fixes a bug where images don't get dimensions in the image editor, and adds small preview to the image editor
+
+### Patch Changes
+
+-   Updated dependencies [5611204a]
+    -   @khanacademy/perseus@7.0.1
+
 ## 2.3.13
 
 ### Patch Changes

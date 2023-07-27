@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "7.0.0",
+    "version": "7.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -23,8 +23,8 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.1",
         "@khanacademy/kmath": "^0.1.1",
-        "@khanacademy/math-input": "^8.0.0",
-        "@khanacademy/perseus-core": "0.0.2",
+        "@khanacademy/math-input": "^8.1.0",
+        "@khanacademy/perseus-core": "0.1.0",
         "@khanacademy/perseus-linter": "^0.3.1",
         "@khanacademy/pure-markdown": "^0.2.3",
         "@khanacademy/simple-markdown": "^0.9.3"

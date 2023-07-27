@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 8.1.0
+
+### Minor Changes
+
+-   5611204a: Adds back the export of the unwrapped keypad for Khanmigo
+-   b4430dce: Make sendEvent in the Keypad an optional param
+
+### Patch Changes
+
+-   Updated dependencies [b4c06409]
+    -   @khanacademy/perseus-core@0.1.0
+
 ## 8.0.0
 
 ### Major Changes
