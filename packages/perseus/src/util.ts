@@ -839,9 +839,26 @@ function captureScratchpadTouchStart(e: TouchEvent) {
     e.stopPropagation();
 }
 
+async function getImageSizeModern(url: string): Promise<[number, number]> {
+    const image = new Image();
+
+    return new Promise((resolve, reject) => {
+        // Handle the success case
+        image.onload = () => {
+            resolve([image.naturalWidth, image.naturalHeight]);
+        };
+
+        // Handle the error case
+        image.onerror = reject;
+
+        // Kick off the loading
+        image.src = url;
+    });
+}
+
 function getImageSize(
     url: string,
-    callback: (arg1: number, arg2: number) => void,
+    callback: (width: number, height: number) => void,
 ): void {
     const img = new Image();
     img.onload = function () {
@@ -990,6 +1007,7 @@ const Util = {
     supportsPassiveEvents,
     captureScratchpadTouchStart,
     getImageSize,
+    getImageSizeModern,
     getRealImageUrl,
     isLabeledSVG,
     getBaseUrl,
