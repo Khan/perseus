@@ -27,7 +27,7 @@ export {getCursorContext} from "./components/input/mathquill-helpers";
 // Wrapper around v1 and v2 mobile keypads to switch between them
 export {default as MobileKeypad} from "./components/keypad-switch";
 // For desktop
-export {default as Keypad} from "./components/keypad";
+export {default as DesktopKeypad} from "./components/keypad";
 
 // Context used to pass data/refs around
 export {default as KeypadContext} from "./components/keypad-context";
