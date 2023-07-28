@@ -36,19 +36,6 @@ jobs:
     - name: Checking out latest commit
       uses: actions/checkout@v2
 
-    # We fail the action if STOPSHIP occurs in any file in our codebase. We
-    # exclude the .github  We use STOPSHIP internally to mark code that's not
-    # safe to go live yet.
-    # We use an if block because we want to return the exact inverse of what
-    # `git grep` returns (0 on none found, 1 on some found).
-    - name: Checks that STOP SHIP (no space) is not used in any files.
-      run: |
-        if git grep --files-with-matches -I --quiet -eSTOPSHIP -- ':(exclude).github/workflows/node-ci.yml'; then
-            exit 1
-        else
-            exit 0
-        fi
-
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
       uses: Khan/actions@shared-node-cache-v0
       with:
@@ -109,6 +96,12 @@ jobs:
         full: yarn jest
         limited-trigger: ${{ steps.js-files.outputs.filtered }}
         limited: yarn jest --passWithNoTests --findRelatedTests {}
+
+    # We use STOPSHIP internally to mark code that's not safe to go live yet.
+    # We use an if block because we want to return the exact inverse of what
+    # `git grep` returns (0 on none found, 1 on some found).
+    - name: Checks that STOPSHIP is not used in any files.
+      run: ./utils/stopship-check.sh
 
   cypress:
     name: Cypress Coverage
