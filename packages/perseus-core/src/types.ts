@@ -4,6 +4,9 @@
 // TODO: this should be typed
 type State = any;
 
+// Interfact currently only implemented by
+// ServerItemRenderer and used by KeypadContext
+// to pass around a renderer reference
 export interface RendererInterface {
     getSerializedState(): State;
     restoreSerializedState(state: State, callback?: () => void): void;
