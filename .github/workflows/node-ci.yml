@@ -40,8 +40,7 @@ jobs:
     # exclude the .github  We use STOPSHIP internally to mark code that's not
     # safe to go live yet.
     - name: Checks that STOP SHIP (no space) is not used in any files.
-      run: -|
-        git grep --files-with-matches -I -eSTOPSHIP -- ':(exclude).github/workflows/node-ci.yml'
+      run: git grep --files-with-matches -I -eSTOPSHIP -- ':(exclude).github/workflows/node-ci.yml'
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
       uses: Khan/actions@shared-node-cache-v0
