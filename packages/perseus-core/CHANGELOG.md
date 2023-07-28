@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 0.1.1
+
+### Patch Changes
+
+-   57f75510: Commented RendererInterface
+
 ## 0.1.0
 
 ### Minor Changes
