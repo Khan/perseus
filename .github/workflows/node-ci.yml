@@ -39,8 +39,11 @@ jobs:
     # We fail the action if STOPSHIP occurs in any file in our codebase. We
     # exclude the .github  We use STOPSHIP internally to mark code that's not
     # safe to go live yet.
+    # We use the `|| exit 1` trick because `git grep` returns 1 if no results
+    # match. In that case, we actually want to pass (hurray, no STOPSHIPs), but
+    # in the case of matches, we want to fail.
     - name: Checks that STOP SHIP (no space) is not used in any files.
-      run: git grep --files-with-matches -I -eSTOPSHIP -- ':(exclude).github/workflows/node-ci.yml'
+      run: git grep --files-with-matches -I -eSTOPSHIP -- ':(exclude).github/workflows/node-ci.yml' || exit 1
 
     - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
       uses: Khan/actions@shared-node-cache-v0
