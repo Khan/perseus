@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 7.0.2
+
+### Patch Changes
+
+-   Updated dependencies [57f75510]
+    -   @khanacademy/perseus-core@0.1.1
+    -   @khanacademy/math-input@8.1.1
+
 ## 7.0.1
 
 ### Patch Changes

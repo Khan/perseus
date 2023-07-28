@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 2.4.1
+
+### Patch Changes
+
+-   @khanacademy/perseus@7.0.2
+
 ## 2.4.0
 
 ### Minor Changes
