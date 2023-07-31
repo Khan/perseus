@@ -28,6 +28,10 @@ type Props = {
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
+    // Whether to use the new Bibliotron styles for articles
+    /**
+     * @deprecated Does nothing
+     */
     useNewStyles: Props["useNewStyles"];
     linterContext: Props["linterContext"];
 };
@@ -163,7 +167,6 @@ class ArticleRenderer extends React.Component<Props, any> {
         const classes = classNames({
             "framework-perseus": true,
             "perseus-article": true,
-            "bibliotron-article": this.props.useNewStyles,
             // NOTE(charlie): For exercises, this is applied outside of Perseus
             // (in webapp).
             [ApiClassNames.MOBILE]: apiOptions.isMobile,

@@ -6,34 +6,34 @@
 // Should be consistent with webapp's variables.less
 
 // Colors
-@grayDarker:            #333;
-@gray:                  #999;
-@grayExtraLight:        #eee;
-@grayLighter:           #ddd;
-@white:                 #fff;
+@grayDarker: #333;
+@gray: #999;
+@grayExtraLight: #eee;
+@grayLighter: #ddd;
+@white: #fff;
 
 // Editor Style
-@editorBorderWidth:     1px;
-@editorBorder:          @editorBorderWidth solid @grayLighter;
-@editorBorderRadius:    3px;
-@editorPadding:         10px;
+@editorBorderWidth: 1px;
+@editorBorder: @editorBorderWidth solid @grayLighter;
+@editorBorderRadius: 3px;
+@editorPadding: 10px;
 
-@widgetBorderWidth:     1px;
-@widgetBorderColor:     #ccc;
-@widgetBorder:          @widgetBorderWidth solid @widgetBorderColor;
-@widgetBorderRadius:    3px;
+@widgetBorderWidth: 1px;
+@widgetBorderColor: #ccc;
+@widgetBorder: @widgetBorderWidth solid @widgetBorderColor;
+@widgetBorderRadius: 3px;
 
 // Dimensions
-@leftCellWidth:         360px;
-@cellPadding:           30px;
+@leftCellWidth: 360px;
+@cellPadding: 30px;
 
 // Colors
-@wrongRed:              #ffcccc;
-@correctGreen:          #aaffaa;
-@ungradedBlue:          #d9edf7;
+@wrongRed: #ffcccc;
+@correctGreen: #aaffaa;
+@ungradedBlue: #d9edf7;
 
 .border-box-sizing() {
-            box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .size(@width: auto, @height: auto) {
@@ -50,8 +50,8 @@
 }
 
 .user-select (@select) {
-	-webkit-user-select: @select;
-  user-select: @select;
+    -webkit-user-select: @select;
+    user-select: @select;
 }
 
 .pod-title {
@@ -209,7 +209,8 @@
         padding: @editorPadding;
         transition: all 0s;
 
-        &.enter {}
+        &.enter {
+        }
         &.leave {
             display: none;
         }
@@ -219,7 +220,6 @@
     .categorizer-container {
         overflow-x: scroll;
     }
-
 }
 
 .perseus-widget-editor-title-id > svg {
@@ -235,7 +235,7 @@
     border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
     display: flex;
     flex-wrap: wrap;
-    padding: @editorPadding/2;
+    padding: @editorPadding / 2;
 
     select {
         margin: 2px;
@@ -294,7 +294,8 @@
     }
 
     // Space out the question, answer, and hint areas
-    .perseus-question-container > div, .perseus-answer-container > div {
+    .perseus-question-container > div,
+    .perseus-answer-container > div {
         padding-bottom: 25px;
     }
 
@@ -341,7 +342,6 @@
 // Hint Editor
 //
 
-
 .perseus-hint-editor {
     padding-bottom: 20px;
 
@@ -352,7 +352,8 @@
     .reorder-hints button {
         font-size: 16px;
 
-        &:hover, &:active {
+        &:hover,
+        &:active {
             color: #000;
             text-decoration: none;
         }
@@ -404,7 +405,8 @@
         margin-bottom: 10px;
     }
 
-    .section-control-button, .step-control-button {
+    .section-control-button,
+    .step-control-button {
         font-size: 13px;
         padding: 2px 10px;
         margin: 0 2px;
@@ -414,8 +416,10 @@
         min-width: 360px;
     }
 
-    .mobile-preview, .desktop-preview,
-    .editor-preview, .standalone-preview {
+    .mobile-preview,
+    .desktop-preview,
+    .editor-preview,
+    .standalone-preview {
         box-sizing: border-box;
     }
 
@@ -447,7 +451,8 @@
     }
 
     .standalone-preview {
-        .mobile-preview, .desktop-preview {
+        .mobile-preview,
+        .desktop-preview {
             margin-left: auto;
             margin-right: auto;
         }
@@ -469,7 +474,7 @@
         text-align: center;
     }
 
-    .bibliotron-article.framework-perseus.perseus-article {
+    .framework-perseus.perseus-article {
         // Match Bibliotron's .box-sizing-border-box-reset, so that the Perseus
         // editor and webapp behave even more similarly.
         box-sizing: border-box;
@@ -483,7 +488,6 @@
         padding: 4px 9px;
     }
 }
-
 
 //
 // Expression editor
@@ -520,12 +524,11 @@
     }
 }
 
-
 //
 // Dropdown editor
 //
 .perseus-widget-dropdown {
-    input[type=text] {
+    input[type="text"] {
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 5px;
@@ -567,7 +570,8 @@
 .perseus-input-number-editor {
     font-size: 14px;
 
-    .ui-title, .msg-title {
+    .ui-title,
+    .msg-title {
         display: inline-block;
         text-align: center;
     }
@@ -660,12 +664,12 @@
     }
 
     .answer-trash {
-        background-color: #C04F03;
-        background-image: linear-gradient(to bottom, #E35D04, #C04F03);
-        color: #FFF;
+        background-color: #c04f03;
+        background-image: linear-gradient(to bottom, #e35d04, #c04f03);
+        color: #fff;
         &:hover {
-            color: #FFF;
-            background-image: linear-gradient(to bottom, #F46E15, #D16014);
+            color: #fff;
+            background-image: linear-gradient(to bottom, #f46e15, #d16014);
         }
     }
 
@@ -697,7 +701,7 @@
             background-color: @correctGreen;
         }
         &.enforced {
-             background-color: @wrongRed;
+            background-color: @wrongRed;
         }
     }
 
@@ -725,8 +729,8 @@
     .input-answer-editor-message {
         margin-left: 5px;
 
-        .perseus-single-editor{
-            font-family: 'Lucida Grande';
+        .perseus-single-editor {
+            font-family: "Lucida Grande";
             width: 230px;
 
             .perseus-textarea-pair > textarea,
@@ -796,7 +800,9 @@
         vertical-align: top;
         width: 280px;
 
-        p {margin: 0;}
+        p {
+            margin: 0;
+        }
     }
 
     .perseus-textarea-pair,
@@ -806,7 +812,8 @@
 }
 
 .perseus-widget-radio .perseus-textarea-pair {
-    & > textarea, > .perseus-textarea-underlay {
+    & > textarea,
+    > .perseus-textarea-underlay {
         padding: 5px;
     }
 }
@@ -821,16 +828,16 @@
     .perseus-widget-radio {
         position: static;
 
-        .checkbox, .delete-choice {
+        .checkbox,
+        .delete-choice {
             position: relative;
             top: -10px;
         }
     }
 
     .perseus-radio-option.none-of-above {
-
         &:before {
-            content: 'None of the above';
+            content: "None of the above";
             display: block;
             font-style: italic;
             font-weight: bold;
@@ -878,7 +885,6 @@
         display: block;
         width: 81%;
     }
-
 
     .category {
         float: left;
@@ -973,7 +979,8 @@
 //
 
 .perseus-widget-plotter-editor {
-    .plotter-categories, .pic-url {
+    .plotter-categories,
+    .pic-url {
         width: 70%;
     }
 }
@@ -982,14 +989,14 @@
 // Text List Editors (Orderer, Matcher, Sorter)
 //
 .perseus-text-list-editor {
-    input[type=text] {
+    input[type="text"] {
         padding: 3px;
         margin-right: 5px;
         min-width: 20px;
         max-width: 340px;
     }
 
-    &.layout-horizontal input[type=text] {
+    &.layout-horizontal input[type="text"] {
         float: left;
     }
 }
@@ -999,16 +1006,16 @@
         float: left;
         max-width: 50%;
 
-        input[type=text] {
+        input[type="text"] {
             max-width: 90%;
         }
     }
 
-    input[type=text] {
+    input[type="text"] {
         width: 46%;
     }
 
-    input[type=text] + input[type=text] {
+    input[type="text"] + input[type="text"] {
         margin-left: 2%;
     }
 }
@@ -1034,7 +1041,8 @@
 
     .answer-handle {
         // textured draggy handle
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==) no-repeat 50% 50%;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==)
+            no-repeat 50% 50%;
         border-right: 1px solid #ddd;
         cursor: move;
         display: table-cell;
@@ -1070,7 +1078,7 @@
         }
     }
 
-    .perseus-math-input{
+    .perseus-math-input {
         width: 236px;
 
         .mq-root-block {
@@ -1147,7 +1155,8 @@
             }
         }
 
-        &.enter {}
+        &.enter {
+        }
         &.leave {
             display: none;
         }
@@ -1198,11 +1207,11 @@
 }
 
 .marvel-device.iphone6.silver:after {
-  z-index: 1;
+    z-index: 1;
 }
 
 .perseus-diff {
-    @borderColor: #E4E4E4;
+    @borderColor: #e4e4e4;
     margin: 0 10px;
 
     .diff-header {
@@ -1270,18 +1279,17 @@
         visibility: hidden;
     }
 
-
     .added {
-        background-color: #EEFFEE;
+        background-color: #eeffee;
         &.dark {
-            background-color: #AAFFAA;
+            background-color: #aaffaa;
         }
     }
 
     .removed {
-        background-color: #FFEEEE;
+        background-color: #ffeeee;
         &.dark {
-            background-color: #FFAAAA;
+            background-color: #ffaaaa;
         }
     }
 
@@ -1290,22 +1298,24 @@
         margin-left: 20px;
         margin-bottom: 10px;
 
-        &, > div, > img {
+        &,
+        > div,
+        > img {
             max-height: 300px;
             max-width: 100%;
         }
     }
 
     .image-unchanged {
-        border: 1px solid #AAAAAA;
+        border: 1px solid #aaaaaa;
     }
 
     .image-added {
-        border: 2px solid #AAFFAA;
+        border: 2px solid #aaffaa;
     }
 
     .image-removed {
-        border: 2px solid #FFAAAA;
+        border: 2px solid #ffaaaa;
     }
 
     .diff-separator {
