@@ -10,7 +10,8 @@ import SideBySide from "./side-by-side";
 import {testDependenciesV2} from "./test-dependencies";
 
 import type {PerseusItem} from "../packages/perseus/src/perseus-types";
-import type {APIOptions, KEScore} from "../packages/perseus/src/types";
+import type {APIOptions} from "../packages/perseus/src/types";
+import type {KEScore} from "@khanacademy/perseus-core";
 
 type Props = {
     item: PerseusItem;

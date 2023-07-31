@@ -99,7 +99,7 @@
         // inline, so we rely on the "actual paragraph" check above
         // (a .paragraph that contains another .paragraph instead of a
         // .perseus-block-math).
-        .katex {
+        .katex, mjx-container {
             font-size: 100%;
         }
     }
@@ -282,7 +282,7 @@
             .paragraph {
                 .text(@choiceTextSize, @choiceLineHeight, @gray17);
 
-                .katex {
+                .katex, mjx-container {
                     color: @gray17;
                 }
             }
@@ -403,7 +403,7 @@
             .paragraph {
                 .text(@choiceTextSize, @choiceLineHeight, @gray17);
 
-                .katex {
+                .katex, mjx-container {
                     color: @gray17;
                 }
             }
@@ -430,13 +430,14 @@
 
     .math(@blockMathTextSize; @blockMathLineHeight;
           @inlineMathTextSize; @inlineMathLineHeight) {
-        .katex {
+        .katex, mjx-container {
             font-size: @inlineMathTextSize;
             line-height: @inlineMathLineHeight;
             color: @gray17;
         }
 
-        .perseus-block-math .katex {
+        .perseus-block-math .katex,
+        .perseus-block-math mjx-container {
             font-size: @blockMathTextSize;
             line-height: @blockMathLineHeight;
         }
@@ -446,7 +447,8 @@
         // https://github.com/Khan/KaTeX/blob/965b8a6164ee54212bf382108f256c6920eb7a70/static/katex.less#L18.
         // It's dangerous to resize labels, since they're deliberately
         // positioned relative to their background images.
-        .graphie-label .katex {
+        .graphie-label .katex,
+        .graphie-label mjx-container {
             font-size: 1.21em;
             line-height: 1.2;
         }

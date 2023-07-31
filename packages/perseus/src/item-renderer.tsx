@@ -19,10 +19,10 @@ import type {PerseusItem} from "./perseus-types";
 import type {
     APIOptions,
     FocusPath,
-    KEScore,
     LinterContextProps,
     PerseusDependenciesV2,
 } from "./types";
+import type {KEScore} from "@khanacademy/perseus-core";
 
 const {mapObject} = Objective;
 

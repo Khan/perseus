@@ -1,5 +1,46 @@
 # @khanacademy/math-input
 
+## 8.1.1
+
+### Patch Changes
+
+-   Updated dependencies [57f75510]
+    -   @khanacademy/perseus-core@0.1.1
+
+## 8.1.0
+
+### Minor Changes
+
+-   5611204a: Adds back the export of the unwrapped keypad for Khanmigo
+-   b4430dce: Make sendEvent in the Keypad an optional param
+
+### Patch Changes
+
+-   Updated dependencies [b4c06409]
+    -   @khanacademy/perseus-core@0.1.0
+
+## 8.0.0
+
+### Major Changes
+
+-   f9ee9d24: Move KeypadContext from Perseus to MathInput
+-   b18986d3: Replace Legacy/Mobile keypads with a component that switches between them
+
+## 7.0.0
+
+### Major Changes
+
+-   04e68d1c: Change keypadElement from LegacyKeypad to KeypadAPI
+
+### Minor Changes
+
+-   acafa72d: Add MobileKeypad to v2 keypad in MathInput
+
+### Patch Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   54590cc7: Add index.ts files to some dirs in MathInput for organization
+
 ## 6.0.3
 
 ### Patch Changes

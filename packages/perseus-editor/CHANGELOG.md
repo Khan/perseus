@@ -1,5 +1,47 @@
 # @khanacademy/perseus-editor
 
+## 2.4.1
+
+### Patch Changes
+
+-   @khanacademy/perseus@7.0.2
+
+## 2.4.0
+
+### Minor Changes
+
+-   97d02dac: Fixes a bug where images don't get dimensions in the image editor, and adds small preview to the image editor
+
+### Patch Changes
+
+-   Updated dependencies [5611204a]
+    -   @khanacademy/perseus@7.0.1
+
+## 2.3.13
+
+### Patch Changes
+
+-   Updated dependencies [f9ee9d24]
+-   Updated dependencies [b18986d3]
+-   Updated dependencies [b18986d3]
+    -   @khanacademy/perseus@7.0.0
+
+## 2.3.12
+
+### Patch Changes
+
+-   Updated dependencies [a0c71567]
+    -   @khanacademy/perseus@6.7.0
+
+## 2.3.11
+
+### Patch Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   Updated dependencies [d0f28dbd]
+-   Updated dependencies [077b125e]
+    -   @khanacademy/perseus@6.6.0
+
 ## 2.3.10
 
 ### Patch Changes

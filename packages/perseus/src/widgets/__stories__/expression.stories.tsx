@@ -1,8 +1,7 @@
+import {KeypadContext, KeypadType} from "@khanacademy/math-input";
 import * as React from "react";
 
 import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
-import {KeypadType} from "../../../../math-input/src/enums";
-import KeypadContext from "../../keypad-context";
 import {
     expressionItem2,
     expressionItem3,

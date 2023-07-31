@@ -97,6 +97,12 @@ jobs:
         limited-trigger: ${{ steps.js-files.outputs.filtered }}
         limited: yarn jest --passWithNoTests --findRelatedTests {}
 
+    # We use STOPSHIP internally to mark code that's not safe to go live yet.
+    # We use an if block because we want to return the exact inverse of what
+    # `git grep` returns (0 on none found, 1 on some found).
+    - name: Checks that STOPSHIP is not used in any files.
+      run: ./utils/stopship-check.sh
+
   cypress:
     name: Cypress Coverage
     runs-on: ${{ matrix.os }}

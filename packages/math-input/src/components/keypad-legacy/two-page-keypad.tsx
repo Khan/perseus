@@ -14,12 +14,13 @@ import {
     innerBorderWidthPx,
     offBlack16,
 } from "../common-style";
-import Tabbar from "../tabbar/tabbar";
-import {TabbarItemType} from "../tabbar/types";
+import Tabbar from "../tabbar";
 
 import Keypad from "./keypad";
 import {State as ReduxState} from "./store/types";
 import Styles from "./styles";
+
+import type {TabbarItemType} from "../tabbar";
 
 const {column, row, fullWidth} = Styles;
 

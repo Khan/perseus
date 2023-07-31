@@ -3,7 +3,7 @@ import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import {ComponentStory} from "@storybook/react";
 import * as React from "react";
 
-import Keypad, {Props as KeypadProps} from "./index";
+import Keypad, {Props as KeypadProps} from "./keypad";
 
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";

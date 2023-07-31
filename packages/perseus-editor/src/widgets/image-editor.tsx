@@ -99,6 +99,27 @@ const ImageEditor: any = createReactClass({
             <div className="image-settings">
                 <div>
                     <label>
+                        <div>Preview:</div>
+                        <img
+                            alt="Editor preview of image"
+                            src={backgroundImage.url}
+                            style={{
+                                width: "100%",
+                            }}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <div>Dimensions:</div>
+                        <p>
+                            {backgroundImage.width}x{backgroundImage.height}
+                        </p>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
                         <div>
                             Alt text:
                             <InfoTip>
@@ -277,7 +298,16 @@ const ImageEditor: any = createReactClass({
     // silently load the image when the component mounts
     // silently update url and sizes when the image loads
     // noisily load the image in response to the author changing it
-    onUrlChange: function (url, silent) {
+    onUrlChange: async function (
+        url: string | undefined | null,
+        silent: boolean,
+    ) {
+        // Check if we've been passed something that looks like a URL
+        if (!url) {
+            this.setUrl(url, 0, 0, silent);
+            return;
+        }
+
         // All article content must be KA-owned!
         if (!INTERNALLY_HOSTED_URL_RE.test(url)) {
             this.setState({
@@ -288,25 +318,18 @@ const ImageEditor: any = createReactClass({
             });
             return;
         }
+
+        // Clear previous errors
         this.setState({backgroundImageError: ""});
 
-        // We update our background image prop after the image loads below. To
-        // avoid weirdness when we change to a very slow URL, then a much
-        // faster URL, we keep track of the URL we're trying to change to.
-        this._leadingUrl = url;
-
-        if (!url) {
-            this.setUrl(url, 0, 0, silent);
-            return;
+        try {
+            const size = await Util.getImageSizeModern(url);
+            this.setUrl(url, size[0], size[1], true);
+        } catch (error) {
+            this.setState({
+                backgroundImageError: `There was an error loading the image URL: ${error}`,
+            });
         }
-
-        Util.getImageSize(url, (width, height) => {
-            if (this._leadingUrl !== url) {
-                return;
-            }
-
-            this.setUrl(url, width, height, true);
-        });
     },
 
     onRangeChange: function (type, newRange) {
