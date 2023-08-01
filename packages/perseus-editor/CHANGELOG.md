@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 2.5.0
+
+### Minor Changes
+
+-   2fb66a97: Remove functionality of `useNewStyles` prop on `ArticleRenderer`
+
+### Patch Changes
+
+-   Updated dependencies [2fb66a97]
+    -   @khanacademy/perseus@7.1.0
+
 ## 2.4.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 7.1.0
+
+### Minor Changes
+
+-   2fb66a97: Remove functionality of `useNewStyles` prop on `ArticleRenderer`
+
 ## 7.0.2
 
 ### Patch Changes
