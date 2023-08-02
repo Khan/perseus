@@ -119,10 +119,12 @@ type TrackInteractionArgs = {
     id: string;
 
     correct?: boolean;
+
     // Tracking args are all optional here because we don't know which
     // widgets originated the call, and thus can't know what extra
-    // araguments will be included!
-} & Partial<TrackingExtraArguments>;
+    // arguments will be included!
+} & Partial<TrackingGradedGroupExtraArguments> &
+    Partial<TrackingSequenceExtraArguments>;
 
 // APIOptions provides different ways to customize the behaviour of Perseus.
 export type APIOptions = Readonly<{
@@ -396,14 +398,6 @@ export type TrackingGradedGroupExtraArguments = {
 export type TrackingSequenceExtraArguments = {
     visible: number;
 };
-
-// Add extra widget tracking arg types into this type as needed.
-// NOTE(jeremy): I've added `Empty` at the start to make explicity that many
-// widgets don't add extra arguments. It also has the nice side-effect of
-// formatting more nicely. :)
-export type TrackingExtraArguments = Empty &
-    TrackingGradedGroupExtraArguments &
-    TrackingSequenceExtraArguments;
 
 export type Alignment =
     | "default"
