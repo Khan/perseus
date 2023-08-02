@@ -10,6 +10,9 @@ import type {Result} from "@khanacademy/wonder-blocks-data";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+type Empty = Record<never, never>;
+
 export type Dimensions = {
     width?: number;
     height?: number;
