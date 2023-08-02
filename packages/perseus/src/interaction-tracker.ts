@@ -8,12 +8,12 @@ function _noop() {}
 /**
  * Wrapper for the trackInteraction apiOption.
  */
-class InteractionTracker {
+class InteractionTracker<T> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_tracked' has no initializer and is not definitely assigned in the constructor.
     _tracked: boolean;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'setting' has no initializer and is not definitely assigned in the constructor.
     setting: Tracking;
-    track: (extraData?: any) => void;
+    track: (extraData?: T) => void;
     trackApi: any;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetID' has no initializer and is not definitely assigned in the constructor.
     widgetID: string;
@@ -46,7 +46,7 @@ class InteractionTracker {
      * @param extraData Any extra data to track about the event.
      * @private
      */
-    _track: (extraData: Record<string, any>) => void = (extraData) => {
+    _track: (extraData: T) => void = (extraData) => {
         if (this._tracked && !this.setting) {
             return;
         }
