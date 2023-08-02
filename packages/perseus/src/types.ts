@@ -10,6 +10,9 @@ import type {Result} from "@khanacademy/wonder-blocks-data";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+type Empty = Record<never, never>;
+
 export type Dimensions = {
     width?: number;
     height?: number;
@@ -109,6 +112,20 @@ export type Path = ReadonlyArray<string>;
 
 type StubTagEditorType = any; // from "./components/stub-tag-editor";
 
+type TrackInteractionArgs = {
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Tracking args are all optional here because we don't know which
+    // widgets originated the call, and thus can't know what extra
+    // arguments will be included!
+} & Partial<TrackingGradedGroupExtraArguments> &
+    Partial<TrackingSequenceExtraArguments>;
+
 // APIOptions provides different ways to customize the behaviour of Perseus.
 export type APIOptions = Readonly<{
     isArticle?: boolean;
@@ -162,15 +179,7 @@ export type APIOptions = Readonly<{
     // A function that is called when the user has interacted with a widget. It
     // also includes any extra parameters that the originating widget provided.
     // This is used for keeping track of widget interactions.
-    trackInteraction?: (
-        args: {
-            // The widget type that this interaction originates from
-            type: string;
-            // The widget id that this interaction originates from
-            id: string;
-            correct?: boolean;
-        } & Record<string, unknown>,
-    ) => void;
+    trackInteraction?: (args: TrackInteractionArgs) => void;
     // A boolean that indicates whether or not a custom keypad is
     // being used.  For mobile web this will be the ProvidedKeypad
     // component.  In this situation we use the MathInput component
@@ -380,6 +389,16 @@ export type Tracking =
     // Track all interactions
     | "all";
 
+// See graded-group widget
+export type TrackingGradedGroupExtraArguments = {
+    status: "correct" | "incorrect" | "invalid";
+};
+
+// See sequence widget
+export type TrackingSequenceExtraArguments = {
+    visible: number;
+};
+
 export type Alignment =
     | "default"
     | "block"
@@ -454,7 +473,13 @@ export type FilterCriterion =
       ) => boolean);
 
 // NOTE: Rubric should always be the corresponding widget options type for the component.
-export type WidgetProps<RenderProps, Rubric> = RenderProps & {
+export type WidgetProps<
+    RenderProps,
+    Rubric,
+    // Defines the arguments that can be passed to the `trackInteraction`
+    // function from APIOptions for this widget.
+    TrackingExtraArgs = Empty,
+> = RenderProps & {
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     alignment: string | null | undefined;
@@ -474,7 +499,7 @@ export type WidgetProps<RenderProps, Rubric> = RenderProps & {
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the
     // widget's id and type before calling APIOptions.trackInteraction.
-    trackInteraction: (extraData?: any) => void;
+    trackInteraction: (extraData?: TrackingExtraArgs) => void;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
