@@ -37,7 +37,7 @@ type Props = {
     onFocus?: () => void;
     onBlur?: () => void;
     hasError?: boolean;
-    extraKeys?: Array<Keys>;
+    extraKeys?: ReadonlyArray<Keys>;
 };
 
 type DefaultProps = {
