@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 7.1.1
+
+### Patch Changes
+
+-   fc70e558: Fix the font size of inline MathJax 3 math in paragraphs, making it the same as KaTeX math.
+
 ## 7.1.0
 
 ### Minor Changes
