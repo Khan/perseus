@@ -1,5 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {screen, fireEvent} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
@@ -379,7 +379,7 @@ describe("error tooltip", () => {
         expect(errorMessage).not.toBeUndefined();
     });
 
-    it("shows error text on mouse over", async () => {
+    it("shows error text in tooltip", async () => {
         // Arrange
         const {renderer} = renderQuestion(expressionItem2.question);
         const expression = renderer.findWidgets("expression 1")[0];
@@ -389,66 +389,10 @@ describe("error tooltip", () => {
         renderer.guessAndScore();
         jest.runOnlyPendingTimers();
 
-        const tooltip = await screen.findByTestId("test-error-icon");
-
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.mouseEnter(tooltip);
-
         // Assert
+        expect(screen.getByText("Oops!")).toBeVisible();
         expect(
             screen.getByText("Sorry, I don't understand that!"),
         ).toBeVisible();
-    });
-    it("hides error text on mouse leave", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
-
-        expression.insert("x&&&&&^1");
-        renderer.guessAndScore();
-        jest.runOnlyPendingTimers();
-
-        const tooltip = await screen.findByTestId("test-error-icon");
-
-        // Act
-        // NOTE(Nicole): The existing perseus code requires explicit events
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.mouseEnter(tooltip);
-        // NOTE(Nicole): The existing perseus code requires explicit events
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.mouseLeave(tooltip);
-
-        // Assert
-        expect(
-            screen.getByText("Sorry, I don't understand that!"),
-        ).not.toBeVisible();
-    });
-
-    it("toggles error text on click", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
-
-        expression.insert("x&&&&&^1");
-        renderer.guessAndScore();
-        jest.runOnlyPendingTimers();
-
-        const tooltip = await screen.findByTestId("test-error-icon");
-
-        // Act & Assert
-        // NOTE(Nicole): The existing perseus code requires explicit events
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.click(tooltip);
-        expect(
-            screen.getByText("Sorry, I don't understand that!"),
-        ).toBeVisible();
-
-        // Act & Assert
-        // NOTE(Nicole): The existing perseus code requires explicit events
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.click(tooltip);
-        expect(
-            screen.getByText("Sorry, I don't understand that!"),
-        ).not.toBeVisible();
     });
 });

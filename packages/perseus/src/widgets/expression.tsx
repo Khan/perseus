@@ -2,18 +2,13 @@ import * as KAS from "@khanacademy/kas";
 import {KeypadInput, KeypadType, Keys as Key} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
-import InlineIcon from "../components/inline-icon";
 import MathInput from "../components/math-input";
-import Tooltip, {
-    HorizontalDirection,
-    VerticalDirection,
-} from "../components/tooltip";
 import {getDependencies} from "../dependencies";
-import {iconExclamationSign} from "../icon-paths";
 import {Errors as PerseusErrors, Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
@@ -38,6 +33,7 @@ const sendExpressionEvaluatedEvent = (
 
 type InputPath = ReadonlyArray<string>;
 
+const ERROR_TITLE = i18n._("Oops!");
 const ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
 const insertBraces = (value) => {
@@ -498,41 +494,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 />
             );
         }
-        // TODO(alex): Style this tooltip to be more consistent with other
-        // tooltips on the site; align to left middle (once possible)
-        const errorTooltip = (
-            <span className="error-tooltip" role="tooltip">
-                <Tooltip
-                    className="error-text-container"
-                    horizontalPosition={HorizontalDirection.Right}
-                    horizontalAlign={HorizontalDirection.Left}
-                    verticalPosition={VerticalDirection.Top}
-                    arrowSize={10}
-                    borderColor="#fcc335"
-                    show={this.state.showErrorText}
-                >
-                    <span
-                        className="error-icon"
-                        data-test-id="test-error-icon"
-                        onMouseEnter={() => {
-                            this.setState({showErrorText: true});
-                        }}
-                        onMouseLeave={() => {
-                            this.setState({showErrorText: false});
-                        }}
-                        onClick={() => {
-                            // TODO(alex): Better error feedback for mobile
-                            this.setState({
-                                showErrorText: !this.state.showErrorText,
-                            });
-                        }}
-                    >
-                        <InlineIcon {...iconExclamationSign} />
-                    </span>
-                    <div className="error-text">{ERROR_MESSAGE}</div>
-                </Tooltip>
-            </span>
-        );
 
         const className = classNames({
             "perseus-widget-expression": true,
@@ -541,19 +502,25 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
         return (
             <div className={className}>
-                <MathInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
-                    className={ApiClassNames.INTERACTIVE}
-                    value={this.props.value}
-                    onChange={this.changeAndTrack}
-                    convertDotToTimes={this.props.times}
-                    buttonsVisible={this.props.buttonsVisible || "focused"}
-                    buttonSets={this.props.buttonSets}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                />
-                {this.state.showErrorTooltip && errorTooltip}
+                <Tooltip
+                    forceAnchorFocusivity={false}
+                    opened={this.state.showErrorTooltip}
+                    title={ERROR_TITLE}
+                    content={ERROR_MESSAGE}
+                >
+                    <MathInput
+                        // eslint-disable-next-line react/no-string-refs
+                        ref="input"
+                        className={ApiClassNames.INTERACTIVE}
+                        value={this.props.value}
+                        onChange={this.changeAndTrack}
+                        convertDotToTimes={this.props.times}
+                        buttonSets={this.props.buttonSets}
+                        onFocus={this._handleFocus}
+                        onBlur={this._handleBlur}
+                        hasError={this.state.showErrorTooltip}
+                    />
+                </Tooltip>
             </div>
         );
     }

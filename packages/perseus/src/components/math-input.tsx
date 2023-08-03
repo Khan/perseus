@@ -1,41 +1,53 @@
 import {
+    DesktopKeypad,
+    Keys,
     keyTranslator,
     createMathField,
     mathQuillInstance,
     MathFieldInterface,
+    CursorContext,
+    getCursorContext,
 } from "@khanacademy/math-input";
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import Color, {fade} from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
-import TexButtons from "./tex-buttons";
-
-import type {ButtonSetsType} from "./tex-buttons";
-
-type ButtonsVisibleType = "always" | "never" | "focused";
+type ButtonSets = {
+    advancedRelations?: boolean;
+    basicRelations?: boolean;
+    divisionKey?: boolean;
+    logarithms?: boolean;
+    preAlgebra?: boolean;
+    trigonometry?: boolean;
+};
 
 type Props = {
     className?: string;
     value: string;
     onChange: any;
     convertDotToTimes: boolean;
-    buttonsVisible: ButtonsVisibleType;
-    buttonSets: ButtonSetsType;
+    buttonSets: ButtonSets;
     labelText?: string;
     onFocus?: () => void;
     onBlur?: () => void;
+    hasError?: boolean;
 };
 
 type DefaultProps = {
     value: Props["value"];
     convertDotToTimes: Props["convertDotToTimes"];
-    buttonsVisible: Props["buttonsVisible"];
 };
 
 type State = {
     focused: boolean;
+    keypadOpen: boolean;
+    cursorContext: typeof CursorContext[keyof typeof CursorContext];
 };
 
 const customKeyTranslator = {
@@ -62,23 +74,18 @@ class MathInput extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         value: "",
         convertDotToTimes: false,
-        buttonsVisible: "focused",
     };
 
-    state: State = {focused: false};
+    state: State = {
+        focused: false,
+        keypadOpen: false,
+        cursorContext: CursorContext.NONE,
+    };
 
     componentDidMount() {
-        window.addEventListener("mousedown", this.handleMouseDown);
-        window.addEventListener("mouseup", this.handleMouseUp);
-
         // Ideally, we would be able to pass an initial value directly into
         // the constructor
         this.mathField()?.latex(this.props.value);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("mousedown", this.handleMouseDown);
-        window.removeEventListener("mouseup", this.handleMouseUp);
     }
 
     // handlers:
@@ -87,56 +94,9 @@ class MathInput extends React.Component<Props, State> {
     // * this.mouseDown - whether a mouse click is active that started in the
     //   buttons div
 
-    handleFocus: () => void = () => {
-        this.setState({focused: true});
-        // TODO(joel) fix properly - we should probably allow onFocus handlers
-        // to this property, but we need to work correctly with them.
-        // if (this.props.onFocus) {
-        //     this.props.onFocus();
-        // }
-    };
+    openKeypad: () => void = () => this.setState({keypadOpen: true});
 
-    handleMouseDown: (arg1: MouseEvent) => void = (event) => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2345 - Argument of type 'EventTarget | null' is not assignable to parameter of type 'Node | null'.
-        const focused = ReactDOM.findDOMNode(this).contains(event.target);
-        this.mouseDown = focused;
-        if (!focused) {
-            this.setState({focused: false});
-        }
-    };
-
-    handleMouseUp: (arg1: MouseEvent) => void = () => {
-        // this mouse click started in the buttons div so we should focus the
-        // input
-        if (this.mouseDown) {
-            this.focus();
-        }
-        this.mouseDown = false;
-    };
-
-    handleBlur: (arg1: React.FocusEvent) => void = (e) => {
-        // TODO(michaelpolyak): Consider trapping focus within the button group.
-        // Focusing back on the input when TAB out of the last button in the
-        // group. This will probably require ESCAPE key handling to enable to
-        // close (blur) the button group in order to focus on next page element.
-        if (
-            !this.mouseDown &&
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
-            !ReactDOM.findDOMNode(this).contains(e.relatedTarget)
-        ) {
-            this.setState({focused: false});
-        }
-    };
-
-    _shouldShowButtons: () => boolean = () => {
-        if (this.props.buttonsVisible === "always") {
-            return true;
-        }
-        if (this.props.buttonsVisible === "never") {
-            return false;
-        }
-        return this.state.focused;
-    };
+    closeKeypad: () => void = () => this.setState({keypadOpen: false});
 
     insert: (value: any) => void = (value) => {
         const input = this.mathField();
@@ -206,6 +166,9 @@ class MathInput extends React.Component<Props, State> {
                             if (this.props.value !== value) {
                                 this.props.onChange(value);
                             }
+                            this.setState({
+                                cursorContext: getCursorContext(mathField),
+                            });
                         },
                         enter: () => {
                             // NOTE(kevinb): This isn't how answers to exercises are
@@ -244,6 +207,20 @@ class MathInput extends React.Component<Props, State> {
         this.setState({focused: false});
     };
 
+    handleKeypadPress: (key: Keys) => void = (key) => {
+        const translator = keyTranslator[key];
+        const mathField = this.mathField();
+
+        if (mathField) {
+            if (translator) {
+                translator(mathField, key);
+            }
+            this.setState({
+                cursorContext: getCursorContext(mathField),
+            });
+        }
+    };
+
     render(): React.ReactNode {
         let className = classNames({
             "perseus-math-input": true,
@@ -258,36 +235,137 @@ class MathInput extends React.Component<Props, State> {
             className = className + " " + this.props.className;
         }
 
-        let buttons = null;
-        if (this._shouldShowButtons()) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
-            buttons = (
-                <TexButtons
-                    sets={this.props.buttonSets}
-                    className="math-input-buttons absolute"
-                    convertDotToTimes={this.props.convertDotToTimes}
-                    onInsert={this.insert}
-                />
-            );
-        }
-
         return (
-            <div style={{display: "inline-block"}}>
-                <div style={{display: "inline-block"}}>
+            <View
+                style={[
+                    styles.outerWrapper,
+                    this.state.focused && styles.wrapperFocused,
+                    this.props.hasError && styles.wrapperError,
+                ]}
+            >
+                <div
+                    style={{
+                        display: "flex",
+                    }}
+                >
                     <span
                         className={className}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
                         aria-label={this.props.labelText}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
+                        onFocus={() => this.focus()}
+                        onBlur={() => this.blur()}
                     />
+                    <Popover
+                        opened={this.state.keypadOpen}
+                        onClose={() => this.closeKeypad()}
+                        dismissEnabled
+                        content={() => (
+                            <PopoverContentCore
+                                closeButtonVisible
+                                style={{
+                                    padding: 0,
+                                    paddingBottom: Spacing.xxSmall_6,
+                                    maxWidth: "initial",
+                                }}
+                            >
+                                <DesktopKeypad
+                                    sendEvent={async () => {}}
+                                    extraKeys={["x", "y", "PI", "THETA"]}
+                                    onClickKey={(key) =>
+                                        this.handleKeypadPress(key as any)
+                                    }
+                                    cursorContext={this.state.cursorContext}
+                                    multiplicationDot={
+                                        !this.props.convertDotToTimes
+                                    }
+                                    {...this.props.buttonSets}
+                                />
+                            </PopoverContentCore>
+                        )}
+                    >
+                        <Clickable
+                            aria-label={`${
+                                this.state.keypadOpen ? "close" : "open"
+                            } math keypad`}
+                            aria-checked={this.state.keypadOpen}
+                            // @ts-expect-error - TS2769 - No overload matches this call.
+                            role="switch"
+                            onClick={() =>
+                                this.state.keypadOpen
+                                    ? this.closeKeypad()
+                                    : this.openKeypad()
+                            }
+                        >
+                            {(props) => (
+                                <MathInputIcon
+                                    active={this.state.keypadOpen}
+                                    {...props}
+                                />
+                            )}
+                        </Clickable>
+                    </Popover>
                 </div>
-                <div style={{position: "relative"}} onBlur={this.handleBlur}>
-                    {buttons}
-                </div>
-            </div>
+            </View>
         );
     }
 }
+
+const MathInputIcon = ({hovered, focused, active}) => {
+    let color = Color.offBlack;
+    let boxShadow = "none";
+    if (hovered || focused || active) {
+        color = Color.blue;
+    }
+    if (active) {
+        boxShadow = `0 3px 1px -1px ${Color.blue}`;
+    }
+    return (
+        <View style={{...styles.iconContainer, boxShadow}}>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill={color}
+                viewBox="0 0 256 256"
+            >
+                <path d="M112,72a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16h64A8,8,0,0,1,112,72Zm-8,104H80V152a8,8,0,0,0-16,0v24H40a8,8,0,0,0,0,16H64v24a8,8,0,0,0,16,0V192h24a8,8,0,0,0,0-16Zm48,0h64a8,8,0,0,0,0-16H152a8,8,0,0,0,0,16Zm64,16H152a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm-61.66-90.34a8,8,0,0,0,11.32,0L184,83.31l18.34,18.35a8,8,0,0,0,11.32-11.32L195.31,72l18.35-18.34a8,8,0,0,0-11.32-11.32L184,60.69,165.66,42.34a8,8,0,0,0-11.32,11.32L172.69,72,154.34,90.34A8,8,0,0,0,154.34,101.66Z" />
+            </svg>
+        </View>
+    );
+};
+
+const inputFocused = {
+    borderWidth: 2,
+    borderColor: Color.blue,
+    margin: -1,
+};
+
+const styles = {
+    iconContainer: {
+        maxHeight: 24,
+        display: "flex",
+        margin: Spacing.xxxSmall_4,
+    },
+    spinner: {
+        top: -24,
+    },
+    outerWrapper: {
+        display: "inline-block",
+        borderStyle: "solid",
+        borderWidth: 1,
+        borderColor: Color.offBlack50,
+        borderRadius: 3,
+        background: Color.white,
+        ":hover": inputFocused,
+    },
+    wrapperFocused: inputFocused,
+    wrapperError: {
+        borderColor: Color.red,
+        background: fade(Color.red, 0.08),
+        ":hover": {
+            borderColor: Color.red,
+        },
+    },
+} as const;
 
 export default MathInput;

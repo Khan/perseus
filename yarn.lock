@@ -2725,6 +2725,13 @@
   dependencies:
     "@babel/runtime" "^7.18.6"
 
+"@khanacademy/wonder-blocks-core@^5.2.3":
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-core/-/wonder-blocks-core-5.2.3.tgz#9fb5c885f202b43f6bcc02fbb2874932369a13b8"
+  integrity sha512-spGN7W1sFMD5ZVOSbw2uvSHTgVavZbjeKUKQXNW4W1feIe9IjIoJMm81ZgkIEgL+K+Sugc7Jzls7Qqdhq43aFA==
+  dependencies:
+    "@babel/runtime" "^7.18.6"
+
 "@khanacademy/wonder-blocks-data@^11.0.8":
   version "11.0.8"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-data/-/wonder-blocks-data-11.0.8.tgz#82d12d2ba37a8277f44d9adbdb1e45d950b1b4ea"
@@ -2800,6 +2807,14 @@
   dependencies:
     "@babel/runtime" "^7.18.6"
     "@khanacademy/wonder-blocks-core" "^5.2.0"
+
+"@khanacademy/wonder-blocks-icon@^2.0.13":
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-icon/-/wonder-blocks-icon-2.0.13.tgz#2c78d2318fbd4b4494739417aff6e2abf2f951cc"
+  integrity sha512-6PTU8r7brf7ekwcOjLBBQ97N27AqWQSXUB+EwpIk9rCJTSyWF15q+e4fwOG8zXQlbYp6PDMZAel15poBbvW8wA==
+  dependencies:
+    "@babel/runtime" "^7.18.6"
+    "@khanacademy/wonder-blocks-core" "^5.2.3"
 
 "@khanacademy/wonder-blocks-icon@^2.0.8":
   version "2.0.8"

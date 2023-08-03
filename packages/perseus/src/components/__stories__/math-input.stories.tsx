@@ -13,7 +13,14 @@ export default {
 } as Story;
 
 const defaultObject = {
-    buttonSets: ["basic"],
+    buttonSets: {
+        advancedRelations: true,
+        basicRelations: true,
+        divisionKey: true,
+        logarithms: true,
+        preAlgebra: true,
+        trigonometry: true,
+    },
     onChange: () => {},
 } as const;
 
@@ -21,9 +28,6 @@ export const DefaultWithBasicButtonSet = (
     args: StoryArgs,
 ): React.ReactElement => {
     return <MathInput {...defaultObject} />;
-};
-export const AlwaysVisibleButtonSet = (args: StoryArgs): React.ReactElement => {
-    return <MathInput {...defaultObject} buttonsVisible="always" />;
 };
 export const DefaultWithAriaLabel = (args: StoryArgs): React.ReactElement => {
     return <MathInput {...defaultObject} labelText="Sample label" />;
