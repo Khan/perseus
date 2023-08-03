@@ -37,6 +37,7 @@ type Props = {
     onFocus?: () => void;
     onBlur?: () => void;
     hasError?: boolean;
+    extraKeys?: Array<Keys>;
 };
 
 type DefaultProps = {
@@ -270,7 +271,7 @@ class MathInput extends React.Component<Props, State> {
                             >
                                 <DesktopKeypad
                                     sendEvent={async () => {}}
-                                    extraKeys={["x", "y", "PI", "THETA"]}
+                                    extraKeys={this.props.extraKeys}
                                     onClickKey={(key) =>
                                         this.handleKeypadPress(key as any)
                                     }
