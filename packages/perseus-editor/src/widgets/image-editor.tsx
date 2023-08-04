@@ -97,18 +97,20 @@ const ImageEditor: any = createReactClass({
 
         const imageSettings = (
             <div className="image-settings">
-                <div>
-                    <label>
-                        <div>Preview:</div>
-                        <img
-                            alt="Editor preview of image"
-                            src={backgroundImage.url}
-                            style={{
-                                width: "100%",
-                            }}
-                        />
-                    </label>
-                </div>
+                {!Util.isLabeledSVG(backgroundImage.url) && (
+                    <div>
+                        <label>
+                            <div>Preview:</div>
+                            <img
+                                alt="Editor preview of image"
+                                src={backgroundImage.url}
+                                style={{
+                                    width: "100%",
+                                }}
+                            />
+                        </label>
+                    </div>
+                )}
                 <div>
                     <label>
                         <div>Dimensions:</div>
