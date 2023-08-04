@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 2.5.2
+
+### Patch Changes
+
+-   eeda31bd: Fix loading graphie URLs into the image editor
+
 ## 2.5.1
 
 ### Patch Changes
