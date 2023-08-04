@@ -852,7 +852,7 @@ async function getImageSizeModern(url: string): Promise<[number, number]> {
         image.onerror = reject;
 
         // Kick off the loading
-        image.src = url;
+        image.src = getRealImageUrl(url);
     });
 }
 
