@@ -32,3 +32,11 @@ export const DefaultWithBasicButtonSet = (
 export const DefaultWithAriaLabel = (args: StoryArgs): React.ReactElement => {
     return <MathInput {...defaultObject} labelText="Sample label" />;
 };
+
+export const KeypadOpenByDefault = (args: StoryArgs): React.ReactElement => {
+    return <MathInput {...defaultObject} buttonsVisible="always" />;
+};
+
+export const KeypadNeverVisible = (args: StoryArgs): React.ReactElement => {
+    return <MathInput {...defaultObject} buttonsVisible="never" />;
+};
