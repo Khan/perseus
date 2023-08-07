@@ -526,10 +526,10 @@ class PlotterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
-                {/* @ts-expect-error - TS2769 */}
                 <Plotter
                     {...props}
-                    starting={this.props[this.state.editing] as Array<number>}
+                    // @ts-expect-error - TS2769
+                    starting={this.props[this.state.editing]}
                     onChange={this.handlePlotterChange}
                 />
             </div>
