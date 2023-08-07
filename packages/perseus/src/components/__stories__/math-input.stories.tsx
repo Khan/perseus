@@ -13,7 +13,7 @@ export default {
 } as Story;
 
 const defaultObject = {
-    buttonSets: {
+    keypadButtonSets: {
         advancedRelations: true,
         basicRelations: true,
         divisionKey: true,

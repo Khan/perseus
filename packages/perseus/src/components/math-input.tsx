@@ -20,7 +20,19 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
-type ButtonSets = {
+type ButtonsVisibleType = "always" | "never" | "focused";
+
+export type LegacyButtonSetsType = ReadonlyArray<
+    | "basic"
+    | "basic+div"
+    | "trig"
+    | "prealgebra"
+    | "logarithms"
+    | "basic relations"
+    | "advanced relations"
+>;
+
+type KeypadButtonSets = {
     advancedRelations?: boolean;
     basicRelations?: boolean;
     divisionKey?: boolean;
@@ -34,12 +46,28 @@ type Props = {
     value: string;
     onChange: any;
     convertDotToTimes: boolean;
-    buttonSets: ButtonSets;
+    /**
+     * @deprecated Use `keypadButtonSets` instead. Maps to `keypadButtonSets`.
+     * @see keypadButtonSets
+     */
+    buttonSets?: LegacyButtonSetsType;
+    /**
+     * Overrides deprecated `buttonSets` prop.
+     */
+    keypadButtonSets?: KeypadButtonSets;
     labelText?: string;
     onFocus?: () => void;
     onBlur?: () => void;
     hasError?: boolean;
     extraKeys?: ReadonlyArray<Keys>;
+    /**
+     * Whether to show the keypad buttons.
+     * The strings now misleading, but we keep them for backwards compatibility.
+     * - `focused` means that the keypad **appears on toggle, *off* by default**.
+     * - `always` means that the keypad **appears on toggle, *on* by default.**
+     * - `never` means that the keypad is **never shown**.
+     */
+    buttonsVisible?: ButtonsVisibleType;
 };
 
 type DefaultProps = {
@@ -73,6 +101,7 @@ class MathInput extends React.Component<Props, State> {
     mouseDown: boolean;
     __mathFieldWrapperRef: HTMLSpanElement | null = null;
     __mathField: MathFieldInterface | null = null;
+    __keypadButtonSets: KeypadButtonSets = {};
 
     static defaultProps: DefaultProps = {
         value: "",
@@ -81,7 +110,7 @@ class MathInput extends React.Component<Props, State> {
 
     state: State = {
         focused: false,
-        keypadOpen: false,
+        keypadOpen: this.props.buttonsVisible === "always" ? true : false,
         cursorContext: CursorContext.NONE,
     };
 
@@ -89,8 +118,19 @@ class MathInput extends React.Component<Props, State> {
         // Ideally, we would be able to pass an initial value directly into
         // the constructor
         this.mathField()?.latex(this.props.value);
+        if (this.props.keypadButtonSets) {
+            this.__keypadButtonSets = this.props.keypadButtonSets;
+        } else if (this.props.buttonSets) {
+            this.__keypadButtonSets = mapButtonSets(this.props.buttonSets);
+        }
     }
-    openKeypad: () => void = () => this.setState({keypadOpen: true});
+
+    openKeypad: () => void = () => {
+        if (this.props.buttonsVisible === "never") {
+            return;
+        }
+        this.setState({keypadOpen: true});
+    };
 
     closeKeypad: () => void = () => this.setState({keypadOpen: false});
 
@@ -270,33 +310,41 @@ class MathInput extends React.Component<Props, State> {
                                     multiplicationDot={
                                         !this.props.convertDotToTimes
                                     }
-                                    {...this.props.buttonSets}
+                                    {...this.__keypadButtonSets}
                                 />
                             </PopoverContentCore>
                         )}
                     >
-                        <Clickable
-                            aria-label={
-                                this.state.keypadOpen
-                                    ? i18n._("close math keypad")
-                                    : i18n._("open math keypad")
-                            }
-                            aria-checked={this.state.keypadOpen}
-                            // @ts-expect-error - TS2769 - No overload matches this call.
-                            role="switch"
-                            onClick={() =>
-                                this.state.keypadOpen
-                                    ? this.closeKeypad()
-                                    : this.openKeypad()
-                            }
-                        >
-                            {(props) => (
-                                <MathInputIcon
-                                    active={this.state.keypadOpen}
-                                    {...props}
-                                />
-                            )}
-                        </Clickable>
+                        {this.props.buttonsVisible === "never" ? (
+                            <MathInputIcon
+                                hovered={false}
+                                focused={false}
+                                active={false}
+                            />
+                        ) : (
+                            <Clickable
+                                aria-label={
+                                    this.state.keypadOpen
+                                        ? i18n._("close math keypad")
+                                        : i18n._("open math keypad")
+                                }
+                                aria-checked={this.state.keypadOpen}
+                                // @ts-expect-error - TS2769 - No overload matches this call.
+                                role="switch"
+                                onClick={() =>
+                                    this.state.keypadOpen
+                                        ? this.closeKeypad()
+                                        : this.openKeypad()
+                                }
+                            >
+                                {(props) => (
+                                    <MathInputIcon
+                                        active={this.state.keypadOpen}
+                                        {...props}
+                                    />
+                                )}
+                            </Clickable>
+                        )}
                     </Popover>
                 </div>
             </View>
@@ -320,6 +368,36 @@ const MathInputIcon = ({hovered, focused, active}) => {
             </svg>
         </View>
     );
+};
+
+const mapButtonSets = (buttonSets: LegacyButtonSetsType) => {
+    const keypadButtonSets: KeypadButtonSets = {};
+    buttonSets.forEach((buttonSet) => {
+        switch (buttonSet) {
+            case "advanced relations":
+                keypadButtonSets.advancedRelations = true;
+                break;
+            case "basic relations":
+                keypadButtonSets.basicRelations = true;
+                break;
+            case "basic+div":
+                keypadButtonSets.divisionKey = true;
+                break;
+            case "logarithms":
+                keypadButtonSets.logarithms = true;
+                break;
+            case "prealgebra":
+                keypadButtonSets.preAlgebra = true;
+                break;
+            case "trig":
+                keypadButtonSets.trigonometry = true;
+                break;
+            case "basic":
+            default:
+                break;
+        }
+    });
+    return keypadButtonSets;
 };
 
 const inputFocused = {

@@ -28,7 +28,7 @@ describe("Perseus' MathInput", () => {
         render(
             <MathInput
                 onChange={() => {}}
-                buttonSets={allButtonSets}
+                keypadButtonSets={allButtonSets}
                 labelText="test"
             />,
         );
@@ -41,7 +41,10 @@ describe("Perseus' MathInput", () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
-            <MathInput onChange={mockOnChange} buttonSets={allButtonSets} />,
+            <MathInput
+                onChange={mockOnChange}
+                keypadButtonSets={allButtonSets}
+            />,
         );
 
         // Act
@@ -55,7 +58,10 @@ describe("Perseus' MathInput", () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
-            <MathInput onChange={mockOnChange} buttonSets={allButtonSets} />,
+            <MathInput
+                onChange={mockOnChange}
+                keypadButtonSets={allButtonSets}
+            />,
         );
 
         // Act
@@ -69,5 +75,25 @@ describe("Perseus' MathInput", () => {
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2-3");
+    });
+
+    it("is possible to use buttons with legacy props", () => {
+        // Assemble
+        const mockOnChange = jest.fn();
+        render(
+            <MathInput onChange={mockOnChange} buttonSets={["basic+div"]} />,
+        );
+
+        // Act
+        // focusing the input triggers the popover
+        screen.getByRole("switch").click();
+        userEvent.click(screen.getByRole("button", {name: "1"}));
+        userEvent.click(screen.getByRole("button", {name: "Plus"}));
+        userEvent.click(screen.getByRole("button", {name: "2"}));
+        userEvent.click(screen.getByRole("button", {name: "Divide"}));
+        userEvent.click(screen.getByRole("button", {name: "3"}));
+
+        // Assert
+        expect(mockOnChange).toHaveBeenLastCalledWith("1+2\\div3");
     });
 });

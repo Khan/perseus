@@ -68,14 +68,14 @@ class PointEditor extends React.Component<PointEditorProps> {
                 <div className="perseus-widget-row">
                     Coordinate: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.coordX}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.coordY}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
@@ -141,14 +141,14 @@ class LineEditor extends React.Component<LineEditorProps> {
                 <div className="perseus-widget-row">
                     Start: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.startX}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("startX")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.startY}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("startY")}
@@ -158,14 +158,14 @@ class LineEditor extends React.Component<LineEditorProps> {
                 <div className="perseus-widget-row">
                     End: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.endX}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("endX")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.endY}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("endY")}
@@ -254,13 +254,13 @@ class MovablePointEditor extends React.Component<MovablePointEditorProps> {
                 <div className="perseus-widget-row">
                     Start: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.startX}
                         onChange={this.change("startX")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.startY}
                         onChange={this.change("startY")}
                     />
@@ -332,13 +332,13 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
                 <div className="perseus-widget-row">
                     Start: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.startX}
                         onChange={this.change("startX")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.startY}
                         onChange={this.change("startY")}
                     />
@@ -347,13 +347,13 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
                 <div className="perseus-widget-row">
                     End: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.endX}
                         onChange={this.change("endX")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.endY}
                         onChange={this.change("endY")}
                     />
@@ -428,7 +428,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                 <div className="perseus-widget-row">
                     <TeX>{this.props.funcName + "(x)="}</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.value}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("value")}
@@ -437,14 +437,14 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
                 <div className="perseus-widget-row">
                     Range: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.rangeMin}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMin")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.rangeMax}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMax")}
@@ -526,7 +526,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                 <div className="perseus-widget-row">
                     <TeX>X(t) =</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.x}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("x")}
@@ -535,7 +535,7 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                 <div className="perseus-widget-row">
                     <TeX>Y(t) =</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.y}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("y")}
@@ -544,14 +544,14 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
                 <div className="perseus-widget-row">
                     Range: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.rangeMin}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMin")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.rangeMax}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMax")}
@@ -638,14 +638,14 @@ class LabelEditor extends React.Component<LabelEditorProps> {
                 <div className="perseus-widget-row">
                     Location: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.coordX}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.coordY}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
@@ -705,14 +705,14 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                 <div className="perseus-widget-row">
                     Bottom left: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.coordX}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.coordY}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
@@ -722,7 +722,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                 <div className="perseus-widget-row">
                     Width:{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.width}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("width")}
@@ -731,7 +731,7 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
                 <div className="perseus-widget-row">
                     Height:{" "}
                     <MathInput
-                        buttonSets={{}}
+                        buttonsVisible="never"
                         value={this.props.height}
                         // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("height")}

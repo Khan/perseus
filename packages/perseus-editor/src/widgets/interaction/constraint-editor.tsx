@@ -76,7 +76,7 @@ class ConstraintEditor extends React.Component<Props> {
                         <div className="perseus-widget-row">
                             <TeX>x=</TeX>{" "}
                             <MathInput
-                                buttonSets={{}}
+                                buttonsVisible="never"
                                 value={this.props.constraintFn}
                                 onChange={this.change("constraintFn")}
                             />
@@ -88,7 +88,7 @@ class ConstraintEditor extends React.Component<Props> {
                         <div className="perseus-widget-row">
                             <TeX>y=</TeX>{" "}
                             <MathInput
-                                buttonSets={{}}
+                                buttonsVisible="never"
                                 value={this.props.constraintFn}
                                 onChange={this.change("constraintFn")}
                             />
@@ -100,13 +100,13 @@ class ConstraintEditor extends React.Component<Props> {
                     <div className="perseus-widget-row">
                         <TeX>x \in \Large[</TeX>{" "}
                         <MathInput
-                            buttonSets={{}}
+                            buttonsVisible="never"
                             value={this.props.constraintXMin}
                             onChange={this.change("constraintXMin")}
                         />
                         <TeX>, </TeX>{" "}
                         <MathInput
-                            buttonSets={{}}
+                            buttonsVisible="never"
                             value={this.props.constraintXMax}
                             onChange={this.change("constraintXMax")}
                         />{" "}
@@ -117,13 +117,13 @@ class ConstraintEditor extends React.Component<Props> {
                     <div className="perseus-widget-row">
                         <TeX>y \in \Large[</TeX>{" "}
                         <MathInput
-                            buttonSets={{}}
+                            buttonsVisible="never"
                             value={this.props.constraintYMin}
                             onChange={this.change("constraintYMin")}
                         />
                         <TeX>, </TeX>{" "}
                         <MathInput
-                            buttonSets={{}}
+                            buttonsVisible="never"
                             value={this.props.constraintYMax}
                             onChange={this.change("constraintYMax")}
                         />{" "}
