@@ -6,7 +6,6 @@ import {
     PlotterWidget,
     Util,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -38,39 +37,57 @@ const editorDefaults = {
     snapsPerLine: 2,
 } as const;
 
-const widgetPropTypes = {
-    type: PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
-    labels: PropTypes.arrayOf(PropTypes.string),
-    categories: PropTypes.arrayOf(
-        PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    ),
+type EditingStates = "starting" | "correct";
 
-    scaleY: PropTypes.number,
-    maxY: PropTypes.number,
-    snapsPerLine: PropTypes.number,
+type Props = {
+    type: "bar" | "line" | "pic" | "histogram" | "dotplot";
+    labels: Array<string>;
+    categories: ReadonlyArray<string | number>;
+    scaleY: number;
+    maxY: number;
+    snapsPerLine: number;
+    picSize: number;
+    picBoxHeight: number;
+    picUrl: string;
+    plotDimensions: ReadonlyArray<number>;
+    labelInterval: number;
+    starting: Array<number>;
+    correct: ReadonlyArray<number>;
+    static: boolean;
+    onChange: any;
+};
 
-    picSize: PropTypes.number,
-    pixBoxHeight: PropTypes.number,
-    picUrl: PropTypes.string,
+type DefaultProps = {
+    scaleY: Props["scaleY"];
+    maxY: Props["maxY"];
+    snapsPerLine: Props["snapsPerLine"];
+    correct: Props["correct"];
+    starting: Props["starting"];
+    type: Props["type"];
+    labels: Props["labels"];
+    categories: Props["categories"];
+    picSize: Props["picSize"];
+    picBoxHeight: Props["picBoxHeight"];
+    plotDimensions: Props["plotDimensions"];
+    labelInterval: Props["labelInterval"];
+    picUrl: Props["picUrl"];
+};
 
-    plotDimensions: PropTypes.arrayOf(PropTypes.number),
-    labelInterval: PropTypes.number,
-    starting: PropTypes.arrayOf(PropTypes.number),
-    correct: PropTypes.arrayOf(PropTypes.number),
-    static: PropTypes.bool,
-    onChange: PropTypes.func,
-} as const;
+type State = {
+    editing: EditingStates;
+    pic: any;
+    loadedUrl: string | null;
+    minX: number | null;
+    maxX: number | null;
+    tickStep: number | null;
+};
 
 const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 
-type Props = any;
-type State = any;
-
 class PlotterEditor extends React.Component<Props, State> {
-    static propTypes = widgetPropTypes;
     static widgetName = "plotter" as const;
 
-    static defaultProps: Props = {
+    static defaultProps: DefaultProps = {
         ...editorDefaults,
         correct: [1],
         starting: [1],
@@ -84,6 +101,7 @@ class PlotterEditor extends React.Component<Props, State> {
         plotDimensions: [275, 200],
         labelInterval: 1,
 
+        // @ts-expect-error - TS2322
         get picUrl() {
             const staticUrl = Dependencies.getDependencies().staticUrl;
             if (staticUrl) {
@@ -332,7 +350,7 @@ class PlotterEditor extends React.Component<Props, State> {
                 )}
                 <div>
                     Editing values:{" "}
-                    {["correct", "starting"].map((editing) => (
+                    {["correct", "starting"].map((editing: EditingStates) => (
                         <label key={editing}>
                             <input
                                 type="radio"
@@ -363,9 +381,10 @@ class PlotterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
+                {/* @ts-expect-error - TS2769 */}
                 <Plotter
                     {...props}
-                    starting={this.props[this.state.editing]}
+                    starting={this.props[this.state.editing] as Array<number>}
                     onChange={this.handlePlotterChange}
                 />
             </div>
@@ -401,6 +420,7 @@ class PlotterEditor extends React.Component<Props, State> {
         let categories;
         if (type === HISTOGRAM) {
             // Switching to histogram, add a label (0) to the left
+            // @ts-expect-error - TS2769
             categories = [formatNumber(0)].concat(this.props.categories);
             this.props.onChange({type: type, categories: categories});
         } else if (this.props.type === HISTOGRAM) {
@@ -482,7 +502,7 @@ class PlotterEditor extends React.Component<Props, State> {
         });
     };
 
-    changeEditing: (arg1: string) => void = (editing) => {
+    changeEditing: (arg1: EditingStates) => void = (editing) => {
         this.setState({editing: editing});
     };
 

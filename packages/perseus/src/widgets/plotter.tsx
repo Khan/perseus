@@ -1,7 +1,6 @@
-/* eslint-disable @babel/no-invalid-this, @typescript-eslint/no-unused-vars, one-var, react/no-unsafe, react/sort-comp */
+/* eslint-disable react/no-unsafe */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -14,38 +13,56 @@ import KhanColors from "../util/colors";
 import GraphUtils from "../util/graph-utils";
 import KhanMath from "../util/math";
 
-import type {WidgetExports} from "../types";
+import type {APIOptions, WidgetExports} from "../types";
 
 const {deepEq} = Util;
 
-const BAR = "bar",
-    LINE = "line",
-    PIC = "pic",
-    HISTOGRAM = "histogram",
-    DOTPLOT = "dotplot";
+const BAR = "bar";
+const LINE = "line";
+const PIC = "pic";
+const HISTOGRAM = "histogram";
+const DOTPLOT = "dotplot";
 
-const widgetPropTypes = {
-    type: PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
-    labels: PropTypes.arrayOf(PropTypes.string),
-    categories: PropTypes.arrayOf(
-        PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    ),
+type Props = {
+    type: "bar" | "line" | "pic" | "histogram" | "dotplot";
+    labels: ReadonlyArray<string>;
+    categories: ReadonlyArray<string | number>;
+    scaleY: number;
+    maxY: number;
+    snapsPerLine: number;
+    picSize: number;
+    picBoxHeight: number;
+    picUrl: string;
+    plotDimensions: ReadonlyArray<number>;
+    labelInterval: number;
+    starting: Array<number>;
+    static: boolean;
+    markings: any;
+    onChange: any;
+    trackInteraction: () => void;
+    apiOptions: APIOptions;
+};
 
-    scaleY: PropTypes.number,
-    maxY: PropTypes.number,
-    snapsPerLine: PropTypes.number,
+type DefaultProps = {
+    type: Props["type"];
+    labels: Props["labels"];
+    categories: Props["categories"];
+    scaleY: Props["scaleY"];
+    maxY: Props["maxY"];
+    snapsPerLine: Props["snapsPerLine"];
+    picSize: Props["picSize"];
+    picBoxHeight: Props["picBoxHeight"];
+    picUrl: Props["picUrl"];
+    plotDimensions: Props["plotDimensions"];
+    labelInterval: Props["labelInterval"];
+};
 
-    picSize: PropTypes.number,
-    pixBoxHeight: PropTypes.number,
-    picUrl: PropTypes.string,
+type State = {
+    values: Array<number>;
+    categoryHeights: Record<string, number>;
+};
 
-    plotDimensions: PropTypes.arrayOf(PropTypes.number),
-    labelInterval: PropTypes.number,
-    starting: PropTypes.arrayOf(PropTypes.number),
-    static: PropTypes.bool,
-} as const;
-
-class Plotter extends React.Component<any, any> {
+class Plotter extends React.Component<Props, State> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldSetupGraphie: boolean;
     _isMounted = false;
@@ -53,14 +70,7 @@ class Plotter extends React.Component<any, any> {
     hairlineRange: any;
     graphie: any;
 
-    static propTypes = {
-        onChange: PropTypes.func.isRequired,
-        trackInteraction: PropTypes.func.isRequired,
-        // TODO(alex): Figure out why lint chokes on this line
-        // ...widgetPropTypes,
-    };
-
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         type: BAR,
         labels: ["", ""],
         categories: [""],
@@ -77,7 +87,7 @@ class Plotter extends React.Component<any, any> {
         labelInterval: 1,
     };
 
-    state: any = {
+    state: State = {
         values: this.props.starting || [1],
 
         // The measured rendered height of category strings. Used to calculate
@@ -86,57 +96,13 @@ class Plotter extends React.Component<any, any> {
         categoryHeights: {},
     };
 
-    DOT_PLOT_POINT_SIZE: () => number = () => {
-        return this.props.apiOptions.isMobile ? 6 : 4;
-    };
-
-    DOT_PLOT_POINT_PADDING: () => number = () => {
-        return 8;
-    };
-
-    DOT_TICK_POINT_SIZE: () => number = () => {
-        return 2;
-    };
-
-    render(): React.ReactNode {
-        // TODO(kevinb) actually compute the size of the graphie correctly and
-        // make it that size so we don't have to add extra padding.  The value
-        // was determined by eye-balling the layout.  :(
-        const paddingForBottomLabel = 75;
-        const style = {
-            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0,
-        } as const;
-
-        return (
-            <div
-                className={
-                    "perseus-widget-plotter graphie " +
-                    ApiClassNames.INTERACTIVE
-                }
-                // eslint-disable-next-line react/no-string-refs
-                ref="graphieDiv"
-                style={style}
-            />
-        );
-    }
-
-    componentDidUpdate(prevProps: any, prevState: any) {
-        this.shouldSetupGraphie =
-            this.shouldSetupGraphie ||
-            !_.isEqual(this.state.categoryHeights, prevState.categoryHeights);
-
-        if (this.shouldSetupGraphie) {
-            this.setupGraphie(prevState);
-        }
-    }
-
     componentDidMount() {
         this._isMounted = true;
 
         this.setupGraphie(this.state);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: any) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         const props = [
             "type",
             "labels",
@@ -151,10 +117,7 @@ class Plotter extends React.Component<any, any> {
 
         this.shouldSetupGraphie = _.any(
             props,
-            function (prop) {
-                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                return !_.isEqual(this.props[prop], nextProps[prop]);
-            },
+            (prop) => !_.isEqual(this.props[prop], nextProps[prop]),
             this,
         );
 
@@ -167,9 +130,31 @@ class Plotter extends React.Component<any, any> {
         }
     }
 
+    componentDidUpdate(prevProps: Props, prevState: State) {
+        this.shouldSetupGraphie =
+            this.shouldSetupGraphie ||
+            !_.isEqual(this.state.categoryHeights, prevState.categoryHeights);
+
+        if (this.shouldSetupGraphie) {
+            this.setupGraphie(prevState);
+        }
+    }
+
     componentWillUnmount() {
         this._isMounted = false;
     }
+
+    DOT_PLOT_POINT_SIZE: () => number = () => {
+        return this.props.apiOptions.isMobile ? 6 : 4;
+    };
+
+    DOT_PLOT_POINT_PADDING: () => number = () => {
+        return 8;
+    };
+
+    DOT_TICK_POINT_SIZE: () => number = () => {
+        return 2;
+    };
 
     setupGraphie: (arg1: any) => void = (prevState) => {
         const self = this;
@@ -186,11 +171,11 @@ class Plotter extends React.Component<any, any> {
         self.graphie.pics = [];
         self.graphie.dotTicks = [];
 
-        const isBar = self.props.type === BAR,
-            isLine = self.props.type === LINE,
-            isPic = self.props.type === PIC,
-            isHistogram = self.props.type === HISTOGRAM,
-            isDotplot = self.props.type === DOTPLOT;
+        const isBar = self.props.type === BAR;
+        const isLine = self.props.type === LINE;
+        const isPic = self.props.type === PIC;
+        const isHistogram = self.props.type === HISTOGRAM;
+        const isDotplot = self.props.type === DOTPLOT;
 
         const isTiledPlot = isPic || isDotplot;
 
@@ -264,7 +249,6 @@ class Plotter extends React.Component<any, any> {
         if (isMobile && (isBar || isTiledPlot)) {
             const maxCategoryHeight = Math.max(
                 0,
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'number'.
                 ...Object.values(self.state.categoryHeights),
             );
 
@@ -721,8 +705,8 @@ class Plotter extends React.Component<any, any> {
 
             if (isHistogram) {
                 // Scale dividers between buckets
-                const leftDivider = config.graph.dividers[i - 1],
-                    rightDivider = config.graph.dividers[i];
+                const leftDivider = config.graph.dividers[i - 1];
+                const rightDivider = config.graph.dividers[i];
 
                 if (leftDivider) {
                     const divHeight = Math.min(
@@ -1173,6 +1157,28 @@ class Plotter extends React.Component<any, any> {
         // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Plotter'.
         return Plotter.validate(this.getUserInput(), rubric);
     };
+
+    render(): React.ReactNode {
+        // TODO(kevinb) actually compute the size of the graphie correctly and
+        // make it that size so we don't have to add extra padding.  The value
+        // was determined by eye-balling the layout.  :(
+        const paddingForBottomLabel = 75;
+        const style = {
+            marginBottom: this.props.labels[0] ? paddingForBottomLabel : 0,
+        } as const;
+
+        return (
+            <div
+                className={
+                    "perseus-widget-plotter graphie " +
+                    ApiClassNames.INTERACTIVE
+                }
+                // eslint-disable-next-line react/no-string-refs
+                ref="graphieDiv"
+                style={style}
+            />
+        );
+    }
 }
 
 _.extend(Plotter, {
