@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, one-var, react/no-unsafe, react/sort-comp */
+/* eslint-disable react/no-unsafe */
 import {number as knumber} from "@khanacademy/kmath";
 import {
     components,
@@ -15,11 +15,11 @@ import BlurInput from "../components/blur-input";
 const {InfoTip, NumberInput, RangeInput, TextListEditor} = components;
 const Plotter = PlotterWidget.widget;
 
-const BAR = "bar",
-    LINE = "line",
-    PIC = "pic",
-    HISTOGRAM = "histogram",
-    DOTPLOT = "dotplot";
+const BAR = "bar";
+const LINE = "line";
+const PIC = "pic";
+const HISTOGRAM = "histogram";
+const DOTPLOT = "dotplot";
 
 // Return a copy of array with length n, padded with given value
 function padArray(array: any, n, value: any) {
@@ -149,6 +149,169 @@ class PlotterEditor extends React.Component<Props, State> {
         }
     };
 
+    handleChangeTickStep: (arg1: number) => void = (value) => {
+        this.setState({
+            tickStep: value,
+        });
+    };
+
+    handleChangeRange: (arg1: [number, number]) => void = (newValue) => {
+        this.setState({
+            minX: newValue[0],
+            maxX: newValue[1],
+        });
+    };
+
+    changeLabelInterval: (arg1: number) => void = (value) => {
+        this.props.onChange({
+            labelInterval: value,
+        });
+    };
+
+    handlePlotterChange: (arg1: any) => void = (newProps) => {
+        const props: Record<string, any> = {};
+        props[this.state.editing] = newProps.values;
+        this.props.onChange(props);
+    };
+
+    changeType: (arg1: any) => void = (type) => {
+        let categories;
+        if (type === HISTOGRAM) {
+            // Switching to histogram, add a label (0) to the left
+            // @ts-expect-error - TS2769
+            categories = [formatNumber(0)].concat(this.props.categories);
+            this.props.onChange({type: type, categories: categories});
+        } else if (this.props.type === HISTOGRAM) {
+            // Switching from histogram, remove a label from the left
+            categories = this.props.categories.slice(1);
+            this.props.onChange({type: type, categories: categories});
+        } else {
+            this.props.onChange({type: type});
+        }
+
+        if (categories) {
+            // eslint-disable-next-line react/no-string-refs
+            const node = ReactDOM.findDOMNode(this.refs.categories);
+            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+            node.value = categories.join(", ");
+        }
+    };
+
+    changeLabel: (arg1: number, arg2: any) => void = (i, e) => {
+        const labels = _.clone(this.props.labels);
+        labels[i] = e.target.value;
+        this.props.onChange({labels: labels});
+    };
+
+    changePicUrl: (arg1: string) => void = (value) => {
+        // We don't need the labels and other data in the plotter, so just
+        // extract the raw image and use that.
+        // TODO(emily): Maybe indicate that such a change has happened?
+        const url = Util.getRealImageUrl(value);
+
+        this.props.onChange({picUrl: url});
+    };
+
+    changeCategories: (arg1: any) => void = (categories) => {
+        let n = categories.length;
+        if (this.props.type === HISTOGRAM) {
+            // Histograms with n labels/categories have n - 1 buckets
+            n--;
+        }
+        const value = this.props.scaleY;
+
+        this.props.onChange({
+            categories: categories,
+            correct: padArray(this.props.correct, n, value),
+            starting: padArray(this.props.starting, n, value),
+        });
+    };
+
+    changeScale: (arg1: any) => void = (e) => {
+        const oldScale = this.props.scaleY;
+        const newScale = +e.target.value || editorDefaults.scaleY;
+
+        const scale = function (value: any) {
+            return (value * newScale) / oldScale;
+        };
+
+        const maxY = scale(this.props.maxY);
+
+        this.props.onChange({
+            scaleY: newScale,
+            maxY: maxY,
+            correct: _.map(this.props.correct, scale),
+            starting: _.map(this.props.starting, scale),
+        });
+
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+        ReactDOM.findDOMNode(this.refs.maxY).value = maxY; // eslint-disable-line react/no-string-refs
+    };
+
+    changeMax: (arg1: any) => void = (e) => {
+        this.props.onChange({
+            maxY: +e.target.value || editorDefaults.maxY,
+        });
+    };
+
+    changeSnaps: (arg1: any) => void = (e) => {
+        this.props.onChange({
+            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
+        });
+    };
+
+    changeEditing: (arg1: EditingStates) => void = (editing) => {
+        this.setState({editing: editing});
+    };
+
+    setCategoriesFromScale: () => void = () => {
+        const scale = this.state.tickStep || 1;
+        const min = this.state.minX || 0;
+        const max = this.state.maxX || 0;
+        const length = Math.floor((max - min) / scale) * scale;
+
+        let categories;
+        if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
+            // Ranges for histogram and dotplot labels should start at zero
+            categories = _.range(0, length + scale, scale);
+        } else {
+            categories = _.range(scale, length + scale, scale);
+        }
+
+        categories = _.map(categories, (num) => num + min);
+        categories = _.map(categories, formatNumber);
+
+        this.changeCategories(categories);
+
+        // eslint-disable-next-line react/no-string-refs
+        const node = ReactDOM.findDOMNode(this.refs.categories);
+
+        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+        node.value = categories.join(", ");
+    };
+
+    serialize: () => any = () => {
+        const json = _.pick(
+            this.props,
+            "correct",
+            "starting",
+            "type",
+            "labels",
+            "categories",
+            "scaleY",
+            "maxY",
+            "snapsPerLine",
+            "labelInterval",
+        );
+
+        if (this.props.type === PIC) {
+            // @ts-expect-error [FEI-5003] - TS2339 - Property 'picUrl' does not exist on type 'Pick<Readonly<any> & Readonly<{ children?: ReactNode; }>, "type" | "correct" | "labels" | "categories" | "starting" | "scaleY" | "maxY" | "snapsPerLine" | "labelInterval">'.
+            json.picUrl = this.props.picUrl;
+        }
+
+        return json;
+    };
+
     render(): React.ReactNode {
         const setFromScale = _.contains(
             [LINE, HISTOGRAM, DOTPLOT],
@@ -164,52 +327,34 @@ class PlotterEditor extends React.Component<Props, State> {
             <div className="perseus-widget-plotter-editor">
                 <div>
                     Chart type:{" "}
-                    {_.map(
-                        [BAR, LINE, PIC, HISTOGRAM, DOTPLOT],
-                        function (type) {
-                            return (
-                                <label key={type}>
-                                    <input
-                                        type="radio"
-                                        name="chart-type"
-                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        checked={this.props.type === type}
-                                        onChange={_.partial(
-                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.changeType,
-                                            type,
-                                        )}
-                                    />
-                                    {type}
-                                </label>
-                            );
-                        },
-                        this,
-                    )}
+                    {[BAR, LINE, PIC, HISTOGRAM, DOTPLOT].map((type) => {
+                        return (
+                            <label key={type}>
+                                <input
+                                    type="radio"
+                                    name="chart-type"
+                                    checked={this.props.type === type}
+                                    onChange={_.partial(this.changeType, type)}
+                                />
+                                {type}
+                            </label>
+                        );
+                    }, this)}
                 </div>
                 <div>
                     Labels:{" "}
-                    {_.map(
-                        ["x", "y"],
-                        function (axis, i) {
-                            return (
-                                <label key={axis}>
-                                    {axis + ":"}
-                                    <input
-                                        type="text"
-                                        onChange={_.partial(
-                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                            this.changeLabel,
-                                            i,
-                                        )}
-                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                        defaultValue={this.props.labels[i]}
-                                    />
-                                </label>
-                            );
-                        },
-                        this,
-                    )}
+                    {["x", "y"].map((axis, i) => {
+                        return (
+                            <label key={axis}>
+                                {axis + ":"}
+                                <input
+                                    type="text"
+                                    onChange={_.partial(this.changeLabel, i)}
+                                    defaultValue={this.props.labels[i]}
+                                />
+                            </label>
+                        );
+                    }, this)}
                 </div>
 
                 {setFromScale && (
@@ -390,169 +535,6 @@ class PlotterEditor extends React.Component<Props, State> {
             </div>
         );
     }
-
-    handleChangeTickStep: (arg1: number) => void = (value) => {
-        this.setState({
-            tickStep: value,
-        });
-    };
-
-    handleChangeRange: (arg1: [number, number]) => void = (newValue) => {
-        this.setState({
-            minX: newValue[0],
-            maxX: newValue[1],
-        });
-    };
-
-    changeLabelInterval: (arg1: number) => void = (value) => {
-        this.props.onChange({
-            labelInterval: value,
-        });
-    };
-
-    handlePlotterChange: (arg1: any) => void = (newProps) => {
-        const props: Record<string, any> = {};
-        props[this.state.editing] = newProps.values;
-        this.props.onChange(props);
-    };
-
-    changeType: (arg1: any) => void = (type) => {
-        let categories;
-        if (type === HISTOGRAM) {
-            // Switching to histogram, add a label (0) to the left
-            // @ts-expect-error - TS2769
-            categories = [formatNumber(0)].concat(this.props.categories);
-            this.props.onChange({type: type, categories: categories});
-        } else if (this.props.type === HISTOGRAM) {
-            // Switching from histogram, remove a label from the left
-            categories = this.props.categories.slice(1);
-            this.props.onChange({type: type, categories: categories});
-        } else {
-            this.props.onChange({type: type});
-        }
-
-        if (categories) {
-            // eslint-disable-next-line react/no-string-refs
-            const node = ReactDOM.findDOMNode(this.refs.categories);
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-            node.value = categories.join(", ");
-        }
-    };
-
-    changeLabel: (arg1: number, arg2: any) => void = (i, e) => {
-        const labels = _.clone(this.props.labels);
-        labels[i] = e.target.value;
-        this.props.onChange({labels: labels});
-    };
-
-    changePicUrl: (arg1: string) => void = (value) => {
-        // We don't need the labels and other data in the plotter, so just
-        // extract the raw image and use that.
-        // TODO(emily): Maybe indicate that such a change has happened?
-        const url = Util.getRealImageUrl(value);
-
-        this.props.onChange({picUrl: url});
-    };
-
-    changeCategories: (arg1: any) => void = (categories) => {
-        let n = categories.length;
-        if (this.props.type === HISTOGRAM) {
-            // Histograms with n labels/categories have n - 1 buckets
-            n--;
-        }
-        const value = this.props.scaleY;
-
-        this.props.onChange({
-            categories: categories,
-            correct: padArray(this.props.correct, n, value),
-            starting: padArray(this.props.starting, n, value),
-        });
-    };
-
-    changeScale: (arg1: any) => void = (e) => {
-        const oldScale = this.props.scaleY;
-        const newScale = +e.target.value || editorDefaults.scaleY;
-
-        const scale = function (value: any) {
-            return (value * newScale) / oldScale;
-        };
-
-        const maxY = scale(this.props.maxY);
-
-        this.props.onChange({
-            scaleY: newScale,
-            maxY: maxY,
-            correct: _.map(this.props.correct, scale),
-            starting: _.map(this.props.starting, scale),
-        });
-
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.maxY).value = maxY; // eslint-disable-line react/no-string-refs
-    };
-
-    changeMax: (arg1: any) => void = (e) => {
-        this.props.onChange({
-            maxY: +e.target.value || editorDefaults.maxY,
-        });
-    };
-
-    changeSnaps: (arg1: any) => void = (e) => {
-        this.props.onChange({
-            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
-        });
-    };
-
-    changeEditing: (arg1: EditingStates) => void = (editing) => {
-        this.setState({editing: editing});
-    };
-
-    setCategoriesFromScale: () => void = () => {
-        const scale = this.state.tickStep || 1;
-        const min = this.state.minX || 0;
-        const max = this.state.maxX || 0;
-        const length = Math.floor((max - min) / scale) * scale;
-
-        let categories;
-        if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
-            // Ranges for histogram and dotplot labels should start at zero
-            categories = _.range(0, length + scale, scale);
-        } else {
-            categories = _.range(scale, length + scale, scale);
-        }
-
-        categories = _.map(categories, (num) => num + min);
-        categories = _.map(categories, formatNumber);
-
-        this.changeCategories(categories);
-
-        // eslint-disable-next-line react/no-string-refs
-        const node = ReactDOM.findDOMNode(this.refs.categories);
-
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        node.value = categories.join(", ");
-    };
-
-    serialize: () => any = () => {
-        const json = _.pick(
-            this.props,
-            "correct",
-            "starting",
-            "type",
-            "labels",
-            "categories",
-            "scaleY",
-            "maxY",
-            "snapsPerLine",
-            "labelInterval",
-        );
-
-        if (this.props.type === PIC) {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'picUrl' does not exist on type 'Pick<Readonly<any> & Readonly<{ children?: ReactNode; }>, "type" | "correct" | "labels" | "categories" | "starting" | "scaleY" | "maxY" | "snapsPerLine" | "labelInterval">'.
-            json.picUrl = this.props.picUrl;
-        }
-
-        return json;
-    };
 }
 
 export default PlotterEditor;
