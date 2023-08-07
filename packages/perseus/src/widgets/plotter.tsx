@@ -35,6 +35,7 @@ type Props = {
     picUrl: string;
     plotDimensions: ReadonlyArray<number>;
     labelInterval: number;
+
     starting: Array<number>;
     static: boolean;
     markings: any;
@@ -62,7 +63,7 @@ type State = {
     categoryHeights: Record<string, number>;
 };
 
-class Plotter extends React.Component<Props, State> {
+export class Plotter extends React.Component<Props, State> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldSetupGraphie: boolean;
     _isMounted = false;
@@ -324,7 +325,7 @@ class Plotter extends React.Component<Props, State> {
             }
         }
 
-        if ((isBar || isLine) && isMobile) {
+        if ((isBar || isLine) && isMobile && !this.props.static) {
             self.graphie.dragPrompt = graphie
                 .label(
                     [c.dimX / 2, c.dimY / 2],
