@@ -1,6 +1,4 @@
-// TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
-import {describe, beforeEach, it} from "@jest/globals";
-import "@testing-library/jest-dom"; // Imports custom mathers
+import "@testing-library/jest-dom";
 import {screen, render} from "@testing-library/react";
 import React from "react";
 
