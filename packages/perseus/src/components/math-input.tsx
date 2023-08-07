@@ -22,16 +22,6 @@ import _ from "underscore";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
-export type LegacyButtonSetsType = ReadonlyArray<
-    | "basic"
-    | "basic+div"
-    | "trig"
-    | "prealgebra"
-    | "logarithms"
-    | "basic relations"
-    | "advanced relations"
->;
-
 type KeypadButtonSets = {
     advancedRelations?: boolean;
     basicRelations?: boolean;
@@ -50,7 +40,7 @@ type Props = {
      * @deprecated Use `keypadButtonSets` instead. Maps to `keypadButtonSets`.
      * @see keypadButtonSets
      */
-    buttonSets?: LegacyButtonSetsType;
+    buttonSets?: LegacyButtonSets;
     /**
      * Overrides deprecated `buttonSets` prop.
      */
@@ -370,7 +360,17 @@ const MathInputIcon = ({hovered, focused, active}) => {
     );
 };
 
-const mapButtonSets = (buttonSets: LegacyButtonSetsType) => {
+export type LegacyButtonSets = ReadonlyArray<
+    | "basic"
+    | "basic+div"
+    | "trig"
+    | "prealgebra"
+    | "logarithms"
+    | "basic relations"
+    | "advanced relations"
+>;
+
+const mapButtonSets = (buttonSets: LegacyButtonSets) => {
     const keypadButtonSets: KeypadButtonSets = {};
     buttonSets.forEach((buttonSet) => {
         switch (buttonSet) {
