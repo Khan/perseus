@@ -11,8 +11,10 @@ import {
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color, {fade} from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
@@ -88,13 +90,6 @@ class MathInput extends React.Component<Props, State> {
         // the constructor
         this.mathField()?.latex(this.props.value);
     }
-
-    // handlers:
-    // keep track of two related bits of state:
-    // * this.state.focused - whether the buttons are currently shown
-    // * this.mouseDown - whether a mouse click is active that started in the
-    //   buttons div
-
     openKeypad: () => void = () => this.setState({keypadOpen: true});
 
     closeKeypad: () => void = () => this.setState({keypadOpen: false});
@@ -263,11 +258,7 @@ class MathInput extends React.Component<Props, State> {
                         content={() => (
                             <PopoverContentCore
                                 closeButtonVisible
-                                style={{
-                                    padding: 0,
-                                    paddingBottom: Spacing.xxSmall_6,
-                                    maxWidth: "initial",
-                                }}
+                                style={styles.popoverContent}
                             >
                                 <DesktopKeypad
                                     sendEvent={async () => {}}
@@ -285,9 +276,11 @@ class MathInput extends React.Component<Props, State> {
                         )}
                     >
                         <Clickable
-                            aria-label={`${
-                                this.state.keypadOpen ? "close" : "open"
-                            } math keypad`}
+                            aria-label={
+                                this.state.keypadOpen
+                                    ? i18n._("close math keypad")
+                                    : i18n._("open math keypad")
+                            }
                             aria-checked={this.state.keypadOpen}
                             // @ts-expect-error - TS2769 - No overload matches this call.
                             role="switch"
@@ -312,14 +305,8 @@ class MathInput extends React.Component<Props, State> {
 }
 
 const MathInputIcon = ({hovered, focused, active}) => {
-    let color = Color.offBlack;
-    let boxShadow = "none";
-    if (hovered || focused || active) {
-        color = Color.blue;
-    }
-    if (active) {
-        boxShadow = `0 3px 1px -1px ${Color.blue}`;
-    }
+    const color = hovered || focused || active ? Color.blue : Color.offBlack;
+    const boxShadow = active ? `0 3px 1px -1px ${Color.blue}` : "none";
     return (
         <View style={{...styles.iconContainer, boxShadow}}>
             <svg
@@ -341,14 +328,11 @@ const inputFocused = {
     margin: -1,
 };
 
-const styles = {
+const styles = StyleSheet.create({
     iconContainer: {
         maxHeight: 24,
         display: "flex",
         margin: Spacing.xxxSmall_4,
-    },
-    spinner: {
-        top: -24,
     },
     outerWrapper: {
         display: "inline-block",
@@ -367,6 +351,11 @@ const styles = {
             borderColor: Color.red,
         },
     },
-} as const;
+    popoverContent: {
+        padding: 0,
+        paddingBottom: Spacing.xxSmall_6,
+        maxWidth: "initial",
+    },
+});
 
 export default MathInput;
