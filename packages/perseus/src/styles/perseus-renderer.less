@@ -23,7 +23,7 @@
 // often, allowing selection makes for an awkward mobile experience
 // where you constantly highlight elements unintentionally.
 .no-select {
-    -webkit-user-select: none;
+	-webkit-user-select: none;
     user-select: none;
 }
 
@@ -34,7 +34,7 @@
 // counterintuitive, so we simply don't let you see anything you draw under
 // a widget.
 .blank-background {
-    background-color: #fdfdfd; // Keep in sync with KhanUtil._BACKGROUND
+    background-color: #FDFDFD;  // Keep in sync with KhanUtil._BACKGROUND
 }
 // There is no scratchpad in the answer_area, and it has a different color
 // background, so just make it transparent
@@ -74,7 +74,8 @@
 #answercontent input[type=number],
 .framework-perseus input[type=text],
 .framework-perseus input[type=number] {
-    &.perseus-input-size-normal {
+    &.perseus-input-size-normal
+    {
         border: 1px solid #ccc;
         width: 80px;
     }
@@ -97,8 +98,7 @@
 
 .framework-perseus {
     #problemarea {
-        input,
-        button {
+        input, button {
             .perseus-interactive;
         }
     }
@@ -111,20 +111,20 @@
         margin: 22px 0px;
     }
 
-    // HACK(yejia): Override the font size and line height for blurbs
-    //
-    // NOTE(yejia): Minion Pro is only loaded on GTP pages, because those
-    //     are the main call sites for blurbs and the passage widget. We
-    //     considered inserting the relevant stylesheet whenever the passage
-    //     widget loads, but this approach produced a "flash of unstyled
-    //     text", so we decided to embed the stylesheet into the relevant
-    //     page templates instead.
-    //
-    // NOTE(yejia): Minion Pro will not be available on ZNDs, due to
-    //     restrictions in our Adobe TypeKit configuration.
-    //
-    // TODO(TP-3315): Remove once Perseus uses Wonder Blocks BodySerif
-    .test-prep-blurb div.paragraph {
+        // HACK(yejia): Override the font size and line height for blurbs
+        //
+        // NOTE(yejia): Minion Pro is only loaded on GTP pages, because those
+        //     are the main call sites for blurbs and the passage widget. We
+        //     considered inserting the relevant stylesheet whenever the passage
+        //     widget loads, but this approach produced a "flash of unstyled
+        //     text", so we decided to embed the stylesheet into the relevant
+        //     page templates instead.
+        //
+        // NOTE(yejia): Minion Pro will not be available on ZNDs, due to
+        //     restrictions in our Adobe TypeKit configuration.
+        //
+        // TODO(TP-3315): Remove once Perseus uses Wonder Blocks BodySerif
+        .test-prep-blurb div.paragraph {
         font-size: 16px;
         line-height: 20px;
     }
@@ -140,7 +140,7 @@
 
     .perseus-renderer > .paragraph > ul:not(.perseus-widget-radio),
     .perseus-renderer > .paragraph > ol {
-        margin: -11px 0px 22px 0px; // first-level lists need padding
+        margin: -11px 0px 22px 0px;  // first-level lists need padding
     }
 
     .paragraph ul:not(.perseus-widget-radio) {
@@ -159,7 +159,7 @@
     }
 
     .zoomable {
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
         -webkit-touch-callout: none;
     }
 
@@ -257,14 +257,11 @@
         position: relative;
     }
 
-    .graph-settings,
-    .image-settings,
-    .misc-settings {
+    .graph-settings, .image-settings, .misc-settings {
         padding-bottom: 5px;
     }
 
-    .misc-settings,
-    .type-settings {
+    .misc-settings, .type-settings {
         border-top: 1px solid black;
         padding-top: 5px;
     }
@@ -273,8 +270,7 @@
         display: inline-block;
     }
 
-    .unresponsive-svg-image,
-    .perseus-rendered-radio .unresponsive-svg-image {
+    .unresponsive-svg-image, .perseus-rendered-radio .unresponsive-svg-image {
         display: inline-block;
         position: relative;
 
@@ -309,16 +305,15 @@
     table {
         .legacy-typography;
 
-        th,
-        td {
+        th, td {
             padding: 5px 10px;
             text-align: left;
 
-            &[align="center"] {
+            &[align=center] {
                 text-align: center;
             }
 
-            &[align="right"] {
+            &[align=right] {
                 text-align: right;
             }
         }
@@ -360,8 +355,7 @@
             }
         }
 
-        th,
-        td {
+        th, td {
             border-width: 0;
         }
     }
@@ -393,11 +387,11 @@
             padding: 16px;
             text-align: left;
 
-            &[align="center"] {
+            &[align=center] {
                 text-align: center;
             }
 
-            &[align="right"] {
+            &[align=right] {
                 text-align: right;
             }
         }
@@ -475,7 +469,7 @@
 
     &.widget-highlight {
         @highlight: 0px 0px 0px 2px rgba(255, 165, 0, 1);
-        box-shadow: @highlight;
+        box-shadow:         @highlight;
         transition: all 0.15s;
     }
 
@@ -487,6 +481,7 @@
         display: inline-block;
     }
 }
+
 
 // Hide new hints styling everywhere except Bibliotron. Note that the Bibliotron
 // styles are used both in webapp and in the mobile native apps.
@@ -567,9 +562,7 @@
 }
 
 @media (max-width: @pure-sm-max) {
-    .bibliotron-exercise
-        .perseus-hint-renderer.last-rendered
-        .perseus-hint-label {
+    .bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
         display: none;
     }
 }
@@ -594,8 +587,8 @@
     }
 }
 
-.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,0.25)) {
-    box-shadow: @shadow;
+.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
+          box-shadow: @shadow;
 }
 
 .perseus-math-input.mq-editable-field.mq-math-mode {
@@ -651,9 +644,7 @@
 }
 
 // override normal 5px border radius for the editor only
-.perseus-widget-editor
-    .perseus-math-input.mq-editable-field.mq-math-mode
-    > .mq-root-block {
+.perseus-widget-editor .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
     border-radius: 0;
 }
 
@@ -667,7 +658,7 @@
     margin-top: 5px;
     padding: 2px;
     // each button is 35 + 4 px, plus 4 padding, plus 2 border
-    width: 39px * 5 + 4px + 2px; // (201)
+    width: 39px*5 + 4px + 2px; // (201)
 
     &.absolute {
         left: -2px;
@@ -675,7 +666,7 @@
         top: -3px;
         z-index: @zIndexCalculator;
     }
-}
+};
 
 // Math domain color
 @borderColor: #1c758a;
