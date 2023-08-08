@@ -9,32 +9,34 @@ const svgLocalLabelsRegex = /^file\+graphie:/;
 // Sometimes other components want to download the actual image e.g. to
 // determine its size. Here, we transform an .svg-labels url into the
 // correct image url, and leave normal image urls alone
-export function getRealImageUrl(url: string): string {
-    if (isLabeledSVG(url)) {
-        return getSvgUrl(url);
+export function getRealImageUrl(graphieUrl: string): string {
+    if (isLabeledSVG(graphieUrl)) {
+        return getSvgUrl(graphieUrl);
     }
-    return url;
+    return graphieUrl;
 }
 
-export function isLabeledSVG(url: string): boolean {
-    return svgLabelsRegex.test(url) || svgLocalLabelsRegex.test(url);
+export function isLabeledSVG(graphieUrl: string): boolean {
+    return (
+        svgLabelsRegex.test(graphieUrl) || svgLocalLabelsRegex.test(graphieUrl)
+    );
 }
 
 // For each svg+labels, there are two urls we need to download from. This gets
 // the base url without the suffix, and `getSvgUrl` and `getDataUrl` apply
 // appropriate suffixes to get the image and other data
-export function getBaseUrl(url: string): string {
-    return url
+export function getBaseUrl(graphieUrl: string): string {
+    return graphieUrl
         .replace(svgLabelsRegex, "https:")
         .replace(svgLocalLabelsRegex, "file:");
 }
 
-export function getSvgUrl(url: string): string {
-    return getBaseUrl(url) + ".svg";
+export function getSvgUrl(graphieUrl: string): string {
+    return getBaseUrl(graphieUrl) + ".svg";
 }
 
-export function getDataUrl(url: string): string {
-    return getBaseUrl(url) + "-data.json";
+export function getDataUrl(graphieUrl: string): string {
+    return getBaseUrl(graphieUrl) + "-data.json";
 }
 
 export async function getImageSizeModern(
