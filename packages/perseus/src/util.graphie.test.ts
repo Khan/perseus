@@ -19,7 +19,7 @@ describe(".getRealImageUrl", () => {
 });
 
 describe(".isLabeledSVG", () => {
-    it("returns true for file+graphie", () => {
+    it("returns true for web+graphie", () => {
         expect(
             isLabeledSVG(
                 "web+graphie://ka-perseus-graphie.s3.amazonaws.com/b4a76d480e49f89fddb973c88c53fc301ba0d927",
@@ -27,7 +27,7 @@ describe(".isLabeledSVG", () => {
         ).toBeTruthy();
     });
 
-    it("returns true for web+graphie", () => {
+    it("returns true for file+graphie", () => {
         expect(
             isLabeledSVG(
                 "file+graphie://b4a76d480e49f89fddb973c88c53fc301ba0d927",
