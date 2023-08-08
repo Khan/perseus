@@ -1,5 +1,6 @@
 *.json
 *.md
+*.sh
 docs
 *.yml
 vendor/
