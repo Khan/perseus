@@ -62,7 +62,7 @@ Perseus is a monorepo - a single repository that ships multiple npm packages. Ge
     - Gerald requests reviewers (there’s a “perseus” user group that primary maintainers are in)
     - Linting/Types/Tests; checks to make sure code is properly covered
     - Check for a changeset
-2. 🍀 An npm snapshot is made and can be used to check changes before merging/releasing
+2. 🍀 A [snapshot release](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md) is made and can be used to check changes before merging/releasing
 3. Once checks pass and code is approved, land your changes into main
 4. 🚨 main should remain releasable! Don’t land code to main that you’re not ready to ship!
 5. 🍀 Use stacked feature branches if you’re working on a big change that depends on multiple PRs
