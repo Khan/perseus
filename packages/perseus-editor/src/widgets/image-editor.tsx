@@ -329,7 +329,7 @@ const ImageEditor: any = createReactClass({
             this.setUrl(url, size[0], size[1], true);
         } catch (error) {
             this.setState({
-                backgroundImageError: `There was an error loading the image URL ${JSON.stringify(
+                backgroundImageError: `There was an error loading the image URL: ${JSON.stringify(
                     error,
                     null,
                     2,
