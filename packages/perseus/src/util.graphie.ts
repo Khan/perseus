@@ -22,7 +22,7 @@ export function isLabeledSVG(graphieUrl: string): boolean {
     );
 }
 
-// For each svg+labels, there are two urls we need to download from. This gets
+// For each graphie, there are two urls we need to download from. This gets
 // the base url without the suffix, and `getSvgUrl` and `getDataUrl` apply
 // appropriate suffixes to get the image and other data
 export function getBaseUrl(graphieUrl: string): string {
