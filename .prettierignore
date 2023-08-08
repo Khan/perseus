@@ -2,3 +2,5 @@
 *.md
 docs
 *.yml
+vendor/
+__genfiles__/
