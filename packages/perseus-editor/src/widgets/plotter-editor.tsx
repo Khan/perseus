@@ -21,6 +21,15 @@ const PIC = "pic";
 const HISTOGRAM = "histogram";
 const DOTPLOT = "dotplot";
 
+const plotTypes = [BAR, LINE, PIC, HISTOGRAM, DOTPLOT];
+type PlotType = typeof plotTypes[number];
+
+const STARTING = "starting";
+const CORRECT = "correct";
+
+const editingStates = [STARTING, CORRECT];
+type EditingState = typeof editingStates[number];
+
 // Return a copy of array with length n, padded with given value
 function padArray(array: any, n, value: any) {
     const copy = _.clone(array);
@@ -37,10 +46,8 @@ const editorDefaults = {
     snapsPerLine: 2,
 } as const;
 
-type EditingStates = "starting" | "correct";
-
 type Props = {
-    type: "bar" | "line" | "pic" | "histogram" | "dotplot";
+    type: PlotType;
     labels: Array<string>;
     categories: ReadonlyArray<string | number>;
     scaleY: number;
@@ -51,7 +58,7 @@ type Props = {
     picUrl: string;
     plotDimensions: ReadonlyArray<number>;
     labelInterval: number;
-    starting: Array<number>;
+    starting: ReadonlyArray<number>;
     correct: ReadonlyArray<number>;
     static: boolean;
     onChange: any;
@@ -74,7 +81,7 @@ type DefaultProps = {
 };
 
 type State = {
-    editing: EditingStates;
+    editing: EditingState;
     pic: any;
     loadedUrl: string | null;
     minX: number | null;
@@ -113,7 +120,7 @@ class PlotterEditor extends React.Component<Props, State> {
     };
 
     state: State = {
-        editing: this.props.static ? "starting" : "correct",
+        editing: this.props.static ? STARTING : CORRECT,
         pic: null,
         loadedUrl: null,
         minX: null,
@@ -260,7 +267,7 @@ class PlotterEditor extends React.Component<Props, State> {
         });
     };
 
-    changeEditing: (arg1: EditingStates) => void = (editing) => {
+    changeEditing: (arg1: EditingState) => void = (editing) => {
         this.setState({editing: editing});
     };
 
@@ -327,7 +334,7 @@ class PlotterEditor extends React.Component<Props, State> {
             <div className="perseus-widget-plotter-editor">
                 <div>
                     Chart type:{" "}
-                    {[BAR, LINE, PIC, HISTOGRAM, DOTPLOT].map((type) => {
+                    {plotTypes.map((type) => {
                         return (
                             <label key={type}>
                                 <input
@@ -495,16 +502,16 @@ class PlotterEditor extends React.Component<Props, State> {
                 )}
                 <div>
                     Editing values:{" "}
-                    {["correct", "starting"].map((editing: EditingStates) => (
+                    {editingStates.map((editing) => (
                         <label key={editing}>
                             <input
                                 type="radio"
                                 disabled={
-                                    editing === "correct" && this.props.static
+                                    editing === CORRECT && this.props.static
                                 }
                                 checked={
                                     this.props.static
-                                        ? editing === "starting"
+                                        ? editing === STARTING
                                         : this.state.editing === editing
                                 }
                                 onChange={(e) => this.changeEditing(editing)}
@@ -526,9 +533,9 @@ class PlotterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
+                {/* @ts-expect-error - TS2769 */}
                 <Plotter
                     {...props}
-                    // @ts-expect-error - TS2769
                     starting={this.props[this.state.editing]}
                     onChange={this.handlePlotterChange}
                 />

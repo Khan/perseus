@@ -23,8 +23,11 @@ const PIC = "pic";
 const HISTOGRAM = "histogram";
 const DOTPLOT = "dotplot";
 
+const plotTypes = [BAR, LINE, PIC, HISTOGRAM, DOTPLOT];
+type PlotType = typeof plotTypes[number];
+
 type Props = {
-    type: "bar" | "line" | "pic" | "histogram" | "dotplot";
+    type: PlotType;
     labels: ReadonlyArray<string>;
     categories: ReadonlyArray<string | number>;
     scaleY: number;
