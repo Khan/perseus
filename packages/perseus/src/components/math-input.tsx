@@ -222,10 +222,9 @@ class MathInput extends React.Component<Props, State> {
         this.setState({focused: true});
     };
 
-    blur: () => void = () => {
-        this.mathField()?.blur();
-        this.setState({focused: false});
-    };
+    // removing mathfield focus here makes the cursor vanished when the
+    // input is still focused
+    blur: () => void = () => this.setState({focused: false});
 
     handleKeypadPress: (key: Keys) => void = (key) => {
         const translator = keyTranslator[key];
@@ -267,13 +266,22 @@ class MathInput extends React.Component<Props, State> {
                     style={{
                         display: "flex",
                     }}
+                    onFocus={() => this.focus()}
+                    onBlur={() => this.blur()}
+                    onClick={() => {
+                        const mathField = this.mathField();
+                        if (!mathField) {
+                            return;
+                        }
+                        this.setState({
+                            cursorContext: getCursorContext(mathField),
+                        });
+                    }}
                 >
                     <span
                         className={className}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
                         aria-label={this.props.labelText}
-                        onFocus={() => this.focus()}
-                        onBlur={() => this.blur()}
                     />
                     <Popover
                         opened={this.state.keypadOpen}
