@@ -26,7 +26,7 @@ jobs:
                   exclude_globs: "**/__tests__/*"
 
     lint:
-        name: Lint, Typecheck, and Test
+        name: Lint, Typecheck, Format, and Test
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -59,6 +59,9 @@ jobs:
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: ".eslintrc.js,package.json,yarn.lock,.eslintignore"
+
+            - name: Check formatting
+              run: yarn format-check
 
             # Linting / type checking
             - name: Eslint
