@@ -91,7 +91,6 @@ class MathInput extends React.Component<Props, State> {
     mouseDown: boolean;
     __mathFieldWrapperRef: HTMLSpanElement | null = null;
     __mathField: MathFieldInterface | null = null;
-    __keypadButtonSets: KeypadButtonSets = {};
 
     static defaultProps: DefaultProps = {
         value: "",
@@ -108,11 +107,6 @@ class MathInput extends React.Component<Props, State> {
         // Ideally, we would be able to pass an initial value directly into
         // the constructor
         this.mathField()?.latex(this.props.value);
-        if (this.props.keypadButtonSets) {
-            this.__keypadButtonSets = this.props.keypadButtonSets;
-        } else if (this.props.buttonSets) {
-            this.__keypadButtonSets = mapButtonSets(this.props.buttonSets);
-        }
     }
 
     openKeypad: () => void = () => {
@@ -300,7 +294,8 @@ class MathInput extends React.Component<Props, State> {
                                     multiplicationDot={
                                         !this.props.convertDotToTimes
                                     }
-                                    {...this.__keypadButtonSets}
+                                    {...(this.props.keypadButtonSets ??
+                                        mapButtonSets(this.props?.buttonSets))}
                                 />
                             </PopoverContentCore>
                         )}
@@ -370,8 +365,11 @@ export type LegacyButtonSets = ReadonlyArray<
     | "advanced relations"
 >;
 
-const mapButtonSets = (buttonSets: LegacyButtonSets) => {
+const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
     const keypadButtonSets: KeypadButtonSets = {};
+    if (!buttonSets) {
+        return keypadButtonSets;
+    }
     buttonSets.forEach((buttonSet) => {
         switch (buttonSet) {
             case "advanced relations":
