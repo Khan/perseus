@@ -519,6 +519,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                         onFocus={this._handleFocus}
                         onBlur={this._handleBlur}
                         hasError={this.state.showErrorTooltip}
+                        extraKeys={this.props.keypadConfiguration?.extraKeys}
                     />
                 </Tooltip>
             </div>
