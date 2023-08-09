@@ -6,7 +6,7 @@ import version from "./version";
 
 export {default as init} from "./init";
 
-export {ApiOptions, ClassNames} from "./perseus-api";
+export {ApiOptions, ClassNames       } from "./perseus-api";
 
 export const apiVersion = version.apiVersion;
 export const itemDataVersion = version.itemDataVersion;
