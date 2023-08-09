@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import $ from "jquery";

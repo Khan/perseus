@@ -1,302 +1,308 @@
 name: Node CI
 
 on:
-  pull_request:
-    # edited is needed because that's the trigger when the base branch is
-    # changed on a PR
-    # The rest are the defaults.
-    types: [edited, opened, synchronize, reopened]
+    pull_request:
+        # edited is needed because that's the trigger when the base branch is
+        # changed on a PR
+        # The rest are the defaults.
+        types: [edited, opened, synchronize, reopened]
 
 jobs:
-  changeset:
-    name: Check for .changeset file
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-      # We don't need changesets for infrastructure-type files (tests, stories,
-      # etc).
-      - uses: Khan/actions@check-for-changeset-v0
-        if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-        with:
-          exclude: .github/,.storybook/
-          exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
-          exclude_globs: '**/__tests__/*'
+    changeset:
+        name: Check for .changeset file
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            # We don't need changesets for infrastructure-type files (tests, stories,
+            # etc).
+            - uses: Khan/actions@check-for-changeset-v0
+              if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+              with:
+                  exclude: .github/,.storybook/
+                  exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
+                  exclude_globs: "**/__tests__/*"
 
-  lint:
-    name: Lint, Typecheck, and Test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - name: Checking out latest commit
-      uses: actions/checkout@v2
+    lint:
+        name: Lint, Typecheck, Format, and Test
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Get All Changed Files
-      uses: Khan/actions@get-changed-files-v1
-      id: changed
+            - name: Get All Changed Files
+              uses: Khan/actions@get-changed-files-v1
+              id: changed
 
-    - id: js-files
-      name: Find .js(x)/.ts(x) changed files
-      uses: Khan/actions@filter-files-v0
-      with:
-        changed-files: ${{ steps.changed.outputs.files }}
-        extensions: '.js,.jsx,.ts,.tsx'
-        files: 'yarn.lock'
+            - name: Check formatting
+              run: |
+                set -x
+                yarn -s prettier --list-different . | \
+                  sed -E "s/(.*)/::error file=\1,title=Formatting invalid::This file has not been formatted with Prettier. Run \`yarn format\` locally and commit the changes/"
 
-    - id: eslint-reset
-      uses: Khan/actions@filter-files-v0
-      name: Files that would trigger a full eslint run
-      with:
-        changed-files: ${{ steps.changed.outputs.files }}
-        files: '.eslintrc.js,package.json,yarn.lock,.eslintignore'
+            - id: js-files
+              name: Find .js(x)/.ts(x) changed files
+              uses: Khan/actions@filter-files-v0
+              with:
+                  changed-files: ${{ steps.changed.outputs.files }}
+                  extensions: ".js,.jsx,.ts,.tsx"
+                  files: "yarn.lock"
 
-    # Linting / type checking
-    - name: Eslint
-      uses: Khan/actions@full-or-limited-v0
-      with:
-        full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
-        full: yarn lint packages
-        limited-trigger: ${{ steps.js-files.outputs.filtered }}
-        limited: yarn lint {}
+            - id: eslint-reset
+              uses: Khan/actions@filter-files-v0
+              name: Files that would trigger a full eslint run
+              with:
+                  changed-files: ${{ steps.changed.outputs.files }}
+                  files: ".eslintrc.js,package.json,yarn.lock,.eslintignore"
 
-    - name: Typecheck
-      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
-      run: yarn typecheck
+            # Linting / type checking
+            - name: Eslint
+              uses: Khan/actions@full-or-limited-v0
+              with:
+                  full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
+                  full: yarn lint packages
+                  limited-trigger: ${{ steps.js-files.outputs.filtered }}
+                  limited: yarn lint {}
 
-    - name: Build types
-      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
-      run: yarn build:types
+            - name: Typecheck
+              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+              run: yarn typecheck
 
-    - name: Build Flow types
-      if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
-      run: yarn build:flowtypes
+            - name: Build types
+              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+              run: yarn build:types
 
-    # Run tests for our target matrix
-    - id: jest-reset
-      uses: Khan/actions@filter-files-v0
-      name: Files that would trigger a full jest run
-      with:
-        changed-files: ${{ steps.changed.outputs.files }}
-        files: 'jest.config.js,package.json,yarn.lock,test.config.js,test.transform.js'
+            - name: Build Flow types
+              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
+              run: yarn build:flowtypes
 
-    - name: Jest
-      uses: Khan/actions@full-or-limited-v0
-      with:
-        full-trigger: ${{ steps.jest-reset.outputs.filtered }}
-        full: yarn jest
-        limited-trigger: ${{ steps.js-files.outputs.filtered }}
-        limited: yarn jest --passWithNoTests --findRelatedTests {}
+            # Run tests for our target matrix
+            - id: jest-reset
+              uses: Khan/actions@filter-files-v0
+              name: Files that would trigger a full jest run
+              with:
+                  changed-files: ${{ steps.changed.outputs.files }}
+                  files: "jest.config.js,package.json,yarn.lock,test.config.js,test.transform.js"
 
-    # We use STOPSHIP internally to mark code that's not safe to go live yet.
-    # We use an if block because we want to return the exact inverse of what
-    # `git grep` returns (0 on none found, 1 on some found).
-    - name: Checks that STOPSHIP is not used in any files.
-      run: ./utils/stopship-check.sh
+            - name: Jest
+              uses: Khan/actions@full-or-limited-v0
+              with:
+                  full-trigger: ${{ steps.jest-reset.outputs.filtered }}
+                  full: yarn jest
+                  limited-trigger: ${{ steps.js-files.outputs.filtered }}
+                  limited: yarn jest --passWithNoTests --findRelatedTests {}
 
-  cypress:
-    name: Cypress Coverage
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - name: Checking out latest commit
-      uses: actions/checkout@v2
+            # We use STOPSHIP internally to mark code that's not safe to go live yet.
+            # We use an if block because we want to return the exact inverse of what
+            # `git grep` returns (0 on none found, 1 on some found).
+            - name: Checks that STOPSHIP is not used in any files.
+              run: ./utils/stopship-check.sh
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
+    cypress:
+        name: Cypress Coverage
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@v2
 
-    - name: Run test with coverage
-      run: yarn cypress:ci
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Generate report
-      run: yarn nyc report --reporter=lcov
+            - name: Run test with coverage
+              run: yarn cypress:ci
 
-    - name: Upload Coverage
-      # We don't bother collecting a record of coverage for dependabot changes
-      if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: coverallsapp/github-action@v1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: cypress
-        parallel: true
+            - name: Generate report
+              run: yarn nyc report --reporter=lcov
 
-  coverage:
-    name: Jest Coverage
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
+            - name: Upload Coverage
+              # We don't bother collecting a record of coverage for dependabot changes
+              if: ${{ github.actor != 'dependabot[bot]' }}
+              uses: coverallsapp/github-action@v1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  flag-name: cypress
+                  parallel: true
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
+    coverage:
+        name: Jest Coverage
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - uses: actions/checkout@v2
 
-    - name: Jest with coverage
-      run: yarn coverage
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Upload Coverage
-      # We don't bother collecting a record of coverage for dependabot changes
-      if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: coverallsapp/github-action@v1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: jest
-        parallel: true
+            - name: Jest with coverage
+              run: yarn coverage
 
-  finish_coverage:
-    needs: [cypress, coverage]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Finish Coverage
-      uses: coverallsapp/github-action@v1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true
+            - name: Upload Coverage
+              # We don't bother collecting a record of coverage for dependabot changes
+              if: ${{ github.actor != 'dependabot[bot]' }}
+              uses: coverallsapp/github-action@v1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  flag-name: jest
+                  parallel: true
 
-  check_builds:
-    name: Check builds for changes in size
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - name: Checking out latest commit
-      uses: actions/checkout@v2
+    finish_coverage:
+        needs: [cypress, coverage]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Finish Coverage
+              uses: coverallsapp/github-action@v1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  parallel-finished: true
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
-    # Make sure our packages aren't growing unexpectedly
-    # This must come last as it builds the old code last and so leaves the
-    # wrong code in place for the next job.
-    - name: Check Builds
-      uses: preactjs/compressed-size-action@v2
-      with:
-        # We only care about the ES module size, really:
-        pattern: "**/dist/es/index.js"
-        # Always ignore SourceMaps and node_modules:
-        exclude: "{**/*.map,**/node_modules/**}"
-        # Clean up before a build
-        clean-script: "clean"
-        # Build production
-        build-script: "build:prodsizecheck"
+    check_builds:
+        name: Check builds for changes in size
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@v2
 
-  extract_strings:
-    name: Extract i18n strings
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
+            # Make sure our packages aren't growing unexpectedly
+            # This must come last as it builds the old code last and so leaves the
+            # wrong code in place for the next job.
+            - name: Check Builds
+              uses: preactjs/compressed-size-action@v2
+              with:
+                  # We only care about the ES module size, really:
+                  pattern: "**/dist/es/index.js"
+                  # Always ignore SourceMaps and node_modules:
+                  exclude: "{**/*.map,**/node_modules/**}"
+                  # Clean up before a build
+                  clean-script: "clean"
+                  # Build production
+                  build-script: "build:prodsizecheck"
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
+    extract_strings:
+        name: Extract i18n strings
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - uses: actions/checkout@v2
 
-    - name: Extract strings
-      run: yarn extract-strings
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-  publish_snapshot:
-    name: Publish npm snapshot
-    # We don't publish snapshots on draft PRs or
-    # on the main Changeset "Version Packages" PR
-    if: ${{ ! github.event.pull_request.draft && github.ref != 'refs/heads/changeset-release/main' }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    # We need to checkout all history, so that the changeseat tool can diff it
-    - name: Checkout current commit
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: '0'
-    - name: Ensure main branch is avaialble
-      run: |
-        REF=$(git rev-parse HEAD)
-        git checkout main
-        git checkout $REF
+            - name: Extract strings
+              run: yarn extract-strings
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
+    publish_snapshot:
+        name: Publish npm snapshot
+        # We don't publish snapshots on draft PRs or
+        # on the main Changeset "Version Packages" PR
+        if: ${{ ! github.event.pull_request.draft && github.ref != 'refs/heads/changeset-release/main' }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            # We need to checkout all history, so that the changeseat tool can diff it
+            - name: Checkout current commit
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: "0"
+            - name: Ensure main branch is avaialble
+              run: |
+                  REF=$(git rev-parse HEAD)
+                  git checkout main
+                  git checkout $REF
 
-    - name: Publish Snapshot Release to npm
-      id: publish-snapshot
-      run: ./utils/publish-snapshot.sh # All config is via Github env vars
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Calculate short SHA for this commit
-      id: short-sha
-      run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
+            - name: Publish Snapshot Release to npm
+              id: publish-snapshot
+              run: ./utils/publish-snapshot.sh # All config is via Github env vars
+              env:
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-    # Note: these two actions are locked to the latest version that were
-    # published when I created this yml file (just for security).
-    - name: Find existing comment
-      uses: peter-evans/find-comment@034abe94d3191f9c89d870519735beae326f2bdb
-      id: find-comment
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-author: 'github-actions[bot]'
-        body-includes: "npm Snapshot:"
+            - name: Calculate short SHA for this commit
+              id: short-sha
+              run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
 
-    - name: Create or update npm snapshot comment - success
-      if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
-      uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-id: ${{ steps.find-comment.outputs.comment-id }}
-        edit-mode: replace
-        body: |
-          # npm Snapshot: Published
+            # Note: these two actions are locked to the latest version that were
+            # published when I created this yml file (just for security).
+            - name: Find existing comment
+              uses: peter-evans/find-comment@034abe94d3191f9c89d870519735beae326f2bdb
+              id: find-comment
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: "npm Snapshot:"
 
-          🎉 Good news!! We've packaged up the latest commit from this PR (${{
-          steps.short-sha.outputs.short_sha }}) and published it to npm. You
-          can install it using the tag `${{
-          steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
+            - name: Create or update npm snapshot comment - success
+              if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
+              uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # npm Snapshot: Published
 
-          Example:
-          ```sh
-          yarn add @khanacademy/perseus@${{
-          steps.publish-snapshot.outputs.npm_snapshot_tag }}
-          ```
+                      🎉 Good news!! We've packaged up the latest commit from this PR (${{
+                      steps.short-sha.outputs.short_sha }}) and published it to npm. You
+                      can install it using the tag `${{
+                      steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
 
-    - name: Create or update npm snapshot comment - failure
-      if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
-      uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-id: ${{ steps.find-comment.outputs.comment-id }}
-        edit-mode: replace
-        body: |
-          # npm Snapshot: **NOT** Published
+                      Example:
+                      ```sh
+                      yarn add @khanacademy/perseus@${{
+                      steps.publish-snapshot.outputs.npm_snapshot_tag }}
+                      ```
 
-          🤕 Oh noes!! We couldn't find any changesets in this PR (${{
-          steps.short-sha.outputs.short_sha }}). As a result, we did not
-          publish an npm snapshot for you.
+            - name: Create or update npm snapshot comment - failure
+              if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
+              uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # npm Snapshot: **NOT** Published
+
+                      🤕 Oh noes!! We couldn't find any changesets in this PR (${{
+                      steps.short-sha.outputs.short_sha }}). As a result, we did not
+                      publish an npm snapshot for you.

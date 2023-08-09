@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {StyleSheet, css} from "aphrodite";
 /**
  * A copy of the ItemRenderer which renders its question renderer and hints

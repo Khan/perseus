@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {Keys} from "@khanacademy/math-input";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";

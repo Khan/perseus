@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 // TODO(mdr): There are some TypeScript errors in this file, and they're tricky, so
 //     I'm skipping TypeScript errors for now.

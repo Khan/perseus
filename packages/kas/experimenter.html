@@ -10,7 +10,7 @@
         <script src="src/compare.js"></script>
         <style>
             * {
-                font-family: "Courier New"
+                font-family: "Courier New";
             }
             body {
                 font-size: 28px;
@@ -21,8 +21,8 @@
             }
             .label {
                 display: inline-block;
-                margin-right:30px;
-                width:400px;
+                margin-right: 30px;
+                width: 400px;
                 vertical-align: top;
             }
             .value {
@@ -34,10 +34,10 @@
         </style>
     </head>
     <body>
-        <input type="text" id="input"></input>
+        <input type="text" id="input" />
         <div id="output"></div>
         <script>
-            window.onload = function() {
+            window.onload = function () {
                 var input = document.getElementById("input");
                 var out = document.getElementById("output");
 
@@ -48,25 +48,50 @@
                 }
 
                 function addInfo(el, label, value) {
-                    el.innerHTML += "<div>"
-                        + "<div class='label'>" + label + "</div>"
-                        + "<div class='value'>" + value + "</div>"
-                        + "</div>";
+                    el.innerHTML +=
+                        "<div>" +
+                        "<div class='label'>" +
+                        label +
+                        "</div>" +
+                        "<div class='value'>" +
+                        value +
+                        "</div>" +
+                        "</div>";
                 }
 
                 function reprocess() {
                     out.innerHTML = "";
                     var parsed = KAS.parse(input.value, {}).expr;
-                    if (input.value === "") { return; }
-                    if (parsed === undefined) { return; }
+                    if (input.value === "") {
+                        return;
+                    }
+                    if (parsed === undefined) {
+                        return;
+                    }
                     addInfo(out, "AST Representation:", parsed.repr());
-                    addInfo(out, "Printed Representation:", parsed.normalize().print());
+                    addInfo(
+                        out,
+                        "Printed Representation:",
+                        parsed.normalize().print(),
+                    );
                     addInfo(out, "TeX Representation:", parsed.tex());
-                    addInfo(out, "Simplified?", parsed.isSimplified() ? "Yes" : "No");
-                    addInfo(out, "Simplified", parsed.simplify().normalize().print());
-                    addInfo(out, "JSON Representation:", "<pre class='code'>"
-                        + JSON.stringify(parsed, null, 2)
-                        + "</pre>");
+                    addInfo(
+                        out,
+                        "Simplified?",
+                        parsed.isSimplified() ? "Yes" : "No",
+                    );
+                    addInfo(
+                        out,
+                        "Simplified",
+                        parsed.simplify().normalize().print(),
+                    );
+                    addInfo(
+                        out,
+                        "JSON Representation:",
+                        "<pre class='code'>" +
+                            JSON.stringify(parsed, null, 2) +
+                            "</pre>",
+                    );
                     addInfo(out, "Compiled", parsed.compile().toString());
                 }
             };

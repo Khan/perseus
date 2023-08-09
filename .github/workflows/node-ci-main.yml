@@ -1,11 +1,11 @@
 name: Node CI (landed on protected branch)
 
 on:
-  push:
-    branches:
-    - main
-    - changeset-release/*
-    - feature/*
+    push:
+        branches:
+            - main
+            - changeset-release/*
+            - feature/*
 
 # Our jobs run like this to minimize wasting resource cycles:
 #   1. Prime caches for primary configuration.  This way subsequent jobs
@@ -15,88 +15,88 @@ on:
 # For pushes directly to a branch, we assume a PR has been used with wider
 # checks, this just makes sure our coverage data is up-to-date.
 jobs:
-  prime_cache_primary:
-    name: Prime node_modules cache for primary configuration
-    runs-on: ${{ matrix.os }}
-    strategy:
-      # Use a matrix as it means we get the version info in the job name
-      # which is very helpful.
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
+    prime_cache_primary:
+        name: Prime node_modules cache for primary configuration
+        runs-on: ${{ matrix.os }}
+        strategy:
+            # Use a matrix as it means we get the version info in the job name
+            # which is very helpful.
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-  coverage:
-    needs: [prime_cache_primary]
-    name: Jest Coverage
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
+    coverage:
+        needs: [prime_cache_primary]
+        name: Jest Coverage
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Jest with coverage
-      run: yarn coverage
+            - name: Jest with coverage
+              run: yarn coverage
 
-    - name: Upload Coverage
-      # We don't bother uploading a record of coverage for dependabot changes
-      if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: coverallsapp/github-action@v1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: jest
-        parallel: true
+            - name: Upload Coverage
+              # We don't bother uploading a record of coverage for dependabot changes
+              if: ${{ github.actor != 'dependabot[bot]' }}
+              uses: coverallsapp/github-action@v1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  flag-name: jest
+                  parallel: true
 
-  cypress:
-    needs: [prime_cache_primary]
-    name: Cypress Coverage
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-    - name: Checking out latest commit
-      uses: actions/checkout@v2
+    cypress:
+        needs: [prime_cache_primary]
+        name: Cypress Coverage
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-      uses: Khan/actions@shared-node-cache-v0
-      with:
-        node-version: ${{ matrix.node-version }}
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Run test with coverage
-      run: yarn cypress:ci
+            - name: Run test with coverage
+              run: yarn cypress:ci
 
-    - name: Generate report
-      run: yarn nyc report --reporter=lcov
+            - name: Generate report
+              run: yarn nyc report --reporter=lcov
 
-    - name: Upload Coverage
-      # We don't bother uploading a record of coverage for dependabot changes
-      if: ${{ github.actor != 'dependabot[bot]' }}
-      uses: coverallsapp/github-action@v1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: cypress
-        parallel: true
+            - name: Upload Coverage
+              # We don't bother uploading a record of coverage for dependabot changes
+              if: ${{ github.actor != 'dependabot[bot]' }}
+              uses: coverallsapp/github-action@v1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  flag-name: cypress
+                  parallel: true
 
-  finish_coverage:
-    needs: [cypress, coverage]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Finish Coverage
-      uses: coverallsapp/github-action@v1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true
+    finish_coverage:
+        needs: [cypress, coverage]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Finish Coverage
+              uses: coverallsapp/github-action@v1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  parallel-finished: true

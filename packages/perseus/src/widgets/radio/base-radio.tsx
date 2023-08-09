@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";

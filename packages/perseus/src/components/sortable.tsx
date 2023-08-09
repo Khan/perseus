@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";

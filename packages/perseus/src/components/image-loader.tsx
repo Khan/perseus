@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable jsx-a11y/alt-text, react/no-unsafe */
 // TODO(scottgrant): Enable the alt-text eslint rule above.
 /**

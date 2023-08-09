@@ -1,5 +1,6 @@
 .perseus-widget-expression {
-    & > span, .error-tooltip {
+    & > span,
+    .error-tooltip {
         display: inline-block;
         vertical-align: middle;
     }
@@ -25,7 +26,9 @@
         width: 210px;
     }
 
-    &.show-error-tooltip .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
+    &.show-error-tooltip
+        .perseus-math-input.mq-editable-field.mq-math-mode
+        > .mq-root-block {
         padding-right: 25px;
     }
 
@@ -112,11 +115,11 @@
     overflow-y: hidden;
 }
 
-.perseus-widget-expression-old > .output > .placeholder  > .error {
+.perseus-widget-expression-old > .output > .placeholder > .error {
     border-radius: 10px;
     background: #f7f7f7;
     border: 1px solid #ddd;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     color: #000;
     display: none;
     font-weight: normal;

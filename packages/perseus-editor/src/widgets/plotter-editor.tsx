@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import {number as knumber} from "@khanacademy/kmath";
 import {

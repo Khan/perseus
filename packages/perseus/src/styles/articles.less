@@ -58,7 +58,8 @@
         // inline, so we rely on the "actual paragraph" check above
         // (a .paragraph that contains another .paragraph instead of a
         // .perseus-block-math).
-        .katex, mjx-container {
+        .katex,
+        mjx-container {
             font-size: 100%;
         }
 
@@ -243,7 +244,8 @@
             .paragraph {
                 .text(@choiceTextSize, @choiceLineHeight, @gray17);
 
-                .katex, mjx-container {
+                .katex,
+                mjx-container {
                     color: @gray17;
                 }
             }
@@ -391,7 +393,8 @@
             .paragraph {
                 .text(@choiceTextSize, @choiceLineHeight, @gray17);
 
-                .katex, mjx-container {
+                .katex,
+                mjx-container {
                     color: @gray17;
                 }
             }
@@ -418,7 +421,8 @@
 
     .math(@blockMathTextSize; @blockMathLineHeight;
           @inlineMathTextSize; @inlineMathLineHeight) {
-        .katex, mjx-container {
+        .katex,
+        mjx-container {
             font-size: @inlineMathTextSize;
             line-height: @inlineMathLineHeight;
             color: @gray17;

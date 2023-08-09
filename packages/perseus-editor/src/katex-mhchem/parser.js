@@ -946,7 +946,7 @@ mhchemParser.stateMachines = {
                 },
             },
             oxidation$: {
-                "0": {action_: "oxidation-output"},
+                0: {action_: "oxidation-output"},
             },
             CMT: {
                 r: {action_: "rdt=", nextState: "rt"},
@@ -975,7 +975,7 @@ mhchemParser.stateMachines = {
                 q: {action_: "d=", nextState: "qd"},
                 "qd|qD": {action_: "d=", nextState: "qd"},
                 dq: {action_: ["output", "d="], nextState: "d"},
-                "3": {
+                3: {
                     action_: ["sb=false", "output", "operator"],
                     nextState: "0",
                 },
@@ -1038,7 +1038,7 @@ mhchemParser.stateMachines = {
                     ],
                     nextState: "3",
                 },
-                "3": {action_: {type_: "bond", option: "-"}},
+                3: {action_: {type_: "bond", option: "-"}},
                 a: {
                     action_: ["output", {type_: "insert", option: "hyphen"}],
                     nextState: "2",
@@ -1087,7 +1087,7 @@ mhchemParser.stateMachines = {
             },
             space: {
                 a: {nextState: "as"},
-                "0": {action_: "sb=false"},
+                0: {action_: "sb=false"},
                 "1|2": {action_: "sb=true"},
                 "r|rt|rd|rdt|rdq": {action_: "output", nextState: "0"},
                 "*": {action_: ["output", "sb=true"], nextState: "1"},
@@ -1605,10 +1605,10 @@ mhchemParser.stateMachines = {
                 "*": {},
             },
             "1/2$": {
-                "0": {action_: "1/2"},
+                0: {action_: "1/2"},
             },
             else: {
-                "0": {nextState: "1", revisit: true},
+                0: {nextState: "1", revisit: true},
             },
             "$(...)$": {
                 "*": {action_: "tex-math tight", nextState: "1"},
@@ -1628,10 +1628,10 @@ mhchemParser.stateMachines = {
                 "*": {},
             },
             "1/2$": {
-                "0": {action_: "1/2"},
+                0: {action_: "1/2"},
             },
             else: {
-                "0": {nextState: "1", revisit: true},
+                0: {nextState: "1", revisit: true},
             },
             letters: {
                 "*": {action_: "rm"},
@@ -1697,19 +1697,19 @@ mhchemParser.stateMachines = {
                 "*": {action_: "state of aggregation"},
             },
             i$: {
-                "0": {nextState: "!f", revisit: true},
+                0: {nextState: "!f", revisit: true},
             },
             "(KV letters),": {
-                "0": {action_: "rm", nextState: "0"},
+                0: {action_: "rm", nextState: "0"},
             },
             formula$: {
-                "0": {nextState: "f", revisit: true},
+                0: {nextState: "f", revisit: true},
             },
             "1/2$": {
-                "0": {action_: "1/2"},
+                0: {action_: "1/2"},
             },
             else: {
-                "0": {nextState: "!f", revisit: true},
+                0: {nextState: "!f", revisit: true},
             },
             "${(...)}$|$(...)$": {
                 "*": {action_: "tex-math"},
@@ -1772,13 +1772,13 @@ mhchemParser.stateMachines = {
                 "*": {},
             },
             x$: {
-                "0": {nextState: "!f", revisit: true},
+                0: {nextState: "!f", revisit: true},
             },
             formula$: {
-                "0": {nextState: "f", revisit: true},
+                0: {nextState: "f", revisit: true},
             },
             else: {
-                "0": {nextState: "!f", revisit: true},
+                0: {nextState: "!f", revisit: true},
             },
             "-9.,9 no missing 0": {
                 "*": {action_: "9,9"},
@@ -1948,10 +1948,10 @@ mhchemParser.stateMachines = {
                 "0|a": {action_: "copy"},
             },
             "(-)(9)^(-9)": {
-                "0": {action_: "number^", nextState: "a"},
+                0: {action_: "number^", nextState: "a"},
             },
             "(-)(9.,9)(e)(99)": {
-                "0": {action_: "enumber", nextState: "a"},
+                0: {action_: "enumber", nextState: "a"},
             },
             space: {
                 "0|a": {},
@@ -2112,11 +2112,11 @@ mhchemParser.stateMachines = {
                 "*": {action_: ["output", "space"], nextState: "0"},
             },
             "^{(...)}|^(-1)": {
-                "1": {action_: "^(-1)"},
+                1: {action_: "^(-1)"},
             },
             "-9.,9": {
-                "0": {action_: "rm=", nextState: "0"},
-                "1": {action_: "^(-1)", nextState: "0"},
+                0: {action_: "rm=", nextState: "0"},
+                1: {action_: "^(-1)", nextState: "0"},
             },
             "{...}|else": {
                 "*": {action_: "rm=", nextState: "1"},
@@ -2156,14 +2156,14 @@ mhchemParser.stateMachines = {
     "pu-9,9": {
         transitions: mhchemParser.createTransitions({
             empty: {
-                "0": {action_: "output-0"},
+                0: {action_: "output-0"},
                 o: {action_: "output-o"},
             },
             ",": {
-                "0": {action_: ["output-0", "comma"], nextState: "o"},
+                0: {action_: ["output-0", "comma"], nextState: "o"},
             },
             ".": {
-                "0": {action_: ["output-0", "copy"], nextState: "o"},
+                0: {action_: ["output-0", "copy"], nextState: "o"},
             },
             else: {
                 "*": {action_: "text="},

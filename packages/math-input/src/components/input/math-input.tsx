@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {entries} from "@khanacademy/wonder-stuff-core";

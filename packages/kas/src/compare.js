@@ -3,17 +3,17 @@ import _ from "underscore";
 
 // Assumes that both expressions have already been parsed
 // TODO(alex): be able to pass a random() function to compare()
-export const compare = function(expr1, expr2, options) {
+export const compare = function (expr1, expr2, options) {
     var defaults = {
         form: false, // Check that the two expressions have the same form
         simplify: false, // Check that the second expression is simplified
     };
 
     /* Options that could be added in the future:
-        * - Allow ratios: e.g. 3/1 and 3 should both be accepted for something
-        *   like slope
-        * - Allow student to choose their own variable names
-        */
+     * - Allow ratios: e.g. 3/1 and 3 should both be accepted for something
+     *   like slope
+     * - Allow student to choose their own variable names
+     */
 
     if (options !== undefined) {
         // eslint-disable-next-line no-undef

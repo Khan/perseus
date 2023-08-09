@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* Component for rendering a letter icon in a library radio choice */
 
 import Color from "@khanacademy/wonder-blocks-color";

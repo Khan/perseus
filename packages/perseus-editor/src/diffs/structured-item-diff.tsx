@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * A side by side diff view for Perseus exercise items
  * that do not have the standard question layout.

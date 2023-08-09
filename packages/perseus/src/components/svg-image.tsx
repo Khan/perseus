@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable no-useless-escape, react/no-unsafe */
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import classNames from "classnames";

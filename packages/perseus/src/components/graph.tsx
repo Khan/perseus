@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import $ from "jquery";
 import * as React from "react";
