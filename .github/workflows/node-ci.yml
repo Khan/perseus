@@ -47,6 +47,7 @@ jobs:
 
             - name: Check formatting
               run: |
+                set -x
                 yarn -s prettier --list-different . | \
                   sed -E "s/(.*)/::error file=\1,title=Formatting invalid::This file has not been formatted with Prettier. Run `yarn format` locally and commit the changes/"
 
