@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
 import {components, EditorJsonify} from "@khanacademy/perseus";
 import PropTypes from "prop-types";

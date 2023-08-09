@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/sort-comp */
 /**
  * This is a simple number-entry widget

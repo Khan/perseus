@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/sort-comp */
 /**
  * This is the editor for the simple-markdown-tester widget. This is what shows

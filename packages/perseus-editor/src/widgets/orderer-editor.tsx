@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable one-var, react/forbid-prop-types, react/sort-comp */
 import {components} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
@@ -22,7 +23,7 @@ class OrdererEditor extends React.Component<Props> {
         onChange: PropTypes.func.isRequired,
     };
 
-    static widgetName = "orderer" as const;
+    static widgetName = "orderer" as        const;
 
     static defaultProps: Props = {
         correctOptions: [{content: "$x$"}],

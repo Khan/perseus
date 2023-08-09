@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * A mixin that renders a custom software keypad in additional to the base
  * component. The base component will receive blur events when the keypad is

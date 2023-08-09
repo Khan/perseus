@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * Zooms child to fit with tap-to-zoom behavior.
  */

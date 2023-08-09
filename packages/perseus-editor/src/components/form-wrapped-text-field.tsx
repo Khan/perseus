@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * DEPRECATED: Use <TextField> from ./text-field.jsx instead.
  *
