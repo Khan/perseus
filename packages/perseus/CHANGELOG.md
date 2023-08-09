@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 7.2.0
+
+### Minor Changes
+
+-   e08f85ee: Add testing and improve error logging in the image editor
+
 ## 7.1.1
 
 ### Patch Changes
