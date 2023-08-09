@@ -45,6 +45,11 @@ jobs:
               uses: Khan/actions@get-changed-files-v1
               id: changed
 
+            - name: Check formatting
+              run: |
+                yarn -s prettier --list-different ${{ steps.changed.outputs.files }} | \
+                  sed -E "s/(.*)/::error file=\1,title=Formatting invalid::This file has not been formatted with Prettier. Run `yarn format` locally and commit the changes/"
+
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
               uses: Khan/actions@filter-files-v0
@@ -59,9 +64,6 @@ jobs:
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: ".eslintrc.js,package.json,yarn.lock,.eslintignore"
-
-            - name: Check formatting
-              run: yarn format-check
 
             # Linting / type checking
             - name: Eslint
