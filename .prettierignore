@@ -1,7 +1,37 @@
+# Ignore all hidden files
+
+# Classes of files
+*.jpg
+*.png
+*.svg
+*.ttf
+*.woff
+*.woff2
 *.json
+*.jison
+*.txt
 *.md
+*.py
 *.sh
-docs
-*.yml
+*.map
+*.snap
+*.tsbuildinfo
+
+# Specific files
+.DS_Store
+.editorconfig
+.eslintignore
+.github/NOTIFIED
+.github/REVIEWERS
+.gitignore
+.nvmrc
+.prettierignore
+LICENSE
+yarn.lock
+
+coverage/
+docs/
+dist/
+storybook-static/
 vendor/
 __genfiles__/

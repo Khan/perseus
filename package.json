@@ -144,7 +144,8 @@
     "build-storybook": "build-storybook",
     "cypress": "cypress open --component",
     "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
-    "format": "prettier --write packages/**/*.ts packages/**/*.tsx testing/**/*.ts testing/**/*.tsx",
+    "format": "prettier --write '**/*'",
+    "format-check": "prettier --check '**/*'",
     "typecheck": "tsc"
   }
 }
