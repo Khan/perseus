@@ -1,4 +1,3 @@
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {KeypadAPI} from "./types";
@@ -56,30 +55,14 @@ export const Basic = () => {
                 }}
             />
 
-            <div
-                style={{
-                    width: 400,
-                    height: 500,
-                    border: "4px solid pink",
-                    position: "relative",
+            <MobileKeypad
+                onElementMounted={(node) => {
+                    if (node) {
+                        setKeypadElement(node);
+                    }
                 }}
-            >
-                <MobileKeypad
-                    onElementMounted={(node) => {
-                        if (node) {
-                            setKeypadElement(node);
-                        }
-                    }}
-                    useV2Keypad={v2Keypad}
-                    style={styles.keypad}
-                />
-            </div>
+                useV2Keypad={v2Keypad}
+            />
         </div>
     );
 };
-
-const styles = StyleSheet.create({
-    keypad: {
-        // position: "absolute",
-    },
-});

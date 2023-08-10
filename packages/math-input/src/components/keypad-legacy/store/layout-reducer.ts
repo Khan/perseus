@@ -7,6 +7,7 @@ import type {Action} from "./actions";
 import type {GridDimensions, LayoutState, WidthHeight} from "./types";
 
 const expandedViewThreshold = 600;
+const navigationViewThreshold = 800;
 
 const initialLayoutState: LayoutState = {
     gridDimensions: {
@@ -49,9 +50,9 @@ const layoutParametersForDimensions = (
 
     // Using that information, make some decisions (or assumptions)
     // about the resulting layout.
-    const useExpandedView = containerDimensions.width > expandedViewThreshold;
-    const navigationPadEnabled = useExpandedView;
-    const paginationEnabled = !useExpandedView;
+    const navigationPadEnabled =
+        containerDimensions.width > navigationViewThreshold;
+    const paginationEnabled = containerDimensions.width < expandedViewThreshold;
     // const navigationPadEnabled = deviceType === DeviceType.TABLET;
     // console.log(navigationPadEnabled);
     // const paginationEnabled =
