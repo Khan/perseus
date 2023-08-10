@@ -121,7 +121,6 @@ class KeypadContainer extends React.Component<Props, State> {
         });
         const containerWidth = this._containerRef.current?.clientWidth || 0;
         const containerHeight = this._containerRef.current?.clientHeight || 0;
-        console.log(containerWidth, containerHeight);
         this.props.onPageSizeChange?.(
             window.innerWidth,
             window.innerHeight,
