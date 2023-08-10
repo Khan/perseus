@@ -1,3 +1,4 @@
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {KeypadAPI} from "./types";
@@ -15,7 +16,7 @@ export const Basic = () => {
     // Whether to use Expression or Fraction keypad
     const [expression, setExpression] = React.useState<boolean>(true);
     // Whether to use v1 or v2 keypad
-    const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
+    const [v2Keypad, setV2Keypad] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         keypadElement?.configure(
@@ -55,14 +56,30 @@ export const Basic = () => {
                 }}
             />
 
-            <MobileKeypad
-                onElementMounted={(node) => {
-                    if (node) {
-                        setKeypadElement(node);
-                    }
+            <div
+                style={{
+                    width: 1001,
+                    height: 500,
+                    border: "4px solid pink",
+                    position: "relative",
                 }}
-                useV2Keypad={v2Keypad}
-            />
+            >
+                <MobileKeypad
+                    onElementMounted={(node) => {
+                        if (node) {
+                            setKeypadElement(node);
+                        }
+                    }}
+                    useV2Keypad={v2Keypad}
+                    style={styles.keypad}
+                />
+            </div>
         </div>
     );
 };
+
+const styles = StyleSheet.create({
+    keypad: {
+        // position: "absolute",
+    },
+});

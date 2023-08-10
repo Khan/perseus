@@ -60,8 +60,8 @@ export interface LayoutState {
         heightPx: number;
     };
     pageDimensions: {
-        pageWidthPx: number;
-        pageHeightPx: number;
+        pageWidth: number;
+        pageHeight: number;
     };
     layoutMode: LayoutMode;
     paginationEnabled: boolean;

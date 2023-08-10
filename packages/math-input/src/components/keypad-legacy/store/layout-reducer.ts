@@ -7,6 +7,9 @@ import {defaultKeypadType, keypadForType} from "./shared";
 import type {Action} from "./actions";
 import type {LayoutState} from "./types";
 
+const expandedViewThreshold = 600;
+const navigationViewThreshold = 1000;
+
 const initialLayoutState = {
     gridDimensions: {
         numRows: keypadForType[defaultKeypadType].rows,
@@ -19,8 +22,8 @@ const initialLayoutState = {
         heightPx: 48,
     },
     pageDimensions: {
-        pageWidthPx: 0,
-        pageHeightPx: 0,
+        pageWidth: 0,
+        pageHeight: 0,
     },
     layoutMode: LayoutMode.FULLSCREEN,
     paginationEnabled: false,
@@ -32,35 +35,35 @@ const initialLayoutState = {
  * dimensions.
  */
 const layoutParametersForDimensions = (
-    pageDimensions:
-        | {
-              pageHeightPx: never;
-              pageWidthPx: never;
-          }
-        | {
-              pageHeightPx: number;
-              pageWidthPx: number;
-          },
+    containerDimensions: {
+        containerHeight: number;
+        containerWidth: number;
+    },
     gridDimensions,
 ) => {
-    const {pageWidthPx, pageHeightPx} = pageDimensions;
+    const {containerWidth, containerHeight} = containerDimensions;
 
     // Determine the device type and orientation.
     const deviceOrientation =
-        pageWidthPx > pageHeightPx
+        containerWidth > containerHeight
             ? DeviceOrientation.LANDSCAPE
             : DeviceOrientation.PORTRAIT;
+    console.log({containerWidth, containerHeight, tabletCutoffPx});
     const deviceType =
-        Math.min(pageWidthPx, pageHeightPx) > tabletCutoffPx
+        Math.min(containerWidth, containerHeight) > tabletCutoffPx
             ? DeviceType.TABLET
             : DeviceType.PHONE;
 
     // Using that information, make some decisions (or assumptions)
     // about the resulting layout.
-    const navigationPadEnabled = deviceType === DeviceType.TABLET;
-    const paginationEnabled =
-        deviceType === DeviceType.PHONE &&
-        deviceOrientation === DeviceOrientation.PORTRAIT;
+    const useExpandedView = containerWidth > expandedViewThreshold;
+    const navigationPadEnabled = containerWidth > navigationViewThreshold;
+    const paginationEnabled = !useExpandedView;
+    // const navigationPadEnabled = deviceType === DeviceType.TABLET;
+    // console.log(navigationPadEnabled);
+    // const paginationEnabled =
+    //     deviceType === DeviceType.PHONE &&
+    //     deviceOrientation === DeviceOrientation.PORTRAIT;
 
     const deviceInfo = {deviceOrientation, deviceType} as const;
     const layoutOptions = {
@@ -79,7 +82,7 @@ const layoutParametersForDimensions = (
     return {
         ...computeLayoutParameters(
             gridDimensions,
-            pageDimensions,
+            containerDimensions,
             deviceInfo,
             layoutOptions,
         ),
@@ -114,13 +117,21 @@ const layoutReducer = function (
             };
 
         case "SetPageSize":
-            const {pageWidthPx, pageHeightPx} = action;
-            const pageDimensions = {pageWidthPx, pageHeightPx} as const;
+            const {pageWidth, pageHeight, containerWidth, containerHeight} =
+                action;
+            const pageDimensions = {
+                pageWidth,
+                pageHeight,
+            } as const;
+            const containerDimensions = {
+                containerWidth,
+                containerHeight,
+            } as const;
 
             return {
                 ...state,
                 ...layoutParametersForDimensions(
-                    pageDimensions,
+                    containerDimensions,
                     state.gridDimensions,
                 ),
                 pageDimensions,

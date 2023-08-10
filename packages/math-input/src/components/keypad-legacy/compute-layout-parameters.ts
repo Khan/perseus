@@ -56,7 +56,7 @@ const worstCaseAspectRatio = 320 / (480 - safariNavBarWhenShrunk);
 
 export const computeLayoutParameters = (
     {numColumns, numMaxVisibleRows, numPages},
-    {pageWidthPx, pageHeightPx},
+    {containerWidth, containerHeight},
     {deviceOrientation, deviceType},
     {navigationPadEnabled, paginationEnabled, toolbarEnabled},
 ) => {
@@ -71,9 +71,9 @@ export const computeLayoutParameters = (
         const isLandscape = deviceOrientation === DeviceOrientation.LANDSCAPE;
 
         // In many cases, the browser chrome will already have been factored
-        // into `pageHeightPx`. But we have no way of knowing if that's
+        // into `pageHeight`. But we have no way of knowing if that's
         // the case or not. As such, we take a conservative approach and
-        // assume that the chrome is _never_ included in `pageHeightPx`.
+        // assume that the chrome is _never_ included in `pageHeight`.
         const browserChromeHeight = isLandscape
             ? maxLandscapeBrowserChrome
             : maxPortraitBrowserChrome;
@@ -97,10 +97,10 @@ export const computeLayoutParameters = (
         // we ignore the device height in portrait and assume the worst.
         // This prevents the keypad from changing size when browser chrome
         // appears and disappears.
-        const effectiveWidth = pageWidthPx;
+        const effectiveWidth = containerWidth;
         const effectiveHeight = isLandscape
-            ? pageHeightPx
-            : pageWidthPx / worstCaseAspectRatio;
+            ? containerHeight
+            : containerWidth / worstCaseAspectRatio;
         const maxKeypadHeight = effectiveHeight - reservedSpace;
 
         // Finally, compute the button height and width. In computing the
@@ -149,7 +149,7 @@ export const computeLayoutParameters = (
     return {
         buttonDimensions,
         layoutMode:
-            keypadWidth >= pageWidthPx
+            keypadWidth >= containerWidth
                 ? LayoutMode.FULLSCREEN
                 : LayoutMode.COMPACT,
     };

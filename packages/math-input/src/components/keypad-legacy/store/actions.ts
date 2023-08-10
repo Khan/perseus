@@ -51,18 +51,24 @@ export const configureKeypad = (
 
 type SetPageSizeAction = {
     type: "SetPageSize";
-    pageWidthPx: number;
-    pageHeightPx: number;
+    pageWidth: number;
+    pageHeight: number;
+    containerWidth: number;
+    containerHeight: number;
 };
 
 export const setPageSize = (
-    pageWidthPx: number,
-    pageHeightPx: number,
+    pageWidth: number,
+    pageHeight: number,
+    containerWidth: number,
+    containerHeight: number,
 ): SetPageSizeAction => {
     return {
         type: "SetPageSize",
-        pageWidthPx,
-        pageHeightPx,
+        pageWidth,
+        pageHeight,
+        containerWidth,
+        containerHeight,
     };
 };
 

@@ -34,7 +34,12 @@ interface ReduxProps {
 interface Props extends ReduxProps {
     onDismiss?: () => void;
     onElementMounted: (element: any) => void;
-    onPageSizeChange?: (width: number, height: number) => void;
+    onPageSizeChange?: (
+        pageWidth: number,
+        pageHeight: number,
+        containerWidth: number,
+        containerHeight: number,
+    ) => void;
     style?: StyleType;
 }
 
@@ -45,6 +50,7 @@ type State = {
 
 // eslint-disable-next-line react/no-unsafe
 class KeypadContainer extends React.Component<Props, State> {
+    _containerRef = React.createRef<HTMLDivElement>();
     _resizeTimeout: number | null | undefined;
     hasMounted: boolean | undefined;
 
@@ -113,7 +119,15 @@ class KeypadContainer extends React.Component<Props, State> {
         this.setState({
             viewportWidth: window.innerWidth,
         });
-        this.props.onPageSizeChange?.(window.innerWidth, window.innerHeight);
+        const containerWidth = this._containerRef.current?.clientWidth || 0;
+        const containerHeight = this._containerRef.current?.clientHeight || 0;
+        console.log(containerWidth, containerHeight);
+        this.props.onPageSizeChange?.(
+            window.innerWidth,
+            window.innerHeight,
+            containerWidth,
+            containerHeight,
+        );
     };
 
     renderKeypad = () => {
@@ -198,6 +212,7 @@ class KeypadContainer extends React.Component<Props, State> {
                 style={keypadContainerStyle}
                 dynamicStyle={dynamicStyle}
                 extraClassName="keypad-container"
+                forwardRef={this._containerRef}
             >
                 <View
                     style={keypadStyle}
@@ -305,8 +320,20 @@ const mapStateToProps = (state: ReduxState): ReduxProps => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onPageSizeChange: (pageWidthPx, pageHeightPx) => {
-            dispatch(setPageSize(pageWidthPx, pageHeightPx));
+        onPageSizeChange: (
+            pageWidth: number,
+            pageHeight: number,
+            containerWidth: number,
+            containerHeight: number,
+        ) => {
+            dispatch(
+                setPageSize(
+                    pageWidth,
+                    pageHeight,
+                    containerWidth,
+                    containerHeight,
+                ),
+            );
         },
     };
 };
