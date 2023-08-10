@@ -361,7 +361,7 @@ const MathInputIcon = ({hovered, focused, active}) => {
     const dynamicClass =
         active || focused ? styles.iconActive : styles.iconInactive;
     return (
-        <View style={{...styles.iconContainer, ...dynamicClass}}>
+        <View style={[styles.iconContainer, dynamicClass]}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -424,7 +424,7 @@ const inputFocused = {
     margin: -1,
 };
 
-const styles = {
+const styles = StyleSheet.create({
     iconContainer: {
         display: "flex",
         justifyContent: "center",
@@ -460,6 +460,6 @@ const styles = {
         paddingBottom: Spacing.xxSmall_6,
         maxWidth: "initial",
     },
-} as const;
+});
 
 export default MathInput;
