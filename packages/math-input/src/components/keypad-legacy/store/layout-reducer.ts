@@ -53,11 +53,6 @@ const layoutParametersForDimensions = (
     const navigationPadEnabled =
         containerDimensions.width > navigationViewThreshold;
     const paginationEnabled = containerDimensions.width < expandedViewThreshold;
-    // const navigationPadEnabled = deviceType === DeviceType.TABLET;
-    // console.log(navigationPadEnabled);
-    // const paginationEnabled =
-    //     deviceType === DeviceType.PHONE &&
-    //     deviceOrientation === DeviceOrientation.PORTRAIT;
     const toolbarEnabled = true;
 
     return {
@@ -81,7 +76,6 @@ const layoutReducer = function (
     state: LayoutState = initialLayoutState,
     action: Action,
 ): LayoutState {
-    const stateCopy = JSON.parse(JSON.stringify(state));
     switch (action.type) {
         case "ConfigureKeypad":
             const {keypadType} = action.configuration;
@@ -93,13 +87,13 @@ const layoutReducer = function (
             } as const;
 
             const layoutParams = layoutParametersForDimensions(
-                stateCopy.pageDimensions,
-                stateCopy.containerDimensions,
+                state.pageDimensions,
+                state.containerDimensions,
                 gridDimensions,
             );
 
             return {
-                ...stateCopy,
+                ...state,
                 ...layoutParams,
                 gridDimensions,
             };
@@ -117,18 +111,18 @@ const layoutReducer = function (
             } as const;
 
             return {
-                ...stateCopy,
+                ...state,
                 ...layoutParametersForDimensions(
                     pageDimensions,
                     containerDimensions,
-                    stateCopy.gridDimensions,
+                    state.gridDimensions,
                 ),
                 pageDimensions,
                 containerDimensions,
             };
 
         default:
-            return stateCopy;
+            return state;
     }
 };
 
