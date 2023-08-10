@@ -356,8 +356,8 @@ const styleForButtonDimensions = (heightPx, widthPx) => {
 
 const mapStateToProps = (state: State): ReduxProps => {
     return {
-        heightPx: state.layout.buttonDimensions.heightPx,
-        widthPx: state.layout.buttonDimensions.widthPx,
+        heightPx: state.layout.buttonDimensions.height,
+        widthPx: state.layout.buttonDimensions.width,
     };
 };
 

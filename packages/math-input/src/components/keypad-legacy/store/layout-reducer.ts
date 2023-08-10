@@ -1,16 +1,14 @@
-import {DeviceOrientation, DeviceType, LayoutMode} from "../../../enums";
-import {tabletCutoffPx} from "../../common-style";
+import {DeviceOrientation, LayoutMode} from "../../../enums";
 import {computeLayoutParameters} from "../compute-layout-parameters";
 
 import {defaultKeypadType, keypadForType} from "./shared";
 
 import type {Action} from "./actions";
-import type {LayoutState} from "./types";
+import type {GridDimensions, LayoutState, WidthHeight} from "./types";
 
 const expandedViewThreshold = 600;
-const navigationViewThreshold = 1000;
 
-const initialLayoutState = {
+const initialLayoutState: LayoutState = {
     gridDimensions: {
         numRows: keypadForType[defaultKeypadType].rows,
         numColumns: keypadForType[defaultKeypadType].columns,
@@ -18,12 +16,16 @@ const initialLayoutState = {
         numPages: keypadForType[defaultKeypadType].numPages,
     },
     buttonDimensions: {
-        widthPx: 48,
-        heightPx: 48,
+        width: 48,
+        height: 48,
     },
     pageDimensions: {
-        pageWidth: 0,
-        pageHeight: 0,
+        width: 0,
+        height: 0,
+    },
+    containerDimensions: {
+        width: 0,
+        height: 0,
     },
     layoutMode: LayoutMode.FULLSCREEN,
     paginationEnabled: false,
@@ -35,56 +37,37 @@ const initialLayoutState = {
  * dimensions.
  */
 const layoutParametersForDimensions = (
-    containerDimensions: {
-        containerHeight: number;
-        containerWidth: number;
-    },
-    gridDimensions,
+    pageDimensions: WidthHeight,
+    containerDimensions: WidthHeight,
+    gridDimensions: GridDimensions,
 ) => {
-    const {containerWidth, containerHeight} = containerDimensions;
-
     // Determine the device type and orientation.
     const deviceOrientation =
-        containerWidth > containerHeight
+        containerDimensions.width > containerDimensions.height
             ? DeviceOrientation.LANDSCAPE
             : DeviceOrientation.PORTRAIT;
-    console.log({containerWidth, containerHeight, tabletCutoffPx});
-    const deviceType =
-        Math.min(containerWidth, containerHeight) > tabletCutoffPx
-            ? DeviceType.TABLET
-            : DeviceType.PHONE;
 
     // Using that information, make some decisions (or assumptions)
     // about the resulting layout.
-    const useExpandedView = containerWidth > expandedViewThreshold;
-    const navigationPadEnabled = containerWidth > navigationViewThreshold;
+    const useExpandedView = containerDimensions.width > expandedViewThreshold;
+    const navigationPadEnabled = useExpandedView;
     const paginationEnabled = !useExpandedView;
     // const navigationPadEnabled = deviceType === DeviceType.TABLET;
     // console.log(navigationPadEnabled);
     // const paginationEnabled =
     //     deviceType === DeviceType.PHONE &&
     //     deviceOrientation === DeviceOrientation.PORTRAIT;
-
-    const deviceInfo = {deviceOrientation, deviceType} as const;
-    const layoutOptions = {
-        navigationPadEnabled,
-        paginationEnabled,
-        // HACK(charlie): It's not great that we're making assumptions about
-        // the toolbar (which is rendered by webapp, and should always be
-        // visible and anchored to the bottom of the page for phone and
-        // tablet exercises). But this is primarily a heuristic (the goal is
-        // to preserve a 'good' amount of space between the top of the
-        // keypad and the top of the page) so we afford to have some margin
-        // of error.
-        toolbarEnabled: true,
-    } as const;
+    const toolbarEnabled = true;
 
     return {
         ...computeLayoutParameters(
             gridDimensions,
+            pageDimensions,
             containerDimensions,
-            deviceInfo,
-            layoutOptions,
+            deviceOrientation,
+            navigationPadEnabled,
+            paginationEnabled,
+            toolbarEnabled,
         ),
         // Pass along some of the layout information, so that other
         // components in the heirarchy can adapt appropriately.
@@ -97,6 +80,7 @@ const layoutReducer = function (
     state: LayoutState = initialLayoutState,
     action: Action,
 ): LayoutState {
+    const stateCopy = JSON.parse(JSON.stringify(state));
     switch (action.type) {
         case "ConfigureKeypad":
             const {keypadType} = action.configuration;
@@ -107,12 +91,15 @@ const layoutReducer = function (
                 numPages: keypadForType[keypadType].numPages,
             } as const;
 
+            const layoutParams = layoutParametersForDimensions(
+                stateCopy.pageDimensions,
+                stateCopy.containerDimensions,
+                gridDimensions,
+            );
+
             return {
-                ...state,
-                ...layoutParametersForDimensions(
-                    state.pageDimensions,
-                    gridDimensions,
-                ),
+                ...stateCopy,
+                ...layoutParams,
                 gridDimensions,
             };
 
@@ -120,25 +107,27 @@ const layoutReducer = function (
             const {pageWidth, pageHeight, containerWidth, containerHeight} =
                 action;
             const pageDimensions = {
-                pageWidth,
-                pageHeight,
+                width: pageWidth,
+                height: pageHeight,
             } as const;
             const containerDimensions = {
-                containerWidth,
-                containerHeight,
+                width: containerWidth,
+                height: containerHeight,
             } as const;
 
             return {
-                ...state,
+                ...stateCopy,
                 ...layoutParametersForDimensions(
+                    pageDimensions,
                     containerDimensions,
-                    state.gridDimensions,
+                    stateCopy.gridDimensions,
                 ),
                 pageDimensions,
+                containerDimensions,
             };
 
         default:
-            return state;
+            return stateCopy;
     }
 };
 

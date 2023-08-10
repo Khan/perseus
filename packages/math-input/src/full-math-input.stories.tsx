@@ -58,7 +58,7 @@ export const Basic = () => {
 
             <div
                 style={{
-                    width: 1001,
+                    width: 400,
                     height: 500,
                     border: "4px solid pink",
                     position: "relative",

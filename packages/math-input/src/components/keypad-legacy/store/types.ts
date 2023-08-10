@@ -47,22 +47,24 @@ export interface EchoState {
     echoes: ReadonlyArray<Echo>;
 }
 
+export type GridDimensions = {
+    numRows: number;
+    numColumns: number;
+    numMaxVisibleRows: number;
+    numPages: number;
+};
+
+export type WidthHeight = {
+    width: number;
+    height: number;
+};
+
 // Layout (size, where to put buttons, etc)
 export interface LayoutState {
-    gridDimensions: {
-        numRows: number;
-        numColumns: number;
-        numMaxVisibleRows: number;
-        numPages: number;
-    };
-    buttonDimensions: {
-        widthPx: number;
-        heightPx: number;
-    };
-    pageDimensions: {
-        pageWidth: number;
-        pageHeight: number;
-    };
+    gridDimensions: GridDimensions;
+    buttonDimensions: WidthHeight;
+    containerDimensions: WidthHeight;
+    pageDimensions: WidthHeight;
     layoutMode: LayoutMode;
     paginationEnabled: boolean;
     navigationPadEnabled: boolean;
