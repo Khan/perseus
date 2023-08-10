@@ -237,6 +237,7 @@ class MathInput extends React.Component<Props, State> {
             this.setState({
                 cursorContext: getCursorContext(mathField),
             });
+            mathField.focus(); // to see cursor position after button press
         }
     };
 
@@ -265,9 +266,8 @@ class MathInput extends React.Component<Props, State> {
                 <div
                     style={{
                         display: "flex",
+                        padding: 1,
                     }}
-                    onFocus={() => this.focus()}
-                    onBlur={() => this.blur()}
                     onClick={() => {
                         const mathField = this.mathField();
                         if (!mathField) {
@@ -282,11 +282,12 @@ class MathInput extends React.Component<Props, State> {
                         className={className}
                         ref={(ref) => (this.__mathFieldWrapperRef = ref)}
                         aria-label={this.props.labelText}
+                        onFocus={() => this.focus()}
+                        onBlur={() => this.blur()}
                     />
                     <Popover
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
-                        dismissEnabled
                         content={() => (
                             <PopoverContentCore
                                 closeButtonVisible
@@ -295,9 +296,7 @@ class MathInput extends React.Component<Props, State> {
                                 <DesktopKeypad
                                     sendEvent={async () => {}}
                                     extraKeys={this.props.extraKeys}
-                                    onClickKey={(key) =>
-                                        this.handleKeypadPress(key as any)
-                                    }
+                                    onClickKey={this.handleKeypadPress}
                                     cursorContext={this.state.cursorContext}
                                     multiplicationDot={
                                         !this.props.convertDotToTimes
@@ -346,14 +345,27 @@ class MathInput extends React.Component<Props, State> {
 }
 
 const MathInputIcon = ({hovered, focused, active}) => {
-    const color = hovered || focused || active ? Color.blue : Color.offBlack;
-    const boxShadow = active ? `0 3px 1px -1px ${Color.blue}` : "none";
+    // const color = hovered ? Color.blue : Color.offBlack;
+    let color: string | undefined;
+    switch (true) {
+        case focused || active:
+            color = Color.white;
+            break;
+        case hovered:
+            color = Color.blue;
+            break;
+        default:
+            color = Color.offBlack;
+            break;
+    }
+    const dynamicClass =
+        active || focused ? styles.iconActive : styles.iconInactive;
     return (
-        <View style={{...styles.iconContainer, boxShadow}}>
+        <View style={{...styles.iconContainer, ...dynamicClass}}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width="16"
+                height="16"
                 fill={color}
                 viewBox="0 0 256 256"
             >
@@ -412,11 +424,19 @@ const inputFocused = {
     margin: -1,
 };
 
-const styles = StyleSheet.create({
+const styles = {
     iconContainer: {
-        maxHeight: 24,
         display: "flex",
-        margin: Spacing.xxxSmall_4,
+        justifyContent: "center",
+        height: "100%",
+        padding: Spacing.xxxSmall_4,
+        borderRadius: 1,
+    },
+    iconInactive: {
+        backgroundColor: Color.offBlack8,
+    },
+    iconActive: {
+        backgroundColor: Color.offBlack64,
     },
     outerWrapper: {
         display: "inline-block",
@@ -440,6 +460,6 @@ const styles = StyleSheet.create({
         paddingBottom: Spacing.xxSmall_6,
         maxWidth: "initial",
     },
-});
+} as const;
 
 export default MathInput;
