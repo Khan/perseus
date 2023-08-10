@@ -4,6 +4,7 @@ import {configureKeypad, setPageSize} from "./actions";
 import layoutReducer from "./layout-reducer";
 
 function initState() {
+    // This is just simulating the Redux action that initializes state
     // @ts-expect-error TS2345
     let state = layoutReducer(undefined, {type: "@redux-init"});
     state = layoutReducer(
