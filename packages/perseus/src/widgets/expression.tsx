@@ -74,8 +74,9 @@ export type Props = ExternalProps & {
 };
 
 export type ExpressionState = {
+    invalid: boolean;
     showErrorTooltip: boolean;
-    showErrorText: boolean;
+    showErrorStyle: boolean;
 };
 
 type DefaultProps = {
@@ -98,7 +99,6 @@ type OnInputErrorFunctionType = (
 // The new, MathQuill input expression widget
 export class Expression extends React.Component<Props, ExpressionState> {
     _isMounted = false;
-    errorTimeout: null | number = null;
 
     //#region Previously a class extension
     /* Content creators input a list of answers which are matched from top to
@@ -304,11 +304,14 @@ export class Expression extends React.Component<Props, ExpressionState> {
     displayName = "Expression";
 
     state: ExpressionState = {
+        invalid: false,
         showErrorTooltip: false,
-        showErrorText: false,
+        showErrorStyle: false,
     };
 
     componentDidMount: () => void = () => {
+        document.addEventListener("mousedown", this._handleMouseDown);
+
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
@@ -323,40 +326,36 @@ export class Expression extends React.Component<Props, ExpressionState> {
             !_.isEqual(this.props.value, prevProps.value) ||
             !_.isEqual(this.props.functions, prevProps.functions)
         ) {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
-            clearTimeout(this.errorTimeout);
-
-            if (this.parse(this.props.value, this.props).parsed) {
-                // eslint-disable-next-line react/no-did-update-set-state
-                this.setState({showErrorTooltip: false});
-            } else {
-                // Store timeout ID so that we can clear it above
-                // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-                // eslint-disable-next-line no-restricted-syntax
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
-                this.errorTimeout = setTimeout(() => {
-                    const apiResult = this.props.apiOptions.onInputError(
-                        null, // reserved for some widget identifier
-                        this.props.value,
-                        ERROR_MESSAGE,
-                    );
-                    if (apiResult !== false) {
-                        this.setState({showErrorTooltip: true});
-                    }
-                }, 2000);
+            this.setState({
+                invalid: false,
+                showErrorTooltip: false,
+                showErrorStyle: false,
+            });
+            if (!this.parse(this.props.value, this.props).parsed) {
+                const apiResult = this.props.apiOptions.onInputError(
+                    null, // reserved for some widget identifier
+                    this.props.value,
+                    ERROR_MESSAGE,
+                );
+                if (apiResult !== false) {
+                    this.setState({
+                        invalid: true,
+                    });
+                }
             }
         }
     };
 
     componentWillUnmount: () => void = () => {
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
-        clearTimeout(this.errorTimeout);
-
         this._isMounted = false;
+    };
+
+    _handleMouseDown = () => {
+        if (this._isMounted && this.state.showErrorTooltip) {
+            this.setState({
+                showErrorTooltip: false,
+            });
+        }
     };
 
     simpleValidate: (
@@ -501,7 +500,21 @@ export class Expression extends React.Component<Props, ExpressionState> {
         });
 
         return (
-            <div className={className}>
+            <div
+                className={className}
+                onBlur={() =>
+                    this.state.invalid &&
+                    this.setState({
+                        showErrorTooltip: true,
+                        showErrorStyle: true,
+                    })
+                }
+                onFocus={() =>
+                    this.setState({
+                        showErrorTooltip: false,
+                    })
+                }
+            >
                 <Tooltip
                     forceAnchorFocusivity={false}
                     opened={this.state.showErrorTooltip}
@@ -518,7 +531,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                         buttonSets={this.props.buttonSets}
                         onFocus={this._handleFocus}
                         onBlur={this._handleBlur}
-                        hasError={this.state.showErrorTooltip}
+                        hasError={this.state.showErrorStyle}
                         extraKeys={this.props.keypadConfiguration?.extraKeys}
                     />
                 </Tooltip>

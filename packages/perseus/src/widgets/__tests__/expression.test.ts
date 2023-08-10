@@ -362,23 +362,6 @@ describe("error tooltip", () => {
         );
     });
 
-    it("shows on error", () => {
-        // Arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
-
-        // Act
-        expression.insert("x&&&&&^1");
-        renderer.guessAndScore();
-        jest.runOnlyPendingTimers();
-
-        // Assert
-        const errorMessage = screen.getByText(
-            "Sorry, I don't understand that!",
-        );
-        expect(errorMessage).not.toBeUndefined();
-    });
-
     it("shows error text in tooltip", async () => {
         // Arrange
         const {renderer} = renderQuestion(expressionItem2.question);
@@ -386,8 +369,8 @@ describe("error tooltip", () => {
 
         // Act
         expression.insert("x&&&&&^1");
+        screen.getByRole("textbox").blur();
         renderer.guessAndScore();
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(screen.getByText("Oops!")).toBeVisible();
