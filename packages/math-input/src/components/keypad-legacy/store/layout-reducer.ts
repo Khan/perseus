@@ -6,7 +6,7 @@ import {defaultKeypadType, keypadForType} from "./shared";
 import type {Action} from "./actions";
 import type {GridDimensions, LayoutState, WidthHeight} from "./types";
 
-const expandedViewThreshold = 600;
+const expandedViewThreshold = 682;
 const navigationViewThreshold = 800;
 
 const initialLayoutState: LayoutState = {
