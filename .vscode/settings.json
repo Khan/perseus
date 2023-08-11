@@ -3,9 +3,11 @@
     "editor.codeActionsOnSave": {
         "source.fixAll": true
     },
+
     "eslint.codeActionsOnSave.mode": "all",
+
     "files.trimTrailingWhitespace": true,
-    "javascript.validate.enable": false,
+
     "todo-tree.filtering.excludeGlobs": [
         "**/dist/**",
     ],
