@@ -1,6 +1,7 @@
 import * as KAS from "@khanacademy/kas";
 import {KeypadInput, KeypadType, Keys as Key} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import classNames from "classnames";
@@ -12,6 +13,7 @@ import {getDependencies} from "../dependencies";
 import {Errors as PerseusErrors, Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
+import a11y from "../util/a11y";
 import KhanAnswerTypes from "../util/answer-types";
 
 import type {
@@ -515,6 +517,14 @@ export class Expression extends React.Component<Props, ExpressionState> {
                     })
                 }
             >
+                {/**
+                * This is a visually hidden container for the error tooltip.
+                https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role#example_3_visually_hidden_alert_container_for_screen_reader_notifications
+            */}
+                <View style={a11y.srOnly} role="alert">
+                    {this.state.showErrorTooltip &&
+                        ERROR_TITLE + " " + ERROR_MESSAGE}
+                </View>
                 <Tooltip
                     forceAnchorFocusivity={false}
                     opened={this.state.showErrorTooltip}
