@@ -23,7 +23,7 @@ class OrdererEditor extends React.Component<Props> {
         onChange: PropTypes.func.isRequired,
     };
 
-    static widgetName = "orderer" as        const;
+    static widgetName = "orderer" as const;
 
     static defaultProps: Props = {
         correctOptions: [{content: "$x$"}],
