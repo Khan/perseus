@@ -47,7 +47,7 @@ jobs:
 
             - name: Check formatting
               run: |
-                yarn -s prettier --check .
+                  yarn -s prettier --check .
 
             - id: js-files
               name: Find .js(x)/.ts(x) changed files
