@@ -91,11 +91,15 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     }
 
     render(): React.ReactNode {
+        const {style} = this.props;
         const {active, cursor, keypadConfig} = this.state;
 
         const containerStyle = [
+            // internal styles
             styles.keypadContainer,
             active ? styles.activeKeypadContainer : null,
+            // styles passed as props
+            ...(Array.isArray(style) ? style : [style]),
         ];
 
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
