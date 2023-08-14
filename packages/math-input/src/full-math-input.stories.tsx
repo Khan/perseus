@@ -15,7 +15,7 @@ export const Basic = () => {
     // Whether to use Expression or Fraction keypad
     const [expression, setExpression] = React.useState<boolean>(true);
     // Whether to use v1 or v2 keypad
-    const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
+    const [v2Keypad, setV2Keypad] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         keypadElement?.configure(
