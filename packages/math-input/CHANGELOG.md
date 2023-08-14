@@ -1,5 +1,13 @@
 # @khanacademy/math-input
 
+## 8.1.2
+
+### Patch Changes
+
+-   ea9dac75: Bugfix: allow legacy keypad to be positioned absolutely in column
+-   30a99b82: Allow v2 keypad to receive style prop like v1 keypad
+-   3fa556a3: Fixes bug where mouse hover causes grid to expand
+
 ## 8.1.1
 
 ### Patch Changes
