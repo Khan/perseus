@@ -34,6 +34,7 @@ export {default as KeypadContext} from "./components/keypad-context";
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";
+export {KeypadAPI} from "./types";
 
 // Key list, configuration map, and types
 export type {default as Keys} from "./data/keys";

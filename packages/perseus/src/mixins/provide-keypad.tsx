@@ -11,7 +11,7 @@
  * extend a `ProvideKeypad` component instead of using this mixin.
  */
 
-import {MobileKeypad} from "@khanacademy/math-input";
+import {KeypadAPI, MobileKeypad} from "@khanacademy/math-input";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -33,25 +33,34 @@ export type KeypadApiOptions = {
     nativeKeypadProxy: any;
 };
 
+// This represents the shape of any component that uses this ProvideKeypad
+// mixin.
+type KeypadMixinHostComponent = {
+    _keypadContainer?: HTMLDivElement | null;
+    props: {
+        apiOptions: APIOptions;
+        blur?: () => void;
+    };
+    state: {
+        keypadElement: any | null;
+    };
+};
+
 // NOTE: This is not a real component.  It's a collection of methods used to
 // create and manage a Keypad instances.
 // TODO(LP-10789): replace this with a React Context object to pass information
 // between Perseus and the Keypad.
 const ProvideKeypad = {
-    getInitialState(): {
+    getInitialState(this: KeypadMixinHostComponent): {
         keypadElement: any | null;
     } {
         const _this = this;
-        let keypadElement = null;
+        let keypadElement: KeypadAPI | null = null;
         if (
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'props' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             _this.props.apiOptions &&
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'props' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             _this.props.apiOptions.customKeypad &&
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'props' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             _this.props.apiOptions.nativeKeypadProxy
         ) {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'props' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             keypadElement = _this.props.apiOptions.nativeKeypadProxy(
                 // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'. | TS2339 - Property 'blur' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
                 () => _this.blur && _this.blur(),
@@ -60,9 +69,8 @@ const ProvideKeypad = {
         return {keypadElement};
     },
 
-    componentDidMount() {
+    componentDidMount(this: KeypadMixinHostComponent) {
         const _this = this;
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'props' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
         const apiOptions: APIOptions = _this.props.apiOptions;
 
         if (
@@ -73,9 +81,7 @@ const ProvideKeypad = {
             // TODO(charlie): Render this and the wrapped component in the same
             // React tree. We may also want to add this keypad asynchronously
             // or on-demand in the future.
-            // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             _this._keypadContainer = document.createElement("div");
-            // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             document.body?.appendChild(_this._keypadContainer);
 
             reactRender(
@@ -97,36 +103,28 @@ const ProvideKeypad = {
                     style={_this.props.keypadStyle}
                     useV2Keypad={apiOptions.useV2Keypad}
                 />,
-                // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
                 _this._keypadContainer,
             );
         }
     },
 
-    componentWillUnmount() {
+    componentWillUnmount(this: KeypadMixinHostComponent) {
         const _this = this;
-        // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
         if (_this._keypadContainer) {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             ReactDOM.unmountComponentAtNode(_this._keypadContainer);
-            // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             if (_this._keypadContainer.parentNode) {
                 // Note ChildNode.remove() isn't available in older Android
                 // webviews.
-                // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
                 _this._keypadContainer.parentNode.removeChild(
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
                     _this._keypadContainer,
                 );
             }
-            // @ts-expect-error [FEI-5003] - TS2339 - Property '_keypadContainer' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
             _this._keypadContainer = null;
         }
     },
 
-    keypadElement(): any {
+    keypadElement(this: KeypadMixinHostComponent): any {
         const _this = this;
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'state' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
         return _this.state.keypadElement;
     },
 } as const;

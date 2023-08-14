@@ -5,6 +5,7 @@ import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
 import type {PerseusWidget} from "./perseus-types";
 import type {SizeClass} from "./util/sizing-utils";
+import type {KeypadAPI} from "@khanacademy/math-input";
 import type {SendEventFn} from "@khanacademy/perseus-core";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 
@@ -187,7 +188,7 @@ export type APIOptions = Readonly<{
     // It is called with an function that, when called, blurs the input,
     // and is expected to return an object of the shape
     // keypadElementPropType from math-input/src/prop-types.js.
-    nativeKeypadProxy?: () => unknown;
+    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
     // Indicates whether or not to use mobile styling.
     isMobile?: boolean;
     // A function, called with a bool indicating whether use of the
