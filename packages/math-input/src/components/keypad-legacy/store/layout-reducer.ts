@@ -1,13 +1,15 @@
-import {DeviceOrientation, DeviceType, LayoutMode} from "../../../enums";
-import {tabletCutoffPx} from "../../common-style";
+import {DeviceOrientation, LayoutMode} from "../../../enums";
 import {computeLayoutParameters} from "../compute-layout-parameters";
 
 import {defaultKeypadType, keypadForType} from "./shared";
 
 import type {Action} from "./actions";
-import type {LayoutState} from "./types";
+import type {GridDimensions, LayoutState, WidthHeight} from "./types";
 
-const initialLayoutState = {
+const expandedViewThreshold = 682;
+const navigationViewThreshold = 800;
+
+const initialLayoutState: LayoutState = {
     gridDimensions: {
         numRows: keypadForType[defaultKeypadType].rows,
         numColumns: keypadForType[defaultKeypadType].columns,
@@ -15,12 +17,16 @@ const initialLayoutState = {
         numPages: keypadForType[defaultKeypadType].numPages,
     },
     buttonDimensions: {
-        widthPx: 48,
-        heightPx: 48,
+        width: 48,
+        height: 48,
     },
     pageDimensions: {
-        pageWidthPx: 0,
-        pageHeightPx: 0,
+        width: 0,
+        height: 0,
+    },
+    containerDimensions: {
+        width: 0,
+        height: 0,
     },
     layoutMode: LayoutMode.FULLSCREEN,
     paginationEnabled: false,
@@ -32,56 +38,32 @@ const initialLayoutState = {
  * dimensions.
  */
 const layoutParametersForDimensions = (
-    pageDimensions:
-        | {
-              pageHeightPx: never;
-              pageWidthPx: never;
-          }
-        | {
-              pageHeightPx: number;
-              pageWidthPx: number;
-          },
-    gridDimensions,
+    pageDimensions: WidthHeight,
+    containerDimensions: WidthHeight,
+    gridDimensions: GridDimensions,
 ) => {
-    const {pageWidthPx, pageHeightPx} = pageDimensions;
-
     // Determine the device type and orientation.
     const deviceOrientation =
-        pageWidthPx > pageHeightPx
+        containerDimensions.width > containerDimensions.height
             ? DeviceOrientation.LANDSCAPE
             : DeviceOrientation.PORTRAIT;
-    const deviceType =
-        Math.min(pageWidthPx, pageHeightPx) > tabletCutoffPx
-            ? DeviceType.TABLET
-            : DeviceType.PHONE;
 
     // Using that information, make some decisions (or assumptions)
     // about the resulting layout.
-    const navigationPadEnabled = deviceType === DeviceType.TABLET;
-    const paginationEnabled =
-        deviceType === DeviceType.PHONE &&
-        deviceOrientation === DeviceOrientation.PORTRAIT;
-
-    const deviceInfo = {deviceOrientation, deviceType} as const;
-    const layoutOptions = {
-        navigationPadEnabled,
-        paginationEnabled,
-        // HACK(charlie): It's not great that we're making assumptions about
-        // the toolbar (which is rendered by webapp, and should always be
-        // visible and anchored to the bottom of the page for phone and
-        // tablet exercises). But this is primarily a heuristic (the goal is
-        // to preserve a 'good' amount of space between the top of the
-        // keypad and the top of the page) so we afford to have some margin
-        // of error.
-        toolbarEnabled: true,
-    } as const;
+    const navigationPadEnabled =
+        containerDimensions.width > navigationViewThreshold;
+    const paginationEnabled = containerDimensions.width < expandedViewThreshold;
+    const toolbarEnabled = true;
 
     return {
         ...computeLayoutParameters(
             gridDimensions,
             pageDimensions,
-            deviceInfo,
-            layoutOptions,
+            containerDimensions,
+            deviceOrientation,
+            navigationPadEnabled,
+            paginationEnabled,
+            toolbarEnabled,
         ),
         // Pass along some of the layout information, so that other
         // components in the heirarchy can adapt appropriately.
@@ -104,26 +86,39 @@ const layoutReducer = function (
                 numPages: keypadForType[keypadType].numPages,
             } as const;
 
+            const layoutParams = layoutParametersForDimensions(
+                state.pageDimensions,
+                state.containerDimensions,
+                gridDimensions,
+            );
+
             return {
                 ...state,
-                ...layoutParametersForDimensions(
-                    state.pageDimensions,
-                    gridDimensions,
-                ),
+                ...layoutParams,
                 gridDimensions,
             };
 
         case "SetPageSize":
-            const {pageWidthPx, pageHeightPx} = action;
-            const pageDimensions = {pageWidthPx, pageHeightPx} as const;
+            const {pageWidth, pageHeight, containerWidth, containerHeight} =
+                action;
+            const pageDimensions = {
+                width: pageWidth,
+                height: pageHeight,
+            } as const;
+            const containerDimensions = {
+                width: containerWidth,
+                height: containerHeight,
+            } as const;
 
             return {
                 ...state,
                 ...layoutParametersForDimensions(
                     pageDimensions,
+                    containerDimensions,
                     state.gridDimensions,
                 ),
                 pageDimensions,
+                containerDimensions,
             };
 
         default:

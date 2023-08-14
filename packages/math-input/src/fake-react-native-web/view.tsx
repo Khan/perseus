@@ -26,6 +26,7 @@ type Props = {
     onTouchStart?: (arg1: React.TouchEvent<HTMLDivElement>) => void;
     role?: string;
     style?: StyleType;
+    forwardRef?: React.RefObject<HTMLDivElement>;
 };
 
 class View extends React.Component<Props> {
@@ -79,6 +80,7 @@ class View extends React.Component<Props> {
                 onTouchStart={this.props.onTouchStart}
                 aria-label={this.props.ariaLabel}
                 role={this.props.role}
+                ref={this.props.forwardRef}
             >
                 {this.props.children}
             </div>
