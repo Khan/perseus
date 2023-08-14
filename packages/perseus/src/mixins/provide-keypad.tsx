@@ -11,13 +11,14 @@
  * extend a `ProvideKeypad` component instead of using this mixin.
  */
 
-import {KeypadAPI, MobileKeypad} from "@khanacademy/math-input";
+import {MobileKeypad} from "@khanacademy/math-input";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
 import reactRender from "../util/react-render";
 
 import type {APIOptions} from "../types";
+import type {KeypadAPI} from "@khanacademy/math-input";
 import type {CSSProperties} from "aphrodite";
 
 export type KeypadProps = {

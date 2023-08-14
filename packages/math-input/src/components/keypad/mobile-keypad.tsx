@@ -3,9 +3,15 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import Key from "../../data/keys";
 import {View} from "../../fake-react-native-web/index";
-import {Cursor, KeypadConfiguration, KeyHandler, KeypadAPI} from "../../types";
+
+import type Key from "../../data/keys";
+import type {
+    Cursor,
+    KeypadConfiguration,
+    KeyHandler,
+    KeypadAPI,
+} from "../../types";
 
 import Keypad from "./index";
 
