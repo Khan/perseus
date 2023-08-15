@@ -6,7 +6,17 @@ import {KeypadInput, KeypadType, MobileKeypad} from "./index";
 
 export default {
     title: "Full Mobile MathInput",
-    viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
+    parameters: {
+        backgrounds: {
+            default: "light background",
+            values: [
+                // We want a slightly darker default bg so that we can
+                // see the top of the keypad when it is open
+                {name: "light background", value: "lightgrey", default: true},
+            ],
+        },
+        viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
+    },
 };
 
 export const Basic = () => {

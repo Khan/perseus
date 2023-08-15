@@ -14,6 +14,7 @@ type Props = {
     cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     multiplicationDot?: boolean;
     divisionKey?: boolean;
+    isMobileFractions?: boolean;
 };
 
 function getCursorContextConfig(
@@ -48,6 +49,7 @@ export default function SharedKeys(props: Props) {
         divisionKey,
         multiplicationDot,
         selectedPage,
+        isMobileFractions,
     } = props;
 
     const cursorKeyConfig = getCursorContextConfig(cursorContext);
@@ -58,44 +60,42 @@ export default function SharedKeys(props: Props) {
             ? [3, 1]
             : [3, 0];
 
-    if (selectedPage === "Fractions") {
+    // We show a minimal sidebar for our mobile fraction view
+    if (isMobileFractions) {
         return (
             <>
                 <KeypadButton
-                    keyConfig={Keys.FRAC_INCLUSIVE}
+                    keyConfig={Keys.PERCENT}
                     onClickKey={onClickKey}
                     coord={[3, 0]}
                     secondary
                 />
-
-                <KeypadButton
-                    keyConfig={Keys.PERCENT}
-                    onClickKey={onClickKey}
-                    coord={[4, 0]}
-                    secondary
-                />
-
-                {/* Row 4 */}
                 <KeypadButton
                     keyConfig={Keys.PI}
                     onClickKey={onClickKey}
                     coord={[3, 1]}
-                    action
+                    secondary
                 />
                 <KeypadButton
-                    keyConfig={Keys.BACKSPACE}
+                    keyConfig={Keys.FRAC_INCLUSIVE}
                     onClickKey={onClickKey}
-                    coord={[4, 1]}
-                    action
+                    coord={[3, 2]}
+                    secondary
                 />
                 {cursorKeyConfig && (
                     <KeypadButton
                         keyConfig={cursorKeyConfig}
                         onClickKey={onClickKey}
-                        coord={[3, 2]}
+                        coord={[3, 3]}
                         secondary
                     />
                 )}
+                <KeypadButton
+                    keyConfig={Keys.BACKSPACE}
+                    onClickKey={onClickKey}
+                    coord={[4, 3]}
+                    action
+                />
             </>
         );
     }

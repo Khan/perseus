@@ -10,7 +10,6 @@ import ExtrasPage from "./keypad-pages/extras-page";
 import GeometryPage from "./keypad-pages/geometry-page";
 import NumbersPage from "./keypad-pages/numbers-page";
 import OperatorsPage from "./keypad-pages/operators-page";
-import FractionsPage from "./keypad-pages/fractions-page";
 import SharedKeys from "./shared-keys";
 
 import type Key from "../../data/keys";
@@ -32,8 +31,7 @@ export type Props = {
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
-
-    keypadtype?: "EXPRESSION" | "FRACTION";
+    mobileFractions?: boolean;
 
     onClickKey: ClickKeyCallback;
     sendEvent?: SendEventFn;
@@ -44,9 +42,6 @@ const defaultProps = {
 };
 
 function allPages(props: Props): ReadonlyArray<TabbarItemType> {
-    if (props.keypadtype === "FRACTION") {
-        return ["Fractions"];
-    }
     const pages: Array<TabbarItemType> = ["Numbers"];
 
     if (
@@ -73,13 +68,12 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
 export default function Keypad(props: Props) {
-    const useFractionPage = props.keypadtype === "FRACTION";
-    const availablePages = useFractionPage ? [] : allPages(props);
-
-    const initialSelectedPage = useFractionPage ? "Fractions" : "Numbers";
     const [selectedPage, setSelectedPage] =
-        React.useState<TabbarItemType>(initialSelectedPage);
+        React.useState<TabbarItemType>("Numbers");
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
+
+    // We don't want any tabs available on mobile fractions keypad
+    const availablePages = props.mobileFractions ? [] : allPages(props);
 
     const {
         onClickKey,
@@ -92,10 +86,14 @@ export default function Keypad(props: Props) {
         basicRelations,
         advancedRelations,
         showDismiss,
+        mobileFractions,
         sendEvent,
     } = props;
 
-    const gridStyle = useFractionPage ? styles.mobileGrid : styles.grid;
+    // Use a different grid for mobile fraction keypad
+    const gridStyle = mobileFractions
+        ? styles.mobileFractionsGrid
+        : styles.grid;
 
     useEffect(() => {
         if (!isMounted) {
@@ -154,15 +152,13 @@ export default function Keypad(props: Props) {
                 {selectedPage === "Geometry" && (
                     <GeometryPage onClickKey={onClickKey} />
                 )}
-                {selectedPage === "Fractions" && (
-                    <FractionsPage onClickKey={onClickKey} />
-                )}
                 <SharedKeys
                     onClickKey={onClickKey}
                     cursorContext={cursorContext}
                     multiplicationDot={multiplicationDot}
                     divisionKey={divisionKey}
                     selectedPage={selectedPage}
+                    isMobileFractions={mobileFractions}
                 />
             </View>
         </View>
@@ -181,7 +177,7 @@ const styles = StyleSheet.create({
         gridTemplateRows: "repeat(4, 1fr)",
         backgroundColor: "#DBDCDD",
     },
-    mobileGrid: {
+    mobileFractionsGrid: {
         display: "grid",
         gridTemplateColumns: "repeat(5, 1fr)",
         gridTemplateRows: "repeat(4, 1fr)",
