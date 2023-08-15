@@ -1,5 +1,4 @@
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
-
 import * as React from "react";
 
 import type {KeypadAPI} from "./types";
