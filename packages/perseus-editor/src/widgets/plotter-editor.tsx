@@ -16,15 +16,6 @@ import BlurInput from "../components/blur-input";
 const {InfoTip, NumberInput, RangeInput, TextListEditor} = components;
 const Plotter = PlotterWidget.widget;
 
-const BAR = "bar";
-const LINE = "line";
-const PIC = "pic";
-const HISTOGRAM = "histogram";
-const DOTPLOT = "dotplot";
-
-const plotTypes = [BAR, LINE, PIC, HISTOGRAM, DOTPLOT];
-type PlotType = typeof plotTypes[number];
-
 const STARTING = "starting";
 const CORRECT = "correct";
 
@@ -46,6 +37,15 @@ const editorDefaults = {
     maxY: 10,
     snapsPerLine: 2,
 } as const;
+
+export const plotTypes = [
+    "bar",
+    "line",
+    "pic",
+    "histogram",
+    "dotplot",
+] as const;
+export type PlotType = typeof plotTypes[number];
 
 type Props = {
     type: PlotType;
@@ -100,7 +100,7 @@ class PlotterEditor extends React.Component<Props, State> {
         correct: [1],
         starting: [1],
 
-        type: BAR,
+        type: "bar",
         labels: ["", ""],
         categories: [""],
 
@@ -184,12 +184,12 @@ class PlotterEditor extends React.Component<Props, State> {
 
     changeType: (arg1: any) => void = (type) => {
         let categories;
-        if (type === HISTOGRAM) {
+        if (type === "histogram") {
             // Switching to histogram, add a label (0) to the left
             // @ts-expect-error - TS2769
             categories = [formatNumber(0)].concat(this.props.categories);
             this.props.onChange({type: type, categories: categories});
-        } else if (this.props.type === HISTOGRAM) {
+        } else if (this.props.type === "histogram") {
             // Switching from histogram, remove a label from the left
             categories = this.props.categories.slice(1);
             this.props.onChange({type: type, categories: categories});
@@ -222,7 +222,7 @@ class PlotterEditor extends React.Component<Props, State> {
 
     changeCategories: (arg1: any) => void = (categories) => {
         let n = categories.length;
-        if (this.props.type === HISTOGRAM) {
+        if (this.props.type === "histogram") {
             // Histograms with n labels/categories have n - 1 buckets
             n--;
         }
@@ -279,7 +279,7 @@ class PlotterEditor extends React.Component<Props, State> {
         const length = Math.floor((max - min) / scale) * scale;
 
         let categories;
-        if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
+        if (this.props.type === "histogram" || this.props.type === "dotplot") {
             // Ranges for histogram and dotplot labels should start at zero
             categories = _.range(0, length + scale, scale);
         } else {
@@ -312,7 +312,7 @@ class PlotterEditor extends React.Component<Props, State> {
             "labelInterval",
         );
 
-        if (this.props.type === PIC) {
+        if (this.props.type === "pic") {
             // @ts-expect-error [FEI-5003] - TS2339 - Property 'picUrl' does not exist on type 'Pick<Readonly<any> & Readonly<{ children?: ReactNode; }>, "type" | "correct" | "labels" | "categories" | "starting" | "scaleY" | "maxY" | "snapsPerLine" | "labelInterval">'.
             json.picUrl = this.props.picUrl;
         }
@@ -322,10 +322,10 @@ class PlotterEditor extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const setFromScale = _.contains(
-            [LINE, HISTOGRAM, DOTPLOT],
+            ["line", "histogram", "dotplot"],
             this.props.type,
         );
-        const canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
+        const canChangeSnaps = !_.contains(["pic", "dotplot"], this.props.type);
         const props = {
             trackInteraction: () => {},
             ...this.props,
@@ -419,7 +419,7 @@ class PlotterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
-                {this.props.type === PIC && (
+                {this.props.type === "pic" && (
                     <div>
                         <label>
                             Picture:{" "}

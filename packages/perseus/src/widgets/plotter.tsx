@@ -13,39 +13,39 @@ import KhanColors from "../util/colors";
 import GraphUtils from "../util/graph-utils";
 import KhanMath from "../util/math";
 
-import type {APIOptions, WidgetExports} from "../types";
+import type {PerseusPlotterWidgetOptions} from "../perseus-types";
+import type {WidgetExports, WidgetProps} from "../types";
 
 const {deepEq} = Util;
 
-const BAR = "bar";
-const LINE = "line";
-const PIC = "pic";
-const HISTOGRAM = "histogram";
-const DOTPLOT = "dotplot";
+type Rubric = PerseusPlotterWidgetOptions;
+type RenderProps = PerseusPlotterWidgetOptions;
 
-const plotTypes = [BAR, LINE, PIC, HISTOGRAM, DOTPLOT];
-type PlotType = typeof plotTypes[number];
-
-type Props = {
-    type: PlotType;
-    labels: ReadonlyArray<string>;
-    categories: ReadonlyArray<string | number>;
-    scaleY: number;
-    maxY: number;
-    snapsPerLine: number;
-    picSize: number;
-    picBoxHeight: number;
-    picUrl: string;
-    plotDimensions: ReadonlyArray<number>;
+type Props = WidgetProps<RenderProps, Rubric> & {
     labelInterval: number;
-
-    starting: Array<number>;
-    static: boolean;
-    markings: any;
-    onChange: any;
-    trackInteraction: () => void;
-    apiOptions: APIOptions;
+    picSize: number;
 };
+
+// type oldProps = {
+//     type: PlotType;
+//     labels: ReadonlyArray<string>;
+//     categories: ReadonlyArray<string | number>;
+//     scaleY: number;
+//     maxY: number;
+//     snapsPerLine: number;
+//     picSize: number;
+//     picBoxHeight: number;
+//     picUrl: string;
+//     plotDimensions: ReadonlyArray<number>;
+//     labelInterval: number;
+
+//     starting: Array<number>;
+//     static: boolean;
+//     markings: any;
+//     onChange: any;
+//     trackInteraction: () => void;
+//     apiOptions: APIOptions;
+// };
 
 type DefaultProps = {
     type: Props["type"];
@@ -62,7 +62,7 @@ type DefaultProps = {
 };
 
 type State = {
-    values: Array<number>;
+    values: ReadonlyArray<number>;
     categoryHeights: Record<string, number>;
 };
 
@@ -75,7 +75,7 @@ export class Plotter extends React.Component<Props, State> {
     graphie: any;
 
     static defaultProps: DefaultProps = {
-        type: BAR,
+        type: "bar",
         labels: ["", ""],
         categories: [""],
 
@@ -175,11 +175,11 @@ export class Plotter extends React.Component<Props, State> {
         self.graphie.pics = [];
         self.graphie.dotTicks = [];
 
-        const isBar = self.props.type === BAR;
-        const isLine = self.props.type === LINE;
-        const isPic = self.props.type === PIC;
-        const isHistogram = self.props.type === HISTOGRAM;
-        const isDotplot = self.props.type === DOTPLOT;
+        const isBar = self.props.type === "bar";
+        const isLine = self.props.type === "line";
+        const isPic = self.props.type === "pic";
+        const isHistogram = self.props.type === "histogram";
+        const isDotplot = self.props.type === "dotplot";
 
         const isTiledPlot = isPic || isDotplot;
 
@@ -462,7 +462,7 @@ export class Plotter extends React.Component<Props, State> {
     };
 
     showHairlines: (arg1: any) => void = (point) => {
-        if (this.props.apiOptions.isMobile && this.props.markings !== "none") {
+        if (this.props.apiOptions.isMobile) {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
             // visible.
@@ -546,7 +546,7 @@ export class Plotter extends React.Component<Props, State> {
         // The deferred measurements returned from `labelCategory`.
         const categoryHeightPromises = [];
 
-        if (self.props.type === HISTOGRAM) {
+        if (self.props.type === "histogram") {
             // Histograms with n labels/categories have n - 1 buckets
             _.times(self.props.categories.length - 1, function (i) {
                 self.setupBar({
@@ -580,29 +580,29 @@ export class Plotter extends React.Component<Props, State> {
                 const startHeight = self.state.values[i];
                 let x;
 
-                if (self.props.type === BAR) {
+                if (self.props.type === "bar") {
                     x = self.setupBar({
                         index: i,
                         startHeight: startHeight,
                         config: config,
                         isHistogram: false,
                     });
-                } else if (self.props.type === LINE) {
+                } else if (self.props.type === "line") {
                     x = self.setupLine(i, startHeight, config);
-                } else if (self.props.type === PIC) {
+                } else if (self.props.type === "pic") {
                     x = self.setupPic(i, config);
-                } else if (self.props.type === DOTPLOT) {
+                } else if (self.props.type === "dotplot") {
                     x = self.setupDotplot(i, config);
                 }
 
                 let tickStart = 0;
                 let tickEnd = -6 / c.scale[1];
 
-                if (self.props.type === DOTPLOT && !isMobile) {
+                if (self.props.type === "dotplot" && !isMobile) {
                     tickStart = -tickEnd;
                 }
 
-                if (self.props.type === DOTPLOT) {
+                if (self.props.type === "dotplot") {
                     // Dotplot lets you specify to only show labels every 'n'
                     // ticks. It also looks nicer if it makes the labelled
                     // ticks a bit bigger.
@@ -804,7 +804,7 @@ export class Plotter extends React.Component<Props, State> {
                     onMove: function () {
                         const y = config.graph.lines[i].coord()[1];
 
-                        const values = _.clone(self.state.values);
+                        const values = [...self.state.values];
                         values[i] = y;
                         self.setState({values: values});
                         self.changeAndTrack({values: values});
@@ -851,7 +851,7 @@ export class Plotter extends React.Component<Props, State> {
                     this.transform();
                 }
 
-                const values = _.clone(self.state.values);
+                const values = [...self.state.values];
                 values[i] = y;
                 self.setState({values: values});
                 self.changeAndTrack({values: values});
@@ -901,7 +901,7 @@ export class Plotter extends React.Component<Props, State> {
                 onMove: function () {
                     const y = c.graph.points[i].coord()[1];
 
-                    const values = _.clone(self.state.values);
+                    const values = [...self.state.values];
                     values[i] = y;
                     self.setState({values: values});
                     self.changeAndTrack({values: values});
@@ -941,7 +941,7 @@ export class Plotter extends React.Component<Props, State> {
             });
             c.graph.points[i].onMove = function (x, y) {
                 y = Math.min(Math.max(y, 0), c.dimY);
-                const values = _.clone(self.state.values);
+                const values = [...self.state.values];
                 values[i] = y;
                 self.setState({values: values});
                 self.changeAndTrack({values: values});
@@ -1095,7 +1095,7 @@ export class Plotter extends React.Component<Props, State> {
     };
 
     setPicHeight: (arg1: number, arg2: number) => void = (i, y) => {
-        const values = _.clone(this.state.values);
+        const values = [...this.state.values];
         values[i] = y;
         this.drawPicHeights(values, this.state.values);
         this.setState({values: values});
@@ -1126,7 +1126,7 @@ export class Plotter extends React.Component<Props, State> {
                 const y = (j + 1) * self.props.scaleY;
                 const show = y <= values[i];
 
-                if (self.props.type === DOTPLOT) {
+                if (self.props.type === "dotplot") {
                     const wasShown = y <= prevValues[i];
                     const wasJustShown = show && !wasShown;
                     if (wasJustShown) {
