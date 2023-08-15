@@ -26,27 +26,6 @@ type Props = WidgetProps<RenderProps, Rubric> & {
     picSize: number;
 };
 
-// type oldProps = {
-//     type: PlotType;
-//     labels: ReadonlyArray<string>;
-//     categories: ReadonlyArray<string | number>;
-//     scaleY: number;
-//     maxY: number;
-//     snapsPerLine: number;
-//     picSize: number;
-//     picBoxHeight: number;
-//     picUrl: string;
-//     plotDimensions: ReadonlyArray<number>;
-//     labelInterval: number;
-
-//     starting: Array<number>;
-//     static: boolean;
-//     markings: any;
-//     onChange: any;
-//     trackInteraction: () => void;
-//     apiOptions: APIOptions;
-// };
-
 type DefaultProps = {
     type: Props["type"];
     labels: Props["labels"];
