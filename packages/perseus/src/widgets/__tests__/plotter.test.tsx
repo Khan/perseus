@@ -26,7 +26,7 @@ describe("plotter widget", () => {
 
     it("should show drag text when not static", () => {
         // Arrange and Act
-        const apiOptions: APIOptions = Object.freeze({isMobile: true});
+        const apiOptions: APIOptions = {isMobile: true};
         render(
             <Plotter
                 static={false}
