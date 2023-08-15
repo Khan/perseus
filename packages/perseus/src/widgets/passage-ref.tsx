@@ -7,8 +7,6 @@ import * as Changeable from "../mixins/changeable";
 import {removeDenylistProps} from "../mixins/widget-prop-denylist";
 import PerseusMarkdown from "../perseus-markdown";
 
-import {Passage} from "./passage";
-
 import type {PerseusPassageRefWidgetOptions} from "../perseus-types";
 import type {
     ChangeFn,
@@ -17,7 +15,7 @@ import type {
     WidgetProps,
     LinterContextProps,
 } from "../types";
-import type {Reference} from "./passage";
+import type {Passage, Reference} from "./passage";
 
 const EN_DASH = "\u2013";
 

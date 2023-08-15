@@ -5,7 +5,6 @@
 
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import ProvideKeypad from "./mixins/provide-keypad";
@@ -13,42 +12,44 @@ import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
-const rendererProps = PropTypes.shape({
-    content: PropTypes.string,
-    widgets: PropTypes.objectOf(PropTypes.any),
-    images: PropTypes.objectOf(PropTypes.any),
-});
+import type {KeypadProps} from "./mixins/provide-keypad";
+import type {PerseusRenderer} from "./perseus-types";
+import type {APIOptions} from "./types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-class ArticleRenderer extends React.Component<any, any> {
+type Props = {
+    apiOptions: APIOptions;
+    json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+
+    // Whether to use the new Bibliotron styles for articles
+    /**
+     * @deprecated Does nothing
+     */
+    useNewStyles: boolean;
+    linterContext: LinterContextProps;
+    legacyPerseusLint?: ReadonlyArray<string>;
+} & KeypadProps;
+
+type DefaultProps = {
+    apiOptions: Props["apiOptions"];
+    useNewStyles: Props["useNewStyles"];
+    linterContext: Props["linterContext"];
+};
+
+type State = {
+    keypadElement: any | null;
+};
+
+class ArticleRenderer extends React.Component<Props, State> {
     _currentFocus: any;
 
-    static propTypes = {
-        ...ProvideKeypad.propTypes,
-        apiOptions: PropTypes.shape({
-            onFocusChange: PropTypes.func,
-            isMobile: PropTypes.bool,
-        }),
-        json: PropTypes.oneOfType([
-            rendererProps,
-            PropTypes.arrayOf(rendererProps),
-        ]).isRequired,
-
-        // Whether to use the new Bibliotron styles for articles
-        /**
-         * @deprecated Does nothing
-         */
-        useNewStyles: PropTypes.bool,
-        linterContext: PerseusLinter.linterContextProps,
-        legacyPerseusLint: PropTypes.arrayOf(PropTypes.string),
-    };
-
-    static defaultProps: any = {
-        apiOptions: {},
+    static defaultProps: DefaultProps = {
+        apiOptions: ApiOptions.defaults,
         useNewStyles: false,
         linterContext: PerseusLinter.linterContextDefault,
     };
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
         this.state = ProvideKeypad.getInitialState.call(this);
     }
@@ -58,7 +59,7 @@ class ArticleRenderer extends React.Component<any, any> {
         this._currentFocus = null;
     }
 
-    shouldComponentUpdate(nextProps: any, nextState: any): any {
+    shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return nextProps !== this.props || nextState !== this.state;
     }
 

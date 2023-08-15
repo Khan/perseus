@@ -1,11 +1,9 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     DesktopKeypad,
-    Keys,
     keyTranslator,
     createMathField,
     mathQuillInstance,
-    MathFieldInterface,
     CursorContext,
     getCursorContext,
 } from "@khanacademy/math-input";
@@ -20,6 +18,8 @@ import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
+
+import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 

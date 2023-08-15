@@ -6,11 +6,8 @@ import {
     InteractiveGraphWidget,
     SizingUtils,
     Util,
-    PerseusImageBackground,
-    PerseusInteractiveGraphWidgetOptions,
-    APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
-import {StyleType, View} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as Typography from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
@@ -21,6 +18,13 @@ import GraphSettings from "../components/graph-settings";
 import GraphTypeSelector from "../components/graph-type-selector";
 import SegmentCountSelector from "../components/segment-count-selector";
 import {parsePointCount} from "../util/points";
+
+import type {
+    PerseusImageBackground,
+    PerseusInteractiveGraphWidgetOptions,
+    APIOptionsWithDefaults,
+} from "@khanacademy/perseus";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;

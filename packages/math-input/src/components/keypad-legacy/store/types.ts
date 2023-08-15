@@ -1,8 +1,7 @@
-import Key from "../../../data/keys";
-import {LayoutMode, KeypadType} from "../../../enums";
-import GestureManager from "../gesture-manager";
-
+import type Key from "../../../data/keys";
+import type {LayoutMode, KeypadType} from "../../../enums";
 import type {Cursor, KeyHandler, Popover, Echo} from "../../../types";
+import type GestureManager from "../gesture-manager";
 
 // Interaction between keypad and input
 export interface InputState {
@@ -47,22 +46,24 @@ export interface EchoState {
     echoes: ReadonlyArray<Echo>;
 }
 
+export type GridDimensions = {
+    numRows: number;
+    numColumns: number;
+    numMaxVisibleRows: number;
+    numPages: number;
+};
+
+export type WidthHeight = {
+    width: number;
+    height: number;
+};
+
 // Layout (size, where to put buttons, etc)
 export interface LayoutState {
-    gridDimensions: {
-        numRows: number;
-        numColumns: number;
-        numMaxVisibleRows: number;
-        numPages: number;
-    };
-    buttonDimensions: {
-        widthPx: number;
-        heightPx: number;
-    };
-    pageDimensions: {
-        pageWidthPx: number;
-        pageHeightPx: number;
-    };
+    gridDimensions: GridDimensions;
+    buttonDimensions: WidthHeight;
+    containerDimensions: WidthHeight;
+    pageDimensions: WidthHeight;
     layoutMode: LayoutMode;
     paginationEnabled: boolean;
     navigationPadEnabled: boolean;

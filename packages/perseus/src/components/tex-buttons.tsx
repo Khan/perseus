@@ -1,11 +1,12 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {Keys} from "@khanacademy/math-input";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
+
+import type {Keys} from "@khanacademy/math-input";
 
 const prettyBig = {fontSize: "150%"} as const;
 const slightlyBig = {fontSize: "120%"} as const;

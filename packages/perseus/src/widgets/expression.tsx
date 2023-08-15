@@ -1,5 +1,5 @@
 import * as KAS from "@khanacademy/kas";
-import {KeypadInput, KeypadType, Keys as Key} from "@khanacademy/math-input";
+import {KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
@@ -21,6 +21,7 @@ import type {
     PerseusExpressionAnswerForm,
 } from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {Keys as Key} from "@khanacademy/math-input";
 
 const sendExpressionEvaluatedEvent = (
     result: "correct" | "incorrect" | "invalid",

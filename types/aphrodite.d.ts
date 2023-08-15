@@ -1,5 +1,5 @@
 declare module "aphrodite" {
-    import * as React from "react";
+    import type * as React from "react";
 
     type _CSSProperties = Omit<
         React.CSSProperties,

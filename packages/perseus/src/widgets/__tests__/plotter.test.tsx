@@ -4,11 +4,12 @@ import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {setDependencies} from "../../dependencies";
-import {APIOptions} from "../../types";
 import {question1} from "../__testdata__/plotter.testdata";
 import {Plotter} from "../plotter";
 
 import {renderQuestion} from "./renderQuestion";
+
+import type {APIOptions} from "../../types";
 
 describe("plotter widget", () => {
     beforeEach(() => {

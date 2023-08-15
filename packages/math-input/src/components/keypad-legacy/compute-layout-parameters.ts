@@ -19,13 +19,15 @@
  * might need to be.
  */
 
-import {DeviceType, DeviceOrientation, LayoutMode} from "../../enums";
+import {DeviceOrientation, LayoutMode} from "../../enums";
 import {
     pageIndicatorHeightPx,
     toolbarHeightPx,
     navigationPadWidthPx,
     innerBorderWidthPx,
 } from "../common-style";
+
+import type {GridDimensions, WidthHeight} from "./store/types";
 
 const minButtonHeight = 48;
 const maxButtonSize = 64;
@@ -54,88 +56,135 @@ const maxPortraitBrowserChrome =
 // difference when reserving space above the keypad.)
 const worstCaseAspectRatio = 320 / (480 - safariNavBarWhenShrunk);
 
+type ComputedLayoutProperty = {
+    buttonDimensions: WidthHeight;
+    layoutMode: LayoutMode;
+};
+
+function getButtonWidth(
+    gridDimensions: GridDimensions,
+    containerDimensions: WidthHeight,
+    navigationPadEnabled: boolean,
+    paginationEnabled: boolean,
+    isLandscape: boolean,
+): number {
+    const {numColumns, numPages} = gridDimensions;
+
+    // We can use the container width as the effective width.
+    let effectiveWidth = containerDimensions.width;
+    if (navigationPadEnabled) {
+        effectiveWidth -= navigationPadWidthPx;
+    }
+
+    let buttonWidthPx;
+    if (numPages > 1) {
+        const effectiveNumColumns = paginationEnabled
+            ? numColumns
+            : numColumns * numPages;
+        buttonWidthPx = effectiveWidth / effectiveNumColumns;
+    } else {
+        buttonWidthPx = isLandscape
+            ? maxButtonSize
+            : effectiveWidth / numColumns;
+    }
+
+    return buttonWidthPx;
+}
+
+function getButtonHeight(
+    gridDimensions: GridDimensions,
+    pageDimensions: WidthHeight,
+    containerDimensions: WidthHeight,
+    paginationEnabled: boolean,
+    toolbarEnabled: boolean,
+    isLandscape: boolean,
+) {
+    const {numMaxVisibleRows} = gridDimensions;
+
+    // In many cases, the browser chrome will already have been factored
+    // into `pageHeight`. But we have no way of knowing if that's
+    // the case or not. As such, we take a conservative approach and
+    // assume that the chrome is _never_ included in `pageHeight`.
+    const browserChromeHeight = isLandscape
+        ? maxLandscapeBrowserChrome
+        : maxPortraitBrowserChrome;
+
+    // Count up all the space that we need to reserve on the page.
+    // Namely, we need to account for:
+    //  1. Space between the keypad and the top of the page.
+    //  2. The presence of the exercise toolbar.
+    //  3. The presence of the view pager indicator.
+    //  4. Any browser chrome that may appear later.
+    const reservedSpace =
+        minSpaceAboveKeypad +
+        browserChromeHeight +
+        (toolbarEnabled ? toolbarHeightPx : 0) +
+        (paginationEnabled ? pageIndicatorHeightPx : 0);
+
+    // For the height, we take
+    // another conservative measure when in portrait by assuming that
+    // the device has the worst possible aspect ratio. In other words,
+    // we ignore the device height in portrait and assume the worst.
+    // This prevents the keypad from changing size when browser chrome
+    // appears and disappears.
+    const effectiveHeight = isLandscape
+        ? pageDimensions.height
+        : containerDimensions.width / worstCaseAspectRatio;
+
+    // In computing the
+    // height, accommodate for the maximum number of rows that will ever be
+    // visible (since the toggling of popovers can increase the number of
+    // visible rows).
+    const maxKeypadHeight = effectiveHeight - reservedSpace;
+
+    const buttonHeightPx = Math.max(
+        Math.min(maxKeypadHeight / numMaxVisibleRows, maxButtonSize),
+        minButtonHeight,
+    );
+
+    return buttonHeightPx;
+}
+
 export const computeLayoutParameters = (
-    {numColumns, numMaxVisibleRows, numPages},
-    {pageWidthPx, pageHeightPx},
-    {deviceOrientation, deviceType},
-    {navigationPadEnabled, paginationEnabled, toolbarEnabled},
-) => {
+    gridDimensions: GridDimensions,
+    pageDimensions: WidthHeight,
+    containerDimensions: WidthHeight,
+    deviceOrientation: DeviceOrientation,
+    navigationPadEnabled: boolean,
+    paginationEnabled: boolean,
+    toolbarEnabled: boolean,
+): ComputedLayoutProperty => {
+    const {numColumns, numPages} = gridDimensions;
+
     // First, compute some values that will be used in multiple computations.
     const effectiveNumColumns = paginationEnabled
         ? numColumns
         : numColumns * numPages;
 
     // Then, compute the button dimensions based on the provided parameters.
-    let buttonDimensions;
-    if (deviceType === DeviceType.PHONE) {
-        const isLandscape = deviceOrientation === DeviceOrientation.LANDSCAPE;
+    const isLandscape = deviceOrientation === DeviceOrientation.LANDSCAPE;
 
-        // In many cases, the browser chrome will already have been factored
-        // into `pageHeightPx`. But we have no way of knowing if that's
-        // the case or not. As such, we take a conservative approach and
-        // assume that the chrome is _never_ included in `pageHeightPx`.
-        const browserChromeHeight = isLandscape
-            ? maxLandscapeBrowserChrome
-            : maxPortraitBrowserChrome;
+    const buttonWidth = getButtonWidth(
+        gridDimensions,
+        containerDimensions,
+        navigationPadEnabled,
+        paginationEnabled,
+        isLandscape,
+    );
 
-        // Count up all the space that we need to reserve on the page.
-        // Namely, we need to account for:
-        //  1. Space between the keypad and the top of the page.
-        //  2. The presence of the exercise toolbar.
-        //  3. The presence of the view pager indicator.
-        //  4. Any browser chrome that may appear later.
-        const reservedSpace =
-            minSpaceAboveKeypad +
-            browserChromeHeight +
-            (toolbarEnabled ? toolbarHeightPx : 0) +
-            (paginationEnabled ? pageIndicatorHeightPx : 0);
+    const buttonHeight = getButtonHeight(
+        gridDimensions,
+        pageDimensions,
+        containerDimensions,
+        paginationEnabled,
+        toolbarEnabled,
+        isLandscape,
+    );
 
-        // Next, compute the effective width and height. We can use the page
-        // width as the effective width. For the height, though, we take
-        // another conservative measure when in portrait by assuming that
-        // the device has the worst possible aspect ratio. In other words,
-        // we ignore the device height in portrait and assume the worst.
-        // This prevents the keypad from changing size when browser chrome
-        // appears and disappears.
-        const effectiveWidth = pageWidthPx;
-        const effectiveHeight = isLandscape
-            ? pageHeightPx
-            : pageWidthPx / worstCaseAspectRatio;
-        const maxKeypadHeight = effectiveHeight - reservedSpace;
-
-        // Finally, compute the button height and width. In computing the
-        // height, accommodate for the maximum number of rows that will ever be
-        // visible (since the toggling of popovers can increase the number of
-        // visible rows).
-        const buttonHeightPx = Math.max(
-            Math.min(maxKeypadHeight / numMaxVisibleRows, maxButtonSize),
-            minButtonHeight,
-        );
-
-        let buttonWidthPx;
-        if (numPages > 1) {
-            const effectiveNumColumns = paginationEnabled
-                ? numColumns
-                : numColumns * numPages;
-            buttonWidthPx = effectiveWidth / effectiveNumColumns;
-        } else {
-            buttonWidthPx = isLandscape
-                ? maxButtonSize
-                : effectiveWidth / numColumns;
-        }
-
-        buttonDimensions = {
-            widthPx: buttonWidthPx,
-            heightPx: buttonHeightPx,
-        };
-    } else if (deviceType === DeviceType.TABLET) {
-        buttonDimensions = {
-            widthPx: maxButtonSize,
-            heightPx: maxButtonSize,
-        };
-    } else {
-        throw new Error("Invalid device type: " + deviceType);
-    }
+    const buttonDimensions = {
+        width: buttonWidth,
+        height: buttonHeight,
+    };
 
     // Finally, determine whether the keypad should be rendered in the
     // fullscreen layout by determining its resultant width.
@@ -143,13 +192,13 @@ export const computeLayoutParameters = (
         (navigationPadEnabled ? 1 : 0) +
         (!paginationEnabled ? numPages - 1 : 0);
     const keypadWidth =
-        effectiveNumColumns * buttonDimensions.widthPx +
+        effectiveNumColumns * buttonDimensions.width +
         (navigationPadEnabled ? navigationPadWidthPx : 0) +
         numSeparators * innerBorderWidthPx;
     return {
         buttonDimensions,
         layoutMode:
-            keypadWidth >= pageWidthPx
+            keypadWidth >= containerDimensions.width
                 ? LayoutMode.FULLSCREEN
                 : LayoutMode.COMPACT,
     };

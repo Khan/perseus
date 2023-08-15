@@ -1,11 +1,12 @@
 import * as React from "react";
 
 import Keys from "../../data/key-configs";
-import {ClickKeyCallback} from "../../types";
 import {CursorContext} from "../input/cursor-contexts";
-import {TabbarItemType} from "../tabbar";
 
 import {KeypadButton} from "./keypad-button";
+
+import type {ClickKeyCallback} from "../../types";
+import type {TabbarItemType} from "../tabbar";
 
 type Props = {
     onClickKey: ClickKeyCallback;

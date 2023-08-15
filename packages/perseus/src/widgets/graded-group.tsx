@@ -22,12 +22,11 @@ import {
 } from "../styles/constants";
 import a11y from "../util/a11y";
 
-import GradedGroupAnswerBar, {
-    ANSWER_BAR_STATES,
-} from "./graded-group-answer-bar";
+import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
 import type {PerseusGradedGroupWidgetOptions} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,

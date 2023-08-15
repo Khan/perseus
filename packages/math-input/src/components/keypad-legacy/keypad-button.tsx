@@ -6,7 +6,7 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
 
-import {BorderDirection, BorderStyles, KeyType, KeyTypes} from "../../enums";
+import {BorderDirection, BorderStyles, KeyTypes} from "../../enums";
 import {View} from "../../fake-react-native-web/index";
 import {
     wonderBlocksBlue,
@@ -23,6 +23,7 @@ import CornerDecal from "./corner-decal";
 import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
+import type {KeyType} from "../../enums";
 import type {Border, NonManyKeyConfig, IconConfig} from "../../types";
 import type {State} from "./store/types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
@@ -356,8 +357,8 @@ const styleForButtonDimensions = (heightPx, widthPx) => {
 
 const mapStateToProps = (state: State): ReduxProps => {
     return {
-        heightPx: state.layout.buttonDimensions.heightPx,
-        widthPx: state.layout.buttonDimensions.widthPx,
+        heightPx: state.layout.buttonDimensions.height,
+        widthPx: state.layout.buttonDimensions.width,
     };
 };
 

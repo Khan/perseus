@@ -10,8 +10,9 @@ import {
     maybeFindCommandBeforeParens,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
-import {
-    MathFieldActionType,
+import {MathFieldActionType} from "../input/mathquill-types";
+
+import type {
     MathFieldInterface,
     MathFieldCursor,
 } from "../input/mathquill-types";

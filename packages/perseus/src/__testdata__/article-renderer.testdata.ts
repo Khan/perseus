@@ -1,4 +1,6 @@
-export const passageArticle = {
+import type {PerseusRenderer} from "../perseus-types";
+
+export const passageArticle: PerseusRenderer = {
     content:
         "###Group/Pair Activity \n\nThis passage is adapted from Ed Yong, “Turtles Use the Earth’s Magnetic Field as Global GPS.” ©2011 by Kalmbach Publishing Co.\n\n[[☃ passage 1]]\n\n**Question 9**\n\nThe passage most strongly suggests that Adelita used which of the following to navigate her 9,000-mile journey?\n\nA) The current of the North Atlantic gyre\n\nB) Cues from electromagnetic coils designed by Putman and Lohmann\n\nC) The inclination and intensity of Earth’s magnetic field\n\nD) A simulated “magnetic signature” configured by Lohmann\n\n10) Which choice provides the best evidence for the answer to the previous question?\n\nA) Lines 1–2 (“In 1996...way”)\n\nB) Lines 20–21 (“Using...surface”)\n\nC) Lines 36–37 (“In the wild...stars”)\n\nD) Lines 43–45 (“Neither...it is”)\n\n**Question 12** \n\nBased on the passage, which choice best describes the relationship between Putman’s and Lohmann’s research?\n\nA) Putman’s research contradicts Lohmann’s.\n\nB) Putman’s research builds on Lohmann’s.\n\nC) Lohmann’s research confirms Putman’s.\n\nD) Lohmann’s research corrects Putman’s.",
     images: {},

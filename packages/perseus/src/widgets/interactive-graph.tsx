@@ -14,9 +14,6 @@ import {PerseusError} from "../perseus-error";
 import Util from "../util";
 import KhanColors from "../util/colors";
 import {
-    QuadraticCoefficient,
-    SineCoefficient,
-    Range,
     angleMeasures,
     ccw,
     collinear,
@@ -44,6 +41,11 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {
+    QuadraticCoefficient,
+    SineCoefficient,
+    Range,
+} from "../util/geometry";
 
 const {DeprecationMixin} = Util;
 
