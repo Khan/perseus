@@ -26,7 +26,7 @@ import Keypad from "./index";
  * can't have methods attached to them).
  */
 
-type Props = {
+export type Props = {
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
     style?: StyleType;
@@ -142,6 +142,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                     extraKeys={keypadConfig?.extraKeys}
                     onClickKey={(key) => this._handleClickKey(key)}
                     cursorContext={cursor?.context}
+                    keypadtype={isExpression ? "EXPRESSION" : "FRACTION"}
                     multiplicationDot={isExpression}
                     divisionKey={isExpression}
                     trigonometry={isExpression}

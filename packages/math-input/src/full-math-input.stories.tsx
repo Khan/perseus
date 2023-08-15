@@ -1,11 +1,12 @@
 import * as React from "react";
-
-import type {KeypadAPI} from "./types";
+import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
+import {KeypadAPI} from "./types";
 
 import {KeypadInput, KeypadType, MobileKeypad} from "./index";
 
 export default {
     title: "Full Mobile MathInput",
+    viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
 };
 
 export const Basic = () => {
@@ -13,9 +14,20 @@ export const Basic = () => {
     // Reference to the keypad
     const [keypadElement, setKeypadElement] = React.useState<KeypadAPI>();
     // Whether to use Expression or Fraction keypad
-    const [expression, setExpression] = React.useState<boolean>(true);
+    const [expression, setExpression] = React.useState<boolean>(false);
     // Whether to use v1 or v2 keypad
-    const [v2Keypad, setV2Keypad] = React.useState<boolean>(false);
+    const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
+    // Whether the keypad is open or not
+    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
+
+    const toggleKeypad = () => {
+        if (keypadOpen) {
+            keypadElement?.dismiss();
+        } else {
+            keypadElement?.activate();
+        }
+        setKeypadOpen(!keypadOpen);
+    };
 
     React.useEffect(() => {
         keypadElement?.configure(
@@ -37,6 +49,9 @@ export const Basic = () => {
                 </button>
                 <button onClick={() => setV2Keypad(!v2Keypad)}>
                     {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
+                </button>
+                <button onClick={() => toggleKeypad()}>
+                    {`Toggle Keypad`}
                 </button>
             </div>
 

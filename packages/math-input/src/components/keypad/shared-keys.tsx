@@ -58,6 +58,48 @@ export default function SharedKeys(props: Props) {
             ? [3, 1]
             : [3, 0];
 
+    if (selectedPage === "Fractions") {
+        return (
+            <>
+                <KeypadButton
+                    keyConfig={Keys.FRAC_INCLUSIVE}
+                    onClickKey={onClickKey}
+                    coord={[3, 0]}
+                    secondary
+                />
+
+                <KeypadButton
+                    keyConfig={Keys.PERCENT}
+                    onClickKey={onClickKey}
+                    coord={[4, 0]}
+                    secondary
+                />
+
+                {/* Row 4 */}
+                <KeypadButton
+                    keyConfig={Keys.PI}
+                    onClickKey={onClickKey}
+                    coord={[3, 1]}
+                    action
+                />
+                <KeypadButton
+                    keyConfig={Keys.BACKSPACE}
+                    onClickKey={onClickKey}
+                    coord={[4, 1]}
+                    action
+                />
+                {cursorKeyConfig && (
+                    <KeypadButton
+                        keyConfig={cursorKeyConfig}
+                        onClickKey={onClickKey}
+                        coord={[3, 2]}
+                        secondary
+                    />
+                )}
+            </>
+        );
+    }
+
     return (
         <>
             <KeypadButton

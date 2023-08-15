@@ -1,6 +1,6 @@
 import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {StyleSheet} from "aphrodite";
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {useEffect} from "react";
 
@@ -10,6 +10,7 @@ import ExtrasPage from "./keypad-pages/extras-page";
 import GeometryPage from "./keypad-pages/geometry-page";
 import NumbersPage from "./keypad-pages/numbers-page";
 import OperatorsPage from "./keypad-pages/operators-page";
+import FractionsPage from "./keypad-pages/fractions-page";
 import SharedKeys from "./shared-keys";
 
 import type Key from "../../data/keys";
@@ -32,6 +33,8 @@ export type Props = {
     basicRelations?: boolean;
     advancedRelations?: boolean;
 
+    keypadtype?: "EXPRESSION" | "FRACTION";
+
     onClickKey: ClickKeyCallback;
     sendEvent?: SendEventFn;
 };
@@ -41,6 +44,9 @@ const defaultProps = {
 };
 
 function allPages(props: Props): ReadonlyArray<TabbarItemType> {
+    if (props.keypadtype === "FRACTION") {
+        return ["Fractions"];
+    }
     const pages: Array<TabbarItemType> = ["Numbers"];
 
     if (
@@ -67,11 +73,13 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
 export default function Keypad(props: Props) {
-    const [selectedPage, setSelectedPage] =
-        React.useState<TabbarItemType>("Numbers");
-    const [isMounted, setIsMounted] = React.useState<boolean>(false);
+    const useFractionPage = props.keypadtype === "FRACTION";
+    const availablePages = useFractionPage ? [] : allPages(props);
 
-    const availablePages = allPages(props);
+    const initialSelectedPage = useFractionPage ? "Fractions" : "Numbers";
+    const [selectedPage, setSelectedPage] =
+        React.useState<TabbarItemType>(initialSelectedPage);
+    const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     const {
         onClickKey,
@@ -86,6 +94,8 @@ export default function Keypad(props: Props) {
         showDismiss,
         sendEvent,
     } = props;
+
+    const gridStyle = useFractionPage ? styles.mobileGrid : styles.grid;
 
     useEffect(() => {
         if (!isMounted) {
@@ -121,7 +131,7 @@ export default function Keypad(props: Props) {
             />
 
             <View
-                style={styles.grid}
+                style={gridStyle}
                 role="grid"
                 tabIndex={0}
                 aria-label="Keypad"
@@ -143,6 +153,9 @@ export default function Keypad(props: Props) {
                 )}
                 {selectedPage === "Geometry" && (
                     <GeometryPage onClickKey={onClickKey} />
+                )}
+                {selectedPage === "Fractions" && (
+                    <FractionsPage onClickKey={onClickKey} />
                 )}
                 <SharedKeys
                     onClickKey={onClickKey}
@@ -167,5 +180,13 @@ const styles = StyleSheet.create({
         gridTemplateColumns: "repeat(6, 1fr)",
         gridTemplateRows: "repeat(4, 1fr)",
         backgroundColor: "#DBDCDD",
+    },
+    mobileGrid: {
+        display: "grid",
+        gridTemplateColumns: "repeat(5, 1fr)",
+        gridTemplateRows: "repeat(4, 1fr)",
+        backgroundColor: "#DBDCDD",
+        maxHeight: 200,
+        width: "100%",
     },
 });
