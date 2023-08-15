@@ -6,12 +6,12 @@ import * as React from "react";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 import KeyConfigs from "../../data/key-configs";
-import Key from "../../data/keys";
 import {EchoAnimationType} from "../../enums";
 
 import KeypadButton from "./keypad-button";
 import * as zIndexes from "./z-indexes";
 
+import type Key from "../../data/keys";
 import type {Bound, Echo as EchoType} from "../../types";
 
 type EchoProps = {

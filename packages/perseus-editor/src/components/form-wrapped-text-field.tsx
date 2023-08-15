@@ -8,10 +8,12 @@
  * If you need to handle `onSubmit`, please use <TextField> directly with your
  * own <form> that wraps all text fields in the form.
  **/
-import {globalStyles, components} from "@khanacademy/perseus";
+import {globalStyles} from "@khanacademy/perseus";
 import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
+
+import type {components} from "@khanacademy/perseus";
 
 type Props = {
     // This id is used to tie the input field to the label that describes it.

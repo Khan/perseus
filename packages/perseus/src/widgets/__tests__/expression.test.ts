@@ -5,7 +5,6 @@ import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {PerseusItem} from "../../perseus-types";
 import {
     expressionItem2,
     expressionItem3,
@@ -14,6 +13,8 @@ import {
 import {Expression} from "../expression";
 
 import {renderQuestion} from "./renderQuestion";
+
+import type {PerseusItem} from "../../perseus-types";
 
 const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
     const {renderer} = renderQuestion(itemData.question);

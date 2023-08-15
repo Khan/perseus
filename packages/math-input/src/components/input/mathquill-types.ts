@@ -1,4 +1,4 @@
-import Key from "../../data/keys";
+import type Key from "../../data/keys";
 
 export interface MathQuillInterface {
     L: "L";

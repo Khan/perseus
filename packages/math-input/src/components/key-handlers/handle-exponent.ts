@@ -1,10 +1,9 @@
-import Key from "../../data/keys";
 import {getCursor} from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
-import {
-    MathFieldInterface,
-    MathFieldActionType,
-} from "../input/mathquill-types";
+import {MathFieldActionType} from "../input/mathquill-types";
+
+import type Key from "../../data/keys";
+import type {MathFieldInterface} from "../input/mathquill-types";
 
 const ArithmeticOperators = ["+", "-", "\\cdot", "\\times", "\\div"];
 const EqualityOperators = ["=", "\\neq", "<", "\\leq", ">", "\\geq"];

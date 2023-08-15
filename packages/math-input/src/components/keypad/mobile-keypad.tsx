@@ -1,4 +1,3 @@
-import {StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -12,6 +11,7 @@ import type {
     KeyHandler,
     KeypadAPI,
 } from "../../types";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 import Keypad from "./index";
 

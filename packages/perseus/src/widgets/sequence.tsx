@@ -5,10 +5,10 @@ import _ from "underscore";
 import InlineIcon from "../components/inline-icon";
 import {iconOk} from "../icon-paths";
 import * as Changeable from "../mixins/changeable";
-import {PerseusSequenceWidgetOptions} from "../perseus-types";
 import Renderer from "../renderer";
 import Util from "../util";
 
+import type {PerseusSequenceWidgetOptions} from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
 
 type Rubric = PerseusSequenceWidgetOptions;

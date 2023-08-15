@@ -1,5 +1,4 @@
-import Key from "../../../data/keys";
-
+import type Key from "../../../data/keys";
 import type {
     Bound,
     KeypadConfiguration,

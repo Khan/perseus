@@ -8,11 +8,12 @@ import * as React from "react";
 
 import {IconType} from "../../enums";
 import {View} from "../../fake-react-native-web/index";
-import {IconConfig} from "../../types";
 import {iconSizeHeightPx, iconSizeWidthPx} from "../common-style";
 
 import Icon from "./icon";
 import Styles from "./styles";
+
+import type {IconConfig} from "../../types";
 
 const {row, column, centered, fullWidth} = Styles;
 

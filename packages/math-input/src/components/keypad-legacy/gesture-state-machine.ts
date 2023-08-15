@@ -1,4 +1,4 @@
-import Key from "../../data/keys";
+import type Key from "../../data/keys";
 
 /**
  * The state machine that backs our gesture system. In particular, this state

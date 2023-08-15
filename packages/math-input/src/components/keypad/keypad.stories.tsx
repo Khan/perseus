@@ -1,9 +1,11 @@
 import {action} from "@storybook/addon-actions";
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
-import {ComponentStory} from "@storybook/react";
 import * as React from "react";
 
-import Keypad, {Props as KeypadProps} from "./keypad";
+import Keypad from "./keypad";
+
+import type {Props as KeypadProps} from "./keypad";
+import type {ComponentStory} from "@storybook/react";
 
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";

@@ -4,10 +4,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {KeyConfig, ClickKeyCallback} from "../../types";
-
 import ButtonAsset from "./button-assets";
 
+import type {KeyConfig, ClickKeyCallback} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 export type KeypadButtonProps = {

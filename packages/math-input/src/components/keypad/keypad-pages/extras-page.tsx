@@ -1,9 +1,10 @@
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
-import Key from "../../../data/keys";
-import {ClickKeyCallback} from "../../../types";
 import {KeypadButton} from "../keypad-button";
+
+import type Key from "../../../data/keys";
+import type {ClickKeyCallback} from "../../../types";
 
 type Props = {
     extraKeys: ReadonlyArray<Key>;

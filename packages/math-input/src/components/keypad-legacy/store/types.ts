@@ -1,8 +1,7 @@
-import Key from "../../../data/keys";
-import {LayoutMode, KeypadType} from "../../../enums";
-import GestureManager from "../gesture-manager";
-
+import type Key from "../../../data/keys";
+import type {LayoutMode, KeypadType} from "../../../enums";
 import type {Cursor, KeyHandler, Popover, Echo} from "../../../types";
+import type GestureManager from "../gesture-manager";
 
 // Interaction between keypad and input
 export interface InputState {

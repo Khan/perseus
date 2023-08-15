@@ -9,7 +9,6 @@ import _ from "underscore";
 
 import HintRenderer from "./hint-renderer";
 import {ApiOptions} from "./perseus-api";
-import Renderer from "./renderer";
 import {
     baseUnitPx,
     hintBorderWidth,
@@ -21,6 +20,7 @@ import mediaQueries from "./styles/media-queries";
 import sharedStyles from "./styles/shared";
 import Util from "./util";
 
+import type Renderer from "./renderer";
 import type {APIOptionsWithDefaults} from "./types";
 
 type Props = JSX.LibraryManagedAttributes<

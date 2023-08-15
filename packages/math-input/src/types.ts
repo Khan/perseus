@@ -1,14 +1,13 @@
-import ReactDOM from "react-dom";
-
-import {CursorContext} from "./components/input/cursor-contexts";
-import Key from "./data/keys";
-import {
+import type {CursorContext} from "./components/input/cursor-contexts";
+import type Key from "./data/keys";
+import type {
     BorderDirection,
     EchoAnimationType,
     IconType,
     KeyType,
     KeypadType,
 } from "./enums";
+import type ReactDOM from "react-dom";
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 

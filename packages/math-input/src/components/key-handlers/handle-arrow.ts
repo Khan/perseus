@@ -1,13 +1,14 @@
-import Key from "../../data/keys";
 import {
     maybeFindCommand,
     maybeFindCommandBeforeParens,
     getCursor,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
-import {
+import {MathFieldActionType} from "../input/mathquill-types";
+
+import type Key from "../../data/keys";
+import type {
     MathFieldInterface,
-    MathFieldActionType,
     MathFieldCursor,
 } from "../input/mathquill-types";
 
