@@ -14,7 +14,7 @@ type Props = {
     cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     multiplicationDot?: boolean;
     divisionKey?: boolean;
-    isMobileFractions?: boolean;
+    fractionsOnly?: boolean;
 };
 
 function getCursorContextConfig(
@@ -49,7 +49,7 @@ export default function SharedKeys(props: Props) {
         divisionKey,
         multiplicationDot,
         selectedPage,
-        isMobileFractions,
+        fractionsOnly,
     } = props;
 
     const cursorKeyConfig = getCursorContextConfig(cursorContext);
@@ -61,7 +61,7 @@ export default function SharedKeys(props: Props) {
             : [3, 0];
 
     // We show a minimal sidebar for our mobile fraction view
-    if (isMobileFractions) {
+    if (fractionsOnly) {
         return (
             <>
                 <KeypadButton

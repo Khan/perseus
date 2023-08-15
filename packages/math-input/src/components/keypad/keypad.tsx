@@ -1,6 +1,6 @@
 import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {StyleSheet, css} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect} from "react";
 
@@ -31,7 +31,7 @@ export type Props = {
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
-    mobileFractions?: boolean;
+    fractionsOnly?: boolean;
 
     onClickKey: ClickKeyCallback;
     sendEvent?: SendEventFn;
@@ -73,7 +73,7 @@ export default function Keypad(props: Props) {
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     // We don't want any tabs available on mobile fractions keypad
-    const availablePages = props.mobileFractions ? [] : allPages(props);
+    const availablePages = props.fractionsOnly ? [] : allPages(props);
 
     const {
         onClickKey,
@@ -86,14 +86,12 @@ export default function Keypad(props: Props) {
         basicRelations,
         advancedRelations,
         showDismiss,
-        mobileFractions,
+        fractionsOnly,
         sendEvent,
     } = props;
 
     // Use a different grid for mobile fraction keypad
-    const gridStyle = mobileFractions
-        ? styles.mobileFractionsGrid
-        : styles.grid;
+    const gridStyle = fractionsOnly ? styles.fractionsGrid : styles.grid;
 
     useEffect(() => {
         if (!isMounted) {
@@ -158,7 +156,7 @@ export default function Keypad(props: Props) {
                     multiplicationDot={multiplicationDot}
                     divisionKey={divisionKey}
                     selectedPage={selectedPage}
-                    isMobileFractions={mobileFractions}
+                    fractionsOnly={fractionsOnly}
                 />
             </View>
         </View>
@@ -177,7 +175,7 @@ const styles = StyleSheet.create({
         gridTemplateRows: "repeat(4, 1fr)",
         backgroundColor: "#DBDCDD",
     },
-    mobileFractionsGrid: {
+    fractionsGrid: {
         display: "grid",
         gridTemplateColumns: "repeat(5, 1fr)",
         gridTemplateRows: "repeat(4, 1fr)",
