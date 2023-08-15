@@ -1,15 +1,16 @@
-import Key from "../../data/keys";
 import {DecimalSeparator} from "../../enums";
 import {decimalSeparator} from "../../utils";
 import {mathQuillInstance} from "../input/mathquill-instance";
-import {
-    MathFieldInterface,
-    MathFieldUpdaterCallback,
-} from "../input/mathquill-types";
 
 import handleArrow from "./handle-arrow";
 import handleExponent from "./handle-exponent";
 import handleJumpOut from "./handle-jump-out";
+
+import type Key from "../../data/keys";
+import type {
+    MathFieldInterface,
+    MathFieldUpdaterCallback,
+} from "../input/mathquill-types";
 
 enum ActionType {
     WRITE = "write",

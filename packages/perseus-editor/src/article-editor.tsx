@@ -8,7 +8,6 @@ import {
     components,
     icons,
     ApiOptions,
-    Changeable,
     Errors,
     PerseusError,
 } from "@khanacademy/perseus";
@@ -21,7 +20,7 @@ import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptions, Changeable} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;

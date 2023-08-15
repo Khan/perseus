@@ -1,8 +1,9 @@
-import {StyleType} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {MobileKeypad} from "./keypad";
 import LegacyKeypad from "./keypad-legacy";
+
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     onElementMounted?: (arg1: any) => void;

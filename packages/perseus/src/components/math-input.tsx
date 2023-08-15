@@ -2,7 +2,6 @@ import {
     keyTranslator,
     createMathField,
     mathQuillInstance,
-    MathFieldInterface,
 } from "@khanacademy/math-input";
 import classNames from "classnames";
 import $ from "jquery";
@@ -13,6 +12,7 @@ import _ from "underscore";
 import TexButtons from "./tex-buttons";
 
 import type {ButtonSetsType} from "./tex-buttons";
+import type {MathFieldInterface} from "@khanacademy/math-input";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 

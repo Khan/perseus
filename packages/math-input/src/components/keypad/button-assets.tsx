@@ -12,7 +12,7 @@ no copying and pasting is necessary.
 */
 import * as React from "react";
 
-import Key from "../../data/keys";
+import type Key from "../../data/keys";
 
 type Props = {id: Key};
 

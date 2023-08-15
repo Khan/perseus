@@ -7,10 +7,11 @@ import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
 import {IconType} from "../../enums";
-import {KeyConfig} from "../../types";
 
 import EmptyKeypadButton from "./empty-keypad-button";
 import TouchableKeypadButton from "./touchable-keypad-button";
+
+import type {KeyConfig} from "../../types";
 
 type Props = {
     keys: ReadonlyArray<string>;

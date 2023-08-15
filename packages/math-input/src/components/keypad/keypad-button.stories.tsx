@@ -1,10 +1,12 @@
 import {action} from "@storybook/addon-actions";
-import {ComponentStory} from "@storybook/react";
 import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
 
-import {KeypadButton, KeypadButtonProps} from "./keypad-button";
+import {KeypadButton} from "./keypad-button";
+
+import type {KeypadButtonProps} from "./keypad-button";
+import type {ComponentStory} from "@storybook/react";
 
 export default {
     title: "Keypad Button",

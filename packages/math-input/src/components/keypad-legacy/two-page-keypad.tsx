@@ -17,10 +17,10 @@ import {
 import Tabbar from "../tabbar";
 
 import Keypad from "./keypad";
-import {State as ReduxState} from "./store/types";
 import Styles from "./styles";
 
 import type {TabbarItemType} from "../tabbar";
+import type {State as ReduxState} from "./store/types";
 
 const {column, row, fullWidth} = Styles;
 

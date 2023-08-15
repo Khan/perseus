@@ -336,5 +336,6 @@ module.exports = {
          * typescript
          */
         "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/consistent-type-imports": "error",
     },
 };

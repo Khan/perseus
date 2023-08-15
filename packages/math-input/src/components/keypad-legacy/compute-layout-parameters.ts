@@ -27,7 +27,7 @@ import {
     innerBorderWidthPx,
 } from "../common-style";
 
-import {GridDimensions, WidthHeight} from "./store/types";
+import type {GridDimensions, WidthHeight} from "./store/types";
 
 const minButtonHeight = 48;
 const maxButtonSize = 64;

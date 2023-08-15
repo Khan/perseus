@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import type {SerializedHighlightSet} from "./components/highlighting/types";
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
@@ -8,6 +6,7 @@ import type {SizeClass} from "./util/sizing-utils";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {SendEventFn} from "@khanacademy/perseus-core";
 import type {Result} from "@khanacademy/wonder-blocks-data";
+import type * as React from "react";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
