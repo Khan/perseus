@@ -1,6 +1,9 @@
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
+
 import * as React from "react";
+
 import {KeypadInput, KeypadType, MobileKeypad} from "./index";
+
 import type {KeypadAPI} from "./types";
 
 export default {
