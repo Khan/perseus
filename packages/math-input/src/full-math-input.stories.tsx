@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {KeypadAPI} from "./types";
+import type {KeypadAPI} from "./types";
 
 import {KeypadInput, KeypadType, MobileKeypad} from "./index";
 
