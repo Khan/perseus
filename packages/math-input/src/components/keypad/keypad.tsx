@@ -200,10 +200,4 @@ const styles = StyleSheet.create({
         maxHeight: 200,
         width: "100%",
     },
-    grid: {
-        display: "grid",
-        gridTemplateColumns: "repeat(6, 1fr)",
-        gridTemplateRows: "repeat(4, 1fr)",
-        backgroundColor: "#DBDCDD",
-    },
 });
