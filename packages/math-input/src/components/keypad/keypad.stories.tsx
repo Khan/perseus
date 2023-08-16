@@ -10,6 +10,7 @@ import type {ComponentStory} from "@storybook/react";
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";
 const geoPage = "Geometry Page";
+const fracPage = "Fractions Page";
 
 export default {
     title: "Full Keypad",
@@ -59,7 +60,7 @@ export default {
         fractionsOnly: {
             control: "boolean",
             table: {
-                category: numsPage,
+                category: fracPage,
             },
         },
         multiplicationDot: {
