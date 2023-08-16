@@ -53,8 +53,14 @@ export const Basic = () => {
     }, [keypadElement, expression]);
 
     return (
-        <div>
+        <div style={{textAlign: "center"}}>
             <div style={{padding: "1rem 0"}}>
+                <span
+                    style={{textAlign: "center", margin: 20, display: "block"}}
+                >
+                    NOTE: To properly test the input interaction, you will need
+                    to simulate a device using the dev tools.
+                </span>
                 <button onClick={() => setExpression(!expression)}>
                     {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
                 </button>

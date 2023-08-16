@@ -17,6 +17,7 @@ import type {ClickKeyCallback} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {TabbarItemType} from "../tabbar";
 import type {SendEventFn} from "@khanacademy/perseus-core";
+import FractionsPage from "./keypad-pages/fractions-page";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;
@@ -72,8 +73,11 @@ function getAvailableTabs(props: Props): ReadonlyArray<TabbarItemType> {
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
 export default function Keypad(props: Props) {
-    const [selectedPage, setSelectedPage] =
-        React.useState<TabbarItemType>("Numbers");
+    // If we're using the Fractions keyapd, we want to default select that page
+    // Otherwise, we want to default to the Numbers page
+    const [selectedPage, setSelectedPage] = React.useState<TabbarItemType>(
+        props.fractionsOnly ? "Fractions" : "Numbers",
+    );
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     // We don't want any tabs available on mobile fractions keypad
@@ -94,7 +98,7 @@ export default function Keypad(props: Props) {
         sendEvent,
     } = props;
 
-    // Use a different grid for mobile fraction keypad
+    // Use a different grid for our fraction keypad
     const gridStyle = fractionsOnly
         ? styles.fractionsGrid
         : styles.expressionGrid;
@@ -138,6 +142,12 @@ export default function Keypad(props: Props) {
                 tabIndex={0}
                 aria-label="Keypad"
             >
+                {selectedPage === "Fractions" && (
+                    <FractionsPage
+                        onClickKey={onClickKey}
+                        cursorContext={cursorContext}
+                    />
+                )}
                 {selectedPage === "Numbers" && (
                     <NumbersPage onClickKey={onClickKey} />
                 )}
@@ -156,14 +166,16 @@ export default function Keypad(props: Props) {
                 {selectedPage === "Geometry" && (
                     <GeometryPage onClickKey={onClickKey} />
                 )}
-                <SharedKeys
-                    onClickKey={onClickKey}
-                    cursorContext={cursorContext}
-                    multiplicationDot={multiplicationDot}
-                    divisionKey={divisionKey}
-                    selectedPage={selectedPage}
-                    fractionsOnly={fractionsOnly}
-                />
+                {!fractionsOnly && (
+                    <SharedKeys
+                        onClickKey={onClickKey}
+                        cursorContext={cursorContext}
+                        multiplicationDot={multiplicationDot}
+                        divisionKey={divisionKey}
+                        selectedPage={selectedPage}
+                        fractionsOnly={fractionsOnly}
+                    />
+                )}
             </View>
         </View>
     );

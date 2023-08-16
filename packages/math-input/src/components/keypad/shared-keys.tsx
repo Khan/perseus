@@ -7,6 +7,7 @@ import {KeypadButton} from "./keypad-button";
 
 import type {ClickKeyCallback} from "../../types";
 import type {TabbarItemType} from "../tabbar";
+import {getCursorContextConfig} from "./utils";
 
 type Props = {
     onClickKey: ClickKeyCallback;
@@ -16,31 +17,6 @@ type Props = {
     divisionKey?: boolean;
     fractionsOnly?: boolean;
 };
-
-function getCursorContextConfig(
-    cursorContext?: typeof CursorContext[keyof typeof CursorContext],
-) {
-    if (!cursorContext) {
-        return null;
-    }
-
-    switch (cursorContext) {
-        case CursorContext.NONE:
-            return null;
-        case CursorContext.IN_PARENS:
-            return Keys.JUMP_OUT_PARENTHESES;
-        case CursorContext.IN_SUPER_SCRIPT:
-            return Keys.JUMP_OUT_EXPONENT;
-        case CursorContext.IN_SUB_SCRIPT:
-            return Keys.JUMP_OUT_BASE;
-        case CursorContext.IN_NUMERATOR:
-            return Keys.JUMP_OUT_NUMERATOR;
-        case CursorContext.IN_DENOMINATOR:
-            return Keys.JUMP_OUT_DENOMINATOR;
-        case CursorContext.BEFORE_FRACTION:
-            return Keys.JUMP_INTO_NUMERATOR;
-    }
-}
 
 export default function SharedKeys(props: Props) {
     const {
