@@ -7,6 +7,7 @@ import {useEffect} from "react";
 import Tabbar from "../tabbar";
 
 import ExtrasPage from "./keypad-pages/extras-page";
+import FractionsPage from "./keypad-pages/fractions-page";
 import GeometryPage from "./keypad-pages/geometry-page";
 import NumbersPage from "./keypad-pages/numbers-page";
 import OperatorsPage from "./keypad-pages/operators-page";
@@ -17,7 +18,6 @@ import type {ClickKeyCallback} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {TabbarItemType} from "../tabbar";
 import type {SendEventFn} from "@khanacademy/perseus-core";
-import FractionsPage from "./keypad-pages/fractions-page";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;
@@ -106,7 +106,7 @@ export default function Keypad(props: Props) {
     // This useeffect is only used to ensure that we can test the keypad in storybook
     useEffect(() => {
         setSelectedPage(defaultSelectedPage);
-    }, [fractionsOnly]);
+    }, [fractionsOnly, defaultSelectedPage]);
 
     useEffect(() => {
         if (!isMounted) {
