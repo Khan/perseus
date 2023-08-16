@@ -41,9 +41,13 @@ const defaultProps = {
     extraKeys: [],
 };
 
-function allPages(props: Props): ReadonlyArray<TabbarItemType> {
-    const pages: Array<TabbarItemType> = ["Numbers"];
+function getAvailableTabs(props: Props): ReadonlyArray<TabbarItemType> {
+    // We don't want to show any available tabs on the fractions keypad
+    if (props.fractionsOnly) {
+        return [];
+    }
 
+    const tabs: Array<TabbarItemType> = ["Numbers"];
     if (
         // OperatorsButtonSets
         props.preAlgebra ||
@@ -51,18 +55,18 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
         props.basicRelations ||
         props.advancedRelations
     ) {
-        pages.push("Operators");
+        tabs.push("Operators");
     }
 
     if (props.trigonometry) {
-        pages.push("Geometry");
+        tabs.push("Geometry");
     }
 
     if (props.extraKeys?.length) {
-        pages.push("Extras");
+        tabs.push("Extras");
     }
 
-    return pages;
+    return tabs;
 }
 
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
@@ -73,7 +77,7 @@ export default function Keypad(props: Props) {
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     // We don't want any tabs available on mobile fractions keypad
-    const availablePages = props.fractionsOnly ? [] : allPages(props);
+    const availableTabs = getAvailableTabs(props);
 
     const {
         onClickKey,
@@ -91,7 +95,9 @@ export default function Keypad(props: Props) {
     } = props;
 
     // Use a different grid for mobile fraction keypad
-    const gridStyle = fractionsOnly ? styles.fractionsGrid : styles.grid;
+    const gridStyle = fractionsOnly
+        ? styles.fractionsGrid
+        : styles.expressionGrid;
 
     useEffect(() => {
         if (!isMounted) {
@@ -115,7 +121,7 @@ export default function Keypad(props: Props) {
     return (
         <View>
             <Tabbar
-                items={availablePages}
+                items={availableTabs}
                 selectedItem={selectedPage}
                 onSelectItem={(tabbarItem: TabbarItemType) => {
                     setSelectedPage(tabbarItem);
@@ -127,7 +133,7 @@ export default function Keypad(props: Props) {
             />
 
             <View
-                style={gridStyle}
+                style={[styles.keypadGrid, gridStyle]}
                 role="grid"
                 tabIndex={0}
                 aria-label="Keypad"
@@ -169,18 +175,23 @@ const styles = StyleSheet.create({
     tabbar: {
         background: Color.white,
     },
+    keypadGrid: {
+        display: "grid",
+        gridTemplateRows: "repeat(4, 1fr)",
+        backgroundColor: "#DBDCDD",
+    },
+    expressionGrid: {
+        gridTemplateColumns: "repeat(6, 1fr)",
+    },
+    fractionsGrid: {
+        gridTemplateColumns: "repeat(5, 1fr)",
+        maxHeight: 200,
+        width: "100%",
+    },
     grid: {
         display: "grid",
         gridTemplateColumns: "repeat(6, 1fr)",
         gridTemplateRows: "repeat(4, 1fr)",
         backgroundColor: "#DBDCDD",
-    },
-    fractionsGrid: {
-        display: "grid",
-        gridTemplateColumns: "repeat(5, 1fr)",
-        gridTemplateRows: "repeat(4, 1fr)",
-        backgroundColor: "#DBDCDD",
-        maxHeight: 200,
-        width: "100%",
     },
 });
