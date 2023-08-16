@@ -75,9 +75,9 @@ function getAvailableTabs(props: Props): ReadonlyArray<TabbarItemType> {
 export default function Keypad(props: Props) {
     // If we're using the Fractions keyapd, we want to default select that page
     // Otherwise, we want to default to the Numbers page
-    const [selectedPage, setSelectedPage] = React.useState<TabbarItemType>(
-        props.fractionsOnly ? "Fractions" : "Numbers",
-    );
+    const defaultSelectedPage = props.fractionsOnly ? "Fractions" : "Numbers";
+    const [selectedPage, setSelectedPage] =
+        React.useState<TabbarItemType>(defaultSelectedPage);
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     // We don't want any tabs available on mobile fractions keypad
@@ -102,6 +102,11 @@ export default function Keypad(props: Props) {
     const gridStyle = fractionsOnly
         ? styles.fractionsGrid
         : styles.expressionGrid;
+
+    // This useeffect is only used to ensure that we can test the keypad in storybook
+    useEffect(() => {
+        setSelectedPage(defaultSelectedPage);
+    }, [fractionsOnly]);
 
     useEffect(() => {
         if (!isMounted) {
@@ -173,7 +178,6 @@ export default function Keypad(props: Props) {
                         multiplicationDot={multiplicationDot}
                         divisionKey={divisionKey}
                         selectedPage={selectedPage}
-                        fractionsOnly={fractionsOnly}
                     />
                 )}
             </View>
@@ -197,7 +201,5 @@ const styles = StyleSheet.create({
     },
     fractionsGrid: {
         gridTemplateColumns: "repeat(5, 1fr)",
-        maxHeight: 200,
-        width: "100%",
     },
 });
