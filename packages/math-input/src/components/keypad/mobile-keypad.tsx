@@ -26,7 +26,7 @@ import Keypad from "./index";
  * can't have methods attached to them).
  */
 
-export type Props = {
+type Props = {
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
     style?: StyleType;
