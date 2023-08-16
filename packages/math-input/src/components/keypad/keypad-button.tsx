@@ -58,7 +58,7 @@ export const KeypadButton = ({
                                     pressed && styles.pressed,
                                 ]}
                             >
-                                <ButtonAsset id={keyConfig.id} />
+                                <ButtonAsset id={keyConfig.id} locale={"pt"} />
                             </View>
                         </View>
                     );

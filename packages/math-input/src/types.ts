@@ -42,6 +42,7 @@ export type NonManyKeyConfig = {
     id: Key;
     type: Exclude<KeyType, "MANY">;
     icon: IconConfig;
+    englishLabel?: string;
     ariaLabel: string;
 };
 

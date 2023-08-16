@@ -14,6 +14,7 @@ type KeyConfigMapper = (args: {
     key: Key;
     keyType?: KeyType;
     iconType?: IconType;
+    i18nKey?: string;
     ariaLabel?: string;
     data?: string;
 }) => KeyConfig;
@@ -22,11 +23,13 @@ const getDefaultOperatorFields: KeyConfigMapper = ({
     key,
     keyType = "OPERATOR",
     iconType = IconType.SVG,
+    i18nKey,
     ariaLabel = key,
     data = key,
 }) => ({
     id: key,
     type: keyType,
+    i18nKey,
     ariaLabel,
     icon: {
         type: iconType,
@@ -308,6 +311,7 @@ const KeyConfigs: {
             key: "SIN",
             // I18N: A label for a button that will allow the user to input a
             // sine function.
+            i18nKey: "Sine",
             ariaLabel: i18n._("Sine"),
         }),
     },

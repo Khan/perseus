@@ -185,7 +185,11 @@ class MathInput extends React.Component<Props, State> {
                             }
 
                             if (this.props.value !== value) {
-                                this.props.onChange(value);
+                                // if i18n.getLocale() is not english
+                                const english = value.replace(
+                                    "sen" /*i18n._("sin")*/, "sin");
+                                console.log("what is sent to on change", english)
+                                this.props.onChange(english);
                             }
                             this.setState({
                                 cursorContext: getCursorContext(mathField),
@@ -227,13 +231,14 @@ class MathInput extends React.Component<Props, State> {
     // input is still focused
     blur: () => void = () => this.setState({focused: false});
 
-    handleKeypadPress: (key: Keys) => void = (key) => {
-        const translator = keyTranslator[key];
+    handleKeypadPress: (key: Keys, translated?: string) => void = (key) => {
+        const translator = keyTranslator[key]("sen" /*i18n._("key")*/);
         const mathField = this.mathField();
 
         if (mathField) {
             if (translator) {
                 translator(mathField, key);
+
             }
             this.setState({
                 cursorContext: getCursorContext(mathField),
