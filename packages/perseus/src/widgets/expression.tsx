@@ -1,19 +1,22 @@
 import * as KAS from "@khanacademy/kas";
 import {KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
+import InlineIcon from "../components/inline-icon";
 import MathInput from "../components/math-input";
+import Tooltip, {
+    HorizontalDirection,
+    VerticalDirection,
+} from "../components/tooltip";
 import {getDependencies} from "../dependencies";
+import {iconExclamationSign} from "../icon-paths";
 import {Errors as PerseusErrors, Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
-import a11y from "../util/a11y";
 import KhanAnswerTypes from "../util/answer-types";
 
 import type {
@@ -36,7 +39,6 @@ const sendExpressionEvaluatedEvent = (
 
 type InputPath = ReadonlyArray<string>;
 
-const ERROR_TITLE = i18n._("Oops!");
 const ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
 const insertBraces = (value) => {
@@ -77,9 +79,8 @@ export type Props = ExternalProps & {
 };
 
 export type ExpressionState = {
-    invalid: boolean;
     showErrorTooltip: boolean;
-    showErrorStyle: boolean;
+    showErrorText: boolean;
 };
 
 type DefaultProps = {
@@ -102,6 +103,7 @@ type OnInputErrorFunctionType = (
 // The new, MathQuill input expression widget
 export class Expression extends React.Component<Props, ExpressionState> {
     _isMounted = false;
+    errorTimeout: null | number = null;
 
     //#region Previously a class extension
     /* Content creators input a list of answers which are matched from top to
@@ -307,14 +309,11 @@ export class Expression extends React.Component<Props, ExpressionState> {
     displayName = "Expression";
 
     state: ExpressionState = {
-        invalid: false,
         showErrorTooltip: false,
-        showErrorStyle: false,
+        showErrorText: false,
     };
 
     componentDidMount: () => void = () => {
-        document.addEventListener("mousedown", this._handleMouseDown);
-
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
@@ -329,36 +328,40 @@ export class Expression extends React.Component<Props, ExpressionState> {
             !_.isEqual(this.props.value, prevProps.value) ||
             !_.isEqual(this.props.functions, prevProps.functions)
         ) {
-            this.setState({
-                invalid: false,
-                showErrorTooltip: false,
-                showErrorStyle: false,
-            });
-            if (!this.parse(this.props.value, this.props).parsed) {
-                const apiResult = this.props.apiOptions.onInputError(
-                    null, // reserved for some widget identifier
-                    this.props.value,
-                    ERROR_MESSAGE,
-                );
-                if (apiResult !== false) {
-                    this.setState({
-                        invalid: true,
-                    });
-                }
+            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+            // eslint-disable-next-line no-restricted-syntax
+            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            clearTimeout(this.errorTimeout);
+
+            if (this.parse(this.props.value, this.props).parsed) {
+                // eslint-disable-next-line react/no-did-update-set-state
+                this.setState({showErrorTooltip: false});
+            } else {
+                // Store timeout ID so that we can clear it above
+                // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+                // eslint-disable-next-line no-restricted-syntax
+                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
+                this.errorTimeout = setTimeout(() => {
+                    const apiResult = this.props.apiOptions.onInputError(
+                        null, // reserved for some widget identifier
+                        this.props.value,
+                        ERROR_MESSAGE,
+                    );
+                    if (apiResult !== false) {
+                        this.setState({showErrorTooltip: true});
+                    }
+                }, 2000);
             }
         }
     };
 
     componentWillUnmount: () => void = () => {
-        this._isMounted = false;
-    };
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        clearTimeout(this.errorTimeout);
 
-    _handleMouseDown = () => {
-        if (this._isMounted && this.state.showErrorTooltip) {
-            this.setState({
-                showErrorTooltip: false,
-            });
-        }
+        this._isMounted = false;
     };
 
     simpleValidate: (
@@ -496,6 +499,41 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 />
             );
         }
+        // TODO(alex): Style this tooltip to be more consistent with other
+        // tooltips on the site; align to left middle (once possible)
+        const errorTooltip = (
+            <span className="error-tooltip" role="tooltip">
+                <Tooltip
+                    className="error-text-container"
+                    horizontalPosition={HorizontalDirection.Right}
+                    horizontalAlign={HorizontalDirection.Left}
+                    verticalPosition={VerticalDirection.Top}
+                    arrowSize={10}
+                    borderColor="#fcc335"
+                    show={this.state.showErrorText}
+                >
+                    <span
+                        className="error-icon"
+                        data-test-id="test-error-icon"
+                        onMouseEnter={() => {
+                            this.setState({showErrorText: true});
+                        }}
+                        onMouseLeave={() => {
+                            this.setState({showErrorText: false});
+                        }}
+                        onClick={() => {
+                            // TODO(alex): Better error feedback for mobile
+                            this.setState({
+                                showErrorText: !this.state.showErrorText,
+                            });
+                        }}
+                    >
+                        <InlineIcon {...iconExclamationSign} />
+                    </span>
+                    <div className="error-text">{ERROR_MESSAGE}</div>
+                </Tooltip>
+            </span>
+        );
 
         const className = classNames({
             "perseus-widget-expression": true,
@@ -503,49 +541,20 @@ export class Expression extends React.Component<Props, ExpressionState> {
         });
 
         return (
-            <div
-                className={className}
-                onBlur={() =>
-                    this.state.invalid &&
-                    this.setState({
-                        showErrorTooltip: true,
-                        showErrorStyle: true,
-                    })
-                }
-                onFocus={() =>
-                    this.setState({
-                        showErrorTooltip: false,
-                    })
-                }
-            >
-                {/**
-                * This is a visually hidden container for the error tooltip.
-                https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role#example_3_visually_hidden_alert_container_for_screen_reader_notifications
-            */}
-                <View style={a11y.srOnly} role="alert">
-                    {this.state.showErrorTooltip &&
-                        ERROR_TITLE + " " + ERROR_MESSAGE}
-                </View>
-                <Tooltip
-                    forceAnchorFocusivity={false}
-                    opened={this.state.showErrorTooltip}
-                    title={ERROR_TITLE}
-                    content={ERROR_MESSAGE}
-                >
-                    <MathInput
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
-                        className={ApiClassNames.INTERACTIVE}
-                        value={this.props.value}
-                        onChange={this.changeAndTrack}
-                        convertDotToTimes={this.props.times}
-                        buttonSets={this.props.buttonSets}
-                        onFocus={this._handleFocus}
-                        onBlur={this._handleBlur}
-                        hasError={this.state.showErrorStyle}
-                        extraKeys={this.props.keypadConfiguration?.extraKeys}
-                    />
-                </Tooltip>
+            <div className={className}>
+                <MathInput
+                    // eslint-disable-next-line react/no-string-refs
+                    ref="input"
+                    className={ApiClassNames.INTERACTIVE}
+                    value={this.props.value}
+                    onChange={this.changeAndTrack}
+                    convertDotToTimes={this.props.times}
+                    buttonsVisible={this.props.buttonsVisible || "focused"}
+                    buttonSets={this.props.buttonSets}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur}
+                />
+                {this.state.showErrorTooltip && errorTooltip}
             </div>
         );
     }
