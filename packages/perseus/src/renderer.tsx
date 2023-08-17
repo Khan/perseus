@@ -35,11 +35,11 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    LinterContextProps,
     PerseusScore,
     WidgetInfo,
     WidgetProps,
 } from "./types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
 

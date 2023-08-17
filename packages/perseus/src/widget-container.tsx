@@ -9,7 +9,8 @@ import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import * as Widgets from "./widgets";
 
 import type {PerseusWidgetOptions} from "./perseus-types";
-import type {LinterContextProps, WidgetProps} from "./types";
+import type {WidgetProps} from "./types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
     shouldHighlight: boolean;

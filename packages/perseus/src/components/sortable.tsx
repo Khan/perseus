@@ -13,8 +13,8 @@ import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
 
-import type {LinterContextProps} from "../types";
 import type {Position} from "../util";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 export enum Layout {
     HORIZONTAL = "horizontal",

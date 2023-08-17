@@ -17,13 +17,9 @@ import reactRender from "./util/react-render";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
 import type {PerseusItem} from "./perseus-types";
-import type {
-    APIOptions,
-    FocusPath,
-    LinterContextProps,
-    PerseusDependenciesV2,
-} from "./types";
+import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
 import type {KEScore} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const {mapObject} = Objective;
 

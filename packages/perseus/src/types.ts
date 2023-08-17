@@ -5,6 +5,7 @@ import type {PerseusWidget} from "./perseus-types";
 import type {SizeClass} from "./util/sizing-utils";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
 
@@ -374,14 +375,6 @@ export type APIOptionsWithDefaults = Readonly<
         useDraftEditor: NonNullable<APIOptions["useDraftEditor"]>;
     }
 >;
-
-export type LinterContextProps = {
-    contentType: string;
-    highlightLint: boolean;
-    paths: ReadonlyArray<string>;
-    stack: ReadonlyArray<string>;
-    // additional properties can be added to the context by widgets
-};
 
 export type Tracking =
     // Track interactions once
