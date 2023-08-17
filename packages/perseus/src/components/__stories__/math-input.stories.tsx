@@ -13,14 +13,7 @@ export default {
 } as Story;
 
 const defaultObject = {
-    keypadButtonSets: {
-        advancedRelations: true,
-        basicRelations: true,
-        divisionKey: true,
-        logarithms: true,
-        preAlgebra: true,
-        trigonometry: true,
-    },
+    buttonSets: ["basic"],
     onChange: () => {},
 } as const;
 
@@ -29,14 +22,9 @@ export const DefaultWithBasicButtonSet = (
 ): React.ReactElement => {
     return <MathInput {...defaultObject} />;
 };
-export const DefaultWithAriaLabel = (args: StoryArgs): React.ReactElement => {
-    return <MathInput {...defaultObject} labelText="Sample label" />;
-};
-
-export const KeypadOpenByDefault = (args: StoryArgs): React.ReactElement => {
+export const AlwaysVisibleButtonSet = (args: StoryArgs): React.ReactElement => {
     return <MathInput {...defaultObject} buttonsVisible="always" />;
 };
-
-export const KeypadNeverVisible = (args: StoryArgs): React.ReactElement => {
-    return <MathInput {...defaultObject} buttonsVisible="never" />;
+export const DefaultWithAriaLabel = (args: StoryArgs): React.ReactElement => {
+    return <MathInput {...defaultObject} labelText="Sample label" />;
 };

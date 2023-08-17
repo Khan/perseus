@@ -98,7 +98,7 @@ class ExpressionEditor extends React.Component<any, any> {
 
     render(): React.ReactNode {
         const answerOptions = this.props.answerForms
-            .map((obj: {form: any; simplify: any; value: any; key: number}) => {
+            .map((obj, index) => {
                 const expressionProps = {
                     // note we're using
                     // *this.props*.{times,functions,buttonSets} since each
@@ -112,22 +112,22 @@ class ExpressionEditor extends React.Component<any, any> {
                     simplify: obj.simplify,
                     value: obj.value,
 
-                    onChange: (props) => this.updateForm(obj.key, props),
+                    onChange: (props) => this.updateForm(index, props),
                     trackInteraction: () => {},
 
-                    widgetId: this.props.widgetId + "-" + obj.key,
+                    widgetId: this.props.widgetId + "-" + index,
                 } as const;
 
                 return lens(obj)
                     .merge([], {
                         draggable: true,
-                        onChange: (props) => this.updateForm(obj.key, props),
-                        onDelete: () => this.handleRemoveForm(obj.key),
+                        onChange: (props) => this.updateForm(index, props),
+                        onDelete: () => this.handleRemoveForm(index),
                         expressionProps: expressionProps,
                     })
                     .freeze();
             })
-            .map((obj) => <AnswerOption key={obj.key} {...obj} />);
+            .map((obj, index) => <AnswerOption key={index} {...obj} />);
 
         const sortable = (
             <SortableArea
