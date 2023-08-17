@@ -16,10 +16,9 @@ import SharedKeys from "./shared-keys";
 import {expandedViewThreshold} from "./utils";
 
 import type Key from "../../data/keys";
-import type {ClickKeyCallback} from "../../types";
+import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
-import type {KeypadPageType} from "../../types";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;

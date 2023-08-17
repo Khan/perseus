@@ -5,9 +5,8 @@ import Keys from "../../data/key-configs";
 import {KeypadButton} from "./keypad-button";
 import {getCursorContextConfig} from "./utils";
 
-import type {ClickKeyCallback} from "../../types";
+import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
-import type {KeypadPageType} from "../../types";
 
 type Props = {
     onClickKey: ClickKeyCallback;
