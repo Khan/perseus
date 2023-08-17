@@ -10,6 +10,7 @@ import type {ComponentStory} from "@storybook/react";
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";
 const geoPage = "Geometry Page";
+const fracPage = "Fractions Page";
 
 export default {
     title: "Full Keypad",
@@ -25,6 +26,7 @@ export default {
         basicRelations: false,
         divisionKey: false,
         logarithms: false,
+        fractionsOnly: false,
         multiplicationDot: false,
         preAlgebra: false,
         trigonometry: false,
@@ -53,6 +55,12 @@ export default {
             control: "boolean",
             table: {
                 category: opsPage,
+            },
+        },
+        fractionsOnly: {
+            control: "boolean",
+            table: {
+                category: fracPage,
             },
         },
         multiplicationDot: {
@@ -91,6 +99,11 @@ export const Trigonometry = Template.bind({});
 Trigonometry.args = {
     preAlgebra: true,
     trigonometry: true,
+};
+
+export const FractionsOnly = Template.bind({});
+FractionsOnly.args = {
+    fractionsOnly: true,
 };
 
 export const Everything = Template.bind({});

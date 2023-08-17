@@ -142,6 +142,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                     extraKeys={keypadConfig?.extraKeys}
                     onClickKey={(key) => this._handleClickKey(key)}
                     cursorContext={cursor?.context}
+                    fractionsOnly={!isExpression}
                     multiplicationDot={isExpression}
                     divisionKey={isExpression}
                     trigonometry={isExpression}
