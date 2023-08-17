@@ -7,11 +7,11 @@ import {getCursorContextConfig} from "./utils";
 
 import type {ClickKeyCallback} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
-import type {TabbarItemType} from "../tabbar";
+import type {KeypadPageType} from "../../types";
 
 type Props = {
     onClickKey: ClickKeyCallback;
-    selectedPage: TabbarItemType;
+    selectedPage: KeypadPageType;
     cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     multiplicationDot?: boolean;
     divisionKey?: boolean;

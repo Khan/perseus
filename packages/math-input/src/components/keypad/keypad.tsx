@@ -18,8 +18,8 @@ import {expandedViewThreshold} from "./utils";
 import type Key from "../../data/keys";
 import type {ClickKeyCallback} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
-import type {TabbarItemType} from "../tabbar";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {KeypadPageType} from "../../types";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;
@@ -44,13 +44,13 @@ const defaultProps = {
     extraKeys: [],
 };
 
-function getAvailableTabs(props: Props): ReadonlyArray<TabbarItemType> {
+function getAvailableTabs(props: Props): ReadonlyArray<KeypadPageType> {
     // We don't want to show any available tabs on the fractions keypad
     if (props.fractionsOnly) {
         return [];
     }
 
-    const tabs: Array<TabbarItemType> = ["Numbers"];
+    const tabs: Array<KeypadPageType> = ["Numbers"];
     if (
         // OperatorsButtonSets
         props.preAlgebra ||
@@ -79,7 +79,7 @@ export default function Keypad(props: Props) {
     // Otherwise, we want to default to the Numbers page
     const defaultSelectedPage = props.fractionsOnly ? "Fractions" : "Numbers";
     const [selectedPage, setSelectedPage] =
-        React.useState<TabbarItemType>(defaultSelectedPage);
+        React.useState<KeypadPageType>(defaultSelectedPage);
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
     // We don't want any tabs available on mobile fractions keypad
@@ -141,8 +141,8 @@ export default function Keypad(props: Props) {
                 <Tabbar
                     items={availableTabs}
                     selectedItem={selectedPage}
-                    onSelectItem={(tabbarItem: TabbarItemType) => {
-                        setSelectedPage(tabbarItem);
+                    onSelectItem={(newSelectedPage: KeypadPageType) => {
+                        setSelectedPage(newSelectedPage);
                     }}
                     onClickClose={
                         showDismiss ? () => onClickKey("DISMISS") : undefined
