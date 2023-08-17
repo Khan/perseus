@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import Keys from "../../../data/key-configs";
-
 import {KeypadButton} from "../keypad-button";
 import {getCursorContextConfig} from "../utils";
 

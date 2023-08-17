@@ -6,8 +6,8 @@ import {KeypadButton} from "./keypad-button";
 import {getCursorContextConfig} from "./utils";
 
 import type {ClickKeyCallback} from "../../types";
-import type {TabbarItemType} from "../tabbar";
 import type {CursorContext} from "../input/cursor-contexts";
+import type {TabbarItemType} from "../tabbar";
 
 type Props = {
     onClickKey: ClickKeyCallback;
