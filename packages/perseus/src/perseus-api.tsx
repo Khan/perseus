@@ -7,7 +7,7 @@
  *  * the perseus api minor version if it is an additive-only change
  *  * nothing if it is purely a bug fix.
  *
- * Callbacks passed to Renderer/ItemRenderer:
+ * Callbacks passed to Renderer/ServerItemRenderer:
  *  * onInputError:
  *    Called when there is an error grading a widget
  *  * onFocusChange: (newFocusPath, oldFocusPath, keypadDOMNode)

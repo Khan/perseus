@@ -76,7 +76,7 @@ class ArticleRenderer extends React.Component<Props, State> {
         oldFocusPath,
     ) => {
         // TODO(charlie): DRY this up--some of this logic is repeated in
-        // ItemRenderer.
+        // ServerItemRenderer.
         if (newFocusPath) {
             this._setCurrentFocus(newFocusPath);
         } else {

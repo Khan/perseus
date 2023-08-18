@@ -6,9 +6,9 @@
  * activation and dismissal.
  *
  * TODO(charlie): This would make a nicer higher-order component, except that
- * we need to expose methods on the base component (i.e., `ItemRenderer`). When
- * `ItemRenderer` and friends are written as ES6 Classes, we can have them
- * extend a `ProvideKeypad` component instead of using this mixin.
+ * we need to expose methods on the base component (i.e., `ArticleRender`).
+ * When `ArticleRender` and friends are written as ES6 Classes, we can have
+ * them extend a `ProvideKeypad` component instead of using this mixin.
  */
 
 import {MobileKeypad} from "@khanacademy/math-input";

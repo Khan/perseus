@@ -69,8 +69,8 @@ class HintRenderer extends React.Component<Props> {
             className,
         );
 
-        // TODO(charlie): Allowing `customKeypad` would require that we
-        // extend `ItemRenderer` to support nested inputs in the `HintsRenderer`.
+        // TODO(charlie): Allowing `customKeypad` would require that we extend
+        // `ArticleRenderer` to support nested inputs in the `HintsRenderer`.
         // For now, we disable this option.
         // Instead, clients will get standard <input/> elements, which
         // aren't nice to use on mobile, but are at least usable.

@@ -249,7 +249,7 @@ export class NumericInput extends React.Component<Props, State> {
 
         // TODO(eater): Seems silly to translate result to this
         // invalid/points thing and immediately translate it
-        // back in ItemRenderer.scoreInput()
+        // back in ServerItemRenderer.scoreInput()
         if (result.empty) {
             return {
                 type: "invalid",

@@ -261,7 +261,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // points accordingly
         // TODO(eater): Seems silly to translate result to this
         // invalid/points thing and immediately translate it back in
-        // ItemRenderer.scoreInput()
+        // ServerItemRenderer.scoreInput()
         sendExpressionEvaluatedEvent(
             matchingAnswerForm.considered === "correct"
                 ? "correct"

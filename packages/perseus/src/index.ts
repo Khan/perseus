@@ -17,7 +17,6 @@ export {default as itemVersion} from "./item-version";
  * Renderers
  */
 export {default as ArticleRenderer} from "./article-renderer";
-export {default as ItemRenderer} from "./item-renderer";
 export {default as ServerItemRenderer} from "./server-item-renderer";
 export {default as HintsRenderer} from "./hints-renderer";
 export {default as HintRenderer} from "./hint-renderer";

@@ -323,7 +323,8 @@ class InputNumber extends React.Component<Props> {
         const result = val(currentValue);
 
         // TODO(eater): Seems silly to translate result to this invalid/points
-        // thing and immediately translate it back in ItemRenderer.scoreInput()
+        // thing and immediately translate it back in
+        // ServerItemRenderer.scoreInput()
         if (result.empty) {
             // TODO(FEI-3867): remove null-check once we have APIOptionsInternal
             const apiResult = onInputError?.(

@@ -1,9 +1,9 @@
 /**
- * KeypadContext provides a way to the Keypad and (Server)ItemRenderer to
+ * KeypadContext provides a way to the Keypad and ServerItemRenderer to
  * communicate.
  *
  * The KeypadContext.Provider wraps the ExerciseFooter while KeypadContext.Consumer
- * wraps each (Server)ItemRenderer render site and the Keypad rendered in the
+ * wraps each ServerItemRenderer render site and the Keypad rendered in the
  * ExerciseFooter.
  */
 import * as React from "react";

@@ -1,9 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {StyleSheet, css} from "aphrodite";
 /**
- * A copy of the ItemRenderer which renders its question renderer and hints
- * renderer normally instead of ReactDOM.render()ing them into elements in the
- * DOM.
+ * An item renderer which renders its question renderer and hints renderer
+ * normally instead of ReactDOM.render()ing them into elements in the DOM.
  *
  * This allows this component to be used in server-rendering of a perseus
  * exercise.
@@ -20,6 +19,7 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
+import type {PerseusItem} from "./perseus-types";
 import type {APIOptions, FocusPath} from "./types";
 import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
 
@@ -29,10 +29,7 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
     KeypadProps & {
         apiOptions: APIOptions;
         hintsVisible?: number;
-        item: {
-            hints: ReadonlyArray<any>;
-            question: any;
-        };
+        item: PerseusItem;
         problemNum?: number;
         reviewMode?: boolean;
         // from KeypadContext
@@ -451,7 +448,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const ref = React.forwardRef<
+const Ref = React.forwardRef<
     ServerItemRenderer,
     Omit<React.ComponentProps<typeof ServerItemRenderer>, "onRendered">
 >((props, ref) => (
@@ -461,4 +458,4 @@ const ref = React.forwardRef<
         )}
     </LoadingContext.Consumer>
 ));
-export default ref;
+export default Ref;
