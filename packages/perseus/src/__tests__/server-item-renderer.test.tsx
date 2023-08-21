@@ -341,6 +341,10 @@ describe("server item renderer", () => {
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
                 activate: jest.fn(),
+                dismiss: jest.fn(),
+                configure: jest.fn(),
+                setCursor: jest.fn(),
+                setKeyHandler: jest.fn(),
             } as const;
             const {renderer} = renderQuestion(
                 itemWithInput,
@@ -402,6 +406,9 @@ describe("server item renderer", () => {
                     .mockImplementation(() => keypadElementDOMNode),
                 activate: jest.fn(),
                 dismiss: jest.fn(),
+                configure: jest.fn(),
+                setCursor: jest.fn(),
+                setKeyHandler: jest.fn(),
             } as const;
             const {renderer} = renderQuestion(
                 itemWithInput,

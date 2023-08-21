@@ -21,6 +21,7 @@ import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
 import type {APIOptions, FocusPath} from "./types";
+import type {KeypadAPI} from "@khanacademy/math-input";
 import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
 
 const {mapObject} = Objective;
@@ -35,7 +36,7 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
         };
         problemNum?: number;
         reviewMode?: boolean;
-        keypadElement?: any | null | undefined;
+        keypadElement?: KeypadAPI | null | undefined;
     };
 
 type HOCProps = {
@@ -172,7 +173,7 @@ export class ServerItemRenderer
             onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                didFocusInput && keypadElement && keypadElement.getDOMNode(),
+                didFocusInput ? keypadElement?.getDOMNode() : undefined,
                 // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
                 didFocusInput &&
                     this.questionRenderer.getDOMNodeForPath(newFocus),

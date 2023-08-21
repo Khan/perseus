@@ -7,6 +7,7 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {SendEventFn} from "@khanacademy/perseus-core";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
+import type ReactDOM from "react-dom";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
@@ -128,7 +129,7 @@ export type APIOptions = Readonly<{
         // These two parameters are only used in library-exercise.jsx and
         // practice-exercise.jsx and in the mobile app
         // (javascript/perseus-package/perseus-mobile-bridge.js).
-        keypadElement?: HTMLElement,
+        keypadElement?: ReturnType<typeof ReactDOM.findDOMNode>,
         focusedElement?: HTMLElement,
     ) => unknown;
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;
