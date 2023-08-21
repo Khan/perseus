@@ -35,7 +35,6 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
         };
         problemNum?: number;
         reviewMode?: boolean;
-        // from KeypadContext
         keypadElement?: any | null | undefined;
     };
 
