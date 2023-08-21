@@ -1,5 +1,16 @@
 # @khanacademy/simple-markdown
 
+## 0.10.0
+
+### Minor Changes
+
+-   0993a46b: Don't generate Flow types
+
+### Patch Changes
+
+-   afb14cff: Add eslint rule to make type imports consistent
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+
 ## 0.9.3
 
 ### Patch Changes
