@@ -3,11 +3,11 @@ import * as React from "react";
 
 import Keypad from "../packages/math-input/src/components/keypad";
 
-const renderSingleKeypad = (handleClickKey) =>
+const renderSingleKeypad = () =>
     mount(
         <Keypad
             extraKeys={["a", "b", "c", "PI"]}
-            onClickKey={handleClickKey}
+            onClickKey={() => {}}
             advancedRelations
             basicRelations
             divisionKey

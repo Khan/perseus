@@ -1,10 +1,13 @@
 import {render, screen} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom";
 
 import keyConfigs from "../../../data/key-configs";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
+
+import tabs from "./test-data-tabs";
 
 const contextToKeyAria = {
     [CursorContext.IN_PARENS]: keyConfigs.JUMP_OUT_PARENTHESES.ariaLabel,
@@ -88,5 +91,33 @@ describe("keypad", () => {
 
         // Assert
         expect(screen.queryByRole("tab")).not.toBeInTheDocument();
+    });
+
+    it(`clicking tab triggers callback`, () => {
+        // Arrange
+        const onClickKey = jest.fn();
+
+        // Act
+        render(
+            <Keypad
+                onClickKey={onClickKey}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                sendEvent={async () => {}}
+            />,
+        );
+
+        for (const tabData of tabs) {
+            const tab = screen.getByLabelText(tabData.name);
+            expect(tab).toBeInTheDocument();
+            userEvent.click(tab);
+            const key = screen.getByLabelText(tabData.label);
+            expect(key).toBeInTheDocument();
+            userEvent.click(key);
+        }
+
+        // Assert
+        expect(onClickKey).toHaveBeenCalledTimes(tabs.length);
     });
 });
