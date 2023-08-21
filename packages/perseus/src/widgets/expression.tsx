@@ -23,7 +23,12 @@ import type {
     PerseusExpressionWidgetOptions,
     PerseusExpressionAnswerForm,
 } from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {
+    APIOptions,
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 import type {Keys as Key} from "@khanacademy/math-input";
 
 type InputPath = ReadonlyArray<string>;
@@ -50,6 +55,20 @@ const insertBraces = (value) => {
     //
     // TODO(alex): Properly hack MathQuill to always use explicit braces.
     return value.replace(/([_^])([^{])/g, "$1{$2}");
+};
+
+const deriveKeypadVersion = (apiOptions: APIOptions) => {
+    // We can derive which version of the keypad is in use. This is
+    // a bit tricky, but this code will be relatively short-lived
+    // as we coalesce onto the new, v2 Keypad, at which point we
+    // can remove this `virtualKeypadVersion` field entirely.
+    return apiOptions.nativeKeypadProxy != null
+        ? "REACT_NATIVE_KEYPAD"
+        : apiOptions.customKeypad === true
+        ? apiOptions.useV2Keypad === true
+            ? "MATH_INPUT_KEYPAD_V2"
+            : "MATH_INPUT_KEYPAD_V1"
+        : "PERSEUS_MATH_INPUT";
 };
 
 type Rubric = PerseusExpressionWidgetOptions;
@@ -476,6 +495,9 @@ export class Expression extends React.Component<Props, ExpressionState> {
             type: "perseus:expression-evaluated",
             payload: {
                 result,
+                virtualKeypadVersion: deriveKeypadVersion(
+                    this.props.apiOptions,
+                ),
             },
         });
     }
