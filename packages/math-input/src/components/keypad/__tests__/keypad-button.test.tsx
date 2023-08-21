@@ -65,7 +65,6 @@ describe("<KeypadButton />", () => {
         userEvent.keyboard("{enter}");
 
         // Assert
-
         expect(mockClickKeyCallback).toHaveBeenCalledWith(
             "RIGHT_PAREN",
             // In the browser, "enter" and "space" trigger a click event with detail 0.
