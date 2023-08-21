@@ -24,9 +24,9 @@
         "performance-now": "^0.2.0"
     },
     "devDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^3.0.8",
+        "@khanacademy/wonder-blocks-clickable": "^4.0.0",
         "@khanacademy/wonder-blocks-color": "^2.0.1",
-        "@khanacademy/wonder-blocks-core": "^5.0.4",
+        "@khanacademy/wonder-blocks-core": "^6.0.0",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-popover": "^2.0.11",
         "@khanacademy/wonder-stuff-core": "^1.2.2",
@@ -44,9 +44,9 @@
         "redux": "^4.0.0"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^3.0.8",
+        "@khanacademy/wonder-blocks-clickable": "^4.0.0",
         "@khanacademy/wonder-blocks-color": "^2.0.1",
-        "@khanacademy/wonder-blocks-core": "^5.0.4",
+        "@khanacademy/wonder-blocks-core": "^6.0.0",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-stuff-core": "^1.2.2",
         "aphrodite": "^1.1.0",
