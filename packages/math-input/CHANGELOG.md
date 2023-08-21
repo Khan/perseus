@@ -1,5 +1,24 @@
 # @khanacademy/math-input
 
+## 9.0.0
+
+### Major Changes
+
+-   0993a46b: Don't generate Flow types
+
+### Minor Changes
+
+-   87aadc43: Surface event from `onClickKey` callback
+-   b93f9f74: Added new Mobile Fraction Keypad View to the V2 Keypad
+
+### Patch Changes
+
+-   302ca7f7: Fix type for parameters of `moveOutOf` event.
+-   afb14cff: Add eslint rule to make type imports consistent
+-   19054322: Tweak to capital letter icon buttons
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   196d2a39: Add icons for all letters
+
 ## 8.1.2
 
 ### Patch Changes
