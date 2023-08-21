@@ -100,7 +100,7 @@ const traverseRenderer = function (
             // should always be renderable. It's also annoying to write
             // checks for this everywhere, so we just filter them out once and
             // for all!
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             if (widgetInfo == null || widgetInfo.type == null) {
                 return widgetInfo;
             }

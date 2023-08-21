@@ -38,7 +38,7 @@ const KhanMath = {
             // TODO(kevinb): rewrite using rest args instead of arguments
             // eslint-disable-next-line prefer-rest-params
             const rest = [].slice.call(arguments, 1);
-            // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             return KhanMath.getGCD(a, KhanMath.getGCD(...rest));
         }
         let mod;
@@ -60,7 +60,7 @@ const KhanMath = {
             // TODO(kevinb): rewrite using rest args instead of arguments
             // eslint-disable-next-line prefer-rest-params
             const rest = [].slice.call(arguments, 1);
-            // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             return KhanMath.getLCM(a, KhanMath.getLCM(...rest));
         }
         return Math.abs(a * b) / KhanMath.getGCD(a, b);
@@ -91,7 +91,7 @@ const KhanMath = {
 
         return true;
     },
-    // @ts-expect-error [FEI-5003] - TS2366 - Function lacks ending return statement and return type does not include 'undefined'.
+    // @ts-expect-error - TS2366 - Function lacks ending return statement and return type does not include 'undefined'.
     getPrimeFactorization: function (number: number): ReadonlyArray<number> {
         if (number === 1) {
             return [];
@@ -121,7 +121,7 @@ const KhanMath = {
     // Round a number to a certain number of decimal places
     roundTo: function (precision: number, num: number): number {
         const factor = Math.pow(10, precision).toFixed(5);
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'number'. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+        // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'number'. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
         return Math.round((num * factor).toFixed(5)) / factor;
     },
 

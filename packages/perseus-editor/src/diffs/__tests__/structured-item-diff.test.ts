@@ -62,7 +62,7 @@ describe("StructuredItemDiff", function () {
 
         const addingResult: Array<Path> = [];
         StructuredItemDiff.generateCompletePathsList(
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
+            // @ts-expect-error - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
             beforeList.slice(),
             afterList.slice(),
             addingResult,
@@ -72,7 +72,7 @@ describe("StructuredItemDiff", function () {
 
         const removingResult = [];
         StructuredItemDiff.generateCompletePathsList(
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
+            // @ts-expect-error - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
             afterList,
             beforeList,
             removingResult,
@@ -179,7 +179,7 @@ describe("StructuredItemDiff", function () {
 
         const firstResult: Array<Path> = [];
         StructuredItemDiff.generateCompletePathsList(
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
+            // @ts-expect-error - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
             beforeList.slice(),
             afterList.slice(),
             firstResult,
@@ -189,7 +189,7 @@ describe("StructuredItemDiff", function () {
 
         const secondResult = [];
         StructuredItemDiff.generateCompletePathsList(
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
+            // @ts-expect-error - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
             afterList,
             beforeList,
             secondResult,
@@ -301,7 +301,7 @@ describe("StructuredItemDiff", function () {
 
         const firstResult: Array<Path> = [];
         StructuredItemDiff.generateCompletePathsList(
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
+            // @ts-expect-error - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
             beforeList.slice(),
             afterList.slice(),
             firstResult,
@@ -311,7 +311,7 @@ describe("StructuredItemDiff", function () {
 
         const secondResult: Array<Path> = [];
         StructuredItemDiff.generateCompletePathsList(
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
+            // @ts-expect-error - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
             afterList,
             beforeList,
             secondResult,
@@ -398,7 +398,7 @@ describe("StructuredItemDiff", function () {
 
         const firstResult = [];
         StructuredItemDiff.generateCompletePathsList(
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
+            // @ts-expect-error - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
             beforeList.slice(),
             afterList.slice(),
             firstResult,
@@ -408,7 +408,7 @@ describe("StructuredItemDiff", function () {
 
         const secondResult = [];
         StructuredItemDiff.generateCompletePathsList(
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
+            // @ts-expect-error - TS2345 - Argument of type 'any[][]' is not assignable to parameter of type 'ItemList[]'.
             afterList,
             beforeList,
             secondResult,

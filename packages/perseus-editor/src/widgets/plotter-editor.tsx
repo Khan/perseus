@@ -200,7 +200,7 @@ class PlotterEditor extends React.Component<Props, State> {
         if (categories) {
             // eslint-disable-next-line react/no-string-refs
             const node = ReactDOM.findDOMNode(this.refs.categories);
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             node.value = categories.join(", ");
         }
     };
@@ -252,7 +252,7 @@ class PlotterEditor extends React.Component<Props, State> {
             starting: _.map(this.props.starting, scale),
         });
 
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.maxY).value = maxY; // eslint-disable-line react/no-string-refs
     };
 
@@ -294,7 +294,7 @@ class PlotterEditor extends React.Component<Props, State> {
         // eslint-disable-next-line react/no-string-refs
         const node = ReactDOM.findDOMNode(this.refs.categories);
 
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         node.value = categories.join(", ");
     };
 
@@ -313,7 +313,7 @@ class PlotterEditor extends React.Component<Props, State> {
         );
 
         if (this.props.type === PIC) {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'picUrl' does not exist on type 'Pick<Readonly<any> & Readonly<{ children?: ReactNode; }>, "type" | "correct" | "labels" | "categories" | "starting" | "scaleY" | "maxY" | "snapsPerLine" | "labelInterval">'.
+            // @ts-expect-error - TS2339 - Property 'picUrl' does not exist on type 'Pick<Readonly<any> & Readonly<{ children?: ReactNode; }>, "type" | "correct" | "labels" | "categories" | "starting" | "scaleY" | "maxY" | "snapsPerLine" | "labelInterval">'.
             json.picUrl = this.props.picUrl;
         }
 

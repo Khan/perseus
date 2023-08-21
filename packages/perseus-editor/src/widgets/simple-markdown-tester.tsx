@@ -45,7 +45,7 @@ class SimpleMarkdownTester extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const parsed = mdParse(this.props.value);
         const output = mdOutput(parsed);
         return <div>{output}</div>;
@@ -58,7 +58,7 @@ class SimpleMarkdownTester extends React.Component<Props> {
      */
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
         return true;
     };

@@ -28,14 +28,14 @@ const WrappedEllipse = function (
         options.maxScale,
         options.padding,
     );
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, fixedEllipse, {
         graphie: graphie,
         initialPoint: center,
     });
 
     if (options.interactiveKindForTesting) {
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.wrapper.setAttribute(
             "data-interactive-kind-for-testing",
             options.interactiveKindForTesting,
@@ -46,23 +46,23 @@ const WrappedEllipse = function (
     if (options.mouselayer) {
         // Disable browser handling of all panning and zooming gestures on the
         // movable wrapper so that when moved the browser does not scroll page
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.wrapper.style.touchAction = "none";
 
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.graphie.addToMouseLayerWrapper(this.wrapper);
     } else {
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.graphie.addToVisibleLayerWrapper(this.wrapper);
     }
 
     if (options.shadow) {
         const filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         const wrapper = this.wrapper;
         wrapper.style.filter = filter;
 
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.moveTo = function (point: any) {
             const delta = kvector.subtract(
                 this.graphie.scalePoint(point),
@@ -82,9 +82,9 @@ const WrappedEllipse = function (
     }
 
     if (options.disableMouseEventsOnWrapper) {
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.wrapper.style.pointerEvents = "none";
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this.visibleShape.node.style.pointerEvents = "auto";
     }
 };

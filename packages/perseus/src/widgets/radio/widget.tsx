@@ -54,7 +54,7 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
 };
 
 class Radio extends React.Component<Props> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'focusFunction' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'focusFunction' has no initializer and is not definitely assigned in the constructor.
     focusFunction: FocusFunction;
 
     static defaultProps: DefaultProps = {
@@ -140,7 +140,7 @@ class Radio extends React.Component<Props> {
                 choicesSelected[index] = choiceStates[i].selected;
 
                 if (props.choices[i].isNoneOfTheAbove) {
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
+                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
                     noneOfTheAboveIndex = index;
 
                     if (choicesSelected[i]) {
@@ -174,7 +174,7 @@ class Radio extends React.Component<Props> {
                 choicesSelected[index] = values[i];
 
                 if (props.choices[i].isNoneOfTheAbove) {
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
+                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
                     noneOfTheAboveIndex = index;
                     if (choicesSelected[i]) {
                         noneOfTheAboveSelected = true;
@@ -246,7 +246,7 @@ class Radio extends React.Component<Props> {
                 alwaysUpdate={true}
                 linterContext={{
                     ...this.props.linterContext,
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type '{ blockHighlight: true; contentType: string; highlightLint: boolean; paths: readonly string[]; stack: readonly string[]; }' is not assignable to type 'LinterContextProps'.
+                    // @ts-expect-error - TS2322 - Type '{ blockHighlight: true; contentType: string; highlightLint: boolean; paths: readonly string[]; stack: readonly string[]; }' is not assignable to type 'LinterContextProps'.
                     blockHighlight: true,
                 }}
             />
@@ -370,7 +370,7 @@ class Radio extends React.Component<Props> {
                 {
                     choiceStates: newStates,
                 },
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
+                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
                 null, // cb
                 true, // silent
             );
@@ -396,7 +396,7 @@ class Radio extends React.Component<Props> {
                 {
                     choiceStates: newStates,
                 },
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
+                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
                 null, // cb
                 false, // silent
             );

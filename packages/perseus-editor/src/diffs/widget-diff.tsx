@@ -227,7 +227,7 @@ class ImageWidgetDiff extends React.Component<any> {
                                 "image-removed": beforeSrc !== afterSrc,
                             })}
                         >
-                            {/* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
+                            {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                             <SvgImage src={beforeSrc} title={beforeSrc} />
                         </div>
                     )}
@@ -241,7 +241,7 @@ class ImageWidgetDiff extends React.Component<any> {
                                 "image-added": beforeSrc !== afterSrc,
                             })}
                         >
-                            {/* @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
+                            {/* @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; title: any; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'. */}
                             <SvgImage src={afterSrc} title={afterSrc} />
                         </div>
                     )}

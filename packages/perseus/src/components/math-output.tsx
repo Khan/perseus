@@ -113,7 +113,7 @@ class MathOutput extends React.Component<Props, State> {
         $(document).bind("vclick." + this.state.selectorNamespace, (e) => {
             // Detect whether the target has our React DOM node as a parent
             const $closestWidget = $(e.target).closest(
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error - TS2769 - No overload matches this call.
                 ReactDOM.findDOMNode(this),
             );
             if (!$closestWidget.length) {

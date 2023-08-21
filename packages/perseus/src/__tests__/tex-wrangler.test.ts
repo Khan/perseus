@@ -13,7 +13,7 @@ const assertWrangled = (toWrangle: string, check: string) => {
 
 const assertParsed = (toParse: undefined | string, check: string) => {
     // We ignore whitespace when comparing
-    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+    // @ts-expect-error - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
     const parsed = parseTex(toParse).replace(whitespaceRegex, "");
     const checkNoSpace = check.replace(whitespaceRegex, "");
     expect(parsed).toBe(checkNoSpace);

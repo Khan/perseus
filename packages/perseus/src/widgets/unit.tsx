@@ -108,7 +108,7 @@ export class OldUnitInput extends React.Component<Props> {
         const sigfigs = rubric.sigfigs;
         const sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
         if (!sigfigsCorrect) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
             message = i18n._("Check your significant figures.");
         }
 
@@ -136,7 +136,7 @@ export class OldUnitInput extends React.Component<Props> {
         }
 
         if (!numericallyCorrect) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
             message = i18n._("That answer is numerically incorrect.");
         }
 
@@ -163,7 +163,7 @@ export class OldUnitInput extends React.Component<Props> {
             });
         }
         if (!kasCorrect) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
             message = i18n._("Check your units.");
         }
 
@@ -180,14 +180,14 @@ export class OldUnitInput extends React.Component<Props> {
     componentDidUpdate() {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         clearTimeout(this._errorTimeout);
         if (KAS.unitParse(this.props.value).parsed) {
             this._hideError();
         } else {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
+            // @ts-expect-error - TS2322 - Type 'Timeout' is not assignable to type 'number'.
             this._errorTimeout = setTimeout(this._showError, 2000);
         }
     }
@@ -195,7 +195,7 @@ export class OldUnitInput extends React.Component<Props> {
     componentWillUnmount() {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         clearTimeout(this._errorTimeout);
     }
 
@@ -205,12 +205,12 @@ export class OldUnitInput extends React.Component<Props> {
         }
 
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const $error = $(ReactDOM.findDOMNode(this.refs.error));
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'is' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2339 - Property 'is' does not exist on type 'JQueryStatic'.
         if (!$error.is(":visible")) {
             $error
-                // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+                // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                 .css({top: 50, opacity: 0.1})
                 .show()
                 .animate({top: 0, opacity: 1.0}, 300);
@@ -219,14 +219,14 @@ export class OldUnitInput extends React.Component<Props> {
 
     _hideError: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const $error = $(ReactDOM.findDOMNode(this.refs.error));
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'is' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2339 - Property 'is' does not exist on type 'JQueryStatic'.
         if ($error.is(":visible")) {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'animate' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'animate' does not exist on type 'JQueryStatic'.
             $error.animate({top: 50, opacity: 0.1}, 300, function () {
                 // eslint-disable-next-line @babel/no-invalid-this
-                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 // eslint-disable-next-line @babel/no-invalid-this
                 $(this).hide();
             });
@@ -236,7 +236,7 @@ export class OldUnitInput extends React.Component<Props> {
     change: (...args: ReadonlyArray<any>) => any | null | undefined = (
         ...args
     ) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly any[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error - TS2345 - Argument of type 'readonly any[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -244,7 +244,7 @@ export class OldUnitInput extends React.Component<Props> {
         this.props.onBlur([]);
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         clearTimeout(this._errorTimeout);
         if (!KAS.unitParse(this.props.value).parsed) {
             this._showError();
@@ -287,7 +287,7 @@ export class OldUnitInput extends React.Component<Props> {
              * Change to using a ref callback so that focus() can be
              * accessed.
              */
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             input.focus();
         }
     };
@@ -305,7 +305,7 @@ export class OldUnitInput extends React.Component<Props> {
              * Change to using a ref callback so that focus() can be
              * accessed.
              */
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'Element | Text'.
             input.blur();
         }
     };

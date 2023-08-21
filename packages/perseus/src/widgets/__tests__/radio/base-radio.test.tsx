@@ -87,7 +87,7 @@ describe("base-radio", () => {
             checked: ReadonlyArray<boolean>;
             crossedOut: ReadonlyArray<boolean>;
         }) => {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
             updatedValues = newValues;
         };
 
@@ -142,7 +142,7 @@ describe("base-radio", () => {
                 checked: ReadonlyArray<boolean>;
                 crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -173,7 +173,7 @@ describe("base-radio", () => {
                 checked: ReadonlyArray<boolean>;
                 crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -208,7 +208,7 @@ describe("base-radio", () => {
                 checked: ReadonlyArray<boolean>;
                 crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -259,7 +259,7 @@ describe("base-radio", () => {
                 checked: ReadonlyArray<boolean>;
                 crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -308,7 +308,7 @@ describe("base-radio", () => {
                 checked: ReadonlyArray<boolean>;
                 crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -358,7 +358,7 @@ describe("base-radio", () => {
                 checked: ReadonlyArray<boolean>;
                 crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 

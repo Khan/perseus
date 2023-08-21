@@ -157,7 +157,7 @@ class Matcher extends React.Component<any, any> {
                         </td>
                         <td className={css(styles.column, styles.columnRight)}>
                             <Sortable
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
+                                // @ts-expect-error - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                                 options={right}
                                 layout={Layout.VERTICAL}
                                 padding={this.props.padding}
@@ -204,10 +204,10 @@ class Matcher extends React.Component<any, any> {
 
         return {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
             left: this.refs.left.getOptions(),
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
             right: this.refs.right.getOptions(),
         };
     };
@@ -219,7 +219,7 @@ class Matcher extends React.Component<any, any> {
         index,
     ) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
         this.refs.left.moveOptionToIndex(option, index);
     };
 
@@ -230,12 +230,12 @@ class Matcher extends React.Component<any, any> {
         index,
     ) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
         this.refs.right.moveOptionToIndex(option, index);
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Matcher'.
+        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Matcher'.
         return Matcher.validate(this.getUserInput(), rubric);
     };
 }

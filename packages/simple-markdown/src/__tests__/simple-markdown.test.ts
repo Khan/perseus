@@ -3474,7 +3474,7 @@ describe("simple markdown", function () {
                 percentVar: percentVarRule,
             });
 
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'DefaultRules & { percentVar: { match: (source: any) => RegExpExecArray | null; order: number; parse: (capture: any, parse: any, state: any) => { content: any; }; }; }' is not assignable to parameter of type 'ParserRules'.
+            // @ts-expect-error - TS2345 - Argument of type 'DefaultRules & { percentVar: { match: (source: any) => RegExpExecArray | null; order: number; parse: (capture: any, parse: any, state: any) => { content: any; }; }; }' is not assignable to parameter of type 'ParserRules'.
             var rawBuiltParser = SimpleMarkdown.parserFor(rules);
 
             /** @type {SimpleMarkdown.Parser} */
@@ -3638,7 +3638,7 @@ describe("simple markdown", function () {
                 var oldconsolewarn = console.warn;
                 var warnings = [];
                 console.warn = function (/** @type {any} */ warning: any) {
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     warnings.push(warning);
                 };
 
@@ -3828,7 +3828,7 @@ describe("simple markdown", function () {
                 }),
             };
 
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ Array: { result: (arr: any, output: any, state: any) => any; }; word: { order: number; match: (source: any) => RegExpExecArray | null; parse: (capture: any, parse: any, state: any) => { ...; }; result: (node: any, output: any, state: any) => any; }; delimiter: SingleNodeParserRule & ... 2 more ... & { ...; }; }' is not assignable to parameter of type 'ParserRules'.
+            // @ts-expect-error - TS2345 - Argument of type '{ Array: { result: (arr: any, output: any, state: any) => any; }; word: { order: number; match: (source: any) => RegExpExecArray | null; parse: (capture: any, parse: any, state: any) => { ...; }; result: (node: any, output: any, state: any) => any; }; delimiter: SingleNodeParserRule & ... 2 more ... & { ...; }; }' is not assignable to parameter of type 'ParserRules'.
             var parse = SimpleMarkdown.parserFor(rules, {wordCount: 0});
             var output = SimpleMarkdown.outputFor(rules, "result", {
                 wordCount: 0,
@@ -4097,7 +4097,7 @@ describe("simple markdown", function () {
                 text: SimpleMarkdown.defaultRules.text,
             };
 
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ Array: { readonly react: ArrayNodeOutput<ReactNode>; readonly html: ArrayNodeOutput<string>; }; spoiler: { order: number; match: (source: any) => RegExpExecArray | null; parse: (capture: any, parse: any) => { ...; }; html: (node: any, output: any) => string; }; text: TextInOutRule; }' is not assignable to parameter of type 'ParserRules'.
+            // @ts-expect-error - TS2345 - Argument of type '{ Array: { readonly react: ArrayNodeOutput<ReactNode>; readonly html: ArrayNodeOutput<string>; }; spoiler: { order: number; match: (source: any) => RegExpExecArray | null; parse: (capture: any, parse: any) => { ...; }; html: (node: any, output: any) => string; }; text: TextInOutRule; }' is not assignable to parameter of type 'ParserRules'.
             var parse = SimpleMarkdown.parserFor(rules, {inline: true});
             var output = SimpleMarkdown.outputFor(rules, "html");
 
@@ -4927,7 +4927,7 @@ describe("simple markdown", function () {
             } as const;
 
             expect(() =>
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ readonly parseDoesntReturnCorrectType: { readonly order: 1; readonly match: (source: any, state: any, prevCapture: any) => boolean; readonly parse: Mock<any, any, any>; }; }' is not assignable to parameter of type 'ParserRules'.
+                // @ts-expect-error - TS2345 - Argument of type '{ readonly parseDoesntReturnCorrectType: { readonly order: 1; readonly match: (source: any, state: any, prevCapture: any) => boolean; readonly parse: Mock<any, any, any>; }; }' is not assignable to parameter of type 'ParserRules'.
                 SimpleMarkdown.parserFor(invalidRules)("some input"),
             ).toThrow();
             expect(parse).toHaveBeenCalled();

@@ -167,7 +167,7 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
             <form
                 className={css(...spanStyle)}
                 style={extraStyles}
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '((arg1: ChangeEvent<HTMLInputElement>) => unknown) | ((e: Event) => void)' is not assignable to type 'FormEventHandler<HTMLFormElement> | undefined'.
+                // @ts-expect-error - TS2322 - Type '((arg1: ChangeEvent<HTMLInputElement>) => unknown) | ((e: Event) => void)' is not assignable to type 'FormEventHandler<HTMLFormElement> | undefined'.
                 onSubmit={onSubmit || this.disableDefault}
             >
                 {leftSideIcon && wrappedIcon}

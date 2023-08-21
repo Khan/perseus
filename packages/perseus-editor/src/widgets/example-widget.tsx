@@ -29,7 +29,7 @@ class TextInput extends React.Component<any> {
 
     focus = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
         return true;
     };
@@ -101,7 +101,7 @@ class ExampleWidget extends React.Component<any> {
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"
                 value={this.props.value}
-                // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                 onChange={this.change("value")}
             />
         );
@@ -118,7 +118,7 @@ class ExampleWidget extends React.Component<any> {
      */
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
         return true;
     };

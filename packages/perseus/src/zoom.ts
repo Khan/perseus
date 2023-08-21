@@ -45,7 +45,7 @@ function transitionEnd() {
 }
 
 // http://blog.alexmaccaw.com/css-transitions
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'emulateTransitionEnd' does not exist on type 'JQuery<HTMLElement>'.
+// @ts-expect-error - TS2339 - Property 'emulateTransitionEnd' does not exist on type 'JQuery<HTMLElement>'.
 $.fn.emulateTransitionEnd = function (duration: any) {
     let called = false;
     const $el = this;
@@ -75,9 +75,9 @@ $(function () {
         bindType: $.support.transition.end,
         delegateType: $.support.transition.end,
         handle: function (e) {
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error - TS2769 - No overload matches this call.
             if ($(e.target).is(this)) {
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'IArguments' is not assignable to parameter of type '[t: TriggeredEvent<EventTarget, any, any, any>, ...args: any[]]'.
+                // @ts-expect-error - TS2345 - Argument of type 'IArguments' is not assignable to parameter of type '[t: TriggeredEvent<EventTarget, any, any, any>, ...args: any[]]'.
                 // eslint-disable-next-line prefer-rest-params
                 return e.handleObj.handler.apply(this, arguments);
             }
@@ -107,14 +107,14 @@ function changeViewportTag(
 
     // Hacky way to get the page to take the changes
     // From http://stackoverflow.com/a/36894653
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
+    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'string'.
     document.body.style.opacity = 0.9999;
 
     // ... and undo the temporary change.
     // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
     // eslint-disable-next-line no-restricted-syntax
     setTimeout(() => {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
+        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'string'.
         document.body.style.opacity = 1;
 
         // ... which involves restoring the scroll position, which may have
@@ -175,7 +175,7 @@ ZoomServiceClass.prototype.handleZoomClick = function (
 
     if (
         !enableMobilePinch &&
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1 arguments, but got 0.
+        // @ts-expect-error - TS2554 - Expected 1 arguments, but got 0.
         target.width >= window.innerWidth - Zoom.getOffset()
     ) {
         return;
@@ -298,15 +298,15 @@ ZoomServiceClass.prototype._touchMove = function (e) {
  * The zoom object
  */
 function Zoom(img: any, enableMobilePinch: any) {
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._fullHeight = this._fullWidth = this._overlay = null;
 
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._targetImage = img;
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._enableMobilePinch = enableMobilePinch;
 
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this._$body = $(document.body);
 }
 
@@ -330,13 +330,13 @@ Zoom.prototype.zoomImage = function () {
     img.onload = function () {
         // Load the image without specifying height and width so that we can find
         // the true height and width.
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this._fullHeight = Number(img.height);
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this._fullWidth = Number(img.width);
 
         // Set up our image to mirror the current image on the document.
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         const imageOffset = (this._imageOffset = $(this._targetImage).offset());
 
         // Position the image using viewport-fixed coordinates so that it is
@@ -345,21 +345,21 @@ Zoom.prototype.zoomImage = function () {
         // Said another way ... get the coordinates of the image relative to
         // the viewport, and use those to position our new image (which is
         // absolutely positioned within a full-bleed fixed-position container).
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
         const left = (this._left = imageOffset.left - $(window).scrollLeft());
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
         const top = (this._top = imageOffset.top - $(window).scrollTop());
 
         $zoomedImage.css({
             left: left,
             top: top,
-            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             width: this._targetImage.width,
-            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             height: this._targetImage.height,
         });
 
-        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         this._zoomOriginal();
     }.bind(this);
 
@@ -413,9 +413,9 @@ Zoom.prototype._calculateZoom = function () {
 };
 
 Zoom.prototype._triggerAnimation = function () {
-    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
     const viewportY = $(window).scrollTop() + window.innerHeight / 2;
-    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
     const viewportX = $(window).scrollLeft() + window.innerWidth / 2;
 
     const scaleFactor = this._imgScaleFactor;
@@ -464,7 +464,7 @@ Zoom.prototype._onZoomInFinish = function () {
     // Horizontally center the image within the viewport, either by positioning
     // with CSS or scrolling the viewport.
     if (width < window.innerWidth) {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number'.
+        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number'.
         left = "50%";
         marginLeft = -width / 2;
     } else {
@@ -473,7 +473,7 @@ Zoom.prototype._onZoomInFinish = function () {
 
     // ... and similarly, vertically center the image within the viewport.
     if (height < window.innerHeight) {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number'.
+        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number'.
         top = "50%";
         marginTop = -height / 2;
     } else {

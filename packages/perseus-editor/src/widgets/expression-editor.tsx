@@ -337,14 +337,14 @@ class ExpressionEditor extends React.Component<any, any> {
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
     handleRemoveForm: (arg1: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -355,7 +355,7 @@ class ExpressionEditor extends React.Component<any, any> {
             .merge([i], props)
             .freeze();
 
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -367,12 +367,12 @@ class ExpressionEditor extends React.Component<any, any> {
                 "simplify",
                 "value",
             );
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'key' does not exist on type 'Pick<any, "form" | "value" | "simplify" | "considered">'.
+            // @ts-expect-error - TS2339 - Property 'key' does not exist on type 'Pick<any, "form" | "value" | "simplify" | "considered">'.
             form.key = component.key;
             return form;
         });
 
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -410,14 +410,14 @@ class ExpressionEditor extends React.Component<any, any> {
             .reject((set) => set === remove)
             .concat(keep);
 
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change("buttonSets", buttonSets);
     };
 
     // called when the correct answer changes
     handleTexInsert: (arg1: string) => void = (str) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.expression.insert(str);
     };
 
@@ -468,7 +468,7 @@ class AnswerOption extends React.Component<any, any> {
     render(): React.ReactNode {
         let removeButton = null;
         if (this.state.deleteFocused) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"
@@ -480,7 +480,7 @@ class AnswerOption extends React.Component<any, any> {
                 </button>
             );
         } else {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"

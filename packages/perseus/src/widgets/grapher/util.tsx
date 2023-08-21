@@ -10,7 +10,7 @@ import Util from "../../util";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusScore} from "../../types";
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'Plot' does not exist on type 'typeof Graphie'.
+// @ts-expect-error - TS2339 - Property 'Plot' does not exist on type 'typeof Graphie'.
 const Plot = Graphie.Plot;
 
 export const DEFAULT_BACKGROUND_IMAGE = {
@@ -98,7 +98,7 @@ const PlotDefaults = {
 
     getPropsForCoeffs: function (coeffs) {
         return {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getFunctionForCoeffs' does not exist on type '{ readonly areEqual: (coeffs1: any, coeffs2: any) => boolean; readonly Movable: any; readonly getPropsForCoeffs: (coeffs: any) => any; }'.
+            // @ts-expect-error - TS2339 - Property 'getFunctionForCoeffs' does not exist on type '{ readonly areEqual: (coeffs1: any, coeffs2: any) => boolean; readonly Movable: any; readonly getPropsForCoeffs: (coeffs: any) => any; }'.
             fn: _.partial(this.getFunctionForCoeffs, coeffs),
         };
     },
@@ -149,7 +149,7 @@ const Quadratic = _.extend({}, PlotDefaults, {
         [0.5, 0.5],
         [0.75, 0.75],
     ],
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
+    // @ts-expect-error - TS2339 - Property 'Parabola' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Parabola,
 
     getCoefficients: function (coords) {
@@ -206,7 +206,7 @@ const Sinusoid = _.extend({}, PlotDefaults, {
         [0.5, 0.5],
         [0.6, 0.6],
     ],
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'Sinusoid' does not exist on type 'typeof Graphie'.
+    // @ts-expect-error - TS2339 - Property 'Sinusoid' does not exist on type 'typeof Graphie'.
     Movable: Graphie.Sinusoid,
 
     getCoefficients: function (coords) {
@@ -664,7 +664,7 @@ export const pointsFromNormalized = (
         return Math.floor((range[1] - range[0]) / step);
     };
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
+    // @ts-expect-error - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
     return coordsList.map((coords) => {
         const unsnappedPoint = coords.map((coord, i) => {
             const currRange = range[i];
@@ -719,7 +719,7 @@ export const defaultPlotProps = (type: string, graph: any): any => {
     // might get a free win.
     const model = functionForType(type);
     const gridStep = [1, 1];
-    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type '[number, number]'.
+    // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type '[number, number]'.
     const snapStep = Util.snapStepFromGridStep(gridStep);
     return {
         type,
