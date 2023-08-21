@@ -58,6 +58,7 @@ describe("<KeypadButton />", () => {
                 keyConfig={Keys.RIGHT_PAREN}
                 coord={[0, 0]}
             />,
+        );
 
         // Act
         screen.getByRole("button", {name: "Right parenthesis"}).focus();
