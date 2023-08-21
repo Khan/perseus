@@ -32,7 +32,7 @@ C
         const tt = new TreeTransformer(tree);
         tt.traverse((n, state, content) => {
             // The wildcard selector should match at every node
-            // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+            // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'.
             expect(selector.match(state)[0]).toEqual(n);
         });
     });
@@ -82,13 +82,13 @@ C
         tt.traverse((n, state, content) => {
             const match = selector.match(state);
             const parent = state.parent();
-            // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+            // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'.
             if (n.type === "text" && parent.type === "paragraph") {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(2);
-                // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'.
                 expect(match[0]).toEqual(parent);
-                // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'.
                 expect(match[1]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -116,18 +116,18 @@ C
             const grandparent = ancestors.pop();
             if (
                 n.type === "text" &&
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 parent.type === "em" &&
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 grandparent.type === "paragraph"
             ) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(3);
-                // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'.
                 expect(match[0]).toEqual(grandparent);
-                // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'.
                 expect(match[1]).toEqual(parent);
-                // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'.
+                // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'.
                 expect(match[2]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -152,11 +152,11 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(2);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("text");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -179,13 +179,13 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(3);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("em");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2].type).toEqual("text");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -208,13 +208,13 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(2);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("heading");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0]).toEqual(state.previousSibling());
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -237,15 +237,15 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(3);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("heading");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1]).toEqual(state.previousSibling());
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -268,11 +268,11 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(2);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("heading");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -295,13 +295,13 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(3);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("heading");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -324,15 +324,15 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(3);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("list");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1]).toEqual(state.parent());
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2].type).toEqual("em");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -355,15 +355,15 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(3);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("list");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1]).toEqual(state.parent());
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2].type).toEqual("em");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -386,17 +386,17 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(3);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0]).toEqual(state.parent());
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("em");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1]).toEqual(state.previousSibling());
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2].type).toEqual("text");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -419,17 +419,17 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(3);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0].type).toEqual("paragraph");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0]).toEqual(state.parent());
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1].type).toEqual("em");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[1]).toEqual(state.previousSibling());
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2].type).toEqual("text");
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[2]).toEqual(n);
                 matchedText += content;
                 numMatches++;
@@ -452,7 +452,7 @@ C
             if (match !== null) {
                 expect(Array.isArray(match)).toBeTruthy();
                 expect(match).toHaveLength(1);
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 expect(match[0]).toEqual(n);
                 expect(
                     n.type === "paragraph" || n.type === "list",
@@ -479,11 +479,11 @@ C
                 expect(Array.isArray(match)).toBeTruthy();
                 if (n.type === "heading") {
                     expect(match).toHaveLength(1);
-                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     expect(match[0]).toEqual(n);
                 } else {
                     expect(match).toHaveLength(2);
-                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     expect(match[1]).toEqual(n);
                     expect(n.type).toEqual("text");
                 }

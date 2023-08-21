@@ -127,7 +127,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     static validate(
         userInput: string,
         rubric: Rubric,
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
+        // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
         onInputError: OnInputErrorFunctionType = function () {},
     ): PerseusScore {
         const options = _.clone(rubric);
@@ -330,7 +330,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         ) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error - TS2769 - No overload matches this call.
             clearTimeout(this.errorTimeout);
 
             if (this.parse(this.props.value, this.props).parsed) {
@@ -340,7 +340,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 // Store timeout ID so that we can clear it above
                 // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
                 // eslint-disable-next-line no-restricted-syntax
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
+                // @ts-expect-error - TS2322 - Type 'Timeout' is not assignable to type 'number'.
                 this.errorTimeout = setTimeout(() => {
                     const apiResult = this.props.apiOptions.onInputError(
                         null, // reserved for some widget identifier
@@ -358,7 +358,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     componentWillUnmount: () => void = () => {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         clearTimeout(this.errorTimeout);
 
         this._isMounted = false;
@@ -414,7 +414,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     focus: () => boolean = () => {
         if (this.props.apiOptions.customKeypad) {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs.input.focus();
         } else {
             // The buttons are often on top of text you're trying to read, so
@@ -426,20 +426,20 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     focusInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
     blurInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur();
     };
 
     // HACK(joel)
     insert(keyPressed: Key) {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.input.insert(keyPressed);
     }
 

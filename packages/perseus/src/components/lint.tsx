@@ -88,7 +88,7 @@ class Lint extends React.Component<Props, State> {
     // borrow a timeout approach from learnstorm-dashboard.jsx and set our
     // state once the component has mounted and we can get what we need.
     getPosition: () => void = () => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'getBoundingClientRect' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'getBoundingClientRect' does not exist on type 'Element | Text'.
         const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
         // TODO(scottgrant): This is a magic number! We don't know the size
         // of the tooltip at this point, so we're arbitrarily choosing a

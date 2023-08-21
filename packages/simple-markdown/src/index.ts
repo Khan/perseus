@@ -113,38 +113,38 @@ type HtmlOutputRule = {
 };
 
 type ArrayRule = {
-    // @ts-expect-error [FEI-5003] - TS2411 - Property 'react' of type 'ArrayNodeOutput<ReactNode> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
+    // @ts-expect-error - TS2411 - Property 'react' of type 'ArrayNodeOutput<ReactNode> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
     readonly react?: ArrayNodeOutput<ReactElements>;
-    // @ts-expect-error [FEI-5003] - TS2411 - Property 'html' of type 'ArrayNodeOutput<string> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
+    // @ts-expect-error - TS2411 - Property 'html' of type 'ArrayNodeOutput<string> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
     readonly html?: ArrayNodeOutput<string>;
     readonly [key: string]: ArrayNodeOutput<any>;
 };
 
 type ParserRules = {
-    // @ts-expect-error [FEI-5003] - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'ParserRule'.
+    // @ts-expect-error - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'ParserRule'.
     readonly Array?: ArrayRule;
     readonly [type: string]: ParserRule;
 };
 
 type OutputRules<Rule> = {
-    // @ts-expect-error [FEI-5003] - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'Rule'.
+    // @ts-expect-error - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'Rule'.
     readonly Array?: ArrayRule;
     readonly [type: string]: Rule;
 };
 type Rules<OutputRule> = {
-    // @ts-expect-error [FEI-5003] - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'ParserRule & OutputRule'.
+    // @ts-expect-error - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'ParserRule & OutputRule'.
     readonly Array?: ArrayRule;
     readonly [type: string]: ParserRule & OutputRule;
 };
 type ReactRules = {
-    // @ts-expect-error [FEI-5003] - TS2411 - Property 'Array' of type '{ readonly react: ArrayNodeOutput<ReactNode>; } | undefined' is not assignable to 'string' index type 'ParserRule & ReactOutputRule'.
+    // @ts-expect-error - TS2411 - Property 'Array' of type '{ readonly react: ArrayNodeOutput<ReactNode>; } | undefined' is not assignable to 'string' index type 'ParserRule & ReactOutputRule'.
     readonly Array?: {
         readonly react: ArrayNodeOutput<ReactElements>;
     };
     readonly [type: string]: ParserRule & ReactOutputRule;
 };
 type HtmlRules = {
-    // @ts-expect-error [FEI-5003] - TS2411 - Property 'Array' of type '{ readonly html: ArrayNodeOutput<string>; } | undefined' is not assignable to 'string' index type 'ParserRule & HtmlOutputRule'.
+    // @ts-expect-error - TS2411 - Property 'Array' of type '{ readonly html: ArrayNodeOutput<string>; } | undefined' is not assignable to 'string' index type 'ParserRule & HtmlOutputRule'.
     readonly Array?: {
         readonly html: ArrayNodeOutput<string>;
     };
@@ -361,11 +361,11 @@ var parserFor = function (
                     // the initial quality is NaN (that's why there's the
                     // condition negation).
                     if (!(currQuality <= quality)) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+                        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
                         ruleType = currRuleType;
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'ParserRule' is not assignable to type 'null'.
+                        // @ts-expect-error - TS2322 - Type 'ParserRule' is not assignable to type 'null'.
                         rule = currRule;
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Capture' is not assignable to type 'null'.
+                        // @ts-expect-error - TS2322 - Type 'Capture' is not assignable to type 'null'.
                         capture = currCapture;
                         quality = currQuality;
                     }
@@ -402,7 +402,7 @@ var parserFor = function (
                         source,
                 );
             }
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'index' does not exist on type 'never'.
+            // @ts-expect-error - TS2339 - Property 'index' does not exist on type 'never'.
             if (capture.index) {
                 // If present and non-zero, i.e. a non-^ regexp result:
                 throw new Error(
@@ -412,7 +412,7 @@ var parserFor = function (
                 );
             }
 
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'parse' does not exist on type 'never'.
+            // @ts-expect-error - TS2339 - Property 'parse' does not exist on type 'never'.
             var parsed = rule.parse(capture, nestedParse, state);
             // We maintain the same object here so that rules can
             // store references to the objects they return and
@@ -477,7 +477,7 @@ var inlineRegex = function (regex: RegExp): MatchFunction {
             return null;
         }
     };
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'regex' does not exist on type '(source: string, state: State, prevCapture: string) => Capture | null | undefined'.
+    // @ts-expect-error - TS2339 - Property 'regex' does not exist on type '(source: string, state: State, prevCapture: string) => Capture | null | undefined'.
     match.regex = regex;
 
     return match;
@@ -778,7 +778,7 @@ var TABLES = (function () {
                         "",
                     );
                 }
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'SingleASTNode' is not assignable to parameter of type 'never'.
+                // @ts-expect-error - TS2345 - Argument of type 'SingleASTNode' is not assignable to parameter of type 'never'.
                 cells[cells.length - 1].push(node);
             }
         });
@@ -1089,7 +1089,7 @@ var defaultRules: DefaultRules = {
             var bullet = capture[2];
             var ordered = bullet.length > 1;
             var start = ordered ? +bullet : undefined;
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'RegExpMatchArray | null' is not assignable to type 'string[]'.
+            // @ts-expect-error - TS2322 - Type 'RegExpMatchArray | null' is not assignable to type 'string[]'.
             var items: Array<string> = capture[0]
                 .replace(LIST_BLOCK_END_R, "\n")
                 .match(LIST_ITEM_R);
@@ -1739,7 +1739,7 @@ var ruleOutput = function <Rule>(
         outputFunc: Output<any>,
         state: State,
     ) {
-        // @ts-expect-error [FEI-5003] - TS2349 - This expression is not callable.
+        // @ts-expect-error - TS2349 - This expression is not callable.
         //   Type 'unknown' has no call signatures.
         return rules[ast.type][property](ast, outputFunc, state);
     };
@@ -1765,12 +1765,12 @@ var reactFor = function (outputFunc: ReactNodeOutput): ReactOutput {
                     typeof nodeOut === "string" &&
                     typeof lastResult === "string"
                 ) {
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
                     lastResult = lastResult + nodeOut;
                     result[result.length - 1] = lastResult;
                 } else {
                     result.push(nodeOut);
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactNode' is not assignable to type 'null'.
+                    // @ts-expect-error - TS2322 - Type 'ReactNode' is not assignable to type 'null'.
                     lastResult = nodeOut;
                 }
             }
@@ -1820,12 +1820,12 @@ var outputFor = function <Rule>(
     var arrayRule: ArrayRule = rules.Array || defaultRules.Array;
 
     // Tricks to convince tsc that this var is not null:
-    // @ts-expect-error [FEI-5003] - TS2538 - Type 'symbol' cannot be used as an index type.
+    // @ts-expect-error - TS2538 - Type 'symbol' cannot be used as an index type.
     var arrayRuleCheck = arrayRule[property];
     if (!arrayRuleCheck) {
         throw new Error(
             "simple-markdown: outputFor: to join nodes of type `" +
-                // @ts-expect-error [FEI-5003] - TS2469 - The '+' operator cannot be applied to type 'symbol'.
+                // @ts-expect-error - TS2469 - The '+' operator cannot be applied to type 'symbol'.
                 property +
                 "` you must provide an `Array:` joiner rule with that type, " +
                 "Please see the docs for details on specifying an Array rule.",
@@ -1839,7 +1839,7 @@ var outputFor = function <Rule>(
         if (Array.isArray(ast)) {
             return arrayRuleOutput(ast, nestedOutput, state);
         } else {
-            // @ts-expect-error [FEI-5003] - TS2349 - This expression is not callable.
+            // @ts-expect-error - TS2349 - This expression is not callable.
             //   Type 'unknown' has no call signatures.
             return rules[ast.type][property](ast, nestedOutput, state);
         }
@@ -1852,7 +1852,7 @@ var outputFor = function <Rule>(
     return outerOutput;
 };
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'DefaultRules' is not assignable to parameter of type 'ParserRules'.
+// @ts-expect-error - TS2345 - Argument of type 'DefaultRules' is not assignable to parameter of type 'ParserRules'.
 var defaultRawParse = parserFor(defaultRules);
 
 var defaultBlockParse = function (

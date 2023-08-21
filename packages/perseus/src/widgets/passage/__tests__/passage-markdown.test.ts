@@ -30,7 +30,7 @@ const validateParse = (parsed: Array<SingleASTNode>, expected) => {
 
 const htmlThroughReact = function (parsed: Array<SingleASTNode>) {
     const output = PassageMarkdown.output(parsed);
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'DOM' does not exist on type 'typeof React'.
+    // @ts-expect-error - TS2339 - Property 'DOM' does not exist on type 'typeof React'.
     // eslint-disable-next-line import/namespace
     const rawHtml = renderToStaticMarkup(React.DOM.div(null, output));
     const innerHtml = rawHtml.replace(/^<div>/, "").replace(/<\/div>$/, "");

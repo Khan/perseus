@@ -35,7 +35,7 @@ export const RendererWithDebugUI = ({
             left={
                 <>
                     <Renderer
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
+                        // @ts-expect-error - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
                         ref={ref}
                         content={question.content}
                         images={question.images}

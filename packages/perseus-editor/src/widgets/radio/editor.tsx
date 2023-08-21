@@ -248,7 +248,7 @@ class RadioEditor extends React.Component<any> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -355,7 +355,7 @@ class RadioEditor extends React.Component<any> {
             },
             () => {
                 // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
                 this.refs[`choice-editor${addIndex}`].refs[
                     "content-editor"
                 ].focus();
@@ -369,7 +369,7 @@ class RadioEditor extends React.Component<any> {
 
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
         this.refs["choice-editor0"].refs["content-editor"].focus();
         return true;
     };

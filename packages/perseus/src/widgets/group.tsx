@@ -127,7 +127,7 @@ class Group extends React.Component<Props> {
         // really we should have a more unidirectional flow. TODO(marcia): fix.
         const groupWidgets: ReadonlyArray<Widget> =
             this.props.findWidgets("group");
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'this' is not assignable to parameter of type 'Widget'.
+        // @ts-expect-error - TS2345 - Argument of type 'this' is not assignable to parameter of type 'Widget'.
         const number: number = groupWidgets.indexOf(this);
         const problemNumComponent = this.props.apiOptions.groupAnnotator(
             number,
@@ -171,9 +171,9 @@ class Group extends React.Component<Props> {
                     onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
                 />
-                {/* @ts-expect-error [FEI-5003] - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'. */}
+                {/* @ts-expect-error - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'. */}
                 {this.props.icon && (
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'.
+                    // @ts-expect-error - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'.
                     <div className="group-icon">{this.props.icon}</div>
                 )}
             </div>

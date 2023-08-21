@@ -42,7 +42,7 @@ class MultiButtonGroup extends React.Component<Props> {
     };
 
     focus(): boolean {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this)?.focus();
         return true;
     }

@@ -5,7 +5,7 @@ const parser = SmilesParser.parse;
 describe("SMILES parser", () => {
     describe("single atom parsing", () => {
         it("should parse a single bare atom", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parser("C");
             expect(parsed).toEqual({
                 type: "atom",
@@ -16,7 +16,7 @@ describe("SMILES parser", () => {
         });
 
         it("should parse a bracketed atom", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parser("[At]");
             expect(parsed).toEqual({
                 type: "atom",
@@ -27,7 +27,7 @@ describe("SMILES parser", () => {
         });
 
         it("should parse certain common two-letter atoms", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parser("Br");
             expect(parsed).toEqual({
                 type: "atom",
@@ -40,7 +40,7 @@ describe("SMILES parser", () => {
         it("should fail to parse an unusual atom when not bracketed", () => {
             // Arrange
             // Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const underTest = () => parser("At");
 
             // Assert
@@ -50,7 +50,7 @@ describe("SMILES parser", () => {
 
     describe("bond parsing", () => {
         it("should parse a single bond", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parser("CC");
             const expectedBond = {
                 type: "bond",
@@ -71,7 +71,7 @@ describe("SMILES parser", () => {
         });
 
         it("should parse a double bond", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parser("C=C");
             const expectedBond = {
                 type: "bond",
@@ -92,7 +92,7 @@ describe("SMILES parser", () => {
         });
 
         it("should parse a triple bond", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parser("C#C");
             const expectedBond = {
                 type: "bond",
@@ -115,7 +115,7 @@ describe("SMILES parser", () => {
 
     describe("branch parsing", () => {
         it("should parse a branch", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parser("C(C)C");
             expect(parsed.bonds).toHaveLength(2);
             expect(parsed.bonds[0].type).toBe("bond");
@@ -129,12 +129,12 @@ describe("SMILES parser", () => {
         });
 
         it("should apply bond modifiers only to one branch", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             let parsed = parser("C(=O)C");
             expect(parsed.bonds).toHaveLength(2);
             expect(parsed.bonds[0].bondType).toBe("double");
             expect(parsed.bonds[1].bondType).toBe("single");
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             parsed = parser("C(O)=C");
             expect(parsed.bonds).toHaveLength(2);
             expect(parsed.bonds[0].bondType).toBe("single");
@@ -142,13 +142,13 @@ describe("SMILES parser", () => {
         });
 
         it("should error on mismatched parentheses", () => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             expect(() => parser("C)")).toThrow();
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             expect(() => parser("C(")).toThrow();
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             expect(() => parser("C(()")).toThrow();
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             expect(() => parser("C())")).toThrow();
         });
     });

@@ -123,7 +123,7 @@ type State = {
     enterTheMatrix: number;
 };
 class Matrix extends React.Component<Props, State> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'cursorPosition' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'cursorPosition' has no initializer and is not definitely assigned in the constructor.
     cursorPosition: [number, number];
 
     static defaultProps: DefaultProps = {
@@ -323,7 +323,7 @@ class Matrix extends React.Component<Props, State> {
                                         } as const;
 
                                         MatrixInput = (
-                                            // @ts-expect-error [FEI-5003] - TS2322 - Type '{ style: CSSProperties; className: "inside" | "outside"; ref: string; value: number | null; disabled: boolean; onFocus: () => void; onBlur: () => void; onKeyDown: (e: any) => void; onChange: (value: any, cb: any) => void; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "style" | "id" | "className" | "placeholder" | "onFocus" | "onBlur" | "onChange" | "onKeyDown" | "labelText">'.
+                                            // @ts-expect-error - TS2322 - Type '{ style: CSSProperties; className: "inside" | "outside"; ref: string; value: number | null; disabled: boolean; onFocus: () => void; onBlur: () => void; onKeyDown: (e: any) => void; onChange: (value: any, cb: any) => void; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "style" | "id" | "className" | "placeholder" | "onFocus" | "onBlur" | "onChange" | "onKeyDown" | "labelText">'.
                                             <TextInput {...updatedProps} />
                                         );
                                     }
@@ -387,7 +387,7 @@ class Matrix extends React.Component<Props, State> {
     focusInputPath: (arg1: any) => void = (path) => {
         const inputID = getRefForPath(path);
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs[inputID].focus();
     };
 
@@ -398,7 +398,7 @@ class Matrix extends React.Component<Props, State> {
 
         const inputID = getRefForPath(path);
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs[inputID].blur();
     };
 
@@ -431,37 +431,37 @@ class Matrix extends React.Component<Props, State> {
 
         // eslint-disable-next-line react/no-string-refs
         const curInput = this.refs[getRefForPath(getInputPath(row, col))];
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
         const curValueString = curInput.getStringValue();
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSelectionStart' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getSelectionStart' does not exist on type 'ReactInstance'.
         const cursorStartPosition = curInput.getSelectionStart();
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSelectionEnd' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getSelectionEnd' does not exist on type 'ReactInstance'.
         const cursorEndPosition = curInput.getSelectionEnd();
 
         let nextPath = null;
         if (e.key === "ArrowUp" && row > 0) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
             nextPath = getInputPath(row - 1, col);
         } else if (e.key === "ArrowDown" && row + 1 < maxRow) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
             nextPath = getInputPath(row + 1, col);
         } else if (e.key === "ArrowLeft" && col > 0) {
             if (cursorStartPosition === 0 && cursorEndPosition === 0) {
                 // Only go to next input if we're at the *start* of the content
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
                 nextPath = getInputPath(row, col - 1);
             }
         } else if (e.key === "ArrowRight" && col + 1 < maxCol) {
             if (cursorStartPosition === curValueString.length) {
                 // Only go to next input if we're at the *end* of the content
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'null'.
                 nextPath = getInputPath(row, col + 1);
             }
         } else if (e.key === "Enter") {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
             enterTheMatrix = this.state.enterTheMatrix + 1;
         } else if (e.key === "Escape") {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type '0' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type '0' is not assignable to type 'null'.
             enterTheMatrix = 0;
         }
 
@@ -475,17 +475,17 @@ class Matrix extends React.Component<Props, State> {
 
             // Multiply by 2 to ensure the cursor always ends up at the end;
             // Opera sometimes sees a carriage return as 2 characters.
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
             const inputValString = input.getStringValue();
             const valueLength = inputValString.length * 2;
 
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             input.focus();
             if (e.key === "ArrowRight") {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
                 input.setSelectionRange(0, 0);
             } else {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
                 input.setSelectionRange(valueLength, valueLength);
             }
         }
@@ -524,7 +524,7 @@ class Matrix extends React.Component<Props, State> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Matrix'.
+        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Matrix'.
         return Matrix.validate(this.getUserInput(), rubric);
     };
 }
@@ -559,7 +559,7 @@ _.extend(Matrix, {
                     });
                     const result = validator(supplied[row][col]);
                     if (result.message) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+                        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
                         message = result.message;
                     }
                     if (!result.correct) {
@@ -616,7 +616,7 @@ const staticTransform: (arg1: any) => any = (editorProps) => {
     );
     // We convert matrix cells from numbers to string to match the expected
     // input into the rendered widget.
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'answers' does not exist on type 'Pick<any, "suffix" | "prefix" | "matrixBoardSize">'.
+    // @ts-expect-error - TS2339 - Property 'answers' does not exist on type 'Pick<any, "suffix" | "prefix" | "matrixBoardSize">'.
     widgetProps.answers = _.map(editorProps.answers, (row) => {
         // Replace null values with empty string
         return _.map(row, (cell) => (cell != null ? String(cell) : ""));

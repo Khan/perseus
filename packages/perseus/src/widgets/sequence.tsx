@@ -54,7 +54,7 @@ class Sequence extends React.Component<Props, State> {
         const step = parseInt(groupWidgetId.split(" ")[1]);
         if (step === this.state.visible - 1) {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getWidgetInstance' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getWidgetInstance' does not exist on type 'ReactInstance'.
             const widget = this.refs.renderer.getWidgetInstance(
                 "group " + step,
             );

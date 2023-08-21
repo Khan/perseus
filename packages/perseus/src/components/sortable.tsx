@@ -113,9 +113,9 @@ type DraggableState = {
 class Draggable extends React.Component<DraggableProps, DraggableState> {
     // Handler returned by requestAnimationFrame.
     animationFrameRequest = null;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'isMouseMoveUpBound' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'isMouseMoveUpBound' has no initializer and is not definitely assigned in the constructor.
     isMouseMoveUpBound: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_mounted' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_mounted' has no initializer and is not definitely assigned in the constructor.
     _mounted: boolean;
 
     static defaultProps: DefaultDraggableProps = {
@@ -274,7 +274,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                     ),
                 );
 
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'animate' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'animate' does not exist on type 'JQueryStatic'.
             $(ReactDOM.findDOMNode(this)).animate(this.props.endPosition, {
                 duration: Math.max(duration, 1),
                 // Animating -> Static
@@ -282,7 +282,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             });
         } else if (this.props.state === ItemState.STATIC) {
             // Ensure that any animations are done
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'finish' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'finish' does not exist on type 'JQueryStatic'.
             $(ReactDOM.findDOMNode(this)).finish();
         }
     }
@@ -318,14 +318,14 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
 
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
+        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
         this.animationFrameRequest = requestAnimationFrame(() => {
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error - TS2769 - No overload matches this call.
             const $el = $(ReactDOM.findDOMNode(this));
 
             // jQuery.position() gets the position of the element wrt its offset parent,
             // but subtracts the scroll position of the parent. We need to add that back.
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
             const position = $el.position();
             const startPosition = addOffsetParentScroll($el, position);
 
@@ -341,11 +341,11 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                         dragging: true,
                     },
                     function () {
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.bindMouseMoveUp();
 
                         // Static -> Dragging
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.props.onMouseDown();
                     },
                 );
@@ -367,7 +367,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
         if (loc) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
             this.animationFrameRequest = requestAnimationFrame(() => {
                 this.setState(
                     {
@@ -550,7 +550,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             items,
             function (item) {
                 // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error - TS2769 - No overload matches this call. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return $(ReactDOM.findDOMNode(this.refs[item.key]));
             },
             this,
@@ -655,13 +655,13 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                     item.state === ItemState.DISABLED;
                 let margin;
 
-                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (this.props.layout === Layout.HORIZONTAL) {
-                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 " + this.props.margin + "px 0 0"; // right
-                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 } else if (this.props.layout === Layout.VERTICAL) {
-                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     margin = "0 0 " + this.props.margin + "px 0"; // bottom
                 }
 
@@ -670,44 +670,44 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                         content={item.option}
                         key={item.key}
                         state={item.state}
-                        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                        // @ts-expect-error - TS2769 - No overload matches this call.
                         ref={item.key}
                         width={syncWidth ? item.width : undefined}
                         height={syncHeight ? item.height : undefined}
                         layout={layout}
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         includePadding={this.props.padding}
                         margin={isLast && isStatic ? 0 : margin}
                         endPosition={item.endPosition}
                         linterContext={PerseusLinter.pushContextStack(
-                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.props.linterContext,
                             "sortable",
                         )}
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onRender={this.remeasureItems}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMouseDown={this.onMouseDown.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMouseMove={this.onMouseMove.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onMouseUp={this.onMouseUp.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onTouchMove={this.onMouseMove.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onTouchEnd={this.onMouseUp.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onTouchCancel={this.onMouseUp.bind(this, item.key)}
                         // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onAnimationEnd={this.onAnimationEnd.bind(
-                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this,
                             item.key,
                         )}
@@ -775,9 +775,9 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             return i.key === item.key;
         });
 
-        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(currentIndex, 1);
-        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(index, 0, item);
 
         this.setState({items: nextItems});
@@ -787,22 +787,22 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     onMouseMove(key: SortableItem["key"]) {
         // Dragging: Rearrange items based on draggable's position
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const $sortable = $(ReactDOM.findDOMNode(this));
         const items = _.clone(this.state.items);
         const item = _.findWhere(this.state.items, {key: key});
         const margin = this.props.margin || 0;
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
+        // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
         const currentIndex = _.indexOf(items, item);
         let newIndex = 0;
 
-        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         items.splice(currentIndex, 1);
 
         if (this.props.layout === Layout.HORIZONTAL) {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             const midWidth = $draggable.offset().left - $sortable.offset().left;
             let sumWidth = 0;
             let cardWidth;
@@ -815,7 +815,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 sumWidth += cardWidth + margin;
             });
         } else {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             const midHeight = $draggable.offset().top - $sortable.offset().top;
             let sumHeight = 0;
             let cardHeight;
@@ -830,7 +830,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         }
 
         if (newIndex !== currentIndex) {
-            // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+            // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
             items.splice(newIndex, 0, item);
             this.setState({items: items});
         }
@@ -847,14 +847,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                     if (item.key === key) {
                         item.state = ItemState.ANIMATING;
                         const $placeholder = $(
-                            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                            // @ts-expect-error - TS2769 - No overload matches this call.
                             ReactDOM.findDOMNode(
                                 // eslint-disable-next-line react/no-string-refs
-                                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.refs["placeholder_" + key],
                             ),
                         );
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+                        // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
                         const position = $placeholder.position();
                         const endPosition = addOffsetParentScroll(
                             $placeholder,
@@ -874,7 +874,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             this.props.onChange && this.props.onChange({});
         });
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'animationFrameRequest' does not exist on type 'Sortable'.
+        // @ts-expect-error - TS2339 - Property 'animationFrameRequest' does not exist on type 'Sortable'.
         this.animationFrameRequest = nextAnimationFrame;
     }
 

@@ -56,7 +56,7 @@ const PropTypePosition = PropTypes.shape({
 });
 
 class Card extends React.Component<any, any> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'mouseMoveUpBound' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'mouseMoveUpBound' has no initializer and is not definitely assigned in the constructor.
     mouseMoveUpBound: boolean;
 
     static propTypes = {
@@ -191,7 +191,7 @@ class Card extends React.Component<any, any> {
                             ),
                     ),
                 );
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'animate' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'animate' does not exist on type 'JQueryStatic'.
             $(ReactDOM.findDOMNode(this)).animate(
                 this.props.animateTo,
                 Math.max(ms, 1),
@@ -379,14 +379,14 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
                         floating={false}
                         content={opt.content}
                         width={opt.width}
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         linterContext={this.props.linterContext}
                         // eslint-disable-next-line react/jsx-no-bind
                         onMouseDown={
-                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.state.animating
                                 ? $.noop
-                                : // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                   this.onClick.bind(null, "current", i)
                         }
                     />
@@ -409,7 +409,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         }
 
         const anySortableCards = sortableCards.length > 0;
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element' is not assignable to parameter of type 'Element'.
+        // @ts-expect-error - TS2345 - Argument of type 'false | Element' is not assignable to parameter of type 'Element'.
         sortableCards.push(dragging, animating);
 
         // If there are no cards in the list, then add a "hint" card
@@ -481,7 +481,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         loc,
         draggable,
     ) => {
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
         const list = this.state.current.slice();
 
@@ -493,7 +493,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             // card from the list
             list.splice(index, 1);
             opt = this.state.current[index];
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
             placeholderIndex = index;
         } else if (type === "bank") {
             opt = this.props.options[index];
@@ -505,13 +505,13 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             placeholderIndex: placeholderIndex,
             dragKey: opt.key,
             dragContent: opt.content,
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
             dragWidth: $draggable.width(),
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
             dragHeight: $draggable.height(),
             grabPos: loc,
             mousePos: loc,
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
             offsetPos: $draggable.position(),
         });
     };
@@ -542,7 +542,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             }
 
             this.props.onChange({
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ current: any[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: WidgetDict | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
+                // @ts-expect-error - TS2345 - Argument of type '{ current: any[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: WidgetDict | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
                 current: list,
             });
             this.setState({
@@ -556,7 +556,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
 
         // Find the position of the card we should animate to
         // TODO(alpert): Update mouse position once more before animating?
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
         const offset = $(ReactDOM.findDOMNode(draggable)).position();
         let finalOffset = null;
         if (inCardBank) {
@@ -565,14 +565,14 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             _.each(
                 this.props.options,
                 function (opt, i) {
-                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     if (opt.content === this.state.dragContent) {
                         const card = ReactDOM.findDOMNode(
                             // eslint-disable-next-line react/no-string-refs
-                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             this.refs["bank" + i],
                         );
-                        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+                        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
                         finalOffset = $(card).position();
                     }
                 },
@@ -583,9 +583,9 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             // Otherwise, go to the position that the placeholder is at
             finalOffset = $(
                 // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error - TS2769 - No overload matches this call.
                 ReactDOM.findDOMNode(this.refs.placeholder),
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+                // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
             ).position();
         }
 
@@ -629,17 +629,17 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         // Find the correct index for a card given the current cards.
         const isHorizontal = this.props.layout === HORIZONTAL;
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
         const leftEdge = $dragList.offset().left;
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
         const topEdge = $dragList.offset().top;
         const midWidth =
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             $(ReactDOM.findDOMNode(draggable)).offset().left - leftEdge;
         const midHeight =
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             $(ReactDOM.findDOMNode(draggable)).offset().top - topEdge;
         let index = 0;
         let sumWidth = 0;
@@ -651,10 +651,10 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
                 function (opt, i) {
                     const card = ReactDOM.findDOMNode(
                         // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.refs["sortable" + i],
                     );
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
+                    // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
                     const outerWidth = $(card).outerWidth(true);
                     if (midWidth > sumWidth + outerWidth / 2) {
                         index += 1;
@@ -669,10 +669,10 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
                 function (opt, i) {
                     const card = ReactDOM.findDOMNode(
                         // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.refs["sortable" + i],
                     );
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
+                    // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
                     const outerHeight = $(card).outerHeight(true);
                     if (midHeight > sumHeight + outerHeight / 2) {
                         index += 1;
@@ -692,26 +692,26 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
         }
 
         const isHorizontal = this.props.layout === HORIZONTAL,
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error - TS2769 - No overload matches this call.
             $draggable = $(ReactDOM.findDOMNode(draggable)),
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error - TS2769 - No overload matches this call.
             $bank = $(ReactDOM.findDOMNode(this.refs.bank)),
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             draggableOffset = $draggable.offset(),
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
             bankOffset = $bank.offset(),
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
             draggableHeight = $draggable.outerHeight(true),
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
             bankHeight = $bank.outerHeight(true),
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
             bankWidth = $bank.outerWidth(true),
             // eslint-disable-next-line react/no-string-refs
             dragList = ReactDOM.findDOMNode(this.refs.dragList),
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
             dragListWidth = $(dragList).width(),
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
             draggableWidth = $draggable.outerWidth(true);
 
         if (isHorizontal) {
@@ -734,7 +734,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
             return {content: value};
         });
         this.props.onChange({
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ current: { content: string; }[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: WidgetDict | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
+            // @ts-expect-error - TS2345 - Argument of type '{ current: { content: string; }[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: WidgetDict | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
             current: list,
         });
 
@@ -750,7 +750,7 @@ class Orderer extends React.Component<OrdererProps, OrdererState> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Orderer'.
+        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Orderer'.
         return Orderer.validate(this.getUserInput(), rubric);
     };
 }

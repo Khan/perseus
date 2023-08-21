@@ -125,14 +125,14 @@ class ImageLoader extends React.Component<Props, State> {
         let onKeyUp = null;
         let onKeyDown = null;
         if (imgProps.onClick != null) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
             onKeyUp = (e: React.KeyboardEvent) => {
                 // 13 is enter key, 32 is space key
                 if (e.keyCode === 13 || e.keyCode === 32) {
                     imgProps.onClick && imgProps.onClick(e);
                 }
             };
-            // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type '(e: React.KeyboardEvent) => void' is not assignable to type 'null'.
             onKeyDown = (e: React.KeyboardEvent) => {
                 // 32 is space key
                 if (e.keyCode === 32) {
@@ -146,9 +146,9 @@ class ImageLoader extends React.Component<Props, State> {
         return (
             <img
                 src={staticUrl(src)}
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
+                // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
                 onKeyUp={onKeyUp}
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
+                // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'KeyboardEventHandler<HTMLImageElement> | undefined'.
                 onKeyDown={onKeyDown}
                 {...imgProps}
             />
