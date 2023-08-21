@@ -15,6 +15,7 @@ import type {KeypadProps} from "./mixins/provide-keypad";
 import type {PerseusRenderer} from "./perseus-types";
 import type {APIOptions} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
+import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
@@ -37,7 +38,10 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-class ArticleRenderer extends React.Component<Props> {
+class ArticleRenderer
+    extends React.Component<Props>
+    implements KeypadContextRendererInterface
+{
     _currentFocus: any;
 
     static defaultProps: DefaultProps = {

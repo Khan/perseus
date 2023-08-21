@@ -16,7 +16,7 @@ import type {
     ImageUploader,
     Version,
 } from "@khanacademy/perseus";
-import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
+import type {KEScore} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 
@@ -71,7 +71,7 @@ class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'rendererMountNode' has no initializer and is not definitely assigned in the constructor.
     rendererMountNode: HTMLDivElement;
-    renderer: RendererInterface | null | undefined;
+    renderer: any;
 
     static defaultProps: {
         developerMode: boolean;

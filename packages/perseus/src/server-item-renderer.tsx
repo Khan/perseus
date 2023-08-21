@@ -22,7 +22,10 @@ import Util from "./util";
 import type {KeypadProps} from "./mixins/provide-keypad";
 import type {APIOptions, FocusPath} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
+import type {
+    KeypadContextRendererInterface,
+    KEScore,
+} from "@khanacademy/perseus-core";
 
 const {mapObject} = Objective;
 
@@ -68,7 +71,7 @@ type SerializedState = {
 /* eslint-disable-next-line react/no-unsafe */
 export class ServerItemRenderer
     extends React.Component<Props, State>
-    implements RendererInterface
+    implements KeypadContextRendererInterface
 {
     // @ts-expect-error [FEI-5003] - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
