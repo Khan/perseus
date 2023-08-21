@@ -9,11 +9,19 @@ import Renderer from "../renderer";
 import Util from "../util";
 
 import type {PerseusSequenceWidgetOptions} from "../perseus-types";
-import type {WidgetExports, WidgetProps} from "../types";
+import type {
+    TrackingSequenceExtraArguments,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 
 type Rubric = PerseusSequenceWidgetOptions;
 
-type ExternalProps = WidgetProps<PerseusSequenceWidgetOptions, Rubric>;
+type ExternalProps = WidgetProps<
+    PerseusSequenceWidgetOptions,
+    Rubric,
+    TrackingSequenceExtraArguments
+>;
 
 type Props = ExternalProps;
 

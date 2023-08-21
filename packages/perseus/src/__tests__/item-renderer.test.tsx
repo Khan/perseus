@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
     labelImageItem,
@@ -76,6 +79,7 @@ export const renderQuestion = (
                 reviewMode={false}
                 savedState=""
                 controlPeripherals={false}
+                dependencies={testDependenciesV2}
                 {...optionalProps}
             />
             {/* The ItemRenderer _requires_ two divs: a work area and hints

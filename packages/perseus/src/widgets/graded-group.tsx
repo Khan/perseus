@@ -25,7 +25,12 @@ import a11y from "../util/a11y";
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
 import type {PerseusGradedGroupWidgetOptions} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {
+    PerseusScore,
+    TrackingGradedGroupExtraArguments,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 
 const GRADING_STATUSES = {
@@ -64,7 +69,11 @@ const DEFAULT_INVALID_MESSAGE =
 type Rubric = PerseusGradedGroupWidgetOptions;
 type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform'
 
-type Props = WidgetProps<RenderProps, Rubric> & {
+type Props = WidgetProps<
+    RenderProps,
+    Rubric,
+    TrackingGradedGroupExtraArguments
+> & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
     onNextQuestion?: () => unknown; // Set by graded-group-set.jsx
 };

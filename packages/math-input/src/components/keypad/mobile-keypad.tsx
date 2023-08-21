@@ -138,7 +138,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
             >
                 <Keypad
                     // TODO(jeremy)
-                    sendEvent={async () => {}}
+                    onAnalyticsEvent={async () => {}}
                     extraKeys={keypadConfig?.extraKeys}
                     onClickKey={(key) => this._handleClickKey(key)}
                     cursorContext={cursor?.context}

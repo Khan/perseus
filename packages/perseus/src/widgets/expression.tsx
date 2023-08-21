@@ -12,7 +12,7 @@ import Tooltip, {
     HorizontalDirection,
     VerticalDirection,
 } from "../components/tooltip";
-import {getDependencies} from "../dependencies";
+import {useDependencies} from "../dependencies";
 import {iconExclamationSign} from "../icon-paths";
 import {Errors as PerseusErrors, Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
@@ -23,19 +23,13 @@ import type {
     PerseusExpressionWidgetOptions,
     PerseusExpressionAnswerForm,
 } from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {
+    APIOptions,
+    PerseusScore,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 import type {Keys as Key} from "@khanacademy/math-input";
-
-const sendExpressionEvaluatedEvent = (
-    result: "correct" | "incorrect" | "invalid",
-) => {
-    getDependencies().analytics({
-        type: "perseus:expression-evaluated",
-        payload: {
-            result,
-        },
-    });
-};
 
 type InputPath = ReadonlyArray<string>;
 
@@ -63,20 +57,43 @@ const insertBraces = (value) => {
     return value.replace(/([_^])([^{])/g, "$1{$2}");
 };
 
+const deriveKeypadVersion = (apiOptions: APIOptions) => {
+    // We can derive which version of the keypad is in use. This is
+    // a bit tricky, but this code will be relatively short-lived
+    // as we coalesce onto the new, v2 Keypad, at which point we
+    // can remove this `virtualKeypadVersion` field entirely.
+    return apiOptions.nativeKeypadProxy != null
+        ? "REACT_NATIVE_KEYPAD"
+        : apiOptions.customKeypad === true
+        ? apiOptions.useV2Keypad === true
+            ? "MATH_INPUT_KEYPAD_V2"
+            : "MATH_INPUT_KEYPAD_V1"
+        : "PERSEUS_MATH_INPUT";
+};
+
 type Rubric = PerseusExpressionWidgetOptions;
+
+type RenderProps = {
+    buttonSets: PerseusExpressionWidgetOptions["buttonSets"];
+    buttonsVisible?: PerseusExpressionWidgetOptions["buttonsVisible"];
+    functions: PerseusExpressionWidgetOptions["functions"];
+    times: PerseusExpressionWidgetOptions["times"];
+    keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
+};
 
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
-export type Props = ExternalProps & {
-    apiOptions: NonNullable<ExternalProps["apiOptions"]>;
-    buttonSets: NonNullable<ExternalProps["buttonSets"]>;
-    functions: NonNullable<ExternalProps["functions"]>;
-    linterContext: NonNullable<ExternalProps["linterContext"]>;
-    onBlur: NonNullable<ExternalProps["onBlur"]>;
-    onFocus: NonNullable<ExternalProps["onFocus"]>;
-    times: NonNullable<ExternalProps["times"]>;
-    value: string;
-};
+export type Props = ExternalProps &
+    ReturnType<typeof useDependencies> & {
+        apiOptions: NonNullable<ExternalProps["apiOptions"]>;
+        buttonSets: NonNullable<ExternalProps["buttonSets"]>;
+        functions: NonNullable<ExternalProps["functions"]>;
+        linterContext: NonNullable<ExternalProps["linterContext"]>;
+        onBlur: NonNullable<ExternalProps["onBlur"]>;
+        onFocus: NonNullable<ExternalProps["onFocus"]>;
+        times: NonNullable<ExternalProps["times"]>;
+        value: string;
+    };
 
 export type ExpressionState = {
     showErrorTooltip: boolean;
@@ -211,8 +228,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // we did, whether it's considered correct, incorrect, or ungraded
         if (!matchingAnswerForm) {
             if (firstUngradedResult) {
-                sendExpressionEvaluatedEvent("invalid");
-
                 // While we didn't directly match with any answer form, we
                 // did at some point get an "ungraded" validation result,
                 // which might indicate e.g. a mismatch in variable casing.
@@ -227,8 +242,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 };
             }
             if (allEmpty) {
-                sendExpressionEvaluatedEvent("invalid");
-
                 // If everything graded as empty, it's invalid.
                 return {
                     type: "invalid",
@@ -237,7 +250,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
             }
             // We fell through all the possibilities and we're not empty,
             // so the answer is considered incorrect.
-            sendExpressionEvaluatedEvent("incorrect");
             return {
                 type: "points",
                 earned: 0,
@@ -252,7 +264,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
                 userInput,
                 matchMessage,
             );
-            sendExpressionEvaluatedEvent("invalid");
             return {
                 type: "invalid",
                 message: apiResult === false ? null : matchMessage,
@@ -264,12 +275,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
         // TODO(eater): Seems silly to translate result to this
         // invalid/points thing and immediately translate it back in
         // ItemRenderer.scoreInput()
-        sendExpressionEvaluatedEvent(
-            matchingAnswerForm.considered === "correct"
-                ? "correct"
-                : "incorrect",
-        );
-
         return {
             type: "points",
             earned: matchingAnswerForm.considered === "correct" ? 1 : 0,
@@ -369,7 +374,21 @@ export class Expression extends React.Component<Props, ExpressionState> {
         onInputError: OnInputErrorFunctionType,
     ) => PerseusScore = (rubric, onInputError) => {
         onInputError = onInputError || function () {};
-        return Expression.validate(this.getUserInput(), rubric, onInputError);
+        const result = Expression.validate(
+            this.getUserInput(),
+            rubric,
+            onInputError,
+        );
+
+        this.sendExpressionEvaluatedEvent(
+            result.type === "invalid"
+                ? "invalid"
+                : result.earned === result.total
+                ? "correct"
+                : "incorrect",
+        );
+
+        return result;
     };
 
     getUserInput: () => string = () => {
@@ -470,6 +489,18 @@ export class Expression extends React.Component<Props, ExpressionState> {
             cb,
         );
     };
+
+    sendExpressionEvaluatedEvent(result: "correct" | "incorrect" | "invalid") {
+        this.props.analytics.onAnalyticsEvent({
+            type: "perseus:expression-evaluated",
+            payload: {
+                result,
+                virtualKeypadVersion: deriveKeypadVersion(
+                    this.props.apiOptions,
+                ),
+            },
+        });
+    }
 
     render():
         | React.ReactNode
@@ -640,22 +671,25 @@ const propUpgrades = {
     }),
 } as const;
 
-type RenderProps = {
-    buttonSets: any;
-    buttonsVisible?: "always" | "focused" | "never";
-    functions: ReadonlyArray<string>;
-    keypadConfiguration: {
-        extraKeys: ReadonlyArray<any | string>;
-        keypadType: any;
-    };
-    times: boolean;
-};
+const ExpressionWithDependencies = React.forwardRef<
+    Expression,
+    Omit<
+        JSX.LibraryManagedAttributes<
+            typeof Expression,
+            React.ComponentProps<typeof Expression>
+        >,
+        keyof ReturnType<typeof useDependencies>
+    >
+>((props, ref) => {
+    const deps = useDependencies();
+    return <Expression ref={ref} analytics={deps.analytics} {...props} />;
+});
 
 export default {
     name: "expression",
     displayName: "Expression / Equation",
     defaultAlignment: "inline-block",
-    widget: Expression,
+    widget: ExpressionWithDependencies,
     transform: (widgetOptions: PerseusExpressionWidgetOptions): RenderProps => {
         const {times, functions, buttonSets, buttonsVisible} = widgetOptions;
         return {
@@ -671,4 +705,4 @@ export default {
 
     // For use by the editor
     isLintable: true,
-} as WidgetExports<typeof Expression>;
+} as WidgetExports<typeof ExpressionWithDependencies>;

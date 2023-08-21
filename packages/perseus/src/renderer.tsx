@@ -213,7 +213,7 @@ class Renderer extends React.Component<Props, State> {
     _foundTextNodes: boolean;
     // @ts-expect-error - TS2564 - Property '_interactionTrackers' has no initializer and is not definitely assigned in the constructor.
     _interactionTrackers: {
-        [id: string]: InteractionTracker;
+        [id: string]: InteractionTracker<any>;
     };
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;

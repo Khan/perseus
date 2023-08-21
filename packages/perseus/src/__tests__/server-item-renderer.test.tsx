@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
     mockedItem,
@@ -51,6 +54,7 @@ const renderQuestion = (
                 item={question}
                 problemNum={0}
                 reviewMode={false}
+                dependencies={testDependenciesV2}
                 {...optionalProps}
             />
         </RenderStateRoot>,
@@ -228,6 +232,7 @@ describe("server item renderer", () => {
                     item={itemWithInput}
                     problemNum={0}
                     reviewMode={false}
+                    dependencies={testDependenciesV2}
                 />
             </RenderStateRoot>,
         );
@@ -243,6 +248,7 @@ describe("server item renderer", () => {
                     item={itemWithInput}
                     problemNum={1} // to force componentDidUpdate
                     reviewMode={false}
+                    dependencies={testDependenciesV2}
                 />
                 ,
             </RenderStateRoot>,
@@ -272,6 +278,7 @@ describe("server item renderer", () => {
                     problemNum={0}
                     reviewMode={false}
                     onRendered={onRendered}
+                    dependencies={testDependenciesV2}
                 />
             </RenderStateRoot>,
         );
@@ -293,6 +300,7 @@ describe("server item renderer", () => {
                     problemNum={1}
                     reviewMode={false}
                     onRendered={onRendered}
+                    dependencies={testDependenciesV2}
                 />
             </RenderStateRoot>,
         );
