@@ -1,10 +1,8 @@
 import {CursorContext} from "./cursor-contexts";
 import {mathQuillInstance} from "./mathquill-instance";
-import {
-    MathFieldActionType,
-    MathFieldCursor,
-    MathFieldInterface,
-} from "./mathquill-types";
+import {MathFieldActionType} from "./mathquill-types";
+
+import type {MathFieldCursor, MathFieldInterface} from "./mathquill-types";
 
 const Numerals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const GreekLetters = ["\\theta", "\\pi"];

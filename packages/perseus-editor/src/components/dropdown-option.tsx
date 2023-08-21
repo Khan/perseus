@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * The Option is an item to be used in the Select components and the
  * derivations such as MultiSelect, CheckList, and CheckBoxList. Also includes

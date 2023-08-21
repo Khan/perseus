@@ -313,7 +313,7 @@ describe("item renderer", () => {
             renderer.focus();
 
             // Assert
-            expect(screen.getByLabelText("Up arrow")).toBeVisible();
+            expect(screen.getByLabelText("7")).toBeVisible();
         });
 
         it("should provide current and previous focus paths on focus change to, and away from, a single widget", () => {

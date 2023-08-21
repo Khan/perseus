@@ -1,4 +1,4 @@
-import {LayoutProps, Bound} from "../../types";
+import type {LayoutProps, Bound} from "../../types";
 /**
  * A manager for our node-to-ID system. In particular, this class is
  * responsible for maintaing a mapping between DOM nodes and node IDs, and

@@ -3,11 +3,12 @@
  */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
-import {DecimalSeparator, IconType, KeyType} from "../enums";
-import {KeyConfig} from "../types";
+import {DecimalSeparator, IconType} from "../enums";
 import {decimalSeparator} from "../utils";
 
-import Key from "./keys";
+import type {KeyType} from "../enums";
+import type {KeyConfig} from "../types";
+import type Key from "./keys";
 
 type KeyConfigMapper = (args: {
     key: Key;

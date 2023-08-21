@@ -1,5 +1,40 @@
 # @khanacademy/perseus-editor
 
+## 2.6.1
+
+### Patch Changes
+
+-   89f54569: Types and tests for Plotter and Plotter-Editor
+-   89f54569: Bugfix to hide drag instructions in static plotter
+-   Updated dependencies [89f54569]
+-   Updated dependencies [ea9dac75]
+-   Updated dependencies [89f54569]
+    -   @khanacademy/perseus@7.2.1
+
+## 2.6.0
+
+### Minor Changes
+
+-   e08f85ee: Add testing and improve error logging in the image editor
+
+### Patch Changes
+
+-   Updated dependencies [e08f85ee]
+    -   @khanacademy/perseus@7.2.0
+
+## 2.5.2
+
+### Patch Changes
+
+-   eeda31bd: Fix loading graphie URLs into the image editor
+
+## 2.5.1
+
+### Patch Changes
+
+-   Updated dependencies [fc70e558]
+    -   @khanacademy/perseus@7.1.1
+
 ## 2.5.0
 
 ### Minor Changes

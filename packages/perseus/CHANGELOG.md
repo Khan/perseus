@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 7.2.1
+
+### Patch Changes
+
+-   89f54569: Types and tests for Plotter and Plotter-Editor
+-   ea9dac75: Bugfix: allow legacy keypad to be positioned absolutely in column
+-   89f54569: Bugfix to hide drag instructions in static plotter
+-   Updated dependencies [ea9dac75]
+-   Updated dependencies [30a99b82]
+-   Updated dependencies [3fa556a3]
+    -   @khanacademy/math-input@8.1.2
+
+## 7.2.0
+
+### Minor Changes
+
+-   e08f85ee: Add testing and improve error logging in the image editor
+
+## 7.1.1
+
+### Patch Changes
+
+-   fc70e558: Fix the font size of inline MathJax 3 math in paragraphs, making it the same as KaTeX math.
+
 ## 7.1.0
 
 ### Minor Changes

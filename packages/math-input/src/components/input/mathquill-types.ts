@@ -1,4 +1,4 @@
-import Key from "../../data/keys";
+import type Key from "../../data/keys";
 
 export interface MathQuillInterface {
     L: "L";
@@ -167,7 +167,10 @@ export type MathFieldConfig = {
         edit?: (mathField: MathFieldInterface) => void;
         enter?: (mathField: MathFieldInterface) => void;
 
-        moveOutOf?: (mathField: MathFieldInterface) => void;
+        moveOutOf?: (
+            direction: MathQuillDirection,
+            mathField: MathFieldInterface,
+        ) => void;
         upOutOf?: (mathField: MathFieldInterface) => void;
         downOutOf?: (mathField: MathFieldInterface) => void;
 

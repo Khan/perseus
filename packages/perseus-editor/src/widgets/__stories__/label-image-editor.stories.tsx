@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 

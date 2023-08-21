@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as React from "react";
 
 type StoryArgs = Record<any, any>;

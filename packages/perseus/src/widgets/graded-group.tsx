@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import Color from "@khanacademy/wonder-blocks-color";
@@ -21,9 +22,7 @@ import {
 } from "../styles/constants";
 import a11y from "../util/a11y";
 
-import GradedGroupAnswerBar, {
-    ANSWER_BAR_STATES,
-} from "./graded-group-answer-bar";
+import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
 import type {PerseusGradedGroupWidgetOptions} from "../perseus-types";
 import type {
@@ -32,6 +31,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../types";
+import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,

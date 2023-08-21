@@ -97,18 +97,20 @@ const ImageEditor: any = createReactClass({
 
         const imageSettings = (
             <div className="image-settings">
-                <div>
-                    <label>
-                        <div>Preview:</div>
-                        <img
-                            alt="Editor preview of image"
-                            src={backgroundImage.url}
-                            style={{
-                                width: "100%",
-                            }}
-                        />
-                    </label>
-                </div>
+                {!Util.isLabeledSVG(backgroundImage.url) && (
+                    <div>
+                        <label>
+                            <div>Preview:</div>
+                            <img
+                                alt="Editor preview of image"
+                                src={backgroundImage.url}
+                                style={{
+                                    width: "100%",
+                                }}
+                            />
+                        </label>
+                    </div>
+                )}
                 <div>
                     <label>
                         <div>Dimensions:</div>
@@ -327,7 +329,11 @@ const ImageEditor: any = createReactClass({
             this.setUrl(url, size[0], size[1], true);
         } catch (error) {
             this.setState({
-                backgroundImageError: `There was an error loading the image URL: ${error}`,
+                backgroundImageError: `There was an error loading the image URL: ${JSON.stringify(
+                    error,
+                    null,
+                    2,
+                )}`,
             });
         }
     },

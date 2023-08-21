@@ -16,8 +16,6 @@
 
 import $ from "jquery";
 
-import Key from "../../data/keys";
-import {Cursor} from "../../types";
 import handleBackspace from "../key-handlers/handle-backspace";
 import keyTranslator from "../key-handlers/key-translator";
 
@@ -27,7 +25,13 @@ import {
     maybeFindCommand,
 } from "./mathquill-helpers";
 import {createMathField, mathQuillInstance} from "./mathquill-instance";
-import {MathFieldInterface, MathFieldUpdaterCallback} from "./mathquill-types";
+
+import type Key from "../../data/keys";
+import type {Cursor} from "../../types";
+import type {
+    MathFieldInterface,
+    MathFieldUpdaterCallback,
+} from "./mathquill-types";
 
 const mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
     ...keyTranslator,

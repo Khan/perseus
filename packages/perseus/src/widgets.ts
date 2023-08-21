@@ -1,4 +1,3 @@
-import * as React from "react";
 import _ from "underscore";
 
 import {Errors, Log} from "./logging/log";
@@ -12,6 +11,7 @@ import type {
     WidgetInfo,
     WidgetTransform,
 } from "./types";
+import type * as React from "react";
 
 const DEFAULT_ALIGNMENT = "block";
 // NOTE(kevinb): "default" is not one in `validAlignments`.

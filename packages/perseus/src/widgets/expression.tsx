@@ -1,5 +1,5 @@
 import * as KAS from "@khanacademy/kas";
-import {KeypadInput, KeypadType, Keys as Key} from "@khanacademy/math-input";
+import {KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import classNames from "classnames";
@@ -24,6 +24,7 @@ import type {
     PerseusExpressionAnswerForm,
 } from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {Keys as Key} from "@khanacademy/math-input";
 
 type InputPath = ReadonlyArray<string>;
 

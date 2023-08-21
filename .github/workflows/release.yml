@@ -1,9 +1,9 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -29,58 +29,58 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 # For more info about this workflow, see:
 # https://github.com/changesets/action#usage
 jobs:
-  release:
-    name: Release
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [16.x]
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+    release:
+        name: Release
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
 
-      - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-        uses: Khan/actions@shared-node-cache-v0
-        with:
-          node-version: ${{ matrix.node-version }}
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-      - name: Build Storybook
-        # Generate a static version of storybook inside "storybook-static/"
-        run: yarn build-storybook
+            - name: Build Storybook
+              # Generate a static version of storybook inside "storybook-static/"
+              run: yarn build-storybook
 
-      - name: Deploy to GitHub pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.2
-        with:
-          # The branch the action should deploy to.
-          branch: gh-pages
-          # The folder the action should deploy.
-          folder: storybook-static
+            - name: Deploy to GitHub pages
+              uses: JamesIves/github-pages-deploy-action@v4.4.2
+              with:
+                  # The branch the action should deploy to.
+                  branch: gh-pages
+                  # The folder the action should deploy.
+                  folder: storybook-static
 
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: yarn publish:ci
-        env:
-          # We use a Personal Access Token here rather than the GITHUB_TOKEN
-          # so that it will trigger our other actions. The token has to be on
-          # the account of someone with appropriate access levels and given the
-          # repo scope.
-          GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: Create Release Pull Request or Publish to npm
+              id: changesets
+              uses: changesets/action@v1
+              with:
+                  publish: yarn publish:ci
+              env:
+                  # We use a Personal Access Token here rather than the GITHUB_TOKEN
+                  # so that it will trigger our other actions. The token has to be on
+                  # the account of someone with appropriate access levels and given the
+                  # repo scope.
+                  GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Send a Slack notification for web if a publish happens
-        if: steps.changesets.outputs.published == 'true'
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_EXERCISENEXT_WEBHOOK }}
-          SLACK_CHANNEL: team-lc-perseus
-          SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
-          SLACK_USERNAME: GithubGoose
-          SLACK_ICON_EMOJI: ":goose:"
-          SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! 🎉 \nRelease notes → https://github.com/Khan/${{ github.event.repository.name }}/releases/"
-          SLACK_TITLE: "New Perseus release!"
-          SLACK_FOOTER: Perseus Slack Notification
-          MSG_MINIMAL: true
+            - name: Send a Slack notification for web if a publish happens
+              if: steps.changesets.outputs.published == 'true'
+              uses: rtCamp/action-slack-notify@v2
+              env:
+                  SLACK_WEBHOOK: ${{ secrets.SLACK_EXERCISENEXT_WEBHOOK }}
+                  SLACK_CHANNEL: team-lc-perseus
+                  SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
+                  SLACK_USERNAME: GithubGoose
+                  SLACK_ICON_EMOJI: ":goose:"
+                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! 🎉 \nRelease notes → https://github.com/Khan/${{ github.event.repository.name }}/releases/"
+                  SLACK_TITLE: "New Perseus release!"
+                  SLACK_FOOTER: Perseus Slack Notification
+                  MSG_MINIMAL: true

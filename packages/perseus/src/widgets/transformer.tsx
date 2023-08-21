@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable camelcase */
 /* eslint-disable react/no-did-update-set-state */

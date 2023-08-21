@@ -8,17 +8,23 @@ import classNames from "classnames";
 import * as React from "react";
 
 import {DependenciesContext} from "./dependencies";
-import ProvideKeypad, {KeypadProps} from "./mixins/provide-keypad";
+import ProvideKeypad from "./mixins/provide-keypad";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
-import {APIOptions, LinterContextProps, PerseusDependenciesV2} from "./types";
 import Util from "./util";
 
+import type {KeypadProps} from "./mixins/provide-keypad";
 import type {PerseusRenderer} from "./perseus-types";
+import type {APIOptions, PerseusDependenciesV2} from "./types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
     apiOptions: APIOptions;
     json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+    // Whether to use the new Bibliotron styles for articles
+    /**
+     * @deprecated Does nothing
+     */
     useNewStyles: boolean;
     linterContext: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
@@ -28,24 +34,24 @@ type Props = {
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
-    // Whether to use the new Bibliotron styles for articles
-    /**
-     * @deprecated Does nothing
-     */
     useNewStyles: Props["useNewStyles"];
     linterContext: Props["linterContext"];
 };
 
-class ArticleRenderer extends React.Component<Props, any> {
+type State = {
+    keypadElement: any | null;
+};
+
+class ArticleRenderer extends React.Component<Props, State> {
     _currentFocus: any;
 
     static defaultProps: DefaultProps = {
-        apiOptions: {},
+        apiOptions: ApiOptions.defaults,
         useNewStyles: false,
         linterContext: PerseusLinter.linterContextDefault,
     };
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
         this.state = ProvideKeypad.getInitialState.call(this);
     }
@@ -55,7 +61,7 @@ class ArticleRenderer extends React.Component<Props, any> {
         this._currentFocus = null;
     }
 
-    shouldComponentUpdate(nextProps: any, nextState: any): any {
+    shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return nextProps !== this.props || nextState !== this.state;
     }
 

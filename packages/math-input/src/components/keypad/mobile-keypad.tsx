@@ -1,11 +1,17 @@
-import {StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import Key from "../../data/keys";
 import {View} from "../../fake-react-native-web/index";
-import {Cursor, KeypadConfiguration, KeyHandler, KeypadAPI} from "../../types";
+
+import type Key from "../../data/keys";
+import type {
+    Cursor,
+    KeypadConfiguration,
+    KeyHandler,
+    KeypadAPI,
+} from "../../types";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 import Keypad from "./index";
 
@@ -91,11 +97,15 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     }
 
     render(): React.ReactNode {
+        const {style} = this.props;
         const {active, cursor, keypadConfig} = this.state;
 
         const containerStyle = [
+            // internal styles
             styles.keypadContainer,
             active ? styles.activeKeypadContainer : null,
+            // styles passed as props
+            ...(Array.isArray(style) ? style : [style]),
         ];
 
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
@@ -132,6 +142,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                     extraKeys={keypadConfig?.extraKeys}
                     onClickKey={(key) => this._handleClickKey(key)}
                     cursorContext={cursor?.context}
+                    fractionsOnly={!isExpression}
                     multiplicationDot={isExpression}
                     divisionKey={isExpression}
                     trigonometry={isExpression}

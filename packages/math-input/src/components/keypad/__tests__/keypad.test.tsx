@@ -76,4 +76,19 @@ describe("keypad", () => {
             }),
         ).not.toBeInTheDocument();
     });
+
+    it(`hides the tabs if providing the Fraction Keypad`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                fractionsOnly={true}
+                onAnalyticsEvent={async () => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.queryByRole("tab")).not.toBeInTheDocument();
+    });
 });

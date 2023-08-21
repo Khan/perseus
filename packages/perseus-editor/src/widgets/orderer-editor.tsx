@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable one-var, react/forbid-prop-types, react/sort-comp */
 import {components} from "@khanacademy/perseus";
 import PropTypes from "prop-types";

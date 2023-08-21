@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
@@ -10,9 +11,10 @@ import _ from "underscore";
 import {getDependencies} from "../dependencies";
 import {ClassNames as ApiClassNames} from "../perseus-api";
 import Renderer from "../renderer";
-import Util, {Position} from "../util";
+import Util from "../util";
 
 import type {LinterContextProps} from "../types";
+import type {Position} from "../util";
 
 export enum Layout {
     HORIZONTAL = "horizontal",

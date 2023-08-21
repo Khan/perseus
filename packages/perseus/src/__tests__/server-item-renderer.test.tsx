@@ -21,13 +21,13 @@ import InputNumberExport from "../widgets/input-number";
 import RadioWidgetExport from "../widgets/radio";
 
 import MockAssetLoadingWidgetExport, {
-    MockAssetLoadingWidget,
     mockedAssetItem,
 } from "./mock-asset-loading-widget";
 import MockWidgetExport from "./mock-widget";
 
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
+import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer

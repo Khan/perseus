@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import PropTypes from "prop-types";

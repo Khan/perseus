@@ -3,6 +3,7 @@ import _ from "underscore";
 
 import {Errors} from "./logging/log";
 import {PerseusError} from "./perseus-error";
+import * as GraphieUtil from "./util.graphie";
 import KhanAnswerTypes from "./util/answer-types";
 
 import type {Range} from "./perseus-types";
@@ -50,14 +51,6 @@ type TouchHandlers = {
 };
 
 let supportsPassive = false;
-
-const svgLabelsRegex = /^web\+graphie:/;
-// For offline exercises in the mobile app, we download the graphie data
-// (svgs and localized data files) and serve them from the local file
-// system (with file://). We replace urls that start with `web+graphie`
-// in the perseus json with this `file+graphie` prefix to indicate that
-// they should have the `file://` protocol instead of `https://`.
-const svgLocalLabelsRegex = /^file\+graphie:/;
 
 const nestedMap = function <T, M>(
     children: T | ReadonlyArray<T>,
@@ -839,23 +832,6 @@ function captureScratchpadTouchStart(e: TouchEvent) {
     e.stopPropagation();
 }
 
-async function getImageSizeModern(url: string): Promise<[number, number]> {
-    const image = new Image();
-
-    return new Promise((resolve, reject) => {
-        // Handle the success case
-        image.onload = () => {
-            resolve([image.naturalWidth, image.naturalHeight]);
-        };
-
-        // Handle the error case
-        image.onerror = reject;
-
-        // Kick off the loading
-        image.src = url;
-    });
-}
-
 function getImageSize(
     url: string,
     callback: (width: number, height: number) => void,
@@ -884,38 +860,7 @@ function getImageSize(
         }
     };
 
-    img.src = getRealImageUrl(url);
-}
-
-// Sometimes other components want to download the actual image e.g. to
-// determine its size. Here, we transform an .svg-labels url into the
-// correct image url, and leave normal image urls alone
-function getRealImageUrl(url: string): string {
-    if (isLabeledSVG(url)) {
-        return getSvgUrl(url);
-    }
-    return url;
-}
-
-function isLabeledSVG(url: string): boolean {
-    return svgLabelsRegex.test(url) || svgLocalLabelsRegex.test(url);
-}
-
-// For each svg+labels, there are two urls we need to download from. This gets
-// the base url without the suffix, and `getSvgUrl` and `getDataUrl` apply
-// appropriate suffixes to get the image and other data
-function getBaseUrl(url: string): string {
-    return url
-        .replace(svgLabelsRegex, "https:")
-        .replace(svgLocalLabelsRegex, "file:");
-}
-
-function getSvgUrl(url: string): string {
-    return getBaseUrl(url) + ".svg";
-}
-
-function getDataUrl(url: string): string {
-    return getBaseUrl(url) + "-data.json";
+    img.src = GraphieUtil.getRealImageUrl(url);
 }
 
 /**
@@ -1007,12 +952,12 @@ const Util = {
     supportsPassiveEvents,
     captureScratchpadTouchStart,
     getImageSize,
-    getImageSizeModern,
-    getRealImageUrl,
-    isLabeledSVG,
-    getBaseUrl,
-    getSvgUrl,
-    getDataUrl,
+    getImageSizeModern: GraphieUtil.getImageSizeModern,
+    getRealImageUrl: GraphieUtil.getRealImageUrl,
+    isLabeledSVG: GraphieUtil.isLabeledSVG,
+    getBaseUrl: GraphieUtil.getBaseUrl,
+    getSvgUrl: GraphieUtil.getSvgUrl,
+    getDataUrl: GraphieUtil.getDataUrl,
     textarea,
     unescapeMathMode,
     random,

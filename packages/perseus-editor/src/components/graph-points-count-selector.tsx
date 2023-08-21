@@ -1,6 +1,8 @@
 import * as React from "react";
 
-import {PointValue, UNLIMITED, parsePointCount} from "../util/points";
+import {UNLIMITED, parsePointCount} from "../util/points";
+
+import type {PointValue} from "../util/points";
 
 const GraphPointsCountSelector = ({
     numPoints = 1,

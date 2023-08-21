@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, icons, EditorJsonify} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";

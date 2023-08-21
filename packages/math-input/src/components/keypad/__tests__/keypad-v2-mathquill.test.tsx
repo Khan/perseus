@@ -1,4 +1,3 @@
-import {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import Color from "@khanacademy/wonder-blocks-color";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {render, screen} from "@testing-library/react";
@@ -7,11 +6,13 @@ import * as React from "react";
 
 import "@testing-library/jest-dom";
 
-import Key from "../../../data/keys";
 import {createMathField} from "../../input/mathquill-instance";
-import {MathFieldInterface} from "../../input/mathquill-types";
 import keyTranslator from "../../key-handlers/key-translator";
 import Keypad from "../index";
+
+import type Key from "../../../data/keys";
+import type {MathFieldInterface} from "../../input/mathquill-types";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 type Props = {
     onChangeMathInput: (mathInputTex: string) => void;

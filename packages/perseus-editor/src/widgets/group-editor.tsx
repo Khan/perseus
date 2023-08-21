@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types, react/sort-comp */
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
