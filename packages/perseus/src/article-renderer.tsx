@@ -100,7 +100,7 @@ class ArticleRenderer
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocusPath,
-                didFocusInput ? keypadElement?.getDOMNode() : undefined,
+                didFocusInput ? keypadElement?.getDOMNode() : null,
             );
         }
 
