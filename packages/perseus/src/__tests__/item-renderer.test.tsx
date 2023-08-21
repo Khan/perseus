@@ -132,6 +132,13 @@ describe("item renderer", () => {
     });
 
     beforeEach(() => {
+        // Mock ResizeObserver used by the mobile keypad
+        window.ResizeObserver = jest.fn().mockImplementation(() => ({
+            observe: jest.fn(),
+            unobserve: jest.fn(),
+            disconnect: jest.fn(),
+        }));
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
