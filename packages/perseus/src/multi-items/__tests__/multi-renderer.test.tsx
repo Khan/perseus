@@ -69,7 +69,7 @@ const renderSimpleQuestion = (question: Item) => {
 const _findWidgets = (
     renderer: MultiRenderer,
     filterCriterion: FilterCriterion,
-    // @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+    // @ts-expect-error - TS2315 - Type 'Tree' is not generic.
 ): Tree<
     ReadonlyArray<Widget | null | undefined>,
     ReadonlyArray<Widget | null | undefined>,
@@ -144,7 +144,7 @@ describe("multi-item renderer", () => {
             userEvent.paste(screen.getByRole("textbox"), "+42"); // Correct
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2339 - Property '_getSerializedState' does not exist on type 'never'.
+            // @ts-expect-error - TS2339 - Property '_getSerializedState' does not exist on type 'never'.
             const state = renderer._getSerializedState(null);
 
             // Assert
@@ -277,7 +277,7 @@ describe("multi-item renderer", () => {
             userEvent.paste(screen.getByRole("textbox"), "99");
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2339 - Property '_getSerializedState' does not exist on type 'never'.
+            // @ts-expect-error - TS2339 - Property '_getSerializedState' does not exist on type 'never'.
             const state = renderer._getSerializedState({
                 blurb: "last blurb",
                 hints: ["uno", "dos" /* intentionally not passing a third */],
@@ -528,7 +528,7 @@ describe("multi-item renderer", () => {
             } as const;
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'restoreSerializedState' does not exist on type 'never'.
+            // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'never'.
             renderer.restoreSerializedState(state);
 
             // Assert
@@ -546,7 +546,7 @@ describe("multi-item renderer", () => {
             const callback = jest.fn();
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'restoreSerializedState' does not exist on type 'never'.
+            // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'never'.
             renderer.restoreSerializedState(
                 {
                     blurb: {"mock-widget 1": 1},
@@ -594,7 +594,7 @@ describe("multi-item renderer", () => {
         userEvent.paste(screen.getByRole("textbox"), "-42"); // Correct
 
         // Act
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getScores' does not exist on type 'never'.
+        // @ts-expect-error - TS2339 - Property 'getScores' does not exist on type 'never'.
         const score = renderer.getScores();
 
         // Assert
@@ -756,7 +756,7 @@ describe("multi-item renderer", () => {
         userEvent.paste(screen.getByRole("textbox"), "-42"); // Correct
 
         // Act
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'score' does not exist on type 'never'.
+        // @ts-expect-error - TS2339 - Property 'score' does not exist on type 'never'.
         const score = renderer.score();
 
         // Assert

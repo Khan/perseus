@@ -37,10 +37,10 @@ export type HintNode = {
 };
 export type TagsNode = ReadonlyArray<string>;
 
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'ArrayNode' is not generic.
+// @ts-expect-error - TS2315 - Type 'ArrayNode' is not generic.
 export type ItemArrayNode = ArrayNode<ContentNode, HintNode, TagsNode>;
 export type ItemObjectNode = ObjectNode<ContentNode, HintNode, TagsNode>;
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+// @ts-expect-error - TS2315 - Type 'Tree' is not generic.
 export type ItemTree = Tree<ContentNode, HintNode, TagsNode>;
 
 // TODO(jeremy): I think we could refine this root type for multi items. Right

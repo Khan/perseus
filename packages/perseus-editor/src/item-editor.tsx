@@ -51,7 +51,7 @@ class ItemEditor extends React.Component<Props> {
 
     triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
         this.refs.frame.sendNewData(newData);
     };
 
@@ -67,7 +67,7 @@ class ItemEditor extends React.Component<Props> {
 
     getSaveWarnings: () => any = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         return this.refs.questionEditor.getSaveWarnings();
     };
 
@@ -81,10 +81,10 @@ class ItemEditor extends React.Component<Props> {
     } = (options: any) => {
         return {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             question: this.refs.questionEditor.serialize(options),
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             answerArea: this.refs.itemExtrasEditor.serialize(options),
             itemDataVersion: ITEM_DATA_VERSION,
         };

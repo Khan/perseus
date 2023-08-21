@@ -12,7 +12,7 @@ const splitDiff = function (diffEntries: any): any {
         _.each(values, (value, i) => {
             const isNewline = i > 0;
             if (isNewline) {
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never'.
+                // @ts-expect-error - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never'.
                 lines.push(currentLine);
                 currentLine = [];
             }
@@ -22,7 +22,7 @@ const splitDiff = function (diffEntries: any): any {
     });
 
     if (currentLine.length) {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never'.
+        // @ts-expect-error - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never'.
         lines.push(currentLine);
     }
     return lines;

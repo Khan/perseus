@@ -37,9 +37,9 @@ import type {PerseusGrapherWidgetOptions} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 import type {GridDimensions} from "../util";
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
+// @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovableLine' does not exist on type 'typeof Graphie'.
+// @ts-expect-error - TS2339 - Property 'MovableLine' does not exist on type 'typeof Graphie'.
 const MovableLine = Graphie.MovableLine;
 
 function isFlipped(newCoord: Coord, oldCoord: Coord, line: Line) {
@@ -118,9 +118,9 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     coord={coord}
                     static={this.props.static}
                     constraints={[
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.bound(),
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.snap(),
                         (coord: any) => {
                             // Always enforce that this is a function
@@ -200,9 +200,9 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         let image = null;
         if (imageDescription.url) {
             const scale = box[0] / interactiveSizes.defaultBoxSize;
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             image = (
-                // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
+                // @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
                 <SvgImage
                     src={imageDescription.url}
                     width={imageDescription.width}
@@ -291,9 +291,9 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                         });
                     }}
                     constraints={[
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.constraints.bound(),
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovableLine.constraints.snap(),
                         (newCoord, oldCoord: any) => {
                             // Calculate and apply proposed displacement
@@ -429,7 +429,7 @@ class Grapher extends React.Component<Props> {
 
         return (
             <div>
-                {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
+                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <FunctionGrapher {...grapherProps} />
                 {this.props.availableTypes.length > 1 && typeSelector}
             </div>
@@ -638,7 +638,7 @@ const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     if (widgetProps.availableTypes.length === 1) {
         const graph = widgetProps.graph;
         const type = chooseType(widgetProps.availableTypes);
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+        // @ts-expect-error - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
         widgetProps.plot = defaultPlotProps(type, graph);
     }
 

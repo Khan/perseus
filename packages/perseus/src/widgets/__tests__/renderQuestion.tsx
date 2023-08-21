@@ -15,7 +15,7 @@ export const renderQuestion = (
     apiOptions: APIOptions = Object.freeze({}),
     extraProps?: JSX.LibraryManagedAttributes<
         typeof Perseus.Renderer,
-        // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
+        // @ts-expect-error - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
         React.ComponentProps<typeof Perseus.Renderer>
     >,
 ): {
@@ -25,7 +25,7 @@ export const renderQuestion = (
         question: PerseusRenderer,
         extraProps?: JSX.LibraryManagedAttributes<
             typeof Perseus.Renderer,
-            // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
+            // @ts-expect-error - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
             React.ComponentProps<typeof Perseus.Renderer>
         >,
     ) => void;
@@ -51,7 +51,7 @@ export const renderQuestion = (
     }
     const renderAgain = (
         question: PerseusRenderer,
-        // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
+        // @ts-expect-error - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
         extraProps: undefined | React.ComponentProps<typeof Perseus.Renderer>,
     ) => {
         rerender(

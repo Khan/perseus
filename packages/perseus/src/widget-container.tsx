@@ -45,7 +45,7 @@ class WidgetContainer extends React.Component<Props, State> {
         // Only relay size class changes for mobile right now.  We may want to
         // this for desktop as well at some point in the future.
         if (this.state.widgetProps.apiOptions.isMobile) {
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element | Text'.
             const containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
 
             // NOTE(benkomalo): in the common case, this won't change anything.

@@ -149,7 +149,7 @@ describe("renderer", () => {
             mockRunLinter.mockClear();
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ problemNum: number; linterContext: { readonly contentType: "exercise"; readonly highlightLint: true; readonly paths: readonly []; readonly stack: readonly []; }; }' is not assignable to parameter of type 'Pick<{}, never> & InexactPartial<Pick<{}, never>> & InexactPartial<Pick<DefaultProps, keyof DefaultProps>>'.
+            // @ts-expect-error - TS2345 - Argument of type '{ problemNum: number; linterContext: { readonly contentType: "exercise"; readonly highlightLint: true; readonly paths: readonly []; readonly stack: readonly []; }; }' is not assignable to parameter of type 'Pick<{}, never> & InexactPartial<Pick<{}, never>> & InexactPartial<Pick<DefaultProps, keyof DefaultProps>>'.
             rerender(question1, {...extraProps, problemNum: 1});
 
             // Assert
@@ -192,7 +192,7 @@ describe("renderer", () => {
                     ...question1.widgets,
                     // $FlowIgnore[prop-missing]
                     // $FlowIgnore[incompatible-cast]
-                    // @ts-expect-error [FEI-5003] - TS2352 - Conversion of type '{ type: undefined; static?: boolean | undefined; graded?: boolean | undefined; alignment?: string | undefined; options: PerseusCategorizerWidgetOptions | null | undefined; key?: number | undefined; version?: Version | undefined; } | ... 38 more ... | { ...; }' to type 'DropdownWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+                    // @ts-expect-error - TS2352 - Conversion of type '{ type: undefined; static?: boolean | undefined; graded?: boolean | undefined; alignment?: string | undefined; options: PerseusCategorizerWidgetOptions | null | undefined; key?: number | undefined; version?: Version | undefined; } | ... 38 more ... | { ...; }' to type 'DropdownWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
                     "dropdown 1": {
                         ...question1.widgets["dropdown 1"],
                         // $FlowIgnore[incompatible-cast]
@@ -298,7 +298,7 @@ describe("renderer", () => {
             originalImage = window.Image;
             // Mock HTML Image so we can trigger onLoad callbacks and see full
             // image rendering.
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
+            // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
             window.Image = jest.fn(() => {
                 const img: Record<string, any> = {};
                 images.push(img);
@@ -426,7 +426,7 @@ describe("renderer", () => {
 
             const wrapperStyle = getComputedStyle(
                 // $FlowIgnore[incompatible-call]
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
+                // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
                 screen.getByAltText("This image has dimensions").parentElement, // eslint-disable-line testing-library/no-node-access
             );
             expect(wrapperStyle.maxWidth).toBe("420px");
@@ -452,7 +452,7 @@ describe("renderer", () => {
 
             const wrapperStyle = getComputedStyle(
                 // $FlowIgnore[incompatible-call]
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
+                // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
                 screen.getByAltText("This image doesn't").parentElement, // eslint-disable-line testing-library/no-node-access
             );
             expect(wrapperStyle.maxWidth).toBe("");
@@ -683,11 +683,11 @@ describe("renderer", () => {
             );
             expect(zoomable).not.toBeUndefined();
             expect(zoomable).not.toBeNull();
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'style' does not exist on type 'Element'.
+            // @ts-expect-error - TS2339 - Property 'style' does not exist on type 'Element'.
             expect(zoomable.style.transform).not.toBe("");
 
             /* eslint-disable testing-library/no-node-access */
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+            // @ts-expect-error - TS2531 - Object is possibly 'null'.
             expect(zoomable.parentElement.style.transform).not.toBe("");
             /* eslint-enable testing-library/no-node-access */
         });
@@ -1139,7 +1139,7 @@ describe("renderer", () => {
 
             const {renderer} = renderQuestion(mockedItem);
             const [widget1, widget2, widget3] = renderer.findWidgets(
-                // @ts-expect-error [FEI-5003] - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
+                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
                 (_, info) => info.type === "mock-widget",
             );
             widget1.restoreSerializedState = makeRestoreSerializedStateMock;
@@ -1311,7 +1311,7 @@ describe("renderer", () => {
                     break;
                 }
                 // eslint-disable-next-line testing-library/no-node-access
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLElement | null' is not assignable to type 'HTMLElement'.
+                // @ts-expect-error - TS2322 - Type 'HTMLElement | null' is not assignable to type 'HTMLElement'.
                 // eslint-disable-next-line testing-library/no-node-access
                 el = el.parentElement;
             }
@@ -1334,7 +1334,7 @@ describe("renderer", () => {
                     },
                 },
                 {},
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ problemNum: number; }' is not assignable to parameter of type 'Pick<{}, never> & InexactPartial<Pick<{}, never>> & InexactPartial<Pick<DefaultProps, keyof DefaultProps>>'.
+                // @ts-expect-error - TS2345 - Argument of type '{ problemNum: number; }' is not assignable to parameter of type 'Pick<{}, never> & InexactPartial<Pick<{}, never>> & InexactPartial<Pick<DefaultProps, keyof DefaultProps>>'.
                 {problemNum: 1},
             );
 
@@ -1349,7 +1349,7 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion(mockedItem);
             const widgets = renderer.findWidgets(
-                // @ts-expect-error [FEI-5003] - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
+                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
                 (_, info) => info.type === "mock-widget",
             );
             widgets.forEach(
@@ -1376,7 +1376,7 @@ describe("renderer", () => {
             // Arrange
             const {renderer} = renderQuestion(mockedItem);
             const widgets = renderer.findWidgets(
-                // @ts-expect-error [FEI-5003] - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
+                // @ts-expect-error - TS2367 - This condition will always return 'false' since the types '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"' and '"mock-widget"' have no overlap.
                 (_, info) => info.type === "mock-widget",
             );
             widgets.forEach(
@@ -1489,7 +1489,7 @@ describe("renderer", () => {
 
             // Assert
             // "button" role is the WB dropdown's "opener" element
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
+            // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
             expect(within(node).queryAllByRole("button")).toHaveLength(1);
         });
 

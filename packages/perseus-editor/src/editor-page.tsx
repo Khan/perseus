@@ -69,7 +69,7 @@ type State = {
 
 class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'rendererMountNode' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'rendererMountNode' has no initializer and is not definitely assigned in the constructor.
     rendererMountNode: HTMLDivElement;
     renderer: any;
 
@@ -87,7 +87,7 @@ class EditorPage extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
+            // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
             json: _.pick(
                 this.props,
                 "question",
@@ -161,7 +161,7 @@ class EditorPage extends React.Component<Props, State> {
         };
 
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'triggerPreviewUpdate' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'triggerPreviewUpdate' does not exist on type 'ReactInstance'.
         this.refs.itemEditor.triggerPreviewUpdate({
             type: "question",
             data: _({
@@ -177,7 +177,7 @@ class EditorPage extends React.Component<Props, State> {
                 },
                 reviewMode: true,
                 // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
                 legacyPerseusLint: this.refs.itemEditor.getSaveWarnings(),
             }).extend(
                 _(this.props).pick(
@@ -199,10 +199,10 @@ class EditorPage extends React.Component<Props, State> {
 
     getSaveWarnings(): any {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         const issues1 = this.refs.itemEditor.getSaveWarnings();
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         const issues2 = this.refs.hintsEditor.getSaveWarnings();
         return issues1.concat(issues2);
     }
@@ -212,10 +212,10 @@ class EditorPage extends React.Component<Props, State> {
             return this.state.json;
         }
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return _.extend(this.refs.itemEditor.serialize(options), {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             hints: this.refs.hintsEditor.serialize(options),
         });
     }

@@ -40,7 +40,7 @@ export const KeypadButton = ({
             }}
         >
             <Clickable
-                onClick={() => onClickKey(keyConfig.id)}
+                onClick={(e) => onClickKey(keyConfig.id, e)}
                 style={styles.clickable}
                 aria-label={keyConfig.ariaLabel}
             >

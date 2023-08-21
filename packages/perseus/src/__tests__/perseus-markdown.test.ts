@@ -35,7 +35,7 @@ describe("perseus markdown", () => {
             },
         ])("should parse math", ({content, expected}) => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
 
             // Assert
@@ -75,7 +75,7 @@ describe("perseus markdown", () => {
             },
         ])("should parse nested math", ({content, expected}) => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
 
             // Assert
@@ -161,7 +161,7 @@ describe("perseus markdown", () => {
             },
         ])("should allow escaping in math", ({content, expected}) => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
 
             // Assert
@@ -229,7 +229,7 @@ describe("perseus markdown", () => {
             },
         ])("should parse block math", ({content, expected}) => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
 
             // Assert
@@ -274,7 +274,7 @@ describe("perseus markdown", () => {
             },
         ])("should break on paragraphs", ({content, expected}) => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
 
             // Assert
@@ -352,7 +352,7 @@ describe("perseus markdown", () => {
             },
         ])("should parse widget types and ids", ({content, expected}) => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
 
             // Assert
@@ -361,7 +361,7 @@ describe("perseus markdown", () => {
 
         it("should allow escaping widget identifiers", () => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse("\\[[☃ test 1]]");
 
             // Assert
@@ -408,7 +408,7 @@ describe("perseus markdown", () => {
             "should parse widgets next to each other as widgets",
             ({content, expected}) => {
                 // Arrange, Act
-                // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+                // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                 const parsed = parse(content);
 
                 // Assert
@@ -418,7 +418,7 @@ describe("perseus markdown", () => {
 
         it("should parse multiple columns", () => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse("hi\n\n" + "=====\n\n" + "there\n\n");
 
             // Assert
@@ -539,7 +539,7 @@ describe("perseus markdown", () => {
             },
         ])("should detect unescaped dollars", ({content, expected}) => {
             // Arrange, Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
 
             // Assert
@@ -557,7 +557,7 @@ describe("perseus markdown", () => {
                 "data 7 | data 8 | data 9";
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
 
             // Assert
@@ -582,7 +582,7 @@ describe("perseus markdown", () => {
             } as const;
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsedWithLint = parse(content);
             PerseusLinter.runLinter(parsedWithLint, context, true);
 
@@ -601,7 +601,7 @@ describe("perseus markdown", () => {
             const content = "para!";
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
             const output = basicOutput(parsed);
 
@@ -614,7 +614,7 @@ describe("perseus markdown", () => {
             const content = "col1\n\n" + "=====\n\n" + "col2";
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
             const output = basicOutput(parsed);
 
@@ -627,7 +627,7 @@ describe("perseus markdown", () => {
             const content = "```alt\n" + "screenreader-only text!\n" + "```";
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
             const output = basicOutput(parsed);
 
@@ -646,7 +646,7 @@ describe("perseus markdown", () => {
                 "data 7 | data 8 | data 9";
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsed = parse(content);
             const output = basicOutput(parsed);
 
@@ -672,7 +672,7 @@ describe("perseus markdown", () => {
             } as const;
 
             // Act
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const parsedWithLint = parse(content);
             PerseusLinter.runLinter(parsedWithLint, context, true);
 

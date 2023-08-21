@@ -54,18 +54,18 @@ class MathInput extends React.Component<Props, State> {
     didTouchOutside: boolean | null | undefined;
     didScroll: boolean | null | undefined;
     mathField: any;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'recordTouchStartOutside' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'recordTouchStartOutside' has no initializer and is not definitely assigned in the constructor.
     recordTouchStartOutside: (arg1: any) => void;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'blurOnTouchEndOutside' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'blurOnTouchEndOutside' has no initializer and is not definitely assigned in the constructor.
     blurOnTouchEndOutside: (arg1: any) => void;
     dragListener: any;
     inputRef: HTMLDivElement | null | undefined;
     _isMounted: boolean | null | undefined;
     _mathContainer: any;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_container' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_container' has no initializer and is not definitely assigned in the constructor.
     _container: HTMLDivElement;
     _root: any;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_containerBounds' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_containerBounds' has no initializer and is not definitely assigned in the constructor.
     _containerBounds: ClientRect;
     _keypadBounds: ClientRect | null | undefined;
 
@@ -235,11 +235,11 @@ class MathInput extends React.Component<Props, State> {
         window.removeEventListener("touchstart", this.recordTouchStartOutside);
         window.removeEventListener("touchend", this.blurOnTouchEndOutside);
         window.removeEventListener("touchcancel", this.blurOnTouchEndOutside);
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         window.removeEventListener("resize", this._clearKeypadBoundsCache());
         window.removeEventListener(
             "orientationchange",
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+            // @ts-expect-error - TS2769 - No overload matches this call.
             this._clearKeypadBoundsCache(),
         );
     }
@@ -429,7 +429,7 @@ class MathInput extends React.Component<Props, State> {
             ];
 
             const elements = points
-                // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+                // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
                 .map((point) => document.elementFromPoint(...point))
                 // We exclude the root container itself and any nodes marked
                 // as non-leaf which are fractions, parens, and roots.  The
@@ -467,16 +467,16 @@ class MathInput extends React.Component<Props, State> {
             const elementsById: Record<string, any> = {};
 
             for (const element of elements) {
-                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                // @ts-expect-error - TS2531 - Object is possibly 'null'.
                 const id = element.getAttribute("mathquill-command-id");
                 if (id != null) {
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
+                    // @ts-expect-error - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
                     leafElements.push(element);
 
                     counts[id] = (counts[id] || 0) + 1;
                     elementsById[id] = element;
                 } else {
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
+                    // @ts-expect-error - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
                     nonLeafElements.push(element);
                 }
             }
@@ -505,7 +505,7 @@ class MathInput extends React.Component<Props, State> {
             // hit count in the situation should not have serious effects on
             // the overall accuracy of the algorithm.
             if (hitNode == null && nonLeafElements.length > 0) {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLElement | null' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type 'HTMLElement | null' is not assignable to type 'null'.
                 hitNode = nonLeafElements[0];
             }
 
@@ -907,7 +907,7 @@ class MathInput extends React.Component<Props, State> {
                 overrides.css. */}
                 <div
                     className="keypad-input"
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                     tabIndex={"0"}
                     ref={(node) => {
                         this.inputRef = node;

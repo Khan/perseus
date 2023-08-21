@@ -89,7 +89,7 @@ class ArticleRenderer
         if (this._currentFocus) {
             const [sectionRef, ...focusPath] = this._currentFocus;
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
             const inputPaths = this.refs[sectionRef].getInputPaths();
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
@@ -138,7 +138,7 @@ class ArticleRenderer
         if (this._currentFocus) {
             const [sectionRef, ...inputPath] = this._currentFocus;
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
             this.refs[sectionRef].blurPath(inputPath);
         }
     };

@@ -11,7 +11,7 @@ function getTextWidth(text: any) {
     if (!textWidthCache[text]) {
         // Hacky way to guess the width of an input box
         const $test = $("<span>").text(text).appendTo("body");
-        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
         textWidthCache[text] = $test.width() + 5;
         $test.remove();
     }
@@ -57,10 +57,10 @@ class TextListEditor extends React.Component<any, any> {
                             type="text"
                             value={item}
                             // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             onChange={this.onChange.bind(this, i)}
                             // eslint-disable-next-line react/jsx-no-bind
-                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                             onKeyDown={this.onKeyDown.bind(this, i)}
                             style={{width: getTextWidth(item)}}
                         />
@@ -107,17 +107,17 @@ class TextListEditor extends React.Component<any, any> {
             ) {
                 // ...except for the last one, iff it is the only empty
                 // input at the end.
-                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
                 ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); // eslint-disable-line react/no-string-refs
             } else {
                 items.splice(index, 1);
                 this.setState({items: items}, function () {
-                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
                     ReactDOM.findDOMNode(
                         // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.refs["input_" + focusIndex],
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+                        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
                     ).focus();
                 });
             }
@@ -145,17 +145,17 @@ class TextListEditor extends React.Component<any, any> {
 
             if (index === items.length - 2) {
                 // ...unless the empty input is just below.
-                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
                 ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus(); // eslint-disable-line react/no-string-refs
             } else {
                 items.splice(focusIndex, 0, "");
                 this.setState({items: items}, function () {
-                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
                     ReactDOM.findDOMNode(
                         // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this.refs["input_" + focusIndex],
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+                        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
                     ).focus();
                 });
             }
