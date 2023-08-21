@@ -57,17 +57,17 @@ export function dot(a: Vector, b: Vector): number {
  */
 export function add<V extends Vector>(...vecs: ReadonlyArray<V>): V {
     const zipped = _.zip(...vecs);
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
+    // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return zipped.map(arraySum);
 }
 
 export function subtract<V extends Vector>(v1: V, v2: V): V {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
+    // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return _.zip(v1, v2).map((dim) => dim[0] - dim[1]);
 }
 
 export function negate<V extends Vector>(v: V): V {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
+    // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return v.map((x) => {
         return -x;
     });
@@ -75,7 +75,7 @@ export function negate<V extends Vector>(v: V): V {
 
 // Scale a vector
 export function scale<V extends Vector>(v1: V, scalar: number): V {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
+    // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return v1.map((x) => {
         return x * scalar;
     });
@@ -204,27 +204,27 @@ export function projection<V extends Vector>(v1: V, v2: V): V {
 
 // Round each number to a certain number of decimal places
 export function round<V extends Vector>(vec: V, precision: V | number): V {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
+    // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) => knumber.round(elem, precision[i] || precision));
 }
 
 // Round each number to the nearest increment
 export function roundTo<V extends Vector>(vec: V, increment: V | number): V {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
+    // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
         knumber.roundTo(elem, increment[i] || increment),
     );
 }
 
 export function floorTo<V extends Vector>(vec: V, increment: V | number): V {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
+    // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
         knumber.floorTo(elem, increment[i] || increment),
     );
 }
 
 export function ceilTo<V extends Vector>(vec: V, increment: V | number): V {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number[]' is not assignable to type 'V'.
+    // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>
         knumber.ceilTo(elem, increment[i] || increment),
     );

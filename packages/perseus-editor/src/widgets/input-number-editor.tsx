@@ -144,7 +144,7 @@ class InputNumberEditor extends React.Component<Props> {
                             value={this.props.simplify}
                             onChange={(e) => {
                                 this.props.onChange({
-                                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"optional" | "required" | "enforced" | undefined'.
+                                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"optional" | "required" | "enforced" | undefined'.
                                     simplify: e.target.value,
                                 });
                             }}
@@ -218,7 +218,7 @@ class InputNumberEditor extends React.Component<Props> {
                     <select
                         value={this.props.answerType}
                         onChange={(e) => {
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
+                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
                             this.props.onChange({answerType: e.target.value});
                         }}
                     >
@@ -239,7 +239,7 @@ class InputNumberEditor extends React.Component<Props> {
                         <select
                             value={this.props.size}
                             onChange={(e) => {
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"small" | "normal" | undefined'.
+                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"small" | "normal" | undefined'.
                                 this.props.onChange({size: e.target.value});
                             }}
                         >
@@ -275,7 +275,7 @@ class InputNumberEditor extends React.Component<Props> {
     }
 
     focus: () => boolean = () => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.input).focus(); // eslint-disable-line react/no-string-refs
         return true;
     };

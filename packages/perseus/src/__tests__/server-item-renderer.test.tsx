@@ -171,7 +171,7 @@ describe("server item renderer", () => {
         const node = renderer.getDOMNodeForPath(["input-number 1"]);
 
         // Assert
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
+        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
         expect(await within(node).findAllByRole("textbox")).toHaveLength(1);
     });
 
@@ -308,7 +308,7 @@ describe("server item renderer", () => {
         // Act
         // setAssetStatus() is not part of the Widget interface, it's specific
         // this test.
-        // @ts-expect-error [FEI-5003] - TS2352 - Conversion of type 'Widget' to type 'MockAssetLoadingWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+        // @ts-expect-error - TS2352 - Conversion of type 'Widget' to type 'MockAssetLoadingWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
         const widget = mockedWidget as MockAssetLoadingWidget;
         widget.setAssetStatus("ABC", true);
 

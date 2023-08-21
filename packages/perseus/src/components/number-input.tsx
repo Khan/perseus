@@ -89,7 +89,7 @@ class NumberInput extends React.Component<any, any> {
                 onBlur={this._handleBlur}
                 onKeyPress={this._handleBlur}
                 onKeyDown={this._onKeyDown}
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLInputElement>'.
+                // @ts-expect-error - TS2322 - Type '(e: TouchEvent) => void' is not assignable to type 'TouchEventHandler<HTMLInputElement>'.
                 onTouchStart={captureScratchpadTouchStart}
                 defaultValue={toNumericString(
                     this.props.value,
@@ -111,14 +111,14 @@ class NumberInput extends React.Component<any, any> {
      */
     getValue: () => any = () => {
         return this.parseInputValue(
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             ReactDOM.findDOMNode(this.refs.input).value, // eslint-disable-line react/no-string-refs
         );
     };
 
     /* Return the current string value of this input */
     getStringValue: () => string = () => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         return ReactDOM.findDOMNode(this.refs.input).value.toString(); // eslint-disable-line react/no-string-refs
     };
 
@@ -133,13 +133,13 @@ class NumberInput extends React.Component<any, any> {
 
     /* Set text input focus to this input */
     focus: () => void = () => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.input).focus(); // eslint-disable-line react/no-string-refs
         this._handleFocus();
     };
 
     blur: () => void = () => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs.input).blur(); // eslint-disable-line react/no-string-refs
         this._handleBlur();
     };
@@ -148,7 +148,7 @@ class NumberInput extends React.Component<any, any> {
         selectionStart,
         selectionEnd,
     ) => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'setSelectionRange' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'setSelectionRange' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this).setSelectionRange(
             selectionStart,
             selectionEnd,
@@ -156,12 +156,12 @@ class NumberInput extends React.Component<any, any> {
     };
 
     getSelectionStart: () => number = () => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
         return ReactDOM.findDOMNode(this).selectionStart;
     };
 
     getSelectionEnd: () => number = () => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'.
         return ReactDOM.findDOMNode(this).selectionEnd;
     };
 
@@ -198,7 +198,7 @@ class NumberInput extends React.Component<any, any> {
 
     _handleBlur: (e?: React.FocusEvent | React.KeyboardEvent) => void = (e) => {
         // Only continue on blur or "enter"
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'keyCode' does not exist on type 'KeyboardEvent<Element> | FocusEvent<Element, Element>'.
+        // @ts-expect-error - TS2339 - Property 'keyCode' does not exist on type 'KeyboardEvent<Element> | FocusEvent<Element, Element>'.
         if (e && e.type === "keypress" && e.keyCode !== 13) {
             return;
         }
@@ -239,7 +239,7 @@ class NumberInput extends React.Component<any, any> {
 
     _setValue: (arg1: number, arg2: MathFormat) => void = (val, format) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'val' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'val' does not exist on type 'JQueryStatic'.
         $(ReactDOM.findDOMNode(this.refs.input)).val(
             toNumericString(val, format),
         );

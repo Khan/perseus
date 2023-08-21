@@ -47,7 +47,7 @@ const mapObject = function <K extends string, V, U>(
 ): Partial<Record<K, U>> {
     const result: Record<string, any> = {};
     _.each(_.keys(obj), function (key) {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'K'.
+        // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'K'.
         result[key] = lambda(obj[key], key);
     });
     return result;

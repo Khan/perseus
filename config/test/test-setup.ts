@@ -4,7 +4,7 @@
  */
 import MutationObserver from "@sheerun/mutationobserver-shim";
 import {configure} from "@testing-library/dom"; // eslint-disable-line testing-library/no-dom-import, prettier/prettier
-// @ts-expect-error [FEI-5003] - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
+// @ts-expect-error - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
 import {StyleSheetTestUtils} from "aphrodite";
 import Enzyme from "enzyme"; // eslint-disable-line no-restricted-imports
 import React16EnzymeAdapter from "enzyme-adapter-react-16"; // eslint-disable-line no-restricted-imports
@@ -27,7 +27,7 @@ configure({
 });
 
 if (typeof window !== "undefined") {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '() => { removeAllRanges: () => void; }' is not assignable to type '(() => Selection | null) & (() => Selection | null)'.
+    // @ts-expect-error - TS2322 - Type '() => { removeAllRanges: () => void; }' is not assignable to type '(() => Selection | null) & (() => Selection | null)'.
     window.getSelection = () => {
         return {
             removeAllRanges: () => {},
@@ -46,7 +46,7 @@ if (typeof window !== "undefined") {
     // redirecting to the right place.
     /* eslint-disable no-restricted-syntax */
     const oldLocation = window.location;
-    // @ts-expect-error [FEI-5003] - TS2790 - The operand of a 'delete' operator must be optional.
+    // @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
     delete window.location;
     const mockedLocation = new URL("http://localhost:8081");
     window.location = {
@@ -63,7 +63,7 @@ if (typeof window !== "undefined") {
 
     // Override window.alert which doesn't exist in node and log any
     // alerts to the console instead.
-    // @ts-expect-error [FEI-5003] - TS2790 - The operand of a 'delete' operator must be optional.
+    // @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
     delete window.alert;
     window.alert = function (message: any) {
         // eslint-disable-next-line no-console
@@ -132,7 +132,7 @@ const reportUnhandledConsoleWarnAndErrors = (
 // custom handling.
 if (process.env.GLOBAL_CONSOLE_MOCK !== "false") {
     globalThis.console.error = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+        // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         reportUnhandledConsoleWarnAndErrors("error", ...args);
     };
     globalThis.console.warn = (...args) => {
@@ -182,7 +182,7 @@ if (process.env.GLOBAL_CONSOLE_MOCK !== "false") {
             !isReactUnsafe(message, args[1]) ||
             isReportableReactUnsafe(message, args[1])
         ) {
-            // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             reportUnhandledConsoleWarnAndErrors("warn", ...args);
         }
     };

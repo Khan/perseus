@@ -53,7 +53,7 @@ class Dropdown extends React.Component<Props> {
         // TODO(LP-10797): This focus() call doesn't do anything because our
         // root element is a <div> and that cannot be focused without a
         // tabIndex.
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this).focus();
         return true;
     };

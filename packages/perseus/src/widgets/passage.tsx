@@ -104,9 +104,9 @@ export type Reference = {
 export class Passage extends React.Component<PassageProps, PassageState> {
     _contentRef: HTMLDivElement | null | undefined;
     _lineHeightMeasurerRef: LineHeightMeasurer | null | undefined;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_onResize' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_onResize' has no initializer and is not definitely assigned in the constructor.
     _onResize: () => Record<any, any>;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_stylesAppiedTimer' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_stylesAppiedTimer' has no initializer and is not definitely assigned in the constructor.
     _stylesAppiedTimer: number;
 
     static defaultProps: DefaultPassageProps = {
@@ -127,7 +127,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
     componentDidMount() {
         this._updateState();
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => void) & Cancelable' is not assignable to type '() => Record<any, any>'.
+        // @ts-expect-error - TS2322 - Type '(() => void) & Cancelable' is not assignable to type '() => Record<any, any>'.
         this._onResize = _.throttle(() => {
             // If we're rendering JIPT text, we won't have line numbers or a
             // line height measurer, so skip handling this resize.
@@ -214,7 +214,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 
     _measureLines(): number {
         const renderer = ReactDOM.findDOMNode(this._contentRef);
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
         const contentsHeight: number = $(renderer).height();
         const lineHeight = this._getLineHeight();
         const nLines = Math.round(contentsHeight / lineHeight);
@@ -271,11 +271,11 @@ export class Passage extends React.Component<PassageProps, PassageState> {
             return null;
         }
 
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the first text after the ref, not the
         // ref element itself:
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'next' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2339 - Property 'next' does not exist on type 'JQueryStatic'.
         let $refText = $ref.next();
         if ($refText.length === 0) {
             // But if there are no elements after the ref, just
@@ -298,11 +298,11 @@ export class Passage extends React.Component<PassageProps, PassageState> {
             return null;
         }
 
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the last text before the ref, not the
         // ref element itself:
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'prev' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2339 - Property 'prev' does not exist on type 'JQueryStatic'.
         let $refText = $ref.prev();
         if ($refText.length === 0) {
             // But if there are no elements before the ref, just
@@ -328,7 +328,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
 
     _convertPosToLineNumber(absoluteVPos: number): number {
         const content = ReactDOM.findDOMNode(this._contentRef);
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
         const relativeVPos = absoluteVPos - $(content).offset().top;
         const lineHeight = this._getLineHeight();
 
@@ -342,7 +342,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
         if (!ref) {
             return null;
         }
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getRefContent' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getRefContent' does not exist on type 'ReactInstance'.
         return ref.getRefContent();
     }
 
@@ -523,7 +523,7 @@ export class Passage extends React.Component<PassageProps, PassageState> {
                                 />
                             </h3>
                         )}
-                        {/* @ts-expect-error [FEI-5003] - TS2454 - Variable 'lineNumbers' is used before being assigned. */}
+                        {/* @ts-expect-error - TS2454 - Variable 'lineNumbers' is used before being assigned. */}
                         {lineNumbers && (
                             <div className="line-numbers" aria-hidden={true}>
                                 {lineNumbers}

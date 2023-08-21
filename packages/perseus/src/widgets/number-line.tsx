@@ -16,9 +16,9 @@ import KhanMath from "../util/math";
 import type {ChangeableProps} from "../mixins/changeable";
 import type {APIOptions, WidgetExports} from "../types";
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
+// @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'Line' does not exist on type 'typeof Graphie'.
+// @ts-expect-error - TS2339 - Property 'Line' does not exist on type 'typeof Graphie'.
 const Line = Graphie.Line;
 const {assert} = InteractiveUtil;
 
@@ -111,7 +111,7 @@ const _label = (
     }
 };
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'createSimpleClass' does not exist on type 'typeof Graphie'.
+// @ts-expect-error - TS2339 - Property 'createSimpleClass' does not exist on type 'typeof Graphie'.
 const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     // Avoid infinite loop
     if (!_.isFinite(props.tickStep) || props.tickStep <= 0) {
@@ -252,7 +252,7 @@ class NumberLine extends React.Component<Props, State> {
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -333,7 +333,7 @@ class NumberLine extends React.Component<Props, State> {
     focus: () => boolean | null | undefined = () => {
         if (this.props.isTickCtrl) {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["tick-ctrl"].focus();
             return true;
         }
@@ -342,7 +342,7 @@ class NumberLine extends React.Component<Props, State> {
     focusInputPath: (arg1: any) => void = (path) => {
         if (path.length === 1) {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs[path[0]].focus();
         }
     };
@@ -350,7 +350,7 @@ class NumberLine extends React.Component<Props, State> {
     blurInputPath: (arg1: any) => void = (path) => {
         if (path.length === 1) {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
             this.refs[path[0]].blur();
         }
     };
@@ -414,7 +414,7 @@ class NumberLine extends React.Component<Props, State> {
                 options={options}
                 onMouseDown={(coord) => {
                     // eslint-disable-next-line react/no-string-refs
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'movables' does not exist on type 'ReactInstance'.
+                    // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'ReactInstance'.
                     this.refs.graphie.movables.numberLinePoint.grab(coord);
                 }}
                 setup={this._setupGraphie}
@@ -532,7 +532,7 @@ class NumberLine extends React.Component<Props, State> {
         this.props.onChange({rel: newRel});
     };
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(props: any) => any[]' is not assignable to type '(arg1: any) => [number, number]'.
+    // @ts-expect-error - TS2322 - Type '(props: any) => any[]' is not assignable to type '(arg1: any) => [number, number]'.
     _getInequalityEndpoint: (arg1: any) => [number, number] = (props) => {
         const isGreater = _(["ge", "gt"]).contains(props.rel);
         const widthInPixels = 400;
@@ -545,7 +545,7 @@ class NumberLine extends React.Component<Props, State> {
         return end;
     };
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(props: any) => Element | null' is not assignable to type '(arg1: any) => ReactElement<any, string | JSXElementConstructor<any>>'.
+    // @ts-expect-error - TS2322 - Type '(props: any) => Element | null' is not assignable to type '(arg1: any) => ReactElement<any, string | JSXElementConstructor<any>>'.
     _renderInequality: (arg1: any) => React.ReactElement = (props) => {
         if (props.isInequality) {
             const end = this._getInequalityEndpoint(props);
@@ -625,7 +625,7 @@ class NumberLine extends React.Component<Props, State> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof NumberLine'.
+        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof NumberLine'.
         return NumberLine.validate(this.getUserInput(), rubric);
     };
 

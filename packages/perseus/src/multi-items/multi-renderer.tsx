@@ -68,7 +68,7 @@ type SerializedState = any; // TODO(mdr)
 
 type RendererProps = JSX.LibraryManagedAttributes<
     typeof Renderer,
-    // @ts-expect-error [FEI-5003] - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
+    // @ts-expect-error - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
     React.ComponentProps<typeof Renderer>
 >;
 
@@ -88,7 +88,7 @@ type HintRendererData = {
     hint: Hint;
 };
 type RendererData = ContentRendererData | HintRendererData;
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+// @ts-expect-error - TS2315 - Type 'Tree' is not generic.
 type RendererDataTree = Tree<ContentRendererData, HintRendererData, null>;
 
 /**
@@ -99,11 +99,11 @@ type RendererDataTree = Tree<ContentRendererData, HintRendererData, null>;
  * really helping us out as I now have to suppress this rather than
  * get value from the type. :(
  */
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+// @ts-expect-error - TS2315 - Type 'Tree' is not generic.
 type RendererTree = Tree<ContentRendererElement, HintRendererElement, null>;
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+// @ts-expect-error - TS2315 - Type 'Tree' is not generic.
 type ScoreTree = Tree<Score, null, null>;
-// @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+// @ts-expect-error - TS2315 - Type 'Tree' is not generic.
 type SerializedStateTree = Tree<SerializedState, null, null>;
 
 type Props = {
@@ -149,17 +149,17 @@ class MultiRenderer extends React.Component<Props, State> {
         super(props);
 
         this.rendererDataTreeMapper = buildMapper()
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'ContentNode'.
+            // @ts-expect-error - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'ContentNode'.
             .setContentMapper((c, _, p) => this._makeContentRendererData(c, p))
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'HintNode'.
+            // @ts-expect-error - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'HintNode'.
             .setHintMapper((h) => this._makeHintRendererData(h))
             .setTagsMapper((t) => null);
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'TreeMapperForLeavesAndCollections<unknown, any, unknown, any, unknown, unknown>' is not assignable to type 'TreeMapper<ContentRendererData, ContentRendererElement, HintRendererData, HintRendererElement, null, null>'.
+        // @ts-expect-error - TS2322 - Type 'TreeMapperForLeavesAndCollections<unknown, any, unknown, any, unknown, unknown>' is not assignable to type 'TreeMapper<ContentRendererData, ContentRendererElement, HintRendererData, HintRendererElement, null, null>'.
         this.getRenderersMapper = buildMapper()
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             .setContentMapper((c) => c.makeRenderer())
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             .setHintMapper((h) => h.makeRenderer())
             .setArrayMapper((renderers, data, shape) =>
                 this._annotateRendererArray(
@@ -272,7 +272,7 @@ class MultiRenderer extends React.Component<Props, State> {
              * if this spread is including undocumented props so mapping
              * one to one could introduce a bug. Need to work out the exact
              * type for ContentNode and then fix this.
-             */ // @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: (e: any) => any; findExternalWidgets: (criterion: any) => readonly (Widget | null | undefined)[]; serializedState: any; onSerializedStateUpdated: (state: any) => void; __type: "content" | "item"; ... 9 more ...; reviewMode?: boolean | ... 1 more ... | undefined; }' is not assignable to type 'InexactPartial<Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "content" | "images" | "onRender" | "linterContext" | "widgets" | "alwaysUpdate" | ... 6 more ... | "serializedState">>'.
+             */ // @ts-expect-error - TS2322 - Type '{ ref: (e: any) => any; findExternalWidgets: (criterion: any) => readonly (Widget | null | undefined)[]; serializedState: any; onSerializedStateUpdated: (state: any) => void; __type: "content" | "item"; ... 9 more ...; reviewMode?: boolean | ... 1 more ... | undefined; }' is not assignable to type 'InexactPartial<Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "content" | "images" | "onRender" | "linterContext" | "widgets" | "alwaysUpdate" | ... 6 more ... | "serializedState">>'.
             <Renderer
                 {...this._getRendererProps()}
                 {...content}
@@ -314,7 +314,7 @@ class MultiRenderer extends React.Component<Props, State> {
             makeRenderer: () => (
                 <HintsRenderer
                     {...this._getRendererProps()}
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                    // @ts-expect-error - TS2769 - No overload matches this call.
                     findExternalWidgets={findExternalWidgets}
                     hints={[hint]}
                 />
@@ -369,7 +369,7 @@ class MultiRenderer extends React.Component<Props, State> {
         // eslint-disable-next-line no-restricted-syntax
         leafMapper: ContentMapper<RendererData, O> &
             HintMapper<RendererData, O>,
-        // @ts-expect-error [FEI-5003] - TS2315 - Type 'Tree' is not generic.
+        // @ts-expect-error - TS2315 - Type 'Tree' is not generic.
     ): Tree<O, O, null> | null | undefined {
         const {rendererDataTree} = this.state;
 
@@ -514,7 +514,7 @@ class MultiRenderer extends React.Component<Props, State> {
             (renderers as any).firstN = (n: any) => (
                 <HintsRenderer
                     {...this._getRendererProps()}
-                    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                    // @ts-expect-error - TS2769 - No overload matches this call.
                     findExternalWidgets={
                         hintRendererDatas[0]
                             ? hintRendererDatas[0].findExternalWidgets

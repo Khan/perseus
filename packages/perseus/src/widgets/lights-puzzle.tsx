@@ -173,7 +173,7 @@ const flipTilesPattern = (oldCells: any, tileY: any, tileX, pattern: any) => {
 class LightsPuzzle extends React.Component<any> {
     _currPattern: any;
     _nextPattern: any;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_patternIndex' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_patternIndex' has no initializer and is not definitely assigned in the constructor.
     _patternIndex: number;
 
     static propTypes = {
@@ -237,7 +237,7 @@ class LightsPuzzle extends React.Component<any> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 

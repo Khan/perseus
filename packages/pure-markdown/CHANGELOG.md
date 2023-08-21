@@ -1,5 +1,15 @@
 # @khanacademy/pure-markdown
 
+## 0.2.4
+
+### Patch Changes
+
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   Updated dependencies [afb14cff]
+-   Updated dependencies [ce5e6297]
+-   Updated dependencies [0993a46b]
+    -   @khanacademy/simple-markdown@0.10.0
+
 ## 0.2.3
 
 ### Patch Changes

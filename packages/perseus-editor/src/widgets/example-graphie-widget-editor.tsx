@@ -42,7 +42,7 @@ class ExampleGraphieWidgetEditor extends React.Component<Props> {
 
     handleChange: (arg1: any) => void = (newProps) => {
         if (newProps.coord) {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
             this.change({
                 correct: newProps.coord,
             });

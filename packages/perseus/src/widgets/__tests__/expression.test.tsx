@@ -400,7 +400,7 @@ describe("interaction", () => {
         expect(score.type).toBe("points");
         // Score.total doesn't exist if the input is invalid
         // In this case we know that it'll be valid so we can assert directly
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'earned' does not exist on type 'PerseusScore'. | TS2339 - Property 'total' does not exist on type 'PerseusScore'.
+        // @ts-expect-error - TS2339 - Property 'earned' does not exist on type 'PerseusScore'. | TS2339 - Property 'total' does not exist on type 'PerseusScore'.
         expect(score.earned).toBe(score.total);
     });
 
@@ -416,7 +416,7 @@ describe("interaction", () => {
         // Assert
         // Score.total doesn't exist if the input is invalid
         // In this case we know that it'll be valid so we can assert directly
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
+        // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
         expect(score.total).toBe(1);
     });
 });

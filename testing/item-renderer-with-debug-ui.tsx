@@ -38,7 +38,7 @@ export const ItemRendererWithDebugUI = ({
             left={
                 <>
                     <ItemRenderer
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'MutableRefObject<ItemRenderer | null | undefined>' is not assignable to type 'LegacyRef<ItemRenderer> | undefined'.
+                        // @ts-expect-error - TS2322 - Type 'MutableRefObject<ItemRenderer | null | undefined>' is not assignable to type 'LegacyRef<ItemRenderer> | undefined'.
                         ref={ref}
                         problemNum={0}
                         apiOptions={apiOptions}

@@ -66,7 +66,7 @@ describe("buildMapper", () => {
     it("calls the content mapper for each of the content nodes", () => {
         const calledWith = [];
         buildMapper()
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'never'.
+            // @ts-expect-error - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'never'.
             .setContentMapper((c) => calledWith.push(c))
             .mapTree(tree, shape);
         calledWith.sort();
@@ -83,7 +83,7 @@ describe("buildMapper", () => {
     it("calls the hint mapper for each of the hint nodes", () => {
         const calledWith = [];
         buildMapper()
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'never'.
+            // @ts-expect-error - TS2345 - Argument of type 'unknown' is not assignable to parameter of type 'never'.
             .setHintMapper((h) => calledWith.push(h))
             .mapTree(tree, shape);
         calledWith.sort();
@@ -110,9 +110,9 @@ describe("buildMapper", () => {
             TagsNode,
             string
         > = buildMapper()
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             .setContentMapper((c) => `mapped content: ${c.content || "<none>"}`)
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             .setHintMapper((h) => `mapped hint: ${h.content || "<none>"}`)
             .setTagsMapper((t) => `mapped tags: ${t.join(", ")}`);
         const result = mapper.mapTree(tree, shape);
@@ -188,7 +188,7 @@ describe("buildMapper", () => {
 
         const tree = {a: {b: {c: content(1)}}} as const;
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'TreeMapperJustForLeaves<ContentNode, string | null | undefined, unknown, unknown, unknown, unknown>' is not assignable to type 'TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode>'.
+        // @ts-expect-error - TS2322 - Type 'TreeMapperJustForLeaves<ContentNode, string | null | undefined, unknown, unknown, unknown, unknown>' is not assignable to type 'TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode>'.
         const mapper: TreeMapper<
             ContentNode,
             string | null | undefined,
@@ -212,7 +212,7 @@ describe("buildMapper", () => {
             array(array(content(2)), array(content(3), content(4))),
         );
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'TreeMapperJustForLeaves<ContentNode, string | null | undefined, unknown, unknown, unknown, unknown>' is not assignable to type 'TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode>'.
+        // @ts-expect-error - TS2322 - Type 'TreeMapperJustForLeaves<ContentNode, string | null | undefined, unknown, unknown, unknown, unknown>' is not assignable to type 'TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode>'.
         const mapper: TreeMapper<
             ContentNode,
             string | null | undefined,
@@ -234,7 +234,7 @@ describe("buildMapper", () => {
 
         const tree = array(array(), array(content(1)), array());
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'TreeMapperJustForLeaves<ContentNode, string | null | undefined, unknown, unknown, unknown, unknown>' is not assignable to type 'TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode>'.
+        // @ts-expect-error - TS2322 - Type 'TreeMapperJustForLeaves<ContentNode, string | null | undefined, unknown, unknown, unknown, unknown>' is not assignable to type 'TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode>'.
         const mapper: TreeMapper<
             ContentNode,
             string | null | undefined,
@@ -258,7 +258,7 @@ describe("buildMapper", () => {
 
         let wasCalled = false;
         let callArgs: Record<string, any> = {};
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'TreeMapperForLeavesAndCollections<unknown, any, unknown, unknown, unknown, unknown>' is not assignable to type 'TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode>'.
+        // @ts-expect-error - TS2322 - Type 'TreeMapperForLeavesAndCollections<unknown, any, unknown, unknown, unknown, unknown>' is not assignable to type 'TreeMapper<ContentNode, string | null | undefined, HintNode, HintNode, TagsNode, TagsNode>'.
         const mapper: TreeMapper<
             ContentNode,
             string | null | undefined,
@@ -267,7 +267,7 @@ describe("buildMapper", () => {
             TagsNode,
             TagsNode
         > = buildMapper()
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             .setContentMapper((c) => c.content)
             .setArrayMapper((mappedArray, originalArray, shape, path) => {
                 wasCalled = true;
@@ -288,11 +288,11 @@ describe("buildMapper", () => {
 
     it("uses the array mapper return value to construct the new tree", () => {
         const mapper = buildMapper()
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             .setContentMapper((c) => c.content)
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             .setHintMapper((h) => h.content)
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             .setTagsMapper((t) => t.join(", "))
             .setArrayMapper((mappedArray, originalArray, shape, path) => {
                 return mappedArray.map((child) => `${String(child)} in array`);

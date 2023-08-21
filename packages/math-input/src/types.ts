@@ -7,6 +7,7 @@ import type {
     KeyType,
     KeypadType,
 } from "./enums";
+import type * as React from "react";
 import type ReactDOM from "react-dom";
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
@@ -85,7 +86,7 @@ export type ActiveNodesObj = {
 
 export type LayoutProps = {initialBounds: Bound};
 
-export type ClickKeyCallback = (key: Key) => void;
+export type ClickKeyCallback = (key: Key, event?: React.SyntheticEvent) => void;
 
 export interface KeypadAPI {
     activate: () => void;

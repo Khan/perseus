@@ -74,7 +74,7 @@ const JsonEditor: any = createReactClass({
                     valid: true,
                 },
                 function () {
-                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     this.props.onChange(json);
                 },
             );
@@ -105,7 +105,7 @@ const JsonEditor: any = createReactClass({
                     valid: true,
                 },
                 function () {
-                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     this.props.onChange(json);
                 },
             );

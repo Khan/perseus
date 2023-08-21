@@ -60,7 +60,7 @@ class WordIndexer extends React.PureComponent<Props> {
             container,
             NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
             () => NodeFilter.FILTER_ACCEPT,
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 1-3 arguments, but got 4.
+            // @ts-expect-error - TS2554 - Expected 1-3 arguments, but got 4.
             false,
         );
 
@@ -101,7 +101,7 @@ class WordIndexer extends React.PureComponent<Props> {
                 const wordPattern = /\S+/g;
                 let wordMatch;
                 let newTrailingWordRange = null;
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null' is not assignable to parameter of type 'string'.
+                // @ts-expect-error - TS2345 - Argument of type 'string | null' is not assignable to parameter of type 'string'.
                 while ((wordMatch = wordPattern.exec(text)) !== null) {
                     const startOffset = wordMatch.index;
                     const endOffset = wordMatch.index + wordMatch[0].length;
@@ -121,14 +121,14 @@ class WordIndexer extends React.PureComponent<Props> {
                     } else {
                         // Otherwise, start a new word range here, and add it
                         // to the list.
-                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        // @ts-expect-error - TS2531 - Object is possibly 'null'.
                         range = node.ownerDocument.createRange();
                         range.setStart(node, startOffset);
                         range.setEnd(node, endOffset);
                         index.push(range);
                     }
 
-                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
                     if (endOffset === text.length) {
                         newTrailingWordRange = range;
                     }

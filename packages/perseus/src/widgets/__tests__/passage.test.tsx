@@ -143,7 +143,7 @@ describe("passage widget", () => {
         const {renderer} = renderQuestion(question2, apiOptions);
         jest.runOnlyPendingTimers();
 
-        // @ts-expect-error [FEI-5003] - TS2503 - Cannot find namespace 'PassageWidgetExport'
+        // @ts-expect-error - TS2503 - Cannot find namespace 'PassageWidgetExport'
         const [passage1]: [PassageWidgetExport.widget] =
             renderer.findWidgets("passage 1");
 
@@ -167,7 +167,7 @@ describe("passage widget", () => {
         const {renderer} = renderQuestion(question2, apiOptions);
         jest.runOnlyPendingTimers();
 
-        // @ts-expect-error [FEI-5003] - TS2503 - Cannot find namespace 'PassageWidgetExport'
+        // @ts-expect-error - TS2503 - Cannot find namespace 'PassageWidgetExport'
         const [passage1]: [PassageWidgetExport.widget] =
             renderer.findWidgets("passage 1");
 

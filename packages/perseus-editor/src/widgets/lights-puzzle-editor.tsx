@@ -192,7 +192,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
                     Flip pattern:
                     <select
                         value={this.props.flipPattern}
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
+                        // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                         onChange={this._handlePatternChange}
                     >
                         {_.map(_.keys(PATTERNS), (pattern, i) => {
@@ -230,7 +230,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
 
     _handlePatternChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void =
         (e) => {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
             this.change("flipPattern", e.target.value);
         };
 
@@ -257,7 +257,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
             });
         });
 
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({startCells: newCells});
     };
 
@@ -266,7 +266,7 @@ class LightsPuzzleEditor extends React.Component<LightsPuzzleEditorProps> {
             return y === tileY && x === tileX;
         });
 
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({startCells: newCells});
     };
 
