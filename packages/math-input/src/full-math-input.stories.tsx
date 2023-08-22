@@ -55,7 +55,8 @@ export const Basic = () => {
             <div>
                 <div>
                     NOTE: To properly test the input interaction, you will need
-                    to simulate a device using the dev tools.
+                    to simulate a device using the dev tools. MathInput requires
+                    touch events (not click events).
                 </div>
                 <div style={{padding: "1rem 0"}}>
                     <button onClick={() => setExpression(!expression)}>
