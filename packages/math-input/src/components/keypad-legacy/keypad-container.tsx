@@ -81,7 +81,7 @@ class KeypadContainer extends React.Component<Props, State> {
 
         // Although all browsers we support have ResizeObserver, this ensures
         // that unit tests that run in JSDOM that include this component don't
-        // fail.
+        // fail (including tests in consuming applications).
         if ("ResizeObserver" in window) {
             this._containerResizeObserver = new ResizeObserver(
                 this._throttleResizeHandler,
