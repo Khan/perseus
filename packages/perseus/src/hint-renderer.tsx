@@ -8,7 +8,8 @@ import Renderer from "./renderer";
 import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 
-import type {APIOptions, LinterContextProps} from "./types";
+import type {APIOptions} from "./types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
     apiOptions: APIOptions;
