@@ -1,5 +1,21 @@
 # @khanacademy/math-input
 
+## 10.0.0
+
+### Major Changes
+
+-   dd800c22: Rename analytics prop from onEvent to onAnalyticsEvent
+
+### Minor Changes
+
+-   5352d512: Handle keypad resize better when it's positioned absolutely
+-   673f61b3: Introduce `dependencies` on Keypad.
+
+### Patch Changes
+
+-   Updated dependencies [dd800c22]
+    -   @khanacademy/perseus-core@0.2.0
+
 ## 9.0.0
 
 ### Major Changes
