@@ -1,7 +1,10 @@
 import {KeypadContext} from "@khanacademy/math-input";
 import React from "react";
 
+import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {
+    singleSectionArticle,
+    multiSectionArticle,
     passageArticle,
     exerciseArticle,
 } from "../__testdata__/article-renderer.testdata";
@@ -17,8 +20,36 @@ export default {
     },
 };
 
+export const ASingleSectionArticle = (args: {
+    useNewStyles;
+}): React.ReactElement => {
+    return (
+        <ArticleRenderer
+            json={singleSectionArticle}
+            dependencies={storybookDependenciesV2}
+            useNewStyles={args.useNewStyles}
+        />
+    );
+};
+
+export const BMultiSectionArticle = (args: {
+    useNewStyles;
+}): React.ReactElement => {
+    return (
+        <ArticleRenderer
+            json={multiSectionArticle}
+            dependencies={storybookDependenciesV2}
+            useNewStyles={args.useNewStyles}
+        />
+    );
+};
+
 export const PassageArticle = ({useNewStyles}): any => (
-    <ArticleRenderer json={passageArticle} useNewStyles={useNewStyles} />
+    <ArticleRenderer
+        json={passageArticle}
+        dependencies={storybookDependenciesV2}
+        useNewStyles={useNewStyles}
+    />
 );
 
 export const ExpressionArticle = ({useNewStyles}): any => (
@@ -30,6 +61,7 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                         setRenderer(node);
                     }}
                     json={exerciseArticle}
+                    dependencies={storybookDependenciesV2}
                     useNewStyles={useNewStyles}
                     apiOptions={{isMobile: true, customKeypad: true}}
                     keypadElement={keypadElement}

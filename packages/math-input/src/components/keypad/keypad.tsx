@@ -17,7 +17,7 @@ import type Key from "../../data/keys";
 import type {ClickKeyCallback} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {TabbarItemType} from "../tabbar";
-import type {SendEventFn} from "@khanacademy/perseus-core";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;
@@ -35,7 +35,7 @@ export type Props = {
     fractionsOnly?: boolean;
 
     onClickKey: ClickKeyCallback;
-    sendEvent?: SendEventFn;
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 const defaultProps = {
@@ -94,8 +94,8 @@ export default function Keypad(props: Props) {
         basicRelations,
         advancedRelations,
         showDismiss,
+        onAnalyticsEvent,
         fractionsOnly,
-        sendEvent,
     } = props;
 
     // Use a different grid for our fraction keypad
@@ -110,7 +110,7 @@ export default function Keypad(props: Props) {
 
     useEffect(() => {
         if (!isMounted) {
-            sendEvent?.({
+            onAnalyticsEvent({
                 type: "math-input:keypad-opened",
                 payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
             });
@@ -118,14 +118,14 @@ export default function Keypad(props: Props) {
         }
         return () => {
             if (isMounted) {
-                sendEvent?.({
+                onAnalyticsEvent({
                     type: "math-input:keypad-closed",
                     payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
                 });
                 setIsMounted(false);
             }
         };
-    }, [sendEvent, isMounted]);
+    }, [onAnalyticsEvent, isMounted]);
 
     return (
         <View>

@@ -1,5 +1,40 @@
 # @khanacademy/math-input
 
+## 10.0.0
+
+### Major Changes
+
+-   dd800c22: Rename analytics prop from onEvent to onAnalyticsEvent
+
+### Minor Changes
+
+-   5352d512: Handle keypad resize better when it's positioned absolutely
+-   673f61b3: Introduce `dependencies` on Keypad.
+
+### Patch Changes
+
+-   Updated dependencies [dd800c22]
+    -   @khanacademy/perseus-core@0.2.0
+
+## 9.0.0
+
+### Major Changes
+
+-   0993a46b: Don't generate Flow types
+
+### Minor Changes
+
+-   87aadc43: Surface event from `onClickKey` callback
+-   b93f9f74: Added new Mobile Fraction Keypad View to the V2 Keypad
+
+### Patch Changes
+
+-   302ca7f7: Fix type for parameters of `moveOutOf` event.
+-   afb14cff: Add eslint rule to make type imports consistent
+-   19054322: Tweak to capital letter icon buttons
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   196d2a39: Add icons for all letters
+
 ## 8.1.2
 
 ### Patch Changes

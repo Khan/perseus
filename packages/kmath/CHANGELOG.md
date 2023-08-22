@@ -1,5 +1,11 @@
 # @khanacademy/kmath
 
+## 0.1.2
+
+### Patch Changes
+
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+
 ## 0.1.1
 
 ### Patch Changes

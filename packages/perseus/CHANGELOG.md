@@ -1,5 +1,52 @@
 # @khanacademy/perseus
 
+## 9.0.0
+
+### Major Changes
+
+-   dd800c22: Rename analytics prop from onEvent to onAnalyticsEvent
+-   2b99fbda: Remove 'analytics' key from PerseusDependencies
+
+### Minor Changes
+
+-   ec50a510: Switch `virtualKeypadVersion` on `perseus:expression-evaluated` event to be non-optional
+-   673f61b3: Introduce `dependencies` on ArticleRenderer, ItemRenderer, MultiRenderer, and ServerItemRenderer.
+
+### Patch Changes
+
+-   2c69b0dc: Fix APIOptions `trackInteraction` type for better Flow type generation
+-   Updated dependencies [dd800c22]
+-   Updated dependencies [5352d512]
+-   Updated dependencies [673f61b3]
+    -   @khanacademy/math-input@10.0.0
+    -   @khanacademy/perseus-core@0.2.0
+
+## 8.0.0
+
+### Major Changes
+
+-   0993a46b: Don't generate Flow types
+
+### Patch Changes
+
+-   afb14cff: Add eslint rule to make type imports consistent
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   410d490d: Improve Typescript types for the ArticleRenderer and ProvideKeypad mixin
+-   Updated dependencies [302ca7f7]
+-   Updated dependencies [0993a46b]
+-   Updated dependencies [87aadc43]
+-   Updated dependencies [afb14cff]
+-   Updated dependencies [19054322]
+-   Updated dependencies [ce5e6297]
+-   Updated dependencies [0993a46b]
+-   Updated dependencies [196d2a39]
+-   Updated dependencies [b93f9f74]
+    -   @khanacademy/math-input@9.0.0
+    -   @khanacademy/simple-markdown@0.10.0
+    -   @khanacademy/kmath@0.1.2
+    -   @khanacademy/perseus-linter@0.3.2
+    -   @khanacademy/pure-markdown@0.2.4
+
 ## 7.2.1
 
 ### Patch Changes

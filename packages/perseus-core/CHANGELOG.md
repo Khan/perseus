@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 0.2.0
+
+### Minor Changes
+
+-   dd800c22: Rename analytics prop from onEvent to onAnalyticsEvent
+
 ## 0.1.1
 
 ### Patch Changes

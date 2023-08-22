@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom mathers
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import MockWidgetExport from "../../__tests__/mock-widget";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -50,6 +53,7 @@ const renderSimpleQuestion = (question: Item) => {
                 item={question}
                 shape={simpleQuestionShape}
                 ref={(r) => (renderer = r)}
+                dependencies={testDependenciesV2}
             >
                 {({renderers}) => <SimpleLayout renderers={renderers} />}
             </MultiRenderer>
@@ -119,6 +123,7 @@ describe("multi-item renderer", () => {
                 <MultiRenderer
                     item={question1}
                     shape={shapes.shape({broken: shapes.content})}
+                    dependencies={testDependenciesV2}
                 >
                     {({renderers}) => {
                         return <div />;
