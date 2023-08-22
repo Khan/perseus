@@ -31,6 +31,7 @@ export default {
         preAlgebra: false,
         trigonometry: false,
         sendEvent: () => {},
+        onAnalyticsEvent: async () => {},
     },
     argTypes: {
         advancedRelations: {

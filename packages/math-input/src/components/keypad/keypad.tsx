@@ -37,7 +37,7 @@ export type Props = {
     fractionsOnly?: boolean;
 
     onClickKey: ClickKeyCallback;
-    onAnalyticsEvent?: AnalyticsEventHandlerFn;
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 const defaultProps = {
@@ -113,7 +113,7 @@ export default function Keypad(props: Props) {
 
     useEffect(() => {
         if (!isMounted) {
-            onAnalyticsEvent?.({
+            onAnalyticsEvent({
                 type: "math-input:keypad-opened",
                 payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
             });
@@ -121,7 +121,7 @@ export default function Keypad(props: Props) {
         }
         return () => {
             if (isMounted) {
-                onAnalyticsEvent?.({
+                onAnalyticsEvent({
                     type: "math-input:keypad-closed",
                     payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
                 });
