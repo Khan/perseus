@@ -224,8 +224,8 @@ jobs:
         # We don't publish snapshots on draft PRs or
         # on the main Changeset "Version Packages" PR
         if: |
-          github.event.pull_request.draft == false
-          && github.ref_name != 'changeset-release/main'
+            github.event.pull_request.draft == false
+            && github.ref_name != 'changeset-release/main'
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
