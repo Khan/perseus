@@ -11,6 +11,8 @@ import {question1} from "../__testdata__/group.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
+jest.mock("../../dependencies");
+
 describe("group widget", () => {
     let userEvent;
     beforeEach(() => {

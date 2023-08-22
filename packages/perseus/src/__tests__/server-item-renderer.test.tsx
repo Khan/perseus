@@ -32,6 +32,8 @@ import type {APIOptions} from "../types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
+jest.mock("../dependencies");
+
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
 const renderQuestion = (

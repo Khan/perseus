@@ -19,6 +19,8 @@ import type {
     PerseusRenderer,
 } from "../../perseus-types";
 
+jest.mock("../../dependencies");
+
 const {transform} = InputNumber;
 
 const options: PerseusInputNumberWidgetOptions = {

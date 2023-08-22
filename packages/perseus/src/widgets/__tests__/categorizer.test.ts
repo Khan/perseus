@@ -11,6 +11,8 @@ import {renderQuestion} from "./renderQuestion";
 import type {APIOptions} from "../../types";
 import type {Rubric} from "../categorizer";
 
+jest.mock("../../dependencies");
+
 describe("categorizer widget", () => {
     let userEvent;
     beforeEach(() => {

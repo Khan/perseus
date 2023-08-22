@@ -6,6 +6,8 @@ import * as Dependencies from "../../dependencies";
 
 import {renderQuestion} from "./renderQuestion";
 
+jest.mock("../../dependencies");
+
 const question = {
     content:
         "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",

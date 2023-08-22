@@ -17,6 +17,8 @@ import inputNumber1Item from "./test-items/input-number-1-item";
 import inputNumber2Item from "./test-items/input-number-2-item";
 import tableItem from "./test-items/table-item";
 
+jest.mock("../dependencies");
+
 const itemWidget = inputNumber1Item;
 
 // Returns a promise that will resolve shortly after the end of this

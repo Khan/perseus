@@ -4,6 +4,8 @@ import {question1} from "../__testdata__/cs-program.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
+jest.mock("../../dependencies");
+
 describe("cs-program widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

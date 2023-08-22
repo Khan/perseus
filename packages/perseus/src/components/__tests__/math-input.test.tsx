@@ -6,6 +6,8 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import MathInput from "../math-input";
 
+jest.mock("../../dependencies");
+
 const allButtonSets = {
     advancedRelations: true,
     basicRelations: true,

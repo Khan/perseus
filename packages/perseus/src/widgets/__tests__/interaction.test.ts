@@ -4,6 +4,8 @@ import {question1} from "../__testdata__/interaction.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
+jest.mock("../../dependencies");
+
 describe("interaction widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
