@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
 
+import {expandedViewThreshold} from "./utils";
+
 import type Key from "../../data/keys";
 import type {
     Cursor,
@@ -201,7 +203,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                     logarithms={isExpression}
                     basicRelations={isExpression}
                     advancedRelations={isExpression}
-                    expandedView={containerWidth > 400}
+                    expandedView={containerWidth > expandedViewThreshold}
                     showDismiss
                 />
             </View>

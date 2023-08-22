@@ -1,6 +1,8 @@
 import Keys from "../../data/key-configs";
 import {CursorContext} from "../input/cursor-contexts";
 
+export const expandedViewThreshold = 600;
+
 // This is a helper function that returns the correct context for the cursor
 // based on the cursorContext prop.  It is used in the keypad to determine
 // which key to render as the "jump out" key.

@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        padding: "0 1.5rem",
     },
     grid: {
-        width: 150,
-        height: 150,
+        width: 140,
+        height: 140,
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
         gridTemplateRows: "repeat(3, 1fr)",

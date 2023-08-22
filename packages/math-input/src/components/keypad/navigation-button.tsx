@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
     clickable: {
         width: "100%",
         height: "100%",
-        boxSizing: "border-box",
 
         ":focus": {
             outline: `none`,
@@ -102,49 +101,29 @@ const styles = StyleSheet.create({
     outerBoxBase: {
         height: "100%",
         width: "100%",
-        boxSizing: "border-box",
-        borderStyle: "solid",
-        borderColor: "transparent",
     },
     base: {
         boxShadow: "0px 1px 0px rgba(33, 36, 44, 0.32)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        boxSizing: "border-box",
         background: Color.white,
         borderWidth: 2,
-        borderStyle: "solid",
         borderColor: Color.white,
-        flex: 1,
-        minHeight: 42,
-        minWidth: 42,
     },
     up: {
-        borderTopWidth: borderWidthPx,
-        borderLeftWidth: borderWidthPx,
-        borderRightWidth: borderWidthPx,
         borderTopLeftRadius: borderRadiusPx,
         borderTopRightRadius: borderRadiusPx,
     },
     right: {
-        borderTopWidth: borderWidthPx,
-        borderRightWidth: borderWidthPx,
-        borderBottomWidth: borderWidthPx,
         borderTopRightRadius: borderRadiusPx,
         borderBottomRightRadius: borderRadiusPx,
     },
     down: {
-        borderBottomWidth: borderWidthPx,
-        borderLeftWidth: borderWidthPx,
-        borderRightWidth: borderWidthPx,
         borderBottomLeftRadius: borderRadiusPx,
         borderBottomRightRadius: borderRadiusPx,
     },
     left: {
-        borderTopWidth: borderWidthPx,
-        borderBottomWidth: borderWidthPx,
-        borderLeftWidth: borderWidthPx,
         borderTopLeftRadius: borderRadiusPx,
         borderBottomLeftRadius: borderRadiusPx,
     },
@@ -158,7 +137,6 @@ const styles = StyleSheet.create({
     },
     pressed: {
         border: "2px solid #1B50B3",
-        padding: 0,
         background: `linear-gradient(0deg, rgba(24, 101, 242, 0.32), rgba(24, 101, 242, 0.32)), ${Color.white}`,
         boxShadow: "none",
     },
