@@ -46,6 +46,42 @@ describe("keypad", () => {
         });
     });
 
+    it("should snapshot unexpanded", () => {
+        // Arrange
+        // Act
+        const {container} = render(
+            <Keypad
+                onClickKey={() => {}}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                onAnalyticsEvent={async () => {}}
+                expandedView={false}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot("first render");
+    });
+
+    it("should snapshot expanded", () => {
+        // Arrange
+        // Act
+        const {container} = render(
+            <Keypad
+                onClickKey={() => {}}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                onAnalyticsEvent={async () => {}}
+                expandedView={true}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot("first render");
+    });
+
     it(`shows optional dismiss button`, () => {
         // Arrange
         // Act
@@ -121,5 +157,63 @@ describe("keypad", () => {
 
         // Assert
         expect(onClickKey).toHaveBeenCalledTimes(tabs.length);
+    });
+
+    it(`does not show navigation pad with expanded view turned off`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                onAnalyticsEvent={async () => {}}
+                expandedView={false}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {name: "Up arrow"}),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Right arrow"}),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Down arrow"}),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Left arrow"}),
+        ).not.toBeInTheDocument();
+    });
+
+    it(`shows navigation pad in expanded view`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                onAnalyticsEvent={async () => {}}
+                expandedView={true}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Up arrow"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Right arrow"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Down arrow"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Left arrow"}),
+        ).toBeInTheDocument();
     });
 });
