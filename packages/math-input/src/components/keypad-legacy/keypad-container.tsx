@@ -79,12 +79,19 @@ class KeypadContainer extends React.Component<Props, State> {
             this._throttleResizeHandler,
         );
 
-        this._containerResizeObserver = new ResizeObserver(
-            this._throttleResizeHandler,
-        );
+        // Although all browsers we support have ResizeObserver, this ensures
+        // that unit tests that run in JSDOM that include this component don't
+        // fail.
+        if ("ResizeObserver" in window) {
+            this._containerResizeObserver = new ResizeObserver(
+                this._throttleResizeHandler,
+            );
 
-        if (this._containerRef.current) {
-            this._containerResizeObserver.observe(this._containerRef.current);
+            if (this._containerRef.current) {
+                this._containerResizeObserver.observe(
+                    this._containerRef.current,
+                );
+            }
         }
     }
 
