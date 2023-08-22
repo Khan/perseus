@@ -87,7 +87,6 @@ export default function NavigationButton({
 }
 
 const borderRadiusPx = 4;
-const borderWidthPx = 2;
 
 const styles = StyleSheet.create({
     clickable: {
