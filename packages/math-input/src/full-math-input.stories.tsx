@@ -1,4 +1,3 @@
-import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import * as React from "react";
 
 import type {KeypadAPI} from "./types";
@@ -16,7 +15,6 @@ export default {
                 {name: "light background", value: "lightgrey", default: true},
             ],
         },
-        viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
     },
 };
 
@@ -53,23 +51,23 @@ export const Basic = () => {
     }, [keypadElement, expression]);
 
     return (
-        <div style={{textAlign: "center"}}>
-            <div style={{padding: "1rem 0"}}>
-                <span
-                    style={{textAlign: "center", margin: 20, display: "block"}}
-                >
+        <div style={{padding: "1rem 2rem"}}>
+            <div>
+                <div>
                     NOTE: To properly test the input interaction, you will need
                     to simulate a device using the dev tools.
-                </span>
-                <button onClick={() => setExpression(!expression)}>
-                    {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
-                </button>
-                <button onClick={() => setV2Keypad(!v2Keypad)}>
-                    {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
-                </button>
-                <button onClick={() => toggleKeypad()}>
-                    {`Toggle Keypad`}
-                </button>
+                </div>
+                <div style={{padding: "1rem 0"}}>
+                    <button onClick={() => setExpression(!expression)}>
+                        {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
+                    </button>
+                    <button onClick={() => setV2Keypad(!v2Keypad)}>
+                        {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
+                    </button>
+                    <button onClick={() => toggleKeypad()}>
+                        {`Toggle Keypad`}
+                    </button>
+                </div>
             </div>
 
             <KeypadInput
