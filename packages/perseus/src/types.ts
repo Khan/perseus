@@ -143,9 +143,6 @@ export type APIOptions = Readonly<{
     onFocusChange?: (
         newFocusPath: FocusPath,
         oldFocusPath: FocusPath,
-        // These two parameters are only used in library-exercise.jsx and
-        // practice-exercise.jsx and in the mobile app
-        // (javascript/perseus-package/perseus-mobile-bridge.js).
         keypadElement?: ReturnType<typeof ReactDOM.findDOMNode>,
         focusedElement?: HTMLElement,
     ) => unknown;

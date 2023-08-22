@@ -58,7 +58,7 @@ export const passageArticle: PerseusRenderer = {
     },
 };
 
-export const exerciseArticle: PerseusRenderer = {
+export const articleWithExpression: PerseusRenderer = {
     content:
         "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 1]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
     images: {},

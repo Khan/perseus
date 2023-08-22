@@ -28,6 +28,7 @@ import MockWidgetExport from "./mock-widget";
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
+import type {KeypadAPI} from "@khanacademy/math-input";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
@@ -344,7 +345,7 @@ describe("server item renderer", () => {
             // Arranged
             const onFocusChange = jest.fn();
             const keypadElementDOMNode = <div />;
-            const keypadElement = {
+            const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
@@ -353,7 +354,7 @@ describe("server item renderer", () => {
                 configure: jest.fn(),
                 setCursor: jest.fn(),
                 setKeyHandler: jest.fn(),
-            } as const;
+            };
             const {renderer} = renderQuestion(
                 itemWithInput,
                 {onFocusChange, isMobile: true},
@@ -408,7 +409,7 @@ describe("server item renderer", () => {
             // Arranged
             const onFocusChange = jest.fn();
             const keypadElementDOMNode = <div />;
-            const keypadElement = {
+            const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
@@ -417,7 +418,7 @@ describe("server item renderer", () => {
                 configure: jest.fn(),
                 setCursor: jest.fn(),
                 setKeyHandler: jest.fn(),
-            } as const;
+            };
             const {renderer} = renderQuestion(
                 itemWithInput,
                 {onFocusChange, isMobile: true},
