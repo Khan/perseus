@@ -6,7 +6,7 @@ import {
     singleSectionArticle,
     multiSectionArticle,
     passageArticle,
-    exerciseArticle,
+    articleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import TestKeypadContextWrapper from "../widgets/__stories__/test-keypad-context-wrapper";
@@ -60,7 +60,7 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                     ref={(node) => {
                         setRenderer(node);
                     }}
-                    json={exerciseArticle}
+                    json={articleWithExpression}
                     dependencies={storybookDependenciesV2}
                     useNewStyles={useNewStyles}
                     apiOptions={{isMobile: true, customKeypad: true}}
