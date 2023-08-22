@@ -12,6 +12,8 @@ import {question1, question2} from "./passage.testdata";
 
 import type {APIOptions} from "../../../types";
 
+jest.mock("../../dependencies");
+
 function renderPassage(
     overwrite:
         | {

@@ -9,6 +9,8 @@ import {question1} from "../__testdata__/sorter.testdata";
 
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 describe("sorter widget", () => {
     beforeEach(() => {
         /*

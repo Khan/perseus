@@ -8,6 +8,8 @@ import {question2} from "./orderer.testdata";
 
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 describe("orderer widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

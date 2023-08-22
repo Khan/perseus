@@ -37,6 +37,15 @@ const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
     );
 };
 
+jest.mock("@khanacademy/perseus", () => {
+    const RealPerseus = jest.requireActual("@khanacademy/perseus");
+
+    return {
+        __esModule: true,
+        ...RealPerseus,
+    };
+});
+
 describe("Editor", () => {
     beforeAll(() => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -9,6 +9,8 @@ import {question1} from "./dropdown.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
+
 describe("Dropdown widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

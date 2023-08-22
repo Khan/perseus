@@ -9,6 +9,8 @@ import {question} from "./image.testdata";
 
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
     const apiOptions: APIOptions = {isMobile};
 

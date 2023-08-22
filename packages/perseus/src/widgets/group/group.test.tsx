@@ -16,6 +16,8 @@ import {question1} from "./group.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
+
 describe("group widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

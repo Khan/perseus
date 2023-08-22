@@ -22,6 +22,8 @@ import tableItem from "./test-items/table-item";
 import type {PerseusInputNumberUserInput} from "../validation.types";
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../dependencies");
+
 const itemWidget = inputNumber1Item;
 
 describe("Perseus API", function () {

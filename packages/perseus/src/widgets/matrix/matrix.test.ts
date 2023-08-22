@@ -10,6 +10,8 @@ import {question1} from "./matrix.testdata";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
+
 describe("matrix widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

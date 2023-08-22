@@ -9,6 +9,8 @@ import {article1} from "./graded-group-set.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
+
 describe("graded group widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

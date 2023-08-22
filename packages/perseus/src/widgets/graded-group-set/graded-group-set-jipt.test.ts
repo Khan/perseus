@@ -10,6 +10,8 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {article1} from "./graded-group-set.testdata";
 
+jest.mock("../../dependencies");
+
 describe("graded-group-set", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({

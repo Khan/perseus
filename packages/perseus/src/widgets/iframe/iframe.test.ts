@@ -6,6 +6,8 @@ import {question1} from "./iframe.testdata";
 
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 describe("iframe widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

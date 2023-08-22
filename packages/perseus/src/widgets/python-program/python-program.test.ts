@@ -1,8 +1,18 @@
+import {testDependencies} from "../../../../../testing/test-dependencies";
+import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./python-program.testdata";
 
+jest.mock("../../dependencies");
+
 describe("python-program widget", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
     it("should snapshot", () => {
         // Arrange
         const apiOptions = {

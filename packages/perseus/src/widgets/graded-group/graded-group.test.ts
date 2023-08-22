@@ -11,6 +11,7 @@ import {question1} from "./graded-group.testdata";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
 const checkAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
 ) => {

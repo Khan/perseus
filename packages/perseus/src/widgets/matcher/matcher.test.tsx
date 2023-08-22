@@ -11,6 +11,8 @@ import {question1} from "./matcher.testdata";
 import type {Matcher} from "./matcher";
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 describe("matcher widget", () => {
     beforeEach(() => {
         /*

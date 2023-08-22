@@ -11,6 +11,8 @@ import {question1} from "./categorizer.testdata";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
+
 describe("categorizer widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

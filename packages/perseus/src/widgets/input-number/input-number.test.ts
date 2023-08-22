@@ -21,6 +21,8 @@ import type {
 } from "../../perseus-types";
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
+
 const {transform} = InputNumber;
 
 const options: PerseusInputNumberWidgetOptions = {

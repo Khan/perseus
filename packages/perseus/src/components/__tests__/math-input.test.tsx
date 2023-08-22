@@ -8,6 +8,8 @@ import MathInput from "../math-input";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
+
 const allButtonSets = {
     advancedRelations: true,
     basicRelations: true,
