@@ -23,10 +23,10 @@ export type Props = {
     extraKeys: ReadonlyArray<Key>;
     cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     showDismiss?: boolean;
+    expandedView?: boolean;
 
     multiplicationDot?: boolean;
     divisionKey?: boolean;
-
     trigonometry?: boolean;
     preAlgebra?: boolean;
     logarithms?: boolean;
@@ -96,6 +96,7 @@ export default function Keypad(props: Props) {
         showDismiss,
         onAnalyticsEvent,
         fractionsOnly,
+        expandedView,
     } = props;
 
     // Use a different grid for our fraction keypad
