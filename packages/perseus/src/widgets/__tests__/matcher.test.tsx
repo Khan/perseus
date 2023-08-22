@@ -10,6 +10,8 @@ import {renderQuestion} from "./renderQuestion";
 import type {APIOptions} from "../../types";
 import type {Matcher} from "../matcher";
 
+jest.mock("../../dependencies");
+
 describe("matcher widget", () => {
     beforeEach(() => {
         /*

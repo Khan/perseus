@@ -6,6 +6,8 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 describe("video widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({

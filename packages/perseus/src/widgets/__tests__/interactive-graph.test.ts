@@ -39,6 +39,8 @@ import type {APIOptions} from "../../types";
 import type {mafsSupportedGraphTypes} from "../interactive-graphs/mafs-supported-graph-types";
 import type {UserEvent} from "@testing-library/user-event";
 
+jest.mock("../../dependencies");
+
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
     update(state[widgetId]);

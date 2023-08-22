@@ -21,6 +21,8 @@ import {renderQuestion} from "./renderQuestion";
 import type {PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     itemData: PerseusItem,

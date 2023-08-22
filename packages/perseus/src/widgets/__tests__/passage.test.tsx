@@ -12,6 +12,8 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 function renderPassage(
     overwrite:
         | {

@@ -109,12 +109,6 @@ type DefaultProps = {
     value: Props["value"];
 };
 
-type OnInputErrorFunctionType = (
-    arg1?: any,
-    arg2?: any,
-    arg3?: any,
-) => boolean | null | undefined;
-
 /**
  *  Get the character used for separating decimals.
  */
@@ -171,8 +165,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     static validate(
         userInput: string,
         rubric: Rubric,
-        // @ts-expect-error - TS2322 - Type '() => void' is not assignable to type 'OnInputErrorFunctionType'.
-        onInputError: OnInputErrorFunctionType = function () {},
+        onInputError: APIOptions["onInputError"] = function () {},
         strings: PerseusStrings,
         locale: string,
     ): PerseusScore {
@@ -400,7 +393,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     simpleValidate: (
         rubric: Rubric & {scoring?: boolean},
-        onInputError: OnInputErrorFunctionType,
+        onInputError: APIOptions["onInputError"],
     ) => PerseusScore = ({scoring, ...rubric}, onInputError) => {
         const score = Expression.validate(
             this.getUserInput(),

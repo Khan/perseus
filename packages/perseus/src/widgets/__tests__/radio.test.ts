@@ -17,6 +17,8 @@ import {renderQuestion} from "./renderQuestion";
 import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     index: number,

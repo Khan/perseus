@@ -24,6 +24,8 @@ import type {FilterCriterion} from "../../types";
 import type {Item} from "../item-types";
 import type {Tree} from "../tree-types";
 
+jest.mock("../../dependencies");
+
 // A little helper used in the render callback of a MultiRenderer.
 type Props = {renderers: any};
 const SimpleLayout = ({renderers}: Props): React.ReactElement => {

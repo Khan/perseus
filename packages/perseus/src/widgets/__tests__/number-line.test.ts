@@ -6,6 +6,8 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 describe("number-line widget", () => {
     beforeEach(() => {
         // This module complains but doesn't have a real problem

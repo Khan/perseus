@@ -39,6 +39,7 @@ export const renderQuestion = (
     registerAllWidgetsForTesting();
 
     let renderer: Perseus.Renderer | null = null;
+
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
             <DependenciesContext.Provider value={testDependenciesV2}>

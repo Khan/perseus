@@ -23,6 +23,8 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {Rubric} from "../numeric-input";
 
+jest.mock("../../dependencies");
+
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
 

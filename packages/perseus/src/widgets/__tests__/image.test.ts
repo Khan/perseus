@@ -9,6 +9,8 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
 
+jest.mock("../../dependencies");
+
 describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
     const apiOptions: APIOptions = {isMobile};
 
