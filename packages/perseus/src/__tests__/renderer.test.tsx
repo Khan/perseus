@@ -149,7 +149,6 @@ describe("renderer", () => {
             mockRunLinter.mockClear();
 
             // Act
-            // @ts-expect-error - TS2345 - Argument of type '{ problemNum: number; linterContext: { readonly contentType: "exercise"; readonly highlightLint: true; readonly paths: readonly []; readonly stack: readonly []; }; }' is not assignable to parameter of type 'Pick<{}, never> & InexactPartial<Pick<{}, never>> & InexactPartial<Pick<DefaultProps, keyof DefaultProps>>'.
             rerender(question1, {...extraProps, problemNum: 1});
 
             // Assert
@@ -1334,7 +1333,6 @@ describe("renderer", () => {
                     },
                 },
                 {},
-                // @ts-expect-error - TS2345 - Argument of type '{ problemNum: number; }' is not assignable to parameter of type 'Pick<{}, never> & InexactPartial<Pick<{}, never>> & InexactPartial<Pick<DefaultProps, keyof DefaultProps>>'.
                 {problemNum: 1},
             );
 

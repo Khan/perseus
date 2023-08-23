@@ -4,12 +4,11 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
 const {InlineIcon} = components;
 
-type InlineIconProps = JSX.LibraryManagedAttributes<
-    typeof InlineIcon,
-    React.ComponentProps<typeof InlineIcon>
->;
+type InlineIconProps = PropsFor<typeof InlineIcon>;
 
 type SectionControlButtonProps = {
     icon: InlineIconProps;

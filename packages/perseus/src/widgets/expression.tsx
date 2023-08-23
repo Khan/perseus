@@ -30,6 +30,7 @@ import type {
     WidgetProps,
 } from "../types";
 import type {Keys as Key} from "@khanacademy/math-input";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;
 
@@ -673,13 +674,7 @@ const propUpgrades = {
 
 const ExpressionWithDependencies = React.forwardRef<
     Expression,
-    Omit<
-        JSX.LibraryManagedAttributes<
-            typeof Expression,
-            React.ComponentProps<typeof Expression>
-        >,
-        keyof ReturnType<typeof useDependencies>
-    >
+    Omit<PropsFor<typeof Expression>, keyof ReturnType<typeof useDependencies>>
 >((props, ref) => {
     const deps = useDependencies();
     return <Expression ref={ref} analytics={deps.analytics} {...props} />;

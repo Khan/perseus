@@ -1,3 +1,5 @@
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {within, render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -35,10 +37,7 @@ const renderQuestion = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
     optionalProps: Partial<
-        JSX.LibraryManagedAttributes<
-            typeof WrappedServerItemRenderer,
-            React.ComponentProps<typeof WrappedServerItemRenderer>
-        >
+        PropsFor<typeof WrappedServerItemRenderer>
     > = Object.freeze({}),
 ): {
     container: HTMLElement;
