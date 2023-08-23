@@ -1,5 +1,3 @@
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {within, render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -30,6 +28,7 @@ import MockWidgetExport from "./mock-widget";
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
