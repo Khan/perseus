@@ -23,6 +23,7 @@ import type {
 } from "../perseus-types";
 import type {
     APIOptions,
+    PerseusDependenciesV2,
     PerseusScore,
     WidgetExports,
     WidgetProps,
@@ -83,7 +84,8 @@ type RenderProps = {
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
 export type Props = ExternalProps &
-    Partial<React.ContextType<typeof DependenciesContext>> & {
+    Partial<React.ContextType<typeof DependenciesContext>> &
+    PerseusDependenciesV2 & {
         apiOptions: NonNullable<ExternalProps["apiOptions"]>;
         buttonSets: NonNullable<ExternalProps["buttonSets"]>;
         functions: NonNullable<ExternalProps["functions"]>;
