@@ -11,6 +11,9 @@ import {question1} from "./explanation.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+
+jest.mock("../../dependencies");
+
 describe("Explanation", function () {
     let userEvent: UserEvent;
 
