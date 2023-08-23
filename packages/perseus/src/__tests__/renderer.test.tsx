@@ -44,6 +44,8 @@ jest.mock("../translation-linter", () => {
     };
 });
 
+jest.mock("../dependencies");
+
 describe("renderer", () => {
     beforeAll(() => {
         registerWidget("input-number", InputNumberExport);

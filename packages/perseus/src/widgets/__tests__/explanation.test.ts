@@ -9,6 +9,9 @@ import ExplanationWidgetExports from "../explanation";
 
 import {renderQuestion} from "./renderQuestion";
 
+
+jest.mock("../../dependencies");
+
 describe("Explanation", function () {
     let userEvent;
 

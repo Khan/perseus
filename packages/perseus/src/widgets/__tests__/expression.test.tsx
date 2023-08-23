@@ -21,7 +21,15 @@ import {renderQuestion} from "./renderQuestion";
 import type {PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
-jest.mock("../../dependencies");
+// We need to mock the module for .spyOn() to work, but we need the actual
+// module for the `useDependencies` hook to work.
+jest.mock("../../dependencies", () => {
+    const deps = jest.requireActual("../../dependencies");
+    return {
+        __esModule: true,
+        ...deps,
+    };
+});
 
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
