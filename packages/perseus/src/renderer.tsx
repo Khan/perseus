@@ -250,8 +250,8 @@ class Renderer extends React.Component<Props, State> {
         linterContext: PerseusLinter.linterContextDefault,
     };
 
-    constructor(props: Props, context: Context) {
-        super(props, context);
+    constructor(props: Props) {
+        super(props);
         this._translationLinter = new TranslationLinter();
 
         this.state = {

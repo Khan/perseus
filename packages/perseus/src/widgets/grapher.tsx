@@ -36,6 +36,7 @@ import type {ChangeableProps} from "../mixins/changeable";
 import type {PerseusGrapherWidgetOptions} from "../perseus-types";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 import type {GridDimensions} from "../util";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -473,18 +474,9 @@ class Grapher extends React.Component<Props> {
     }
 
     _calculateMobileTickStep(
-        gridStep: JSX.LibraryManagedAttributes<
-            typeof Graphie,
-            Required<React.ComponentProps<typeof Graphie>>
-        >["gridStep"],
-        step: JSX.LibraryManagedAttributes<
-            typeof Graphie,
-            Required<React.ComponentProps<typeof Graphie>>
-        >["step"],
-        ranges: JSX.LibraryManagedAttributes<
-            typeof Graphie,
-            Required<React.ComponentProps<typeof Graphie>>
-        >["ranges"],
+        gridStep: NonNullable<PropsFor<typeof Graphie>["gridStep"]>,
+        step: NonNullable<PropsFor<typeof Graphie>["step"]>,
+        ranges: NonNullable<PropsFor<typeof Graphie>["ranges"]>,
     ): any {
         const tickStep = Util.constrainedTickStepsFromTickSteps(step, ranges);
 

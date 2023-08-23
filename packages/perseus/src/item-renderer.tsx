@@ -224,7 +224,6 @@ class ItemRenderer extends React.Component<Props, State> {
                     ref={(node) => (this.hintsRenderer = node)}
                     hints={this.props.item.hints}
                     hintsVisible={this.state.hintsVisible}
-                    // @ts-expect-error - TS2769 - No overload matches this call.
                     apiOptions={apiOptions}
                     linterContext={PerseusLinter.pushContextStack(
                         this.props.linterContext,

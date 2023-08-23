@@ -9,10 +9,9 @@ import * as React from "react";
 
 import ReactComponentsInfoTip from "./info-tip/info-tip";
 
-type Props = JSX.LibraryManagedAttributes<
-    typeof ReactComponentsInfoTip,
-    React.ComponentProps<typeof ReactComponentsInfoTip>
->;
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+type Props = PropsFor<typeof ReactComponentsInfoTip>;
 
 type State = {
     didMount: boolean;
