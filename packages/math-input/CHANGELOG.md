@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 10.0.1
+
+### Patch Changes
+
+-   7b11736e: Fix cursor animation for MathInput
+
 ## 10.0.0
 
 ### Major Changes

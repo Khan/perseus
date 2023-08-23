@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 10.0.0
+
+### Major Changes
+
+-   9eb50ae1: Removed `LinterContextProps` type. Moved to `@khanacademy/perseus-linter` in a previous release, but wasn't deleted from this package.
+
+### Patch Changes
+
+-   aea86eec: Convert all usages of JSX.LibraryManagedAttributes to WB Core's PropsFor type
+-   Updated dependencies [7b11736e]
+    -   @khanacademy/math-input@10.0.1
+
 ## 9.0.0
 
 ### Major Changes
