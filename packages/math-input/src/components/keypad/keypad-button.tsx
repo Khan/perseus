@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        boxShadow: "0px 1px 0px rgba(33, 36, 44, 0.32)",
+        boxShadow: `0px 1px 0px ${Color.offBlack32}`,
         boxSizing: "border-box",
         background: Color.white,
         borderRadius: 4,

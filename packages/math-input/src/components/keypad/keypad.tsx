@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     },
     expandedWrapper: {
         borderWidth: "1px 1px 0 1px",
-        borderColor: "rgba(33, 36, 44, 0.32)",
+        borderColor: Color.offBlack32,
         maxWidth: expandedViewThreshold,
         borderRadius: "3px 3px 0 0",
     },

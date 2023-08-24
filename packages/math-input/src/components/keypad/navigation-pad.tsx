@@ -19,18 +19,25 @@ export default function NavigationPad(props: Props) {
     return (
         <View style={styles.container}>
             <View style={styles.grid}>
-                <NavigationButton keyConfig={Keys.UP} onClickKey={onClickKey} />
+                <NavigationButton
+                    keyConfig={Keys.UP}
+                    onClickKey={onClickKey}
+                    coord={[1, 0]}
+                />
                 <NavigationButton
                     keyConfig={Keys.RIGHT}
                     onClickKey={onClickKey}
+                    coord={[2, 1]}
                 />
                 <NavigationButton
                     keyConfig={Keys.DOWN}
                     onClickKey={onClickKey}
+                    coord={[1, 2]}
                 />
                 <NavigationButton
                     keyConfig={Keys.LEFT}
                     onClickKey={onClickKey}
+                    coord={[0, 1]}
                 />
                 <View style={styles.spacer} />
             </View>

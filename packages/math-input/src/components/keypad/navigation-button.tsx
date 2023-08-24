@@ -10,24 +10,11 @@ import type Key from "../../data/keys";
 import type {KeyConfig, ClickKeyCallback} from "../../types";
 
 export type KeypadButtonProps = {
+    // 0 indexed [x, y] position in keypad CSS grid
+    coord: readonly [number, number];
     keyConfig: KeyConfig;
     onClickKey: ClickKeyCallback;
 };
-
-function getCoords(key: Key) {
-    switch (key) {
-        case "UP":
-            return [1, 0];
-        case "RIGHT":
-            return [2, 1];
-        case "DOWN":
-            return [1, 2];
-        case "LEFT":
-            return [0, 1];
-        default:
-            throw new Error(`Invalid key: ${key}`);
-    }
-}
 
 function getStyles(key: Key) {
     switch (key) {
@@ -45,11 +32,11 @@ function getStyles(key: Key) {
 }
 
 export default function NavigationButton({
+    coord,
     keyConfig,
     onClickKey,
 }: KeypadButtonProps) {
     const key = keyConfig.id;
-    const coord = getCoords(key);
     const directionalStyles = getStyles(key);
 
     return (
@@ -64,23 +51,21 @@ export default function NavigationButton({
                 style={styles.clickable}
                 aria-label={keyConfig.ariaLabel}
             >
-                {({hovered, focused, pressed}) => {
-                    return (
-                        <View style={styles.outerBoxBase}>
-                            <View
-                                style={[
-                                    styles.base,
-                                    directionalStyles,
-                                    hovered && styles.hovered,
-                                    focused && styles.focused,
-                                    pressed && styles.pressed,
-                                ]}
-                            >
-                                <ButtonAsset id={keyConfig.id} />
-                            </View>
+                {({hovered, focused, pressed}) => (
+                    <View style={styles.outerBoxBase}>
+                        <View
+                            style={[
+                                styles.base,
+                                directionalStyles,
+                                hovered && styles.hovered,
+                                focused && styles.focused,
+                                pressed && styles.pressed,
+                            ]}
+                        >
+                            <ButtonAsset id={keyConfig.id} />
                         </View>
-                    );
-                }}
+                    </View>
+                )}
             </Clickable>
         </View>
     );
@@ -102,7 +87,7 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     base: {
-        boxShadow: "0px 1px 0px rgba(33, 36, 44, 0.32)",
+        boxShadow: `0px 1px 0px ${Color.offBlack32}`,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
