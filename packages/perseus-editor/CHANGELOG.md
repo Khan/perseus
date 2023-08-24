@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 2.6.4
+
+### Patch Changes
+
+-   aea86eec: Convert all usages of JSX.LibraryManagedAttributes to WB Core's PropsFor type
+-   Updated dependencies [aea86eec]
+-   Updated dependencies [9eb50ae1]
+    -   @khanacademy/perseus@10.0.0
+
 ## 2.6.3
 
 ### Patch Changes
