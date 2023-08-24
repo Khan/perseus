@@ -13,9 +13,9 @@ import type {
     PerseusScore,
     WidgetExports,
     WidgetProps,
-    LinterContextProps,
 } from "../types";
 import type {Passage, Reference} from "./passage";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const EN_DASH = "\u2013";
 

@@ -7,6 +7,7 @@ import _ from "underscore";
 import BlurInput from "../components/blur-input";
 
 import type {ParsedValue, InputNumber} from "@khanacademy/perseus";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 
@@ -47,30 +48,14 @@ const answerTypes = {
 
 type Props = {
     value: number;
-    simplify: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["simplify"];
-    size: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["size"];
-    inexact: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["reviewModeRubric"]["inexact"];
-    maxError: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
+    simplify: PropsFor<typeof InputNumber.widget>["simplify"];
+    size: PropsFor<typeof InputNumber.widget>["size"];
+    inexact: PropsFor<typeof InputNumber.widget>["reviewModeRubric"]["inexact"];
+    maxError: PropsFor<
+        typeof InputNumber.widget
     >["reviewModeRubric"]["maxError"];
-    answerType: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["answerType"];
-    rightAlign: JSX.LibraryManagedAttributes<
-        typeof InputNumber.widget,
-        React.ComponentProps<typeof InputNumber.widget>
-    >["rightAlign"];
+    answerType: PropsFor<typeof InputNumber.widget>["answerType"];
+    rightAlign: PropsFor<typeof InputNumber.widget>["rightAlign"];
     onChange: (arg1: {
         value?: ParsedValue | 0;
         simplify?: Props["simplify"];

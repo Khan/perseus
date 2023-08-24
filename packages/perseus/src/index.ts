@@ -109,7 +109,6 @@ export type {
     ImageUploader,
     JiptLabelStore,
     JiptRenderer,
-    LinterContextProps,
     PerseusDependencies,
     PerseusScore,
     Version,

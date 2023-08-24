@@ -24,17 +24,14 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
     APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import type {PropsFor, StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
 const DeprecationMixin = Util.DeprecationMixin;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
-type InteractiveGraphProps = JSX.LibraryManagedAttributes<
-    typeof InteractiveGraph,
-    React.ComponentProps<typeof InteractiveGraph>
->;
+type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 const defaultBackgroundImage = {
     url: null,

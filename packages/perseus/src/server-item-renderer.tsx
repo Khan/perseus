@@ -424,7 +424,6 @@ export class ServerItemRenderer
             <HintsRenderer
                 hints={this.props.item.hints}
                 hintsVisible={this.props.hintsVisible}
-                // @ts-expect-error - TS2769 - No overload matches this call.
                 apiOptions={apiOptions}
                 ref={(elem) => (this.hintsRenderer = elem)}
             />

@@ -29,6 +29,7 @@ import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
@@ -36,10 +37,7 @@ const renderQuestion = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
     optionalProps: Partial<
-        JSX.LibraryManagedAttributes<
-            typeof WrappedServerItemRenderer,
-            React.ComponentProps<typeof WrappedServerItemRenderer>
-        >
+        PropsFor<typeof WrappedServerItemRenderer>
     > = Object.freeze({}),
 ): {
     container: HTMLElement;

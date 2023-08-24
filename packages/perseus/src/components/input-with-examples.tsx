@@ -12,7 +12,7 @@ import MathOutput from "./math-output";
 import TextInput from "./text-input";
 import Tooltip, {HorizontalDirection, VerticalDirection} from "./tooltip";
 
-import type {LinterContextProps} from "../types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {captureScratchpadTouchStart} = Util;

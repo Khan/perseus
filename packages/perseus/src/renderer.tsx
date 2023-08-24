@@ -35,11 +35,11 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    LinterContextProps,
     PerseusScore,
     WidgetInfo,
     WidgetProps,
 } from "./types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
 
@@ -250,8 +250,8 @@ class Renderer extends React.Component<Props, State> {
         linterContext: PerseusLinter.linterContextDefault,
     };
 
-    constructor(props: Props, context: Context) {
-        super(props, context);
+    constructor(props: Props) {
+        super(props);
         this._translationLinter = new TranslationLinter();
 
         this.state = {
