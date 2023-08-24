@@ -6,7 +6,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
     class="default_xu2jcg-o_O-keypadOuterContainer_5kaapu"
   >
     <div
-      class="default_xu2jcg-o_O-wrapper_144oaus-o_O-expandedWrapper_11qqrov"
+      class="default_xu2jcg-o_O-wrapper_144oaus-o_O-expandedWrapper_ykafj"
     >
       <div
         class="default_xu2jcg-o_O-tabbar_721koc"
@@ -186,7 +186,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -217,7 +217,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -248,7 +248,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -279,7 +279,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -310,7 +310,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -341,7 +341,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -372,7 +372,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -403,7 +403,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -434,7 +434,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -465,7 +465,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -496,7 +496,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -527,7 +527,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -560,7 +560,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -593,7 +593,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -632,7 +632,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -665,7 +665,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -698,7 +698,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -737,7 +737,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -770,7 +770,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -803,7 +803,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_wps3dh"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_wps3dh"
                 >
                   <svg
                     fill="none"
@@ -843,7 +843,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                   class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_17rbut0-o_O-up_1f2wdg4"
+                    class="default_xu2jcg-o_O-base_1j2mzlg-o_O-up_1f2wdg4"
                   >
                     <svg
                       height="48"
@@ -889,7 +889,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                   class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_17rbut0-o_O-right_6pkru3"
+                    class="default_xu2jcg-o_O-base_1j2mzlg-o_O-right_6pkru3"
                   >
                     <svg
                       height="48"
@@ -935,7 +935,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                   class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_17rbut0-o_O-down_1h77sr8"
+                    class="default_xu2jcg-o_O-base_1j2mzlg-o_O-down_1h77sr8"
                   >
                     <svg
                       height="48"
@@ -981,7 +981,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                   class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_17rbut0-o_O-left_176nduz"
+                    class="default_xu2jcg-o_O-base_1j2mzlg-o_O-left_176nduz"
                   >
                     <svg
                       height="48"
@@ -1210,7 +1210,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1241,7 +1241,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1272,7 +1272,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1303,7 +1303,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1334,7 +1334,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1365,7 +1365,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1396,7 +1396,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1427,7 +1427,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1458,7 +1458,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1489,7 +1489,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1520,7 +1520,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1551,7 +1551,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b"
+                  class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
                     fill="none"
@@ -1584,7 +1584,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -1617,7 +1617,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -1656,7 +1656,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -1689,7 +1689,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -1722,7 +1722,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -1761,7 +1761,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -1794,7 +1794,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_s65xgl"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -1827,7 +1827,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_1s5vj1b-o_O-inlineStyles_wps3dh"
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_wps3dh"
                 >
                   <svg
                     fill="none"
