@@ -25,6 +25,7 @@ import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     KeypadContextRendererInterface,
+    RendererInterface,
     KEScore,
 } from "@khanacademy/perseus-core";
 
@@ -73,7 +74,7 @@ type SerializedState = {
 /* eslint-disable-next-line react/no-unsafe */
 export class ServerItemRenderer
     extends React.Component<Props, State>
-    implements KeypadContextRendererInterface
+    implements RendererInterface, KeypadContextRendererInterface
 {
     // @ts-expect-error - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
