@@ -31,6 +31,7 @@ export default {
         preAlgebra: false,
         trigonometry: false,
         sendEvent: () => {},
+        onAnalyticsEvent: async () => {},
     },
     argTypes: {
         advancedRelations: {
@@ -115,4 +116,7 @@ Everything.args = {
     multiplicationDot: false,
     preAlgebra: true,
     trigonometry: true,
+    expandedView: true,
+    showDismiss: true,
+    extraKeys: ["a", "b", "c"],
 };

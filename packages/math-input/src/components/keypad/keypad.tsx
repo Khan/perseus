@@ -11,7 +11,9 @@ import FractionsPage from "./keypad-pages/fractions-page";
 import GeometryPage from "./keypad-pages/geometry-page";
 import NumbersPage from "./keypad-pages/numbers-page";
 import OperatorsPage from "./keypad-pages/operators-page";
+import NavigationPad from "./navigation-pad";
 import SharedKeys from "./shared-keys";
+import {expandedViewThreshold} from "./utils";
 
 import type Key from "../../data/keys";
 import type {ClickKeyCallback} from "../../types";
@@ -23,10 +25,10 @@ export type Props = {
     extraKeys: ReadonlyArray<Key>;
     cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     showDismiss?: boolean;
+    expandedView?: boolean;
 
     multiplicationDot?: boolean;
     divisionKey?: boolean;
-
     trigonometry?: boolean;
     preAlgebra?: boolean;
     logarithms?: boolean;
@@ -96,6 +98,7 @@ export default function Keypad(props: Props) {
         showDismiss,
         onAnalyticsEvent,
         fractionsOnly,
+        expandedView,
     } = props;
 
     // Use a different grid for our fraction keypad
@@ -128,58 +131,70 @@ export default function Keypad(props: Props) {
     }, [onAnalyticsEvent, isMounted]);
 
     return (
-        <View>
-            <Tabbar
-                items={availableTabs}
-                selectedItem={selectedPage}
-                onSelectItem={(tabbarItem: TabbarItemType) => {
-                    setSelectedPage(tabbarItem);
-                }}
-                style={styles.tabbar}
-                onClickClose={
-                    showDismiss ? () => onClickKey("DISMISS") : undefined
-                }
-            />
-
+        <View style={expandedView ? styles.keypadOuterContainer : null}>
             <View
-                style={[styles.keypadGrid, gridStyle]}
-                role="grid"
-                tabIndex={0}
-                aria-label="Keypad"
+                style={[
+                    styles.wrapper,
+                    expandedView ? styles.expandedWrapper : null,
+                ]}
             >
-                {selectedPage === "Fractions" && (
-                    <FractionsPage
-                        onClickKey={onClickKey}
-                        cursorContext={cursorContext}
-                    />
-                )}
-                {selectedPage === "Numbers" && (
-                    <NumbersPage onClickKey={onClickKey} />
-                )}
-                {selectedPage === "Extras" && (
-                    <ExtrasPage onClickKey={onClickKey} extraKeys={extraKeys} />
-                )}
-                {selectedPage === "Operators" && (
-                    <OperatorsPage
-                        onClickKey={onClickKey}
-                        preAlgebra={preAlgebra}
-                        logarithms={logarithms}
-                        basicRelations={basicRelations}
-                        advancedRelations={advancedRelations}
-                    />
-                )}
-                {selectedPage === "Geometry" && (
-                    <GeometryPage onClickKey={onClickKey} />
-                )}
-                {!fractionsOnly && (
-                    <SharedKeys
-                        onClickKey={onClickKey}
-                        cursorContext={cursorContext}
-                        multiplicationDot={multiplicationDot}
-                        divisionKey={divisionKey}
-                        selectedPage={selectedPage}
-                    />
-                )}
+                <Tabbar
+                    items={availableTabs}
+                    selectedItem={selectedPage}
+                    onSelectItem={(tabbarItem: TabbarItemType) => {
+                        setSelectedPage(tabbarItem);
+                    }}
+                    onClickClose={
+                        showDismiss ? () => onClickKey("DISMISS") : undefined
+                    }
+                />
+
+                <View style={styles.keypadInnerContainer}>
+                    <View
+                        style={[styles.keypadGrid, gridStyle]}
+                        role="grid"
+                        tabIndex={0}
+                        aria-label="Keypad"
+                    >
+                        {selectedPage === "Fractions" && (
+                            <FractionsPage
+                                onClickKey={onClickKey}
+                                cursorContext={cursorContext}
+                            />
+                        )}
+                        {selectedPage === "Numbers" && (
+                            <NumbersPage onClickKey={onClickKey} />
+                        )}
+                        {selectedPage === "Extras" && (
+                            <ExtrasPage
+                                onClickKey={onClickKey}
+                                extraKeys={extraKeys}
+                            />
+                        )}
+                        {selectedPage === "Operators" && (
+                            <OperatorsPage
+                                onClickKey={onClickKey}
+                                preAlgebra={preAlgebra}
+                                logarithms={logarithms}
+                                basicRelations={basicRelations}
+                                advancedRelations={advancedRelations}
+                            />
+                        )}
+                        {selectedPage === "Geometry" && (
+                            <GeometryPage onClickKey={onClickKey} />
+                        )}
+                        {!fractionsOnly && (
+                            <SharedKeys
+                                onClickKey={onClickKey}
+                                cursorContext={cursorContext}
+                                multiplicationDot={multiplicationDot}
+                                divisionKey={divisionKey}
+                                selectedPage={selectedPage}
+                            />
+                        )}
+                    </View>
+                    {expandedView && <NavigationPad onClickKey={onClickKey} />}
+                </View>
             </View>
         </View>
     );
@@ -188,13 +203,28 @@ export default function Keypad(props: Props) {
 Keypad.defaultProps = defaultProps;
 
 const styles = StyleSheet.create({
-    tabbar: {
+    keypadOuterContainer: {
+        display: "flex",
+        alignItems: "center",
+    },
+    wrapper: {
         background: Color.white,
+    },
+    expandedWrapper: {
+        borderWidth: "1px 1px 0 1px",
+        borderColor: Color.offBlack32,
+        maxWidth: expandedViewThreshold,
+        borderRadius: "3px 3px 0 0",
+    },
+    keypadInnerContainer: {
+        display: "flex",
+        flexDirection: "row",
+        backgroundColor: "#DBDCDD",
     },
     keypadGrid: {
         display: "grid",
         gridTemplateRows: "repeat(4, 1fr)",
-        backgroundColor: "#DBDCDD",
+        flex: 1,
     },
     expressionGrid: {
         gridTemplateColumns: "repeat(6, 1fr)",

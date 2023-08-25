@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
 
+import {expandedViewThreshold} from "./utils";
+
 import type Key from "../../data/keys";
 import type {
     Cursor,
@@ -34,16 +36,66 @@ type Props = {
 
 type State = {
     active: boolean;
+    containerWidth: number;
     keypadConfig?: KeypadConfiguration;
     keyHandler?: KeyHandler;
     cursor?: Cursor;
 };
 
 class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
+    _containerRef = React.createRef<HTMLDivElement>();
+    _containerResizeObserver: ResizeObserver | null = null;
+    _throttleResize = false;
     hasMounted = false;
 
     state: State = {
+        containerWidth: 0,
         active: false,
+    };
+
+    componentDidMount() {
+        this._resize();
+
+        window.addEventListener("resize", this._throttleResizeHandler);
+        window.addEventListener(
+            "orientationchange",
+            this._throttleResizeHandler,
+        );
+
+        this._containerResizeObserver = new ResizeObserver(
+            this._throttleResizeHandler,
+        );
+
+        if (this._containerRef.current) {
+            this._containerResizeObserver.observe(this._containerRef.current);
+        }
+    }
+
+    componentWillUnMount() {
+        window.removeEventListener("resize", this._throttleResizeHandler);
+        window.removeEventListener(
+            "orientationchange",
+            this._throttleResizeHandler,
+        );
+        this._containerResizeObserver?.disconnect();
+    }
+
+    _resize = () => {
+        const containerWidth = this._containerRef.current?.clientWidth || 0;
+        this.setState({containerWidth});
+    };
+
+    _throttleResizeHandler = () => {
+        if (this._throttleResize) {
+            return;
+        }
+
+        this._throttleResize = true;
+
+        setTimeout(() => {
+            this._resize();
+            this._throttleResize = false;
+        }, 100);
     };
 
     activate: () => void = () => {
@@ -98,7 +150,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     render(): React.ReactNode {
         const {style} = this.props;
-        const {active, cursor, keypadConfig} = this.state;
+        const {active, containerWidth, cursor, keypadConfig} = this.state;
 
         const containerStyle = [
             // internal styles
@@ -113,6 +165,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
         return (
             <View
                 style={containerStyle}
+                forwardRef={this._containerRef}
                 ref={(element) => {
                     if (!this.hasMounted && element) {
                         // TODO(matthewc)[LC-1081]: clean up this weird
@@ -150,6 +203,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                     logarithms={isExpression}
                     basicRelations={isExpression}
                     advancedRelations={isExpression}
+                    expandedView={containerWidth > expandedViewThreshold}
                     showDismiss
                 />
             </View>
