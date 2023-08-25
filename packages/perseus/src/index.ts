@@ -126,6 +126,7 @@ export type {
     PerseusInteractiveGraphWidgetOptions,
     PerseusRadioWidgetOptions,
     PerseusExpressionWidgetOptions,
+    PerseusItem,
     PerseusRenderer,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
