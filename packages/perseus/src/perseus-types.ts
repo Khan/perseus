@@ -9,29 +9,20 @@ export type Size = [number, number];
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
 
-/**
- * Multi-item is a variant of a PerseusItem where the root object has a single
- * property `_multi` which is defined by a Shape object (see
- * packages/perseus/src/multi-items/shapes.ts).
- */
-export type PerseusMultiItem = {
+export type PerseusItem = {
+    // The details of the question being asked to the user.
+    question: PerseusRenderer;
+    // A collection of hints to be offered to the user that support answering the question.
+    hints: ReadonlyArray<PerseusRenderer>;
+    // Details about the tools the user might need to answer the question
+    answerArea: PerseusAnswerArea | null | undefined;
+    // Multi-item should only show up in Test Prep content and it is a variant of a PerseusItem
     _multi: any;
+    // The version of the item.  Not used by Perseus
+    itemDataVersion: Version;
+    // Deprecated field
+    answer: any;
 };
-
-export type PerseusItem =
-    | {
-          // The details of the question being asked to the user.
-          question: PerseusRenderer;
-          // A collection of hints to be offered to the user that support answering the question.
-          hints: ReadonlyArray<PerseusRenderer>;
-          // Details about the tools the user might need to answer the question
-          answerArea: PerseusAnswerArea | null | undefined;
-          // The version of the item.  Not used by Perseus
-          itemDataVersion: Version;
-          // Deprecated field
-          answer: any;
-      }
-    | PerseusMultiItem;
 
 export type PerseusArticle = ReadonlyArray<PerseusRenderer>;
 
