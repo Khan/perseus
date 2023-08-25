@@ -687,7 +687,8 @@ const ExpressionWithDependencies = React.forwardRef<
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
 ExpressionWithDependencies.validate = Expression.validate;
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.validate = Expression.getUserInputFromProps;
+ExpressionWithDependencies.getUserInputFromProps =
+    Expression.getUserInputFromProps;
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
 ExpressionWithDependencies.getOneCorrectAnswerFromRubric =
     Expression.getOneCorrectAnswerFromRubric;
