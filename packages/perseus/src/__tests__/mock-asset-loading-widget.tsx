@@ -2,9 +2,11 @@ import * as React from "react";
 
 import AssetContext from "../asset-context";
 
+import type {PerseusItem} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
-export const mockedAssetItem = {
+// @ts-expect-error - TS2322 - Type '"mocked-asset-widget"' is not assignable to type '"categorizer" | "cs-program" | "definition" | "dropdown" | "example-graphie-widget" | "example-widget" | "explanation" | "expression" | "graded-group-set" | "graded-group" | ... 29 more ... | "video"'.
+export const mockedAssetItem: PerseusItem = {
     question: {
         content: "[[\u2603 mocked-asset-widget 1]]",
         images: Object.freeze({}),
@@ -27,7 +29,6 @@ export const mockedAssetItem = {
         zTable: false,
     },
     itemDataVersion: {major: 0, minor: 1},
-    // $FlowIgnore[signature-verification-failure]
     hints: [],
     _multi: null,
     answer: null,
