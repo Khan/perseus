@@ -1,4 +1,3 @@
-import allWidgets from "../all-widgets";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import * as Widgets from "../widgets";
 
