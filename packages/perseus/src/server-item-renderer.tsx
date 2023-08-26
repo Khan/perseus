@@ -21,7 +21,6 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
-import type {PerseusItem} from "./perseus-types";
 import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
 import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
 
@@ -31,7 +30,10 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
     KeypadProps & {
         apiOptions: APIOptions;
         hintsVisible?: number;
-        item: PerseusItem;
+        item: {
+            hints: ReadonlyArray<any>;
+            question: any;
+        };
         problemNum?: number;
         reviewMode?: boolean;
         // from KeypadContext
