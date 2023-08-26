@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 10.0.1
+
+### Patch Changes
+
+-   5f33560b: Revert type changes made in #694
+-   0f95281c: Restore static methods on `Expression` widget component
+-   Updated dependencies [781551f9]
+    -   @khanacademy/math-input@10.1.0
+
 ## 10.0.0
 
 ### Major Changes
