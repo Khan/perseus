@@ -59,6 +59,8 @@ export default class ZoomableTeX extends React.Component<Props, State> {
             <Zoomable
                 readyToMeasure={this.state.isRendered}
                 computeChildBounds={computeMathBounds}
+                animateHeight={false}
+                disableEntranceAnimation={true}
             >
                 <AssetContext.Consumer>
                     {({setAssetStatus}) => (

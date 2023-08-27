@@ -14,6 +14,8 @@ type Bounds = {
 type Props = {
     children: React.ReactNode;
     animateHeight: boolean;
+
+    disableEntranceAnimation: boolean;
     /**
      * Optional function that allows customizations in zooming.
      *
@@ -35,6 +37,7 @@ type DefaultProps = {
     animateHeight: Props["animateHeight"];
     computeChildBounds: Props["computeChildBounds"];
     readyToMeasure: Props["readyToMeasure"];
+    disableEntranceAnimation: Props["disableEntranceAnimation"];
 };
 
 type State = {
@@ -60,6 +63,7 @@ class Zoomable extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         animateHeight: false,
         readyToMeasure: true,
+        disableEntranceAnimation: false,
         computeChildBounds: (parentNode) => {
             const firstChild = parentNode.firstElementChild;
 
@@ -245,7 +249,7 @@ class Zoomable extends React.Component<Props, State> {
     render(): React.ReactNode {
         const {visible, scale, compactHeight, expandedHeight, zoomed} =
             this.state;
-        const {animateHeight} = this.props;
+        const {animateHeight, disableEntranceAnimation} = this.props;
 
         const property = animateHeight
             ? "opacity transform height"
@@ -261,7 +265,16 @@ class Zoomable extends React.Component<Props, State> {
             : {};
 
         // Do a fancy little slide as we fade the contents in the first time.
-        const translateOffset = visible ? "" : " translate(0, 8px)";
+        let translateOffset = "";
+        if (!disableEntranceAnimation && !visible) {
+            translateOffset = " translate(0, 8px)";
+        }
+
+        let opacity = 1;
+        if (!disableEntranceAnimation && !visible) {
+            opacity = 0;
+        }
+
         const scaleString = (scale ?? 1).toString();
         const transform = zoomed
             ? `scale(1, 1) ${translateOffset}`
@@ -273,7 +286,7 @@ class Zoomable extends React.Component<Props, State> {
             height: zoomed ? expandedHeight : compactHeight,
             transform: transform,
             transformOrigin: "0 0",
-            opacity: visible ? 1 : 0,
+            opacity: opacity,
             WebkitTapHighlightColor: "transparent",
             ...transitionStyle,
         } as const;
