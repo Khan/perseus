@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 10.1.0
+
+### Minor Changes
+
+-   781551f9: Add an expanded view in the v2 MobileKeypad for larger screens
+
 ## 10.0.1
 
 ### Patch Changes
