@@ -163,50 +163,52 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
 
         return (
-            <View
-                style={containerStyle}
-                forwardRef={this._containerRef}
-                ref={(element) => {
-                    if (!this.hasMounted && element) {
-                        // TODO(matthewc)[LC-1081]: clean up this weird
-                        // object and type the onElementMounted callback
-                        // Append the dispatch methods that we want to expose
-                        // externally to the returned React element.
-                        const elementWithDispatchMethods = {
-                            ...element,
-                            activate: this.activate,
-                            dismiss: this.dismiss,
-                            configure: this.configure,
-                            setCursor: this.setCursor,
-                            setKeyHandler: this.setKeyHandler,
-                            getDOMNode: this.getDOMNode,
-                        } as const;
+            <div aria-hidden={!active}>
+                <View
+                    style={containerStyle}
+                    forwardRef={this._containerRef}
+                    ref={(element) => {
+                        if (!this.hasMounted && element) {
+                            // TODO(matthewc)[LC-1081]: clean up this weird
+                            // object and type the onElementMounted callback
+                            // Append the dispatch methods that we want to expose
+                            // externally to the returned React element.
+                            const elementWithDispatchMethods = {
+                                ...element,
+                                activate: this.activate,
+                                dismiss: this.dismiss,
+                                configure: this.configure,
+                                setCursor: this.setCursor,
+                                setKeyHandler: this.setKeyHandler,
+                                getDOMNode: this.getDOMNode,
+                            } as const;
 
-                        this.hasMounted = true;
-                        this.props.onElementMounted?.(
-                            elementWithDispatchMethods,
-                        );
-                    }
-                }}
-            >
-                <Keypad
-                    // TODO(jeremy)
-                    onAnalyticsEvent={async () => {}}
-                    extraKeys={keypadConfig?.extraKeys}
-                    onClickKey={(key) => this._handleClickKey(key)}
-                    cursorContext={cursor?.context}
-                    fractionsOnly={!isExpression}
-                    multiplicationDot={isExpression}
-                    divisionKey={isExpression}
-                    trigonometry={isExpression}
-                    preAlgebra={isExpression}
-                    logarithms={isExpression}
-                    basicRelations={isExpression}
-                    advancedRelations={isExpression}
-                    expandedView={containerWidth > expandedViewThreshold}
-                    showDismiss
-                />
-            </View>
+                            this.hasMounted = true;
+                            this.props.onElementMounted?.(
+                                elementWithDispatchMethods,
+                            );
+                        }
+                    }}
+                >
+                    <Keypad
+                        // TODO(jeremy)
+                        onAnalyticsEvent={async () => {}}
+                        extraKeys={keypadConfig?.extraKeys}
+                        onClickKey={(key) => this._handleClickKey(key)}
+                        cursorContext={cursor?.context}
+                        fractionsOnly={!isExpression}
+                        multiplicationDot={isExpression}
+                        divisionKey={isExpression}
+                        trigonometry={isExpression}
+                        preAlgebra={isExpression}
+                        logarithms={isExpression}
+                        basicRelations={isExpression}
+                        advancedRelations={isExpression}
+                        expandedView={containerWidth > expandedViewThreshold}
+                        showDismiss
+                    />
+                </View>
+            </div>
         );
     }
 }
