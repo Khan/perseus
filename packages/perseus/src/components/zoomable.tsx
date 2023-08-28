@@ -265,15 +265,9 @@ class Zoomable extends React.Component<Props, State> {
             : {};
 
         // Do a fancy little slide as we fade the contents in the first time.
-        let translateOffset = "";
-        if (!disableEntranceAnimation && !visible) {
-            translateOffset = " translate(0, 8px)";
-        }
-
-        let opacity = 1;
-        if (!disableEntranceAnimation && !visible) {
-            opacity = 0;
-        }
+        const shouldSlide = !disableEntranceAnimation && !visible;
+        const translateOffset = shouldSlide ? " translate(0, 8px)" : "";
+        const opacity = shouldSlide ? 0 : 1;
 
         const scaleString = (scale ?? 1).toString();
         const transform = zoomed
