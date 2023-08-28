@@ -155,7 +155,9 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
         const containerStyle = [
             // internal styles
             styles.keypadContainer,
-            active ? styles.activeKeypadContainer : null,
+            active
+                ? styles.activeKeypadContainer
+                : styles.inactiveKeypadContainer,
             // styles passed as props
             ...(Array.isArray(style) ? style : [style]),
         ];
@@ -223,9 +225,11 @@ const styles = StyleSheet.create({
         transitionProperty: "transform",
         transform: "translate3d(0, 100%, 0)",
     },
-
     activeKeypadContainer: {
         transform: "translate3d(0, 0, 0)",
+    },
+    inactiveKeypadContainer: {
+        display: "none",
     },
 });
 
