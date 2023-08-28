@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 10.0.1
+
+### Patch Changes
+
+-   5f33560b: Revert type changes made in #694
+-   0f95281c: Restore static methods on `Expression` widget component
+-   Updated dependencies [781551f9]
+    -   @khanacademy/math-input@10.1.0
+
+## 10.0.0
+
+### Major Changes
+
+-   9eb50ae1: Removed `LinterContextProps` type. Moved to `@khanacademy/perseus-linter` in a previous release, but wasn't deleted from this package.
+
+### Patch Changes
+
+-   aea86eec: Convert all usages of JSX.LibraryManagedAttributes to WB Core's PropsFor type
+-   Updated dependencies [7b11736e]
+    -   @khanacademy/math-input@10.0.1
+
 ## 9.0.0
 
 ### Major Changes

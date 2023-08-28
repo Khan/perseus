@@ -680,6 +680,19 @@ const ExpressionWithDependencies = React.forwardRef<
     return <Expression ref={ref} analytics={deps.analytics} {...props} />;
 });
 
+// HACK: Propogate "static" methods onto our wrapper component.
+// In the future we should adjust client apps to not depend on these static
+// methods and instead adjust Peresus to provide these facilities through
+// instance methods on our Renderers.
+// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
+ExpressionWithDependencies.validate = Expression.validate;
+// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
+ExpressionWithDependencies.getUserInputFromProps =
+    Expression.getUserInputFromProps;
+// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
+ExpressionWithDependencies.getOneCorrectAnswerFromRubric =
+    Expression.getOneCorrectAnswerFromRubric;
+
 export default {
     name: "expression",
     displayName: "Expression / Equation",
