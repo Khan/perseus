@@ -1144,7 +1144,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                         <div
                           class="perseus-widget-container widget-nohighlight widget-block"
                         >
-                          <div
+                          <figure
                             class="perseus-image-widget"
                           >
                             <div
@@ -1193,7 +1193,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </div>
                               </div>
                             </span>
-                          </div>
+                          </figure>
                         </div>
                       </div>
                     </div>

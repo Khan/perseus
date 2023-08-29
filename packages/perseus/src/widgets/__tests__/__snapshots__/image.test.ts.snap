@@ -206,7 +206,7 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
               <div
                 class="perseus-widget-container widget-nohighlight widget-block"
               >
-                <div
+                <figure
                   class="perseus-image-widget"
                 >
                   <div
@@ -273,7 +273,7 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
                       </div>
                     </div>
                   </span>
-                  <div
+                  <figcaption
                     class="perseus-image-caption"
                   >
                     <div
@@ -290,8 +290,8 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </figcaption>
+                </figure>
               </div>
             </div>
           </div>
