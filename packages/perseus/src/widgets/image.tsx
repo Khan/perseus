@@ -274,22 +274,7 @@ class ImageWidget extends React.Component<Props> {
 }
 
 const styles = StyleSheet.create({
-    caption: {
-        display: "inline-block",
-        marginTop: baseUnitPx,
-        maxWidth: 640,
-
-        [mediaQueries.lgOrSmaller]: {
-            // TODO(david): This maxWidth is not being used because
-            //     it's overriden by the 512px max-width we have on
-            //     paragraphs.
-            maxWidth: 540,
-        },
-
-        [mediaQueries.smOrSmaller]: {
-            maxWidth: 450,
-        },
-    },
+    caption: {},
 });
 
 export default {
