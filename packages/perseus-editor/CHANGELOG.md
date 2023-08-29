@@ -1,5 +1,46 @@
 # @khanacademy/perseus-editor
 
+## 2.6.5
+
+### Patch Changes
+
+-   Updated dependencies [5f33560b]
+-   Updated dependencies [0f95281c]
+    -   @khanacademy/perseus@10.0.1
+
+## 2.6.4
+
+### Patch Changes
+
+-   aea86eec: Convert all usages of JSX.LibraryManagedAttributes to WB Core's PropsFor type
+-   Updated dependencies [aea86eec]
+-   Updated dependencies [9eb50ae1]
+    -   @khanacademy/perseus@10.0.0
+
+## 2.6.3
+
+### Patch Changes
+
+-   Updated dependencies [ec50a510]
+-   Updated dependencies [dd800c22]
+-   Updated dependencies [2c69b0dc]
+-   Updated dependencies [2b99fbda]
+-   Updated dependencies [673f61b3]
+    -   @khanacademy/perseus@9.0.0
+
+## 2.6.2
+
+### Patch Changes
+
+-   afb14cff: Add eslint rule to make type imports consistent
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   Updated dependencies [0993a46b]
+-   Updated dependencies [afb14cff]
+-   Updated dependencies [ce5e6297]
+-   Updated dependencies [410d490d]
+    -   @khanacademy/perseus@8.0.0
+    -   @khanacademy/kmath@0.1.2
+
 ## 2.6.1
 
 ### Patch Changes

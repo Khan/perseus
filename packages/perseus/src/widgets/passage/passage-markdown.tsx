@@ -68,7 +68,7 @@ class RefStart extends React.Component<Props> {
         return <span style={REF_STYLE}>{i18n.doNotTranslate("_")}</span>;
     }
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '() => React.ReactNode' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>>'.
+    // @ts-expect-error - TS2322 - Type '() => React.ReactNode' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>>'.
     getRefContent: () => React.ReactElement = () => {
         return this.props.refContent;
     };
@@ -304,7 +304,7 @@ const rules = {
             output: OutputFun,
             state: ParseState,
         ): React.ReactElement => {
-            // @ts-expect-error [FEI-5003] - TS2739 - Type '(string | Element | null)[]' is missing the following properties from type 'ReactElement<any, string | JSXElementConstructor<any>>': type, props, key
+            // @ts-expect-error - TS2739 - Type '(string | Element | null)[]' is missing the following properties from type 'ReactElement<any, string | JSXElementConstructor<any>>': type, props, key
             return [
                 <span
                     key="visual-circle"
@@ -453,7 +453,7 @@ const parse: (
     arg1: string,
     arg2?: ParseState | null | undefined,
 ) => Array<SingleASTNode> = (source, state) => {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'ParseState | {}' is not assignable to type 'ParseState | null | undefined'.
+    // @ts-expect-error - TS2322 - Type 'ParseState | {}' is not assignable to type 'ParseState | null | undefined'.
     state = state || {};
     const paragraphedSource = source + "\n\n";
     return builtParser(
@@ -462,7 +462,7 @@ const parse: (
     );
 };
 
-// @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactOutput' is not assignable to type '(arg1: SingleASTNode[]) => ReactElement<any, string | JSXElementConstructor<any>>'.
+// @ts-expect-error - TS2322 - Type 'ReactOutput' is not assignable to type '(arg1: SingleASTNode[]) => ReactElement<any, string | JSXElementConstructor<any>>'.
 const output: (arg1: Array<SingleASTNode>) => React.ReactElement =
     SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react"));
 

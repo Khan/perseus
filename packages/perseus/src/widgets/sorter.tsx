@@ -19,7 +19,7 @@ const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
 class Sorter extends React.Component<any, any> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
 
     static propTypes = {
@@ -89,7 +89,7 @@ class Sorter extends React.Component<any, any> {
         options: any;
     } = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
         return {options: this.refs.sortable.getOptions()};
     };
 
@@ -98,7 +98,7 @@ class Sorter extends React.Component<any, any> {
         index,
     ) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
         this.refs.sortable.moveOptionToIndex(option, index);
     };
 
@@ -132,7 +132,7 @@ class Sorter extends React.Component<any, any> {
         return (
             <div className="perseus-widget-sorter perseus-clearfix">
                 <Sortable
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
+                    // @ts-expect-error - TS2322 - Type 'readonly unknown[]' is not assignable to type 'readonly string[]'.
                     options={options}
                     layout={this.props.layout}
                     margin={marginPx}

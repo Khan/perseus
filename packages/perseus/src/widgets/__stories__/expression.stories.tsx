@@ -1,4 +1,4 @@
-import {KeypadContext} from "@khanacademy/math-input";
+import {KeypadContext, KeypadType} from "@khanacademy/math-input";
 import * as React from "react";
 
 import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
@@ -62,7 +62,7 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
     };
 
     const keypadConfiguration = {
-        keypadType: "EXPRESSION",
+        keypadType: KeypadType.EXPRESSION,
         extraKeys: ["x", "y", "z"],
     };
 

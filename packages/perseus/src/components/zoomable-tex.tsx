@@ -26,9 +26,9 @@ const computeMathBounds = (
         parentNode.querySelector(".katex-html") ||
         parentNode.querySelector(".MathJax");
     const textBounds = {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
         width: textElement.offsetWidth,
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
         height: textElement.offsetHeight,
     } as const;
 
@@ -44,7 +44,7 @@ const computeMathBounds = (
 
 export default class ZoomableTeX extends React.Component<Props, State> {
     constructor() {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 1-2 arguments, but got 0.
+        // @ts-expect-error - TS2554 - Expected 1-2 arguments, but got 0.
         super();
 
         this.state = {isRendered: false};
@@ -59,6 +59,8 @@ export default class ZoomableTeX extends React.Component<Props, State> {
             <Zoomable
                 readyToMeasure={this.state.isRendered}
                 computeChildBounds={computeMathBounds}
+                animateHeight={false}
+                disableEntranceAnimation={true}
             >
                 <AssetContext.Consumer>
                     {({setAssetStatus}) => (

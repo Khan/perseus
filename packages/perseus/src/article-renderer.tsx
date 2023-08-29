@@ -7,6 +7,7 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
+import {DependenciesContext} from "./dependencies";
 import ProvideKeypad from "./mixins/provide-keypad";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
@@ -14,13 +15,12 @@ import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
 import type {PerseusRenderer} from "./perseus-types";
-import type {APIOptions} from "./types";
+import type {APIOptions, PerseusDependenciesV2} from "./types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
     apiOptions: APIOptions;
     json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
-
     // Whether to use the new Bibliotron styles for articles
     /**
      * @deprecated Does nothing
@@ -28,6 +28,8 @@ type Props = {
     useNewStyles: boolean;
     linterContext: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
+
+    dependencies: PerseusDependenciesV2;
 } & KeypadProps;
 
 type DefaultProps = {
@@ -97,7 +99,7 @@ class ArticleRenderer extends React.Component<Props, State> {
         if (this._currentFocus) {
             const [sectionRef, ...focusPath] = this._currentFocus;
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
             const inputPaths = this.refs[sectionRef].getInputPaths();
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
@@ -108,18 +110,18 @@ class ArticleRenderer extends React.Component<Props, State> {
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocusPath,
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getDOMNode' does not exist on type 'never'.
+                // @ts-expect-error - TS2339 - Property 'getDOMNode' does not exist on type 'never'.
                 didFocusInput && keypadElement && keypadElement.getDOMNode(),
             );
         }
 
-        // @ts-expect-error [FEI-5003] - TS1345 - An expression of type 'void' cannot be tested for truthiness.
+        // @ts-expect-error - TS1345 - An expression of type 'void' cannot be tested for truthiness.
         if (keypadElement) {
             if (didFocusInput) {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'activate' does not exist on type 'never'.
+                // @ts-expect-error - TS2339 - Property 'activate' does not exist on type 'never'.
                 keypadElement.activate();
             } else {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'dismiss' does not exist on type 'never'.
+                // @ts-expect-error - TS2339 - Property 'dismiss' does not exist on type 'never'.
                 keypadElement.dismiss();
             }
         }
@@ -150,7 +152,7 @@ class ArticleRenderer extends React.Component<Props, State> {
         if (this._currentFocus) {
             const [sectionRef, ...inputPath] = this._currentFocus;
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
             this.refs[sectionRef].blurPath(inputPath);
         }
     };
@@ -180,34 +182,40 @@ class ArticleRenderer extends React.Component<Props, State> {
         const sections = this._sections().map((section, i) => {
             const refForSection = `section-${i}`;
             return (
-                <div key={i} className="clearfix">
-                    <Renderer
-                        {...section}
-                        ref={refForSection}
-                        key={i}
-                        key_={i}
-                        keypadElement={this.keypadElement()}
-                        apiOptions={{
-                            ...apiOptions,
-                            onFocusChange: (newFocusPath, oldFocusPath) => {
-                                // Prefix the paths with the relevant section,
-                                // so as to allow us to distinguish between
-                                // equivalently-named inputs across Renderers.
-                                this._handleFocusChange(
-                                    newFocusPath &&
-                                        [refForSection].concat(newFocusPath),
-                                    oldFocusPath &&
-                                        [refForSection].concat(oldFocusPath),
-                                );
-                            },
-                        }}
-                        linterContext={PerseusLinter.pushContextStack(
-                            this.props.linterContext,
-                            "article",
-                        )}
-                        legacyPerseusLint={this.props.legacyPerseusLint}
-                    />
-                </div>
+                <DependenciesContext.Provider value={this.props.dependencies}>
+                    <div key={i} className="clearfix">
+                        <Renderer
+                            {...section}
+                            ref={refForSection}
+                            key={i}
+                            key_={i}
+                            keypadElement={this.keypadElement()}
+                            apiOptions={{
+                                ...apiOptions,
+                                onFocusChange: (newFocusPath, oldFocusPath) => {
+                                    // Prefix the paths with the relevant section,
+                                    // so as to allow us to distinguish between
+                                    // equivalently-named inputs across Renderers.
+                                    this._handleFocusChange(
+                                        newFocusPath &&
+                                            [refForSection].concat(
+                                                newFocusPath,
+                                            ),
+                                        oldFocusPath &&
+                                            [refForSection].concat(
+                                                oldFocusPath,
+                                            ),
+                                    );
+                                },
+                            }}
+                            linterContext={PerseusLinter.pushContextStack(
+                                this.props.linterContext,
+                                "article",
+                            )}
+                            legacyPerseusLint={this.props.legacyPerseusLint}
+                        />
+                    </div>
+                </DependenciesContext.Provider>
             );
         });
 

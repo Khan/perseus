@@ -111,7 +111,6 @@ create_npmrc
 
 yarn build
 yarn build:types
-yarn build:flowtypes
 yarn extract-strings
 
 # Now version the packages and publish a snapshot

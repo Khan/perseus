@@ -25,7 +25,7 @@ const init = function (options: PerseusOptions): Promise<undefined> {
     const skipMathJax = options.skipMathJax;
 
     if (skipMathJax) {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Promise<void>' is not assignable to type 'Promise<undefined>'.
+        // @ts-expect-error - TS2322 - Type 'Promise<void>' is not assignable to type 'Promise<undefined>'.
         return Promise.resolve();
     }
 

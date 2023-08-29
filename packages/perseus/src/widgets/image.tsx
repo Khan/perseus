@@ -204,7 +204,7 @@ class ImageWidget extends React.Component<Props> {
                         <div
                             className={css(styles.caption)}
                             style={{
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | null' is not assignable to type 'MinWidth<string | number> | undefined'.
+                                // @ts-expect-error - TS2322 - Type 'string | null' is not assignable to type 'MinWidth<string | number> | undefined'.
                                 minWidth: minWidth,
                             }}
                         >

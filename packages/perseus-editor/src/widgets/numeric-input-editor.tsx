@@ -508,7 +508,7 @@ const NumericInputEditor: any = createReactClass({
         // TODO(emily): This doesn't actually work, because the value is either
         // null or undefined when undefined, probably.
         if (_.contains(_.pluck(this.props.answers, "value"), "")) {
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
             warnings.push("One or more answers is empty");
         }
         this.props.answers.forEach((answer, i) => {
@@ -517,7 +517,7 @@ const NumericInputEditor: any = createReactClass({
                 (!answer.answerForms || answer.answerForms.length === 0);
             if (formatError) {
                 warnings.push(
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
                     `Answer ${i + 1} is set to string format ` +
                         "matching, but no format was selected",
                 );

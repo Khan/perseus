@@ -135,9 +135,9 @@ export default class TreeTransformer {
             // Record the node's text content if it has any.
             // Usually this is for nodes with a type property of "text",
             // but other nodes types like "math" may also have content.
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
+            // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'.
             if (typeof node.content === "string") {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'content' does not exist on type 'TreeNode'.
+                // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'.
                 content = node.content;
             }
 
@@ -536,7 +536,7 @@ class Stack<T> {
 
     /** Pop a value off of the stack. */
     pop(): T {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'T | undefined' is not assignable to type 'T'.
+        // @ts-expect-error - TS2322 - Type 'T | undefined' is not assignable to type 'T'.
         return this.stack.pop();
     }
 

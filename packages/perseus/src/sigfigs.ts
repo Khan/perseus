@@ -434,7 +434,7 @@ function round(mantissa: string, digits: number): string {
                 roundUp = true;
             }
         }
-        // @ts-expect-error [FEI-5003] - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+        // @ts-expect-error - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
         if (lastChar % 2 == 1) {
             roundUp = true;
         }

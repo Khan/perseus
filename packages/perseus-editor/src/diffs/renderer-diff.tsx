@@ -21,17 +21,17 @@ const filterWidgetInfo = function (widgetInfo, showAlignmentOptions: boolean) {
         showAlignmentOptions &&
         Widgets.getSupportedAlignments(type).length > 1
     ) {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
+        // @ts-expect-error - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.alignment = alignment;
     }
 
     if (type === "transformer") {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graded' does not exist on type '{ readonly options: any; }'.
+        // @ts-expect-error - TS2339 - Property 'graded' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.graded = graded;
     }
 
     if (Widgets.supportsStaticMode(type)) {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'static' does not exist on type '{ readonly options: any; }'.
+        // @ts-expect-error - TS2339 - Property 'static' does not exist on type '{ readonly options: any; }'.
         filteredWidgetInfo.static = widgetInfo?.static ?? undefined;
     }
 

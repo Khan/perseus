@@ -79,7 +79,7 @@ const SortableArea = createReactClass({
     _setDragEvents: function () {
         this._dragItems = this._dragItems || [];
         const items =
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'
+            // @ts-expect-error - TS2531 - Object is possibly 'null'
             ReactDOM.findDOMNode(this).querySelectorAll("[draggable=true]");
 
         const oldItems: Array<HTMLElement> = [];

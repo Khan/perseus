@@ -131,7 +131,7 @@ class HighlightableContent extends React.PureComponent<Props, State> {
     ) => {
         const {serializedHighlights} = this.props;
         const newSerializedHighlights = {...serializedHighlights} as const;
-        // @ts-expect-error [FEI-5003] - TS2542 - Index signature in type '{ readonly [x: string]: SerializedHighlight; }' only permits reading.
+        // @ts-expect-error - TS2542 - Index signature in type '{ readonly [x: string]: SerializedHighlight; }' only permits reading.
         delete newSerializedHighlights[keyToRemove];
         this.props.onSerializedHighlightsUpdate(newSerializedHighlights);
     };

@@ -7,7 +7,7 @@ function assertApproximately(actual: any, expected: number, allowed: number) {
 
 describe("Molecule layout", () => {
     describe("Simple molecules", () => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const parsedAtoms = SmilesParser.parse("CC");
         const converted = Layout._convertTree({}, [], parsedAtoms);
         const atoms = converted[0];
@@ -72,7 +72,7 @@ describe("Molecule layout", () => {
     });
 
     describe("Layout at a three-way junction", () => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const layoutItems = Layout.layout(SmilesParser.parse("CC(C)C"), 0);
         it("should place the second atom in the center", () => {
             const centerAtom = layoutItems.find((item) => item.idx === "2,0");
@@ -112,7 +112,7 @@ describe("Molecule layout", () => {
     });
 
     describe("Layout at a four-way junction", () => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const layoutItems = Layout.layout(SmilesParser.parse("CC(C)(C)C"), 0);
         it("should place the second atom in the center", () => {
             const centerAtom = layoutItems.find((item) => item.idx === "2,0");
@@ -148,7 +148,7 @@ describe("Molecule layout", () => {
     });
 
     describe("Triple bond layout", () => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const layoutItems = Layout.layout(SmilesParser.parse("CC#CC"), 0);
         it("should place all the atoms colinearly", () => {
             const atoms = layoutItems.filter((item) => item.idx);

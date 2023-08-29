@@ -217,7 +217,7 @@ const item: Item = treeToItem({
 describe("findContentNodesInItem", () => {
     it("calls the callback for each content node in the item", () => {
         const contents = [];
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'ContentNode' is not assignable to parameter of type 'never'.
+        // @ts-expect-error - TS2345 - Argument of type 'ContentNode' is not assignable to parameter of type 'never'.
         findContentNodesInItem(item, shape, (c) => contents.push(c));
         contents.sort();
         expect([

@@ -25,7 +25,12 @@ import a11y from "../util/a11y";
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
 import type {PerseusGradedGroupWidgetOptions} from "../perseus-types";
-import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
+import type {
+    PerseusScore,
+    TrackingGradedGroupExtraArguments,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 
 const GRADING_STATUSES = {
@@ -64,7 +69,11 @@ const DEFAULT_INVALID_MESSAGE =
 type Rubric = PerseusGradedGroupWidgetOptions;
 type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform'
 
-type Props = WidgetProps<RenderProps, Rubric> & {
+type Props = WidgetProps<
+    RenderProps,
+    Rubric,
+    TrackingGradedGroupExtraArguments
+> & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
     onNextQuestion?: () => unknown; // Set by graded-group-set.jsx
 };
@@ -113,7 +122,7 @@ export class GradedGroup extends React.Component<Props, State> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -133,7 +142,7 @@ export class GradedGroup extends React.Component<Props, State> {
         if (this.refs.renderer) {
             this.change("widgets", this.props.widgets);
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'emptyWidgets' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'emptyWidgets' does not exist on type 'ReactInstance'.
             const emptyWidgets = this.refs.renderer.emptyWidgets();
             const answerable = emptyWidgets.length === 0;
             const answerBarState = this.state.answerBarState;
@@ -145,10 +154,10 @@ export class GradedGroup extends React.Component<Props, State> {
 
     _checkAnswer: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'showRationalesForCurrentlySelectedChoices' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'showRationalesForCurrentlySelectedChoices' does not exist on type 'ReactInstance'.
         this.refs.renderer.showRationalesForCurrentlySelectedChoices();
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'score' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'score' does not exist on type 'ReactInstance'.
         const score: PerseusScore = this.refs.renderer.score();
 
         const status =
@@ -179,7 +188,7 @@ export class GradedGroup extends React.Component<Props, State> {
     // Mobile API
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
         return this.refs.renderer.getInputPaths();
     };
 
@@ -189,25 +198,25 @@ export class GradedGroup extends React.Component<Props, State> {
         cb,
     ) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'setInputValue' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'setInputValue' does not exist on type 'ReactInstance'.
         return this.refs.renderer.setInputValue(path, newValue, cb);
     };
 
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         return this.refs.renderer.focus();
     };
 
     focusInputPath: (arg1: any) => void = (path) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focusPath' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focusPath' does not exist on type 'ReactInstance'.
         this.refs.renderer.focusPath(path);
     };
 
     blurInputPath: (arg1: any) => void = (path) => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
         this.refs.renderer.blurPath(path);
     };
 
@@ -235,15 +244,15 @@ export class GradedGroup extends React.Component<Props, State> {
         // Colors are 10% darker than the colors in graded-group.less
         if (this.state.status === GRADING_STATUSES.correct) {
             // TODO(jeremy): update to a WB colour
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = <InlineIcon {...iconOk} style={{color: "#526f03"}} />;
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
             gradeStatus = i18n._("Correct");
         } else if (this.state.status === GRADING_STATUSES.incorrect) {
             // TODO(jeremy): update to a WB colour
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             icon = <InlineIcon {...iconRemove} style={{color: "#ff5454"}} />;
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
             gradeStatus = i18n._("Incorrect");
         }
 
@@ -282,7 +291,7 @@ export class GradedGroup extends React.Component<Props, State> {
                  * props that are needed.
                  * TODO(FEI-4034): Only pass what the Renderer expects.
                  */}
-                {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
+                {/* @ts-expect-error - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
                 <Renderer
                     {...this.props}
                     // eslint-disable-next-line react/no-string-refs
@@ -336,7 +345,7 @@ export class GradedGroup extends React.Component<Props, State> {
                         <div>
                             {/* Not using Button here bc the styles won't work. */}
                             <button
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                                 tabIndex="0"
                                 className={css(styles.explanationTitle)}
                                 onClick={() => this.setState({showHint: false})}
@@ -363,7 +372,7 @@ export class GradedGroup extends React.Component<Props, State> {
                     ) : (
                         // Not using Button here bc the styles won't work.
                         <button
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                             tabIndex="0"
                             onClick={() => this.setState({showHint: true})}
                             onKeyPress={(e) => {

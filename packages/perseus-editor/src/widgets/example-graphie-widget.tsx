@@ -21,7 +21,7 @@ import type {Coord, WidgetExports} from "@khanacademy/perseus";
 
 const {Graphie} = components;
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
+// @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
 
 type Props = any;
@@ -121,7 +121,7 @@ class ExampleGraphieWidget extends React.Component<Props> {
     };
 
     movePoint: (arg1: Coord) => void = (newCoord) => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({
             coord: newCoord,
         });

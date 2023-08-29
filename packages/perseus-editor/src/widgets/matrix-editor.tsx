@@ -99,7 +99,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                             this.change({prefix: newProps.content});
                         }}
                     />
@@ -114,7 +114,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                             this.change({suffix: newProps.content});
                         }}
                     />

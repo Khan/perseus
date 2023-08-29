@@ -88,7 +88,7 @@ export function magnitude(v: ReadonlyArray<Coord>): number {
         _.reduce(
             v,
             function (memo, el) {
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Coord' is not assignable to parameter of type 'number'.
+                // @ts-expect-error - TS2345 - Argument of type 'Coord' is not assignable to parameter of type 'number'.
                 return memo + Math.pow(el, 2);
             },
             0,
@@ -109,7 +109,7 @@ function dotProduct(a: Coord, b: Coord): number {
 function sideLengths(coords: ReadonlyArray<Coord>): ReadonlyArray<number> {
     const segments = _.zip(coords, rotate(coords));
     return segments.map(function (segment) {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         return magnitude(vector(...segment));
     });
 }
@@ -123,9 +123,9 @@ export function angleMeasures(
     const offsets = _.map(triplets, function (triplet) {
         const p = vector(triplet[1], triplet[0]);
         const q = vector(triplet[2], triplet[1]);
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'Coord'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
+        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'Coord'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'.
         const raw = Math.acos(dotProduct(p, q) / (magnitude(p) * magnitude(q)));
-        // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+        // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
         return sign(ccw(...triplet)) > 0 ? raw : -raw;
     });
 
@@ -170,13 +170,13 @@ export function similar(
             sides.reverse();
             // Since sides are calculated from two coordinates,
             // simply reversing results in an off by one error
-            // @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
+            // @ts-expect-error - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
             sides = rotate(sides, 1);
         }
 
-        // @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
+        // @ts-expect-error - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
         angles = rotate(angles, i);
-        // @ts-expect-error [FEI-5003] - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
+        // @ts-expect-error - TS4104 - The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
         sides = rotate(sides, i);
 
         if (deepEq(angles1, angles)) {

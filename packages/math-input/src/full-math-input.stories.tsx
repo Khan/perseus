@@ -6,6 +6,16 @@ import {KeypadInput, KeypadType, MobileKeypad} from "./index";
 
 export default {
     title: "Full Mobile MathInput",
+    parameters: {
+        backgrounds: {
+            default: "light background",
+            values: [
+                // We want a slightly darker default bg so that we can
+                // see the top of the keypad when it is open
+                {name: "light background", value: "lightgrey", default: true},
+            ],
+        },
+    },
 };
 
 export const Basic = () => {
@@ -13,9 +23,20 @@ export const Basic = () => {
     // Reference to the keypad
     const [keypadElement, setKeypadElement] = React.useState<KeypadAPI>();
     // Whether to use Expression or Fraction keypad
-    const [expression, setExpression] = React.useState<boolean>(true);
+    const [expression, setExpression] = React.useState<boolean>(false);
     // Whether to use v1 or v2 keypad
-    const [v2Keypad, setV2Keypad] = React.useState<boolean>(false);
+    const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
+    // Whether the keypad is open or not
+    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
+
+    const toggleKeypad = () => {
+        if (keypadOpen) {
+            keypadElement?.dismiss();
+        } else {
+            keypadElement?.activate();
+        }
+        setKeypadOpen(!keypadOpen);
+    };
 
     React.useEffect(() => {
         keypadElement?.configure(
@@ -30,14 +51,24 @@ export const Basic = () => {
     }, [keypadElement, expression]);
 
     return (
-        <div>
-            <div style={{padding: "1rem 0"}}>
-                <button onClick={() => setExpression(!expression)}>
-                    {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
-                </button>
-                <button onClick={() => setV2Keypad(!v2Keypad)}>
-                    {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
-                </button>
+        <div style={{padding: "1rem 2rem"}}>
+            <div>
+                <div>
+                    NOTE: To properly test the input interaction, you will need
+                    to simulate a device using the dev tools. MathInput requires
+                    touch events (not click events).
+                </div>
+                <div style={{padding: "1rem 0"}}>
+                    <button onClick={() => setExpression(!expression)}>
+                        {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
+                    </button>
+                    <button onClick={() => setV2Keypad(!v2Keypad)}>
+                        {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
+                    </button>
+                    <button onClick={() => toggleKeypad()}>
+                        {`Toggle Keypad`}
+                    </button>
+                </div>
             </div>
 
             <KeypadInput

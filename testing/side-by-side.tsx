@@ -18,7 +18,6 @@ const SideBySide = ({
 }: Props): React.ReactElement => {
     return (
         <View style={styles.sideBySide}>
-            {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
             <View style={styles.leftPanel} className="framework-perseus">
                 <HeadingMedium>{leftTitle}</HeadingMedium>
                 {left}

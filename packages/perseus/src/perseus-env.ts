@@ -2,7 +2,7 @@
  * Sets up the basic environment for running Perseus in.
  */
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'KhanUtil' does not exist on type 'Window & typeof globalThis'.
+// @ts-expect-error - TS2339 - Property 'KhanUtil' does not exist on type 'Window & typeof globalThis'.
 window.KhanUtil = {
     debugLog: function () {},
     localeToFixed: function (num, precision) {
@@ -10,7 +10,7 @@ window.KhanUtil = {
     },
 };
 
-// @ts-expect-error [FEI-5003] - TS2339 - Property 'Exercises' does not exist on type 'Window & typeof globalThis'.
+// @ts-expect-error - TS2339 - Property 'Exercises' does not exist on type 'Window & typeof globalThis'.
 window.Exercises = {
     localMode: true,
 

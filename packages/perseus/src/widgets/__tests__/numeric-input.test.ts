@@ -505,7 +505,7 @@ describe("unionAnswerForms utility function", () => {
         ];
 
         // act
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ simplify: string; name: string; }[][]' is not assignable to parameter of type 'readonly (readonly PerseusNumericInputAnswerForm[])[]'.
+        // @ts-expect-error - TS2345 - Argument of type '{ simplify: string; name: string; }[][]' is not assignable to parameter of type 'readonly (readonly PerseusNumericInputAnswerForm[])[]'.
         const result = unionAnswerForms(forms);
 
         // assert

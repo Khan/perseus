@@ -89,10 +89,10 @@ describe("moveOptionToIndex", () => {
             throw new Error("Failed to render");
         }
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'moveOptionToIndex' does not exist on type 'never'.
+        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'never'.
         sortable.moveOptionToIndex("a", 1);
 
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getOptions' does not exist on type 'never'.
+        // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'never'.
         expect(sortable?.getOptions()).toStrictEqual(["b", "a", "c"]);
     });
 

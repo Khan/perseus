@@ -12,7 +12,7 @@ import MathOutput from "./math-output";
 import TextInput from "./text-input";
 import Tooltip, {HorizontalDirection, VerticalDirection} from "./tooltip";
 
-import type {LinterContextProps} from "../types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {captureScratchpadTouchStart} = Util;
@@ -231,13 +231,13 @@ class InputWithExamples extends React.Component<Props, State> {
 
     focus: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
     };
 
     blur: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs.input.blur();
     };
 

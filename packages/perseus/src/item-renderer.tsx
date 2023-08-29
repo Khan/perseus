@@ -6,6 +6,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
+import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
 import Objective from "./interactive2/objective_";
 import ProvideKeypad from "./mixins/provide-keypad";
@@ -16,8 +17,9 @@ import reactRender from "./util/react-render";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
 import type {PerseusItem} from "./perseus-types";
-import type {APIOptions, FocusPath, LinterContextProps} from "./types";
+import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
 import type {KEScore} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const {mapObject} = Objective;
 
@@ -46,6 +48,8 @@ type Props = // These props are used by the ProvideKeypad mixin.
         savedState: any;
         linterContext: LinterContextProps;
         legacyPerseusLint?: ReadonlyArray<string>;
+
+        dependencies: PerseusDependenciesV2;
     };
 
 type DefaultProps = {
@@ -73,7 +77,7 @@ type SerializedState = {
 };
 
 class ItemRenderer extends React.Component<Props, State> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
     hintsRenderer: React.ElementRef<typeof HintsRenderer> | null | undefined;
     _currentFocus: FocusPath;
@@ -176,54 +180,59 @@ class ItemRenderer extends React.Component<Props, State> {
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
         reactRender(
-            <Renderer
-                ref={(node) => {
-                    if (!node) {
-                        return;
-                    }
-                    this.questionRenderer = node;
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                <Renderer
+                    ref={(node) => {
+                        if (!node) {
+                            return;
+                        }
+                        this.questionRenderer = node;
 
-                    // NOTE(jeremy): Why don't we just pass this into the
-                    // renderer as a prop?
-                    const {answerableCallback} = apiOptions;
-                    if (answerableCallback) {
-                        const isAnswerable =
-                            this.questionRenderer.emptyWidgets().length === 0;
-                        answerableCallback(isAnswerable);
-                    }
-                }}
-                keypadElement={this.keypadElement()}
-                problemNum={this.props.problemNum}
-                onInteractWithWidget={this.handleInteractWithWidget}
-                highlightedWidgets={this.state.questionHighlightedWidgets}
-                apiOptions={apiOptions}
-                questionCompleted={this.state.questionCompleted}
-                reviewMode={this.props.reviewMode}
-                savedState={this.props.savedState}
-                linterContext={PerseusLinter.pushContextStack(
-                    this.props.linterContext,
-                    "question",
-                )}
-                {...this.props.item.question}
-                legacyPerseusLint={this.props.legacyPerseusLint}
-            />,
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
+                        // NOTE(jeremy): Why don't we just pass this into the
+                        // renderer as a prop?
+                        const {answerableCallback} = apiOptions;
+                        if (answerableCallback) {
+                            const isAnswerable =
+                                this.questionRenderer.emptyWidgets().length ===
+                                0;
+                            answerableCallback(isAnswerable);
+                        }
+                    }}
+                    keypadElement={this.keypadElement()}
+                    problemNum={this.props.problemNum}
+                    onInteractWithWidget={this.handleInteractWithWidget}
+                    highlightedWidgets={this.state.questionHighlightedWidgets}
+                    apiOptions={apiOptions}
+                    questionCompleted={this.state.questionCompleted}
+                    reviewMode={this.props.reviewMode}
+                    savedState={this.props.savedState}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "question",
+                    )}
+                    {...this.props.item.question}
+                    legacyPerseusLint={this.props.legacyPerseusLint}
+                />
+            </DependenciesContext.Provider>,
+            // @ts-expect-error - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
             workArea,
         );
 
         reactRender(
-            <HintsRenderer
-                ref={(node) => (this.hintsRenderer = node)}
-                hints={this.props.item.hints}
-                hintsVisible={this.state.hintsVisible}
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
-                apiOptions={apiOptions}
-                linterContext={PerseusLinter.pushContextStack(
-                    this.props.linterContext,
-                    "hints",
-                )}
-            />,
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                <HintsRenderer
+                    ref={(node) => (this.hintsRenderer = node)}
+                    hints={this.props.item.hints}
+                    hintsVisible={this.state.hintsVisible}
+                    apiOptions={apiOptions}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "hints",
+                    )}
+                />
+            </DependenciesContext.Provider>,
+
+            // @ts-expect-error - TS2345 - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
             hintsArea,
         );
 
@@ -460,7 +469,7 @@ class ItemRenderer extends React.Component<Props, State> {
         const qScore = this.questionRenderer.scoreWidgets();
         const qGuess = this.questionRenderer.getUserInputForWidgets();
         const state = this.questionRenderer.getSerializedState();
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [id: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
+        // @ts-expect-error - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [id: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
         return mapObject(qScore, (score, id) => {
             return Util.keScoreFromPerseusScore(score, qGuess[id], state[id]);
         });
@@ -504,7 +513,11 @@ class ItemRenderer extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        return <div />;
+        return (
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                <div />
+            </DependenciesContext.Provider>
+        );
     }
 }
 

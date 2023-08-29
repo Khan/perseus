@@ -7,42 +7,50 @@ import {useEffect} from "react";
 import Tabbar from "../tabbar";
 
 import ExtrasPage from "./keypad-pages/extras-page";
+import FractionsPage from "./keypad-pages/fractions-page";
 import GeometryPage from "./keypad-pages/geometry-page";
 import NumbersPage from "./keypad-pages/numbers-page";
 import OperatorsPage from "./keypad-pages/operators-page";
+import NavigationPad from "./navigation-pad";
 import SharedKeys from "./shared-keys";
+import {expandedViewThreshold} from "./utils";
 
 import type Key from "../../data/keys";
 import type {ClickKeyCallback} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {TabbarItemType} from "../tabbar";
-import type {SendEventFn} from "@khanacademy/perseus-core";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;
     cursorContext?: typeof CursorContext[keyof typeof CursorContext];
     showDismiss?: boolean;
+    expandedView?: boolean;
 
     multiplicationDot?: boolean;
     divisionKey?: boolean;
-
     trigonometry?: boolean;
     preAlgebra?: boolean;
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
+    fractionsOnly?: boolean;
 
     onClickKey: ClickKeyCallback;
-    sendEvent?: SendEventFn;
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 const defaultProps = {
     extraKeys: [],
 };
 
-function allPages(props: Props): ReadonlyArray<TabbarItemType> {
-    const pages: Array<TabbarItemType> = ["Numbers"];
+function getAvailableTabs(props: Props): ReadonlyArray<TabbarItemType> {
+    // We don't want to show any available tabs on the fractions keypad
+    if (props.fractionsOnly) {
+        return [];
+    }
 
+    const tabs: Array<TabbarItemType> = ["Numbers"];
     if (
         // OperatorsButtonSets
         props.preAlgebra ||
@@ -50,28 +58,32 @@ function allPages(props: Props): ReadonlyArray<TabbarItemType> {
         props.basicRelations ||
         props.advancedRelations
     ) {
-        pages.push("Operators");
+        tabs.push("Operators");
     }
 
     if (props.trigonometry) {
-        pages.push("Geometry");
+        tabs.push("Geometry");
     }
 
     if (props.extraKeys?.length) {
-        pages.push("Extras");
+        tabs.push("Extras");
     }
 
-    return pages;
+    return tabs;
 }
 
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
 export default function Keypad(props: Props) {
+    // If we're using the Fractions keyapd, we want to default select that page
+    // Otherwise, we want to default to the Numbers page
+    const defaultSelectedPage = props.fractionsOnly ? "Fractions" : "Numbers";
     const [selectedPage, setSelectedPage] =
-        React.useState<TabbarItemType>("Numbers");
+        React.useState<TabbarItemType>(defaultSelectedPage);
     const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
-    const availablePages = allPages(props);
+    // We don't want any tabs available on mobile fractions keypad
+    const availableTabs = getAvailableTabs(props);
 
     const {
         onClickKey,
@@ -84,12 +96,24 @@ export default function Keypad(props: Props) {
         basicRelations,
         advancedRelations,
         showDismiss,
-        sendEvent,
+        onAnalyticsEvent,
+        fractionsOnly,
+        expandedView,
     } = props;
+
+    // Use a different grid for our fraction keypad
+    const gridStyle = fractionsOnly
+        ? styles.fractionsGrid
+        : styles.expressionGrid;
+
+    // This useeffect is only used to ensure that we can test the keypad in storybook
+    useEffect(() => {
+        setSelectedPage(defaultSelectedPage);
+    }, [fractionsOnly, defaultSelectedPage]);
 
     useEffect(() => {
         if (!isMounted) {
-            sendEvent?.({
+            onAnalyticsEvent({
                 type: "math-input:keypad-opened",
                 payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
             });
@@ -97,60 +121,80 @@ export default function Keypad(props: Props) {
         }
         return () => {
             if (isMounted) {
-                sendEvent?.({
+                onAnalyticsEvent({
                     type: "math-input:keypad-closed",
                     payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
                 });
                 setIsMounted(false);
             }
         };
-    }, [sendEvent, isMounted]);
+    }, [onAnalyticsEvent, isMounted]);
 
     return (
-        <View>
-            <Tabbar
-                items={availablePages}
-                selectedItem={selectedPage}
-                onSelectItem={(tabbarItem: TabbarItemType) => {
-                    setSelectedPage(tabbarItem);
-                }}
-                style={styles.tabbar}
-                onClickClose={
-                    showDismiss ? () => onClickKey("DISMISS") : undefined
-                }
-            />
-
+        <View style={expandedView ? styles.keypadOuterContainer : null}>
             <View
-                style={styles.grid}
-                role="grid"
-                tabIndex={0}
-                aria-label="Keypad"
+                style={[
+                    styles.wrapper,
+                    expandedView ? styles.expandedWrapper : null,
+                ]}
             >
-                {selectedPage === "Numbers" && (
-                    <NumbersPage onClickKey={onClickKey} />
-                )}
-                {selectedPage === "Extras" && (
-                    <ExtrasPage onClickKey={onClickKey} extraKeys={extraKeys} />
-                )}
-                {selectedPage === "Operators" && (
-                    <OperatorsPage
-                        onClickKey={onClickKey}
-                        preAlgebra={preAlgebra}
-                        logarithms={logarithms}
-                        basicRelations={basicRelations}
-                        advancedRelations={advancedRelations}
-                    />
-                )}
-                {selectedPage === "Geometry" && (
-                    <GeometryPage onClickKey={onClickKey} />
-                )}
-                <SharedKeys
-                    onClickKey={onClickKey}
-                    cursorContext={cursorContext}
-                    multiplicationDot={multiplicationDot}
-                    divisionKey={divisionKey}
-                    selectedPage={selectedPage}
+                <Tabbar
+                    items={availableTabs}
+                    selectedItem={selectedPage}
+                    onSelectItem={(tabbarItem: TabbarItemType) => {
+                        setSelectedPage(tabbarItem);
+                    }}
+                    onClickClose={
+                        showDismiss ? () => onClickKey("DISMISS") : undefined
+                    }
                 />
+
+                <View style={styles.keypadInnerContainer}>
+                    <View
+                        style={[styles.keypadGrid, gridStyle]}
+                        role="grid"
+                        tabIndex={0}
+                        aria-label="Keypad"
+                    >
+                        {selectedPage === "Fractions" && (
+                            <FractionsPage
+                                onClickKey={onClickKey}
+                                cursorContext={cursorContext}
+                            />
+                        )}
+                        {selectedPage === "Numbers" && (
+                            <NumbersPage onClickKey={onClickKey} />
+                        )}
+                        {selectedPage === "Extras" && (
+                            <ExtrasPage
+                                onClickKey={onClickKey}
+                                extraKeys={extraKeys}
+                            />
+                        )}
+                        {selectedPage === "Operators" && (
+                            <OperatorsPage
+                                onClickKey={onClickKey}
+                                preAlgebra={preAlgebra}
+                                logarithms={logarithms}
+                                basicRelations={basicRelations}
+                                advancedRelations={advancedRelations}
+                            />
+                        )}
+                        {selectedPage === "Geometry" && (
+                            <GeometryPage onClickKey={onClickKey} />
+                        )}
+                        {!fractionsOnly && (
+                            <SharedKeys
+                                onClickKey={onClickKey}
+                                cursorContext={cursorContext}
+                                multiplicationDot={multiplicationDot}
+                                divisionKey={divisionKey}
+                                selectedPage={selectedPage}
+                            />
+                        )}
+                    </View>
+                    {expandedView && <NavigationPad onClickKey={onClickKey} />}
+                </View>
             </View>
         </View>
     );
@@ -159,13 +203,33 @@ export default function Keypad(props: Props) {
 Keypad.defaultProps = defaultProps;
 
 const styles = StyleSheet.create({
-    tabbar: {
+    keypadOuterContainer: {
+        display: "flex",
+        alignItems: "center",
+    },
+    wrapper: {
         background: Color.white,
     },
-    grid: {
-        display: "grid",
-        gridTemplateColumns: "repeat(6, 1fr)",
-        gridTemplateRows: "repeat(4, 1fr)",
+    expandedWrapper: {
+        borderWidth: "1px 1px 0 1px",
+        borderColor: Color.offBlack32,
+        maxWidth: expandedViewThreshold,
+        borderRadius: "3px 3px 0 0",
+    },
+    keypadInnerContainer: {
+        display: "flex",
+        flexDirection: "row",
         backgroundColor: "#DBDCDD",
+    },
+    keypadGrid: {
+        display: "grid",
+        gridTemplateRows: "repeat(4, 1fr)",
+        flex: 1,
+    },
+    expressionGrid: {
+        gridTemplateColumns: "repeat(6, 1fr)",
+    },
+    fractionsGrid: {
+        gridTemplateColumns: "repeat(5, 1fr)",
     },
 });
