@@ -243,23 +243,23 @@ class ImageWidget extends React.Component<Props> {
 
         if (this.props.caption) {
             caption = (
-                <div className="perseus-image-caption">
+                <figcaption className="perseus-image-caption">
                     <Renderer
                         content={this.props.caption}
                         apiOptions={apiOptions}
                         linterContext={this.props.linterContext}
                     />
-                </div>
+                </figcaption>
             );
         }
 
         return (
-            <div className="perseus-image-widget">
+            <figure className="perseus-image-widget">
                 {title}
                 {image}
                 {alt}
                 {caption}
-            </div>
+            </figure>
         );
     }
 
