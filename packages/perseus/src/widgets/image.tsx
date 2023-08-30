@@ -188,7 +188,7 @@ class ImageWidget extends React.Component<Props> {
                 //
                 // TODO(david): If caption is only 1 line long, center-align
                 //     the text.
-                const alignment = "block";
+                const alignment = this.props.alignment;
                 const isImageFullWidth =
                     alignment === "block" || alignment === "full-width";
 
