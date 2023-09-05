@@ -7,9 +7,9 @@ import {connect} from "react-redux";
 
 import KeyConfigs from "../../data/key-configs";
 
-import GestureManager from "./gesture-manager";
 import KeypadButton from "./keypad-button";
 
+import type GestureManager from "./gesture-manager";
 import type {State} from "./store/types";
 
 interface ReduxProps {

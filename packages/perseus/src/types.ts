@@ -1,25 +1,18 @@
-import * as React from "react";
-
 import type {SerializedHighlightSet} from "./components/highlighting/types";
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
 import type {PerseusWidget} from "./perseus-types";
 import type {SizeClass} from "./util/sizing-utils";
-import type {SendEventFn} from "@khanacademy/perseus-core";
+import type {KeypadAPI} from "@khanacademy/math-input";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
+import type * as React from "react";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
-type State = any;
-
-export interface RendererInterface {
-    getSerializedState(): State;
-    restoreSerializedState(state: State, callback?: () => void): void;
-    scoreInput(): KEScore;
-    blur(): void;
-    focus(): boolean | null | undefined;
-    props: any;
-}
+// TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
+type Empty = Record<never, never>;
 
 export type Dimensions = {
     width?: number;
@@ -50,15 +43,6 @@ export type PerseusScore =
           total: number;
           message?: string | null | undefined;
       };
-
-export type KEScore = {
-    empty: boolean;
-    correct: boolean;
-    message?: string | null | undefined;
-    suppressAlmostThere?: boolean | null | undefined;
-    guess: any;
-    state: any;
-};
 
 export type Hint = {
     widgets: WidgetDict;
@@ -129,6 +113,20 @@ export type Path = ReadonlyArray<string>;
 
 type StubTagEditorType = any; // from "./components/stub-tag-editor";
 
+type TrackInteractionArgs = {
+    // The widget type that this interaction originates from
+    type: string;
+    // The widget id that this interaction originates from
+    id: string;
+
+    correct?: boolean;
+
+    // Tracking args are all optional here because we don't know which
+    // widgets originated the call, and thus can't know what extra
+    // arguments will be included!
+} & Partial<TrackingGradedGroupExtraArguments> &
+    Partial<TrackingSequenceExtraArguments>;
+
 // APIOptions provides different ways to customize the behaviour of Perseus.
 export type APIOptions = Readonly<{
     isArticle?: boolean;
@@ -179,24 +177,27 @@ export type APIOptions = Readonly<{
     // Function that takes dimensions and returns a React component
     // to display while an image is loading
     imagePreloader?: (dimensions: Dimensions) => React.ReactNode;
-    // Function that takes an object argument. The object should
-    // include type and id, both strings, at least and can optionally
-    // include a boolean "correct" value. This is used for keeping
-    // track of widget interactions.
-    trackInteraction?: () => unknown;
+    // A function that is called when the user has interacted with a widget. It
+    // also includes any extra parameters that the originating widget provided.
+    // This is used for keeping track of widget interactions.
+    trackInteraction?: (args: TrackInteractionArgs) => void;
     // A boolean that indicates whether or not a custom keypad is
     // being used.  For mobile web this will be the ProvidedKeypad
     // component.  In this situation we use the MathInput component
     // from the math-input repo instead of the existing perseus math
     // input components.
     customKeypad?: boolean;
+    // Whether to use v1 (Legacy) Keypad for MathInput mobile or
+    // use the new v2 Keypad
+    // TODO [LC-1088]: remove after v2 release
+    useV2Keypad?: boolean;
     // If this is provided, it is called instead of appending an instance
     // of `math-input`'s keypad to the body. This is used by the native
     // apps so they can have the keypad be defined on the native side.
     // It is called with an function that, when called, blurs the input,
     // and is expected to return an object of the shape
     // keypadElementPropType from math-input/src/prop-types.js.
-    nativeKeypadProxy?: () => unknown;
+    nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
     // Indicates whether or not to use mobile styling.
     isMobile?: boolean;
     // A function, called with a bool indicating whether use of the
@@ -322,7 +323,6 @@ export type PerseusDependencies = {
     //misc
     staticUrl: StaticUrlFn;
     InitialRequestUrl: InitialRequestUrlInterface;
-    analytics: SendEventFn;
 
     // video widget
     // This is used as a hook to fetch data about a video which is used to
@@ -344,6 +344,18 @@ export type PerseusDependencies = {
     isMobile: boolean;
 };
 
+/**
+ * The modern iteration of Perseus Depedndencies. These dependencies are
+ * provided to Perseus through its entrypoints (for example:
+ * ServerItemRenderer) and then attached to the DependenciesContext so they are
+ * available anywhere down the React render tree.
+ *
+ * Prefer using this type over `PerseusDependencies` when possible.
+ */
+export type PerseusDependenciesV2 = {
+    analytics: {onAnalyticsEvent: AnalyticsEventHandlerFn};
+};
+
 export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
         GroupMetadataEditor: NonNullable<APIOptions["GroupMetadataEditor"]>;
@@ -355,6 +367,7 @@ export type APIOptionsWithDefaults = Readonly<
         inModal: NonNullable<APIOptions["inModal"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
+        useV2Keypad: NonNullable<APIOptions["useV2Keypad"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         onInputError: NonNullable<APIOptions["onInputError"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
@@ -366,15 +379,22 @@ export type APIOptionsWithDefaults = Readonly<
     }
 >;
 
-export type LinterContextProps = {
-    contentType: string;
-    highlightLint: boolean;
-    paths: ReadonlyArray<string>;
-    stack: ReadonlyArray<string>;
-    // additional properties can be added to the context by widgets
+export type Tracking =
+    // Track interactions once
+    | ""
+    // Track all interactions
+    | "all";
+
+// See graded-group widget
+export type TrackingGradedGroupExtraArguments = {
+    status: "correct" | "incorrect" | "invalid";
 };
 
-export type Tracking = "" | "all";
+// See sequence widget
+export type TrackingSequenceExtraArguments = {
+    visible: number;
+};
+
 export type Alignment =
     | "default"
     | "block"
@@ -449,7 +469,13 @@ export type FilterCriterion =
       ) => boolean);
 
 // NOTE: Rubric should always be the corresponding widget options type for the component.
-export type WidgetProps<RenderProps, Rubric> = RenderProps & {
+export type WidgetProps<
+    RenderProps,
+    Rubric,
+    // Defines the arguments that can be passed to the `trackInteraction`
+    // function from APIOptions for this widget.
+    TrackingExtraArgs = Empty,
+> = RenderProps & {
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     alignment: string | null | undefined;
@@ -465,7 +491,11 @@ export type WidgetProps<RenderProps, Rubric> = RenderProps & {
     findWidgets: (arg1: FilterCriterion) => ReadonlyArray<Widget>;
     reviewModeRubric: Rubric;
     onChange: ChangeHandler;
-    trackInteraction: (extraData?: any) => void;
+    // This is slightly different from the `trackInteraction` function in
+    // APIOptions. This provides the widget an easy way to notify the renderer
+    // of an interaction. The Renderer then enriches the data provided with the
+    // widget's id and type before calling APIOptions.trackInteraction.
+    trackInteraction: (extraData?: TrackingExtraArgs) => void;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;

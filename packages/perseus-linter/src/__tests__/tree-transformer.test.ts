@@ -56,7 +56,7 @@ describe("PerseusLinter tree transformer", () => {
     function getTraversalOrder(tree: any) {
         const order: Array<any> = [];
         new TreeTransformer(tree).traverse((n, state) => {
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'id' does not exist on type 'TreeNode'.
+            // @ts-expect-error - TS2339 - Property 'id' does not exist on type 'TreeNode'.
             order.push(n.id);
         });
         return order;
@@ -250,7 +250,7 @@ describe("PerseusLinter tree transformer", () => {
                 new TreeTransformer(copy).traverse((n: any, state) => {
                     if (n.id === id) {
                         state.replace({
-                            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ id: number; type: string; }' is not assignable to parameter of type 'TreeNode'.
+                            // @ts-expect-error - TS2345 - Argument of type '{ id: number; type: string; }' is not assignable to parameter of type 'TreeNode'.
                             id: 99,
                             type: "replacement",
                         });
@@ -288,7 +288,7 @@ describe("PerseusLinter tree transformer", () => {
                         // Ensure that we don't traverse the node more than once
                         expect(++count).toEqual(1);
                         state.replace({
-                            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ id: number; type: string; content: any; }' is not assignable to parameter of type 'TreeNode'.
+                            // @ts-expect-error - TS2345 - Argument of type '{ id: number; type: string; content: any; }' is not assignable to parameter of type 'TreeNode'.
                             id: 99,
                             type: "reparent",
                             content: n,
@@ -323,7 +323,7 @@ describe("PerseusLinter tree transformer", () => {
                 // Replace the node with two new ones
                 new TreeTransformer(copy).traverse((n: any, state) => {
                     if (n.id === id) {
-                        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '({ id: number; type: string; } | { id: number; type: string; content: { id: number; type: string; }; })[]' is not assignable to parameter of type 'TreeNode'.
+                        // @ts-expect-error - TS2345 - Argument of type '({ id: number; type: string; } | { id: number; type: string; content: { id: number; type: string; }; })[]' is not assignable to parameter of type 'TreeNode'.
                         state.replace([
                             {
                                 id: 99,
@@ -372,7 +372,7 @@ describe("PerseusLinter tree transformer", () => {
                     if (n.id === id) {
                         state.replace(
                             {
-                                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ id: number; type: string; }' is not assignable to parameter of type 'TreeNode'.
+                                // @ts-expect-error - TS2345 - Argument of type '{ id: number; type: string; }' is not assignable to parameter of type 'TreeNode'.
                                 id: 99,
                                 type: "replacement",
                             },

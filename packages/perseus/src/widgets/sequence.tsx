@@ -1,36 +1,41 @@
-import {
-    linterContextProps,
-    linterContextDefault,
-} from "@khanacademy/perseus-linter";
-import PropTypes from "prop-types";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconOk} from "../icon-paths";
 import * as Changeable from "../mixins/changeable";
-import {ApiOptions} from "../perseus-api";
 import Renderer from "../renderer";
 import Util from "../util";
 
-import type {WidgetExports} from "../types";
+import type {PerseusSequenceWidgetOptions} from "../perseus-types";
+import type {
+    TrackingSequenceExtraArguments,
+    WidgetExports,
+    WidgetProps,
+} from "../types";
 
-class Sequence extends React.Component<any, any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        json: PropTypes.arrayOf(
-            PropTypes.shape({
-                content: PropTypes.string,
-                images: PropTypes.objectOf(PropTypes.any),
-                widgets: PropTypes.objectOf(PropTypes.any),
-            }),
-        ),
-        trackInteraction: PropTypes.func.isRequired,
-        linterContext: linterContextProps,
-    };
+type Rubric = PerseusSequenceWidgetOptions;
 
-    static defaultProps: any = {
+type ExternalProps = WidgetProps<
+    PerseusSequenceWidgetOptions,
+    Rubric,
+    TrackingSequenceExtraArguments
+>;
+
+type Props = ExternalProps;
+
+type DefaultProps = {
+    json: Props["json"];
+    linterContext: Props["linterContext"];
+};
+
+type State = {
+    visible: number;
+};
+
+class Sequence extends React.Component<Props, State> {
+    static defaultProps: DefaultProps = {
         json: [
             {
                 content: "",
@@ -41,7 +46,7 @@ class Sequence extends React.Component<any, any> {
         linterContext: linterContextDefault,
     };
 
-    state: any = {
+    state = {
         visible: 1,
     };
 
@@ -57,7 +62,7 @@ class Sequence extends React.Component<any, any> {
         const step = parseInt(groupWidgetId.split(" ")[1]);
         if (step === this.state.visible - 1) {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getWidgetInstance' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getWidgetInstance' does not exist on type 'ReactInstance'.
             const widget = this.refs.renderer.getWidgetInstance(
                 "group " + step,
             );

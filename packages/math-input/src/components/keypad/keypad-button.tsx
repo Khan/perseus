@@ -4,10 +4,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {KeyConfig, ClickKeyCallback} from "../../types";
-
 import ButtonAsset from "./button-assets";
 
+import type {KeyConfig, ClickKeyCallback} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 export type KeypadButtonProps = {
@@ -41,7 +40,7 @@ export const KeypadButton = ({
             }}
         >
             <Clickable
-                onClick={() => onClickKey(keyConfig.id)}
+                onClick={(e) => onClickKey(keyConfig.id, e)}
                 style={styles.clickable}
                 aria-label={keyConfig.ariaLabel}
             >
@@ -74,23 +73,25 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        boxShadow: "0px 1px 0px rgba(33, 36, 44, 0.32)",
+        boxShadow: `0px 1px 0px ${Color.offBlack32}`,
         boxSizing: "border-box",
         background: Color.white,
         borderRadius: 4,
-        border: `1px solid transparent`,
+        borderWidth: 2,
+        borderStyle: "solid",
+        borderColor: "transparent",
         flex: 1,
         minHeight: 42,
         minWidth: 42,
         padding: 1,
     },
     hovered: {
-        border: `2px solid ${Color.blue}`,
+        borderColor: Color.blue,
         padding: 1,
         boxShadow: "none",
     },
     focused: {
-        border: `2px solid ${Color.blue}`,
+        borderColor: Color.blue,
         padding: 0,
         boxShadow: "none",
     },

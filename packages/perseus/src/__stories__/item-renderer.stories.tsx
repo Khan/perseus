@@ -4,6 +4,7 @@ import {ItemRendererWithDebugUI} from "../../../../testing/item-renderer-with-de
 import {
     itemWithInput,
     labelImageItem,
+    codeblockItem,
 } from "../__testdata__/item-renderer.testdata";
 
 type StoryArgs = Record<any, any>;
@@ -22,4 +23,8 @@ export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
 
 export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
     return <ItemRendererWithDebugUI item={labelImageItem} />;
+};
+
+export const CodeblockItem = (args: StoryArgs): React.ReactElement => {
+    return <ItemRendererWithDebugUI item={codeblockItem} />;
 };

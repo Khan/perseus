@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {ApiOptions, PerseusRenderer} from "@khanacademy/perseus";
+import {ApiOptions} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
@@ -8,6 +8,8 @@ import SideBySide from "../../../../testing/side-by-side";
 import {question1} from "../__testdata__/input-number.testdata";
 import Editor from "../editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+
+import type {PerseusRenderer} from "@khanacademy/perseus";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 

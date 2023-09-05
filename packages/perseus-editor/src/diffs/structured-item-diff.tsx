@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * A side by side diff view for Perseus exercise items
  * that do not have the standard question layout.
@@ -55,10 +56,10 @@ function getTitle(path: Path): string {
     const title: Array<string> = [];
     for (let i = 0; i < path.length; i++) {
         if (typeof path[i] === "number") {
-            // @ts-expect-error [FEI-5003] - TS2365 - Operator '+' cannot be applied to types 'string | number' and 'number'.
+            // @ts-expect-error - TS2365 - Operator '+' cannot be applied to types 'string | number' and 'number'.
             title.push((path[i] + 1).toString() + ":");
         } else {
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | number' is not assignable to parameter of type 'string'.
+            // @ts-expect-error - TS2345 - Argument of type 'string | number' is not assignable to parameter of type 'string'.
             title.push(path[i]);
         }
     }
@@ -163,11 +164,11 @@ class StructuredItemDiff extends React.Component<Props> {
             .mapTree(itemToTree(before), shape);
 
         buildMapper()
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'unknown' is not assignable to type 'never'. | TS2322 - Type 'Path' is not assignable to type 'never'.
+            // @ts-expect-error - TS2322 - Type 'unknown' is not assignable to type 'never'. | TS2322 - Type 'Path' is not assignable to type 'never'.
             .setContentMapper((c, _, p) => afterList.push([c, p]))
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'unknown' is not assignable to type 'never'. | TS2322 - Type 'Path' is not assignable to type 'never'.
+            // @ts-expect-error - TS2322 - Type 'unknown' is not assignable to type 'never'. | TS2322 - Type 'Path' is not assignable to type 'never'.
             .setHintMapper((c, _, p) => afterList.push([c, p]))
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'unknown' is not assignable to type 'never'. | TS2322 - Type 'Path' is not assignable to type 'never'.
+            // @ts-expect-error - TS2322 - Type 'unknown' is not assignable to type 'never'. | TS2322 - Type 'Path' is not assignable to type 'never'.
             .setTagsMapper((c, _, p) => afterList.push([c, p]))
             .mapTree(itemToTree(after), shape);
 
@@ -203,7 +204,7 @@ class StructuredItemDiff extends React.Component<Props> {
                     before = [[], path];
                 }
                 if (!after) {
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'Path[]' is not assignable to type 'undefined'.
+                    // @ts-expect-error - TS2322 - Type 'Path[]' is not assignable to type 'undefined'.
                     after = [[], path];
                 }
 
@@ -216,9 +217,9 @@ class StructuredItemDiff extends React.Component<Props> {
                     });
                 }
                 const afterTags: Array<string> = [];
-                // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 if (Array.isArray(after[0])) {
-                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     after[0].forEach((tagId) => {
                         if (typeof tagId === "string") {
                             afterTags.push(tags.idToName(tagId));
@@ -251,13 +252,13 @@ class StructuredItemDiff extends React.Component<Props> {
                 before = [buildEmptyItemTreeForShape(shapes.content), path];
             }
             if (!after) {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'any[]' is not assignable to type 'undefined'.
+                // @ts-expect-error - TS2322 - Type 'any[]' is not assignable to type 'undefined'.
                 after = [buildEmptyItemTreeForShape(shapes.content), path];
             }
             return (
                 <RendererDiff
                     before={before[0] as any}
-                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     after={after[0] as any}
                     title={currentTitle}
                     showAlignmentOptions={false}

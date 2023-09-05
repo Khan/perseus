@@ -274,7 +274,7 @@ const LeafContainer = ({
     const hasPreviewHeading = shape.type === "content" || shape.type === "hint";
     const previewHeading = hasPreviewHeading && (
         <div className={css(styles.containerHeader)}>
-            {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
+            {/* @ts-expect-error - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -349,7 +349,7 @@ const ObjectContainer = ({
 }: ObjectContainerProps): React.ReactElement => {
     const headingEditor = (
         <div className={css(styles.containerHeader)}>
-            {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
+            {/* @ts-expect-error - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -363,7 +363,7 @@ const ObjectContainer = ({
                 styles.previewCollectionHeader,
             )}
         >
-            {/* @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
+            {/* @ts-expect-error - TS2322 - Type '{ children: string; depth: number; className: string; }' is not assignable to type 'IntrinsicAttributes & HeaderProps & { children?: ReactNode; }'. */}
             <Header depth={path.length} className={css(styles.containerTitle)}>
                 {capitalize(name)}
             </Header>
@@ -478,7 +478,7 @@ const withStickiness = <
         sticky: boolean;
     };
     return class StickyComponent extends React.Component<Config, State> {
-        // @ts-expect-error [FEI-5003] - TS2564 - Property 'stickynessTimer' has no initializer and is not definitely assigned in the constructor.
+        // @ts-expect-error - TS2564 - Property 'stickynessTimer' has no initializer and is not definitely assigned in the constructor.
         stickynessTimer: number;
 
         state = {
@@ -488,7 +488,7 @@ const withStickiness = <
         componentDidMount() {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timer' is not assignable to type 'number'.
+            // @ts-expect-error - TS2322 - Type 'Timer' is not assignable to type 'number'.
             this.stickynessTimer = setInterval(this.updateStickiness, 1000);
             this.updateStickiness();
         }
@@ -501,7 +501,7 @@ const withStickiness = <
 
         updateStickiness = () => {
             const domNode = ReactDOM.findDOMNode(this);
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element | Text'.
             const height = domNode.offsetHeight;
             const windowHeight = window.innerHeight;
             const sticky = height > windowHeight;
@@ -514,7 +514,7 @@ const withStickiness = <
 
         render(): React.ReactNode {
             return (
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Readonly<Config> & { sticky: boolean; children?: ReactNode; }' is not assignable to type 'IntrinsicAttributes & LibraryManagedAttributes<Component, PropsWithChildren<WithStickiness<Config>>>'.
+                // @ts-expect-error - TS2322 - Type 'Readonly<Config> & { sticky: boolean; children?: ReactNode; }' is not assignable to type 'IntrinsicAttributes & LibraryManagedAttributes<Component, PropsWithChildren<WithStickiness<Config>>>'.
                 <WrappedComponent {...this.props} sticky={this.state.sticky} />
             );
         }
@@ -536,7 +536,7 @@ const ItemNodeContent = withStickiness(
                         <div className={css(sticky && styles.sticky)}>
                             {/* TODO(CP-4852): only pass the props to Editor that it uses. */}
                             {
-                                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                                // @ts-expect-error - TS2769 - No overload matches this call.
                                 <Editor
                                     {...data}
                                     onChange={(newVal) =>
@@ -867,6 +867,12 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
                     item={item}
                     shape={itemShape}
                     apiOptions={apiOptions}
+                    // Today, with analytics being the only thing in
+                    // dependencies, we send in a dummy function as we don't
+                    // want to gather analytics events from within the editor.
+                    dependencies={{
+                        analytics: {onAnalyticsEvent: async () => {}},
+                    }}
                 >
                     {({renderers}) => (
                         <NodeContainer
@@ -885,21 +891,21 @@ class MultiRendererEditor extends React.Component<MultiRendererEditorProps> {
 
     score: () => any | undefined = () => {
         if (this.layout) {
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             return this.layout.score();
         }
     };
 
     getSerializedState: () => any | undefined = () => {
         if (this.layout) {
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             return this.layout.getSerializedState();
         }
     };
 
     restoreSerializedState: (state?: any) => void = (state: any) => {
         if (this.layout) {
-            // @ts-expect-error [FEI-5003] - TS2571 - Object is of type 'unknown'.
+            // @ts-expect-error - TS2571 - Object is of type 'unknown'.
             this.layout.restoreSerializedState(state);
         }
     };

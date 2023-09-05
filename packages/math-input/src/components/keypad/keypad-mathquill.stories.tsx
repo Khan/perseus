@@ -2,12 +2,13 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
-import Key from "../../data/keys";
 import {CursorContext} from "../input/cursor-contexts";
 import {getCursorContext} from "../input/mathquill-helpers";
 import {createMathField} from "../input/mathquill-instance";
-import {MathFieldInterface} from "../input/mathquill-types";
 import keyTranslator from "../key-handlers/key-translator";
+
+import type Key from "../../data/keys";
+import type {MathFieldInterface} from "../input/mathquill-types";
 
 import Keypad from "./index";
 
@@ -80,7 +81,7 @@ export function V2KeypadWithMathquill() {
                             multiplicationDot
                             preAlgebra
                             trigonometry
-                            sendEvent={async (event) => {
+                            onAnalyticsEvent={async (event) => {
                                 // eslint-disable-next-line no-console
                                 console.log("Send Event:", event);
                             }}

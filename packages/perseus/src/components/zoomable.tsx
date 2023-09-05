@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * Zooms child to fit with tap-to-zoom behavior.
  */
@@ -13,6 +14,8 @@ type Bounds = {
 type Props = {
     children: React.ReactNode;
     animateHeight: boolean;
+
+    disableEntranceAnimation: boolean;
     /**
      * Optional function that allows customizations in zooming.
      *
@@ -34,6 +37,7 @@ type DefaultProps = {
     animateHeight: Props["animateHeight"];
     computeChildBounds: Props["computeChildBounds"];
     readyToMeasure: Props["readyToMeasure"];
+    disableEntranceAnimation: Props["disableEntranceAnimation"];
 };
 
 type State = {
@@ -46,26 +50,27 @@ type State = {
 };
 
 class Zoomable extends React.Component<Props, State> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_observer' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_observer' has no initializer and is not definitely assigned in the constructor.
     _observer: MutationObserver;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_measuringInitialized' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_measuringInitialized' has no initializer and is not definitely assigned in the constructor.
     _measuringInitialized: boolean;
     _originalWidth: number | null | undefined;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_node' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_node' has no initializer and is not definitely assigned in the constructor.
     _node: HTMLElement;
 
     static defaultProps: DefaultProps = {
         animateHeight: false,
         readyToMeasure: true,
+        disableEntranceAnimation: false,
         computeChildBounds: (parentNode) => {
             const firstChild = parentNode.firstElementChild;
 
             return {
-                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
+                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
                 width: firstChild.offsetWidth,
-                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
+                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetHeight' does not exist on type 'Element'.
                 height: firstChild.offsetHeight,
             };
         },
@@ -129,7 +134,7 @@ class Zoomable extends React.Component<Props, State> {
 
         if (this._isMounted && shouldInitialize) {
             this._measuringInitialized = true;
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element | Text | null' is not assignable to type 'HTMLElement'.
+            // @ts-expect-error - TS2322 - Type 'Element | Text | null' is not assignable to type 'HTMLElement'.
             this._node = ReactDOM.findDOMNode(this);
 
             // We call measureAndScaleChildToFit asynchronously so that the browser
@@ -244,7 +249,7 @@ class Zoomable extends React.Component<Props, State> {
     render(): React.ReactNode {
         const {visible, scale, compactHeight, expandedHeight, zoomed} =
             this.state;
-        const {animateHeight} = this.props;
+        const {animateHeight, disableEntranceAnimation} = this.props;
 
         const property = animateHeight
             ? "opacity transform height"
@@ -260,7 +265,10 @@ class Zoomable extends React.Component<Props, State> {
             : {};
 
         // Do a fancy little slide as we fade the contents in the first time.
-        const translateOffset = visible ? "" : " translate(0, 8px)";
+        const shouldSlide = !disableEntranceAnimation && !visible;
+        const translateOffset = shouldSlide ? " translate(0, 8px)" : "";
+        const opacity = shouldSlide ? 0 : 1;
+
         const scaleString = (scale ?? 1).toString();
         const transform = zoomed
             ? `scale(1, 1) ${translateOffset}`
@@ -272,7 +280,7 @@ class Zoomable extends React.Component<Props, State> {
             height: zoomed ? expandedHeight : compactHeight,
             transform: transform,
             transformOrigin: "0 0",
-            opacity: visible ? 1 : 0,
+            opacity: opacity,
             WebkitTapHighlightColor: "transparent",
             ...transitionStyle,
         } as const;
@@ -284,7 +292,7 @@ class Zoomable extends React.Component<Props, State> {
                 onTouchCancelCapture={this.stopPropagationIfZoomed}
                 onTouchEndCapture={this.stopPropagationIfZoomed}
                 onTouchStartCapture={this.stopPropagationIfZoomed}
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ readonly transitionProperty: string; readonly transitionDuration: string; readonly transitionTimingFunction: string; readonly display: "block"; readonly width: "100%"; readonly height: number | ... 1 more ... | undefined; readonly transform: string; readonly transformOrigin: "0 0"; readonly opacity: 0 | 1; readonl...' is not assignable to type 'CSSProperties | undefined'.
+                // @ts-expect-error - TS2322 - Type '{ readonly transitionProperty: string; readonly transitionDuration: string; readonly transitionTimingFunction: string; readonly display: "block"; readonly width: "100%"; readonly height: number | ... 1 more ... | undefined; readonly transform: string; readonly transformOrigin: "0 0"; readonly opacity: 0 | 1; readonl...' is not assignable to type 'CSSProperties | undefined'.
                 style={style}
             >
                 {this.props.children}

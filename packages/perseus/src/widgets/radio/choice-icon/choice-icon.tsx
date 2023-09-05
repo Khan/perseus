@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* Component for rendering a letter icon in a library radio choice */
 
 import Color from "@khanacademy/wonder-blocks-color";
@@ -128,7 +129,7 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                 multipleSelect={multipleSelect}
             >
                 <div
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type '{ backgroundColor: string | null | undefined; borderColor: string; color: string; borderRadius: number; }' is not assignable to type 'Properties<string | number, string & {}>'.
+                    // @ts-expect-error - TS2322 - Type '{ backgroundColor: string | null | undefined; borderColor: string; color: string; borderRadius: number; }' is not assignable to type 'Properties<string | number, string & {}>'.
                     style={dynamicStyles}
                     data-test-id="choice-icon__library-choice-icon"
                     className={css(
@@ -145,7 +146,7 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                     data-is-radio-icon={true}
                 >
                     <div className={css(styles.innerWrapper)}>
-                        {/* @ts-expect-error [FEI-5003] - TS2786 - 'ChoiceInner' cannot be used as a JSX component. */}
+                        {/* @ts-expect-error - TS2786 - 'ChoiceInner' cannot be used as a JSX component. */}
                         <ChoiceInner
                             pos={pos}
                             showCorrectness={showCorrectness}

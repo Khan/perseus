@@ -1,9 +1,11 @@
-import {View, StyleType} from "@khanacademy/wonder-blocks-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import TabbarItem from "./item";
-import {TabbarItemType} from "./types";
+
+import type {KeypadPageType} from "../../types";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const styles = StyleSheet.create({
     tabbar: {
@@ -20,10 +22,10 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-    items: ReadonlyArray<TabbarItemType>;
-    selectedItem: TabbarItemType;
+    items: ReadonlyArray<KeypadPageType>;
+    selectedItem: KeypadPageType;
     onClickClose?: () => void;
-    onSelectItem: (item: TabbarItemType) => void;
+    onSelectItem: (item: KeypadPageType) => void;
     style?: StyleType;
 };
 

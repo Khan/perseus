@@ -6,11 +6,11 @@
     .matrix-prefix,
     .matrix-suffix {
         display: inline-block;
-        margin: 2*@margin @margin 0 2*@margin;
+        margin: 2 * @margin @margin 0 2 * @margin;
         vertical-align: top;
     }
     .matrix-suffix {
-        margin: 2*@margin 2*@margin 0 @margin;
+        margin: 2 * @margin 2 * @margin 0 @margin;
     }
 
     div.paragraph {
@@ -54,7 +54,8 @@
             margin-left: (1px - 2 * @borderWidth);
         }
     }
-    input, .number-input {
+    input,
+    .number-input {
         border: none;
         border-radius: 0;
         box-sizing: border-box;
@@ -75,15 +76,18 @@
         }
     }
     &.the-matrix {
-        .matrix-bracket, .matrix-left, .matrix-right {
-            border-color: #29F139;
+        .matrix-bracket,
+        .matrix-left,
+        .matrix-right {
+            border-color: #29f139;
         }
         .matrix-input {
             background: #222;
         }
-        input, .number-input {
+        input,
+        .number-input {
             background: #666;
-            color: #29F139;
+            color: #29f139;
             font-weight: bold;
             &.outside {
                 background: #444;

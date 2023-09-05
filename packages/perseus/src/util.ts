@@ -3,10 +3,12 @@ import _ from "underscore";
 
 import {Errors} from "./logging/log";
 import {PerseusError} from "./perseus-error";
+import * as GraphieUtil from "./util.graphie";
 import KhanAnswerTypes from "./util/answer-types";
 
 import type {Range} from "./perseus-types";
-import type {Widget, PerseusScore, KEScore} from "./types";
+import type {Widget, PerseusScore} from "./types";
+import type {KEScore} from "@khanacademy/perseus-core";
 
 type WordPosition = {
     start: number;
@@ -50,23 +52,15 @@ type TouchHandlers = {
 
 let supportsPassive = false;
 
-const svgLabelsRegex = /^web\+graphie:/;
-// For offline exercises in the mobile app, we download the graphie data
-// (svgs and localized data files) and serve them from the local file
-// system (with file://). We replace urls that start with `web+graphie`
-// in the perseus json with this `file+graphie` prefix to indicate that
-// they should have the `file://` protocol instead of `https://`.
-const svgLocalLabelsRegex = /^file\+graphie:/;
-
 const nestedMap = function <T, M>(
     children: T | ReadonlyArray<T>,
     func: (arg1: T) => M,
     context: unknown,
 ): M | ReadonlyArray<M> {
     if (Array.isArray(children)) {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type '(M | readonly M[])[]' is not assignable to type 'M | readonly M[]'.
+        // @ts-expect-error - TS2322 - Type '(M | readonly M[])[]' is not assignable to type 'M | readonly M[]'.
         return _.map(children, function (child) {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
             return nestedMap(child, func);
         });
     }
@@ -155,9 +149,9 @@ function shuffle<T>(
             const newEnd = Math.floor(random() * top),
                 temp = shuffled[newEnd];
 
-            // @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly T[]' only permits reading.
+            // @ts-expect-error - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[newEnd] = shuffled[top - 1];
-            // @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly T[]' only permits reading.
+            // @ts-expect-error - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[top - 1] = temp;
         }
     } while (ensurePermuted && _.isEqual(array, shuffled));
@@ -185,14 +179,14 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
 
           while ((match = r.exec(str))) {
               const m = match;
-              // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+              // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
               output.push(str.slice(lastIndex, m.index));
-              // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+              // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
               output.push(...m.slice(1));
               lastIndex = m.index + m[0].length;
           }
 
-          // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+          // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
           output.push(str.slice(lastIndex));
           return output;
       };
@@ -293,7 +287,7 @@ function keScoreFromPerseusScore(
         };
     }
     throw new PerseusError(
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'type' does not exist on type 'never'.
+        // @ts-expect-error - TS2339 - Property 'type' does not exist on type 'never'.
         "Invalid score type: " + score.type,
         Errors.InvalidInput,
         {
@@ -381,7 +375,7 @@ function getGridStep(
     step: Coordinates,
     boxSize: number,
 ): Coordinates {
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(number | null | undefined)[]' is not assignable to type 'Coordinates'.
+    // @ts-expect-error - TS2322 - Type '(number | null | undefined)[]' is not assignable to type 'Coordinates'.
     return _(2).times(function (i) {
         const scale = scaleFromExtent(range[i], boxSize);
         const gridStep = gridStepFromTickStep(step[i], scale);
@@ -548,9 +542,9 @@ const DeprecationMixin: any = {
         _.each(
             this.deprecatedProps,
             function (func, prop) {
-                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 if (_.has(this.props, prop)) {
-                    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                     _.extend(newProps, func(this.props));
                 }
             },
@@ -611,11 +605,11 @@ function deepEq<T>(x: T, y: T): boolean {
         return (
             x === y ||
             (_.all(x, function (v, k) {
-                // @ts-expect-error [FEI-5003] - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
+                // @ts-expect-error - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
                 return deepEq(y[k], v);
             }) &&
                 _.all(y, function (v, k) {
-                    // @ts-expect-error [FEI-5003] - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
+                    // @ts-expect-error - TS2536 - Type 'CollectionKey<T>' cannot be used to index type 'T'.
                     return deepEq(x[k], v);
                 }))
         );
@@ -819,9 +813,9 @@ const supportsPassiveEvents: () => boolean = () => {
                 supportsPassive = true;
             },
         });
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         window.addEventListener("testPassive", null, opts);
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         window.removeEventListener("testPassive", null, opts);
     } catch (e: any) {
         // Intentionally left empty!
@@ -840,7 +834,7 @@ function captureScratchpadTouchStart(e: TouchEvent) {
 
 function getImageSize(
     url: string,
-    callback: (arg1: number, arg2: number) => void,
+    callback: (width: number, height: number) => void,
 ): void {
     const img = new Image();
     img.onload = function () {
@@ -866,38 +860,7 @@ function getImageSize(
         }
     };
 
-    img.src = getRealImageUrl(url);
-}
-
-// Sometimes other components want to download the actual image e.g. to
-// determine its size. Here, we transform an .svg-labels url into the
-// correct image url, and leave normal image urls alone
-function getRealImageUrl(url: string): string {
-    if (isLabeledSVG(url)) {
-        return getSvgUrl(url);
-    }
-    return url;
-}
-
-function isLabeledSVG(url: string): boolean {
-    return svgLabelsRegex.test(url) || svgLocalLabelsRegex.test(url);
-}
-
-// For each svg+labels, there are two urls we need to download from. This gets
-// the base url without the suffix, and `getSvgUrl` and `getDataUrl` apply
-// appropriate suffixes to get the image and other data
-function getBaseUrl(url: string): string {
-    return url
-        .replace(svgLabelsRegex, "https:")
-        .replace(svgLocalLabelsRegex, "file:");
-}
-
-function getSvgUrl(url: string): string {
-    return getBaseUrl(url) + ".svg";
-}
-
-function getDataUrl(url: string): string {
-    return getBaseUrl(url) + "-data.json";
+    img.src = GraphieUtil.getRealImageUrl(url);
 }
 
 /**
@@ -989,11 +952,12 @@ const Util = {
     supportsPassiveEvents,
     captureScratchpadTouchStart,
     getImageSize,
-    getRealImageUrl,
-    isLabeledSVG,
-    getBaseUrl,
-    getSvgUrl,
-    getDataUrl,
+    getImageSizeModern: GraphieUtil.getImageSizeModern,
+    getRealImageUrl: GraphieUtil.getRealImageUrl,
+    isLabeledSVG: GraphieUtil.isLabeledSVG,
+    getBaseUrl: GraphieUtil.getBaseUrl,
+    getSvgUrl: GraphieUtil.getSvgUrl,
+    getDataUrl: GraphieUtil.getDataUrl,
     textarea,
     unescapeMathMode,
     random,

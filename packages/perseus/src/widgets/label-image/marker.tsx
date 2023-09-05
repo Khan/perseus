@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * Controlled question image marker, rendered as a styled button element.
  *
@@ -132,9 +133,9 @@ export default class Marker extends React.Component<Props, State> {
                 tabIndex={isDisabled ? -1 : 0}
                 onFocus={() => this.handleFocus()}
                 onBlur={() => this.handleBlur()}
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'MouseEvent<HTMLButtonElement, MouseEvent>' is not assignable to parameter of type 'MouseEvent'.
+                // @ts-expect-error - TS2345 - Argument of type 'MouseEvent<HTMLButtonElement, MouseEvent>' is not assignable to parameter of type 'MouseEvent'.
                 onClick={(e) => this.props.onClick(e)}
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'KeyboardEvent<HTMLButtonElement>' is not assignable to parameter of type 'KeyboardEvent'.
+                // @ts-expect-error - TS2345 - Argument of type 'KeyboardEvent<HTMLButtonElement>' is not assignable to parameter of type 'KeyboardEvent'.
                 onKeyDown={(e) => this.props.onKeyDown(e)}
             >
                 {this.renderIcon()}

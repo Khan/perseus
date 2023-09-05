@@ -34,7 +34,12 @@ interface ReduxProps {
 interface Props extends ReduxProps {
     onDismiss?: () => void;
     onElementMounted: (element: any) => void;
-    onPageSizeChange?: (width: number, height: number) => void;
+    onPageSizeChange?: (
+        pageWidth: number,
+        pageHeight: number,
+        containerWidth: number,
+        containerHeight: number,
+    ) => void;
     style?: StyleType;
 }
 
@@ -45,6 +50,8 @@ type State = {
 
 // eslint-disable-next-line react/no-unsafe
 class KeypadContainer extends React.Component<Props, State> {
+    _containerRef = React.createRef<HTMLDivElement>();
+    _containerResizeObserver: ResizeObserver | null = null;
     _resizeTimeout: number | null | undefined;
     hasMounted: boolean | undefined;
 
@@ -71,6 +78,14 @@ class KeypadContainer extends React.Component<Props, State> {
             "orientationchange",
             this._throttleResizeHandler,
         );
+
+        this._containerResizeObserver = new ResizeObserver(
+            this._throttleResizeHandler,
+        );
+
+        if (this._containerRef.current) {
+            this._containerResizeObserver.observe(this._containerRef.current);
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -93,6 +108,7 @@ class KeypadContainer extends React.Component<Props, State> {
             "orientationchange",
             this._throttleResizeHandler,
         );
+        this._containerResizeObserver?.disconnect();
     }
 
     _throttleResizeHandler = () => {
@@ -113,7 +129,14 @@ class KeypadContainer extends React.Component<Props, State> {
         this.setState({
             viewportWidth: window.innerWidth,
         });
-        this.props.onPageSizeChange?.(window.innerWidth, window.innerHeight);
+        const containerWidth = this._containerRef.current?.clientWidth || 0;
+        const containerHeight = this._containerRef.current?.clientHeight || 0;
+        this.props.onPageSizeChange?.(
+            window.innerWidth,
+            window.innerHeight,
+            containerWidth,
+            containerHeight,
+        );
     };
 
     renderKeypad = () => {
@@ -198,6 +221,7 @@ class KeypadContainer extends React.Component<Props, State> {
                 style={keypadContainerStyle}
                 dynamicStyle={dynamicStyle}
                 extraClassName="keypad-container"
+                forwardRef={this._containerRef}
             >
                 <View
                     style={keypadStyle}
@@ -305,8 +329,20 @@ const mapStateToProps = (state: ReduxState): ReduxProps => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onPageSizeChange: (pageWidthPx, pageHeightPx) => {
-            dispatch(setPageSize(pageWidthPx, pageHeightPx));
+        onPageSizeChange: (
+            pageWidth: number,
+            pageHeight: number,
+            containerWidth: number,
+            containerHeight: number,
+        ) => {
+            dispatch(
+                setPageSize(
+                    pageWidth,
+                    pageHeight,
+                    containerWidth,
+                    containerHeight,
+                ),
+            );
         },
     };
 };

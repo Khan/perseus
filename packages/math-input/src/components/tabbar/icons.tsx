@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import type {TabbarItemType} from "./types";
+import type {KeypadPageType} from "../../types";
 
 type Props = {
     tintColor: string;
-    type: TabbarItemType;
+    type: KeypadPageType;
 };
 
 const IconAsset = function ({tintColor, type}: Props): React.ReactElement {

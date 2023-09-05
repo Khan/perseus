@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, icons, EditorJsonify} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -88,7 +89,7 @@ class DropdownEditor extends React.Component<Props> {
     };
 
     focus: (arg1: number) => boolean = (i) => {
-        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
         ReactDOM.findDOMNode(this.refs["editor" + i]).focus(); // eslint-disable-line react/no-string-refs
         return true;
     };
@@ -143,14 +144,14 @@ class DropdownEditor extends React.Component<Props> {
                                         ref={"radio" + i}
                                         type="radio"
                                         name={dropdownGroupName}
-                                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'boolean | undefined'.
+                                        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'boolean | undefined'.
                                         checked={
                                             choice.correct ? "checked" : ""
                                         }
                                         // eslint-disable-next-line react/jsx-no-bind
-                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onChange={this.onCorrectChange.bind(
-                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}
@@ -160,9 +161,9 @@ class DropdownEditor extends React.Component<Props> {
                                         type="text"
                                         ref={"editor" + i}
                                         // eslint-disable-next-line react/jsx-no-bind
-                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onChange={this.onContentChange.bind(
-                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}
@@ -174,9 +175,9 @@ class DropdownEditor extends React.Component<Props> {
                                         href="#"
                                         className="simple-button orange"
                                         // eslint-disable-next-line react/jsx-no-bind
-                                        // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onClick={this.removeChoice.bind(
-                                            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                             this,
                                             i,
                                         )}

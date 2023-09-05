@@ -134,7 +134,7 @@ const rules = {
 
                 // Splice the caption into the table's children with the
                 // caption as the first child.
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error - TS2769 - No overload matches this call.
                 contents = React.cloneElement(tableOutput, null, [
                     caption,
                     ...tableOutput.props.children,
@@ -162,7 +162,7 @@ const rules = {
             // just a stub for testing.
             return (
                 <em key={state.key}>
-                    {/* @ts-expect-error [FEI-5003] - TS2554 - Expected 1-2 arguments, but got 3. */}
+                    {/* @ts-expect-error - TS2554 - Expected 1-2 arguments, but got 3. */}
                     {i18n.doNotTranslate("[Widget: ", node.id, "]")}
                 </em>
             );
@@ -217,7 +217,7 @@ const rules = {
                 : false;
             if (!isKAUrl) {
                 // Prevents "reverse tabnabbing" phishing attacks
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '"noopener noreferrer"' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '"noopener noreferrer"' is not assignable to type 'null'.
                 rel = "noopener noreferrer";
             }
 
@@ -299,7 +299,7 @@ const inlineNodeTypes = {
     code: true,
 } as const;
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ readonly columns: { readonly react: (node: any, output: any, state: any) => Element; readonly order: -2; readonly match: any; readonly parse: (capture: any, parse: any, state: any) => any; }; ... 35 more ...; readonly text: TextInOutRule; }' is not assignable to parameter of type 'ParserRules'.
+// @ts-expect-error - TS2345 - Argument of type '{ readonly columns: { readonly react: (node: any, output: any, state: any) => Element; readonly order: -2; readonly match: any; readonly parse: (capture: any, parse: any, state: any) => any; }; ... 35 more ...; readonly text: TextInOutRule; }' is not assignable to parameter of type 'ParserRules'.
 const builtParser = SimpleMarkdown.parserFor(rules);
 const parse = (source: string, state: any): any => {
     const paragraphedSource = source + "\n\n";
@@ -391,7 +391,7 @@ const getContent = (ast: any) => {
  * Markdown markup and widget references are ignored.
  */
 const characterCount = (source: string): number => {
-    // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+    // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
     const ast = parse(source);
     const content = getContent(ast).join("");
     return content.length;

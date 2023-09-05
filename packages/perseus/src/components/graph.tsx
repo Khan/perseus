@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import $ from "jquery";
 import * as React from "react";
@@ -83,9 +84,9 @@ class Graph extends React.Component<Props> {
     protractor: any;
     ruler: any;
     _graphie: any;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_hasSetupGraphieThisUpdate' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_hasSetupGraphieThisUpdate' has no initializer and is not definitely assigned in the constructor.
     _hasSetupGraphieThisUpdate: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     _shouldSetupGraphie: boolean;
 
     static defaultProps: DefaultProps = {
@@ -186,7 +187,7 @@ class Graph extends React.Component<Props> {
 
         // eslint-disable-next-line react/no-string-refs
         const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
 
         // Content creators may need to explicitly add the dollar signs so the
@@ -265,7 +266,7 @@ class Graph extends React.Component<Props> {
             });
 
             $instructionsWrapper.append($instructions);
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'append' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'append' does not exist on type 'JQueryStatic'.
             $(graphieDiv).append($instructionsWrapper);
         } else {
             $instructionsWrapper = undefined;
@@ -280,7 +281,7 @@ class Graph extends React.Component<Props> {
                           $instructionsWrapper = null;
                       }
                       // eslint-disable-next-line @babel/no-invalid-this
-                      // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                      // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                       // eslint-disable-next-line @babel/no-invalid-this
                       this.props.onMouseDown(coord);
                   }, this)
@@ -345,7 +346,7 @@ class Graph extends React.Component<Props> {
         }
 
         if (this.props.showProtractor) {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const coord = this.pointsFromNormalized([[0.5, 0.05]])[0];
             this.protractor = this._graphie.protractor(coord);
         }
@@ -357,7 +358,7 @@ class Graph extends React.Component<Props> {
         }
 
         if (this.props.showRuler) {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const coord = this.pointsFromNormalized([[0.5, 0.25]])[0];
             const extent =
                 this._graphie.range[0][1] - this._graphie.range[0][0];
@@ -394,7 +395,7 @@ class Graph extends React.Component<Props> {
         if (imageData.url) {
             const scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
             image = (
-                // @ts-expect-error [FEI-5003] - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
+                // @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
                 <SvgImage
                     src={imageData.url}
                     width={imageData.width}
@@ -414,11 +415,11 @@ class Graph extends React.Component<Props> {
                     width: this.props.box[0],
                     height: this.props.box[1],
                 }}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
+                // @ts-expect-error - TS2339 - Property 'onMouseOut' does not exist on type 'Graph'.
                 onMouseOut={this.onMouseOut}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
+                // @ts-expect-error - TS2339 - Property 'onMouseOver' does not exist on type 'Graph'.
                 onMouseOver={this.onMouseOver}
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'onClick' does not exist on type 'Graph'.
+                // @ts-expect-error - TS2339 - Property 'onClick' does not exist on type 'Graph'.
                 onClick={this.onClick}
             >
                 {image}

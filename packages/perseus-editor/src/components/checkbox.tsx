@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * Reusable checkbox component.
  **/
@@ -130,7 +131,7 @@ export default class Checkbox extends React.Component<CheckboxProps> {
                             )}
                             disabled={disabled}
                             onChange={onChange}
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | number | undefined' is not assignable to type 'number | undefined'.
+                            // @ts-expect-error - TS2322 - Type 'string | number | undefined' is not assignable to type 'number | undefined'.
                             tabIndex={tabIndex}
                         />
                     </div>

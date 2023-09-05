@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     preprocessTex,
     Errors,
@@ -10,6 +11,12 @@ import {
 import $ from "jquery";
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import katex from "katex";
+// ./katex-mhchem is imported for side effects. It adds the mhchem extension
+// to KaTeX, which is needed to render chemistry expressions. This prevents
+// spurious KaTeX errors from displaying in the editor for every chemistry
+// expression.
+// eslint-disable-next-line import/no-unassigned-import
+import "./katex-mhchem";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import _ from "underscore";
@@ -81,7 +88,7 @@ const IMAGE_REGEX = /!\[[^\]]*\]\(([^\s)]+)[^)]*\)/g;
  * ignores captures. If you don't need captures, use String::match
  */
 const allMatches = function (regex: RegExp, str: string) {
-    // @ts-expect-error [FEI-5003] - TS2702 - 'RegExp' only refers to a type, but is being used as a namespace here.
+    // @ts-expect-error - TS2702 - 'RegExp' only refers to a type, but is being used as a namespace here.
     const result: Array<any | RegExp.matchResult> = [];
     // eslint-disable-next-line no-constant-condition
     while (true) {
@@ -177,9 +184,9 @@ class Editor extends React.Component<Props, State> {
         // setState
         this._sizeImages(this.props);
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         $(ReactDOM.findDOMNode(this.refs.textarea))
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
             .on("copy cut", this._maybeCopyWidgets)
             .on("paste", this._maybePasteWidgets);
     }
@@ -209,13 +216,13 @@ class Editor extends React.Component<Props, State> {
              * textarea should be refined with an instanceof check to
              * HTMLTextAreaElement so that these props are available.
              */
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             textarea.focus();
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.value = this.lastUserValue;
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
             textarea.selectionStart = 0;
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'select' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'select' does not exist on type 'Element | Text'.
             textarea.select(0, prevProps.content.length);
             if (
                 document.execCommand(
@@ -226,7 +233,7 @@ class Editor extends React.Component<Props, State> {
             ) {
                 // This command is not implemented. Fall back to setting `value`
                 // directly.
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'Element | Text'.
+                // @ts-expect-error - TS2339 - Property 'value' does not exist on type 'Element | Text'.
                 textarea.value = this.props.content;
             }
             this.lastUserValue = null;
@@ -252,11 +259,11 @@ class Editor extends React.Component<Props, State> {
             }
             return (
                 <WidgetEditor
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
                     key={id}
                     ref={id}
                     id={id}
-                    // @ts-expect-error [FEI-5003] - TS2783 - 'type' is specified more than once, so this usage will be overwritten.
+                    // @ts-expect-error - TS2783 - 'type' is specified more than once, so this usage will be overwritten.
                     type={type}
                     // eslint-disable-next-line react/jsx-no-bind
                     onChange={this._handleWidgetEditorChange.bind(this, id)}
@@ -288,7 +295,7 @@ class Editor extends React.Component<Props, State> {
         // eslint-disable-next-line react/no-string-refs
         const textarea = this.refs.textarea;
         const re = new RegExp(widgetRegExp.replace("{id}", id), "gm");
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'value' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'value' does not exist on type 'ReactInstance'.
         this.props.onChange({content: textarea.value.replace(re, "")});
     };
 
@@ -328,7 +335,7 @@ class Editor extends React.Component<Props, State> {
                     {
                         images: _.clone(images),
                     },
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
+                    // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
                     null, // callback
                     true, // silent
                 );
@@ -404,13 +411,13 @@ class Editor extends React.Component<Props, State> {
                 this.props.onChange({content: content});
             })
             .each((fileAndSentinel) => {
-                // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2345 - Argument of type 'File' is not assignable to parameter of type 'string'.
+                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2345 - Argument of type 'File' is not assignable to parameter of type 'string'.
                 imageUploader(fileAndSentinel.file, (url) => {
                     // See componentDidUpdate() for how this flag is used
                     this.lastUserValue = origContent;
                     this.props.onChange({
                         content: this.state.textAreaValue.replace(
-                            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                            // @ts-expect-error - TS2531 - Object is possibly 'null'.
                             fileAndSentinel.sentinel,
                             url,
                         ),
@@ -446,7 +453,7 @@ class Editor extends React.Component<Props, State> {
             const textarea = ReactDOM.findDOMNode(this.refs.textarea);
 
             // findDOMNode can also return Text, but we know it's an element.
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
+            // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
             const word = Util.textarea.getWordBeforeCursor(textarea);
             const matches = word.string.toLowerCase().match(shortcutRegexp);
 
@@ -486,10 +493,10 @@ class Editor extends React.Component<Props, State> {
             );
 
             const widgetNames = _.map(
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
+                // @ts-expect-error - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
                 selectedText.match(rWidgetSplit),
                 (syntax) => {
-                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
                     return Util.rWidgetParts.exec(syntax)[1];
                 },
             );
@@ -513,7 +520,7 @@ class Editor extends React.Component<Props, State> {
             const widgetJSON = localStorage.perseusLastCopiedWidgets;
             const lastCopiedText = localStorage.perseusLastCopiedText;
             const textToBePasted =
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'originalEvent' does not exist on type 'SyntheticEvent<HTMLTextAreaElement, Event>'.
+                // @ts-expect-error - TS2339 - Property 'originalEvent' does not exist on type 'SyntheticEvent<HTMLTextAreaElement, Event>'.
                 e.originalEvent.clipboardData.getData("text");
 
             // Only intercept if we have widget data to paste and the user is
@@ -544,9 +551,9 @@ class Editor extends React.Component<Props, State> {
                     rWidgetSplit,
                     (syntax) => {
                         const match = Util.rWidgetParts.exec(syntax);
-                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        // @ts-expect-error - TS2531 - Object is possibly 'null'.
                         const completeWidget = match[0];
-                        // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                        // @ts-expect-error - TS2531 - Object is possibly 'null'.
                         const widget = match[1];
                         return completeWidget.replace(
                             widget,
@@ -643,12 +650,12 @@ class Editor extends React.Component<Props, State> {
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
         // widgets were found.
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
         const allWidgetIds = _.map(oldContent.match(rWidgetSplit), (syntax) => {
             const match = Util.rWidgetParts.exec(syntax);
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+            // @ts-expect-error - TS2531 - Object is possibly 'null'.
             const type = match[2];
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+            // @ts-expect-error - TS2531 - Object is possibly 'null'.
             const num = +match[3];
             return [type, num];
         });
@@ -686,12 +693,12 @@ class Editor extends React.Component<Props, State> {
         const newWidgets = _.clone(this.props.widgets);
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"'.
+            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"'.
             type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Version | null | undefined' is not assignable to type 'Version | undefined'.
+            // @ts-expect-error - TS2322 - Type 'Version | null | undefined' is not assignable to type 'Version | undefined'.
             version: Widgets.getVersion(widgetType),
         };
 
@@ -705,7 +712,7 @@ class Editor extends React.Component<Props, State> {
             function () {
                 Util.textarea.moveCursor(
                     // findDOMNode can return Text but we know this is Element
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
+                    // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
                     textarea,
                     // We want to put the cursor after the widget
                     // and after any added newlines
@@ -721,11 +728,11 @@ class Editor extends React.Component<Props, State> {
 
         this._addWidgetToContent(
             this.props.content,
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'selectionStart' does not exist on type 'ReactInstance'. | TS2339 - Property 'selectionEnd' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'selectionStart' does not exist on type 'ReactInstance'. | TS2339 - Property 'selectionEnd' does not exist on type 'ReactInstance'.
             [textarea.selectionStart, textarea.selectionEnd],
             widgetType,
         );
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         textarea.focus();
     };
 
@@ -800,7 +807,7 @@ class Editor extends React.Component<Props, State> {
             .chain()
             .map((id) => {
                 // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
                 const issuesFunc = this.refs[id].getSaveWarnings;
                 const issues = issuesFunc ? issuesFunc() : [];
                 return _.map(issues, (issue) => id + ": " + issue);
@@ -820,7 +827,7 @@ class Editor extends React.Component<Props, State> {
              * textarea should be refined with an instanceof check to
              * HTMLTextAreaElement so that these props are available.
              */
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             textarea.focus();
         }
     };
@@ -835,9 +842,9 @@ class Editor extends React.Component<Props, State> {
              * textarea should be refined with an instanceof check to
              * HTMLTextAreaElement so that these props are available.
              */
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.selectionStart = textarea.value.length;
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.selectionEnd = textarea.value.length;
         }
     };
@@ -856,7 +863,7 @@ class Editor extends React.Component<Props, State> {
         const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
         _.each(widgetIds, (id) => {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             widgets[id] = this.refs[id].serialize();
         });
 
@@ -926,7 +933,7 @@ class Editor extends React.Component<Props, State> {
                     // Normal text
                     underlayPieces.push(pieces[i]);
 
-                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+                    // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
                     const ast = PerseusMarkdown.parse(pieces[i]);
 
                     PerseusMarkdown.traverseContent(ast, (node) => {
@@ -939,7 +946,7 @@ class Editor extends React.Component<Props, State> {
                             } catch (e: any) {
                                 katexErrorList.push({
                                     math: content,
-                                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'any' is not assignable to type 'never'.
+                                    // @ts-expect-error - TS2322 - Type 'any' is not assignable to type 'never'.
                                     message: e.message,
                                 });
                             }
@@ -995,7 +1002,7 @@ class Editor extends React.Component<Props, State> {
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: SyntheticEvent<HTMLTextAreaElement, Event>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
+                // @ts-expect-error - TS2322 - Type '(e: SyntheticEvent<HTMLTextAreaElement, Event>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                 <select onChange={this.addTemplate}>
                     <option value="">{insertTemplateString}</option>
                     <option disabled>--</option>

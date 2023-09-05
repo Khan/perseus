@@ -8,7 +8,6 @@ import {
     components,
     icons,
     ApiOptions,
-    Changeable,
     Errors,
     PerseusError,
 } from "@khanacademy/perseus";
@@ -21,7 +20,7 @@ import SectionControlButton from "./components/section-control-button";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptions, Changeable} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 const {iconCircleArrowDown, iconCircleArrowUp, iconPlus, iconTrash} = icons;
@@ -78,7 +77,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
     _updatePreviewFrames() {
         if (this.props.mode === "preview") {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
             this.refs["frame-all"].sendNewData({
                 type: "article-all",
                 data: this._sections().map((section, i) => {
@@ -88,7 +87,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         } else if (this.props.mode === "edit") {
             this._sections().forEach((section, i) => {
                 // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
                 this.refs["frame-" + i].sendNewData({
                     type: "article",
                     data: this._apiOptionsForSection(section, i),
@@ -117,7 +116,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 highlightLint: this.state.highlightLint,
                 paths: this.props.contentPaths,
             },
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
         };
     }
@@ -304,7 +303,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         newProps,
     ) => {
         const sections = _.clone(this._sections());
-        // @ts-expect-error [FEI-5003] - TS2542 - Index signature in type 'readonly RendererProps[]' only permits reading.
+        // @ts-expect-error - TS2542 - Index signature in type 'readonly RendererProps[]' only permits reading.
         sections[i] = _.extend({}, sections[i], newProps);
         this.props.onChange({json: sections});
     };
@@ -315,9 +314,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         }
         const sections = _.clone(this._sections());
         const section = sections[i];
-        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i - 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -330,9 +329,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
             return;
         }
         const section = sections[i];
-        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
-        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i + 1, 0, section);
         this.props.onChange({
             json: sections,
@@ -355,7 +354,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                       widgets: sections[i].widgets,
                   }
                 : {};
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'splice' does not exist on type 'JsonType'.
+        // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'JsonType'.
         sections.splice(i + 1, 0, newSection);
         this.props.onChange({
             json: sections,
@@ -364,7 +363,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
     _handleRemoveSection(i: number) {
         const sections = _.clone(this._sections());
-        // @ts-expect-error [FEI-5003] - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
+        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly RendererProps[]'. Did you mean 'slice'?
         sections.splice(i, 1);
         this.props.onChange({
             json: sections,
@@ -375,7 +374,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
         if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
                 // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
                 return this.refs["editor" + i].serialize();
             });
         }
@@ -406,7 +405,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
 
         return this._sections().map((section, i) => {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
             return this.refs["editor" + i].getSaveWarnings();
         });
     }

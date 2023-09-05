@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -130,7 +131,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
                 // note(matthew): we know this is only getting passed
                 // to a WB Clickable button, so we force it to be of
                 // type HTMLButtonElement
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'current' does not exist on type 'never'.
+                // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
                 const anyNode = ReactDOM.findDOMNode(ref.current) as any;
                 const buttonNode = anyNode as
                     | HTMLButtonElement
@@ -142,7 +143,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
             }
         }
 
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
+        // @ts-expect-error - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
         prevReviewModeRubric.current = reviewModeRubric;
     }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
 
@@ -199,7 +200,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
         // note(matthew): we know this is only getting passed
         // to a WB Clickable button, so we force it to be of
         // type HTMLButtonElement
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'current' does not exist on type 'never'.
+        // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
         const anyNode = ReactDOM.findDOMNode(ref.current) as any;
         const buttonNode = anyNode as HTMLButtonElement | null | undefined;
 
@@ -249,16 +250,16 @@ const BaseRadio = function (props: Props): React.ReactElement {
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
         >
             <legend className="perseus-sr-only">{instructions}</legend>
-            {/* @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
+            {/* @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
             <div className={instructionsClassName} aria-hidden="true">
                 {instructions}
             </div>
-            {/* @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
+            {/* @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'. */}
             <ul className={className} style={{listStyle: "none"}}>
                 {choices.map((choice, i) => {
                     let Element = Choice;
                     const ref = React.createRef<any>();
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
+                    // @ts-expect-error - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
                     choiceRefs.current[i] = ref;
                     const elementProps = {
                         apiOptions: apiOptions,
@@ -348,7 +349,7 @@ const BaseRadio = function (props: Props): React.ReactElement {
                     let listElem = null;
                     let clickHandler = null;
                     if (editMode) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: any) => void' is not assignable to type 'null'.
+                        // @ts-expect-error - TS2322 - Type '(e: any) => void' is not assignable to type 'null'.
                         clickHandler = (e: any) => {
                             // Traverse the parent nodes of the clicked
                             // element.
@@ -377,13 +378,13 @@ const BaseRadio = function (props: Props): React.ReactElement {
                     return (
                         <li
                             key={i}
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'HTMLLIElement | null' is not assignable to type 'null'.
+                            // @ts-expect-error - TS2322 - Type 'HTMLLIElement | null' is not assignable to type 'null'.
                             ref={(e) => (listElem = e)}
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'readonly string[]' is not assignable to type 'string'.
+                            // @ts-expect-error - TS2322 - Type 'readonly string[]' is not assignable to type 'string'.
                             className={className}
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'MouseEventHandler<HTMLLIElement> | undefined'.
+                            // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'MouseEventHandler<HTMLLIElement> | undefined'.
                             onClick={clickHandler}
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type '((e: TouchEvent) => void) | null' is not assignable to type 'TouchEventHandler<HTMLLIElement> | undefined'.
+                            // @ts-expect-error - TS2322 - Type '((e: TouchEvent) => void) | null' is not assignable to type 'TouchEventHandler<HTMLLIElement> | undefined'.
                             onTouchStart={
                                 !labelWrap ? null : captureScratchpadTouchStart
                             }
@@ -412,6 +413,7 @@ const styles: StyleDeclaration = StyleSheet.create({
         color: styleConstants.gray17,
         fontSize: 14,
         lineHeight: 1.25,
+        fontFamily: "inherit",
         fontStyle: "normal",
         fontWeight: "bold",
         marginBottom: 16,
@@ -496,13 +498,13 @@ const styles: StyleDeclaration = StyleSheet.create({
     responsiveContainer: {
         overflow: "auto",
         marginLeft: styleConstants.negativePhoneMargin,
-        marginRight: styleConstants.negativePhoneMargin,
         paddingLeft: styleConstants.phoneMargin,
         // paddingRight is handled by responsiveFieldset
     },
 
     responsiveFieldset: {
         paddingRight: styleConstants.phoneMargin,
+        minWidth: "auto",
     },
 });
 

@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
@@ -86,7 +87,7 @@ type State = {
 // TODO(jared): find a better name for this :) and for GradedGroup; the names
 // are currently a little confusing.
 class GradedGroupSet extends React.Component<Props, State> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
     _childGroup: GradedGroup;
 
     static defaultProps: DefaultProps = {
@@ -104,7 +105,7 @@ class GradedGroupSet extends React.Component<Props, State> {
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
@@ -156,7 +157,7 @@ class GradedGroupSet extends React.Component<Props, State> {
                         return (
                             // TODO(jeremy): Don't spread this.props, instead
                             // pass in all props GradedGroup needs explicilty
-                            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                            // @ts-expect-error - TS2769 - No overload matches this call.
                             <GradedGroup
                                 key={i}
                                 {...this.props}
@@ -199,10 +200,10 @@ class GradedGroupSet extends React.Component<Props, State> {
                 </div>
                 {/* TODO(jeremy): Don't spread this.props, instead
                     pass in all props GradedGroup needs explicitly */}
-                {/* @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. */}
+                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
+                    // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
                     //  Type 'null' is not assignable to type 'GradedGroup'.
                     ref={(comp) => (this._childGroup = comp)}
                     // We should pass in the set of props explicitly

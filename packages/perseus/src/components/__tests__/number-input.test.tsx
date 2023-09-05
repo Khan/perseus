@@ -31,7 +31,7 @@ describe("NumberInput", function () {
         );
 
         const node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'Element | Component<any, {}, any>'. | TS2345 - Argument of type 'void' is not assignable to parameter of type 'ReactInstance | null | undefined'.
+        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'Element | Component<any, {}, any>'. | TS2345 - Argument of type 'void' is not assignable to parameter of type 'ReactInstance | null | undefined'.
         TestUtils.Simulate.change(ReactDOM.findDOMNode(node), {
             target: {value: input},
         });
@@ -39,12 +39,12 @@ describe("NumberInput", function () {
     };
 
     it("basic input", function () {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         testInputResult("42", 42);
     });
 
     it("invalid input does not change", function () {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         testInputResult("asdf", STARTING_VALUE);
     });
 
@@ -78,7 +78,7 @@ describe("NumberInput", function () {
                 useArrowKeys={keysEnabled}
             />,
         );
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'Element | Component<any, {}, any>'. | TS2345 - Argument of type 'void' is not assignable to parameter of type 'ReactInstance | null | undefined'.
+        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'Element | Component<any, {}, any>'. | TS2345 - Argument of type 'void' is not assignable to parameter of type 'ReactInstance | null | undefined'.
         TestUtils.Simulate.keyDown(ReactDOM.findDOMNode(node), {key: key});
         expect(newVal).toEqual(endingValue);
     };

@@ -1,5 +1,159 @@
 # @khanacademy/perseus-editor
 
+## 2.6.5
+
+### Patch Changes
+
+-   Updated dependencies [5f33560b]
+-   Updated dependencies [0f95281c]
+    -   @khanacademy/perseus@10.0.1
+
+## 2.6.4
+
+### Patch Changes
+
+-   aea86eec: Convert all usages of JSX.LibraryManagedAttributes to WB Core's PropsFor type
+-   Updated dependencies [aea86eec]
+-   Updated dependencies [9eb50ae1]
+    -   @khanacademy/perseus@10.0.0
+
+## 2.6.3
+
+### Patch Changes
+
+-   Updated dependencies [ec50a510]
+-   Updated dependencies [dd800c22]
+-   Updated dependencies [2c69b0dc]
+-   Updated dependencies [2b99fbda]
+-   Updated dependencies [673f61b3]
+    -   @khanacademy/perseus@9.0.0
+
+## 2.6.2
+
+### Patch Changes
+
+-   afb14cff: Add eslint rule to make type imports consistent
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   Updated dependencies [0993a46b]
+-   Updated dependencies [afb14cff]
+-   Updated dependencies [ce5e6297]
+-   Updated dependencies [410d490d]
+    -   @khanacademy/perseus@8.0.0
+    -   @khanacademy/kmath@0.1.2
+
+## 2.6.1
+
+### Patch Changes
+
+-   89f54569: Types and tests for Plotter and Plotter-Editor
+-   89f54569: Bugfix to hide drag instructions in static plotter
+-   Updated dependencies [89f54569]
+-   Updated dependencies [ea9dac75]
+-   Updated dependencies [89f54569]
+    -   @khanacademy/perseus@7.2.1
+
+## 2.6.0
+
+### Minor Changes
+
+-   e08f85ee: Add testing and improve error logging in the image editor
+
+### Patch Changes
+
+-   Updated dependencies [e08f85ee]
+    -   @khanacademy/perseus@7.2.0
+
+## 2.5.2
+
+### Patch Changes
+
+-   eeda31bd: Fix loading graphie URLs into the image editor
+
+## 2.5.1
+
+### Patch Changes
+
+-   Updated dependencies [fc70e558]
+    -   @khanacademy/perseus@7.1.1
+
+## 2.5.0
+
+### Minor Changes
+
+-   2fb66a97: Remove functionality of `useNewStyles` prop on `ArticleRenderer`
+
+### Patch Changes
+
+-   Updated dependencies [2fb66a97]
+    -   @khanacademy/perseus@7.1.0
+
+## 2.4.1
+
+### Patch Changes
+
+-   @khanacademy/perseus@7.0.2
+
+## 2.4.0
+
+### Minor Changes
+
+-   97d02dac: Fixes a bug where images don't get dimensions in the image editor, and adds small preview to the image editor
+
+### Patch Changes
+
+-   Updated dependencies [5611204a]
+    -   @khanacademy/perseus@7.0.1
+
+## 2.3.13
+
+### Patch Changes
+
+-   Updated dependencies [f9ee9d24]
+-   Updated dependencies [b18986d3]
+-   Updated dependencies [b18986d3]
+    -   @khanacademy/perseus@7.0.0
+
+## 2.3.12
+
+### Patch Changes
+
+-   Updated dependencies [a0c71567]
+    -   @khanacademy/perseus@6.7.0
+
+## 2.3.11
+
+### Patch Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   Updated dependencies [d0f28dbd]
+-   Updated dependencies [077b125e]
+    -   @khanacademy/perseus@6.6.0
+
+## 2.3.10
+
+### Patch Changes
+
+-   Updated dependencies [6ec8d96e]
+-   Updated dependencies [a022ff6c]
+    -   @khanacademy/perseus@6.5.1
+
+## 2.3.9
+
+### Patch Changes
+
+-   Updated dependencies [cc4bfe06]
+-   Updated dependencies [9916bce4]
+    -   @khanacademy/perseus@6.5.0
+
+## 2.3.8
+
+### Patch Changes
+
+-   f7af06d9: Fix a bug in the exercise editor where the "KaTeX Errors" pane would display
+    for any chemistry expression, reporting that commands like `\ce` don't exist in
+    KaTeX even though they do.
+    -   @khanacademy/perseus@6.4.4
+
 ## 2.3.7
 
 ### Patch Changes

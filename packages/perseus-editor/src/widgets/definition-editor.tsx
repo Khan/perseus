@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -46,7 +47,7 @@ class DefinitionEditor extends React.Component<Props> {
                         Word to be defined:{" "}
                         <TextInput
                             value={this.props.togglePrompt}
-                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("togglePrompt")}
                             placeholder="define me"
                         />
@@ -63,7 +64,7 @@ class DefinitionEditor extends React.Component<Props> {
                             if (_.has(props, "content")) {
                                 newProps.definition = props.content;
                             }
-                            // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                             this.change(newProps);
                         }}
                     />

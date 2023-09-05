@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/sort-comp */
 import {
     components,
@@ -68,7 +69,7 @@ class GrapherEditor extends React.Component<Props> {
                 // NOTE(jeremy): This editor doesn't pass in a bunch of
                 // standard props that the Renderer provides normally (eg.
                 // alignment, findWidgets, etc).
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error - TS2769 - No overload matches this call.
                 <Grapher
                     {...graphProps}
                     apiOptions={this.props.apiOptions}
@@ -110,7 +111,7 @@ class GrapherEditor extends React.Component<Props> {
                     rulerLabel={this.props.graph.rulerLabel}
                     rulerTicks={this.props.graph.rulerTicks}
                     showTooltips={this.props.graph.showTooltips}
-                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+                    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                     onChange={this.change("graph")}
                 />
                 <div className="perseus-widget-row">

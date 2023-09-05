@@ -1,5 +1,115 @@
 # @khanacademy/math-input
 
+## 10.1.0
+
+### Minor Changes
+
+-   781551f9: Add an expanded view in the v2 MobileKeypad for larger screens
+
+## 10.0.1
+
+### Patch Changes
+
+-   7b11736e: Fix cursor animation for MathInput
+
+## 10.0.0
+
+### Major Changes
+
+-   dd800c22: Rename analytics prop from onEvent to onAnalyticsEvent
+
+### Minor Changes
+
+-   5352d512: Handle keypad resize better when it's positioned absolutely
+-   673f61b3: Introduce `dependencies` on Keypad.
+
+### Patch Changes
+
+-   Updated dependencies [dd800c22]
+    -   @khanacademy/perseus-core@0.2.0
+
+## 9.0.0
+
+### Major Changes
+
+-   0993a46b: Don't generate Flow types
+
+### Minor Changes
+
+-   87aadc43: Surface event from `onClickKey` callback
+-   b93f9f74: Added new Mobile Fraction Keypad View to the V2 Keypad
+
+### Patch Changes
+
+-   302ca7f7: Fix type for parameters of `moveOutOf` event.
+-   afb14cff: Add eslint rule to make type imports consistent
+-   19054322: Tweak to capital letter icon buttons
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   196d2a39: Add icons for all letters
+
+## 8.1.2
+
+### Patch Changes
+
+-   ea9dac75: Bugfix: allow legacy keypad to be positioned absolutely in column
+-   30a99b82: Allow v2 keypad to receive style prop like v1 keypad
+-   3fa556a3: Fixes bug where mouse hover causes grid to expand
+
+## 8.1.1
+
+### Patch Changes
+
+-   Updated dependencies [57f75510]
+    -   @khanacademy/perseus-core@0.1.1
+
+## 8.1.0
+
+### Minor Changes
+
+-   5611204a: Adds back the export of the unwrapped keypad for Khanmigo
+-   b4430dce: Make sendEvent in the Keypad an optional param
+
+### Patch Changes
+
+-   Updated dependencies [b4c06409]
+    -   @khanacademy/perseus-core@0.1.0
+
+## 8.0.0
+
+### Major Changes
+
+-   f9ee9d24: Move KeypadContext from Perseus to MathInput
+-   b18986d3: Replace Legacy/Mobile keypads with a component that switches between them
+
+## 7.0.0
+
+### Major Changes
+
+-   04e68d1c: Change keypadElement from LegacyKeypad to KeypadAPI
+
+### Minor Changes
+
+-   acafa72d: Add MobileKeypad to v2 keypad in MathInput
+
+### Patch Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   54590cc7: Add index.ts files to some dirs in MathInput for organization
+
+## 6.0.3
+
+### Patch Changes
+
+-   037a2db6: Update MathQuill version
+
+## 6.0.2
+
+### Patch Changes
+
+-   71c631ea: Add keypad opened and closed analytics events
+-   Updated dependencies [71c631ea]
+    -   @khanacademy/perseus-core@0.0.2
+
 ## 6.0.1
 
 ### Patch Changes

@@ -99,7 +99,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         } as const;
 
         if (marker.selected && marker.selected.length > 0) {
-            // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'hasAnswers' because it is a read-only property.
+            // @ts-expect-error - TS2540 - Cannot assign to 'hasAnswers' because it is a read-only property.
             score.hasAnswers = true;
         }
 
@@ -109,14 +109,14 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 marker.selected.length === marker.answers.length
             ) {
                 // All correct answers are selected by the user.
-                // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
+                // @ts-expect-error - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
                 score.isCorrect = marker.selected.every((choice) =>
                     marker.answers.includes(choice),
                 );
             }
         } else if (!marker.selected || marker.selected.length === 0) {
             // Correct as no answers should be selected by the user.
-            // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
+            // @ts-expect-error - TS2540 - Cannot assign to 'isCorrect' because it is a read-only property.
             score.isCorrect = true;
         }
 
@@ -217,9 +217,9 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         for (const side of Object.keys(triangles)) {
             const corners = triangles[side];
 
-            // @ts-expect-error [FEI-5003] - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+            // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             if (LabelImage.pointInTriangle(p, ...corners)) {
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type '"left" | "top" | "center" | "right" | "bottom"'.
+                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"left" | "top" | "center" | "right" | "bottom"'.
                 return side;
             }
         }
@@ -385,7 +385,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
 
         // Update Perseus widget state with user selected answers without
         // triggering interaction events for listeners.
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
+        // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
         onChange({markers: updatedMarkers}, null, true);
     }
 
@@ -526,7 +526,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         const marker =
             this._markers[
                 LabelImage.navigateToMarkerIndex(
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; }' is not assignable to parameter of type 'Direction'.
+                    // @ts-expect-error - TS2345 - Argument of type '{ x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; }' is not assignable to parameter of type 'Direction'.
                     navigateDirection,
                     markers,
                     index,

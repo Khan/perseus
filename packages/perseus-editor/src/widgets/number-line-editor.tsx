@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
 import {components, EditorJsonify} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
@@ -211,7 +212,7 @@ class NumberLineEditor extends React.Component<Props> {
                     Correct x{" "}
                     <select
                         value={this.props.correctRel}
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
+                        // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                         onChange={this.onChangeRelation}
                     >
                         <option value="eq"> = </option>

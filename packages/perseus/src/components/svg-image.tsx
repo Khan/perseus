@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable no-useless-escape, react/no-unsafe */
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import classNames from "classnames";
@@ -57,7 +58,7 @@ const doJSONP = function (url: string, options) {
     }
 
     // Add the global callback.
-    // @ts-expect-error [FEI-5003] - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
+    // @ts-expect-error - TS2740 - Type '() => void' is missing the following properties from type 'Window': clientInformation, closed, customElements, devicePixelRatio, and 206 more.
     window[options.callbackName] = function (...args) {
         cleanup();
         options.success.apply(null, args);
@@ -331,13 +332,13 @@ class SvgImage extends React.Component<Props, State> {
                 doJSONP(url, {
                     callbackName: "svgData" + hash,
                     success: (data) => {
-                        // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'data' because it is a read-only property.
+                        // @ts-expect-error - TS2540 - Cannot assign to 'data' because it is a read-only property.
                         cacheData.data = data;
-                        // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
+                        // @ts-expect-error - TS2540 - Cannot assign to 'loaded' because it is a read-only property.
                         cacheData.loaded = true;
 
                         _.each(cacheData.dataCallbacks, (callback) => {
-                            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '{ labels: readonly any[]; range: readonly any[]; }'.
+                            // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '{ labels: readonly any[]; range: readonly any[]; }'.
                             callback(cacheData.data, cacheData.localized);
                         });
                     },
@@ -349,7 +350,7 @@ class SvgImage extends React.Component<Props, State> {
                 retrieveData(
                     getLocalizedDataUrl(this.props.src),
                     (x, status, error) => {
-                        // @ts-expect-error [FEI-5003] - TS2540 - Cannot assign to 'localized' because it is a read-only property.
+                        // @ts-expect-error - TS2540 - Cannot assign to 'localized' because it is a read-only property.
                         cacheData.localized = false;
 
                         // If there is isn't any localized data, fall back to
@@ -511,9 +512,9 @@ class SvgImage extends React.Component<Props, State> {
                 const svgHeight = (this.props.height || 0) * this.props.scale;
                 const svgWidth = (this.props.width || 0) * this.props.scale;
                 label.css({
-                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
                     top: (labelTop / svgHeight) * 100 + "%",
-                    // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'.
+                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
                     left: (labelLeft / svgWidth) * 100 + "%",
                 });
 
@@ -560,7 +561,7 @@ class SvgImage extends React.Component<Props, State> {
         // nothing in that case as well. Figuring this out correctly
         // likely required accounting for the image alignment and margins.
         if (
-            // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+            // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
             $image.width() < this.props.width ||
             this.props.zoomToFullSizeOnMobile
         ) {
@@ -672,7 +673,7 @@ class SvgImage extends React.Component<Props, State> {
                         <ImageLoader
                             src={imageSrc}
                             imgProps={imageProps}
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
+                            // @ts-expect-error - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                             preloader={preloader}
                             onUpdate={this.handleUpdate}
                         />
@@ -684,7 +685,7 @@ class SvgImage extends React.Component<Props, State> {
             return (
                 <ImageLoader
                     src={imageSrc}
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
+                    // @ts-expect-error - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                     preloader={preloader}
                     imgProps={imageProps}
                     onUpdate={this.handleUpdate}
@@ -747,7 +748,7 @@ class SvgImage extends React.Component<Props, State> {
                         src={imageUrl}
                         onLoad={this.onImageLoad}
                         onUpdate={this.handleUpdate}
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
+                        // @ts-expect-error - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                         preloader={preloader}
                         imgProps={imageProps}
                     />
@@ -763,7 +764,7 @@ class SvgImage extends React.Component<Props, State> {
                     src={imageUrl}
                     onLoad={this.onImageLoad}
                     onUpdate={this.handleUpdate}
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
+                    // @ts-expect-error - TS2322 - Type '(() => Element) | null' is not assignable to type '() => ReactElement<any, string | JSXElementConstructor<any>> | null | undefined'.
                     preloader={preloader}
                     imgProps={imageProps}
                 />

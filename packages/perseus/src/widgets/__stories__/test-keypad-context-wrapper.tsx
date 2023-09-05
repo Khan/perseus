@@ -1,16 +1,14 @@
-import {LegacyKeypad} from "@khanacademy/math-input";
+import {KeypadContext, MobileKeypad} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import KeypadContext from "../../keypad-context";
 
 const Footer = (): React.ReactElement => {
     return (
         <View style={styles.keypadContainer}>
             <KeypadContext.Consumer>
-                {({keypadElement, setKeypadElement, renderer}) => (
-                    <LegacyKeypad
+                {({setKeypadElement, renderer}) => (
+                    <MobileKeypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => renderer && renderer.blur()}
                         style={styles.keypad}
@@ -35,13 +33,13 @@ const TestKeypadContextWrapper = (props: Props): React.ReactElement => {
     return (
         <KeypadContext.Provider
             value={{
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
+                // @ts-expect-error - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setKeypadElement,
                 keypadElement,
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
+                // @ts-expect-error - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setRenderer,
                 renderer,
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
+                // @ts-expect-error - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
                 setScrollableElement,
                 scrollableElement,
             }}

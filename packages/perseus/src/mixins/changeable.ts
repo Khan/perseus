@@ -92,7 +92,7 @@ export const change: ChangeFn = function (
         // Called with an object of multiple props to change
         callback = propValue;
         return _changeMultiple(
-            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this,
             newPropsOrSinglePropName, // object newProps
             callback,
@@ -101,7 +101,7 @@ export const change: ChangeFn = function (
     if (typeof newPropsOrSinglePropName === "string") {
         // Called with a string propName of a single prop to change
         return _changeSingle(
-            // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this,
             newPropsOrSinglePropName, // string propName
             propValue,

@@ -3,14 +3,14 @@
  * connects our various bits of logic for managing gestures and interactions,
  * and links them together.
  */
-import * as React from "react";
-
-import Key from "../../data/keys";
-import {ActiveNodesObj, LayoutProps} from "../../types";
 
 import GestureStateMachine from "./gesture-state-machine";
 import NodeManager from "./node-manager";
 import PopoverStateMachine from "./popover-state-machine";
+
+import type Key from "../../data/keys";
+import type {ActiveNodesObj, LayoutProps} from "../../types";
+import type * as React from "react";
 
 const coordsForEvent = (evt) => {
     return [evt.changedTouches[0].clientX, evt.changedTouches[0].clientY];

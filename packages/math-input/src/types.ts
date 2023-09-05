@@ -1,12 +1,14 @@
-import {CursorContext} from "./components/input/cursor-contexts";
-import Key from "./data/keys";
-import {
+import type {CursorContext} from "./components/input/cursor-contexts";
+import type Key from "./data/keys";
+import type {
     BorderDirection,
     EchoAnimationType,
     IconType,
     KeyType,
     KeypadType,
 } from "./enums";
+import type * as React from "react";
+import type ReactDOM from "react-dom";
 
 export type Border = Partial<ReadonlyArray<BorderDirection>>;
 
@@ -84,4 +86,21 @@ export type ActiveNodesObj = {
 
 export type LayoutProps = {initialBounds: Bound};
 
-export type ClickKeyCallback = (key: Key) => void;
+export type ClickKeyCallback = (key: Key, event?: React.SyntheticEvent) => void;
+
+export type KeypadPageType =
+    | "Geometry"
+    | "Operators"
+    | "Numbers"
+    | "Fractions"
+    | "Extras"
+    | "Dismiss";
+
+export interface KeypadAPI {
+    activate: () => void;
+    dismiss: () => void;
+    configure: (configuration: KeypadConfiguration, cb: () => void) => void;
+    setCursor: (cursor: Cursor) => void;
+    setKeyHandler: (keyHandler: KeyHandler) => void;
+    getDOMNode: () => ReturnType<typeof ReactDOM.findDOMNode>;
+}

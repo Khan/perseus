@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     components,
     icons,
@@ -35,7 +36,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): React.ReactElement => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
-    // @ts-expect-error [FEI-5003] - TS2322 - Type 'PerseusWidget' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'. | TS2345 - Argument of type 'Partial<{ id: string; onChange: (widgetInfo: PerseusWidget, cb?: (() => unknown) | undefined, silent?: boolean | undefined) => unknown; onRemove: () => unknown; apiOptions: any; } & CategorizerWidget & { ...; }> | ... 38 more ... | Partial<...>' is not assignable to parameter of type 'PerseusWidget'.
+    // @ts-expect-error - TS2322 - Type 'PerseusWidget' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'. | TS2345 - Argument of type 'Partial<{ id: string; onChange: (widgetInfo: PerseusWidget, cb?: (() => unknown) | undefined, silent?: boolean | undefined) => unknown; onRemove: () => unknown; apiOptions: any; } & CategorizerWidget & { ...; }> | ... 38 more ... | Partial<...>' is not assignable to parameter of type 'PerseusWidget'.
     return Widgets.upgradeWidgetInfoToLatestVersion(filteredProps);
 };
 
@@ -52,13 +53,13 @@ class WidgetEditor extends React.Component<
         super(props);
         this.state = {
             showWidget: false,
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
+            // @ts-expect-error - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
             widgetInfo: _upgradeWidgetInfo(props),
         };
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
+        // @ts-expect-error - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
         this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});
     }
 
@@ -78,7 +79,7 @@ class WidgetEditor extends React.Component<
         ) as WidgetInfo;
         newWidgetInfo.options = Object.assign(
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             this.refs.widget.serialize(),
             newProps,
         );
@@ -105,7 +106,7 @@ class WidgetEditor extends React.Component<
 
     getSaveWarnings = () => {
         // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         const issuesFunc = this.refs.widget.getSaveWarnings;
         return issuesFunc ? issuesFunc() : [];
     };
@@ -121,7 +122,7 @@ class WidgetEditor extends React.Component<
             static: widgetInfo.static,
             graded: widgetInfo.graded,
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             options: this.refs.widget.serialize(),
             version: widgetInfo.version,
         };
@@ -177,7 +178,7 @@ class WidgetEditor extends React.Component<
                     {supportsStaticMode && (
                         <input
                             type="button"
-                            // @ts-expect-error [FEI-5003] - TS2322 - Type '(e: Event) => void' is not assignable to type 'MouseEventHandler<HTMLInputElement>'.
+                            // @ts-expect-error - TS2322 - Type '(e: Event) => void' is not assignable to type 'MouseEventHandler<HTMLInputElement>'.
                             onClick={this._toggleStatic}
                             className="simple-button--small"
                             value={

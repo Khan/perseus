@@ -261,6 +261,18 @@ module.exports = {
         "monorepo/no-internal-import": "error",
 
         /**
+         * prettier - disabled in CI. W we run prettier manually here as its
+         * faster than through ESLint and covers more types of files than
+         * ESLint does.
+         *
+         * For Prettier, we include all files except those in
+         * `.prettierignore`.
+         * For ESLint we only consider TS/JS files (see `lint` script in
+         * package.json).
+         */
+        "prettier/prettier": [process.env.CI === "true" ? "off" : "error"],
+
+        /**
          * promise
          */
         // "promise/always-return": "error",
@@ -324,5 +336,6 @@ module.exports = {
          * typescript
          */
         "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/consistent-type-imports": "error",
     },
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * Main entry point
  */
@@ -60,7 +61,6 @@ export * as Dependencies from "./dependencies";
 export {Errors, Log} from "./logging/log";
 export {PerseusError} from "./perseus-error";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
-export {default as KeypadContext} from "./keypad-context";
 export {default as KhanMath} from "./util/math";
 export {default as LoadingContext} from "./loading-context";
 export {default as mediaQueries} from "./styles/media-queries";
@@ -109,11 +109,8 @@ export type {
     ImageUploader,
     JiptLabelStore,
     JiptRenderer,
-    KEScore,
-    LinterContextProps,
     PerseusDependencies,
     PerseusScore,
-    RendererInterface,
     Version,
     VideoData,
     VideoKind,
@@ -128,6 +125,7 @@ export type {
     PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
     PerseusRadioWidgetOptions,
+    PerseusExpressionWidgetOptions,
     PerseusRenderer,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";

@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
     labelImageItem,
@@ -76,6 +79,7 @@ export const renderQuestion = (
                 reviewMode={false}
                 savedState=""
                 controlPeripherals={false}
+                dependencies={testDependenciesV2}
                 {...optionalProps}
             />
             {/* The ItemRenderer _requires_ two divs: a work area and hints
@@ -115,7 +119,7 @@ const makeHint = (content: string): PerseusRenderer => ({
             graded: true,
             version: {major: 0, minor: 0},
             static: false,
-            // @ts-expect-error [FEI-5003] - TS2322 - Type '"mock-widget"' is not assignable to type '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"'.
+            // @ts-expect-error - TS2322 - Type '"mock-widget"' is not assignable to type '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"'.
             type: "mock-widget",
             options: {static: false},
             alignment: "default",
@@ -132,6 +136,13 @@ describe("item renderer", () => {
     });
 
     beforeEach(() => {
+        // Mock ResizeObserver used by the mobile keypad
+        window.ResizeObserver = jest.fn().mockImplementation(() => ({
+            observe: jest.fn(),
+            unobserve: jest.fn(),
+            disconnect: jest.fn(),
+        }));
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -309,7 +320,7 @@ describe("item renderer", () => {
             renderer.focus();
 
             // Assert
-            expect(screen.getByLabelText("Up arrow")).toBeVisible();
+            expect(screen.getByLabelText("7")).toBeVisible();
         });
 
         it("should provide current and previous focus paths on focus change to, and away from, a single widget", () => {

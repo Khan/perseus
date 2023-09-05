@@ -70,7 +70,7 @@ export const percentageProblem: PerseusRenderer = {
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     images: {},
     widgets: {
-        // @ts-expect-error [FEI-5003] - TS2352 - Conversion of type '{ graded: true; version: { major: number; minor: number; }; static: false; type: "numeric-input"; options: { coefficient: false; static: false; answers: { status: string; maxError: null; strict: false; value: string; simplify: string; message: string; }[]; labelText: string; size: string; }; alignment: string; }' to type 'NumericInputWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+        // @ts-expect-error - TS2352 - Conversion of type '{ graded: true; version: { major: number; minor: number; }; static: false; type: "numeric-input"; options: { coefficient: false; static: false; answers: { status: string; maxError: null; strict: false; value: string; simplify: string; message: string; }[]; labelText: string; size: string; }; alignment: string; }' to type 'NumericInputWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
         "numeric-input 1": {
             graded: true,
             version: {

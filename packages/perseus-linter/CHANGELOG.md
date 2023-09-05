@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 0.3.2
+
+### Patch Changes
+
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+
 ## 0.3.1
 
 ### Patch Changes

@@ -18,7 +18,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
           style="overflow-x: auto; overflow-y: hidden; margin-top: -10px; margin-bottom: -10px; transform: translate3d(0,0,0); padding: 10px 16px 10px 16px;"
         >
           <span
-            style="display: block; width: 100%; transform: scale(1, 1)  translate(0, 8px); transform-origin: 0 0; opacity: 0;"
+            style="display: block; width: 100%; transform: scale(1, 1); transform-origin: 0 0; opacity: 1;"
           >
             <span
               class="mock-TeX"

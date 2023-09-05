@@ -139,7 +139,7 @@ class SequenceEditor extends React.Component<SequenceEditorProps> {
         return {
             json: _.times(this.props.json.length, (i) => {
                 // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
                 return this.refs["editor" + i].serialize();
             }),
         };

@@ -1,5 +1,187 @@
 # @khanacademy/perseus
 
+## 10.0.1
+
+### Patch Changes
+
+-   5f33560b: Revert type changes made in #694
+-   0f95281c: Restore static methods on `Expression` widget component
+-   Updated dependencies [781551f9]
+    -   @khanacademy/math-input@10.1.0
+
+## 10.0.0
+
+### Major Changes
+
+-   9eb50ae1: Removed `LinterContextProps` type. Moved to `@khanacademy/perseus-linter` in a previous release, but wasn't deleted from this package.
+
+### Patch Changes
+
+-   aea86eec: Convert all usages of JSX.LibraryManagedAttributes to WB Core's PropsFor type
+-   Updated dependencies [7b11736e]
+    -   @khanacademy/math-input@10.0.1
+
+## 9.0.0
+
+### Major Changes
+
+-   dd800c22: Rename analytics prop from onEvent to onAnalyticsEvent
+-   2b99fbda: Remove 'analytics' key from PerseusDependencies
+
+### Minor Changes
+
+-   ec50a510: Switch `virtualKeypadVersion` on `perseus:expression-evaluated` event to be non-optional
+-   673f61b3: Introduce `dependencies` on ArticleRenderer, ItemRenderer, MultiRenderer, and ServerItemRenderer.
+
+### Patch Changes
+
+-   2c69b0dc: Fix APIOptions `trackInteraction` type for better Flow type generation
+-   Updated dependencies [dd800c22]
+-   Updated dependencies [5352d512]
+-   Updated dependencies [673f61b3]
+    -   @khanacademy/math-input@10.0.0
+    -   @khanacademy/perseus-core@0.2.0
+
+## 8.0.0
+
+### Major Changes
+
+-   0993a46b: Don't generate Flow types
+
+### Patch Changes
+
+-   afb14cff: Add eslint rule to make type imports consistent
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   410d490d: Improve Typescript types for the ArticleRenderer and ProvideKeypad mixin
+-   Updated dependencies [302ca7f7]
+-   Updated dependencies [0993a46b]
+-   Updated dependencies [87aadc43]
+-   Updated dependencies [afb14cff]
+-   Updated dependencies [19054322]
+-   Updated dependencies [ce5e6297]
+-   Updated dependencies [0993a46b]
+-   Updated dependencies [196d2a39]
+-   Updated dependencies [b93f9f74]
+    -   @khanacademy/math-input@9.0.0
+    -   @khanacademy/simple-markdown@0.10.0
+    -   @khanacademy/kmath@0.1.2
+    -   @khanacademy/perseus-linter@0.3.2
+    -   @khanacademy/pure-markdown@0.2.4
+
+## 7.2.1
+
+### Patch Changes
+
+-   89f54569: Types and tests for Plotter and Plotter-Editor
+-   ea9dac75: Bugfix: allow legacy keypad to be positioned absolutely in column
+-   89f54569: Bugfix to hide drag instructions in static plotter
+-   Updated dependencies [ea9dac75]
+-   Updated dependencies [30a99b82]
+-   Updated dependencies [3fa556a3]
+    -   @khanacademy/math-input@8.1.2
+
+## 7.2.0
+
+### Minor Changes
+
+-   e08f85ee: Add testing and improve error logging in the image editor
+
+## 7.1.1
+
+### Patch Changes
+
+-   fc70e558: Fix the font size of inline MathJax 3 math in paragraphs, making it the same as KaTeX math.
+
+## 7.1.0
+
+### Minor Changes
+
+-   2fb66a97: Remove functionality of `useNewStyles` prop on `ArticleRenderer`
+
+## 7.0.2
+
+### Patch Changes
+
+-   Updated dependencies [57f75510]
+    -   @khanacademy/perseus-core@0.1.1
+    -   @khanacademy/math-input@8.1.1
+
+## 7.0.1
+
+### Patch Changes
+
+-   5611204a: Adds back the export of the unwrapped keypad for Khanmigo
+-   Updated dependencies [b4c06409]
+-   Updated dependencies [5611204a]
+-   Updated dependencies [b4430dce]
+    -   @khanacademy/perseus-core@0.1.0
+    -   @khanacademy/math-input@8.1.0
+
+## 7.0.0
+
+### Major Changes
+
+-   f9ee9d24: Move KeypadContext from Perseus to MathInput
+
+### Minor Changes
+
+-   b18986d3: Adds useV2Keypad API option for switching between new and legacy keypads
+
+### Patch Changes
+
+-   b18986d3: Replace Legacy/Mobile keypads with a component that switches between them
+-   Updated dependencies [f9ee9d24]
+-   Updated dependencies [b18986d3]
+    -   @khanacademy/math-input@8.0.0
+
+## 6.7.0
+
+### Minor Changes
+
+-   a0c71567: Make KaTeX CSS styles also apply to MathJax 3
+
+## 6.6.0
+
+### Minor Changes
+
+-   d0f28dbd: Add story for ExpressionEditor
+-   077b125e: Extend argument object type for APIOptions.trackInteraction callback to support the arbitrary data each widget may add
+
+### Patch Changes
+
+-   Updated dependencies [04e68d1c]
+-   Updated dependencies [d0f28dbd]
+-   Updated dependencies [acafa72d]
+-   Updated dependencies [54590cc7]
+    -   @khanacademy/math-input@7.0.0
+
+## 6.5.1
+
+### Patch Changes
+
+-   6ec8d96e: Clarify parameter type for APIOptions.trackInteraction
+-   a022ff6c: Switch from `classname` to `id` for passage wrappers.
+
+## 6.5.0
+
+### Minor Changes
+
+-   cc4bfe06: Switches out wrapped code blocks for horizontally-scrolling code blocks to account for python indentation syntax.
+-   9916bce4: Changed radio widget instruction font.
+
+### Patch Changes
+
+-   Updated dependencies [037a2db6]
+    -   @khanacademy/math-input@6.0.3
+
+## 6.4.4
+
+### Patch Changes
+
+-   Updated dependencies [71c631ea]
+    -   @khanacademy/math-input@6.0.2
+    -   @khanacademy/perseus-core@0.0.2
+
 ## 6.4.3
 
 ### Patch Changes

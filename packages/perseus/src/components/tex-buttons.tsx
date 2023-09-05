@@ -1,10 +1,12 @@
-import {Keys} from "@khanacademy/math-input";
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
+
+import type {Keys} from "@khanacademy/math-input";
 
 const prettyBig = {fontSize: "150%"} as const;
 const slightlyBig = {fontSize: "120%"} as const;
@@ -283,7 +285,7 @@ class TexButtons extends React.Component<Props> {
         // for _.keys() to return the keys in an arbitrary order, but in
         // practice, they will be ordered as listed above.
         const sortedButtonSets = _.sortBy(this.props.sets, (setName) =>
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | number' is not assignable to parameter of type 'string'.
+            // @ts-expect-error - TS2345 - Argument of type 'string | number' is not assignable to parameter of type 'string'.
             _.keys(buttonSets).indexOf(setName),
         );
 
@@ -299,7 +301,7 @@ class TexButtons extends React.Component<Props> {
                     <button
                         onClick={() => this.props.onInsert(symbol[1])}
                         className="tex-button"
-                        // @ts-expect-error [FEI-5003] - TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'key' does not exist on type 'boolean | ReactChild | ReactFragment | ReactPortal'.
+                        // @ts-expect-error - TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'key' does not exist on type 'boolean | ReactChild | ReactFragment | ReactPortal'.
                         key={symbol[0].key}
                         type="button"
                         aria-label={symbol[2]}

@@ -1,3 +1,5 @@
+import type {APIOptions, Tracking} from "./types";
+
 /**
  * This alternate version of `.track` does nothing as an optimization.
  */
@@ -6,23 +8,23 @@ function _noop() {}
 /**
  * Wrapper for the trackInteraction apiOption.
  */
-class InteractionTracker {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_tracked' has no initializer and is not definitely assigned in the constructor.
+class InteractionTracker<T> {
+    // @ts-expect-error - TS2564 - Property '_tracked' has no initializer and is not definitely assigned in the constructor.
     _tracked: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'setting' has no initializer and is not definitely assigned in the constructor.
-    setting: string;
-    track: (extraData?: any) => void;
+    // @ts-expect-error - TS2564 - Property 'setting' has no initializer and is not definitely assigned in the constructor.
+    setting: Tracking;
+    track: (extraData?: T) => void;
     trackApi: any;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetID' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'widgetID' has no initializer and is not definitely assigned in the constructor.
     widgetID: string;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetType' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'widgetType' has no initializer and is not definitely assigned in the constructor.
     widgetType: string;
 
     constructor(
-        trackApi: any, // original apiOptions.trackInteraction
+        trackApi: APIOptions["trackInteraction"],
         widgetType: string,
         widgetID: string,
-        setting: "" | "all", // "" means track once
+        setting: Tracking,
     ) {
         if (!trackApi) {
             this.track = _noop;
@@ -44,7 +46,7 @@ class InteractionTracker {
      * @param extraData Any extra data to track about the event.
      * @private
      */
-    _track: (extraData: unknown) => void = (extraData: unknown) => {
+    _track: (extraData: T) => void = (extraData) => {
         if (this._tracked && !this.setting) {
             return;
         }
@@ -52,7 +54,6 @@ class InteractionTracker {
         this.trackApi({
             type: this.widgetType,
             id: this.widgetID,
-            // @ts-expect-error [FEI-5003] - TS2698 - Spread types may only be created from object types.
             ...extraData,
         });
     };

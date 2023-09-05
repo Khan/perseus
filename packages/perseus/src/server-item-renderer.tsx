@@ -1,3 +1,4 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {StyleSheet, css} from "aphrodite";
 /**
  * A copy of the ItemRenderer which renders its question renderer and hints
@@ -11,6 +12,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
 import Objective from "./interactive2/objective_";
 import LoadingContext from "./loading-context";
@@ -19,7 +21,8 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
-import type {APIOptions, KEScore, FocusPath, RendererInterface} from "./types";
+import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
+import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
 
 const {mapObject} = Objective;
 
@@ -35,6 +38,8 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
         reviewMode?: boolean;
         // from KeypadContext
         keypadElement?: any | null | undefined;
+
+        dependencies: PerseusDependenciesV2;
     };
 
 type HOCProps = {
@@ -68,7 +73,7 @@ export class ServerItemRenderer
     extends React.Component<Props, State>
     implements RendererInterface
 {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
     hintsRenderer: any;
     _currentFocus: FocusPath;
@@ -172,7 +177,7 @@ export class ServerItemRenderer
                 this._currentFocus,
                 prevFocus,
                 didFocusInput && keypadElement && keypadElement.getDOMNode(),
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
+                // @ts-expect-error - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
                 didFocusInput &&
                     this.questionRenderer.getDOMNodeForPath(newFocus),
             );
@@ -203,7 +208,7 @@ export class ServerItemRenderer
         // this callback is executed
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Timeout' is not assignable to type 'number'.
+        // @ts-expect-error - TS2322 - Type 'Timeout' is not assignable to type 'number'.
         this.blurTimeoutID = setTimeout(() => {
             if (_.isEqual(this._currentFocus, blurringFocusPath)) {
                 this._setCurrentFocus(null);
@@ -322,7 +327,7 @@ export class ServerItemRenderer
         const qScore = this.questionRenderer.scoreWidgets();
         const qGuess = this.questionRenderer.getUserInputForWidgets();
         const state = this.questionRenderer.getSerializedState();
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [key: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
+        // @ts-expect-error - TS2322 - Type 'Partial<Record<string, KEScore>>' is not assignable to type '{ [key: string]: KEScore; }'. | TS2345 - Argument of type '{ [widgetId: string]: PerseusScore; }' is not assignable to parameter of type 'Partial<Record<string, { type: "invalid"; message?: string | null | undefined; suppressAlmostThere?: boolean | null | undefined; }>>'.
         return mapObject(qScore, (score, id) => {
             return Util.keScoreFromPerseusScore(score, qGuess[id], state);
         });
@@ -416,16 +421,16 @@ export class ServerItemRenderer
             <HintsRenderer
                 hints={this.props.item.hints}
                 hintsVisible={this.props.hintsVisible}
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
                 apiOptions={apiOptions}
                 ref={(elem) => (this.hintsRenderer = elem)}
             />
         );
 
         return (
-            <div>
-                <div>{questionRenderer}</div>
-                {apiOptions.renderColumn !== "left" &&
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                <div>
+                    <div>{questionRenderer}</div>
+                    {apiOptions.renderColumn !== "left" &&
                     <div
                         className={
                             // Avoid adding any horizontal padding when applying the
@@ -439,8 +444,9 @@ export class ServerItemRenderer
                     >
                         {hintsRenderer}
                     </div>
-                }
-            </div>
+                    }
+                </div>
+            </DependenciesContext.Provider>
         );
     }
 }
