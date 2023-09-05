@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 10.1.0
+
+### Minor Changes
+
+-   3078825a: Remove animation when math is first drawn on a page
+-   100fb7e5: Update design of image widget's caption
+
+### Patch Changes
+
+-   Updated dependencies [3f7be05a]
+-   Updated dependencies [810c7bd9]
+-   Updated dependencies [b161d004]
+-   Updated dependencies [a99a9ca4]
+    -   @khanacademy/math-input@10.1.1
+
 ## 10.0.1
 
 ### Patch Changes
