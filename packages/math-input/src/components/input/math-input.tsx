@@ -908,10 +908,20 @@ class MathInput extends React.Component<Props, State> {
                 overrides.css. */}
                 <div
                     className="keypad-input"
-                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                    tabIndex={"0"}
+                    tabIndex={0}
                     ref={(node) => {
                         this.inputRef = node;
+                    }}
+                    onFocus={() => {
+                        this.focus();
+                    }}
+                    onBlur={() => {
+                        this._hideCursorHandle();
+                        this.mathField.blur();
+                        this.setState({
+                            focused: false,
+                            handle: {visible: false},
+                        });
                     }}
                     onKeyUp={this.handleKeyUp}
                 >
