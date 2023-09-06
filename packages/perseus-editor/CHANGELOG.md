@@ -1,5 +1,13 @@
 # @khanacademy/perseus-editor
 
+## 2.6.7
+
+### Patch Changes
+
+-   2af4f9fa: Switch from using ProvideKeypad in ArticleRenderer to passing the keypad element down instead
+-   Updated dependencies [2af4f9fa]
+    -   @khanacademy/perseus@11.0.0
+
 ## 2.6.6
 
 ### Patch Changes
