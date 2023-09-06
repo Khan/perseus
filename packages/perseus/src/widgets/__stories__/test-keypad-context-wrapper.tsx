@@ -15,7 +15,6 @@ const Footer = (): React.ReactElement => {
                         style={styles.keypad}
                         useV2Keypad={true}
                         onAnalyticsEvent={async (e) => {
-                            console.log(e);
                             action("onAnalyticsEvent")(e);
                         }}
                     />
