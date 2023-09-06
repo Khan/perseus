@@ -1,5 +1,14 @@
 # @khanacademy/math-input
 
+## 10.1.1
+
+### Patch Changes
+
+-   3f7be05a: Updated Keypad V2 TabbarItemType to KeypadPageType as a more accurate description.
+-   810c7bd9: Resize letter SVGs
+-   b161d004: Ensured that the keypad is hidden from screen readers when it is closed.
+-   a99a9ca4: Fix direction types for MathQuill interface
+
 ## 10.1.0
 
 ### Minor Changes

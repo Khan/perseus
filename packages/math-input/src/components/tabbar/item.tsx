@@ -6,7 +6,7 @@ import * as React from "react";
 
 import IconAsset from "./icons";
 
-import type {TabbarItemType} from "./types";
+import type {KeypadPageType} from "../../types";
 
 const styles = StyleSheet.create({
     base: {
@@ -78,7 +78,7 @@ export type ItemState = "active" | "inactive" | "disabled";
 type Props = {
     onClick: () => void;
     itemState: ItemState;
-    itemType: TabbarItemType;
+    itemType: KeypadPageType;
 };
 
 class TabbarItem extends React.Component<Props> {

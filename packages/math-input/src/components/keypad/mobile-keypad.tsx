@@ -36,7 +36,6 @@ type Props = {
 
 type State = {
     active: boolean;
-    hasBeenActivated: boolean;
     containerWidth: number;
     keypadConfig?: KeypadConfiguration;
     keyHandler?: KeyHandler;
@@ -51,7 +50,6 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     state: State = {
         active: false,
-        hasBeenActivated: false,
         containerWidth: 0,
     };
 
@@ -101,7 +99,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     };
 
     activate: () => void = () => {
-        this.setState({active: true, hasBeenActivated: true});
+        this.setState({active: true});
     };
 
     dismiss: () => void = () => {
@@ -152,14 +150,12 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     render(): React.ReactNode {
         const {style} = this.props;
-        const {active, hasBeenActivated, containerWidth, cursor, keypadConfig} =
-            this.state;
+        const {active, containerWidth, cursor, keypadConfig} = this.state;
 
         const containerStyle = [
             // internal styles
             styles.keypadContainer,
-            active ? styles.activeKeypadContainer : null,
-            !active && !hasBeenActivated ? styles.hidden : null,
+            active && styles.activeKeypadContainer,
             // styles passed as props
             ...(Array.isArray(style) ? style : [style]),
         ];
@@ -221,17 +217,14 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         position: "fixed",
+        transitionProperty: "all",
         transition: `200ms ease-out`,
-        transitionProperty: "transform",
+        visibility: "hidden",
         transform: "translate3d(0, 100%, 0)",
     },
-
     activeKeypadContainer: {
         transform: "translate3d(0, 0, 0)",
-    },
-
-    hidden: {
-        visibility: "hidden",
+        visibility: "visible",
     },
 });
 

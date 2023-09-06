@@ -88,6 +88,14 @@ export type LayoutProps = {initialBounds: Bound};
 
 export type ClickKeyCallback = (key: Key, event?: React.SyntheticEvent) => void;
 
+export type KeypadPageType =
+    | "Geometry"
+    | "Operators"
+    | "Numbers"
+    | "Fractions"
+    | "Extras"
+    | "Dismiss";
+
 export interface KeypadAPI {
     activate: () => void;
     dismiss: () => void;

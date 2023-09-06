@@ -3,13 +3,14 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "10.1.0",
+    "version": "10.1.1",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/math-input.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/math-input"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
