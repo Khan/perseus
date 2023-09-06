@@ -28,6 +28,7 @@ import MockWidgetExport from "./mock-widget";
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
+import type {KeypadAPI} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
@@ -342,12 +343,16 @@ describe("server item renderer", () => {
             // Arranged
             const onFocusChange = jest.fn();
             const keypadElementDOMNode = <div />;
-            const keypadElement = {
+            const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
                 activate: jest.fn(),
-            } as const;
+                dismiss: jest.fn(),
+                configure: jest.fn(),
+                setCursor: jest.fn(),
+                setKeyHandler: jest.fn(),
+            };
             const {renderer} = renderQuestion(
                 itemWithInput,
                 {onFocusChange, isMobile: true},
@@ -402,13 +407,16 @@ describe("server item renderer", () => {
             // Arranged
             const onFocusChange = jest.fn();
             const keypadElementDOMNode = <div />;
-            const keypadElement = {
+            const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
                 activate: jest.fn(),
                 dismiss: jest.fn(),
-            } as const;
+                configure: jest.fn(),
+                setCursor: jest.fn(),
+                setKeyHandler: jest.fn(),
+            };
             const {renderer} = renderQuestion(
                 itemWithInput,
                 {onFocusChange, isMobile: true},

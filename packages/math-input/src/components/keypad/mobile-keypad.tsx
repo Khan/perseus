@@ -49,8 +49,8 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     hasMounted = false;
 
     state: State = {
-        containerWidth: 0,
         active: false,
+        containerWidth: 0,
     };
 
     componentDidMount() {

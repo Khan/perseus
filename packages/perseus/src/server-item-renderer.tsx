@@ -22,7 +22,12 @@ import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
 import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
-import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
+import type {KeypadAPI} from "@khanacademy/math-input";
+import type {
+    KeypadContextRendererInterface,
+    RendererInterface,
+    KEScore,
+} from "@khanacademy/perseus-core";
 
 const {mapObject} = Objective;
 
@@ -36,9 +41,7 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
         };
         problemNum?: number;
         reviewMode?: boolean;
-        // from KeypadContext
-        keypadElement?: any | null | undefined;
-
+        keypadElement?: KeypadAPI | null | undefined;
         dependencies: PerseusDependenciesV2;
     };
 
@@ -71,7 +74,7 @@ type SerializedState = {
 /* eslint-disable-next-line react/no-unsafe */
 export class ServerItemRenderer
     extends React.Component<Props, State>
-    implements RendererInterface
+    implements RendererInterface, KeypadContextRendererInterface
 {
     // @ts-expect-error - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
@@ -176,8 +179,8 @@ export class ServerItemRenderer
             onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                didFocusInput && keypadElement && keypadElement.getDOMNode(),
-                // @ts-expect-error - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
+                didFocusInput ? keypadElement?.getDOMNode() : null,
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
                 didFocusInput &&
                     this.questionRenderer.getDOMNodeForPath(newFocus),
             );
