@@ -9,7 +9,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/perseus.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/perseus-linter"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"

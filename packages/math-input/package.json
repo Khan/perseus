@@ -9,7 +9,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/math-input.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/math-input"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
