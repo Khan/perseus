@@ -15,6 +15,10 @@ export type PerseusAnalyticsEvent =
           };
       }
     | {
+          type: "perseus:expression-focused";
+          payload: null;
+      }
+    | {
           type: "math-input:keypad-closed";
           payload: {
               virtualKeypadVersion: VirtualKeypadVersion;
