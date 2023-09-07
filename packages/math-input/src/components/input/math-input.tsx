@@ -185,7 +185,7 @@ class MathInput extends React.Component<Props, State> {
             // dismissal. This code needs to be generalized to handle
             // multi-touch.
             if (this.state.focused && this.didTouchOutside && !this.didScroll) {
-                this.blur();
+                this.blur(true);
             }
 
             this.didTouchOutside = false;
@@ -332,9 +332,11 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    blur: () => void = () => {
+    blur: (callPropsOnBlur: Boolean) => void = (callPropsOnBlur: Boolean) => {
         this.mathField.blur();
-        this.props.onBlur && this.props.onBlur();
+        if (callPropsOnBlur) {
+            this.props.onBlur && this.props.onBlur();
+        }
         this.setState({focused: false, handle: {visible: false}});
     };
 
@@ -917,7 +919,7 @@ class MathInput extends React.Component<Props, State> {
                     }}
                     onBlur={() => {
                         this._hideCursorHandle();
-                        this.mathField.blur();
+                        this.blur(false);
                         this.setState({
                             focused: false,
                             handle: {visible: false},

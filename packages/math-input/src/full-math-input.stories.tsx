@@ -79,9 +79,7 @@ export const Basic = () => {
                 keypadElement={keypadElement}
                 onChange={(newValue, callback) => {
                     setValue(newValue);
-                    if (callback) {
-                        callback();
-                    }
+                    callback?.();
                 }}
                 onFocus={() => {
                     keypadElement?.activate();
