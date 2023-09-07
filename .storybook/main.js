@@ -1,3 +1,4 @@
+import { dirname, join } from "path";
 const babelConfig = require("../babel.config");
 const path = require("path");
 const fs = require("fs");
@@ -18,9 +19,9 @@ module.exports = {
     ],
 
     addons: [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
-        "@storybook/addon-a11y",
+        getAbsolutePath("@storybook/addon-links"),
+        getAbsolutePath("@storybook/addon-essentials"),
+        getAbsolutePath("@storybook/addon-a11y"),
     ],
 
     // NOTE(kevinb): We customize the padding a bit so that so that stories
@@ -116,7 +117,7 @@ module.exports = {
     },
 
     framework: {
-        name: "@storybook/react-webpack5",
+        name: getAbsolutePath("@storybook/react-webpack5"),
         options: {}
     },
 
@@ -124,3 +125,7 @@ module.exports = {
         autodocs: true
     }
 };
+
+function getAbsolutePath(value) {
+    return dirname(require.resolve(join(value, "package.json")));
+}
