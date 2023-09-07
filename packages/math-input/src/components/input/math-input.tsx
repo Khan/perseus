@@ -332,7 +332,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    blur: (callPropsOnBlur: Boolean) => void = (callPropsOnBlur: Boolean) => {
+    blur: (callPropsOnBlur: boolean) => void = (callPropsOnBlur: boolean) => {
         this.mathField.blur();
         if (callPropsOnBlur) {
             this.props.onBlur && this.props.onBlur();
