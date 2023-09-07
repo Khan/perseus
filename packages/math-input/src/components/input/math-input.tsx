@@ -185,7 +185,7 @@ class MathInput extends React.Component<Props, State> {
             // dismissal. This code needs to be generalized to handle
             // multi-touch.
             if (this.state.focused && this.didTouchOutside && !this.didScroll) {
-                this.blur();
+                this.blur(true);
             }
 
             this.didTouchOutside = false;
@@ -332,9 +332,11 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    blur: () => void = () => {
+    blur: (callPropsOnBlur: boolean) => void = (callPropsOnBlur: boolean) => {
         this.mathField.blur();
-        this.props.onBlur && this.props.onBlur();
+        if (callPropsOnBlur) {
+            this.props.onBlur && this.props.onBlur();
+        }
         this.setState({focused: false, handle: {visible: false}});
     };
 
@@ -907,10 +909,16 @@ class MathInput extends React.Component<Props, State> {
                 overrides.css. */}
                 <div
                     className="keypad-input"
-                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                    tabIndex={"0"}
+                    tabIndex={0}
                     ref={(node) => {
                         this.inputRef = node;
+                    }}
+                    onFocus={() => {
+                        this.focus();
+                    }}
+                    onBlur={() => {
+                        this._hideCursorHandle();
+                        this.blur(false);
                     }}
                     onKeyUp={this.handleKeyUp}
                 >
