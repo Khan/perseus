@@ -38,6 +38,7 @@ export type {KeypadAPI, KeypadConfiguration} from "./types";
 
 // Key list, configuration map, and types
 export type {default as Keys} from "./data/keys";
+export {Keys as KeyArray} from "./data/keys";
 export {default as KeyConfigs} from "./data/key-configs";
 export {type KeyType, KeypadType} from "./enums";
 

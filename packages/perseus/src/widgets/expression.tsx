@@ -1,5 +1,5 @@
 import * as KAS from "@khanacademy/kas";
-import {KeypadInput, KeypadType} from "@khanacademy/math-input";
+import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
@@ -9,13 +9,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import MathInput from "../components/math-input";
-import Tooltip, {
-    HorizontalDirection,
-    VerticalDirection,
-} from "../components/tooltip";
 import {useDependencies} from "../dependencies";
-import {iconExclamationSign} from "../icon-paths";
-import {getDependencies} from "../dependencies";
 import {Errors as PerseusErrors, Log} from "../logging/log";
 import * as Changeable from "../mixins/changeable";
 import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
@@ -613,8 +607,8 @@ const keypadConfigurationForProps = (
     const keypadType = KeypadType.EXPRESSION;
 
     // Extract any and all variables and constants from the answer forms.
-    const uniqueExtraVariables: Record<string, any> = {};
-    const uniqueExtraConstants: Record<string, any> = {};
+    const uniqueExtraVariables: Partial<Record<Key, boolean>> = {};
+    const uniqueExtraConstants: Partial<Record<Key, boolean>> = {};
     for (const answerForm of widgetOptions.answerForms) {
         const maybeExpr = KAS.parse(answerForm.value, widgetOptions);
         if (maybeExpr.parsed) {
@@ -627,12 +621,19 @@ const keypadConfigurationForProps = (
                 symbol === "pi" || symbol === "theta";
             const toKey = (symbol: any) =>
                 isGreek(symbol) ? symbol.toUpperCase() : symbol;
+            const isKey = (key: string): key is Key => key in KeyArray;
 
             for (const variable of expr.getVars()) {
-                uniqueExtraVariables[toKey(variable)] = true;
+                const maybeKey = toKey(variable);
+                if (isKey(maybeKey)) {
+                    uniqueExtraVariables[toKey(maybeKey)] = true;
+                }
             }
             for (const constant of expr.getConsts()) {
-                uniqueExtraConstants[toKey(constant)] = true;
+                const maybeKey = toKey(constant);
+                if (isKey(maybeKey)) {
+                    uniqueExtraConstants[toKey(maybeKey)] = true;
+                }
             }
         }
     }

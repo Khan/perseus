@@ -96,4 +96,38 @@ describe("Perseus' MathInput", () => {
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2\\div3");
     });
+
+    it("returns focus to input after button click", () => {
+        // Assemble
+        render(
+            <MathInput onChange={() => {}} keypadButtonSets={allButtonSets} />,
+        );
+
+        // Act
+        // focusing the input triggers the popover
+        screen.getByRole("switch").click();
+        userEvent.click(screen.getByRole("button", {name: "1"}));
+
+        // Assert
+        expect(screen.getByRole("textbox")).toHaveFocus();
+    });
+
+    it("does not return focus to input after button press via keyboard", () => {
+        // Assemble
+        render(
+            <MathInput onChange={() => {}} keypadButtonSets={allButtonSets} />,
+        );
+
+        // Act
+        // focusing the input triggers the popover
+        screen.getByRole("switch").click();
+        userEvent.tab(); // to "123" tab
+        userEvent.tab(); // to extra keys tab
+        userEvent.tab(); // to whole keypad
+        userEvent.tab(); // to "1" button
+        userEvent.keyboard("{enter}");
+
+        // Assert
+        expect(screen.getByRole("textbox")).not.toHaveFocus();
+    });
 });

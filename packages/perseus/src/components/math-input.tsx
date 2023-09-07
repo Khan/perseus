@@ -19,7 +19,9 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
+import type {LegacyButtonSets} from "../perseus-types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+import type {PerseusAnalyticsEvent} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -70,6 +72,7 @@ type State = {
     focused: boolean;
     keypadOpen: boolean;
     cursorContext: typeof CursorContext[keyof typeof CursorContext];
+    openedWithEventType?: string;
 };
 
 const customKeyTranslator = {
@@ -227,7 +230,7 @@ class MathInput extends React.Component<Props, State> {
     // input is still focused
     blur: () => void = () => this.setState({focused: false});
 
-    handleKeypadPress: (key: Keys) => void = (key) => {
+    handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
         const translator = keyTranslator[key];
         const mathField = this.mathField();
 
@@ -238,7 +241,15 @@ class MathInput extends React.Component<Props, State> {
             this.setState({
                 cursorContext: getCursorContext(mathField),
             });
-            mathField.focus(); // to see cursor position after button press
+        }
+
+        // We want to prevent taking focus from input when clicking on keypad
+        //   Clickable handles "onClick" differently than react;
+        //   a keyboard event is "keydown" type.
+        //   In react without WonderBlocks, "enter" or "space" keydown events
+        //   are also "click" events, differentiated by "detail".
+        if (e.type === "click") {
+            this.focus();
         }
     };
 
@@ -295,7 +306,9 @@ class MathInput extends React.Component<Props, State> {
                                 style={styles.popoverContent}
                             >
                                 <DesktopKeypad
-                                    sendEvent={async () => {}}
+                                    onAnalyticsEvent={(
+                                        e: PerseusAnalyticsEvent,
+                                    ): Promise<void> => Promise.resolve()}
                                     extraKeys={this.props.extraKeys}
                                     onClickKey={this.handleKeypadPress}
                                     cursorContext={this.state.cursorContext}
@@ -374,16 +387,6 @@ const MathInputIcon = ({hovered, focused, active}) => {
         </View>
     );
 };
-
-export type LegacyButtonSets = ReadonlyArray<
-    | "basic"
-    | "basic+div"
-    | "trig"
-    | "prealgebra"
-    | "logarithms"
-    | "basic relations"
-    | "advanced relations"
->;
 
 const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
     const keypadButtonSets: KeypadButtonSets = {};
