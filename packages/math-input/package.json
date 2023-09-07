@@ -3,13 +3,14 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "10.1.1",
+    "version": "11.0.0",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/math-input.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/math-input"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
@@ -19,7 +20,7 @@
     "source": "src/index.ts",
     "scripts": {},
     "dependencies": {
-        "@khanacademy/perseus-core": "0.2.0",
+        "@khanacademy/perseus-core": "1.0.0",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#32d9f351aaa68537170b3120a52e99b8def3a2c3",
         "performance-now": "^0.2.0"
     },

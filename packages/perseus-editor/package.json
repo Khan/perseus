@@ -3,13 +3,14 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.6.6",
+    "version": "2.6.7",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/perseus-editor.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/perseus-editor"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
@@ -23,7 +24,7 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.1",
         "@khanacademy/kmath": "^0.1.2",
-        "@khanacademy/perseus": "^10.1.0"
+        "@khanacademy/perseus": "^11.0.0"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-button": "^4.1.3",

@@ -366,7 +366,7 @@ class MathInput extends React.Component<Props, State> {
         });
 
         this.mathField.focus();
-        this.props.onFocus && this.props.onFocus();
+        this.props?.onFocus();
         this.setState({focused: true}, () => {
             // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
             // occur. Otherwise, the keypad is measured incorrectly. Ideally,
@@ -381,8 +381,7 @@ class MathInput extends React.Component<Props, State> {
                     // keypad is settled (then scrollIntoView wouldn't have
                     // to make assumptions about that either).
                     const maybeKeypadNode =
-                        this.props.keypadElement &&
-                        this.props.keypadElement.getDOMNode();
+                        this.props.keypadElement?.getDOMNode();
                     scrollIntoView(this._container, maybeKeypadNode);
                 }
             });

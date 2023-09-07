@@ -8,7 +8,7 @@ import {
 } from "../__testdata__/expression.testdata";
 import expressionExport from "../expression";
 
-import TestKeypadContext from "./test-keypad-context-wrapper";
+import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
 import type {PerseusItem} from "../../perseus-types";
 
@@ -28,7 +28,7 @@ type WrappedKeypadContextProps = {
 
 const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
     return (
-        <TestKeypadContext>
+        <TestKeypadContextWrapper>
             <KeypadContext.Consumer>
                 {({keypadElement, setRenderer, scrollableElement}) => {
                     return (
@@ -41,7 +41,7 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
                     );
                 }}
             </KeypadContext.Consumer>
-        </TestKeypadContext>
+        </TestKeypadContextWrapper>
     );
 };
 

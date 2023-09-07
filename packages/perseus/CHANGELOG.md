@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 11.0.0
+
+### Major Changes
+
+-   2af4f9fa: Switch from using ProvideKeypad in ArticleRenderer to passing the keypad element down instead
+
+### Patch Changes
+
+-   Updated dependencies [2af4f9fa]
+    -   @khanacademy/math-input@11.0.0
+    -   @khanacademy/perseus-core@1.0.0
+
 ## 10.1.0
 
 ### Minor Changes

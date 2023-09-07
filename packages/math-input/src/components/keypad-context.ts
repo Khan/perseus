@@ -8,13 +8,16 @@
  */
 import * as React from "react";
 
-import type {RendererInterface} from "@khanacademy/perseus-core";
+import type {KeypadAPI} from "../types";
+import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 
 type KeypadContext = {
-    setKeypadElement: (keypadElement?: HTMLElement | null | undefined) => void;
-    keypadElement: HTMLElement | null | undefined;
-    setRenderer: (renderer?: RendererInterface | null | undefined) => void;
-    renderer: RendererInterface | null | undefined;
+    setKeypadElement: (keypadElement?: KeypadAPI) => void;
+    keypadElement: KeypadAPI | null | undefined;
+    setRenderer: (
+        renderer?: KeypadContextRendererInterface | null | undefined,
+    ) => void;
+    renderer: KeypadContextRendererInterface | null | undefined;
     setScrollableElement: (
         scrollableElement?: HTMLElement | null | undefined,
     ) => void;
