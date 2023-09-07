@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus": major
+"@khanacademy/perseus": minor
 ---
 
 Fixup scrollbar overflow for mathjax
