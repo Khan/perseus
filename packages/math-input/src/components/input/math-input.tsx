@@ -920,10 +920,6 @@ class MathInput extends React.Component<Props, State> {
                     onBlur={() => {
                         this._hideCursorHandle();
                         this.blur(false);
-                        this.setState({
-                            focused: false,
-                            handle: {visible: false},
-                        });
                     }}
                     onKeyUp={this.handleKeyUp}
                 >
