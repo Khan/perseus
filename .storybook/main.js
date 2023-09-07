@@ -16,11 +16,13 @@ module.exports = {
         // dir.
         "../packages/*/src/**/*@(.stories|.fixturestories).@(ts|tsx)",
     ],
+
     addons: [
         "@storybook/addon-links",
         "@storybook/addon-essentials",
         "@storybook/addon-a11y",
     ],
+
     // NOTE(kevinb): We customize the padding a bit so that so that stories
     // using the on-screen keypad render correctly.  Storybook adds its own
     // padding as a class to <body> so we use !important to override that.
@@ -32,9 +34,11 @@ module.exports = {
         }
         </style>
     `,
+
     babel: async (options) => {
         return babelConfig;
     },
+
     webpackFinal: async (webpackConfig) => {
         // We remove the existing rule for CSS files so that we can replace
         // it with our own.  Storybook isn't configured to use LESS out of
@@ -110,8 +114,13 @@ module.exports = {
 
         return updateWebpackConfig;
     },
+
     framework: {
         name: "@storybook/react-webpack5",
         options: {}
     },
+
+    docs: {
+        autodocs: true
+    }
 };
