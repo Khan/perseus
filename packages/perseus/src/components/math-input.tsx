@@ -20,8 +20,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import type {LegacyButtonSets} from "../perseus-types";
+import type {PerseusDependenciesV2} from "../types";
 import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
-import type {PerseusAnalyticsEvent} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -61,6 +61,7 @@ type Props = {
      * - `never` means that the keypad is **never shown**.
      */
     buttonsVisible?: ButtonsVisibleType;
+    analytics: PerseusDependenciesV2["analytics"];
 };
 
 type DefaultProps = {
@@ -306,9 +307,9 @@ class MathInput extends React.Component<Props, State> {
                                 style={styles.popoverContent}
                             >
                                 <DesktopKeypad
-                                    onAnalyticsEvent={(
-                                        e: PerseusAnalyticsEvent,
-                                    ): Promise<void> => Promise.resolve()}
+                                    onAnalyticsEvent={
+                                        this.props.analytics.onAnalyticsEvent
+                                    }
                                     extraKeys={this.props.extraKeys}
                                     onClickKey={this.handleKeypadPress}
                                     cursorContext={this.state.cursorContext}

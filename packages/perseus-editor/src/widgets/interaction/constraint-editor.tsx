@@ -45,6 +45,8 @@ class ConstraintEditor extends React.Component<Props> {
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
 
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
+
         return (
             <div>
                 <div className="perseus-widget-row">
@@ -79,6 +81,7 @@ class ConstraintEditor extends React.Component<Props> {
                                 buttonsVisible="never"
                                 value={this.props.constraintFn}
                                 onChange={this.change("constraintFn")}
+                                analytics={analyticsStub}
                             />
                         </div>
                     </div>
@@ -91,6 +94,7 @@ class ConstraintEditor extends React.Component<Props> {
                                 buttonsVisible="never"
                                 value={this.props.constraintFn}
                                 onChange={this.change("constraintFn")}
+                                analytics={analyticsStub}
                             />
                         </div>
                     </div>
@@ -103,12 +107,14 @@ class ConstraintEditor extends React.Component<Props> {
                             buttonsVisible="never"
                             value={this.props.constraintXMin}
                             onChange={this.change("constraintXMin")}
+                            analytics={analyticsStub}
                         />
                         <TeX>, </TeX>{" "}
                         <MathInput
                             buttonsVisible="never"
                             value={this.props.constraintXMax}
                             onChange={this.change("constraintXMax")}
+                            analytics={analyticsStub}
                         />{" "}
                         <TeX>\Large]</TeX>
                     </div>
@@ -120,12 +126,14 @@ class ConstraintEditor extends React.Component<Props> {
                             buttonsVisible="never"
                             value={this.props.constraintYMin}
                             onChange={this.change("constraintYMin")}
+                            analytics={analyticsStub}
                         />
                         <TeX>, </TeX>{" "}
                         <MathInput
                             buttonsVisible="never"
                             value={this.props.constraintYMax}
                             onChange={this.change("constraintYMax")}
+                            analytics={analyticsStub}
                         />{" "}
                         <TeX>\Large]</TeX>
                     </div>

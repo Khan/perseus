@@ -22,6 +22,7 @@ const defaultObject = {
         trigonometry: true,
     },
     onChange: () => {},
+    analytics: {onAnalyticsEvent: () => Promise.resolve()},
 } as const;
 
 export const DefaultWithBasicButtonSet = (

@@ -30,6 +30,7 @@ describe("Perseus' MathInput", () => {
                 onChange={() => {}}
                 keypadButtonSets={allButtonSets}
                 labelText="test"
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
 
@@ -44,6 +45,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={mockOnChange}
                 keypadButtonSets={allButtonSets}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
 
@@ -61,6 +63,7 @@ describe("Perseus' MathInput", () => {
             <MathInput
                 onChange={mockOnChange}
                 keypadButtonSets={allButtonSets}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
 
@@ -81,7 +84,11 @@ describe("Perseus' MathInput", () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
-            <MathInput onChange={mockOnChange} buttonSets={["basic+div"]} />,
+            <MathInput
+                onChange={mockOnChange}
+                buttonSets={["basic+div"]}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+            />,
         );
 
         // Act
@@ -100,7 +107,11 @@ describe("Perseus' MathInput", () => {
     it("returns focus to input after button click", () => {
         // Assemble
         render(
-            <MathInput onChange={() => {}} keypadButtonSets={allButtonSets} />,
+            <MathInput
+                onChange={() => {}}
+                keypadButtonSets={allButtonSets}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+            />,
         );
 
         // Act
@@ -115,7 +126,11 @@ describe("Perseus' MathInput", () => {
     it("does not return focus to input after button press via keyboard", () => {
         // Assemble
         render(
-            <MathInput onChange={() => {}} keypadButtonSets={allButtonSets} />,
+            <MathInput
+                onChange={() => {}}
+                keypadButtonSets={allButtonSets}
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+            />,
         );
 
         // Act
