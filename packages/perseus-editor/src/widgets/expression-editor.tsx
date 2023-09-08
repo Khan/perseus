@@ -1,4 +1,4 @@
-/* eslint-disable one-var, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/sort-comp */
 import * as KAS from "@khanacademy/kas";
 import {
     components,
