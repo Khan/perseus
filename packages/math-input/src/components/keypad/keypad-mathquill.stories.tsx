@@ -13,7 +13,7 @@ import type {MathFieldInterface} from "../input/mathquill-types";
 import Keypad from "./index";
 
 export default {
-    title: "v2 Keypad With Mathquill",
+    title: "math-input/components/v2 Keypad With Mathquill",
 };
 
 export function V2KeypadWithMathquill() {

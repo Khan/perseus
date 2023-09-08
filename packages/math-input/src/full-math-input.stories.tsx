@@ -6,7 +6,7 @@ import type {KeypadAPI} from "./types";
 import {KeypadInput, KeypadType, MobileKeypad} from "./index";
 
 export default {
-    title: "Full Mobile MathInput",
+    title: "math-input/Full Mobile MathInput",
     parameters: {
         backgrounds: {
             default: "light background",

@@ -13,7 +13,7 @@ const geoPage = "Geometry Page";
 const fracPage = "Fractions Page";
 
 export default {
-    title: "Full Keypad",
+    title: "math-input/components/Full Keypad",
     parameters: {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
