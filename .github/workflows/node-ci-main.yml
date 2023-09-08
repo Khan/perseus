@@ -51,9 +51,8 @@ jobs:
               run: yarn coverage
 
             - name: Upload Coverage
-              # Only upload coverage when opening the PR or updating the code
-              # and don't bother with dependabot changes
-              if: ${{ (github.event.action == 'opened' || github.event.action == 'synchronize') && github.actor != 'dependabot[bot]' }}
+              # We don't bother uploading a record of coverage for dependabot changes
+              if: ${{ github.actor != 'dependabot[bot]' }}
               uses: coverallsapp/github-action@v1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -97,8 +96,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Finish Coverage
-              # We don't bother uploading a record of coverage for dependabot changes
-              if: ${{ github.actor != 'dependabot[bot]' }}
               uses: coverallsapp/github-action@v1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
