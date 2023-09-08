@@ -83,9 +83,9 @@ class ExpressionEditor extends React.Component<Props, any> {
         this.state = {isTex};
     }
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
+    change(...args) {
         return Changeable.change.apply(this, args);
-    };
+    }
 
     render(): React.ReactNode {
         const answerOptions = this.props.answerForms
@@ -328,14 +328,12 @@ class ExpressionEditor extends React.Component<Props, any> {
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
     handleRemoveForm: (arg1: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -346,7 +344,6 @@ class ExpressionEditor extends React.Component<Props, any> {
             .merge([i], props)
             .freeze();
 
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -363,7 +360,6 @@ class ExpressionEditor extends React.Component<Props, any> {
             return form;
         });
 
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -401,7 +397,6 @@ class ExpressionEditor extends React.Component<Props, any> {
             .reject((set) => set === remove)
             .concat(keep);
 
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change("buttonSets", buttonSets);
     };
 
@@ -461,9 +456,8 @@ class AnswerOption extends React.Component<
     };
 
     render(): React.ReactNode {
-        let removeButton = null;
+        let removeButton: React.ReactNode | null = null;
         if (this.state.deleteFocused) {
-            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"
@@ -475,7 +469,6 @@ class AnswerOption extends React.Component<
                 </button>
             );
         } else {
-            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"
