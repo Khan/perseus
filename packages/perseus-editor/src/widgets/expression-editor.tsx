@@ -9,7 +9,6 @@ import {
 } from "@khanacademy/perseus";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -430,24 +429,28 @@ const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
     return arr[ix];
 };
 
-class AnswerOption extends React.Component<any, any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        considered: PropTypes.oneOf(PerseusExpressionAnswerFormConsidered)
-            .isRequired,
-        expressionProps: PropTypes.object.isRequired,
+type AnswerOptionProps = {
+    considered: typeof PerseusExpressionAnswerFormConsidered[number];
+    expressionProps: any;
 
-        // Must the answer have the same form as this answer.
-        form: PropTypes.bool.isRequired,
+    // Must the answer have the same form as this answer.
+    form: boolean;
 
-        // Must the answer be simplified.
-        simplify: PropTypes.bool.isRequired,
+    // Must the answer be simplified.
+    simplify: boolean;
 
-        onChange: PropTypes.func.isRequired,
-        onDelete: PropTypes.func.isRequired,
-    };
+    onDelete: () => void;
+} & Changeable.ChangeableProps;
 
-    state: any = {deleteFocused: false};
+type AnswerOptionState = {
+    deleteFocused: boolean;
+};
+
+class AnswerOption extends React.Component<
+    AnswerOptionProps,
+    AnswerOptionState
+> {
+    state = {deleteFocused: false};
 
     handleDeleteBlur = () => {
         this.setState({deleteFocused: false});
