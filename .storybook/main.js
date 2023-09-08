@@ -1,4 +1,4 @@
-import { dirname, join } from "path";
+import {dirname, join} from "path";
 const babelConfig = require("../babel.config");
 const path = require("path");
 const fs = require("fs");
@@ -47,7 +47,7 @@ module.exports = {
         const rulesWithoutCss = webpackConfig.module.rules.filter((rule) => {
             // We have to call .toString() on .test since regexes can't
             // be compared directly.
-            return rule.test.toString() !== /\.css$/.toString();
+            return rule.test?.toString() !== /\.css$/.toString();
         });
 
         const aliases = {};
@@ -89,7 +89,10 @@ module.exports = {
                          */
                         use: [
                             "style-loader",
-                            "css-loader?url=false",
+                            {
+                                loader: "css-loader",
+                                options: {url: false},
+                            },
                             "less-loader",
                         ],
                     },
@@ -97,14 +100,16 @@ module.exports = {
                         test: /\.css$/,
                         use: [
                             "style-loader",
-                            // We use `css-loader` to resolve `url()` for
-                            // KaTeX fonts, which are then emitted to the
+                            // We use `css-loader` to filter out imports for
+                            // KaTeX fonts. These fonts are then emitted to the
                             // `fonts` output path by `file-loader` below.
                             {
                                 loader: "css-loader",
                                 options: {
-                                    url: (url, resourcePath) =>
-                                        /\.(woff|woff2|ttf|otf)$/.test(url),
+                                    url: {
+                                        filter: (url, resourcePath) =>
+                                            /\.(woff|woff2|ttf|otf)$/.test(url),
+                                    },
                                 },
                             },
                         ],
@@ -118,12 +123,12 @@ module.exports = {
 
     framework: {
         name: getAbsolutePath("@storybook/react-webpack5"),
-        options: {}
+        options: {},
     },
 
     docs: {
-        autodocs: true
-    }
+        autodocs: true,
+    },
 };
 
 function getAbsolutePath(value) {
