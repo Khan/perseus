@@ -127,7 +127,7 @@ jobs:
 
             - name: Upload Coverage
               # We don't bother collecting a record of coverage for dependabot changes
-              if: ${{ github.actor != 'dependabot[bot]' }}
+              if: ${{ github.event.action == 'push' && github.actor != 'dependabot[bot]' }}
               uses: coverallsapp/github-action@v1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -154,7 +154,7 @@ jobs:
 
             - name: Upload Coverage
               # We don't bother collecting a record of coverage for dependabot changes
-              if: ${{ github.actor != 'dependabot[bot]' }}
+              if: ${{ github.event.action == 'push' && github.actor != 'dependabot[bot]' }}
               uses: coverallsapp/github-action@v1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -166,6 +166,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Finish Coverage
+              # We don't bother uploading a record of coverage for dependabot changes
+              if: ${{ github.event.action == 'push' && github.actor != 'dependabot[bot]' }}
               uses: coverallsapp/github-action@v1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
