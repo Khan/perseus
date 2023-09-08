@@ -27,10 +27,7 @@
     },
     "devDependencies": {
         "@types/react-dom": ">=16.0.0",
-        "perseus-build-settings": "^0.2.1",
-        "size-limit": "^0.21.1",
-        "typescript": "^3.6.4",
-        "uglify-js": "^3.6.7"
+        "perseus-build-settings": "^0.2.1"
     },
     "peerDependencies": {
         "react": "16.14.0",
