@@ -63,7 +63,7 @@ class WithDebug extends React.Component<Empty, State> {
                     <ExpressionEditor
                         {...this.state}
                         apiOptions={apiOptions}
-                        onChange={(props) => {
+                        onChange={(props: PerseusExpressionWidgetOptions) => {
                             this.setState({
                                 ...props,
                             });

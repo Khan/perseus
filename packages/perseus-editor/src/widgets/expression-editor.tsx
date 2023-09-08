@@ -15,16 +15,16 @@ import _ from "underscore";
 
 import SortableArea from "../components/sortable";
 
+import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
+
 const {InfoTip, PropCheckBox, TexButtons} = components;
 const {getDependencies} = Dependencies;
 
-const answerFormType = PropTypes.shape({
-    considered: PropTypes.oneOf(PerseusExpressionAnswerFormConsidered)
-        .isRequired,
-    value: PropTypes.string.isRequired,
-    form: PropTypes.bool.isRequired,
-    simplify: PropTypes.bool.isRequired,
-});
+type Props = {
+    widgetId: any;
+    value: string;
+} & Omit<PerseusExpressionWidgetOptions, "buttonsVisible"> &
+    Changeable.ChangeableProps;
 
 // Pick a key that isn't currently used by an answer in answerForms
 const _makeNewKey = (answerForms: any) => {
@@ -48,15 +48,7 @@ const _makeNewKey = (answerForms: any) => {
     return usedKeys.length;
 };
 
-class ExpressionEditor extends React.Component<any, any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        answerForms: PropTypes.arrayOf(answerFormType),
-        times: PropTypes.bool,
-        buttonSets: TexButtons.buttonSetsType,
-        functions: PropTypes.arrayOf(PropTypes.string),
-    };
-
+class ExpressionEditor extends React.Component<Props, any> {
     static widgetName = "expression" as const;
 
     static defaultProps: any = {
