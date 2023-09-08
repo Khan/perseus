@@ -20,10 +20,17 @@ const {InfoTip, PropCheckBox, TexButtons} = components;
 const {getDependencies} = Dependencies;
 
 type Props = {
-    widgetId: any;
-    value: string;
+    widgetId?: any;
+    value?: string;
 } & Omit<PerseusExpressionWidgetOptions, "buttonsVisible"> &
     Changeable.ChangeableProps;
+
+type DefaultProps = {
+    answerForms: Props["answerForms"];
+    times: Props["times"];
+    buttonSets: Props["buttonSets"];
+    functions: Props["functions"];
+};
 
 // Pick a key that isn't currently used by an answer in answerForms
 const _makeNewKey = (answerForms: any) => {
@@ -47,17 +54,21 @@ const _makeNewKey = (answerForms: any) => {
     return usedKeys.length;
 };
 
-class ExpressionEditor extends React.Component<Props, any> {
+type State = {
+    isTex: boolean;
+};
+
+class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         answerForms: [],
         times: false,
         buttonSets: ["basic"],
         functions: ["f", "g", "h"],
     };
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
         // Is the format of `value` TeX or plain text?
         // TODO(alex): Remove after backfilling everything to TeX
@@ -70,13 +81,10 @@ class ExpressionEditor extends React.Component<Props, any> {
         if (props.answerForms.length === 0) {
             isTex = true;
         } else {
-            isTex = _(props.answerForms).any((form) => {
+            isTex = props.answerForms.some((form) => {
                 const {value} = form;
                 // only TeX has backslashes and curly braces
-                return (
-                    _.indexOf(value, "\\") !== -1 ||
-                    _.indexOf(value, "{") !== -1
-                );
+                return value.indexOf("\\") !== -1 || value.indexOf("{") !== -1;
             });
         }
 
@@ -129,26 +137,28 @@ class ExpressionEditor extends React.Component<Props, any> {
         );
 
         // checkboxes to choose which sets of input buttons are shown
-        const buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
-            // The first one gets special cased to always be checked, disabled,
-            // and float left.
-            const isFirst = name === "basic";
-            const checked = _.contains(this.props.buttonSets, name) || isFirst;
-            const className = isFirst
-                ? "button-set-label-float"
-                : "button-set-label";
-            return (
-                <label className={className} key={name}>
-                    <input
-                        type="checkbox"
-                        checked={checked}
-                        disabled={isFirst}
-                        onChange={() => this.handleButtonSet(name)}
-                    />
-                    {name}
-                </label>
-            );
-        });
+        const buttonSetChoices = Object.keys(TexButtons.buttonSets).map(
+            (name) => {
+                // The first one gets special cased to always be checked, disabled,
+                // and float left.
+                const isFirst = name === "basic";
+                const checked = this.props.buttonSets.includes(name) || isFirst;
+                const className = isFirst
+                    ? "button-set-label-float"
+                    : "button-set-label";
+                return (
+                    <label className={className} key={name}>
+                        <input
+                            type="checkbox"
+                            checked={checked}
+                            disabled={isFirst}
+                            onChange={() => this.handleButtonSet(name)}
+                        />
+                        {name}
+                    </label>
+                );
+            },
+        );
 
         const {TeX} = getDependencies(); // OldExpression only
 
@@ -273,7 +283,7 @@ class ExpressionEditor extends React.Component<Props, any> {
         if (this.props.answerForms.length === 0) {
             issues.push("No answers specified");
         } else {
-            const hasCorrect = !!_(this.props.answerForms).find((form) => {
+            const hasCorrect = !!this.props.answerForms.find((form) => {
                 return form.considered === "correct";
             });
             if (!hasCorrect) {
@@ -348,7 +358,7 @@ class ExpressionEditor extends React.Component<Props, any> {
     };
 
     handleReorder: (arg1: any) => void = (components) => {
-        const answerForms = _(components).map((component) => {
+        const answerForms = components.map((component) => {
             const form = _(component.props).pick(
                 "considered",
                 "form",
@@ -365,14 +375,13 @@ class ExpressionEditor extends React.Component<Props, any> {
 
     // called when the selected buttonset changes
     handleButtonSet: (arg1: string) => void = (changingName) => {
-        const buttonSetNames = _(TexButtons.buttonSets).keys();
+        const buttonSetNames = Object.keys(TexButtons.buttonSets);
 
         // Filter to preserve order - using .union and .difference would always
         // move the last added button set to the end.
-        const buttonSets = _(buttonSetNames).filter((set) => {
+        const buttonSets = buttonSetNames.filter((set) => {
             return (
-                _(this.props.buttonSets).contains(set) !==
-                (set === changingName)
+                this.props.buttonSets.includes(set) !== (set === changingName)
             );
         });
 
@@ -384,8 +393,9 @@ class ExpressionEditor extends React.Component<Props, any> {
         // "basic+div". Toggle between the two of them.
         // If someone can think of a more elegant formulation of this (there
         // must be one!) feel free to change it.
-        let keep, remove;
-        if (_(this.props.buttonSets).contains("basic+div")) {
+        let keep: string | undefined;
+        let remove: string | undefined;
+        if (this.props.buttonSets.includes("basic+div")) {
             keep = "basic";
             remove = "basic+div";
         } else {
@@ -393,8 +403,8 @@ class ExpressionEditor extends React.Component<Props, any> {
             remove = "basic";
         }
 
-        const buttonSets = _(this.props.buttonSets)
-            .reject((set) => set === remove)
+        const buttonSets = this.props.buttonSets
+            .filter((set) => set !== remove)
             .concat(keep);
 
         this.change("buttonSets", buttonSets);
@@ -412,7 +422,7 @@ class ExpressionEditor extends React.Component<Props, any> {
         e,
     ) => {
         const newProps: Record<string, any> = {};
-        newProps.functions = _.compact(e.target.value.split(/[ ,]+/));
+        newProps.functions = e.target.value.split(/[ ,]+/).filter(Boolean);
         this.props.onChange(newProps);
     };
 }
