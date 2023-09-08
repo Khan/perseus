@@ -550,7 +550,10 @@ class Renderer extends React.Component<Props, State> {
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return (
-                <ErrorBoundary key={"container:" + id}>
+                <ErrorBoundary
+                    key={"container:" + id}
+                    metadata={{widget_type: type}}
+                >
                     <WidgetContainer
                         ref={"container:" + id}
                         type={type}

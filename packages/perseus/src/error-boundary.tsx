@@ -4,6 +4,7 @@ import {Errors, Log} from "./logging/log";
 
 type Props = {
     children: React.ReactNode;
+    metadata?: Record<string, string>;
 };
 type State = {
     error: string;
@@ -19,7 +20,10 @@ class ErrorBoundary extends React.Component<Props, State> {
         this.setState({error: error.toString()});
         Log.error("Perseus error boundary caught error", Errors.Internal, {
             cause: error,
-            loggedMetadata: {info: info.toString()},
+            loggedMetadata: {
+                componentStack: info.componentStack,
+                ...this.props.metadata,
+            },
         });
     }
 
