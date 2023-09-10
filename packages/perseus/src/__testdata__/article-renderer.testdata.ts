@@ -25,7 +25,8 @@ export const singleSectionArticle: PerseusRenderer = {
                 },
                 labels: [],
                 alt: 'A scene from Pixar\'s film "Toy Story 3" where the characters are swimming in a sea of trash and look very afraid.',
-                caption: "",
+                caption:
+                    'A scene from Pixar\'s film "Toy Story 3" where the characters are swimming in a sea of trash and look very afraid."',
             },
             version: {major: 0, minor: 0},
         },
