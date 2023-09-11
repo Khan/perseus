@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 11.2.1
+
+### Patch Changes
+
+-   a383823d: Bump @khanacademy/wonder-stuff-core to v1.5.1 (which adds needed support for `isTruthy` helper function)
+-   Updated dependencies [a383823d]
+    -   @khanacademy/math-input@12.0.1
+    -   @khanacademy/perseus-linter@0.3.3
+    -   @khanacademy/pure-markdown@0.2.5
+
 ## 11.2.0
 
 ### Minor Changes
