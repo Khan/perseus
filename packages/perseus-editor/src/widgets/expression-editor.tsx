@@ -1,4 +1,4 @@
-/* eslint-disable one-var, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable react/sort-comp */
 import * as KAS from "@khanacademy/kas";
 import {
     components,
@@ -7,24 +7,31 @@ import {
     Expression,
     PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
+import {isTruthy} from "@khanacademy/wonder-stuff-core";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import SortableArea from "../components/sortable";
 
+import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
+
 const {InfoTip, PropCheckBox, TexButtons} = components;
 const {getDependencies} = Dependencies;
 
-const answerFormType = PropTypes.shape({
-    considered: PropTypes.oneOf(PerseusExpressionAnswerFormConsidered)
-        .isRequired,
-    value: PropTypes.string.isRequired,
-    form: PropTypes.bool.isRequired,
-    simplify: PropTypes.bool.isRequired,
-});
+type Props = {
+    widgetId?: any;
+    value?: string;
+} & Omit<PerseusExpressionWidgetOptions, "buttonsVisible"> &
+    Changeable.ChangeableProps;
+
+type DefaultProps = {
+    answerForms: Props["answerForms"];
+    times: Props["times"];
+    buttonSets: Props["buttonSets"];
+    functions: Props["functions"];
+};
 
 // Pick a key that isn't currently used by an answer in answerForms
 const _makeNewKey = (answerForms: any) => {
@@ -48,25 +55,21 @@ const _makeNewKey = (answerForms: any) => {
     return usedKeys.length;
 };
 
-class ExpressionEditor extends React.Component<any, any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        answerForms: PropTypes.arrayOf(answerFormType),
-        times: PropTypes.bool,
-        buttonSets: TexButtons.buttonSetsType,
-        functions: PropTypes.arrayOf(PropTypes.string),
-    };
+type State = {
+    isTex: boolean;
+};
 
+class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         answerForms: [],
         times: false,
         buttonSets: ["basic"],
         functions: ["f", "g", "h"],
     };
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
         // Is the format of `value` TeX or plain text?
         // TODO(alex): Remove after backfilling everything to TeX
@@ -79,22 +82,19 @@ class ExpressionEditor extends React.Component<any, any> {
         if (props.answerForms.length === 0) {
             isTex = true;
         } else {
-            isTex = _(props.answerForms).any((form) => {
+            isTex = props.answerForms.some((form) => {
                 const {value} = form;
                 // only TeX has backslashes and curly braces
-                return (
-                    _.indexOf(value, "\\") !== -1 ||
-                    _.indexOf(value, "{") !== -1
-                );
+                return value.indexOf("\\") !== -1 || value.indexOf("{") !== -1;
             });
         }
 
         this.state = {isTex};
     }
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
+    change(...args) {
         return Changeable.change.apply(this, args);
-    };
+    }
 
     render(): React.ReactNode {
         const answerOptions = this.props.answerForms
@@ -138,26 +138,28 @@ class ExpressionEditor extends React.Component<any, any> {
         );
 
         // checkboxes to choose which sets of input buttons are shown
-        const buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
-            // The first one gets special cased to always be checked, disabled,
-            // and float left.
-            const isFirst = name === "basic";
-            const checked = _.contains(this.props.buttonSets, name) || isFirst;
-            const className = isFirst
-                ? "button-set-label-float"
-                : "button-set-label";
-            return (
-                <label className={className} key={name}>
-                    <input
-                        type="checkbox"
-                        checked={checked}
-                        disabled={isFirst}
-                        onChange={() => this.handleButtonSet(name)}
-                    />
-                    {name}
-                </label>
-            );
-        });
+        const buttonSetChoices = Object.keys(TexButtons.buttonSets).map(
+            (name) => {
+                // The first one gets special cased to always be checked, disabled,
+                // and float left.
+                const isFirst = name === "basic";
+                const checked = this.props.buttonSets.includes(name) || isFirst;
+                const className = isFirst
+                    ? "button-set-label-float"
+                    : "button-set-label";
+                return (
+                    <label className={className} key={name}>
+                        <input
+                            type="checkbox"
+                            checked={checked}
+                            disabled={isFirst}
+                            onChange={() => this.handleButtonSet(name)}
+                        />
+                        {name}
+                    </label>
+                );
+            },
+        );
 
         const {TeX} = getDependencies(); // OldExpression only
 
@@ -282,7 +284,7 @@ class ExpressionEditor extends React.Component<any, any> {
         if (this.props.answerForms.length === 0) {
             issues.push("No answers specified");
         } else {
-            const hasCorrect = !!_(this.props.answerForms).find((form) => {
+            const hasCorrect = this.props.answerForms.some((form) => {
                 return form.considered === "correct";
             });
             if (!hasCorrect) {
@@ -337,14 +339,12 @@ class ExpressionEditor extends React.Component<any, any> {
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
     handleRemoveForm: (arg1: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
@@ -355,12 +355,11 @@ class ExpressionEditor extends React.Component<any, any> {
             .merge([i], props)
             .freeze();
 
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
     handleReorder: (arg1: any) => void = (components) => {
-        const answerForms = _(components).map((component) => {
+        const answerForms = components.map((component) => {
             const form = _(component.props).pick(
                 "considered",
                 "form",
@@ -372,20 +371,18 @@ class ExpressionEditor extends React.Component<any, any> {
             return form;
         });
 
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({answerForms});
     };
 
     // called when the selected buttonset changes
     handleButtonSet: (arg1: string) => void = (changingName) => {
-        const buttonSetNames = _(TexButtons.buttonSets).keys();
+        const buttonSetNames = Object.keys(TexButtons.buttonSets);
 
         // Filter to preserve order - using .union and .difference would always
         // move the last added button set to the end.
-        const buttonSets = _(buttonSetNames).filter((set) => {
+        const buttonSets = buttonSetNames.filter((set) => {
             return (
-                _(this.props.buttonSets).contains(set) !==
-                (set === changingName)
+                this.props.buttonSets.includes(set) !== (set === changingName)
             );
         });
 
@@ -397,8 +394,9 @@ class ExpressionEditor extends React.Component<any, any> {
         // "basic+div". Toggle between the two of them.
         // If someone can think of a more elegant formulation of this (there
         // must be one!) feel free to change it.
-        let keep, remove;
-        if (_(this.props.buttonSets).contains("basic+div")) {
+        let keep: string | undefined;
+        let remove: string | undefined;
+        if (this.props.buttonSets.includes("basic+div")) {
             keep = "basic";
             remove = "basic+div";
         } else {
@@ -406,11 +404,10 @@ class ExpressionEditor extends React.Component<any, any> {
             remove = "basic";
         }
 
-        const buttonSets = _(this.props.buttonSets)
-            .reject((set) => set === remove)
+        const buttonSets = this.props.buttonSets
+            .filter((set) => set !== remove)
             .concat(keep);
 
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change("buttonSets", buttonSets);
     };
 
@@ -426,7 +423,7 @@ class ExpressionEditor extends React.Component<any, any> {
         e,
     ) => {
         const newProps: Record<string, any> = {};
-        newProps.functions = _.compact(e.target.value.split(/[ ,]+/));
+        newProps.functions = e.target.value.split(/[ ,]+/).filter(isTruthy);
         this.props.onChange(newProps);
     };
 }
@@ -438,24 +435,28 @@ const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
     return arr[ix];
 };
 
-class AnswerOption extends React.Component<any, any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        considered: PropTypes.oneOf(PerseusExpressionAnswerFormConsidered)
-            .isRequired,
-        expressionProps: PropTypes.object.isRequired,
+type AnswerOptionProps = {
+    considered: typeof PerseusExpressionAnswerFormConsidered[number];
+    expressionProps: any;
 
-        // Must the answer have the same form as this answer.
-        form: PropTypes.bool.isRequired,
+    // Must the answer have the same form as this answer.
+    form: boolean;
 
-        // Must the answer be simplified.
-        simplify: PropTypes.bool.isRequired,
+    // Must the answer be simplified.
+    simplify: boolean;
 
-        onChange: PropTypes.func.isRequired,
-        onDelete: PropTypes.func.isRequired,
-    };
+    onDelete: () => void;
+} & Changeable.ChangeableProps;
 
-    state: any = {deleteFocused: false};
+type AnswerOptionState = {
+    deleteFocused: boolean;
+};
+
+class AnswerOption extends React.Component<
+    AnswerOptionProps,
+    AnswerOptionState
+> {
+    state = {deleteFocused: false};
 
     handleDeleteBlur = () => {
         this.setState({deleteFocused: false});
@@ -466,9 +467,8 @@ class AnswerOption extends React.Component<any, any> {
     };
 
     render(): React.ReactNode {
-        let removeButton = null;
+        let removeButton: React.ReactNode | null = null;
         if (this.state.deleteFocused) {
-            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"
@@ -480,7 +480,6 @@ class AnswerOption extends React.Component<any, any> {
                 </button>
             );
         } else {
-            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             removeButton = (
                 <button
                     type="button"

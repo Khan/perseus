@@ -62,8 +62,7 @@ class WithDebug extends React.Component<Empty, State> {
                 <div className={css(styles.editorWrapper)}>
                     <ExpressionEditor
                         {...this.state}
-                        apiOptions={apiOptions}
-                        onChange={(props) => {
+                        onChange={(props: PerseusExpressionWidgetOptions) => {
                             this.setState({
                                 ...props,
                             });
