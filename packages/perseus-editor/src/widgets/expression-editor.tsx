@@ -7,6 +7,7 @@ import {
     Expression,
     PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
+import {isTruthy} from "@khanacademy/wonder-stuff-core";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import lens from "hubble";
 import * as React from "react";
@@ -283,7 +284,7 @@ class ExpressionEditor extends React.Component<Props, State> {
         if (this.props.answerForms.length === 0) {
             issues.push("No answers specified");
         } else {
-            const hasCorrect = !!this.props.answerForms.find((form) => {
+            const hasCorrect = this.props.answerForms.some((form) => {
                 return form.considered === "correct";
             });
             if (!hasCorrect) {
@@ -422,7 +423,7 @@ class ExpressionEditor extends React.Component<Props, State> {
         e,
     ) => {
         const newProps: Record<string, any> = {};
-        newProps.functions = e.target.value.split(/[ ,]+/).filter(Boolean);
+        newProps.functions = e.target.value.split(/[ ,]+/).filter(isTruthy);
         this.props.onChange(newProps);
     };
 }
