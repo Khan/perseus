@@ -422,6 +422,11 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     _handleFocus: () => void = () => {
+        this.props.analytics.onAnalyticsEvent({
+            type: "perseus:expression-focused",
+            payload: null,
+        });
+
         /* c8 ignore next */
         this.props.onFocus([]);
     };
