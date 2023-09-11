@@ -1,5 +1,17 @@
 # @khanacademy/perseus-editor
 
+## 2.7.0
+
+### Minor Changes
+
+-   9ff8a575: Fix image widget caption styling
+
+### Patch Changes
+
+-   Updated dependencies [9ff8a575]
+-   Updated dependencies [1b618343]
+    -   @khanacademy/perseus@11.2.0
+
 ## 2.6.8
 
 ### Patch Changes

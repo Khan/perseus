@@ -1,5 +1,20 @@
 # @khanacademy/math-input
 
+## 12.0.0
+
+### Major Changes
+
+-   fa5f463b: Added onAnalyticsEvent prop to the LegacyKeypad (aka ProvidedKeypad). You must now pass in this prop, which is a function, to handle analytics events originating from the legacy keypad.
+-   6d8ede65: Added `onAnalyticsEvent` prop to MobileKeypad to pipe out Perseus analytics
+
+### Minor Changes
+
+-   fa1bb6b4: Implemented some focus management fixes and improved the full-math-input story.
+
+### Patch Changes
+
+-   3afc0da2: Check for ResizeObserver before using it
+
 ## 11.0.0
 
 ### Major Changes

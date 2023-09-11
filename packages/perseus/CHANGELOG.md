@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 11.2.0
+
+### Minor Changes
+
+-   9ff8a575: Fix image widget caption styling
+-   1b618343: Add new Perseus analytics event: 'perseus:expression-focused'. This event is fired any time the expression widget input box receives focus.
+
+### Patch Changes
+
+-   Updated dependencies [fa5f463b]
+-   Updated dependencies [fa1bb6b4]
+-   Updated dependencies [6d8ede65]
+-   Updated dependencies [3afc0da2]
+    -   @khanacademy/math-input@12.0.0
+
 ## 11.1.0
 
 ### Minor Changes
