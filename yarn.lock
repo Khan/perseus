@@ -2986,16 +2986,6 @@
     "@babel/runtime" "^7.18.6"
     "@khanacademy/wonder-blocks-core" "^6.0.0"
 
-"@khanacademy/wonder-stuff-core@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.2.1.tgz#07c96c383c6d09f2bba3955e1cf52e1757696ab8"
-  integrity sha512-0fU0HDJqokAkrn0M0akuE/n9uD7lS8am+K8VM3XbGnH4Oyopn70tk6/zq20WAdxA6hf6EG2GzMRhgVIley6udA==
-
-"@khanacademy/wonder-stuff-core@^1.2.2":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.3.0.tgz#4ac2a2c7898a52702383d8891deecf80866a263e"
-  integrity sha512-+VYSJEos04HpG5aoJz0T3peqne7LVuPPFBAkZ2EyAfh5bx3SzaVBozZxOm1wMdIK0g5dULkw8sUUQK7+HpPmUg==
-
 "@khanacademy/wonder-stuff-core@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-stuff-core/-/wonder-stuff-core-1.5.1.tgz#3f179b1dc3795117ae7104e37132403f4cf26043"
