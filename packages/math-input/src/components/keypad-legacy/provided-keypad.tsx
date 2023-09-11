@@ -18,12 +18,15 @@ import type {
     KeyHandler,
     KeypadAPI,
 } from "../../types";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
     style?: StyleType;
+
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 class ProvidedKeypad extends React.Component<Props> implements KeypadAPI {
@@ -77,6 +80,13 @@ class ProvidedKeypad extends React.Component<Props> implements KeypadAPI {
             <Provider store={this.store}>
                 <KeypadContainer
                     onElementMounted={(element) => {
+                        this.props.onAnalyticsEvent({
+                            type: "math-input:keypad-opened",
+                            payload: {
+                                virtualKeypadVersion: "MATH_INPUT_KEYPAD_V1",
+                            },
+                        });
+
                         // Append the dispatch methods that we want to expose
                         // externally to the returned React element.
                         const elementWithDispatchMethods = {
@@ -88,10 +98,18 @@ class ProvidedKeypad extends React.Component<Props> implements KeypadAPI {
                             setKeyHandler: this.setKeyHandler,
                             getDOMNode: this.getDOMNode,
                         } as const;
-                        onElementMounted &&
-                            onElementMounted(elementWithDispatchMethods);
+                        onElementMounted?.(elementWithDispatchMethods);
                     }}
-                    onDismiss={onDismiss}
+                    onDismiss={() => {
+                        this.props.onAnalyticsEvent({
+                            type: "math-input:keypad-closed",
+                            payload: {
+                                virtualKeypadVersion: "MATH_INPUT_KEYPAD_V1",
+                            },
+                        });
+
+                        onDismiss?.();
+                    }}
                     style={style}
                 />
             </Provider>
