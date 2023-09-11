@@ -13,6 +13,7 @@ import type {
     KeyHandler,
     KeypadAPI,
 } from "../../types";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 import Keypad from "./index";
@@ -32,6 +33,7 @@ type Props = {
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
     style?: StyleType;
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 type State = {
@@ -194,8 +196,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                 }}
             >
                 <Keypad
-                    // TODO(jeremy)
-                    onAnalyticsEvent={async () => {}}
+                    onAnalyticsEvent={this.props.onAnalyticsEvent}
                     extraKeys={keypadConfig?.extraKeys}
                     onClickKey={(key) => this._handleClickKey(key)}
                     cursorContext={cursor?.context}

@@ -1,3 +1,4 @@
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import type {KeypadAPI} from "./types";
@@ -99,6 +100,7 @@ export const Basic = () => {
                     input.current?.blur();
                 }}
                 useV2Keypad={v2Keypad}
+                onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
             />
         </div>
     );
