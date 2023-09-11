@@ -197,7 +197,12 @@ class ImageWidget extends React.Component<Props> {
                 const minWidth = isImageFullWidth ? null : "0 !important";
 
                 titleAndCaption = (
-                    <figcaption className={className}>
+                    <figcaption
+                        className={className}
+                        style={{
+                            maxWidth: backgroundImage.width,
+                        }}
+                    >
                         <div
                             style={{
                                 // @ts-expect-error - TS2322 - Type 'string | null' is not assignable to type 'MinWidth<string | number> | undefined'.
@@ -239,7 +244,12 @@ class ImageWidget extends React.Component<Props> {
 
         if (this.props.caption) {
             caption = (
-                <figcaption className="perseus-image-caption">
+                <figcaption
+                    className="perseus-image-caption"
+                    style={{
+                        maxWidth: backgroundImage.width,
+                    }}
+                >
                     <Renderer
                         content={this.props.caption}
                         apiOptions={apiOptions}

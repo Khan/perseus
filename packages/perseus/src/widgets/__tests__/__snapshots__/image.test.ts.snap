@@ -75,6 +75,7 @@ exports[`image widget - isMobile %b should snapshot: first render 1`] = `
                   </span>
                   <figcaption
                     class="perseus-image-caption has-title"
+                    style="max-width: 420px;"
                   >
                     <div>
                       <div
@@ -273,6 +274,7 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
                   </span>
                   <figcaption
                     class="perseus-image-caption"
+                    style="max-width: 420px;"
                   >
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
