@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 12.0.1
+
+### Patch Changes
+
+-   a383823d: Bump @khanacademy/wonder-stuff-core to v1.5.1 (which adds needed support for `isTruthy` helper function)
+
 ## 12.0.0
 
 ### Major Changes
