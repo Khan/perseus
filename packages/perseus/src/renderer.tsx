@@ -552,7 +552,7 @@ class Renderer extends React.Component<Props, State> {
             return (
                 <ErrorBoundary
                     key={"container:" + id}
-                    metadata={{widget_type: type}}
+                    metadata={{widget_type: type, widget_id: id}}
                 >
                     <WidgetContainer
                         ref={"container:" + id}
