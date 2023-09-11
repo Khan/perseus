@@ -23,10 +23,10 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@khanacademy/wonder-stuff-core": "^1.2.2"
+        "@khanacademy/wonder-stuff-core": "^1.5.1"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-stuff-core": "^1.2.2"
+        "@khanacademy/wonder-stuff-core": "^1.5.1"
     },
     "keywords": []
 }
