@@ -25,10 +25,16 @@ export const Basic = () => {
     const [keypadElement, setKeypadElement] = React.useState<KeypadAPI>();
     // Whether to use Expression or Fraction keypad
     const [expression, setExpression] = React.useState<boolean>(false);
+    // Whether to use CDOT or TIMES
+    const [times, setTimes] = React.useState<boolean>(true);
     // Whether to use v1 or v2 keypad
     const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
     // Whether the keypad is open or not
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
+
+    const input = React.useRef<any>(null);
+
+    const timesLabel = times ? "CDOT" : "TIMES";
 
     const toggleKeypad = () => {
         if (keypadOpen) {
@@ -46,10 +52,11 @@ export const Basic = () => {
                     ? KeypadType.EXPRESSION
                     : KeypadType.FRACTION,
                 extraKeys: expression ? ["x", "y", "PI", "THETA"] : [],
+                times: times,
             },
             () => {},
         );
-    }, [keypadElement, expression]);
+    }, [keypadElement, expression, times]);
 
     return (
         <div style={{padding: "1rem 2rem"}}>
@@ -68,6 +75,9 @@ export const Basic = () => {
                     </button>
                     <button onClick={() => toggleKeypad()}>
                         {`Toggle Keypad`}
+                    </button>
+                    <button onClick={() => setTimes(!times)}>
+                        {`Toggle to ` + timesLabel}
                     </button>
                 </div>
             </div>

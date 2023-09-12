@@ -11,9 +11,11 @@ import expressionExport from "../expression";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
 import type {PerseusItem} from "../../perseus-types";
+import type {Keys as Key} from "@khanacademy/math-input";
 
 type StoryArgs = {
     customKeypad: boolean;
+    times: boolean;
 };
 
 type Story = {
@@ -36,6 +38,7 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
                             item={props.item}
                             apiOptions={{
                                 customKeypad: props.customKeypad,
+                                useV2Keypad: true,
                             }}
                         />
                     );
@@ -48,7 +51,7 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
 export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
     const reviewModeRubric = {
         functions: ["f", "g", "h"],
-        times: true,
+        times: args.times,
         answerForms: [],
         buttonSets: [
             "basic",
@@ -63,7 +66,8 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
 
     const keypadConfiguration = {
         keypadType: KeypadType.EXPRESSION,
-        extraKeys: ["x", "y", "z"],
+        extraKeys: ["x", "y", "z"] as Key[],
+        times: args.times,
     };
 
     return (
@@ -81,6 +85,7 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
                 widgetId="expression"
                 reviewModeRubric={reviewModeRubric}
                 keypadConfiguration={keypadConfiguration}
+                times={args.times}
             />
         </div>
     );
@@ -125,5 +130,8 @@ export const ExpressionItem3 = (args: StoryArgs): React.ReactElement => {
 
 export default {
     title: "Perseus/Widgets/Expression",
-    argTypes: {customKeypad: {control: "boolean"}},
+    argTypes: {
+        customKeypad: {control: "boolean"},
+        times: {control: "boolean", defaultValue: true},
+    },
 } as Story;

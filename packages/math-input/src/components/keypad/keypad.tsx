@@ -26,7 +26,7 @@ export type Props = {
     showDismiss?: boolean;
     expandedView?: boolean;
 
-    multiplicationDot?: boolean;
+    convertDotToTimes?: boolean;
     divisionKey?: boolean;
     trigonometry?: boolean;
     preAlgebra?: boolean;
@@ -88,7 +88,7 @@ export default function Keypad(props: Props) {
         onClickKey,
         cursorContext,
         extraKeys,
-        multiplicationDot,
+        convertDotToTimes,
         divisionKey,
         preAlgebra,
         logarithms,
@@ -186,7 +186,7 @@ export default function Keypad(props: Props) {
                             <SharedKeys
                                 onClickKey={onClickKey}
                                 cursorContext={cursorContext}
-                                multiplicationDot={multiplicationDot}
+                                convertDotToTimes={convertDotToTimes}
                                 divisionKey={divisionKey}
                                 selectedPage={selectedPage}
                             />

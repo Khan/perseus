@@ -41,5 +41,8 @@ export type {default as Keys} from "./data/keys";
 export {default as KeyConfigs} from "./data/key-configs";
 export {type KeyType, KeypadType} from "./enums";
 
+// Keypad Configuration type
+export {type KeypadConfiguration} from "./types";
+
 // Helper to translate key pressed to MathField update
 export {default as keyTranslator} from "./components/key-handlers/key-translator";
