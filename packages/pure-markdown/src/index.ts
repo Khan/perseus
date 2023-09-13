@@ -6,6 +6,8 @@
  */
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 
+const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
+
 /**
  * This match function matches math in `$`s, such as:
  *
@@ -28,9 +30,6 @@ import SimpleMarkdown from "@khanacademy/simple-markdown";
  *
  * This can also match block-math, which is math alone in a paragraph.
  */
-
-const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
-
 const mathMatcher = (source: any, state: any, isBlock: boolean) => {
     const length = source.length;
     let index = 0;
