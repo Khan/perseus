@@ -175,6 +175,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
         >
           <div
             class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
+            data-test-id="NUM_1"
           >
             <button
               aria-disabled="false"
@@ -206,6 +207,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_4h080i"
+            data-test-id="NUM_2"
           >
             <button
               aria-disabled="false"
@@ -237,6 +239,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_ei5lhv"
+            data-test-id="NUM_3"
           >
             <button
               aria-disabled="false"
@@ -268,6 +271,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+            data-test-id="NUM_4"
           >
             <button
               aria-disabled="false"
@@ -299,6 +303,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1j1cer"
+            data-test-id="NUM_5"
           >
             <button
               aria-disabled="false"
@@ -330,6 +335,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+            data-test-id="NUM_6"
           >
             <button
               aria-disabled="false"
@@ -361,6 +367,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1o7q2hf"
+            data-test-id="NUM_7"
           >
             <button
               aria-disabled="false"
@@ -392,6 +399,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+            data-test-id="NUM_8"
           >
             <button
               aria-disabled="false"
@@ -423,6 +431,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_mr6jkh"
+            data-test-id="NUM_9"
           >
             <button
               aria-disabled="false"
@@ -454,6 +463,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_xra0eu"
+            data-test-id="NUM_0"
           >
             <button
               aria-disabled="false"
@@ -485,6 +495,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_6bvuz9"
+            data-test-id="DECIMAL"
           >
             <button
               aria-disabled="false"
@@ -516,6 +527,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_l02gwk"
+            data-test-id="NEGATIVE"
           >
             <button
               aria-disabled="false"
@@ -549,6 +561,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_ma0as6"
+            data-test-id="PERCENT"
           >
             <button
               aria-disabled="false"
@@ -582,6 +595,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_wb5o9j"
+            data-test-id="PLUS"
           >
             <button
               aria-disabled="false"
@@ -621,6 +635,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_9isr9w"
+            data-test-id="MINUS"
           >
             <button
               aria-disabled="false"
@@ -654,6 +669,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_771h91"
+            data-test-id="FRAC_INCLUSIVE"
           >
             <button
               aria-disabled="false"
@@ -687,6 +703,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_lv836c"
+            data-test-id="CDOT"
           >
             <button
               aria-disabled="false"
@@ -735,6 +752,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_k65qc5"
+            data-test-id="LEFT_PAREN"
           >
             <button
               aria-disabled="false"
@@ -768,6 +786,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1bljvrq"
+            data-test-id="RIGHT_PAREN"
           >
             <button
               aria-disabled="false"
@@ -801,6 +820,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_y8g975"
+            data-test-id="BACKSPACE"
           >
             <button
               aria-disabled="false"
@@ -1208,6 +1228,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
         >
           <div
             class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
+            data-test-id="NUM_1"
           >
             <button
               aria-disabled="false"
@@ -1239,6 +1260,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_4h080i"
+            data-test-id="NUM_2"
           >
             <button
               aria-disabled="false"
@@ -1270,6 +1292,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_ei5lhv"
+            data-test-id="NUM_3"
           >
             <button
               aria-disabled="false"
@@ -1301,6 +1324,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+            data-test-id="NUM_4"
           >
             <button
               aria-disabled="false"
@@ -1332,6 +1356,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1j1cer"
+            data-test-id="NUM_5"
           >
             <button
               aria-disabled="false"
@@ -1363,6 +1388,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+            data-test-id="NUM_6"
           >
             <button
               aria-disabled="false"
@@ -1394,6 +1420,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1o7q2hf"
+            data-test-id="NUM_7"
           >
             <button
               aria-disabled="false"
@@ -1425,6 +1452,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+            data-test-id="NUM_8"
           >
             <button
               aria-disabled="false"
@@ -1456,6 +1484,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_mr6jkh"
+            data-test-id="NUM_9"
           >
             <button
               aria-disabled="false"
@@ -1487,6 +1516,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_xra0eu"
+            data-test-id="NUM_0"
           >
             <button
               aria-disabled="false"
@@ -1518,6 +1548,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_6bvuz9"
+            data-test-id="DECIMAL"
           >
             <button
               aria-disabled="false"
@@ -1549,6 +1580,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_l02gwk"
+            data-test-id="NEGATIVE"
           >
             <button
               aria-disabled="false"
@@ -1582,6 +1614,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_ma0as6"
+            data-test-id="PERCENT"
           >
             <button
               aria-disabled="false"
@@ -1615,6 +1648,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_wb5o9j"
+            data-test-id="PLUS"
           >
             <button
               aria-disabled="false"
@@ -1654,6 +1688,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_9isr9w"
+            data-test-id="MINUS"
           >
             <button
               aria-disabled="false"
@@ -1687,6 +1722,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_771h91"
+            data-test-id="FRAC_INCLUSIVE"
           >
             <button
               aria-disabled="false"
@@ -1720,6 +1756,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_lv836c"
+            data-test-id="CDOT"
           >
             <button
               aria-disabled="false"
@@ -1768,6 +1805,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_k65qc5"
+            data-test-id="LEFT_PAREN"
           >
             <button
               aria-disabled="false"
@@ -1801,6 +1839,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_1bljvrq"
+            data-test-id="RIGHT_PAREN"
           >
             <button
               aria-disabled="false"
@@ -1834,6 +1873,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_y8g975"
+            data-test-id="BACKSPACE"
           >
             <button
               aria-disabled="false"

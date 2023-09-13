@@ -116,6 +116,36 @@ describe("keypad", () => {
         ).not.toBeInTheDocument();
     });
 
+    it(`shows the dot symbol when convertDotToTimes is false`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                convertDotToTimes={false}
+                onAnalyticsEvent={async () => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByTestId("CDOT")).toBeInTheDocument();
+    });
+
+    it(`shows the times symbol when convertDotToTimes is true`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                convertDotToTimes={true}
+                onAnalyticsEvent={async () => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByTestId("TIMES")).toBeInTheDocument();
+    });
+
     it(`hides the tabs if providing the Fraction Keypad`, () => {
         // Arrange
         // Act

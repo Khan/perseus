@@ -38,6 +38,7 @@ export const KeypadButton = ({
                 gridRow: coord[1] + 1,
                 ...style,
             }}
+            testId={keyConfig.id}
         >
             <Clickable
                 onClick={(e) => onClickKey(keyConfig.id, e)}
