@@ -184,8 +184,6 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            - name: Debugging!
-              run: echo ${{ github.head_ref }}
             - name: Checking out latest commit
               uses: actions/checkout@v2
 
