@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 11.3.0
+
+### Minor Changes
+
+-   26fc0b41: Updated ErrorBoundary logging to include the componentStack as well as the widget type as metadata.
+
+### Patch Changes
+
+-   Updated dependencies [a5a60852]
+    -   @khanacademy/math-input@12.1.0
+
 ## 11.2.1
 
 ### Patch Changes

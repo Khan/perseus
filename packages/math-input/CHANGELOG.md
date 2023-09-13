@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 12.1.0
+
+### Minor Changes
+
+-   a5a60852: revert focus changes to math input
+
 ## 12.0.1
 
 ### Patch Changes
