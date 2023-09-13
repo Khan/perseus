@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 11.4.0
+
+### Minor Changes
+
+-   6751a680: Make article image widget behave more like other image widgets
+
+### Patch Changes
+
+-   Updated dependencies [388b6506]
+-   Updated dependencies [4f4fe4f9]
+-   Updated dependencies [388b6506]
+    -   @khanacademy/perseus-linter@0.3.4
+    -   @khanacademy/perseus-core@1.1.0
+    -   @khanacademy/pure-markdown@0.2.6
+    -   @khanacademy/math-input@12.1.1
+
 ## 11.3.0
 
 ### Minor Changes
