@@ -84,10 +84,11 @@ export const Basic = () => {
 
             <KeypadInput
                 value={value}
+                ref={input}
                 keypadElement={keypadElement}
                 onChange={(newValue, callback) => {
                     setValue(newValue);
-                    callback();
+                    callback?.();
                 }}
                 onFocus={() => {
                     keypadElement?.activate();
@@ -102,6 +103,9 @@ export const Basic = () => {
                     if (node) {
                         setKeypadElement(node);
                     }
+                }}
+                onDismiss={() => {
+                    input.current?.blur();
                 }}
                 useV2Keypad={v2Keypad}
                 onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
