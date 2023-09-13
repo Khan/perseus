@@ -11,30 +11,30 @@ const allLintRules: ReadonlyArray<any> = AllRules.filter(
 
 export {Rule, allLintRules as rules};
 
-//
-// Run the Perseus linter over the specified markdown parse tree,
-// with the specified context object, and
-// return a (possibly empty) array of lint warning objects.  If the
-// highlight argument is true, this function also modifies the parse
-// tree to add "lint" nodes that can be visually rendered,
-// highlighting the problems for the user. The optional rules argument
-// is an array of Rule objects specifying which lint rules should be
-// applied to this parse tree. When omitted, a default set of rules is used.
-//
-// The context object may have additional properties that some lint
-// rules require:
-//
-//   context.content is the source content string that was parsed to create
-//   the parse tree.
-//
-//   context.widgets is the widgets object associated
-//   with the content string
-//
-// TODO: to make this even more general, allow the first argument to be
-// a string and run the parser over it in that case? (but ignore highlight
-// in that case). This would allow the one function to be used for both
-// online linting and batch linting.
-//
+/**
+ * Run the Perseus linter over the specified markdown parse tree,
+ * with the specified context object, and
+ * return a (possibly empty) array of lint warning objects.  If the
+ * highlight argument is true, this function also modifies the parse
+ * tree to add "lint" nodes that can be visually rendered,
+ * highlighting the problems for the user. The optional rules argument
+ * is an array of Rule objects specifying which lint rules should be
+ * applied to this parse tree. When omitted, a default set of rules is used.
+ *
+ * The context object may have additional properties that some lint
+ * rules require:
+ *
+ *   context.content is the source content string that was parsed to create
+ *   the parse tree.
+ *
+ *   context.widgets is the widgets object associated
+ *   with the content string
+ *
+ * TODO: to make this even more general, allow the first argument to be
+ * a string and run the parser over it in that case? (but ignore highlight
+ * in that case). This would allow the one function to be used for both
+ * online linting and batch linting.
+ */
 export function runLinter(
     tree: any,
     context: any,
