@@ -185,11 +185,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Debugging!
-              run: |
-                echo ${{ github.head_ref }}
-                echo ${{ github.ref_name }}
-                echo ${{ github.ref }}
-                exit 1
+              run: echo ${{ github.head_ref }}
             - name: Checking out latest commit
               uses: actions/checkout@v2
 
