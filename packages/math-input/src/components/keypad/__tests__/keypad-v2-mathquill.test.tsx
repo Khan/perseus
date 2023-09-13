@@ -72,7 +72,7 @@ function V2KeypadWithMathquill(props: Props) {
                             basicRelations
                             divisionKey
                             logarithms
-                            multiplicationDot
+                            convertDotToTimes
                             preAlgebra
                             trigonometry
                             onAnalyticsEvent={

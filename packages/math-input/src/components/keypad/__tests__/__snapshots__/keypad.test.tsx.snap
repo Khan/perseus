@@ -707,18 +707,27 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                     width="40"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      clip-rule="evenodd"
-                      d="M14.3432 14.3428c.3905-.3905 1.0237-.3905 1.4142 0l9.8995 9.8995c.3905.3906.3905 1.0237 0 1.4143-.3905.3905-1.0237.3905-1.4142 0l-9.8995-9.8995c-.3905-.3906-.3905-1.0237 0-1.4143z"
-                      fill="#21242C"
-                      fill-rule="evenodd"
-                    />
-                    <path
-                      clip-rule="evenodd"
-                      d="M14.3431 25.6573c-.3905-.3905-.3905-1.0237 0-1.4142l9.8995-9.8995c.3905-.3905 1.0237-.3905 1.4142 0 .3905.3905.3905 1.0237 0 1.4142l-9.8995 9.8995c-.3905.3905-1.0237.3905-1.4142 0z"
-                      fill="#21242C"
-                      fill-rule="evenodd"
-                    />
+                    <g
+                      clip-path="url(#clip0_874_41555)"
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        fill="#21242C"
+                        r="1.5"
+                      />
+                    </g>
+                    <defs>
+                      <clippath
+                        id="clip0_874_41555"
+                      >
+                        <path
+                          d="M0 0h3v3H0z"
+                          fill="#fff"
+                          transform="translate(18.5 18.5)"
+                        />
+                      </clippath>
+                    </defs>
                   </svg>
                 </div>
               </div>
@@ -1731,18 +1740,27 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                     width="40"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      clip-rule="evenodd"
-                      d="M14.3432 14.3428c.3905-.3905 1.0237-.3905 1.4142 0l9.8995 9.8995c.3905.3906.3905 1.0237 0 1.4143-.3905.3905-1.0237.3905-1.4142 0l-9.8995-9.8995c-.3905-.3906-.3905-1.0237 0-1.4143z"
-                      fill="#21242C"
-                      fill-rule="evenodd"
-                    />
-                    <path
-                      clip-rule="evenodd"
-                      d="M14.3431 25.6573c-.3905-.3905-.3905-1.0237 0-1.4142l9.8995-9.8995c.3905-.3905 1.0237-.3905 1.4142 0 .3905.3905.3905 1.0237 0 1.4142l-9.8995 9.8995c-.3905.3905-1.0237.3905-1.4142 0z"
-                      fill="#21242C"
-                      fill-rule="evenodd"
-                    />
+                    <g
+                      clip-path="url(#clip0_874_41555)"
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        fill="#21242C"
+                        r="1.5"
+                      />
+                    </g>
+                    <defs>
+                      <clippath
+                        id="clip0_874_41555"
+                      >
+                        <path
+                          d="M0 0h3v3H0z"
+                          fill="#fff"
+                          transform="translate(18.5 18.5)"
+                        />
+                      </clippath>
+                    </defs>
                   </svg>
                 </div>
               </div>
