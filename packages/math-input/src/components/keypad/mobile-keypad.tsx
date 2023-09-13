@@ -107,17 +107,13 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     };
 
     activate: () => void = () => {
-        if (!this.state.active) {
-            this.setState({active: true});
-        }
+        this.setState({active: true});
     };
 
     dismiss: () => void = () => {
-        if (this.state.active) {
-            this.setState({active: false}, () => {
-                this.props.onDismiss?.();
-            });
-        }
+        this.setState({active: false}, () => {
+            this.props.onDismiss?.();
+        });
     };
 
     configure: (configuration: KeypadConfiguration, cb: () => void) => void = (

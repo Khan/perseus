@@ -30,8 +30,6 @@ export const Basic = () => {
     // Whether the keypad is open or not
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
 
-    const input = React.useRef<any>(null);
-
     const toggleKeypad = () => {
         if (keypadOpen) {
             keypadElement?.dismiss();
@@ -76,11 +74,10 @@ export const Basic = () => {
 
             <KeypadInput
                 value={value}
-                ref={input}
                 keypadElement={keypadElement}
                 onChange={(newValue, callback) => {
                     setValue(newValue);
-                    callback?.();
+                    callback();
                 }}
                 onFocus={() => {
                     keypadElement?.activate();
@@ -95,9 +92,6 @@ export const Basic = () => {
                     if (node) {
                         setKeypadElement(node);
                     }
-                }}
-                onDismiss={() => {
-                    input.current?.blur();
                 }}
                 useV2Keypad={v2Keypad}
                 onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
