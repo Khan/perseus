@@ -1,5 +1,11 @@
 # @khanacademy/perseus-error
 
+## 0.2.3
+
+### Patch Changes
+
+-   388b6506: Add comments for `Options` type.
+
 ## 0.2.2
 
 ### Patch Changes
