@@ -80,7 +80,7 @@ jobs:
                   SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
                   SLACK_USERNAME: GithubGoose
                   SLACK_ICON_EMOJI: ":goose:"
-                  SLACK_MESSAGE: "Something went wrong with the release of ${{ github.event.repository.name }}. \nPlease check the logs → https://github.com/${{ github.repository }}/actions"
+                  SLACK_MESSAGE: "Something went wrong with the release of ${{ github.event.repository.name }}. \nPlease check the logs → https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                   SLACK_TITLE: "Oops! I'm the Bad News Goose!"
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true
