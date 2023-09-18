@@ -170,20 +170,25 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
             // internal styles
             styles.keypadContainer,
             active && styles.activeKeypadContainer,
-            // If the keypad is yet to have ever been activated, we keep it invisible
-            // so as to avoid, e.g., the keypad flashing at the bottom of the page
-            // during the initial render.
-            // Done inline since stylesheets might not be loaded yet.
-            !hasBeenActivated && {visibility: "hidden"},
             // styles passed as props
             ...(Array.isArray(style) ? style : [style]),
         ];
+
+        // If the keypad is yet to have ever been activated, we keep it invisible
+        // so as to avoid, e.g., the keypad flashing at the bottom of the page
+        // during the initial render.
+        // Done inline (dynamicStyle) since stylesheets might not be loaded yet.
+        let dynamicStyle = {};
+        if (!active && !hasBeenActivated) {
+            dynamicStyle = {visibility: "hidden"};
+        }
 
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
 
         return (
             <View
                 style={containerStyle}
+                dynamicStyle={dynamicStyle}
                 forwardRef={this._containerRef}
                 ref={(element) => {
                     if (!this.hasMounted && element) {
