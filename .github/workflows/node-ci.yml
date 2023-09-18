@@ -22,6 +22,7 @@ jobs:
               if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
               with:
                   exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
+                  # Inverted match for ./packages to exclude everything but packages
                   exclude_globs: "**/__tests__/*, **/__stories__/*, **/dist/*, !(./packages/**/*.{ts,tsx,js,html,css,md})"
 
     lint:
