@@ -21,9 +21,8 @@ jobs:
             - uses: Khan/actions@check-for-changeset-v0
               if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
               with:
-                  exclude: .github/,.storybook/
                   exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
-                  exclude_globs: "**/__tests__/*"
+                  exclude_globs: "**/__tests__/*",  "**/__stories__/*", , "**/dist/*", "!(./packages/**/*.{ts,tsx,js,html,css,md})"
 
     lint:
         name: Lint, Typecheck, Format, and Test
