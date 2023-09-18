@@ -39,6 +39,7 @@ type Props = {
 type State = {
     active: boolean;
     containerWidth: number;
+    hasBeenActivated: boolean;
     keypadConfig?: KeypadConfiguration;
     keyHandler?: KeyHandler;
     cursor?: Cursor;
@@ -53,6 +54,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     state: State = {
         active: false,
         containerWidth: 0,
+        hasBeenActivated: false,
     };
 
     componentDidMount() {
@@ -107,7 +109,10 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     };
 
     activate: () => void = () => {
-        this.setState({active: true});
+        this.setState({
+            active: true,
+            hasBeenActivated: true,
+        });
     };
 
     dismiss: () => void = () => {
@@ -158,12 +163,18 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     render(): React.ReactNode {
         const {style} = this.props;
-        const {active, containerWidth, cursor, keypadConfig} = this.state;
+        const {active, hasBeenActivated, containerWidth, cursor, keypadConfig} =
+            this.state;
 
         const containerStyle = [
             // internal styles
             styles.keypadContainer,
             active && styles.activeKeypadContainer,
+            // If the keypad is yet to have ever been activated, we keep it invisible
+            // so as to avoid, e.g., the keypad flashing at the bottom of the page
+            // during the initial render.
+            // Done inline since stylesheets might not be loaded yet.
+            !hasBeenActivated && {visibility: "hidden"},
             // styles passed as props
             ...(Array.isArray(style) ? style : [style]),
         ];
