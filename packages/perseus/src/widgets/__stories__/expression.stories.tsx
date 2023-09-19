@@ -37,6 +37,7 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
                             item={props.item}
                             apiOptions={{
                                 customKeypad: props.customKeypad,
+                                useV2Keypad: true,
                             }}
                         />
                     );

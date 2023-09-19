@@ -644,17 +644,19 @@ const keypadConfigurationForProps = (
 
     // TODO(charlie): Alert the keypad as to which of these symbols should be
     // treated as functions.
-    const extraVariables: Key[] = Object.keys(uniqueExtraVariables) as Key[];
-    extraVariables.sort();
+    const extraVariables = Object.keys(
+        uniqueExtraVariables,
+    ).sort() as ReadonlyArray<Key>;
 
-    const extraConstants: Key[] = Object.keys(uniqueExtraConstants) as Key[];
-    extraConstants.sort();
+    const extraConstants = Object.keys(
+        uniqueExtraConstants,
+    ).sort() as ReadonlyArray<Key>;
 
-    const extraKeys: Key[] = [...extraVariables, ...extraConstants];
+    let extraKeys = [...extraVariables, ...extraConstants];
     if (!extraKeys.length) {
         // If there are no extra symbols available, we include Pi anyway, so
         // that the "extra symbols" button doesn't appear empty.
-        extraKeys.push("PI");
+        extraKeys = ["PI"];
     }
 
     return {keypadType, extraKeys, times};
