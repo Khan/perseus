@@ -35,6 +35,8 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
                     return (
                         <ItemRendererWithDebugUI
                             item={props.item}
+                            // Hardcoding the V2 Keypad to true as the Storybook Args
+                            // were not working.
                             apiOptions={{
                                 customKeypad: props.customKeypad,
                                 useV2Keypad: true,
