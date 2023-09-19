@@ -615,8 +615,6 @@ const keypadConfigurationForProps = (
     // been enabled.
     const keypadType = KeypadType.EXPRESSION;
 
-    const times = widgetOptions.times;
-
     // Extract any and all variables and constants from the answer forms.
     const uniqueExtraVariables: Record<string, any> = {};
     const uniqueExtraConstants: Record<string, any> = {};
@@ -659,7 +657,7 @@ const keypadConfigurationForProps = (
         extraKeys = ["PI"];
     }
 
-    return {keypadType, extraKeys, times};
+    return {keypadType, extraKeys, times: widgetOptions.times};
 };
 
 const propUpgrades = {
