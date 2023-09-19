@@ -32,7 +32,7 @@ export const Basic = () => {
     // Whether the keypad is open or not
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
 
-    const input = React.useRef<any>(null);
+    const input = React.useRef<KeypadInput>(null);
 
     const timesLabel = times ? "CDOT" : "TIMES";
 
@@ -104,9 +104,7 @@ export const Basic = () => {
                         setKeypadElement(node);
                     }
                 }}
-                onDismiss={() => {
-                    input.current?.blur();
-                }}
+                onDismiss={() => {}}
                 useV2Keypad={v2Keypad}
                 onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
             />

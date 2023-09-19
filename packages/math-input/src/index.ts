@@ -34,15 +34,12 @@ export {default as KeypadContext} from "./components/keypad-context";
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";
-export type {KeypadAPI} from "./types";
+export type {KeypadAPI, KeypadConfiguration} from "./types";
 
 // Key list, configuration map, and types
 export type {default as Keys} from "./data/keys";
 export {default as KeyConfigs} from "./data/key-configs";
 export {type KeyType, KeypadType} from "./enums";
-
-// Keypad Configuration type
-export {type KeypadConfiguration} from "./types";
 
 // Helper to translate key pressed to MathField update
 export {default as keyTranslator} from "./components/key-handlers/key-translator";
