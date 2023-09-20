@@ -78,7 +78,7 @@ export function V2KeypadWithMathquill() {
                             basicRelations
                             divisionKey
                             logarithms
-                            multiplicationDot
+                            convertDotToTimes
                             preAlgebra
                             trigonometry
                             onAnalyticsEvent={async (event) => {

@@ -11,6 +11,7 @@ import expressionExport from "../expression";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
 import type {PerseusItem} from "../../perseus-types";
+import type {Keys as Key} from "@khanacademy/math-input";
 
 type StoryArgs = {
     customKeypad: boolean;
@@ -34,8 +35,11 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
                     return (
                         <ItemRendererWithDebugUI
                             item={props.item}
+                            // Hardcoding the V2 Keypad to true as the Storybook Args
+                            // were not working.
                             apiOptions={{
                                 customKeypad: props.customKeypad,
+                                useV2Keypad: true,
                             }}
                         />
                     );
@@ -63,7 +67,7 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
 
     const keypadConfiguration = {
         keypadType: KeypadType.EXPRESSION,
-        extraKeys: ["x", "y", "z"],
+        extraKeys: ["x", "y", "z"] as Key[],
     };
 
     return (

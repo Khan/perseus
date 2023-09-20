@@ -56,6 +56,7 @@ export type KeyConfig = NonManyKeyConfig | ManyKeyConfig;
 export type KeypadConfiguration = {
     keypadType: KeypadType;
     extraKeys?: ReadonlyArray<Key>;
+    times?: boolean;
 };
 
 export type KeyHandler = (key: Key) => Cursor;

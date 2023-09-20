@@ -29,7 +29,7 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../types";
-import type {Keys as Key} from "@khanacademy/math-input";
+import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;
@@ -610,7 +610,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
  */
 const keypadConfigurationForProps = (
     widgetOptions: PerseusExpressionWidgetOptions,
-) => {
+): KeypadConfiguration => {
     // Always use the Expression keypad, regardless of the button sets that have
     // been enabled.
     const keypadType = KeypadType.EXPRESSION;
@@ -642,20 +642,22 @@ const keypadConfigurationForProps = (
 
     // TODO(charlie): Alert the keypad as to which of these symbols should be
     // treated as functions.
-    const extraVariables = Object.keys(uniqueExtraVariables);
-    extraVariables.sort();
+    const extraVariables = Object.keys(
+        uniqueExtraVariables,
+    ).sort() as ReadonlyArray<Key>;
 
-    const extraConstants = Object.keys(uniqueExtraConstants);
-    extraConstants.sort();
+    const extraConstants = Object.keys(
+        uniqueExtraConstants,
+    ).sort() as ReadonlyArray<Key>;
 
-    const extraKeys = [...extraVariables, ...extraConstants];
+    let extraKeys = [...extraVariables, ...extraConstants];
     if (!extraKeys.length) {
         // If there are no extra symbols available, we include Pi anyway, so
         // that the "extra symbols" button doesn't appear empty.
-        extraKeys.push("PI");
+        extraKeys = ["PI"];
     }
 
-    return {keypadType, extraKeys};
+    return {keypadType, extraKeys, times: widgetOptions.times};
 };
 
 const propUpgrades = {

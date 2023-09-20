@@ -184,6 +184,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
         }
 
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
+        const convertDotToTimes = keypadConfig?.times;
 
         return (
             <View
@@ -219,7 +220,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                     onClickKey={(key) => this._handleClickKey(key)}
                     cursorContext={cursor?.context}
                     fractionsOnly={!isExpression}
-                    multiplicationDot={isExpression}
+                    convertDotToTimes={convertDotToTimes}
                     divisionKey={isExpression}
                     trigonometry={isExpression}
                     preAlgebra={isExpression}
