@@ -180,7 +180,7 @@ describe("Expression Widget", function () {
         });
     });
 
-    describe.skip("invalid", function () {
+    describe("invalid", function () {
         it("should handle ungraded answers with no error callback", function () {
             const err = Expression.validate("x+^1", expressionItem3Options);
             expect(err).toStrictEqual({message: null, type: "invalid"});
