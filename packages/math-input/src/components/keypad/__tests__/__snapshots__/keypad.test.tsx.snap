@@ -669,7 +669,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_771h91"
-            data-test-id="FRAC_INCLUSIVE"
+            data-test-id="FRAC"
           >
             <button
               aria-disabled="false"
@@ -1722,7 +1722,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </div>
           <div
             class="default_xu2jcg-o_O-inlineStyles_771h91"
-            data-test-id="FRAC_INCLUSIVE"
+            data-test-id="FRAC"
           >
             <button
               aria-disabled="false"
