@@ -143,8 +143,8 @@ jobs:
             - name: Upload Coverage
               uses: codecov/codecov-action@v3
               with:
-                token: ${{ secrets.CODECOV_TOKEN }}
-                files: ./coverage/coverage-final.json
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  files: ./coverage/coverage-final.json
 
     check_builds:
         name: Check builds for changes in size

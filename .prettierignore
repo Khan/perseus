@@ -30,6 +30,7 @@ LICENSE
 yarn.lock
 
 coverage/
+coverage-ts/
 docs/
 dist/
 storybook-static/
