@@ -1,5 +1,16 @@
 # @khanacademy/math-input
 
+## 13.0.0
+
+### Major Changes
+
+-   609aeb0a: Ensured that the multiplication symbol in our keypad matches the selected symbol from content.
+
+### Patch Changes
+
+-   91f88d0b: Bugfix: v1 and v2 keypad using different FRAC configs
+-   4aac71b3: Hide v2 mobile MathInput keypad when it's never been activated
+
 ## 12.1.1
 
 ### Patch Changes
