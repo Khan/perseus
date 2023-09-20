@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 11.5.0
+
+### Minor Changes
+
+-   609aeb0a: Ensured that the multiplication symbol in our keypad matches the selected symbol from content.
+
+### Patch Changes
+
+-   Updated dependencies [91f88d0b]
+-   Updated dependencies [609aeb0a]
+-   Updated dependencies [4aac71b3]
+    -   @khanacademy/math-input@13.0.0
+
 ## 11.4.0
 
 ### Minor Changes
