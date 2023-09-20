@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 1.1.0
+
+### Minor Changes
+
+-   4f4fe4f9: Added new analytics event "perseus:expression-focused"
+
 ## 1.0.0
 
 ### Major Changes

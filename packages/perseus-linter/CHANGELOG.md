@@ -1,5 +1,13 @@
 # @khanacademy/perseus-linter
 
+## 0.3.4
+
+### Patch Changes
+
+-   388b6506: Convert runLinter doc comment to /\*\* \*/ format so editors pick it up better (VSCode).
+-   Updated dependencies [388b6506]
+    -   @khanacademy/perseus-error@0.2.3
+
 ## 0.3.3
 
 ### Patch Changes

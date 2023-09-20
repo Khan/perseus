@@ -21,9 +21,9 @@ jobs:
             - uses: Khan/actions@check-for-changeset-v0
               if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
               with:
-                  exclude: .github/,.storybook/
                   exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
-                  exclude_globs: "**/__tests__/*"
+                  # Inverted match for ./packages to exclude everything but packages
+                  exclude_globs: "**/__tests__/*, **/__stories__/*, **/dist/*, !(./packages/**/*.{ts,tsx,js,html,css,md})"
 
     lint:
         name: Lint, Typecheck, Format, and Test
@@ -230,7 +230,7 @@ jobs:
         # on the main Changeset "Version Packages" PR
         if: |
             github.event.pull_request.draft == false
-            && github.ref_name != 'changeset-release/main'
+            && !startsWith(github.head_ref, 'changeset-release/')
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:

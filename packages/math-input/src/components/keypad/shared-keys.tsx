@@ -48,7 +48,7 @@ export default function SharedKeys(props: Props) {
                 secondary
             />
             <KeypadButton
-                keyConfig={Keys.FRAC_INCLUSIVE}
+                keyConfig={Keys.FRAC}
                 onClickKey={onClickKey}
                 coord={fractionCoord}
                 secondary
