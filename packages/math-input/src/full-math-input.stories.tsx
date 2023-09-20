@@ -1,4 +1,4 @@
-import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import type {KeypadAPI} from "./types";
@@ -16,7 +16,6 @@ export default {
                 {name: "light background", value: "lightgrey", default: true},
             ],
         },
-        viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
     },
 };
 
@@ -26,10 +25,16 @@ export const Basic = () => {
     const [keypadElement, setKeypadElement] = React.useState<KeypadAPI>();
     // Whether to use Expression or Fraction keypad
     const [expression, setExpression] = React.useState<boolean>(false);
+    // Whether to use CDOT or TIMES
+    const [times, setTimes] = React.useState<boolean>(true);
     // Whether to use v1 or v2 keypad
     const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
     // Whether the keypad is open or not
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
+
+    const input = React.useRef<KeypadInput>(null);
+
+    const timesLabel = times ? "CDOT" : "TIMES";
 
     const toggleKeypad = () => {
         if (keypadOpen) {
@@ -47,37 +52,43 @@ export const Basic = () => {
                     ? KeypadType.EXPRESSION
                     : KeypadType.FRACTION,
                 extraKeys: expression ? ["x", "y", "PI", "THETA"] : [],
+                times: times,
             },
             () => {},
         );
-    }, [keypadElement, expression]);
+    }, [keypadElement, expression, times]);
 
     return (
-        <div style={{textAlign: "center"}}>
-            <div style={{padding: "1rem 0"}}>
-                <span
-                    style={{textAlign: "center", margin: 20, display: "block"}}
-                >
+        <div style={{padding: "1rem 2rem"}}>
+            <div>
+                <div>
                     NOTE: To properly test the input interaction, you will need
-                    to simulate a device using the dev tools.
-                </span>
-                <button onClick={() => setExpression(!expression)}>
-                    {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
-                </button>
-                <button onClick={() => setV2Keypad(!v2Keypad)}>
-                    {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
-                </button>
-                <button onClick={() => toggleKeypad()}>
-                    {`Toggle Keypad`}
-                </button>
+                    to simulate a device using the dev tools. MathInput requires
+                    touch events (not click events).
+                </div>
+                <div style={{padding: "1rem 0"}}>
+                    <button onClick={() => setExpression(!expression)}>
+                        {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
+                    </button>
+                    <button onClick={() => setV2Keypad(!v2Keypad)}>
+                        {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
+                    </button>
+                    <button onClick={() => toggleKeypad()}>
+                        {`Toggle Keypad`}
+                    </button>
+                    <button onClick={() => setTimes(!times)}>
+                        {`Toggle to ` + timesLabel}
+                    </button>
+                </div>
             </div>
 
             <KeypadInput
                 value={value}
+                ref={input}
                 keypadElement={keypadElement}
                 onChange={(newValue, callback) => {
                     setValue(newValue);
-                    callback();
+                    callback?.();
                 }}
                 onFocus={() => {
                     keypadElement?.activate();
@@ -93,7 +104,9 @@ export const Basic = () => {
                         setKeypadElement(node);
                     }
                 }}
+                onDismiss={() => {}}
                 useV2Keypad={v2Keypad}
+                onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
             />
         </div>
     );

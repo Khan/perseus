@@ -22,12 +22,9 @@ import Util from "./util";
 
 import type Renderer from "./renderer";
 import type {APIOptionsWithDefaults} from "./types";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type Props = JSX.LibraryManagedAttributes<
-    Renderer,
-    // @ts-expect-error - TS2344 - Type 'Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
-    React.ComponentProps<typeof Renderer>
-> & {
+type Props = PropsFor<typeof Renderer> & {
     className?: string;
     // note (mcurtis): I think this should be $ReadOnlyArray<PerseusRenderer>,
     // but things spiraled out of control when I tried to change it
@@ -36,7 +33,6 @@ type Props = JSX.LibraryManagedAttributes<
 };
 
 type DefaultProps = {
-    // @ts-expect-error - TS2339 - Property 'linterContext' does not exist on type '{ className?: string | undefined; hints: readonly any[]; hintsVisible?: number | undefined; }'.
     linterContext: Props["linterContext"];
 };
 
@@ -126,7 +122,6 @@ class HintsRenderer extends React.Component<Props, State> {
         // false in hints.
         return {
             ...ApiOptions.defaults,
-            // @ts-expect-error - TS2339 - Property 'apiOptions' does not exist on type 'Readonly<{ className?: string | undefined; hints: readonly any[]; hintsVisible?: number | undefined; }> & Readonly<{ children?: ReactNode; }>'.
             ...this.props.apiOptions,
             readOnly: false,
         };
@@ -196,10 +191,8 @@ class HintsRenderer extends React.Component<Props, State> {
                     ref={"hintRenderer" + i}
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
-                    // @ts-expect-error - TS2339 - Property 'findExternalWidgets' does not exist on type 'Readonly<{ className?: string | undefined; hints: readonly any[]; hintsVisible?: number | undefined; }> & Readonly<{ children?: ReactNode; }>'.
                     findExternalWidgets={this.props.findExternalWidgets}
                     linterContext={PerseusLinter.pushContextStack(
-                        // @ts-expect-error - TS2339 - Property 'linterContext' does not exist on type 'Readonly<{ className?: string | undefined; hints: readonly any[]; hintsVisible?: number | undefined; }> & Readonly<{ children?: ReactNode; }>'.
                         this.props.linterContext,
                         "hints[" + i + "]",
                     )}

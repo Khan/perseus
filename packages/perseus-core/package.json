@@ -3,13 +3,14 @@
     "description": "Shared Perseus infrastructure",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.1.1",
+    "version": "1.1.0",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/perseus.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/perseus-core"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"

@@ -68,7 +68,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -183,7 +183,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -298,7 +298,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -413,7 +413,7 @@ exports[`multi-choice question should snapshot the same when invalid: invalid st
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -628,7 +628,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -769,7 +769,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -884,7 +884,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -999,7 +999,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -1200,7 +1200,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -1341,7 +1341,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -1456,7 +1456,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -1571,7 +1571,7 @@ exports[`single-choice question reviewMode: false should snapshot the same with 
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -1772,7 +1772,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -1913,7 +1913,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -2028,7 +2028,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -2143,7 +2143,7 @@ exports[`single-choice question reviewMode: false should snapshot the same: firs
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -2344,7 +2344,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -2485,7 +2485,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -2600,7 +2600,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -2715,7 +2715,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with c
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -2916,7 +2916,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -3057,7 +3057,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -3172,7 +3172,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -3287,7 +3287,7 @@ exports[`single-choice question reviewMode: true should snapshot the same with i
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -3488,7 +3488,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -3710,7 +3710,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -3890,7 +3890,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"
@@ -4065,7 +4065,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                     style="flex-direction: column; color: rgb(33, 36, 44);"
                   >
                     <div
-                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                     >
                       <div
                         class="perseus-sr-only"

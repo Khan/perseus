@@ -35,11 +35,11 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    LinterContextProps,
     PerseusScore,
     WidgetInfo,
     WidgetProps,
 } from "./types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
 
@@ -213,7 +213,7 @@ class Renderer extends React.Component<Props, State> {
     _foundTextNodes: boolean;
     // @ts-expect-error - TS2564 - Property '_interactionTrackers' has no initializer and is not definitely assigned in the constructor.
     _interactionTrackers: {
-        [id: string]: InteractionTracker;
+        [id: string]: InteractionTracker<any>;
     };
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
@@ -250,8 +250,8 @@ class Renderer extends React.Component<Props, State> {
         linterContext: PerseusLinter.linterContextDefault,
     };
 
-    constructor(props: Props, context: Context) {
-        super(props, context);
+    constructor(props: Props) {
+        super(props);
         this._translationLinter = new TranslationLinter();
 
         this.state = {
@@ -550,7 +550,10 @@ class Renderer extends React.Component<Props, State> {
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return (
-                <ErrorBoundary key={"container:" + id}>
+                <ErrorBoundary
+                    key={"container:" + id}
+                    metadata={{widget_type: type, widget_id: id}}
+                >
                     <WidgetContainer
                         ref={"container:" + id}
                         type={type}

@@ -754,10 +754,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -769,10 +769,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -784,10 +784,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -799,10 +799,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -814,10 +814,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -829,10 +829,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -844,10 +844,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -859,10 +859,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -874,10 +874,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -889,10 +889,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -904,10 +904,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -919,10 +919,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -934,10 +934,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -949,10 +949,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -964,10 +964,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -979,10 +979,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -994,10 +994,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1009,10 +1009,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1024,10 +1024,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1039,10 +1039,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1054,10 +1054,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1069,10 +1069,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1084,10 +1084,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1099,10 +1099,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1114,10 +1114,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1129,10 +1129,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1144,10 +1144,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1159,10 +1159,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1174,10 +1174,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1189,10 +1189,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1204,10 +1204,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1219,10 +1219,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1234,10 +1234,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1249,10 +1249,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1264,10 +1264,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1279,10 +1279,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1294,10 +1294,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1309,10 +1309,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1324,10 +1324,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1339,10 +1339,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1354,10 +1354,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1369,10 +1369,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1384,10 +1384,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1399,10 +1399,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1414,10 +1414,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1429,10 +1429,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1444,10 +1444,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1459,10 +1459,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1474,10 +1474,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1489,10 +1489,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1504,10 +1504,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1519,10 +1519,10 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="44"
-                    height="44"
+                    width="40"
+                    height="40"
                     fill="none"
-                    viewBox="0 0 44 44"
+                    viewBox="2 2 40 40"
                 >
                     <path
                         fill="#21242C"
@@ -1735,15 +1735,88 @@ export default function ButtonAsset({id}: Props): React.ReactElement {
                 </svg>
             );
 
+        case "UP":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g
+                        fill="none"
+                        fillRule="evenodd"
+                        transform="rotate(90 24 24)"
+                    >
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            stroke="#21242C"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M22 18l-6 6 6 6M16 24h16"
+                        />
+                    </g>
+                </svg>
+            );
+        case "DOWN":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g
+                        fill="none"
+                        fillRule="evenodd"
+                        transform="rotate(270 24 24)"
+                    >
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            stroke="#21242C"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M22 18l-6 6 6 6M16 24h16"
+                        />
+                    </g>
+                </svg>
+            );
+        case "LEFT":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g fill="none" fillRule="evenodd">
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            stroke="#21242C"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M22 18l-6 6 6 6M16 24h16"
+                        />
+                    </g>
+                </svg>
+            );
+        case "RIGHT":
+            return (
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                    <g
+                        fill="none"
+                        fillRule="evenodd"
+                        transform="rotate(180 24 24)"
+                    >
+                        <path fill="none" d="M0 0h48v48H0z" />
+                        <path fill="none" d="M12 12h24v24H12z" />
+                        <path
+                            stroke="#21242C"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M22 18l-6 6 6 6M16 24h16"
+                        />
+                    </g>
+                </svg>
+            );
+
         /**
          * ANYTHING BELOW IS NOT YET HANDLED
          */
         case "MANY":
         case "NOOP":
-        case "UP":
-        case "DOWN":
-        case "LEFT":
-        case "RIGHT":
         case "PHI":
         case "NTHROOT3":
         case "POW":

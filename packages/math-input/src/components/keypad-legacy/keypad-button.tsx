@@ -2,6 +2,7 @@
  * A component that renders a keypad button.
  */
 
+import Color from "@khanacademy/wonder-blocks-color";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import {connect} from "react-redux";
@@ -313,7 +314,7 @@ const styles = StyleSheet.create({
         backgroundColor: wonderBlocksBlue,
     },
     light: {
-        backgroundColor: "rgba(33, 36, 44, 0.1)",
+        backgroundColor: Color.offBlack32,
     },
 
     iconWrapper: {

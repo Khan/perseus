@@ -41,6 +41,7 @@ import {StyleSheet, css} from "aphrodite"; // eslint-disable-line import/no-extr
 import lens from "hubble"; // eslint-disable-line import/no-extraneous-dependencies
 import * as React from "react";
 
+import {DependenciesContext} from "../dependencies";
 import HintsRenderer from "../hints-renderer";
 import {Errors, Log} from "../logging/log";
 import Renderer from "../renderer";
@@ -50,21 +51,23 @@ import {itemToTree} from "./items";
 import {buildMapper} from "./trees";
 
 import type {Widget} from "../renderer";
-import type {APIOptions, FilterCriterion, PerseusScore} from "../types";
+import type {
+    APIOptions,
+    FilterCriterion,
+    PerseusDependenciesV2,
+    PerseusScore,
+} from "../types";
 import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
 import type {Shape, ArrayShape} from "./shape-types";
 import type {Tree} from "./tree-types";
 import type {TreeMapper, ContentMapper, HintMapper, Path} from "./trees";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Hint = any; // TODO(mdr)
 type Score = any; // TODO(mdr)
 type SerializedState = any; // TODO(mdr)
 
-type RendererProps = JSX.LibraryManagedAttributes<
-    typeof Renderer,
-    // @ts-expect-error - TS2344 - Type 'typeof Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
-    React.ComponentProps<typeof Renderer>
->;
+type RendererProps = PropsFor<typeof Renderer>;
 
 type ContentRendererElement = React.ReactElement<any>;
 type HintRendererElement = React.ReactElement<any>;
@@ -109,6 +112,8 @@ type Props = {
     onInteractWithWidget?: (id: string) => void;
     apiOptions?: APIOptions;
     reviewMode?: boolean | null | undefined;
+
+    dependencies: PerseusDependenciesV2;
 };
 type State = {
     // We cache functions to generate renderers and refs in `rendererDataTree`,
@@ -306,7 +311,6 @@ class MultiRenderer extends React.Component<Props, State> {
             makeRenderer: () => (
                 <HintsRenderer
                     {...this._getRendererProps()}
-                    // @ts-expect-error - TS2769 - No overload matches this call.
                     findExternalWidgets={findExternalWidgets}
                     hints={[hint]}
                 />
@@ -506,7 +510,6 @@ class MultiRenderer extends React.Component<Props, State> {
             (renderers as any).firstN = (n: any) => (
                 <HintsRenderer
                     {...this._getRendererProps()}
-                    // @ts-expect-error - TS2769 - No overload matches this call.
                     findExternalWidgets={
                         hintRendererDatas[0]
                             ? hintRendererDatas[0].findExternalWidgets
@@ -547,9 +550,13 @@ class MultiRenderer extends React.Component<Props, State> {
 
         // Pass the renderer tree to the `children` function, which will
         // determine the actual content of this component.
-        return this.props.children({
-            renderers: this._getRenderers(),
-        });
+        return (
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                {this.props.children({
+                    renderers: this._getRenderers(),
+                })}
+            </DependenciesContext.Provider>
+        );
     }
 }
 

@@ -30,7 +30,7 @@ describe("keypad", () => {
                         cursorContext={
                             context as typeof CursorContext[keyof typeof CursorContext]
                         }
-                        sendEvent={async () => {
+                        onAnalyticsEvent={async () => {
                             /* TODO: verify correct analytics event sent */
                         }}
                     />,
@@ -46,13 +46,49 @@ describe("keypad", () => {
         });
     });
 
+    it("should snapshot unexpanded", () => {
+        // Arrange
+        // Act
+        const {container} = render(
+            <Keypad
+                onClickKey={() => {}}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                onAnalyticsEvent={async () => {}}
+                expandedView={false}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot("first render");
+    });
+
+    it("should snapshot expanded", () => {
+        // Arrange
+        // Act
+        const {container} = render(
+            <Keypad
+                onClickKey={() => {}}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                onAnalyticsEvent={async () => {}}
+                expandedView={true}
+            />,
+        );
+
+        // Assert
+        expect(container).toMatchSnapshot("first render");
+    });
+
     it(`shows optional dismiss button`, () => {
         // Arrange
         // Act
         render(
             <Keypad
                 onClickKey={() => {}}
-                sendEvent={async () => {}}
+                onAnalyticsEvent={async () => {}}
                 showDismiss
             />,
         );
@@ -68,7 +104,9 @@ describe("keypad", () => {
     it(`hides optional dismiss button`, () => {
         // Arrange
         // Act
-        render(<Keypad onClickKey={() => {}} sendEvent={async () => {}} />);
+        render(
+            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
+        );
 
         // Assert
         expect(
@@ -78,6 +116,36 @@ describe("keypad", () => {
         ).not.toBeInTheDocument();
     });
 
+    it(`shows the dot symbol when convertDotToTimes is false`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                convertDotToTimes={false}
+                onAnalyticsEvent={async () => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByTestId("CDOT")).toBeInTheDocument();
+    });
+
+    it(`shows the times symbol when convertDotToTimes is true`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                convertDotToTimes={true}
+                onAnalyticsEvent={async () => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByTestId("TIMES")).toBeInTheDocument();
+    });
+
     it(`hides the tabs if providing the Fraction Keypad`, () => {
         // Arrange
         // Act
@@ -85,7 +153,7 @@ describe("keypad", () => {
             <Keypad
                 onClickKey={() => {}}
                 fractionsOnly={true}
-                sendEvent={async () => {}}
+                onAnalyticsEvent={async () => {}}
             />,
         );
 
@@ -104,7 +172,7 @@ describe("keypad", () => {
                 preAlgebra
                 trigonometry
                 extraKeys={["PI"]}
-                sendEvent={async () => {}}
+                onAnalyticsEvent={async () => {}}
             />,
         );
 
@@ -119,5 +187,63 @@ describe("keypad", () => {
 
         // Assert
         expect(onClickKey).toHaveBeenCalledTimes(tabs.length);
+    });
+
+    it(`does not show navigation pad with expanded view turned off`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                onAnalyticsEvent={async () => {}}
+                expandedView={false}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.queryByRole("button", {name: "Up arrow"}),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Right arrow"}),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Down arrow"}),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "Left arrow"}),
+        ).not.toBeInTheDocument();
+    });
+
+    it(`shows navigation pad in expanded view`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                preAlgebra
+                trigonometry
+                extraKeys={["PI"]}
+                onAnalyticsEvent={async () => {}}
+                expandedView={true}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Up arrow"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Right arrow"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Down arrow"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Left arrow"}),
+        ).toBeInTheDocument();
     });
 });

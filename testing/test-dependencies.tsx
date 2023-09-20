@@ -6,8 +6,11 @@ import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/registe
 
 import {TestTeX} from "./test-tex";
 
-import type {PerseusDependencies} from "../packages/perseus/src/index";
 import type {ILogger} from "../packages/perseus/src/logging/log";
+import type {
+    PerseusDependencies,
+    PerseusDependenciesV2,
+} from "../packages/perseus/src/types";
 
 registerAllWidgetsForTesting();
 
@@ -98,15 +101,22 @@ export const testDependencies: PerseusDependencies = {
         protocol: "protocol-test-interface",
     },
 
-    analytics: async (event) => {
-        console.log("⚡️ Sending analytics event:", event);
-    },
-
     isDevServer: false,
     kaLocale: "en",
     isMobile: false,
 
     Log: LogForTesting,
+};
+
+// PerseusDependenciesV2 are provided through a React Context. This object
+// exists so that we can easily pass a "known" object into the renderers (see
+// renderQuestion.tsx) and then spy on any functions to do assertions.
+export const testDependenciesV2: PerseusDependenciesV2 = {
+    analytics: {
+        onAnalyticsEvent: async (event) => {
+            console.log("⚡️ Sending analytics event:", event);
+        },
+    },
 };
 
 export const storybookTestDependencies: PerseusDependencies = {
@@ -116,9 +126,19 @@ export const storybookTestDependencies: PerseusDependencies = {
     staticUrl: (str) => str,
 };
 
+export const storybookDependenciesV2: PerseusDependenciesV2 = {
+    ...testDependenciesV2,
+    // Override if necessary
+};
+
 export const cypressTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestTeX,
     // $FlowIgnore[incompatible-type]
     staticUrl: (str) => str,
+};
+
+export const cypressDependenciesV2: PerseusDependenciesV2 = {
+    ...testDependenciesV2,
+    // Override if necessary
 };

@@ -5,15 +5,14 @@ import Keys from "../../data/key-configs";
 import {KeypadButton} from "./keypad-button";
 import {getCursorContextConfig} from "./utils";
 
-import type {ClickKeyCallback} from "../../types";
+import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
-import type {TabbarItemType} from "../tabbar";
 
 type Props = {
     onClickKey: ClickKeyCallback;
-    selectedPage: TabbarItemType;
+    selectedPage: KeypadPageType;
     cursorContext?: typeof CursorContext[keyof typeof CursorContext];
-    multiplicationDot?: boolean;
+    convertDotToTimes?: boolean;
     divisionKey?: boolean;
 };
 
@@ -22,7 +21,7 @@ export default function SharedKeys(props: Props) {
         onClickKey,
         cursorContext,
         divisionKey,
-        multiplicationDot,
+        convertDotToTimes,
         selectedPage,
     } = props;
 
@@ -49,7 +48,7 @@ export default function SharedKeys(props: Props) {
                 secondary
             />
             <KeypadButton
-                keyConfig={Keys.FRAC_INCLUSIVE}
+                keyConfig={Keys.FRAC}
                 onClickKey={onClickKey}
                 coord={fractionCoord}
                 secondary
@@ -57,7 +56,7 @@ export default function SharedKeys(props: Props) {
 
             {/* Row 2 */}
             <KeypadButton
-                keyConfig={multiplicationDot ? Keys.CDOT : Keys.TIMES}
+                keyConfig={convertDotToTimes ? Keys.TIMES : Keys.CDOT}
                 onClickKey={onClickKey}
                 coord={[4, 1]}
                 secondary

@@ -1,6 +1,5 @@
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
@@ -8,8 +7,6 @@ import _ from "underscore";
 import SvgImage from "../components/svg-image";
 import * as Changeable from "../mixins/changeable";
 import Renderer from "../renderer";
-import {baseUnitPx} from "../styles/constants";
-import mediaQueries from "../styles/media-queries";
 
 import type {Range, PerseusImageWidgetOptions} from "../perseus-types";
 import type {
@@ -200,9 +197,13 @@ class ImageWidget extends React.Component<Props> {
                 const minWidth = isImageFullWidth ? null : "0 !important";
 
                 titleAndCaption = (
-                    <div className={className}>
+                    <figcaption
+                        className={className}
+                        style={{
+                            maxWidth: backgroundImage.width,
+                        }}
+                    >
                         <div
-                            className={css(styles.caption)}
                             style={{
                                 // @ts-expect-error - TS2322 - Type 'string | null' is not assignable to type 'MinWidth<string | number> | undefined'.
                                 minWidth: minWidth,
@@ -214,16 +215,16 @@ class ImageWidget extends React.Component<Props> {
                                 linterContext={this.props.linterContext}
                             />
                         </div>
-                    </div>
+                    </figcaption>
                 );
             }
 
             return (
-                <div className="perseus-image-widget">
+                <figure className="perseus-image-widget">
                     {image}
                     {alt}
                     {titleAndCaption}
-                </div>
+                </figure>
             );
         }
         let title;
@@ -243,23 +244,28 @@ class ImageWidget extends React.Component<Props> {
 
         if (this.props.caption) {
             caption = (
-                <div className="perseus-image-caption">
+                <figcaption
+                    className="perseus-image-caption"
+                    style={{
+                        maxWidth: backgroundImage.width,
+                    }}
+                >
                     <Renderer
                         content={this.props.caption}
                         apiOptions={apiOptions}
                         linterContext={this.props.linterContext}
                     />
-                </div>
+                </figcaption>
             );
         }
 
         return (
-            <div className="perseus-image-widget">
+            <figure className="perseus-image-widget">
                 {title}
                 {image}
                 {alt}
                 {caption}
-            </div>
+            </figure>
         );
     }
 
@@ -272,25 +278,6 @@ class ImageWidget extends React.Component<Props> {
         };
     }
 }
-
-const styles = StyleSheet.create({
-    caption: {
-        display: "inline-block",
-        marginTop: baseUnitPx,
-        maxWidth: 640,
-
-        [mediaQueries.lgOrSmaller]: {
-            // TODO(david): This maxWidth is not being used because
-            //     it's overriden by the 512px max-width we have on
-            //     paragraphs.
-            maxWidth: 540,
-        },
-
-        [mediaQueries.smOrSmaller]: {
-            maxWidth: 450,
-        },
-    },
-});
 
 export default {
     name: "image",

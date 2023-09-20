@@ -160,7 +160,8 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                     display: "flex",
                     flexDirection: "row",
                     opacity: showDimmed ? 0.5 : 1.0,
-                    overflow: "auto",
+                    overflowX: "auto",
+                    overflowY: "hidden",
                 }}
             >
                 <div className="perseus-sr-only">

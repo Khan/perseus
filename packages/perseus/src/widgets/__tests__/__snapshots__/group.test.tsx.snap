@@ -133,7 +133,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     style="flex-direction: column; color: rgb(33, 36, 44);"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                                     >
                                       <div
                                         class="perseus-sr-only"
@@ -248,7 +248,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     style="flex-direction: column; color: rgb(33, 36, 44);"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                                     >
                                       <div
                                         class="perseus-sr-only"
@@ -363,7 +363,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     style="flex-direction: column; color: rgb(33, 36, 44);"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                                     >
                                       <div
                                         class="perseus-sr-only"
@@ -478,7 +478,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     style="flex-direction: column; color: rgb(33, 36, 44);"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                                     >
                                       <div
                                         class="perseus-sr-only"
@@ -593,7 +593,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     style="flex-direction: column; color: rgb(33, 36, 44);"
                                   >
                                     <div
-                                      style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                                      style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                                     >
                                       <div
                                         class="perseus-sr-only"
@@ -1144,7 +1144,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                         <div
                           class="perseus-widget-container widget-nohighlight widget-block"
                         >
-                          <div
+                          <figure
                             class="perseus-image-widget"
                           >
                             <div
@@ -1193,7 +1193,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </div>
                               </div>
                             </span>
-                          </div>
+                          </figure>
                         </div>
                       </div>
                     </div>

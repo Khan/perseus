@@ -1,5 +1,106 @@
 # @khanacademy/math-input
 
+## 12.1.1
+
+### Patch Changes
+
+-   Updated dependencies [4f4fe4f9]
+    -   @khanacademy/perseus-core@1.1.0
+
+## 12.1.0
+
+### Minor Changes
+
+-   a5a60852: revert focus changes to math input
+
+## 12.0.1
+
+### Patch Changes
+
+-   a383823d: Bump @khanacademy/wonder-stuff-core to v1.5.1 (which adds needed support for `isTruthy` helper function)
+
+## 12.0.0
+
+### Major Changes
+
+-   fa5f463b: Added onAnalyticsEvent prop to the LegacyKeypad (aka ProvidedKeypad). You must now pass in this prop, which is a function, to handle analytics events originating from the legacy keypad.
+-   6d8ede65: Added `onAnalyticsEvent` prop to MobileKeypad to pipe out Perseus analytics
+
+### Minor Changes
+
+-   fa1bb6b4: Implemented some focus management fixes and improved the full-math-input story.
+
+### Patch Changes
+
+-   3afc0da2: Check for ResizeObserver before using it
+
+## 11.0.0
+
+### Major Changes
+
+-   2af4f9fa: Switch from using ProvideKeypad in ArticleRenderer to passing the keypad element down instead
+
+### Patch Changes
+
+-   Updated dependencies [2af4f9fa]
+    -   @khanacademy/perseus-core@1.0.0
+
+## 10.1.1
+
+### Patch Changes
+
+-   3f7be05a: Updated Keypad V2 TabbarItemType to KeypadPageType as a more accurate description.
+-   810c7bd9: Resize letter SVGs
+-   b161d004: Ensured that the keypad is hidden from screen readers when it is closed.
+-   a99a9ca4: Fix direction types for MathQuill interface
+
+## 10.1.0
+
+### Minor Changes
+
+-   781551f9: Add an expanded view in the v2 MobileKeypad for larger screens
+
+## 10.0.1
+
+### Patch Changes
+
+-   7b11736e: Fix cursor animation for MathInput
+
+## 10.0.0
+
+### Major Changes
+
+-   dd800c22: Rename analytics prop from onEvent to onAnalyticsEvent
+
+### Minor Changes
+
+-   5352d512: Handle keypad resize better when it's positioned absolutely
+-   673f61b3: Introduce `dependencies` on Keypad.
+
+### Patch Changes
+
+-   Updated dependencies [dd800c22]
+    -   @khanacademy/perseus-core@0.2.0
+
+## 9.0.0
+
+### Major Changes
+
+-   0993a46b: Don't generate Flow types
+
+### Minor Changes
+
+-   87aadc43: Surface event from `onClickKey` callback
+-   b93f9f74: Added new Mobile Fraction Keypad View to the V2 Keypad
+
+### Patch Changes
+
+-   302ca7f7: Fix type for parameters of `moveOutOf` event.
+-   afb14cff: Add eslint rule to make type imports consistent
+-   19054322: Tweak to capital letter icon buttons
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   196d2a39: Add icons for all letters
+
 ## 8.1.2
 
 ### Patch Changes

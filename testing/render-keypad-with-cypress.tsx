@@ -12,10 +12,10 @@ const renderSingleKeypad = () =>
             basicRelations
             divisionKey
             logarithms
-            multiplicationDot
+            convertDotToTimes
             preAlgebra
             trigonometry
-            sendEvent={async () => {
+            onAnalyticsEvent={async () => {
                 /* no-op */
             }}
         />,

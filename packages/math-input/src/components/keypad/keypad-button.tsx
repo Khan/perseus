@@ -38,6 +38,9 @@ export const KeypadButton = ({
                 gridRow: coord[1] + 1,
                 ...style,
             }}
+            // Unfortunately the CDOT and TIMES buttons are identical in the DOM
+            // apart from the ICON SVG, so we need to use testId.
+            testId={keyConfig.id}
         >
             <Clickable
                 onClick={(e) => onClickKey(keyConfig.id, e)}
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        boxShadow: "0px 1px 0px rgba(33, 36, 44, 0.32)",
+        boxShadow: `0px 1px 0px ${Color.offBlack32}`,
         boxSizing: "border-box",
         background: Color.white,
         borderRadius: 4,

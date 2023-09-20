@@ -9,7 +9,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/kas.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/kas"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
@@ -24,7 +25,7 @@
     "dependencies": {},
     "devDependencies": {
         "jison": "0.4.15",
-        "perseus-build-settings": "^0.1.0",
+        "perseus-build-settings": "^0.2.0",
         "underscore": "1.4.4"
     },
     "peerDependencies": {

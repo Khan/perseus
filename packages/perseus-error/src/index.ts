@@ -43,6 +43,9 @@ export const Errors = Object.freeze({
  */
 export type ErrorKind = typeof Errors[keyof typeof Errors];
 
+/**
+ * Optional extra information passed to the `PerseusError` constructor.
+ */
 type Options = {
     metadata?: Metadata | null | undefined;
 };

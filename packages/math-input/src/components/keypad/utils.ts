@@ -1,6 +1,10 @@
 import Keys from "../../data/key-configs";
 import {CursorContext} from "../input/cursor-contexts";
 
+// This is just a magic number, I just played around with it
+// until the transition from expanded -> regular -> expanded felt natural
+export const expandedViewThreshold = 500;
+
 // This is a helper function that returns the correct context for the cursor
 // based on the cursorContext prop.  It is used in the keypad to determine
 // which key to render as the "jump out" key.

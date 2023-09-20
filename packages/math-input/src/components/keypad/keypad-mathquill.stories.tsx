@@ -78,10 +78,10 @@ export function V2KeypadWithMathquill() {
                             basicRelations
                             divisionKey
                             logarithms
-                            multiplicationDot
+                            convertDotToTimes
                             preAlgebra
                             trigonometry
-                            sendEvent={async (event) => {
+                            onAnalyticsEvent={async (event) => {
                                 // eslint-disable-next-line no-console
                                 console.log("Send Event:", event);
                             }}

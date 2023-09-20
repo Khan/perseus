@@ -24,7 +24,7 @@ exports[`image widget - isMobile %b should snapshot: first render 1`] = `
               <div
                 class="perseus-widget-container widget-nohighlight widget-block"
               >
-                <div
+                <figure
                   class="perseus-image-widget"
                 >
                   <div
@@ -73,12 +73,11 @@ exports[`image widget - isMobile %b should snapshot: first render 1`] = `
                       </div>
                     </div>
                   </span>
-                  <div
+                  <figcaption
                     class="perseus-image-caption has-title"
+                    style="max-width: 420px;"
                   >
-                    <div
-                      class="caption_4bstk7"
-                    >
+                    <div>
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
                       >
@@ -97,8 +96,8 @@ exports[`image widget - isMobile %b should snapshot: first render 1`] = `
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </figcaption>
+                </figure>
               </div>
             </div>
           </div>
@@ -206,7 +205,7 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
               <div
                 class="perseus-widget-container widget-nohighlight widget-block"
               >
-                <div
+                <figure
                   class="perseus-image-widget"
                 >
                   <div
@@ -273,8 +272,9 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
                       </div>
                     </div>
                   </span>
-                  <div
+                  <figcaption
                     class="perseus-image-caption"
+                    style="max-width: 420px;"
                   >
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
@@ -290,8 +290,8 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </figcaption>
+                </figure>
               </div>
             </div>
           </div>

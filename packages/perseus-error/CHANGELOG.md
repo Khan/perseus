@@ -1,5 +1,17 @@
 # @khanacademy/perseus-error
 
+## 0.2.3
+
+### Patch Changes
+
+-   388b6506: Add comments for `Options` type.
+
+## 0.2.2
+
+### Patch Changes
+
+-   a383823d: Bump @khanacademy/wonder-stuff-core to v1.5.1 (which adds needed support for `isTruthy` helper function)
+
 ## 0.2.1
 
 ### Patch Changes

@@ -51,6 +51,7 @@ type State = {
 // eslint-disable-next-line react/no-unsafe
 class KeypadContainer extends React.Component<Props, State> {
     _containerRef = React.createRef<HTMLDivElement>();
+    _containerResizeObserver: ResizeObserver | null = null;
     _resizeTimeout: number | null | undefined;
     hasMounted: boolean | undefined;
 
@@ -77,6 +78,20 @@ class KeypadContainer extends React.Component<Props, State> {
             "orientationchange",
             this._throttleResizeHandler,
         );
+
+        // LC-1213: some common older browsers (as of 2023-09-07)
+        // don't support ResizeObserver
+        if ("ResizeObserver" in window) {
+            this._containerResizeObserver = new window.ResizeObserver(
+                this._throttleResizeHandler,
+            );
+
+            if (this._containerRef.current) {
+                this._containerResizeObserver.observe(
+                    this._containerRef.current,
+                );
+            }
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -99,6 +114,7 @@ class KeypadContainer extends React.Component<Props, State> {
             "orientationchange",
             this._throttleResizeHandler,
         );
+        this._containerResizeObserver?.disconnect();
     }
 
     _throttleResizeHandler = () => {

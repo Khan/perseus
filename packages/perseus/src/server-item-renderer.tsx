@@ -12,6 +12,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
+import {DependenciesContext} from "./dependencies";
 import HintsRenderer from "./hints-renderer";
 import Objective from "./interactive2/objective_";
 import LoadingContext from "./loading-context";
@@ -20,8 +21,13 @@ import Renderer from "./renderer";
 import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
-import type {APIOptions, FocusPath} from "./types";
-import type {RendererInterface, KEScore} from "@khanacademy/perseus-core";
+import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
+import type {KeypadAPI} from "@khanacademy/math-input";
+import type {
+    KeypadContextRendererInterface,
+    RendererInterface,
+    KEScore,
+} from "@khanacademy/perseus-core";
 
 const {mapObject} = Objective;
 
@@ -35,8 +41,8 @@ type OwnProps = // These props are used by the ProvideKeypad mixin.
         };
         problemNum?: number;
         reviewMode?: boolean;
-        // from KeypadContext
-        keypadElement?: any | null | undefined;
+        keypadElement?: KeypadAPI | null | undefined;
+        dependencies: PerseusDependenciesV2;
     };
 
 type HOCProps = {
@@ -68,7 +74,7 @@ type SerializedState = {
 /* eslint-disable-next-line react/no-unsafe */
 export class ServerItemRenderer
     extends React.Component<Props, State>
-    implements RendererInterface
+    implements RendererInterface, KeypadContextRendererInterface
 {
     // @ts-expect-error - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
@@ -173,8 +179,8 @@ export class ServerItemRenderer
             onFocusChange(
                 this._currentFocus,
                 prevFocus,
-                didFocusInput && keypadElement && keypadElement.getDOMNode(),
-                // @ts-expect-error - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
+                didFocusInput ? keypadElement?.getDOMNode() : null,
+                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
                 didFocusInput &&
                     this.questionRenderer.getDOMNodeForPath(newFocus),
             );
@@ -418,29 +424,30 @@ export class ServerItemRenderer
             <HintsRenderer
                 hints={this.props.item.hints}
                 hintsVisible={this.props.hintsVisible}
-                // @ts-expect-error - TS2769 - No overload matches this call.
                 apiOptions={apiOptions}
                 ref={(elem) => (this.hintsRenderer = elem)}
             />
         );
 
         return (
-            <div>
-                <div>{questionRenderer}</div>
-                <div
-                    className={
-                        // Avoid adding any horizontal padding when applying the
-                        // mobile hint styles, which are flush to the left.
-                        // NOTE(charlie): We may still want to apply this
-                        // padding for desktop exercises.
-                        apiOptions.isMobile
-                            ? undefined
-                            : css(styles.hintsContainer)
-                    }
-                >
-                    {hintsRenderer}
+            <DependenciesContext.Provider value={this.props.dependencies}>
+                <div>
+                    <div>{questionRenderer}</div>
+                    <div
+                        className={
+                            // Avoid adding any horizontal padding when applying the
+                            // mobile hint styles, which are flush to the left.
+                            // NOTE(charlie): We may still want to apply this
+                            // padding for desktop exercises.
+                            apiOptions.isMobile
+                                ? undefined
+                                : css(styles.hintsContainer)
+                        }
+                    >
+                        {hintsRenderer}
+                    </div>
                 </div>
-            </div>
+            </DependenciesContext.Provider>
         );
     }
 }

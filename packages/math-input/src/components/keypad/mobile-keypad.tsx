@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
 
+import {expandedViewThreshold} from "./utils";
+
 import type Key from "../../data/keys";
 import type {
     Cursor,
@@ -11,6 +13,7 @@ import type {
     KeyHandler,
     KeypadAPI,
 } from "../../types";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 import Keypad from "./index";
@@ -30,24 +33,86 @@ type Props = {
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
     style?: StyleType;
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 type State = {
     active: boolean;
+    containerWidth: number;
+    hasBeenActivated: boolean;
     keypadConfig?: KeypadConfiguration;
     keyHandler?: KeyHandler;
     cursor?: Cursor;
 };
 
 class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
+    _containerRef = React.createRef<HTMLDivElement>();
+    _containerResizeObserver: ResizeObserver | null = null;
+    _throttleResize = false;
     hasMounted = false;
 
     state: State = {
         active: false,
+        containerWidth: 0,
+        hasBeenActivated: false,
+    };
+
+    componentDidMount() {
+        this._resize();
+
+        window.addEventListener("resize", this._throttleResizeHandler);
+        window.addEventListener(
+            "orientationchange",
+            this._throttleResizeHandler,
+        );
+
+        // LC-1213: some common older browsers (as of 2023-09-07)
+        // don't support ResizeObserver
+        if ("ResizeObserver" in window) {
+            this._containerResizeObserver = new window.ResizeObserver(
+                this._throttleResizeHandler,
+            );
+
+            if (this._containerRef.current) {
+                this._containerResizeObserver.observe(
+                    this._containerRef.current,
+                );
+            }
+        }
+    }
+
+    componentWillUnMount() {
+        window.removeEventListener("resize", this._throttleResizeHandler);
+        window.removeEventListener(
+            "orientationchange",
+            this._throttleResizeHandler,
+        );
+        this._containerResizeObserver?.disconnect();
+    }
+
+    _resize = () => {
+        const containerWidth = this._containerRef.current?.clientWidth || 0;
+        this.setState({containerWidth});
+    };
+
+    _throttleResizeHandler = () => {
+        if (this._throttleResize) {
+            return;
+        }
+
+        this._throttleResize = true;
+
+        setTimeout(() => {
+            this._resize();
+            this._throttleResize = false;
+        }, 100);
     };
 
     activate: () => void = () => {
-        this.setState({active: true});
+        this.setState({
+            active: true,
+            hasBeenActivated: true,
+        });
     };
 
     dismiss: () => void = () => {
@@ -98,21 +163,34 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     render(): React.ReactNode {
         const {style} = this.props;
-        const {active, cursor, keypadConfig} = this.state;
+        const {active, hasBeenActivated, containerWidth, cursor, keypadConfig} =
+            this.state;
 
         const containerStyle = [
             // internal styles
             styles.keypadContainer,
-            active ? styles.activeKeypadContainer : null,
+            active && styles.activeKeypadContainer,
             // styles passed as props
             ...(Array.isArray(style) ? style : [style]),
         ];
 
+        // If the keypad is yet to have ever been activated, we keep it invisible
+        // so as to avoid, e.g., the keypad flashing at the bottom of the page
+        // during the initial render.
+        // Done inline (dynamicStyle) since stylesheets might not be loaded yet.
+        let dynamicStyle = {};
+        if (!active && !hasBeenActivated) {
+            dynamicStyle = {visibility: "hidden"};
+        }
+
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
+        const convertDotToTimes = keypadConfig?.times;
 
         return (
             <View
                 style={containerStyle}
+                dynamicStyle={dynamicStyle}
+                forwardRef={this._containerRef}
                 ref={(element) => {
                     if (!this.hasMounted && element) {
                         // TODO(matthewc)[LC-1081]: clean up this weird
@@ -137,19 +215,19 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                 }}
             >
                 <Keypad
-                    // TODO(jeremy)
-                    sendEvent={async () => {}}
+                    onAnalyticsEvent={this.props.onAnalyticsEvent}
                     extraKeys={keypadConfig?.extraKeys}
                     onClickKey={(key) => this._handleClickKey(key)}
                     cursorContext={cursor?.context}
                     fractionsOnly={!isExpression}
-                    multiplicationDot={isExpression}
+                    convertDotToTimes={convertDotToTimes}
                     divisionKey={isExpression}
                     trigonometry={isExpression}
                     preAlgebra={isExpression}
                     logarithms={isExpression}
                     basicRelations={isExpression}
                     advancedRelations={isExpression}
+                    expandedView={containerWidth > expandedViewThreshold}
                     showDismiss
                 />
             </View>
@@ -163,13 +241,14 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         position: "fixed",
+        transitionProperty: "all",
         transition: `200ms ease-out`,
-        transitionProperty: "transform",
+        visibility: "hidden",
         transform: "translate3d(0, 100%, 0)",
     },
-
     activeKeypadContainer: {
         transform: "translate3d(0, 0, 0)",
+        visibility: "visible",
     },
 });
 

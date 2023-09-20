@@ -1,5 +1,30 @@
 # @khanacademy/pure-markdown
 
+## 0.2.6
+
+### Patch Changes
+
+-   388b6506: Move comment for mathMatcher to connect to it (so editors display it correctly).
+-   Updated dependencies [388b6506]
+    -   @khanacademy/perseus-error@0.2.3
+
+## 0.2.5
+
+### Patch Changes
+
+-   Updated dependencies [a383823d]
+    -   @khanacademy/perseus-error@0.2.2
+
+## 0.2.4
+
+### Patch Changes
+
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   Updated dependencies [afb14cff]
+-   Updated dependencies [ce5e6297]
+-   Updated dependencies [0993a46b]
+    -   @khanacademy/simple-markdown@0.10.0
+
 ## 0.2.3
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @khanacademy/perseus-linter
 
+## 0.3.4
+
+### Patch Changes
+
+-   388b6506: Convert runLinter doc comment to /\*\* \*/ format so editors pick it up better (VSCode).
+-   Updated dependencies [388b6506]
+    -   @khanacademy/perseus-error@0.2.3
+
+## 0.3.3
+
+### Patch Changes
+
+-   Updated dependencies [a383823d]
+    -   @khanacademy/perseus-error@0.2.2
+
+## 0.3.2
+
+### Patch Changes
+
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+
 ## 0.3.1
 
 ### Patch Changes

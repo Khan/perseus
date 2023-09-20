@@ -1,8 +1,8 @@
 import type Key from "../../data/keys";
 
 export interface MathQuillInterface {
-    L: "L";
-    R: "R";
+    L: -1;
+    R: 1;
 
     /**
      * Creates an editable MathQuill initialized with the contents of the HTML

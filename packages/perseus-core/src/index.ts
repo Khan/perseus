@@ -1,2 +1,6 @@
-export type {PerseusAnalyticsEvent, SendEventFn} from "./analytics";
-export type {KEScore, RendererInterface} from "./types";
+export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
+export type {
+    KEScore,
+    KeypadContextRendererInterface,
+    RendererInterface,
+} from "./types";

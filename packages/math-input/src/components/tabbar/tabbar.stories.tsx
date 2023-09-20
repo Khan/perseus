@@ -5,7 +5,7 @@ import * as React from "react";
 import {TabbarItemForTesting as TabbarItem} from "./item";
 import Tabbar from "./tabbar";
 
-import type {TabbarItemType} from "./types";
+import type {KeypadPageType} from "../../types";
 
 export default {title: "Tab Bar", decorators: [withKnobs]};
 
@@ -57,7 +57,7 @@ export const DisabledBarItem = () => (
 
 function StatefulTabbarWrapper() {
     const [selectedItem, setSelectedItem] =
-        React.useState<TabbarItemType>("Numbers");
+        React.useState<KeypadPageType>("Numbers");
 
     return (
         <Tabbar
@@ -66,7 +66,7 @@ function StatefulTabbarWrapper() {
                     "Numbers",
                     "Geometry",
                     "Operators",
-                ]) as ReadonlyArray<TabbarItemType>
+                ]) as ReadonlyArray<KeypadPageType>
             }
             selectedItem={selectedItem}
             onSelectItem={(selection) => {

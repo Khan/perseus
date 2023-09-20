@@ -103,6 +103,11 @@ const ProvideKeypad = {
                     // @ts-expect-error - TS2339 - Property 'props' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
                     style={_this.props.keypadStyle}
                     useV2Keypad={apiOptions.useV2Keypad}
+                    onAnalyticsEvent={async () => {
+                        // Intentionally left empty. This component is
+                        // deprecated and so we don't want/need to instrument
+                        // it.
+                    }}
                 />,
                 _this._keypadContainer,
             );

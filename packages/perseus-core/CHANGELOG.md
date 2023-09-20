@@ -1,5 +1,23 @@
 # @khanacademy/perseus-core
 
+## 1.1.0
+
+### Minor Changes
+
+-   4f4fe4f9: Added new analytics event "perseus:expression-focused"
+
+## 1.0.0
+
+### Major Changes
+
+-   2af4f9fa: Switch from using ProvideKeypad in ArticleRenderer to passing the keypad element down instead
+
+## 0.2.0
+
+### Minor Changes
+
+-   dd800c22: Rename analytics prop from onEvent to onAnalyticsEvent
+
 ## 0.1.1
 
 ### Patch Changes

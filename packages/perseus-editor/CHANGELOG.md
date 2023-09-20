@@ -1,5 +1,103 @@
 # @khanacademy/perseus-editor
 
+## 2.7.3
+
+### Patch Changes
+
+-   Updated dependencies [6751a680]
+    -   @khanacademy/perseus@11.4.0
+
+## 2.7.2
+
+### Patch Changes
+
+-   Updated dependencies [26fc0b41]
+    -   @khanacademy/perseus@11.3.0
+
+## 2.7.1
+
+### Patch Changes
+
+-   a383823d: Bump @khanacademy/wonder-stuff-core to v1.5.1 (which adds needed support for `isTruthy` helper function)
+-   Updated dependencies [a383823d]
+    -   @khanacademy/perseus@11.2.1
+
+## 2.7.0
+
+### Minor Changes
+
+-   9ff8a575: Fix image widget caption styling
+
+### Patch Changes
+
+-   Updated dependencies [9ff8a575]
+-   Updated dependencies [1b618343]
+    -   @khanacademy/perseus@11.2.0
+
+## 2.6.8
+
+### Patch Changes
+
+-   Updated dependencies [8dc86906]
+    -   @khanacademy/perseus@11.1.0
+
+## 2.6.7
+
+### Patch Changes
+
+-   2af4f9fa: Switch from using ProvideKeypad in ArticleRenderer to passing the keypad element down instead
+-   Updated dependencies [2af4f9fa]
+    -   @khanacademy/perseus@11.0.0
+
+## 2.6.6
+
+### Patch Changes
+
+-   Updated dependencies [3078825a]
+-   Updated dependencies [100fb7e5]
+    -   @khanacademy/perseus@10.1.0
+
+## 2.6.5
+
+### Patch Changes
+
+-   Updated dependencies [5f33560b]
+-   Updated dependencies [0f95281c]
+    -   @khanacademy/perseus@10.0.1
+
+## 2.6.4
+
+### Patch Changes
+
+-   aea86eec: Convert all usages of JSX.LibraryManagedAttributes to WB Core's PropsFor type
+-   Updated dependencies [aea86eec]
+-   Updated dependencies [9eb50ae1]
+    -   @khanacademy/perseus@10.0.0
+
+## 2.6.3
+
+### Patch Changes
+
+-   Updated dependencies [ec50a510]
+-   Updated dependencies [dd800c22]
+-   Updated dependencies [2c69b0dc]
+-   Updated dependencies [2b99fbda]
+-   Updated dependencies [673f61b3]
+    -   @khanacademy/perseus@9.0.0
+
+## 2.6.2
+
+### Patch Changes
+
+-   afb14cff: Add eslint rule to make type imports consistent
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   Updated dependencies [0993a46b]
+-   Updated dependencies [afb14cff]
+-   Updated dependencies [ce5e6297]
+-   Updated dependencies [410d490d]
+    -   @khanacademy/perseus@8.0.0
+    -   @khanacademy/kmath@0.1.2
+
 ## 2.6.1
 
 ### Patch Changes

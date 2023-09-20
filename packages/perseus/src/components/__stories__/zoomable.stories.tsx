@@ -10,6 +10,11 @@ type Story = {
 
 export default {
     title: "Perseus/Components/Zoomable",
+    argTypes: {
+        disableEntranceAnimation: {
+            control: {type: "boolean"},
+        },
+    },
 } as Story;
 
 type Bounds = {
@@ -29,7 +34,10 @@ const computeChildBounds = (
 
 export const ZoomableExample = (args: StoryArgs): React.ReactElement => {
     return (
-        <Zoomable computeChildBounds={computeChildBounds}>
+        <Zoomable
+            computeChildBounds={computeChildBounds}
+            disableEntranceAnimation={!!args.disableEntranceAnimation}
+        >
             <span>
                 Here's some zoomed-out content.
                 <br />

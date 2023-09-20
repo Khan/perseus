@@ -1,4 +1,4 @@
-import {KeypadContext} from "@khanacademy/math-input";
+import {KeypadContext, KeypadType} from "@khanacademy/math-input";
 import * as React from "react";
 
 import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
@@ -8,9 +8,10 @@ import {
 } from "../__testdata__/expression.testdata";
 import expressionExport from "../expression";
 
-import TestKeypadContext from "./test-keypad-context-wrapper";
+import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
 import type {PerseusItem} from "../../perseus-types";
+import type {Keys as Key} from "@khanacademy/math-input";
 
 type StoryArgs = {
     customKeypad: boolean;
@@ -28,20 +29,23 @@ type WrappedKeypadContextProps = {
 
 const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
     return (
-        <TestKeypadContext>
+        <TestKeypadContextWrapper>
             <KeypadContext.Consumer>
                 {({keypadElement, setRenderer, scrollableElement}) => {
                     return (
                         <ItemRendererWithDebugUI
                             item={props.item}
+                            // Hardcoding the V2 Keypad to true as the Storybook Args
+                            // were not working.
                             apiOptions={{
                                 customKeypad: props.customKeypad,
+                                useV2Keypad: true,
                             }}
                         />
                     );
                 }}
             </KeypadContext.Consumer>
-        </TestKeypadContext>
+        </TestKeypadContextWrapper>
     );
 };
 
@@ -62,8 +66,8 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
     };
 
     const keypadConfiguration = {
-        keypadType: "EXPRESSION",
-        extraKeys: ["x", "y", "z"],
+        keypadType: KeypadType.EXPRESSION,
+        extraKeys: ["x", "y", "z"] as Key[],
     };
 
     return (

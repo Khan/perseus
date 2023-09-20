@@ -27,10 +27,11 @@ export default {
         divisionKey: false,
         logarithms: false,
         fractionsOnly: false,
-        multiplicationDot: false,
+        convertDotToTimes: false,
         preAlgebra: false,
         trigonometry: false,
         sendEvent: () => {},
+        onAnalyticsEvent: async () => {},
     },
     argTypes: {
         advancedRelations: {
@@ -112,7 +113,10 @@ Everything.args = {
     basicRelations: true,
     divisionKey: true,
     logarithms: true,
-    multiplicationDot: false,
+    convertDotToTimes: false,
     preAlgebra: true,
     trigonometry: true,
+    expandedView: true,
+    showDismiss: true,
+    extraKeys: ["a", "b", "c"],
 };
