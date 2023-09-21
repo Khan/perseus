@@ -92,7 +92,9 @@ describe("math input integration", () => {
     it("doesn't show the keypad initially", () => {
         render(<ConnectedMathInput />);
 
-        expect(screen.queryByRole("tablist")).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole("button", {name: "1"}),
+        ).not.toBeInTheDocument();
     });
 
     it("shows the keypad after input interaction", async () => {
