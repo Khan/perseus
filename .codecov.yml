@@ -28,3 +28,4 @@ ignore:
     - "packages/**/*.cypress.ts"
     - "packages/**/__stories__/*"
     - "packages/**/__tests__/*"
+    - "packages/**/*.stories.tsx"
