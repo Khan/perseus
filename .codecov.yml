@@ -12,7 +12,7 @@ coverage:
             default: off
 
 comment:
-    layout: "header, reach, diff, flags, files, footer"
+    layout: "diff, reach, files, footer"
     behavior: default
     require_changes: no
     require_base: no
@@ -20,6 +20,8 @@ comment:
 
 ignore:
     - "utils/*.js"
-    - "packages/**/dist/index.js"
-    - "packages/**/types.js"
-    - "packages/**/*.cypress.jsx"
+    - "packages/**/dist/index.ts"
+    - "packages/**/types.ts"
+    - "packages/**/*-types.ts"
+    - "packages/**/*.cypress.tsx"
+    - "packages/**/*.cypress.ts"
