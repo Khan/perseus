@@ -156,7 +156,7 @@ describe("math input integration", () => {
         });
     });
 
-    it("can handle arithmetic", () => {
+    it("can handle symbols", () => {
         render(<ConnectedMathInput />);
 
         const input = screen.getByLabelText(
