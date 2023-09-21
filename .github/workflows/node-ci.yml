@@ -16,8 +16,6 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            - name: Checking out latest commit
-              uses: actions/checkout@v4
             # We don't need changesets for infrastructure-type files (tests, stories,
             # etc).
             - uses: Khan/changeset-per-package@v0.0.0
