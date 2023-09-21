@@ -1,5 +1,7 @@
 # Perseus
 
+[![codecov](https://codecov.io/gh/Khan/perseus/branch/main/graph/badge.svg)](https://codecov.io/gh/Khan/perseus)
+
 <p align="center"><img src="logo.png" alt="perseus logo" width="150px"/></p>
 
 <p align="center"><strong>Perseus Exercise Renderer</strong></p>
