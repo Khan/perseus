@@ -51,9 +51,7 @@ function KeypadWithContext() {
 }
 
 function ConnectedMathInput() {
-    // used to communicate between the keypad and the Renderer
     const [keypadElement, setKeypadElement] = useState<KeypadAPI | null>();
-    // this is a KeypadContextRendererInterface from Perseus
     const [renderer, setRenderer] = useState<any>(null);
     const [scrollableElement, setScrollableElement] =
         useState<HTMLElement | null>();
@@ -65,9 +63,6 @@ function ConnectedMathInput() {
                 keypadElement,
                 setRenderer,
                 renderer,
-                // The scrollableElement options can likely be removed after
-                // the exercises-package is officially deprecated. They don't appear
-                // to be used anywhere except for the exercises-package and tests.
                 setScrollableElement,
                 scrollableElement,
             }}
@@ -178,7 +173,6 @@ describe("math input integration", () => {
         const span2 = within(mathquillInput).getByText("2");
         const spanPercent = within(mathquillInput).getByText("%");
 
-        // Assert
         expect(span4).toBeVisible();
         expect(span2).toBeVisible();
         expect(spanPercent).toBeVisible();
