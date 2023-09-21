@@ -9,7 +9,7 @@ on:
 
 jobs:
     changeset:
-        name: Check for .changeset file
+        name: Check for .changeset entries for all changed files
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -18,12 +18,12 @@ jobs:
         steps:
             # We don't need changesets for infrastructure-type files (tests, stories,
             # etc).
-            - uses: Khan/actions@check-for-changeset-v0
+            - uses: Khan/changeset-per-package@v0.0.0
               if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
               with:
                   exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
                   # Inverted match for ./packages to exclude everything but packages
-                  exclude_globs: "**/__tests__/*, **/__stories__/*, **/dist/*, !(./packages/**/*.{ts,tsx,js,html,css,md})"
+                  exclude_globs: "**/__tests__/*, **/__stories__/*, **/dist/*, !(./packages/**/*.{ts,tsx,js,html,css,md,json})"
 
     lint:
         name: Lint, Typecheck, Format, and Test
