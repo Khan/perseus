@@ -25,3 +25,5 @@ ignore:
     - "packages/**/*-types.ts"
     - "packages/**/*.cypress.tsx"
     - "packages/**/*.cypress.ts"
+    - "packages/**/__stories__/**"
+    - "packages/**/__tests__/**"
