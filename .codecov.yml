@@ -20,6 +20,8 @@ comment:
 
 ignore:
     - "utils/*.js"
-    - "packages/**/dist/index.js"
-    - "packages/**/types.js"
-    - "packages/**/*.cypress.jsx"
+    - "packages/**/dist/index.ts"
+    - "packages/**/types.ts"
+    - "packages/**/*-types.ts"
+    - "packages/**/*.cypress.tsx"
+    - "packages/**/*.cypress.ts"
