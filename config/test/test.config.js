@@ -77,6 +77,7 @@ module.exports = {
         "!**/__tests__/**",
         "!**/__stories__/**",
         "!**/*.stories.tsx",
+        "!**/*.testdata.ts",
     ],
     coverageProvider: "v8",
     // Only output log messages on test failure. From:
