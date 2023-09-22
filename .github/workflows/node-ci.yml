@@ -16,14 +16,26 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            # We don't need changesets for infrastructure-type files (tests, stories,
-            # etc).
-            - uses: Khan/changeset-per-package@v0.0.0
-              if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+            - name: Checkout repository
+              uses: actions/checkout@v4
               with:
-                  exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
-                  # Inverted match for ./packages to exclude everything but packages
-                  exclude_globs: "**/__tests__/*, **/__stories__/*, **/dist/*, !(./packages/**/*.{ts,tsx,js,html,css,md,json})"
+                  fetch-depth: 0
+
+            - name: Get changed files
+              uses: Khan/actions@get-changed-files-v1
+              id: changed
+
+            - name: Filter out files that don't need a changeset
+              uses: Khan/actions@filter-files-v0
+              id: match
+              with:
+                  changed-files: ${{ steps.changed.outputs.files }}
+                  files: packages/ # Only look for changes in packages
+
+            - name: Verify changeset entries
+              uses: Khan/changeset-per-package@v1.0.0
+              with:
+                  changed_files: ${{ steps.match.outputs.filtered }}
 
     lint:
         name: Lint, Typecheck, Format, and Test
