@@ -286,9 +286,9 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-              # chromaui/@action doesn't work with shallow checkouts which is the
-              # default for actions/checkout@v3 so we need to force it to checkout
-              # more stuff.
+            # chromaui/@action doesn't work with shallow checkouts which is the
+            # default for actions/checkout@v3 so we need to force it to checkout
+            # more stuff.
             - uses: actions/checkout@v3
               with:
                   fetch-depth: 0
@@ -301,9 +301,9 @@ jobs:
             - name: Publish to Chromatic
               uses: chromaui/action@v1
               with:
-                token: ${{ secrets.GITHUB_TOKEN }}
-                projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
-                autoAcceptChanges: 'main'
-                # Generate snapshots for only changed stories
-                # See: https://www.chromatic.com/docs/turbosnap
-                onlyChanged: true
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
+                  autoAcceptChanges: "main"
+                  # Generate snapshots for only changed stories
+                  # See: https://www.chromatic.com/docs/turbosnap
+                  onlyChanged: true

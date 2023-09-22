@@ -49,5 +49,5 @@ export const parameters = {
         values: Object.entries(Color).map(([name, value]) => ({name, value})),
     },
     // Disables Chromatic's snapshotting on a global level
-    chromatic: { disableSnapshot: true },
+    chromatic: {disableSnapshot: true},
 };
