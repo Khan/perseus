@@ -277,3 +277,33 @@ jobs:
                       🤕 Oh noes!! We couldn't find any changesets in this PR (${{
                       steps.short-sha.outputs.short_sha }}). As a result, we did not
                       publish an npm snapshot for you.
+
+    chromatic:
+        name: Publish Storybook to Chromatic
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+              # chromaui/@action doesn't work with shallow checkouts which is the
+              # default for actions/checkout@v3 so we need to force it to checkout
+              # more stuff.
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Publish to Chromatic
+              uses: chromaui/action@v1
+              with:
+                token: ${{ secrets.GITHUB_TOKEN }}
+                projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
+                autoAcceptChanges: 'main'
+                # Generate snapshots for only changed stories
+                # See: https://www.chromatic.com/docs/turbosnap
+                onlyChanged: true
