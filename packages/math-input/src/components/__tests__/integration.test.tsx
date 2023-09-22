@@ -19,7 +19,10 @@ function InputWithContext() {
                     <MathInput
                         keypadElement={keypadElement as any}
                         value={value}
-                        onChange={setValue}
+                        onChange={(nextValue, cb) => {
+                            setValue(nextValue);
+                            cb();
+                        }}
                         onFocus={() => {
                             keypadElement?.activate();
                         }}
