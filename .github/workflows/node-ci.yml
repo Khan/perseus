@@ -182,7 +182,7 @@ jobs:
               uses: codecov/codecov-action@v3
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
-                  files: ./jest-coverage.json,./cypress-coverage.json
+                  files: ./coverage-final.json,./out.json
 
     check_builds:
         name: Check builds for changes in size
