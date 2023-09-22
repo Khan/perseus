@@ -18,6 +18,7 @@ comment:
     require_base: no
     require_head: yes
 
+# https://docs.codecov.com/docs/ignoring-paths
 ignore:
     - "utils/*.js"
     - "packages/**/dist/index.ts"
