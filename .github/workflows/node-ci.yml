@@ -157,6 +157,13 @@ jobs:
         runs-on: ubuntu-latest
         needs: [cypress, coverage]
         steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
+
             - name: make input directory
               run: mkdir -p input
 
