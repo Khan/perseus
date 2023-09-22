@@ -122,6 +122,12 @@ jobs:
             - name: Run test with coverage
               run: yarn cypress:ci
 
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v2
+              with:
+                  name: cypress-coverage.json
+                  path: ./.nyc_output/out.json
+
     coverage:
         name: Jest Coverage
         runs-on: ${{ matrix.os }}
@@ -140,11 +146,40 @@ jobs:
             - name: Jest with coverage
               run: yarn coverage
 
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v2
+              with:
+                  name: jest-coverage.json
+                  path: ./coverage/coverage-final.json
+
+    upload_coverage:
+        name: Upload Coverage
+        runs-on: ubuntu-latest
+        needs: [cypress, coverage]
+        steps:
+            - name: make input directory
+              run: mkdir -p input
+
+            - name: Download Jest Coverage
+              uses: actions/download-artifact@v2
+              with:
+                  name: jest-coverage.json
+                  path: ./input/jest-coverage.json
+
+            - name: Download Cypress Coverage
+              uses: actions/download-artifact@v2
+              with:
+                  name: cypress-coverage.json
+                  path: ./input/cypress-coverage.json
+
+            - name: Merge Coverage Reports
+              run: yarn nyc merge ./input merged-coverage.json
+
             - name: Upload Coverage
               uses: codecov/codecov-action@v3
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
-                  files: ./coverage/coverage-final.json
+                  files: ./merged-coverage.json
 
     check_builds:
         name: Check builds for changes in size
