@@ -125,7 +125,7 @@ jobs:
             - name: Upload Artifact
               uses: actions/upload-artifact@v2
               with:
-                  name: cypress-coverage.json
+                  name: cypress-coverage
                   path: ./.nyc_output/out.json
 
     coverage:
@@ -149,7 +149,7 @@ jobs:
             - name: Upload Artifact
               uses: actions/upload-artifact@v2
               with:
-                  name: jest-coverage.json
+                  name: jest-coverage
                   path: ./coverage/coverage-final.json
 
     upload_coverage:
@@ -167,14 +167,16 @@ jobs:
             - name: Download Jest Coverage
               uses: actions/download-artifact@v2
               with:
-                  name: jest-coverage.json
-                  path: ./jest-coverage.json
+                  name: jest-coverage
+                  # path to decompress the artifact into
+                  path: ./
 
             - name: Download Cypress Coverage
               uses: actions/download-artifact@v2
               with:
-                  name: cypress-coverage.json
-                  path: ./cypress-coverage.json
+                  name: cypress-coverage
+                  # path to decompress the artifact into
+                  path: ./
 
             - name: Upload Coverage
               uses: codecov/codecov-action@v3
