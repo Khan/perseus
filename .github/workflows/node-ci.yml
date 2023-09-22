@@ -164,29 +164,23 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: make input directory
-              run: mkdir -p input
-
             - name: Download Jest Coverage
               uses: actions/download-artifact@v2
               with:
                   name: jest-coverage.json
-                  path: ./input/jest-coverage.json
+                  path: ./jest-coverage.json
 
             - name: Download Cypress Coverage
               uses: actions/download-artifact@v2
               with:
                   name: cypress-coverage.json
-                  path: ./input/cypress-coverage.json
-
-            - name: Merge Coverage Reports
-              run: yarn nyc merge ./input merged-coverage.json
+                  path: ./cypress-coverage.json
 
             - name: Upload Coverage
               uses: codecov/codecov-action@v3
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
-                  files: ./merged-coverage.json
+                  files: ./jest-coverage.json,./cypress-coverage.json
 
     check_builds:
         name: Check builds for changes in size
