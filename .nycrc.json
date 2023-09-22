@@ -1,0 +1,14 @@
+{
+    "all": true,
+    "include": [
+        "packages/*/src/**/*.js",
+        "packages/*/src/**/*.jsx",
+        "packages/*/src/**/*.ts",
+        "packages/*/src/**/*.tsx"
+    ],
+    "exclude": [
+        "**/*.stories.tsx",
+        "**/*.test.ts",
+        "**/*.test.tsx"
+    ]
+}
