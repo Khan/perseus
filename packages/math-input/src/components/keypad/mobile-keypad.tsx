@@ -69,8 +69,10 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
         // LC-1213: some common older browsers (as of 2023-09-07)
         // don't support ResizeObserver
         if ("ResizeObserver" in window) {
-            this._containerResizeObserver = new window.ResizeObserver(
-                this._throttleResizeHandler,
+            this._containerResizeObserver = new ResizeObserver(
+                this.debounce(() => {
+                    this._resize;
+                }, 1000),
             );
 
             if (this._containerRef.current) {
@@ -107,6 +109,14 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
             this._throttleResize = false;
         }, 100);
     };
+
+    debounce(f: any, delay) {
+        let timer;
+        return function (s) {
+            clearTimeout(timer);
+            timer = setTimeout(() => f, delay);
+        };
+    }
 
     activate: () => void = () => {
         this.setState({
