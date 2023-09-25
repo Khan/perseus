@@ -72,7 +72,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
             this._containerResizeObserver = new ResizeObserver(
                 this.debounce(() => {
                     this._resize;
-                }, 1000),
+                }, 100),
             );
 
             if (this._containerRef.current) {
