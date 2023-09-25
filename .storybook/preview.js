@@ -48,4 +48,6 @@ export const parameters = {
         // Add WB colors as background options. :)
         values: Object.entries(Color).map(([name, value]) => ({name, value})),
     },
+    // Disables Chromatic's snapshotting on a global level
+    chromatic: {disableSnapshot: true},
 };
