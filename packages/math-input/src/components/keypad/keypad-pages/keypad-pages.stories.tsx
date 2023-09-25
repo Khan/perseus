@@ -7,7 +7,7 @@ import NumbersPage from "./numbers-page";
 import PrealgebraInputPage from "./operators-page";
 
 export default {
-    title: "Keypad pages",
+    title: "math-input/components/Keypad pages",
     decorators: [withKnobs],
     parameters: {
         backgrounds: {

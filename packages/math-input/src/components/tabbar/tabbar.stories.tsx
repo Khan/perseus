@@ -7,7 +7,10 @@ import Tabbar from "./tabbar";
 
 import type {KeypadPageType} from "../../types";
 
-export default {title: "Tab Bar", decorators: [withKnobs]};
+export default {
+    title: "math-input/components/Tab Bar",
+    decorators: [withKnobs],
+};
 
 export const InactiveBarItem = () => (
     <TabbarItem

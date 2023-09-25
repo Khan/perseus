@@ -2,9 +2,9 @@ import {action} from "@storybook/addon-actions";
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import * as React from "react";
 
-import Keypad from "./keypad";
+import Keypad from "./components/keypad";
 
-import type {Props as KeypadProps} from "./keypad";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {ComponentStory} from "@storybook/react";
 
 const opsPage = "Operators Page";
@@ -13,7 +13,7 @@ const geoPage = "Geometry Page";
 const fracPage = "Fractions Page";
 
 export default {
-    title: "Full Keypad",
+    title: "math-input/Full Keypad",
     parameters: {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
@@ -86,7 +86,7 @@ export default {
 };
 
 const Template: ComponentStory<typeof Keypad> = (
-    args: KeypadProps,
+    args: PropsFor<typeof Keypad>,
 ): React.ReactElement => <Keypad {...args} onClickKey={action("onClickKey")} />;
 
 export const Default = Template.bind({});

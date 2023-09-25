@@ -3,7 +3,7 @@ import * as React from "react";
 import NavigationPad from "./navigation-pad";
 
 export default {
-    title: "MathInput v2 Navigation Pad",
+    title: "math-input/components/MathInput v2 Navigation Pad",
     parameters: {
         backgrounds: {
             default: "light background",
