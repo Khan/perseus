@@ -82,13 +82,12 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     }
 
     componentWillUnMount() {
-        this._containerResizeObserver?.disconnect();
-
         window.removeEventListener("resize", this._throttleResizeHandler);
         window.removeEventListener(
             "orientationchange",
             this._throttleResizeHandler,
         );
+        this._containerResizeObserver?.disconnect();
     }
 
     _resize = () => {
