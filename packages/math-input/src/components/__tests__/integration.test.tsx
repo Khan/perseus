@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import {screen, render, fireEvent, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import MathQuill from "mathquill";
 import React, {useState} from "react";
 
 import MathInput from "../input/math-input";
@@ -8,6 +9,8 @@ import KeypadContext from "../keypad-context";
 import KeypadSwitch from "../keypad-switch";
 
 import type {KeypadAPI} from "../../types";
+
+const MQ = MathQuill.getInterface(2);
 
 function InputWithContext() {
     const [value, setValue] = useState<string>("");
@@ -142,16 +145,12 @@ describe("math input integration", () => {
         });
 
         // MathQuill is problematic,
-        // this is the only way I know how to test the "input"
-        const mathquillInput =
+        // this is how to get the value of the input directly from MQ
+        const mathquillInstance =
             // eslint-disable-next-line testing-library/no-node-access
-            document.getElementsByClassName("mq-root-block")[0] as HTMLElement;
+            MQ(document.getElementsByClassName("mq-editable-field")[0]);
 
-        testNumbers.forEach((num) => {
-            const span = within(mathquillInput).getByText(`${num}`);
-
-            expect(span).toBeVisible();
-        });
+        expect(mathquillInstance.latex()).toBe("8675309");
     });
 
     it("can handle symbols", () => {
@@ -168,16 +167,11 @@ describe("math input integration", () => {
         userEvent.click(screen.getByRole("button", {name: "Percent"}));
 
         // MathQuill is problematic,
-        // this is the only way I know how to test the "input"
-        const mathquillInput =
+        // this is how to get the value of the input directly from MQ
+        const mathquillInstance =
             // eslint-disable-next-line testing-library/no-node-access
-            document.getElementsByClassName("mq-root-block")[0] as HTMLElement;
-        const span4 = within(mathquillInput).getByText("4");
-        const span2 = within(mathquillInput).getByText("2");
-        const spanPercent = within(mathquillInput).getByText("%");
+            MQ(document.getElementsByClassName("mq-editable-field")[0]);
 
-        expect(span4).toBeVisible();
-        expect(span2).toBeVisible();
-        expect(spanPercent).toBeVisible();
+        expect(mathquillInstance.latex()).toBe("42\\%");
     });
 });

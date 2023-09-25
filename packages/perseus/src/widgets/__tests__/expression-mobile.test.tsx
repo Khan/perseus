@@ -9,6 +9,7 @@ import {
     within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import MathQuill from "mathquill";
 import * as React from "react";
 
 import {
@@ -22,6 +23,8 @@ import {expressionItem2} from "../__testdata__/expression.testdata";
 import ExpressionExport from "../expression";
 
 import type {KeypadAPI} from "@khanacademy/math-input";
+
+const MQ = MathQuill.getInterface(2);
 
 function RendererWithContext() {
     return (
@@ -333,18 +336,11 @@ describe("expression mobile", () => {
         userEvent.click(screen.getByRole("button", {name: "9"}));
 
         // MathQuill is problematic,
-        // this is the only way I know how to test the "input"
-        const mathquillInput =
+        // this is how to get the value of the input directly from MQ
+        const mathquillInstance =
             // eslint-disable-next-line testing-library/no-node-access
-            document.getElementsByClassName("mq-root-block")[0] as HTMLElement;
+            MQ(document.getElementsByClassName("mq-editable-field")[0]);
 
-        expect(within(mathquillInput).getByText("x")).toBeVisible();
-        expect(within(mathquillInput).getByText("=")).toBeVisible();
-        expect(within(mathquillInput).getByText("s")).toBeVisible();
-        expect(within(mathquillInput).getByText("i")).toBeVisible();
-        expect(within(mathquillInput).getByText("n")).toBeVisible();
-        expect(within(mathquillInput).getByText("(")).toBeVisible();
-        expect(within(mathquillInput).getByText("9")).toBeVisible();
-        expect(within(mathquillInput).getByText(")")).toBeVisible();
+        expect(mathquillInstance.latex()).toBe("x=\\sin\\left(9\\right)");
     });
 });
