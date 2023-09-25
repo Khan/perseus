@@ -35,7 +35,7 @@ jobs:
                   globs: "!(**/__tests__/*), !(**/__stories__/*), !(**/dist/*)" # Ignore test files
 
             - name: Verify changeset entries
-              uses: Khan/changeset-per-package@v1.0.0
+              uses: Khan/changeset-per-package@v1.0.1
               with:
                   changed_files: ${{ steps.match.outputs.filtered }}
 
