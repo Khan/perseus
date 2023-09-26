@@ -11,8 +11,7 @@ export const mockedAssetItem: PerseusItem = {
         images: Object.freeze({}),
         widgets: {
             "mocked-asset-widget 1": {
-                // @ts-expect-error - TS2322 - Type '"mocked-asset-widget"' is not assignable to type '"categorizer" | "cs-program" | "definition" | "dropdown" | "example-graphie-widget" | "example-widget" | "explanation" | "expression" | "graded-group-set" | "graded-group" | ... 29 more ... | "video"'.
-                type: "mocked-asset-widget",
+                type: "mocked-asset-widget" as any,
                 alignment: "default",
                 static: false,
                 graded: true,
