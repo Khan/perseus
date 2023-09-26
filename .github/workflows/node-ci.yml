@@ -122,6 +122,8 @@ jobs:
             - name: Run test with coverage
               run: yarn cypress:ci
 
+            # Upload coverage report as an GitHub artifact so that it can be used
+            # later in upload_coverage.
             - name: Upload Artifact
               uses: actions/upload-artifact@v2
               with:
@@ -146,6 +148,8 @@ jobs:
             - name: Jest with coverage
               run: yarn coverage
 
+            # Upload coverage report as an GitHub artifact so that it can be used
+            # later in upload_coverage.
             - name: Upload Artifact
               uses: actions/upload-artifact@v2
               with:
@@ -168,16 +172,21 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                   name: jest-coverage
-                  # path to decompress the artifact into
+                  # path to decompress the artifact into, decompressed file
+                  # will be ./coverage-final.json
                   path: ./
 
             - name: Download Cypress Coverage
               uses: actions/download-artifact@v2
               with:
                   name: cypress-coverage
-                  # path to decompress the artifact into
+                  # path to decompress the artifact into, decompressed file
+                  # will be ./out.json
                   path: ./
 
+            # Upload both coverage files at once.  This avoids issues where it Codecov
+            # shows the results from only one of the reports which would make it appear
+            # as though coverage dropped a lot.
             - name: Upload Coverage
               uses: codecov/codecov-action@v3
               with:
