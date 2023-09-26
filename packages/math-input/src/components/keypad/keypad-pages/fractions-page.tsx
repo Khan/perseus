@@ -101,7 +101,7 @@ export default function FractionsPage(props: Props) {
                 secondary
             />
             <KeypadButton
-                keyConfig={Keys.FRAC_INCLUSIVE}
+                keyConfig={Keys.FRAC}
                 onClickKey={onClickKey}
                 coord={[3, 2]}
                 secondary
