@@ -114,14 +114,16 @@ class MathInput extends React.Component<Props, State> {
         this.mathField()?.latex(this.props.value);
     }
 
-    openKeypad: () => void = () => {
+    openKeypad() {
         if (this.props.buttonsVisible === "never") {
             return;
         }
         this.setState({keypadOpen: true});
-    };
+    }
 
-    closeKeypad: () => void = () => this.setState({keypadOpen: false});
+    closeKeypad() {
+        this.setState({keypadOpen: false});
+    }
 
     insert: (value: any) => void = (value) => {
         const input = this.mathField();
@@ -313,8 +315,8 @@ class MathInput extends React.Component<Props, State> {
                                     extraKeys={this.props.extraKeys}
                                     onClickKey={this.handleKeypadPress}
                                     cursorContext={this.state.cursorContext}
-                                    multiplicationDot={
-                                        !this.props.convertDotToTimes
+                                    convertDotToTimes={
+                                        this.props.convertDotToTimes
                                     }
                                     {...(this.props.keypadButtonSets ??
                                         mapButtonSets(this.props?.buttonSets))}
@@ -359,7 +361,6 @@ class MathInput extends React.Component<Props, State> {
 }
 
 const MathInputIcon = ({hovered, focused, active}) => {
-    // const color = hovered ? Color.blue : Color.offBlack;
     let color: string | undefined;
     switch (true) {
         case focused || active:

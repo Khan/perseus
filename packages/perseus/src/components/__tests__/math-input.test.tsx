@@ -68,7 +68,6 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
-        // focusing the input triggers the popover
         screen.getByRole("switch").click();
         userEvent.click(screen.getByRole("button", {name: "1"}));
         userEvent.click(screen.getByRole("button", {name: "Plus"}));

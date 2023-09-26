@@ -1,4 +1,4 @@
-export const Keys = [
+export const KeyArray = [
     "PLUS",
     "MINUS",
     "NEGATIVE",
@@ -118,6 +118,6 @@ export const Keys = [
     "LOG_B",
 ] as const;
 
-type Key = typeof Keys[number];
+type Key = typeof KeyArray[number];
 
 export default Key;

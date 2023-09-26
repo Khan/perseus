@@ -622,18 +622,19 @@ const keypadConfigurationForProps = (
                 symbol === "pi" || symbol === "theta";
             const toKey = (symbol: any) =>
                 isGreek(symbol) ? symbol.toUpperCase() : symbol;
-            const isKey = (key: string): key is Key => key in KeyArray;
+            const isKey = (key: string): key is Key =>
+                KeyArray.includes(key as Key);
 
             for (const variable of expr.getVars()) {
                 const maybeKey = toKey(variable);
                 if (isKey(maybeKey)) {
-                    uniqueExtraVariables[toKey(maybeKey)] = true;
+                    uniqueExtraVariables[maybeKey] = true;
                 }
             }
             for (const constant of expr.getConsts()) {
                 const maybeKey = toKey(constant);
                 if (isKey(maybeKey)) {
-                    uniqueExtraConstants[toKey(maybeKey)] = true;
+                    uniqueExtraConstants[maybeKey] = true;
                 }
             }
         }
