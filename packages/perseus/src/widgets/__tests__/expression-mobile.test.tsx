@@ -26,7 +26,7 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 
 const MQ = MathQuill.getInterface(2);
 
-function RendererWithContext() {
+function RendererWithContext({item}) {
     return (
         <KeypadContext.Consumer>
             {({keypadElement}) => {
@@ -37,7 +37,7 @@ function RendererWithContext() {
                             customKeypad: true,
                             useV2Keypad: true,
                         }}
-                        item={expressionItem2}
+                        item={item}
                         problemNum={0}
                         reviewMode={false}
                         dependencies={testDependenciesV2}
@@ -66,7 +66,7 @@ function KeypadWithContext() {
     );
 }
 
-function ConnectedRenderer() {
+function ConnectedRenderer({item = expressionItem2}) {
     const [keypadElement, setKeypadElement] =
         React.useState<KeypadAPI | null>();
     const [renderer, setRenderer] = React.useState<any>(null);
@@ -85,7 +85,7 @@ function ConnectedRenderer() {
                     scrollableElement,
                 }}
             >
-                <RendererWithContext />
+                <RendererWithContext item={item} />
                 <KeypadWithContext />
             </KeypadContext.Provider>
         </RenderStateRoot>
