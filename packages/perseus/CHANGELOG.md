@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 11.5.1
+
+### Patch Changes
+
+-   7e2ae0ef: Bugfix for fraction button in v2 fraction keypad
+-   1dc460c7: Add tests for mobile MathInput
+-   Updated dependencies [7e2ae0ef]
+-   Updated dependencies [1dc460c7]
+-   Updated dependencies [3b19a1bf]
+    -   @khanacademy/math-input@13.1.0
+
 ## 11.5.0
 
 ### Minor Changes
