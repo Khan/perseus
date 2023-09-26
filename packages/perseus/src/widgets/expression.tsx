@@ -16,6 +16,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "../perseus-api";
 import a11y from "../util/a11y";
 import KhanAnswerTypes from "../util/answer-types";
 
+import type {DependenciesContext} from "../dependencies";
 import type {
     PerseusExpressionWidgetOptions,
     PerseusExpressionAnswerForm,
@@ -83,7 +84,7 @@ type RenderProps = {
 type ExternalProps = WidgetProps<RenderProps, Rubric>;
 
 export type Props = ExternalProps &
-    ReturnType<typeof useDependencies> & {
+    Partial<React.ContextType<typeof DependenciesContext>> & {
         apiOptions: NonNullable<ExternalProps["apiOptions"]>;
         buttonSets: NonNullable<ExternalProps["buttonSets"]>;
         functions: NonNullable<ExternalProps["functions"]>;
@@ -419,7 +420,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     _handleFocus: () => void = () => {
-        this.props.analytics.onAnalyticsEvent({
+        this.props.analytics?.onAnalyticsEvent({
             type: "perseus:expression-focused",
             payload: null,
         });
@@ -494,7 +495,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     sendExpressionEvaluatedEvent(result: "correct" | "incorrect" | "invalid") {
-        this.props.analytics.onAnalyticsEvent({
+        this.props.analytics?.onAnalyticsEvent({
             type: "perseus:expression-evaluated",
             payload: {
                 result,
@@ -581,7 +582,11 @@ export class Expression extends React.Component<Props, ExpressionState> {
                         onBlur={this._handleBlur}
                         hasError={this.state.showErrorStyle}
                         extraKeys={this.props.keypadConfiguration?.extraKeys}
-                        analytics={this.props.analytics}
+                        analytics={
+                            this.props.analytics ?? {
+                                onAnalyticsEvent: async () => {},
+                            }
+                        }
                     />
                 </Tooltip>
             </div>
