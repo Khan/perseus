@@ -249,7 +249,7 @@ describe("math input integration", () => {
         expect(mathquillInstance.latex()).toBe("1\\frac{4}{2}");
     });
 
-    it.only("handles fractions correctly in fraction", async () => {
+    it("handles fractions correctly in fraction", async () => {
         render(<ConnectedMathInput />);
 
         const input = screen.getByLabelText(
