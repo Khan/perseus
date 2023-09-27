@@ -5,7 +5,7 @@
 // CAUTION: This file is symlinked into each package. Any changes will apply to
 // _all_ packages in this monorepo.
 
-const libName = "@khanacademy/perseus";
+const libName = "@khanacademy/perseus-linter";
 const libVersion = "dev";
 
 /**

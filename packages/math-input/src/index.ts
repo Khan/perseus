@@ -4,6 +4,8 @@
 
 import "../less/main.less";
 
+export {default as libVersion} from "./version";
+
 // MathInput input field (MathQuill wrapper)
 export {default as KeypadInput} from "./components/input/math-input";
 

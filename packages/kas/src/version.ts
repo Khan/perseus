@@ -5,18 +5,14 @@
 // CAUTION: This file is symlinked into each package. Any changes will apply to
 // _all_ packages in this monorepo.
 
-const libName = "@khanacademy/perseus";
+const libName = "@khanacademy/kas";
 const libVersion = "dev";
 
 /**
  * Log library version to the console.
  */
-if (globalThis && !globalThis.PERSEUS_SILENCE_LOGGING) {
-    let prefix = "v";
-    if (libVersion === "dev") {
-        prefix = "";
-    }
-    const printString = ` * ${libName} ${prefix}${libVersion} * `;
+if (globalThis && !globalThis.PERSEUS_SILENCE_LOGGING && libVersion !== "dev") {
+    const printString = ` * ${libName} v${libVersion} * `;
     // eslint-disable-next-line no-console
     console.log(`%c${printString}`, "background: #000; color: #fff");
 }
