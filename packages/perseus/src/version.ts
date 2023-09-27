@@ -1,9 +1,6 @@
 // This file is processed by a Rollup plugin (replace) to inject the production
 // version number during the release build.
 // In dev, you'll never see the version number.
-//
-// CAUTION: This file is symlinked into each package. Any changes will apply to
-// _all_ packages in this monorepo.
 
 const libName = "@khanacademy/perseus";
 const libVersion = "dev";
