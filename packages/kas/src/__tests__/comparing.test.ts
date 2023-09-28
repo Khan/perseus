@@ -203,6 +203,7 @@ describe("comparing", () => {
         expect("sin(7pi)").toEqualExpr("0");
         expect("0").toEqualExpr("sin(500pi)");
         expect("sin(500pi)").toEqualExpr("0");
+        expect("99 pi").toEqualExpr("311.01767270538954");
 
         // Handle denominators the same way regardless of a fraction's format
         expect("x=1.2^2").toEqualExpr("x=1.44");

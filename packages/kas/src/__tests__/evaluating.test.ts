@@ -64,6 +64,7 @@ describe("evaluating", () => {
         expect("ln e").toEvaluateAs(1);
         expect("log 10").toEvaluateAs(1);
         expect("log_2 2").toEvaluateAs(1);
+        expect("99 pi").toEvaluateAs(311.01767270538954);
     });
 
     test("hyperbolic expressions", () => {

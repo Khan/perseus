@@ -736,6 +736,7 @@ const KhanAnswerTypes = {
     expression: {
         parseSolution: function (solutionString: string, options: any): any {
             let solution = KAS.parse(solutionString, options);
+            console.log("solution", solution);
             if (!solution.parsed) {
                 throw new PerseusError(
                     "The provided solution (" +
@@ -784,6 +785,7 @@ const KhanAnswerTypes = {
                 }
 
                 const answer = KAS.parse(guess, options);
+                console.log("answer: ", answer);
 
                 // An unsuccessful parse doesn't count as wrong
                 if (!answer.parsed) {
