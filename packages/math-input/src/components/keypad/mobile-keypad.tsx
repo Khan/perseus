@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
 
+import Keypad from "./keypad";
 import {expandedViewThreshold} from "./utils";
 
 import type Key from "../../data/keys";
@@ -15,8 +16,6 @@ import type {
 } from "../../types";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-
-import Keypad from "./index";
 
 /**
  * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same
