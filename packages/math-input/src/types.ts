@@ -108,6 +108,8 @@ export interface KeypadAPI {
 }
 
 export type KeypadContext = {
+    setKeypadActive: (keypadActive: boolean) => void;
+    keypadActive: boolean;
     setKeypadElement: (keypadElement?: KeypadAPI) => void;
     keypadElement: KeypadAPI | null | undefined;
     setRenderer: (
