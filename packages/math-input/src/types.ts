@@ -107,7 +107,7 @@ export interface KeypadAPI {
     getDOMNode: () => ReturnType<typeof ReactDOM.findDOMNode>;
 }
 
-export type KeypadContext = {
+export type KeypadContextType = {
     setKeypadElement: (keypadElement?: KeypadAPI) => void;
     keypadElement: KeypadAPI | null | undefined;
     setRenderer: (

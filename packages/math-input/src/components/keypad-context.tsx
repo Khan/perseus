@@ -1,18 +1,20 @@
 /**
- * KeypadContext provides a way to the Keypad and (Server)ItemRenderer to
+ * KeypadContext provides a way to the Keypad and Perseus Renderers to
  * communicate.
  *
- * The KeypadContext.Provider wraps the ExerciseFooter while KeypadContext.Consumer
- * wraps each (Server)ItemRenderer render site and the Keypad rendered in the
- * ExerciseFooter.
+ * The StatefulKeypadContextProvider wraps the application
+ * while KeypadContext.Consumer wraps things that need this state:
+ * - mobile keypad usages
+ * - Perseus Renderers (Server/Item/Article)
  */
 import * as React from "react";
 import {useState} from "react";
 
-import type {KeypadAPI, KeypadContext as KeypadContextType} from "../types";
+import type {KeypadAPI, KeypadContextType} from "../types";
+import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 
 // @ts-expect-error - TS2322 - Type 'Context<{ setKeypadElement: (keypadElement: HTMLElement | null | undefined) => void; keypadElement: null; setRenderer: (renderer: RendererInterface | null | undefined) => void; renderer: null; setScrollableElement: (scrollableElement: HTMLElement | ... 1 more ... | undefined) => void; scrollableElement: null; }>' is not assignable to type 'Context<KeypadContext>'.
-export const keypadContext: React.Context<KeypadContextType> =
+export const KeypadContext: React.Context<KeypadContextType> =
     React.createContext({
         setKeypadElement: (keypadElement) => {},
         keypadElement: null,
@@ -28,12 +30,13 @@ export function StatefulKeypadContextProvider(props: Props) {
     // used to communicate between the keypad and the Renderer
     const [keypadElement, setKeypadElement] = useState<KeypadAPI | null>();
     // this is a KeypadContextRendererInterface from Perseus
-    const [renderer, setRenderer] = useState<any>(null);
+    const [renderer, setRenderer] =
+        useState<KeypadContextRendererInterface | null>();
     const [scrollableElement, setScrollableElement] =
         useState<HTMLElement | null>();
 
     return (
-        <keypadContext.Provider
+        <KeypadContext.Provider
             value={{
                 setKeypadElement,
                 keypadElement,
@@ -47,6 +50,6 @@ export function StatefulKeypadContextProvider(props: Props) {
             }}
         >
             {props.children}
-        </keypadContext.Provider>
+        </KeypadContext.Provider>
     );
 }

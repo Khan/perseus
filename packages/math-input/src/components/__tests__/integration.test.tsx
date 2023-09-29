@@ -12,7 +12,7 @@ import React, {useState} from "react";
 
 import {KeypadType} from "../../enums";
 import MathInput from "../input/math-input";
-import {keypadContext, StatefulKeypadContextProvider} from "../keypad-context";
+import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
 import KeypadSwitch from "../keypad-switch";
 
 import type {KeypadConfiguration} from "../../types";
@@ -27,7 +27,7 @@ function InputWithContext({keypadConfiguration}) {
     const [value, setValue] = useState<string>("");
 
     return (
-        <keypadContext.Consumer>
+        <KeypadContext.Consumer>
             {({keypadElement}) => {
                 return (
                     <MathInput
@@ -51,13 +51,13 @@ function InputWithContext({keypadConfiguration}) {
                     />
                 );
             }}
-        </keypadContext.Consumer>
+        </KeypadContext.Consumer>
     );
 }
 
 function KeypadWithContext() {
     return (
-        <keypadContext.Consumer>
+        <KeypadContext.Consumer>
             {({setKeypadElement}) => {
                 return (
                     <KeypadSwitch
@@ -68,7 +68,7 @@ function KeypadWithContext() {
                     />
                 );
             }}
-        </keypadContext.Consumer>
+        </KeypadContext.Consumer>
     );
 }
 

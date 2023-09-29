@@ -1,5 +1,5 @@
 import {
-    keypadContext,
+    KeypadContext,
     StatefulKeypadContextProvider,
     MobileKeypad,
 } from "@khanacademy/math-input";
@@ -11,7 +11,7 @@ import * as React from "react";
 const Footer = (): React.ReactElement => {
     return (
         <View style={styles.keypadContainer}>
-            <keypadContext.Consumer>
+            <KeypadContext.Consumer>
                 {({setKeypadElement, renderer}) => (
                     <MobileKeypad
                         onElementMounted={setKeypadElement}
@@ -23,7 +23,7 @@ const Footer = (): React.ReactElement => {
                         }}
                     />
                 )}
-            </keypadContext.Consumer>
+            </KeypadContext.Consumer>
         </View>
     );
 };

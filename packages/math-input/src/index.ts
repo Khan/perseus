@@ -31,7 +31,7 @@ export {default as DesktopKeypad} from "./components/keypad";
 
 // Context used to pass data/refs around
 export {
-    keypadContext,
+    KeypadContext,
     StatefulKeypadContextProvider,
 } from "./components/keypad-context";
 
