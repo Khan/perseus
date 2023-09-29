@@ -5,6 +5,7 @@
         "rootDir": "src",
     },
     "references": [
+        {"path": "../perseus-core/tsconfig-build.json"},
         {"path": "../perseus-error/tsconfig-build.json"},
         {"path": "../pure-markdown/tsconfig-build.json"},
     ]
