@@ -21,7 +21,7 @@
 import type {Capture, MatchFunction, State} from "./troublesome-types";
 import type * as React from "react";
 
-export {default as libVersion} from "./version";
+export {libVersion} from "./version";
 
 // Type Definitions:
 

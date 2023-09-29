@@ -35,7 +35,7 @@ const rootDir = ancesdir(__dirname);
  */
 
 // Kahn's algorithm
-// https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
+// https://en.wikipedia.org/wiki/Topological_sorting#Kahn%27s_algorithm
 const topoSort = (yarnWorkspacesOutput) => {
     const sorted = [];
     // the keys are depended on by the values
@@ -192,10 +192,10 @@ const createConfig = (
             // version and name into the output bundle. This provides useful
             // runtime information anywhere that Perseus is used.
             replace({
+                preventAssignment: true,
                 include: [makePackageBasedPath(name, "src/version.ts")],
-                delimiters: ["", ""],
                 values: {
-                    'libVersion = "dev"': `libVersion = "${version}"; // Injected by the build in rollup.config.js`,
+                    __lib_version__: version,
                 },
             }),
             alias({

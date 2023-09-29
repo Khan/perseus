@@ -6,7 +6,7 @@ export {default as init} from "./init";
 
 export {ApiOptions, ClassNames} from "./perseus-api";
 
-export {default as libVersion} from "./version";
+export {libVersion} from "./version";
 export {apiVersion, itemDataVersion} from "./perseus-version";
 export {default as itemVersion} from "./item-version";
 

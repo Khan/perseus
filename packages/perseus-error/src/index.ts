@@ -1,6 +1,6 @@
 import type {Metadata} from "@khanacademy/wonder-stuff-core";
 
-export {default as libVersion} from "./version";
+export {libVersion} from "./version";
 
 /**
  * @typedef {Object} Errors utility for referencing the Perseus error taxonomy.

@@ -2,16 +2,9 @@
 // version number during the release build.
 // In dev, you'll never see the version number.
 
+import {addLibraryVersionToPerseusDebug} from "@khanacademy/perseus-core";
+
 const libName = "@khanacademy/kas";
-const libVersion = "dev";
+export const libVersion = "__lib_version__";
 
-/**
- * Log library version to the console.
- */
-if (globalThis && !globalThis.PERSEUS_SILENCE_LOGGING && libVersion !== "dev") {
-    const printString = ` * ${libName} v${libVersion} * `;
-    // eslint-disable-next-line no-console
-    console.log(`%c${printString}`, "background: #000; color: #fff");
-}
-
-export default libVersion;
+addLibraryVersionToPerseusDebug(libName, libVersion);

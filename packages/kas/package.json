@@ -22,7 +22,9 @@
         "gen:parsers": "node src/parser-generator.js",
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@khanacademy/perseus-core": "^1.1.0"
+    },
     "devDependencies": {
         "jison": "0.4.15",
         "perseus-build-settings": "^0.2.0",

@@ -4,7 +4,7 @@
  * Note that this file may be used in stand alone nodejs, thus
  * do not import anything from Perseus
  */
-export {default as libVersion} from "./version";
+export {libVersion} from "./version";
 
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 

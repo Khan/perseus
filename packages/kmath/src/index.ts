@@ -1,4 +1,4 @@
-export {default as libVersion} from "./version";
+export {libVersion} from "./version";
 
 export * as number from "./number";
 export * as vector from "./vector";

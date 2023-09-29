@@ -1,4 +1,4 @@
-export {default as libVersion} from "./version";
+export {libVersion} from "./version";
 
 export {default as ArticleEditor} from "./article-editor";
 export {default as DeviceFramer} from "./components/device-framer";
