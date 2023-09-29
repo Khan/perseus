@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-CSS bug fix for hint renderer.
+Fix list item rendering in HintRenderer (CSS bug fix)
