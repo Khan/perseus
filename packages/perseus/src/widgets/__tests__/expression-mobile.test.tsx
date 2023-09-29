@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import {
-    keypadContext,
+    KeypadContext,
     StatefulKeypadContextProvider,
     MobileKeypad,
 } from "@khanacademy/math-input";
@@ -30,7 +30,7 @@ const MQ = MathQuill.getInterface(2);
 
 function RendererWithContext({item}) {
     return (
-        <keypadContext.Consumer>
+        <KeypadContext.Consumer>
             {({keypadElement}) => {
                 return (
                     <WrappedServerItemRenderer
@@ -47,13 +47,13 @@ function RendererWithContext({item}) {
                     />
                 );
             }}
-        </keypadContext.Consumer>
+        </KeypadContext.Consumer>
     );
 }
 
 function KeypadWithContext() {
     return (
-        <keypadContext.Consumer>
+        <KeypadContext.Consumer>
             {({setKeypadElement}) => {
                 return (
                     <MobileKeypad
@@ -64,7 +64,7 @@ function KeypadWithContext() {
                     />
                 );
             }}
-        </keypadContext.Consumer>
+        </KeypadContext.Consumer>
     );
 }
 

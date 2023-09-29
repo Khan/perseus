@@ -6,7 +6,7 @@ import {
     KeypadType,
     MobileKeypad,
     StatefulKeypadContextProvider,
-    keypadContext,
+    KeypadContext,
 } from "./index";
 
 export default {
@@ -103,14 +103,14 @@ const Basic = ({keypadElement, setKeypadElement}) => {
 export function Wrapped() {
     return (
         <StatefulKeypadContextProvider>
-            <keypadContext.Consumer>
+            <KeypadContext.Consumer>
                 {({keypadElement, setKeypadElement}) => (
                     <Basic
                         keypadElement={keypadElement}
                         setKeypadElement={setKeypadElement}
                     />
                 )}
-            </keypadContext.Consumer>
+            </KeypadContext.Consumer>
         </StatefulKeypadContextProvider>
     );
 }

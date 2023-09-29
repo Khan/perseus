@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {MobileKeypad} from "./keypad";
-import {keypadContext} from "./keypad-context";
+import {KeypadContext} from "./keypad-context";
 import LegacyKeypad from "./keypad-legacy";
 
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
@@ -25,7 +25,7 @@ function KeypadSwitch(props: Props) {
     // only the current one uses it. There's no point in instrumenting the
     // legacy keypad given that it's on its way out the door.
     return (
-        <keypadContext.Consumer>
+        <KeypadContext.Consumer>
             {({setKeypadActive, keypadActive}) => {
                 return (
                     <KeypadComponent
@@ -35,7 +35,7 @@ function KeypadSwitch(props: Props) {
                     />
                 );
             }}
-        </keypadContext.Consumer>
+        </KeypadContext.Consumer>
     );
 }
 

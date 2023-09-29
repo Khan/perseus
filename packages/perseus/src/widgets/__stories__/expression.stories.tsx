@@ -1,4 +1,4 @@
-import {keypadContext, KeypadType} from "@khanacademy/math-input";
+import {KeypadContext, KeypadType} from "@khanacademy/math-input";
 import * as React from "react";
 
 import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
@@ -30,7 +30,7 @@ type WrappedKeypadContextProps = {
 const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
     return (
         <TestKeypadContextWrapper>
-            <keypadContext.Consumer>
+            <KeypadContext.Consumer>
                 {({keypadElement, setRenderer, scrollableElement}) => {
                     return (
                         <ItemRendererWithDebugUI
@@ -44,7 +44,7 @@ const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
                         />
                     );
                 }}
-            </keypadContext.Consumer>
+            </KeypadContext.Consumer>
         </TestKeypadContextWrapper>
     );
 };
