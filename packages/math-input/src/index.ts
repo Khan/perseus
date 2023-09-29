@@ -30,7 +30,10 @@ export {default as MobileKeypad} from "./components/keypad-switch";
 export {default as DesktopKeypad} from "./components/keypad";
 
 // Context used to pass data/refs around
-export {default as KeypadContext} from "./components/keypad-context";
+export {
+    keypadContext,
+    StatefulKeypadContextProvider,
+} from "./components/keypad-context";
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";

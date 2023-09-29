@@ -1,4 +1,4 @@
-import {KeypadContext} from "@khanacademy/math-input";
+import {keypadContext} from "@khanacademy/math-input";
 import React from "react";
 
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
@@ -54,7 +54,7 @@ export const PassageArticle = ({useNewStyles}): any => (
 
 export const ExpressionArticle = ({useNewStyles}): any => (
     <TestKeypadContextWrapper>
-        <KeypadContext.Consumer>
+        <keypadContext.Consumer>
             {({keypadElement, setRenderer, scrollableElement}) => (
                 <ArticleRenderer
                     ref={(node) => {
@@ -67,6 +67,6 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                     keypadElement={keypadElement}
                 />
             )}
-        </KeypadContext.Consumer>
+        </keypadContext.Consumer>
     </TestKeypadContextWrapper>
 );

@@ -7,6 +7,7 @@ import type {
     KeyType,
     KeypadType,
 } from "./enums";
+import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type * as React from "react";
 import type ReactDOM from "react-dom";
 
@@ -105,3 +106,16 @@ export interface KeypadAPI {
     setKeyHandler: (keyHandler: KeyHandler) => void;
     getDOMNode: () => ReturnType<typeof ReactDOM.findDOMNode>;
 }
+
+export type KeypadContext = {
+    setKeypadElement: (keypadElement?: KeypadAPI) => void;
+    keypadElement: KeypadAPI | null | undefined;
+    setRenderer: (
+        renderer?: KeypadContextRendererInterface | null | undefined,
+    ) => void;
+    renderer: KeypadContextRendererInterface | null | undefined;
+    setScrollableElement: (
+        scrollableElement?: HTMLElement | null | undefined,
+    ) => void;
+    scrollableElement: HTMLElement | null | undefined;
+};

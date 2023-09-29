@@ -1,5 +1,9 @@
 import "@testing-library/jest-dom";
-import {KeypadContext, MobileKeypad} from "@khanacademy/math-input";
+import {
+    keypadContext,
+    StatefulKeypadContextProvider,
+    MobileKeypad,
+} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     fireEvent,
@@ -22,13 +26,11 @@ import {registerWidget} from "../../widgets";
 import {expressionItem2} from "../__testdata__/expression.testdata";
 import ExpressionExport from "../expression";
 
-import type {KeypadAPI} from "@khanacademy/math-input";
-
 const MQ = MathQuill.getInterface(2);
 
 function RendererWithContext({item}) {
     return (
-        <KeypadContext.Consumer>
+        <keypadContext.Consumer>
             {({keypadElement}) => {
                 return (
                     <WrappedServerItemRenderer
@@ -45,13 +47,13 @@ function RendererWithContext({item}) {
                     />
                 );
             }}
-        </KeypadContext.Consumer>
+        </keypadContext.Consumer>
     );
 }
 
 function KeypadWithContext() {
     return (
-        <KeypadContext.Consumer>
+        <keypadContext.Consumer>
             {({setKeypadElement}) => {
                 return (
                     <MobileKeypad
@@ -62,32 +64,17 @@ function KeypadWithContext() {
                     />
                 );
             }}
-        </KeypadContext.Consumer>
+        </keypadContext.Consumer>
     );
 }
 
 function ConnectedRenderer({item = expressionItem2}) {
-    const [keypadElement, setKeypadElement] =
-        React.useState<KeypadAPI | null>();
-    const [renderer, setRenderer] = React.useState<any>(null);
-    const [scrollableElement, setScrollableElement] =
-        React.useState<HTMLElement | null>();
-
     return (
         <RenderStateRoot>
-            <KeypadContext.Provider
-                value={{
-                    setKeypadElement,
-                    keypadElement,
-                    setRenderer,
-                    renderer,
-                    setScrollableElement,
-                    scrollableElement,
-                }}
-            >
+            <StatefulKeypadContextProvider>
                 <RendererWithContext item={item} />
                 <KeypadWithContext />
-            </KeypadContext.Provider>
+            </StatefulKeypadContextProvider>
         </RenderStateRoot>
     );
 }
