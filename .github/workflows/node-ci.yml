@@ -33,6 +33,7 @@ jobs:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: packages/ # Only look for changes in packages
                   globs: "!(**/__tests__/*), !(**/__stories__/*), !(**/dist/*)" # Ignore test files
+                  conjunctive: true # Only match files that match all of the above
 
             - name: Verify changeset entries
               uses: Khan/changeset-per-package@v1.0.1
