@@ -250,6 +250,41 @@ describe("static function validate", () => {
         expect(score.message?.includes("pi")).toBeFalsy();
     });
 
+    it("still validates against pi if provided in answerForms", () => {
+        const rubric: Rubric = {
+            answers: [
+                {
+                    maxError: null,
+                    message: "",
+                    simplify: "required",
+                    status: "correct",
+                    strict: false,
+                    value: 311.01767270538954,
+                    answerForms: ["pi"],
+                },
+            ],
+            labelText: "",
+            size: "normal",
+            static: false,
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "99 pi",
+        } as const;
+
+        const score = NumericInput.validate(userInput, rubric);
+
+        expect(score).toMatchInlineSnapshot(`
+        {
+          "earned": 1,
+          "message": null,
+          "total": 1,
+          "type": "points",
+        }
+    `);
+    });
+
     it("with a strict answer", () => {
         const rubric: Rubric = {
             answers: [
