@@ -10,6 +10,8 @@ export const addLibraryVersionToPerseusDebug = (
     libraryName: string,
     libraryVersion: string,
 ) => {
+    // If the library version is the default value, then we don't want to
+    // prefix it with a "v" to indicate that it is a version number.
     let prefix = "v";
     if (libraryVersion === "__lib_version__") {
         prefix = "";
