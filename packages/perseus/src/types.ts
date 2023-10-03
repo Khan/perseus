@@ -232,6 +232,9 @@ export type APIOptions = Readonly<{
     // keystroke caused text typed in the text area to appear in it
     // only after a good few seconds.
     editorChangeDelay?: number;
+    // If the content contains a column separator, only render the specified
+    // column.
+    renderColumn?: "left" | "right";
 }>;
 
 type TeXProps = {

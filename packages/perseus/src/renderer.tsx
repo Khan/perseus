@@ -81,6 +81,7 @@ type WidgetState = {
     paragraphIndex?: number;
     foundFullWidth?: boolean;
     baseElements?: any;
+    renderColumn?: "left" | "right";
 };
 
 type SetWidgetPropsFn = (
@@ -1329,9 +1330,13 @@ class Renderer extends React.Component<Props, State> {
             // things like this
             this._isTwoColumn = true;
             // but then render normally:
+            let columnsState = {
+                ...state,
+                renderColumn: this.getApiOptions().renderColumn,
+            };
             return (
                 <ErrorBoundary key={state.key}>
-                    {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
+                    {PerseusMarkdown.ruleOutput(node, nestedOutput, columnsState)}
                 </ErrorBoundary>
             );
         }

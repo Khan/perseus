@@ -15,6 +15,12 @@ const rules = {
     columns: {
         ...pureMarkdownRules.columns,
         react: (node, output, state) => {
+            if (state.renderColumn === "left") {
+                return output(node.col1, state);
+            } else if (state.renderColumn === "right") {
+                return output(node.col2, state);
+            }
+
             return (
                 <div className="perseus-two-columns" key={state.key}>
                     <div className="perseus-column">
