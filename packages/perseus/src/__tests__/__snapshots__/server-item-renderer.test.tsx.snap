@@ -189,7 +189,7 @@ exports[`server item renderer should snapshot: initial render 1`] = `
         class=""
       >
         <div
-          class="perseus-hint-renderer"
+          class="hint perseus-hint-renderer"
           tabindex="-1"
         >
           <span
@@ -219,7 +219,7 @@ exports[`server item renderer should snapshot: initial render 1`] = `
           </div>
         </div>
         <div
-          class="perseus-hint-renderer"
+          class="hint perseus-hint-renderer"
           tabindex="-1"
         >
           <span
@@ -249,7 +249,7 @@ exports[`server item renderer should snapshot: initial render 1`] = `
           </div>
         </div>
         <div
-          class="perseus-hint-renderer last-hint last-rendered"
+          class="hint perseus-hint-renderer last-hint last-rendered"
           tabindex="-1"
         >
           <span

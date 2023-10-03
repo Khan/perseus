@@ -1128,7 +1128,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
         class=""
       >
         <div
-          class="perseus-hint-renderer last-rendered"
+          class="hint perseus-hint-renderer last-rendered"
           tabindex="-1"
         >
           <span
