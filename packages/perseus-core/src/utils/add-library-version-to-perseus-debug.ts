@@ -16,14 +16,14 @@ export const addLibraryVersionToPerseusDebug = (
     if (libraryVersion === "__lib_version__") {
         prefix = "";
     }
-    const s = `${prefix}${libraryVersion}`;
+    const formattedVersion = `${prefix}${libraryVersion}`;
 
-    if (globalThis) {
+    if (typeof globalThis !== "undefined") {
         globalThis.__perseus_debug__ = globalThis.__perseus_debug__ ?? {};
 
-        globalThis.__perseus_debug__[libraryName] = s;
+        globalThis.__perseus_debug__[libraryName] = formattedVersion;
     } else {
         // eslint-disable-next-line no-console
-        console.warn(`globalThis not found found (${s})`);
+        console.warn(`globalThis not found found (${formattedVersion})`);
     }
 };
