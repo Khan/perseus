@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
 
+import Keypad from "./keypad";
 import {expandedViewThreshold} from "./utils";
 
 import type Key from "../../data/keys";
@@ -15,8 +16,6 @@ import type {
 } from "../../types";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-
-import Keypad from "./index";
 
 /**
  * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same
@@ -34,10 +33,11 @@ type Props = {
     onDismiss?: () => void;
     style?: StyleType;
     onAnalyticsEvent: AnalyticsEventHandlerFn;
+    setKeypadActive: (keypadActive: boolean) => void;
+    keypadActive: boolean;
 };
 
 type State = {
-    active: boolean;
     containerWidth: number;
     hasBeenActivated: boolean;
     keypadConfig?: KeypadConfiguration;
@@ -52,7 +52,6 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     hasMounted = false;
 
     state: State = {
-        active: false,
         containerWidth: 0,
         hasBeenActivated: false,
     };
@@ -109,16 +108,15 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     };
 
     activate: () => void = () => {
+        this.props.setKeypadActive(true);
         this.setState({
-            active: true,
             hasBeenActivated: true,
         });
     };
 
     dismiss: () => void = () => {
-        this.setState({active: false}, () => {
-            this.props.onDismiss?.();
-        });
+        this.props.setKeypadActive(false);
+        this.props.onDismiss?.();
     };
 
     configure: (configuration: KeypadConfiguration, cb: () => void) => void = (
@@ -162,14 +160,14 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     }
 
     render(): React.ReactNode {
-        const {style} = this.props;
-        const {active, hasBeenActivated, containerWidth, cursor, keypadConfig} =
+        const {keypadActive, style} = this.props;
+        const {hasBeenActivated, containerWidth, cursor, keypadConfig} =
             this.state;
 
         const containerStyle = [
             // internal styles
             styles.keypadContainer,
-            active && styles.activeKeypadContainer,
+            keypadActive && styles.activeKeypadContainer,
             // styles passed as props
             ...(Array.isArray(style) ? style : [style]),
         ];
@@ -179,7 +177,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
         // during the initial render.
         // Done inline (dynamicStyle) since stylesheets might not be loaded yet.
         let dynamicStyle = {};
-        if (!active && !hasBeenActivated) {
+        if (!keypadActive && !hasBeenActivated) {
             dynamicStyle = {visibility: "hidden"};
         }
 

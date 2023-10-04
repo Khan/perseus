@@ -1,4 +1,8 @@
-import {KeypadContext, MobileKeypad} from "@khanacademy/math-input";
+import {
+    KeypadContext,
+    StatefulKeypadContextProvider,
+    MobileKeypad,
+} from "@khanacademy/math-input";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
 import {StyleSheet} from "aphrodite";
@@ -29,29 +33,11 @@ type Props = {
 };
 
 const TestKeypadContextWrapper = (props: Props): React.ReactElement => {
-    const [keypadElement, setKeypadElement] = React.useState(null);
-    const [renderer, setRenderer] = React.useState(null);
-    const [scrollableElement, setScrollableElement] = React.useState(
-        document.body,
-    );
-
     return (
-        <KeypadContext.Provider
-            value={{
-                // @ts-expect-error - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
-                setKeypadElement,
-                keypadElement,
-                // @ts-expect-error - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
-                setRenderer,
-                renderer,
-                // @ts-expect-error - TS2322 - Type 'Dispatch<SetStateAction<HTMLElement>>' is not assignable to type '(scrollableElement?: HTMLElement | null | undefined) => void'.
-                setScrollableElement,
-                scrollableElement,
-            }}
-        >
+        <StatefulKeypadContextProvider>
             {props.children}
             <Footer />
-        </KeypadContext.Provider>
+        </StatefulKeypadContextProvider>
     );
 };
 

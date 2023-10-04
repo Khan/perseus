@@ -12,10 +12,10 @@ import React, {useState} from "react";
 
 import {KeypadType} from "../../enums";
 import MathInput from "../input/math-input";
-import KeypadContext from "../keypad-context";
+import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
 import KeypadSwitch from "../keypad-switch";
 
-import type {KeypadAPI, KeypadConfiguration} from "../../types";
+import type {KeypadConfiguration} from "../../types";
 
 const MQ = MathQuill.getInterface(2);
 
@@ -73,25 +73,11 @@ function KeypadWithContext() {
 }
 
 function ConnectedMathInput({keypadConfiguration = defaultConfiguration}) {
-    const [keypadElement, setKeypadElement] = useState<KeypadAPI | null>();
-    const [renderer, setRenderer] = useState<any>(null);
-    const [scrollableElement, setScrollableElement] =
-        useState<HTMLElement | null>();
-
     return (
-        <KeypadContext.Provider
-            value={{
-                setKeypadElement,
-                keypadElement,
-                setRenderer,
-                renderer,
-                setScrollableElement,
-                scrollableElement,
-            }}
-        >
+        <StatefulKeypadContextProvider>
             <InputWithContext keypadConfiguration={keypadConfiguration} />
             <KeypadWithContext />
-        </KeypadContext.Provider>
+        </StatefulKeypadContextProvider>
     );
 }
 
