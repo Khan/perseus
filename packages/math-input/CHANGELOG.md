@@ -1,5 +1,12 @@
 # @khanacademy/math-input
 
+## 14.0.0
+
+### Major Changes
+
+-   14138bb0: Move StatefulKeypadContextProvider into math-input
+-   14138bb0: Hoist keypad active state into keypad context
+
 ## 13.1.0
 
 ### Minor Changes
