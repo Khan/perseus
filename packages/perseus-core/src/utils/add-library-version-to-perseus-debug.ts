@@ -21,7 +21,30 @@ export const addLibraryVersionToPerseusDebug = (
     if (typeof globalThis !== "undefined") {
         globalThis.__perseus_debug__ = globalThis.__perseus_debug__ ?? {};
 
-        globalThis.__perseus_debug__[libraryName] = formattedVersion;
+        const existingVersionEntry = globalThis.__perseus_debug__[libraryName];
+        if (existingVersionEntry) {
+            // If we already have an entry and it doesn't match the registered
+            // version, we morph the entry into an array and log a warning.
+            if (existingVersionEntry !== formattedVersion) {
+                // Existing entry might be an array already (oops, at least 2
+                // versions of the library already loaded!).
+                const allVersions = Array.isArray(existingVersionEntry)
+                    ? existingVersionEntry
+                    : [existingVersionEntry];
+                allVersions.push(formattedVersion);
+
+                globalThis.__perseus_debug__[libraryName] = allVersions;
+
+                // eslint-disable-next-line no-console
+                console.warn(
+                    `Multiple versions of ${libraryName} loaded on this page: ${allVersions
+                        .sort()
+                        .join(", ")}`,
+                );
+            }
+        } else {
+            globalThis.__perseus_debug__[libraryName] = formattedVersion;
+        }
     } else {
         // eslint-disable-next-line no-console
         console.warn(`globalThis not found found (${formattedVersion})`);
