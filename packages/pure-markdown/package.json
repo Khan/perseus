@@ -22,6 +22,7 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
+        "@khanacademy/perseus-core": "1.1.0",
         "@khanacademy/perseus-error": "^0.2.3",
         "@khanacademy/simple-markdown": "^0.10.0"
     },
