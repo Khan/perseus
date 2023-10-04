@@ -44,6 +44,7 @@ class ArticleRenderer
     implements KeypadContextRendererInterface
 {
     _currentFocus: any;
+    sectionRenderers: Array<Renderer> = [];
 
     static defaultProps: DefaultProps = {
         apiOptions: ApiOptions.defaults,
@@ -87,14 +88,20 @@ class ArticleRenderer
         // paths, so as to check whether the focused path represents an
         // input.
         let didFocusInput = false;
+        let focusedInput;
+
         if (this._currentFocus) {
             const [sectionRef, ...focusPath] = this._currentFocus;
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
-            const inputPaths = this.refs[sectionRef].getInputPaths();
+
+            const inputPaths =
+                this.sectionRenderers[sectionRef].getInputPaths();
+
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
             });
+            focusedInput =
+                this.sectionRenderers[sectionRef].getDOMNodeForPath(focusPath);
         }
 
         if (this.props.apiOptions.onFocusChange != null) {
@@ -102,6 +109,7 @@ class ArticleRenderer
                 this._currentFocus,
                 prevFocusPath,
                 didFocusInput ? keypadElement?.getDOMNode() : null,
+                didFocusInput ? focusedInput : null,
             );
         }
 
@@ -139,8 +147,7 @@ class ArticleRenderer
         if (this._currentFocus) {
             const [sectionRef, ...inputPath] = this._currentFocus;
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
-            this.refs[sectionRef].blurPath(inputPath);
+            this.sectionRenderers[sectionRef].blurPath(inputPath);
         }
     };
 
@@ -167,13 +174,17 @@ class ArticleRenderer
 
         // TODO(alex): Add mobile api functions and pass them down here
         const sections = this._sections().map((section, i) => {
-            const refForSection = `section-${i}`;
+            const refForSection: any = i;
             return (
                 <DependenciesContext.Provider value={this.props.dependencies}>
                     <div key={i} className="clearfix">
                         <Renderer
                             {...section}
-                            ref={refForSection}
+                            ref={(elem) => {
+                                if (elem != null) {
+                                    this.sectionRenderers[i] = elem;
+                                }
+                            }}
                             key={i}
                             key_={i}
                             keypadElement={this.props.keypadElement}

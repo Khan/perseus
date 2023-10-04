@@ -7,6 +7,7 @@ import {
     multiSectionArticle,
     passageArticle,
     articleWithExpression,
+    multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import TestKeypadContextWrapper from "../widgets/__stories__/test-keypad-context-wrapper";
@@ -63,7 +64,48 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                     json={articleWithExpression}
                     dependencies={storybookDependenciesV2}
                     useNewStyles={useNewStyles}
-                    apiOptions={{isMobile: true, customKeypad: true}}
+                    apiOptions={{
+                        isMobile: true,
+                        customKeypad: true,
+                        onFocusChange(
+                            newFocusPath,
+                            oldFocusPath,
+                            keypadElement,
+                            focusedElement,
+                        ) {
+                            console.log(focusedElement);
+                        },
+                    }}
+                    keypadElement={keypadElement}
+                />
+            )}
+        </KeypadContext.Consumer>
+    </TestKeypadContextWrapper>
+);
+
+export const MultiSectionedExpressionArticle = ({useNewStyles}): any => (
+    <TestKeypadContextWrapper>
+        <KeypadContext.Consumer>
+            {({keypadElement, setRenderer, scrollableElement}) => (
+                <ArticleRenderer
+                    ref={(node) => {
+                        setRenderer(node);
+                    }}
+                    json={multiSectionArticleWithExpression}
+                    dependencies={storybookDependenciesV2}
+                    useNewStyles={useNewStyles}
+                    apiOptions={{
+                        isMobile: true,
+                        customKeypad: true,
+                        onFocusChange(
+                            newFocusPath,
+                            oldFocusPath,
+                            keypadElement,
+                            focusedElement,
+                        ) {
+                            console.log(focusedElement);
+                        },
+                    }}
                     keypadElement={keypadElement}
                 />
             )}
