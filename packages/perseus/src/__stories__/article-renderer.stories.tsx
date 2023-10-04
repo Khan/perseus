@@ -73,7 +73,7 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                             keypadElement,
                             focusedElement,
                         ) {
-                            console.log(focusedElement);
+                            // console.log(focusedElement);
                         },
                     }}
                     keypadElement={keypadElement}
@@ -103,7 +103,7 @@ export const MultiSectionedExpressionArticle = ({useNewStyles}): any => (
                             keypadElement,
                             focusedElement,
                         ) {
-                            console.log(focusedElement);
+                            // console.log(focusedElement);
                         },
                     }}
                     keypadElement={keypadElement}
