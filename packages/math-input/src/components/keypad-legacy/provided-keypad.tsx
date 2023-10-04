@@ -22,6 +22,8 @@ import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
+    setKeypadActive: (keypadActive: boolean) => void;
+    keypadActive: boolean;
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
     style?: StyleType;
@@ -37,12 +39,22 @@ class ProvidedKeypad extends React.Component<Props> implements KeypadAPI {
         this.store = createStore();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.keypadActive && !prevProps.keypadActive) {
+            this.store.dispatch(activateKeypad());
+        }
+
+        if (!this.props.keypadActive && prevProps.keypadActive) {
+            this.store.dispatch(dismissKeypad());
+        }
+    }
+
     activate: () => void = () => {
-        this.store.dispatch(activateKeypad());
+        this.props.setKeypadActive(true);
     };
 
     dismiss: () => void = () => {
-        this.store.dispatch(dismissKeypad());
+        this.props.setKeypadActive(false);
     };
 
     configure: (configuration: KeypadConfiguration, cb: () => void) => void = (
