@@ -1,4 +1,4 @@
-import { dirname, join } from "path";
+import {dirname, join} from "path";
 const babelConfig = require("../babel.config");
 const path = require("path");
 const fs = require("fs");
@@ -118,12 +118,12 @@ module.exports = {
 
     framework: {
         name: getAbsolutePath("@storybook/react-webpack5"),
-        options: {}
+        options: {},
     },
 
     docs: {
-        autodocs: true
-    }
+        autodocs: true,
+    },
 };
 
 function getAbsolutePath(value) {
