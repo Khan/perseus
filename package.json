@@ -27,6 +27,7 @@
     "@jest/globals": "^29.5.0",
     "@khanacademy/eslint-config": "^3.0.1",
     "@khanacademy/eslint-plugin": "^2.1.1",
+    "@khanacademy/wonder-blocks-button": "^5.0.0",
     "@khanacademy/wonder-stuff-i18n": "^2.1.0",
     "@popperjs/core": "^2.10.1",
     "@rollup/plugin-alias": "^3.1.9",
