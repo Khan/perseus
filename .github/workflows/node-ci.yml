@@ -31,8 +31,10 @@ jobs:
               id: match
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
-                  files: packages/ # Only look for changes in packages
-                  globs: "!(**/__tests__/*), !(**/__stories__/*), !(**/dist/*)" # Ignore test files
+                  files: "packages/, config/build/" # Only look for changes in packages, build
+                  globs: "!(**/__tests__/*), !(**/__testdata__/*), !(**/__stories__/*), !(**/dist/*)" # Ignore test files
+                  matchAllGlobs: true # Default is to match any of the globs, which ends up matching all files
+                  conjunctive: true # Only match files that match all of the above
 
             - name: Verify changeset entries
               uses: Khan/changeset-per-package@v1.0.1
@@ -136,6 +138,14 @@ jobs:
             - name: Run test with coverage
               run: yarn cypress:ci
 
+            # Upload coverage report as an GitHub artifact so that it can be used
+            # later in upload_coverage.
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v2
+              with:
+                  name: cypress-coverage
+                  path: ./.nyc_output/out.json
+
     coverage:
         name: Jest Coverage
         runs-on: ${{ matrix.os }}
@@ -154,11 +164,50 @@ jobs:
             - name: Jest with coverage
               run: yarn coverage
 
+            # Upload coverage report as an GitHub artifact so that it can be used
+            # later in upload_coverage.
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v2
+              with:
+                  name: jest-coverage
+                  path: ./coverage/coverage-final.json
+
+    upload_coverage:
+        name: Upload Coverage
+        runs-on: ubuntu-latest
+        needs: [cypress, coverage]
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Download Jest Coverage
+              uses: actions/download-artifact@v2
+              with:
+                  name: jest-coverage
+                  # path to decompress the artifact into, decompressed file
+                  # will be ./coverage-final.json
+                  path: ./
+
+            - name: Download Cypress Coverage
+              uses: actions/download-artifact@v2
+              with:
+                  name: cypress-coverage
+                  # path to decompress the artifact into, decompressed file
+                  # will be ./out.json
+                  path: ./
+
+            # Upload both coverage files at once.  This avoids issues where it Codecov
+            # shows the results from only one of the reports which would make it appear
+            # as though coverage dropped a lot.
             - name: Upload Coverage
               uses: codecov/codecov-action@v3
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
-                  files: ./coverage/coverage-final.json
+                  files: ./coverage-final.json,./out.json
 
     check_builds:
         name: Check builds for changes in size

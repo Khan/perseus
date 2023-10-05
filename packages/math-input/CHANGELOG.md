@@ -1,5 +1,23 @@
 # @khanacademy/math-input
 
+## 14.0.0
+
+### Major Changes
+
+-   14138bb0: Move StatefulKeypadContextProvider into math-input
+-   14138bb0: Hoist keypad active state into keypad context
+
+## 13.1.0
+
+### Minor Changes
+
+-   3b19a1bf: Ensured that we're properly calling componentWillUnmount
+
+### Patch Changes
+
+-   7e2ae0ef: Bugfix for fraction button in v2 fraction keypad
+-   1dc460c7: Add tests for mobile MathInput
+
 ## 13.0.0
 
 ### Major Changes

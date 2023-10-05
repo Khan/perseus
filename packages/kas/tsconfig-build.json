@@ -4,5 +4,7 @@
         "outDir": "./dist",
         "rootDir": "src"
     },
-    "references": []
+    "references": [
+        {"path": "../perseus-core/tsconfig-build.json"}
+    ]
 }

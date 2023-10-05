@@ -1,9 +1,13 @@
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import type {KeypadAPI} from "./types";
-
-import {KeypadInput, KeypadType, MobileKeypad} from "./index";
+import {
+    KeypadInput,
+    KeypadType,
+    MobileKeypad,
+    StatefulKeypadContextProvider,
+    KeypadContext,
+} from "./index";
 
 export default {
     title: "math-input/Full Mobile MathInput",
@@ -19,31 +23,18 @@ export default {
     },
 };
 
-export const Basic = () => {
+const Basic = ({keypadElement, setKeypadElement}) => {
     const [value, setValue] = React.useState("");
-    // Reference to the keypad
-    const [keypadElement, setKeypadElement] = React.useState<KeypadAPI>();
     // Whether to use Expression or Fraction keypad
     const [expression, setExpression] = React.useState<boolean>(false);
     // Whether to use CDOT or TIMES
     const [times, setTimes] = React.useState<boolean>(true);
     // Whether to use v1 or v2 keypad
     const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
-    // Whether the keypad is open or not
-    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
 
     const input = React.useRef<KeypadInput>(null);
 
     const timesLabel = times ? "CDOT" : "TIMES";
-
-    const toggleKeypad = () => {
-        if (keypadOpen) {
-            keypadElement?.dismiss();
-        } else {
-            keypadElement?.activate();
-        }
-        setKeypadOpen(!keypadOpen);
-    };
 
     React.useEffect(() => {
         keypadElement?.configure(
@@ -72,9 +63,6 @@ export const Basic = () => {
                     </button>
                     <button onClick={() => setV2Keypad(!v2Keypad)}>
                         {`Use ${v2Keypad ? "Legacy" : "New"} Keypad`}
-                    </button>
-                    <button onClick={() => toggleKeypad()}>
-                        {`Toggle Keypad`}
                     </button>
                     <button onClick={() => setTimes(!times)}>
                         {`Toggle to ` + timesLabel}
@@ -111,3 +99,18 @@ export const Basic = () => {
         </div>
     );
 };
+
+export function Wrapped() {
+    return (
+        <StatefulKeypadContextProvider>
+            <KeypadContext.Consumer>
+                {({keypadElement, setKeypadElement}) => (
+                    <Basic
+                        keypadElement={keypadElement}
+                        setKeypadElement={setKeypadElement}
+                    />
+                )}
+            </KeypadContext.Consumer>
+        </StatefulKeypadContextProvider>
+    );
+}

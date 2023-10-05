@@ -4,6 +4,8 @@
 
 import "../less/main.less";
 
+export {libVersion} from "./version";
+
 // MathInput input field (MathQuill wrapper)
 export {default as KeypadInput} from "./components/input/math-input";
 
@@ -30,7 +32,10 @@ export {default as MobileKeypad} from "./components/keypad-switch";
 export {default as DesktopKeypad} from "./components/keypad";
 
 // Context used to pass data/refs around
-export {default as KeypadContext} from "./components/keypad-context";
+export {
+    KeypadContext,
+    StatefulKeypadContextProvider,
+} from "./components/keypad-context";
 
 // External API of the "Provided" keypad component
 export {keypadElementPropType} from "./components/prop-types";

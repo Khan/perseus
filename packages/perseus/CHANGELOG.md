@@ -1,5 +1,31 @@
 # @khanacademy/perseus
 
+## 11.6.0
+
+### Minor Changes
+
+-   0761377a: Ensured we're still validating against pi when strict is set to false and pi is in the answerforms.
+
+### Patch Changes
+
+-   14138bb0: Move StatefulKeypadContextProvider into math-input
+-   14138bb0: Hoist keypad active state into keypad context
+-   332d5d6d: Fix list item rendering in exercises and HintRenderer (LC-1022 & LC-1225)
+-   Updated dependencies [14138bb0]
+-   Updated dependencies [14138bb0]
+    -   @khanacademy/math-input@14.0.0
+
+## 11.5.1
+
+### Patch Changes
+
+-   7e2ae0ef: Bugfix for fraction button in v2 fraction keypad
+-   1dc460c7: Add tests for mobile MathInput
+-   Updated dependencies [7e2ae0ef]
+-   Updated dependencies [1dc460c7]
+-   Updated dependencies [3b19a1bf]
+    -   @khanacademy/math-input@13.1.0
+
 ## 11.5.0
 
 ### Minor Changes

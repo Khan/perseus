@@ -772,7 +772,8 @@ export type PerseusNumericInputAnswer = {
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     answerForms?: ReadonlyArray<MathFormat>;
-    // Whether the answerForms should be strictly matched
+    // Whether we should check the answer strictly against the the configured answerForms (strict = true)
+    // or include the set of default answerForms (strict = false).
     strict: boolean;
     // A range of error +/- the value
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.

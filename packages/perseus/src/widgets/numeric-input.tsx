@@ -15,6 +15,7 @@ import type {
     PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
+    MathFormat,
 } from "../perseus-types";
 import type {
     FocusPath,
@@ -25,7 +26,11 @@ import type {
 
 const ParseTex = TexWrangler.parseTex;
 
-const answerFormButtons = [
+const answerFormButtons: ReadonlyArray<{
+    title: string;
+    value: MathFormat;
+    content: string;
+}> = [
     {title: "Integers", value: "integer", content: "6"},
     {title: "Decimals", value: "decimal", content: "0.75"},
     {title: "Proper fractions", value: "proper", content: "\u2157"},
@@ -149,8 +154,8 @@ export class NumericInput extends React.Component<Props, State> {
         return answerStrings[0];
     }
 
-    static validate(useInput: UserInput, rubric: Rubric): PerseusScore {
-        const allAnswerForms = answerFormButtons
+    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+        const defaultAnswerForms = answerFormButtons
             .map((e) => e["value"])
             // Don't default to validating the answer as a pi answer
             // if answerForm isn't set on the answer
@@ -159,6 +164,18 @@ export class NumericInput extends React.Component<Props, State> {
 
         const createValidator = (answer: PerseusNumericInputAnswer) => {
             const stringAnswer = `${answer.value}`;
+
+            // Always validate against the provided answer forms (pi, decimal, etc.)
+            const validatorForms = [...(answer.answerForms ?? [])];
+
+            // When an answer is set to strict, we validate using ONLY
+            // the provided answerForms. If strict is false, or if there
+            // were no provided answer forms, we will include all
+            // of the default answer forms in our validator.
+            if (!answer.strict || validatorForms.length === 0) {
+                validatorForms.push(...defaultAnswerForms);
+            }
+
             return KhanAnswerTypes.number.createValidatorFunctional(
                 stringAnswer,
                 {
@@ -169,19 +186,14 @@ export class NumericInput extends React.Component<Props, State> {
                             : "optional",
                     inexact: true, // TODO(merlob) backfill / delete
                     maxError: answer.maxError,
-                    forms:
-                        answer.strict &&
-                        answer.answerForms &&
-                        answer.answerForms.length !== 0
-                            ? answer.answerForms
-                            : allAnswerForms,
+                    forms: validatorForms,
                 },
             );
         };
 
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
-        const currentValue = ParseTex(useInput.currentValue);
+        const currentValue = ParseTex(userInput.currentValue);
         const correctAnswers = rubric.answers.filter(
             (answer) => answer.status === "correct",
         );

@@ -4,6 +4,8 @@
  * Note that this file may be used in stand alone nodejs, thus
  * do not import anything from Perseus
  */
+export {libVersion} from "./version";
+
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;

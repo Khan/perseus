@@ -4,7 +4,7 @@
 
 import {addLibraryVersionToPerseusDebug} from "@khanacademy/perseus-core";
 
-const libName = "@khanacademy/perseus";
+const libName = "@khanacademy/math-input";
 export const libVersion = "__lib_version__";
 
 addLibraryVersionToPerseusDebug(libName, libVersion);

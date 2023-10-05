@@ -1,7 +1,7 @@
 const babelConfig = require("../babel.config");
-const util = require("util");
 const path = require("path");
 const fs = require("fs");
+const glob = require("fast-glob");
 
 module.exports = {
     core: {
@@ -49,23 +49,17 @@ module.exports = {
         });
 
         const aliases = {};
-        fs.readdirSync(path.join(__dirname, "../packages")).forEach((name) => {
-            if (name.startsWith(".")) {
-                return;
-            }
-            const stat = fs.statSync(path.join(__dirname, "../packages", name));
-            if (stat.isFile()) {
-                return;
-            }
-            const pkgPath = path.join("../packages", name, "package.json");
-            const pkgJson = require(pkgPath);
-            aliases["@khanacademy/" + name] = path.join(
-                __dirname,
-                "../packages",
-                name,
-                pkgJson.source,
-            );
-        });
+        glob.sync(path.join(__dirname, "../packages/*/package.json")).forEach(
+            (pkgPath) => {
+                const pkgJson = require(pkgPath);
+                aliases[pkgJson.name] = path.join(
+                    __dirname,
+                    "../packages",
+                    path.basename(path.dirname(pkgPath)),
+                    pkgJson.source,
+                );
+            },
+        );
         fs.readdirSync(path.join(__dirname, "../vendor")).forEach((name) => {
             aliases[name] = path.join(__dirname, "../vendor", name);
         });
