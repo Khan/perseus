@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {itemWithPieChart} from "../../__testdata__/graphie.testdata";
 import Graphie from "../graphie";
 
@@ -29,5 +29,5 @@ export const SquareBoxSizeAndOtherwiseEmpty = (
 };
 
 export const PieChartGraphieLabels = (args: StoryArgs): React.ReactElement => {
-    return <ItemRendererWithDebugUI item={itemWithPieChart} />;
+    return <ServerItemRendererWithDebugUI item={itemWithPieChart} />;
 };

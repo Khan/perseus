@@ -76,6 +76,9 @@ type SerializedState = {
     };
 };
 
+/**
+ * @depreciated use ServerItemRenderer
+ */
 class ItemRenderer extends React.Component<Props, State> {
     // @ts-expect-error - TS2564 - Property 'questionRenderer' has no initializer and is not definitely assigned in the constructor.
     questionRenderer: Renderer;
