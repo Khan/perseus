@@ -1,12 +1,10 @@
+import { dirname, join } from "path";
 const babelConfig = require("../babel.config");
 const path = require("path");
 const fs = require("fs");
 const glob = require("fast-glob");
 
 module.exports = {
-    core: {
-        builder: "webpack5",
-    },
     stories: [
         // NOTE(jeremy): This glob is extremely finicky! I would have written
         // this as a negated match to exclude node_modules, but I was never
@@ -19,11 +17,13 @@ module.exports = {
         // dir.
         "../packages/*/src/**/*@(.stories|.fixturestories).@(ts|tsx)",
     ],
+
     addons: [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
-        "@storybook/addon-a11y",
+        getAbsolutePath("@storybook/addon-links"),
+        getAbsolutePath("@storybook/addon-essentials"),
+        getAbsolutePath("@storybook/addon-a11y"),
     ],
+
     // NOTE(kevinb): We customize the padding a bit so that so that stories
     // using the on-screen keypad render correctly.  Storybook adds its own
     // padding as a class to <body> so we use !important to override that.
@@ -35,9 +35,11 @@ module.exports = {
         }
         </style>
     `,
+
     babel: async (options) => {
         return babelConfig;
     },
+
     webpackFinal: async (webpackConfig) => {
         // We remove the existing rule for CSS files so that we can replace
         // it with our own.  Storybook isn't configured to use LESS out of
@@ -113,4 +115,17 @@ module.exports = {
 
         return updateWebpackConfig;
     },
+
+    framework: {
+        name: getAbsolutePath("@storybook/react-webpack5"),
+        options: {}
+    },
+
+    docs: {
+        autodocs: true
+    }
 };
+
+function getAbsolutePath(value) {
+    return dirname(require.resolve(join(value, "package.json")));
+}
