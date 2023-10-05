@@ -11,16 +11,19 @@ import {testDependenciesV2} from "./test-dependencies";
 
 import type {PerseusItem} from "../packages/perseus/src/perseus-types";
 import type {APIOptions} from "../packages/perseus/src/types";
+import type {KeypadAPI} from "@khanacademy/math-input";
 import type {KEScore} from "@khanacademy/perseus-core";
 
 type Props = {
     item: PerseusItem;
     apiOptions?: APIOptions;
+    keypadElement?: KeypadAPI | null | undefined;
 };
 
 export const ServerItemRendererWithDebugUI = ({
     item,
     apiOptions,
+    keypadElement,
 }: Props): React.ReactElement => {
     const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
@@ -37,6 +40,7 @@ export const ServerItemRendererWithDebugUI = ({
                         apiOptions={options}
                         item={item}
                         dependencies={testDependenciesV2}
+                        keypadElement={keypadElement}
                     />
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button

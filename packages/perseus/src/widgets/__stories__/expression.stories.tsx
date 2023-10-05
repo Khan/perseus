@@ -1,7 +1,7 @@
 import {KeypadContext, KeypadType} from "@khanacademy/math-input";
 import * as React from "react";
 
-import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {
     expressionItem2,
     expressionItem3,
@@ -25,20 +25,27 @@ type Story = {
 type WrappedKeypadContextProps = {
     item: PerseusItem;
     customKeypad: boolean;
+    isMobile?: boolean;
 };
 
-const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
+const WrappedKeypadContext = ({
+    item,
+    customKeypad,
+    isMobile = false,
+}: WrappedKeypadContextProps) => {
     return (
         <TestKeypadContextWrapper>
             <KeypadContext.Consumer>
-                {({keypadElement, setRenderer, scrollableElement}) => {
+                {({keypadElement}) => {
                     return (
-                        <ItemRendererWithDebugUI
-                            item={props.item}
+                        <ServerItemRendererWithDebugUI
+                            item={item}
+                            keypadElement={keypadElement}
                             // Hardcoding the V2 Keypad to true as the Storybook Args
                             // were not working.
                             apiOptions={{
-                                customKeypad: props.customKeypad,
+                                isMobile: isMobile,
+                                customKeypad: customKeypad,
                                 useV2Keypad: true,
                             }}
                         />
@@ -98,13 +105,17 @@ export const Mobile = (args: StoryArgs): React.ReactElement => {
     return (
         <div>
             <p>
-                For some reason you need to be{" "}
+                MathInput uses touch events;{" "}
                 <a href="https://developer.chrome.com/docs/devtools/device-mode/">
-                    emulating mobile
+                    emulate mobile
                 </a>{" "}
-                to see the custom keypad.
+                to use the custom keypad.
             </p>
-            <WrappedKeypadContext item={expressionItem3} customKeypad={true} />
+            <WrappedKeypadContext
+                item={expressionItem3}
+                customKeypad
+                isMobile
+            />
         </div>
     );
 };
