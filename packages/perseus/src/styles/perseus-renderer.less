@@ -113,16 +113,6 @@
 
     // HACK(yejia): Override the font size and line height for blurbs
     //
-    // NOTE(yejia): Minion Pro is only loaded on GTP pages, because those
-    //     are the main call sites for blurbs and the passage widget. We
-    //     considered inserting the relevant stylesheet whenever the passage
-    //     widget loads, but this approach produced a "flash of unstyled
-    //     text", so we decided to embed the stylesheet into the relevant
-    //     page templates instead.
-    //
-    // NOTE(yejia): Minion Pro will not be available on ZNDs, due to
-    //     restrictions in our Adobe TypeKit configuration.
-    //
     // TODO(TP-3315): Remove once Perseus uses Wonder Blocks BodySerif
     .test-prep-blurb div.paragraph {
         font-size: 16px;
