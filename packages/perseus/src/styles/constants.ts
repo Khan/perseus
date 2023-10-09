@@ -1,7 +1,7 @@
-// @baseFontFamily:        "sans-serif;
-export const baseFontFamily = "Lato, sans-serif";
-// @boldFontFamily:        "sans-serif;
-export const boldFontFamily = "Lato, sans-serif";
+// @baseFontFamily:        "'Lato', sans-serif;
+export const baseFontFamily = "'Lato', sans-serif";
+// @boldFontFamily:        "'Lato', sans-serif;
+export const boldFontFamily = "'Lato', sans-serif";
 // @green:                 #76a005;
 export const green = "#76A005";
 // @kaGreen:               #71b307;
