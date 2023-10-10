@@ -303,6 +303,7 @@ class MathInput extends React.Component<Props, State> {
                     <Popover
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}
+                        dismissEnabled
                         content={() => (
                             <PopoverContentCore
                                 closeButtonVisible
