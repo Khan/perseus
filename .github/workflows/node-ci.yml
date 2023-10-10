@@ -294,7 +294,12 @@ jobs:
 
             - name: Calculate short SHA for this commit
               id: short-sha
-              run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
+              # Why not GITHUB_SHA here? Because that is the last merge-commit
+              # for the PR (ie. the ephemeral commit that Github creates for
+              # each PR merging the base branch into the pull request HEAD) for
+              # Github Action runs). We want to reference the commit that was
+              # pushed, not this ephemeral commit.
+              run: echo "short_sha=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-8)" >> $GITHUB_OUTPUT
 
             # Note: these two actions are locked to the latest version that were
             # published when I created this yml file (just for security).
