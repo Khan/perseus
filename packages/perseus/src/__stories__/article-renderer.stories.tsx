@@ -67,14 +67,6 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                     apiOptions={{
                         isMobile: true,
                         customKeypad: true,
-                        onFocusChange(
-                            newFocusPath,
-                            oldFocusPath,
-                            keypadElement,
-                            focusedElement,
-                        ) {
-                            // console.log(focusedElement);
-                        },
                     }}
                     keypadElement={keypadElement}
                 />
@@ -97,14 +89,6 @@ export const MultiSectionedExpressionArticle = ({useNewStyles}): any => (
                     apiOptions={{
                         isMobile: true,
                         customKeypad: true,
-                        onFocusChange(
-                            newFocusPath,
-                            oldFocusPath,
-                            keypadElement,
-                            focusedElement,
-                        ) {
-                            // console.log(focusedElement);
-                        },
                     }}
                     keypadElement={keypadElement}
                 />

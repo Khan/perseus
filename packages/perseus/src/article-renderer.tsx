@@ -92,7 +92,6 @@ class ArticleRenderer
 
         if (this._currentFocus) {
             const [sectionRef, ...focusPath] = this._currentFocus;
-            // eslint-disable-next-line react/no-string-refs
 
             const inputPaths =
                 this.sectionRenderers[sectionRef].getInputPaths();
@@ -146,7 +145,6 @@ class ArticleRenderer
     blur: () => void = () => {
         if (this._currentFocus) {
             const [sectionRef, ...inputPath] = this._currentFocus;
-            // eslint-disable-next-line react/no-string-refs
             this.sectionRenderers[sectionRef].blurPath(inputPath);
         }
     };
@@ -176,7 +174,10 @@ class ArticleRenderer
         const sections = this._sections().map((section, i) => {
             const refForSection: any = i;
             return (
-                <DependenciesContext.Provider value={this.props.dependencies}>
+                <DependenciesContext.Provider
+                    key={i}
+                    value={this.props.dependencies}
+                >
                     <div key={i} className="clearfix">
                         <Renderer
                             {...section}
