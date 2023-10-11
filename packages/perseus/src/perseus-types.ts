@@ -311,11 +311,21 @@ export type PerseusExplanationWidgetOptions = {
     static: boolean;
 };
 
+export type LegacyButtonSets = ReadonlyArray<
+    | "basic"
+    | "basic+div"
+    | "trig"
+    | "prealgebra"
+    | "logarithms"
+    | "basic relations"
+    | "advanced relations"
+>;
+
 export type PerseusExpressionWidgetOptions = {
     // The expression forms the answer may come in
     answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
     // Different buttons sets that can show in the expression. Options are "basic", "basic+div", "trig", "prealgebra", "logarithms", "basic relations", "advanced relations"
-    buttonSets: ReadonlyArray<string>;
+    buttonSets: LegacyButtonSets;
     // Variables that can be used as functions.  Default: ["f", "g", "h"]
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.

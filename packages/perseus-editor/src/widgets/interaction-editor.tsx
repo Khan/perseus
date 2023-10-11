@@ -62,25 +62,26 @@ class PointEditor extends React.Component<PointEditorProps> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     Coordinate: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordX}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordY}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -137,44 +138,45 @@ class LineEditor extends React.Component<LineEditorProps> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     Start: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startX}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("startX")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startY}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("startY")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     End: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.endX}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("endX")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.endY}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("endY")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -254,23 +256,24 @@ class MovablePointEditor extends React.Component<MovablePointEditorProps> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     Start: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startX}
                         onChange={this.change("startX")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startY}
                         onChange={this.change("startY")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -333,6 +336,7 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
@@ -340,34 +344,34 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
                 <div className="perseus-widget-row">
                     Start: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startX}
                         onChange={this.change("startX")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.startY}
                         onChange={this.change("startY")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     End: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.endX}
                         onChange={this.change("endX")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.endY}
                         onChange={this.change("endY")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -434,35 +438,36 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     <TeX>{this.props.funcName + "(x)="}</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.value}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("value")}
+                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     Range: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.rangeMin}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMin")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.rangeMax}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMax")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -535,45 +540,46 @@ class ParametricEditor extends React.Component<ParametricEditorProps> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     <TeX>X(t) =</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.x}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("x")}
+                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <TeX>Y(t) =</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.y}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("y")}
+                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     Range: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.rangeMin}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMin")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.rangeMax}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("rangeMax")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -641,6 +647,7 @@ class LabelEditor extends React.Component<LabelEditorProps> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
@@ -657,19 +664,19 @@ class LabelEditor extends React.Component<LabelEditorProps> {
                 <div className="perseus-widget-row">
                     Location: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordX}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordY}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -720,46 +727,47 @@ class RectangleEditor extends React.Component<RectangleEditorProps> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
+        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     Bottom left: <TeX>\Large(</TeX>
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordX}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordX")}
+                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.coordY}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("coordY")}
+                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     Width:{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.width}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("width")}
+                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     Height:{" "}
                     <MathInput
-                        buttonSets={[]}
                         buttonsVisible="never"
                         value={this.props.height}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("height")}
+                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">

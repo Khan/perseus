@@ -26,6 +26,10 @@ type Props = {
 } & Omit<PerseusExpressionWidgetOptions, "buttonsVisible"> &
     Changeable.ChangeableProps;
 
+// types for iterables
+type AnswerForm = PerseusExpressionWidgetOptions["answerForms"][number];
+type LegacyButtonSet = PerseusExpressionWidgetOptions["buttonSets"][number];
+
 type DefaultProps = {
     answerForms: Props["answerForms"];
     times: Props["times"];
@@ -33,14 +37,22 @@ type DefaultProps = {
     functions: Props["functions"];
 };
 
+const parseAnswerKey = ({key}: AnswerForm): number => {
+    const parsedKey = Number.parseInt(key ?? "");
+    if (Number.isNaN(parsedKey)) {
+        throw new Error(`Invalid answer key: ${key}`);
+    }
+    return parsedKey;
+};
+
 // Pick a key that isn't currently used by an answer in answerForms
-const _makeNewKey = (answerForms: any) => {
+const _makeNewKey = (answerForms: ReadonlyArray<AnswerForm>) => {
     // first note all the currently used keys in an array, used like a map :3
     // note that this automatically updates the array's length property to
     // be one past the largest key.
     const usedKeys: Array<boolean> = [];
     answerForms.forEach((ans) => {
-        usedKeys[ans.key] = true;
+        usedKeys[parseAnswerKey(ans)] = true;
     });
 
     // then scan through the array to find the first unused (undefined) key
@@ -98,7 +110,9 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         const answerOptions = this.props.answerForms
-            .map((obj, index) => {
+            .map((ans: AnswerForm) => {
+                const key = parseAnswerKey(ans);
+
                 const expressionProps = {
                     // note we're using
                     // *this.props*.{times,functions,buttonSets} since each
@@ -108,26 +122,30 @@ class ExpressionEditor extends React.Component<Props, State> {
                     buttonSets: this.props.buttonSets,
 
                     buttonsVisible: "focused",
-                    form: obj.form,
-                    simplify: obj.simplify,
-                    value: obj.value,
+                    form: ans.form,
+                    simplify: ans.simplify,
+                    value: ans.value,
 
-                    onChange: (props) => this.updateForm(index, props),
+                    onChange: (props) => this.updateForm(key, props),
                     trackInteraction: () => {},
 
-                    widgetId: this.props.widgetId + "-" + index,
+                    widgetId: this.props.widgetId + "-" + ans.key,
                 } as const;
 
-                return lens(obj)
+                return lens(ans)
                     .merge([], {
                         draggable: true,
-                        onChange: (props) => this.updateForm(index, props),
-                        onDelete: () => this.handleRemoveForm(index),
+                        onChange: (props) =>
+                            this.updateForm(
+                                Number.parseInt(ans.key ?? ""),
+                                props,
+                            ),
+                        onDelete: () => this.handleRemoveForm(key),
                         expressionProps: expressionProps,
                     })
                     .freeze();
             })
-            .map((obj, index) => <AnswerOption key={index} {...obj} />);
+            .map((obj) => <AnswerOption key={obj.key} {...obj} />);
 
         const sortable = (
             <SortableArea
@@ -143,7 +161,10 @@ class ExpressionEditor extends React.Component<Props, State> {
                 // The first one gets special cased to always be checked, disabled,
                 // and float left.
                 const isFirst = name === "basic";
-                const checked = this.props.buttonSets.includes(name) || isFirst;
+                const checked =
+                    this.props.buttonSets.includes(
+                        name as PerseusExpressionWidgetOptions["buttonSets"][number],
+                    ) || isFirst;
                 const className = isFirst
                     ? "button-set-label-float"
                     : "button-set-label";
@@ -342,7 +363,7 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.change({answerForms});
     };
 
-    handleRemoveForm: (arg1: number) => void = (i) => {
+    handleRemoveForm: (answerKey: number) => void = (i) => {
         const answerForms = this.props.answerForms.slice();
         answerForms.splice(i, 1);
         this.change({answerForms});
@@ -350,7 +371,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     // called when the options (including the expression itself) to an answer
     // form change
-    updateForm: (arg1: number, arg2: any) => void = (i, props) => {
+    updateForm: (i: number, props: any) => void = (i, props) => {
         const answerForms = lens(this.props.answerForms)
             .merge([i], props)
             .freeze();
@@ -358,7 +379,7 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.change({answerForms});
     };
 
-    handleReorder: (arg1: any) => void = (components) => {
+    handleReorder: (components: any) => void = (components) => {
         const answerForms = components.map((component) => {
             const form = _(component.props).pick(
                 "considered",
@@ -375,8 +396,10 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     // called when the selected buttonset changes
-    handleButtonSet: (arg1: string) => void = (changingName) => {
-        const buttonSetNames = Object.keys(TexButtons.buttonSets);
+    handleButtonSet: (changingName: string) => void = (changingName) => {
+        const buttonSetNames = Object.keys(
+            TexButtons.buttonSets,
+        ) as LegacyButtonSet[];
 
         // Filter to preserve order - using .union and .difference would always
         // move the last added button set to the end.
@@ -394,8 +417,8 @@ class ExpressionEditor extends React.Component<Props, State> {
         // "basic+div". Toggle between the two of them.
         // If someone can think of a more elegant formulation of this (there
         // must be one!) feel free to change it.
-        let keep: string | undefined;
-        let remove: string | undefined;
+        let keep: LegacyButtonSet | undefined;
+        let remove: LegacyButtonSet | undefined;
         if (this.props.buttonSets.includes("basic+div")) {
             keep = "basic";
             remove = "basic+div";

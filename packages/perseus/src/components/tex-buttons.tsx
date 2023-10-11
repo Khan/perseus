@@ -6,6 +6,7 @@ import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 
+import type {LegacyButtonSets} from "../perseus-types";
 import type {Keys} from "@khanacademy/math-input";
 
 const prettyBig = {fontSize: "150%"} as const;
@@ -22,7 +23,7 @@ type ButtonSet = (props: any) => [
 ];
 
 type ButtonSets = {
-    readonly [key: string]: ReadonlyArray<ButtonSet>;
+    readonly [key in LegacyButtonSets[number]]: ReadonlyArray<ButtonSet>;
 };
 
 // These are functions because we want to generate a new component for each use
@@ -285,7 +286,6 @@ class TexButtons extends React.Component<Props> {
         // for _.keys() to return the keys in an arbitrary order, but in
         // practice, they will be ordered as listed above.
         const sortedButtonSets = _.sortBy(this.props.sets, (setName) =>
-            // @ts-expect-error - TS2345 - Argument of type 'string | number' is not assignable to parameter of type 'string'.
             _.keys(buttonSets).indexOf(setName),
         );
 

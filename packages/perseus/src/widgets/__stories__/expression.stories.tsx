@@ -10,7 +10,7 @@ import expressionExport from "../expression";
 
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {LegacyButtonSets, PerseusItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";
 
 type StoryArgs = {
@@ -69,12 +69,12 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
             "logarithms",
             "basic relations",
             "advanced relations",
-        ],
+        ] as LegacyButtonSets,
     };
 
     const keypadConfiguration = {
         keypadType: KeypadType.EXPRESSION,
-        extraKeys: ["x", "y", "z"] as Key[],
+        extraKeys: ["x", "y", "z"] as Array<Key>,
     };
 
     return (

@@ -5,14 +5,13 @@ import AssetContext from "../asset-context";
 import type {PerseusItem} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
-// @ts-expect-error - TS2322 - Type '"mocked-asset-widget"' is not assignable to type '"categorizer" | "cs-program" | "definition" | "dropdown" | "example-graphie-widget" | "example-widget" | "explanation" | "expression" | "graded-group-set" | "graded-group" | ... 29 more ... | "video"'.
 export const mockedAssetItem: PerseusItem = {
     question: {
         content: "[[\u2603 mocked-asset-widget 1]]",
         images: Object.freeze({}),
         widgets: {
             "mocked-asset-widget 1": {
-                type: "mocked-asset-widget",
+                type: "mocked-asset-widget" as any,
                 alignment: "default",
                 static: false,
                 graded: true,
