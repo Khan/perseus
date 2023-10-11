@@ -170,7 +170,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
         <div
           aria-label="Keypad"
           class="default_xu2jcg-o_O-keypadGrid_ztxlrb-o_O-expressionGrid_1fuqhx9"
-          role="grid"
           tabindex="0"
         >
           <div
@@ -1223,7 +1222,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
         <div
           aria-label="Keypad"
           class="default_xu2jcg-o_O-keypadGrid_ztxlrb-o_O-expressionGrid_1fuqhx9"
-          role="grid"
           tabindex="0"
         >
           <div
