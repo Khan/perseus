@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.2.1
+
+### Patch Changes
+
+-   55d4cd00: Add build step to replace **lib_version** with each package's published package version
+
 ## 0.2.0
 
 ### Minor Changes

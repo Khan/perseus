@@ -3,7 +3,7 @@
     "description": "A lightweight JavaScript CAS for comparing expressions and equations.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "publishConfig": {
         "access": "public"
     },
@@ -23,11 +23,11 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "1.1.0"
+        "@khanacademy/perseus-core": "1.1.1"
     },
     "devDependencies": {
         "jison": "0.4.15",
-        "perseus-build-settings": "^0.2.0",
+        "perseus-build-settings": "^0.2.1",
         "underscore": "1.4.4"
     },
     "peerDependencies": {

@@ -1,5 +1,17 @@
 # @khanacademy/perseus-editor
 
+## 2.7.7
+
+### Patch Changes
+
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [1721c05c]
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/perseus@11.6.1
+    -   @khanacademy/kas@0.3.2
+    -   @khanacademy/kmath@0.1.3
+    -   @khanacademy/perseus-core@1.1.1
+
 ## 2.7.6
 
 ### Patch Changes
