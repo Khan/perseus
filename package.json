@@ -149,5 +149,8 @@
     "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
     "format": "prettier --write .",
     "typecheck": "tsc"
+  },
+  "peerDependencies": {
+    "@khanacademy/wonder-blocks-i18n": "2.0.2"
   }
 }
