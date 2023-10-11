@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 1.1.1
+
+### Patch Changes
+
+-   55d4cd00: Print package name and version when loaded in the page
+
 ## 1.1.0
 
 ### Minor Changes

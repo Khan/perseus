@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 14.0.1
+
+### Patch Changes
+
+-   4f8afadd: Fix provided-keypad so that it doesn't re-render unnecessarily.
+-   7d8905b6: Removes "grid" role from keypad to un-muddle screen reader experience.
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/perseus-core@1.1.1
+
 ## 14.0.0
 
 ### Major Changes

@@ -1,5 +1,22 @@
 # @khanacademy/perseus
 
+## 11.6.1
+
+### Patch Changes
+
+-   1721c05c: Fix broken Expression Mobile test
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [4f8afadd]
+-   Updated dependencies [7d8905b6]
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/math-input@14.0.1
+    -   @khanacademy/kas@0.3.2
+    -   @khanacademy/kmath@0.1.3
+    -   @khanacademy/perseus-core@1.1.1
+    -   @khanacademy/perseus-linter@0.3.5
+    -   @khanacademy/pure-markdown@0.2.7
+    -   @khanacademy/simple-markdown@0.10.1
+
 ## 11.6.0
 
 ### Minor Changes
