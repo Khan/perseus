@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 14.1.0
+
+### Minor Changes
+
+-   5bcf118c: Desktop Expression Widget now uses v2 keypad
+
 ## 14.0.1
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 12.0.0
+
+### Major Changes
+
+-   5bcf118c: # Update MathInput
+
+    -   `buttonSets` is now deprecated in favor of `keypadButtonSets`, but currently maps to the new prop for backwards compatability.
+    -   `buttonsVisible` is now a bit misleading: "focused" is the default state with a toggle-able keypad and "always" shows the keypad by default.
+
+### Minor Changes
+
+-   5bcf118c: Desktop Expression Widget now uses v2 keypad
+
+### Patch Changes
+
+-   Updated dependencies [5bcf118c]
+    -   @khanacademy/math-input@14.1.0
+
 ## 11.6.1
 
 ### Patch Changes
