@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 2.8.0
+
+### Minor Changes
+
+-   5bcf118c: Desktop Expression Widget now uses v2 keypad
+
+### Patch Changes
+
+-   5bcf118c: # Update MathInput
+
+    -   `buttonSets` is now deprecated in favor of `keypadButtonSets`, but currently maps to the new prop for backwards compatability.
+    -   `buttonsVisible` is now a bit misleading: "focused" is the default state with a toggle-able keypad and "always" shows the keypad by default.
+
+-   Updated dependencies [5bcf118c]
+-   Updated dependencies [5bcf118c]
+    -   @khanacademy/perseus@12.0.0
+
 ## 2.7.7
 
 ### Patch Changes
