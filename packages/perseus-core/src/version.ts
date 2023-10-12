@@ -2,7 +2,7 @@
 // version number during the release build.
 // In dev, you'll never see the version number.
 
-import {addLibraryVersionToPerseusDebug} from "@khanacademy/perseus-core";
+import {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
 
 const libName = "@khanacademy/perseus-core";
 export const libVersion = "__lib_version__";
