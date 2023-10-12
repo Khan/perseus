@@ -1,5 +1,13 @@
 # @khanacademy/perseus-linter
 
+## 0.3.6
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+    -   @khanacademy/perseus-error@0.2.5
+
 ## 0.3.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 1.1.2
+
+### Patch Changes
+
+-   22a9c408: Fix bug caused by package version diagnostics
+
 ## 1.1.1
 
 ### Patch Changes

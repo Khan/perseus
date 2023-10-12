@@ -1,5 +1,12 @@
 # @khanacademy/perseus-error
 
+## 0.2.5
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+
 ## 0.2.4
 
 ### Patch Changes

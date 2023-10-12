@@ -1,5 +1,12 @@
 # @khanacademy/kas
 
+## 0.3.3
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+
 ## 0.3.2
 
 ### Patch Changes

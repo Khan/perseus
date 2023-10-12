@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 12.0.1
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+    -   @khanacademy/kas@0.3.3
+    -   @khanacademy/kmath@0.1.4
+    -   @khanacademy/math-input@14.1.1
+    -   @khanacademy/perseus-linter@0.3.6
+    -   @khanacademy/pure-markdown@0.2.8
+    -   @khanacademy/simple-markdown@0.10.2
+
 ## 12.0.0
 
 ### Major Changes

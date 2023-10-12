@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 2.8.1
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+    -   @khanacademy/kas@0.3.3
+    -   @khanacademy/kmath@0.1.4
+    -   @khanacademy/perseus@12.0.1
+
 ## 2.8.0
 
 ### Minor Changes
