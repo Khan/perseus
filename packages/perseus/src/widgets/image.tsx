@@ -220,7 +220,12 @@ class ImageWidget extends React.Component<Props> {
             }
 
             return (
-                <figure className="perseus-image-widget">
+                <figure
+                    className="perseus-image-widget"
+                    style={{
+                        maxWidth: backgroundImage.width,
+                    }}
+                >
                     {image}
                     {alt}
                     {titleAndCaption}
@@ -260,7 +265,12 @@ class ImageWidget extends React.Component<Props> {
         }
 
         return (
-            <figure className="perseus-image-widget">
+            <figure
+                className="perseus-image-widget"
+                style={{
+                    maxWidth: backgroundImage.width,
+                }}
+            >
                 {title}
                 {image}
                 {alt}
