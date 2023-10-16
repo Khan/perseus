@@ -62,6 +62,7 @@ class HintRenderer extends React.Component<Props> {
         const {isMobile} = apiOptions;
 
         const classNames = classnames(
+            "hint",
             !isMobile && "perseus-hint-renderer",
             isMobile && css(styles.newHint),
             isMobile && lastRendered && css(styles.lastRenderedNewHint),

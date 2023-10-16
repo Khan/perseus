@@ -31,8 +31,10 @@ jobs:
               id: match
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
-                  files: packages/ # Only look for changes in packages
-                  globs: "!(**/__tests__/*), !(**/__stories__/*), !(**/dist/*)" # Ignore test files
+                  files: "packages/, config/build/" # Only look for changes in packages, build
+                  globs: "!(**/__tests__/*), !(**/__testdata__/*), !(**/__stories__/*), !(**/dist/*)" # Ignore test files
+                  matchAllGlobs: true # Default is to match any of the globs, which ends up matching all files
+                  conjunctive: true # Only match files that match all of the above
 
             - name: Verify changeset entries
               uses: Khan/changeset-per-package@v1.0.1
@@ -292,7 +294,12 @@ jobs:
 
             - name: Calculate short SHA for this commit
               id: short-sha
-              run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
+              # Why not GITHUB_SHA here? Because that is the last merge-commit
+              # for the PR (ie. the ephemeral commit that Github creates for
+              # each PR merging the base branch into the pull request HEAD) for
+              # Github Action runs). We want to reference the commit that was
+              # pushed, not this ephemeral commit.
+              run: echo "short_sha=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-8)" >> $GITHUB_OUTPUT
 
             # Note: these two actions are locked to the latest version that were
             # published when I created this yml file (just for security).

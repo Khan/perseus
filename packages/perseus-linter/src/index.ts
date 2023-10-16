@@ -2,6 +2,8 @@ import Rule from "./rule";
 import AllRules from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
+export {libVersion} from "./version";
+
 export {linterContextProps, linterContextDefault} from "./proptypes";
 export type {LinterContextProps} from "./types";
 

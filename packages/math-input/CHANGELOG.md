@@ -1,5 +1,35 @@
 # @khanacademy/math-input
 
+## 14.1.1
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+
+## 14.1.0
+
+### Minor Changes
+
+-   5bcf118c: Desktop Expression Widget now uses v2 keypad
+
+## 14.0.1
+
+### Patch Changes
+
+-   4f8afadd: Fix provided-keypad so that it doesn't re-render unnecessarily.
+-   7d8905b6: Removes "grid" role from keypad to un-muddle screen reader experience.
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/perseus-core@1.1.1
+
+## 14.0.0
+
+### Major Changes
+
+-   14138bb0: Move StatefulKeypadContextProvider into math-input
+-   14138bb0: Hoist keypad active state into keypad context
+
 ## 13.1.0
 
 ### Minor Changes

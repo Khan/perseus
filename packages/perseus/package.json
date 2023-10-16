@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "11.5.1",
+    "version": "12.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -22,13 +22,13 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.3.1",
-        "@khanacademy/kmath": "^0.1.2",
-        "@khanacademy/math-input": "^13.1.0",
-        "@khanacademy/perseus-core": "1.1.0",
-        "@khanacademy/perseus-linter": "^0.3.4",
-        "@khanacademy/pure-markdown": "^0.2.6",
-        "@khanacademy/simple-markdown": "^0.10.0"
+        "@khanacademy/kas": "^0.3.3",
+        "@khanacademy/kmath": "^0.1.4",
+        "@khanacademy/math-input": "^14.1.1",
+        "@khanacademy/perseus-core": "1.1.2",
+        "@khanacademy/perseus-linter": "^0.3.6",
+        "@khanacademy/pure-markdown": "^0.2.8",
+        "@khanacademy/simple-markdown": "^0.10.2"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-button": "^4.1.3",
@@ -58,7 +58,7 @@
         "katex": "^0.11.1",
         "lodash.debounce": "^4.0.8",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#32d9f351aaa68537170b3120a52e99b8def3a2c3",
-        "perseus-build-settings": "^0.2.0",
+        "perseus-build-settings": "^0.2.1",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
         "react-dom": "16.14.0",

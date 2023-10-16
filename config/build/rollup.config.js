@@ -35,7 +35,7 @@ const rootDir = ancesdir(__dirname);
  */
 
 // Kahn's algorithm
-// https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
+// https://en.wikipedia.org/wiki/Topological_sorting#Kahn%27s_algorithm
 const topoSort = (yarnWorkspacesOutput) => {
     const sorted = [];
     // the keys are depended on by the values
@@ -160,7 +160,7 @@ const getFormats = ({configFormats}) =>
  */
 const createConfig = (
     commandLineArgs,
-    {name, format, platform, inputFile, file, plugins},
+    {name, fullName, version, format, platform, inputFile, file, plugins},
 ) => {
     const valueReplacementMappings = {
         __IS_BROWSER__: platform === "browser",
@@ -187,6 +187,16 @@ const createConfig = (
             replace({
                 preventAssignment: true,
                 values: valueReplacementMappings,
+            }),
+            // This replace() plugin instance injects the current package
+            // version and name into the output bundle. This provides useful
+            // runtime information anywhere that Perseus is used.
+            replace({
+                preventAssignment: true,
+                include: [makePackageBasedPath(name, "src/version.ts")],
+                values: {
+                    __lib_version__: version,
+                },
             }),
             alias({
                 entries: {
@@ -266,6 +276,8 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     if (formats.has("cjs")) {
         configs.push({
             name: pkgName,
+            fullName: pkgJson.name,
+            version: pkgJson.version,
             format: "cjs",
             platform: "browser",
             file: pkgJson.main,
@@ -275,6 +287,8 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     if (formats.has("esm")) {
         configs.push({
             name: pkgName,
+            fullName: pkgJson.name,
+            version: pkgJson.version,
             format: "esm",
             platform: "browser",
             file: pkgJson.module,

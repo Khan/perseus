@@ -1,5 +1,54 @@
 # @khanacademy/perseus-editor
 
+## 2.8.1
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+    -   @khanacademy/kas@0.3.3
+    -   @khanacademy/kmath@0.1.4
+    -   @khanacademy/perseus@12.0.1
+
+## 2.8.0
+
+### Minor Changes
+
+-   5bcf118c: Desktop Expression Widget now uses v2 keypad
+
+### Patch Changes
+
+-   5bcf118c: # Update MathInput
+
+    -   `buttonSets` is now deprecated in favor of `keypadButtonSets`, but currently maps to the new prop for backwards compatability.
+    -   `buttonsVisible` is now a bit misleading: "focused" is the default state with a toggle-able keypad and "always" shows the keypad by default.
+
+-   Updated dependencies [5bcf118c]
+-   Updated dependencies [5bcf118c]
+    -   @khanacademy/perseus@12.0.0
+
+## 2.7.7
+
+### Patch Changes
+
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [1721c05c]
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/perseus@11.6.1
+    -   @khanacademy/kas@0.3.2
+    -   @khanacademy/kmath@0.1.3
+    -   @khanacademy/perseus-core@1.1.1
+
+## 2.7.6
+
+### Patch Changes
+
+-   Updated dependencies [0761377a]
+-   Updated dependencies [14138bb0]
+-   Updated dependencies [14138bb0]
+-   Updated dependencies [332d5d6d]
+    -   @khanacademy/perseus@11.6.0
+
 ## 2.7.5
 
 ### Patch Changes

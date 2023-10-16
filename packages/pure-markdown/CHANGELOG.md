@@ -1,5 +1,24 @@
 # @khanacademy/pure-markdown
 
+## 0.2.8
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+    -   @khanacademy/perseus-error@0.2.5
+    -   @khanacademy/simple-markdown@0.10.2
+
+## 0.2.7
+
+### Patch Changes
+
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/perseus-core@1.1.1
+    -   @khanacademy/perseus-error@0.2.4
+    -   @khanacademy/simple-markdown@0.10.1
+
 ## 0.2.6
 
 ### Patch Changes

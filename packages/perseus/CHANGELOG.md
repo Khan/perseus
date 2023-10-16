@@ -1,5 +1,68 @@
 # @khanacademy/perseus
 
+## 12.0.1
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+    -   @khanacademy/kas@0.3.3
+    -   @khanacademy/kmath@0.1.4
+    -   @khanacademy/math-input@14.1.1
+    -   @khanacademy/perseus-linter@0.3.6
+    -   @khanacademy/pure-markdown@0.2.8
+    -   @khanacademy/simple-markdown@0.10.2
+
+## 12.0.0
+
+### Major Changes
+
+-   5bcf118c: # Update MathInput
+
+    -   `buttonSets` is now deprecated in favor of `keypadButtonSets`, but currently maps to the new prop for backwards compatability.
+    -   `buttonsVisible` is now a bit misleading: "focused" is the default state with a toggle-able keypad and "always" shows the keypad by default.
+
+### Minor Changes
+
+-   5bcf118c: Desktop Expression Widget now uses v2 keypad
+
+### Patch Changes
+
+-   Updated dependencies [5bcf118c]
+    -   @khanacademy/math-input@14.1.0
+
+## 11.6.1
+
+### Patch Changes
+
+-   1721c05c: Fix broken Expression Mobile test
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [4f8afadd]
+-   Updated dependencies [7d8905b6]
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/math-input@14.0.1
+    -   @khanacademy/kas@0.3.2
+    -   @khanacademy/kmath@0.1.3
+    -   @khanacademy/perseus-core@1.1.1
+    -   @khanacademy/perseus-linter@0.3.5
+    -   @khanacademy/pure-markdown@0.2.7
+    -   @khanacademy/simple-markdown@0.10.1
+
+## 11.6.0
+
+### Minor Changes
+
+-   0761377a: Ensured we're still validating against pi when strict is set to false and pi is in the answerforms.
+
+### Patch Changes
+
+-   14138bb0: Move StatefulKeypadContextProvider into math-input
+-   14138bb0: Hoist keypad active state into keypad context
+-   332d5d6d: Fix list item rendering in exercises and HintRenderer (LC-1022 & LC-1225)
+-   Updated dependencies [14138bb0]
+-   Updated dependencies [14138bb0]
+    -   @khanacademy/math-input@14.0.0
+
 ## 11.5.1
 
 ### Patch Changes

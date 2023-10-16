@@ -22,6 +22,8 @@ import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
+    setKeypadActive: (keypadActive: boolean) => void;
+    keypadActive: boolean;
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
     style?: StyleType;
@@ -37,12 +39,22 @@ class ProvidedKeypad extends React.Component<Props> implements KeypadAPI {
         this.store = createStore();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.keypadActive && !prevProps.keypadActive) {
+            this.store.dispatch(activateKeypad());
+        }
+
+        if (!this.props.keypadActive && prevProps.keypadActive) {
+            this.store.dispatch(dismissKeypad());
+        }
+    }
+
     activate: () => void = () => {
-        this.store.dispatch(activateKeypad());
+        this.props.setKeypadActive(true);
     };
 
     dismiss: () => void = () => {
-        this.store.dispatch(dismissKeypad());
+        this.props.setKeypadActive(false);
     };
 
     configure: (configuration: KeypadConfiguration, cb: () => void) => void = (
@@ -73,43 +85,47 @@ class ProvidedKeypad extends React.Component<Props> implements KeypadAPI {
         return ReactDOM.findDOMNode(this);
     };
 
+    onElementMounted: (element: any) => void = (element) => {
+        this.props.onAnalyticsEvent({
+            type: "math-input:keypad-opened",
+            payload: {
+                virtualKeypadVersion: "MATH_INPUT_KEYPAD_V1",
+            },
+        });
+
+        // Append the dispatch methods that we want to expose
+        // externally to the returned React element.
+        const elementWithDispatchMethods = {
+            ...element,
+            activate: this.activate,
+            dismiss: this.dismiss,
+            configure: this.configure,
+            setCursor: this.setCursor,
+            setKeyHandler: this.setKeyHandler,
+            getDOMNode: this.getDOMNode,
+        } as const;
+        this.props.onElementMounted?.(elementWithDispatchMethods);
+    };
+
+    onDismiss: () => void = () => {
+        this.props.onAnalyticsEvent({
+            type: "math-input:keypad-closed",
+            payload: {
+                virtualKeypadVersion: "MATH_INPUT_KEYPAD_V1",
+            },
+        });
+
+        this.props.onDismiss?.();
+    };
+
     render(): React.ReactNode {
-        const {onElementMounted, onDismiss, style} = this.props;
+        const {style} = this.props;
 
         return (
             <Provider store={this.store}>
                 <KeypadContainer
-                    onElementMounted={(element) => {
-                        this.props.onAnalyticsEvent({
-                            type: "math-input:keypad-opened",
-                            payload: {
-                                virtualKeypadVersion: "MATH_INPUT_KEYPAD_V1",
-                            },
-                        });
-
-                        // Append the dispatch methods that we want to expose
-                        // externally to the returned React element.
-                        const elementWithDispatchMethods = {
-                            ...element,
-                            activate: this.activate,
-                            dismiss: this.dismiss,
-                            configure: this.configure,
-                            setCursor: this.setCursor,
-                            setKeyHandler: this.setKeyHandler,
-                            getDOMNode: this.getDOMNode,
-                        } as const;
-                        onElementMounted?.(elementWithDispatchMethods);
-                    }}
-                    onDismiss={() => {
-                        this.props.onAnalyticsEvent({
-                            type: "math-input:keypad-closed",
-                            payload: {
-                                virtualKeypadVersion: "MATH_INPUT_KEYPAD_V1",
-                            },
-                        });
-
-                        onDismiss?.();
-                    }}
+                    onElementMounted={this.onElementMounted}
+                    onDismiss={this.onDismiss}
                     style={style}
                 />
             </Provider>

@@ -19,6 +19,9 @@ type Props = {
     apiOptions?: APIOptions;
 };
 
+/**
+ * @depreciated use ServerItemRendererWithDebugUI
+ */
 export const ItemRendererWithDebugUI = ({
     item,
     apiOptions,

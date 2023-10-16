@@ -1,11 +1,10 @@
-export default {
-    apiVersion: {
-        major: 12,
-        minor: 0,
-    },
+// This file is processed by a Rollup plugin (replace) to inject the production
+// version number during the release build.
+// In dev, you'll never see the version number.
 
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
-};
+import {addLibraryVersionToPerseusDebug} from "@khanacademy/perseus-core";
+
+const libName = "@khanacademy/perseus";
+export const libVersion = "__lib_version__";
+
+addLibraryVersionToPerseusDebug(libName, libVersion);

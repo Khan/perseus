@@ -1,7 +1,7 @@
 import {KeypadContext, KeypadType} from "@khanacademy/math-input";
 import * as React from "react";
 
-import {ItemRendererWithDebugUI} from "../../../../../testing/item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {
     expressionItem2,
     expressionItem3,
@@ -10,7 +10,7 @@ import expressionExport from "../expression";
 
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
-import type {PerseusItem} from "../../perseus-types";
+import type {LegacyButtonSets, PerseusItem} from "../../perseus-types";
 import type {Keys as Key} from "@khanacademy/math-input";
 
 type StoryArgs = {
@@ -25,20 +25,27 @@ type Story = {
 type WrappedKeypadContextProps = {
     item: PerseusItem;
     customKeypad: boolean;
+    isMobile?: boolean;
 };
 
-const WrappedKeypadContext = (props: WrappedKeypadContextProps) => {
+const WrappedKeypadContext = ({
+    item,
+    customKeypad,
+    isMobile = false,
+}: WrappedKeypadContextProps) => {
     return (
         <TestKeypadContextWrapper>
             <KeypadContext.Consumer>
-                {({keypadElement, setRenderer, scrollableElement}) => {
+                {({keypadElement}) => {
                     return (
-                        <ItemRendererWithDebugUI
-                            item={props.item}
+                        <ServerItemRendererWithDebugUI
+                            item={item}
+                            keypadElement={keypadElement}
                             // Hardcoding the V2 Keypad to true as the Storybook Args
                             // were not working.
                             apiOptions={{
-                                customKeypad: props.customKeypad,
+                                isMobile: isMobile,
+                                customKeypad: customKeypad,
                                 useV2Keypad: true,
                             }}
                         />
@@ -62,12 +69,12 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
             "logarithms",
             "basic relations",
             "advanced relations",
-        ],
+        ] as LegacyButtonSets,
     };
 
     const keypadConfiguration = {
         keypadType: KeypadType.EXPRESSION,
-        extraKeys: ["x", "y", "z"] as Key[],
+        extraKeys: ["x", "y", "z"] as Array<Key>,
     };
 
     return (
@@ -98,13 +105,17 @@ export const Mobile = (args: StoryArgs): React.ReactElement => {
     return (
         <div>
             <p>
-                For some reason you need to be{" "}
+                MathInput uses touch events;{" "}
                 <a href="https://developer.chrome.com/docs/devtools/device-mode/">
-                    emulating mobile
+                    emulate mobile
                 </a>{" "}
-                to see the custom keypad.
+                to use the custom keypad.
             </p>
-            <WrappedKeypadContext item={expressionItem3} customKeypad={true} />
+            <WrappedKeypadContext
+                item={expressionItem3}
+                customKeypad
+                isMobile
+            />
         </div>
     );
 };
