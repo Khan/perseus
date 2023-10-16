@@ -29,10 +29,24 @@ export const SATPassageItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={satPassageItem} />;
 };
 
-export const SATPassageItemLeftColumn = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={satPassageItem} apiOptions={{renderColumn: "left"}} />;
+export const SATPassageItemLeftColumn = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={satPassageItem}
+            apiOptions={{renderColumn: "left"}}
+        />
+    );
 };
 
-export const SATPassageItemRightColumn = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={satPassageItem} apiOptions={{renderColumn: "right"}}/>;
+export const SATPassageItemRightColumn = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={satPassageItem}
+            apiOptions={{renderColumn: "right"}}
+        />
+    );
 };

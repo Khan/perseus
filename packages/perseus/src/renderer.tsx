@@ -1330,13 +1330,17 @@ class Renderer extends React.Component<Props, State> {
             // things like this
             this._isTwoColumn = true;
             // but then render normally:
-            let columnsState = {
+            const columnsState = {
                 ...state,
                 renderColumn: this.getApiOptions().renderColumn,
             };
             return (
                 <ErrorBoundary key={state.key}>
-                    {PerseusMarkdown.ruleOutput(node, nestedOutput, columnsState)}
+                    {PerseusMarkdown.ruleOutput(
+                        node,
+                        nestedOutput,
+                        columnsState,
+                    )}
                 </ErrorBoundary>
             );
         }

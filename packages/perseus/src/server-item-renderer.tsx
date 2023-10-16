@@ -433,21 +433,21 @@ export class ServerItemRenderer
             <DependenciesContext.Provider value={this.props.dependencies}>
                 <div>
                     <div>{questionRenderer}</div>
-                    {apiOptions.renderColumn !== "left" &&
-                    <div
-                        className={
-                            // Avoid adding any horizontal padding when applying the
-                            // mobile hint styles, which are flush to the left.
-                            // NOTE(charlie): We may still want to apply this
-                            // padding for desktop exercises.
-                            apiOptions.isMobile
-                                ? undefined
-                                : css(styles.hintsContainer)
-                        }
-                    >
-                        {hintsRenderer}
-                    </div>
-                    }
+                    {apiOptions.renderColumn !== "left" && (
+                        <div
+                            className={
+                                // Avoid adding any horizontal padding when applying the
+                                // mobile hint styles, which are flush to the left.
+                                // NOTE(charlie): We may still want to apply this
+                                // padding for desktop exercises.
+                                apiOptions.isMobile
+                                    ? undefined
+                                    : css(styles.hintsContainer)
+                            }
+                        >
+                            {hintsRenderer}
+                        </div>
+                    )}
                 </div>
             </DependenciesContext.Provider>
         );
