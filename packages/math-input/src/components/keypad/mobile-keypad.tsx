@@ -17,17 +17,6 @@ import type {
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-/**
- * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same
- * external API so that it can be hot-swapped with the v1 keypad and
- * is responsible for connecting the keypad with MathInput and the Renderer.
- *
- * Ideally this strategy of attaching methods on the class component for
- * other components to call will be replaced props/callbacks since React
- * doesn't support this type of code anymore (functional components
- * can't have methods attached to them).
- */
-
 type Props = {
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
@@ -45,6 +34,16 @@ type State = {
     cursor?: Cursor;
 };
 
+/**
+ * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same
+ * external API so that it can be hot-swapped with the v1 keypad and
+ * is responsible for connecting the keypad with MathInput and the Renderer.
+ *
+ * Ideally this strategy of attaching methods on the class component for
+ * other components to call will be replaced props/callbacks since React
+ * doesn't support this type of code anymore (functional components
+ * can't have methods attached to them).
+ */
 class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     _containerRef = React.createRef<HTMLDivElement>();
     _containerResizeObserver: ResizeObserver | null = null;
