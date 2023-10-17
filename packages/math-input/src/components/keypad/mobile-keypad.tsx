@@ -48,7 +48,6 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     _containerRef = React.createRef<HTMLDivElement>();
     _containerResizeObserver: ResizeObserver | null = null;
     _throttleResize = false;
-    hasMounted = false;
 
     state: State = {
         containerWidth: 0,
@@ -77,6 +76,15 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                 );
             }
         }
+
+        this.props.onElementMounted?.({
+            activate: this.activate,
+            dismiss: this.dismiss,
+            configure: this.configure,
+            setCursor: this.setCursor,
+            setKeyHandler: this.setKeyHandler,
+            getDOMNode: this.getDOMNode,
+        });
     }
 
     componentWillUnmount() {
@@ -188,28 +196,6 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                 style={containerStyle}
                 dynamicStyle={dynamicStyle}
                 forwardRef={this._containerRef}
-                ref={(element) => {
-                    if (!this.hasMounted && element) {
-                        // TODO(matthewc)[LC-1081]: clean up this weird
-                        // object and type the onElementMounted callback
-                        // Append the dispatch methods that we want to expose
-                        // externally to the returned React element.
-                        const elementWithDispatchMethods = {
-                            ...element,
-                            activate: this.activate,
-                            dismiss: this.dismiss,
-                            configure: this.configure,
-                            setCursor: this.setCursor,
-                            setKeyHandler: this.setKeyHandler,
-                            getDOMNode: this.getDOMNode,
-                        } as const;
-
-                        this.hasMounted = true;
-                        this.props.onElementMounted?.(
-                            elementWithDispatchMethods,
-                        );
-                    }
-                }}
             >
                 <Keypad
                     onAnalyticsEvent={this.props.onAnalyticsEvent}
