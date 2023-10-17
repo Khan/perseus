@@ -18,7 +18,7 @@ export default {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
         },
-        viewport: {defaultViewport: "iPhone 6", viewports: INITIAL_VIEWPORTS},
+        viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
     },
     component: Keypad,
     args: {
