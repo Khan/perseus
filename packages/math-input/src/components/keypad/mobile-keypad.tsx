@@ -3,6 +3,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
+import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 
 import Keypad from "./keypad";
 import {expandedViewThreshold} from "./utils";
@@ -172,48 +173,61 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
             this.state;
 
         const containerStyle = [
-            // internal styles
             styles.keypadContainer,
-            keypadActive && styles.activeKeypadContainer,
             // styles passed as props
             ...(Array.isArray(style) ? style : [style]),
         ];
-
-        // If the keypad is yet to have ever been activated, we keep it invisible
-        // so as to avoid, e.g., the keypad flashing at the bottom of the page
-        // during the initial render.
-        // Done inline (dynamicStyle) since stylesheets might not be loaded yet.
-        let dynamicStyle = {};
-        if (!keypadActive && !hasBeenActivated) {
-            dynamicStyle = {visibility: "hidden"};
-        }
 
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
         const convertDotToTimes = keypadConfig?.times;
 
         return (
-            <View
-                style={containerStyle}
-                dynamicStyle={dynamicStyle}
-                forwardRef={this._containerRef}
+            <AphroditeCssTransitionGroup
+                transitionEnterTimeout={200}
+                transitionLeaveTimeout={200}
+                transitionStyle={{
+                    enter: {
+                        transform: "translate3d(0, 100%, 0)",
+                        transition: "200ms ease-out",
+                    },
+                    enterActive: {
+                        transform: "translate3d(0, 0, 0)",
+                    },
+                    leave: {
+                        transform: "translate3d(0, 0, 0)",
+                        transition: "200ms ease-out",
+                    },
+                    leaveActive: {
+                        transform: "translate3d(0, 100%, 0)",
+                    },
+                }}
             >
-                <Keypad
-                    onAnalyticsEvent={this.props.onAnalyticsEvent}
-                    extraKeys={keypadConfig?.extraKeys}
-                    onClickKey={(key) => this._handleClickKey(key)}
-                    cursorContext={cursor?.context}
-                    fractionsOnly={!isExpression}
-                    convertDotToTimes={convertDotToTimes}
-                    divisionKey={isExpression}
-                    trigonometry={isExpression}
-                    preAlgebra={isExpression}
-                    logarithms={isExpression}
-                    basicRelations={isExpression}
-                    advancedRelations={isExpression}
-                    expandedView={containerWidth > expandedViewThreshold}
-                    showDismiss
-                />
-            </View>
+                {keypadActive ? (
+                    <View
+                        style={containerStyle}
+                        forwardRef={this._containerRef}
+                    >
+                        <Keypad
+                            onAnalyticsEvent={this.props.onAnalyticsEvent}
+                            extraKeys={keypadConfig?.extraKeys}
+                            onClickKey={(key) => this._handleClickKey(key)}
+                            cursorContext={cursor?.context}
+                            fractionsOnly={!isExpression}
+                            convertDotToTimes={convertDotToTimes}
+                            divisionKey={isExpression}
+                            trigonometry={isExpression}
+                            preAlgebra={isExpression}
+                            logarithms={isExpression}
+                            basicRelations={isExpression}
+                            advancedRelations={isExpression}
+                            expandedView={
+                                containerWidth > expandedViewThreshold
+                            }
+                            showDismiss
+                        />
+                    </View>
+                ) : null}
+            </AphroditeCssTransitionGroup>
         );
     }
 }
@@ -224,14 +238,6 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         position: "fixed",
-        transitionProperty: "all",
-        transition: `200ms ease-out`,
-        visibility: "hidden",
-        transform: "translate3d(0, 100%, 0)",
-    },
-    activeKeypadContainer: {
-        transform: "translate3d(0, 0, 0)",
-        visibility: "visible",
     },
 });
 
