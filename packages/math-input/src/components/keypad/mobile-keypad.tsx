@@ -29,7 +29,6 @@ type Props = {
 
 type State = {
     containerWidth: number;
-    hasBeenActivated: boolean;
     keypadConfig?: KeypadConfiguration;
     keyHandler?: KeyHandler;
     cursor?: Cursor;
@@ -52,7 +51,6 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     state: State = {
         containerWidth: 0,
-        hasBeenActivated: false,
     };
 
     componentDidMount() {
@@ -117,9 +115,6 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     activate: () => void = () => {
         this.props.setKeypadActive(true);
-        this.setState({
-            hasBeenActivated: true,
-        });
     };
 
     dismiss: () => void = () => {
@@ -169,8 +164,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     render(): React.ReactNode {
         const {keypadActive, style} = this.props;
-        const {hasBeenActivated, containerWidth, cursor, keypadConfig} =
-            this.state;
+        const {containerWidth, cursor, keypadConfig} = this.state;
 
         const containerStyle = [
             styles.keypadContainer,
