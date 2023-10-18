@@ -11,14 +11,12 @@ function flatten(list?: StyleType): ReadonlyArray<CSSProperties> {
     if (!list) {
         return result;
     }
-
     if (Array.isArray(list)) {
         for (const item of list) {
             result.push(...flatten(item));
         }
     } else {
-        // @ts-expect-error - TS2345 - Argument of type 'CSSProperties | NestedArray<CSSProperties | Falsy>' is not assignable to parameter of type 'CSSProperties'.
-        result.push(list);
+        result.push(list as any);
     }
 
     return result;
