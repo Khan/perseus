@@ -5,7 +5,9 @@ import {Errors, Log} from "./logging/log";
 type Props = {
     children: React.ReactNode;
     metadata?: Record<string, string>;
+    onError?: (error: Error, info: any) => void;
 };
+
 type State = {
     error: string;
 };
@@ -25,6 +27,7 @@ class ErrorBoundary extends React.Component<Props, State> {
                 ...this.props.metadata,
             },
         });
+        this.props.onError?.(error, info);
     }
 
     render(): React.ReactNode {

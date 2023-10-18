@@ -13,7 +13,7 @@ import TeX from "./components/tex";
 import Zoomable from "./components/zoomable";
 import ZoomableTeX from "./components/zoomable-tex";
 import {DefinitionProvider} from "./definition-context";
-import {getDependencies} from "./dependencies";
+import {DependenciesContext, getDependencies} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
 import Objective from "./interactive2/objective_";
@@ -550,21 +550,34 @@ class Renderer extends React.Component<Props, State> {
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return (
-                <ErrorBoundary
-                    key={"container:" + id}
-                    metadata={{widget_type: type, widget_id: id}}
-                >
-                    <WidgetContainer
-                        ref={"container:" + id}
-                        type={type}
-                        initialProps={this.getWidgetProps(id)}
-                        shouldHighlight={shouldHighlight}
-                        linterContext={PerseusLinter.pushContextStack(
-                            this.props.linterContext,
-                            "widget",
-                        )}
-                    />
-                </ErrorBoundary>
+                <DependenciesContext.Consumer>
+                    {(dependencies) => (
+                        <ErrorBoundary
+                            key={"container:" + id}
+                            metadata={{widget_type: type, widget_id: id}}
+                            onError={() => {
+                                dependencies.analytics.onAnalyticsEvent({
+                                    type: "perseus:widget-rendering-error",
+                                    payload: {
+                                        widgetType: type,
+                                        widgetId: id,
+                                    },
+                                });
+                            }}
+                        >
+                            <WidgetContainer
+                                ref={"container:" + id}
+                                type={type}
+                                initialProps={this.getWidgetProps(id)}
+                                shouldHighlight={shouldHighlight}
+                                linterContext={PerseusLinter.pushContextStack(
+                                    this.props.linterContext,
+                                    "widget",
+                                )}
+                            />
+                        </ErrorBoundary>
+                    )}
+                </DependenciesContext.Consumer>
             );
         }
         return null;
