@@ -1146,6 +1146,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                         >
                           <figure
                             class="perseus-image-widget"
+                            style="max-width: 380px;"
                           >
                             <div
                               class="fixed-to-responsive svg-image"

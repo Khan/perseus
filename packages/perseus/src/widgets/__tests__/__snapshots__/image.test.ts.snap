@@ -26,6 +26,7 @@ exports[`image widget - isMobile %b should snapshot: first render 1`] = `
               >
                 <figure
                   class="perseus-image-widget"
+                  style="max-width: 420px;"
                 >
                   <div
                     class="fixed-to-responsive svg-image"
@@ -207,6 +208,7 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
               >
                 <figure
                   class="perseus-image-widget"
+                  style="max-width: 420px;"
                 >
                   <div
                     class="perseus-image-title"
