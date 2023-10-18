@@ -3,4 +3,4 @@
 "@khanacademy/perseus-core": minor
 ---
 
-Added a CEDAR event to notify us of errors in renering widgets
+Added a CEDAR event to notify us of errors in rendering widgets
