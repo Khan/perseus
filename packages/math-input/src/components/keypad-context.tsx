@@ -42,7 +42,10 @@ export function StatefulKeypadContextProvider(props: Props) {
     return (
         <KeypadContext.Provider
             value={{
-                setKeypadActive,
+                setKeypadActive: (active) => {
+                    active; // ?
+                    setKeypadActive(active);
+                },
                 keypadActive,
                 setKeypadElement,
                 keypadElement,

@@ -167,6 +167,7 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     render(): React.ReactNode {
         const {keypadActive, style} = this.props;
         const {containerWidth, cursor, keypadConfig} = this.state;
+        keypadActive; // ?
 
         const containerStyle = [
             styles.keypadContainer,

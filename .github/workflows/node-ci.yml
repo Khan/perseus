@@ -95,7 +95,9 @@ jobs:
 
             - name: Build types
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
-              run: yarn build:types
+              run: |
+                yarn tsc --version
+                yarn build:types
 
             # Run tests for our target matrix
             - id: jest-reset
