@@ -5,7 +5,7 @@ import type {InAnimationStyles} from "./types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
-function flatten(list?: StyleType): Array<CSSProperties> {
+function flatten(list?: StyleType): ReadonlyArray<CSSProperties> {
     const result: Array<CSSProperties> = [];
 
     if (!list) {
@@ -28,8 +28,8 @@ export function processStyleType(style?: StyleType): {
     className: string;
     style: Record<any, any>;
 } {
-    const stylesheetStyles = [];
-    const inlineStyles = [];
+    const stylesheetStyles: Array<CSSProperties> = [];
+    const inlineStyles: Array<CSSProperties> = [];
 
     if (!style) {
         return {
@@ -62,14 +62,11 @@ export function processStyleType(style?: StyleType): {
                         )
                     ] = value;
                 }
-                // @ts-expect-error - TS2345 - Argument of type 'Record<string, any>' is not assignable to parameter of type 'never'.
                 inlineStyles.push(def);
             } else {
-                // @ts-expect-error - TS2345 - Argument of type 'CSSProperties' is not assignable to parameter of type 'never'.
                 stylesheetStyles.push(child);
             }
         } else {
-            // @ts-expect-error - TS2345 - Argument of type 'CSSProperties' is not assignable to parameter of type 'never'.
             inlineStyles.push(child);
         }
     });
@@ -85,7 +82,6 @@ export function processStyleType(style?: StyleType): {
         const inlineStylesStyleSheet = StyleSheet.create({
             inlineStyles: inlineStylesObject,
         });
-        // @ts-expect-error - TS2345 - Argument of type 'CSSProperties' is not assignable to parameter of type 'never'.
         stylesheetStyles.push(inlineStylesStyleSheet.inlineStyles);
     }
 

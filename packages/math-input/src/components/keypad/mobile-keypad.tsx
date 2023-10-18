@@ -18,6 +18,8 @@ import type {
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
+const AnimationDurationInMS = 200;
+
 type Props = {
     onElementMounted?: (arg1: any) => void;
     onDismiss?: () => void;
@@ -177,19 +179,19 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
         return (
             <AphroditeCssTransitionGroup
-                transitionEnterTimeout={200}
-                transitionLeaveTimeout={200}
+                transitionEnterTimeout={AnimationDurationInMS}
+                transitionLeaveTimeout={AnimationDurationInMS}
                 transitionStyle={{
                     enter: {
                         transform: "translate3d(0, 100%, 0)",
-                        transition: "200ms ease-out",
+                        transition: `${AnimationDurationInMS} ease-out`,
                     },
                     enterActive: {
                         transform: "translate3d(0, 0, 0)",
                     },
                     leave: {
                         transform: "translate3d(0, 0, 0)",
-                        transition: "200ms ease-out",
+                        transition: `${AnimationDurationInMS} ease-out`,
                     },
                     leaveActive: {
                         transform: "translate3d(0, 100%, 0)",
