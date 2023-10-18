@@ -31,11 +31,7 @@ function KeypadSwitch(props: Props) {
                     <KeypadComponent
                         {...rest}
                         keypadActive={keypadActive}
-                        setKeypadActive={(active) => {
-                            active; // ?
-                            setKeypadActive.toString(); // ?
-                            setKeypadActive(active);
-                        }}
+                        setKeypadActive={setKeypadActive}
                     />
                 );
             }}

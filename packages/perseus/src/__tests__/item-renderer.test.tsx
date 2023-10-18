@@ -1,7 +1,4 @@
-import {
-    MobileKeypad,
-    StatefulKeypadContextProvider,
-} from "@khanacademy/math-input";
+import {StatefulKeypadContextProvider} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -92,7 +89,6 @@ export const renderQuestion = (
                 <div id="workarea" />
                 <div id="hintsarea" />
                 <Peripherals />
-                <MobileKeypad onAnalyticsEvent={async () => undefined} />
             </StatefulKeypadContextProvider>
         </RenderStateRoot>,
     );
