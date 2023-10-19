@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 14.2.0
+
+### Minor Changes
+
+-   aea0387f: Change mobile-keypad to use AphroditeCSSTransitionGroup to animate mounting/unmounting the keypad when active (prevents DOM elements from being in the DOM unless the keypad is actually open).
+
+### Patch Changes
+
+-   c4ae088f: Upgrades MathQuill to fix Android keyboard error
+
 ## 14.1.1
 
 ### Patch Changes
