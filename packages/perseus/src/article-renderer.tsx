@@ -171,54 +171,54 @@ class ArticleRenderer
         });
 
         // TODO(alex): Add mobile api functions and pass them down here
-        const sections = this._sections().map((section, i) => {
-            const refForSection: any = i;
+        // We're using the index as the key here because we don't have a unique
+        // identifier for each section. This should be fine as we never remove
+        // or reorder sections.
+        const sections = this._sections().map((section, sectionIndex) => {
             return (
-                <DependenciesContext.Provider
-                    key={i}
-                    value={this.props.dependencies}
-                >
-                    <div key={i} className="clearfix">
-                        <Renderer
-                            {...section}
-                            ref={(elem) => {
-                                if (elem != null) {
-                                    this.sectionRenderers[i] = elem;
-                                }
-                            }}
-                            key={i}
-                            key_={i}
-                            keypadElement={this.props.keypadElement}
-                            apiOptions={{
-                                ...apiOptions,
-                                onFocusChange: (newFocusPath, oldFocusPath) => {
-                                    // Prefix the paths with the relevant section,
-                                    // so as to allow us to distinguish between
-                                    // equivalently-named inputs across Renderers.
-                                    this._handleFocusChange(
-                                        newFocusPath &&
-                                            [refForSection].concat(
-                                                newFocusPath,
-                                            ),
-                                        oldFocusPath &&
-                                            [refForSection].concat(
-                                                oldFocusPath,
-                                            ),
-                                    );
-                                },
-                            }}
-                            linterContext={PerseusLinter.pushContextStack(
-                                this.props.linterContext,
-                                "article",
-                            )}
-                            legacyPerseusLint={this.props.legacyPerseusLint}
-                        />
-                    </div>
-                </DependenciesContext.Provider>
+                <div key={sectionIndex} className="clearfix">
+                    <Renderer
+                        {...section}
+                        ref={(elem) => {
+                            if (elem) {
+                                this.sectionRenderers[sectionIndex] = elem;
+                            }
+                        }}
+                        key={sectionIndex}
+                        key_={sectionIndex}
+                        keypadElement={this.props.keypadElement}
+                        apiOptions={{
+                            ...apiOptions,
+                            onFocusChange: (newFocusPath, oldFocusPath) => {
+                                console.log("FOCUS");
+                                // Prefix the paths with the relevant section index,
+                                // so as to allow us to distinguish between
+                                // equivalently-named inputs across Renderers.
+                                this._handleFocusChange(
+                                    newFocusPath &&
+                                        [sectionIndex].concat(newFocusPath),
+                                    oldFocusPath &&
+                                        [sectionIndex].concat(oldFocusPath),
+                                );
+                            },
+                        }}
+                        linterContext={PerseusLinter.pushContextStack(
+                            this.props.linterContext,
+                            "article",
+                        )}
+                        legacyPerseusLint={this.props.legacyPerseusLint}
+                    />
+                </div>
             );
         });
 
-        return <div className={classes}>{sections}</div>;
+        return (
+            <div className={classes}>
+                <DependenciesContext.Provider value={this.props.dependencies}>
+                    {sections}
+                </DependenciesContext.Provider>
+            </div>
+        );
     }
 }
 

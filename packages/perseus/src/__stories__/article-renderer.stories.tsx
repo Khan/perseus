@@ -56,7 +56,7 @@ export const PassageArticle = ({useNewStyles}): any => (
 export const ExpressionArticle = ({useNewStyles}): any => (
     <TestKeypadContextWrapper>
         <KeypadContext.Consumer>
-            {({keypadElement, setRenderer, scrollableElement}) => (
+            {({keypadElement, setRenderer}) => (
                 <ArticleRenderer
                     ref={(node) => {
                         setRenderer(node);
@@ -78,7 +78,7 @@ export const ExpressionArticle = ({useNewStyles}): any => (
 export const MultiSectionedExpressionArticle = ({useNewStyles}): any => (
     <TestKeypadContextWrapper>
         <KeypadContext.Consumer>
-            {({keypadElement, setRenderer, scrollableElement}) => (
+            {({keypadElement, setRenderer}) => (
                 <ArticleRenderer
                     ref={(node) => {
                         setRenderer(node);
