@@ -2944,6 +2944,11 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-timing/-/wonder-blocks-timing-4.0.1.tgz#3ff91cebea54ef827261d833cb70e1dad6b4b549"
   integrity sha512-OOsbO09B60Z1fXvn6LZq8uZHjFvDKLl7fOzkPd+0xZoweCBIH1L0zF+ndnTD4M/pw6QZqw5BZPTtb2s/qLQtTw==
 
+"@khanacademy/wonder-blocks-timing@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-timing/-/wonder-blocks-timing-4.0.2.tgz#84fa99a905f0558a70e493af44a3a6885ddb844c"
+  integrity sha512-LIj31jodAXOi7Yj+QJyRLTCiO4/cPDCR8DSqZbNuA/vliRuePfOjX3ci4BMhnuSyEIu1bTorvcEeASTe/M52hw==
+
 "@khanacademy/wonder-blocks-tooltip@^2.0.11":
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tooltip/-/wonder-blocks-tooltip-2.0.11.tgz#12b01d4808faf45ded33341e1a88e992f38c8333"
