@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 12.1.0
+
+### Minor Changes
+
+-   6dbc58c6: Fix image centering for widget
+
+### Patch Changes
+
+-   c4ae088f: Upgrades MathQuill to fix Android keyboard error
+-   Updated dependencies [c4ae088f]
+-   Updated dependencies [aea0387f]
+    -   @khanacademy/math-input@14.2.0
+
 ## 12.0.1
 
 ### Patch Changes
