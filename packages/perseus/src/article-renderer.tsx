@@ -190,7 +190,6 @@ class ArticleRenderer
                         apiOptions={{
                             ...apiOptions,
                             onFocusChange: (newFocusPath, oldFocusPath) => {
-                                console.log("FOCUS");
                                 // Prefix the paths with the relevant section index,
                                 // so as to allow us to distinguish between
                                 // equivalently-named inputs across Renderers.
