@@ -160,7 +160,7 @@ export type Widget = {
 };
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
-    apiOptions: APIOptions;
+    apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
     highlightedWidgets?: ReadonlyArray<any>;
