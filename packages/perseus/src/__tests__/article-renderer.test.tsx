@@ -3,7 +3,7 @@ import {
     KeypadContext,
 } from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {render, screen} from "@testing-library/react";
+import {screen, render, fireEvent, waitFor} from "@testing-library/react";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers
 
@@ -11,17 +11,30 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
-import {multiSectionArticleWithExpression} from "../__testdata__/article-renderer.testdata";
+import KeypadSwitch from "../../../math-input/src/components/keypad-switch";
+import {articleWithExpression} from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
-import {registerWidget} from "../widgets";
-import ExpressionExport from "../widgets/expression";
-
-import MockWidgetExport from "./mock-widget";
 
 import type {APIOptions} from "../types";
 
+function KeypadWithContext() {
+    return (
+        <KeypadContext.Consumer>
+            {({setKeypadElement}) => {
+                return (
+                    <KeypadSwitch
+                        onElementMounted={setKeypadElement}
+                        onDismiss={() => {}}
+                        onAnalyticsEvent={async () => {}}
+                        useV2Keypad
+                    />
+                );
+            }}
+        </KeypadContext.Consumer>
+    );
+}
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ArticleRenderer instead of Renderer
 export const RenderArticle = (
@@ -41,17 +54,14 @@ export const RenderArticle = (
                                 renderer = node;
                                 setRenderer(node);
                             }}
-                            json={multiSectionArticleWithExpression}
+                            json={articleWithExpression}
                             dependencies={testDependenciesV2}
                             apiOptions={{...apiOptions}}
                             keypadElement={keypadElement}
                         />
                     )}
                 </KeypadContext.Consumer>
-                {/* The ItemRenderer _requires_ two divs: a work area and hints
-                area. Without both of these, it fails to render anything! */}
-                <div id="workarea" />
-                <div id="hintsarea" />
+                <KeypadWithContext />
             </StatefulKeypadContextProvider>
         </RenderStateRoot>,
     );
@@ -62,11 +72,6 @@ export const RenderArticle = (
 };
 
 describe("article renderer", () => {
-    beforeAll(() => {
-        registerWidget("mock-widget", MockWidgetExport);
-        registerWidget("expression-widget", ExpressionExport);
-    });
-
     beforeEach(() => {
         // Mock ResizeObserver used by the mobile keypad
         window.ResizeObserver = jest.fn().mockImplementation(() => ({
@@ -97,6 +102,30 @@ describe("article renderer", () => {
         });
 
         // Assert
-        expect(screen.queryAllByRole("textbox")).toHaveLength(3);
+        expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
+    it("should call the onFocusChanged callback when an input is focused", async () => {
+        // Arrange
+        const answerableCallback = jest.fn();
+
+        // Act
+        RenderArticle({
+            ...ApiOptions.defaults,
+            onFocusChange: answerableCallback,
+            isMobile: true,
+            customKeypad: true,
+        });
+
+        const input = screen.getByLabelText(
+            "Math input box Tap with one or two fingers to open keyboard",
+        );
+
+        fireEvent.touchStart(input);
+
+        await waitFor(() => {
+            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        });
+        expect(answerableCallback).toHaveBeenCalled();
     });
 });
