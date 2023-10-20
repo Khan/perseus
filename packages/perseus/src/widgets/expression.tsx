@@ -21,12 +21,7 @@ import type {
     PerseusExpressionWidgetOptions,
     PerseusExpressionAnswerForm,
 } from "../perseus-types";
-import type {
-    APIOptions,
-    PerseusScore,
-    WidgetExports,
-    WidgetProps,
-} from "../types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -55,20 +50,6 @@ const insertBraces = (value) => {
     //
     // TODO(alex): Properly hack MathQuill to always use explicit braces.
     return value.replace(/([_^])([^{])/g, "$1{$2}");
-};
-
-const deriveKeypadVersion = (apiOptions: APIOptions) => {
-    // We can derive which version of the keypad is in use. This is
-    // a bit tricky, but this code will be relatively short-lived
-    // as we coalesce onto the new, v2 Keypad, at which point we
-    // can remove this `virtualKeypadVersion` field entirely.
-    return apiOptions.nativeKeypadProxy != null
-        ? "REACT_NATIVE_KEYPAD"
-        : apiOptions.customKeypad === true
-        ? apiOptions.useV2Keypad === true
-            ? "MATH_INPUT_KEYPAD_V2"
-            : "MATH_INPUT_KEYPAD_V1"
-        : "PERSEUS_MATH_INPUT";
 };
 
 type Rubric = PerseusExpressionWidgetOptions;
@@ -371,24 +352,12 @@ export class Expression extends React.Component<Props, ExpressionState> {
     simpleValidate: (
         rubric: Rubric,
         onInputError: OnInputErrorFunctionType,
-    ) => PerseusScore = (rubric, onInputError) => {
-        onInputError = onInputError || function () {};
-        const result = Expression.validate(
+    ) => PerseusScore = (rubric, onInputError) =>
+        Expression.validate(
             this.getUserInput(),
             rubric,
-            onInputError,
+            onInputError || function () {},
         );
-
-        this.sendExpressionEvaluatedEvent(
-            result.type === "invalid"
-                ? "invalid"
-                : result.earned === result.total
-                ? "correct"
-                : "incorrect",
-        );
-
-        return result;
-    };
 
     getUserInput: () => string = () => {
         return Expression.getUserInputFromProps(this.props);
@@ -493,18 +462,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
             cb,
         );
     };
-
-    sendExpressionEvaluatedEvent(result: "correct" | "incorrect" | "invalid") {
-        this.props.analytics?.onAnalyticsEvent({
-            type: "perseus:expression-evaluated",
-            payload: {
-                result,
-                virtualKeypadVersion: deriveKeypadVersion(
-                    this.props.apiOptions,
-                ),
-            },
-        });
-    }
 
     render():
         | React.ReactNode

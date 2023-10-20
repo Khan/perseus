@@ -29,6 +29,7 @@ import preprocessTex from "./util/katex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
 
+import type {DependenciesContext} from "./dependencies";
 import type {PerseusRenderer, PerseusWidgetOptions} from "./perseus-types";
 import type {
     APIOptions,
@@ -51,6 +52,20 @@ const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
 const noopOnRender = () => {};
 
 const SHOULD_CLEAR_WIDGETS_PROP_LIST = ["content", "problemNum", "widgets"];
+
+const deriveKeypadVersion = (apiOptions: APIOptions) => {
+    // We can derive which version of the keypad is in use. This is
+    // a bit tricky, but this code will be relatively short-lived
+    // as we coalesce onto the new, v2 Keypad, at which point we
+    // can remove this `virtualKeypadVersion` field entirely.
+    return apiOptions.nativeKeypadProxy != null
+        ? "REACT_NATIVE_KEYPAD"
+        : apiOptions.customKeypad === true
+        ? apiOptions.useV2Keypad === true
+            ? "MATH_INPUT_KEYPAD_V2"
+            : "MATH_INPUT_KEYPAD_V1"
+        : "PERSEUS_MATH_INPUT";
+};
 
 // Check if one focus path / id path is a prefix of another
 // The focus path null will never be a prefix of any non-null
@@ -144,8 +159,8 @@ export type Widget = {
     examples?: () => ReadonlyArray<string>;
 };
 
-type Props = {
-    apiOptions?: APIOptions;
+type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
+    apiOptions: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
     highlightedWidgets?: ReadonlyArray<any>;
@@ -1780,10 +1795,29 @@ class Renderer extends React.Component<Props, State> {
             const widget = this.getWidgetInstance(id);
             // widget can be undefined if it hasn't yet been rendered
             if (widget && widget.simpleValidate) {
-                widgetScores[id] = widget.simpleValidate(
+                const score = widget.simpleValidate(
                     props?.options,
                     onInputError,
                 );
+                widgetScores[id] = score;
+                if (
+                    widget["displayName"] === "Expression" &&
+                    score.type !== "invalid" &&
+                    this.props.apiOptions
+                ) {
+                    this.props.analytics?.onAnalyticsEvent({
+                        type: "perseus:expression-evaluated",
+                        payload: {
+                            result:
+                                score.earned === score.total
+                                    ? "correct"
+                                    : "incorrect",
+                            virtualKeypadVersion: deriveKeypadVersion(
+                                this.props.apiOptions,
+                            ),
+                        },
+                    });
+                }
             }
         });
 
