@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@1.7.0/schema.json",
-  "changelog": ["@changesets/changelog-github", {"repo": "Khan/webapp"}],
+  "changelog": ["@changesets/changelog-github", {"repo": "Khan/perseus"}],
   "commit": false,
   "linked": [],
   "access": "public",
