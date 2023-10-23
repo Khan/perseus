@@ -21,6 +21,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.21.0",
+    "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.22.0",
     "@cypress/code-coverage": "^3.10.0",
     "@cypress/react": "^7.0.2",
