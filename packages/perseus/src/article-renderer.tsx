@@ -91,16 +91,18 @@ class ArticleRenderer
         let focusedInput;
 
         if (this._currentFocus) {
-            const [sectionRef, ...focusPath] = this._currentFocus;
+            const [sectionIndex, ...focusPath] = this._currentFocus;
 
             const inputPaths =
-                this.sectionRenderers[sectionRef].getInputPaths();
+                this.sectionRenderers[sectionIndex].getInputPaths();
 
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
             });
             focusedInput =
-                this.sectionRenderers[sectionRef].getDOMNodeForPath(focusPath);
+                this.sectionRenderers[sectionIndex].getDOMNodeForPath(
+                    focusPath,
+                );
         }
 
         if (this.props.apiOptions.onFocusChange != null) {
@@ -144,8 +146,8 @@ class ArticleRenderer
 
     blur: () => void = () => {
         if (this._currentFocus) {
-            const [sectionRef, ...inputPath] = this._currentFocus;
-            this.sectionRenderers[sectionRef].blurPath(inputPath);
+            const [sectionIndex, ...inputPath] = this._currentFocus;
+            this.sectionRenderers[sectionIndex].blurPath(inputPath);
         }
     };
 
