@@ -36,9 +36,6 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [16.x]
-        permissions:
-            contents: read
-            pull-requests: read
         steps:
             - uses: actions/checkout@v2
               with:

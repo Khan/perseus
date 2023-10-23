@@ -269,9 +269,6 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [16.x]
-        permissions:
-            contents: read
-            pull-requests: read
         steps:
             # We need to checkout all history, so that the changeseat tool can diff it
             - name: Checkout current commit
@@ -294,6 +291,7 @@ jobs:
               run: ./utils/publish-snapshot.sh # All config is via Github env vars
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Calculate short SHA for this commit
               id: short-sha
