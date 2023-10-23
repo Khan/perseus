@@ -18,7 +18,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@v3
               with:
                   fetch-depth: 0
 
@@ -50,7 +50,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -128,7 +128,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -154,7 +154,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -177,7 +177,7 @@ jobs:
         runs-on: ubuntu-latest
         needs: [cypress, coverage]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -218,7 +218,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -247,7 +247,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -355,7 +355,7 @@ jobs:
                 node-version: [16.x]
         steps:
             # chromaui/@action doesn't work with shallow checkouts which is the
-            # default for actions/checkout@v3 so we need to force it to checkout
+            # default for actions/checkout so we need to force it to checkout
             # more stuff.
             - uses: actions/checkout@v3
               with:
