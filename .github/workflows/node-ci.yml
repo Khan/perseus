@@ -269,6 +269,9 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [16.x]
+        permissions:
+            contents: read
+            pull-requests: read
         steps:
             # We need to checkout all history, so that the changeseat tool can diff it
             - name: Checkout current commit
