@@ -7,6 +7,7 @@ import {
     multiSectionArticle,
     passageArticle,
     articleWithExpression,
+    multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import TestKeypadContextWrapper from "../widgets/__stories__/test-keypad-context-wrapper";
@@ -55,7 +56,7 @@ export const PassageArticle = ({useNewStyles}): any => (
 export const ExpressionArticle = ({useNewStyles}): any => (
     <TestKeypadContextWrapper>
         <KeypadContext.Consumer>
-            {({keypadElement, setRenderer, scrollableElement}) => (
+            {({keypadElement, setRenderer}) => (
                 <ArticleRenderer
                     ref={(node) => {
                         setRenderer(node);
@@ -63,7 +64,32 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                     json={articleWithExpression}
                     dependencies={storybookDependenciesV2}
                     useNewStyles={useNewStyles}
-                    apiOptions={{isMobile: true, customKeypad: true}}
+                    apiOptions={{
+                        isMobile: true,
+                        customKeypad: true,
+                    }}
+                    keypadElement={keypadElement}
+                />
+            )}
+        </KeypadContext.Consumer>
+    </TestKeypadContextWrapper>
+);
+
+export const MultiSectionedExpressionArticle = ({useNewStyles}): any => (
+    <TestKeypadContextWrapper>
+        <KeypadContext.Consumer>
+            {({keypadElement, setRenderer}) => (
+                <ArticleRenderer
+                    ref={(node) => {
+                        setRenderer(node);
+                    }}
+                    json={multiSectionArticleWithExpression}
+                    dependencies={storybookDependenciesV2}
+                    useNewStyles={useNewStyles}
+                    apiOptions={{
+                        isMobile: true,
+                        customKeypad: true,
+                    }}
                     keypadElement={keypadElement}
                 />
             )}
