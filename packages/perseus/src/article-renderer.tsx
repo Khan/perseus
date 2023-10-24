@@ -19,20 +19,19 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-type Props = Partial<React.ContextType<typeof DependenciesContext>> &
-    KeypadProps & {
-        apiOptions: APIOptions;
-        json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
-        // Whether to use the new Bibliotron styles for articles
-        /**
-         * @deprecated Does nothing
-         */
-        useNewStyles: boolean;
-        linterContext: LinterContextProps;
-        legacyPerseusLint?: ReadonlyArray<string>;
-        keypadElement?: KeypadAPI | null | undefined;
-        dependencies: PerseusDependenciesV2;
-    };
+type Props = {
+    apiOptions: APIOptions;
+    json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+    // Whether to use the new Bibliotron styles for articles
+    /**
+     * @deprecated Does nothing
+     */
+    useNewStyles: boolean;
+    linterContext: LinterContextProps;
+    legacyPerseusLint?: ReadonlyArray<string>;
+    keypadElement?: KeypadAPI | null | undefined;
+    dependencies: PerseusDependenciesV2;
+} & KeypadProps;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
@@ -179,41 +178,38 @@ class ArticleRenderer
         // or reorder sections.
         const sections = this._sections().map((section, sectionIndex) => {
             return (
-                <DependenciesContext.Provider value={this.props.dependencies}>
-                    <div key={i} className="clearfix">
-                        <Renderer
-                            {...section}
-                            ref={refForSection}
-                            key={i}
-                            key_={i}
-                            keypadElement={this.props.keypadElement}
-                            apiOptions={{
-                                ...apiOptions,
-                                onFocusChange: (newFocusPath, oldFocusPath) => {
-                                    // Prefix the paths with the relevant section,
-                                    // so as to allow us to distinguish between
-                                    // equivalently-named inputs across Renderers.
-                                    this._handleFocusChange(
-                                        newFocusPath &&
-                                            [refForSection].concat(
-                                                newFocusPath,
-                                            ),
-                                        oldFocusPath &&
-                                            [refForSection].concat(
-                                                oldFocusPath,
-                                            ),
-                                    );
-                                },
-                            }}
-                            linterContext={PerseusLinter.pushContextStack(
-                                this.props.linterContext,
-                                "article",
-                            )}
-                            legacyPerseusLint={this.props.legacyPerseusLint}
-                            {...this.props.dependencies}
-                        />
-                    </div>
-                </DependenciesContext.Provider>
+                <div key={sectionIndex} className="clearfix">
+                    <Renderer
+                        {...section}
+                        ref={(elem) => {
+                            if (elem) {
+                                this.sectionRenderers[sectionIndex] = elem;
+                            }
+                        }}
+                        key={sectionIndex}
+                        key_={sectionIndex}
+                        keypadElement={this.props.keypadElement}
+                        apiOptions={{
+                            ...apiOptions,
+                            onFocusChange: (newFocusPath, oldFocusPath) => {
+                                // Prefix the paths with the relevant section index,
+                                // so as to allow us to distinguish between
+                                // equivalently-named inputs across Renderers.
+                                this._handleFocusChange(
+                                    newFocusPath &&
+                                        [sectionIndex].concat(newFocusPath),
+                                    oldFocusPath &&
+                                        [sectionIndex].concat(oldFocusPath),
+                                );
+                            },
+                        }}
+                        linterContext={PerseusLinter.pushContextStack(
+                            this.props.linterContext,
+                            "article",
+                        )}
+                        legacyPerseusLint={this.props.legacyPerseusLint}
+                    />
+                </div>
             );
         });
 
