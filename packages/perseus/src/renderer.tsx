@@ -223,6 +223,8 @@ class Renderer extends React.Component<Props, State> {
     // The i18n linter.
     _translationLinter: TranslationLinter;
 
+    _widgetContainers: Map<string, WidgetContainer> = new Map();
+
     lastRenderedMarkdown: React.ReactNode;
     // @ts-expect-error - TS2564 - Property 'reuseMarkdown' has no initializer and is not definitely assigned in the constructor.
     reuseMarkdown: boolean;
@@ -390,9 +392,7 @@ class Renderer extends React.Component<Props, State> {
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
         _.each(this.widgetIds, (id) => {
-            // eslint-disable-next-line react/no-string-refs
-            const container = this.refs["container:" + id];
-            // @ts-expect-error - TS2339 - Property 'replaceWidgetProps' does not exist on type 'ReactInstance'.
+            const container = this._widgetContainers.get("container:" + id);
             container && container.replaceWidgetProps(this.getWidgetProps(id));
         });
 
@@ -555,7 +555,14 @@ class Renderer extends React.Component<Props, State> {
                     metadata={{widget_type: type, widget_id: id}}
                 >
                     <WidgetContainer
-                        ref={"container:" + id}
+                        ref={(node) => {
+                            const containerId = "container:" + id;
+                            if (node != null) {
+                                this._widgetContainers.set(containerId, node);
+                            } else {
+                                this._widgetContainers.delete(containerId);
+                            }
+                        }}
                         type={type}
                         initialProps={this.getWidgetProps(id)}
                         shouldHighlight={shouldHighlight}
@@ -853,15 +860,11 @@ class Renderer extends React.Component<Props, State> {
         ];
     };
 
-    getWidgetInstance: (id: string) => Widget | null | undefined = (
-        id: string,
-    ): Widget | null | undefined => {
-        // eslint-disable-next-line react/no-string-refs
-        const ref = this.refs["container:" + id];
+    getWidgetInstance: (id: string) => Widget | null | undefined = (id) => {
+        const ref = this._widgetContainers.get("container:" + id);
         if (!ref) {
             return null;
         }
-        // @ts-expect-error - TS2339 - Property 'getWidget' does not exist on type 'ReactInstance'.
         return ref.getWidget();
     };
 
