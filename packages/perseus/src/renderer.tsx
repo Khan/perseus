@@ -53,20 +53,6 @@ const noopOnRender = () => {};
 
 const SHOULD_CLEAR_WIDGETS_PROP_LIST = ["content", "problemNum", "widgets"];
 
-const deriveKeypadVersion = (apiOptions: APIOptions) => {
-    // We can derive which version of the keypad is in use. This is
-    // a bit tricky, but this code will be relatively short-lived
-    // as we coalesce onto the new, v2 Keypad, at which point we
-    // can remove this `virtualKeypadVersion` field entirely.
-    return apiOptions.nativeKeypadProxy != null
-        ? "REACT_NATIVE_KEYPAD"
-        : apiOptions.customKeypad === true
-        ? apiOptions.useV2Keypad === true
-            ? "MATH_INPUT_KEYPAD_V2"
-            : "MATH_INPUT_KEYPAD_V1"
-        : "PERSEUS_MATH_INPUT";
-};
-
 // Check if one focus path / id path is a prefix of another
 // The focus path null will never be a prefix of any non-null
 // path, since it represents no focus.
@@ -1795,29 +1781,10 @@ class Renderer extends React.Component<Props, State> {
             const widget = this.getWidgetInstance(id);
             // widget can be undefined if it hasn't yet been rendered
             if (widget && widget.simpleValidate) {
-                const score = widget.simpleValidate(
-                    props?.options,
+                widgetScores[id] = widget.simpleValidate(
+                    {...props?.options, scoring: true},
                     onInputError,
                 );
-                widgetScores[id] = score;
-                if (
-                    widget["displayName"] === "Expression" &&
-                    score.type !== "invalid" &&
-                    this.props.apiOptions
-                ) {
-                    this.props.analytics?.onAnalyticsEvent({
-                        type: "perseus:expression-evaluated",
-                        payload: {
-                            result:
-                                score.earned === score.total
-                                    ? "correct"
-                                    : "incorrect",
-                            virtualKeypadVersion: deriveKeypadVersion(
-                                this.props.apiOptions,
-                            ),
-                        },
-                    });
-                }
             }
         });
 
