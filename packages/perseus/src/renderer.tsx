@@ -550,28 +550,25 @@ class Renderer extends React.Component<Props, State> {
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return (
-                <ErrorBoundary
+                <WidgetContainer
                     key={"container:" + id}
-                    metadata={{widget_type: type, widget_id: id}}
-                >
-                    <WidgetContainer
-                        ref={(node) => {
-                            const containerId = "container:" + id;
-                            if (node != null) {
-                                this._widgetContainers.set(containerId, node);
-                            } else {
-                                this._widgetContainers.delete(containerId);
-                            }
-                        }}
-                        type={type}
-                        initialProps={this.getWidgetProps(id)}
-                        shouldHighlight={shouldHighlight}
-                        linterContext={PerseusLinter.pushContextStack(
-                            this.props.linterContext,
-                            "widget",
-                        )}
-                    />
-                </ErrorBoundary>
+                    id={id}
+                    ref={(node) => {
+                        const containerId = "container:" + id;
+                        if (node != null) {
+                            this._widgetContainers.set(containerId, node);
+                        } else {
+                            this._widgetContainers.delete(containerId);
+                        }
+                    }}
+                    type={type}
+                    initialProps={this.getWidgetProps(id)}
+                    shouldHighlight={shouldHighlight}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "widget",
+                    )}
+                />
             );
         }
         return null;

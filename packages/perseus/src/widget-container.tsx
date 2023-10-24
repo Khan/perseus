@@ -4,6 +4,8 @@ import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import {DependenciesContext} from "./dependencies";
+import ErrorBoundary from "./error-boundary";
 import {zIndexInteractiveComponent} from "./styles/constants";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import * as Widgets from "./widgets";
@@ -15,6 +17,7 @@ import type {LinterContextProps} from "@khanacademy/perseus-linter";
 type Props = {
     shouldHighlight: boolean;
     type: string; // widget type/name,
+    id: string; // widget id
     initialProps: WidgetProps<any, PerseusWidgetOptions>;
     linterContext: LinterContextProps;
 };
@@ -134,13 +137,32 @@ class WidgetContainer extends React.Component<Props, State> {
                 className={className}
                 style={isStatic ? staticContainerStyles : {}}
             >
-                <WidgetType
-                    {...this.state.widgetProps}
-                    linterContext={linterContext}
-                    containerSizeClass={this.state.sizeClass}
-                    ref={this.widgetRef}
-                />
-                {isStatic && <div style={staticOverlayStyles} />}
+                <DependenciesContext.Consumer>
+                    {({analytics}) => (
+                        <ErrorBoundary
+                            metadata={{
+                                widget_type: type,
+                                widget_id: this.props.id,
+                            }}
+                            onError={(error) => {
+                                analytics.onAnalyticsEvent({
+                                    type: "perseus:widget-rendering-error",
+                                    payload: {
+                                        widgetType: type,
+                                    },
+                                });
+                            }}
+                        >
+                            <WidgetType
+                                {...this.state.widgetProps}
+                                linterContext={linterContext}
+                                containerSizeClass={this.state.sizeClass}
+                                ref={this.widgetRef}
+                            />
+                            {isStatic && <div style={staticOverlayStyles} />}
+                        </ErrorBoundary>
+                    )}
+                </DependenciesContext.Consumer>
             </div>
         );
     }

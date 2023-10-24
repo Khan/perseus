@@ -8,15 +8,18 @@ import TestUtils from "react-dom/test-utils";
 import _ from "underscore";
 import "jest-enzyme";
 
-import {ClassNames, Dependencies, Renderer} from "@khanacademy/perseus";
-
 import {testDependencies} from "../../../../testing/test-dependencies";
+import * as Dependencies from "../dependencies";
+import {ClassNames} from "../perseus-api";
+import Renderer from "../renderer";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 
 import imageItem from "./test-items/image-item";
 import inputNumber1Item from "./test-items/input-number-1-item";
 import inputNumber2Item from "./test-items/input-number-2-item";
 import tableItem from "./test-items/table-item";
+
+import type {APIOptions} from "../types";
 
 const itemWidget = inputNumber1Item;
 
@@ -30,16 +33,20 @@ const delayedPromise = (value: undefined) => {
     return deferred.promise();
 };
 
-const renderQuestionArea = function (item, apiOptions): any {
+const renderQuestionArea = function (item, apiOptions?: APIOptions): any {
     const wrapper = mount(
         <RenderStateRoot>
-            <Renderer
-                content={item.question.content}
-                images={item.question.images}
-                widgets={item.question.widgets}
-                problemNum={0}
-                apiOptions={apiOptions}
-            />
+            <Dependencies.DependenciesContext.Provider
+                value={{analytics: {onAnalyticsEvent: async () => undefined}}}
+            >
+                <Renderer
+                    content={item.question.content}
+                    images={item.question.images}
+                    widgets={item.question.widgets}
+                    problemNum={0}
+                    apiOptions={apiOptions}
+                />
+            </Dependencies.DependenciesContext.Provider>
         </RenderStateRoot>,
         {includeDefaultTestHarness: false},
     );
@@ -56,7 +63,6 @@ describe("Perseus API", function () {
 
     describe("setInputValue", function () {
         it("should be able to produce a correctly graded value", function () {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const renderer = renderQuestionArea(inputNumber1Item);
             renderer.setInputValue(["input-number 1"], "5");
             const score = renderer.guessAndScore()[1];
@@ -65,7 +71,6 @@ describe("Perseus API", function () {
         });
 
         it("should be able to produce a wrong value", function () {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const renderer = renderQuestionArea(inputNumber1Item);
             renderer.setInputValue(["input-number 1"], "3", () => {});
             const score = renderer.guessAndScore()[1];
@@ -74,7 +79,6 @@ describe("Perseus API", function () {
         });
 
         it("should be able to produce an empty score", function () {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const renderer = renderQuestionArea(inputNumber1Item);
             renderer.setInputValue(["input-number 1"], "3");
             let score = renderer.guessAndScore()[1];
@@ -86,7 +90,6 @@ describe("Perseus API", function () {
         });
 
         it("should be able to accept a callback", function (done) {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const renderer = renderQuestionArea(inputNumber1Item);
             renderer.setInputValue(["input-number 1"], "3", function () {
                 const guess = renderer.getUserInput()[0];
@@ -99,14 +102,12 @@ describe("Perseus API", function () {
 
     describe("getInputPaths", function () {
         it("should be able to find all the input widgets", function () {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const renderer = renderQuestionArea(inputNumber2Item);
             const numPaths = renderer.getInputPaths().length;
             expect(numPaths).toBe(2);
         });
 
         it("should be able to find all inputs within widgets", function () {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const renderer = renderQuestionArea(tableItem);
             const numPaths = renderer.getInputPaths().length;
             expect(numPaths).toBe(8);
@@ -115,7 +116,6 @@ describe("Perseus API", function () {
 
     describe("getDOMNodeForPath", function () {
         it("should find one DOM node per <input>", function () {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const renderer = renderQuestionArea(inputNumber2Item);
             const inputPaths = renderer.getInputPaths();
             const allInputs = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -126,7 +126,6 @@ describe("Perseus API", function () {
         });
 
         it("should find the right DOM nodes for the <input>s", function () {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const renderer = renderQuestionArea(inputNumber2Item);
             const inputPaths = renderer.getInputPaths();
             const allInputs = TestUtils.scryRenderedDOMComponentsWithTag(
@@ -165,11 +164,7 @@ describe("Perseus API", function () {
                 // version
                 expect(ClassNames.FOCUSED).toBe("perseus-focused");
 
-                const renderer = renderQuestionArea(inputNumber1Item, {
-                    interceptInputFocus: function (widgetId) {
-                        renderer.setInputValue(widgetId, "5");
-                    },
-                });
+                const renderer = renderQuestionArea(inputNumber1Item);
 
                 const input =
                     // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'querySelector' does not exist on type 'Element | Text'.
