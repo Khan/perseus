@@ -369,25 +369,31 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     simpleValidate: (
-        rubric: Rubric,
+        rubric: Rubric & {scoring?: boolean},
         onInputError: OnInputErrorFunctionType,
-    ) => PerseusScore = (rubric, onInputError) => {
-        onInputError = onInputError || function () {};
-        const result = Expression.validate(
+    ) => PerseusScore = ({scoring, ...rubric}, onInputError) => {
+        const score = Expression.validate(
             this.getUserInput(),
             rubric,
-            onInputError,
+            onInputError || function () {},
         );
 
-        this.sendExpressionEvaluatedEvent(
-            result.type === "invalid"
-                ? "invalid"
-                : result.earned === result.total
-                ? "correct"
-                : "incorrect",
-        );
+        // "scoring" is a flag that indicates when we are checking answers.
+        // otherwise, we may just be checking validity after changes.
+        if (scoring && score.type !== "invalid") {
+            this.props.analytics?.onAnalyticsEvent({
+                type: "perseus:expression-evaluated",
+                payload: {
+                    result:
+                        score.earned === score.total ? "correct" : "incorrect",
+                    virtualKeypadVersion: deriveKeypadVersion(
+                        this.props.apiOptions,
+                    ),
+                },
+            });
+        }
 
-        return result;
+        return score;
     };
 
     getUserInput: () => string = () => {
@@ -493,18 +499,6 @@ export class Expression extends React.Component<Props, ExpressionState> {
             cb,
         );
     };
-
-    sendExpressionEvaluatedEvent(result: "correct" | "incorrect" | "invalid") {
-        this.props.analytics?.onAnalyticsEvent({
-            type: "perseus:expression-evaluated",
-            payload: {
-                result,
-                virtualKeypadVersion: deriveKeypadVersion(
-                    this.props.apiOptions,
-                ),
-            },
-        });
-    }
 
     render():
         | React.ReactNode

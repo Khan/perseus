@@ -71,14 +71,6 @@ const assertInvalid = (
     }
     const [_, score] = renderer.guessAndScore();
     expect(score).toMatchObject({type: "invalid"});
-
-    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
-        type: "perseus:expression-evaluated",
-        payload: {
-            result: "invalid",
-            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
-        },
-    });
 };
 
 describe("Expression Widget", function () {
@@ -86,6 +78,9 @@ describe("Expression Widget", function () {
         jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
+        );
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
+            testDependenciesV2,
         );
     });
 
@@ -208,11 +203,19 @@ describe("Expression Widget", function () {
                     // widget did anything useful or that the keypad worked. We
                     // just want to make sure the code that derives which
                     // keypad version it detected is correct.
-                    result: "invalid",
+                    result: "correct",
                     virtualKeypadVersion,
                 },
             });
         };
+
+        beforeEach(() => {
+            jest.spyOn(Expression, "validate").mockReturnValue({
+                type: "points",
+                earned: 1,
+                total: 1,
+            });
+        });
 
         it("should set the virtual keypad version to REACT_NATIVE_KEYPAD when nativeKeypadProxy is provided", () => {
             assertKeypadVersion(

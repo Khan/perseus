@@ -19,19 +19,20 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-type Props = {
-    apiOptions: APIOptions;
-    json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
-    // Whether to use the new Bibliotron styles for articles
-    /**
-     * @deprecated Does nothing
-     */
-    useNewStyles: boolean;
-    linterContext: LinterContextProps;
-    legacyPerseusLint?: ReadonlyArray<string>;
-    keypadElement?: KeypadAPI | null | undefined;
-    dependencies: PerseusDependenciesV2;
-} & KeypadProps;
+type Props = Partial<React.ContextType<typeof DependenciesContext>> &
+    KeypadProps & {
+        apiOptions: APIOptions;
+        json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+        // Whether to use the new Bibliotron styles for articles
+        /**
+         * @deprecated Does nothing
+         */
+        useNewStyles: boolean;
+        linterContext: LinterContextProps;
+        legacyPerseusLint?: ReadonlyArray<string>;
+        keypadElement?: KeypadAPI | null | undefined;
+        dependencies: PerseusDependenciesV2;
+    };
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
@@ -208,6 +209,7 @@ class ArticleRenderer
                             "article",
                         )}
                         legacyPerseusLint={this.props.legacyPerseusLint}
+                        {...this.props.dependencies}
                     />
                 </div>
             );
