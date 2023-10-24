@@ -29,6 +29,8 @@ type State = {
 };
 
 class WidgetContainer extends React.Component<Props, State> {
+    widgetRef = React.createRef<React.ComponentType<any>>();
+
     static defaultProps: DefaultProps = {
         linterContext: linterContextDefault,
     };
@@ -136,8 +138,7 @@ class WidgetContainer extends React.Component<Props, State> {
                     {...this.state.widgetProps}
                     linterContext={linterContext}
                     containerSizeClass={this.state.sizeClass}
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="widget"
+                    ref={this.widgetRef}
                 />
                 {isStatic && <div style={staticOverlayStyles} />}
             </div>
@@ -163,8 +164,7 @@ class WidgetContainer extends React.Component<Props, State> {
     }
 
     getWidget: () => any = () => {
-        // eslint-disable-next-line react/no-string-refs
-        return this.refs.widget;
+        return this.widgetRef.current;
     };
 
     replaceWidgetProps: (arg1: WidgetProps<any, PerseusWidgetOptions>) => void =
