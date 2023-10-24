@@ -610,7 +610,6 @@ class Renderer extends React.Component<Props, State> {
 
         return {
             ...widgetProps,
-            ref: id,
             widgetId: id,
             alignment: widgetInfo && widgetInfo.alignment,
             // When determining if a widget is static, we verify that the widget is not an
