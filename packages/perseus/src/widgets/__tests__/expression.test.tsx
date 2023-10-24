@@ -35,11 +35,29 @@ const assertComplete = (
     });
 };
 
-const assertCorrect = (itemData: PerseusItem, input: string) =>
+const assertCorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, true);
 
-const assertIncorrect = (itemData: PerseusItem, input: string) =>
+    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
+        type: "perseus:expression-evaluated",
+        payload: {
+            result: "correct",
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+        },
+    });
+};
+
+const assertIncorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, false);
+
+    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
+        type: "perseus:expression-evaluated",
+        payload: {
+            result: "incorrect",
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+        },
+    });
+};
 
 // TODO: actually Assert that message is being set on the score object.
 const assertInvalid = (
