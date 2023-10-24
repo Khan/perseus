@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Moved analytics callback for expression widget to Renderer to hook on to prevent overfiring
+Added flag to `simpleValidate` call from Renderer to ensure we call analytics on MathInputEvaluated only when the answer is submitted
