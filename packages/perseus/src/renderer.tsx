@@ -53,6 +53,8 @@ const noopOnRender = () => {};
 
 const SHOULD_CLEAR_WIDGETS_PROP_LIST = ["content", "problemNum", "widgets"];
 
+const makeContainerId = (id: string) => "container:" + id;
+
 // Check if one focus path / id path is a prefix of another
 // The focus path null will never be a prefix of any non-null
 // path, since it represents no focus.
@@ -224,6 +226,8 @@ class Renderer extends React.Component<Props, State> {
     // The i18n linter.
     _translationLinter: TranslationLinter;
 
+    _widgetContainers: Map<string, WidgetContainer> = new Map();
+
     lastRenderedMarkdown: React.ReactNode;
     // @ts-expect-error - TS2564 - Property 'reuseMarkdown' has no initializer and is not definitely assigned in the constructor.
     reuseMarkdown: boolean;
@@ -391,9 +395,7 @@ class Renderer extends React.Component<Props, State> {
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
         _.each(this.widgetIds, (id) => {
-            // eslint-disable-next-line react/no-string-refs
-            const container = this.refs["container:" + id];
-            // @ts-expect-error - TS2339 - Property 'replaceWidgetProps' does not exist on type 'ReactInstance'.
+            const container = this._widgetContainers.get(makeContainerId(id));
             container && container.replaceWidgetProps(this.getWidgetProps(id));
         });
 
@@ -551,21 +553,25 @@ class Renderer extends React.Component<Props, State> {
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return (
-                <ErrorBoundary
-                    key={"container:" + id}
-                    metadata={{widget_type: type, widget_id: id}}
-                >
-                    <WidgetContainer
-                        ref={"container:" + id}
-                        type={type}
-                        initialProps={this.getWidgetProps(id)}
-                        shouldHighlight={shouldHighlight}
-                        linterContext={PerseusLinter.pushContextStack(
-                            this.props.linterContext,
-                            "widget",
-                        )}
-                    />
-                </ErrorBoundary>
+                <WidgetContainer
+                    key={makeContainerId(id)}
+                    id={id}
+                    ref={(node) => {
+                        const containerId = makeContainerId(id);
+                        if (node != null) {
+                            this._widgetContainers.set(containerId, node);
+                        } else {
+                            this._widgetContainers.delete(containerId);
+                        }
+                    }}
+                    type={type}
+                    initialProps={this.getWidgetProps(id)}
+                    shouldHighlight={shouldHighlight}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "widget",
+                    )}
+                />
             );
         }
         return null;
@@ -604,7 +610,6 @@ class Renderer extends React.Component<Props, State> {
 
         return {
             ...widgetProps,
-            ref: id,
             widgetId: id,
             alignment: widgetInfo && widgetInfo.alignment,
             // When determining if a widget is static, we verify that the widget is not an
@@ -854,15 +859,11 @@ class Renderer extends React.Component<Props, State> {
         ];
     };
 
-    getWidgetInstance: (id: string) => Widget | null | undefined = (
-        id: string,
-    ): Widget | null | undefined => {
-        // eslint-disable-next-line react/no-string-refs
-        const ref = this.refs["container:" + id];
+    getWidgetInstance: (id: string) => Widget | null | undefined = (id) => {
+        const ref = this._widgetContainers.get(makeContainerId(id));
         if (!ref) {
             return null;
         }
-        // @ts-expect-error - TS2339 - Property 'getWidget' does not exist on type 'ReactInstance'.
         return ref.getWidget();
     };
 

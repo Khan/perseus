@@ -31,6 +31,12 @@ export type PerseusAnalyticsEvent =
           payload: {
               virtualKeypadVersion: VirtualKeypadVersion;
           };
+      }
+    | {
+          type: "perseus:widget-rendering-error";
+          payload: {
+              widgetType: string;
+          };
       };
 // Add more events here as needed. Note that each event should have a `type`
 // key and a payload that varies by type.

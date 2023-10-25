@@ -5,6 +5,9 @@ import {Errors, Log} from "./logging/log";
 type Props = {
     children: React.ReactNode;
     metadata?: Record<string, string>;
+
+    // A callback that is called when the error boundary traps an error.
+    onError?: (error: Error, info: any) => void;
 };
 type State = {
     error: string;
