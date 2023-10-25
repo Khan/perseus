@@ -74,7 +74,7 @@ function getAvailableTabs(props: Props): ReadonlyArray<KeypadPageType> {
 // The main (v2) Keypad. Use this component to present an accessible, onscreen
 // keypad to learners for entering math expressions.
 export default function Keypad(props: Props) {
-    // If we're using the Fractions keyapd, we want to default select that page
+    // If we're using the Fractions keypad, we want to default select that page
     // Otherwise, we want to default to the Numbers page
     const defaultSelectedPage = props.fractionsOnly ? "Fractions" : "Numbers";
     const [selectedPage, setSelectedPage] =
@@ -105,7 +105,7 @@ export default function Keypad(props: Props) {
         ? styles.fractionsGrid
         : styles.expressionGrid;
 
-    // This useeffect is only used to ensure that we can test the keypad in storybook
+    // This useEffect is only used to ensure that we can test the keypad in storybook
     useEffect(() => {
         setSelectedPage(defaultSelectedPage);
     }, [fractionsOnly, defaultSelectedPage]);
