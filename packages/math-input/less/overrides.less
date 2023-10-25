@@ -6,17 +6,18 @@
 @emptyBlockBorderRadius: 1px;
 @emptyBlockPadding: 4px;
 
-// NOTE(charlie): The 500ms animation length perfectly matches MathQuill's own
-// frequency for toggling the application of the .mq-blink class. If we were to
-// change this animation length at all, we'd need to modify MathQuill as well.
-@cursorAnimationDuration: 500ms;
+// Originally this was 500ms to match MathQuill's own
+// frequency for toggling the application of the .mq-blink class.
+// Due to the inconsistent nature of `setTimer` this caused weird
+// flickering in the animation, so keeping this below MQ's animation.
+@cursorAnimationDuration: 300ms;
 
 .keypad-input {
     outline: none !important;
 
     .mq-editable-field {
         .mq-root-block {
-            overflow-x: scroll;
+            overflow-x: auto;
         }
 
         .mq-cursor:not(:only-child),
@@ -40,13 +41,12 @@
 
             // Fade the cursor out, overriding MathQuill's default behavior.
             opacity: 1 !important;
-            transition: opacity @cursorAnimationDuration ease-out !important;
+            transition: opacity @cursorAnimationDuration ease !important;
             visibility: visible !important;
 
             &.mq-blink {
                 // And fade the cursor back in.
                 opacity: 0 !important;
-                transition: opacity @cursorAnimationDuration ease-in !important;
                 visibility: visible !important;
             }
         }
@@ -58,13 +58,12 @@
             border-radius: @emptyBlockBorderRadius;
             opacity: 1 !important;
             padding: 0 @emptyBlockPadding 0 @emptyBlockPadding;
-            transition: border-color @cursorAnimationDuration ease-out !important;
+            transition: border-color @cursorAnimationDuration ease !important;
 
             &.mq-blink {
                 // And animate it between blue and gray.
                 border-color: @wonderBlocksBlue !important;
                 opacity: 1 !important;
-                transition: border-color @cursorAnimationDuration ease-in !important;
             }
         }
     }

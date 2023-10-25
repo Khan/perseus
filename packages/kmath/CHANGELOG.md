@@ -1,5 +1,26 @@
 # @khanacademy/kmath
 
+## 0.1.4
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+
+## 0.1.3
+
+### Patch Changes
+
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/perseus-core@1.1.1
+
+## 0.1.2
+
+### Patch Changes
+
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+
 ## 0.1.1
 
 ### Patch Changes

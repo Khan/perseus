@@ -9,10 +9,11 @@ import type {KeypadButtonProps} from "./keypad-button";
 import type {ComponentStory} from "@storybook/react";
 
 export default {
-    title: "Keypad Button",
+    title: "math-input/components/Keypad Button",
     args: {
         keyConfig: KeyConfigs["PLUS"],
         tintColor: "#F6F6F7",
+        coord: [0, 0],
     },
     argTypes: {
         keyConfig: {

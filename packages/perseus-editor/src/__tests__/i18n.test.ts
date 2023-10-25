@@ -449,7 +449,7 @@ const exerciseImagesEverywhere = {
 // from exerciseImagesEverywhere, but include the question and hints as if they
 // were paragraphs in the article.
 const articleImagesEverywhere = [exerciseImagesEverywhere.question].concat(
-    // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+    // @ts-expect-error - TS2769 - No overload matches this call.
     exerciseImagesEverywhere.hints,
 );
 

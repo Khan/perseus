@@ -3,13 +3,14 @@
     "description": "Custom PerseusError class",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.2.1",
+    "version": "0.2.5",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/perseus.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/perseus-error"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
@@ -20,12 +21,14 @@
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@khanacademy/perseus-core": "1.1.2"
+    },
     "devDependencies": {
-        "@khanacademy/wonder-stuff-core": "^1.2.1"
+        "@khanacademy/wonder-stuff-core": "^1.5.1"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-stuff-core": "^1.2.1"
+        "@khanacademy/wonder-stuff-core": "^1.5.1"
     },
     "keywords": []
 }

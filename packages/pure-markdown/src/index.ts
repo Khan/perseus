@@ -4,7 +4,11 @@
  * Note that this file may be used in stand alone nodejs, thus
  * do not import anything from Perseus
  */
+export {libVersion} from "./version";
+
 import SimpleMarkdown from "@khanacademy/simple-markdown";
+
+const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
 
 /**
  * This match function matches math in `$`s, such as:
@@ -28,9 +32,6 @@ import SimpleMarkdown from "@khanacademy/simple-markdown";
  *
  * This can also match block-math, which is math alone in a paragraph.
  */
-
-const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
-
 const mathMatcher = (source: any, state: any, isBlock: boolean) => {
     const length = source.length;
     let index = 0;
@@ -75,7 +76,7 @@ const mathMatcher = (source: any, state: any, isBlock: boolean) => {
             if (isBlock) {
                 // Look for two trailing newlines after the closing `$`
                 const match = /^(?: *\n){2,}/.exec(source.slice(endIndex));
-                // @ts-expect-error [FEI-5003] - TS2322 - Type 'number | null' is not assignable to type 'number'.
+                // @ts-expect-error - TS2322 - Type 'number | null' is not assignable to type 'number'.
                 endIndex = match ? endIndex + match[0].length : null;
             }
 
@@ -121,7 +122,7 @@ const TITLED_TABLE_REGEX = new RegExp(
         "(" +
         // The simple-markdown nptable regex, without
         // the leading `^`
-        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
         SimpleMarkdown.defaultRules.nptable.match.regex.source.substring(1) +
         ")",
 );
@@ -305,7 +306,7 @@ export const pureMarkdownRules = {
     },
 } as const;
 
-// @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ readonly columns: { readonly order: -2; readonly match: any; readonly parse: (capture: any, parse: any, state: any) => any; }; readonly crowdinId: { readonly order: -1; readonly match: (source: any, state: any, prevCapture: any) => any; readonly parse: (capture: any, parse: any, state: any) => any; }; ... 34 more ...' is not assignable to parameter of type 'ParserRules'.
+// @ts-expect-error - TS2345 - Argument of type '{ readonly columns: { readonly order: -2; readonly match: any; readonly parse: (capture: any, parse: any, state: any) => any; }; readonly crowdinId: { readonly order: -1; readonly match: (source: any, state: any, prevCapture: any) => any; readonly parse: (capture: any, parse: any, state: any) => any; }; ... 34 more ...' is not assignable to parameter of type 'ParserRules'.
 const builtParser = SimpleMarkdown.parserFor(pureMarkdownRules);
 
 export const parse = (source: string, state?: any): any => {

@@ -90,7 +90,7 @@ class NativeVisibilityObserver implements VisibilityObserver {
         // There should be exactly one entry, but let's be defensive and loop.
         //
         for (const entry of entries) {
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'DOMRectReadOnly | null' is not assignable to parameter of type 'DOMRectReadOnly'.
+            // @ts-expect-error - TS2345 - Argument of type 'DOMRectReadOnly | null' is not assignable to parameter of type 'DOMRectReadOnly'.
             this._onVisibilityChange(entry.isIntersecting, entry.rootBounds);
         }
     };

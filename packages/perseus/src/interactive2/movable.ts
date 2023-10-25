@@ -50,7 +50,7 @@ const DEFAULT_STATE = {
 } as const;
 
 const Movable = function (graphie: any, options: any): void {
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {
         graphie: graphie,
         state: {
@@ -60,7 +60,7 @@ const Movable = function (graphie: any, options: any): void {
     });
 
     // We only set DEFAULT_STATE once, here
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.modify(_.extend({}, DEFAULT_STATE, options));
 };
 

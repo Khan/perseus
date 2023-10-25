@@ -477,7 +477,7 @@ describe("group widget", () => {
             // Arrange
             const widgetIds = [];
             const widgetCallback = (_: any, widgetId: string) =>
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+                // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
                 widgetIds.push(widgetId);
 
             // Act

@@ -24,17 +24,14 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
     APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import type {PropsFor, StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
 const DeprecationMixin = Util.DeprecationMixin;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
-type InteractiveGraphProps = JSX.LibraryManagedAttributes<
-    typeof InteractiveGraph,
-    React.ComponentProps<typeof InteractiveGraph>
->;
+type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 const defaultBackgroundImage = {
     url: null,
@@ -172,7 +169,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 trackInteraction: function () {},
                 onChange: (newProps: InteractiveGraphProps) => {
                     let correct = this.props.correct;
-                    // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'.
+                    // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     if (correct.type === newProps.graph.type) {
                         correct = _.extend({}, correct, newProps.graph);
                     } else {
@@ -186,7 +183,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // There are a bunch of props that renderer.jsx passes to widgets via
                 // getWidgetProps() and widget-container.jsx that the editors don't
                 // bother passing.
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error - TS2769 - No overload matches this call.
                 <InteractiveGraph
                     {...graphProps}
                     containerSizeClass={sizeClass}
@@ -198,7 +195,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             );
             // TODO(kevinb): Update getEquationString to only accept the data it actually
             // needs to compute the equation string.
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ readonly ref: "graph"; readonly box: any; readonly range: any; readonly labels: any; readonly step: any; readonly gridStep: any; readonly snapStep: any; readonly graph: any; readonly backgroundImage: any; ... 6 more ...; readonly onChange: (newProps: Pick<...> & ... 1 more ... & InexactPartial<...>) => void; }' is not assignable to parameter of type 'Props'.
+            // @ts-expect-error - TS2345 - Argument of type '{ readonly ref: "graph"; readonly box: any; readonly range: any; readonly labels: any; readonly step: any; readonly gridStep: any; readonly snapStep: any; readonly graph: any; readonly backgroundImage: any; ... 6 more ...; readonly onChange: (newProps: Pick<...> & ... 1 more ... & InexactPartial<...>) => void; }' is not assignable to parameter of type 'Props'.
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {
             graph = <div className="perseus-error">{this.props.valid}</div>;
@@ -560,7 +557,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 ],
                 function (key) {
                     if (_.has(correct, key)) {
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor" | "showRuler" | "rulerLabel" | "rulerTicks">'.
+                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor" | "showRuler" | "rulerLabel" | "rulerTicks">'.
                         json.graph[key] = correct[key];
                     }
                 },

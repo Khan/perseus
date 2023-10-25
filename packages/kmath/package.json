@@ -3,7 +3,7 @@
     "description": "Khan Academy's Javascript Numeric Math Utilities",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.1.1",
+    "version": "0.1.4",
     "publishConfig": {
         "access": "public"
     },
@@ -20,9 +20,11 @@
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@khanacademy/perseus-core": "1.1.2"
+    },
     "devDependencies": {
-        "perseus-build-settings": "^0.1.0",
+        "perseus-build-settings": "^0.2.1",
         "underscore": "1.4.4"
     },
     "peerDependencies": {

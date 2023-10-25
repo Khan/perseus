@@ -13,7 +13,7 @@ import type {MathFieldInterface} from "../input/mathquill-types";
 import Keypad from "./index";
 
 export default {
-    title: "v2 Keypad With Mathquill",
+    title: "math-input/components/v2 Keypad With Mathquill",
 };
 
 export function V2KeypadWithMathquill() {
@@ -78,10 +78,10 @@ export function V2KeypadWithMathquill() {
                             basicRelations
                             divisionKey
                             logarithms
-                            multiplicationDot
+                            convertDotToTimes
                             preAlgebra
                             trigonometry
-                            sendEvent={async (event) => {
+                            onAnalyticsEvent={async (event) => {
                                 // eslint-disable-next-line no-console
                                 console.log("Send Event:", event);
                             }}

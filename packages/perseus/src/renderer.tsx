@@ -29,17 +29,18 @@ import preprocessTex from "./util/katex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
 
+import type {DependenciesContext} from "./dependencies";
 import type {PerseusRenderer, PerseusWidgetOptions} from "./perseus-types";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    LinterContextProps,
     PerseusScore,
     WidgetInfo,
     WidgetProps,
 } from "./types";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 import "./styles/perseus-renderer.less";
 
@@ -66,7 +67,7 @@ const isIdPathPrefix = function (
         return prefixArray === wholeArray;
     }
 
-    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly string[] | undefined' is not assignable to parameter of type 'Collection<any>'.
+    // @ts-expect-error - TS2345 - Argument of type 'readonly string[] | undefined' is not assignable to parameter of type 'Collection<any>'.
     return _.every(prefixArray, (elem: string, i: number) => {
         if (wholeArray != null) {
             return _.isEqual(elem, wholeArray[i]);
@@ -144,7 +145,7 @@ export type Widget = {
     examples?: () => ReadonlyArray<string>;
 };
 
-type Props = {
+type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
@@ -209,26 +210,26 @@ type DefaultProps = {
 
 class Renderer extends React.Component<Props, State> {
     _currentFocus: FocusPath | null | undefined;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_foundTextNodes' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_foundTextNodes' has no initializer and is not definitely assigned in the constructor.
     _foundTextNodes: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_interactionTrackers' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_interactionTrackers' has no initializer and is not definitely assigned in the constructor.
     _interactionTrackers: {
-        [id: string]: InteractionTracker;
+        [id: string]: InteractionTracker<any>;
     };
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_isTwoColumn' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_isTwoColumn' has no initializer and is not definitely assigned in the constructor.
     _isTwoColumn: boolean;
 
     // The i18n linter.
     _translationLinter: TranslationLinter;
 
     lastRenderedMarkdown: React.ReactNode;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'reuseMarkdown' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'reuseMarkdown' has no initializer and is not definitely assigned in the constructor.
     reuseMarkdown: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'translationIndex' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'translationIndex' has no initializer and is not definitely assigned in the constructor.
     translationIndex: number;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'widgetIds' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'widgetIds' has no initializer and is not definitely assigned in the constructor.
     widgetIds: Array<string>;
 
     static defaultProps: DefaultProps = {
@@ -250,8 +251,8 @@ class Renderer extends React.Component<Props, State> {
         linterContext: PerseusLinter.linterContextDefault,
     };
 
-    constructor(props: Props, context: Context) {
-        super(props, context);
+    constructor(props: Props) {
+        super(props);
         this._translationLinter = new TranslationLinter();
 
         this.state = {
@@ -275,7 +276,7 @@ class Renderer extends React.Component<Props, State> {
         this._isMounted = true;
 
         // figure out why we're passing an empty object
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{}' is not assignable to parameter of type 'Props'.
+        // @ts-expect-error - TS2345 - Argument of type '{}' is not assignable to parameter of type 'Props'.
         this.handleRender({});
         this._currentFocus = null;
 
@@ -392,7 +393,7 @@ class Renderer extends React.Component<Props, State> {
         _.each(this.widgetIds, (id) => {
             // eslint-disable-next-line react/no-string-refs
             const container = this.refs["container:" + id];
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'replaceWidgetProps' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'replaceWidgetProps' does not exist on type 'ReactInstance'.
             container && container.replaceWidgetProps(this.getWidgetProps(id));
         });
 
@@ -454,11 +455,11 @@ class Renderer extends React.Component<Props, State> {
         };
     };
 
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
+    // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
     _getAllWidgetsInfo: (props: Props) => {
         [key: string]: WidgetInfo;
     } = (props: Props) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
+        // @ts-expect-error - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
         return mapObject(props.widgets, (widgetInfo, widgetId) => {
             if (!widgetInfo.type || !widgetInfo.alignment) {
                 const newValues: Record<string, any> = {};
@@ -482,7 +483,7 @@ class Renderer extends React.Component<Props, State> {
         },
         props: Props,
     ) => any = (allWidgetInfo, props) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
+        // @ts-expect-error - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
         return mapObject(allWidgetInfo, (widgetInfo) => {
             return Widgets.getRendererPropsForWidgetInfo(
                 widgetInfo,
@@ -541,7 +542,7 @@ class Renderer extends React.Component<Props, State> {
         if (widgetInfo) {
             const type = (widgetInfo && widgetInfo.type) || impliedType;
             const shouldHighlight = _.contains(
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly any[] | undefined' is not assignable to parameter of type 'Collection<any>'.
+                // @ts-expect-error - TS2345 - Argument of type 'readonly any[] | undefined' is not assignable to parameter of type 'Collection<any>'.
                 this.props.highlightedWidgets,
                 id,
             );
@@ -550,7 +551,10 @@ class Renderer extends React.Component<Props, State> {
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return (
-                <ErrorBoundary key={"container:" + id}>
+                <ErrorBoundary
+                    key={"container:" + id}
+                    metadata={{widget_type: type, widget_id: id}}
+                >
                     <WidgetContainer
                         ref={"container:" + id}
                         type={type}
@@ -590,10 +594,10 @@ class Renderer extends React.Component<Props, State> {
             interactionTracker = this._interactionTrackers[id] =
                 new InteractionTracker(
                     apiOptions.trackInteraction,
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
+                    // @ts-expect-error - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     widgetInfo && widgetInfo.type,
                     id,
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
+                    // @ts-expect-error - TS2345 - Argument of type 'string | null | undefined' is not assignable to parameter of type 'string'.
                     Widgets.getTracking(widgetInfo && widgetInfo.type),
                 );
         }
@@ -858,7 +862,7 @@ class Renderer extends React.Component<Props, State> {
         if (!ref) {
             return null;
         }
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'getWidget' does not exist on type 'ReactInstance'.
+        // @ts-expect-error - TS2339 - Property 'getWidget' does not exist on type 'ReactInstance'.
         return ref.getWidget();
     };
 
@@ -885,7 +889,7 @@ class Renderer extends React.Component<Props, State> {
 
         // Failsafe: abort if ID is different, because focus probably happened
         // before blur
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+        // @ts-expect-error - TS2769 - No overload matches this call.
         const fullPath = [id].concat(blurPath);
         if (!_.isEqual(fullPath, blurringFocusPath)) {
             return;
@@ -978,7 +982,7 @@ class Renderer extends React.Component<Props, State> {
 
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
-    // @ts-expect-error [FEI-5003] - TS2322 - Type '(ast: any, state: WidgetState) => never[] | JSX.Element' is not assignable to type '(ast: any, state: WidgetState) => ReactElement<any, string | JSXElementConstructor<any>>'.
+    // @ts-expect-error - TS2322 - Type '(ast: any, state: WidgetState) => never[] | JSX.Element' is not assignable to type '(ast: any, state: WidgetState) => ReactElement<any, string | JSXElementConstructor<any>>'.
     outputMarkdown: (ast: any, state: WidgetState) => React.ReactElement = (
         ast: any,
         state: WidgetState,
@@ -1004,10 +1008,10 @@ class Renderer extends React.Component<Props, State> {
                 // now.
                 /* c8 ignore if */
                 if (typeof nodeOut === "string" && lastWasString) {
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'never'.
+                    // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
                     result[result.length - 1] += nodeOut;
                 } else {
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'ReactElement<any, string | JSXElementConstructor<any>>' is not assignable to parameter of type 'never'.
+                    // @ts-expect-error - TS2345 - Argument of type 'ReactElement<any, string | JSXElementConstructor<any>>' is not assignable to parameter of type 'never'.
                     result.push(nodeOut);
                 }
                 lastWasString = isString;
@@ -1303,7 +1307,7 @@ class Renderer extends React.Component<Props, State> {
                         {({setAssetStatus}) => (
                             <SvgImage
                                 setAssetStatus={setAssetStatus}
-                                // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | null | undefined' is not assignable to type 'string | undefined'.
+                                // @ts-expect-error - TS2322 - Type 'string | null | undefined' is not assignable to type 'string | undefined'.
                                 src={PerseusMarkdown.sanitizeUrl(node.target)}
                                 alt={node.alt}
                                 title={node.title}
@@ -1397,7 +1401,7 @@ class Renderer extends React.Component<Props, State> {
 
         // In the common case of no callback specified, avoid this work.
         if (onRender !== noopOnRender || oldOnRender !== noopOnRender) {
-            // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'find' does not exist on type 'JQueryStatic'.
+            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'find' does not exist on type 'JQueryStatic'.
             const $images = $(ReactDOM.findDOMNode(this)).find("img");
 
             // Fire callback on image load...
@@ -1490,9 +1494,9 @@ class Renderer extends React.Component<Props, State> {
 
     getDOMNodeForPath: (path: FocusPath) => Element | Text | null | undefined =
         (path: FocusPath) => {
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+            // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
             const widgetId = _.first(path);
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+            // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
             const interWidgetPath = _.rest(path);
 
             // Widget handles parsing of the interWidgetPath. If the path is empty
@@ -1504,7 +1508,7 @@ class Renderer extends React.Component<Props, State> {
                 return getNode(interWidgetPath);
             }
             if (interWidgetPath.length === 0) {
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
+                // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
                 return ReactDOM.findDOMNode(widget);
             }
         };
@@ -1512,9 +1516,9 @@ class Renderer extends React.Component<Props, State> {
     getGrammarTypeForPath: (path: FocusPath) => string | null | undefined = (
         path: FocusPath,
     ) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const widgetId = _.first(path);
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const interWidgetPath = _.rest(path);
 
         const widget = this.getWidgetInstance(widgetId);
@@ -1532,7 +1536,7 @@ class Renderer extends React.Component<Props, State> {
                 const widgetInputPaths = widget.getInputPaths();
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(inputPath: string) => void' is not assignable to parameter of type 'CollectionIterator<FocusPath, void, readonly FocusPath[]>'.
+                // @ts-expect-error - TS2345 - Argument of type '(inputPath: string) => void' is not assignable to parameter of type 'CollectionIterator<FocusPath, void, readonly FocusPath[]>'.
                 _.each(widgetInputPaths, (inputPath: string) => {
                     const relativeInputPath = [widgetId].concat(inputPath);
                     inputPaths.push(relativeInputPath);
@@ -1553,9 +1557,9 @@ class Renderer extends React.Component<Props, State> {
             this.blurPath(this._currentFocus);
         }
 
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const widgetId = _.first(path);
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const interWidgetPath = _.rest(path);
 
         // Widget handles parsing of the interWidgetPath
@@ -1571,9 +1575,9 @@ class Renderer extends React.Component<Props, State> {
             return;
         }
 
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const widgetId = _.first(path);
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const interWidgetPath = _.rest(path);
         const widget = this.getWidgetInstance(widgetId);
         // We might be in the editor and blurring a widget that no
@@ -1600,7 +1604,7 @@ class Renderer extends React.Component<Props, State> {
             this.state.widgetInfo,
             function (info, id) {
                 // eslint-disable-next-line @babel/no-invalid-this
-                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 // eslint-disable-next-line @babel/no-invalid-this
                 const widget = this.getWidgetInstance(id);
                 const s = widget.serialize();
@@ -1614,7 +1618,7 @@ class Renderer extends React.Component<Props, State> {
     };
 
     emptyWidgets: () => any = () => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type '(id: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
+        // @ts-expect-error - TS2345 - Argument of type '(id: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
         return _.filter(this.widgetIds, (id) => {
             const widgetInfo = this._getWidgetInfo(id);
             if (widgetInfo.static) {
@@ -1625,7 +1629,7 @@ class Renderer extends React.Component<Props, State> {
             if (widget && widget.simpleValidate) {
                 const score: PerseusScore = widget.simpleValidate(
                     widgetInfo.options,
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'null' is not assignable to parameter of type '((widgetId: any, value: string, message?: string | null | undefined) => unknown) | undefined'.
+                    // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '((widgetId: any, value: string, message?: string | null | undefined) => unknown) | undefined'.
                     null,
                 );
                 return Util.scoreIsEmpty(score);
@@ -1698,9 +1702,9 @@ class Renderer extends React.Component<Props, State> {
         newValue: string,
         focus: () => unknown,
     ) => void = (path, newValue, focus) => {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const widgetId = _.first(path);
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const interWidgetPath = _.rest(path);
         const widget = this.getWidgetInstance(widgetId);
 
@@ -1778,7 +1782,7 @@ class Renderer extends React.Component<Props, State> {
             // widget can be undefined if it hasn't yet been rendered
             if (widget && widget.simpleValidate) {
                 widgetScores[id] = widget.simpleValidate(
-                    props?.options,
+                    {...props?.options, scoring: true},
                     onInputError,
                 );
             }

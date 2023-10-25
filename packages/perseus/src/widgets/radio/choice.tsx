@@ -148,7 +148,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
     return (
         <div
             style={{
-                // @ts-expect-error [FEI-5003] - TS2322 - Type '{ dispay: string; flexDirection: "column"; color: string; }' is not assignable to type 'Properties<string | number, string & {}>'.
+                // @ts-expect-error - TS2322 - Type '{ dispay: string; flexDirection: "column"; color: string; }' is not assignable to type 'Properties<string | number, string & {}>'.
                 dispay: "flex",
                 flexDirection: "column",
                 color: Color.offBlack,
@@ -160,7 +160,8 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                     display: "flex",
                     flexDirection: "row",
                     opacity: showDimmed ? 0.5 : 1.0,
-                    overflow: "auto",
+                    overflowX: "auto",
+                    overflowY: "hidden",
                 }}
             >
                 <div className="perseus-sr-only">

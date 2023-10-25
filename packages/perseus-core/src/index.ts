@@ -1,2 +1,11 @@
-export type {PerseusAnalyticsEvent, SendEventFn} from "./analytics";
-export type {KEScore, RendererInterface} from "./types";
+export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
+export type {
+    KEScore,
+    KeypadContextRendererInterface,
+    RendererInterface,
+} from "./types";
+
+// Careful, `version.ts` uses this function so it _must_ be imported above it
+export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
+
+export {libVersion} from "./version";

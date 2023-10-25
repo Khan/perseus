@@ -13,9 +13,9 @@ import type {
     PerseusScore,
     WidgetExports,
     WidgetProps,
-    LinterContextProps,
 } from "../types";
 import type {Passage, Reference} from "./passage";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const EN_DASH = "\u2013";
 
@@ -50,9 +50,9 @@ type State = {
 
 class PassageRef extends React.Component<Props, State> {
     displayName = "PassageRef";
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_throttledUpdateRange' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_throttledUpdateRange' has no initializer and is not definitely assigned in the constructor.
     _throttledUpdateRange: () => void;
 
     static defaultProps: DefaultProps = {
@@ -98,7 +98,7 @@ class PassageRef extends React.Component<Props, State> {
 
         let summaryOutput;
         if (this.props.summaryText) {
-            // @ts-expect-error [FEI-5003] - TS2554 - Expected 2 arguments, but got 1.
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             const summaryTree = PerseusMarkdown.parseInline(
                 this.props.summaryText,
             );

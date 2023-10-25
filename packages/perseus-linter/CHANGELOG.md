@@ -1,5 +1,43 @@
 # @khanacademy/perseus-linter
 
+## 0.3.6
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+    -   @khanacademy/perseus-error@0.2.5
+
+## 0.3.5
+
+### Patch Changes
+
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/perseus-core@1.1.1
+    -   @khanacademy/perseus-error@0.2.4
+
+## 0.3.4
+
+### Patch Changes
+
+-   388b6506: Convert runLinter doc comment to /\*\* \*/ format so editors pick it up better (VSCode).
+-   Updated dependencies [388b6506]
+    -   @khanacademy/perseus-error@0.2.3
+
+## 0.3.3
+
+### Patch Changes
+
+-   Updated dependencies [a383823d]
+    -   @khanacademy/perseus-error@0.2.2
+
+## 0.3.2
+
+### Patch Changes
+
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+
 ## 0.3.1
 
 ### Patch Changes

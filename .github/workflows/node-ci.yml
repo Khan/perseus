@@ -9,21 +9,37 @@ on:
 
 jobs:
     changeset:
-        name: Check for .changeset file
+        name: Check for .changeset entries for all changed files
+        if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            # We don't need changesets for infrastructure-type files (tests, stories,
-            # etc).
-            - uses: Khan/actions@check-for-changeset-v0
-              if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+            - name: Checkout repository
+              uses: actions/checkout@v3
               with:
-                  exclude: .github/,.storybook/
-                  exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx
-                  exclude_globs: "**/__tests__/*"
+                  fetch-depth: 0
+
+            - name: Get changed files
+              uses: Khan/actions@get-changed-files-v1
+              id: changed
+
+            - name: Filter out files that don't need a changeset
+              uses: Khan/actions@filter-files-v0
+              id: match
+              with:
+                  changed-files: ${{ steps.changed.outputs.files }}
+                  files: "packages/, config/build/" # Only look for changes in packages, build
+                  globs: "!(**/__tests__/*), !(**/__testdata__/*), !(**/__stories__/*), !(**/dist/*)" # Ignore test files
+                  matchAllGlobs: true # Default is to match any of the globs, which ends up matching all files
+                  conjunctive: true # Only match files that match all of the above
+
+            - name: Verify changeset entries
+              uses: Khan/changeset-per-package@v1.0.1
+              with:
+                  changed_files: ${{ steps.match.outputs.filtered }}
 
     lint:
         name: Lint, Typecheck, Format, and Test
@@ -34,7 +50,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -81,10 +97,6 @@ jobs:
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: yarn build:types
 
-            - name: Build Flow types
-              if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
-              run: yarn build:flowtypes
-
             # Run tests for our target matrix
             - id: jest-reset
               uses: Khan/actions@filter-files-v0
@@ -108,7 +120,7 @@ jobs:
               run: ./utils/stopship-check.sh
 
     cypress:
-        name: Cypress Coverage
+        name: Cypress
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -116,7 +128,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -126,17 +138,13 @@ jobs:
             - name: Run test with coverage
               run: yarn cypress:ci
 
-            - name: Generate report
-              run: yarn nyc report --reporter=lcov
-
-            - name: Upload Coverage
-              # We don't bother collecting a record of coverage for dependabot changes
-              if: ${{ github.actor != 'dependabot[bot]' }}
-              uses: coverallsapp/github-action@v1
+            # Upload coverage report as an GitHub artifact so that it can be used
+            # later in upload_coverage.
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v2
               with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  flag-name: cypress
-                  parallel: true
+                  name: cypress-coverage
+                  path: ./.nyc_output/out.json
 
     coverage:
         name: Jest Coverage
@@ -146,7 +154,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -156,24 +164,50 @@ jobs:
             - name: Jest with coverage
               run: yarn coverage
 
-            - name: Upload Coverage
-              # We don't bother collecting a record of coverage for dependabot changes
-              if: ${{ github.actor != 'dependabot[bot]' }}
-              uses: coverallsapp/github-action@v1
+            # Upload coverage report as an GitHub artifact so that it can be used
+            # later in upload_coverage.
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v2
               with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  flag-name: jest
-                  parallel: true
+                  name: jest-coverage
+                  path: ./coverage/coverage-final.json
 
-    finish_coverage:
-        needs: [cypress, coverage]
+    upload_coverage:
+        name: Upload Coverage
         runs-on: ubuntu-latest
+        needs: [cypress, coverage]
         steps:
-            - name: Finish Coverage
-              uses: coverallsapp/github-action@v1
+            - uses: actions/checkout@v3
+
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
               with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  parallel-finished: true
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Download Jest Coverage
+              uses: actions/download-artifact@v2
+              with:
+                  name: jest-coverage
+                  # path to decompress the artifact into, decompressed file
+                  # will be ./coverage-final.json
+                  path: ./
+
+            - name: Download Cypress Coverage
+              uses: actions/download-artifact@v2
+              with:
+                  name: cypress-coverage
+                  # path to decompress the artifact into, decompressed file
+                  # will be ./out.json
+                  path: ./
+
+            # Upload both coverage files at once.  This avoids issues where it Codecov
+            # shows the results from only one of the reports which would make it appear
+            # as though coverage dropped a lot.
+            - name: Upload Coverage
+              uses: codecov/codecov-action@v3
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  files: ./coverage-final.json,./out.json
 
     check_builds:
         name: Check builds for changes in size
@@ -184,7 +218,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -213,7 +247,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -227,7 +261,9 @@ jobs:
         name: Publish npm snapshot
         # We don't publish snapshots on draft PRs or
         # on the main Changeset "Version Packages" PR
-        if: ${{ ! github.event.pull_request.draft && github.ref != 'refs/heads/changeset-release/main' }}
+        if: |
+            github.event.pull_request.draft == false
+            && !startsWith(github.head_ref, 'changeset-release/')
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -255,10 +291,16 @@ jobs:
               run: ./utils/publish-snapshot.sh # All config is via Github env vars
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Calculate short SHA for this commit
               id: short-sha
-              run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
+              # Why not GITHUB_SHA here? Because that is the last merge-commit
+              # for the PR (ie. the ephemeral commit that Github creates for
+              # each PR merging the base branch into the pull request HEAD) for
+              # Github Action runs). We want to reference the commit that was
+              # pushed, not this ephemeral commit.
+              run: echo "short_sha=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-8)" >> $GITHUB_OUTPUT
 
             # Note: these two actions are locked to the latest version that were
             # published when I created this yml file (just for security).
@@ -304,3 +346,33 @@ jobs:
                       🤕 Oh noes!! We couldn't find any changesets in this PR (${{
                       steps.short-sha.outputs.short_sha }}). As a result, we did not
                       publish an npm snapshot for you.
+
+    chromatic:
+        name: Publish Storybook to Chromatic
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [16.x]
+        steps:
+            # chromaui/@action doesn't work with shallow checkouts which is the
+            # default for actions/checkout so we need to force it to checkout
+            # more stuff.
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
+              uses: Khan/actions@shared-node-cache-v0
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Publish to Chromatic
+              uses: chromaui/action@v1
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
+                  autoAcceptChanges: "main"
+                  # Generate snapshots for only changed stories
+                  # See: https://www.chromatic.com/docs/turbosnap
+                  onlyChanged: true

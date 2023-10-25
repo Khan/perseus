@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
     mockedItem,
@@ -25,6 +28,8 @@ import MockWidgetExport from "./mock-widget";
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
 import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
+import type {KeypadAPI} from "@khanacademy/math-input";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
@@ -32,10 +37,7 @@ const renderQuestion = (
     question: PerseusItem,
     apiOptions: APIOptions = Object.freeze({}),
     optionalProps: Partial<
-        JSX.LibraryManagedAttributes<
-            typeof WrappedServerItemRenderer,
-            React.ComponentProps<typeof WrappedServerItemRenderer>
-        >
+        PropsFor<typeof WrappedServerItemRenderer>
     > = Object.freeze({}),
 ): {
     container: HTMLElement;
@@ -51,6 +53,7 @@ const renderQuestion = (
                 item={question}
                 problemNum={0}
                 reviewMode={false}
+                dependencies={testDependenciesV2}
                 {...optionalProps}
             />
         </RenderStateRoot>,
@@ -167,7 +170,7 @@ describe("server item renderer", () => {
         const node = renderer.getDOMNodeForPath(["input-number 1"]);
 
         // Assert
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
+        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
         expect(await within(node).findAllByRole("textbox")).toHaveLength(1);
     });
 
@@ -228,6 +231,7 @@ describe("server item renderer", () => {
                     item={itemWithInput}
                     problemNum={0}
                     reviewMode={false}
+                    dependencies={testDependenciesV2}
                 />
             </RenderStateRoot>,
         );
@@ -243,6 +247,7 @@ describe("server item renderer", () => {
                     item={itemWithInput}
                     problemNum={1} // to force componentDidUpdate
                     reviewMode={false}
+                    dependencies={testDependenciesV2}
                 />
                 ,
             </RenderStateRoot>,
@@ -272,6 +277,7 @@ describe("server item renderer", () => {
                     problemNum={0}
                     reviewMode={false}
                     onRendered={onRendered}
+                    dependencies={testDependenciesV2}
                 />
             </RenderStateRoot>,
         );
@@ -293,6 +299,7 @@ describe("server item renderer", () => {
                     problemNum={1}
                     reviewMode={false}
                     onRendered={onRendered}
+                    dependencies={testDependenciesV2}
                 />
             </RenderStateRoot>,
         );
@@ -300,7 +307,7 @@ describe("server item renderer", () => {
         // Act
         // setAssetStatus() is not part of the Widget interface, it's specific
         // this test.
-        // @ts-expect-error [FEI-5003] - TS2352 - Conversion of type 'Widget' to type 'MockAssetLoadingWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+        // @ts-expect-error - TS2352 - Conversion of type 'Widget' to type 'MockAssetLoadingWidget' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
         const widget = mockedWidget as MockAssetLoadingWidget;
         widget.setAssetStatus("ABC", true);
 
@@ -336,12 +343,16 @@ describe("server item renderer", () => {
             // Arranged
             const onFocusChange = jest.fn();
             const keypadElementDOMNode = <div />;
-            const keypadElement = {
+            const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
                 activate: jest.fn(),
-            } as const;
+                dismiss: jest.fn(),
+                configure: jest.fn(),
+                setCursor: jest.fn(),
+                setKeyHandler: jest.fn(),
+            };
             const {renderer} = renderQuestion(
                 itemWithInput,
                 {onFocusChange, isMobile: true},
@@ -396,13 +407,16 @@ describe("server item renderer", () => {
             // Arranged
             const onFocusChange = jest.fn();
             const keypadElementDOMNode = <div />;
-            const keypadElement = {
+            const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
                     .mockImplementation(() => keypadElementDOMNode),
                 activate: jest.fn(),
                 dismiss: jest.fn(),
-            } as const;
+                configure: jest.fn(),
+                setCursor: jest.fn(),
+                setKeyHandler: jest.fn(),
+            };
             const {renderer} = renderQuestion(
                 itemWithInput,
                 {onFocusChange, isMobile: true},

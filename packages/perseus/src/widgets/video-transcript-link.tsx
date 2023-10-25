@@ -39,7 +39,7 @@ const VideoTranscriptLink = (props: Props): React.ReactElement => {
         : [location, "READABLE_ID"];
     // The result value conforms to the wonder-blocks-data `Result` type
     // which is used by our GraphQL framework.
-    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'VideoKind'.
+    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'VideoKind'.
     const result = useVideo(id, kind);
 
     switch (result.status) {

@@ -12,18 +12,18 @@ import Keypad from "../index";
 
 import type Key from "../../../data/keys";
 import type {MathFieldInterface} from "../../input/mathquill-types";
-import type {PerseusAnalyticsEvent} from "@khanacademy/perseus-core";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 type Props = {
     onChangeMathInput: (mathInputTex: string) => void;
     keypadClosed?: boolean;
-    sendEvent?: (event: PerseusAnalyticsEvent) => Promise<void>;
+    onAnalyticsEvent?: AnalyticsEventHandlerFn;
 };
 
 function V2KeypadWithMathquill(props: Props) {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
     const [mathField, setMathField] = React.useState<MathFieldInterface>();
-    const {onChangeMathInput, keypadClosed, sendEvent} = props;
+    const {onChangeMathInput, keypadClosed, onAnalyticsEvent} = props;
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(!keypadClosed);
 
     React.useEffect(() => {
@@ -72,10 +72,14 @@ function V2KeypadWithMathquill(props: Props) {
                             basicRelations
                             divisionKey
                             logarithms
-                            multiplicationDot
+                            convertDotToTimes
                             preAlgebra
                             trigonometry
-                            sendEvent={sendEvent ? sendEvent : async () => {}}
+                            onAnalyticsEvent={
+                                onAnalyticsEvent
+                                    ? onAnalyticsEvent
+                                    : async () => {}
+                            }
                             showDismiss
                         />
                     </div>
@@ -252,12 +256,12 @@ describe("Keypad v2 with MathQuill", () => {
     // Keypad event tests
     it("fires the keypad open event on open", () => {
         // Arrange
-        const mockSendEvent = jest.fn();
+        const mockAnalyticsEventHandler = jest.fn();
         render(
             <V2KeypadWithMathquill
                 onChangeMathInput={() => {}}
                 keypadClosed={true}
-                sendEvent={mockSendEvent}
+                onAnalyticsEvent={mockAnalyticsEventHandler}
             />,
         );
 
@@ -265,7 +269,7 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
 
         // Assert
-        expect(mockSendEvent).toHaveBeenLastCalledWith({
+        expect(mockAnalyticsEventHandler).toHaveBeenLastCalledWith({
             type: "math-input:keypad-opened",
             payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
         });
@@ -274,11 +278,11 @@ describe("Keypad v2 with MathQuill", () => {
     // Keypad event tests
     it("fires the keypad open event on close", () => {
         // Arrange
-        const mockSendEvent = jest.fn();
+        const mockAnalyticsEventHandler = jest.fn();
         render(
             <V2KeypadWithMathquill
                 onChangeMathInput={() => {}}
-                sendEvent={mockSendEvent}
+                onAnalyticsEvent={mockAnalyticsEventHandler}
             />,
         );
 
@@ -286,7 +290,7 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "Keypad toggle"}));
 
         // Assert
-        expect(mockSendEvent).toHaveBeenLastCalledWith({
+        expect(mockAnalyticsEventHandler).toHaveBeenLastCalledWith({
             type: "math-input:keypad-closed",
             payload: {virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2"},
         });

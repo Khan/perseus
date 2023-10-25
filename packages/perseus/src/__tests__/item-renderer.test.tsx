@@ -1,10 +1,14 @@
+import {StatefulKeypadContextProvider} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {fireEvent, render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from "../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
     labelImageItem,
@@ -68,22 +72,24 @@ export const renderQuestion = (
     let renderer: ItemRenderer | null = null;
     const {container} = render(
         <RenderStateRoot>
-            <ItemRenderer
-                ref={(node) => (renderer = node)}
-                apiOptions={apiOptions}
-                item={question}
-                problemNum={0}
-                reviewMode={false}
-                savedState=""
-                controlPeripherals={false}
-                {...optionalProps}
-            />
-            {/* The ItemRenderer _requires_ two divs: a work area and hints
+            <StatefulKeypadContextProvider>
+                <ItemRenderer
+                    ref={(node) => (renderer = node)}
+                    apiOptions={apiOptions}
+                    item={question}
+                    problemNum={0}
+                    reviewMode={false}
+                    savedState=""
+                    controlPeripherals={false}
+                    dependencies={testDependenciesV2}
+                    {...optionalProps}
+                />
+                {/* The ItemRenderer _requires_ two divs: a work area and hints
                 area. Without both of these, it fails to render anything! */}
-            <div id="workarea" />
-            <div id="hintsarea" />
-
-            <Peripherals />
+                <div id="workarea" />
+                <div id="hintsarea" />
+                <Peripherals />
+            </StatefulKeypadContextProvider>
         </RenderStateRoot>,
     );
     if (!renderer) {
@@ -115,7 +121,7 @@ const makeHint = (content: string): PerseusRenderer => ({
             graded: true,
             version: {major: 0, minor: 0},
             static: false,
-            // @ts-expect-error [FEI-5003] - TS2322 - Type '"mock-widget"' is not assignable to type '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"'.
+            // @ts-expect-error - TS2322 - Type '"mock-widget"' is not assignable to type '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"'.
             type: "mock-widget",
             options: {static: false},
             alignment: "default",
@@ -132,6 +138,13 @@ describe("item renderer", () => {
     });
 
     beforeEach(() => {
+        // Mock ResizeObserver used by the mobile keypad
+        window.ResizeObserver = jest.fn().mockImplementation(() => ({
+            observe: jest.fn(),
+            unobserve: jest.fn(),
+            disconnect: jest.fn(),
+        }));
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -296,20 +309,6 @@ describe("item renderer", () => {
                 ["mock-widget 4"], // previously focused widget
                 false, // did focus the input (our mock widget doesn't have input)
             );
-        });
-
-        it("should activate the keypad when widget with input is focused", () => {
-            // Arrange
-            const {renderer} = renderQuestion(itemWithInput, {
-                isMobile: true,
-                customKeypad: true,
-            });
-
-            // Act
-            renderer.focus();
-
-            // Assert
-            expect(screen.getByLabelText("7")).toBeVisible();
         });
 
         it("should provide current and previous focus paths on focus change to, and away from, a single widget", () => {

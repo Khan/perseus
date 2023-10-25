@@ -25,7 +25,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
               with:
@@ -40,7 +40,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [16.x]
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -51,17 +51,14 @@ jobs:
               run: yarn coverage
 
             - name: Upload Coverage
-              # We don't bother uploading a record of coverage for dependabot changes
-              if: ${{ github.actor != 'dependabot[bot]' }}
-              uses: coverallsapp/github-action@v1
+              uses: codecov/codecov-action@v3
               with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  flag-name: jest
-                  parallel: true
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  files: ./coverage/coverage-final.json
 
     cypress:
         needs: [prime_cache_primary]
-        name: Cypress Coverage
+        name: Cypress
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -69,7 +66,7 @@ jobs:
                 node-version: [16.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -78,25 +75,3 @@ jobs:
 
             - name: Run test with coverage
               run: yarn cypress:ci
-
-            - name: Generate report
-              run: yarn nyc report --reporter=lcov
-
-            - name: Upload Coverage
-              # We don't bother uploading a record of coverage for dependabot changes
-              if: ${{ github.actor != 'dependabot[bot]' }}
-              uses: coverallsapp/github-action@v1
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  flag-name: cypress
-                  parallel: true
-
-    finish_coverage:
-        needs: [cypress, coverage]
-        runs-on: ubuntu-latest
-        steps:
-            - name: Finish Coverage
-              uses: coverallsapp/github-action@v1
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  parallel-finished: true

@@ -4,7 +4,7 @@ import * as React from "react";
 
 import TabbarItem from "./item";
 
-import type {TabbarItemType} from "./types";
+import type {KeypadPageType} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const styles = StyleSheet.create({
@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-    items: ReadonlyArray<TabbarItemType>;
-    selectedItem: TabbarItemType;
+    items: ReadonlyArray<KeypadPageType>;
+    selectedItem: KeypadPageType;
     onClickClose?: () => void;
-    onSelectItem: (item: TabbarItemType) => void;
+    onSelectItem: (item: KeypadPageType) => void;
     style?: StyleType;
 };
 

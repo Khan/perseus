@@ -56,7 +56,7 @@ const MovablePolygon = function (
     assert(graphie != null);
     assert(options != null);
 
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {
         graphie: graphie,
         movable: movable,
@@ -67,7 +67,7 @@ const MovablePolygon = function (
     });
 
     // We only set DEFAULT_STATE once, here
-    // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.modify(_.extend({}, DEFAULT_STATE, options));
 };
 

@@ -7,6 +7,7 @@ import {simpleQuestionShape} from "../packages/perseus/src/multi-items/__testdat
 
 import KEScoreUI from "./ke-score-ui";
 import SideBySide from "./side-by-side";
+import {testDependenciesV2} from "./test-dependencies";
 
 import type {Item as MultiItem} from "../packages/perseus/src/multi-items/item-types";
 import type {APIOptions} from "../packages/perseus/src/types";
@@ -33,7 +34,7 @@ export const MultiItemRendererWithDebugUI = ({
     simpleItem,
     apiOptions,
 }: Props): React.ReactElement => {
-    // @ts-expect-error [FEI-5003] - TS2530 - Cannot find namespace 'MultiItems'.
+    // @ts-expect-error - TS2530 - Cannot find namespace 'MultiItems'.
     const ref = React.useRef<MultiItems.MultiRenderer>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
 
@@ -46,6 +47,7 @@ export const MultiItemRendererWithDebugUI = ({
                         item={simpleItem}
                         shape={simpleQuestionShape}
                         ref={ref}
+                        dependencies={testDependenciesV2}
                     >
                         {(renderers) => {
                             return children(renderers);

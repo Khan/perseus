@@ -22,12 +22,9 @@ import Util from "./util";
 
 import type Renderer from "./renderer";
 import type {APIOptionsWithDefaults} from "./types";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type Props = JSX.LibraryManagedAttributes<
-    Renderer,
-    // @ts-expect-error [FEI-5003] - TS2344 - Type 'Renderer' does not satisfy the constraint 'keyof IntrinsicElements | JSXElementConstructor<any>'.
-    React.ComponentProps<typeof Renderer>
-> & {
+type Props = PropsFor<typeof Renderer> & {
     className?: string;
     // note (mcurtis): I think this should be $ReadOnlyArray<PerseusRenderer>,
     // but things spiraled out of control when I tried to change it
@@ -36,7 +33,6 @@ type Props = JSX.LibraryManagedAttributes<
 };
 
 type DefaultProps = {
-    // @ts-expect-error [FEI-5003] - TS2339 - Property 'linterContext' does not exist on type '{ className?: string | undefined; hints: readonly any[]; hintsVisible?: number | undefined; }'.
     linterContext: Props["linterContext"];
 };
 
@@ -64,7 +60,7 @@ class HintsRenderer extends React.Component<Props, State> {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        // @ts-expect-error [FEI-5003] - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
+        // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
         if (nextProps.hintsVisible - this.props.hintsVisible > 1) {
             this.setState({isFinalHelpPage: true});
         }
@@ -90,7 +86,7 @@ class HintsRenderer extends React.Component<Props, State> {
             nextHintsVisible >= 0
         ) {
             const pos = nextHintsVisible - 1;
-            // @ts-expect-error [FEI-5003] - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus(); // eslint-disable-line react/no-string-refs
         }
     }
@@ -126,7 +122,6 @@ class HintsRenderer extends React.Component<Props, State> {
         // false in hints.
         return {
             ...ApiOptions.defaults,
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'apiOptions' does not exist on type 'Readonly<{ className?: string | undefined; hints: readonly any[]; hintsVisible?: number | undefined; }> & Readonly<{ children?: ReactNode; }>'.
             ...this.props.apiOptions,
             readOnly: false,
         };
@@ -135,7 +130,7 @@ class HintsRenderer extends React.Component<Props, State> {
     getSerializedState: () => any = () => {
         return _.times(this._hintsVisible(), (i) => {
             // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
+            // @ts-expect-error - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
             return this.refs["hintRenderer" + i].getSerializedState();
         });
     };
@@ -164,7 +159,7 @@ class HintsRenderer extends React.Component<Props, State> {
             // have the appropriate number of hints visible already.
             if (hintRenderer) {
                 ++numCallbacks;
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'restoreSerializedState' does not exist on type 'ReactInstance'.
+                // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'ReactInstance'.
                 hintRenderer.restoreSerializedState(hintState, fireCallback);
             }
         });
@@ -196,10 +191,8 @@ class HintsRenderer extends React.Component<Props, State> {
                     ref={"hintRenderer" + i}
                     key={"hintRenderer" + i}
                     apiOptions={apiOptions}
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'findExternalWidgets' does not exist on type 'Readonly<{ className?: string | undefined; hints: readonly any[]; hintsVisible?: number | undefined; }> & Readonly<{ children?: ReactNode; }>'.
                     findExternalWidgets={this.props.findExternalWidgets}
                     linterContext={PerseusLinter.pushContextStack(
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'linterContext' does not exist on type 'Readonly<{ className?: string | undefined; hints: readonly any[]; hintsVisible?: number | undefined; }> & Readonly<{ children?: ReactNode; }>'.
                         this.props.linterContext,
                         "hints[" + i + "]",
                     )}
@@ -247,7 +240,7 @@ class HintsRenderer extends React.Component<Props, State> {
                 {hints}
                 {showGetAnotherHint && (
                     <button
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type '{ children: Element[]; rel: string; className: string; onClick: (evt: MouseEvent<HTMLButtonElement, MouseEvent>) => void; }' is not assignable to type 'DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>'.
+                        // @ts-expect-error - TS2322 - Type '{ children: Element[]; rel: string; className: string; onClick: (evt: MouseEvent<HTMLButtonElement, MouseEvent>) => void; }' is not assignable to type 'DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>'.
                         rel="button"
                         className={css(
                             styles.linkButton,

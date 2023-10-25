@@ -1,5 +1,49 @@
 # @khanacademy/pure-markdown
 
+## 0.2.8
+
+### Patch Changes
+
+-   Updated dependencies [22a9c408]
+    -   @khanacademy/perseus-core@1.1.2
+    -   @khanacademy/perseus-error@0.2.5
+    -   @khanacademy/simple-markdown@0.10.2
+
+## 0.2.7
+
+### Patch Changes
+
+-   55d4cd00: Print package name and version when loaded in the page
+-   Updated dependencies [55d4cd00]
+    -   @khanacademy/perseus-core@1.1.1
+    -   @khanacademy/perseus-error@0.2.4
+    -   @khanacademy/simple-markdown@0.10.1
+
+## 0.2.6
+
+### Patch Changes
+
+-   388b6506: Move comment for mathMatcher to connect to it (so editors display it correctly).
+-   Updated dependencies [388b6506]
+    -   @khanacademy/perseus-error@0.2.3
+
+## 0.2.5
+
+### Patch Changes
+
+-   Updated dependencies [a383823d]
+    -   @khanacademy/perseus-error@0.2.2
+
+## 0.2.4
+
+### Patch Changes
+
+-   ce5e6297: Upgrade wonder-blocks deps to package versions without Flow types
+-   Updated dependencies [afb14cff]
+-   Updated dependencies [ce5e6297]
+-   Updated dependencies [0993a46b]
+    -   @khanacademy/simple-markdown@0.10.0
+
 ## 0.2.3
 
 ### Patch Changes

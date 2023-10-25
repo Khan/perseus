@@ -1,9 +1,12 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {screen, fireEvent} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {
     expressionItem2,
@@ -15,8 +18,13 @@ import {Expression} from "../expression";
 import {renderQuestion} from "./renderQuestion";
 
 import type {PerseusItem} from "../../perseus-types";
+import type {APIOptions} from "../../types";
 
-const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
+const assertComplete = (
+    itemData: PerseusItem,
+    input: string,
+    isCorrect: boolean,
+) => {
     const {renderer} = renderQuestion(itemData.question);
     userEvent.type(screen.getByRole("textbox"), input);
     const [_, score] = renderer.guessAndScore();
@@ -27,13 +35,14 @@ const assertComplete = (itemData: PerseusItem, input, isCorrect: boolean) => {
     });
 };
 
-const assertCorrect = (itemData: PerseusItem, input) => {
+const assertCorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, true);
 
-    expect(testDependencies.analytics).toHaveBeenCalledWith({
+    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
             result: "correct",
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
         },
     });
 };
@@ -41,36 +50,37 @@ const assertCorrect = (itemData: PerseusItem, input) => {
 const assertIncorrect = (itemData: PerseusItem, input: string) => {
     assertComplete(itemData, input, false);
 
-    expect(testDependencies.analytics).toHaveBeenCalledWith({
+    expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
         payload: {
             result: "incorrect",
+            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
         },
     });
 };
 
 // TODO: actually Assert that message is being set on the score object.
-const assertInvalid = (itemData: PerseusItem, input, message?: string) => {
+const assertInvalid = (
+    itemData: PerseusItem,
+    input: string,
+    message?: string,
+) => {
     const {renderer} = renderQuestion(itemData.question);
     if (input.length) {
         userEvent.type(screen.getByRole("textbox"), input);
     }
     const [_, score] = renderer.guessAndScore();
     expect(score).toMatchObject({type: "invalid"});
-
-    expect(testDependencies.analytics).toHaveBeenCalledWith({
-        type: "perseus:expression-evaluated",
-        payload: {
-            result: "invalid",
-        },
-    });
 };
 
 describe("Expression Widget", function () {
     beforeEach(() => {
-        jest.spyOn(testDependencies, "analytics");
+        jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
+        );
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
+            testDependenciesV2,
         );
     });
 
@@ -169,6 +179,64 @@ describe("Expression Widget", function () {
         it("should handle ungraded answers with no error callback", function () {
             const err = Expression.validate("x+^1", expressionItem3Options);
             expect(err).toStrictEqual({message: null, type: "invalid"});
+        });
+    });
+
+    describe("analytics", () => {
+        const assertKeypadVersion = (
+            apiOptions: APIOptions,
+            virtualKeypadVersion: string,
+        ) => {
+            const {renderer} = renderQuestion(
+                expressionItem2.question,
+                apiOptions,
+            );
+
+            renderer.guessAndScore();
+
+            expect(
+                testDependenciesV2.analytics.onAnalyticsEvent,
+            ).toHaveBeenCalledWith({
+                type: "perseus:expression-evaluated",
+                payload: {
+                    // We're not interested in validating that the expression
+                    // widget did anything useful or that the keypad worked. We
+                    // just want to make sure the code that derives which
+                    // keypad version it detected is correct.
+                    result: "correct",
+                    virtualKeypadVersion,
+                },
+            });
+        };
+
+        beforeEach(() => {
+            jest.spyOn(Expression, "validate").mockReturnValue({
+                type: "points",
+                earned: 1,
+                total: 1,
+            });
+        });
+
+        it("should set the virtual keypad version to REACT_NATIVE_KEYPAD when nativeKeypadProxy is provided", () => {
+            assertKeypadVersion(
+                {nativeKeypadProxy: jest.fn()},
+                "REACT_NATIVE_KEYPAD",
+            );
+        });
+
+        it("should set the virtual keypad version to MATH_INPUT_KEYPAD_V1 when customKeypad is set and useV2Keypad is unset", () => {
+            assertKeypadVersion({customKeypad: true}, "MATH_INPUT_KEYPAD_V1");
+        });
+
+        it("should set the virtual keypad version to MATH_INPUT_KEYPAD_V2 when customKeypad is set and useV2Keypad is true", () => {
+            assertKeypadVersion(
+                {customKeypad: true, useV2Keypad: true},
+                "MATH_INPUT_KEYPAD_V2",
+            );
+        });
+
+        it("should default the virtual keypad version to PERSEUS_MATH_INPUT", () => {
+            assertKeypadVersion(Object.freeze({}), "PERSEUS_MATH_INPUT");
         });
     });
 });
@@ -335,7 +403,7 @@ describe("interaction", () => {
         expect(score.type).toBe("points");
         // Score.total doesn't exist if the input is invalid
         // In this case we know that it'll be valid so we can assert directly
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'earned' does not exist on type 'PerseusScore'. | TS2339 - Property 'total' does not exist on type 'PerseusScore'.
+        // @ts-expect-error - TS2339 - Property 'earned' does not exist on type 'PerseusScore'. | TS2339 - Property 'total' does not exist on type 'PerseusScore'.
         expect(score.earned).toBe(score.total);
     });
 
@@ -351,7 +419,7 @@ describe("interaction", () => {
         // Assert
         // Score.total doesn't exist if the input is invalid
         // In this case we know that it'll be valid so we can assert directly
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
+        // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
         expect(score.total).toBe(1);
     });
 });
@@ -363,93 +431,20 @@ describe("error tooltip", () => {
         );
     });
 
-    it("shows on error", () => {
+    it("shows error text in tooltip", async () => {
         // Arrange
         const {renderer} = renderQuestion(expressionItem2.question);
         const expression = renderer.findWidgets("expression 1")[0];
 
         // Act
         expression.insert("x&&&&&^1");
+        screen.getByRole("textbox").blur();
         renderer.guessAndScore();
-        jest.runOnlyPendingTimers();
 
         // Assert
-        const errorMessage = screen.getByText(
-            "Sorry, I don't understand that!",
-        );
-        expect(errorMessage).not.toBeUndefined();
-    });
-
-    it("shows error text on mouse over", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
-
-        // Act
-        expression.insert("x&&&&&^1");
-        renderer.guessAndScore();
-        jest.runOnlyPendingTimers();
-
-        const tooltip = await screen.findByTestId("test-error-icon");
-
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.mouseEnter(tooltip);
-
-        // Assert
+        expect(screen.getByText("Oops!")).toBeVisible();
         expect(
             screen.getByText("Sorry, I don't understand that!"),
         ).toBeVisible();
-    });
-    it("hides error text on mouse leave", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
-
-        expression.insert("x&&&&&^1");
-        renderer.guessAndScore();
-        jest.runOnlyPendingTimers();
-
-        const tooltip = await screen.findByTestId("test-error-icon");
-
-        // Act
-        // NOTE(Nicole): The existing perseus code requires explicit events
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.mouseEnter(tooltip);
-        // NOTE(Nicole): The existing perseus code requires explicit events
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.mouseLeave(tooltip);
-
-        // Assert
-        expect(
-            screen.getByText("Sorry, I don't understand that!"),
-        ).not.toBeVisible();
-    });
-
-    it("toggles error text on click", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(expressionItem2.question);
-        const expression = renderer.findWidgets("expression 1")[0];
-
-        expression.insert("x&&&&&^1");
-        renderer.guessAndScore();
-        jest.runOnlyPendingTimers();
-
-        const tooltip = await screen.findByTestId("test-error-icon");
-
-        // Act & Assert
-        // NOTE(Nicole): The existing perseus code requires explicit events
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.click(tooltip);
-        expect(
-            screen.getByText("Sorry, I don't understand that!"),
-        ).toBeVisible();
-
-        // Act & Assert
-        // NOTE(Nicole): The existing perseus code requires explicit events
-        // eslint-disable-next-line testing-library/prefer-user-event
-        fireEvent.click(tooltip);
-        expect(
-            screen.getByText("Sorry, I don't understand that!"),
-        ).not.toBeVisible();
     });
 });

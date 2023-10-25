@@ -46,7 +46,7 @@ type State = {
 };
 
 export class Plotter extends React.Component<Props, State> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldSetupGraphie: boolean;
     _isMounted = false;
     horizHairline: any;
@@ -143,7 +143,7 @@ export class Plotter extends React.Component<Props, State> {
         const self = this;
         self.shouldSetupGraphie = false;
         const graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
-        // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
+        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
         const graphie = GraphUtils.createGraphie(graphieDiv);
 
@@ -540,7 +540,7 @@ export class Plotter extends React.Component<Props, State> {
             _.each(self.props.categories, function (category, i) {
                 const x = 0.5 + i * c.barWidth;
 
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
+                // @ts-expect-error - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
                 categoryHeightPromises.push(self.labelCategory(x, category));
                 const tickHeight = 6 / c.scale[1];
                 graphie.style(
@@ -590,7 +590,7 @@ export class Plotter extends React.Component<Props, State> {
                         i === self.props.categories.length - 1
                     ) {
                         categoryHeightPromises.push(
-                            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
+                            // @ts-expect-error - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
                             self.labelCategory(x, category),
                         );
                         tickStart *= 1.5;
@@ -598,7 +598,7 @@ export class Plotter extends React.Component<Props, State> {
                     }
                 } else {
                     categoryHeightPromises.push(
-                        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
+                        // @ts-expect-error - TS2345 - Argument of type 'Promise<any>' is not assignable to parameter of type 'never'.
                         self.labelCategory(x, category),
                     );
                 }
@@ -894,7 +894,7 @@ export class Plotter extends React.Component<Props, State> {
             if (i > 0) {
                 c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
                     points: [c.graph.points[i - 1], c.graph.points[i]],
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
+                    // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                     constraints: Interactive2.MovablePoint.constraints.fixed(),
                     normalStyle: {
                         stroke: KhanColors.BLUE_C,
@@ -1018,7 +1018,7 @@ export class Plotter extends React.Component<Props, State> {
                 .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
                 .on("vmousedown", function (e) {
                     e.preventDefault();
-                    // @ts-expect-error [FEI-5003] - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
+                    // @ts-expect-error - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
                     self.whichPicClicked = i;
                     self.setPicHeight(i, topY);
 
@@ -1048,7 +1048,7 @@ export class Plotter extends React.Component<Props, State> {
                             newMidY + 0.5 * c.scaleY,
                             c.dimY,
                         );
-                        // @ts-expect-error [FEI-5003] - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
+                        // @ts-expect-error - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
                         self.setPicHeight(self.whichPicClicked, newTopY);
                     });
                 });
@@ -1137,7 +1137,7 @@ export class Plotter extends React.Component<Props, State> {
     };
 
     simpleValidate: (arg1: any) => any = (rubric) => {
-        // @ts-expect-error [FEI-5003] - TS2339 - Property 'validate' does not exist on type 'typeof Plotter'.
+        // @ts-expect-error - TS2339 - Property 'validate' does not exist on type 'typeof Plotter'.
         return Plotter.validate(this.getUserInput(), rubric);
     };
 

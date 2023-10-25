@@ -1,8 +1,10 @@
 import * as React from "react";
 
 import {MobileKeypad} from "./keypad";
+import {KeypadContext} from "./keypad-context";
 import LegacyKeypad from "./keypad-legacy";
 
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
@@ -11,6 +13,7 @@ type Props = {
     style?: StyleType;
 
     useV2Keypad?: boolean;
+    onAnalyticsEvent: AnalyticsEventHandlerFn;
 };
 
 function KeypadSwitch(props: Props) {
@@ -18,7 +21,22 @@ function KeypadSwitch(props: Props) {
 
     const KeypadComponent = useV2Keypad ? MobileKeypad : LegacyKeypad;
 
-    return <KeypadComponent {...rest} />;
+    // Note: Although we pass the "onAnalyticsEvent" to both keypad components,
+    // only the current one uses it. There's no point in instrumenting the
+    // legacy keypad given that it's on its way out the door.
+    return (
+        <KeypadContext.Consumer>
+            {({setKeypadActive, keypadActive}) => {
+                return (
+                    <KeypadComponent
+                        {...rest}
+                        keypadActive={keypadActive}
+                        setKeypadActive={setKeypadActive}
+                    />
+                );
+            }}
+        </KeypadContext.Consumer>
+    );
 }
 
 export default KeypadSwitch;

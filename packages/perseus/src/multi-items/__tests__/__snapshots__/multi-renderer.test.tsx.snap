@@ -133,7 +133,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                         style="flex-direction: column; color: rgb(33, 36, 44);"
                       >
                         <div
-                          style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                          style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                         >
                           <div
                             class="perseus-sr-only"
@@ -300,7 +300,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                         style="flex-direction: column; color: rgb(33, 36, 44);"
                       >
                         <div
-                          style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                          style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                         >
                           <div
                             class="perseus-sr-only"
@@ -467,7 +467,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                         style="flex-direction: column; color: rgb(33, 36, 44);"
                       >
                         <div
-                          style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                          style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                         >
                           <div
                             class="perseus-sr-only"
@@ -634,7 +634,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                         style="flex-direction: column; color: rgb(33, 36, 44);"
                       >
                         <div
-                          style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                          style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                         >
                           <div
                             class="perseus-sr-only"
@@ -801,7 +801,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                         style="flex-direction: column; color: rgb(33, 36, 44);"
                       >
                         <div
-                          style="display: flex; flex-direction: row; opacity: 1; overflow: auto;"
+                          style="display: flex; flex-direction: row; opacity: 1; overflow-x: auto; overflow-y: hidden;"
                         >
                           <div
                             class="perseus-sr-only"
@@ -1128,7 +1128,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
         class=""
       >
         <div
-          class="perseus-hint-renderer last-rendered"
+          class="hint perseus-hint-renderer last-rendered"
           tabindex="-1"
         >
           <span

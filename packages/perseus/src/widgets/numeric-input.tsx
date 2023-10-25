@@ -15,6 +15,7 @@ import type {
     PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
+    MathFormat,
 } from "../perseus-types";
 import type {
     FocusPath,
@@ -25,7 +26,11 @@ import type {
 
 const ParseTex = TexWrangler.parseTex;
 
-const answerFormButtons = [
+const answerFormButtons: ReadonlyArray<{
+    title: string;
+    value: MathFormat;
+    content: string;
+}> = [
     {title: "Integers", value: "integer", content: "6"},
     {title: "Decimals", value: "decimal", content: "0.75"},
     {title: "Proper fractions", value: "proper", content: "\u2157"},
@@ -133,12 +138,12 @@ export class NumericInput extends React.Component<Props, State> {
                 format = answer.answerForms[0];
             }
 
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
+            // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
             let answerString = KhanMath.toNumericString(answer.value, format);
             if (answer.maxError) {
                 answerString +=
                     " \u00B1 " +
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
+                    // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'MathFormat | undefined'.
                     KhanMath.toNumericString(answer.maxError, format);
             }
             return answerString;
@@ -149,8 +154,8 @@ export class NumericInput extends React.Component<Props, State> {
         return answerStrings[0];
     }
 
-    static validate(useInput: UserInput, rubric: Rubric): PerseusScore {
-        const allAnswerForms = answerFormButtons
+    static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+        const defaultAnswerForms = answerFormButtons
             .map((e) => e["value"])
             // Don't default to validating the answer as a pi answer
             // if answerForm isn't set on the answer
@@ -159,6 +164,18 @@ export class NumericInput extends React.Component<Props, State> {
 
         const createValidator = (answer: PerseusNumericInputAnswer) => {
             const stringAnswer = `${answer.value}`;
+
+            // Always validate against the provided answer forms (pi, decimal, etc.)
+            const validatorForms = [...(answer.answerForms ?? [])];
+
+            // When an answer is set to strict, we validate using ONLY
+            // the provided answerForms. If strict is false, or if there
+            // were no provided answer forms, we will include all
+            // of the default answer forms in our validator.
+            if (!answer.strict || validatorForms.length === 0) {
+                validatorForms.push(...defaultAnswerForms);
+            }
+
             return KhanAnswerTypes.number.createValidatorFunctional(
                 stringAnswer,
                 {
@@ -169,19 +186,14 @@ export class NumericInput extends React.Component<Props, State> {
                             : "optional",
                     inexact: true, // TODO(merlob) backfill / delete
                     maxError: answer.maxError,
-                    forms:
-                        answer.strict &&
-                        answer.answerForms &&
-                        answer.answerForms.length !== 0
-                            ? answer.answerForms
-                            : allAnswerForms,
+                    forms: validatorForms,
                 },
             );
         };
 
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
-        const currentValue = ParseTex(useInput.currentValue);
+        const currentValue = ParseTex(userInput.currentValue);
         const correctAnswers = rubric.answers.filter(
             (answer) => answer.status === "correct",
         );
@@ -200,10 +212,10 @@ export class NumericInput extends React.Component<Props, State> {
                 let localValue = currentValue;
                 if (rubric.coefficient) {
                     if (!localValue) {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
+                        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'string'.
                         localValue = 1;
                     } else if (localValue === "-") {
-                        // @ts-expect-error [FEI-5003] - TS2322 - Type 'number' is not assignable to type 'string'.
+                        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'string'.
                         localValue = -1;
                     }
                 }
@@ -220,7 +232,7 @@ export class NumericInput extends React.Component<Props, State> {
         if (!result) {
             // Otherwise, if the guess is not correct
             const otherAnswers = [].concat(
-                // @ts-expect-error [FEI-5003] - TS2769 - No overload matches this call.
+                // @ts-expect-error - TS2769 - No overload matches this call.
                 rubric.answers.filter((answer) => answer.status === "ungraded"),
                 rubric.answers.filter((answer) => answer.status === "wrong"),
             );
@@ -237,11 +249,11 @@ export class NumericInput extends React.Component<Props, State> {
                 ).correct;
             });
             result = {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
+                // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
                 empty: match ? match.status === "ungraded" : false,
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'status' does not exist on type 'never'.
+                // @ts-expect-error - TS2339 - Property 'status' does not exist on type 'never'.
                 correct: match ? match.status === "correct" : false,
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'message' does not exist on type 'never'.
+                // @ts-expect-error - TS2339 - Property 'message' does not exist on type 'never'.
                 message: match ? match.message : null,
                 guess: currentValue,
             };
@@ -284,7 +296,7 @@ export class NumericInput extends React.Component<Props, State> {
                   });
 
         let examples = _.map(forms, (form) => {
-            // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'PerseusNumericInputAnswerForm | { name: string; simplify: string; }' is not assignable to parameter of type 'PerseusNumericInputAnswerForm'.
+            // @ts-expect-error - TS2345 - Argument of type 'PerseusNumericInputAnswerForm | { name: string; simplify: string; }' is not assignable to parameter of type 'PerseusNumericInputAnswerForm'.
             return formExamples[form.name](form);
         });
         // Ensure no duplicate tooltip text from simplified and unsimplified
@@ -460,7 +472,7 @@ export const unionAnswerForms: (
     // two elements are equal, and returns a list of unique elements. This is
     // just a helper function here, but works generally.
     const uniqueBy = function (list, iteratee: any) {
-        // @ts-expect-error [FEI-5003] - TS2347 - Untyped function calls may not accept type arguments.
+        // @ts-expect-error - TS2347 - Untyped function calls may not accept type arguments.
         return list.reduce<Array<any>>((uniqueList, element) => {
             // For each element, decide whether it's already in the list of
             // unique items.
@@ -539,7 +551,7 @@ const propsTransform = function (
             // Pull out the name of each form and whether that form has
             // required simplification.
             widgetOptions.answers.map((answer) => {
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'readonly MathFormat[] | undefined' is not assignable to parameter of type 'Collection<any>'.
+                // @ts-expect-error - TS2345 - Argument of type 'readonly MathFormat[] | undefined' is not assignable to parameter of type 'Collection<any>'.
                 return _.map(answer.answerForms, (form) => {
                     return {
                         simplify: answer.simplify,

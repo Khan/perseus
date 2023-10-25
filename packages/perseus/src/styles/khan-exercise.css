@@ -10,6 +10,12 @@ var {
     font-style: normal;
 }
 
+.hint.last-hint {
+    .paragraph {
+        font-weight: bold;
+    }
+}
+
 .hint_blue {
     color: #6495ed;
 }
@@ -30,10 +36,6 @@ var {
 }
 .hint_purple {
     color: #9d38bd;
-}
-
-.last-hint {
-    font-weight: bold;
 }
 
 div.subhint {

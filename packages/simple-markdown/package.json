@@ -3,13 +3,14 @@
     "description": "Javascript markdown parsing, made simple",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.9.3",
+    "version": "0.10.2",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Khan/simple-markdown.git"
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/simple-markdown"
     },
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
@@ -21,11 +22,12 @@
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
+        "@khanacademy/perseus-core": "1.1.2",
         "@types/react": ">=16.0.0"
     },
     "devDependencies": {
         "@types/react-dom": ">=16.0.0",
-        "perseus-build-settings": "^0.1.0",
+        "perseus-build-settings": "^0.2.1",
         "size-limit": "^0.21.1",
         "typescript": "^3.6.4",
         "uglify-js": "^3.6.7"

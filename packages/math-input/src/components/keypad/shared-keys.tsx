@@ -1,52 +1,27 @@
 import * as React from "react";
 
 import Keys from "../../data/key-configs";
-import {CursorContext} from "../input/cursor-contexts";
 
 import {KeypadButton} from "./keypad-button";
+import {getCursorContextConfig} from "./utils";
 
-import type {ClickKeyCallback} from "../../types";
-import type {TabbarItemType} from "../tabbar";
+import type {ClickKeyCallback, KeypadPageType} from "../../types";
+import type {CursorContext} from "../input/cursor-contexts";
 
 type Props = {
     onClickKey: ClickKeyCallback;
-    selectedPage: TabbarItemType;
+    selectedPage: KeypadPageType;
     cursorContext?: typeof CursorContext[keyof typeof CursorContext];
-    multiplicationDot?: boolean;
+    convertDotToTimes?: boolean;
     divisionKey?: boolean;
 };
-
-function getCursorContextConfig(
-    cursorContext?: typeof CursorContext[keyof typeof CursorContext],
-) {
-    if (!cursorContext) {
-        return null;
-    }
-
-    switch (cursorContext) {
-        case CursorContext.NONE:
-            return null;
-        case CursorContext.IN_PARENS:
-            return Keys.JUMP_OUT_PARENTHESES;
-        case CursorContext.IN_SUPER_SCRIPT:
-            return Keys.JUMP_OUT_EXPONENT;
-        case CursorContext.IN_SUB_SCRIPT:
-            return Keys.JUMP_OUT_BASE;
-        case CursorContext.IN_NUMERATOR:
-            return Keys.JUMP_OUT_NUMERATOR;
-        case CursorContext.IN_DENOMINATOR:
-            return Keys.JUMP_OUT_DENOMINATOR;
-        case CursorContext.BEFORE_FRACTION:
-            return Keys.JUMP_INTO_NUMERATOR;
-    }
-}
 
 export default function SharedKeys(props: Props) {
     const {
         onClickKey,
         cursorContext,
         divisionKey,
-        multiplicationDot,
+        convertDotToTimes,
         selectedPage,
     } = props;
 
@@ -73,7 +48,7 @@ export default function SharedKeys(props: Props) {
                 secondary
             />
             <KeypadButton
-                keyConfig={Keys.FRAC_INCLUSIVE}
+                keyConfig={Keys.FRAC}
                 onClickKey={onClickKey}
                 coord={fractionCoord}
                 secondary
@@ -81,7 +56,7 @@ export default function SharedKeys(props: Props) {
 
             {/* Row 2 */}
             <KeypadButton
-                keyConfig={multiplicationDot ? Keys.CDOT : Keys.TIMES}
+                keyConfig={convertDotToTimes ? Keys.TIMES : Keys.CDOT}
                 onClickKey={onClickKey}
                 coord={[4, 1]}
                 secondary

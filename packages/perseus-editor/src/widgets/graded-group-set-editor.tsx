@@ -9,7 +9,7 @@ import GradedGroupEditor from "./graded-group-editor";
 type Props = any;
 
 class GradedGroupSetEditor extends React.Component<Props> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
 
     static propTypes = {
@@ -63,7 +63,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
                 widgetEnabled={true}
                 immutableWidgets={false}
                 onChange={(data) =>
-                    // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+                    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
                     this.change(
                         "gradedGroups",
                         setArrayItem(this.props.gradedGroups, i, {
@@ -78,7 +78,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
 
     addGroup: () => void = () => {
         const groups = this.props.gradedGroups || [];
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 2.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change(
             "gradedGroups",
             groups.concat([GradedGroupEditor.defaultProps]),

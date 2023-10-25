@@ -1,3 +1,5 @@
+export {libVersion} from "./version";
+
 export {default as ArticleEditor} from "./article-editor";
 export {default as DeviceFramer} from "./components/device-framer";
 export {default as ViewportResizer} from "./components/viewport-resizer";

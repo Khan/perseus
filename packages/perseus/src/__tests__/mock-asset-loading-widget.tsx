@@ -2,15 +2,16 @@ import * as React from "react";
 
 import AssetContext from "../asset-context";
 
+import type {PerseusItem} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
-export const mockedAssetItem = {
+export const mockedAssetItem: PerseusItem = {
     question: {
         content: "[[\u2603 mocked-asset-widget 1]]",
         images: Object.freeze({}),
         widgets: {
             "mocked-asset-widget 1": {
-                type: "mocked-asset-widget",
+                type: "mocked-asset-widget" as any,
                 alignment: "default",
                 static: false,
                 graded: true,
@@ -27,14 +28,13 @@ export const mockedAssetItem = {
         zTable: false,
     },
     itemDataVersion: {major: 0, minor: 1},
-    // $FlowIgnore[signature-verification-failure]
     hints: [],
     _multi: null,
     answer: null,
 } as const;
 
 export class MockAssetLoadingWidget extends React.Component<Record<any, any>> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property 'setAssetStatus' has no initializer and is not definitely assigned in the constructor.
+    // @ts-expect-error - TS2564 - Property 'setAssetStatus' has no initializer and is not definitely assigned in the constructor.
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
 
     render(): React.ReactNode {

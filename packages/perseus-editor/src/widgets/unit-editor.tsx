@@ -43,7 +43,7 @@ type UnitExampleState = any;
 class UnitExample extends React.Component<UnitExampleProps, UnitExampleState> {
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
-        // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'Readonly<any> & Readonly<{ children?: ReactNode; }>' is not assignable to parameter of type '{ name: any; original: any; sigfigs: any; }'.
+        // @ts-expect-error - TS2345 - Argument of type 'Readonly<any> & Readonly<{ children?: ReactNode; }>' is not assignable to parameter of type '{ name: any; original: any; sigfigs: any; }'.
         this._checkValidity(this.props);
     }
 
@@ -158,12 +158,12 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
             .split(",")
             .map((str) => str.trim())
             .filter((str) => str !== "");
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({acceptingUnits});
     };
 
     handleSigfigChange: (arg1: number) => void = (sigfigs) => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({sigfigs});
     };
 
@@ -172,7 +172,7 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
     };
 
     _setAccepting: (arg1: typeof SOME | typeof ALL) => void = (val) => {
-        // @ts-expect-error [FEI-5003] - TS2554 - Expected 3 arguments, but got 1.
+        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
         this.change({accepting: val});
     };
 
@@ -226,7 +226,7 @@ class UnitInputEditor extends React.Component<UnitInputEditorProps> {
                 />
             ));
 
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'Element' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
             acceptingElem = (
                 <div>
                     <input

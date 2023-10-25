@@ -1,16 +1,13 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * Main entry point
  */
-
-import version from "./version";
 
 export {default as init} from "./init";
 
 export {ApiOptions, ClassNames} from "./perseus-api";
 
-export const apiVersion = version.apiVersion;
-export const itemDataVersion = version.itemDataVersion;
+export {libVersion} from "./version";
+export {apiVersion, itemDataVersion} from "./perseus-version";
 export {default as itemVersion} from "./item-version";
 
 /**
@@ -109,7 +106,6 @@ export type {
     ImageUploader,
     JiptLabelStore,
     JiptRenderer,
-    LinterContextProps,
     PerseusDependencies,
     PerseusScore,
     Version,

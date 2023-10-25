@@ -2,17 +2,18 @@ import {action} from "@storybook/addon-actions";
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import * as React from "react";
 
-import Keypad from "./keypad";
+import Keypad from "./components/keypad";
 
-import type {Props as KeypadProps} from "./keypad";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {ComponentStory} from "@storybook/react";
 
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";
 const geoPage = "Geometry Page";
+const fracPage = "Fractions Page";
 
 export default {
-    title: "Full Keypad",
+    title: "math-input/Full Keypad",
     parameters: {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
@@ -25,10 +26,12 @@ export default {
         basicRelations: false,
         divisionKey: false,
         logarithms: false,
-        multiplicationDot: false,
+        fractionsOnly: false,
+        convertDotToTimes: false,
         preAlgebra: false,
         trigonometry: false,
         sendEvent: () => {},
+        onAnalyticsEvent: async () => {},
     },
     argTypes: {
         advancedRelations: {
@@ -55,6 +58,12 @@ export default {
                 category: opsPage,
             },
         },
+        fractionsOnly: {
+            control: "boolean",
+            table: {
+                category: fracPage,
+            },
+        },
         multiplicationDot: {
             control: "boolean",
             table: {
@@ -77,7 +86,7 @@ export default {
 };
 
 const Template: ComponentStory<typeof Keypad> = (
-    args: KeypadProps,
+    args: PropsFor<typeof Keypad>,
 ): React.ReactElement => <Keypad {...args} onClickKey={action("onClickKey")} />;
 
 export const Default = Template.bind({});
@@ -93,13 +102,21 @@ Trigonometry.args = {
     trigonometry: true,
 };
 
+export const FractionsOnly = Template.bind({});
+FractionsOnly.args = {
+    fractionsOnly: true,
+};
+
 export const Everything = Template.bind({});
 Everything.args = {
     advancedRelations: true,
     basicRelations: true,
     divisionKey: true,
     logarithms: true,
-    multiplicationDot: false,
+    convertDotToTimes: false,
     preAlgebra: true,
     trigonometry: true,
+    expandedView: true,
+    showDismiss: true,
+    extraKeys: ["a", "b", "c"],
 };

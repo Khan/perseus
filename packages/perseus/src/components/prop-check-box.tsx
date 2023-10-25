@@ -33,7 +33,7 @@ const PropCheckBox: any = createReactClass({
         const propName = _.find(
             _.keys(this.props),
             function (localPropName) {
-                // @ts-expect-error [FEI-5003] - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 return !_.has(this.DEFAULT_PROPS, localPropName);
             },
             this,

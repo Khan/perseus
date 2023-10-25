@@ -7,28 +7,32 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
-import ProvideKeypad from "./mixins/provide-keypad";
+import {DependenciesContext} from "./dependencies";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
 import type {KeypadProps} from "./mixins/provide-keypad";
 import type {PerseusRenderer} from "./perseus-types";
-import type {APIOptions} from "./types";
+import type {APIOptions, PerseusDependenciesV2} from "./types";
+import type {KeypadAPI} from "@khanacademy/math-input";
+import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-type Props = {
-    apiOptions: APIOptions;
-    json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
-
-    // Whether to use the new Bibliotron styles for articles
-    /**
-     * @deprecated Does nothing
-     */
-    useNewStyles: boolean;
-    linterContext: LinterContextProps;
-    legacyPerseusLint?: ReadonlyArray<string>;
-} & KeypadProps;
+type Props = Partial<React.ContextType<typeof DependenciesContext>> &
+    KeypadProps & {
+        apiOptions: APIOptions;
+        json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+        // Whether to use the new Bibliotron styles for articles
+        /**
+         * @deprecated Does nothing
+         */
+        useNewStyles: boolean;
+        linterContext: LinterContextProps;
+        legacyPerseusLint?: ReadonlyArray<string>;
+        keypadElement?: KeypadAPI | null | undefined;
+        dependencies: PerseusDependenciesV2;
+    };
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
@@ -36,12 +40,12 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
-type State = {
-    keypadElement: any | null;
-};
-
-class ArticleRenderer extends React.Component<Props, State> {
+class ArticleRenderer
+    extends React.Component<Props>
+    implements KeypadContextRendererInterface
+{
     _currentFocus: any;
+    sectionRenderers: Array<Renderer> = [];
 
     static defaultProps: DefaultProps = {
         apiOptions: ApiOptions.defaults,
@@ -51,25 +55,15 @@ class ArticleRenderer extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-        this.state = ProvideKeypad.getInitialState.call(this);
     }
 
     componentDidMount() {
-        ProvideKeypad.componentDidMount.call(this);
         this._currentFocus = null;
     }
 
-    shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-        return nextProps !== this.props || nextState !== this.state;
+    shouldComponentUpdate(nextProps: Props): boolean {
+        return nextProps !== this.props;
     }
-
-    componentWillUnmount() {
-        ProvideKeypad.componentWillUnmount.call(this);
-    }
-
-    keypadElement: () => void = () => {
-        return ProvideKeypad.keypadElement.call(this);
-    };
 
     _handleFocusChange: (arg1: any, arg2: any) => void = (
         newFocusPath,
@@ -85,7 +79,8 @@ class ArticleRenderer extends React.Component<Props, State> {
     };
 
     _setCurrentFocus: (arg1: any) => void = (newFocusPath) => {
-        const keypadElement = this.keypadElement();
+        const {keypadElement, apiOptions} = this.props;
+        const {isMobile} = apiOptions;
 
         const prevFocusPath = this._currentFocus;
         this._currentFocus = newFocusPath;
@@ -94,32 +89,36 @@ class ArticleRenderer extends React.Component<Props, State> {
         // paths, so as to check whether the focused path represents an
         // input.
         let didFocusInput = false;
+        let focusedInput;
+
         if (this._currentFocus) {
-            const [sectionRef, ...focusPath] = this._currentFocus;
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
-            const inputPaths = this.refs[sectionRef].getInputPaths();
+            const [sectionIndex, ...focusPath] = this._currentFocus;
+
+            const inputPaths =
+                this.sectionRenderers[sectionIndex].getInputPaths();
+
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
             });
+            focusedInput =
+                this.sectionRenderers[sectionIndex].getDOMNodeForPath(
+                    focusPath,
+                );
         }
 
         if (this.props.apiOptions.onFocusChange != null) {
             this.props.apiOptions.onFocusChange(
                 this._currentFocus,
                 prevFocusPath,
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'getDOMNode' does not exist on type 'never'.
-                didFocusInput && keypadElement && keypadElement.getDOMNode(),
+                didFocusInput ? keypadElement?.getDOMNode() : null,
+                didFocusInput ? focusedInput : null,
             );
         }
 
-        // @ts-expect-error [FEI-5003] - TS1345 - An expression of type 'void' cannot be tested for truthiness.
-        if (keypadElement) {
+        if (keypadElement && isMobile) {
             if (didFocusInput) {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'activate' does not exist on type 'never'.
                 keypadElement.activate();
             } else {
-                // @ts-expect-error [FEI-5003] - TS2339 - Property 'dismiss' does not exist on type 'never'.
                 keypadElement.dismiss();
             }
         }
@@ -148,10 +147,8 @@ class ArticleRenderer extends React.Component<Props, State> {
 
     blur: () => void = () => {
         if (this._currentFocus) {
-            const [sectionRef, ...inputPath] = this._currentFocus;
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error [FEI-5003] - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
-            this.refs[sectionRef].blurPath(inputPath);
+            const [sectionIndex, ...inputPath] = this._currentFocus;
+            this.sectionRenderers[sectionIndex].blurPath(inputPath);
         }
     };
 
@@ -177,27 +174,33 @@ class ArticleRenderer extends React.Component<Props, State> {
         });
 
         // TODO(alex): Add mobile api functions and pass them down here
-        const sections = this._sections().map((section, i) => {
-            const refForSection = `section-${i}`;
+        // We're using the index as the key here because we don't have a unique
+        // identifier for each section. This should be fine as we never remove
+        // or reorder sections.
+        const sections = this._sections().map((section, sectionIndex) => {
             return (
-                <div key={i} className="clearfix">
+                <div key={sectionIndex} className="clearfix">
                     <Renderer
                         {...section}
-                        ref={refForSection}
-                        key={i}
-                        key_={i}
-                        keypadElement={this.keypadElement()}
+                        ref={(elem) => {
+                            if (elem) {
+                                this.sectionRenderers[sectionIndex] = elem;
+                            }
+                        }}
+                        key={sectionIndex}
+                        key_={sectionIndex}
+                        keypadElement={this.props.keypadElement}
                         apiOptions={{
                             ...apiOptions,
                             onFocusChange: (newFocusPath, oldFocusPath) => {
-                                // Prefix the paths with the relevant section,
+                                // Prefix the paths with the relevant section index,
                                 // so as to allow us to distinguish between
                                 // equivalently-named inputs across Renderers.
                                 this._handleFocusChange(
                                     newFocusPath &&
-                                        [refForSection].concat(newFocusPath),
+                                        [sectionIndex].concat(newFocusPath),
                                     oldFocusPath &&
-                                        [refForSection].concat(oldFocusPath),
+                                        [sectionIndex].concat(oldFocusPath),
                                 );
                             },
                         }}
@@ -206,12 +209,19 @@ class ArticleRenderer extends React.Component<Props, State> {
                             "article",
                         )}
                         legacyPerseusLint={this.props.legacyPerseusLint}
+                        {...this.props.dependencies}
                     />
                 </div>
             );
         });
 
-        return <div className={classes}>{sections}</div>;
+        return (
+            <div className={classes}>
+                <DependenciesContext.Provider value={this.props.dependencies}>
+                    {sections}
+                </DependenciesContext.Provider>
+            </div>
+        );
     }
 }
 

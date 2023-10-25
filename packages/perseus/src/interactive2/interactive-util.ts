@@ -27,7 +27,7 @@ function computePrefixedTransform(): string | null | undefined {
     let correctPrefix = null;
     _.each(prefixes, function (prefix) {
         if (typeof el.style[prefix] !== "undefined") {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'string' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
             correctPrefix = prefix;
         }
     });
@@ -46,9 +46,9 @@ function computeCanUse3dTransform(): boolean {
     const prefix = InteractiveUtil.getPrefixedTransform();
 
     // Prefix could be null.
-    // @ts-expect-error [FEI-5003] - TS2538 - Type 'null' cannot be used as an index type. | TS2538 - Type 'undefined' cannot be used as an index type.
+    // @ts-expect-error - TS2538 - Type 'null' cannot be used as an index type. | TS2538 - Type 'undefined' cannot be used as an index type.
     el.style[prefix] = "translateZ(0px)";
-    // @ts-expect-error [FEI-5003] - TS2538 - Type 'null' cannot be used as an index type. | TS2538 - Type 'undefined' cannot be used as an index type.
+    // @ts-expect-error - TS2538 - Type 'null' cannot be used as an index type. | TS2538 - Type 'undefined' cannot be used as an index type.
     return !!el.style[prefix];
 }
 
@@ -134,7 +134,7 @@ const InteractiveUtil = {
      */
     getPrefixedTransform: function (): string | null | undefined {
         // Cache result to avoid re-computation
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'string | null | undefined' is not assignable to type 'null'.
+        // @ts-expect-error - TS2322 - Type 'string | null | undefined' is not assignable to type 'null'.
         prefixedTransform = prefixedTransform || computePrefixedTransform();
         return prefixedTransform;
     },
@@ -144,10 +144,10 @@ const InteractiveUtil = {
      */
     getCanUse3dTransform: function (): boolean {
         if (canUse3dTransform == null) {
-            // @ts-expect-error [FEI-5003] - TS2322 - Type 'boolean' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type 'boolean' is not assignable to type 'null'.
             canUse3dTransform = computeCanUse3dTransform();
         }
-        // @ts-expect-error [FEI-5003] - TS2322 - Type 'null' is not assignable to type 'boolean'.
+        // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'boolean'.
         return canUse3dTransform;
     },
 } as const;
