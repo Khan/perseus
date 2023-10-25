@@ -57,12 +57,23 @@ module.exports = defineConfig({
                             use: ["style-loader", "css-loader"],
                         },
                         {
-                            test: /\.(woff|woff2|ttf|otf)$/,
-                            use: [{loader: "file-loader"}],
-                        },
-                        {
                             test: /\.(less)$/,
                             use: ["style-loader", "css-loader", "less-loader"],
+                        },
+                        {
+                            test: /\.(woff|woff2|ttf|otf)$/,
+                            type: "asset/resource",
+                            generator: {
+                                filename: "fonts/[hash]-[name][ext]",
+                            },
+                        },
+
+                        {
+                            test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+                            type: "asset/resource",
+                            generator: {
+                                filename: "images/[hash]-[name][ext]",
+                            },
                         },
                     ],
                 },

@@ -64,7 +64,7 @@
     "babel-loader": "^8.0.5",
     "babel-plugin-istanbul": "^6.1.1",
     "cross-env": "^5.2.0",
-    "cypress": "^12.5.1",
+    "cypress": "^13.3.3",
     "cypress-jest-adapter": "^0.1.1",
     "cypress-wait-until": "^1.7.2",
     "enzyme": "^3.11.0",
@@ -114,6 +114,7 @@
     "sloc": "^0.2.1",
     "typescript": "4.9.5",
     "typescript-coverage-report": "^0.7.0",
+    "webpack": "^5.89.0",
     "winston": "^3.7.2"
   },
   "resolutions": {
