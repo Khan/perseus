@@ -17,26 +17,8 @@
         margin: 22px;
         position: relative;
 
-        // Use the "Minion Pro" font, if available. If not, fall back to
-        // KaTeX_Main or another serif font.
-        //
-        // NOTE(mdr): Minion Pro is only loaded on SAT and GTP pages, because
-        //     those are the main call sites for the passage widget. We
-        //     considered inserting the relevant stylesheet whenever the
-        //     passage widget loads, but this approach produced a "flash of
-        //     unstyled text", so we decided to embed the stylesheet into the
-        //     relevant page templates instead.
-        //
-        // NOTE(mdr): Minion Pro will not be available on ZNDs, due to
-        //     restrictions in our Adobe TypeKit configuration.
-        //
-        // TODO(mdr): The BodySerif component will hopefully soon use Minion
-        //     Pro by default (WB-399). Once that happens, we should be able to
-        //     switch to the BodySerif component (TP-3112), and remove this
-        //     special font-family rule.
         div.paragraph {
-            font-family: "minion-pro", KaTeX_Main, Times, "Times New Roman",
-                serif;
+            font-family: KaTeX_Main, Times, "Times New Roman", serif;
         }
 
         .passage-title div.paragraph {

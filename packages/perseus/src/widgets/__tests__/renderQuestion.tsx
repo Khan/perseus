@@ -4,7 +4,7 @@ import * as React from "react";
 
 // eslint-disable-next-line import/no-relative-packages
 import {testDependenciesV2} from "../../../../../testing/test-dependencies";
-import {DependenciesContext} from "../../dependencies";
+import {DependenciesContext, useDependencies} from "../../dependencies";
 import * as Perseus from "../../index";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
@@ -33,14 +33,11 @@ export const renderQuestion = (
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
             <DependenciesContext.Provider value={testDependenciesV2}>
-                <Perseus.Renderer
+                <Renderer
                     ref={(node) => (renderer = node)}
-                    content={question.content}
-                    images={question.images}
-                    widgets={question.widgets}
-                    problemNum={0}
+                    question={question as any}
                     apiOptions={apiOptions}
-                    {...extraProps}
+                    extraProps={extraProps}
                 />
             </DependenciesContext.Provider>
         </RenderStateRoot>,
@@ -55,14 +52,11 @@ export const renderQuestion = (
         rerender(
             <RenderStateRoot>
                 <DependenciesContext.Provider value={testDependenciesV2}>
-                    <Perseus.Renderer
+                    <Renderer
                         ref={(node) => (renderer = node)}
-                        content={question.content}
-                        images={question.images}
-                        widgets={question.widgets}
-                        problemNum={0}
+                        question={question}
                         apiOptions={apiOptions}
-                        {...extraProps}
+                        extraProps={extraProps}
                     />
                 </DependenciesContext.Provider>
             </RenderStateRoot>,
@@ -74,3 +68,26 @@ export const renderQuestion = (
 
     return {container, renderer, rerender: renderAgain, unmount};
 };
+
+const Renderer = React.forwardRef<
+    Perseus.Renderer,
+    {
+        question: PerseusRenderer;
+        apiOptions: APIOptions;
+        extraProps?: PropsFor<typeof Perseus.Renderer>;
+    }
+>((props, ref) => {
+    const dependencies = useDependencies();
+    return (
+        <Perseus.Renderer
+            ref={ref}
+            content={props.question.content}
+            images={props.question.images}
+            widgets={props.question.widgets}
+            problemNum={0}
+            apiOptions={props.apiOptions}
+            {...props.extraProps}
+            {...dependencies}
+        />
+    );
+});

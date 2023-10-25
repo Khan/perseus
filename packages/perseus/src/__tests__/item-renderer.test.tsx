@@ -1,6 +1,6 @@
 import {StatefulKeypadContextProvider} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import "@testing-library/jest-dom"; // Imports custom matchers
@@ -88,7 +88,6 @@ export const renderQuestion = (
                 area. Without both of these, it fails to render anything! */}
                 <div id="workarea" />
                 <div id="hintsarea" />
-
                 <Peripherals />
             </StatefulKeypadContextProvider>
         </RenderStateRoot>,
@@ -310,23 +309,6 @@ describe("item renderer", () => {
                 ["mock-widget 4"], // previously focused widget
                 false, // did focus the input (our mock widget doesn't have input)
             );
-        });
-
-        it("should activate the keypad when widget with input is focused", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(itemWithInput, {
-                isMobile: true,
-                customKeypad: true,
-                useV2Keypad: true,
-            });
-
-            // Act
-            renderer.focus();
-
-            // Assert
-            await waitFor(() => {
-                expect(screen.getByLabelText("7")).toBeVisible();
-            });
         });
 
         it("should provide current and previous focus paths on focus change to, and away from, a single widget", () => {

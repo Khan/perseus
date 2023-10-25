@@ -1665,6 +1665,15 @@
   dependencies:
     "@changesets/types" "^5.0.0"
 
+"@changesets/changelog-github@^0.4.8":
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/@changesets/changelog-github/-/changelog-github-0.4.8.tgz#b7f8ae85d0c0ff08028d924c5e59a1cbd3742634"
+  integrity sha512-jR1DHibkMAb5v/8ym77E4AMNWZKB5NPzw5a5Wtqm1JepAuIF+hrKp2u04NKM14oBZhHglkCfrla9uq8ORnK/dw==
+  dependencies:
+    "@changesets/get-github-info" "^0.5.2"
+    "@changesets/types" "^5.2.1"
+    dotenv "^8.1.0"
+
 "@changesets/cli@^2.22.0":
   version "2.22.0"
   resolved "https://registry.yarnpkg.com/@changesets/cli/-/cli-2.22.0.tgz#3bdbfb4a7a81ef37f63114e77da84e23f906b763"
@@ -1733,6 +1742,14 @@
     chalk "^2.1.0"
     fs-extra "^7.0.1"
     semver "^5.4.1"
+
+"@changesets/get-github-info@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@changesets/get-github-info/-/get-github-info-0.5.2.tgz#0cde2cadba57db85c714dc303c077da919a574e5"
+  integrity sha512-JppheLu7S114aEs157fOZDjFqUDpm7eHdq5E8SSR0gUBTEK0cNSHsrSR5a66xs0z3RWuo46QvA3vawp8BxDHvg==
+  dependencies:
+    dataloader "^1.4.0"
+    node-fetch "^2.5.0"
 
 "@changesets/get-release-plan@^3.0.8":
   version "3.0.8"
@@ -1813,6 +1830,11 @@
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@changesets/types/-/types-5.0.0.tgz#d5eb52d074bc0358ce47d54bca54370b907812a0"
   integrity sha512-IT1kBLSbAgTS4WtpU6P5ko054hq12vk4tgeIFRVE7Vnm4a/wgbNvBalgiKP0MjEXbCkZbItiGQHkCGxYWR55sA==
+
+"@changesets/types@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@changesets/types/-/types-5.2.1.tgz#a228c48004aa8a93bce4be2d1d31527ef3bf21f6"
+  integrity sha512-myLfHbVOqaq9UtUKqR/nZA/OY7xFjQMdfgfqeZIBK4d0hA6pgxArvdv8M+6NUzzBsjWLOtvApv8YHr4qM+Kpfg==
 
 "@changesets/write@^0.1.8":
   version "0.1.8"
@@ -2943,6 +2965,11 @@
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-timing/-/wonder-blocks-timing-4.0.1.tgz#3ff91cebea54ef827261d833cb70e1dad6b4b549"
   integrity sha512-OOsbO09B60Z1fXvn6LZq8uZHjFvDKLl7fOzkPd+0xZoweCBIH1L0zF+ndnTD4M/pw6QZqw5BZPTtb2s/qLQtTw==
+
+"@khanacademy/wonder-blocks-timing@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-timing/-/wonder-blocks-timing-4.0.2.tgz#84fa99a905f0558a70e493af44a3a6885ddb844c"
+  integrity sha512-LIj31jodAXOi7Yj+QJyRLTCiO4/cPDCR8DSqZbNuA/vliRuePfOjX3ci4BMhnuSyEIu1bTorvcEeASTe/M52hw==
 
 "@khanacademy/wonder-blocks-tooltip@^2.0.11":
   version "2.0.11"
@@ -8426,6 +8453,11 @@ data-urls@^3.0.1:
     whatwg-mimetype "^3.0.0"
     whatwg-url "^11.0.0"
 
+dataloader@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-1.4.0.tgz#bca11d867f5d3f1b9ed9f737bd15970c65dff5c8"
+  integrity sha512-68s5jYdlvasItOJnCuI2Q9s4q98g0pCyL3HrcKJu8KNugUl8ahgmZYg38ysLTgQjjXX3H8CJLkAvWrclWfcalw==
+
 dayjs@1.10.7:
   version "1.10.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.7.tgz#2cf5f91add28116748440866a0a1d26f3a6ce468"
@@ -8868,7 +8900,7 @@ dotenv-expand@^5.1.0:
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
 
-dotenv@^8.0.0:
+dotenv@^8.0.0, dotenv@^8.1.0:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
   integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
@@ -14020,9 +14052,9 @@ markdown-escapes@^1.0.0:
   resolved "https://registry.yarnpkg.com/markdown-escapes/-/markdown-escapes-1.0.4.tgz#c95415ef451499d7602b91095f3c8e8975f78535"
   integrity sha512-8z4efJYk43E0upd0NbVXwgSTQs6cT3T06etieCMEg7dRbzCbxUCK/GHlX8mhHRDcp+OLlHkPKsvqQTCvsRl2cg==
 
-"mathquill@git+https://git@github.com/Khan/mathquill.git#32d9f351aaa68537170b3120a52e99b8def3a2c3":
+"mathquill@git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc":
   version "0.10.1"
-  resolved "git+https://git@github.com/Khan/mathquill.git#32d9f351aaa68537170b3120a52e99b8def3a2c3"
+  resolved "git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc"
   dependencies:
     pjs "3.x"
 
@@ -14606,6 +14638,13 @@ node-fetch@^1.0.1:
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
+
+node-fetch@^2.5.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
+  integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
+  dependencies:
+    whatwg-url "^5.0.0"
 
 node-fetch@^2.6.7:
   version "2.6.9"

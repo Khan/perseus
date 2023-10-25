@@ -8,7 +8,7 @@
  * - Perseus Renderers (Server/Item/Article)
  */
 import * as React from "react";
-import {useState} from "react";
+import {useState, useMemo} from "react";
 
 import type {KeypadAPI, KeypadContextType} from "../types";
 import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
@@ -39,22 +39,31 @@ export function StatefulKeypadContextProvider(props: Props) {
     const [scrollableElement, setScrollableElement] =
         useState<HTMLElement | null>();
 
+    const memoizedValue = useMemo(
+        () => ({
+            keypadActive,
+            setKeypadActive,
+            keypadElement,
+            setKeypadElement,
+            renderer,
+            setRenderer,
+            scrollableElement,
+            setScrollableElement,
+        }),
+        [
+            keypadActive,
+            setKeypadActive,
+            keypadElement,
+            setKeypadElement,
+            renderer,
+            setRenderer,
+            scrollableElement,
+            setScrollableElement,
+        ],
+    );
+
     return (
-        <KeypadContext.Provider
-            value={{
-                setKeypadActive,
-                keypadActive,
-                setKeypadElement,
-                keypadElement,
-                setRenderer,
-                renderer,
-                // The scrollableElement options can likely be removed after
-                // the exercises-package is officially deprecated. They don't appear
-                // to be used anywhere except for the exercises-package and tests.
-                setScrollableElement,
-                scrollableElement,
-            }}
-        >
+        <KeypadContext.Provider value={memoizedValue}>
             {props.children}
         </KeypadContext.Provider>
     );

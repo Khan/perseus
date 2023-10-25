@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "14.1.1",
+    "version": "14.2.0",
     "publishConfig": {
         "access": "public"
     },
@@ -21,7 +21,7 @@
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "1.1.2",
-        "mathquill": "git+https://git@github.com/Khan/mathquill.git#32d9f351aaa68537170b3120a52e99b8def3a2c3",
+        "mathquill": "git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc",
         "performance-now": "^0.2.0"
     },
     "devDependencies": {
@@ -30,6 +30,7 @@
         "@khanacademy/wonder-blocks-core": "^6.0.0",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
         "@khanacademy/wonder-blocks-popover": "^2.0.11",
+        "@khanacademy/wonder-blocks-timing": "^4.0.2",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",
@@ -49,6 +50,7 @@
         "@khanacademy/wonder-blocks-color": "^2.0.1",
         "@khanacademy/wonder-blocks-core": "^6.0.0",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
+        "@khanacademy/wonder-blocks-timing": "^4.0.2",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
         "aphrodite": "^1.1.0",
         "jquery": "^2.1.1",

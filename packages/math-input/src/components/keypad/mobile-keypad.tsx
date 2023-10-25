@@ -3,6 +3,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
+import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 
 import Keypad from "./keypad";
 import {expandedViewThreshold} from "./utils";
@@ -17,16 +18,7 @@ import type {
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-/**
- * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same
- * external API so that it can be hot-swapped with the v1 keypad and
- * is responsible for connecting the keypad with MathInput and the Renderer.
- *
- * Ideally this strategy of attaching methods on the class component for
- * other components to call will be replaced props/callbacks since React
- * doesn't support this type of code anymore (functional components
- * can't have methods attached to them).
- */
+const AnimationDurationInMS = 200;
 
 type Props = {
     onElementMounted?: (arg1: any) => void;
@@ -39,21 +31,28 @@ type Props = {
 
 type State = {
     containerWidth: number;
-    hasBeenActivated: boolean;
     keypadConfig?: KeypadConfiguration;
     keyHandler?: KeyHandler;
     cursor?: Cursor;
 };
 
+/**
+ * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same
+ * external API so that it can be hot-swapped with the v1 keypad and
+ * is responsible for connecting the keypad with MathInput and the Renderer.
+ *
+ * Ideally this strategy of attaching methods on the class component for
+ * other components to call will be replaced props/callbacks since React
+ * doesn't support this type of code anymore (functional components
+ * can't have methods attached to them).
+ */
 class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
     _containerRef = React.createRef<HTMLDivElement>();
     _containerResizeObserver: ResizeObserver | null = null;
     _throttleResize = false;
-    hasMounted = false;
 
     state: State = {
         containerWidth: 0,
-        hasBeenActivated: false,
     };
 
     componentDidMount() {
@@ -78,6 +77,15 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                 );
             }
         }
+
+        this.props.onElementMounted?.({
+            activate: this.activate,
+            dismiss: this.dismiss,
+            configure: this.configure,
+            setCursor: this.setCursor,
+            setKeyHandler: this.setKeyHandler,
+            getDOMNode: this.getDOMNode,
+        });
     }
 
     componentWillUnmount() {
@@ -109,9 +117,6 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     activate: () => void = () => {
         this.props.setKeypadActive(true);
-        this.setState({
-            hasBeenActivated: true,
-        });
     };
 
     dismiss: () => void = () => {
@@ -161,74 +166,64 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
 
     render(): React.ReactNode {
         const {keypadActive, style} = this.props;
-        const {hasBeenActivated, containerWidth, cursor, keypadConfig} =
-            this.state;
+        const {containerWidth, cursor, keypadConfig} = this.state;
 
         const containerStyle = [
-            // internal styles
             styles.keypadContainer,
-            keypadActive && styles.activeKeypadContainer,
             // styles passed as props
             ...(Array.isArray(style) ? style : [style]),
         ];
-
-        // If the keypad is yet to have ever been activated, we keep it invisible
-        // so as to avoid, e.g., the keypad flashing at the bottom of the page
-        // during the initial render.
-        // Done inline (dynamicStyle) since stylesheets might not be loaded yet.
-        let dynamicStyle = {};
-        if (!keypadActive && !hasBeenActivated) {
-            dynamicStyle = {visibility: "hidden"};
-        }
 
         const isExpression = keypadConfig?.keypadType === "EXPRESSION";
         const convertDotToTimes = keypadConfig?.times;
 
         return (
-            <View
-                style={containerStyle}
-                dynamicStyle={dynamicStyle}
-                forwardRef={this._containerRef}
-                ref={(element) => {
-                    if (!this.hasMounted && element) {
-                        // TODO(matthewc)[LC-1081]: clean up this weird
-                        // object and type the onElementMounted callback
-                        // Append the dispatch methods that we want to expose
-                        // externally to the returned React element.
-                        const elementWithDispatchMethods = {
-                            ...element,
-                            activate: this.activate,
-                            dismiss: this.dismiss,
-                            configure: this.configure,
-                            setCursor: this.setCursor,
-                            setKeyHandler: this.setKeyHandler,
-                            getDOMNode: this.getDOMNode,
-                        } as const;
-
-                        this.hasMounted = true;
-                        this.props.onElementMounted?.(
-                            elementWithDispatchMethods,
-                        );
-                    }
+            <AphroditeCssTransitionGroup
+                transitionEnterTimeout={AnimationDurationInMS}
+                transitionLeaveTimeout={AnimationDurationInMS}
+                transitionStyle={{
+                    enter: {
+                        transform: "translate3d(0, 100%, 0)",
+                        transition: `${AnimationDurationInMS}ms ease-out`,
+                    },
+                    enterActive: {
+                        transform: "translate3d(0, 0, 0)",
+                    },
+                    leave: {
+                        transform: "translate3d(0, 0, 0)",
+                        transition: `${AnimationDurationInMS}ms ease-out`,
+                    },
+                    leaveActive: {
+                        transform: "translate3d(0, 100%, 0)",
+                    },
                 }}
             >
-                <Keypad
-                    onAnalyticsEvent={this.props.onAnalyticsEvent}
-                    extraKeys={keypadConfig?.extraKeys}
-                    onClickKey={(key) => this._handleClickKey(key)}
-                    cursorContext={cursor?.context}
-                    fractionsOnly={!isExpression}
-                    convertDotToTimes={convertDotToTimes}
-                    divisionKey={isExpression}
-                    trigonometry={isExpression}
-                    preAlgebra={isExpression}
-                    logarithms={isExpression}
-                    basicRelations={isExpression}
-                    advancedRelations={isExpression}
-                    expandedView={containerWidth > expandedViewThreshold}
-                    showDismiss
-                />
-            </View>
+                {keypadActive ? (
+                    <View
+                        style={containerStyle}
+                        forwardRef={this._containerRef}
+                    >
+                        <Keypad
+                            onAnalyticsEvent={this.props.onAnalyticsEvent}
+                            extraKeys={keypadConfig?.extraKeys}
+                            onClickKey={(key) => this._handleClickKey(key)}
+                            cursorContext={cursor?.context}
+                            fractionsOnly={!isExpression}
+                            convertDotToTimes={convertDotToTimes}
+                            divisionKey={isExpression}
+                            trigonometry={isExpression}
+                            preAlgebra={isExpression}
+                            logarithms={isExpression}
+                            basicRelations={isExpression}
+                            advancedRelations={isExpression}
+                            expandedView={
+                                containerWidth > expandedViewThreshold
+                            }
+                            showDismiss
+                        />
+                    </View>
+                ) : null}
+            </AphroditeCssTransitionGroup>
         );
     }
 }
@@ -239,14 +234,6 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         position: "fixed",
-        transitionProperty: "all",
-        transition: `200ms ease-out`,
-        visibility: "hidden",
-        transform: "translate3d(0, 100%, 0)",
-    },
-    activeKeypadContainer: {
-        transform: "translate3d(0, 0, 0)",
-        visibility: "visible",
     },
 });
 

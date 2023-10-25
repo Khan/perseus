@@ -19,19 +19,20 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-type Props = {
-    apiOptions: APIOptions;
-    json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
-    // Whether to use the new Bibliotron styles for articles
-    /**
-     * @deprecated Does nothing
-     */
-    useNewStyles: boolean;
-    linterContext: LinterContextProps;
-    legacyPerseusLint?: ReadonlyArray<string>;
-    keypadElement?: KeypadAPI | null | undefined;
-    dependencies: PerseusDependenciesV2;
-} & KeypadProps;
+type Props = Partial<React.ContextType<typeof DependenciesContext>> &
+    KeypadProps & {
+        apiOptions: APIOptions;
+        json: PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+        // Whether to use the new Bibliotron styles for articles
+        /**
+         * @deprecated Does nothing
+         */
+        useNewStyles: boolean;
+        linterContext: LinterContextProps;
+        legacyPerseusLint?: ReadonlyArray<string>;
+        keypadElement?: KeypadAPI | null | undefined;
+        dependencies: PerseusDependenciesV2;
+    };
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
@@ -44,6 +45,7 @@ class ArticleRenderer
     implements KeypadContextRendererInterface
 {
     _currentFocus: any;
+    sectionRenderers: Array<Renderer> = [];
 
     static defaultProps: DefaultProps = {
         apiOptions: ApiOptions.defaults,
@@ -87,14 +89,21 @@ class ArticleRenderer
         // paths, so as to check whether the focused path represents an
         // input.
         let didFocusInput = false;
+        let focusedInput;
+
         if (this._currentFocus) {
-            const [sectionRef, ...focusPath] = this._currentFocus;
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'getInputPaths' does not exist on type 'ReactInstance'.
-            const inputPaths = this.refs[sectionRef].getInputPaths();
+            const [sectionIndex, ...focusPath] = this._currentFocus;
+
+            const inputPaths =
+                this.sectionRenderers[sectionIndex].getInputPaths();
+
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
             });
+            focusedInput =
+                this.sectionRenderers[sectionIndex].getDOMNodeForPath(
+                    focusPath,
+                );
         }
 
         if (this.props.apiOptions.onFocusChange != null) {
@@ -102,6 +111,7 @@ class ArticleRenderer
                 this._currentFocus,
                 prevFocusPath,
                 didFocusInput ? keypadElement?.getDOMNode() : null,
+                didFocusInput ? focusedInput : null,
             );
         }
 
@@ -137,10 +147,8 @@ class ArticleRenderer
 
     blur: () => void = () => {
         if (this._currentFocus) {
-            const [sectionRef, ...inputPath] = this._currentFocus;
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blurPath' does not exist on type 'ReactInstance'.
-            this.refs[sectionRef].blurPath(inputPath);
+            const [sectionIndex, ...inputPath] = this._currentFocus;
+            this.sectionRenderers[sectionIndex].blurPath(inputPath);
         }
     };
 
@@ -166,47 +174,54 @@ class ArticleRenderer
         });
 
         // TODO(alex): Add mobile api functions and pass them down here
-        const sections = this._sections().map((section, i) => {
-            const refForSection = `section-${i}`;
+        // We're using the index as the key here because we don't have a unique
+        // identifier for each section. This should be fine as we never remove
+        // or reorder sections.
+        const sections = this._sections().map((section, sectionIndex) => {
             return (
-                <DependenciesContext.Provider value={this.props.dependencies}>
-                    <div key={i} className="clearfix">
-                        <Renderer
-                            {...section}
-                            ref={refForSection}
-                            key={i}
-                            key_={i}
-                            keypadElement={this.props.keypadElement}
-                            apiOptions={{
-                                ...apiOptions,
-                                onFocusChange: (newFocusPath, oldFocusPath) => {
-                                    // Prefix the paths with the relevant section,
-                                    // so as to allow us to distinguish between
-                                    // equivalently-named inputs across Renderers.
-                                    this._handleFocusChange(
-                                        newFocusPath &&
-                                            [refForSection].concat(
-                                                newFocusPath,
-                                            ),
-                                        oldFocusPath &&
-                                            [refForSection].concat(
-                                                oldFocusPath,
-                                            ),
-                                    );
-                                },
-                            }}
-                            linterContext={PerseusLinter.pushContextStack(
-                                this.props.linterContext,
-                                "article",
-                            )}
-                            legacyPerseusLint={this.props.legacyPerseusLint}
-                        />
-                    </div>
-                </DependenciesContext.Provider>
+                <div key={sectionIndex} className="clearfix">
+                    <Renderer
+                        {...section}
+                        ref={(elem) => {
+                            if (elem) {
+                                this.sectionRenderers[sectionIndex] = elem;
+                            }
+                        }}
+                        key={sectionIndex}
+                        key_={sectionIndex}
+                        keypadElement={this.props.keypadElement}
+                        apiOptions={{
+                            ...apiOptions,
+                            onFocusChange: (newFocusPath, oldFocusPath) => {
+                                // Prefix the paths with the relevant section index,
+                                // so as to allow us to distinguish between
+                                // equivalently-named inputs across Renderers.
+                                this._handleFocusChange(
+                                    newFocusPath &&
+                                        [sectionIndex].concat(newFocusPath),
+                                    oldFocusPath &&
+                                        [sectionIndex].concat(oldFocusPath),
+                                );
+                            },
+                        }}
+                        linterContext={PerseusLinter.pushContextStack(
+                            this.props.linterContext,
+                            "article",
+                        )}
+                        legacyPerseusLint={this.props.legacyPerseusLint}
+                        {...this.props.dependencies}
+                    />
+                </div>
             );
         });
 
-        return <div className={classes}>{sections}</div>;
+        return (
+            <div className={classes}>
+                <DependenciesContext.Provider value={this.props.dependencies}>
+                    {sections}
+                </DependenciesContext.Provider>
+            </div>
+        );
     }
 }
 

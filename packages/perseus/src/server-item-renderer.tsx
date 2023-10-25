@@ -416,6 +416,7 @@ export class ServerItemRenderer
                     content={this.props.item.question.content}
                     widgets={this.props.item.question.widgets}
                     images={this.props.item.question.images}
+                    {...this.props.dependencies}
                 />
             </AssetContext.Provider>
         );

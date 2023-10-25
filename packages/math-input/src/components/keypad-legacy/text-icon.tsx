@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     },
 
     base: {
-        fontFamily: "Proxima Nova",
+        fontFamily: "'Lato', sans-serif",
         fontSize: 25,
     },
 });

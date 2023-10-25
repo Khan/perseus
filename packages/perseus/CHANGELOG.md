@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 12.2.0
+
+### Minor Changes
+
+-   [#773](https://github.com/Khan/perseus/pull/773) [`809823e4`](https://github.com/Khan/perseus/commit/809823e490f65cbcbaa05b548de985035810ba8d) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Fix text overlap in interactive graph widget
+
+*   [#755](https://github.com/Khan/perseus/pull/755) [`6d9e31a4`](https://github.com/Khan/perseus/commit/6d9e31a4ea4a1ed29bef2d9812d21e5b2fd41af6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding logic to ArticleRenderer so that it can return our currently focused element.
+
+## 12.1.0
+
+### Minor Changes
+
+-   6dbc58c6: Fix image centering for widget
+
+### Patch Changes
+
+-   c4ae088f: Upgrades MathQuill to fix Android keyboard error
+-   Updated dependencies [c4ae088f]
+-   Updated dependencies [aea0387f]
+    -   @khanacademy/math-input@14.2.0
+
 ## 12.0.1
 
 ### Patch Changes
