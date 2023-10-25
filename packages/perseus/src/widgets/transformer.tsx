@@ -2518,8 +2518,8 @@ class Transformer extends React.Component<Props> {
                 // @ts-expect-error - TS2345 - Argument of type '{ type: "dilation"; center: any; scale: number; }' is not assignable to parameter of type 'PerseusTransformerTransformation'.
                 self.doTransform({
                     type: "dilation",
-                    scale: newRadius / oldRadius,
                     center: self.dilationCircle.centerPoint.coord,
+                    scale: newRadius / oldRadius,
                 });
             },
             circleNormalStyle: {
