@@ -2521,6 +2521,7 @@ class Transformer extends React.Component<Props> {
                     // NOTE(kevinb): It's hard to convince that this.dilationCircle
                     // will still be defined here.                    center: self.dilationCircle.centerPoint.coord,
                     scale: newRadius / oldRadius,
+                    center: self.dilationCircle.centerPoint.coord,
                 });
             },
             circleNormalStyle: {
