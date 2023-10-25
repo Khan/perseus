@@ -52,6 +52,8 @@ const noopOnRender = () => {};
 
 const SHOULD_CLEAR_WIDGETS_PROP_LIST = ["content", "problemNum", "widgets"];
 
+const makeContainerId = (id: string) => "container:" + id;
+
 // Check if one focus path / id path is a prefix of another
 // The focus path null will never be a prefix of any non-null
 // path, since it represents no focus.
@@ -392,7 +394,7 @@ class Renderer extends React.Component<Props, State> {
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
         _.each(this.widgetIds, (id) => {
-            const container = this._widgetContainers.get("container:" + id);
+            const container = this._widgetContainers.get(makeContainerId(id));
             container && container.replaceWidgetProps(this.getWidgetProps(id));
         });
 
@@ -551,10 +553,10 @@ class Renderer extends React.Component<Props, State> {
             // worry about using this widget key and ref:
             return (
                 <WidgetContainer
-                    key={"container:" + id}
+                    key={makeContainerId(id)}
                     id={id}
                     ref={(node) => {
-                        const containerId = "container:" + id;
+                        const containerId = makeContainerId(id);
                         if (node != null) {
                             this._widgetContainers.set(containerId, node);
                         } else {
@@ -857,7 +859,7 @@ class Renderer extends React.Component<Props, State> {
     };
 
     getWidgetInstance: (id: string) => Widget | null | undefined = (id) => {
-        const ref = this._widgetContainers.get("container:" + id);
+        const ref = this._widgetContainers.get(makeContainerId(id));
         if (!ref) {
             return null;
         }
