@@ -1,3 +1,4 @@
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import NavigationPad from "./navigation-pad";
@@ -19,7 +20,7 @@ export default {
 export function basic() {
     return (
         <div style={{padding: 50}}>
-            <NavigationPad onClickKey={() => {}} />
+            <NavigationPad onClickKey={action("onClickKey")} />
         </div>
     );
 }

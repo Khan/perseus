@@ -1,7 +1,7 @@
-// @baseFontFamily:        "Proxima Nova", sans-serif;
-export const baseFontFamily = "'Proxima Nova',sans-serif";
-// @boldFontFamily:        "Proxima Nova Semibold", sans-serif;
-export const boldFontFamily = "'Proxima Nova Semibold',sans-serif";
+// @baseFontFamily:        "Lato", sans-serif;
+export const baseFontFamily = "'Lato', sans-serif";
+// @boldFontFamily:        "Lato-Bold", "Lato", sans-serif;
+export const boldFontFamily = "'Lato-Bold', 'Lato', sans-serif";
 // @green:                 #76a005;
 export const green = "#76A005";
 // @kaGreen:               #71b307;

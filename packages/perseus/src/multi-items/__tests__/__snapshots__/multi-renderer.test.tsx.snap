@@ -218,7 +218,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
+                                    class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
                                     data-test-id="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
@@ -385,7 +385,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
+                                    class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
                                     data-test-id="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
@@ -552,7 +552,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
+                                    class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
                                     data-test-id="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
@@ -719,7 +719,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
+                                    class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
                                     data-test-id="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"
@@ -886,7 +886,7 @@ exports[`multi-item renderer should snapshot: initial render 1`] = `
                                   style="border-color: transparent; border-radius: 50%;"
                                 >
                                   <div
-                                    class="circle_1tys2th"
+                                    class="circle_1w6i3h1"
                                     data-is-radio-icon="true"
                                     data-test-id="choice-icon__library-choice-icon"
                                     style="border-color: rgba(33,36,44,0.64); color: rgba(33, 36, 44, 0.64); border-radius: 24px;"

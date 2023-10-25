@@ -87,7 +87,13 @@ export default {
 
 const Template: ComponentStory<typeof Keypad> = (
     args: PropsFor<typeof Keypad>,
-): React.ReactElement => <Keypad {...args} onClickKey={action("onClickKey")} />;
+): React.ReactElement => (
+    <Keypad
+        {...args}
+        onClickKey={action("onClickKey")}
+        onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
+    />
+);
 
 export const Default = Template.bind({});
 

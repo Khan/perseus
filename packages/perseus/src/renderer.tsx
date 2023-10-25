@@ -29,6 +29,7 @@ import preprocessTex from "./util/katex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
 
+import type {DependenciesContext} from "./dependencies";
 import type {PerseusRenderer, PerseusWidgetOptions} from "./perseus-types";
 import type {
     APIOptions,
@@ -146,7 +147,7 @@ export type Widget = {
     examples?: () => ReadonlyArray<string>;
 };
 
-type Props = {
+type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
@@ -1782,7 +1783,7 @@ class Renderer extends React.Component<Props, State> {
             // widget can be undefined if it hasn't yet been rendered
             if (widget && widget.simpleValidate) {
                 widgetScores[id] = widget.simpleValidate(
-                    props?.options,
+                    {...props?.options, scoring: true},
                     onInputError,
                 );
             }

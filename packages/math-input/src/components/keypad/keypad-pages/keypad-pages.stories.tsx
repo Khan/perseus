@@ -1,5 +1,6 @@
 import {action} from "@storybook/addon-actions";
 import {withKnobs} from "@storybook/addon-knobs";
+import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import * as React from "react";
 
 import GeometryInputPage from "./geometry-page";
@@ -13,7 +14,7 @@ export default {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
         },
-        viewport: {defaultViewport: "iphone6"},
+        viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
     },
 };
 
@@ -22,7 +23,13 @@ export const NumericInput = (): React.ReactElement => (
 );
 
 export const PreAlgebraInput = (): React.ReactElement => (
-    <PrealgebraInputPage onClickKey={action("onClickKey")} />
+    <PrealgebraInputPage
+        onClickKey={action("onClickKey")}
+        preAlgebra={true}
+        logarithms={true}
+        basicRelations={true}
+        advancedRelations={true}
+    />
 );
 
 export const TrigonometryInput = (): React.ReactElement => (
