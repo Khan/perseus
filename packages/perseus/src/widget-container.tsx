@@ -149,6 +149,7 @@ class WidgetContainer extends React.Component<Props, State> {
                                     type: "perseus:widget-rendering-error",
                                     payload: {
                                         widgetType: type,
+                                        widgetId: this.props.id,
                                     },
                                 });
                             }}
