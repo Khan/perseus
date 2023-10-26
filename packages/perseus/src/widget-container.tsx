@@ -144,7 +144,7 @@ class WidgetContainer extends React.Component<Props, State> {
                                 widget_type: type,
                                 widget_id: this.props.id,
                             }}
-                            onError={(error) => {
+                            onError={() => {
                                 analytics.onAnalyticsEvent({
                                     type: "perseus:widget-rendering-error",
                                     payload: {
