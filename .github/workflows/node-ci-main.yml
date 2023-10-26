@@ -81,7 +81,7 @@ jobs:
             # later in upload_coverage.
             - name: Upload Artifacts
               id: cypress-coverage
-              if: always()
+              if: ${{ !cancelled() }}
               uses: actions/upload-artifact@v2
               with:
                   name: cypress-coverage
