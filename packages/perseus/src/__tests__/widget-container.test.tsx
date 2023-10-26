@@ -33,7 +33,7 @@ const MockWidget: WidgetExports<typeof MockWidgetComponent> = {
 describe("widget-container", () => {
     it("should render nothing when requested widget not registered", () => {
         // Arrange
-        const warnMock = jest.spyOn(console, "warn");
+        const warnMock = jest.spyOn(console, "warn").mockImplementation();
 
         // Act
         render(
@@ -88,6 +88,8 @@ describe("widget-container", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.spyOn(console, "error").mockImplementation(() => {});
+
         const onAnalyticsEventSpy = jest.fn();
         const depsV2 = {analytics: {onAnalyticsEvent: onAnalyticsEventSpy}};
 
