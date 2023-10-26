@@ -1,5 +1,28 @@
 # @khanacademy/perseus
 
+## 12.3.0
+
+### Minor Changes
+
+-   [#780](https://github.com/Khan/perseus/pull/780) [`376eb0e4`](https://github.com/Khan/perseus/commit/376eb0e4aaaa4c7a90fd6107a84bb74d382b077c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Adds an `onError` callback prop to the ErrorBoundary component. Uses this new callback in the WidgetContainer component to report all widget rendering failures through the analytics API.
+
+### Patch Changes
+
+-   [#759](https://github.com/Khan/perseus/pull/759) [`c431c4b8`](https://github.com/Khan/perseus/commit/c431c4b8147ae0630df2d2b19b0f5a5b5f04d4bf) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove references to unused font families
+
+*   [#775](https://github.com/Khan/perseus/pull/775) [`cb529549`](https://github.com/Khan/perseus/commit/cb5295497fe74e3f4cc00eef0f99da9f83f58e4d) Thanks [@nedredmond](https://github.com/nedredmond)! - Added flag to `simpleValidate` call from Renderer to ensure we call analytics on MathInputEvaluated only when the answer is submitted
+
+-   [#781](https://github.com/Khan/perseus/pull/781) [`9b9dfd4f`](https://github.com/Khan/perseus/commit/9b9dfd4f6779d129040d9afcf3205f1863a64c25) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix for broken dilation tool in the Transformer Widget
+
+-   Updated dependencies [[`c431c4b8`](https://github.com/Khan/perseus/commit/c431c4b8147ae0630df2d2b19b0f5a5b5f04d4bf), [`fb84640d`](https://github.com/Khan/perseus/commit/fb84640de911a8e8817829985fe9956e83a7f7d1), [`376eb0e4`](https://github.com/Khan/perseus/commit/376eb0e4aaaa4c7a90fd6107a84bb74d382b077c), [`33cc24c3`](https://github.com/Khan/perseus/commit/33cc24c33f62cd87de7594ba575d311fd465e2e0)]:
+    -   @khanacademy/math-input@14.2.1
+    -   @khanacademy/perseus-core@1.2.0
+    -   @khanacademy/kas@0.3.4
+    -   @khanacademy/kmath@0.1.5
+    -   @khanacademy/perseus-linter@0.3.7
+    -   @khanacademy/pure-markdown@0.2.9
+    -   @khanacademy/simple-markdown@0.10.3
+
 ## 12.2.0
 
 ### Minor Changes

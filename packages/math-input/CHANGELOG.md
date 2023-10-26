@@ -1,5 +1,18 @@
 # @khanacademy/math-input
 
+## 14.2.1
+
+### Patch Changes
+
+-   [#759](https://github.com/Khan/perseus/pull/759) [`c431c4b8`](https://github.com/Khan/perseus/commit/c431c4b8147ae0630df2d2b19b0f5a5b5f04d4bf) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove references to unused font families
+
+*   [#764](https://github.com/Khan/perseus/pull/764) [`fb84640d`](https://github.com/Khan/perseus/commit/fb84640de911a8e8817829985fe9956e83a7f7d1) Thanks [@handeyeco](https://github.com/handeyeco)! - Use useMemo in keypad context to avoid needless rerenders
+
+-   [#767](https://github.com/Khan/perseus/pull/767) [`33cc24c3`](https://github.com/Khan/perseus/commit/33cc24c33f62cd87de7594ba575d311fd465e2e0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Small comment fixes in the math keypad
+
+-   Updated dependencies [[`376eb0e4`](https://github.com/Khan/perseus/commit/376eb0e4aaaa4c7a90fd6107a84bb74d382b077c)]:
+    -   @khanacademy/perseus-core@1.2.0
+
 ## 14.2.0
 
 ### Minor Changes
