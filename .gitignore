@@ -7,4 +7,6 @@ coverage
 coverage-ts
 storybook-static
 .nyc_output
+cypress/
+
 *.tsbuildinfo
