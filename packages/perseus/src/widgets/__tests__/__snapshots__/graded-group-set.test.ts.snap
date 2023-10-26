@@ -38,32 +38,63 @@ exports[`graded group widget should snapshot 1`] = `
                 class="spacer_bc4egv"
               />
               <ul
-                class="indicatorContainer_rjg7c2"
+                class="indicatorContainer_2pd7o4 indicatorContainer"
               >
                 <li
-                  aria-label="Skip to Problem 1a"
-                  class="indicator_qk5jgn-o_O-selectedIndicator_14jsc6v"
-                  role="button"
-                  tabindex="0"
+                  class="indicator_7k5kza"
                 >
-                  <span
-                    class="srOnly_19bpjuy"
+                  <button
+                    aria-disabled="false"
+                    aria-label="Skip to Problem 1a"
+                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    role="button"
+                    type="button"
                   >
-                    Current
-                  </span>
+                    <div
+                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                    >
+                      <div
+                        class="default_xu2jcg-o_O-indicatorDotActive_1pky1a"
+                      >
+                        <span
+                          class="srOnly_19bpjuy"
+                        >
+                          Current
+                        </span>
+                      </div>
+                    </div>
+                  </button>
                 </li>
                 <li
-                  aria-label="Skip to Problem 1b"
-                  class="indicator_qk5jgn"
-                  role="button"
-                  tabindex="0"
-                />
+                  class="indicator_7k5kza"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="Skip to Problem 1b"
+                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    role="button"
+                    type="button"
+                  >
+                    <div
+                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                    />
+                  </button>
+                </li>
                 <li
-                  aria-label="Skip to Problem 1c"
-                  class="indicator_qk5jgn"
-                  role="button"
-                  tabindex="0"
-                />
+                  class="indicator_7k5kza"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="Skip to Problem 1c"
+                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    role="button"
+                    type="button"
+                  >
+                    <div
+                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                    />
+                  </button>
+                </li>
               </ul>
             </div>
             <div

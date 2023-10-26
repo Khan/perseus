@@ -1,8 +1,11 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
+import classNames from "classnames";
 import * as React from "react";
 
 import {getDependencies} from "../dependencies";
@@ -38,28 +41,43 @@ class Indicators extends React.Component<IndicatorsProps> {
 
     render(): React.ReactNode {
         return (
-            <ul className={css(styles.indicatorContainer)}>
+            <ul
+                // reduntantly add class name for use in .less files--
+                //   the styles object key gets hashed
+                className={classNames(
+                    css(styles.indicatorContainer),
+                    "indicatorContainer",
+                )}
+            >
                 {this.props.gradedGroups.map(({title}, i) => (
-                    <li
-                        role="button"
-                        aria-label={i18n._("Skip to %(title)s", {
-                            title,
-                        })}
-                        key={title}
-                        className={css(
-                            styles.indicator,
-                            i === this.props.currentGroup &&
-                                styles.selectedIndicator,
-                        )}
-                        tabIndex={0}
-                        onClick={() => this.props.onChangeCurrentGroup(i)}
-                        onKeyDown={(e) => this.handleKeyDown(e, i)}
-                    >
-                        {i === this.props.currentGroup && (
-                            <span className={css(a11y.srOnly)}>
-                                {i18n._("Current")}
-                            </span>
-                        )}
+                    <li className={css(styles.indicator)} key={title}>
+                        <Clickable
+                            role="button"
+                            aria-label={i18n._("Skip to %(title)s", {
+                                title,
+                            })}
+                            style={styles.indicatorButton}
+                            onClick={() => this.props.onChangeCurrentGroup(i)}
+                            onKeyDown={(e) => this.handleKeyDown(e, i)}
+                        >
+                            {({hovered, focused, pressed}) => (
+                                <View
+                                    style={[
+                                        styles.indicatorDot,
+                                        (hovered || focused || pressed) &&
+                                            styles.indicatorDotFocused,
+                                    ]}
+                                >
+                                    {i === this.props.currentGroup && (
+                                        <View style={styles.indicatorDotActive}>
+                                            <span className={css(a11y.srOnly)}>
+                                                {i18n._("Current")}
+                                            </span>
+                                        </View>
+                                    )}
+                                </View>
+                            )}
+                        </Clickable>
                     </li>
                 ))}
             </ul>
@@ -262,20 +280,47 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         listStyle: "none",
         margin: "unset",
+        paddingInlineStart: "unset",
+        flexWrap: "wrap",
     },
 
     indicator: {
+        width: 24,
+        height: 24,
+    },
+
+    indicatorButton: {
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexWrap: "wrap",
+        placeContent: "center",
+        cursor: "pointer",
+
+        ":focus": {
+            outline: "none",
+        },
+    },
+
+    indicatorDot: {
+        boxSizing: "content-box",
         width: 10,
         height: 10,
         borderRadius: "100%",
-        border: "3px solid",
+        borderWidth: 2,
         borderColor: Color.blue,
-        marginLeft: 5,
-        cursor: "pointer",
+        borderStyle: "solid",
     },
 
-    selectedIndicator: {
+    indicatorDotFocused: {
+        borderWidth: 5,
+        borderStyle: "double",
+    },
+
+    indicatorDotActive: {
         backgroundColor: Color.blue,
+        width: "100%",
+        height: "100%",
     },
 
     container: {
