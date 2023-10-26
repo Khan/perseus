@@ -21,6 +21,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 
     componentDidCatch(error: Error, info: any) {
         this.setState({error: error.toString()});
+        this.props.onError?.(error, info);
         Log.error("Perseus error boundary caught error", Errors.Internal, {
             cause: error,
             loggedMetadata: {

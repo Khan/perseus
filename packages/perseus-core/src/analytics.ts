@@ -21,6 +21,13 @@ export type PerseusAnalyticsEvent =
           payload: null;
       }
     | {
+          type: "perseus:widget-rendering-error";
+          payload: {
+              widgetType: string;
+              widgetId: string;
+          };
+      }
+    | {
           type: "math-input:keypad-closed";
           payload: {
               virtualKeypadVersion: VirtualKeypadVersion;
@@ -30,12 +37,6 @@ export type PerseusAnalyticsEvent =
           type: "math-input:keypad-opened";
           payload: {
               virtualKeypadVersion: VirtualKeypadVersion;
-          };
-      }
-    | {
-          type: "perseus:widget-rendering-error";
-          payload: {
-              widgetType: string;
           };
       };
 // Add more events here as needed. Note that each event should have a `type`
