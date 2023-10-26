@@ -143,7 +143,7 @@ jobs:
             - name: Upload Artifacts
               id: cypress-coverage
               if: ${{ !cancelled() }}
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: cypress-coverage
                   path: |
@@ -171,7 +171,7 @@ jobs:
             # Upload coverage report as an GitHub artifact so that it can be used
             # later in upload_coverage.
             - name: Upload Artifact
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: jest-coverage
                   path: ./coverage/coverage-final.json
@@ -189,7 +189,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
 
             - name: Download Jest Coverage
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: jest-coverage
                   # path to decompress the artifact into, decompressed file
@@ -197,7 +197,7 @@ jobs:
                   path: ./
 
             - name: Download Cypress Coverage
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: cypress-coverage
                   # path to decompress the artifact into, decompressed file

@@ -82,7 +82,7 @@ jobs:
             - name: Upload Artifacts
               id: cypress-coverage
               if: ${{ !cancelled() }}
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: cypress-coverage
                   path: |
