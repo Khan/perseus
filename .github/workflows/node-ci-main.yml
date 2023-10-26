@@ -74,4 +74,12 @@ jobs:
                   node-version: ${{ matrix.node-version }}
 
             - name: Run test with coverage
+              id: cypress-coverage
               run: yarn cypress:ci
+
+            - name: Upload Cypress screenshots
+              if: steps.cypress-coverage.outcome != 'success'
+              uses: actions/upload-artifact@v3
+              with:
+                name: Cypress Screenshots
+                path: cypress/screenshots/
