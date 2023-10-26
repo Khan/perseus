@@ -65,7 +65,7 @@ class Indicators extends React.Component<IndicatorsProps> {
                                     style={[
                                         styles.indicatorDot,
                                         (hovered || focused || pressed) &&
-                                            styles.indicatorDotHovered,
+                                            styles.indicatorDotFocused,
                                     ]}
                                 >
                                     {i === this.props.currentGroup && (
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
     },
 
-    indicatorDotHovered: {
+    indicatorDotFocused: {
         borderWidth: 5,
         borderStyle: "double",
     },
