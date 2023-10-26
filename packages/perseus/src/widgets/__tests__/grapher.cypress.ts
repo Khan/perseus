@@ -44,7 +44,7 @@ describe("Grapher widget", () => {
                         .eq(0)
                         .should("exist")
                         // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 1000, y: top + 180});
+                        .dragTo({x: left + 360, y: top + 180});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
