@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 1.2.0
+
+### Minor Changes
+
+-   [#780](https://github.com/Khan/perseus/pull/780) [`376eb0e4`](https://github.com/Khan/perseus/commit/376eb0e4aaaa4c7a90fd6107a84bb74d382b077c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Added 'perseus:widget-rendering-error' analytics event.
+
 ## 1.1.2
 
 ### Patch Changes
