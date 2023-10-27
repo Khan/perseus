@@ -178,31 +178,28 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
         const convertDotToTimes = keypadConfig?.times;
 
         return (
-            <AphroditeCssTransitionGroup
-                transitionEnterTimeout={AnimationDurationInMS}
-                transitionLeaveTimeout={AnimationDurationInMS}
-                transitionStyle={{
-                    enter: {
-                        transform: "translate3d(0, 100%, 0)",
-                        transition: `${AnimationDurationInMS}ms ease-out`,
-                    },
-                    enterActive: {
-                        transform: "translate3d(0, 0, 0)",
-                    },
-                    leave: {
-                        transform: "translate3d(0, 0, 0)",
-                        transition: `${AnimationDurationInMS}ms ease-out`,
-                    },
-                    leaveActive: {
-                        transform: "translate3d(0, 100%, 0)",
-                    },
-                }}
-            >
-                {keypadActive ? (
-                    <View
-                        style={containerStyle}
-                        forwardRef={this._containerRef}
-                    >
+            <View style={containerStyle} forwardRef={this._containerRef}>
+                <AphroditeCssTransitionGroup
+                    transitionEnterTimeout={AnimationDurationInMS}
+                    transitionLeaveTimeout={AnimationDurationInMS}
+                    transitionStyle={{
+                        enter: {
+                            transform: "translate3d(0, 100%, 0)",
+                            transition: `${AnimationDurationInMS}ms ease-out`,
+                        },
+                        enterActive: {
+                            transform: "translate3d(0, 0, 0)",
+                        },
+                        leave: {
+                            transform: "translate3d(0, 0, 0)",
+                            transition: `${AnimationDurationInMS}ms ease-out`,
+                        },
+                        leaveActive: {
+                            transform: "translate3d(0, 100%, 0)",
+                        },
+                    }}
+                >
+                    {keypadActive ? (
                         <Keypad
                             onAnalyticsEvent={this.props.onAnalyticsEvent}
                             extraKeys={keypadConfig?.extraKeys}
@@ -221,9 +218,9 @@ class MobileKeypad extends React.Component<Props, State> implements KeypadAPI {
                             }
                             showDismiss
                         />
-                    </View>
-                ) : null}
-            </AphroditeCssTransitionGroup>
+                    ) : null}
+                </AphroditeCssTransitionGroup>
+            </View>
         );
     }
 }
