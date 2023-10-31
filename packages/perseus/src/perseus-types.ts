@@ -577,7 +577,7 @@ export type PerseusGraphTypeAngle = {
     snapDegrees?: number;
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
-    // angle graph type must have 3 coords - ie [Coord, Coord, Coord]
+    // must have 3 coords - ie [Coord, Coord, Coord]
     coords?: ReadonlyArray<Coord>;
 };
 
@@ -589,14 +589,13 @@ export type PerseusGraphTypeCircle = {
 
 export type PerseusGraphTypeLinear = {
     type: "linear";
-    //
+    // expects 2 coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
-    // an array of coordinate tuples ie [[(1,1), (2,2)], [(3,3), (4,4)]]
-    // Note: Jhead - it seems like we only support 2 lines (each a coord pair)
+    // expects 2 sets of 2 coords
     coords?: ReadonlyArray<ReadonlyArray<Coord>>;
 } & PerseusGraphTypeCommon;
 
@@ -624,7 +623,7 @@ export type PerseusGraphTypePolygon = {
 
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
-    // expectets 3 coords in this array
+    // expects a list of 3 coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
@@ -632,20 +631,19 @@ export type PerseusGraphTypeSegment = {
     type: "segment";
     // The number of segments if a "segment" type. default: 1.  Max: 6
     numSegments?: number;
-    // A list of segments (each segment is a list of 2 coordinates).
-    // Length should match the `numSegments` value.
+    // Expects a list of Coord tuples. Length should match the `numSegments` value.
     coords?: ReadonlyArray<ReadonlyArray<Coord>>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
-    // expects 2 coords
+    // Expects a list of 2 Coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeRay = {
     type: "ray";
-    // expects 2 coords
+    // Expects a list of 2 Coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
