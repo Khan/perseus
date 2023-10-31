@@ -136,12 +136,12 @@ export const randomBackgroundImage = (): PerseusImageBackground => {
     const placeKittenUrl = `https://placekitten.com/g/${width}/${height}`;
 
     return {
-        scale: randomInteger(1, 10) / 10,
-        bottom: randomInteger(0, 100),
+        scale: randomInteger(8, 12) / 10,
+        bottom: randomInteger(0, 10) - 5,
         url: randomElement([graphieUrl, placeKittenUrl, null]),
         height,
         width,
-        left: randomInteger(0, 100),
+        left: randomInteger(0, 10) - 5,
     };
 };
 
