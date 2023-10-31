@@ -1,7 +1,9 @@
+import { arrayOfLength, randomBoolean, randomInteger, randomSentence } from "../../../../perseus-core/src/__stories__/randomizers";
 import type {
     PerseusRenderer,
     RadioWidget,
     PassageWidget,
+    PerseusRadioChoice,
 } from "../../perseus-types";
 
 export const question: PerseusRenderer = {
@@ -259,3 +261,58 @@ export const multiChoiceQuestionAndAnswer: [
         [0, 1, 2, 3],
     ],
 ];
+
+export const randomRadioGenerator = (): PerseusRenderer => {
+    const randomChoice = (
+        isMultiSelect: boolean,
+        isCorrect: boolean,
+        isNoneOfTheAbove: boolean,
+    ): PerseusRadioChoice => {
+        return {
+            content: randomSentence(12),
+            isNoneOfTheAbove: isNoneOfTheAbove,
+            correct: isMultiSelect ? randomBoolean() : isCorrect,
+        };
+    };
+    const numberOfChoices = randomInteger(2, 6);
+
+    const isMultiSelect = randomBoolean();
+    // only used if not multi select
+    const correctIndex = randomInteger(0, numberOfChoices);
+
+    const containsNoneOfTheAbove = randomBoolean();
+    // only used if containsNoneOfTheAbove
+    const noneOfTheAboveIndex = randomInteger(0, numberOfChoices);
+
+    return {
+        content: `${randomSentence(30)}\n\n[[\u2603 radio 1]]`,
+        images: {},
+        widgets: {
+            "radio 1": {
+                graded: randomBoolean(),
+                version: {
+                    major: 1,
+                    minor: 0,
+                },
+                static: randomBoolean(.05),
+                type: "radio",
+                options: {
+                    onePerLine: randomBoolean(),
+                    displayCount: null,
+                    choices: arrayOfLength(numberOfChoices).map((_, i) =>
+                        randomChoice(
+                            isMultiSelect,
+                            correctIndex == i,
+                            containsNoneOfTheAbove && noneOfTheAboveIndex == i,
+                        ),
+                    ),
+                    hasNoneOfTheAbove: randomBoolean(),
+                    multipleSelect: isMultiSelect,
+                    randomize: randomBoolean(),
+                    deselectEnabled: randomBoolean(),
+                },
+                alignment: "default",
+            } as RadioWidget,
+        },
+    };
+};

@@ -534,7 +534,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     showTooltips?: boolean;
     // The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft", "yd", "mi"
     rulerLabel: string;
-    // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16
+    // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be an integer.
     rulerTicks: number;
     // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
     // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
@@ -577,6 +577,7 @@ export type PerseusGraphTypeAngle = {
     snapDegrees?: number;
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
+    // angle graph type must have 3 coords - ie [Coord, Coord, Coord]
     coords?: ReadonlyArray<Coord>;
 };
 
@@ -588,11 +589,14 @@ export type PerseusGraphTypeCircle = {
 
 export type PerseusGraphTypeLinear = {
     type: "linear";
+    //
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
+    // an array of coordinate tuples ie [[(1,1), (2,2)], [(3,3), (4,4)]]
+    // Note: Jhead - it seems like we only support 2 lines (each a coord pair)
     coords?: ReadonlyArray<ReadonlyArray<Coord>>;
 } & PerseusGraphTypeCommon;
 
@@ -620,6 +624,7 @@ export type PerseusGraphTypePolygon = {
 
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
+    // expectets 3 coords in this array
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
@@ -627,18 +632,20 @@ export type PerseusGraphTypeSegment = {
     type: "segment";
     // The number of segments if a "segment" type. default: 1.  Max: 6
     numSegments?: number;
-    // A list of segments (each segment is a list of coordinates).
+    // A list of segments (each segment is a list of 2 coordinates).
     // Length should match the `numSegments` value.
     coords?: ReadonlyArray<ReadonlyArray<Coord>>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
+    // expects 2 coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeRay = {
     type: "ray";
+    // expects 2 coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
