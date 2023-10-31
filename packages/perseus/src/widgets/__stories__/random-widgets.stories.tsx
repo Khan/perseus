@@ -17,12 +17,11 @@ export default {
 };
 
 const randomizedWidgetContainer = (
-    randomizer: (type?: string) => PerseusRenderer,
-    type?: string,
+    randomizer: () => PerseusRenderer,
 ): React.ReactElement => {
-    const [question, setQuestion] = React.useState(randomizer(type));
+    const [question, setQuestion] = React.useState(randomizer());
     const randomize = () => {
-        setQuestion(randomizer(type));
+        setQuestion(randomizer());
     };
 
     return (
