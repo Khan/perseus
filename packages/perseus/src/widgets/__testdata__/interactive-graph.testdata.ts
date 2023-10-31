@@ -1,7 +1,5 @@
 import type {Coord} from "../../interactive2/types";
-import type {
-    PerseusRenderer,
-} from "../../perseus-types";
+import type {PerseusRenderer} from "../../perseus-types";
 
 // Data for the interactive graph widget
 

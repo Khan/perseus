@@ -1,5 +1,10 @@
 import type {PerseusRenderer} from "../../perseus-types";
-import { arrayOfLength, randomBoolean, randomInteger, randomSentence } from "./randomizers";
+import {
+    arrayOfLength,
+    randomBoolean,
+    randomInteger,
+    randomSentence,
+} from "./randomizers";
 
 export const question1: PerseusRenderer = {
     content:
@@ -75,7 +80,7 @@ export const randomCategorizerGenerator = (): PerseusRenderer => {
                         randomSentence(7),
                     ),
                     highlightLint: randomBoolean(),
-                    static: randomBoolean(.05),
+                    static: randomBoolean(0.05),
                 },
             },
         },

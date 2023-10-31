@@ -1,4 +1,9 @@
-import { arrayOfLength, randomBoolean, randomInteger, randomSentence } from "./randomizers";
+import {
+    arrayOfLength,
+    randomBoolean,
+    randomInteger,
+    randomSentence,
+} from "./randomizers";
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
@@ -43,10 +48,10 @@ export const randomDropdownGenerator = (): PerseusRenderer => {
             "dropdown 1": {
                 type: "dropdown",
                 alignment: "default",
-                static: randomBoolean(.05),
+                static: randomBoolean(0.05),
                 graded: randomBoolean(),
                 options: {
-                    static: randomBoolean(.05),
+                    static: randomBoolean(0.05),
                     placeholder: randomSentence(10),
                     choices: arrayOfLength(numChoices).map((_, i) => {
                         return {

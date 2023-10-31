@@ -140,7 +140,7 @@ export const randomExpressionGenerator = (): PerseusRenderer => {
                     major: 1,
                     minor: 0,
                 },
-                static: randomBoolean(.05),
+                static: randomBoolean(0.05),
                 options: {
                     answerForms: [
                         {
