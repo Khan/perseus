@@ -1,5 +1,5 @@
-import { arrayOfLength, randomBoolean, randomInteger, randomSentence } from "../../../../perseus-core/src/__stories__/randomizers";
 import type {PerseusRenderer} from "../../perseus-types";
+import { arrayOfLength, randomBoolean, randomInteger, randomSentence } from "./randomizers";
 
 export const question1: PerseusRenderer = {
     content:

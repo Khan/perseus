@@ -1,4 +1,9 @@
-import { arrayOfLength, randomBoolean, randomInteger, randomSentence } from "../../../../perseus-core/src/__stories__/randomizers";
+import {
+    arrayOfLength,
+    randomBoolean,
+    randomInteger,
+    randomSentence,
+} from "./randomizers";
 import type {
     PerseusRenderer,
     RadioWidget,
@@ -294,7 +299,7 @@ export const randomRadioGenerator = (): PerseusRenderer => {
                     major: 1,
                     minor: 0,
                 },
-                static: randomBoolean(.05),
+                static: randomBoolean(0.05),
                 type: "radio",
                 options: {
                     onePerLine: randomBoolean(),

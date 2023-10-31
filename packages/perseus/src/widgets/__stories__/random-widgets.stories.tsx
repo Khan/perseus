@@ -13,7 +13,7 @@ import { randomRadioGenerator } from "../__testdata__/radio.testdata";
 import type {PerseusRenderer} from "@khanacademy/perseus";
 
 export default {
-    title: "Random Widgets",
+    title: "Perseus/Randomized Widgets",
 };
 
 const randomizedWidgetContainer = (randomizer: (type?: string) => PerseusRenderer, type?: string) : React.ReactElement => {

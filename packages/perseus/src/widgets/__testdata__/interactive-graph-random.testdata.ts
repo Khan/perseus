@@ -6,7 +6,7 @@ import {
     randomLetter,
     randomSentence,
     randomWord,
-} from "../../../../perseus-core/src/__stories__/randomizers";
+} from "./randomizers";
 
 import type {Coord} from "../../interactive2/types";
 import type {
