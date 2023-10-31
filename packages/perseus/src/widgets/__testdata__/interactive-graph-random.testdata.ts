@@ -4,7 +4,6 @@ import {
     randomElement,
     randomInteger,
     randomLetter,
-    randomSentence,
     randomWord,
 } from "./randomizers";
 
@@ -233,9 +232,7 @@ export const randomInteractiveGraphGenerator = (
     }
 
     return {
-        content: `${randomSentence(
-            50,
-        )}\n  \n[[\u2603 interactive-graph 1]] ${randomSentence(20)}`,
+        content: `[[\u2603 interactive-graph 1]]`,
         images: {},
         widgets: {
             "interactive-graph 1": {
