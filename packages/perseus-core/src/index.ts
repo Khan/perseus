@@ -10,4 +10,7 @@ export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-pe
 
 export {libVersion} from "./version";
 
-export {reportRendererItem} from "./utils/perseus-ext"
+export {
+    reportRendererItem,
+    reportPerseusVersions,
+} from "./utils/perseus-ext"
