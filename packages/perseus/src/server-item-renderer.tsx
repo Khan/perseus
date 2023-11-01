@@ -23,10 +23,11 @@ import Util from "./util";
 import type {KeypadProps} from "./mixins/provide-keypad";
 import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {
-    KeypadContextRendererInterface,
-    RendererInterface,
-    KEScore,
+import {
+    type KeypadContextRendererInterface,
+    type RendererInterface,
+    type KEScore,
+    reportRendererItem,
 } from "@khanacademy/perseus-core";
 
 const {mapObject} = Objective;
@@ -102,6 +103,7 @@ export class ServerItemRenderer
     componentDidMount() {
         this._currentFocus = null;
         this._fullyRendered = false;
+        reportRendererItem(this.props.item)
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -110,7 +112,9 @@ export class ServerItemRenderer
         });
     }
 
-    componentDidUpdate(prevProps: Props, prevState: State) {
+    componentDidUpdate(prevProps: Props) {
+        reportRendererItem(this.props.item)
+
         if (this.props.apiOptions.answerableCallback) {
             const isAnswerable =
                 this.questionRenderer.emptyWidgets().length === 0;

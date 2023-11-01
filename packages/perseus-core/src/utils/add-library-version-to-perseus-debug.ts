@@ -1,3 +1,5 @@
+import {reportPerseusVersions} from "./perseus-ext";
+
 /**
  * Adds the given perseus library version information to the __perseus_debug__
  * object and ensures that the object is attached to `globalThis` (`window` in
@@ -45,6 +47,8 @@ export const addLibraryVersionToPerseusDebug = (
         } else {
             globalThis.__perseus_debug__[libraryName] = formattedVersion;
         }
+
+        reportPerseusVersions(globalThis.__perseus_debug__);
     } else {
         // eslint-disable-next-line no-console
         console.warn(`globalThis not found found (${formattedVersion})`);

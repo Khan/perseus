@@ -16,7 +16,7 @@ import type {KeypadProps} from "./mixins/provide-keypad";
 import type {PerseusRenderer} from "./perseus-types";
 import type {APIOptions, PerseusDependenciesV2} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
+import {reportRendererItem, type KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> &
@@ -59,10 +59,17 @@ class ArticleRenderer
 
     componentDidMount() {
         this._currentFocus = null;
+
+        console.log("here")
+        reportRendererItem(this.props.json)
     }
 
     shouldComponentUpdate(nextProps: Props): boolean {
         return nextProps !== this.props;
+    }
+
+    componentDidUpdate(prevProps: Props) {
+        reportRendererItem(this.props.json)
     }
 
     _handleFocusChange: (arg1: any, arg2: any) => void = (
