@@ -25,7 +25,11 @@ export const randomSentence = (maxWords: number): string => {
 
 // generates a boolean. 50/50 unless rateTrue is specified
 export const randomBoolean = (rateTrue?: number): boolean => {
-    const threshold = rateTrue || 0.5;
+    let threshold = rateTrue;
+    if (threshold == null) {
+        threshold = 0.5;
+
+    }
     return Math.random() < threshold;
 };
 
