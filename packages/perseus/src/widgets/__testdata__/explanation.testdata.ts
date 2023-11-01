@@ -1,4 +1,5 @@
 import {randomBoolean, randomSentence} from "./randomizers";
+
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {

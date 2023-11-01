@@ -66,12 +66,12 @@ const randomGraphTypeLinearSystem = (): PerseusGraphTypeLinearSystem => {
 const randomGraphTypePoint = (): PerseusGraphTypePoint => {
     let minCoords = 1;
     const numPoints = randomElement(["unlimited", randomInteger(1, 10)]);
-    if (typeof numPoints == "number") {
+    if (typeof numPoints === "number") {
         minCoords = numPoints;
     }
     return {
         type: "point",
-        numPoints: typeof numPoints == "number" ? numPoints : "unlimited",
+        numPoints: typeof numPoints === "number" ? numPoints : "unlimited",
         coords: arrayOfLength(randomInteger(minCoords, 10)).map(randomCoord),
     };
 };

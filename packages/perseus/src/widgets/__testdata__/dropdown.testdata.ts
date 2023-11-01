@@ -4,6 +4,7 @@ import {
     randomInteger,
     randomSentence,
 } from "./randomizers";
+
 import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
@@ -56,7 +57,7 @@ export const randomDropdownGenerator = (): PerseusRenderer => {
                     choices: arrayOfLength(numChoices).map((_, i) => {
                         return {
                             content: randomSentence(10),
-                            correct: i == correctIndex,
+                            correct: i === correctIndex,
                         };
                     }),
                 },

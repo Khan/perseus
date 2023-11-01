@@ -4,6 +4,7 @@ import {
     randomInteger,
     randomSentence,
 } from "./randomizers";
+
 import type {
     PerseusRenderer,
     RadioWidget,
@@ -307,8 +308,8 @@ export const randomRadioGenerator = (): PerseusRenderer => {
                     choices: arrayOfLength(numberOfChoices).map((_, i) =>
                         randomChoice(
                             isMultiSelect,
-                            correctIndex == i,
-                            containsNoneOfTheAbove && noneOfTheAboveIndex == i,
+                            correctIndex === i,
+                            containsNoneOfTheAbove && noneOfTheAboveIndex === i,
                         ),
                     ),
                     hasNoneOfTheAbove: randomBoolean(),

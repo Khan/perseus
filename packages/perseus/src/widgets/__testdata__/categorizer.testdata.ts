@@ -1,10 +1,11 @@
-import type {PerseusRenderer} from "../../perseus-types";
 import {
     arrayOfLength,
     randomBoolean,
     randomInteger,
     randomSentence,
 } from "./randomizers";
+
+import type {PerseusRenderer} from "../../perseus-types";
 
 export const question1: PerseusRenderer = {
     content:

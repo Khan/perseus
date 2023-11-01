@@ -1,4 +1,3 @@
-import {randomInt} from "crypto";
 import {
     arrayOfLength,
     randomBoolean,
@@ -8,13 +7,13 @@ import {
     randomSentence,
     randomWord,
 } from "./randomizers";
+
 import type {
     PerseusExpressionWidgetOptions,
     Version,
     PerseusItem,
     PerseusRenderer,
     ExpressionWidget,
-    RadioWidget,
 } from "../../perseus-types";
 
 const createItemJson = (

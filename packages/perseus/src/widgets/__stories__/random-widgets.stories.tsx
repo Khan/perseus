@@ -1,6 +1,5 @@
-import * as React from "react";
-
 import Button from "@khanacademy/wonder-blocks-button";
+import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {randomCategorizerGenerator} from "../__testdata__/categorizer.testdata";
@@ -16,7 +15,7 @@ export default {
     title: "Perseus/Randomized Widgets",
 };
 
-const randomizedWidgetContainer = (
+const RandomizedWidgetContainer = (
     randomizer: () => PerseusRenderer,
 ): React.ReactElement => {
     const [question, setQuestion] = React.useState(randomizer());
@@ -35,26 +34,26 @@ const randomizedWidgetContainer = (
     );
 };
 
-export const randomCategorizer = (): React.ReactElement => {
-    return randomizedWidgetContainer(randomCategorizerGenerator);
+export const RandomCategorizer = (): React.ReactElement => {
+    return RandomizedWidgetContainer(randomCategorizerGenerator);
 };
 
-export const randomDropdown = (): React.ReactElement => {
-    return randomizedWidgetContainer(randomDropdownGenerator);
+export const RandomDropdown = (): React.ReactElement => {
+    return RandomizedWidgetContainer(randomDropdownGenerator);
 };
 
-export const randomExplanation = (): React.ReactElement => {
-    return randomizedWidgetContainer(randomExplanationGenerator);
+export const RandomExplanation = (): React.ReactElement => {
+    return RandomizedWidgetContainer(randomExplanationGenerator);
 };
 
-export const randomExpression = (): React.ReactElement => {
-    return randomizedWidgetContainer(randomExpressionGenerator);
+export const RandomExpression = (): React.ReactElement => {
+    return RandomizedWidgetContainer(randomExpressionGenerator);
 };
 
-export const randomInteractiveGraph = (): React.ReactElement => {
-    return randomizedWidgetContainer(randomInteractiveGraphGenerator);
+export const RandomInteractiveGraph = (): React.ReactElement => {
+    return RandomizedWidgetContainer(randomInteractiveGraphGenerator);
 };
 
 export const RandomRadio = (): React.ReactElement => {
-    return randomizedWidgetContainer(randomRadioGenerator);
+    return RandomizedWidgetContainer(randomRadioGenerator);
 };
