@@ -28,7 +28,6 @@ export const randomBoolean = (rateTrue?: number): boolean => {
     let threshold = rateTrue;
     if (threshold == null) {
         threshold = 0.5;
-
     }
     return Math.random() < threshold;
 };
