@@ -1,4 +1,3 @@
-import {string} from "prop-types";
 import {
     arrayOfLength,
     randomBoolean,
