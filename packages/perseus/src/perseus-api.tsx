@@ -110,6 +110,9 @@ export const ApiOptions = {
         // Previously handled by `Khan.scratchpad.enable/disable`
         setDrawingAreaAvailable: PropTypes.func,
 
+        // Whether to use the Draft.js editor or the legacy textarea
+        useDraftEditor: PropTypes.bool,
+
         // The color used for the hint progress indicator (eg. 1 / 3)
         hintProgressColor: PropTypes.string,
 
@@ -164,6 +167,7 @@ export const ApiOptions = {
             },
         },
         setDrawingAreaAvailable: function () {},
+        useDraftEditor: false,
         canScrollPage: false,
         inModal: false,
         crossOutEnabled: false,
