@@ -1,5 +1,24 @@
 # @khanacademy/perseus
 
+## 12.4.0
+
+### Minor Changes
+
+-   [#784](https://github.com/Khan/perseus/pull/784) [`cfff6ad1`](https://github.com/Khan/perseus/commit/cfff6ad16a3923418a3c75816af7c99689b94da4) Thanks [@nedredmond](https://github.com/nedredmond)! - Graded Group Set indicator dots now have a 24x24 clickable area as well as hover/focus states. Stretching issue on mobile resolved as well.
+
+*   [#783](https://github.com/Khan/perseus/pull/783) [`79403e06`](https://github.com/Khan/perseus/commit/79403e06eedb597d7818d6c858bbba6f51ff3fe1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Adds 'widgetId' to the 'perseus:widget-rendering-error' analytics event.
+
+### Patch Changes
+
+-   Updated dependencies [[`79403e06`](https://github.com/Khan/perseus/commit/79403e06eedb597d7818d6c858bbba6f51ff3fe1), [`ed00ee59`](https://github.com/Khan/perseus/commit/ed00ee59dcdeb20a66709c6b7d3474da55d58e4d)]:
+    -   @khanacademy/perseus-core@1.3.0
+    -   @khanacademy/math-input@14.2.2
+    -   @khanacademy/kas@0.3.5
+    -   @khanacademy/kmath@0.1.6
+    -   @khanacademy/perseus-linter@0.3.8
+    -   @khanacademy/pure-markdown@0.2.10
+    -   @khanacademy/simple-markdown@0.10.4
+
 ## 12.3.0
 
 ### Minor Changes

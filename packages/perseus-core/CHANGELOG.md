@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 1.3.0
+
+### Minor Changes
+
+-   [#783](https://github.com/Khan/perseus/pull/783) [`79403e06`](https://github.com/Khan/perseus/commit/79403e06eedb597d7818d6c858bbba6f51ff3fe1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Adds 'widgetId' to the 'perseus:widget-rendering-error' analytics event.
+
 ## 1.2.0
 
 ### Minor Changes
