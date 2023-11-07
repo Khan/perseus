@@ -22,8 +22,8 @@ type Rubric = PerseusPlotterWidgetOptions;
 type RenderProps = PerseusPlotterWidgetOptions;
 
 type Props = WidgetProps<RenderProps, Rubric> & {
-    labelInterval: number;
-    picSize: number;
+    labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
+    picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
 
 type DefaultProps = {

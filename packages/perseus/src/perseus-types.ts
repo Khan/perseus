@@ -848,14 +848,14 @@ export type PerseusPassageRefWidgetOptions = {
     summaryText: string;
 };
 
-export const plotTypes = [
+export const plotterPlotTypes = [
     "bar",
     "line",
     "pic",
     "histogram",
     "dotplot",
 ] as const;
-export type PlotType = typeof plotTypes[number];
+export type PlotType = typeof plotterPlotTypes[number];
 
 export type PerseusPlotterWidgetOptions = {
     // Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"]

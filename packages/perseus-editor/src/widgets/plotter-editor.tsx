@@ -4,6 +4,7 @@ import {number as knumber} from "@khanacademy/kmath";
 import {
     components,
     Dependencies,
+    plotterPlotTypes,
     PlotterWidget,
     Util,
 } from "@khanacademy/perseus";
@@ -12,6 +13,8 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+
+import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus";
 
 const {InfoTip, NumberInput, RangeInput, TextListEditor} = components;
 const Plotter = PlotterWidget.widget;
@@ -38,17 +41,8 @@ const editorDefaults = {
     snapsPerLine: 2,
 } as const;
 
-export const plotTypes = [
-    "bar",
-    "line",
-    "pic",
-    "histogram",
-    "dotplot",
-] as const;
-export type PlotType = typeof plotTypes[number];
-
 type Props = {
-    type: PlotType;
+    type: PerseusPlotterWidgetOptions["type"];
     labels: Array<string>;
     categories: ReadonlyArray<string | number>;
     scaleY: number;
@@ -335,7 +329,7 @@ class PlotterEditor extends React.Component<Props, State> {
             <div className="perseus-widget-plotter-editor">
                 <div>
                     Chart type:{" "}
-                    {plotTypes.map((type) => {
+                    {plotterPlotTypes.map((type) => {
                         return (
                             <label key={type}>
                                 <input
