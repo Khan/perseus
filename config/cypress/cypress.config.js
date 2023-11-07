@@ -27,6 +27,8 @@ fs.readdirSync(path.join(__dirname, "../../vendor")).forEach((name) => {
     aliases[name] = path.join(__dirname, "../../vendor", name);
 });
 
+const resourceTypes = /\.(png|svg|eot|woff|woff2|ttf|otf|svg(#Symbola)?)$/;
+
 module.exports = defineConfig({
     fixturesFolder: false,
     video: false,
@@ -53,16 +55,24 @@ module.exports = defineConfig({
                         },
                         // Other loaders that are needed for your components
                         {
-                            test: /\.css$/,
-                            use: ["style-loader", "css-loader"],
+                            test: resourceTypes,
+                            type: "asset/resource",
                         },
                         {
-                            test: /\.(woff|woff2|ttf|otf)$/,
-                            use: [{loader: "file-loader"}],
-                        },
-                        {
-                            test: /\.(less)$/,
-                            use: ["style-loader", "css-loader", "less-loader"],
+                            test: /\.(css|less)$/,
+                            use: [
+                                "style-loader",
+                                {
+                                    loader: "css-loader",
+                                    options: {
+                                        url: {
+                                            filter: (url) =>
+                                                !resourceTypes.test(url),
+                                        },
+                                    },
+                                },
+                                "less-loader",
+                            ],
                         },
                     ],
                 },
