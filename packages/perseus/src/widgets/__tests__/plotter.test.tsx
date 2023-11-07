@@ -4,12 +4,11 @@ import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {setDependencies} from "../../dependencies";
+import {ApiOptions} from "../../perseus-api";
 import {question1} from "../__testdata__/plotter.testdata";
 import {Plotter} from "../plotter";
 
 import {renderQuestion} from "./renderQuestion";
-
-import type {APIOptions} from "../../types";
 
 describe("plotter widget", () => {
     beforeEach(() => {
@@ -26,15 +25,17 @@ describe("plotter widget", () => {
 
     it("should show drag text when not static", () => {
         // Arrange and Act
-        const apiOptions: APIOptions = {isMobile: true};
         render(
+            // @ts-expect-error - TS2769 - test works, but I can't figure out how to make the types happy
             <Plotter
                 static={false}
                 trackInteraction={() => {}}
                 onChange={() => {}}
-                apiOptions={apiOptions}
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    isMobile: true,
+                }}
                 starting={[0]}
-                markings={""}
             />,
         );
 
@@ -46,15 +47,17 @@ describe("plotter widget", () => {
 
     it("should not show drag text when static", () => {
         // Arrange and Act
-        const apiOptions: APIOptions = {isMobile: true};
         render(
+            // @ts-expect-error - TS2769 - test works, but I can't figure out how to make the types happy
             <Plotter
                 static={true}
                 trackInteraction={() => {}}
                 onChange={() => {}}
-                apiOptions={apiOptions}
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    isMobile: true,
+                }}
                 starting={[0]}
-                markings={""}
             />,
         );
 
