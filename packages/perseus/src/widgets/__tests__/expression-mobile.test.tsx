@@ -37,7 +37,6 @@ function RendererWithContext({item}) {
                         apiOptions={{
                             isMobile: true,
                             customKeypad: true,
-                            useV2Keypad: true,
                         }}
                         item={item}
                         problemNum={0}

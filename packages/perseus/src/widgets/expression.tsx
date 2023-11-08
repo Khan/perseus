@@ -65,9 +65,7 @@ const deriveKeypadVersion = (apiOptions: APIOptions) => {
     return apiOptions.nativeKeypadProxy != null
         ? "REACT_NATIVE_KEYPAD"
         : apiOptions.customKeypad === true
-        ? apiOptions.useV2Keypad === true
-            ? "MATH_INPUT_KEYPAD_V2"
-            : "MATH_INPUT_KEYPAD_V1"
+        ? "MATH_INPUT_KEYPAD_V2"
         : "PERSEUS_MATH_INPUT";
 };
 

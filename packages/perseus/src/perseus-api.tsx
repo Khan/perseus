@@ -100,11 +100,6 @@ export const ApiOptions = {
         // Indicates whether or not to use mobile styling.
         isMobile: PropTypes.bool,
 
-        // Whether to use v1 (Legacy) Keypad for MathInput mobile or
-        // use the new v2 Keypad
-        // TODO [LC-1088]: remove after v2 release
-        useV2Keypad: PropTypes.bool,
-
         // A function, called with a bool indicating whether use of the
         // drawing area (scratchpad) should be allowed/disallowed.
         // Previously handled by `Khan.scratchpad.enable/disable`
@@ -150,7 +145,6 @@ export const ApiOptions = {
     defaults: {
         isArticle: false,
         isMobile: false,
-        useV2Keypad: false,
         onInputError: function () {},
         onFocusChange: function () {},
         GroupMetadataEditor: StubTagEditor,
