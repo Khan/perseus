@@ -155,7 +155,8 @@ class TransitionChild extends React.Component<ChildProps, ChildState> {
 
     queueClass(removeClassName: string, addClassName: string) {
         this.classNameQueue.push([removeClassName, addClassName]);
-        this.props.schedule.animationFrame(this.flushClassNameQueue);
+        // Queue operation for after the next paint.
+        this.props.schedule.timeout(this.flushClassNameQueue, 0);
     }
 
     flushClassNameQueue = () => {

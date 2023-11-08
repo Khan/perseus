@@ -1,5 +1,14 @@
 # @khanacademy/math-input
 
+## 14.2.2
+
+### Patch Changes
+
+-   [#787](https://github.com/Khan/perseus/pull/787) [`ed00ee59`](https://github.com/Khan/perseus/commit/ed00ee59dcdeb20a66709c6b7d3474da55d58e4d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix a bug where the mobile keypad didn't animate in the first time it appeared.
+
+-   Updated dependencies [[`79403e06`](https://github.com/Khan/perseus/commit/79403e06eedb597d7818d6c858bbba6f51ff3fe1)]:
+    -   @khanacademy/perseus-core@1.3.0
+
 ## 14.2.1
 
 ### Patch Changes

@@ -848,13 +848,22 @@ export type PerseusPassageRefWidgetOptions = {
     summaryText: string;
 };
 
+export const plotterPlotTypes = [
+    "bar",
+    "line",
+    "pic",
+    "histogram",
+    "dotplot",
+] as const;
+export type PlotType = typeof plotterPlotTypes[number];
+
 export type PerseusPlotterWidgetOptions = {
     // Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"]
     labels: ReadonlyArray<string>;
     // Translatable Text; Categories to display along the X access.  e.g. [">0", ">6", ">12", ">18"]
     categories: ReadonlyArray<string>;
     // The type of the graph. options "bar", "line", "pic", "histogram", "dotplot"
-    type: string;
+    type: PlotType;
     // The maximimum Y tick to display in the graph
     maxY: number;
     // The scale of the Y Axis
@@ -868,7 +877,7 @@ export type PerseusPlotterWidgetOptions = {
     // The Y values that represent the correct answer expected
     correct: ReadonlyArray<number>;
     // A picture to represent items in a graph.
-    picUrl: number | null | undefined;
+    picUrl: string | null | undefined;
     // deprecated
     picSize: number | null | undefined;
     // deprecated
