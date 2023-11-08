@@ -42,7 +42,7 @@ const assertCorrect = (itemData: PerseusItem, input: string) => {
         type: "perseus:expression-evaluated",
         payload: {
             result: "correct",
-            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+            virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2",
         },
     });
 };
@@ -54,7 +54,7 @@ const assertIncorrect = (itemData: PerseusItem, input: string) => {
         type: "perseus:expression-evaluated",
         payload: {
             result: "incorrect",
-            virtualKeypadVersion: "PERSEUS_MATH_INPUT",
+            virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2",
         },
     });
 };
@@ -224,12 +224,8 @@ describe("Expression Widget", function () {
             );
         });
 
-        it("should set the virtual keypad version to MATH_INPUT_KEYPAD_V2 if using custom keypad", () => {
-            assertKeypadVersion({customKeypad: true}, "MATH_INPUT_KEYPAD_V2");
-        });
-
-        it("should default the virtual keypad version to PERSEUS_MATH_INPUT", () => {
-            assertKeypadVersion(Object.freeze({}), "PERSEUS_MATH_INPUT");
+        it("should default the virtual keypad version to MATH_INPUT_KEYPAD_V2", () => {
+            assertKeypadVersion(Object.freeze({}), "MATH_INPUT_KEYPAD_V2");
         });
     });
 });
