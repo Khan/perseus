@@ -12,6 +12,7 @@ class ItemExtrasEditor extends React.Component<Props> {
         chi2Table: PropTypes.bool,
         onChange: PropTypes.func.isRequired,
         periodicTable: PropTypes.bool,
+        periodicTableWithKey: PropTypes.bool,
         tTable: PropTypes.bool,
         zTable: PropTypes.bool,
     };
@@ -20,6 +21,7 @@ class ItemExtrasEditor extends React.Component<Props> {
         calculator: false,
         chi2Table: false,
         periodicTable: false,
+        periodicTableWithKey: false,
         tTable: false,
         zTable: false,
     };
@@ -29,6 +31,7 @@ class ItemExtrasEditor extends React.Component<Props> {
             calculator: this.props.calculator,
             chi2Table: this.props.chi2Table,
             periodicTable: this.props.periodicTable,
+            periodicTableWithKey: this.props.periodicTableWithKey,
             tTable: this.props.tTable,
             zTable: this.props.zTable,
         };
@@ -78,6 +81,28 @@ class ItemExtrasEditor extends React.Component<Props> {
                             chemistry questions.
                         </InfoTip>
                     </div>
+
+                    {this.props.periodicTable && (
+                        <div>
+                            <label>
+                                Include key/legend with periodic table:{" "}
+                                <input
+                                    type="checkbox"
+                                    checked={this.props.periodicTableWithKey}
+                                    onChange={(e) => {
+                                        this.props.onChange({
+                                            periodicTableWithKey:
+                                                e.target.checked,
+                                        });
+                                    }}
+                                />
+                            </label>
+                            <InfoTip>
+                                Include a key for HS courses, omit for AP
+                                chemistry.
+                            </InfoTip>
+                        </div>
+                    )}
 
                     <div>
                         <label>

@@ -39,7 +39,7 @@ type Props = // These props are used by the ProvideKeypad mixin.
         item: PerseusItem | any /* any for _multi items */;
         onShowCalculator?: () => unknown;
         onShowChi2Table?: () => unknown;
-        onShowPeriodicTable?: () => unknown;
+        onShowPeriodicTable?: (options?: {showKey: boolean}) => unknown;
         onShowTTable?: () => unknown;
         onShowZTable?: () => unknown;
         problemNum: number;
@@ -254,7 +254,9 @@ class ItemRenderer extends React.Component<Props, State> {
             }
             if (answerArea.periodicTable) {
                 this.props.onShowPeriodicTable &&
-                    this.props.onShowPeriodicTable();
+                    this.props.onShowPeriodicTable({
+                        showKey: answerArea.periodicTableWithKey,
+                    });
             }
             if (answerArea.zTable) {
                 this.props.onShowZTable && this.props.onShowZTable();

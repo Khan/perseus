@@ -805,6 +805,47 @@ describe("item renderer", () => {
             expect(onShowTTable).toHaveBeenCalled();
             expect(onShowChi2Table).toHaveBeenCalled();
         });
+
+        it("should call onShowPeriodicTable with showKey option if selected", () => {
+            // Arrange
+            const item = {
+                ...itemWithInput,
+                answerArea: {
+                    zTable: false,
+                    chi2Table: false,
+                    tTable: false,
+                    calculator: false,
+                    periodicTable: true,
+                    periodicTableWithKey: true,
+                },
+            } as const;
+
+            const onShowCalculator = jest.fn();
+            const onShowPeriodicTable = jest.fn();
+            const onShowZTable = jest.fn();
+            const onShowTTable = jest.fn();
+            const onShowChi2Table = jest.fn();
+            const localExtraProps = {
+                ...extraProps,
+                onShowCalculator,
+                onShowPeriodicTable,
+                onShowZTable,
+                onShowTTable,
+                onShowChi2Table,
+            } as const;
+
+            // Act
+            renderQuestion(item, undefined, localExtraProps);
+
+            // Assert
+            expect(onShowCalculator).not.toHaveBeenCalled();
+            expect(onShowZTable).not.toHaveBeenCalled();
+            expect(onShowTTable).not.toHaveBeenCalled();
+            expect(onShowChi2Table).not.toHaveBeenCalled();
+            expect(onShowPeriodicTable).toHaveBeenCalledWith(
+                expect.objectContaining({showKey: true}),
+            );
+        });
     });
 
     describe("controlPeripherals is enabled", () => {
