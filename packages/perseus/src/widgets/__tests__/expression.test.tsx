@@ -224,15 +224,8 @@ describe("Expression Widget", function () {
             );
         });
 
-        it("should set the virtual keypad version to MATH_INPUT_KEYPAD_V1 when customKeypad is set and useV2Keypad is unset", () => {
-            assertKeypadVersion({customKeypad: true}, "MATH_INPUT_KEYPAD_V1");
-        });
-
-        it("should set the virtual keypad version to MATH_INPUT_KEYPAD_V2 when customKeypad is set and useV2Keypad is true", () => {
-            assertKeypadVersion(
-                {customKeypad: true, useV2Keypad: true},
-                "MATH_INPUT_KEYPAD_V2",
-            );
+        it("should set the virtual keypad version to MATH_INPUT_KEYPAD_V2 if using custom keypad", () => {
+            assertKeypadVersion({customKeypad: true}, "MATH_INPUT_KEYPAD_V2");
         });
 
         it("should default the virtual keypad version to PERSEUS_MATH_INPUT", () => {
