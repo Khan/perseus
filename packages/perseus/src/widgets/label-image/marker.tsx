@@ -154,6 +154,8 @@ const incorrectActiveColor = "#6c6e73";
 const markerShadowColor = "rgba(33, 36, 44, 0.32)";
 const lightShadowColor = "rgba(33, 36, 44, 0.16)";
 
+const markerSize = 16;
+
 const styles = StyleSheet.create({
     unstyledButton: {
         padding: 0,
@@ -190,19 +192,19 @@ const styles = StyleSheet.create({
 
         boxSizing: "content-box",
 
-        width: 16,
-        height: 16,
+        width: markerSize,
+        height: markerSize,
         // Center icon within marker.
         marginLeft: 5,
 
         cursor: "pointer",
 
-        backgroundColor: markerColor,
+        borderStyle: "solid",
+        borderWidth: 2,
+        borderColor: Color.offBlack64,
+        borderRadius: markerSize,
 
-        border: "solid 2px #ffffff",
-        borderRadius: 16,
-
-        boxShadow: `0 2px 6px 0 ${markerShadowColor}`,
+        boxShadow: `0 8px 8px ${Color.offBlack8}`,
     },
 
     markerUnfilledPulsate: {
