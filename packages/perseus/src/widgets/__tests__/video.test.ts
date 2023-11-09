@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {question1} from "../__testdata__/video.testdata";
+import {question1, question2} from "../__testdata__/video.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
@@ -49,5 +49,21 @@ describe("video widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
+    });
+
+    it("vimeo widget should contain dnt param", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            isMobile: false,
+        };
+
+        // Act
+        renderQuestion(question2, apiOptions);
+
+        // Assert
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(document.getElementsByTagName("iframe")[0].src).toContain(
+            "dnt=1",
+        );
     });
 });
