@@ -144,14 +144,12 @@ export default class Marker extends React.Component<Props, State> {
     }
 }
 
-const markerColor = "#1865f2";
 const selectedColor = "#2552b0";
 const activeColor = selectedColor;
 const correctColor = "#00a60e";
 const correctActiveColor = "#167b1f";
 const incorrectColor = "#909195";
 const incorrectActiveColor = "#6c6e73";
-const markerShadowColor = "rgba(33, 36, 44, 0.32)";
 const lightShadowColor = "rgba(33, 36, 44, 0.16)";
 
 const markerSize = 16;
@@ -207,6 +205,7 @@ const styles = StyleSheet.create({
         boxShadow: `0 8px 8px ${Color.offBlack8}`,
     },
 
+    // The animation that presents the marker to the learner
     markerUnfilledPulsate: {
         animationName: {
             "0%": {
@@ -214,7 +213,8 @@ const styles = StyleSheet.create({
             },
 
             "100%": {
-                transform: "scale(1.5)",
+                transform: "scale(1.3)",
+                backgroundColor: Color.blue,
             },
         },
 
@@ -226,6 +226,7 @@ const styles = StyleSheet.create({
         transformOrigin: "50% 50%",
     },
 
+    // The learner is making an initial selection
     markerUnfilledSelected: {
         "::before": {
             content: "''",
@@ -234,20 +235,42 @@ const styles = StyleSheet.create({
 
             width: 20,
             height: 20,
-            marginLeft: -4,
-            marginTop: -4,
+            marginLeft: -2,
+            marginTop: -2,
 
-            border: `solid 2px ${selectedColor}`,
-            borderRadius: 20,
+            backgroundImage: `url('https://khan.github.io/wonder-blocks/assets/caret-up-bold-daf71073.svg')`,
+            backgroundSize: "10px 10px",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
         },
+
+        boxShadow: `0 8px 8px ${Color.offBlack8}`,
+
+        border: `solid 4px ${Color.white}`,
+        backgroundColor: Color.blue,
+        borderRadius: 20,
 
         ":active": {
             backgroundColor: activeColor,
 
-            boxShadow: "none",
-
             "::before": {
                 display: "none",
+            },
+        },
+
+        ":hover": {
+            "::after": {
+                content: "''",
+                display: "inline-block",
+                position: "absolute",
+
+                width: 22,
+                height: 22,
+                marginLeft: -5,
+                marginTop: -5,
+
+                border: `2px solid ${Color.blue}`,
+                borderRadius: 24,
             },
         },
     },
