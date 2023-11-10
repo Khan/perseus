@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 15.0.0
+
+### Major Changes
+
+-   [#786](https://github.com/Khan/perseus/pull/786) [`af4ebf37`](https://github.com/Khan/perseus/commit/af4ebf37dfed15ffd93a8cf2a20d0be464120dd7) Thanks [@handeyeco](https://github.com/handeyeco)! - Added a new required dep in Perseus and MathInput (required by WB)
+
+### Patch Changes
+
+-   [#791](https://github.com/Khan/perseus/pull/791) [`3eb0e158`](https://github.com/Khan/perseus/commit/3eb0e15860224cc595d5b7e78d2a5d60e808561c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Minor fix to ensure that the keypadElement is always provided to mobile keypad consumers
+
 ## 14.2.2
 
 ### Patch Changes
