@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: "#ECF3FE",
 
-        marginLeft: 5,
+        marginLeft: 3,
         marginTop: 0,
 
         border: `4px solid ${Color.blue}`,
