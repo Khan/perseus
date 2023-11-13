@@ -80,23 +80,25 @@ export default class Marker extends React.Component<Props, State> {
             if (showCorrectness === "correct") {
                 iconStyles = [
                     styles.markerCorrect,
-                    isSelected && styles.markerCorrectSelected,
+                    isSelected && styles.markerSelected,
                 ];
             } else {
                 iconStyles = [
                     styles.markerIncorrect,
-                    isSelected && styles.markerIncorrectSelected,
+                    isSelected && styles.markerSelected,
                 ];
             }
+        } else if (isFocused) {
+            iconStyles = [styles.markerFocused];
         } else if (selected && selected.length > 0) {
             iconStyles = [
                 styles.markerFilled,
-                isSelected && styles.markerFilledSelected,
+                isSelected && styles.markerSelected,
             ];
         } else {
             iconStyles = [
                 isSelected
-                    ? styles.markerUnfilledSelected
+                    ? styles.markerSelected
                     : showPulsate && styles.markerUnfilledPulsate,
             ];
         }
@@ -147,9 +149,7 @@ export default class Marker extends React.Component<Props, State> {
 const selectedColor = "#2552b0";
 const activeColor = selectedColor;
 const correctColor = "#00a60e";
-const correctActiveColor = "#167b1f";
 const incorrectColor = "#909195";
-const incorrectActiveColor = "#6c6e73";
 const lightShadowColor = "rgba(33, 36, 44, 0.16)";
 
 const markerSize = 16;
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
 
     marker: {
         position: "absolute",
+        outline: "none",
 
         // Center marker position based on it's maximum size.
         width: 30,
@@ -226,8 +227,23 @@ const styles = StyleSheet.create({
         transformOrigin: "50% 50%",
     },
 
+    markerFocused: {
+        "::before": {
+            content: "''",
+            display: "inline-block",
+            position: "absolute",
+
+            width: 22,
+            height: 22,
+            marginLeft: -5,
+            marginTop: -5,
+            border: `2px solid ${Color.blue}`,
+            borderRadius: 20,
+        },
+    },
+
     // The learner is making an initial selection
-    markerUnfilledSelected: {
+    markerSelected: {
         "::before": {
             content: "''",
             display: "inline-block",
@@ -275,41 +291,19 @@ const styles = StyleSheet.create({
         },
     },
 
+    // The learner has made a selection
     markerFilled: {
-        width: 8,
-        height: 8,
-        // Center icon within marker.
-        marginLeft: 9,
+        width: markerSize,
+        height: markerSize,
+        borderRadius: 20,
+        backgroundColor: "#ECF3FE",
 
-        borderRadius: 8,
+        marginLeft: 5,
+        marginTop: 0,
+
+        border: `4px solid ${Color.blue}`,
 
         boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
-    },
-
-    markerFilledSelected: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
-
-            width: 12,
-            height: 12,
-            marginLeft: -4,
-            marginTop: -4,
-
-            border: `solid 2px ${selectedColor}`,
-            borderRadius: 12,
-        },
-
-        ":active": {
-            backgroundColor: activeColor,
-
-            boxShadow: "none",
-
-            "::before": {
-                display: "none",
-            },
-        },
     },
 
     markerCorrect: {
@@ -326,30 +320,6 @@ const styles = StyleSheet.create({
         boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
     },
 
-    markerCorrectSelected: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
-
-            width: 28,
-            height: 28,
-
-            border: `solid 2px ${selectedColor}`,
-            borderRadius: 28,
-        },
-
-        ":active": {
-            backgroundColor: correctActiveColor,
-
-            boxShadow: "none",
-
-            "::before": {
-                display: "none",
-            },
-        },
-    },
-
     markerIncorrect: {
         width: 24,
         height: 24,
@@ -362,29 +332,5 @@ const styles = StyleSheet.create({
         background: incorrectColor,
 
         boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
-    },
-
-    markerIncorrectSelected: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
-
-            width: 28,
-            height: 28,
-
-            border: `solid 2px ${selectedColor}`,
-            borderRadius: 28,
-        },
-
-        ":active": {
-            backgroundColor: incorrectActiveColor,
-
-            boxShadow: "none",
-
-            "::before": {
-                display: "none",
-            },
-        },
     },
 });
