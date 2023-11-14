@@ -8,7 +8,6 @@
 import Color from "@khanacademy/wonder-blocks-color";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import caretUpIcon from "@phosphor-icons/core/bold/caret-up-bold.svg";
-import {select} from "@storybook/addon-knobs";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -209,7 +208,7 @@ const styles = StyleSheet.create({
         width: markerSize,
         height: markerSize,
 
-        marginLeft: 5,
+        marginLeft: 2,
 
         cursor: "pointer",
 
