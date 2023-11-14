@@ -6,13 +6,11 @@
  */
 
 import Color from "@khanacademy/wonder-blocks-color";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import caretUpIcon from "@phosphor-icons/core/bold/caret-up-bold.svg";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Icon from "../../components/icon";
-import {iconCheck, iconMinus} from "../../icon-paths";
+import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import type {InteractiveMarkerType} from "./types";
 
@@ -81,11 +79,13 @@ export default class Marker extends React.Component<Props, State> {
 
             if (showCorrectness === "correct") {
                 iconStyles = [
+                    styles.markerGraded,
                     styles.markerCorrect,
                     isSelected && styles.markerSelected,
                 ];
             } else {
                 iconStyles = [
+                    styles.markerGraded,
                     styles.markerIncorrect,
                     isSelected && styles.markerSelected,
                 ];
@@ -108,13 +108,9 @@ export default class Marker extends React.Component<Props, State> {
             ];
         }
 
-        if (isSelected) {
+        if (isSelected && selected && selected.length === 0) {
             innerIcon = (
-                <PhosphorIcon
-                    icon={caretUpIcon}
-                    size="small"
-                    color={Color.white}
-                />
+                <Icon icon={iconChevronDown} size={8} color={Color.white} />
             );
         }
 
@@ -161,8 +157,6 @@ export default class Marker extends React.Component<Props, State> {
     }
 }
 
-const correctColor = "#00a60e";
-const incorrectColor = "#909195";
 const lightShadowColor = "rgba(33, 36, 44, 0.16)";
 
 const markerSize = 20;
@@ -251,6 +245,7 @@ const styles = StyleSheet.create({
         border: `solid 4px ${Color.white}`,
         backgroundColor: Color.blue,
         borderRadius: markerSize,
+        transform: "rotate(180deg)",
 
         ":hover": {
             outline: `2px solid ${Color.blue}`,
@@ -273,31 +268,23 @@ const styles = StyleSheet.create({
         boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
     },
 
-    markerCorrect: {
-        width: 24,
-        height: 24,
+    markerGraded: {
+        width: markerSize,
+        height: markerSize,
         marginLeft: 1,
         marginTop: 1,
 
         justifyContent: "center",
         alignItems: "center",
+        border: `2px solid ${Color.white}`,
+        boxShadow: `0 8px 8px ${Color.offBlack8}`,
+    },
 
-        background: correctColor,
-
-        boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
+    markerCorrect: {
+        background: Color.green,
     },
 
     markerIncorrect: {
-        width: 24,
-        height: 24,
-        marginLeft: 1,
-        marginTop: 1,
-
-        justifyContent: "center",
-        alignItems: "center",
-
-        background: incorrectColor,
-
-        boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
+        background: Color.offBlack64,
     },
 });
