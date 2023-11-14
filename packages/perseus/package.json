@@ -39,7 +39,6 @@
         "@khanacademy/wonder-blocks-dropdown": "^3.0.21",
         "@khanacademy/wonder-blocks-form": "^4.3.3",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
-        "@khanacademy/wonder-blocks-icon": "^2.2.1",
         "@khanacademy/wonder-blocks-layout": "^2.0.17",
         "@khanacademy/wonder-blocks-link": "^5.0.0",
         "@khanacademy/wonder-blocks-modal": "^4.0.19",
