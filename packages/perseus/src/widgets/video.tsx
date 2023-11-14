@@ -24,6 +24,7 @@ const DEFAULT_HEIGHT = 720;
 const KA_EMBED = "{host}/embed_video?slug={slug}" + "&internal_video_only=1";
 const IS_URL = /^https?:\/\//;
 const IS_KA_SITE = /(khanacademy\.org|localhost)/;
+const IS_VIMEO = /(vimeo\.com)/;
 
 type UserInput = null;
 type Rubric = PerseusVideoWidgetOptions;
@@ -75,6 +76,16 @@ class Video extends React.Component<Props> {
 
         if (IS_URL.test(location)) {
             url = location;
+            if (IS_VIMEO.test(url)) {
+                // If this is a vimeo video, we need to add the query string
+                // parameter "dnt" so that analytics/tracking cookies aren't set.
+                // https://help.vimeo.com/hc/en-us/articles/12426260232977-Player-parameters-overview
+                if (url.indexOf("?") === -1) {
+                    url += "?dnt=1";
+                } else {
+                    url += "&dnt=1";
+                }
+            }
         } else {
             url = KA_EMBED.replace("{slug}", location);
             let embedHostname = "https://www.khanacademy.org";
