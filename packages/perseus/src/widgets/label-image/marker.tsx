@@ -6,6 +6,9 @@
  */
 
 import Color from "@khanacademy/wonder-blocks-color";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import caretUpIcon from "@phosphor-icons/core/bold/caret-up-bold.svg";
+import {select} from "@storybook/addon-knobs";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -89,7 +92,10 @@ export default class Marker extends React.Component<Props, State> {
                 ];
             }
         } else if (isFocused) {
-            iconStyles = [styles.markerFocused];
+            iconStyles = [
+                styles.markerFocused,
+                selected && selected.length > 0 && styles.markerFilled,
+            ];
         } else if (selected && selected.length > 0) {
             iconStyles = [
                 styles.markerFilled,
@@ -101,6 +107,16 @@ export default class Marker extends React.Component<Props, State> {
                     ? styles.markerSelected
                     : showPulsate && styles.markerUnfilledPulsate,
             ];
+        }
+
+        if (isSelected) {
+            innerIcon = (
+                <PhosphorIcon
+                    icon={caretUpIcon}
+                    size="small"
+                    color={Color.white}
+                />
+            );
         }
 
         return (
@@ -146,13 +162,11 @@ export default class Marker extends React.Component<Props, State> {
     }
 }
 
-const selectedColor = "#2552b0";
-const activeColor = selectedColor;
 const correctColor = "#00a60e";
 const incorrectColor = "#909195";
 const lightShadowColor = "rgba(33, 36, 44, 0.16)";
 
-const markerSize = 16;
+const markerSize = 20;
 
 const styles = StyleSheet.create({
     unstyledButton: {
@@ -187,20 +201,19 @@ const styles = StyleSheet.create({
     // The base and unfilled marker style.
     markerIcon: {
         display: "flex",
-        position: "relative",
+        alignItems: "center",
+        justifyContent: "center",
 
         boxSizing: "content-box",
 
         width: markerSize,
         height: markerSize,
-        // Center icon within marker.
+
         marginLeft: 5,
 
         cursor: "pointer",
 
-        borderStyle: "solid",
-        borderWidth: 2,
-        borderColor: Color.offBlack64,
+        border: `2px solid ${Color.offBlack64}`,
         borderRadius: markerSize,
 
         boxShadow: `0 8px 8px ${Color.offBlack8}`,
@@ -228,74 +241,29 @@ const styles = StyleSheet.create({
     },
 
     markerFocused: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
-
-            width: 22,
-            height: 22,
-            marginLeft: -5,
-            marginTop: -5,
-            border: `2px solid ${Color.blue}`,
-            borderRadius: 20,
-        },
+        outline: `2px solid ${Color.blue}`,
+        outlineOffset: 2,
     },
 
     // The learner is making an initial selection
     markerSelected: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
-
-            width: 20,
-            height: 20,
-            marginLeft: -2,
-            marginTop: -2,
-
-            backgroundImage: `url('https://khan.github.io/wonder-blocks/assets/caret-up-bold-daf71073.svg')`,
-            backgroundSize: "10px 10px",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-        },
-
         boxShadow: `0 8px 8px ${Color.offBlack8}`,
 
         border: `solid 4px ${Color.white}`,
         backgroundColor: Color.blue,
-        borderRadius: 20,
-
-        ":active": {
-            backgroundColor: activeColor,
-
-            "::before": {
-                display: "none",
-            },
-        },
+        borderRadius: markerSize,
 
         ":hover": {
-            "::after": {
-                content: "''",
-                display: "inline-block",
-                position: "absolute",
-
-                width: 22,
-                height: 22,
-                marginLeft: -5,
-                marginTop: -5,
-
-                border: `2px solid ${Color.blue}`,
-                borderRadius: 24,
-            },
+            outline: `2px solid ${Color.blue}`,
+            outlineOffset: -2,
         },
     },
 
     // The learner has made a selection
     markerFilled: {
-        width: markerSize,
-        height: markerSize,
-        borderRadius: 20,
+        width: markerSize - 2,
+        height: markerSize - 2,
+        borderRadius: markerSize - 2,
         backgroundColor: "#ECF3FE",
 
         marginLeft: 3,
