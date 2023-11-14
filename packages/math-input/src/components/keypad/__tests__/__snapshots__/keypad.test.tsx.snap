@@ -509,6 +509,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                   class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
+                    data-test-id="period-decimal"
                     fill="none"
                     height="40"
                     viewBox="0 0 40 40"
@@ -1561,6 +1562,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                   class="default_xu2jcg-o_O-base_7gd6lb"
                 >
                   <svg
+                    data-test-id="period-decimal"
                     fill="none"
                     height="40"
                     viewBox="0 0 40 40"
