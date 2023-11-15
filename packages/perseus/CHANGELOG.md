@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 13.1.0
+
+### Minor Changes
+
+-   [#795](https://github.com/Khan/perseus/pull/795) [`2adb82b2`](https://github.com/Khan/perseus/commit/2adb82b22ac17a31aef403b7562191cac06cc13b) Thanks [@ioanacrant](https://github.com/ioanacrant)! - Add "do not track" query parameter to vimeo links in the video widget to ensure tracking/analytics cookies don't get set.
+
+### Patch Changes
+
+-   Updated dependencies [[`1d58b887`](https://github.com/Khan/perseus/commit/1d58b887179b129b5027e20484fde5169170f052)]:
+    -   @khanacademy/math-input@15.0.1
+
 ## 13.0.0
 
 ### Major Changes

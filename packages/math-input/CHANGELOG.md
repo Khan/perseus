@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 15.0.1
+
+### Patch Changes
+
+-   [#800](https://github.com/Khan/perseus/pull/800) [`1d58b887`](https://github.com/Khan/perseus/commit/1d58b887179b129b5027e20484fde5169170f052) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: conditionally switch between period/comma for decimal separator
+
 ## 15.0.0
 
 ### Major Changes
