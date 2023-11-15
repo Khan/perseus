@@ -97,7 +97,10 @@ const config: StorybookConfig = {
                                 loader: "css-loader",
                                 options: {url: false},
                             },
-                            "less-loader",
+                            {
+                                loader: "less-loader",
+                                options: {lessOptions: {math: "always"}},
+                            },
                         ],
                     },
                     {
