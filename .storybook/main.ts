@@ -4,7 +4,11 @@ const path = require("path");
 const fs = require("fs");
 const glob = require("fast-glob");
 
-module.exports = {
+import type {StorybookConfig} from "@storybook/react-webpack5";
+
+const config: StorybookConfig = {
+    framework: "@storybook/react-webpack5",
+
     stories: [
         // NOTE(jeremy): This glob is extremely finicky! I would have written
         // this as a negated match to exclude node_modules, but I was never
@@ -19,9 +23,9 @@ module.exports = {
     ],
 
     addons: [
-        getAbsolutePath("@storybook/addon-links"),
-        getAbsolutePath("@storybook/addon-essentials"),
-        getAbsolutePath("@storybook/addon-a11y"),
+        "@storybook/addon-links",
+        "@storybook/addon-essentials",
+        "@storybook/addon-a11y",
     ],
 
     // NOTE(kevinb): We customize the padding a bit so that so that stories
@@ -121,16 +125,9 @@ module.exports = {
         return updateWebpackConfig;
     },
 
-    framework: {
-        name: getAbsolutePath("@storybook/react-webpack5"),
-        options: {},
-    },
-
     docs: {
         autodocs: true,
     },
 };
 
-function getAbsolutePath(value) {
-    return dirname(require.resolve(join(value, "package.json")));
-}
+module.exports = config;
