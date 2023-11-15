@@ -63,11 +63,6 @@ export enum IconType {
     TEXT = "TEXT",
 }
 
-export enum DecimalSeparator {
-    COMMA = "COMMA",
-    PERIOD = "PERIOD",
-}
-
 export enum EchoAnimationType {
     SLIDE_AND_FADE = "SLIDE_AND_FADE",
     FADE_ONLY = "FADE_ONLY",

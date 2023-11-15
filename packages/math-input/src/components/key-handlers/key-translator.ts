@@ -1,4 +1,3 @@
-import {DecimalSeparator} from "../../enums";
 import {decimalSeparator} from "../../utils";
 import {mathQuillInstance} from "../input/mathquill-instance";
 
@@ -18,8 +17,6 @@ enum ActionType {
     KEYSTROKE = "keystroke",
     MQ_END = 0,
 }
-
-const decimalSymbol = decimalSeparator === DecimalSeparator.COMMA ? "," : ".";
 
 function buildGenericCallback(
     str: string,
@@ -72,7 +69,7 @@ const keyToMathquillMap: Record<Key, MathFieldUpdaterCallback> = {
     TAN: buildNormalFunctionCallback("tan"),
 
     CDOT: buildGenericCallback("\\cdot"),
-    DECIMAL: buildGenericCallback(decimalSymbol),
+    DECIMAL: buildGenericCallback(decimalSeparator),
     DIVIDE: buildGenericCallback("\\div"),
     EQUAL: buildGenericCallback("="),
     GEQ: buildGenericCallback("\\geq"),

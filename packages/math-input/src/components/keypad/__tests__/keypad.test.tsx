@@ -4,6 +4,7 @@ import * as React from "react";
 import "@testing-library/jest-dom";
 
 import keyConfigs from "../../../data/key-configs";
+import * as utils from "../../../utils";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
 
@@ -19,6 +20,14 @@ const contextToKeyAria = {
 };
 
 describe("keypad", () => {
+    const originalDecimalSeparator = utils.decimalSeparator;
+
+    afterEach(() => {
+        // @ts-expect-error TS2540 - Cannot assign to 'decimalSeparator' because it is a read-only property.
+        // eslint-disable-next-line import/namespace
+        utils.decimalSeparator = originalDecimalSeparator;
+    });
+
     describe("shows navigation buttons", () => {
         Object.entries(contextToKeyAria).forEach(([context, ariaLabel]) => {
             it(`shows button for ${context}`, () => {
@@ -245,5 +254,31 @@ describe("keypad", () => {
         expect(
             screen.getByRole("button", {name: "Left arrow"}),
         ).toBeInTheDocument();
+    });
+
+    it(`can show the comma decimal separator`, () => {
+        // @ts-expect-error TS2540 - Cannot assign to 'decimalSeparator' because it is a read-only property.
+        // eslint-disable-next-line import/namespace
+        utils.decimalSeparator = utils.DecimalSeparator.COMMA;
+
+        // Arrange
+        // Act
+        render(
+            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
+        );
+
+        // Assert
+        expect(screen.getByTestId("comma-decimal")).toBeInTheDocument();
+    });
+
+    it(`can show the period decimal separator`, () => {
+        // Arrange
+        // Act
+        render(
+            <Keypad onClickKey={() => {}} onAnalyticsEvent={async () => {}} />,
+        );
+
+        // Assert
+        expect(screen.getByTestId("period-decimal")).toBeInTheDocument();
     });
 });
