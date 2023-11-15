@@ -71,7 +71,10 @@ module.exports = defineConfig({
                                         },
                                     },
                                 },
-                                "less-loader",
+                                {
+                                    loader: "less-loader",
+                                    options: {lessOptions: {math: "always"}},
+                                },
                             ],
                         },
                     ],

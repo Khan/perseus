@@ -1,0 +1,64 @@
+{
+  "changesets": [
+    {
+      "releases": [
+        {
+          "name": "@khanacademy/simple-markdown",
+          "type": "minor"
+        }
+      ],
+      "summary": "Remove unused dependencies: size-limit and uglify-js",
+      "id": "curvy-pumpkins-bow"
+    },
+    {
+      "releases": [
+        {
+          "name": "@khanacademy/simple-markdown",
+          "type": "minor"
+        }
+      ],
+      "summary": "Remove unused dependencies: size-limit and uglify-js",
+      "id": "grumpy-cameras-fetch"
+    }
+  ],
+  "releases": [
+    {
+      "name": "@khanacademy/simple-markdown",
+      "type": "minor",
+      "oldVersion": "0.10.4",
+      "changesets": [
+        "curvy-pumpkins-bow",
+        "grumpy-cameras-fetch"
+      ],
+      "newVersion": "0.11.0"
+    },
+    {
+      "name": "@khanacademy/perseus",
+      "type": "patch",
+      "oldVersion": "13.1.0",
+      "changesets": [],
+      "newVersion": "13.1.1"
+    },
+    {
+      "name": "@khanacademy/pure-markdown",
+      "type": "patch",
+      "oldVersion": "0.2.10",
+      "changesets": [],
+      "newVersion": "0.2.11"
+    },
+    {
+      "name": "@khanacademy/perseus-editor",
+      "type": "patch",
+      "oldVersion": "2.9.1",
+      "changesets": [],
+      "newVersion": "2.9.2"
+    },
+    {
+      "name": "@khanacademy/perseus-linter",
+      "type": "none",
+      "oldVersion": "0.3.8",
+      "changesets": [],
+      "newVersion": "0.3.8"
+    }
+  ]
+}

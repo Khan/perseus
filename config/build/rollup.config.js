@@ -213,6 +213,9 @@ const createConfig = (
                 // into our libraries when our consumers should be the ones
                 // handling asset bundling.
                 url: false,
+                less: {
+                    math: "always",
+                },
             }),
             babel({
                 babelHelpers:
