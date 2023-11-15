@@ -11,6 +11,8 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 
 import type {PerseusRenderer} from "@khanacademy/perseus";
 
+import "../styles/perseus-editor.less";
+
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
