@@ -6,7 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
-import Color from "@khanacademy/wonder-blocks-color";
+import Color, {fade} from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {StyleSheet, css} from "aphrodite";
@@ -79,9 +79,11 @@ type LabelImageProps = ChangeableProps & {
 
 type LabelImageState = {
     // The user selected marker index, defaults to -1, no selection.
-    selectedMarkerIndex: number;
+    activeMarkerIndex: number;
     // Whether any of the markers were interacted with by the user.
     markersInteracted: boolean;
+    // The currently focused marker index; defaults to -1, no focus.
+    focusedMarkerIndex: number;
 };
 
 class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
@@ -339,7 +341,8 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         this._markers = [];
 
         this.state = {
-            selectedMarkerIndex: -1,
+            activeMarkerIndex: -1,
+            focusedMarkerIndex: -1,
             markersInteracted: false,
         };
     }
@@ -392,14 +395,14 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     }
 
     dismissMarkerPopup() {
-        const {selectedMarkerIndex: index} = this.state;
+        const {activeMarkerIndex: index} = this.state;
 
         // No popup should be open if there's no selected marker.
         if (index === -1) {
             return;
         }
 
-        this.setState({selectedMarkerIndex: -1}, () => {
+        this.setState({activeMarkerIndex: -1}, () => {
             const marker = this._markers[index];
             // Set focus on the just-deselected-marker, to enable to resume
             // navigating between the markers using the keyboard.
@@ -471,13 +474,13 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     }
 
     handleMarkerClick(index: number) {
-        const {selectedMarkerIndex} = this.state;
+        const {activeMarkerIndex} = this.state;
 
         // Select the marker, revealing answer choices.
-        if (selectedMarkerIndex !== index) {
+        if (activeMarkerIndex !== index) {
             this.setState(
                 {
-                    selectedMarkerIndex: index,
+                    activeMarkerIndex: index,
                     markersInteracted: true,
                 },
                 () => {
@@ -594,7 +597,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     renderMarkers(): ReadonlyArray<React.ReactNode> {
         const {markers, questionCompleted} = this.props;
 
-        const {selectedMarkerIndex, markersInteracted} = this.state;
+        const {activeMarkerIndex, markersInteracted} = this.state;
 
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
@@ -611,12 +614,21 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                             ? "correct"
                             : marker.showCorrectness
                     }
-                    showSelected={index === selectedMarkerIndex}
+                    showSelected={index === activeMarkerIndex}
                     showPulsate={!markersInteracted}
                     key={`${marker.x}.${marker.y}`}
                     onClick={() => this.handleMarkerClick(index)}
                     onKeyDown={(e) => this.handleMarkerKeyDown(index, e)}
                     ref={(node) => (this._markers[index] = node)}
+                    focused={index === this.state.focusedMarkerIndex}
+                    onFocus={() => {
+                        this.setState({focusedMarkerIndex: index});
+                    }}
+                    onBlur={() => {
+                        if (index === this.state.focusedMarkerIndex) {
+                            this.setState({focusedMarkerIndex: -1});
+                        }
+                    }}
                 />
             );
 
@@ -643,10 +655,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 }[LabelImage.imageSideForMarkerPosition(marker.x, marker.y)];
             }
 
-            const answerChoicesActive = index === selectedMarkerIndex;
+            const answerChoicesActive = index === activeMarkerIndex;
 
             const answerStyles: CSSProperties = {
-                [side]: 20, // move the popover closer to the marker
+                [side]: 15, // move the popover closer to the marker
             };
 
             let answerString: string | undefined;
@@ -672,6 +684,9 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                                 ...(answerChoicesActive
                                     ? [styles.choicesPopover]
                                     : [styles.pill]),
+                                ...(this.state.focusedMarkerIndex === index
+                                    ? [styles.pillBorderColorFocused]
+                                    : [styles.pillBorderColorDefault]),
                             ]}
                         >
                             {!answerChoicesActive && marker.selected ? (
@@ -746,7 +761,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     render(): React.ReactNode {
         const {imageAlt, imageUrl, imageWidth, imageHeight} = this.props;
 
-        const {selectedMarkerIndex} = this.state;
+        const {activeMarkerIndex} = this.state;
 
         return (
             <div>
@@ -767,7 +782,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                             // dismiss the popup. If the image is larger in size
                             // than its rendered in the widget, this would
                             // result in a zoom of the image.
-                            selectedMarkerIndex !== -1 &&
+                            activeMarkerIndex !== -1 &&
                                 styles.imageInteractionDisabled,
                         )}
                     >
@@ -867,7 +882,16 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         color: Color.offBlack64,
         fontSize: 14,
-        border: `2px solid ${Color.blue}`,
+        borderWidth: 2,
+        borderStyle: "solid",
+    },
+
+    pillBorderColorDefault: {
+        borderColor: fade(Color.blue, 0.16),
+    },
+
+    pillBorderColorFocused: {
+        borderColor: Color.blue,
     },
 });
 

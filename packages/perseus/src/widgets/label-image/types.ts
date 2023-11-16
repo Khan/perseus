@@ -15,6 +15,7 @@ export type InteractiveMarkerType = MarkerType & {
     selected?: ReadonlyArray<string>;
     // Reveal the correctness state of the user selected answers for the marker.
     showCorrectness?: "correct" | "incorrect";
+    focused?: boolean;
 };
 
 // Question state for marker as result of user selected answers.
