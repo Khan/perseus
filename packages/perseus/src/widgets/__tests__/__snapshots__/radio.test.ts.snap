@@ -3638,7 +3638,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       </button>
                     </div>
                     <div
-                      class="perseus-radio-rationale-content rationale_1w3tmyh"
+                      class="perseus-radio-rationale-content rationale_1ctj0s0"
                       data-test-id="perseus-radio-rationale-content-0"
                     >
                       <div
@@ -3834,7 +3834,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       </button>
                     </div>
                     <div
-                      class="perseus-radio-rationale-content rationale_1w3tmyh"
+                      class="perseus-radio-rationale-content rationale_1ctj0s0"
                       data-test-id="perseus-radio-rationale-content-1"
                     >
                       <div
@@ -4014,7 +4014,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       </button>
                     </div>
                     <div
-                      class="perseus-radio-rationale-content rationale_1w3tmyh"
+                      class="perseus-radio-rationale-content rationale_1ctj0s0"
                       data-test-id="perseus-radio-rationale-content-2"
                     >
                       <div
@@ -4195,7 +4195,7 @@ exports[`single-choice question reviewMode: true should snapshot the same: first
                       </button>
                     </div>
                     <div
-                      class="perseus-radio-rationale-content rationale_1w3tmyh"
+                      class="perseus-radio-rationale-content rationale_1ctj0s0"
                       data-test-id="perseus-radio-rationale-content-3"
                     >
                       <div
