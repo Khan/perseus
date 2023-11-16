@@ -29,6 +29,11 @@ type State = {
     isFocused: boolean;
 };
 
+function shouldReduceMotion(): boolean {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    return !mediaQuery || mediaQuery.matches;
+}
+
 export default class Marker extends React.Component<Props, State> {
     // The marker icon element.
     _icon: HTMLElement | null | undefined;
@@ -100,11 +105,14 @@ export default class Marker extends React.Component<Props, State> {
                 styles.markerFilled,
                 isSelected && styles.markerSelected,
             ];
+        } else if (isSelected) {
+            iconStyles = [styles.markerSelected];
         } else {
             iconStyles = [
-                isSelected
-                    ? styles.markerSelected
-                    : showPulsate && styles.markerUnfilledPulsate,
+                styles.markerPulsateBase,
+                shouldReduceMotion()
+                    ? styles.markerUnfilledPulsateOnce
+                    : showPulsate && styles.markerUnfilledPulsateInfinite,
             ];
         }
 
@@ -213,7 +221,7 @@ const styles = StyleSheet.create({
     },
 
     // The animation that presents the marker to the learner
-    markerUnfilledPulsate: {
+    markerPulsateBase: {
         animationName: {
             "0%": {
                 transform: "scale(1)",
@@ -227,10 +235,20 @@ const styles = StyleSheet.create({
 
         animationDirection: "alternate",
         animationDuration: "0.8s",
-        animationIterationCount: "infinite",
         animationTimingFunction: "ease-in",
 
         transformOrigin: "50% 50%",
+
+        animationIterationCount: "0",
+    },
+
+    markerUnfilledPulsateInfinite: {
+        animationIterationCount: "infinite",
+    },
+
+    markerUnfilledPulsateOnce: {
+        // Doing the animation twice lets it ease-in and ease-out
+        animationIterationCount: "2",
     },
 
     markerFocused: {
