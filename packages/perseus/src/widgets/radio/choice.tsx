@@ -346,6 +346,7 @@ const styles = StyleSheet.create({
         padding: intermediateCheckboxPadding,
         paddingTop: 0,
         marginLeft: 54,
+        color: Color.offBlack64,
         [mediaQueries.smOrSmaller]: {
             padding: intermediateCheckboxPaddingPhone,
             paddingTop: 0,
