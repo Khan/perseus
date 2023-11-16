@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import Color from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {StyleSheet, css} from "aphrodite";
@@ -28,6 +29,7 @@ import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,
 } from "./label-image/types";
+import type {CSSProperties} from "aphrodite";
 
 type MarkersState = {
     markers: ReadonlyArray<InteractiveMarkerType>;
@@ -468,10 +470,8 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         onChange({markers: updatedMarkers});
     }
 
-    handleMarkerClick(index: number, e: MouseEvent) {
+    handleMarkerClick(index: number) {
         const {selectedMarkerIndex} = this.state;
-
-        e.preventDefault();
 
         // Select the marker, revealing answer choices.
         if (selectedMarkerIndex !== index) {
@@ -549,7 +549,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
 
         this.handleMarkerChange(index, {
             ...markers[index],
-            selected,
+            selected: selected.length ? selected : undefined,
         });
 
         if (!multipleAnswers) {
@@ -614,17 +614,11 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     showSelected={index === selectedMarkerIndex}
                     showPulsate={!markersInteracted}
                     key={`${marker.x}.${marker.y}`}
-                    onClick={(e) => this.handleMarkerClick(index, e)}
+                    onClick={() => this.handleMarkerClick(index)}
                     onKeyDown={(e) => this.handleMarkerKeyDown(index, e)}
                     ref={(node) => (this._markers[index] = node)}
                 />
             );
-
-            // The user selected marker is wrapped with a popup that shows its
-            // answer choices, otherwise it's returned as is.
-            if (index !== selectedMarkerIndex) {
-                return element;
-            }
 
             // Determine whether page is rendered in a narrow browser window.
             const isNarrowPage = window.matchMedia(
@@ -649,21 +643,50 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 }[LabelImage.imageSideForMarkerPosition(marker.x, marker.y)];
             }
 
-            // TODO(michaelpolyak): Ideally we would always render markers
-            // wrapped in the popover. Setting `opened={false}` for those
-            // markers that are unselected (to hide their popup), this would
-            // keep the React tree more stable.
+            const answerChoicesActive = index === selectedMarkerIndex;
+
+            const answerStyles: CSSProperties = {
+                [side]: 20, // move the popover closer to the marker
+            };
+
+            let answerString: string | undefined;
+
+            if (marker.selected) {
+                answerString =
+                    marker.selected.length > 1
+                        ? // always need `ngettext` for variable numbers even if we don't use the singular, see https://khanacademy.slack.com/archives/C0918TZ5G/p1700163024293079
+                          i18n.ngettext(
+                              "%(num)s answer",
+                              "%(num)s answers",
+                              marker.selected.length,
+                          )
+                        : marker.selected[0];
+            }
+
             return (
                 <Popover
                     content={() => (
-                        <PopoverContentCore style={styles.choicesPopover}>
-                            {this.renderAnswerChoicesForMarker(index, marker)}
+                        <PopoverContentCore
+                            style={[
+                                answerStyles,
+                                ...(answerChoicesActive
+                                    ? [styles.choicesPopover]
+                                    : [styles.pill]),
+                            ]}
+                        >
+                            {!answerChoicesActive && marker.selected ? (
+                                <span>{answerString}</span>
+                            ) : (
+                                this.renderAnswerChoicesForMarker(index, marker)
+                            )}
                         </PopoverContentCore>
                     )}
                     placement={side}
-                    opened={true}
+                    opened={answerChoicesActive || !!marker.selected}
                     key={`${marker.x}.${marker.y}`}
                     ref={(node) => (this._selectedMarkerPopup = node)}
+                    showTail={false}
+                    dismissEnabled
                 >
                     {element}
                 </Popover>
@@ -837,6 +860,14 @@ const styles = StyleSheet.create({
 
     choicesPopover: {
         padding: 0,
+    },
+
+    pill: {
+        padding: "0 1em",
+        borderRadius: 100,
+        color: Color.offBlack64,
+        fontSize: 14,
+        border: `2px solid ${Color.blue}`,
     },
 });
 
