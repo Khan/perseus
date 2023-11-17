@@ -111,7 +111,7 @@ export default class Marker extends React.Component<Props, State> {
             iconStyles = [
                 styles.markerPulsateBase,
                 shouldReduceMotion()
-                    ? styles.markerUnfilledPulsateOnce
+                    ? showPulsate && styles.markerUnfilledPulsateOnce
                     : showPulsate && styles.markerUnfilledPulsateInfinite,
             ];
         }
