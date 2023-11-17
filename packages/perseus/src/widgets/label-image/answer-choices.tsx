@@ -236,7 +236,13 @@ export default class AnswerChoices extends React.Component<
         const {groupName} = this.state;
 
         return (
-            <fieldset>
+            <fieldset
+                style={{
+                    border: "none",
+                    margin: 0,
+                    padding: 0,
+                }}
+            >
                 {choices.map((choice, index) => (
                     <AnswerChoice
                         {...choice}

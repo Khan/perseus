@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import Color, {fade} from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {StyleSheet, css} from "aphrodite";
@@ -28,6 +29,7 @@ import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,
 } from "./label-image/types";
+import type {CSSProperties} from "aphrodite";
 
 type MarkersState = {
     markers: ReadonlyArray<InteractiveMarkerType>;
@@ -77,9 +79,11 @@ type LabelImageProps = ChangeableProps & {
 
 type LabelImageState = {
     // The user selected marker index, defaults to -1, no selection.
-    selectedMarkerIndex: number;
+    activeMarkerIndex: number;
     // Whether any of the markers were interacted with by the user.
     markersInteracted: boolean;
+    // The currently focused marker index; defaults to -1, no focus.
+    focusedMarkerIndex: number;
 };
 
 class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
@@ -337,7 +341,8 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         this._markers = [];
 
         this.state = {
-            selectedMarkerIndex: -1,
+            activeMarkerIndex: -1,
+            focusedMarkerIndex: -1,
             markersInteracted: false,
         };
     }
@@ -390,15 +395,15 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     }
 
     dismissMarkerPopup() {
-        const {selectedMarkerIndex: index} = this.state;
+        const {activeMarkerIndex} = this.state;
 
         // No popup should be open if there's no selected marker.
-        if (index === -1) {
+        if (activeMarkerIndex === -1) {
             return;
         }
 
-        this.setState({selectedMarkerIndex: -1}, () => {
-            const marker = this._markers[index];
+        this.setState({activeMarkerIndex: -1}, () => {
+            const marker = this._markers[activeMarkerIndex];
             // Set focus on the just-deselected-marker, to enable to resume
             // navigating between the markers using the keyboard.
             if (marker) {
@@ -468,16 +473,14 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         onChange({markers: updatedMarkers});
     }
 
-    handleMarkerClick(index: number, e: MouseEvent) {
-        const {selectedMarkerIndex} = this.state;
-
-        e.preventDefault();
+    activateMarker(index: number) {
+        const {activeMarkerIndex} = this.state;
 
         // Select the marker, revealing answer choices.
-        if (selectedMarkerIndex !== index) {
+        if (activeMarkerIndex !== index) {
             this.setState(
                 {
-                    selectedMarkerIndex: index,
+                    activeMarkerIndex: index,
                     markersInteracted: true,
                 },
                 () => {
@@ -549,7 +552,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
 
         this.handleMarkerChange(index, {
             ...markers[index],
-            selected,
+            selected: selected.length ? selected : undefined,
         });
 
         if (!multipleAnswers) {
@@ -594,7 +597,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     renderMarkers(): ReadonlyArray<React.ReactNode> {
         const {markers, questionCompleted} = this.props;
 
-        const {selectedMarkerIndex, markersInteracted} = this.state;
+        const {activeMarkerIndex, markersInteracted} = this.state;
 
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
@@ -611,20 +614,23 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                             ? "correct"
                             : marker.showCorrectness
                     }
-                    showSelected={index === selectedMarkerIndex}
+                    showSelected={index === activeMarkerIndex}
                     showPulsate={!markersInteracted}
                     key={`${marker.x}.${marker.y}`}
-                    onClick={(e) => this.handleMarkerClick(index, e)}
+                    onClick={() => this.activateMarker(index)}
                     onKeyDown={(e) => this.handleMarkerKeyDown(index, e)}
                     ref={(node) => (this._markers[index] = node)}
+                    focused={index === this.state.focusedMarkerIndex}
+                    onFocus={() => {
+                        this.setState({focusedMarkerIndex: index});
+                    }}
+                    onBlur={() => {
+                        if (index === this.state.focusedMarkerIndex) {
+                            this.setState({focusedMarkerIndex: -1});
+                        }
+                    }}
                 />
             );
-
-            // The user selected marker is wrapped with a popup that shows its
-            // answer choices, otherwise it's returned as is.
-            if (index !== selectedMarkerIndex) {
-                return element;
-            }
 
             // Determine whether page is rendered in a narrow browser window.
             const isNarrowPage = window.matchMedia(
@@ -649,21 +655,73 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 }[LabelImage.imageSideForMarkerPosition(marker.x, marker.y)];
             }
 
-            // TODO(michaelpolyak): Ideally we would always render markers
-            // wrapped in the popover. Setting `opened={false}` for those
-            // markers that are unselected (to hide their popup), this would
-            // keep the React tree more stable.
+            const answerChoicesActive = index === activeMarkerIndex;
+
+            const answerStyles: CSSProperties = {
+                [side]: 15, // move the popover closer to the marker
+            };
+
+            let answerString: string | undefined;
+
+            if (marker.selected) {
+                answerString =
+                    marker.selected.length > 1
+                        ? // always need `ngettext` for variable numbers even if we don't use the singular, see https://khanacademy.slack.com/archives/C0918TZ5G/p1700163024293079
+                          i18n.ngettext(
+                              "%(num)s answer",
+                              "%(num)s answers",
+                              marker.selected.length,
+                          )
+                        : marker.selected[0];
+            }
+
             return (
                 <Popover
                     content={() => (
-                        <PopoverContentCore style={styles.choicesPopover}>
-                            {this.renderAnswerChoicesForMarker(index, marker)}
+                        <PopoverContentCore
+                            style={[
+                                answerStyles,
+                                ...(answerChoicesActive
+                                    ? [styles.choicesPopover]
+                                    : [styles.pill]),
+                                ...(this.state.focusedMarkerIndex === index
+                                    ? [styles.pillBorderColorFocused]
+                                    : [styles.pillBorderColorDefault]),
+                            ]}
+                        >
+                            {!answerChoicesActive && marker.selected ? (
+                                <button
+                                    aria-label={answerString}
+                                    className={css(styles.pillButton)}
+                                    onClick={() => this.activateMarker(index)}
+                                    onFocus={() => {
+                                        this.setState({
+                                            focusedMarkerIndex: index,
+                                        });
+                                    }}
+                                    onBlur={() => {
+                                        if (
+                                            index ===
+                                            this.state.focusedMarkerIndex
+                                        ) {
+                                            this.setState({
+                                                focusedMarkerIndex: -1,
+                                            });
+                                        }
+                                    }}
+                                >
+                                    {answerString}
+                                </button>
+                            ) : (
+                                this.renderAnswerChoicesForMarker(index, marker)
+                            )}
                         </PopoverContentCore>
                     )}
                     placement={side}
-                    opened={true}
+                    opened={answerChoicesActive || !!marker.selected}
                     key={`${marker.x}.${marker.y}`}
                     ref={(node) => (this._selectedMarkerPopup = node)}
+                    showTail={false}
                 >
                     {element}
                 </Popover>
@@ -723,7 +781,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     render(): React.ReactNode {
         const {imageAlt, imageUrl, imageWidth, imageHeight} = this.props;
 
-        const {selectedMarkerIndex} = this.state;
+        const {activeMarkerIndex} = this.state;
 
         return (
             <div>
@@ -744,7 +802,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                             // dismiss the popup. If the image is larger in size
                             // than its rendered in the widget, this would
                             // result in a zoom of the image.
-                            selectedMarkerIndex !== -1 &&
+                            activeMarkerIndex !== -1 &&
                                 styles.imageInteractionDisabled,
                         )}
                     >
@@ -837,6 +895,38 @@ const styles = StyleSheet.create({
 
     choicesPopover: {
         padding: 0,
+    },
+
+    pill: {
+        padding: "0 1em",
+        borderRadius: 100,
+        borderWidth: 2,
+        borderStyle: "solid",
+    },
+
+    pillBorderColorDefault: {
+        borderColor: fade(Color.blue, 0.16),
+    },
+
+    pillBorderColorFocused: {
+        borderColor: Color.blue,
+    },
+
+    pillButton: {
+        background: "none",
+        border: "none",
+        padding: 0,
+        outline: "inherit",
+        color: Color.offBlack64,
+        fontSize: 14,
+        ":focus": {
+            color: Color.blue,
+            textDecoration: "underline",
+        },
+        ":hover": {
+            color: Color.blue,
+            textDecoration: "underline",
+        },
     },
 });
 
