@@ -22,11 +22,9 @@ type Props = InteractiveMarkerType & {
     // Callbacks for when marker is interacted with using input device.
     onClick: (e: MouseEvent) => void;
     onKeyDown: (e: KeyboardEvent) => void;
-};
-
-type State = {
-    // Whether the marker button has input focus.
-    isFocused: boolean;
+    onFocus: () => void;
+    onBlur: () => void;
+    focused: boolean;
 };
 
 function shouldReduceMotion(): boolean {
@@ -34,7 +32,7 @@ function shouldReduceMotion(): boolean {
     return !mediaQuery || mediaQuery.matches;
 }
 
-export default class Marker extends React.Component<Props, State> {
+export default class Marker extends React.Component<Props> {
     // The marker icon element.
     _icon: HTMLElement | null | undefined;
 
@@ -44,31 +42,17 @@ export default class Marker extends React.Component<Props, State> {
         selected: [],
     };
 
-    state: State = {
-        isFocused: false,
-    };
-
-    handleFocus() {
-        this.setState({isFocused: true});
-    }
-
-    handleBlur() {
-        this.setState({isFocused: false});
-    }
-
     renderIcon(): React.ReactElement<React.ComponentProps<"div">> {
-        const {selected, showCorrectness, showSelected, showPulsate} =
+        const {selected, showCorrectness, showSelected, showPulsate, focused} =
             this.props;
-
-        const {isFocused} = this.state;
 
         // Only a single marker may be "selected" at a time.
         // `showSelected` is a controlled prop, that may be set to `true` for
         // one marker at a time.
-        // `isFocused` is a controlled state, driven by focus events, and may
+        // `focused` is a controlled state, driven by focus events, and may
         // only be `true` when there's no answer choices popup visible, and
         // keyboard focus is given to the marker.
-        const isSelected = showSelected || isFocused;
+        const isSelected = showSelected || focused;
 
         let innerIcon;
         let iconStyles;
@@ -95,7 +79,7 @@ export default class Marker extends React.Component<Props, State> {
                     isSelected && styles.markerSelected,
                 ];
             }
-        } else if (isFocused) {
+        } else if (focused) {
             iconStyles = [
                 styles.markerFocused,
                 selected && selected.length > 0 && styles.markerFilled,
@@ -152,8 +136,8 @@ export default class Marker extends React.Component<Props, State> {
                     top: `${y}%`,
                 }}
                 tabIndex={isDisabled ? -1 : 0}
-                onFocus={() => this.handleFocus()}
-                onBlur={() => this.handleBlur()}
+                onFocus={this.props.onFocus}
+                onBlur={this.props.onBlur}
                 // @ts-expect-error - TS2345 - Argument of type 'MouseEvent<HTMLButtonElement, MouseEvent>' is not assignable to parameter of type 'MouseEvent'.
                 onClick={(e) => this.props.onClick(e)}
                 // @ts-expect-error - TS2345 - Argument of type 'KeyboardEvent<HTMLButtonElement>' is not assignable to parameter of type 'KeyboardEvent'.
