@@ -6,7 +6,6 @@
  * knowledge by directly interacting with the image.
  */
 
-import Button from "@khanacademy/wonder-blocks-button";
 import Color, {fade} from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
