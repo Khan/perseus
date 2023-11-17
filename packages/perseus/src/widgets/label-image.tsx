@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import Button from "@khanacademy/wonder-blocks-button";
 import Color, {fade} from "@khanacademy/wonder-blocks-color";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
@@ -395,15 +396,15 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     }
 
     dismissMarkerPopup() {
-        const {activeMarkerIndex: index} = this.state;
+        const {activeMarkerIndex} = this.state;
 
         // No popup should be open if there's no selected marker.
-        if (index === -1) {
+        if (activeMarkerIndex === -1) {
             return;
         }
 
         this.setState({activeMarkerIndex: -1}, () => {
-            const marker = this._markers[index];
+            const marker = this._markers[activeMarkerIndex];
             // Set focus on the just-deselected-marker, to enable to resume
             // navigating between the markers using the keyboard.
             if (marker) {
@@ -473,7 +474,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         onChange({markers: updatedMarkers});
     }
 
-    handleMarkerClick(index: number) {
+    activateMarker(index: number) {
         const {activeMarkerIndex} = this.state;
 
         // Select the marker, revealing answer choices.
@@ -617,7 +618,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     showSelected={index === activeMarkerIndex}
                     showPulsate={!markersInteracted}
                     key={`${marker.x}.${marker.y}`}
-                    onClick={() => this.handleMarkerClick(index)}
+                    onClick={() => this.activateMarker(index)}
                     onKeyDown={(e) => this.handleMarkerKeyDown(index, e)}
                     ref={(node) => (this._markers[index] = node)}
                     focused={index === this.state.focusedMarkerIndex}
@@ -690,7 +691,28 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                             ]}
                         >
                             {!answerChoicesActive && marker.selected ? (
-                                <span>{answerString}</span>
+                                <button
+                                    aria-label={answerString}
+                                    className={css(styles.pillButton)}
+                                    onClick={() => this.activateMarker(index)}
+                                    onFocus={() => {
+                                        this.setState({
+                                            focusedMarkerIndex: index,
+                                        });
+                                    }}
+                                    onBlur={() => {
+                                        if (
+                                            index ===
+                                            this.state.focusedMarkerIndex
+                                        ) {
+                                            this.setState({
+                                                focusedMarkerIndex: -1,
+                                            });
+                                        }
+                                    }}
+                                >
+                                    {answerString}
+                                </button>
                             ) : (
                                 this.renderAnswerChoicesForMarker(index, marker)
                             )}
@@ -701,7 +723,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     key={`${marker.x}.${marker.y}`}
                     ref={(node) => (this._selectedMarkerPopup = node)}
                     showTail={false}
-                    dismissEnabled
                 >
                     {element}
                 </Popover>
@@ -880,8 +901,6 @@ const styles = StyleSheet.create({
     pill: {
         padding: "0 1em",
         borderRadius: 100,
-        color: Color.offBlack64,
-        fontSize: 14,
         borderWidth: 2,
         borderStyle: "solid",
     },
@@ -892,6 +911,23 @@ const styles = StyleSheet.create({
 
     pillBorderColorFocused: {
         borderColor: Color.blue,
+    },
+
+    pillButton: {
+        background: "none",
+        border: "none",
+        padding: 0,
+        outline: "inherit",
+        color: Color.offBlack64,
+        fontSize: 14,
+        ":focus": {
+            color: Color.blue,
+            textDecoration: "underline",
+        },
+        ":hover": {
+            color: Color.blue,
+            textDecoration: "underline",
+        },
     },
 });
 
