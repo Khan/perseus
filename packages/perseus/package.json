@@ -45,6 +45,7 @@
         "@khanacademy/wonder-blocks-popover": "^3.0.16",
         "@khanacademy/wonder-blocks-progress-spinner": "^2.0.24",
         "@khanacademy/wonder-blocks-spacing": "^4.0.1",
+        "@khanacademy/wonder-blocks-switch": "^1.1.6",
         "@khanacademy/wonder-blocks-tooltip": "^2.1.18",
         "@khanacademy/wonder-blocks-typography": "^2.1.9",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
