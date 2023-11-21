@@ -242,7 +242,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_m8a8ki"
+                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs"
                 >
                   Check
                 </span>
@@ -470,7 +470,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_m8a8ki"
+                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs"
                 >
                   Check
                 </span>
@@ -698,7 +698,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_m8a8ki"
+                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_6kf3xs"
                 >
                   Check
                 </span>

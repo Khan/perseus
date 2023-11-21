@@ -367,18 +367,10 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 >
                   less than or equal to
                 </span>
-                <svg
+                <span
                   aria-hidden="true"
-                  class="svg_aeiopc-o_O-caret_ntkmq"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <path
-                    d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
-                    fill="rgba(33,36,44,0.64)"
-                  />
-                </svg>
+                  class="svg_aeiopc-o_O-caret_ntkmq-o_O-inlineStyles_13xtep5"
+                />
               </button>
             </div>
           </div>
@@ -440,18 +432,10 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 >
                   greater than or equal to
                 </span>
-                <svg
+                <span
                   aria-hidden="true"
-                  class="svg_aeiopc-o_O-caret_ntkmq"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <path
-                    d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
-                    fill="rgba(33,36,44,0.64)"
-                  />
-                </svg>
+                  class="svg_aeiopc-o_O-caret_ntkmq-o_O-inlineStyles_13xtep5"
+                />
               </button>
             </div>
           </div>
@@ -513,18 +497,10 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 >
                   greater/less than or equal to
                 </span>
-                <svg
+                <span
                   aria-hidden="true"
-                  class="svg_aeiopc-o_O-caret_ntkmq"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <path
-                    d="M8 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 8.586z"
-                    fill="rgba(33,36,44,0.64)"
-                  />
-                </svg>
+                  class="svg_aeiopc-o_O-caret_ntkmq-o_O-inlineStyles_13xtep5"
+                />
               </button>
             </div>
           </div>
