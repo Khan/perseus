@@ -219,7 +219,6 @@ module.exports = {
                     "**/*.less",
                     "@testing-library/jest-dom",
                     "@testing-library/jest-dom/extend-expect",
-                    "jest-enzyme",
                     "whatwg-fetch",
                 ],
             },

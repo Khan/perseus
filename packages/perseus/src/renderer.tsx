@@ -132,7 +132,7 @@ export type Widget = {
         path: FocusPath,
         newValue: string,
         // TODO(jeremy): I think this is actually a callback
-        focus: () => unknown,
+        focus?: () => unknown,
     ) => void;
     getUserInput?: () => WidgetUserInput | null | undefined;
     simpleValidate?: (
@@ -1701,7 +1701,7 @@ class Renderer extends React.Component<Props, State> {
     setInputValue: (
         path: FocusPath,
         newValue: string,
-        focus: () => unknown,
+        focus?: () => unknown,
     ) => void = (path, newValue, focus) => {
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
         const widgetId = _.first(path);
