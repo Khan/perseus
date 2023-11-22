@@ -146,6 +146,12 @@ jobs:
                   name: cypress-coverage
                   path: ./.nyc_output/out.json
 
+            - name: Upload Cypress Screenshots
+              uses: actions/upload-artifact@v2
+              with:
+                  name: cypress-screenshots
+                  path: ./cypress/screenshots
+
     coverage:
         name: Jest Coverage
         runs-on: ${{ matrix.os }}
