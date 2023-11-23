@@ -28,7 +28,7 @@ type State = {
     texRendererLoaded: boolean;
 };
 
-class Matcher extends React.Component<any, any> {
+export class Matcher extends React.Component<any, any> {
     static propTypes = {
         apiOptions: ApiOptions.propTypes,
         labels: PropTypes.array,

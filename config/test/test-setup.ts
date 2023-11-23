@@ -6,8 +6,6 @@ import MutationObserver from "@sheerun/mutationobserver-shim";
 import {configure} from "@testing-library/dom"; // eslint-disable-line testing-library/no-dom-import, prettier/prettier
 // @ts-expect-error - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
 import {StyleSheetTestUtils} from "aphrodite";
-import Enzyme from "enzyme"; // eslint-disable-line no-restricted-imports
-import React16EnzymeAdapter from "enzyme-adapter-react-16"; // eslint-disable-line no-restricted-imports
 import jestSerializerHtml from "jest-serializer-html";
 import {addSerializer} from "jest-specific-snapshot";
 
@@ -17,9 +15,6 @@ StyleSheetTestUtils.suppressStyleInjection();
 // Hook in the Jest HTML Serializer to our custom snapshot matcher.
 // See https://www.npmjs.com/package/jest-specific-snapshot#with-custom-serializer
 addSerializer(jestSerializerHtml);
-
-// Enzyme requires an adapater for each version of React.
-Enzyme.configure({adapter: new React16EnzymeAdapter()});
 
 // @testing-library uses "data-testId" by default but wonder-blocks uses "data-test-id"
 configure({

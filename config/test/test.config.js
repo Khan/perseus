@@ -63,10 +63,6 @@ module.exports = {
         "jest-extended/all",
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
-
-        // TODO(LP-11633) math-input uses these matchers. We can remove this
-        // once we transition these tests to RTL
-        "<rootDir>/node_modules/jest-enzyme/lib/index.js",
     ],
     moduleNameMapper: {
         ...pkgMap,
