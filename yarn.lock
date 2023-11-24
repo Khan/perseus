@@ -2619,7 +2619,7 @@
     "@khanacademy/wonder-blocks-icon" "^2.2.1"
     "@khanacademy/wonder-blocks-theming" "^1.2.1"
 
-"@khanacademy/wonder-blocks-icon@^2.2.1":
+"@khanacademy/wonder-blocks-icon@2.2.1", "@khanacademy/wonder-blocks-icon@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-icon/-/wonder-blocks-icon-2.2.1.tgz#bba03a40b2c5a1fe709509a71125397a0ad223d4"
   integrity sha512-vyxK59t3j5eXmc7kmC3ZqZTBlH/ZQFOtHKIscuDphJ91nD6lYp+AIufU9ee4OR7CT+O8ZeXayz/aQvLNXmL6hA==

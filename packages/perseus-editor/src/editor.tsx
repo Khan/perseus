@@ -24,7 +24,7 @@ import _ from "underscore";
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
-import KatexErrorView from "./katex-error-view";
+import TexErrorView from "./tex-error-view";
 
 import type {ChangeHandler, WidgetInfo} from "@khanacademy/perseus";
 
@@ -1100,7 +1100,7 @@ class Editor extends React.Component<Props, State> {
             >
                 {textareaWrapper}
                 {katexErrorList.length > 0 && (
-                    <KatexErrorView errorList={katexErrorList} />
+                    <TexErrorView errorList={katexErrorList} />
                 )}
                 {this.props.warnNoPrompt && noPrompt && (
                     <div style={warningStyle}>
