@@ -1,5 +1,13 @@
 # @khanacademy/simple-markdown
 
+## 0.11.0
+
+### Minor Changes
+
+-   [#802](https://github.com/Khan/perseus/pull/802) [`57e0e18b`](https://github.com/Khan/perseus/commit/57e0e18bd3729cde2e35cfa4ec40b67a5700049c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused dependencies: size-limit and uglify-js
+
+*   [#802](https://github.com/Khan/perseus/pull/802) [`57e0e18b`](https://github.com/Khan/perseus/commit/57e0e18bd3729cde2e35cfa4ec40b67a5700049c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused dependencies: size-limit and uglify-js
+
 ## 0.10.4
 
 ### Patch Changes
