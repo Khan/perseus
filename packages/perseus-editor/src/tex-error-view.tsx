@@ -2,7 +2,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import caretCircleDown from "@phosphor-icons/core/bold/caret-circle-down-bold.svg";
 import caretCircleRight from "@phosphor-icons/core/bold/caret-circle-right-bold.svg";
-import {css, StyleSheet} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 type Props = {
