@@ -94,11 +94,12 @@ class ImageWidget extends React.Component<Props> {
         const backgroundImage = this.props.backgroundImage;
 
         if (backgroundImage.url) {
+            const url = backgroundImage.url;
             image = (
                 <AssetContext.Consumer>
                     {({setAssetStatus}) => (
                         <SvgImage
-                            src={backgroundImage.url}
+                            src={url}
                             alt={
                                 /* alt text is formatted in a sr-only
                                div next to the image in addition to
