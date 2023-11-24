@@ -1302,6 +1302,11 @@ class Renderer extends React.Component<Props, State> {
             // haphazard sizing, simply make images within tables unresponsive.
             // TODO(alex): Make tables themselves responsive.
             const responsive = !state.inTable;
+            console.log(
+                `[Renderer] Rendering SvgImage: ${PerseusMarkdown.sanitizeUrl(
+                    node.target,
+                )}`,
+            );
             return (
                 <ErrorBoundary key={state.key}>
                     <AssetContext.Consumer>

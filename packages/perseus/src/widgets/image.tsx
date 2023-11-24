@@ -4,6 +4,7 @@ import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
+import AssetContext from "../asset-context";
 import SvgImage from "../components/svg-image";
 import * as Changeable from "../mixins/changeable";
 import Renderer from "../renderer";
@@ -94,10 +95,12 @@ class ImageWidget extends React.Component<Props> {
 
         if (backgroundImage.url) {
             image = (
-                <SvgImage
-                    src={backgroundImage.url}
-                    alt={
-                        /* alt text is formatted in a sr-only
+                <AssetContext.Consumer>
+                    {({setAssetStatus}) => (
+                        <SvgImage
+                            src={backgroundImage.url}
+                            alt={
+                                /* alt text is formatted in a sr-only
                                div next to the image in addition to
                                the alt attribute.
                                If there is no alt text at all,
@@ -117,22 +120,25 @@ class ImageWidget extends React.Component<Props> {
                                in practice right now, although
                                it will exhibit weird behaviour
                                while editing. */
-                        this.props.alt
-                    }
-                    overrideAriaHidden={true}
-                    width={backgroundImage.width}
-                    height={backgroundImage.height}
-                    preloader={apiOptions.imagePreloader}
-                    extraGraphie={{
-                        box: this.props.box,
-                        range: this.props.range,
-                        labels: this.props.labels,
-                    }}
-                    trackInteraction={this.props.trackInteraction}
-                    zoomToFullSizeOnMobile={apiOptions.isMobile}
-                    constrainHeight={apiOptions.isMobile}
-                    allowFullBleed={apiOptions.isMobile}
-                />
+                                this.props.alt
+                            }
+                            overrideAriaHidden={true}
+                            width={backgroundImage.width}
+                            height={backgroundImage.height}
+                            preloader={apiOptions.imagePreloader}
+                            extraGraphie={{
+                                box: this.props.box,
+                                range: this.props.range,
+                                labels: this.props.labels,
+                            }}
+                            trackInteraction={this.props.trackInteraction}
+                            zoomToFullSizeOnMobile={apiOptions.isMobile}
+                            constrainHeight={apiOptions.isMobile}
+                            allowFullBleed={apiOptions.isMobile}
+                            setAssetStatus={setAssetStatus}
+                        />
+                    )}
+                </AssetContext.Consumer>
             );
         }
 
