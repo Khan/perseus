@@ -40,7 +40,7 @@ module.exports = defineConfig({
     component: {
         specPattern: ["packages/**/*.cypress.{js,ts,jsx,tsx}"],
         indexHtmlFile: "config/cypress/component-index.html",
-        supportFile: "config/cypress/support.ts",
+        supportFile: "config/cypress/support.js",
 
         devServer: {
             bundler: "webpack",

@@ -43,10 +43,12 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 360, y: top + 180});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 340, y: top + 140});
                 });
 
@@ -76,10 +78,12 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 200});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 100, y: top + 100});
                 });
 
@@ -109,16 +113,19 @@ describe("Grapher widget", () => {
                     cy.get(LINES)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 75});
                     // [0, 3],
                     // [1, -1],
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 120});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 225, y: top + 225});
                 });
 
@@ -146,14 +153,17 @@ describe("Grapher widget", () => {
                     cy.get(LINES)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 200});
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 25, y: top + 25});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 200});
                 });
 
@@ -183,10 +193,12 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 100});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 260, y: top + 200});
                 });
 
@@ -214,10 +226,12 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 100, y: top + 100});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 300, y: top + 300});
                 });
 
@@ -248,6 +262,7 @@ describe("Grapher widget", () => {
                     cy.get(LINES)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({
                             x: left + 50,
                             y: top + 200, // It's a vertical line, so this doesn't matter much
@@ -256,6 +271,7 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({
                             x: left + 100,
                             y: top + 275,
@@ -264,6 +280,7 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({
                             x: left + 75,
                             y: top + 375,
@@ -295,6 +312,7 @@ describe("Grapher widget", () => {
                     cy.get(LINES)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({
                             x: left + 50,
                             y: top + 200, // It's a vertical line, so this doesn't matter much
@@ -303,6 +321,7 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({
                             x: left + 225,
                             y: top + 125,
@@ -311,6 +330,7 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({
                             x: left + 100,
                             y: top + 300,
@@ -344,11 +364,13 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 260, y: top + 360});
                     // Move point B
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 220, y: top + 200});
                 });
 
@@ -377,11 +399,13 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 50, y: top + 50});
                     // Move point B
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 300});
                 });
 
@@ -412,10 +436,12 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 220, y: top + 140});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 220});
                 });
 
@@ -444,10 +470,12 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 100, y: top + 140});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 220});
                 });
 
@@ -484,10 +512,12 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 220, y: top + 260});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 200});
                 });
 
@@ -522,10 +552,12 @@ describe("Grapher widget", () => {
                     cy.get(POINTS)
                         .eq(0)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 200, y: top + 200});
                     cy.get(POINTS)
                         .eq(1)
                         .should("exist")
+                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                         .dragTo({x: left + 100, y: top + 100});
                 });
 
