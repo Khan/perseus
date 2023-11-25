@@ -10,6 +10,13 @@ if (Cypress.env("CYPRESS_COVERAGE")) {
 // Here we register our custom commands
 // NOTE: If we end up with a lot of custom commands, we should break
 // each command into its own file.
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            dragTo(position: {x: number; y: number}): Chainable<any>;
+        }
+    }
+}
 
 /**
  * Click a node and drag it to the specified {x, y} position
