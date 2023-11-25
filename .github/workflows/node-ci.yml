@@ -96,7 +96,9 @@ jobs:
             - name: Diagnose files
               if: (failure() || success())
               run: |
-                ls -lfa packages/perseus-editor
+                  ls -lfa packages/perseus-editor
+                  stat packages/perseus-editor/types
+                  find packages/perseus-editor
 
             - name: Build types
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
