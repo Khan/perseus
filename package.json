@@ -118,6 +118,7 @@
     "sloc": "^0.2.1",
     "storybook": "^7.6.17",
     "style-loader": "^3.3.3",
+    "ts-json-schema-generator": "^2.0.1",
     "typescript": "^5.4.2",
     "typescript-coverage-report": "^0.7.0",
     "vite-plugin-istanbul": "^5.0.0",
@@ -131,6 +132,7 @@
   },
   "scripts": {
     "gen:parsers": "yarn --cwd packages/kas gen:parsers",
+    "gen:schema": "utils/generate-schema.ts",
     "prebuild": "yarn gen:parsers",
     "build": "rollup -c config/build/rollup.config.js",
     "build:types": "yarn tsc --build tsconfig-build.json",
