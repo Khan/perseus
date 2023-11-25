@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unsafe */
 /**
  * A component that renders a keypad button.
  */
@@ -24,9 +25,9 @@ import CornerDecal from "./corner-decal";
 import Icon from "./icon";
 import MultiSymbolGrid from "./multi-symbol-grid";
 
+import type {State} from "./store/types";
 import type {KeyType} from "../../enums";
 import type {Border, NonManyKeyConfig, IconConfig} from "../../types";
-import type {State} from "./store/types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface ReduxProps {

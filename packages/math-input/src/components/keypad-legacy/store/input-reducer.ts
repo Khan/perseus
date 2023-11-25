@@ -1,9 +1,9 @@
 import KeyConfigs from "../../../data/key-configs";
 import {CursorContext} from "../../input/cursor-contexts";
 
-import type {Cursor, KeyHandler} from "../../../types";
 import type {Action} from "./actions";
 import type {InputState} from "./types";
+import type {Cursor, KeyHandler} from "../../../types";
 
 const initialInputState: {
     keyHandler: KeyHandler | null;

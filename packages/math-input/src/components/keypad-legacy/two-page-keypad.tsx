@@ -19,8 +19,8 @@ import Tabbar from "../tabbar";
 import Keypad from "./keypad";
 import Styles from "./styles";
 
-import type {KeypadPageType} from "../../types";
 import type {State as ReduxState} from "./store/types";
+import type {KeypadPageType} from "../../types";
 
 const {column, row, fullWidth} = Styles;
 

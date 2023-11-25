@@ -30,6 +30,7 @@ const SortableArea = createReactClass({
     componentDidMount: function () {
         this._setDragEvents();
     },
+    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps: function (nextProps) {
         this.setState({components: nextProps.components});
     },

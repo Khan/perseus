@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unsafe */
 /**
  * A keypad component that acts as a container for rows or columns of buttons,
  * and manages the rendering of echo animations on top of those buttons.
@@ -13,8 +14,8 @@ import EchoManager from "./echo-manager";
 import PopoverManager from "./popover-manager";
 import {removeEcho} from "./store/actions";
 
-import type {Bound, Popover, Echo} from "../../types";
 import type {State} from "./store/types";
+import type {Bound, Popover, Echo} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface ReduxProps {

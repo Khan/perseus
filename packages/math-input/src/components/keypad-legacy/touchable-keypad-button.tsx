@@ -13,11 +13,11 @@ import KeyConfigs from "../../data/key-configs";
 
 import KeypadButton from "./keypad-button";
 
+import type GestureManager from "./gesture-manager";
+import type {State} from "./store/types";
 import type Key from "../../data/keys";
 import type {KeyType} from "../../enums";
 import type {Border, IconConfig, KeyConfig} from "../../types";
-import type GestureManager from "./gesture-manager";
-import type {State} from "./store/types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface SharedProps {

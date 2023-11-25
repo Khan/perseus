@@ -17,8 +17,8 @@ import Styles from "./styles";
 import TouchableKeypadButton from "./touchable-keypad-button";
 import TwoPageKeypad from "./two-page-keypad";
 
-import type {KeypadLayout} from "../../types";
 import type {State} from "./store/types";
+import type {KeypadLayout} from "../../types";
 
 const {row, column, oneColumn, fullWidth, roundedTopLeft, roundedTopRight} =
     Styles;

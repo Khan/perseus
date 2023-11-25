@@ -9,10 +9,10 @@ import keypadReducer from "./keypad-reducer";
 import layoutReducer from "./layout-reducer";
 import {defaultKeypadType, keypadForType} from "./shared";
 
-import type Key from "../../../data/keys";
-import type {LayoutProps, ActiveNodesObj} from "../../../types";
 import type {Action} from "./actions";
 import type {GestureState} from "./types";
+import type Key from "../../../data/keys";
+import type {LayoutProps, ActiveNodesObj} from "../../../types";
 
 export const createStore = () => {
     // TODO(matthewc)[LC-752]: gestureReducer can't be moved from this file
