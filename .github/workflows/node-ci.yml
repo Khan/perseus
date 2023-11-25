@@ -97,6 +97,13 @@ jobs:
               if: (success() || failure()) && steps.js-files.outputs.filtered != '[]'
               run: yarn build:types
 
+            - name: Upload packages/perseus-editor/tsconfig-build.tsbuildinfo
+              if: failure()
+              uses: actions/upload-artifact@v2
+              with:
+                  name: tsconfig-build.tsbuildinfo
+                  path: ./packages/perseus-editor/tsconfig-build.tsbuildinfo
+
             # Run tests for our target matrix
             - id: jest-reset
               uses: Khan/actions@filter-files-v0
