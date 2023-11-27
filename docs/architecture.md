@@ -116,6 +116,19 @@ For each widget in `.widgets` the `Renderer`:
 
 # Typescript Types and Conventions
 
+## `WidgetExports<T>`
+
+Defines a widget. Includes the React component that implements the widget and
+any required data transforms and metadata.
+
+
+## React Types
+
+### `ExternalProps`
+
+### `RenderProps`
+
+
 # Scoring
 
 # State serialization
