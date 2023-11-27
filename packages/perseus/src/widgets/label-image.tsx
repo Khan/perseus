@@ -7,8 +7,11 @@
  */
 
 import Color, {fade} from "@khanacademy/wonder-blocks-color";
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import Switch from "@khanacademy/wonder-blocks-switch";
+import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -22,6 +25,7 @@ import mediaQueries from "../styles/media-queries";
 
 import AnswerChoices from "./label-image/answer-choices";
 import Marker from "./label-image/marker";
+import {strings} from "./label-image/strings";
 
 import type {
     InteractiveMarkerType,
@@ -84,6 +88,8 @@ type LabelImageState = {
     markersInteracted: boolean;
     // The currently focused marker index; defaults to -1, no focus.
     focusedMarkerIndex: number;
+    // Hide answer pills.
+    hideAnswers: boolean;
 };
 
 class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
@@ -344,6 +350,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             activeMarkerIndex: -1,
             focusedMarkerIndex: -1,
             markersInteracted: false,
+            hideAnswers: false,
         };
     }
 
@@ -503,7 +510,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         }
     }
 
-    handleMarkerKeyDown(index: number, e: KeyboardEvent) {
+    handleMarkerKeyDown(index: number, e: React.KeyboardEvent) {
         const {markers} = this.props;
 
         // One is the loneliest number.
@@ -548,7 +555,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         const {choices, markers, multipleAnswers} = this.props;
 
         // Compile the user selected answer choices.
-        const selected = choices.filter((choice, index) => selection[index]);
+        const selected = choices.filter((_, index) => selection[index]);
 
         this.handleMarkerChange(index, {
             ...markers[index],
@@ -663,7 +670,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
 
             let answerString: string | undefined;
 
-            if (marker.selected) {
+            let showAnswerChoice = false;
+
+            if (!this.state.hideAnswers && marker.selected) {
+                showAnswerChoice = true;
                 answerString =
                     marker.selected.length > 1
                         ? // always need `ngettext` for variable numbers even if we don't use the singular, see https://khanacademy.slack.com/archives/C0918TZ5G/p1700163024293079
@@ -689,7 +699,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                                     : [styles.pillBorderColorDefault]),
                             ]}
                         >
-                            {!answerChoicesActive && marker.selected ? (
+                            {!answerChoicesActive && showAnswerChoice ? (
                                 <button
                                     aria-label={answerString}
                                     className={css(styles.pillButton)}
@@ -710,7 +720,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                                         }
                                     }}
                                 >
-                                    {answerString}
+                                    <Renderer content={answerString} />
                                 </button>
                             ) : (
                                 this.renderAnswerChoicesForMarker(index, marker)
@@ -718,7 +728,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                         </PopoverContentCore>
                     )}
                     placement={side}
-                    opened={answerChoicesActive || !!marker.selected}
+                    opened={answerChoicesActive || showAnswerChoice}
                     key={`${marker.x}.${marker.y}`}
                     ref={(node) => (this._selectedMarkerPopup = node)}
                     showTail={false}
@@ -820,6 +830,15 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     </div>
                     {this.renderMarkers()}
                 </div>
+                <View style={styles.switchWrapper}>
+                    <LabelMedium id="hide-answers-label">
+                        {strings.hideAnswersToggleLabel}
+                    </LabelMedium>
+                    <Switch
+                        checked={this.state.hideAnswers}
+                        onChange={(hideAnswers) => this.setState({hideAnswers})}
+                    />
+                </View>
             </div>
         );
     }
@@ -927,6 +946,14 @@ const styles = StyleSheet.create({
             color: Color.blue,
             textDecoration: "underline",
         },
+    },
+
+    switchWrapper: {
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+        gap: "1em",
     },
 });
 

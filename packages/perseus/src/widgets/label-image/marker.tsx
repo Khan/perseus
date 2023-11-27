@@ -6,6 +6,7 @@
  */
 
 import Color from "@khanacademy/wonder-blocks-color";
+import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -20,8 +21,8 @@ type Props = InteractiveMarkerType & {
     // Whether this marker should pulsate to draw user attention.
     showPulsate: boolean;
     // Callbacks for when marker is interacted with using input device.
-    onClick: (e: MouseEvent) => void;
-    onKeyDown: (e: KeyboardEvent) => void;
+    onClick: (e: React.MouseEvent) => void;
+    onKeyDown: (e: React.KeyboardEvent) => void;
     onFocus: () => void;
     onBlur: () => void;
     focused: boolean;
@@ -54,8 +55,8 @@ export default class Marker extends React.Component<Props> {
         // keyboard focus is given to the marker.
         const isSelected = showSelected || focused;
 
-        let innerIcon;
-        let iconStyles;
+        let innerIcon: React.ReactElement | undefined;
+        let iconStyles: StyleType;
 
         if (showCorrectness) {
             innerIcon = (
@@ -107,12 +108,12 @@ export default class Marker extends React.Component<Props> {
         }
 
         return (
-            <div
-                className={css(styles.markerIcon, ...iconStyles)}
+            <View
+                style={[styles.markerIcon, iconStyles]}
                 ref={(node) => (this._icon = node)}
             >
                 {innerIcon}
-            </div>
+            </View>
         );
     }
 
@@ -138,9 +139,10 @@ export default class Marker extends React.Component<Props> {
                 tabIndex={isDisabled ? -1 : 0}
                 onFocus={this.props.onFocus}
                 onBlur={this.props.onBlur}
-                // @ts-expect-error - TS2345 - Argument of type 'MouseEvent<HTMLButtonElement, MouseEvent>' is not assignable to parameter of type 'MouseEvent'.
-                onClick={(e) => this.props.onClick(e)}
-                // @ts-expect-error - TS2345 - Argument of type 'KeyboardEvent<HTMLButtonElement>' is not assignable to parameter of type 'KeyboardEvent'.
+                onClick={(e) => {
+                    e.preventDefault();
+                    this.props.onClick(e);
+                }}
                 onKeyDown={(e) => this.props.onKeyDown(e)}
             >
                 {this.renderIcon()}
