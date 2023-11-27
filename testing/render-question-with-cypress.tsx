@@ -31,20 +31,12 @@ const renderQuestion = (
         [assetKey: string]: boolean;
     } = {};
     const setAssetStatus = (assetKey: string, loaded: boolean) => {
-        console.log("setAssetStatus", assetKey, loaded);
         assetStatuses[assetKey] = loaded;
     };
 
-    const checkIsRenderedAndLoaded = () => {
-        console.log("checkIsRenderedAndLoaded", assetStatuses);
-
-        return (
-            renderedAtLeastOnce &&
-            Object.keys(assetStatuses).every(
-                (key) => assetStatuses[key] === true,
-            )
-        );
-    };
+    const checkIsRenderedAndLoaded = () =>
+        renderedAtLeastOnce &&
+        Object.keys(assetStatuses).every((key) => assetStatuses[key] === true);
 
     // We use the AssetContext to allow rendered components to tell us when
     // they are fully rendered (like KaTeX, for example).
