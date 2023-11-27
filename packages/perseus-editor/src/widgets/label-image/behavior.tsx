@@ -84,7 +84,7 @@ const Behavior = ({
                         });
                     }}
                 >
-                    <option value="NONE"> No Prference </option>
+                    <option value="NONE"> No Preference </option>
                     <option value="UP"> Up </option>
                     <option value="DOWN"> Down </option>
                     <option value="LEFT"> Left </option>
