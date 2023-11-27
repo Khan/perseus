@@ -1,17 +1,9 @@
 // Ok here we are
 
-type Score =
-    | {
-          type: "points";
-          earned: number;
-      }
-    | {
-          type: "invalid";
-          message: null | string;
-      };
+import type {PerseusScore} from "../../packages/perseus/src/types";
 
 type PerseusRenderer = {
-    guessAndScore: () => [Array<any>, Score];
+    guessAndScore: () => [Array<any>, PerseusScore];
 };
 
 expect.extend({
@@ -32,7 +24,7 @@ expect.extend({
                 message: () => `Problem was not fully answered`,
             };
         }
-        if (score.earned !== 1) {
+        if (score.earned !== score.total) {
             return {
                 pass: false,
                 message: () =>

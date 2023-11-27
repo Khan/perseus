@@ -43,7 +43,13 @@ module.exports = {
     rootDir: path.join(__dirname, "../../"),
     transform: {
         "^.+\\.(j|t)sx?$": "<rootDir>/config/test/test.transform.js",
+        // Compile .svg files using a custom transformer that returns the
+        // basename of the file being transformed.
+        "^.+.svg$": "<rootDir>/config/test/svg.transform.js",
     },
+    // Allow transforming files imported from @phosphor-icons/core.
+    // This is required by the .svg transform above.
+    transformIgnorePatterns: ["/node_modules/(?!(@phosphor-icons/core)/)"],
     restoreMocks: true,
     resetMocks: true,
     testEnvironment: "jsdom",
@@ -57,10 +63,6 @@ module.exports = {
         "jest-extended/all",
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
-
-        // TODO(LP-11633) math-input uses these matchers. We can remove this
-        // once we transition these tests to RTL
-        "<rootDir>/node_modules/jest-enzyme/lib/index.js",
     ],
     moduleNameMapper: {
         ...pkgMap,
