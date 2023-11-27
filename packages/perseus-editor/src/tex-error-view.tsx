@@ -40,10 +40,10 @@ class TexErrorView extends React.Component<Props, State> {
                 </View>
                 {showErrors && (
                     <View style={styles.errorExplanation}>
-                        These errors will cause your TeX to load slowly or not
-                        at all for the student. Please fix them if you can. If
-                        you can’t because MathJax doesn’t support the feature
-                        you need, please ask in the #team-lc channel.
+                        These are errors — please fix them if you can. If you
+                        don't know how, please ask in #content-kitchen. If you
+                        can't because MathJax doesn't support the feature you
+                        need, please ask in the #team-lc.
                     </View>
                 )}
                 {showErrors &&
