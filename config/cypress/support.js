@@ -11,7 +11,7 @@ if (Cypress.env("CYPRESS_COVERAGE")) {
 // NOTE: If we end up with a lot of custom commands, we should break
 // each command into its own file.
 
-// NOTE(Jeremy): Leaving this here for the future where we migrate this to TS.
+// TODO(LC-1495): Leaving this here for the future where we migrate this to TS.
 // It works, but switching our Cypress config to .ts files causes Cypress types
 // to conflict with Jest types. The following URL looks like it would fix it,
 // but I couldn't get it working in a short timebox. Leaving this breadcrumb
