@@ -6,6 +6,7 @@
  */
 
 import Color from "@khanacademy/wonder-blocks-color";
+import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -13,7 +14,6 @@ import Icon from "../../components/icon";
 import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import type {InteractiveMarkerType} from "./types";
-import type {CSSProperties, Falsy} from "aphrodite";
 
 type Props = InteractiveMarkerType & {
     // Whether this marker has been selected by user.
@@ -56,7 +56,7 @@ export default class Marker extends React.Component<Props> {
         const isSelected = showSelected || focused;
 
         let innerIcon: React.ReactElement | undefined;
-        let iconStyles: Array<CSSProperties | Falsy>;
+        let iconStyles: StyleType;
 
         if (showCorrectness) {
             innerIcon = (
@@ -108,12 +108,12 @@ export default class Marker extends React.Component<Props> {
         }
 
         return (
-            <div
-                className={css(styles.markerIcon, ...iconStyles)}
+            <View
+                style={[styles.markerIcon, iconStyles]}
                 ref={(node) => (this._icon = node)}
             >
                 {innerIcon}
-            </div>
+            </View>
         );
     }
 
