@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import Pill from "@khanacademy/wonder-blocks-pill";
@@ -706,7 +707,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             }
 
             const bringToFrontStyle = {
-                boxShadow: "3px 3px 10px black",
+                boxShadow: `0 8px 8px ${Color.offBlack64}`,
                 zIndex: 1000,
             };
             return (
