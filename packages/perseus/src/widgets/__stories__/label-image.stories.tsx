@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question} from "../__testdata__/label-image.testdata";
+import {textQuestion, mathQuestion} from "../__testdata__/label-image.testdata";
 
 import type {APIOptions} from "../../types";
 
@@ -14,12 +14,24 @@ type ImageStory = {
     args: StoryArgs;
 };
 
-export const Question1 = (args: StoryArgs): React.ReactElement => {
+export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
     const apiOptions: APIOptions = {
         isMobile: args.isMobile,
     };
 
-    return <RendererWithDebugUI question={question} apiOptions={apiOptions} />;
+    return (
+        <RendererWithDebugUI question={textQuestion} apiOptions={apiOptions} />
+    );
+};
+
+export const LabelWidgetWithMath = (args: StoryArgs): React.ReactElement => {
+    const apiOptions: APIOptions = {
+        isMobile: args.isMobile,
+    };
+
+    return (
+        <RendererWithDebugUI question={mathQuestion} apiOptions={apiOptions} />
+    );
 };
 
 export default {
