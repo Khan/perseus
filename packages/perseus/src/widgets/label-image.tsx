@@ -6,9 +6,9 @@
  * knowledge by directly interacting with the image.
  */
 
-import Color, {fade} from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+import Pill from "@khanacademy/wonder-blocks-pill";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
@@ -16,6 +16,7 @@ import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import {Popper} from "react-popper";
 
 import AssetContext from "../asset-context";
 import SvgImage from "../components/svg-image";
@@ -644,12 +645,21 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 mediaQueries.xsOrSmaller.replace("@media ", ""),
             ).matches;
 
-            let side;
+            let side: "bottom" | "left" | "right" | "top";
+            let markerPosition;
             // Position popup closest to the center, preferring it renders
             // entirely within the image area.
             if (isNarrowPage) {
                 side = marker.y > 50 ? "top" : "bottom";
+                markerPosition = marker.y > 50 ? "bottom" : "top";
             } else {
+                markerPosition = LabelImage.imageSideForMarkerPosition(
+                    marker.x,
+                    marker.y,
+                );
+                if (markerPosition === "center") {
+                    markerPosition = "bottom";
+                }
                 // This mirrors the calculated side of where the marker is
                 // located within the image, so that popup appears closer to
                 // the image center.
@@ -658,21 +668,31 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     top: "bottom",
                     right: "left",
                     bottom: "top",
-                    center: "top",
-                }[LabelImage.imageSideForMarkerPosition(marker.x, marker.y)];
+                }[markerPosition];
             }
 
             const answerChoicesActive = index === activeMarkerIndex;
 
-            const answerStyles: CSSProperties = {
+            const adjustPopoverDistance: CSSProperties = {
                 [side]: 15, // move the popover closer to the marker
+            };
+
+            const adjustPillDistance: CSSProperties = {
+                [`margin${
+                    markerPosition.charAt(0).toUpperCase() +
+                    markerPosition.slice(1)
+                }`]: 5, // move pill further from marker
             };
 
             let answerString: string | undefined;
 
             let showAnswerChoice = false;
 
-            if (!this.state.hideAnswers && marker.selected) {
+            if (
+                !answerChoicesActive &&
+                !this.state.hideAnswers &&
+                marker.selected
+            ) {
                 showAnswerChoice = true;
                 answerString =
                     marker.selected.length > 1
@@ -686,55 +706,64 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             }
 
             return (
-                <Popover
-                    content={() => (
-                        <PopoverContentCore
-                            style={[
-                                answerStyles,
-                                ...(answerChoicesActive
-                                    ? [styles.choicesPopover]
-                                    : [styles.pill]),
-                                ...(this.state.focusedMarkerIndex === index
-                                    ? [styles.pillBorderColorFocused]
-                                    : [styles.pillBorderColorDefault]),
+                <div key={`answers-${marker.x}.${marker.y}`}>
+                    <Popover
+                        content={() => (
+                            <PopoverContentCore
+                                style={[
+                                    adjustPopoverDistance,
+                                    styles.choicesPopover,
+                                ]}
+                            >
+                                {this.renderAnswerChoicesForMarker(
+                                    index,
+                                    marker,
+                                )}
+                            </PopoverContentCore>
+                        )}
+                        placement={side}
+                        opened={answerChoicesActive}
+                        ref={(node) => (this._selectedMarkerPopup = node)}
+                        showTail={false}
+                    >
+                        {element}
+                    </Popover>
+                    {showAnswerChoice && (
+                        <Popper
+                            placement={side}
+                            referenceElement={
+                                // this throws a warning because it's inadvisable to
+                                // call ReactDOM fns in render. we aren't storing
+                                // actual refs in this array, so not much I can do
+                                // outside of a major refactor.
+                                ReactDOM.findDOMNode(
+                                    this._markers[index],
+                                ) as HTMLElement
+                            }
+                            modifiers={[
+                                {
+                                    name: "preventOverflow",
+                                    options: {
+                                        rootBoundary: "viewport",
+                                    },
+                                },
                             ]}
                         >
-                            {!answerChoicesActive && showAnswerChoice ? (
-                                <button
-                                    aria-label={answerString}
-                                    className={css(styles.pillButton)}
+                            {({ref, style}) => (
+                                <Pill
+                                    size="large"
+                                    kind="accent"
+                                    id={`answer-choice-${marker.x}.${marker.y}`}
                                     onClick={() => this.activateMarker(index)}
-                                    onFocus={() => {
-                                        this.setState({
-                                            focusedMarkerIndex: index,
-                                        });
-                                    }}
-                                    onBlur={() => {
-                                        if (
-                                            index ===
-                                            this.state.focusedMarkerIndex
-                                        ) {
-                                            this.setState({
-                                                focusedMarkerIndex: -1,
-                                            });
-                                        }
-                                    }}
+                                    ref={ref}
+                                    style={[adjustPillDistance, style]}
                                 >
                                     <Renderer content={answerString} />
-                                </button>
-                            ) : (
-                                this.renderAnswerChoicesForMarker(index, marker)
+                                </Pill>
                             )}
-                        </PopoverContentCore>
+                        </Popper>
                     )}
-                    placement={side}
-                    opened={answerChoicesActive || showAnswerChoice}
-                    key={`${marker.x}.${marker.y}`}
-                    ref={(node) => (this._selectedMarkerPopup = node)}
-                    showTail={false}
-                >
-                    {element}
-                </Popover>
+                </div>
             );
         });
     }
@@ -914,38 +943,6 @@ const styles = StyleSheet.create({
 
     choicesPopover: {
         padding: 0,
-    },
-
-    pill: {
-        padding: "0 1em",
-        borderRadius: 100,
-        borderWidth: 2,
-        borderStyle: "solid",
-    },
-
-    pillBorderColorDefault: {
-        borderColor: fade(Color.blue, 0.16),
-    },
-
-    pillBorderColorFocused: {
-        borderColor: Color.blue,
-    },
-
-    pillButton: {
-        background: "none",
-        border: "none",
-        padding: 0,
-        outline: "inherit",
-        color: Color.offBlack64,
-        fontSize: 14,
-        ":focus": {
-            color: Color.blue,
-            textDecoration: "underline",
-        },
-        ":hover": {
-            color: Color.blue,
-            textDecoration: "underline",
-        },
     },
 
     switchWrapper: {
