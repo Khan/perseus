@@ -32,11 +32,16 @@ const resourceTypes = /\.(png|svg|eot|woff|woff2|ttf|otf|svg(#Symbola)?)$/;
 module.exports = defineConfig({
     fixturesFolder: false,
     video: false,
-
+    // Prevent Cypress from scrolling to elements before clicking them.
+    scrollBehavior: false,
+    // iPhone 14/15 Pro Max
+    viewportWidth: 430,
+    viewportHeight: 932,
     component: {
         specPattern: ["packages/**/*.cypress.{js,ts,jsx,tsx}"],
         indexHtmlFile: "config/cypress/component-index.html",
         supportFile: "config/cypress/support.js",
+
         devServer: {
             bundler: "webpack",
             framework: "react",

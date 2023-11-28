@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 15.1.0
+
+### Minor Changes
+
+-   [#811](https://github.com/Khan/perseus/pull/811) [`bca527ab`](https://github.com/Khan/perseus/commit/bca527abc4d8b29942efec12509f9cf8be401e75) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bump all Wonder Blocks dependencies to latest
+
 ## 15.0.1
 
 ### Patch Changes

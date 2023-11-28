@@ -18,10 +18,5 @@ module.exports = (wallaby) => {
         autoDetect: true,
         runMode: "onsave",
         trace: true,
-        env: {
-            params: {
-                env: "GLOBAL_CONSOLE_MOCK=false",
-            },
-        },
     };
 };
