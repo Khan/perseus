@@ -732,6 +732,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                         <Popper
                             placement={side}
                             referenceElement={
+                                // this throws a warning because it's inadvisable to
+                                // call ReactDOM fns in render. we aren't storing
+                                // actual refs in this array, so not much I can do
+                                // outside of a major refactor.
                                 ReactDOM.findDOMNode(
                                     this._markers[index],
                                 ) as HTMLElement
