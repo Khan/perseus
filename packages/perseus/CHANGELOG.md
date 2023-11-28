@@ -1,5 +1,26 @@
 # @khanacademy/perseus
 
+## 13.2.0
+
+### Minor Changes
+
+-   [#797](https://github.com/Khan/perseus/pull/797) [`021f9462`](https://github.com/Khan/perseus/commit/021f946255f423de8df13f6872b0664f79408484) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Change the rational color in radio widget
+
+*   [#811](https://github.com/Khan/perseus/pull/811) [`bca527ab`](https://github.com/Khan/perseus/commit/bca527abc4d8b29942efec12509f9cf8be401e75) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bump all Wonder Blocks dependencies to latest
+
+### Patch Changes
+
+-   [#808](https://github.com/Khan/perseus/pull/808) [`8358da80`](https://github.com/Khan/perseus/commit/8358da8010dcb8976d8cfb542afa7e303ce4971a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing unnecessary conflicting CSS for #problemarea.
+
+*   [#813](https://github.com/Khan/perseus/pull/813) [`691d29b4`](https://github.com/Khan/perseus/commit/691d29b4224a523a3dd8d53a7aab28c80118e7ac) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing unused CSS from #problemarea.
+
+-   [#812](https://github.com/Khan/perseus/pull/812) [`6d31e044`](https://github.com/Khan/perseus/commit/6d31e044d6f5b304e63602795e9bbd7ba443dac5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix 'focus' parameter on Renderer's setInputValue function to be optional.
+
+-   Updated dependencies [[`57e0e18b`](https://github.com/Khan/perseus/commit/57e0e18bd3729cde2e35cfa4ec40b67a5700049c), [`57e0e18b`](https://github.com/Khan/perseus/commit/57e0e18bd3729cde2e35cfa4ec40b67a5700049c), [`bca527ab`](https://github.com/Khan/perseus/commit/bca527abc4d8b29942efec12509f9cf8be401e75)]:
+    -   @khanacademy/simple-markdown@0.11.0
+    -   @khanacademy/math-input@15.1.0
+    -   @khanacademy/pure-markdown@0.2.11
+
 ## 13.1.0
 
 ### Minor Changes

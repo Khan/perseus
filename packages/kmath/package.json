@@ -24,7 +24,7 @@
         "@khanacademy/perseus-core": "1.3.0"
     },
     "devDependencies": {
-        "perseus-build-settings": "^0.2.1",
+        "perseus-build-settings": "^0.3.0",
         "underscore": "1.4.4"
     },
     "peerDependencies": {

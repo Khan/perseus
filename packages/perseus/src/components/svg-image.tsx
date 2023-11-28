@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable no-useless-escape, react/no-unsafe */
+/* eslint-disable react/no-unsafe */
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import classNames from "classnames";
 import $ from "jquery";
@@ -79,7 +79,7 @@ const doJSONP = function (url: string, options) {
 // system (with file://). We replace urls that start with `web+graphie`
 // in the perseus json with this `file+graphie` prefix to indicate that
 // they should have the `file://` protocol instead of `https://`.
-const svgLocalLabelsRegex = /^file\+graphie\:/;
+const svgLocalLabelsRegex = /^file\+graphie:/;
 const hashRegex = /\/([^/]+)$/;
 
 function isImageProbablyPhotograph(imageUrl) {
@@ -180,6 +180,16 @@ type Props = {
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
 };
 
+type DefaultProps = {
+    constrainHeight: NonNullable<Props["constrainHeight"]>;
+    onUpdate: NonNullable<Props["onUpdate"]>;
+    responsive: NonNullable<Props["responsive"]>;
+    scale: NonNullable<Props["scale"]>;
+    setAssetStatus: NonNullable<Props["setAssetStatus"]>;
+    src: NonNullable<Props["src"]>;
+    zoomToFullSizeOnMobile: NonNullable<Props["zoomToFullSizeOnMobile"]>;
+};
+
 type Label = {
     coordinates: ReadonlyArray<any>;
     content: string;
@@ -212,15 +222,7 @@ type State = {
 class SvgImage extends React.Component<Props, State> {
     _isMounted: boolean;
 
-    static defaultProps: {
-        constrainHeight: boolean;
-        onUpdate: () => void;
-        responsive: boolean;
-        scale: number;
-        setAssetStatus: (src: string, status: boolean) => void;
-        src: string;
-        zoomToFullSizeOnMobile: boolean;
-    } = {
+    static defaultProps: DefaultProps = {
         constrainHeight: false,
         onUpdate: () => {},
         responsive: true,

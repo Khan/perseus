@@ -5,6 +5,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import AssetContext from "../asset-context";
 import {interactiveSizes} from "../styles/constants";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
@@ -395,14 +396,19 @@ class Graph extends React.Component<Props> {
         if (imageData.url) {
             const scale = this.props.box[0] / interactiveSizes.defaultBoxSize;
             image = (
-                // @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
-                <SvgImage
-                    src={imageData.url}
-                    width={imageData.width}
-                    height={imageData.height}
-                    scale={scale}
-                    responsive={false}
-                />
+                <AssetContext.Consumer>
+                    {({setAssetStatus}) => (
+                        <SvgImage
+                            // @ts-expect-error - TS2741 - Property 'alt' is missing in type '{ src: any; width: any; height: any; scale: number; responsive: false; }' but required in type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "height" | "width" | "title" | "alt" | "trackInteraction" | "preloader" | "allowFullBleed" | "extraGraphie" | "overrideAriaHidden">'.
+                            src={imageData.url}
+                            width={imageData.width}
+                            height={imageData.height}
+                            scale={scale}
+                            responsive={false}
+                            setAssetStatus={setAssetStatus}
+                        />
+                    )}
+                </AssetContext.Consumer>
             );
         } else {
             image = null;
