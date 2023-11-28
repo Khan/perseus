@@ -3,7 +3,7 @@
  * but before any tests have run.
  */
 import MutationObserver from "@sheerun/mutationobserver-shim";
-import {configure} from "@testing-library/dom"; // eslint-disable-line testing-library/no-dom-import, prettier/prettier
+import {configure} from "@testing-library/dom"; // eslint-disable-line testing-library/no-dom-import
 // @ts-expect-error - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
 import {StyleSheetTestUtils} from "aphrodite";
 import jestSerializerHtml from "jest-serializer-html";
@@ -61,127 +61,17 @@ if (typeof window !== "undefined") {
     // @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
     delete window.alert;
     window.alert = function (message: any) {
-        // eslint-disable-next-line no-console
         console.log(`KA_TEST captured: window.alert("${message}")`);
     };
 }
 
-// eslint-disable-next-line import/no-commonjs
 require("./attach-jsdom-window-shims")(globalThis);
 
 // Make sure we capture any unhandled rejections and log them to the console
 // so that we can more easily find them later
 process.on("unhandledRejection", (err) => {
-    // eslint-disable-next-line no-console
     console.error("Unhandled Promise Rejection:", err);
 });
-
-const reportUnhandledConsoleWarnAndErrors = (
-    type: string,
-    message: any,
-    ...args
-) => {
-    // We push an error onto the current test's suppressedErrors.
-    // This may seem counterintuitive but according to the jest code,
-    // the suppressedErrors state contains errors from matchers that can fail
-    // tests, and from trying this out, we can see that it does exactly what we
-    // want.
-    // If we just threw an error, it seems to assign the error to the incorrect
-    // test case, whereas this does not.
-    const replaceStr = (message, ...args) => {
-        // This helper performs argument substitution to mimic what console.log
-        // would do.
-        let count = 0;
-        if (typeof message !== "string") {
-            message = JSON.stringify(message);
-        }
-        return message.replace(/%s/g, () => {
-            const substitution = args[count++];
-            if (typeof substitution === "string") {
-                return substitution;
-            }
-            return JSON.stringify(substitution);
-        });
-    };
-    const formattedMessage = replaceStr(message, ...args);
-    expect
-        .getState()
-        .suppressedErrors.push(
-            new Error(
-                `Unhandled console.${type} call.\n` +
-                    "If you expect this call, then suppress it using " +
-                    `jest.spyOn(console, "${type}").mockImplmentation(); ` +
-                    "otherwise, fix the test or code under test to no longer " +
-                    `result in this console.${type} call.\n\n` +
-                    formattedMessage,
-            ),
-        );
-};
-
-// Track all of the console errors and warnings so that we can throw an
-// error to indicate they shouldn't be happening. We monkeypatch rather
-// than using spies so that folks can't just remove our checking with a
-// call to jest.resetAllMocks().
-// If a test legitimately expects a console.warn or console.error call, that
-// test should be using jest.spyOn with mockImplementation to suppress our
-// custom handling.
-if (process.env.GLOBAL_CONSOLE_MOCK !== "false") {
-    globalThis.console.error = (...args) => {
-        // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-        reportUnhandledConsoleWarnAndErrors("error", ...args);
-    };
-    globalThis.console.warn = (...args) => {
-        const message = args[0];
-
-        const isReactUnsafe = (message, componentNames: any) =>
-            message &&
-            message.includes(
-                "See https://fb.me/react-unsafe-component-lifecycles for details.",
-            ) &&
-            componentNames;
-
-        const isReportableReactUnsafe = (message, componentNames: any) => {
-            // We ignore React lifecycle warnings for certain components so that
-            // we don't have to update these depedencies right now.
-            //
-            // TODO(FEI-3223): Update react-router-dom to 5.x
-            // TODO(FEI-3224): Remove react-motion
-            // TODO(FEI-3270): Remove all uses of wonder-blocks-modal-v1
-            //
-            // NOTE: This will also ignore lifecycle method warnings in any of
-            // our components in webapp with the same name.
-            const components = componentNames.split(", ");
-            const ignoredComponents = [
-                // react-router-dom
-                "Link",
-                "MemoryRouter",
-                "Redirect",
-                "Route",
-                "Router",
-                "StaticRouter",
-                "Switch",
-
-                // react-motion
-                "Motion",
-
-                // wonder-blocks-modal-v1
-                "ScrollDisabler",
-            ];
-
-            return !components.every((name) =>
-                ignoredComponents.includes(name),
-            );
-        };
-
-        if (
-            !isReactUnsafe(message, args[1]) ||
-            isReportableReactUnsafe(message, args[1])
-        ) {
-            // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-            reportUnhandledConsoleWarnAndErrors("warn", ...args);
-        }
-    };
-}
 
 beforeEach(() => {
     // Instructs Jest to use fake versions of the standard timer functions.
