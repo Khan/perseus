@@ -5,6 +5,17 @@
             margin: 0;
         }
     }
+    [id^="answer-choice-"] {
+        // Reset text content.
+        div.paragraph {
+            all: revert;
+        }
+        // Allow for padding around math content. Accounting for the negative margin here:
+        // https://github.com/Khan/perseus/blob/bafd35daee723456bf259a39b88e7638d91c8c3b/packages/perseus/src/renderer.tsx#L1176
+        div.perseus-block-math-inner {
+            margin: -5px 0 !important;
+        }
+    }
 }
 
 .framework-perseus:not(.perseus-article).perseus-mobile {

@@ -2490,6 +2490,14 @@
     "@babel/runtime" "^7.18.6"
     "@khanacademy/wonder-blocks-core" "^6.3.0"
 
+"@khanacademy/wonder-blocks-icon@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-icon/-/wonder-blocks-icon-3.0.0.tgz#b161bef957039f0098f0c6f52db1e60c3cc3963e"
+  integrity sha512-UEymDgS07ECZiTB8ZoICMUOs8UWK4VFMHxbKevi2Vy7iXKQh60JfXCo4nTVDQ3As2PoIJzWAUWUJ68cel97foQ==
+  dependencies:
+    "@babel/runtime" "^7.18.6"
+    "@khanacademy/wonder-blocks-core" "^6.3.0"
+
 "@khanacademy/wonder-blocks-layout@^2.0.24":
   version "2.0.24"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-layout/-/wonder-blocks-layout-2.0.24.tgz#70ffd3ca025690effac1fd400b83e2462cc75c88"
@@ -2511,6 +2519,18 @@
     "@khanacademy/wonder-blocks-icon" "^2.2.1"
     "@khanacademy/wonder-blocks-spacing" "^4.0.1"
 
+"@khanacademy/wonder-blocks-link@^6.0.3":
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-link/-/wonder-blocks-link-6.0.3.tgz#ee80e1b979992af4652662721e39ee5c739ceb32"
+  integrity sha512-wRFXBujcPpYseOfPrs1iRSYxJdZMgb5ERQB22b83lWWeKVnFquObJzq09awsCyLR57Gxr74ZQYzrXOk1kjXLtg==
+  dependencies:
+    "@babel/runtime" "^7.18.6"
+    "@khanacademy/wonder-blocks-clickable" "^4.0.11"
+    "@khanacademy/wonder-blocks-color" "^3.0.0"
+    "@khanacademy/wonder-blocks-core" "^6.3.0"
+    "@khanacademy/wonder-blocks-icon" "^3.0.0"
+    "@khanacademy/wonder-blocks-spacing" "^4.0.1"
+
 "@khanacademy/wonder-blocks-modal@^4.0.35":
   version "4.0.35"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-modal/-/wonder-blocks-modal-4.0.35.tgz#bc2bba3480909ef74ab7ab46213e46604b9b84a6"
@@ -2524,6 +2544,18 @@
     "@khanacademy/wonder-blocks-layout" "^2.0.24"
     "@khanacademy/wonder-blocks-spacing" "^4.0.1"
     "@khanacademy/wonder-blocks-timing" "^4.0.2"
+    "@khanacademy/wonder-blocks-typography" "^2.1.9"
+
+"@khanacademy/wonder-blocks-pill@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-pill/-/wonder-blocks-pill-1.0.13.tgz#9a53823def0b110197ca293f0eb9aa787011b03f"
+  integrity sha512-Ud2KJ0RPtIKGUWF1STGQFle/r2vZgWijHYK1UfTKhiJChEdA0oY/Z5Q5juf5ZqnZTsiQKL0wXGGBVYS23MpDJQ==
+  dependencies:
+    "@khanacademy/wonder-blocks-clickable" "^4.0.11"
+    "@khanacademy/wonder-blocks-color" "^3.0.0"
+    "@khanacademy/wonder-blocks-core" "^6.3.0"
+    "@khanacademy/wonder-blocks-link" "^6.0.3"
+    "@khanacademy/wonder-blocks-spacing" "^4.0.1"
     "@khanacademy/wonder-blocks-typography" "^2.1.9"
 
 "@khanacademy/wonder-blocks-popover@^3.0.16":
