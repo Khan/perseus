@@ -140,7 +140,6 @@
     "publish:ci": "utils/pre-publish-check-ci.ts && git diff --stat --exit-code HEAD && yarn build && yarn build:types && yarn extract-strings && changeset publish",
     "sloc": "sloc packages --exclude node_modules",
     "test": "yarn jest",
-    "test:no-console-mock": "cross-env GLOBAL_CONSOLE_MOCK=false yarn jest",
     "storybook": "storybook dev -p 6006",
     "start": "storybook dev -p 6006",
     "build-storybook": "storybook build",
