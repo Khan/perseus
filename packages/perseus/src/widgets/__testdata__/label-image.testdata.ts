@@ -128,3 +128,53 @@ export const mathQuestion: PerseusRenderer = {
         },
     },
 };
+
+export const numberline: PerseusRenderer = {
+    content:
+        "**Label each point on the number line with the correct value.**\n\n[[☃ label-image 1]]",
+    images: {},
+    widgets: {
+        "label-image 1": {
+            type: "label-image",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                static: false,
+                choices: ["$-\\dfrac{7}{3}$", "$-2\\dfrac{5}{8}$", "$-2.9$"],
+                imageAlt:
+                    "A number line from negative 6 halves to negative 3 halves, labeled in increments of 1 half. There are three points on the line, labeled from left to right with a, b, and c.",
+                imageUrl:
+                    "web+graphie://ka-perseus-graphie.s3.amazonaws.com/05faa925d02e5effd3069bf24da4777e3ae1a28b",
+                imageWidth: 360,
+                imageHeight: 160,
+                markers: [
+                    {
+                        answers: ["$-2.9$"],
+                        label: "Point a is the leftmost of two points between negative 6 halves and negative 5 halves.",
+                        x: 14.25,
+                        y: 50,
+                    },
+                    {
+                        answers: ["$-2\\dfrac{5}{8}$"],
+                        label: "Point b is the rightmost of two points between negative 6 halves and negative 5 halves.",
+                        x: 29.5,
+                        y: 50,
+                    },
+                    {
+                        answers: ["$-\\dfrac{7}{3}$"],
+                        label: "Point c is between negative 5 halves and negative 4 halves.",
+                        x: 45.5,
+                        y: 50,
+                    },
+                ],
+                multipleAnswers: false,
+                hideChoicesFromInstructions: false,
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};

@@ -1,7 +1,11 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {textQuestion, mathQuestion} from "../__testdata__/label-image.testdata";
+import {
+    textQuestion,
+    mathQuestion,
+    numberline,
+} from "../__testdata__/label-image.testdata";
 
 import type {APIOptions} from "../../types";
 
@@ -31,6 +35,16 @@ export const LabelWidgetWithMath = (args: StoryArgs): React.ReactElement => {
 
     return (
         <RendererWithDebugUI question={mathQuestion} apiOptions={apiOptions} />
+    );
+};
+
+export const LabelImageNumberline = (args: StoryArgs): React.ReactElement => {
+    const apiOptions: APIOptions = {
+        isMobile: args.isMobile,
+    };
+
+    return (
+        <RendererWithDebugUI question={numberline} apiOptions={apiOptions} />
     );
 };
 
