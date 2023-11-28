@@ -706,7 +706,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             }
 
             return (
-                <>
+                <div key={`answers-${marker.x}.${marker.y}`}>
                     <Popover
                         content={() => (
                             <PopoverContentCore
@@ -723,7 +723,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                         )}
                         placement={side}
                         opened={answerChoicesActive}
-                        key={`${marker.x}.${marker.y}`}
                         ref={(node) => (this._selectedMarkerPopup = node)}
                         showTail={false}
                     >
@@ -737,7 +736,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                                     this._markers[index],
                                 ) as HTMLElement
                             }
-                            key={`answer-choice-${marker.x}.${marker.y}`}
                             modifiers={[
                                 {
                                     name: "preventOverflow",
@@ -761,7 +759,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                             )}
                         </Popper>
                     )}
-                </>
+                </div>
             );
         });
     }
