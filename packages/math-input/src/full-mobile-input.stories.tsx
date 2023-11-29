@@ -23,12 +23,7 @@ export default {
     },
 };
 
-const Basic = ({
-    keypadElement,
-    setKeypadElement,
-    keypadActive,
-    setKeypadActive,
-}) => {
+const Basic = ({keypadElement, setKeypadElement}) => {
     const [value, setValue] = React.useState("");
     // Whether to use Expression or Fraction keypad
     const [expression, setExpression] = React.useState<boolean>(false);
@@ -99,8 +94,6 @@ const Basic = ({
                 }}
                 onDismiss={() => {}}
                 onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
-                keypadActive={keypadActive}
-                setKeypadActive={setKeypadActive}
             />
         </div>
     );
@@ -110,17 +103,10 @@ export function Wrapped() {
     return (
         <StatefulKeypadContextProvider>
             <KeypadContext.Consumer>
-                {({
-                    keypadElement,
-                    setKeypadElement,
-                    keypadActive,
-                    setKeypadActive,
-                }) => (
+                {({keypadElement, setKeypadElement}) => (
                     <Basic
                         keypadElement={keypadElement}
                         setKeypadElement={setKeypadElement}
-                        keypadActive={keypadActive}
-                        setKeypadActive={setKeypadActive}
                     />
                 )}
             </KeypadContext.Consumer>

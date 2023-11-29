@@ -11,7 +11,7 @@
  * extend a `ProvideKeypad` component instead of using this mixin.
  */
 
-import {KeypadContext, MobileKeypad} from "@khanacademy/math-input";
+import {MobileKeypad} from "@khanacademy/math-input";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -86,34 +86,28 @@ const ProvideKeypad = {
             document.body?.appendChild(_this._keypadContainer);
 
             reactRender(
-                <KeypadContext.Consumer>
-                    {({keypadActive, setKeypadActive}) => (
-                        <MobileKeypad
-                            onElementMounted={(element) => {
-                                // NOTE(kevinb): The reason why this setState works is
-                                // b/c we're calling it manually from item-renderer.jsx
-                                // and we're manually setting the 'this' by using 'call'
-                                // @ts-expect-error - TS2339 - Property 'setState' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
-                                _this.setState({
-                                    keypadElement: element,
-                                });
-                            }}
-                            onDismiss={() => {
-                                // @ts-expect-error - TS2339 - Property 'blur' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'. | TS2339 - Property 'blur' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
-                                _this.blur && _this.blur();
-                            }}
-                            // @ts-expect-error - TS2339 - Property 'props' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
-                            style={_this.props.keypadStyle}
-                            onAnalyticsEvent={async () => {
-                                // Intentionally left empty. This component is
-                                // deprecated and so we don't want/need to instrument
-                                // it.
-                            }}
-                            keypadActive={keypadActive}
-                            setKeypadActive={setKeypadActive}
-                        />
-                    )}
-                </KeypadContext.Consumer>,
+                <MobileKeypad
+                    onElementMounted={(element) => {
+                        // NOTE(kevinb): The reason why this setState works is
+                        // b/c we're calling it manually from item-renderer.jsx
+                        // and we're manually setting the 'this' by using 'call'
+                        // @ts-expect-error - TS2339 - Property 'setState' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
+                        _this.setState({
+                            keypadElement: element,
+                        });
+                    }}
+                    onDismiss={() => {
+                        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'. | TS2339 - Property 'blur' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
+                        _this.blur && _this.blur();
+                    }}
+                    // @ts-expect-error - TS2339 - Property 'props' does not exist on type '{ readonly propTypes: { readonly apiOptions: React.PropType<{ customKeypad?: boolean | undefined; nativeKeypadProxy?: ((...a: readonly any[]) => unknown) | undefined; }>; readonly keypadStyle: Requireable<any>; }; readonly getInitialState: () => { ...; }; readonly componentDidMount: () => void; readonly componentWil...'.
+                    style={_this.props.keypadStyle}
+                    onAnalyticsEvent={async () => {
+                        // Intentionally left empty. This component is
+                        // deprecated and so we don't want/need to instrument
+                        // it.
+                    }}
+                />,
                 _this._keypadContainer,
             );
         }

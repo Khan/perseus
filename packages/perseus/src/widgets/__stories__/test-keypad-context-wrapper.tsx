@@ -12,12 +12,7 @@ const Footer = (): React.ReactElement => {
     return (
         <View style={styles.keypadContainer}>
             <KeypadContext.Consumer>
-                {({
-                    setKeypadElement,
-                    renderer,
-                    keypadActive,
-                    setKeypadActive,
-                }) => (
+                {({setKeypadElement, renderer}) => (
                     <MobileKeypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => renderer && renderer.blur()}
@@ -25,8 +20,6 @@ const Footer = (): React.ReactElement => {
                         onAnalyticsEvent={async (e) => {
                             action("onAnalyticsEvent")(e);
                         }}
-                        keypadActive={keypadActive}
-                        setKeypadActive={setKeypadActive}
                     />
                 )}
             </KeypadContext.Consumer>
