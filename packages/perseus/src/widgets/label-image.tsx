@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import Pill from "@khanacademy/wonder-blocks-pill";
@@ -705,6 +706,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                         : marker.selected[0];
             }
 
+            const bringToFrontStyle = {
+                boxShadow: `0 8px 8px ${Color.offBlack64}`,
+                zIndex: 1000,
+            };
             return (
                 <div key={`answers-${marker.x}.${marker.y}`}>
                     <Popover
@@ -756,7 +761,14 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                                     id={`answer-choice-${marker.x}.${marker.y}`}
                                     onClick={() => this.activateMarker(index)}
                                     ref={ref}
-                                    style={[adjustPillDistance, style]}
+                                    style={[
+                                        adjustPillDistance,
+                                        style,
+                                        {
+                                            ":hover": bringToFrontStyle,
+                                            ":focus": bringToFrontStyle,
+                                        },
+                                    ]}
                                 >
                                     <Renderer content={answerString} />
                                 </Pill>
