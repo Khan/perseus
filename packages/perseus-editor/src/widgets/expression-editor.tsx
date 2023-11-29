@@ -18,7 +18,6 @@ import SortableArea from "../components/sortable";
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
 
 const {InfoTip, PropCheckBox, TexButtons} = components;
-const {getDependencies} = Dependencies;
 
 type Props = {
     widgetId?: any;
@@ -182,7 +181,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             },
         );
 
-        const {TeX} = getDependencies(); // OldExpression only
+        const {TeX} = Dependencies.getDependencies(); // OldExpression only
 
         buttonSetChoices.splice(
             1,
