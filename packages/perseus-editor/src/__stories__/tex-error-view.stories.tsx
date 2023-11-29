@@ -14,11 +14,11 @@ export const Primary: Story = {
     args: {
         errorList: [
             {
-                math: "x^2",
+                math: "\\x^2",
                 message: "TeX parse error: Undefined control sequence: \\x",
             },
             {
-                math: "y^2",
+                math: "\\y^2",
                 message: "TeX parse error: Undefined control sequence: \\y",
             },
         ],
