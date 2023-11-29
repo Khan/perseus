@@ -60,7 +60,6 @@ function KeypadWithContext() {
                         onElementMounted={setKeypadElement}
                         onDismiss={() => {}}
                         onAnalyticsEvent={async () => {}}
-                        useV2Keypad
                     />
                 );
             }}

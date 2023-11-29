@@ -93,7 +93,6 @@ const Basic = ({keypadElement, setKeypadElement}) => {
                     }
                 }}
                 onDismiss={() => {}}
-                useV2Keypad={v2Keypad}
                 onAnalyticsEvent={async (e) => action("onAnalyticsEvent")(e)}
             />
         </div>

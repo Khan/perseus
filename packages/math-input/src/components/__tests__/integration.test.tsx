@@ -12,8 +12,8 @@ import React, {useState} from "react";
 
 import {KeypadType} from "../../enums";
 import MathInput from "../input/math-input";
+import {MobileKeypad} from "../keypad";
 import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
-import KeypadSwitch from "../keypad-switch";
 
 import type {KeypadConfiguration} from "../../types";
 
@@ -60,11 +60,10 @@ function KeypadWithContext() {
         <KeypadContext.Consumer>
             {({setKeypadElement}) => {
                 return (
-                    <KeypadSwitch
+                    <MobileKeypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => {}}
                         onAnalyticsEvent={async () => {}}
-                        useV2Keypad
                     />
                 );
             }}

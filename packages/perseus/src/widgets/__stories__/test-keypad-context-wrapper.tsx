@@ -17,7 +17,6 @@ const Footer = (): React.ReactElement => {
                         onElementMounted={setKeypadElement}
                         onDismiss={() => renderer && renderer.blur()}
                         style={styles.keypad}
-                        useV2Keypad={true}
                         onAnalyticsEvent={async (e) => {
                             action("onAnalyticsEvent")(e);
                         }}
