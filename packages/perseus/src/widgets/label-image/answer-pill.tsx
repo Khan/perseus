@@ -11,7 +11,7 @@ export const AnswerPill = (props: {
     id: string;
     selectedAnswers: readonly string[];
     showCorrectness?: "correct" | "incorrect";
-    markerRef: HTMLElement;
+    markerRef?: HTMLElement;
     side: "top" | "bottom" | "left" | "right";
     onClick: () => void;
     style?: CSSProperties;
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         zIndex: 1000,
     },
     correct: {
-        backgroundColor: Color.green,
+        backgroundColor: "#00880b", // WB green darkened by 18%
     },
     incorrect: {
         backgroundColor: Color.offBlack64,
