@@ -60,6 +60,7 @@ class KeypadContainer extends React.Component<Props, State> {
         viewportWidth: "100vw",
     };
 
+    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillMount() {
         if (this.props.active) {
             this.setState({
@@ -94,6 +95,7 @@ class KeypadContainer extends React.Component<Props, State> {
         }
     }
 
+    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (!this.state.hasBeenActivated && nextProps.active) {
             this.setState({
