@@ -1,6 +1,7 @@
 import {
     StatefulKeypadContextProvider,
     KeypadContext,
+    MobileKeypad,
 } from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render, fireEvent, waitFor} from "@testing-library/react";
@@ -11,7 +12,6 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
-import KeypadSwitch from "../../../math-input/src/components/keypad-switch";
 import {articleWithExpression} from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";
@@ -22,13 +22,14 @@ import type {APIOptions} from "../types";
 function KeypadWithContext() {
     return (
         <KeypadContext.Consumer>
-            {({setKeypadElement}) => {
+            {({setKeypadElement, keypadActive, setKeypadActive}) => {
                 return (
-                    <KeypadSwitch
+                    <MobileKeypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => {}}
                         onAnalyticsEvent={async () => {}}
-                        useV2Keypad
+                        keypadActive={keypadActive}
+                        setKeypadActive={setKeypadActive}
                     />
                 );
             }}

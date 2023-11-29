@@ -54,13 +54,14 @@ function RendererWithContext({item}) {
 function KeypadWithContext() {
     return (
         <KeypadContext.Consumer>
-            {({setKeypadElement}) => {
+            {({setKeypadElement, keypadActive, setKeypadActive}) => {
                 return (
                     <MobileKeypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => {}}
                         onAnalyticsEvent={async () => {}}
-                        useV2Keypad
+                        keypadActive={keypadActive}
+                        setKeypadActive={setKeypadActive}
                     />
                 );
             }}
