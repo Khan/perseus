@@ -646,11 +646,15 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 mediaQueries.xsOrSmaller.replace("@media ", ""),
             ).matches;
 
+            // Determine whether the image is wider than it is tall.
+            const isWideImage =
+                this.props.imageWidth / 2 > this.props.imageHeight;
+
             let side: "bottom" | "left" | "right" | "top";
             let markerPosition;
             // Position popup closest to the center, preferring it renders
             // entirely within the image area.
-            if (isNarrowPage) {
+            if (isNarrowPage || isWideImage) {
                 side = marker.y > 50 ? "top" : "bottom";
                 markerPosition = marker.y > 50 ? "bottom" : "top";
             } else {
