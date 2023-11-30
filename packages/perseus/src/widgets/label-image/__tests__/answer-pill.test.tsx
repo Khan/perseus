@@ -1,3 +1,4 @@
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as React from "react";
@@ -21,6 +22,7 @@ describe("AnswerPill", () => {
                 side={"top"}
                 onClick={() => {}}
             />,
+            {wrapper: RenderStateRoot},
         );
         expect(screen.getByText("Answer 1")).toBeInTheDocument();
     });
@@ -33,6 +35,7 @@ describe("AnswerPill", () => {
                 side={"top"}
                 onClick={() => {}}
             />,
+            {wrapper: RenderStateRoot},
         );
         expect(screen.getByText("3 answers")).toBeInTheDocument();
     });
@@ -47,6 +50,7 @@ describe("AnswerPill", () => {
                 side={"top"}
                 onClick={clickSpy}
             />,
+            {wrapper: RenderStateRoot},
         );
 
         // act
@@ -67,6 +71,7 @@ describe("AnswerPill", () => {
                 onClick={clickSpy}
                 showCorrectness="correct"
             />,
+            {wrapper: RenderStateRoot},
         );
 
         // act
