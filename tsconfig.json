@@ -17,5 +17,10 @@
             "@khanacademy/pure-markdown": ["./packages/pure-markdown/src"],
             "@khanacademy/simple-markdown": ["./packages/simple-markdown/src"],
         },
+
+        /* Preference */
+        // If this is disabled, TS will sometimes just delete dead code, which
+        // can be confusing!
+        "allowUnreachableCode": true
     },
 }
