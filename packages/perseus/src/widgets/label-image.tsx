@@ -6,11 +6,8 @@
  * knowledge by directly interacting with the image.
  */
 
-import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -24,8 +21,8 @@ import mediaQueries from "../styles/media-queries";
 
 import AnswerChoices from "./label-image/answer-choices";
 import {AnswerPill} from "./label-image/answer-pill";
+import {HideAnswersToggle} from "./label-image/hide-answers-toggle";
 import Marker from "./label-image/marker";
-import {strings} from "./label-image/strings";
 
 import type {ChangeableProps} from "../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../types";
@@ -715,11 +712,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     </Popover>
                     {!!marker.selected && showAnswerChoice && (
                         <AnswerPill
-                            id={
-                                // will be prepended with
-                                // "perseus-label-image-widget-answer-pill-"
-                                `${marker.x}.${marker.y}`
-                            }
                             selectedAnswers={marker.selected}
                             showCorrectness={showCorrectness}
                             markerRef={
@@ -832,15 +824,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     </div>
                     {this.renderMarkers()}
                 </div>
-                <View style={styles.switchWrapper}>
-                    <LabelMedium id="hide-answers-label">
-                        {strings.hideAnswersToggleLabel}
-                    </LabelMedium>
-                    <Switch
-                        checked={this.state.hideAnswers}
-                        onChange={(hideAnswers) => this.setState({hideAnswers})}
-                    />
-                </View>
+                <HideAnswersToggle
+                    areAnswersHidden={this.state.hideAnswers}
+                    onChange={(hideAnswers) => this.setState({hideAnswers})}
+                />
             </div>
         );
     }
@@ -916,14 +903,6 @@ const styles = StyleSheet.create({
 
     choicesPopover: {
         padding: 0,
-    },
-
-    switchWrapper: {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "center",
-        gap: "1em",
     },
 });
 

@@ -5,7 +5,7 @@
             margin: 0;
         }
     }
-    button[id^="perseus-label-image-widget-answer-pill-"] {
+    button[id*="perseus-label-image-widget-answer-pill"] {
         // Reset text content.
         div.paragraph {
             all: revert;
@@ -20,7 +20,7 @@
 
 // Reset mobile text content for answer pills.
 @media (max-width: 767px) {
-    [id^="perseus-label-image-widget-answer-pill-"] {
+    [id*="perseus-label-image-widget-answer-pill"] {
         div.paragraph {
             all: revert;
         }
@@ -30,7 +30,7 @@
     }
 
     .framework-perseus.perseus-mobile
-        [id^="perseus-label-image-widget-answer-pill-"] {
+        [id*="perseus-label-image-widget-answer-pill"] {
         .perseus-renderer > .paragraph,
         .perseus-renderer > .paragraph .paragraph {
             all: revert;
