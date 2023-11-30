@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 2.11.0
+
+### Minor Changes
+
+-   [#827](https://github.com/Khan/perseus/pull/827) [`c7410ccc`](https://github.com/Khan/perseus/commit/c7410ccc6254034b599e1909b3cbbd7a6c9ea9b2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert defensive code in ExpressionEditor that caused a crash when an expression config's answer form was missing a `key` property.
+
+### Patch Changes
+
+-   Updated dependencies [[`cdcd162e`](https://github.com/Khan/perseus/commit/cdcd162ea0902d3ff1d77b1b66ad15f2d55a86cd), [`7cb40e4c`](https://github.com/Khan/perseus/commit/7cb40e4c919be50e5ced41e4937178bbf849ec74), [`8f1f0208`](https://github.com/Khan/perseus/commit/8f1f0208fcc08e137053bfd05d330b6f8bf3522d)]:
+    -   @khanacademy/perseus@14.0.0
+
 ## 2.10.0
 
 ### Minor Changes
