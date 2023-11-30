@@ -715,7 +715,11 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     </Popover>
                     {!!marker.selected && showAnswerChoice && (
                         <AnswerPill
-                            id={`answer-choice-${marker.x}.${marker.y}`}
+                            id={
+                                // will be prepended with
+                                // "perseus-label-image-widget-answer-pill-"
+                                `${marker.x}.${marker.y}`
+                            }
                             selectedAnswers={marker.selected}
                             showCorrectness={showCorrectness}
                             markerRef={

@@ -58,7 +58,7 @@ export const AnswerPill = (props: {
                 <Pill
                     size="large"
                     kind="accent"
-                    id={id}
+                    id={"perseus-label-image-widget-answer-pill-" + id}
                     onClick={correct ? undefined : onClick}
                     ref={ref}
                     style={[
