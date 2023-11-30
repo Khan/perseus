@@ -1,4 +1,5 @@
 import Color from "@khanacademy/wonder-blocks-color";
+import {useUniqueIdWithMock} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {StyleSheet, type CSSProperties} from "aphrodite";
@@ -8,7 +9,6 @@ import {Popper} from "react-popper";
 import Renderer from "../../renderer";
 
 export const AnswerPill = (props: {
-    id: string;
     selectedAnswers: readonly string[];
     showCorrectness?: "correct" | "incorrect";
     markerRef?: HTMLElement;
@@ -16,15 +16,10 @@ export const AnswerPill = (props: {
     onClick: () => void;
     style?: CSSProperties;
 }) => {
-    const {
-        id,
-        selectedAnswers,
-        showCorrectness,
-        markerRef,
-        side,
-        onClick,
-        style,
-    } = props;
+    const {selectedAnswers, showCorrectness, markerRef, side, onClick, style} =
+        props;
+
+    const id = useUniqueIdWithMock();
 
     const answerString =
         selectedAnswers.length > 1
@@ -58,7 +53,7 @@ export const AnswerPill = (props: {
                 <Pill
                     size="large"
                     kind="accent"
-                    id={"perseus-label-image-widget-answer-pill-" + id}
+                    id={id.get("perseus-label-image-widget-answer-pill")}
                     onClick={correct ? undefined : onClick}
                     ref={ref}
                     style={[

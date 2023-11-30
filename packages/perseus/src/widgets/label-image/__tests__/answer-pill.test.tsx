@@ -18,7 +18,6 @@ describe("AnswerPill", () => {
         const screen = render(
             <AnswerPill
                 selectedAnswers={selectedAnswers}
-                id={""}
                 side={"top"}
                 onClick={() => {}}
             />,
@@ -31,7 +30,6 @@ describe("AnswerPill", () => {
         const screen = render(
             <AnswerPill
                 selectedAnswers={selectedAnswers}
-                id={""}
                 side={"top"}
                 onClick={() => {}}
             />,
@@ -46,7 +44,6 @@ describe("AnswerPill", () => {
         const screen = render(
             <AnswerPill
                 selectedAnswers={selectedAnswers}
-                id={""}
                 side={"top"}
                 onClick={clickSpy}
             />,
@@ -66,7 +63,6 @@ describe("AnswerPill", () => {
         const screen = render(
             <AnswerPill
                 selectedAnswers={selectedAnswers}
-                id={""}
                 side={"top"}
                 onClick={clickSpy}
                 showCorrectness="correct"
