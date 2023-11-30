@@ -19,7 +19,7 @@ export const AnswerPill = (props: {
     const {selectedAnswers, showCorrectness, markerRef, side, onClick, style} =
         props;
 
-    const id = useUniqueIdWithMock();
+    const idFactory = useUniqueIdWithMock();
 
     const answerString =
         selectedAnswers.length > 1
@@ -53,7 +53,7 @@ export const AnswerPill = (props: {
                 <Pill
                     size="large"
                     kind="accent"
-                    id={id.get("perseus-label-image-widget-answer-pill")}
+                    id={idFactory.get("perseus-label-image-widget-answer-pill")}
                     onClick={correct ? undefined : onClick}
                     ref={ref}
                     style={[
