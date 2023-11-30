@@ -177,6 +177,8 @@ const styles = StyleSheet.create({
         // Center marker position based on it's maximum size.
         width: 30,
         height: 30,
+        backgroundColor: Color.white,
+        borderRadius: 30,
         marginLeft: -15,
         marginTop: -15,
     },
@@ -211,6 +213,7 @@ const styles = StyleSheet.create({
         animationName: {
             "0%": {
                 transform: "scale(1)",
+                backgroundColor: Color.blue,
             },
 
             "100%": {
