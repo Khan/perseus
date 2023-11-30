@@ -213,10 +213,7 @@ const styles = StyleSheet.create({
         animationName: {
             "0%": {
                 transform: "scale(1)",
-<<<<<<< Updated upstream
-=======
                 backgroundColor: Color.blue,
->>>>>>> Stashed changes
             },
 
             "100%": {
