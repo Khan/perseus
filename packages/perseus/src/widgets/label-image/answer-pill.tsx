@@ -36,6 +36,11 @@ export const AnswerPill = (props: {
     const correct = showCorrectness === "correct";
     const incorrect = showCorrectness === "incorrect";
 
+    const bringToFront = {
+        boxShadow: `0 8px 8px ${Color.offBlack64}`,
+        zIndex: 1000,
+    };
+
     return (
         <Popper
             placement={side}
@@ -60,8 +65,8 @@ export const AnswerPill = (props: {
                         style,
                         popperStyle,
                         {
-                            ":hover": styles.bringToFront,
-                            ":focus": styles.bringToFront,
+                            ":hover": bringToFront,
+                            ":focus": bringToFront,
                         },
                         correct && styles.correct,
                         incorrect && styles.incorrect,
@@ -75,10 +80,6 @@ export const AnswerPill = (props: {
 };
 
 const styles = StyleSheet.create({
-    bringToFront: {
-        boxShadow: `0 8px 8px ${Color.offBlack64}`,
-        zIndex: 1000,
-    },
     correct: {
         backgroundColor: "#00880b", // WB green darkened by 18%
     },
