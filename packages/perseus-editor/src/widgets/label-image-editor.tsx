@@ -229,6 +229,7 @@ class LabelImageEditor extends React.Component<Props> {
                 <div className={css(styles.largeSpacer)} />
 
                 <Behavior
+                    preferredPopoverDirection="NONE"
                     multipleAnswers={multipleAnswers}
                     hideChoicesFromInstructions={hideChoicesFromInstructions}
                     onChange={this.handleBehaviorChange}
