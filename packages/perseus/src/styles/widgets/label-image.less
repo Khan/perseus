@@ -5,7 +5,7 @@
             margin: 0;
         }
     }
-    [id^="answer-choice-"] {
+    button[id*="perseus-label-image-widget-answer-pill"] {
         // Reset text content.
         div.paragraph {
             all: revert;
@@ -14,6 +14,26 @@
         // https://github.com/Khan/perseus/blob/bafd35daee723456bf259a39b88e7638d91c8c3b/packages/perseus/src/renderer.tsx#L1176
         div.perseus-block-math-inner {
             margin: -5px 0 !important;
+        }
+    }
+}
+
+// Reset mobile text content for answer pills.
+@media (max-width: 767px) {
+    [id*="perseus-label-image-widget-answer-pill"] {
+        div.paragraph {
+            all: revert;
+        }
+        > div.perseus-renderer-responsive {
+            all: revert;
+        }
+    }
+
+    .framework-perseus.perseus-mobile
+        [id*="perseus-label-image-widget-answer-pill"] {
+        .perseus-renderer > .paragraph,
+        .perseus-renderer > .paragraph .paragraph {
+            all: revert;
         }
     }
 }

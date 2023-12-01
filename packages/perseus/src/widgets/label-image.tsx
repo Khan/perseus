@@ -6,18 +6,12 @@
  * knowledge by directly interacting with the image.
  */
 
-import Color from "@khanacademy/wonder-blocks-color";
-import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import Pill from "@khanacademy/wonder-blocks-pill";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {Popper} from "react-popper";
 
 import AssetContext from "../asset-context";
 import SvgImage from "../components/svg-image";
@@ -26,8 +20,9 @@ import {typography} from "../styles/global-styles";
 import mediaQueries from "../styles/media-queries";
 
 import AnswerChoices from "./label-image/answer-choices";
+import {AnswerPill} from "./label-image/answer-pill";
+import {HideAnswersToggle} from "./label-image/hide-answers-toggle";
 import Marker from "./label-image/marker";
-import {strings} from "./label-image/strings";
 
 import type {ChangeableProps} from "../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../types";
@@ -611,18 +606,18 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
             const score = LabelImage.gradeMarker(marker);
+            // Once the question is answered, show markers
+            // with correct answers, otherwise passthrough
+            // the correctness state.
+            const showCorrectness =
+                questionCompleted && score.hasAnswers && score.isCorrect
+                    ? "correct"
+                    : marker.showCorrectness;
 
             const element = (
                 <Marker
                     {...marker}
-                    // Once the question is answered, show markers
-                    // with correct answers, otherwise passthrough
-                    // the correctness state.
-                    showCorrectness={
-                        questionCompleted && score.hasAnswers && score.isCorrect
-                            ? "correct"
-                            : marker.showCorrectness
-                    }
+                    showCorrectness={showCorrectness}
                     showSelected={index === activeMarkerIndex}
                     showPulsate={!markersInteracted}
                     key={`${marker.x}.${marker.y}`}
@@ -689,31 +684,9 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 }`]: 5, // move pill further from marker
             };
 
-            let answerString: string | undefined;
+            const showAnswerChoice =
+                !answerChoicesActive && !this.state.hideAnswers;
 
-            let showAnswerChoice = false;
-
-            if (
-                !answerChoicesActive &&
-                !this.state.hideAnswers &&
-                marker.selected
-            ) {
-                showAnswerChoice = true;
-                answerString =
-                    marker.selected.length > 1
-                        ? // always need `ngettext` for variable numbers even if we don't use the singular, see https://khanacademy.slack.com/archives/C0918TZ5G/p1700163024293079
-                          i18n.ngettext(
-                              "%(num)s answer",
-                              "%(num)s answers",
-                              marker.selected.length,
-                          )
-                        : marker.selected[0];
-            }
-
-            const bringToFrontStyle = {
-                boxShadow: `0 8px 8px ${Color.offBlack64}`,
-                zIndex: 1000,
-            };
             return (
                 <div key={`answers-${marker.x}.${marker.y}`}>
                     <Popover
@@ -737,47 +710,23 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     >
                         {element}
                     </Popover>
-                    {showAnswerChoice && (
-                        <Popper
-                            placement={side}
-                            referenceElement={
+                    {!!marker.selected && showAnswerChoice && (
+                        <AnswerPill
+                            selectedAnswers={marker.selected}
+                            showCorrectness={showCorrectness}
+                            markerRef={
                                 // this throws a warning because it's inadvisable to
                                 // call ReactDOM fns in render. we aren't storing
                                 // actual refs in this array, so not much I can do
-                                // outside of a major refactor.
+                                // outside of a refactor.
                                 ReactDOM.findDOMNode(
                                     this._markers[index],
                                 ) as HTMLElement
                             }
-                            modifiers={[
-                                {
-                                    name: "preventOverflow",
-                                    options: {
-                                        rootBoundary: "viewport",
-                                    },
-                                },
-                            ]}
-                        >
-                            {({ref, style}) => (
-                                <Pill
-                                    size="large"
-                                    kind="accent"
-                                    id={`answer-choice-${marker.x}.${marker.y}`}
-                                    onClick={() => this.activateMarker(index)}
-                                    ref={ref}
-                                    style={[
-                                        adjustPillDistance,
-                                        style,
-                                        {
-                                            ":hover": bringToFrontStyle,
-                                            ":focus": bringToFrontStyle,
-                                        },
-                                    ]}
-                                >
-                                    <Renderer content={answerString} />
-                                </Pill>
-                            )}
-                        </Popper>
+                            side={side}
+                            onClick={() => this.activateMarker(index)}
+                            style={adjustPillDistance}
+                        />
                     )}
                 </div>
             );
@@ -875,15 +824,10 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     </div>
                     {this.renderMarkers()}
                 </div>
-                <View style={styles.switchWrapper}>
-                    <LabelMedium id="hide-answers-label">
-                        {strings.hideAnswersToggleLabel}
-                    </LabelMedium>
-                    <Switch
-                        checked={this.state.hideAnswers}
-                        onChange={(hideAnswers) => this.setState({hideAnswers})}
-                    />
-                </View>
+                <HideAnswersToggle
+                    areAnswersHidden={this.state.hideAnswers}
+                    onChange={(hideAnswers) => this.setState({hideAnswers})}
+                />
             </div>
         );
     }
@@ -959,14 +903,6 @@ const styles = StyleSheet.create({
 
     choicesPopover: {
         padding: 0,
-    },
-
-    switchWrapper: {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "center",
-        gap: "1em",
     },
 });
 
