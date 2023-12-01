@@ -202,6 +202,9 @@ const styles = StyleSheet.create({
 
         cursor: "pointer",
 
+        outline: `3px solid ${Color.white}`,
+        outlineOffset: 0,
+
         border: `2px solid ${Color.offBlack64}`,
         borderRadius: markerSize,
 
@@ -217,10 +220,11 @@ const styles = StyleSheet.create({
             },
 
             "100%": {
-                transform: "scale(1.3)",
+                transform: "scale(1.15)",
                 backgroundColor: Color.blue,
             },
         },
+        backgroundColor: Color.blue,
 
         animationDirection: "alternate",
         animationDuration: "0.8s",
@@ -249,14 +253,14 @@ const styles = StyleSheet.create({
     markerSelected: {
         boxShadow: `0 8px 8px ${Color.offBlack8}`,
 
-        border: `solid 4px ${Color.white}`,
+        border: `solid 2px ${Color.white}`,
+        outline: "none",
         backgroundColor: Color.blue,
         borderRadius: markerSize,
         transform: "rotate(180deg)",
 
         ":hover": {
             outline: `2px solid ${Color.blue}`,
-            outlineOffset: -2,
         },
     },
 
@@ -271,6 +275,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
 
         border: `4px solid ${Color.blue}`,
+        outline: "none",
 
         boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
     },
