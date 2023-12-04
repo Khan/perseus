@@ -18,7 +18,6 @@ import SortableArea from "../components/sortable";
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
 
 const {InfoTip, PropCheckBox, TexButtons} = components;
-const {getDependencies} = Dependencies;
 
 type Props = {
     widgetId?: any;
@@ -38,11 +37,12 @@ type DefaultProps = {
 };
 
 const parseAnswerKey = ({key}: AnswerForm): number => {
-    const parsedKey = Number.parseInt(key ?? "");
-    if (Number.isNaN(parsedKey)) {
-        throw new Error(`Invalid answer key: ${key}`);
-    }
-    return parsedKey;
+    // We don't throw here because there is data stored in some
+    // exercises/articles where the answer forms don't have a key. If we throw,
+    // it blocks content editors from loading the page at all.
+    // TODO(Jeremy): find a way to handle these answer forms that are missing
+    // keys more gracefully.
+    return Number.parseInt(key ?? "");
 };
 
 // Pick a key that isn't currently used by an answer in answerForms
@@ -182,7 +182,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             },
         );
 
-        const {TeX} = getDependencies(); // OldExpression only
+        const {TeX} = Dependencies.getDependencies(); // OldExpression only
 
         buttonSetChoices.splice(
             1,

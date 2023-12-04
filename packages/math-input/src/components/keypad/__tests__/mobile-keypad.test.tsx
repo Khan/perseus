@@ -2,14 +2,14 @@ import {render, screen} from "@testing-library/react";
 import * as React from "react";
 import "@testing-library/jest-dom";
 
-import MobileKeypad from "../mobile-keypad";
+import MobileKeypadInternals from "../mobile-keypad-internals";
 
 describe("mobile keypad", () => {
     it("should render keypad when active", () => {
         // Arrange
         // Act
         const {container} = render(
-            <MobileKeypad
+            <MobileKeypadInternals
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
@@ -24,7 +24,7 @@ describe("mobile keypad", () => {
         // Arrange
         // Act
         const {container} = render(
-            <MobileKeypad
+            <MobileKeypadInternals
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={false}
@@ -38,7 +38,7 @@ describe("mobile keypad", () => {
     it("should render the keypad when going from keypadActive=false to keypadActive=true", () => {
         // Arrange
         const {rerender} = render(
-            <MobileKeypad
+            <MobileKeypadInternals
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={false}
@@ -49,7 +49,7 @@ describe("mobile keypad", () => {
 
         // Act
         rerender(
-            <MobileKeypad
+            <MobileKeypadInternals
                 onAnalyticsEvent={async () => undefined}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
@@ -66,7 +66,7 @@ describe("mobile keypad", () => {
 
         // Act
         render(
-            <MobileKeypad
+            <MobileKeypadInternals
                 onAnalyticsEvent={onAnalyticsEvent}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
@@ -87,7 +87,7 @@ describe("mobile keypad", () => {
 
         // Arrange
         const {rerender, unmount} = render(
-            <MobileKeypad
+            <MobileKeypadInternals
                 onAnalyticsEvent={onAnalyticsEvent}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={true}
@@ -96,7 +96,7 @@ describe("mobile keypad", () => {
 
         // Act
         rerender(
-            <MobileKeypad
+            <MobileKeypadInternals
                 onAnalyticsEvent={onAnalyticsEvent}
                 setKeypadActive={(keypadActive: boolean) => undefined}
                 keypadActive={false}

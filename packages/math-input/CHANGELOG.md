@@ -1,5 +1,16 @@
 # @khanacademy/math-input
 
+## 16.0.0
+
+### Major Changes
+
+-   [#825](https://github.com/Khan/perseus/pull/825) [`7cb40e4c`](https://github.com/Khan/perseus/commit/7cb40e4c919be50e5ced41e4937178bbf849ec74) Thanks [@benchristel](https://github.com/benchristel)! - We've removed the deprecated `useV2Keypad` prop from the MobileKeypad component.
+
+    The V2 keypad is now the default, and the old keypad has been removed.
+
+    Additionally, the mobile keypad no longer accepts the `keypadActive` or
+    `setKeypadActive` props. It now gets those values itself from the `KeypadContext`.
+
 ## 15.1.0
 
 ### Minor Changes

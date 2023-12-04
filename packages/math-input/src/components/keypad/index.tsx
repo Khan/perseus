@@ -1,2 +1,2 @@
 export {default} from "./keypad";
-export {default as MobileKeypad} from "./mobile-keypad";
+export {MobileKeypad} from "./mobile-keypad";
