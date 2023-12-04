@@ -912,8 +912,12 @@ describe("LabelImage", function () {
             );
             userEvent.click(markerButton);
 
+            await screen.findByRole("dialog");
+
             // Select a choice
-            // TODO
+            const choices = await screen.findAllByText("Trucks");
+            const choice = choices[choices.length - 1];
+            userEvent.click(choice);
 
             expect(
                 testDependenciesV2.analytics.onAnalyticsEvent,
