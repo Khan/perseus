@@ -15,6 +15,7 @@ import * as ReactDOM from "react-dom";
 
 import AssetContext from "../asset-context";
 import SvgImage from "../components/svg-image";
+import {useDependencies} from "../dependencies";
 import Renderer from "../renderer";
 import {typography} from "../styles/global-styles";
 import mediaQueries from "../styles/media-queries";
@@ -24,12 +25,14 @@ import {AnswerPill} from "./label-image/answer-pill";
 import {HideAnswersToggle} from "./label-image/hide-answers-toggle";
 import Marker from "./label-image/marker";
 
+import type {DependencyProps} from "../dependencies";
 import type {ChangeableProps} from "../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../types";
 import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,
 } from "./label-image/types";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
 export type PreferredPopoverDirection =
@@ -66,26 +69,27 @@ type Point = {
     y: number;
 };
 
-type LabelImageProps = ChangeableProps & {
-    apiOptions: APIOptions;
-    // The list of possible answer choices.
-    choices: ReadonlyArray<string>;
-    // The question image properties.
-    imageAlt: string;
-    imageUrl: string;
-    imageWidth: number;
-    imageHeight: number;
-    // The list of label markers on the question image.
-    markers: ReadonlyArray<InteractiveMarkerType>;
-    // Whether multiple answer choices may be selected for markers.
-    multipleAnswers: boolean;
-    // Whether to hide answer choices from user instructions.
-    hideChoicesFromInstructions: boolean;
-    // Whether the question has been answered by the user.
-    questionCompleted: boolean;
-    // preferred placement for popover (preference, not MUST)
-    preferredPopoverDirection?: PreferredPopoverDirection;
-};
+type LabelImageProps = ChangeableProps &
+    DependencyProps & {
+        apiOptions: APIOptions;
+        // The list of possible answer choices.
+        choices: ReadonlyArray<string>;
+        // The question image properties.
+        imageAlt: string;
+        imageUrl: string;
+        imageWidth: number;
+        imageHeight: number;
+        // The list of label markers on the question image.
+        markers: ReadonlyArray<InteractiveMarkerType>;
+        // Whether multiple answer choices may be selected for markers.
+        multipleAnswers: boolean;
+        // Whether to hide answer choices from user instructions.
+        hideChoicesFromInstructions: boolean;
+        // Whether the question has been answered by the user.
+        questionCompleted: boolean;
+        // preferred placement for popover (preference, not MUST)
+        preferredPopoverDirection?: PreferredPopoverDirection;
+    };
 
 type LabelImageState = {
     // The user selected marker index, defaults to -1, no selection.
@@ -98,7 +102,10 @@ type LabelImageState = {
     hideAnswers: boolean;
 };
 
-class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
+export class LabelImage extends React.Component<
+    LabelImageProps,
+    LabelImageState
+> {
     // The rendered markers on the question image for labeling.
     _markers: Array<Marker | null | undefined>;
 
@@ -851,7 +858,13 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 </div>
                 <HideAnswersToggle
                     areAnswersHidden={this.state.hideAnswers}
-                    onChange={(hideAnswers) => this.setState({hideAnswers})}
+                    onChange={(hideAnswers) => {
+                        this.props.analytics?.onAnalyticsEvent({
+                            type: "perseus:label-image:toggle-answers-hidden",
+                            payload: null,
+                        });
+                        this.setState({hideAnswers});
+                    }}
                 />
             </div>
         );
@@ -931,10 +944,27 @@ const styles = StyleSheet.create({
     },
 });
 
+const LabelImageWithDependencies = React.forwardRef<
+    LabelImage,
+    Omit<PropsFor<typeof LabelImage>, keyof ReturnType<typeof useDependencies>>
+>((props, ref) => {
+    const deps = useDependencies();
+    return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
+});
+
+// HACK: Propogate "static" methods onto our wrapper component.
+// In the future we should adjust client apps to not depend on these static
+// methods and instead adjust Peresus to provide these facilities through
+// instance methods on our Renderers.
+// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
+LabelImageWithDependencies.validate = LabelImage.validate;
+// @ts-expect-error - TS2339 - Property 'gradeMarker' does not exist on type
+LabelImageWithDependencies.gradeMarker = LabelImage.gradeMarker;
+
 export default {
     name: "label-image",
     displayName: "Label Image",
-    widget: LabelImage,
+    widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
-} as WidgetExports<typeof LabelImage>;
+} as WidgetExports<typeof LabelImageWithDependencies>;

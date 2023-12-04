@@ -1,6 +1,19 @@
-import LabelImageWidget from "./label-image";
+import {screen} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-const LabelImage = LabelImageWidget.widget;
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
+import * as Dependencies from "../dependencies";
+
+import {textQuestion} from "./__testdata__/label-image.testdata";
+import {renderQuestion} from "./__tests__/renderQuestion";
+import LabelImageWidget, {LabelImage} from "./label-image";
+
+import "@testing-library/jest-dom";
+
+const LabelImageWithDependencies = LabelImageWidget.widget;
 
 const emptyMarker = {
     label: "",
@@ -842,6 +855,33 @@ describe("LabelImage", function () {
                         )
                     ].label,
                 ).toEqual("coplanar 1");
+            });
+        });
+    });
+
+    describe("analitcs", () => {
+        beforeEach(() => {
+            jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
+                testDependenciesV2,
+            );
+        });
+        it("sends an analytics event when the toggle is interacted with", async () => {
+            // render component
+            renderQuestion(textQuestion);
+
+            // Toggle the switch
+            const toggleAnswerSwitch = await screen.findByRole("switch");
+            userEvent.click(toggleAnswerSwitch);
+
+            expect(
+                testDependenciesV2.analytics.onAnalyticsEvent,
+            ).toHaveBeenCalledWith({
+                type: "perseus:label-image:toggle-answers-hidden",
+                payload: null,
             });
         });
     });
