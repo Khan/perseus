@@ -12,5 +12,4 @@ export {default as PropCheckBox} from "./components/prop-check-box";
 export {default as RangeInput} from "./components/range-input";
 export {default as SvgImage} from "./components/svg-image";
 export {default as TextInput} from "./components/text-input";
-export {default as TexButtons} from "./components/tex-buttons";
 export {default as TextListEditor} from "./components/text-list-editor";

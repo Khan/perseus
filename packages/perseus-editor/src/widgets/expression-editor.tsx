@@ -17,7 +17,7 @@ import SortableArea from "../components/sortable";
 
 import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus";
 
-const {InfoTip, PropCheckBox, TexButtons} = components;
+const {InfoTip, PropCheckBox} = components;
 
 type Props = {
     widgetId?: any;
@@ -35,6 +35,16 @@ type DefaultProps = {
     buttonSets: Props["buttonSets"];
     functions: Props["functions"];
 };
+
+const buttonSetsList: any = [
+    "basic",
+    "basic+div",
+    "trig",
+    "prealgebra",
+    "logarithms",
+    "basic relations",
+    "advanced relations",
+];
 
 const parseAnswerKey = ({key}: AnswerForm): number => {
     // We don't throw here because there is data stored in some
@@ -67,11 +77,7 @@ const _makeNewKey = (answerForms: ReadonlyArray<AnswerForm>) => {
     return usedKeys.length;
 };
 
-type State = {
-    isTex: boolean;
-};
-
-class ExpressionEditor extends React.Component<Props, State> {
+class ExpressionEditor extends React.Component<Props> {
     static widgetName = "expression" as const;
 
     static defaultProps: DefaultProps = {
@@ -80,29 +86,6 @@ class ExpressionEditor extends React.Component<Props, State> {
         buttonSets: ["basic"],
         functions: ["f", "g", "h"],
     };
-
-    constructor(props: Props) {
-        super(props);
-        // Is the format of `value` TeX or plain text?
-        // TODO(alex): Remove after backfilling everything to TeX
-        // TODO(joel) - sucks if you edit some expression without
-        // backslashes or curly braces, then come back to the question and
-        // it's surprisingly not TeX anymore.
-
-        let isTex;
-        // default to TeX if new;
-        if (props.answerForms.length === 0) {
-            isTex = true;
-        } else {
-            isTex = props.answerForms.some((form) => {
-                const {value} = form;
-                // only TeX has backslashes and curly braces
-                return value.indexOf("\\") !== -1 || value.indexOf("{") !== -1;
-            });
-        }
-
-        this.state = {isTex};
-    }
 
     change(...args) {
         return Changeable.change.apply(this, args);
@@ -156,38 +139,31 @@ class ExpressionEditor extends React.Component<Props, State> {
         );
 
         // checkboxes to choose which sets of input buttons are shown
-        const buttonSetChoices = Object.keys(TexButtons.buttonSets).map(
-            (name) => {
-                // The first one gets special cased to always be checked, disabled,
-                // and float left.
-                const isFirst = name === "basic";
-                const checked =
-                    this.props.buttonSets.includes(
-                        name as PerseusExpressionWidgetOptions["buttonSets"][number],
-                    ) || isFirst;
-                const className = isFirst
-                    ? "button-set-label-float"
-                    : "button-set-label";
-                return (
-                    <label className={className} key={name}>
-                        <input
-                            type="checkbox"
-                            checked={checked}
-                            disabled={isFirst}
-                            onChange={() => this.handleButtonSet(name)}
-                        />
-                        {name}
-                    </label>
-                );
-            },
-        );
+        const buttonSetChoices = buttonSetsList.map((name) => {
+            // The first one gets special cased to always be checked, disabled,
+            // and float left.
+            const isFirst = name === "basic";
+            const checked =
+                this.props.buttonSets.includes(
+                    name as PerseusExpressionWidgetOptions["buttonSets"][number],
+                ) || isFirst;
+            return (
+                <label className="button-set-label" key={name}>
+                    <input
+                        type="checkbox"
+                        checked={checked}
+                        disabled={isFirst}
+                        onChange={() => this.handleButtonSet(name)}
+                    />
+                    {name}
+                </label>
+            );
+        });
 
         const {TeX} = Dependencies.getDependencies(); // OldExpression only
 
-        buttonSetChoices.splice(
-            1,
-            1,
-            <label key="show-div">
+        buttonSetChoices.unshift(
+            <label className="button-set-label" key="show-div">
                 <input type="checkbox" onChange={this.handleToggleDiv} />
                 <span className="show-div-button">
                     show <TeX>\div</TeX> button
@@ -239,15 +215,6 @@ class ExpressionEditor extends React.Component<Props, State> {
                     <div>Button sets:</div>
                     {buttonSetChoices}
                 </div>
-
-                {this.state.isTex && (
-                    <TexButtons
-                        className="math-input-buttons"
-                        sets={this.props.buttonSets}
-                        convertDotToTimes={this.props.times}
-                        onInsert={this.handleTexInsert}
-                    />
-                )}
 
                 <h3 className="expression-editor-h3">Answers</h3>
 
@@ -397,9 +364,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     // called when the selected buttonset changes
     handleButtonSet: (changingName: string) => void = (changingName) => {
-        const buttonSetNames = Object.keys(
-            TexButtons.buttonSets,
-        ) as LegacyButtonSet[];
+        const buttonSetNames = buttonSetsList;
 
         // Filter to preserve order - using .union and .difference would always
         // move the last added button set to the end.
