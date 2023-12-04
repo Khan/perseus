@@ -32,6 +32,13 @@ import type {CSSProperties} from "aphrodite";
 import type {ChangeableProps} from "../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../types";
 
+export type PreferredPopoverDirection =
+    | "NONE"
+    | "UP"
+    | "DOWN"
+    | "LEFT"
+    | "RIGHT";
+
 type MarkersState = {
     markers: ReadonlyArray<InteractiveMarkerType>;
 };
@@ -76,6 +83,8 @@ type LabelImageProps = ChangeableProps & {
     hideChoicesFromInstructions: boolean;
     // Whether the question has been answered by the user.
     questionCompleted: boolean;
+    // preferred placement for popover (preference, not MUST)
+    preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
 type LabelImageState = {
@@ -189,7 +198,21 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     static imageSideForMarkerPosition(
         x: number,
         y: number,
+        preferredDirection: PreferredPopoverDirection | undefined,
     ): "bottom" | "left" | "right" | "top" | "center" {
+        // Special handling for preferred size
+        if (preferredDirection && preferredDirection !== "NONE") {
+            if (preferredDirection === "LEFT" && x > 20) {
+                return "right";
+            } else if (preferredDirection === "RIGHT" && x < 80) {
+                return "left";
+            } else if (preferredDirection === "UP" && y > 20) {
+                return "bottom";
+            } else if (preferredDirection === "DOWN" && y < 80) {
+                return "top";
+            }
+        }
+
         // Special handling for when marker is positioned near the horizontal
         // edges of the image. We want to ensure the returned side would not
         // result in a popup rendering that may overflow outside the page.
@@ -599,7 +622,8 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     }
 
     renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {markers, questionCompleted} = this.props;
+        const {markers, questionCompleted, preferredPopoverDirection} =
+            this.props;
 
         const {activeMarkerIndex, markersInteracted} = this.state;
 
@@ -656,6 +680,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                 markerPosition = LabelImage.imageSideForMarkerPosition(
                     marker.x,
                     marker.y,
+                    preferredPopoverDirection,
                 );
                 if (markerPosition === "center") {
                     markerPosition = "bottom";
