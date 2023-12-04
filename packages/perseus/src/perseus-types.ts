@@ -74,7 +74,7 @@ export type PerseusAnswerArea = {
     // The user might benefit from using a Periodic Table of Elements.  Provided on Khan Academy when true
     periodicTable: boolean;
     // The user might benefit from using a Periodic Table of Elements with key.  Provided on Khan Academy when true
-    periodicTableWithKey: boolean;
+    periodicTableWithKey?: boolean;
 };
 
 type Widget<Type extends string, Options> = {
