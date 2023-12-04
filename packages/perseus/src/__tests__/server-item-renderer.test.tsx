@@ -25,9 +25,9 @@ import MockAssetLoadingWidgetExport, {
 } from "./mock-asset-loading-widget";
 import MockWidgetExport from "./mock-widget";
 
+import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
-import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 

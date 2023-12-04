@@ -104,6 +104,7 @@ export class ServerItemRenderer
         this._fullyRendered = false;
     }
 
+    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({
             questionHighlightedWidgets: [],

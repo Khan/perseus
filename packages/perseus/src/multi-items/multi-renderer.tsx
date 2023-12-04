@@ -50,6 +50,10 @@ import Util from "../util";
 import {itemToTree} from "./items";
 import {buildMapper} from "./trees";
 
+import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
+import type {Shape, ArrayShape} from "./shape-types";
+import type {Tree} from "./tree-types";
+import type {TreeMapper, ContentMapper, HintMapper, Path} from "./trees";
 import type {Widget} from "../renderer";
 import type {
     APIOptions,
@@ -57,10 +61,6 @@ import type {
     PerseusDependenciesV2,
     PerseusScore,
 } from "../types";
-import type {Item, ContentNode, HintNode, TagsNode} from "./item-types";
-import type {Shape, ArrayShape} from "./shape-types";
-import type {Tree} from "./tree-types";
-import type {TreeMapper, ContentMapper, HintMapper, Path} from "./trees";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Hint = any; // TODO(mdr)

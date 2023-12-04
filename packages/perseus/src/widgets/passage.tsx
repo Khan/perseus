@@ -12,6 +12,7 @@ import Renderer from "../renderer";
 
 import PassageMarkdown from "./passage/passage-markdown";
 
+import type {ParseState} from "./passage/passage-markdown";
 import type {SerializedHighlightSet} from "../components/highlighting/types";
 import type {ChangeableProps} from "../mixins/changeable";
 import type {PerseusPassageWidgetOptions} from "../perseus-types";
@@ -21,7 +22,6 @@ import type {
     WidgetInfo,
     WidgetProps,
 } from "../types";
-import type {ParseState} from "./passage/passage-markdown";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,

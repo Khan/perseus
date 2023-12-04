@@ -22,12 +22,12 @@ import mediaQueries from "../styles/media-queries";
 import AnswerChoices from "./label-image/answer-choices";
 import Marker from "./label-image/marker";
 
-import type {ChangeableProps} from "../mixins/changeable";
-import type {APIOptions, PerseusScore, WidgetExports} from "../types";
 import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,
 } from "./label-image/types";
+import type {ChangeableProps} from "../mixins/changeable";
+import type {APIOptions, PerseusScore, WidgetExports} from "../types";
 
 type MarkersState = {
     markers: ReadonlyArray<InteractiveMarkerType>;

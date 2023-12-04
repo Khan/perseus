@@ -59,6 +59,7 @@ class HintsRenderer extends React.Component<Props, State> {
         this._cacheHintImages();
     }
 
+    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
         if (nextProps.hintsVisible - this.props.hintsVisible > 1) {

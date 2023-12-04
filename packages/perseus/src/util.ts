@@ -3,8 +3,8 @@ import _ from "underscore";
 
 import {Errors} from "./logging/log";
 import {PerseusError} from "./perseus-error";
-import * as GraphieUtil from "./util.graphie";
 import KhanAnswerTypes from "./util/answer-types";
+import * as GraphieUtil from "./util.graphie";
 
 import type {Range} from "./perseus-types";
 import type {Widget, PerseusScore} from "./types";
