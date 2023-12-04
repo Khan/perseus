@@ -9,11 +9,9 @@ import * as Dependencies from "../dependencies";
 
 import {textQuestion} from "./__testdata__/label-image.testdata";
 import {renderQuestion} from "./__tests__/renderQuestion";
-import LabelImageWidget, {LabelImage} from "./label-image";
+import {LabelImage} from "./label-image";
 
 import "@testing-library/jest-dom";
-
-const LabelImageWithDependencies = LabelImageWidget.widget;
 
 const emptyMarker = {
     label: "",
