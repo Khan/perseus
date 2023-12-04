@@ -11,7 +11,7 @@ import {
 import {
     itemWithInput,
     mockedItem,
-} from "../__testdata__/item-renderer.testdata";
+} from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
 import WrappedServerItemRenderer, {
     ServerItemRenderer,
