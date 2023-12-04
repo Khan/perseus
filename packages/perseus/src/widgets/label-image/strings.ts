@@ -1,3 +1,5 @@
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
+
 export const strings = {
-    hideAnswersToggleLabel: "Hide answer choices",
+    hideAnswersToggleLabel: i18n._("Hide answer choices"),
 };
