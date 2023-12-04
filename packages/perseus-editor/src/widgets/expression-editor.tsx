@@ -38,7 +38,6 @@ type DefaultProps = {
 
 const buttonSetsList: any = [
     "basic",
-    "basic+div",
     "trig",
     "prealgebra",
     "logarithms",
