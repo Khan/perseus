@@ -79,6 +79,13 @@ class ItemExtrasEditor extends React.Component<Props> {
                                     this.props.onChange({
                                         periodicTable: e.target.checked,
                                     });
+                                    if (!e.target.checked) {
+                                        // When we remove the periodic table,
+                                        // we should also remove sub-options.
+                                        this.props.onChange({
+                                            periodicTableWithKey: false,
+                                        });
+                                    }
                                 }}
                             />
                         </label>
