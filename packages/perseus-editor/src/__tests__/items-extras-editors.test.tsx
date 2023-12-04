@@ -7,17 +7,24 @@ import ItemExtrasEditor from "../item-extras-editor";
 
 describe("ItemExtrasEditor", () => {
     it("should render correctly with default props", () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-
         // Act
-        render(<ItemExtrasEditor onChange={onChangeMock} />);
+        render(<ItemExtrasEditor onChange={() => {}} />);
 
         // Assert
-        expect(
-            screen.getByLabelText("Show periodic table:"),
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText("Show calculator:")).not.toBeChecked();
         expect(screen.getByLabelText("Show periodic table:")).not.toBeChecked();
+        expect(
+            screen.queryByText("Include key/legend with periodic table:"),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.getByLabelText("Show z table (statistics):"),
+        ).not.toBeChecked();
+        expect(
+            screen.getByLabelText("Show t table (statistics):"),
+        ).not.toBeChecked();
+        expect(
+            screen.getByLabelText("Show chi-squared table (statistics):"),
+        ).not.toBeChecked();
     });
 
     it("should call onChange with updated calculator value", () => {
@@ -49,10 +56,12 @@ describe("ItemExtrasEditor", () => {
         userEvent.click(checkbox);
 
         // Assert
-        expect(onChangeMock).toHaveBeenNthCalledWith(1, {
+        // visible when periodicTable is checked
+        expect(
+            screen.getByText("Include key/legend with periodic table:"),
+        ).toBeInTheDocument();
+        expect(onChangeMock).toHaveBeenCalledWith({
             periodicTable: false,
-        });
-        expect(onChangeMock).toHaveBeenNthCalledWith(2, {
             periodicTableWithKey: false,
         });
     });
