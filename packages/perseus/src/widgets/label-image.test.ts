@@ -903,5 +903,26 @@ describe("LabelImage", function () {
                 payload: null,
             });
         });
+
+        it("sends analytics when a choice is interacted with", async () => {
+            // render component
+            renderQuestion(textQuestion);
+
+            // Toggle the marker
+            const markerButton = await screen.findByLabelText(
+                "The fourth unlabeled bar line.",
+            );
+            userEvent.click(markerButton);
+
+            // Select a choice
+            // TODO
+
+            expect(
+                testDependenciesV2.analytics.onAnalyticsEvent,
+            ).toHaveBeenCalledWith({
+                type: "perseus:label-image:choiced-interacted-with",
+                payload: null,
+            });
+        });
     });
 });

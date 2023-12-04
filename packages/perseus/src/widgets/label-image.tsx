@@ -616,12 +616,16 @@ export class LabelImage extends React.Component<
                         checked: selected ? selected.includes(choice) : false,
                     }))}
                     multipleSelect={multipleAnswers}
-                    onChange={(selection) =>
+                    onChange={(selection) => {
+                        this.props.analytics?.onAnalyticsEvent({
+                            type: "perseus:label-image:choiced-interacted-with",
+                            payload: null,
+                        });
                         this.handleAnswerChoicesChangeForMarker(
                             index,
                             selection,
-                        )
-                    }
+                        );
+                    }}
                     ref={(node) => (this._answerChoices = node)}
                 />
             </div>
