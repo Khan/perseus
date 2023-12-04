@@ -859,7 +859,7 @@ describe("LabelImage", function () {
         });
     });
 
-    describe("analitcs", () => {
+    describe("analytics", () => {
         beforeEach(() => {
             jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -869,6 +869,7 @@ describe("LabelImage", function () {
                 testDependenciesV2,
             );
         });
+
         it("sends an analytics event when the toggle is interacted with", async () => {
             // render component
             renderQuestion(textQuestion);
@@ -881,6 +882,24 @@ describe("LabelImage", function () {
                 testDependenciesV2.analytics.onAnalyticsEvent,
             ).toHaveBeenCalledWith({
                 type: "perseus:label-image:toggle-answers-hidden",
+                payload: null,
+            });
+        });
+
+        it("sends an analytics event when a marker is interacted with", async () => {
+            // render component
+            renderQuestion(textQuestion);
+
+            // Toggle the button
+            const markerButton = await screen.findByLabelText(
+                "The fourth unlabeled bar line.",
+            );
+            userEvent.click(markerButton);
+
+            expect(
+                testDependenciesV2.analytics.onAnalyticsEvent,
+            ).toHaveBeenCalledWith({
+                type: "perseus:label-image:marker-interacted-with",
                 payload: null,
             });
         });

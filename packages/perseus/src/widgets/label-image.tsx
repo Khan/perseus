@@ -652,7 +652,13 @@ export class LabelImage extends React.Component<
                     showSelected={index === activeMarkerIndex}
                     showPulsate={!markersInteracted}
                     key={`${marker.x}.${marker.y}`}
-                    onClick={() => this.activateMarker(index)}
+                    onClick={() => {
+                        this.props.analytics?.onAnalyticsEvent({
+                            type: "perseus:label-image:marker-interacted-with",
+                            payload: null,
+                        });
+                        this.activateMarker(index);
+                    }}
                     onKeyDown={(e) => this.handleMarkerKeyDown(index, e)}
                     ref={(node) => (this._markers[index] = node)}
                     focused={index === this.state.focusedMarkerIndex}
@@ -856,6 +862,7 @@ export class LabelImage extends React.Component<
                     </div>
                     {this.renderMarkers()}
                 </div>
+                {/* // TODO: Make the label a clickable element */}
                 <HideAnswersToggle
                     areAnswersHidden={this.state.hideAnswers}
                     onChange={(hideAnswers) => {

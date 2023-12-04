@@ -32,6 +32,10 @@ export type PerseusAnalyticsEvent =
           payload: null;
       }
     | {
+          type: "perseus:label-image:marker-interacted-with";
+          payload: null;
+      }
+    | {
           type: "math-input:keypad-closed";
           payload: {
               virtualKeypadVersion: VirtualKeypadVersion;
