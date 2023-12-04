@@ -22,6 +22,10 @@ export const getDependencies = (): PerseusDependencies => {
     );
 };
 
+export type DependencyProps = Partial<
+    React.ContextType<typeof DependenciesContext>
+>;
+
 export const DependenciesContext = React.createContext<PerseusDependenciesV2>({
     analytics: {onAnalyticsEvent: async () => {}},
 });

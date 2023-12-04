@@ -26,6 +26,10 @@ export type PerseusAnalyticsEvent =
           };
       }
     | {
+          type: "perseus:label-image:toggle-answers-hidden";
+          payload: null;
+      }
+    | {
           type: "math-input:keypad-closed";
           payload: {
               virtualKeypadVersion: VirtualKeypadVersion;
@@ -37,6 +41,7 @@ export type PerseusAnalyticsEvent =
               virtualKeypadVersion: VirtualKeypadVersion;
           };
       };
+
 // Add more events here as needed. Note that each event should have a `type`
 // key and a payload that varies by type.
 // | {type: "b"; payload: {name: string}};
