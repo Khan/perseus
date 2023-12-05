@@ -25,38 +25,3 @@ export const KeyTypes = [
     "MANY",
 ];
 export type KeyType = typeof KeyTypes[number];
-
-export enum DeviceOrientation {
-    LANDSCAPE = "LANDSCAPE",
-    PORTRAIT = "PORTRAIT",
-}
-
-export enum DeviceType {
-    PHONE = "PHONE",
-    TABLET = "TABLET",
-}
-
-export enum LayoutMode {
-    FULLSCREEN = "FULLSCREEN",
-    COMPACT = "COMPACT",
-}
-
-export enum BorderDirection {
-    LEFT = "LEFT",
-    BOTTOM = "BOTTOM",
-}
-
-export const BorderStyles: {
-    [style: string]: ReadonlyArray<BorderDirection>;
-} = {
-    LEFT: [BorderDirection.LEFT],
-    BOTTOM: [BorderDirection.BOTTOM],
-    ALL: [BorderDirection.LEFT, BorderDirection.BOTTOM],
-    NONE: [],
-};
-
-export enum IconType {
-    MATH = "MATH",
-    SVG = "SVG",
-    TEXT = "TEXT",
-}

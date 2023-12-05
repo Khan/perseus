@@ -3,16 +3,13 @@
  */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
-import {IconType} from "../enums";
-
-import type Key from "./keys";
 import type {KeyType} from "../enums";
 import type {KeyConfig} from "../types";
+import type Key from "./keys";
 
 type KeyConfigMapper = (args: {
     key: Key;
     keyType?: KeyType;
-    iconType?: IconType;
     ariaLabel?: string;
     data?: string;
 }) => KeyConfig;
@@ -20,7 +17,6 @@ type KeyConfigMapper = (args: {
 const getDefaultOperatorFields: KeyConfigMapper = ({
     key,
     keyType = "OPERATOR",
-    iconType = IconType.SVG,
     ariaLabel = key,
     data = key,
 }) => ({
@@ -28,7 +24,6 @@ const getDefaultOperatorFields: KeyConfigMapper = ({
     type: keyType,
     ariaLabel,
     icon: {
-        type: iconType,
         data,
     },
 });
@@ -36,7 +31,6 @@ const getDefaultOperatorFields: KeyConfigMapper = ({
 const getDefaultValueFields: KeyConfigMapper = ({
     key,
     keyType = "VALUE",
-    iconType = IconType.MATH,
     ariaLabel = key,
     data = key,
 }) => ({
@@ -44,7 +38,6 @@ const getDefaultValueFields: KeyConfigMapper = ({
     type: keyType,
     ariaLabel,
     icon: {
-        type: iconType,
         data,
     },
 });
@@ -53,14 +46,12 @@ const getDefaultNumberFields: KeyConfigMapper = ({
     key,
     data = key.replace("NUM_", ""),
     keyType = "VALUE",
-    iconType = IconType.TEXT,
     ariaLabel = data,
 }) => ({
     id: key,
     type: keyType,
     ariaLabel,
     icon: {
-        type: iconType,
         data,
     },
 });

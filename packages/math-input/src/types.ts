@@ -1,14 +1,11 @@
 import type {CursorContext} from "./components/input/cursor-contexts";
 import type Key from "./data/keys";
-import type {BorderDirection, IconType, KeyType, KeypadType} from "./enums";
+import type {KeyType, KeypadType} from "./enums";
 import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
 import type * as React from "react";
 import type ReactDOM from "react-dom";
 
-export type Border = Partial<ReadonlyArray<BorderDirection>>;
-
 export type IconConfig = {
-    type: IconType;
     data: string;
 };
 
