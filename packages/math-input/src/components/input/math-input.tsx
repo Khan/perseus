@@ -219,7 +219,7 @@ class MathInput extends React.Component<Props, State> {
 
         // Making a simple click outside the input blur the input.
         // to support 3rd party chromeos browsers.
-        // STOPSHIP THIRD: This is to test a theory on chromeOS.
+        // TODO THIRD: This is to test a theory on chromeOS.
         // I can cleanup this code later.
         this.blurOnClickOutside = (evt: any) => {
             if (this.state.focused) {
