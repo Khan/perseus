@@ -626,6 +626,31 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
+    handleClick: (arg1: React.MouseEvent<HTMLDivElement>) => void = (e) => {
+        e.stopPropagation();
+
+        // Hide the cursor handle on touch start, if the handle itself isn't
+        // handling the touch event.
+        this._hideCursorHandle();
+
+        // Cache the container bounds, so as to avoid re-computing. If we don't
+        // have any content, then it's not necessary, since the cursor can't be
+        // moved anyway.
+        if (this.mathField.getContent() !== "") {
+            this._containerBounds = this._container.getBoundingClientRect();
+
+            // Make the cursor visible and set the handle-less cursor's
+            // location.
+            const {clientX, clientY} = e;
+            this._insertCursorAtClosestNode(clientX, clientY);
+        }
+
+        // Trigger a focus event, if we're not already focused.
+        if (!this.state.focused) {
+            this.focus();
+        }
+    };
+
     handleTouchMove: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
@@ -897,10 +922,10 @@ class MathInput extends React.Component<Props, State> {
         return (
             <View
                 style={styles.input}
+                onClick={this.handleClick}
                 onTouchStart={this.handleTouchStart}
                 onTouchMove={this.handleTouchMove}
                 onTouchEnd={this.handleTouchEnd}
-                onClick={(e) => e.stopPropagation()}
                 role={"textbox"}
                 ariaLabel={ariaLabel}
             >
