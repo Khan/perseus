@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 16.0.0
+
+### Major Changes
+
+-   [#847](https://github.com/Khan/perseus/pull/847) [`45350a24`](https://github.com/Khan/perseus/commit/45350a2458cd3f816bc87af40997e426feb4b13b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add back ItemRenderer temporarily
+
 ## 15.0.0
 
 ### Major Changes
