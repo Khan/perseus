@@ -20,6 +20,7 @@ import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
 
+import type {KeypadProps} from "./mixins/provide-keypad";
 import type {APIOptions, FocusPath, PerseusDependenciesV2} from "./types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
@@ -30,18 +31,19 @@ import type {
 
 const {mapObject} = Objective;
 
-type OwnProps = {
-    apiOptions: APIOptions;
-    hintsVisible?: number;
-    item: {
-        hints: ReadonlyArray<any>;
-        question: any;
+type OwnProps = // These props are used by the ProvideKeypad mixin.
+    KeypadProps & {
+        apiOptions: APIOptions;
+        hintsVisible?: number;
+        item: {
+            hints: ReadonlyArray<any>;
+            question: any;
+        };
+        problemNum?: number;
+        reviewMode?: boolean;
+        keypadElement?: KeypadAPI | null | undefined;
+        dependencies: PerseusDependenciesV2;
     };
-    problemNum?: number;
-    reviewMode?: boolean;
-    keypadElement?: KeypadAPI | null | undefined;
-    dependencies: PerseusDependenciesV2;
-};
 
 type HOCProps = {
     onRendered: (isRendered: boolean) => void;

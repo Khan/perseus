@@ -4,7 +4,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-ren
 import {
     itemWithInput,
     labelImageItem,
-} from "../__testdata__/server-item-renderer.testdata";
+} from "../__testdata__/item-renderer.testdata";
 
 type StoryArgs = Record<any, any>;
 
