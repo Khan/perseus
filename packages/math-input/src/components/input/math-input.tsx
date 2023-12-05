@@ -629,6 +629,8 @@ class MathInput extends React.Component<Props, State> {
     handleClick: (arg1: React.MouseEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
+        // Add a comment to trigger a snapshot
+
         // Hide the cursor handle on touch start, if the handle itself isn't
         // handling the touch event.
         this._hideCursorHandle();
