@@ -58,6 +58,8 @@ class MathInput extends React.Component<Props, State> {
     recordTouchStartOutside: (arg1: any) => void;
     // @ts-expect-error - TS2564 - Property 'blurOnTouchEndOutside' has no initializer and is not definitely assigned in the constructor.
     blurOnTouchEndOutside: (arg1: any) => void;
+    // @ts-expect-error - TS2564 - Property 'blurOnClickOutside' has no initializer and is not definitely assigned in the constructor.
+    blurOnClickOutside: (arg1: any) => void;
     dragListener: any;
     inputRef: HTMLDivElement | null | undefined;
     _isMounted: boolean | null | undefined;
@@ -196,9 +198,69 @@ class MathInput extends React.Component<Props, State> {
             }
         };
 
+        this.blurOnTouchEndOutside = (evt) => {
+            // If the user didn't scroll, blur the input.
+            // TODO(charlie): Verify that the touch that ended actually started
+            // outside the keypad. Right now, you can touch down on the keypad,
+            // touch elsewhere, release the finger on the keypad, and trigger a
+            // dismissal. This code needs to be generalized to handle
+            // multi-touch.
+            if (this.state.focused && this.didTouchOutside && !this.didScroll) {
+                this.blur();
+            }
+
+            this.didTouchOutside = false;
+            this.didScroll = false;
+
+            if (this.dragListener) {
+                this.dragListener.detach();
+            }
+        };
+
+        // Making a simple click outside the input blur the input.
+        // to support 3rd party chromeos browsers.
+        // STOPSHIP THIRD: This is to test a theory on chromeOS.
+        // I can cleanup this code later.
+        this.blurOnClickOutside = (evt: any) => {
+            if (this.state.focused) {
+                // Only blur if the touch is both outside of the input, and
+                // above or to the left or right of the keypad (if it has been
+                // provided). The reasoning for not blurring when touches occur
+                // below the keypad is that the keypad may be anchored above
+                // the 'Check answer' bottom bar, in which case, we don't want
+                // to dismiss the keypad on check.
+                // TODO(charlie): Inject this logic.
+                if (!this._container.contains(evt.target)) {
+                    let clickInOrBelowKeypad = false;
+                    if (
+                        this.props.keypadElement &&
+                        this.props.keypadElement.getDOMNode()
+                    ) {
+                        const bounds = this._getKeypadBounds();
+
+                        const [x, y] = [evt.clientX, evt.clientY];
+                        if (
+                            (bounds.left <= x &&
+                                bounds.right >= x &&
+                                bounds.top <= y &&
+                                bounds.bottom >= y) ||
+                            bounds.bottom < y
+                        ) {
+                            clickInOrBelowKeypad = true;
+                        }
+
+                        if (!clickInOrBelowKeypad) {
+                            this.blur();
+                        }
+                    }
+                }
+            }
+        };
+
         window.addEventListener("touchstart", this.recordTouchStartOutside);
         window.addEventListener("touchend", this.blurOnTouchEndOutside);
         window.addEventListener("touchcancel", this.blurOnTouchEndOutside);
+        window.addEventListener("click", this.blurOnClickOutside);
 
         // HACK(benkomalo): if the window resizes, the keypad bounds can
         // change. That's a bit peeking into the internals of the keypad
@@ -236,6 +298,7 @@ class MathInput extends React.Component<Props, State> {
         window.removeEventListener("touchstart", this.recordTouchStartOutside);
         window.removeEventListener("touchend", this.blurOnTouchEndOutside);
         window.removeEventListener("touchcancel", this.blurOnTouchEndOutside);
+        window.removeEventListener("click", this.blurOnClickOutside);
         // @ts-expect-error - TS2769 - No overload matches this call.
         window.removeEventListener("resize", this._clearKeypadBoundsCache());
         window.removeEventListener(
