@@ -1,5 +1,30 @@
 # @khanacademy/perseus
 
+## 15.0.0
+
+### Major Changes
+
+-   [#833](https://github.com/Khan/perseus/pull/833) [`3cf5ac4c`](https://github.com/Khan/perseus/commit/3cf5ac4c3f9d51dbcddc6f75bfbf0f8778b20f78) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove export of ItemRenderer
+
+### Minor Changes
+
+-   [#794](https://github.com/Khan/perseus/pull/794) [`a91c84fe`](https://github.com/Khan/perseus/commit/a91c84fe53827ff4333220777a9918882b7fe9f0) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing the useV2Keypad apiOption as the V1 keypad is no longer in use.
+
+### Patch Changes
+
+-   [#839](https://github.com/Khan/perseus/pull/839) [`3e176246`](https://github.com/Khan/perseus/commit/3e176246025ba237682569481dd9960f7a0dabf4) Thanks [@nedredmond](https://github.com/nedredmond)! - Wrap string in internationalization function
+
+*   [#814](https://github.com/Khan/perseus/pull/814) [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor build change to how we provide Typescript type definitions (should be no change to build output).
+
+*   Updated dependencies [[`a91c84fe`](https://github.com/Khan/perseus/commit/a91c84fe53827ff4333220777a9918882b7fe9f0), [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c)]:
+    -   @khanacademy/math-input@16.1.0
+    -   @khanacademy/perseus-core@1.4.0
+    -   @khanacademy/kas@0.3.6
+    -   @khanacademy/kmath@0.1.7
+    -   @khanacademy/perseus-linter@0.3.9
+    -   @khanacademy/pure-markdown@0.2.12
+    -   @khanacademy/simple-markdown@0.11.1
+
 ## 14.0.0
 
 ### Major Changes

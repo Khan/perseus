@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 2.12.0
+
+### Minor Changes
+
+-   [#814](https://github.com/Khan/perseus/pull/814) [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change KaTeXErrorView to TeXErrorView and adopt Phosphor Icons in it
+
+### Patch Changes
+
+-   [#814](https://github.com/Khan/perseus/pull/814) [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor build change to how we provide Typescript type definitions (should be no change to build output).
+
+-   Updated dependencies [[`a91c84fe`](https://github.com/Khan/perseus/commit/a91c84fe53827ff4333220777a9918882b7fe9f0), [`3e176246`](https://github.com/Khan/perseus/commit/3e176246025ba237682569481dd9960f7a0dabf4), [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c), [`3cf5ac4c`](https://github.com/Khan/perseus/commit/3cf5ac4c3f9d51dbcddc6f75bfbf0f8778b20f78)]:
+    -   @khanacademy/perseus@15.0.0
+    -   @khanacademy/perseus-core@1.4.0
+    -   @khanacademy/kas@0.3.6
+    -   @khanacademy/kmath@0.1.7
+
 ## 2.11.0
 
 ### Minor Changes
