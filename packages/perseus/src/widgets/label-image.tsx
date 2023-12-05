@@ -866,7 +866,6 @@ export class LabelImage extends React.Component<
                     </div>
                     {this.renderMarkers()}
                 </div>
-                {/* // TODO: Make the label a clickable element */}
                 <HideAnswersToggle
                     areAnswersHidden={this.state.hideAnswers}
                     onChange={(hideAnswers) => {
