@@ -7,7 +7,7 @@ import * as React from "react";
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
-} from "../common-style";
+} from "./cursor-styles";
 
 const touchTargetRadiusPx = 2 * cursorHandleRadiusPx;
 const touchTargetHeightPx = 2 * touchTargetRadiusPx;

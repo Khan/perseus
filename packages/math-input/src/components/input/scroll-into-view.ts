@@ -9,7 +9,10 @@
  * level in the component tree--perhaps even into webapp, beyond Perseus.
  */
 
-import {toolbarHeightPx} from "../common-style";
+// HACK(charlie): This should be injected by webapp somehow.
+// TODO(charlie): Add a link to the webapp location as soon as the footer
+// has settled down.
+export const toolbarHeightPx = 60;
 
 export const scrollIntoView = (containerNode, keypadNode) => {
     // TODO(charlie): There's no need for us to be reading the keypad bounds
