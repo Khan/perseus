@@ -34,8 +34,6 @@ import type {
 } from "./label-image/types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
-import type {ChangeableProps} from "../mixins/changeable";
-import type {APIOptions, PerseusScore, WidgetExports} from "../types";
 
 export type PreferredPopoverDirection =
     | "NONE"
