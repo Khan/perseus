@@ -16,10 +16,10 @@ import FixedToResponsive from "./fixed-to-responsive";
 import Graphie from "./graphie";
 import ImageLoader from "./image-loader";
 
+import type {ImageProps} from "./image-loader";
 import type {Coord} from "../interactive2/types";
 import type {Size} from "../perseus-types";
 import type {Alignment, Dimensions} from "../types";
-import type {ImageProps} from "./image-loader";
 
 // Minimum image width to make an image appear as zoomable.
 const ZOOMABLE_THRESHOLD = 700;

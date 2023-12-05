@@ -4,7 +4,6 @@ import StructuredItemDiff from "../structured-item-diff";
 
 import Wrapper from "./perseus-diff-wrapper";
 
-// @ts-expect-error [FEI-5003] - TS2307 - Cannot find module '../../styles/perseus-editor.less' or its corresponding type declarations.
 import("../../styles/perseus-editor.less");
 
 type StoryArgs = Record<any, any>;

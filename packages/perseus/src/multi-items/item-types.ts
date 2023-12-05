@@ -8,8 +8,8 @@
  *             interface, so it's compatible with our tree traversal functions.
  * - And the various types of nodes that compose a tree.
  */
-import type {WidgetDict, ImageDict} from "../types";
 import type {Tree, ArrayNode, ObjectNode} from "./tree-types";
+import type {WidgetDict, ImageDict} from "../types";
 
 export type ContentNode = {
     // TODO(mdr): When we first drafted the multi-item feature, we named

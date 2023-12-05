@@ -37,7 +37,6 @@ function RendererWithContext({item}) {
                         apiOptions={{
                             isMobile: true,
                             customKeypad: true,
-                            useV2Keypad: true,
                         }}
                         item={item}
                         problemNum={0}
@@ -60,7 +59,6 @@ function KeypadWithContext() {
                         onElementMounted={setKeypadElement}
                         onDismiss={() => {}}
                         onAnalyticsEvent={async () => {}}
-                        useV2Keypad
                     />
                 );
             }}

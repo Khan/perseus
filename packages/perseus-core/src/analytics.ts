@@ -1,6 +1,4 @@
 export type VirtualKeypadVersion =
-    | "PERSEUS_MATH_INPUT"
-    | "MATH_INPUT_KEYPAD_V1"
     | "MATH_INPUT_KEYPAD_V2"
     | "REACT_NATIVE_KEYPAD";
 

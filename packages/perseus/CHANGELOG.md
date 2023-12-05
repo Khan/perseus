@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 14.0.0
+
+### Major Changes
+
+-   [#825](https://github.com/Khan/perseus/pull/825) [`7cb40e4c`](https://github.com/Khan/perseus/commit/7cb40e4c919be50e5ced41e4937178bbf849ec74) Thanks [@benchristel](https://github.com/benchristel)! - We've removed the deprecated `useV2Keypad` prop from the MobileKeypad component.
+
+    The V2 keypad is now the default, and the old keypad has been removed.
+
+    Additionally, the mobile keypad no longer accepts the `keypadActive` or
+    `setKeypadActive` props. It now gets those values itself from the `KeypadContext`.
+
+### Minor Changes
+
+-   [#816](https://github.com/Khan/perseus/pull/816) [`cdcd162e`](https://github.com/Khan/perseus/commit/cdcd162ea0902d3ff1d77b1b66ad15f2d55a86cd) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Wrap all SvgImage instances in AssetContext (ensures that host applications can correctly wait for all images to load in a renderer before proceeding).
+
+*   [#788](https://github.com/Khan/perseus/pull/788) [`8f1f0208`](https://github.com/Khan/perseus/commit/8f1f0208fcc08e137053bfd05d330b6f8bf3522d) Thanks [@jeanettehead](https://github.com/jeanettehead)! - create randomized storybook stories for some widgets
+
+### Patch Changes
+
+-   Updated dependencies [[`7cb40e4c`](https://github.com/Khan/perseus/commit/7cb40e4c919be50e5ced41e4937178bbf849ec74)]:
+    -   @khanacademy/math-input@16.0.0
+
 ## 13.2.0
 
 ### Minor Changes

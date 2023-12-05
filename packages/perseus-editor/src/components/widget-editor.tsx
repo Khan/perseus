@@ -58,6 +58,7 @@ class WidgetEditor extends React.Component<
         };
     }
 
+    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
         // @ts-expect-error - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
         this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});

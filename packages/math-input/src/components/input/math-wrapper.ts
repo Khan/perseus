@@ -26,12 +26,12 @@ import {
 } from "./mathquill-helpers";
 import {createMathField, mathQuillInstance} from "./mathquill-instance";
 
-import type Key from "../../data/keys";
-import type {Cursor} from "../../types";
 import type {
     MathFieldInterface,
     MathFieldUpdaterCallback,
 } from "./mathquill-types";
+import type Key from "../../data/keys";
+import type {Cursor} from "../../types";
 
 const mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
     ...keyTranslator,

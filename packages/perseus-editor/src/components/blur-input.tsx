@@ -32,6 +32,7 @@ class BlurInput extends React.Component<Props, State> {
         this.state = {value: this.props.value};
     }
 
+    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({value: nextProps.value});
     }

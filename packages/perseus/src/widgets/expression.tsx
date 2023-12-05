@@ -64,11 +64,7 @@ const deriveKeypadVersion = (apiOptions: APIOptions) => {
     // can remove this `virtualKeypadVersion` field entirely.
     return apiOptions.nativeKeypadProxy != null
         ? "REACT_NATIVE_KEYPAD"
-        : apiOptions.customKeypad === true
-        ? apiOptions.useV2Keypad === true
-            ? "MATH_INPUT_KEYPAD_V2"
-            : "MATH_INPUT_KEYPAD_V1"
-        : "PERSEUS_MATH_INPUT";
+        : "MATH_INPUT_KEYPAD_V2";
 };
 
 type Rubric = PerseusExpressionWidgetOptions;

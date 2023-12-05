@@ -213,6 +213,7 @@ class MathInput extends React.Component<Props, State> {
         );
     }
 
+    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(props: Props) {
         if (this.props.keypadElement !== props.keypadElement) {
             this._clearKeypadBoundsCache();

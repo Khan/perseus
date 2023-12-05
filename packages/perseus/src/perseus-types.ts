@@ -73,6 +73,8 @@ export type PerseusAnswerArea = {
     calculator: boolean;
     // The user might benefit from using a Periodic Table of Elements.  Provided on Khan Academy when true
     periodicTable: boolean;
+    // The user might benefit from using a Periodic Table of Elements with key.  Provided on Khan Academy when true
+    periodicTableWithKey?: boolean;
 };
 
 type Widget<Type extends string, Options> = {
@@ -534,7 +536,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     showTooltips?: boolean;
     // The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft", "yd", "mi"
     rulerLabel: string;
-    // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16
+    // How many ticks to show on the ruler.  e.g. 1, 2, 4, 8, 10, 16. Must be an integer.
     rulerTicks: number;
     // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
     // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
@@ -577,6 +579,7 @@ export type PerseusGraphTypeAngle = {
     snapDegrees?: number;
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
+    // must have 3 coords - ie [Coord, Coord, Coord]
     coords?: ReadonlyArray<Coord>;
 };
 
@@ -588,11 +591,13 @@ export type PerseusGraphTypeCircle = {
 
 export type PerseusGraphTypeLinear = {
     type: "linear";
+    // expects 2 coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
+    // expects 2 sets of 2 coords
     coords?: ReadonlyArray<ReadonlyArray<Coord>>;
 } & PerseusGraphTypeCommon;
 
@@ -620,6 +625,7 @@ export type PerseusGraphTypePolygon = {
 
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
+    // expects a list of 3 coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
@@ -627,18 +633,19 @@ export type PerseusGraphTypeSegment = {
     type: "segment";
     // The number of segments if a "segment" type. default: 1.  Max: 6
     numSegments?: number;
-    // A list of segments (each segment is a list of coordinates).
-    // Length should match the `numSegments` value.
+    // Expects a list of Coord tuples. Length should match the `numSegments` value.
     coords?: ReadonlyArray<ReadonlyArray<Coord>>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
+    // Expects a list of 2 Coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 
 export type PerseusGraphTypeRay = {
     type: "ray";
+    // Expects a list of 2 Coords
     coords?: ReadonlyArray<Coord>;
 } & PerseusGraphTypeCommon;
 

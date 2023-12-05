@@ -5,9 +5,9 @@ import * as i18n from "@khanacademy/wonder-blocks-i18n";
 
 import {IconType} from "../enums";
 
+import type Key from "./keys";
 import type {KeyType} from "../enums";
 import type {KeyConfig} from "../types";
-import type Key from "./keys";
 
 type KeyConfigMapper = (args: {
     key: Key;
