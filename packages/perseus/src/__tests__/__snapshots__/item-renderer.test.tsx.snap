@@ -1,0 +1,224 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`item renderer should snapshot: initial render 1`] = `
+<div>
+  <div />
+  <div
+    id="workarea"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
+      <div
+        class="paragraph"
+        data-perseus-paragraph-index="0"
+      >
+        <div
+          class="paragraph"
+        >
+          Enter the number 
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            />
+            <span />
+          </span>
+          -42
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            />
+            <span />
+          </span>
+           in the box: 
+          <div
+            class="perseus-widget-container widget-nohighlight widget-inline-block"
+          >
+            <span>
+              <div>
+                <input
+                  autocapitalize="off"
+                  autocomplete="off"
+                  autocorrect="off"
+                  class="input_1t4b01j-o_O-LabelMedium_1rew30o-o_O-default_1r2dwp3-o_O-default_1gznapd-o_O-leftAlign_7jg4r4"
+                  id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                style="position: relative; height: 0px; display: none;"
+              >
+                <div
+                  class="tooltipContainer"
+                  style="position: absolute; left: 0px;"
+                >
+                  <div
+                    style="display: block; position: relative; visibility: visible; left: 0px; top: -1px; width: 12px; height: 11px; margin-top: -1px; margin-bottom: -2px; z-index: 10;"
+                  >
+                    <div
+                      style="display: block; height: 0px; width: 0px; position: absolute; left: 0px; top: -1px; border-right: 12px solid transparent; border-bottom: 12px solid #ccc;"
+                    />
+                    <div
+                      style="display: block; height: 0px; width: 0px; position: absolute; left: 1px; top: 1px; border-right: 10px solid transparent; border-bottom: 10px solid white;"
+                    />
+                  </div>
+                  <div
+                    class="perseus-formats-tooltip preview-measure"
+                    style="position: relative; top: 0px; left: 0px; border: 1px solid #ccc; box-shadow: 0 1px 3px #ccc; z-index: 9;"
+                  >
+                    <div
+                      id="input-with-examples-aW5wdXQtbnVtYmVyIDE"
+                    >
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <ul>
+                            <li>
+                              <strong>
+                                Your answer should be
+                              </strong>
+                            </li>
+                            <li>
+                              an integer, like 
+                              <span
+                                style="white-space: nowrap;"
+                              >
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  6
+                                </span>
+                                <span />
+                              </span>
+                            </li>
+                            <li>
+                              an 
+                              <em>
+                                exact
+                              </em>
+                               decimal, like 
+                              <span
+                                style="white-space: nowrap;"
+                              >
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  0.75
+                                </span>
+                                <span />
+                              </span>
+                            </li>
+                            <li>
+                              a 
+                              <em>
+                                simplified proper
+                              </em>
+                               fraction, like 
+                              <span
+                                style="white-space: nowrap;"
+                              >
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  3/5
+                                </span>
+                                <span />
+                              </span>
+                            </li>
+                            <li>
+                              a 
+                              <em>
+                                simplified improper
+                              </em>
+                               fraction, like 
+                              <span
+                                style="white-space: nowrap;"
+                              >
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  7/4
+                                </span>
+                                <span />
+                              </span>
+                            </li>
+                            <li>
+                              a mixed number, like 
+                              <span
+                                style="white-space: nowrap;"
+                              >
+                                <span />
+                                <span
+                                  class="mock-TeX"
+                                >
+                                  1\\ 3/4
+                                </span>
+                                <span />
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    id="hintsarea"
+  >
+    <div
+      class=""
+    />
+  </div>
+  <div
+    class="test_peripherals"
+  >
+    <div
+      data-test-id="calculator"
+      id="calculator"
+      style="display: none;"
+    />
+    <div
+      class="periodic-table-info-box"
+      data-test-id="periodic-table-info-box"
+      style="display: none;"
+    />
+    <div
+      class="z-table-info-box"
+      data-test-id="z-table-info-box"
+      style="display: none;"
+    />
+    <div
+      class="t-table-info-box"
+      data-test-id="t-table-info-box"
+      style="display: none;"
+    />
+    <div
+      class="chi2-table-info-box"
+      data-test-id="chi2-table-info-box"
+      style="display: none;"
+    />
+  </div>
+</div>
+`;
