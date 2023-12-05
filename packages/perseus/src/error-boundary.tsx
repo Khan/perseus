@@ -22,13 +22,24 @@ class ErrorBoundary extends React.Component<Props, State> {
     componentDidCatch(error: Error, info: any) {
         this.setState({error: error.toString()});
         this.props.onError?.(error, info);
-        Log.error("Perseus error boundary caught error", Errors.Internal, {
-            cause: error,
-            loggedMetadata: {
-                componentStack: info.componentStack,
-                ...this.props.metadata,
+        Log.error(
+            // NOTE(jeremy): We concatenate the error messsage here. Typical
+            // Khan Academy error handling guidance says that you should never
+            // "build" the error message that might be sent to our error
+            // reporting tool (currently Sentry). However, if we don't
+            // differentiate between the different errors that are thrown, they
+            // all end up being grouped as a single Sentry event, which is very
+            // unhelpful.
+            "Unhandled Perseus error: " + error.message,
+            Errors.Internal,
+            {
+                cause: error,
+                loggedMetadata: {
+                    componentStack: info.componentStack,
+                    ...this.props.metadata,
+                },
             },
-        });
+        );
     }
 
     render(): React.ReactNode {
