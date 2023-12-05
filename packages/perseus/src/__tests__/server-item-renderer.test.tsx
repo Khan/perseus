@@ -10,6 +10,7 @@ import {
 } from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
+    itemWithLintingError,
     mockedItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
@@ -527,6 +528,26 @@ describe("server item renderer", () => {
             // Assert
             expect(callback).toHaveBeenCalled();
             expect(screen.getByRole("textbox")).toHaveValue("-42");
+        });
+    });
+
+    describe("content editing", () => {
+        it("should show linting errors", () => {
+            // Arrange and Act
+            renderQuestion(itemWithLintingError, undefined, {
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: true,
+                    paths: [],
+                    stack: [],
+                },
+            });
+
+            // Assert
+            expect(screen.getByRole("link")).toHaveAttribute(
+                "href",
+                "https://khanacademy.org/r/linter-rules#heading-level-1",
+            );
         });
     });
 });

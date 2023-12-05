@@ -158,3 +158,16 @@ export const mockedItem: PerseusItem = {
     itemDataVersion: {major: 0, minor: 0},
     answer: null,
 };
+
+export const itemWithLintingError: PerseusItem = {
+    question: {
+        content: "# h1s aren't allowed",
+        images: {},
+        widgets: {},
+    },
+    hints: [],
+    answerArea: null,
+    _multi: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
