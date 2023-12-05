@@ -532,7 +532,25 @@ describe("server item renderer", () => {
     });
 
     describe("content editing", () => {
-        it("should show linting errors", () => {
+        it("shouldn't show linting errors when highlightLint is false", () => {
+            // Arrange and Act
+            renderQuestion(itemWithLintingError, undefined, {
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                    paths: [],
+                    stack: [],
+                },
+            });
+
+            expect(
+                screen.queryByText("Don't use level-1 headings", {
+                    exact: false,
+                }),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should show linting errors when highlightLint is true", () => {
             // Arrange and Act
             renderQuestion(itemWithLintingError, undefined, {
                 linterContext: {
