@@ -543,11 +543,9 @@ describe("server item renderer", () => {
                 },
             });
 
-            // Assert
-            expect(screen.getByRole("link")).toHaveAttribute(
-                "href",
-                "https://khanacademy.org/r/linter-rules#heading-level-1",
-            );
+            expect(
+                screen.getByText("Don't use level-1 headings", {exact: false}),
+            ).toBeInTheDocument();
         });
     });
 });
