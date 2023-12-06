@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 2.13.0
+
+### Minor Changes
+
+-   [#838](https://github.com/Khan/perseus/pull/838) [`233fc9fc`](https://github.com/Khan/perseus/commit/233fc9fcd4c65d2ff0c8f1ebd1cb1b17b76cbe0c) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove TexButtons and update ExpressionEditor
+
+### Patch Changes
+
+-   Updated dependencies [[`2e2f2cc1`](https://github.com/Khan/perseus/commit/2e2f2cc1afe99613eb688ab1e4e1fccad0c8df57), [`204788f8`](https://github.com/Khan/perseus/commit/204788f8f583bda5ff94d74fd70ec542fedd3d6e), [`233fc9fc`](https://github.com/Khan/perseus/commit/233fc9fcd4c65d2ff0c8f1ebd1cb1b17b76cbe0c)]:
+    -   @khanacademy/perseus@17.0.0
+
 ## 2.12.1
 
 ### Patch Changes
