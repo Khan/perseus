@@ -10,8 +10,9 @@ import {
 } from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
+    itemWithLintingError,
     mockedItem,
-} from "../__testdata__/item-renderer.testdata";
+} from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
 import WrappedServerItemRenderer, {
     ServerItemRenderer,
@@ -527,6 +528,42 @@ describe("server item renderer", () => {
             // Assert
             expect(callback).toHaveBeenCalled();
             expect(screen.getByRole("textbox")).toHaveValue("-42");
+        });
+    });
+
+    describe("content editing", () => {
+        it("shouldn't show linting errors when highlightLint is false", () => {
+            // Arrange and Act
+            renderQuestion(itemWithLintingError, undefined, {
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: false,
+                    paths: [],
+                    stack: [],
+                },
+            });
+
+            expect(
+                screen.queryByText("Don't use level-1 headings", {
+                    exact: false,
+                }),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should show linting errors when highlightLint is true", () => {
+            // Arrange and Act
+            renderQuestion(itemWithLintingError, undefined, {
+                linterContext: {
+                    contentType: "exercise",
+                    highlightLint: true,
+                    paths: [],
+                    stack: [],
+                },
+            });
+
+            expect(
+                screen.getByText("Don't use level-1 headings", {exact: false}),
+            ).toBeInTheDocument();
         });
     });
 });

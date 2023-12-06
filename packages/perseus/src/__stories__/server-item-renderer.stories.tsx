@@ -1,10 +1,13 @@
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-renderer-with-debug-ui";
+import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {
     itemWithInput,
+    itemWithLintingError,
     labelImageItem,
-} from "../__testdata__/item-renderer.testdata";
+} from "../__testdata__/server-item-renderer.testdata";
+import {ServerItemRenderer} from "../server-item-renderer";
 
 type StoryArgs = Record<any, any>;
 
@@ -22,4 +25,20 @@ export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
 
 export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={labelImageItem} />;
+};
+
+export const WithLintingError = (args: StoryArgs): React.ReactElement => {
+    return (
+        <ServerItemRenderer
+            problemNum={0}
+            item={itemWithLintingError}
+            dependencies={testDependenciesV2}
+            linterContext={{
+                contentType: "",
+                highlightLint: true,
+                paths: [],
+                stack: [],
+            }}
+        />
+    );
 };
