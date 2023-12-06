@@ -369,7 +369,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_aeiopc-o_O-caret_ntkmq-o_O-inlineStyles_13xtep5"
+                  class="svg_1q6jc65-o_O-icon_eocf2p-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -434,7 +434,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_aeiopc-o_O-caret_ntkmq-o_O-inlineStyles_13xtep5"
+                  class="svg_1q6jc65-o_O-icon_eocf2p-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -499,7 +499,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_aeiopc-o_O-caret_ntkmq-o_O-inlineStyles_13xtep5"
+                  class="svg_1q6jc65-o_O-icon_eocf2p-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
