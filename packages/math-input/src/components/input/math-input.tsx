@@ -662,6 +662,9 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
+    // We want to allow the user to be able to focus the input via click
+    // when using ChromeOS third-party browsers that use mobile user agents,
+    // but don't actually simulate touch events.
     handleClick: (arg1: React.MouseEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
