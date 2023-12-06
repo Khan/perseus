@@ -361,7 +361,25 @@ class MathInput extends React.Component<Props, State> {
 
         this.mathField.focus();
         this.props?.onFocus();
-        this.setState({focused: true});
+        this.setState({focused: true}, () => {
+            // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
+            // occur. Otherwise, the keypad is measured incorrectly. Ideally,
+            // we'd use requestAnimationFrame here, but it's unsupported on
+            // Android Browser 4.3.
+            setTimeout(() => {
+                if (this._isMounted) {
+                    // TODO(benkomalo): the keypad is animating at this point,
+                    // so we can't call _cacheKeypadBounds(), even though
+                    // it'd be nice to do so. It should probably be the case
+                    // that the higher level controller tells us when the
+                    // keypad is settled (then scrollIntoView wouldn't have
+                    // to make assumptions about that either).
+                    const maybeKeypadNode =
+                        this.props.keypadElement?.getDOMNode();
+                    scrollIntoView(this._container, maybeKeypadNode);
+                }
+            });
+        });
     };
 
     /**
