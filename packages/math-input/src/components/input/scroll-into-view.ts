@@ -18,6 +18,7 @@ export const scrollIntoView = (containerNode, keypadNode) => {
     // TODO(charlie): There's no need for us to be reading the keypad bounds
     // here, since they're pre-determined by logic in the store. We should
     // instead pass around an object that knows the bounds.
+    console.log("scrolling into view", containerNode, keypadNode);
     const containerBounds = containerNode.getBoundingClientRect();
     const containerBottomPx = containerBounds.bottom;
     const containerTopPx = containerBounds.top;

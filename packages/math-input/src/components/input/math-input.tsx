@@ -67,7 +67,6 @@ class MathInput extends React.Component<Props, State> {
     _root: any;
     // @ts-expect-error - TS2564 - Property '_containerBounds' has no initializer and is not definitely assigned in the constructor.
     _containerBounds: ClientRect;
-    _keypadBounds: ClientRect | null | undefined;
 
     static defaultProps: DefaultProps = {
         style: {},
@@ -229,25 +228,6 @@ class MathInput extends React.Component<Props, State> {
         window.addEventListener("touchend", this.blurOnTouchEndOutside);
         window.addEventListener("touchcancel", this.blurOnTouchEndOutside);
         window.addEventListener("click", this.blurOnClickOutside);
-
-        // HACK(benkomalo): if the window resizes, the keypad bounds can
-        // change. That's a bit peeking into the internals of the keypad
-        // itself, since we know bounds can change only when the viewport
-        // changes, but seems like a rare enough thing to get wrong that it's
-        // not worth wiring up extra things for the technical "purity" of
-        // having the keypad notify of changes to us.
-        window.addEventListener("resize", this._clearKeypadBoundsCache);
-        window.addEventListener(
-            "orientationchange",
-            this._clearKeypadBoundsCache,
-        );
-    }
-
-    // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps(props: Props) {
-        if (this.props.keypadElement !== props.keypadElement) {
-            this._clearKeypadBoundsCache();
-        }
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
@@ -267,22 +247,7 @@ class MathInput extends React.Component<Props, State> {
         window.removeEventListener("touchend", this.blurOnTouchEndOutside);
         window.removeEventListener("touchcancel", this.blurOnTouchEndOutside);
         window.removeEventListener("click", this.blurOnClickOutside);
-        // @ts-expect-error - TS2769 - No overload matches this call.
-        window.removeEventListener("resize", this._clearKeypadBoundsCache());
-        window.removeEventListener(
-            "orientationchange",
-            // @ts-expect-error - TS2769 - No overload matches this call.
-            this._clearKeypadBoundsCache(),
-        );
     }
-
-    _clearKeypadBoundsCache: () => void = () => {
-        this._keypadBounds = null;
-    };
-
-    _cacheKeypadBounds: (arg1: any) => void = (keypadNode) => {
-        this._keypadBounds = keypadNode.getBoundingClientRect();
-    };
 
     _updateInputPadding: () => void = () => {
         this._container = ReactDOM.findDOMNode(this) as HTMLDivElement;
@@ -296,13 +261,10 @@ class MathInput extends React.Component<Props, State> {
         this._root.style.fontSize = `${fontSizePt}pt`;
     };
 
-    /** Gets and cache they bounds of the keypadElement */
+    /** Returns the current bounds of the keypadElement */
     _getKeypadBounds: () => any = () => {
-        if (!this._keypadBounds) {
-            const node = this.props.keypadElement?.getDOMNode();
-            this._cacheKeypadBounds(node);
-        }
-        return this._keypadBounds;
+        const keypadNode = this.props.keypadElement?.getDOMNode() as Element;
+        return keypadNode.getBoundingClientRect();
     };
 
     _updateCursorHandle: (arg1?: boolean) => void = (animateIntoPosition) => {
@@ -405,6 +367,7 @@ class MathInput extends React.Component<Props, State> {
             // we'd use requestAnimationFrame here, but it's unsupported on
             // Android Browser 4.3.
             setTimeout(() => {
+                console.log("scroll");
                 if (this._isMounted) {
                     // TODO(benkomalo): the keypad is animating at this point,
                     // so we can't call _cacheKeypadBounds(), even though
