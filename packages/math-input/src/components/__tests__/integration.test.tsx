@@ -99,7 +99,7 @@ describe("math input integration", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("shows the keypad after input interaction", async () => {
+    it("shows the keypad after input touch-interaction", async () => {
         render(<ConnectedMathInput />);
 
         const input = screen.getByLabelText(
@@ -107,6 +107,22 @@ describe("math input integration", () => {
         );
 
         fireEvent.touchStart(input);
+
+        await waitFor(() => {
+            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        });
+
+        expect(screen.getByRole("button", {name: "1"})).toBeVisible();
+    });
+
+    it("shows the keypad after input click-interaction", async () => {
+        render(<ConnectedMathInput />);
+
+        const input = screen.getByLabelText(
+            "Math input box Tap with one or two fingers to open keyboard",
+        );
+
+        userEvent.click(input);
 
         await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
