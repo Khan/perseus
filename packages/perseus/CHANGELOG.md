@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 17.0.0
+
+### Major Changes
+
+-   [#852](https://github.com/Khan/perseus/pull/852) [`204788f8`](https://github.com/Khan/perseus/commit/204788f8f583bda5ff94d74fd70ec542fedd3d6e) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove ItemRenderer again
+
+*   [#838](https://github.com/Khan/perseus/pull/838) [`233fc9fc`](https://github.com/Khan/perseus/commit/233fc9fcd4c65d2ff0c8f1ebd1cb1b17b76cbe0c) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove TexButtons and update ExpressionEditor
+
+### Patch Changes
+
+-   [#854](https://github.com/Khan/perseus/pull/854) [`2e2f2cc1`](https://github.com/Khan/perseus/commit/2e2f2cc1afe99613eb688ab1e4e1fccad0c8df57) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused CSS images for next/prev steps
+
+-   Updated dependencies [[`41d3cd93`](https://github.com/Khan/perseus/commit/41d3cd93f78d4649c8a57b6fa4964c0c9f2c45b0), [`27f691aa`](https://github.com/Khan/perseus/commit/27f691aa11f061b54db487b5b35222431776260f), [`3803452b`](https://github.com/Khan/perseus/commit/3803452b0593649faf4043bf6e1d7681a14078e4), [`ef32b88f`](https://github.com/Khan/perseus/commit/ef32b88f5027154784fb496506d7c96ee3765eac), [`820febc5`](https://github.com/Khan/perseus/commit/820febc5814a5a10d7c1743be8aa9d220f2d9bd8), [`67a09051`](https://github.com/Khan/perseus/commit/67a09051c61df98b697349ad75760193e4228bfe)]:
+    -   @khanacademy/math-input@16.1.1
+
 ## 16.0.0
 
 ### Major Changes
