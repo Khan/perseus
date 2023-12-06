@@ -635,11 +635,10 @@ class MathInput extends React.Component<Props, State> {
             });
     };
 
-    handleTouchStart: (arg1: React.TouchEvent<HTMLDivElement>) => void = (
-        e,
+    handleUserInteraction: (clientX: number, clientY: number) => void = (
+        clientX: number,
+        clientY: number,
     ) => {
-        e.stopPropagation();
-
         // Hide the cursor handle on touch start, if the handle itself isn't
         // handling the touch event.
         this._hideCursorHandle();
@@ -652,8 +651,7 @@ class MathInput extends React.Component<Props, State> {
 
             // Make the cursor visible and set the handle-less cursor's
             // location.
-            const touch = e.changedTouches[0];
-            this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
+            this._insertCursorAtClosestNode(clientX, clientY);
         }
 
         // Trigger a focus event, if we're not already focused.
@@ -668,28 +666,16 @@ class MathInput extends React.Component<Props, State> {
     handleClick: (arg1: React.MouseEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
-        // Add a comment to trigger a snapshot
+        this.handleUserInteraction(e.clientX, e.clientY);
+    };
 
-        // Hide the cursor handle on touch start, if the handle itself isn't
-        // handling the touch event.
-        this._hideCursorHandle();
+    handleTouchStart: (arg1: React.TouchEvent<HTMLDivElement>) => void = (
+        e,
+    ) => {
+        e.stopPropagation();
 
-        // Cache the container bounds, so as to avoid re-computing. If we don't
-        // have any content, then it's not necessary, since the cursor can't be
-        // moved anyway.
-        if (this.mathField.getContent() !== "") {
-            this._containerBounds = this._container.getBoundingClientRect();
-
-            // Make the cursor visible and set the handle-less cursor's
-            // location.
-            const {clientX, clientY} = e;
-            this._insertCursorAtClosestNode(clientX, clientY);
-        }
-
-        // Trigger a focus event, if we're not already focused.
-        if (!this.state.focused) {
-            this.focus();
-        }
+        const touch = e.changedTouches[0];
+        this.handleUserInteraction(touch.clientX, touch.clientY);
     };
 
     handleTouchMove: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
