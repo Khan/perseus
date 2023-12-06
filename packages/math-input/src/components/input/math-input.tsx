@@ -198,25 +198,6 @@ class MathInput extends React.Component<Props, State> {
             }
         };
 
-        this.blurOnTouchEndOutside = (evt) => {
-            // If the user didn't scroll, blur the input.
-            // TODO(charlie): Verify that the touch that ended actually started
-            // outside the keypad. Right now, you can touch down on the keypad,
-            // touch elsewhere, release the finger on the keypad, and trigger a
-            // dismissal. This code needs to be generalized to handle
-            // multi-touch.
-            if (this.state.focused && this.didTouchOutside && !this.didScroll) {
-                this.blur();
-            }
-
-            this.didTouchOutside = false;
-            this.didScroll = false;
-
-            if (this.dragListener) {
-                this.dragListener.detach();
-            }
-        };
-
         // We want to allow the user to blur the input by clicking outside of it
         // when using ChromeOS third-party browsers that use mobile user agents,
         // but don't actually simulate touch events.
