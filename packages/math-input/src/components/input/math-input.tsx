@@ -204,25 +204,16 @@ class MathInput extends React.Component<Props, State> {
         this.blurOnClickOutside = (evt: any) => {
             if (this.state.focused) {
                 if (!this._container.contains(evt.target)) {
-                    let clickInOrBelowKeypad = false;
                     if (
                         this.props.keypadElement &&
                         this.props.keypadElement.getDOMNode()
                     ) {
                         const bounds = this._getKeypadBounds();
 
-                        const [x, y] = [evt.clientX, evt.clientY];
-                        if (
-                            (bounds.left <= x &&
-                                bounds.right >= x &&
-                                bounds.top <= y &&
-                                bounds.bottom >= y) ||
-                            bounds.bottom < y
-                        ) {
-                            clickInOrBelowKeypad = true;
-                        }
+                        const y = evt.clientY;
 
-                        if (!clickInOrBelowKeypad) {
+                        // We only want to blur if the click is above the keypad.
+                        if (bounds.top >= y) {
                             this.blur();
                         }
                     }
