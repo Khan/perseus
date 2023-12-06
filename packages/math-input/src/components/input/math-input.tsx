@@ -212,16 +212,15 @@ class MathInput extends React.Component<Props, State> {
 
                         const [x, y] = [evt.clientX, evt.clientY];
 
-                        // We only want to blur if the click is above,
-                        // or to the left or right of the keypad. The reasoning for not
-                        // blurring for clicks below the keypad is that the keypad may be
-                        // anchored above the 'Check answer' bottom bar, in which case
-                        // we don't want to dismiss the keypad on check.
+                        // We only want to blur if the click is above the keypad,
+                        // to the left of the keypad, or to the right of the keypad.
+                        // The reasoning for not blurring for any clicks below the keypad is
+                        // that the keypad may be anchored above the 'Check answer' bottom bar,
+                        // in which case we don't want to dismiss the keypad on check.
                         if (
                             bounds.top >= y ||
-                            (bounds.left > x &&
-                                bounds.right < x &&
-                                bounds.bottom < y)
+                            (bounds.left >= x && bounds.bottom > y) ||
+                            (bounds.right <= x && bounds.bottom > y)
                         ) {
                             this.blur();
                         }
