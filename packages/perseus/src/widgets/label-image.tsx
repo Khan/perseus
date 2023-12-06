@@ -7,7 +7,7 @@
  */
 
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import {PopoverContentCore, Popover} from "@khanacademy/wonder-blocks-popover";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";

@@ -6,6 +6,11 @@
  */
 
 import Color from "@khanacademy/wonder-blocks-color";
+import {
+    MultiSelect,
+    SingleSelect,
+    OptionItem,
+} from "@khanacademy/wonder-blocks-dropdown";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -53,6 +58,52 @@ type AnswerChoicesProps = {
 type AnswerChoicesState = {
     // Globally unique radio group name.
     groupName: string;
+};
+
+const AnswerItems = (props: {choices: ReadonlyArray<AnswerType>}) => {
+    props.choices.map((choice, index) => (
+        <OptionItem
+            key={choice.content}
+            label={choice.content}
+            value={index.toString()}
+        >
+            <Renderer content={choice.content} />
+        </OptionItem>
+    ));
+};
+
+export const AnswerDropdown = (props: AnswerChoicesProps) => {
+    const {choices, multipleSelect, onChange} = props;
+    const selectedChoices = choices
+        .filter((choice) => choice.checked)
+        .map((choice) => choice.content);
+
+    const onSelectionChange = (selectedIndices: Array<string>) => {
+        const selectionArr = choices.map((_, i) =>
+            selectedIndices.includes(i.toString()),
+        );
+        onChange(selectionArr);
+    };
+
+    return multipleSelect ? (
+        <MultiSelect
+            selectedValues={selectedChoices}
+            onChange={onSelectionChange}
+        >
+            {choices.map((choice, index) => (
+                <OptionItem key={choice.content} value={index.toString()}>
+                    <Renderer content={choice.content} />
+                </OptionItem>
+            ))}
+        </MultiSelect>
+    ) : (
+        <SingleSelect
+            selectedValue={selectedChoices[0]}
+            onChange={(value) => {
+                onSelectionChange([value]);
+            }}
+        />
+    );
 };
 
 class AnswerChoice extends React.Component<AnswerProps, AnswerState> {
@@ -231,35 +282,42 @@ export default class AnswerChoices extends React.Component<
     }
 
     render(): React.ReactNode {
-        const {choices, multipleSelect} = this.props;
+        const {choices, multipleSelect, onChange} = this.props;
 
         const {groupName} = this.state;
 
-        return (
-            <fieldset
-                style={{
-                    border: "none",
-                    margin: 0,
-                    padding: 0,
-                }}
-            >
-                {choices.map((choice, index) => (
-                    <AnswerChoice
-                        {...choice}
-                        key={choice.content}
-                        groupName={groupName}
-                        index={index}
-                        inputType={multipleSelect ? "checkbox" : "radio"}
-                        onChange={(checked) =>
-                            this.onAnswerChange(index, checked)
-                        }
-                        onFocusPrevAnswer={() => this.onFocusAnswer(index - 1)}
-                        onFocusNextAnswer={() => this.onFocusAnswer(index + 1)}
-                        ref={(node) => (this._choices[index] = node)}
-                    />
-                ))}
-            </fieldset>
+        const args = {
+            onChange: (checked: boolean) => this.onAnswerChange(0, checked),
+        };
+
+        return multipleSelect ? (
+            <MultiSelect selectedValues={choices} onChange={onChange} />
+        ) : (
+            <SingleSelect selectedValue={choices} onChange={console.log} />
         );
+        // <fieldset
+        //     style={{
+        //         border: "none",
+        //         margin: 0,
+        //         padding: 0,
+        //     }}
+        // >
+        //     {choices.map((choice, index) => (
+        //         <AnswerChoice
+        //             {...choice}
+        //             key={choice.content}
+        //             groupName={groupName}
+        //             index={index}
+        //             inputType={multipleSelect ? "checkbox" : "radio"}
+        //             onChange={(checked) =>
+        //                 this.onAnswerChange(index, checked)
+        //             }
+        //             onFocusPrevAnswer={() => this.onFocusAnswer(index - 1)}
+        //             onFocusNextAnswer={() => this.onFocusAnswer(index + 1)}
+        //             ref={(node) => (this._choices[index] = node)}
+        //         />
+        //     ))}
+        // </fieldset>
     }
 }
 
