@@ -381,20 +381,6 @@ export class LabelImage extends React.Component<
         };
     }
 
-    componentDidMount() {
-        document.addEventListener("click", this.handleDocumentClick, true);
-        document.addEventListener("keydown", this.handleDocumentKeyDown, true);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener("click", this.handleDocumentClick, true);
-        document.removeEventListener(
-            "keydown",
-            this.handleDocumentKeyDown,
-            true,
-        );
-    }
-
     simpleValidate(rubric: LabelImageProps): PerseusScore {
         return LabelImage.validate(this.getUserInput(), rubric);
     }
@@ -445,48 +431,6 @@ export class LabelImage extends React.Component<
             }
         });
     }
-
-    handleDocumentClick: (e: MouseEvent) => void = (e: MouseEvent) => {
-        // Dismiss open popup with answer choices if user clicks outside it.
-        if (this._selectedMarkerPopup && this._answerChoices) {
-            const answerChoices = ReactDOM.findDOMNode(this._answerChoices);
-
-            const targetElement = e.target as Node;
-            // HACK(michaelpolyak): We want to determine if the click target is
-            // contained within the popup layer. As there's no public interface
-            // to get this layer from the popup, we traverse several levels of
-            // answer choices parents to test whether the click target is
-            // contained within.
-            const containsEventTarget = (
-                element: Element | null | undefined | Text,
-                depth = 3,
-            ) =>
-                element &&
-                (element.contains(targetElement) ||
-                    (depth > 0 &&
-                        containsEventTarget(element.parentElement, depth - 1)));
-
-            if (!containsEventTarget(answerChoices)) {
-                // Close popup and set focus back to the marker for which it was
-                // open.
-                this.dismissMarkerPopup();
-            }
-        }
-    };
-
-    handleDocumentKeyDown: (e: KeyboardEvent) => void = (e: KeyboardEvent) => {
-        // Dismiss open popup with answer choices if user presses Escape key.
-        if (this._selectedMarkerPopup && e.keyCode === 27) {
-            // Ensure other listeners are not triggered on key down event that
-            // closes the popup, as this will also dismiss the modal that the
-            // widget may be rendered within.
-            e.stopPropagation();
-
-            // Close popup and set focus back to the marker for which it was
-            // open.
-            this.dismissMarkerPopup();
-        }
-    };
 
     handleMarkerChange(index: number, marker: InteractiveMarkerType) {
         const {markers, onChange} = this.props;
@@ -746,9 +690,11 @@ export class LabelImage extends React.Component<
                             </PopoverContentCore>
                         )}
                         placement={side}
+                        onClose={() => this.dismissMarkerPopup()}
                         opened={answerChoicesActive}
                         ref={(node) => (this._selectedMarkerPopup = node)}
                         showTail={false}
+                        dismissEnabled
                     >
                         {element}
                     </Popover>
