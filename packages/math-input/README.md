@@ -2,7 +2,7 @@
 
 Khan Academy's expression editor for the mobile web. Used in the [Perseus](https://github.com/khan/perseus) exercise framework to power math input and expression editing on small screens.
 
-Built with [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux), [MathQuill](https://github.com/mathquill/mathquill), [Aphrodite](https://github.com/khan/aphrodite), and more.
+Built with [React](https://github.com/facebook/react), [MathQuill](https://github.com/mathquill/mathquill), [Aphrodite](https://github.com/khan/aphrodite), and more.
 
 ![](https://cloud.githubusercontent.com/assets/1309177/15994911/d1acd29e-30c5-11e6-9707-6bef8e69114f.gif)
 
