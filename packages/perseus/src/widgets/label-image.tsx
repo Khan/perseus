@@ -25,13 +25,13 @@ import {AnswerPill} from "./label-image/answer-pill";
 import {HideAnswersToggle} from "./label-image/hide-answers-toggle";
 import Marker from "./label-image/marker";
 
-import type {DependencyProps} from "../dependencies";
-import type {ChangeableProps} from "../mixins/changeable";
-import type {APIOptions, PerseusScore, WidgetExports} from "../types";
 import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,
 } from "./label-image/types";
+import type {DependencyProps} from "../dependencies";
+import type {ChangeableProps} from "../mixins/changeable";
+import type {APIOptions, PerseusScore, WidgetExports} from "../types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
