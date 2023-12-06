@@ -28,12 +28,12 @@
         "@khanacademy/perseus-core": "1.4.0"
     },
     "devDependencies": {
-        "@khanacademy/wonder-blocks-button": "^6.2.2",
+        "@khanacademy/wonder-blocks-button": "^6.2.4",
         "@khanacademy/wonder-blocks-clickable": "^4.0.11",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.0",
-        "@khanacademy/wonder-blocks-icon": "2.2.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
+        "@khanacademy/wonder-blocks-icon": "4.0.0",
         "@khanacademy/wonder-blocks-spacing": "^4.0.1",
         "@khanacademy/wonder-blocks-typography": "^2.1.9",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
@@ -50,12 +50,12 @@
         "underscore": "^1.4.4"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-button": "^6.2.2",
+        "@khanacademy/wonder-blocks-button": "^6.2.4",
         "@khanacademy/wonder-blocks-clickable": "^4.0.11",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.0",
-        "@khanacademy/wonder-blocks-icon": "2.2.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
+        "@khanacademy/wonder-blocks-icon": "4.0.0",
         "@khanacademy/wonder-blocks-spacing": "^4.0.1",
         "@khanacademy/wonder-blocks-typography": "^2.1.9",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
