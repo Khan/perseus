@@ -217,19 +217,11 @@ class MathInput extends React.Component<Props, State> {
             }
         };
 
-        // Making a simple click outside the input blur the input.
-        // to support 3rd party chromeos browsers.
-        // TODO THIRD: This is to test a theory on chromeOS.
-        // I can cleanup this code later.
+        // We want to allow the user to blur the input by clicking outside of it
+        // when using ChromeOS third-party browsers that use mobile user agents,
+        // but don't actually simulate touch events.
         this.blurOnClickOutside = (evt: any) => {
             if (this.state.focused) {
-                // Only blur if the touch is both outside of the input, and
-                // above or to the left or right of the keypad (if it has been
-                // provided). The reasoning for not blurring when touches occur
-                // below the keypad is that the keypad may be anchored above
-                // the 'Check answer' bottom bar, in which case, we don't want
-                // to dismiss the keypad on check.
-                // TODO(charlie): Inject this logic.
                 if (!this._container.contains(evt.target)) {
                     let clickInOrBelowKeypad = false;
                     if (
