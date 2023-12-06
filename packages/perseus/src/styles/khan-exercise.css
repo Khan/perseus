@@ -675,30 +675,6 @@ div.timeline-total {
     width: 100px;
 }
 
-#previous-step {
-    margin: 5px;
-    cursor: pointer;
-    float: left;
-    width: 100px;
-}
-
-#next-step {
-    margin: 5px;
-    cursor: pointer;
-    float: right;
-    width: 80px;
-}
-
-#previous-step span {
-    background: url(/images/previous-step.png) no-repeat 0 50% transparent;
-    padding: 4px 0 4px 25px;
-}
-
-#next-step span {
-    background: url(/images/next-step.png) no-repeat 100% 50% transparent;
-    padding: 4px 25px 4px 0;
-}
-
 #next-problem {
     margin: 5px;
     cursor: pointer;
