@@ -1,5 +1,34 @@
 # @khanacademy/math-input
 
+## 16.1.1
+
+### Patch Changes
+
+-   [#841](https://github.com/Khan/perseus/pull/841) [`41d3cd93`](https://github.com/Khan/perseus/commit/41d3cd93f78d4649c8a57b6fa4964c0c9f2c45b0) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused SVG tooling
+
+*   [#843](https://github.com/Khan/perseus/pull/843) [`27f691aa`](https://github.com/Khan/perseus/commit/27f691aa11f061b54db487b5b35222431776260f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove seemingly unused index.html
+
+-   [#844](https://github.com/Khan/perseus/pull/844) [`3803452b`](https://github.com/Khan/perseus/commit/3803452b0593649faf4043bf6e1d7681a14078e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove seemingly unused Less
+
+*   [#846](https://github.com/Khan/perseus/pull/846) [`ef32b88f`](https://github.com/Khan/perseus/commit/ef32b88f5027154784fb496506d7c96ee3765eac) Thanks [@handeyeco](https://github.com/handeyeco)! - Break up common-styles.ts
+
+-   [#840](https://github.com/Khan/perseus/pull/840) [`820febc5`](https://github.com/Khan/perseus/commit/820febc5814a5a10d7c1743be8aa9d220f2d9bd8) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Redux as a dependency
+
+*   [#845](https://github.com/Khan/perseus/pull/845) [`67a09051`](https://github.com/Khan/perseus/commit/67a09051c61df98b697349ad75760193e4228bfe) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove some seemingly unused types
+
+## 16.1.0
+
+### Minor Changes
+
+-   [#794](https://github.com/Khan/perseus/pull/794) [`a91c84fe`](https://github.com/Khan/perseus/commit/a91c84fe53827ff4333220777a9918882b7fe9f0) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing the useV2Keypad apiOption as the V1 keypad is no longer in use.
+
+### Patch Changes
+
+-   [#814](https://github.com/Khan/perseus/pull/814) [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor build change to how we provide Typescript type definitions (should be no change to build output).
+
+-   Updated dependencies [[`a91c84fe`](https://github.com/Khan/perseus/commit/a91c84fe53827ff4333220777a9918882b7fe9f0), [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c)]:
+    -   @khanacademy/perseus-core@1.4.0
+
 ## 16.0.0
 
 ### Major Changes

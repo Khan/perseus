@@ -1,4 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 /**
  * A copy of the ItemRenderer which renders its question renderer and hints
@@ -27,6 +28,8 @@ import type {
     RendererInterface,
     KEScore,
 } from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {mapObject} = Objective;
 
@@ -37,6 +40,7 @@ type OwnProps = {
         hints: ReadonlyArray<any>;
         question: any;
     };
+    linterContext: LinterContextProps;
     problemNum?: number;
     reviewMode?: boolean;
     keypadElement?: KeypadAPI | null | undefined;
@@ -52,6 +56,7 @@ type Props = OwnProps & HOCProps;
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
     onRendered: Props["onRendered"];
+    linterContext: Props["linterContext"];
 };
 
 type State = {
@@ -83,6 +88,7 @@ export class ServerItemRenderer
 
     static defaultProps: DefaultProps = {
         apiOptions: {} as any, // a deep default is done in `this.update()`
+        linterContext: PerseusLinter.linterContextDefault,
         onRendered: (isRendered: boolean) => {},
     };
 
@@ -415,6 +421,10 @@ export class ServerItemRenderer
                     content={this.props.item.question.content}
                     widgets={this.props.item.question.widgets}
                     images={this.props.item.question.images}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "question",
+                    )}
                     {...this.props.dependencies}
                 />
             </AssetContext.Provider>
@@ -426,6 +436,10 @@ export class ServerItemRenderer
                 hintsVisible={this.props.hintsVisible}
                 apiOptions={apiOptions}
                 ref={(elem) => (this.hintsRenderer = elem)}
+                linterContext={PerseusLinter.pushContextStack(
+                    this.props.linterContext,
+                    "hints",
+                )}
             />
         );
 
@@ -460,7 +474,7 @@ const styles = StyleSheet.create({
 
 const ref = React.forwardRef<
     ServerItemRenderer,
-    Omit<React.ComponentProps<typeof ServerItemRenderer>, "onRendered">
+    Omit<PropsFor<typeof ServerItemRenderer>, "onRendered">
 >((props, ref) => (
     <LoadingContext.Consumer>
         {({onRendered}) => (

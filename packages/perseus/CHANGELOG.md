@@ -1,5 +1,51 @@
 # @khanacademy/perseus
 
+## 17.0.0
+
+### Major Changes
+
+-   [#852](https://github.com/Khan/perseus/pull/852) [`204788f8`](https://github.com/Khan/perseus/commit/204788f8f583bda5ff94d74fd70ec542fedd3d6e) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove ItemRenderer again
+
+*   [#838](https://github.com/Khan/perseus/pull/838) [`233fc9fc`](https://github.com/Khan/perseus/commit/233fc9fcd4c65d2ff0c8f1ebd1cb1b17b76cbe0c) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove TexButtons and update ExpressionEditor
+
+### Patch Changes
+
+-   [#854](https://github.com/Khan/perseus/pull/854) [`2e2f2cc1`](https://github.com/Khan/perseus/commit/2e2f2cc1afe99613eb688ab1e4e1fccad0c8df57) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused CSS images for next/prev steps
+
+-   Updated dependencies [[`41d3cd93`](https://github.com/Khan/perseus/commit/41d3cd93f78d4649c8a57b6fa4964c0c9f2c45b0), [`27f691aa`](https://github.com/Khan/perseus/commit/27f691aa11f061b54db487b5b35222431776260f), [`3803452b`](https://github.com/Khan/perseus/commit/3803452b0593649faf4043bf6e1d7681a14078e4), [`ef32b88f`](https://github.com/Khan/perseus/commit/ef32b88f5027154784fb496506d7c96ee3765eac), [`820febc5`](https://github.com/Khan/perseus/commit/820febc5814a5a10d7c1743be8aa9d220f2d9bd8), [`67a09051`](https://github.com/Khan/perseus/commit/67a09051c61df98b697349ad75760193e4228bfe)]:
+    -   @khanacademy/math-input@16.1.1
+
+## 16.0.0
+
+### Major Changes
+
+-   [#847](https://github.com/Khan/perseus/pull/847) [`45350a24`](https://github.com/Khan/perseus/commit/45350a2458cd3f816bc87af40997e426feb4b13b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add back ItemRenderer temporarily
+
+## 15.0.0
+
+### Major Changes
+
+-   [#833](https://github.com/Khan/perseus/pull/833) [`3cf5ac4c`](https://github.com/Khan/perseus/commit/3cf5ac4c3f9d51dbcddc6f75bfbf0f8778b20f78) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove export of ItemRenderer
+
+### Minor Changes
+
+-   [#794](https://github.com/Khan/perseus/pull/794) [`a91c84fe`](https://github.com/Khan/perseus/commit/a91c84fe53827ff4333220777a9918882b7fe9f0) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removing the useV2Keypad apiOption as the V1 keypad is no longer in use.
+
+### Patch Changes
+
+-   [#839](https://github.com/Khan/perseus/pull/839) [`3e176246`](https://github.com/Khan/perseus/commit/3e176246025ba237682569481dd9960f7a0dabf4) Thanks [@nedredmond](https://github.com/nedredmond)! - Wrap string in internationalization function
+
+*   [#814](https://github.com/Khan/perseus/pull/814) [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor build change to how we provide Typescript type definitions (should be no change to build output).
+
+*   Updated dependencies [[`a91c84fe`](https://github.com/Khan/perseus/commit/a91c84fe53827ff4333220777a9918882b7fe9f0), [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c)]:
+    -   @khanacademy/math-input@16.1.0
+    -   @khanacademy/perseus-core@1.4.0
+    -   @khanacademy/kas@0.3.6
+    -   @khanacademy/kmath@0.1.7
+    -   @khanacademy/perseus-linter@0.3.9
+    -   @khanacademy/pure-markdown@0.2.12
+    -   @khanacademy/simple-markdown@0.11.1
+
 ## 14.0.0
 
 ### Major Changes

@@ -2,7 +2,7 @@
 
 Khan Academy's expression editor for the mobile web. Used in the [Perseus](https://github.com/khan/perseus) exercise framework to power math input and expression editing on small screens.
 
-Built with [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux), [MathQuill](https://github.com/mathquill/mathquill), [Aphrodite](https://github.com/khan/aphrodite), and more.
+Built with [React](https://github.com/facebook/react), [MathQuill](https://github.com/mathquill/mathquill), [Aphrodite](https://github.com/khan/aphrodite), and more.
 
 ![](https://cloud.githubusercontent.com/assets/1309177/15994911/d1acd29e-30c5-11e6-9707-6bef8e69114f.gif)
 
@@ -25,14 +25,6 @@ When you start the project you'll need to be on a device that supports touch or 
 - Custom state transitions for the editing experience, to streamline expression entry.
 
 ![](https://cloud.githubusercontent.com/assets/1309177/15994912/d2b60cdc-30c5-11e6-8eb4-9086d76f327c.gif)
-
-## Demo
-
-A live demo is available via [GitHub Pages](http://khan.github.io/math-input/). You can configure some of the keypad's behaviors, along with the set of active keys, via the [editor](http://khan.github.io/math-input/custom.html).
-
-Note that, as the input and keypad only respond to touch events, you'll need to enable mobile emulation (e.g., as supported by Chrome) in order to use the keypad in a desktop browser.
-
-To run the demo locally, clone the repo, `yarn install`, `yarn watch`, and open the `index.html` page. The local behaviors can similarly be customized via the editor @ `custom.html`.
 
 ## License
 

@@ -1,5 +1,16 @@
 # @khanacademy/pure-markdown
 
+## 0.2.12
+
+### Patch Changes
+
+-   [#814](https://github.com/Khan/perseus/pull/814) [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor build change to how we provide Typescript type definitions (should be no change to build output).
+
+-   Updated dependencies [[`a91c84fe`](https://github.com/Khan/perseus/commit/a91c84fe53827ff4333220777a9918882b7fe9f0), [`105d2060`](https://github.com/Khan/perseus/commit/105d20603d935d35cff237b17f0bfb57ca751e4c)]:
+    -   @khanacademy/perseus-core@1.4.0
+    -   @khanacademy/perseus-error@0.2.8
+    -   @khanacademy/simple-markdown@0.11.1
+
 ## 0.2.11
 
 ### Patch Changes

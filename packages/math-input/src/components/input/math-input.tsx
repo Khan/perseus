@@ -7,14 +7,12 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
+
+import CursorHandle from "./cursor-handle";
 import {
     cursorHandleRadiusPx,
     cursorHandleDistanceMultiplier,
-    wonderBlocksBlue,
-    offBlack,
-} from "../common-style";
-
-import CursorHandle from "./cursor-handle";
+} from "./cursor-styles";
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
@@ -876,7 +874,7 @@ class MathInput extends React.Component<Props, State> {
             borderWidth: this.getBorderWidthPx(),
             ...(focused
                 ? {
-                      borderColor: wonderBlocksBlue,
+                      borderColor: Color.blue,
                   }
                 : {}),
             ...style,
@@ -982,7 +980,7 @@ const inlineStyles = {
         borderStyle: "solid",
         borderColor: Color.offBlack50,
         borderRadius: 4,
-        color: offBlack,
+        color: Color.offBlack,
     },
 } as const;
 
