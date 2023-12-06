@@ -26,14 +26,6 @@ When you start the project you'll need to be on a device that supports touch or 
 
 ![](https://cloud.githubusercontent.com/assets/1309177/15994912/d2b60cdc-30c5-11e6-8eb4-9086d76f327c.gif)
 
-## Demo
-
-A live demo is available via [GitHub Pages](http://khan.github.io/math-input/). You can configure some of the keypad's behaviors, along with the set of active keys, via the [editor](http://khan.github.io/math-input/custom.html).
-
-Note that, as the input and keypad only respond to touch events, you'll need to enable mobile emulation (e.g., as supported by Chrome) in order to use the keypad in a desktop browser.
-
-To run the demo locally, clone the repo, `yarn install`, `yarn watch`, and open the `index.html` page. The local behaviors can similarly be customized via the editor @ `custom.html`.
-
 ## License
 
 [MIT License](http://opensource.org/licenses/MIT)
