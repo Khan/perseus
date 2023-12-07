@@ -175,8 +175,8 @@ const styles = StyleSheet.create({
         outline: "none",
 
         // Center marker position based on it's maximum size.
-        width: 30,
-        height: 30,
+        width: markerSize,
+        height: markerSize,
         backgroundColor: Color.white,
         borderRadius: 30,
         marginLeft: -15,
@@ -206,6 +206,11 @@ const styles = StyleSheet.create({
         borderRadius: markerSize,
 
         boxShadow: `0 8px 8px ${Color.offBlack8}`,
+
+        ":hover": {
+            outline: `2px solid ${Color.blue}`,
+            outlineOffset: 2,
+        },
     },
 
     // The animation that presents the marker to the learner
@@ -233,6 +238,10 @@ const styles = StyleSheet.create({
 
     markerUnfilledPulsateInfinite: {
         animationIterationCount: "infinite",
+
+        ":hover": {
+            outline: `0px solid ${Color.blue}`,
+        },
     },
 
     markerUnfilledPulsateOnce: {
