@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     },
 
     markerCorrect: {
-        background: Color.green,
+        background: "#00880b", // WB green darkened by 18%
     },
 
     markerIncorrect: {
