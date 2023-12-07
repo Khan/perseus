@@ -1,4 +1,4 @@
-import {getDecimalSeparator} from "@khanacademy/wonder-blocks-i18n";
+import {getDecimalSeparator, getLocale} from "@khanacademy/wonder-blocks-i18n";
 
 export const DecimalSeparator = {
     COMMA: ",",
@@ -15,3 +15,37 @@ export const decimalSeparator: string =
     getDecimalSeparator() === ","
         ? DecimalSeparator.COMMA
         : DecimalSeparator.PERIOD;
+
+const CDOT_ONLY = [
+    "az",
+    "cs",
+    "da",
+    "de",
+    "hu",
+    "hy",
+    "kk",
+    "ky",
+    "lt",
+    "lv",
+    "nb",
+    "sk",
+    "sr",
+    "sv",
+    "uz",
+];
+const TIMES_ONLY = ["fr", "tr", "pt-pt"];
+// false: use CDOT
+// true: use TIMES
+export function convertDotToTimesByLocale(convertDotToTimes: boolean): boolean {
+    const locale = getLocale();
+
+    if (CDOT_ONLY.includes(locale)) {
+        return false;
+    }
+
+    if (TIMES_ONLY.includes(locale)) {
+        return true;
+    }
+
+    return convertDotToTimes;
+}

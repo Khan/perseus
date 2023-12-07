@@ -6,6 +6,7 @@ import {
     mathQuillInstance,
     CursorContext,
     getCursorContext,
+    convertDotToTimesByLocale,
 } from "@khanacademy/math-input";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color, {fade} from "@khanacademy/wonder-blocks-color";
@@ -170,7 +171,11 @@ class MathInput extends React.Component<Props, State> {
                             // Use the specified symbol to represent multiplication
                             // TODO(alex): Add an option to disallow variables, in
                             // which case 'x' should get converted to '\\times'
-                            if (this.props.convertDotToTimes) {
+                            if (
+                                convertDotToTimesByLocale(
+                                    this.props.convertDotToTimes,
+                                )
+                            ) {
                                 value = value.replace(/\\cdot/g, "\\times");
 
                                 // Preserve cursor position in the common case:

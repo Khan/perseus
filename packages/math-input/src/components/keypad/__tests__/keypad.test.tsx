@@ -1,3 +1,4 @@
+import * as wbi18n from "@khanacademy/wonder-blocks-i18n";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
@@ -147,6 +148,40 @@ describe("keypad", () => {
             <Keypad
                 onClickKey={() => {}}
                 convertDotToTimes={true}
+                onAnalyticsEvent={async () => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByTestId("TIMES")).toBeInTheDocument();
+    });
+
+    it(`forces CDOT in locales that require it`, () => {
+        // Arrange
+        jest.spyOn(wbi18n, "getLocale").mockReturnValue("az");
+
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                convertDotToTimes={true}
+                onAnalyticsEvent={async () => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByTestId("CDOT")).toBeInTheDocument();
+    });
+
+    it(`forces TIMES in locales that require it`, () => {
+        // Arrange
+        jest.spyOn(wbi18n, "getLocale").mockReturnValue("fr");
+
+        // Act
+        render(
+            <Keypad
+                onClickKey={() => {}}
+                convertDotToTimes={false}
                 onAnalyticsEvent={async () => {}}
             />,
         );

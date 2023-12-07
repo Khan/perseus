@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Keys from "../../data/key-configs";
+import {convertDotToTimesByLocale} from "../../utils";
 
 import {KeypadButton} from "./keypad-button";
 import {getCursorContextConfig} from "./utils";
@@ -56,7 +57,11 @@ export default function SharedKeys(props: Props) {
 
             {/* Row 2 */}
             <KeypadButton
-                keyConfig={convertDotToTimes ? Keys.TIMES : Keys.CDOT}
+                keyConfig={
+                    convertDotToTimesByLocale(!!convertDotToTimes)
+                        ? Keys.TIMES
+                        : Keys.CDOT
+                }
                 onClickKey={onClickKey}
                 coord={[4, 1]}
                 secondary
