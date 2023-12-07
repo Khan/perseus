@@ -84,6 +84,7 @@ export default class Marker extends React.Component<Props> {
             iconStyles = [
                 styles.markerFocused,
                 selected && selected.length > 0 && styles.markerFilled,
+                showSelected && styles.markerSelected,
             ];
         } else if (selected && selected.length > 0) {
             iconStyles = [
