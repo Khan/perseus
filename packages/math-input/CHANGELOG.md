@@ -1,5 +1,13 @@
 # @khanacademy/math-input
 
+## 16.2.0
+
+### Minor Changes
+
+-   [#853](https://github.com/Khan/perseus/pull/853) [`cbcc0e68`](https://github.com/Khan/perseus/commit/cbcc0e689b6d4640361c14ae112c476fb061d5f4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Allowing click events on math-input in order to support third party browsers on ChromeOS.
+
+*   [#859](https://github.com/Khan/perseus/pull/859) [`e7bec961`](https://github.com/Khan/perseus/commit/e7bec961bc5136bcaeb4ebb4b6744b0809f372ec) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that we're always getting the current keypadBounds
+
 ## 16.1.2
 
 ### Patch Changes
