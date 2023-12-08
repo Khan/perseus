@@ -1,5 +1,12 @@
 # @khanacademy/perseus-error
 
+## 0.2.9
+
+### Patch Changes
+
+-   Updated dependencies [[`1f4e17ba`](https://github.com/Khan/perseus/commit/1f4e17ba77e1491523813655af18a70285a25989), [`8857950b`](https://github.com/Khan/perseus/commit/8857950bdeeb6e13bc3766b1c6545289b21cbe2a)]:
+    -   @khanacademy/perseus-core@1.4.1
+
 ## 0.2.8
 
 ### Patch Changes

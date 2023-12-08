@@ -1,5 +1,64 @@
 # @khanacademy/perseus
 
+## 17.1.0
+
+### Minor Changes
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`2c295e2c`](https://github.com/Khan/perseus/commit/2c295e2c26ff2bf15e1e8e82bcc34e04e4b9bab0) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Add pill that contains answer after selection in Label Image Widget
+
+*   [#804](https://github.com/Khan/perseus/pull/804) [`6f530d58`](https://github.com/Khan/perseus/commit/6f530d58b4368fb3c38d62d4dcf1f63cecf67d90) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Use WB Pill + `react-popper` to get hovering answer pill in Label Image Widget
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`cccf1897`](https://github.com/Khan/perseus/commit/cccf1897da294e4b1fec804f2639c1c56bd68201) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Adds "hide answers" toggle to hide answer pills on label image widget
+
+### Patch Changes
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`ce343147`](https://github.com/Khan/perseus/commit/ce343147f558c2f2a1dcbabae20bdba22c0de86d) Thanks [@nixterrimus](https://github.com/nixterrimus)! - For wide image, label image popovers only go above or below marker
+
+*   [#804](https://github.com/Khan/perseus/pull/804) [`1c8f2753`](https://github.com/Khan/perseus/commit/1c8f275391b02bef8e14d1daccef8fadea9066cd) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Implement hover on label image pills
+
+-   [#856](https://github.com/Khan/perseus/pull/856) [`6c323dc3`](https://github.com/Khan/perseus/commit/6c323dc37e7cc972fe5a1ab7cbf90a23bf4dd3a0) Thanks [@nedredmond](https://github.com/nedredmond)! - Upgrade WB
+
+*   [#858](https://github.com/Khan/perseus/pull/858) [`7433c91b`](https://github.com/Khan/perseus/commit/7433c91bb05ad0441475f40bcd05a3076e7e19f1) Thanks [@nedredmond](https://github.com/nedredmond)! - Remove custom event listeners from label image widget and use WB's built-in functionality to achieve the same thing. Fixes a bug where answer choices were not dismissing as expected.
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`dd41dd0e`](https://github.com/Khan/perseus/commit/dd41dd0e8bc76a414bb5906bba4648f57547f188) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Reverts Perseus global mobile styles for answer pill in label image widget
+
+*   [#804](https://github.com/Khan/perseus/pull/804) [`53612027`](https://github.com/Khan/perseus/commit/536120272b8cae3b01cdbe09a59488cc4704329d) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Label image dot styles
+
+-   [#861](https://github.com/Khan/perseus/pull/861) [`bb9cd667`](https://github.com/Khan/perseus/commit/bb9cd667dbb4a38724ae174063021fdf18040f9b) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Bug fix: dont hide chevron in label image on focus
+
+*   [#862](https://github.com/Khan/perseus/pull/862) [`4553af79`](https://github.com/Khan/perseus/commit/4553af79a26fc0e635d7dc03be74f39cb00a05f6) Thanks [@nedredmond](https://github.com/nedredmond)! - Darken green to match accessible pill color
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`07537aae`](https://github.com/Khan/perseus/commit/07537aae870866f4418055b5956e9387f85f72c4) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Add periodicTableWithKey to `perseus-types`
+
+*   [#804](https://github.com/Khan/perseus/pull/804) [`bb81559e`](https://github.com/Khan/perseus/commit/bb81559e02359092ba4d48107010c476b5ae09d5) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Give label image widget switch an accessible label.
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`fd09014c`](https://github.com/Khan/perseus/commit/fd09014c26e33d2c83a1e6ae3672027ac9583d41) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Minor CSS change to label image
+
+*   [#860](https://github.com/Khan/perseus/pull/860) [`1f4e17ba`](https://github.com/Khan/perseus/commit/1f4e17ba77e1491523813655af18a70285a25989) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Add hover states in label-image widget
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`f6be48a9`](https://github.com/Khan/perseus/commit/f6be48a96795858e009bea18cc1092d150f98b71) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Change marker styles in label image widget
+
+*   [#804](https://github.com/Khan/perseus/pull/804) [`34f7696b`](https://github.com/Khan/perseus/commit/34f7696b537d28c4b2054a3995f567a9a6834f73) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Allows a manually set direction to be used for label image, if and only if there's space
+
+-   [#848](https://github.com/Khan/perseus/pull/848) [`8857950b`](https://github.com/Khan/perseus/commit/8857950bdeeb6e13bc3766b1c6545289b21cbe2a) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Add analytics for label image
+
+*   [#804](https://github.com/Khan/perseus/pull/804) [`ded7af48`](https://github.com/Khan/perseus/commit/ded7af488d57e6309f7244ca4b897ac680754d74) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Update dot styling in label image widget
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`1906ec5a`](https://github.com/Khan/perseus/commit/1906ec5afb7fd7332a6cabc6afc79ee1f779f8ec) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Match marker color after checking answers
+
+*   [#851](https://github.com/Khan/perseus/pull/851) [`5e4c21bd`](https://github.com/Khan/perseus/commit/5e4c21bda5717fb793386a810be3144d7b9a9011) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix label image answer pill padding when correct answer registered
+
+-   [#804](https://github.com/Khan/perseus/pull/804) [`30ce593a`](https://github.com/Khan/perseus/commit/30ce593a2f1d552338ce0818cf754c13c22af281) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Reduce motion on dot animation when option is enabled
+
+-   Updated dependencies [[`6c323dc3`](https://github.com/Khan/perseus/commit/6c323dc37e7cc972fe5a1ab7cbf90a23bf4dd3a0), [`2c295e2c`](https://github.com/Khan/perseus/commit/2c295e2c26ff2bf15e1e8e82bcc34e04e4b9bab0), [`1f4e17ba`](https://github.com/Khan/perseus/commit/1f4e17ba77e1491523813655af18a70285a25989), [`8857950b`](https://github.com/Khan/perseus/commit/8857950bdeeb6e13bc3766b1c6545289b21cbe2a)]:
+    -   @khanacademy/math-input@16.1.2
+    -   @khanacademy/perseus-core@1.4.1
+    -   @khanacademy/kas@0.3.7
+    -   @khanacademy/kmath@0.1.8
+    -   @khanacademy/perseus-linter@0.3.10
+    -   @khanacademy/pure-markdown@0.2.13
+    -   @khanacademy/simple-markdown@0.11.2
+
 ## 17.0.0
 
 ### Major Changes
