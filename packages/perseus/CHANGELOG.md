@@ -1,5 +1,12 @@
 # @khanacademy/perseus
 
+## 17.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`cbcc0e68`](https://github.com/Khan/perseus/commit/cbcc0e689b6d4640361c14ae112c476fb061d5f4), [`e7bec961`](https://github.com/Khan/perseus/commit/e7bec961bc5136bcaeb4ebb4b6744b0809f372ec)]:
+    -   @khanacademy/math-input@16.2.0
+
 ## 17.1.0
 
 ### Minor Changes
