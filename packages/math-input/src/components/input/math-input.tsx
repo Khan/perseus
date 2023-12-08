@@ -125,7 +125,7 @@ class MathInput extends React.Component<Props, State> {
             const bounds = this._getKeypadBounds();
 
             // If there are no bounds, then the keypad is not mounted, so we
-            // assume that the touch is not within the keypad bounds.
+            // assume that the event is not within the keypad bounds.
             if (!bounds) {
                 return false;
             }
