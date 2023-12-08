@@ -56,6 +56,8 @@ class MathInput extends React.Component<Props, State> {
     recordTouchStartOutside: (arg1: any) => void;
     // @ts-expect-error - TS2564 - Property 'blurOnTouchEndOutside' has no initializer and is not definitely assigned in the constructor.
     blurOnTouchEndOutside: (arg1: any) => void;
+    // @ts-expect-error - TS2564 - Property 'blurOnClickOutside' has no initializer and is not definitely assigned in the constructor.
+    blurOnClickOutside: (arg1: any) => void;
     dragListener: any;
     inputRef: HTMLDivElement | null | undefined;
     _isMounted: boolean | null | undefined;
@@ -120,6 +122,18 @@ class MathInput extends React.Component<Props, State> {
         this._root = this._container.querySelector(".mq-root-block");
         this._root.addEventListener("scroll", this._handleScroll);
 
+        const isWithinKeypadBounds = (x: number, y: number): boolean => {
+            const bounds = this._getKeypadBounds();
+            return (
+                (bounds &&
+                    bounds.left <= x &&
+                    bounds.right >= x &&
+                    bounds.top <= y &&
+                    bounds.bottom >= y) ||
+                bounds.bottom < y
+            );
+        };
+
         // Record the initial scroll displacement on touch start. This allows
         // us to detect whether a touch event was a scroll and only blur the
         // input on non-scrolls--blurring the input on scroll makes for a
@@ -139,19 +153,12 @@ class MathInput extends React.Component<Props, State> {
                         this.props.keypadElement &&
                         this.props.keypadElement.getDOMNode()
                     ) {
-                        const bounds = this._getKeypadBounds();
                         for (let i = 0; i < evt.changedTouches.length; i++) {
                             const [x, y] = [
                                 evt.changedTouches[i].clientX,
                                 evt.changedTouches[i].clientY,
                             ];
-                            if (
-                                (bounds.left <= x &&
-                                    bounds.right >= x &&
-                                    bounds.top <= y &&
-                                    bounds.bottom >= y) ||
-                                bounds.bottom < y
-                            ) {
+                            if (isWithinKeypadBounds(x, y)) {
                                 touchDidStartInOrBelowKeypad = true;
                                 break;
                             }
@@ -194,9 +201,34 @@ class MathInput extends React.Component<Props, State> {
             }
         };
 
+        // We want to allow the user to blur the input by clicking outside of it
+        // when using ChromeOS third-party browsers that use mobile user agents,
+        // but don't actually simulate touch events.
+        this.blurOnClickOutside = (evt: any) => {
+            if (this.state.focused) {
+                if (!this._container.contains(evt.target)) {
+                    if (
+                        this.props.keypadElement &&
+                        this.props.keypadElement.getDOMNode()
+                    ) {
+                        const [x, y] = [evt.clientX, evt.clientY];
+                        // We only want to blur if the click is above the keypad,
+                        // to the left of the keypad, or to the right of the keypad.
+                        // The reasoning for not blurring for any clicks below the keypad is
+                        // that the keypad may be anchored above the 'Check answer' bottom bar,
+                        // in which case we don't want to dismiss the keypad on check.
+                        if (!isWithinKeypadBounds(x, y)) {
+                            this.blur();
+                        }
+                    }
+                }
+            }
+        };
+
         window.addEventListener("touchstart", this.recordTouchStartOutside);
         window.addEventListener("touchend", this.blurOnTouchEndOutside);
         window.addEventListener("touchcancel", this.blurOnTouchEndOutside);
+        window.addEventListener("click", this.blurOnClickOutside);
 
         // HACK(benkomalo): if the window resizes, the keypad bounds can
         // change. That's a bit peeking into the internals of the keypad
@@ -234,6 +266,7 @@ class MathInput extends React.Component<Props, State> {
         window.removeEventListener("touchstart", this.recordTouchStartOutside);
         window.removeEventListener("touchend", this.blurOnTouchEndOutside);
         window.removeEventListener("touchcancel", this.blurOnTouchEndOutside);
+        window.removeEventListener("click", this.blurOnClickOutside);
         // @ts-expect-error - TS2769 - No overload matches this call.
         window.removeEventListener("resize", this._clearKeypadBoundsCache());
         window.removeEventListener(
@@ -624,6 +657,32 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
+    // We want to allow the user to be able to focus the input via click
+    // when using ChromeOS third-party browsers that use mobile user agents,
+    // but don't actually simulate touch events.
+    handleClick = (e: React.MouseEvent<HTMLDivElement>): void => {
+        e.stopPropagation();
+
+        // Hide the cursor handle on click
+        this._hideCursorHandle();
+
+        // Cache the container bounds, so as to avoid re-computing. If we don't
+        // have any content, then it's not necessary, since the cursor can't be
+        // moved anyway.
+        if (this.mathField.getContent() !== "") {
+            this._containerBounds = this._container.getBoundingClientRect();
+
+            // Make the cursor visible and set the handle-less cursor's
+            // location.
+            this._insertCursorAtClosestNode(e.clientX, e.clientY);
+        }
+
+        // Trigger a focus event, if we're not already focused.
+        if (!this.state.focused) {
+            this.focus();
+        }
+    };
+
     handleTouchMove: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
         e.stopPropagation();
 
@@ -898,7 +957,7 @@ class MathInput extends React.Component<Props, State> {
                 onTouchStart={this.handleTouchStart}
                 onTouchMove={this.handleTouchMove}
                 onTouchEnd={this.handleTouchEnd}
-                onClick={(e) => e.stopPropagation()}
+                onClick={this.handleClick}
                 role={"textbox"}
                 ariaLabel={ariaLabel}
             >
