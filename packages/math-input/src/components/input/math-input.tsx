@@ -123,9 +123,15 @@ class MathInput extends React.Component<Props, State> {
 
         const isWithinKeypadBounds = (x: number, y: number): boolean => {
             const bounds = this._getKeypadBounds();
+
+            // If there are no bounds, then the keypad is not mounted, so we
+            // assume that the touch is not within the keypad bounds.
+            if (!bounds) {
+                return false;
+            }
+
             return (
-                (bounds &&
-                    bounds.left <= x &&
+                (bounds.left <= x &&
                     bounds.right >= x &&
                     bounds.top <= y &&
                     bounds.bottom >= y) ||
@@ -262,10 +268,16 @@ class MathInput extends React.Component<Props, State> {
     };
 
     /** Returns the current bounds of the keypadElement */
-    _getKeypadBounds: () => any = () => {
-        const keypadNode = this.props.keypadElement?.getDOMNode() as Element;
-        return keypadNode.getBoundingClientRect();
-    };
+    _getKeypadBounds(): DOMRect | null {
+        const keypadNode = this.props.keypadElement?.getDOMNode();
+
+        // If the keypad is mounted, return its bounds. Otherwise, return null.
+        if (keypadNode instanceof Element) {
+            return keypadNode.getBoundingClientRect();
+        }
+
+        return null;
+    }
 
     _updateCursorHandle: (arg1?: boolean) => void = (animateIntoPosition) => {
         const containerBounds = this._container.getBoundingClientRect();
