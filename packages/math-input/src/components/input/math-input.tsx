@@ -124,6 +124,18 @@ class MathInput extends React.Component<Props, State> {
         this._root = this._container.querySelector(".mq-root-block");
         this._root.addEventListener("scroll", this._handleScroll);
 
+        const isWithinKeypadBounds = (x: number, y: number): boolean => {
+            const bounds = this._getKeypadBounds();
+            return (
+                (bounds &&
+                    bounds.left <= x &&
+                    bounds.right >= x &&
+                    bounds.top <= y &&
+                    bounds.bottom >= y) ||
+                bounds.bottom < y
+            );
+        };
+
         // Record the initial scroll displacement on touch start. This allows
         // us to detect whether a touch event was a scroll and only blur the
         // input on non-scrolls--blurring the input on scroll makes for a
@@ -143,19 +155,12 @@ class MathInput extends React.Component<Props, State> {
                         this.props.keypadElement &&
                         this.props.keypadElement.getDOMNode()
                     ) {
-                        const bounds = this._getKeypadBounds();
                         for (let i = 0; i < evt.changedTouches.length; i++) {
                             const [x, y] = [
                                 evt.changedTouches[i].clientX,
                                 evt.changedTouches[i].clientY,
                             ];
-                            if (
-                                (bounds.left <= x &&
-                                    bounds.right >= x &&
-                                    bounds.top <= y &&
-                                    bounds.bottom >= y) ||
-                                bounds.bottom < y
-                            ) {
+                            if (isWithinKeypadBounds(x, y)) {
                                 touchDidStartInOrBelowKeypad = true;
                                 break;
                             }
@@ -208,26 +213,13 @@ class MathInput extends React.Component<Props, State> {
                         this.props.keypadElement &&
                         this.props.keypadElement.getDOMNode()
                     ) {
-                        let touchDidStartInOrBelowKeypad = false;
-                        const bounds = this._getKeypadBounds();
-
                         const [x, y] = [evt.clientX, evt.clientY];
-
                         // We only want to blur if the click is above the keypad,
                         // to the left of the keypad, or to the right of the keypad.
                         // The reasoning for not blurring for any clicks below the keypad is
                         // that the keypad may be anchored above the 'Check answer' bottom bar,
                         // in which case we don't want to dismiss the keypad on check.
-                        if (
-                            (bounds.left <= x &&
-                                bounds.right >= x &&
-                                bounds.top <= y &&
-                                bounds.bottom >= y) ||
-                            bounds.bottom < y
-                        ) {
-                            touchDidStartInOrBelowKeypad = true;
-                        }
-                        if (!touchDidStartInOrBelowKeypad) {
+                        if (!isWithinKeypadBounds(x, y)) {
                             this.blur();
                         }
                     }
@@ -670,11 +662,10 @@ class MathInput extends React.Component<Props, State> {
     // We want to allow the user to be able to focus the input via click
     // when using ChromeOS third-party browsers that use mobile user agents,
     // but don't actually simulate touch events.
-    handleClick: (arg1: React.MouseEvent<HTMLDivElement>) => void = (e) => {
+    handleClick = (e: React.MouseEvent<HTMLDivElement>): void => {
         e.stopPropagation();
 
-        // Hide the cursor handle on touch start, if the handle itself isn't
-        // handling the touch event.
+        // Hide the cursor handle on click
         this._hideCursorHandle();
 
         // Cache the container bounds, so as to avoid re-computing. If we don't
