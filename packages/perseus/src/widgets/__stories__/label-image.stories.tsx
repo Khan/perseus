@@ -1,12 +1,44 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import {question} from "../__testdata__/label-image.testdata";
+import {
+    textQuestion,
+    mathQuestion,
+    numberline,
+} from "../__testdata__/label-image.testdata";
 
+import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
+
+const applyStoryArgs = (
+    question: PerseusRenderer,
+    args: StoryArgs,
+): PerseusRenderer => {
+    const q = {
+        ...question,
+        widgets: {},
+    } as const;
+
+    for (const [widgetId, widget] of Object.entries(question.widgets)) {
+        const modified = {
+            ...widget,
+            options: {
+                ...widget.options,
+                preferredPopoverDirection: args.preferredPopoverDirection,
+            },
+        };
+
+        q.widgets[widgetId] = {
+            ...modified,
+        };
+    }
+
+    return q;
+};
 
 type StoryArgs = {
     isMobile: boolean;
+    preferredPopoverDirection: string;
 };
 
 type ImageStory = {
@@ -14,17 +46,55 @@ type ImageStory = {
     args: StoryArgs;
 };
 
-export const Question1 = (args: StoryArgs): React.ReactElement => {
+export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
     const apiOptions: APIOptions = {
         isMobile: args.isMobile,
     };
 
-    return <RendererWithDebugUI question={question} apiOptions={apiOptions} />;
+    return (
+        <RendererWithDebugUI
+            question={applyStoryArgs(textQuestion, args)}
+            apiOptions={apiOptions}
+        />
+    );
+};
+
+export const LabelWidgetWithMath = (args: StoryArgs): React.ReactElement => {
+    const apiOptions: APIOptions = {
+        isMobile: args.isMobile,
+    };
+
+    return (
+        <RendererWithDebugUI
+            question={applyStoryArgs(mathQuestion, args)}
+            apiOptions={apiOptions}
+        />
+    );
+};
+
+export const LabelImageNumberline = (args: StoryArgs): React.ReactElement => {
+    const apiOptions: APIOptions = {
+        isMobile: args.isMobile,
+    };
+
+    return (
+        <RendererWithDebugUI
+            question={applyStoryArgs(numberline, args)}
+            apiOptions={apiOptions}
+        />
+    );
 };
 
 export default {
     title: "Perseus/Widgets/Label Image",
     args: {
         isMobile: false,
+        preferredPopoverDirection: "NONE",
+    },
+    argTypes: {
+        preferredPopoverDirection: {
+            control: "select",
+            options: ["NONE", "UP", "DOWN", "LEFT", "RIGHT"],
+        },
     },
 } as ImageStory;

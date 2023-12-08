@@ -6,11 +6,12 @@
  */
 
 import Color from "@khanacademy/wonder-blocks-color";
+import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Icon from "../../components/icon";
-import {iconCheck, iconMinus} from "../../icon-paths";
+import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import type {InteractiveMarkerType} from "./types";
 
@@ -20,16 +21,19 @@ type Props = InteractiveMarkerType & {
     // Whether this marker should pulsate to draw user attention.
     showPulsate: boolean;
     // Callbacks for when marker is interacted with using input device.
-    onClick: (e: MouseEvent) => void;
-    onKeyDown: (e: KeyboardEvent) => void;
+    onClick: (e: React.MouseEvent) => void;
+    onKeyDown: (e: React.KeyboardEvent) => void;
+    onFocus: () => void;
+    onBlur: () => void;
+    focused: boolean;
 };
 
-type State = {
-    // Whether the marker button has input focus.
-    isFocused: boolean;
-};
+function shouldReduceMotion(): boolean {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    return !mediaQuery || mediaQuery.matches;
+}
 
-export default class Marker extends React.Component<Props, State> {
+export default class Marker extends React.Component<Props> {
     // The marker icon element.
     _icon: HTMLElement | null | undefined;
 
@@ -39,34 +43,20 @@ export default class Marker extends React.Component<Props, State> {
         selected: [],
     };
 
-    state: State = {
-        isFocused: false,
-    };
-
-    handleFocus() {
-        this.setState({isFocused: true});
-    }
-
-    handleBlur() {
-        this.setState({isFocused: false});
-    }
-
     renderIcon(): React.ReactElement<React.ComponentProps<"div">> {
-        const {selected, showCorrectness, showSelected, showPulsate} =
+        const {selected, showCorrectness, showSelected, showPulsate, focused} =
             this.props;
-
-        const {isFocused} = this.state;
 
         // Only a single marker may be "selected" at a time.
         // `showSelected` is a controlled prop, that may be set to `true` for
         // one marker at a time.
-        // `isFocused` is a controlled state, driven by focus events, and may
+        // `focused` is a controlled state, driven by focus events, and may
         // only be `true` when there's no answer choices popup visible, and
         // keyboard focus is given to the marker.
-        const isSelected = showSelected || isFocused;
+        const isSelected = showSelected || focused;
 
-        let innerIcon;
-        let iconStyles;
+        let innerIcon: React.ReactElement | undefined;
+        let iconStyles: StyleType;
 
         if (showCorrectness) {
             innerIcon = (
@@ -79,35 +69,52 @@ export default class Marker extends React.Component<Props, State> {
 
             if (showCorrectness === "correct") {
                 iconStyles = [
+                    styles.markerGraded,
                     styles.markerCorrect,
-                    isSelected && styles.markerCorrectSelected,
+                    isSelected && styles.markerSelected,
                 ];
             } else {
                 iconStyles = [
+                    styles.markerGraded,
                     styles.markerIncorrect,
-                    isSelected && styles.markerIncorrectSelected,
+                    isSelected && styles.markerSelected,
                 ];
             }
+        } else if (focused) {
+            iconStyles = [
+                styles.markerFocused,
+                selected && selected.length > 0 && styles.markerFilled,
+                showSelected && styles.markerSelected,
+            ];
         } else if (selected && selected.length > 0) {
             iconStyles = [
                 styles.markerFilled,
-                isSelected && styles.markerFilledSelected,
+                isSelected && styles.markerSelected,
             ];
+        } else if (isSelected) {
+            iconStyles = [styles.markerSelected];
         } else {
             iconStyles = [
-                isSelected
-                    ? styles.markerUnfilledSelected
-                    : showPulsate && styles.markerUnfilledPulsate,
+                styles.markerPulsateBase,
+                shouldReduceMotion()
+                    ? showPulsate && styles.markerUnfilledPulsateOnce
+                    : showPulsate && styles.markerUnfilledPulsateInfinite,
             ];
         }
 
+        if (isSelected && selected && selected.length === 0) {
+            innerIcon = (
+                <Icon icon={iconChevronDown} size={8} color={Color.white} />
+            );
+        }
+
         return (
-            <div
-                className={css(styles.markerIcon, ...iconStyles)}
+            <View
+                style={[styles.markerIcon, iconStyles]}
                 ref={(node) => (this._icon = node)}
             >
                 {innerIcon}
-            </div>
+            </View>
         );
     }
 
@@ -131,11 +138,12 @@ export default class Marker extends React.Component<Props, State> {
                     top: `${y}%`,
                 }}
                 tabIndex={isDisabled ? -1 : 0}
-                onFocus={() => this.handleFocus()}
-                onBlur={() => this.handleBlur()}
-                // @ts-expect-error - TS2345 - Argument of type 'MouseEvent<HTMLButtonElement, MouseEvent>' is not assignable to parameter of type 'MouseEvent'.
-                onClick={(e) => this.props.onClick(e)}
-                // @ts-expect-error - TS2345 - Argument of type 'KeyboardEvent<HTMLButtonElement>' is not assignable to parameter of type 'KeyboardEvent'.
+                onFocus={this.props.onFocus}
+                onBlur={this.props.onBlur}
+                onClick={(e) => {
+                    e.preventDefault();
+                    this.props.onClick(e);
+                }}
                 onKeyDown={(e) => this.props.onKeyDown(e)}
             >
                 {this.renderIcon()}
@@ -144,15 +152,9 @@ export default class Marker extends React.Component<Props, State> {
     }
 }
 
-const markerColor = "#1865f2";
-const selectedColor = "#2552b0";
-const activeColor = selectedColor;
-const correctColor = "#00a60e";
-const correctActiveColor = "#167b1f";
-const incorrectColor = "#909195";
-const incorrectActiveColor = "#6c6e73";
-const markerShadowColor = "rgba(33, 36, 44, 0.32)";
 const lightShadowColor = "rgba(33, 36, 44, 0.16)";
+
+const markerSize = 20;
 
 const styles = StyleSheet.create({
     unstyledButton: {
@@ -171,10 +173,13 @@ const styles = StyleSheet.create({
 
     marker: {
         position: "absolute",
+        outline: "none",
 
         // Center marker position based on it's maximum size.
-        width: 30,
-        height: 30,
+        width: markerSize,
+        height: markerSize,
+        backgroundColor: Color.white,
+        borderRadius: 30,
         marginLeft: -15,
         marginTop: -15,
     },
@@ -186,180 +191,117 @@ const styles = StyleSheet.create({
     // The base and unfilled marker style.
     markerIcon: {
         display: "flex",
-        position: "relative",
+        alignItems: "center",
+        justifyContent: "center",
 
         boxSizing: "content-box",
 
-        width: 16,
-        height: 16,
-        // Center icon within marker.
-        marginLeft: 5,
+        width: markerSize,
+        height: markerSize,
+
+        marginLeft: 2,
 
         cursor: "pointer",
 
-        backgroundColor: markerColor,
+        border: `2px solid ${Color.offBlack64}`,
+        borderRadius: markerSize,
 
-        border: "solid 2px #ffffff",
-        borderRadius: 16,
+        boxShadow: `0 8px 8px ${Color.offBlack8}`,
 
-        boxShadow: `0 2px 6px 0 ${markerShadowColor}`,
+        ":hover": {
+            outline: `2px solid ${Color.blue}`,
+            outlineOffset: 2,
+        },
     },
 
-    markerUnfilledPulsate: {
+    // The animation that presents the marker to the learner
+    markerPulsateBase: {
         animationName: {
             "0%": {
                 transform: "scale(1)",
+                backgroundColor: Color.blue,
             },
 
             "100%": {
-                transform: "scale(1.5)",
+                transform: "scale(1.3)",
+                backgroundColor: Color.blue,
             },
         },
 
         animationDirection: "alternate",
         animationDuration: "0.8s",
-        animationIterationCount: "infinite",
         animationTimingFunction: "ease-in",
 
         transformOrigin: "50% 50%",
+
+        animationIterationCount: "0",
     },
 
-    markerUnfilledSelected: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
+    markerUnfilledPulsateInfinite: {
+        animationIterationCount: "infinite",
 
-            width: 20,
-            height: 20,
-            marginLeft: -4,
-            marginTop: -4,
-
-            border: `solid 2px ${selectedColor}`,
-            borderRadius: 20,
-        },
-
-        ":active": {
-            backgroundColor: activeColor,
-
-            boxShadow: "none",
-
-            "::before": {
-                display: "none",
-            },
+        ":hover": {
+            outline: `0px solid ${Color.blue}`,
         },
     },
 
+    markerUnfilledPulsateOnce: {
+        // Doing the animation twice lets it ease-in and ease-out
+        animationIterationCount: "2",
+    },
+
+    markerFocused: {
+        outline: `2px solid ${Color.blue}`,
+        outlineOffset: 2,
+    },
+
+    // The learner is making an initial selection
+    markerSelected: {
+        boxShadow: `0 8px 8px ${Color.offBlack8}`,
+
+        border: `solid 4px ${Color.white}`,
+        backgroundColor: Color.blue,
+        borderRadius: markerSize,
+        transform: "rotate(180deg)",
+
+        ":hover": {
+            outline: `2px solid ${Color.blue}`,
+            outlineOffset: -2,
+        },
+    },
+
+    // The learner has made a selection
     markerFilled: {
-        width: 8,
-        height: 8,
-        // Center icon within marker.
-        marginLeft: 9,
+        width: markerSize - 2,
+        height: markerSize - 2,
+        borderRadius: markerSize - 2,
+        backgroundColor: "#ECF3FE",
 
-        borderRadius: 8,
+        marginLeft: 3,
+        marginTop: 0,
+
+        border: `4px solid ${Color.blue}`,
 
         boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
     },
 
-    markerFilledSelected: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
+    markerGraded: {
+        width: markerSize,
+        height: markerSize,
+        marginLeft: 1,
+        marginTop: 1,
 
-            width: 12,
-            height: 12,
-            marginLeft: -4,
-            marginTop: -4,
-
-            border: `solid 2px ${selectedColor}`,
-            borderRadius: 12,
-        },
-
-        ":active": {
-            backgroundColor: activeColor,
-
-            boxShadow: "none",
-
-            "::before": {
-                display: "none",
-            },
-        },
+        justifyContent: "center",
+        alignItems: "center",
+        border: `2px solid ${Color.white}`,
+        boxShadow: `0 8px 8px ${Color.offBlack8}`,
     },
 
     markerCorrect: {
-        width: 24,
-        height: 24,
-        marginLeft: 1,
-        marginTop: 1,
-
-        justifyContent: "center",
-        alignItems: "center",
-
-        background: correctColor,
-
-        boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
-    },
-
-    markerCorrectSelected: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
-
-            width: 28,
-            height: 28,
-
-            border: `solid 2px ${selectedColor}`,
-            borderRadius: 28,
-        },
-
-        ":active": {
-            backgroundColor: correctActiveColor,
-
-            boxShadow: "none",
-
-            "::before": {
-                display: "none",
-            },
-        },
+        background: "#00880b", // WB green darkened by 18%
     },
 
     markerIncorrect: {
-        width: 24,
-        height: 24,
-        marginLeft: 1,
-        marginTop: 1,
-
-        justifyContent: "center",
-        alignItems: "center",
-
-        background: incorrectColor,
-
-        boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
-    },
-
-    markerIncorrectSelected: {
-        "::before": {
-            content: "''",
-            display: "inline-block",
-            position: "absolute",
-
-            width: 28,
-            height: 28,
-
-            border: `solid 2px ${selectedColor}`,
-            borderRadius: 28,
-        },
-
-        ":active": {
-            backgroundColor: incorrectActiveColor,
-
-            boxShadow: "none",
-
-            "::before": {
-                display: "none",
-            },
-        },
+        background: Color.offBlack64,
     },
 });

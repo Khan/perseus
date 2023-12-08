@@ -1,6 +1,17 @@
-import LabelImageWidget from "./label-image";
+import {screen} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-const LabelImage = LabelImageWidget.widget;
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../../../testing/test-dependencies";
+import * as Dependencies from "../dependencies";
+
+import {textQuestion} from "./__testdata__/label-image.testdata";
+import {renderQuestion} from "./__tests__/renderQuestion";
+import {LabelImage} from "./label-image";
+
+import "@testing-library/jest-dom";
 
 const emptyMarker = {
     label: "",
@@ -236,67 +247,75 @@ describe("LabelImage", function () {
 
     describe("imageSideForMarkerPosition", function () {
         it("should return side: top", function () {
-            expect(LabelImage.imageSideForMarkerPosition(21, 0)).toEqual("top");
-            expect(LabelImage.imageSideForMarkerPosition(79, 0)).toEqual("top");
-            expect(LabelImage.imageSideForMarkerPosition(50, 0)).toEqual("top");
-            expect(LabelImage.imageSideForMarkerPosition(50, 25)).toEqual(
-                "top",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(50, 50)).toEqual(
-                "top",
-            );
+            expect(
+                LabelImage.imageSideForMarkerPosition(21, 0, "NONE"),
+            ).toEqual("top");
+            expect(
+                LabelImage.imageSideForMarkerPosition(79, 0, "NONE"),
+            ).toEqual("top");
+            expect(
+                LabelImage.imageSideForMarkerPosition(50, 0, "NONE"),
+            ).toEqual("top");
+            expect(
+                LabelImage.imageSideForMarkerPosition(50, 25, "NONE"),
+            ).toEqual("top");
+            expect(
+                LabelImage.imageSideForMarkerPosition(50, 50, "NONE"),
+            ).toEqual("top");
         });
 
         it("should return side: right", function () {
-            expect(LabelImage.imageSideForMarkerPosition(100, 0)).toEqual(
-                "right",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(100, 100)).toEqual(
-                "right",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(100, 50)).toEqual(
-                "right",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(75, 50)).toEqual(
-                "right",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(51, 50)).toEqual(
-                "right",
-            );
+            expect(
+                LabelImage.imageSideForMarkerPosition(100, 0, "NONE"),
+            ).toEqual("right");
+            expect(
+                LabelImage.imageSideForMarkerPosition(100, 100, "NONE"),
+            ).toEqual("right");
+            expect(
+                LabelImage.imageSideForMarkerPosition(100, 50, "NONE"),
+            ).toEqual("right");
+            expect(
+                LabelImage.imageSideForMarkerPosition(75, 50, "NONE"),
+            ).toEqual("right");
+            expect(
+                LabelImage.imageSideForMarkerPosition(51, 50, "NONE"),
+            ).toEqual("right");
         });
 
         it("should return side: bottom", function () {
-            expect(LabelImage.imageSideForMarkerPosition(21, 100)).toEqual(
-                "bottom",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(79, 100)).toEqual(
-                "bottom",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(50, 100)).toEqual(
-                "bottom",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(50, 75)).toEqual(
-                "bottom",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(50, 51)).toEqual(
-                "bottom",
-            );
+            expect(
+                LabelImage.imageSideForMarkerPosition(21, 100, "NONE"),
+            ).toEqual("bottom");
+            expect(
+                LabelImage.imageSideForMarkerPosition(79, 100, "NONE"),
+            ).toEqual("bottom");
+            expect(
+                LabelImage.imageSideForMarkerPosition(50, 100, "NONE"),
+            ).toEqual("bottom");
+            expect(
+                LabelImage.imageSideForMarkerPosition(50, 75, "NONE"),
+            ).toEqual("bottom");
+            expect(
+                LabelImage.imageSideForMarkerPosition(50, 51, "NONE"),
+            ).toEqual("bottom");
         });
 
         it("should return side: left", function () {
-            expect(LabelImage.imageSideForMarkerPosition(0, 0)).toEqual("left");
-            expect(LabelImage.imageSideForMarkerPosition(0, 100)).toEqual(
+            expect(LabelImage.imageSideForMarkerPosition(0, 0, "NONE")).toEqual(
                 "left",
             );
-            expect(LabelImage.imageSideForMarkerPosition(0, 50)).toEqual(
-                "left",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(25, 50)).toEqual(
-                "left",
-            );
-            expect(LabelImage.imageSideForMarkerPosition(49, 50)).toEqual(
-                "left",
-            );
+            expect(
+                LabelImage.imageSideForMarkerPosition(0, 100, "NONE"),
+            ).toEqual("left");
+            expect(
+                LabelImage.imageSideForMarkerPosition(0, 50, "NONE"),
+            ).toEqual("left");
+            expect(
+                LabelImage.imageSideForMarkerPosition(25, 50, "NONE"),
+            ).toEqual("left");
+            expect(
+                LabelImage.imageSideForMarkerPosition(49, 50, "NONE"),
+            ).toEqual("left");
         });
     });
 
@@ -834,6 +853,77 @@ describe("LabelImage", function () {
                         )
                     ].label,
                 ).toEqual("coplanar 1");
+            });
+        });
+    });
+
+    describe("analytics", () => {
+        beforeEach(() => {
+            jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
+                testDependenciesV2,
+            );
+        });
+
+        it("sends an analytics event when the toggle is interacted with", async () => {
+            // render component
+            renderQuestion(textQuestion);
+
+            // Toggle the switch
+            const toggleAnswerSwitch = await screen.findByRole("switch");
+            userEvent.click(toggleAnswerSwitch);
+
+            expect(
+                testDependenciesV2.analytics.onAnalyticsEvent,
+            ).toHaveBeenCalledWith({
+                type: "perseus:label-image:toggle-answers-hidden",
+                payload: null,
+            });
+        });
+
+        it("sends an analytics event when a marker is interacted with", async () => {
+            // render component
+            renderQuestion(textQuestion);
+
+            // Toggle the button
+            const markerButton = await screen.findByLabelText(
+                "The fourth unlabeled bar line.",
+            );
+            userEvent.click(markerButton);
+
+            expect(
+                testDependenciesV2.analytics.onAnalyticsEvent,
+            ).toHaveBeenCalledWith({
+                type: "perseus:label-image:marker-interacted-with",
+                payload: null,
+            });
+        });
+
+        it("sends analytics when a choice is interacted with", async () => {
+            // render component
+            renderQuestion(textQuestion);
+
+            // Toggle the marker
+            const markerButton = await screen.findByLabelText(
+                "The fourth unlabeled bar line.",
+            );
+            userEvent.click(markerButton);
+
+            await screen.findByRole("dialog");
+
+            // Select a choice
+            const choices = await screen.findAllByText("Trucks");
+            const choice = choices[choices.length - 1];
+            userEvent.click(choice);
+
+            expect(
+                testDependenciesV2.analytics.onAnalyticsEvent,
+            ).toHaveBeenCalledWith({
+                type: "perseus:label-image:choiced-interacted-with",
+                payload: null,
             });
         });
     });

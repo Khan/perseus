@@ -15,19 +15,32 @@ import * as ReactDOM from "react-dom";
 
 import AssetContext from "../asset-context";
 import SvgImage from "../components/svg-image";
+import {useDependencies} from "../dependencies";
 import Renderer from "../renderer";
 import {typography} from "../styles/global-styles";
 import mediaQueries from "../styles/media-queries";
 
 import AnswerChoices from "./label-image/answer-choices";
+import {AnswerPill} from "./label-image/answer-pill";
+import {HideAnswersToggle} from "./label-image/hide-answers-toggle";
 import Marker from "./label-image/marker";
 
 import type {
     InteractiveMarkerType,
     InteractiveMarkerScore,
 } from "./label-image/types";
+import type {DependencyProps} from "../dependencies";
 import type {ChangeableProps} from "../mixins/changeable";
 import type {APIOptions, PerseusScore, WidgetExports} from "../types";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {CSSProperties} from "aphrodite";
+
+export type PreferredPopoverDirection =
+    | "NONE"
+    | "UP"
+    | "DOWN"
+    | "LEFT"
+    | "RIGHT";
 
 type MarkersState = {
     markers: ReadonlyArray<InteractiveMarkerType>;
@@ -56,33 +69,43 @@ type Point = {
     y: number;
 };
 
-type LabelImageProps = ChangeableProps & {
-    apiOptions: APIOptions;
-    // The list of possible answer choices.
-    choices: ReadonlyArray<string>;
-    // The question image properties.
-    imageAlt: string;
-    imageUrl: string;
-    imageWidth: number;
-    imageHeight: number;
-    // The list of label markers on the question image.
-    markers: ReadonlyArray<InteractiveMarkerType>;
-    // Whether multiple answer choices may be selected for markers.
-    multipleAnswers: boolean;
-    // Whether to hide answer choices from user instructions.
-    hideChoicesFromInstructions: boolean;
-    // Whether the question has been answered by the user.
-    questionCompleted: boolean;
-};
+type LabelImageProps = ChangeableProps &
+    DependencyProps & {
+        apiOptions: APIOptions;
+        // The list of possible answer choices.
+        choices: ReadonlyArray<string>;
+        // The question image properties.
+        imageAlt: string;
+        imageUrl: string;
+        imageWidth: number;
+        imageHeight: number;
+        // The list of label markers on the question image.
+        markers: ReadonlyArray<InteractiveMarkerType>;
+        // Whether multiple answer choices may be selected for markers.
+        multipleAnswers: boolean;
+        // Whether to hide answer choices from user instructions.
+        hideChoicesFromInstructions: boolean;
+        // Whether the question has been answered by the user.
+        questionCompleted: boolean;
+        // preferred placement for popover (preference, not MUST)
+        preferredPopoverDirection?: PreferredPopoverDirection;
+    };
 
 type LabelImageState = {
     // The user selected marker index, defaults to -1, no selection.
-    selectedMarkerIndex: number;
+    activeMarkerIndex: number;
     // Whether any of the markers were interacted with by the user.
     markersInteracted: boolean;
+    // The currently focused marker index; defaults to -1, no focus.
+    focusedMarkerIndex: number;
+    // Hide answer pills.
+    hideAnswers: boolean;
 };
 
-class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
+export class LabelImage extends React.Component<
+    LabelImageProps,
+    LabelImageState
+> {
     // The rendered markers on the question image for labeling.
     _markers: Array<Marker | null | undefined>;
 
@@ -182,7 +205,21 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     static imageSideForMarkerPosition(
         x: number,
         y: number,
+        preferredDirection: PreferredPopoverDirection | undefined,
     ): "bottom" | "left" | "right" | "top" | "center" {
+        // Special handling for preferred size
+        if (preferredDirection && preferredDirection !== "NONE") {
+            if (preferredDirection === "LEFT" && x > 20) {
+                return "right";
+            } else if (preferredDirection === "RIGHT" && x < 80) {
+                return "left";
+            } else if (preferredDirection === "UP" && y > 20) {
+                return "bottom";
+            } else if (preferredDirection === "DOWN" && y < 80) {
+                return "top";
+            }
+        }
+
         // Special handling for when marker is positioned near the horizontal
         // edges of the image. We want to ensure the returned side would not
         // result in a popup rendering that may overflow outside the page.
@@ -337,23 +374,11 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         this._markers = [];
 
         this.state = {
-            selectedMarkerIndex: -1,
+            activeMarkerIndex: -1,
+            focusedMarkerIndex: -1,
             markersInteracted: false,
+            hideAnswers: false,
         };
-    }
-
-    componentDidMount() {
-        document.addEventListener("click", this.handleDocumentClick, true);
-        document.addEventListener("keydown", this.handleDocumentKeyDown, true);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener("click", this.handleDocumentClick, true);
-        document.removeEventListener(
-            "keydown",
-            this.handleDocumentKeyDown,
-            true,
-        );
     }
 
     simpleValidate(rubric: LabelImageProps): PerseusScore {
@@ -390,15 +415,15 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     }
 
     dismissMarkerPopup() {
-        const {selectedMarkerIndex: index} = this.state;
+        const {activeMarkerIndex} = this.state;
 
         // No popup should be open if there's no selected marker.
-        if (index === -1) {
+        if (activeMarkerIndex === -1) {
             return;
         }
 
-        this.setState({selectedMarkerIndex: -1}, () => {
-            const marker = this._markers[index];
+        this.setState({activeMarkerIndex: -1}, () => {
+            const marker = this._markers[activeMarkerIndex];
             // Set focus on the just-deselected-marker, to enable to resume
             // navigating between the markers using the keyboard.
             if (marker) {
@@ -406,48 +431,6 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
             }
         });
     }
-
-    handleDocumentClick: (e: MouseEvent) => void = (e: MouseEvent) => {
-        // Dismiss open popup with answer choices if user clicks outside it.
-        if (this._selectedMarkerPopup && this._answerChoices) {
-            const answerChoices = ReactDOM.findDOMNode(this._answerChoices);
-
-            const targetElement = e.target as Node;
-            // HACK(michaelpolyak): We want to determine if the click target is
-            // contained within the popup layer. As there's no public interface
-            // to get this layer from the popup, we traverse several levels of
-            // answer choices parents to test whether the click target is
-            // contained within.
-            const containsEventTarget = (
-                element: Element | null | undefined | Text,
-                depth = 3,
-            ) =>
-                element &&
-                (element.contains(targetElement) ||
-                    (depth > 0 &&
-                        containsEventTarget(element.parentElement, depth - 1)));
-
-            if (!containsEventTarget(answerChoices)) {
-                // Close popup and set focus back to the marker for which it was
-                // open.
-                this.dismissMarkerPopup();
-            }
-        }
-    };
-
-    handleDocumentKeyDown: (e: KeyboardEvent) => void = (e: KeyboardEvent) => {
-        // Dismiss open popup with answer choices if user presses Escape key.
-        if (this._selectedMarkerPopup && e.keyCode === 27) {
-            // Ensure other listeners are not triggered on key down event that
-            // closes the popup, as this will also dismiss the modal that the
-            // widget may be rendered within.
-            e.stopPropagation();
-
-            // Close popup and set focus back to the marker for which it was
-            // open.
-            this.dismissMarkerPopup();
-        }
-    };
 
     handleMarkerChange(index: number, marker: InteractiveMarkerType) {
         const {markers, onChange} = this.props;
@@ -468,16 +451,14 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         onChange({markers: updatedMarkers});
     }
 
-    handleMarkerClick(index: number, e: MouseEvent) {
-        const {selectedMarkerIndex} = this.state;
-
-        e.preventDefault();
+    activateMarker(index: number) {
+        const {activeMarkerIndex} = this.state;
 
         // Select the marker, revealing answer choices.
-        if (selectedMarkerIndex !== index) {
+        if (activeMarkerIndex !== index) {
             this.setState(
                 {
-                    selectedMarkerIndex: index,
+                    activeMarkerIndex: index,
                     markersInteracted: true,
                 },
                 () => {
@@ -500,7 +481,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         }
     }
 
-    handleMarkerKeyDown(index: number, e: KeyboardEvent) {
+    handleMarkerKeyDown(index: number, e: React.KeyboardEvent) {
         const {markers} = this.props;
 
         // One is the loneliest number.
@@ -545,11 +526,11 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
         const {choices, markers, multipleAnswers} = this.props;
 
         // Compile the user selected answer choices.
-        const selected = choices.filter((choice, index) => selection[index]);
+        const selected = choices.filter((_, index) => selection[index]);
 
         this.handleMarkerChange(index, {
             ...markers[index],
-            selected,
+            selected: selected.length ? selected : undefined,
         });
 
         if (!multipleAnswers) {
@@ -579,12 +560,16 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                         checked: selected ? selected.includes(choice) : false,
                     }))}
                     multipleSelect={multipleAnswers}
-                    onChange={(selection) =>
+                    onChange={(selection) => {
+                        this.props.analytics?.onAnalyticsEvent({
+                            type: "perseus:label-image:choiced-interacted-with",
+                            payload: null,
+                        });
                         this.handleAnswerChoicesChangeForMarker(
                             index,
                             selection,
-                        )
-                    }
+                        );
+                    }}
                     ref={(node) => (this._answerChoices = node)}
                 />
             </div>
@@ -592,51 +577,75 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     }
 
     renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {markers, questionCompleted} = this.props;
+        const {markers, questionCompleted, preferredPopoverDirection} =
+            this.props;
 
-        const {selectedMarkerIndex, markersInteracted} = this.state;
+        const {activeMarkerIndex, markersInteracted} = this.state;
 
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
             const score = LabelImage.gradeMarker(marker);
+            // Once the question is answered, show markers
+            // with correct answers, otherwise passthrough
+            // the correctness state.
+            const showCorrectness =
+                questionCompleted && score.hasAnswers && score.isCorrect
+                    ? "correct"
+                    : marker.showCorrectness;
 
             const element = (
                 <Marker
                     {...marker}
-                    // Once the question is answered, show markers
-                    // with correct answers, otherwise passthrough
-                    // the correctness state.
-                    showCorrectness={
-                        questionCompleted && score.hasAnswers && score.isCorrect
-                            ? "correct"
-                            : marker.showCorrectness
-                    }
-                    showSelected={index === selectedMarkerIndex}
+                    showCorrectness={showCorrectness}
+                    showSelected={index === activeMarkerIndex}
                     showPulsate={!markersInteracted}
                     key={`${marker.x}.${marker.y}`}
-                    onClick={(e) => this.handleMarkerClick(index, e)}
+                    onClick={() => {
+                        this.props.analytics?.onAnalyticsEvent({
+                            type: "perseus:label-image:marker-interacted-with",
+                            payload: null,
+                        });
+                        this.activateMarker(index);
+                    }}
                     onKeyDown={(e) => this.handleMarkerKeyDown(index, e)}
                     ref={(node) => (this._markers[index] = node)}
+                    focused={index === this.state.focusedMarkerIndex}
+                    onFocus={() => {
+                        this.setState({focusedMarkerIndex: index});
+                    }}
+                    onBlur={() => {
+                        if (index === this.state.focusedMarkerIndex) {
+                            this.setState({focusedMarkerIndex: -1});
+                        }
+                    }}
                 />
             );
-
-            // The user selected marker is wrapped with a popup that shows its
-            // answer choices, otherwise it's returned as is.
-            if (index !== selectedMarkerIndex) {
-                return element;
-            }
 
             // Determine whether page is rendered in a narrow browser window.
             const isNarrowPage = window.matchMedia(
                 mediaQueries.xsOrSmaller.replace("@media ", ""),
             ).matches;
 
-            let side;
+            // Determine whether the image is wider than it is tall.
+            const isWideImage =
+                this.props.imageWidth / 2 > this.props.imageHeight;
+
+            let side: "bottom" | "left" | "right" | "top";
+            let markerPosition;
             // Position popup closest to the center, preferring it renders
             // entirely within the image area.
-            if (isNarrowPage) {
+            if (isNarrowPage || isWideImage) {
                 side = marker.y > 50 ? "top" : "bottom";
+                markerPosition = marker.y > 50 ? "bottom" : "top";
             } else {
+                markerPosition = LabelImage.imageSideForMarkerPosition(
+                    marker.x,
+                    marker.y,
+                    preferredPopoverDirection,
+                );
+                if (markerPosition === "center") {
+                    markerPosition = "bottom";
+                }
                 // This mirrors the calculated side of where the marker is
                 // located within the image, so that popup appears closer to
                 // the image center.
@@ -645,28 +654,69 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     top: "bottom",
                     right: "left",
                     bottom: "top",
-                    center: "top",
-                }[LabelImage.imageSideForMarkerPosition(marker.x, marker.y)];
+                }[markerPosition];
             }
 
-            // TODO(michaelpolyak): Ideally we would always render markers
-            // wrapped in the popover. Setting `opened={false}` for those
-            // markers that are unselected (to hide their popup), this would
-            // keep the React tree more stable.
+            const answerChoicesActive = index === activeMarkerIndex;
+
+            const adjustPopoverDistance: CSSProperties = {
+                [side]: 15, // move the popover closer to the marker
+            };
+
+            const adjustPillDistance: CSSProperties = {
+                [`margin${
+                    markerPosition.charAt(0).toUpperCase() +
+                    markerPosition.slice(1)
+                }`]: 5, // move pill further from marker
+            };
+
+            const showAnswerChoice =
+                !answerChoicesActive && !this.state.hideAnswers;
+
             return (
-                <Popover
-                    content={() => (
-                        <PopoverContentCore style={styles.choicesPopover}>
-                            {this.renderAnswerChoicesForMarker(index, marker)}
-                        </PopoverContentCore>
+                <div key={`answers-${marker.x}.${marker.y}`}>
+                    <Popover
+                        content={() => (
+                            <PopoverContentCore
+                                style={[
+                                    adjustPopoverDistance,
+                                    styles.choicesPopover,
+                                ]}
+                            >
+                                {this.renderAnswerChoicesForMarker(
+                                    index,
+                                    marker,
+                                )}
+                            </PopoverContentCore>
+                        )}
+                        placement={side}
+                        onClose={() => this.dismissMarkerPopup()}
+                        opened={answerChoicesActive}
+                        ref={(node) => (this._selectedMarkerPopup = node)}
+                        showTail={false}
+                        dismissEnabled
+                    >
+                        {element}
+                    </Popover>
+                    {!!marker.selected && showAnswerChoice && (
+                        <AnswerPill
+                            selectedAnswers={marker.selected}
+                            showCorrectness={showCorrectness}
+                            markerRef={
+                                // this throws a warning because it's inadvisable to
+                                // call ReactDOM fns in render. we aren't storing
+                                // actual refs in this array, so not much I can do
+                                // outside of a refactor.
+                                ReactDOM.findDOMNode(
+                                    this._markers[index],
+                                ) as HTMLElement
+                            }
+                            side={side}
+                            onClick={() => this.activateMarker(index)}
+                            style={adjustPillDistance}
+                        />
                     )}
-                    placement={side}
-                    opened={true}
-                    key={`${marker.x}.${marker.y}`}
-                    ref={(node) => (this._selectedMarkerPopup = node)}
-                >
-                    {element}
-                </Popover>
+                </div>
             );
         });
     }
@@ -723,7 +773,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
     render(): React.ReactNode {
         const {imageAlt, imageUrl, imageWidth, imageHeight} = this.props;
 
-        const {selectedMarkerIndex} = this.state;
+        const {activeMarkerIndex} = this.state;
 
         return (
             <div>
@@ -744,7 +794,7 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                             // dismiss the popup. If the image is larger in size
                             // than its rendered in the widget, this would
                             // result in a zoom of the image.
-                            selectedMarkerIndex !== -1 &&
+                            activeMarkerIndex !== -1 &&
                                 styles.imageInteractionDisabled,
                         )}
                     >
@@ -762,6 +812,16 @@ class LabelImage extends React.Component<LabelImageProps, LabelImageState> {
                     </div>
                     {this.renderMarkers()}
                 </div>
+                <HideAnswersToggle
+                    areAnswersHidden={this.state.hideAnswers}
+                    onChange={(hideAnswers) => {
+                        this.props.analytics?.onAnalyticsEvent({
+                            type: "perseus:label-image:toggle-answers-hidden",
+                            payload: null,
+                        });
+                        this.setState({hideAnswers});
+                    }}
+                />
             </div>
         );
     }
@@ -840,10 +900,27 @@ const styles = StyleSheet.create({
     },
 });
 
+const LabelImageWithDependencies = React.forwardRef<
+    LabelImage,
+    Omit<PropsFor<typeof LabelImage>, keyof ReturnType<typeof useDependencies>>
+>((props, ref) => {
+    const deps = useDependencies();
+    return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
+});
+
+// HACK: Propogate "static" methods onto our wrapper component.
+// In the future we should adjust client apps to not depend on these static
+// methods and instead adjust Peresus to provide these facilities through
+// instance methods on our Renderers.
+// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
+LabelImageWithDependencies.validate = LabelImage.validate;
+// @ts-expect-error - TS2339 - Property 'gradeMarker' does not exist on type
+LabelImageWithDependencies.gradeMarker = LabelImage.gradeMarker;
+
 export default {
     name: "label-image",
     displayName: "Label Image",
-    widget: LabelImage,
+    widget: LabelImageWithDependencies,
     accessible: true,
     isLintable: true,
-} as WidgetExports<typeof LabelImage>;
+} as WidgetExports<typeof LabelImageWithDependencies>;

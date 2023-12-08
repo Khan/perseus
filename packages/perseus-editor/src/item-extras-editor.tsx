@@ -1,23 +1,23 @@
 import {components} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 const {InfoTip} = components;
 
-type Props = any;
+type ItemExtrasProps = {
+    calculator: boolean;
+    chi2Table: boolean;
+    periodicTable: boolean;
+    periodicTableWithKey: boolean;
+    tTable: boolean;
+    zTable: boolean;
+};
+
+type Props = ItemExtrasProps & {
+    onChange: (props: Partial<ItemExtrasProps>) => void;
+};
 
 class ItemExtrasEditor extends React.Component<Props> {
-    static propTypes = {
-        calculator: PropTypes.bool,
-        chi2Table: PropTypes.bool,
-        onChange: PropTypes.func.isRequired,
-        periodicTable: PropTypes.bool,
-        periodicTableWithKey: PropTypes.bool,
-        tTable: PropTypes.bool,
-        zTable: PropTypes.bool,
-    };
-
-    static defaultProps: Props = {
+    static defaultProps: ItemExtrasProps = {
         calculator: false,
         chi2Table: false,
         periodicTable: false,
@@ -71,6 +71,10 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 onChange={(e) => {
                                     this.props.onChange({
                                         periodicTable: e.target.checked,
+                                        // If the periodic table is unchecked,
+                                        // this needs to be reset. If table is
+                                        // checked, it should already be false.
+                                        periodicTableWithKey: false,
                                     });
                                 }}
                             />
