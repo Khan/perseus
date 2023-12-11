@@ -34,8 +34,18 @@ const CDOT_ONLY = [
     "uz",
 ];
 const TIMES_ONLY = ["fr", "tr", "pt-pt"];
-// false: use CDOT
-// true: use TIMES
+
+/**
+ * convertDotToTimes (aka `times`) is an option the content creators have to
+ * use × (TIMES) rather than · (CDOT) for multiplication (for younger learners).
+ * Some locales _only_ use one or the other for all multiplication regardless
+ * of age.
+ *
+ * convertDotToTimesByLocale overrides convertDotToTimes for those locales.
+ *
+ * @param {boolean} convertDotToTimes - the setting set by content creators
+ * @returns {boolean} - true to convert to × (TIMES), false to use · (CDOT)
+ */
 export function convertDotToTimesByLocale(convertDotToTimes: boolean): boolean {
     const locale = getLocale();
 
