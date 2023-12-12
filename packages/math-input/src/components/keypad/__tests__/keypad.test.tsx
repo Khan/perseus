@@ -171,6 +171,7 @@ describe("keypad", () => {
 
         // Assert
         expect(screen.getByTestId("CDOT")).toBeInTheDocument();
+        expect(screen.queryByTestId("TIMES")).not.toBeInTheDocument();
     });
 
     it(`forces TIMES in locales that require it`, () => {
@@ -188,6 +189,7 @@ describe("keypad", () => {
 
         // Assert
         expect(screen.getByTestId("TIMES")).toBeInTheDocument();
+        expect(screen.queryByTestId("CDOT")).not.toBeInTheDocument();
     });
 
     it(`hides the tabs if providing the Fraction Keypad`, () => {
