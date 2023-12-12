@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 17.2.0
+
+### Minor Changes
+
+-   [#863](https://github.com/Khan/perseus/pull/863) [`f910bd72`](https://github.com/Khan/perseus/commit/f910bd72fc5cbf88a1a00d57f8aefa8eea2c755d) Thanks [@handeyeco](https://github.com/handeyeco)! - Localize the multiplication symbol in MathInput
+
+### Patch Changes
+
+-   [#865](https://github.com/Khan/perseus/pull/865) [`347d6d15`](https://github.com/Khan/perseus/commit/347d6d15ee7989819852067e5916a86725e95def) Thanks [@nedredmond](https://github.com/nedredmond)! - Make label for hide answers switch in Label Image Widget into label tag
+
+-   Updated dependencies [[`f910bd72`](https://github.com/Khan/perseus/commit/f910bd72fc5cbf88a1a00d57f8aefa8eea2c755d)]:
+    -   @khanacademy/math-input@16.3.0
+
 ## 17.1.1
 
 ### Patch Changes

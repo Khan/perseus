@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 16.3.0
+
+### Minor Changes
+
+-   [#863](https://github.com/Khan/perseus/pull/863) [`f910bd72`](https://github.com/Khan/perseus/commit/f910bd72fc5cbf88a1a00d57f8aefa8eea2c755d) Thanks [@handeyeco](https://github.com/handeyeco)! - Localize the multiplication symbol in MathInput
+
 ## 16.2.0
 
 ### Minor Changes
