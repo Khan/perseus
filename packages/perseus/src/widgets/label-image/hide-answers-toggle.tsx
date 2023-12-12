@@ -21,7 +21,7 @@ export const HideAnswersToggle = (props: {
                 onChange={props.onChange}
                 aria-labelledby={labelId}
             />
-            <LabelMedium id={labelId} htmlFor={switchId}>
+            <LabelMedium id={labelId} htmlFor={switchId} tag="label">
                 {strings.hideAnswersToggleLabel}
             </LabelMedium>
         </View>
