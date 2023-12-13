@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 17.3.0
+
+### Minor Changes
+
+-   [#867](https://github.com/Khan/perseus/pull/867) [`378294da`](https://github.com/Khan/perseus/commit/378294da3d207839a861333175920b562773ee97) Thanks [@nedredmond](https://github.com/nedredmond)! - Update and export PerseusAnswerArea type
+
+### Patch Changes
+
+-   [#869](https://github.com/Khan/perseus/pull/869) [`57eeec68`](https://github.com/Khan/perseus/commit/57eeec681072591c64b633527833f3ab9f6e3f1a) Thanks [@nedredmond](https://github.com/nedredmond)! - Remove new unused field from PerseusAnswerArea API
+
 ## 17.2.0
 
 ### Minor Changes
