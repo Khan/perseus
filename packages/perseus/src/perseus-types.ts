@@ -67,8 +67,6 @@ export const ItemExtras = [
     "calculator",
     // The user might benefit from using a statistics Chi Squared Table like https://people.richland.edu/james/lecture/m170/tbl-chi.html
     "chi2Table",
-    // The user might benefit from using a Financial Calculator.  Provided on Khan Academy when true
-    "financialCalculator",
     // The user might benefit from a monthly payments calculator.  Provided on Khan Academy when true
     "financialCalculatorMonthlyPayment",
     // The user might benefit from a total amount calculator.  Provided on Khan Academy when true
