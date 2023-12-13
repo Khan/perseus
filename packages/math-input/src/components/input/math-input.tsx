@@ -7,6 +7,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
+import {KeypadContext} from "../keypad-context";
 
 import CursorHandle from "./cursor-handle";
 import {
@@ -217,6 +218,7 @@ class MathInput extends React.Component<Props, State> {
                         this.props.keypadElement.getDOMNode()
                     ) {
                         const [x, y] = [evt.clientX, evt.clientY];
+
                         // We only want to blur if the click is above the keypad,
                         // to the left of the keypad, or to the right of the keypad.
                         // The reasoning for not blurring for any clicks below the keypad is
@@ -604,9 +606,11 @@ class MathInput extends React.Component<Props, State> {
             });
     };
 
-    handleTouchStart: (arg1: React.TouchEvent<HTMLDivElement>) => void = (
-        e,
-    ) => {
+    handleTouchStart = (
+        e: React.TouchEvent<HTMLDivElement>,
+        keypadActive: boolean,
+        setKeypadActive: (keypadActive: boolean) => void,
+    ): void => {
         e.stopPropagation();
 
         // Hide the cursor handle on touch start, if the handle itself isn't
@@ -625,6 +629,11 @@ class MathInput extends React.Component<Props, State> {
             this._insertCursorAtClosestNode(touch.clientX, touch.clientY);
         }
 
+        // If we're already focused, but the keypad isn't active, activate it.
+        if (this.state.focused && !keypadActive) {
+            setKeypadActive(true);
+        }
+
         // Trigger a focus event, if we're not already focused.
         if (!this.state.focused) {
             this.focus();
@@ -634,7 +643,11 @@ class MathInput extends React.Component<Props, State> {
     // We want to allow the user to be able to focus the input via click
     // when using ChromeOS third-party browsers that use mobile user agents,
     // but don't actually simulate touch events.
-    handleClick = (e: React.MouseEvent<HTMLDivElement>): void => {
+    handleClick = (
+        e: React.MouseEvent<HTMLDivElement>,
+        keypadActive: boolean,
+        setKeypadActive: (keypadActive: boolean) => void,
+    ): void => {
         e.stopPropagation();
 
         // Hide the cursor handle on click
@@ -649,6 +662,11 @@ class MathInput extends React.Component<Props, State> {
             // Make the cursor visible and set the handle-less cursor's
             // location.
             this._insertCursorAtClosestNode(e.clientX, e.clientY);
+        }
+
+        // If we're already focused, but the keypad isn't active, activate it.
+        if (this.state.focused && !keypadActive) {
+            setKeypadActive(true);
         }
 
         // Trigger a focus event, if we're not already focused.
@@ -926,46 +944,59 @@ class MathInput extends React.Component<Props, State> {
             i18n._("Tap with one or two fingers to open keyboard");
 
         return (
-            <View
-                style={styles.input}
-                onTouchStart={this.handleTouchStart}
-                onTouchMove={this.handleTouchMove}
-                onTouchEnd={this.handleTouchEnd}
-                onClick={this.handleClick}
-                role={"textbox"}
-                ariaLabel={ariaLabel}
-            >
-                {/* NOTE(charlie): This is used purely to namespace the styles in
+            <KeypadContext.Consumer>
+                {({keypadActive, setKeypadActive}) => (
+                    <View
+                        style={styles.input}
+                        onTouchStart={(e: React.TouchEvent<HTMLDivElement>) => {
+                            this.handleTouchStart(
+                                e,
+                                keypadActive,
+                                setKeypadActive,
+                            );
+                        }}
+                        onTouchMove={this.handleTouchMove}
+                        onTouchEnd={this.handleTouchEnd}
+                        onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                            this.handleClick(e, keypadActive, setKeypadActive);
+                        }}
+                        role={"textbox"}
+                        ariaLabel={ariaLabel}
+                    >
+                        {/* NOTE(charlie): This is used purely to namespace the styles in
                 overrides.css. */}
-                <div
-                    className="keypad-input"
-                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                    tabIndex={"0"}
-                    ref={(node) => {
-                        this.inputRef = node;
-                    }}
-                    onKeyUp={this.handleKeyUp}
-                >
-                    {/* NOTE(charlie): This element must be styled with inline
+                        <div
+                            className="keypad-input"
+                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                            tabIndex={"0"}
+                            ref={(node) => {
+                                this.inputRef = node;
+                            }}
+                            onKeyUp={this.handleKeyUp}
+                        >
+                            {/* NOTE(charlie): This element must be styled with inline
                     styles rather than with Aphrodite classes, as MathQuill
                     modifies the class names on the DOM node. */}
-                    <div
-                        ref={(node) => {
-                            this._mathContainer = ReactDOM.findDOMNode(node);
-                        }}
-                        style={innerStyle}
-                    />
-                </div>
-                {focused && handle.visible && (
-                    <CursorHandle
-                        {...handle}
-                        onTouchStart={this.onCursorHandleTouchStart}
-                        onTouchMove={this.onCursorHandleTouchMove}
-                        onTouchEnd={this.onCursorHandleTouchEnd}
-                        onTouchCancel={this.onCursorHandleTouchCancel}
-                    />
+                            <div
+                                ref={(node) => {
+                                    this._mathContainer =
+                                        ReactDOM.findDOMNode(node);
+                                }}
+                                style={innerStyle}
+                            />
+                        </div>
+                        {focused && handle.visible && (
+                            <CursorHandle
+                                {...handle}
+                                onTouchStart={this.onCursorHandleTouchStart}
+                                onTouchMove={this.onCursorHandleTouchMove}
+                                onTouchEnd={this.onCursorHandleTouchEnd}
+                                onTouchCancel={this.onCursorHandleTouchCancel}
+                            />
+                        )}
+                    </View>
                 )}
-            </View>
+            </KeypadContext.Consumer>
         );
     }
 }

@@ -121,6 +121,35 @@ describe("expression mobile", () => {
         );
     });
 
+    it("shows keypad after focused input interaction", async () => {
+        render(<ConnectedRenderer />);
+
+        const input = screen.getByLabelText(
+            "Math input box Tap with one or two fingers to open keyboard",
+        );
+
+        fireEvent.touchStart(input);
+
+        // waiting because `visibility` is animated
+        await waitFor(() =>
+            expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
+        );
+
+        userEvent.click(screen.getByRole("tab", {name: "Dismiss"}));
+
+        // wait for the keypad to close
+        await waitFor(() =>
+            expect(screen.queryByRole("button", {name: "1"})).toBeNull(),
+        );
+
+        fireEvent.touchStart(input);
+
+        // confirm that the keypad has reopened
+        await waitFor(() =>
+            expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
+        );
+    });
+
     it("is possible to use the keypad", async () => {
         render(<ConnectedRenderer />);
 
