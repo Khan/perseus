@@ -18,7 +18,10 @@ const Wrapper = (props: Props) => {
     return (
         <ItemExtrasEditor
             {...extras}
-            onChange={(e) => setExtras((prevExtras) => ({...prevExtras, ...e}))}
+            onChange={(e) => {
+                props.onChange?.(e); // to register action in storybook
+                setExtras((prevExtras) => ({...prevExtras, ...e}));
+            }}
         />
     );
 };
@@ -27,6 +30,7 @@ const story: Meta<Props> = {
     title: "Perseus/Editor/Item Extras Editor",
     component: ItemExtrasEditor,
     render: (args) => <Wrapper {...args} />,
+    argTypes: {onChange: {action: "changed"}},
 };
 export default story;
 

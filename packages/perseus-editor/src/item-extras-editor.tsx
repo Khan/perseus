@@ -9,11 +9,14 @@ type Props = PerseusAnswerArea & {
     onChange: (props: Partial<PerseusAnswerArea>) => void;
 };
 
-class ItemExtrasEditor extends React.Component<Props> {
+type State = {
+    financialCalculatorOptionsExpanded: boolean;
+};
+
+class ItemExtrasEditor extends React.Component<Props, State> {
     static defaultProps: PerseusAnswerArea = {
         calculator: false,
         chi2Table: false,
-        financialCalculator: false,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
@@ -23,18 +26,20 @@ class ItemExtrasEditor extends React.Component<Props> {
         zTable: false,
     };
 
+    state = {
+        financialCalculatorOptionsExpanded: false,
+    };
+
     componentDidUpdate(prevProps: Readonly<Props>): void {
         // If no financial calculator options are checked, uncheck the
         // financial calculator option.
         if (
-            prevProps.financialCalculator &&
+            this.state.financialCalculatorOptionsExpanded &&
             !this.props.financialCalculatorMonthlyPayment &&
             !this.props.financialCalculatorTotalAmount &&
             !this.props.financialCalculatorTimeToPayOff
         ) {
-            this.props.onChange({
-                financialCalculator: false,
-            });
+            this.setState({financialCalculatorOptionsExpanded: false});
         }
     }
 
@@ -64,13 +69,16 @@ class ItemExtrasEditor extends React.Component<Props> {
                     <ItemExtraCheckbox
                         label="Show financial calculator:"
                         infoTip="This provides the student with the ability to view a financial calculator, e.g., for answering financial questions. Once checked, requires at least one of the three options below to be checked."
-                        checked={this.props.financialCalculator}
+                        checked={this.state.financialCalculatorOptionsExpanded}
                         onChange={(e) => {
+                            this.setState({
+                                financialCalculatorOptionsExpanded:
+                                    e.target.checked,
+                            });
+                            // If the financial calculator is unchecked,
+                            // this needs to be reset. All checked by
+                            // default.
                             this.props.onChange({
-                                financialCalculator: e.target.checked,
-                                // If the financial calculator is unchecked,
-                                // this needs to be reset. All checked by
-                                // default.
                                 financialCalculatorMonthlyPayment:
                                     e.target.checked,
                                 financialCalculatorTotalAmount:
@@ -81,7 +89,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                         }}
                     />
 
-                    {this.props.financialCalculator && (
+                    {this.state.financialCalculatorOptionsExpanded && (
                         <>
                             <ItemExtraCheckbox
                                 label="Include monthly payment:"
