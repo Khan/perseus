@@ -2,6 +2,7 @@
 // As new widgets get added here, please also make sure they get added in
 // content_internal/perseus_traversal.py so they can be properly translated.
 
+import AutoCorrect from "./widgets/auto-correct";
 import Categorizer from "./widgets/categorizer";
 import CSProgram from "./widgets/cs-program";
 import Definition from "./widgets/definition";
@@ -72,4 +73,5 @@ export default [
     Transformer,
     Unit,
     Video,
+    AutoCorrect,
 ] as ReadonlyArray<WidgetExports>;
