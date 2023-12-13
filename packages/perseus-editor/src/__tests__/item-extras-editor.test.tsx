@@ -65,4 +65,50 @@ describe("ItemExtrasEditor", () => {
             periodicTableWithKey: false,
         });
     });
+
+    it("should call onChange on dependent values when financialCalculator is checked", () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ItemExtrasEditor
+                financialCalculator={false}
+                onChange={onChangeMock}
+            />,
+        );
+        const checkbox = screen.getByLabelText("Show financial calculator:");
+
+        // Act
+        userEvent.click(checkbox);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            financialCalculator: true,
+            financialCalculatorMonthlyPayment: true,
+            financialCalculatorTotalAmount: true,
+            financialCalculatorTimeToPayOff: true,
+        });
+    });
+
+    it("should call onChange on dependent values when financialCalculator is unchecked", () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ItemExtrasEditor
+                financialCalculator={true}
+                onChange={onChangeMock}
+            />,
+        );
+        const checkbox = screen.getByLabelText("Show financial calculator:");
+
+        // Act
+        userEvent.click(checkbox);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            financialCalculator: false,
+            financialCalculatorMonthlyPayment: false,
+            financialCalculatorTotalAmount: false,
+            financialCalculatorTimeToPayOff: false,
+        });
+    });
 });

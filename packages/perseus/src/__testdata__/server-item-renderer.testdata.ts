@@ -1,8 +1,10 @@
-import type {
-    InputNumberWidget,
-    LabelImageWidget,
-    PerseusItem,
-    PerseusRenderer,
+import {
+    ItemExtras,
+    type InputNumberWidget,
+    type LabelImageWidget,
+    type PerseusItem,
+    type PerseusRenderer,
+    type PerseusAnswerArea,
 } from "../perseus-types";
 
 export const itemWithInput: PerseusItem = {
@@ -37,13 +39,9 @@ export const itemWithInput: PerseusItem = {
 };
 
 export const labelImageItem: PerseusItem = {
-    answerArea: {
-        calculator: false,
-        chi2Table: false,
-        periodicTable: false,
-        tTable: false,
-        zTable: false,
-    },
+    answerArea: Object.fromEntries(
+        ItemExtras.map((extra) => [extra, false]),
+    ) as PerseusAnswerArea,
     _multi: null,
     answer: null,
     hints: [],

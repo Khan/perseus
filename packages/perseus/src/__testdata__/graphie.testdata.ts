@@ -1,13 +1,13 @@
-import type {PerseusItem} from "../perseus-types";
+import {
+    ItemExtras,
+    type PerseusAnswerArea,
+    type PerseusItem,
+} from "../perseus-types";
 
 export const itemWithPieChart: PerseusItem = {
-    answerArea: {
-        calculator: false,
-        chi2Table: false,
-        periodicTable: false,
-        tTable: false,
-        zTable: false,
-    },
+    answerArea: Object.fromEntries(
+        ItemExtras.map((extra) => [extra, false]),
+    ) as PerseusAnswerArea,
     hints: [],
     itemDataVersion: {
         major: 0,

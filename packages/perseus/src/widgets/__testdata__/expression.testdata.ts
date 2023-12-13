@@ -1,4 +1,14 @@
 import {
+    ItemExtras,
+    type PerseusExpressionWidgetOptions,
+    type Version,
+    type PerseusItem,
+    type PerseusRenderer,
+    type ExpressionWidget,
+    type PerseusAnswerArea,
+} from "../../perseus-types";
+
+import {
     arrayOfLength,
     randomBoolean,
     randomElement,
@@ -7,14 +17,6 @@ import {
     randomSentence,
     randomWord,
 } from "./randomizers";
-
-import type {
-    PerseusExpressionWidgetOptions,
-    Version,
-    PerseusItem,
-    PerseusRenderer,
-    ExpressionWidget,
-} from "../../perseus-types";
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
@@ -35,13 +37,9 @@ const createItemJson = (
         },
         _multi: null,
         answer: null,
-        answerArea: {
-            zTable: false,
-            chi2Table: false,
-            tTable: false,
-            calculator: false,
-            periodicTable: false,
-        },
+        answerArea: Object.fromEntries(
+            ItemExtras.map((extra) => [extra, false]),
+        ) as PerseusAnswerArea,
         itemDataVersion: {
             major: 0,
             minor: 1,

@@ -1,29 +1,16 @@
-import {components} from "@khanacademy/perseus";
+import {components, ItemExtras} from "@khanacademy/perseus";
 import * as React from "react";
+
+import type {PerseusAnswerArea} from "@khanacademy/perseus";
 
 const {InfoTip} = components;
 
-const ItemExtras = [
-    "calculator",
-    "chi2Table",
-    "financialCalculator",
-    "financialCalculatorMonthlyPayment",
-    "financialCalculatorTotalAmount",
-    "financialCalculatorTimeToPayOff",
-    "periodicTable",
-    "periodicTableWithKey",
-    "tTable",
-    "zTable",
-] as const;
-
-type ItemExtrasProps = Record<typeof ItemExtras[number], boolean>;
-
-type Props = ItemExtrasProps & {
-    onChange: (props: Partial<ItemExtrasProps>) => void;
+type Props = PerseusAnswerArea & {
+    onChange: (props: Partial<PerseusAnswerArea>) => void;
 };
 
 class ItemExtrasEditor extends React.Component<Props> {
-    static defaultProps: ItemExtrasProps = {
+    static defaultProps: PerseusAnswerArea = {
         calculator: false,
         chi2Table: false,
         financialCalculator: false,
@@ -37,6 +24,8 @@ class ItemExtrasEditor extends React.Component<Props> {
     };
 
     componentDidUpdate(prevProps: Readonly<Props>): void {
+        // If no financial calculator options are checked, uncheck the
+        // financial calculator option.
         if (
             prevProps.financialCalculator &&
             !this.props.financialCalculatorMonthlyPayment &&
@@ -49,10 +38,10 @@ class ItemExtrasEditor extends React.Component<Props> {
         }
     }
 
-    serialize: () => any = () => {
-        const data = {};
+    serialize: () => PerseusAnswerArea = () => {
+        const data = {...ItemExtrasEditor.defaultProps};
         for (const key of ItemExtras) {
-            data[key] = this.props[key];
+            data[key] = !!this.props[key];
         }
         return data;
     };
@@ -123,7 +112,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 indent
                             />
                             <ItemExtraCheckbox
-                                label="Include time to pay off:"
+                                label="Include time-to-pay-off:"
                                 infoTip="This provides the student with the ability to view a time to pay off calculator; e.g., given a loan amount, interest rate, and monthly payment, how long will it take to pay off the loan?"
                                 checked={
                                     this.props.financialCalculatorTimeToPayOff
