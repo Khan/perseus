@@ -62,20 +62,29 @@ export type PerseusImageDetail = {
     height: number;
 };
 
-export type PerseusAnswerArea = {
-    // The user might benefit from using a statistics Z Table like https://www.ztable.net/
-    zTable: boolean;
-    // The user might benefit from using a statistics Chi Squared Table like https://people.richland.edu/james/lecture/m170/tbl-chi.html
-    chi2Table: boolean;
-    // The user might benefit from using a statistics T Table like https://www.statisticshowto.com/tables/t-distribution-table/
-    tTable: boolean;
+export const ItemExtras = [
     // The user might benefit from using a Scientific Calculator.  Provided on Khan Academy when true
-    calculator: boolean;
+    "calculator",
+    // The user might benefit from using a statistics Chi Squared Table like https://people.richland.edu/james/lecture/m170/tbl-chi.html
+    "chi2Table",
+    // The user might benefit from using a Financial Calculator.  Provided on Khan Academy when true
+    "financialCalculator",
+    // The user might benefit from a monthly payments calculator.  Provided on Khan Academy when true
+    "financialCalculatorMonthlyPayment",
+    // The user might benefit from a total amount calculator.  Provided on Khan Academy when true
+    "financialCalculatorTotalAmount",
+    // The user might benefit from a time to pay off calculator.  Provided on Khan Academy when true
+    "financialCalculatorTimeToPayOff",
     // The user might benefit from using a Periodic Table of Elements.  Provided on Khan Academy when true
-    periodicTable: boolean;
+    "periodicTable",
     // The user might benefit from using a Periodic Table of Elements with key.  Provided on Khan Academy when true
-    periodicTableWithKey?: boolean;
-};
+    "periodicTableWithKey",
+    // The user might benefit from using a statistics T Table like https://www.statisticshowto.com/tables/t-distribution-table/
+    "tTable",
+    // The user might benefit from using a statistics Z Table like https://www.ztable.net/
+    "zTable",
+] as const;
+export type PerseusAnswerArea = Record<typeof ItemExtras[number], boolean>;
 
 type Widget<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like

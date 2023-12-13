@@ -64,6 +64,7 @@ export {default as PerseusMarkdown} from "./perseus-markdown";
 export {
     PerseusExpressionAnswerFormConsidered,
     plotterPlotTypes,
+    ItemExtras,
 } from "./perseus-types";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
@@ -127,6 +128,7 @@ export type {
     PerseusExpressionWidgetOptions,
     PerseusPlotterWidgetOptions,
     PerseusRenderer,
+    PerseusAnswerArea,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";

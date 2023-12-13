@@ -1,8 +1,9 @@
 import * as React from "react";
 
 import AssetContext from "../asset-context";
+import {ItemExtras} from "../perseus-types";
 
-import type {PerseusItem} from "../perseus-types";
+import type {PerseusAnswerArea, PerseusItem} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
 export const mockedAssetItem: PerseusItem = {
@@ -20,13 +21,9 @@ export const mockedAssetItem: PerseusItem = {
             },
         },
     },
-    answerArea: {
-        calculator: false,
-        chi2Table: false,
-        periodicTable: false,
-        tTable: false,
-        zTable: false,
-    },
+    answerArea: Object.fromEntries(
+        ItemExtras.map((extra) => [extra, false]),
+    ) as PerseusAnswerArea,
     itemDataVersion: {major: 0, minor: 1},
     hints: [],
     _multi: null,

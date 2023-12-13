@@ -1,178 +1,222 @@
-import {components} from "@khanacademy/perseus";
+import {components, ItemExtras} from "@khanacademy/perseus";
 import * as React from "react";
+
+import type {PerseusAnswerArea} from "@khanacademy/perseus";
 
 const {InfoTip} = components;
 
-type ItemExtrasProps = {
-    calculator: boolean;
-    chi2Table: boolean;
-    periodicTable: boolean;
-    periodicTableWithKey: boolean;
-    tTable: boolean;
-    zTable: boolean;
-};
-
-type Props = ItemExtrasProps & {
-    onChange: (props: Partial<ItemExtrasProps>) => void;
+type Props = PerseusAnswerArea & {
+    onChange: (props: Partial<PerseusAnswerArea>) => void;
 };
 
 class ItemExtrasEditor extends React.Component<Props> {
-    static defaultProps: ItemExtrasProps = {
+    static defaultProps: PerseusAnswerArea = {
         calculator: false,
         chi2Table: false,
+        financialCalculator: false,
+        financialCalculatorMonthlyPayment: false,
+        financialCalculatorTotalAmount: false,
+        financialCalculatorTimeToPayOff: false,
         periodicTable: false,
         periodicTableWithKey: false,
         tTable: false,
         zTable: false,
     };
 
-    serialize: () => any = () => {
-        return {
-            calculator: this.props.calculator,
-            chi2Table: this.props.chi2Table,
-            periodicTable: this.props.periodicTable,
-            periodicTableWithKey: this.props.periodicTableWithKey,
-            tTable: this.props.tTable,
-            zTable: this.props.zTable,
-        };
+    componentDidUpdate(prevProps: Readonly<Props>): void {
+        // If no financial calculator options are checked, uncheck the
+        // financial calculator option.
+        if (
+            prevProps.financialCalculator &&
+            !this.props.financialCalculatorMonthlyPayment &&
+            !this.props.financialCalculatorTotalAmount &&
+            !this.props.financialCalculatorTimeToPayOff
+        ) {
+            this.props.onChange({
+                financialCalculator: false,
+            });
+        }
+    }
+
+    serialize: () => PerseusAnswerArea = () => {
+        const data = {...ItemExtrasEditor.defaultProps};
+        for (const key of ItemExtras) {
+            data[key] = !!this.props[key];
+        }
+        return data;
     };
 
     render(): React.ReactNode {
         return (
             <div className="perseus-answer-editor">
                 <div className="perseus-answer-options">
-                    <div>
-                        <label>
-                            Show calculator:{" "}
-                            <input
-                                type="checkbox"
-                                checked={this.props.calculator}
+                    <ItemExtraCheckbox
+                        label="Show calculator:"
+                        infoTip="Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
+                        checked={this.props.calculator}
+                        onChange={(e) => {
+                            this.props.onChange({
+                                calculator: e.target.checked,
+                            });
+                        }}
+                    />
+
+                    <ItemExtraCheckbox
+                        label="Show financial calculator:"
+                        infoTip="This provides the student with the ability to view a financial calculator, e.g., for answering financial questions. Once checked, requires at least one of the three options below to be checked."
+                        checked={this.props.financialCalculator}
+                        onChange={(e) => {
+                            this.props.onChange({
+                                financialCalculator: e.target.checked,
+                                // If the financial calculator is unchecked,
+                                // this needs to be reset. All checked by
+                                // default.
+                                financialCalculatorMonthlyPayment:
+                                    e.target.checked,
+                                financialCalculatorTotalAmount:
+                                    e.target.checked,
+                                financialCalculatorTimeToPayOff:
+                                    e.target.checked,
+                            });
+                        }}
+                    />
+
+                    {this.props.financialCalculator && (
+                        <>
+                            <ItemExtraCheckbox
+                                label="Include monthly payment:"
+                                infoTip="This provides the student with the ability to view a monthly payment calculator; e.g., given a loan amount, interest rate, and term, what is the monthly payment?"
+                                checked={
+                                    this.props.financialCalculatorMonthlyPayment
+                                }
                                 onChange={(e) => {
                                     this.props.onChange({
-                                        calculator: e.target.checked,
+                                        financialCalculatorMonthlyPayment:
+                                            e.target.checked,
                                     });
                                 }}
+                                indent
                             />
-                        </label>
-                        <InfoTip>
-                            Use the calculator when completing difficult
-                            calculations is NOT the intent of the question.
-                            DON’T use the calculator when testing the student’s
-                            ability to complete different types of computations.
-                        </InfoTip>
-                    </div>
-
-                    <div>
-                        <label>
-                            Show periodic table:{" "}
-                            <input
-                                type="checkbox"
-                                checked={this.props.periodicTable}
+                            <ItemExtraCheckbox
+                                label="Include total amount:"
+                                infoTip="This provides the student with the ability to view a total amount calculator; e.g., given a monthly payment, interest rate, and term, what is the total amount to be paid?"
+                                checked={
+                                    this.props.financialCalculatorTotalAmount
+                                }
                                 onChange={(e) => {
                                     this.props.onChange({
-                                        periodicTable: e.target.checked,
-                                        // If the periodic table is unchecked,
-                                        // this needs to be reset. If table is
-                                        // checked, it should already be false.
-                                        periodicTableWithKey: false,
+                                        financialCalculatorTotalAmount:
+                                            e.target.checked,
                                     });
                                 }}
+                                indent
                             />
-                        </label>
-                        <InfoTip>
-                            This provides the student with the ability to view a
-                            periodic table of the elements, e.g., for answering
-                            chemistry questions.
-                        </InfoTip>
-                    </div>
-
-                    {this.props.periodicTable && (
-                        <div>
-                            <label>
-                                Include key/legend with periodic table:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.props.periodicTableWithKey}
-                                    onChange={(e) => {
-                                        this.props.onChange({
-                                            periodicTableWithKey:
-                                                e.target.checked,
-                                        });
-                                    }}
-                                />
-                            </label>
-                            <InfoTip>
-                                Include a key for HS courses, omit for AP
-                                chemistry.
-                            </InfoTip>
-                        </div>
+                            <ItemExtraCheckbox
+                                label="Include time-to-pay-off:"
+                                infoTip="This provides the student with the ability to view a time to pay off calculator; e.g., given a loan amount, interest rate, and monthly payment, how long will it take to pay off the loan?"
+                                checked={
+                                    this.props.financialCalculatorTimeToPayOff
+                                }
+                                onChange={(e) => {
+                                    this.props.onChange({
+                                        financialCalculatorTimeToPayOff:
+                                            e.target.checked,
+                                    });
+                                }}
+                                indent
+                            />
+                        </>
                     )}
 
-                    <div>
-                        <label>
-                            Show z table (statistics):{" "}
-                            <input
-                                type="checkbox"
-                                checked={this.props.zTable}
-                                onChange={(e) => {
-                                    this.props.onChange({
-                                        zTable: e.target.checked,
-                                    });
-                                }}
-                            />
-                        </label>
-                        <InfoTip>
-                            This provides the student with the ability to view a
-                            table of critical values for the z distribution,
-                            e.g. for answering statistics questions.
-                        </InfoTip>
-                    </div>
+                    <ItemExtraCheckbox
+                        label="Show periodic table:"
+                        infoTip="This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
+                        checked={this.props.periodicTable}
+                        onChange={(e) => {
+                            this.props.onChange({
+                                periodicTable: e.target.checked,
+                                // If the periodic table is unchecked,
+                                // this needs to be reset. If table is
+                                // checked, it should already be false.
+                                periodicTableWithKey: false,
+                            });
+                        }}
+                    />
 
-                    <div>
-                        <label>
-                            Show t table (statistics):{" "}
-                            <input
-                                type="checkbox"
-                                checked={this.props.tTable}
-                                onChange={(e) => {
-                                    this.props.onChange({
-                                        tTable: e.target.checked,
-                                    });
-                                }}
-                            />
-                        </label>
-                        <InfoTip>
-                            This provides the student with the ability to view a
-                            table of critical values for the Student's t
-                            distribution, e.g. for answering statistics
-                            questions.
-                        </InfoTip>
-                    </div>
+                    {this.props.periodicTable && (
+                        <ItemExtraCheckbox
+                            label="Include key/legend with periodic table:"
+                            infoTip="Include a key for HS courses; omit for AP chemistry."
+                            checked={this.props.periodicTableWithKey}
+                            onChange={(e) => {
+                                this.props.onChange({
+                                    periodicTableWithKey: e.target.checked,
+                                });
+                            }}
+                            indent
+                        />
+                    )}
 
-                    <div>
-                        <label>
-                            Show chi-squared table (statistics):{" "}
-                            <input
-                                type="checkbox"
-                                checked={this.props.chi2Table}
-                                onChange={(e) => {
-                                    this.props.onChange({
-                                        chi2Table: e.target.checked,
-                                    });
-                                }}
-                            />
-                        </label>
-                        <InfoTip>
-                            This provides the student with the ability to view a
-                            table of critical values for the chi-squared
-                            distribution, e.g. for answering statistics
-                            questions.
-                        </InfoTip>
-                    </div>
+                    <ItemExtraCheckbox
+                        label="Show z table (statistics):"
+                        infoTip="This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
+                        checked={this.props.zTable}
+                        onChange={(e) => {
+                            this.props.onChange({
+                                zTable: e.target.checked,
+                            });
+                        }}
+                    />
+
+                    <ItemExtraCheckbox
+                        label="Show t table (statistics):"
+                        infoTip="This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
+                        checked={this.props.tTable}
+                        onChange={(e) => {
+                            this.props.onChange({
+                                tTable: e.target.checked,
+                            });
+                        }}
+                    />
+
+                    <ItemExtraCheckbox
+                        label="Show chi-squared table (statistics):"
+                        infoTip="This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
+                        checked={this.props.chi2Table}
+                        onChange={(e) => {
+                            this.props.onChange({
+                                chi2Table: e.target.checked,
+                            });
+                        }}
+                    />
                 </div>
             </div>
         );
     }
 }
+
+const ItemExtraCheckbox = (props: {
+    label: string;
+    infoTip: string;
+    checked: boolean;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    indent?: boolean;
+}) => (
+    <div
+        style={{
+            marginLeft: props.indent ? "10px" : "0px",
+        }}
+    >
+        <label>
+            {props.label}
+            <input
+                type="checkbox"
+                checked={props.checked}
+                onChange={props.onChange}
+            />
+        </label>
+        <InfoTip>{props.infoTip}</InfoTip>
+    </div>
+);
 
 export default ItemExtrasEditor;
