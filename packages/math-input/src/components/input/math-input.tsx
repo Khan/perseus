@@ -645,8 +645,8 @@ class MathInput extends React.Component<Props, State> {
     // but don't actually simulate touch events.
     handleClick = (
         e: React.MouseEvent<HTMLDivElement>,
-        keypadActive,
-        setKeypadActive: any,
+        keypadActive: boolean,
+        setKeypadActive: (keypadActive: boolean) => void,
     ): void => {
         e.stopPropagation();
 
