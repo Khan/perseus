@@ -5,7 +5,7 @@ type Props = {
     translationIndex: number;
     paragraphIndex?: number;
     children?: React.ReactNode;
-    plainText?: boolean;
+    inline?: boolean;
 };
 
 class QuestionParagraph extends React.Component<Props> {
@@ -17,7 +17,7 @@ class QuestionParagraph extends React.Component<Props> {
         // to attach some metadata to top-level QuestionParagraphs:
         return (
             <div
-                className={this.props.plainText ? undefined : className}
+                className={this.props.inline ? undefined : className}
                 data-perseus-component-index={this.props.translationIndex}
                 data-perseus-paragraph-index={this.props.paragraphIndex}
             >

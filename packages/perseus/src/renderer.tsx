@@ -173,7 +173,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     legacyPerseusLint?: ReadonlyArray<string>;
     widgets: PerseusRenderer["widgets"];
     // Skip adding paragraph class
-    plainText?: boolean;
+    inline?: boolean;
 };
 
 type State = {
@@ -1062,7 +1062,7 @@ class Renderer extends React.Component<Props, State> {
                 className={className}
                 translationIndex={this.translationIndex}
                 paragraphIndex={state.paragraphIndex}
-                plainText={this.props.plainText}
+                inline={this.props.inline}
             >
                 <ErrorBoundary>{output}</ErrorBoundary>
             </QuestionParagraph>
@@ -1922,7 +1922,7 @@ class Renderer extends React.Component<Props, State> {
         this._isTwoColumn = false;
 
         // Parse the string of markdown to a parse tree
-        const parsedMarkdown = this.props.plainText
+        const parsedMarkdown = this.props.inline
             ? PerseusMarkdown.parseInline(content, {
                   // Recognize crowdin IDs while translating articles
                   // (This should never be hit by exercises, though if you

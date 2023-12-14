@@ -72,7 +72,7 @@ export const AnswerPill = (props: {
                         incorrect && styles.incorrect,
                     ]}
                 >
-                    <Renderer content={answerString} plainText />
+                    <Renderer content={answerString} inline />
                 </Pill>
             )}
         </Popper>
