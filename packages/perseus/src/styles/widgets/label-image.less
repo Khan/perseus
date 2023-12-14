@@ -7,6 +7,21 @@
     }
 }
 
+// Reset mobile text content for answer pills.
+@media (max-width: 767px) {
+    [id*="perseus-label-image-widget-answer-pill"] {
+        > div.perseus-renderer-responsive {
+            all: revert;
+        }
+    }
+    .framework-perseus.perseus-mobile
+        [id*="perseus-label-image-widget-answer-pill"] {
+        mjx-container {
+            all: revert;
+        }
+    }
+}
+
 .framework-perseus:not(.perseus-article).perseus-mobile {
     .perseus-label-image-widget-instructions {
         color: initial;
