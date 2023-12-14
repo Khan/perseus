@@ -50,8 +50,9 @@ class PassageRefTarget extends React.Component<any> {
         return (
             <Renderer
                 content={this.props.content}
-                // This was here, but the prop was not defined until now! (#873)
-                // Perhaps it once existed and was removed a long time ago.
+                // This was already here before inline was recently added (#873)
+                // It was for a different use case a long time ago:
+                // https://phabricator.khanacademy.org/D12113
                 // Commenting out to prevent unanticipated side effects
                 // inline={true}
                 apiOptions={this.props.apiOptions}
