@@ -22,7 +22,7 @@ export default story;
 export const SingleAnswer = {
     args: {
         id: "1",
-        selectedAnswers: ["Answer Pill!"],
+        selectedAnswers: ["Answer Pill"],
         markerRef: null,
         side: "top",
         onClick: () => {},
@@ -42,7 +42,7 @@ export const MultipleAnswers = {
 export const Correct = {
     args: {
         id: "1",
-        selectedAnswers: ["Right Answer!"],
+        selectedAnswers: ["Right Answer"],
         showCorrectness: "correct",
         markerRef: null,
         side: "top",
@@ -53,7 +53,7 @@ export const Correct = {
 export const Incorrect = {
     args: {
         id: "1",
-        selectedAnswers: ["Wrong Answer!"],
+        selectedAnswers: ["Wrong Answer"],
         showCorrectness: "incorrect",
         markerRef: null,
         side: "top",
