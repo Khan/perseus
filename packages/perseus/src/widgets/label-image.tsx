@@ -667,7 +667,7 @@ export class LabelImage extends React.Component<
                 [`margin${
                     markerPosition.charAt(0).toUpperCase() +
                     markerPosition.slice(1)
-                }`]: 5, // move pill further from marker
+                }`]: 15, // move pill further from marker
             };
 
             const showAnswerChoice =
