@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 16.4.0
+
+### Minor Changes
+
+-   [#871](https://github.com/Khan/perseus/pull/871) [`610ebba2`](https://github.com/Khan/perseus/commit/610ebba29ab8b2ee4ddf4879f8c8b87993f29b20) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensured that tapping an already focused math input will reopen the keypad if it is closed.
+
 ## 16.3.0
 
 ### Minor Changes

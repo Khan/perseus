@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 17.3.1
+
+### Patch Changes
+
+-   [#873](https://github.com/Khan/perseus/pull/873) [`b7777865`](https://github.com/Khan/perseus/commit/b777786517afc289e92201e3fea876c30c493290) Thanks [@nedredmond](https://github.com/nedredmond)! - Prevent paragraph class from being added to answer pills component
+
+-   Updated dependencies [[`610ebba2`](https://github.com/Khan/perseus/commit/610ebba29ab8b2ee4ddf4879f8c8b87993f29b20)]:
+    -   @khanacademy/math-input@16.4.0
+
 ## 17.3.0
 
 ### Minor Changes
