@@ -50,8 +50,11 @@ class PassageRefTarget extends React.Component<any> {
         return (
             <Renderer
                 content={this.props.content}
-                // @ts-expect-error - TS2322 - Type '{ content: any; inline: boolean; apiOptions: any; linterContext: any; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Renderer> & Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | ... 3 more ... | "legacyPerseusLint"> & InexactPartial<...> & InexactPartial<...>'.
-                inline={true}
+                // This was already here before inline was recently added (#873)
+                // It was for a different use case a long time ago:
+                // https://phabricator.khanacademy.org/D12113
+                // Commenting out to prevent unanticipated side effects
+                // inline={true}
                 apiOptions={this.props.apiOptions}
                 linterContext={this.props.linterContext}
             />

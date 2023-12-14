@@ -172,6 +172,8 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     linterContext: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
     widgets: PerseusRenderer["widgets"];
+    // Skip adding paragraph class
+    inline?: boolean;
 };
 
 type State = {
@@ -1060,6 +1062,7 @@ class Renderer extends React.Component<Props, State> {
                 className={className}
                 translationIndex={this.translationIndex}
                 paragraphIndex={state.paragraphIndex}
+                inline={this.props.inline}
             >
                 <ErrorBoundary>{output}</ErrorBoundary>
             </QuestionParagraph>
@@ -1919,13 +1922,17 @@ class Renderer extends React.Component<Props, State> {
         this._isTwoColumn = false;
 
         // Parse the string of markdown to a parse tree
-        const parsedMarkdown = PerseusMarkdown.parse(content, {
-            // Recognize crowdin IDs while translating articles
-            // (This should never be hit by exercises, though if you
-            // decide you want to add a check that this is an article,
-            // go for it.)
-            isJipt: this.translationIndex != null,
-        });
+        const parsedMarkdown = this.props.inline
+            ? PerseusMarkdown.parseInline(content, {
+                  // Recognize crowdin IDs while translating articles
+                  // (This should never be hit by exercises, though if you
+                  // decide you want to add a check that this is an article,
+                  // go for it.)
+                  isJipt: this.translationIndex != null,
+              })
+            : PerseusMarkdown.parse(content, {
+                  isJipt: this.translationIndex != null,
+              });
 
         // Optionally apply the linter to the parse tree
         if (this.props.linterContext.highlightLint) {

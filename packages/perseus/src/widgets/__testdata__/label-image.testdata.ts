@@ -178,3 +178,131 @@ export const numberline: PerseusRenderer = {
         },
     },
 };
+
+export const longTextFromArticle: PerseusRenderer = {
+    content: "[[☃ label-image 1]]",
+    images: {},
+    widgets: {
+        "label-image 1": {
+            type: "label-image",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                static: false,
+                choices: [
+                    "long wavelength & low frequency",
+                    "short wavelength & high frequency",
+                ],
+                imageAlt:
+                    "Section of a rainbow in the sky. From left to right, the colors appear as violet, indigo, blue, green, yellow, orange, and red.",
+                imageUrl:
+                    "https://cdn.kastatic.org/ka-content-images/227d402cb09ebc1b67f197467212fa4ab3ced5b3.jpg",
+                imageWidth: 400,
+                imageHeight: 289,
+                markers: [
+                    {
+                        answers: ["short wavelength & high frequency"],
+                        label: "Violet side of the rainbow",
+                        x: 35.8,
+                        y: 13,
+                    },
+                    {
+                        answers: ["long wavelength & low frequency"],
+                        label: "Red side of the rainbow",
+                        x: 71.8,
+                        y: 50.5,
+                    },
+                ],
+                multipleAnswers: false,
+                hideChoicesFromInstructions: true,
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
+export const mixedContentQuestion: PerseusRenderer = {
+    content:
+        "A beach ball floats on water. The ball is at rest.\n\n[[☃ image 1]]\n\n**Complete the free body diagram by labeling the forces acting on the ball.**\n\n[[☃ label-image 1]]",
+    images: {
+        "https://cdn.kastatic.org/ka-content-images/0fa7eefde0067d986d2e6dc377e8d2db3e1d466f.svg":
+            {
+                width: 150,
+                height: 300,
+            },
+    },
+    widgets: {
+        "image 1": {
+            type: "image",
+            alignment: "block",
+            static: false,
+            graded: true,
+            options: {
+                static: false,
+                title: "",
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
+                box: [350, 219],
+                backgroundImage: {
+                    url: "https://cdn.kastatic.org/ka-content-images/581c7d3928ba5f81e9dc5720291ec895764cc7e8.png",
+                    width: 350,
+                    height: 219,
+                },
+                labels: [],
+                alt: "An inflated beach ball floats on the surface of water. Only a small portion of the ball is underwater.",
+                caption: "",
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+        "label-image 1": {
+            type: "label-image",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                static: false,
+                choices: [
+                    "lift $(F_\\text{L})$",
+                    "buoyant force $(F_\\text{B})$",
+                    "gravity $(F_\\text{g})$",
+                    "normal force $(F_\\text{N})$",
+                ],
+                imageAlt:
+                    "A model shows a square with two arrows pointing out of it. One arrow points up and another arrow points down.",
+                imageUrl:
+                    "https://cdn.kastatic.org/ka-content-images/b24e40b5a36890130acfb7bd237c4bf0d85c7b44.svg",
+                imageWidth: 150,
+                imageHeight: 300,
+                markers: [
+                    {
+                        answers: ["buoyant force $(F_\\text{B})$"],
+                        label: "An arrow that points upward from the square",
+                        x: 64.2,
+                        y: 17.6,
+                    },
+                    {
+                        answers: ["gravity $(F_\\text{g})$"],
+                        label: "An arrow that points downward from the square",
+                        x: 66.2,
+                        y: 81.8,
+                    },
+                ],
+                multipleAnswers: false,
+                hideChoicesFromInstructions: true,
+            },
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};

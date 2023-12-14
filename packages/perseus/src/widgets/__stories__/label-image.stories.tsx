@@ -5,6 +5,8 @@ import {
     textQuestion,
     mathQuestion,
     numberline,
+    longTextFromArticle,
+    mixedContentQuestion,
 } from "../__testdata__/label-image.testdata";
 
 import type {PerseusRenderer} from "../../perseus-types";
@@ -59,6 +61,21 @@ export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
     );
 };
 
+export const LabelWidgetWithLongText = (
+    args: StoryArgs,
+): React.ReactElement => {
+    const apiOptions: APIOptions = {
+        isMobile: args.isMobile,
+    };
+
+    return (
+        <RendererWithDebugUI
+            question={applyStoryArgs(longTextFromArticle, args)}
+            apiOptions={apiOptions}
+        />
+    );
+};
+
 export const LabelWidgetWithMath = (args: StoryArgs): React.ReactElement => {
     const apiOptions: APIOptions = {
         isMobile: args.isMobile,
@@ -80,6 +97,19 @@ export const LabelImageNumberline = (args: StoryArgs): React.ReactElement => {
     return (
         <RendererWithDebugUI
             question={applyStoryArgs(numberline, args)}
+            apiOptions={apiOptions}
+        />
+    );
+};
+
+export const LabelImageMixedContent = (args: StoryArgs): React.ReactElement => {
+    const apiOptions: APIOptions = {
+        isMobile: args.isMobile,
+    };
+
+    return (
+        <RendererWithDebugUI
+            question={applyStoryArgs(mixedContentQuestion, args)}
             apiOptions={apiOptions}
         />
     );
