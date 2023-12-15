@@ -43,7 +43,7 @@ export default StyleSheet.create({
 
     responsiveLabel: {
         // NOTE(charlie): The values used here should be kept in sync with the
-        // caption text sizing in Perseus' articles.less.
+        // caption text sizing in Perseus' styles.less.
         // TODO(charlie): Migrate the captions over to using this style.
         [mediaQueries.smOrSmaller]: {
             fontSize: 14,
