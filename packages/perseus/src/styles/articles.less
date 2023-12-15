@@ -2,6 +2,24 @@
 @import "./variables.less";
 @import "./util.less";
 
+// Common styles for _all_ of Perseus
+.framework-perseus {
+    code {
+        font-family: Courier, monospace;
+    }
+
+    pre {
+        background-color: @gray95;
+        border-radius: 4px;
+        color: @gray17;
+        font-size: 18px;
+        padding: 16px;
+        white-space: pre;
+        overflow: auto;
+        margin: 0 -16px 32px -16px;
+    }
+}
+
 // Desktop Articles
 .framework-perseus.perseus-article:not(.perseus-mobile) {
     @textColor: #21242c;
@@ -188,21 +206,6 @@
                 margin: 0;
             }
         }
-    }
-
-    code {
-        font-family: Courier, monospace;
-    }
-
-    pre {
-        background-color: @gray95;
-        border-radius: 4px;
-        color: @gray17;
-        font-size: 18px;
-        padding: 16px;
-        white-space: pre;
-        overflow: auto;
-        margin: 0 -16px 32px -16px;
     }
 }
 
