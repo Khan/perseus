@@ -2,7 +2,7 @@
 @import "./variables.less";
 @import "./util.less";
 
-// Article Renderer
+// Desktop Articles
 .framework-perseus.perseus-article:not(.perseus-mobile) {
     @textColor: #21242c;
     .body-text() {
@@ -206,9 +206,7 @@
     }
 }
 
-// HACK(emily): This is a copy of a bunch of the mixins from the block of
-// styles down below. However, those styles are limited to mobile devices
-// only, so this block is for non-mobile devices.
+// Desktop Exercises
 .framework-perseus:not(.perseus-article):not(.perseus-mobile) {
     // Mixins
     .text(@fontSize; @lineHeight; @color) {
@@ -251,6 +249,7 @@
     .choice-text(14px, 1.25);
 }
 
+// Mobile Articles and Exercises
 .framework-perseus.perseus-mobile {
     .perseus-article {
         .perseus-widget-container {
