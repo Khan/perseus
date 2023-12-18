@@ -1,9 +1,9 @@
+import {screen, render} from "@testing-library/react";
 import * as React from "react";
-import {screen, render, logRoles} from "@testing-library/react";
-import ErrorBoundary from "../error-boundary";
 
 import {testDependencies} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
+import ErrorBoundary from "../error-boundary";
 
 import "@testing-library/jest-dom";
 
