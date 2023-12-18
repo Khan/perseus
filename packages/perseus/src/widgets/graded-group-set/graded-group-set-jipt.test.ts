@@ -16,6 +16,16 @@ describe("graded-group-set", () => {
             ...testDependencies,
             JIPT: {
                 useJIPT: true,
+                graphieMovablesJiptLabels: {
+                    addLabel: (label, useMath) => {},
+                },
+                svgImageJiptLabels: {
+                    addLabel: (label, useMath) => {},
+                },
+                rendererTranslationComponents: {
+                    addComponent: (renderer) => 0,
+                    removeComponentAtIndex: (index) => undefined,
+                },
             },
         });
     });

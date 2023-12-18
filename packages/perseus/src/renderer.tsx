@@ -410,13 +410,14 @@ class Renderer
         // widgetIds and the child refs of the renderer.
         // See: https://phabricator.khanacademy.org/D32420.)
         this.widgetIds = [];
+        const {JIPT} = getDependencies();
 
-        if (this.translationIndex != null) {
+        if (this.translationIndex != null && JIPT.useJIPT) {
             // NOTE(jeremy): Since the translationIndex is simply the array
             // index of each renderer, we can't remove Renderers from this
             // list, rather, we simply null out the entry (which means that
             // this array's growth is unbounded until a page reload).
-            getDependencies().rendererTranslationComponents.removeComponentAtIndex(
+            JIPT.rendererTranslationComponents.removeComponentAtIndex(
                 this.translationIndex,
             );
         }
@@ -1839,11 +1840,10 @@ class Renderer
             // before jipt has a chance to replace its contents, so this check
             // will keep us from adding the component to the registry a second
             // time.
-            if (!this.translationIndex) {
+            const {JIPT} = getDependencies();
+            if (!this.translationIndex && JIPT.useJIPT) {
                 this.translationIndex =
-                    getDependencies().rendererTranslationComponents.addComponent(
-                        this,
-                    );
+                    JIPT.rendererTranslationComponents.addComponent(this);
             }
 
             // For articles, we add jipt data to individual paragraphs. For
