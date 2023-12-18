@@ -25,11 +25,11 @@
         "performance-now": "^0.2.0"
     },
     "devDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^4.0.11",
+        "@khanacademy/wonder-blocks-clickable": "^4.0.12",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
-        "@khanacademy/wonder-blocks-core": "^6.3.0",
+        "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
-        "@khanacademy/wonder-blocks-popover": "^3.0.19",
+        "@khanacademy/wonder-blocks-popover": "^3.0.21",
         "@khanacademy/wonder-blocks-timing": "^4.0.2",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
         "@phosphor-icons/core": "^2.0.2",
@@ -45,11 +45,11 @@
         "react-transition-group": "^4.4.1"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^4.0.11",
+        "@khanacademy/wonder-blocks-clickable": "^4.0.12",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
-        "@khanacademy/wonder-blocks-core": "^6.3.0",
+        "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
-        "@khanacademy/wonder-blocks-popover": "^3.0.19",
+        "@khanacademy/wonder-blocks-popover": "^3.0.21",
         "@khanacademy/wonder-blocks-timing": "^4.0.2",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
         "@phosphor-icons/core": "^2.0.2",
