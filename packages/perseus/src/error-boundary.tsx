@@ -36,7 +36,7 @@ class ErrorBoundary extends React.Component<Props, State> {
                 cause: error,
                 loggedMetadata: {
                     componentStack:
-                        "componentStack" in info
+                        !!info && "componentStack" in info
                             ? info.componentStack
                             : "componentStack not provided",
                     ...this.props.metadata,
