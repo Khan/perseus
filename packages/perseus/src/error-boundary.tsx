@@ -22,13 +22,27 @@ class ErrorBoundary extends React.Component<Props, State> {
     componentDidCatch(error: Error, info: any) {
         this.setState({error: error.toString()});
         this.props.onError?.(error, info);
-        Log.error("Perseus error boundary caught error", Errors.Internal, {
-            cause: error,
-            loggedMetadata: {
-                componentStack: info.componentStack,
-                ...this.props.metadata,
+        Log.error(
+            // NOTE(jeremy): We concatenate the error messsage here. Typical
+            // Khan Academy error handling guidance says that you should never
+            // "build" the error message that might be sent to our error
+            // reporting tool (currently Sentry). However, if we don't
+            // differentiate between the different errors that are thrown, they
+            // all end up being grouped as a single Sentry event, which is very
+            // unhelpful.
+            "Unhandled Perseus error: " + error.message,
+            Errors.Internal,
+            {
+                cause: error,
+                loggedMetadata: {
+                    componentStack:
+                        !!info && "componentStack" in info
+                            ? info.componentStack
+                            : "componentStack not provided",
+                    ...this.props.metadata,
+                },
             },
-        });
+        );
     }
 
     render(): React.ReactNode {
@@ -39,7 +53,8 @@ class ErrorBoundary extends React.Component<Props, State> {
             // errors into inline elements.
             // TODO(michaelpolyak): Link error icon to "Report a problem".
             return (
-                <svg height="16" width="16" viewBox="0 0 16 16">
+                <svg height="16" width="16" viewBox="0 0 16 16" role={"img"}>
+                    <title>Rendering Error!</title>
                     <path
                         d="m8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-3c0.55 0 1-0.45 1-1s-0.45-1-1-1-1 0.45-1 1 0.45 1 1 1zm0-9c-0.55 0-1 0.45-1 1v4c0 0.55.45 1 1 1s1-0.45 1-1v-4c0-0.55-0.45-1-1-1z"
                         fill="#d92916"
