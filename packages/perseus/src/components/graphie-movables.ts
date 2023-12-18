@@ -125,14 +125,14 @@ const Label: any = GraphieClasses.createSimpleClass((graphie, props) => {
         coord = graphie.unscalePoint(coord);
     }
     let elem = null;
-    const deps = getDependencies();
+    const {JIPT} = getDependencies();
 
     // If the label is rendered for a locale other than "en", push the label
     // element to an array. This array is used to lookup the label element
     // and processed with jipt('just in place translation', crowdin specific
     // program) to replace the passed in crowdin string with the translated
     // string. For "en" locale, the jipt processing is skipped.
-    if (deps.JIPT.useJIPT) {
+    if (JIPT.useJIPT) {
         elem = graphie.label(
             coord,
             props.text,
@@ -141,7 +141,7 @@ const Label: any = GraphieClasses.createSimpleClass((graphie, props) => {
             props.style,
         );
 
-        deps.JIPT.graphieMovablesJiptLabels.addLabel(elem, props.tex);
+        JIPT.graphieMovablesJiptLabels.addLabel(elem, props.tex);
     } else {
         elem = graphie.label(
             coord,

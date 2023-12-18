@@ -908,9 +908,10 @@ class Renderer
         props: Props,
         state: State,
     ): boolean => {
+        const {JIPT} = getDependencies();
         // TODO(aria): Pass this in via webapp as an apiOption
         return (
-            getDependencies().JIPT.useJIPT &&
+            JIPT.useJIPT &&
             state.jiptContent == null &&
             props.content.indexOf("crwdns") !== -1
         );
