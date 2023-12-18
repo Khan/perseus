@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 17.3.2
+
+### Patch Changes
+
+-   [#850](https://github.com/Khan/perseus/pull/850) [`f4cd2a76`](https://github.com/Khan/perseus/commit/f4cd2a7639556312af75b9ba9c6a97c41c94beac) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Widget rendering errors are now reported as distinct errors to the Perseus logging infrastructure.
+
 ## 17.3.1
 
 ### Patch Changes
