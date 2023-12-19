@@ -21,6 +21,8 @@ const init = function (options: PerseusOptions): Promise<undefined> {
     Widgets.registerWidgets(basicWidgets);
     Widgets.registerWidgets(extraWidgets);
 
+    Widgets.replaceWidget("transformer", "always-correct");
+
     // Pass skipMathJax: true if MathJax is already loaded and configured.
     const skipMathJax = options.skipMathJax;
 

@@ -43,6 +43,22 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
     validateAlignments();
 };
 
+export const replaceWidget = (name: string, replacementName: string) => {
+    const substitueWidget = widgets[replacementName];
+
+    if (!substitueWidget) {
+        console.error(
+            `Failed to replace ${name} with ${replacementName}`,
+            Errors.Internal,
+        );
+        return;
+    }
+
+    registerWidget(name, substitueWidget);
+
+    console.log(`INFO: Replacing widget ${name} with ${replacementName}`);
+};
+
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
     editorsToRegister.forEach((editor) => {
         if (!editor.widgetName) {
