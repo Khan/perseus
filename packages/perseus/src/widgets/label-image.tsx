@@ -6,6 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
+import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite";
@@ -441,19 +442,16 @@ export class LabelImage extends React.Component<
         onChange({markers: updatedMarkers});
     }
 
-    activateMarker(index: number) {
+    activateMarker(index: number, opened: boolean) {
         const {activeMarkerIndex} = this.state;
-        // Select the marker, revealing answer choices.
-        if (activeMarkerIndex !== index) {
+        // Set index of opened marker
+        if (activeMarkerIndex !== index && opened) {
             this.setState({
                 activeMarkerIndex: index,
                 markersInteracted: true,
             });
         } else {
-            // The answer choices are shown within a popup attached to the
-            // selected marker. Close the popup and set focus back to the
-            // marker.
-            this.dismissMarkerPopup();
+            this.setState({activeMarkerIndex: -1});
         }
     }
 
@@ -610,24 +608,30 @@ export class LabelImage extends React.Component<
                                 selection,
                             );
                         }}
-                        opener={() => (
-                            <Marker
-                                {...marker}
-                                showCorrectness={showCorrectness}
-                                showSelected={answerChoicesActive}
-                                showPulsate={!markersInteracted}
-                                onClick={() => this.activateMarker(index)}
-                                onKeyDown={(e) =>
-                                    this.handleMarkerKeyDown(index, e)
-                                }
-                                ref={(node) => (this._markers[index] = node)}
-                                showAnswer={showAnswerChoice}
-                                answerSide={side}
-                                answerStyles={adjustPillDistance}
-                                analytics={this.props.analytics}
-                            />
+                        onToggle={(opened) =>
+                            this.activateMarker(index, opened)
+                        }
+                        opener={({opened}) => (
+                            <Clickable role="button">
+                                {({hovered, focused, pressed}) => (
+                                    <Marker
+                                        {...marker}
+                                        showCorrectness={showCorrectness}
+                                        showSelected={opened}
+                                        showPulsate={!markersInteracted}
+                                        ref={(node) =>
+                                            (this._markers[index] = node)
+                                        }
+                                        showAnswer={showAnswerChoice}
+                                        answerSide={side}
+                                        answerStyles={adjustPillDistance}
+                                        analytics={this.props.analytics}
+                                        focused={focused || pressed}
+                                        hovered={hovered}
+                                    />
+                                )}
+                            </Clickable>
                         )}
-                        opened={answerChoicesActive}
                     />
                 </View>
             );

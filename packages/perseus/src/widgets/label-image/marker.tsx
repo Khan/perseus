@@ -5,20 +5,24 @@
  * The target for labeling question image with answers.
  */
 
-import Clickable from "@khanacademy/wonder-blocks-clickable";
 import Color from "@khanacademy/wonder-blocks-color";
 import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Icon from "../../components/icon";
-import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
+import {
+    iconCheck,
+    iconChevronDown,
+    iconMinus,
+    iconCircle,
+} from "../../icon-paths";
 
 import {AnswerPill} from "./answer-pill";
 
 import type {InteractiveMarkerType} from "./types";
+import type {IconType} from "../../components/icon";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
-import type {ClickableState} from "@khanacademy/wonder-blocks-clickable";
 import type {CSSProperties} from "aphrodite";
 
 type Props = InteractiveMarkerType & {
@@ -26,21 +30,22 @@ type Props = InteractiveMarkerType & {
     showSelected: boolean;
     // Whether this marker should pulsate to draw user attention.
     showPulsate: boolean;
-    // Callbacks for when marker is interacted with using input device.
-    onClick: (e: React.SyntheticEvent) => void;
-    onKeyDown: (e: React.KeyboardEvent) => void;
     answerSide: "top" | "bottom" | "left" | "right";
     answerStyles?: CSSProperties;
     showAnswer?: boolean;
     analytics?: {
         onAnalyticsEvent: AnalyticsEventHandlerFn;
     };
+    focused: boolean;
+    hovered: boolean;
 };
 
 function shouldReduceMotion(): boolean {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     return !mediaQuery || mediaQuery.matches;
 }
+
+const MARKER_SIZE = 24;
 
 export default class Marker extends React.Component<Props> {
     // The marker icon element.
@@ -54,9 +59,8 @@ export default class Marker extends React.Component<Props> {
 
     renderIcon({
         focused,
-        pressed,
         hovered,
-    }: ClickableState): React.ReactElement<React.ComponentProps<"div">> {
+    }): React.ReactElement<React.ComponentProps<"div">> {
         const {selected, showCorrectness, showSelected, showPulsate} =
             this.props;
 
@@ -66,19 +70,13 @@ export default class Marker extends React.Component<Props> {
         // `focused` is a controlled state, driven by focus events, and may
         // only be `true` when there's no answer choices popup visible, and
         // keyboard focus is given to the marker.
-        const isSelected = showSelected || focused || pressed;
+        const isSelected = showSelected || focused;
 
-        let innerIcon: React.ReactElement | undefined;
         let iconStyles: StyleType;
+        let innerIcon: IconType = iconCircle;
 
         if (showCorrectness) {
-            innerIcon = (
-                <Icon
-                    icon={showCorrectness === "correct" ? iconCheck : iconMinus}
-                    size={24}
-                    color={Color.white}
-                />
-            );
+            innerIcon = showCorrectness === "correct" ? iconCheck : iconMinus;
 
             if (showCorrectness === "correct") {
                 iconStyles = [
@@ -116,9 +114,7 @@ export default class Marker extends React.Component<Props> {
         }
 
         if (isSelected && selected) {
-            innerIcon = (
-                <Icon icon={iconChevronDown} size={8} color={Color.white} />
-            );
+            innerIcon = iconChevronDown;
         }
 
         return (
@@ -132,7 +128,15 @@ export default class Marker extends React.Component<Props> {
                     });
                 }}
             >
-                {innerIcon}
+                <Icon
+                    icon={innerIcon}
+                    size={showCorrectness ? MARKER_SIZE : 8}
+                    color={
+                        innerIcon.path !== iconCircle.path
+                            ? Color.white
+                            : "transparent"
+                    }
+                />
             </View>
         );
     }
@@ -145,50 +149,32 @@ export default class Marker extends React.Component<Props> {
             showAnswer,
             answerSide,
             answerStyles,
+            hovered,
+            focused,
         } = this.props;
 
-        // It should no longer be possible to interact with a marker after it
-        // has been labeled (answered) correctly.
-        const isDisabled = showCorrectness === "correct";
-
         return (
-            <Clickable
-                role="button"
-                onClick={(e) => {
-                    e.preventDefault();
-                    this.props.onClick(e);
-                }}
-                onKeyDown={(e) => this.props.onKeyDown(e)}
-                style={[
-                    styles.unstyledButton,
-                    styles.marker,
-                    isDisabled && styles.disabled,
-                ]}
-            >
-                {(state) => (
-                    <>
-                        {this.renderIcon(state)}
-                        {!!selected && showAnswer && (
-                            <AnswerPill
-                                selectedAnswers={selected}
-                                showCorrectness={showCorrectness}
-                                side={answerSide}
-                                style={answerStyles}
-                                markerRef={this._icon ?? undefined}
-                                hovered={state.hovered}
-                                focused={state.focused}
-                            />
-                        )}
-                    </>
+            <>
+                <View style={[styles.marker]}>
+                    {this.renderIcon({hovered, focused})}
+                </View>
+                {!!selected && showAnswer && (
+                    <AnswerPill
+                        selectedAnswers={selected}
+                        showCorrectness={showCorrectness}
+                        side={answerSide}
+                        style={answerStyles}
+                        markerRef={this._icon ?? undefined}
+                        hovered={hovered}
+                        focused={focused}
+                    />
                 )}
-            </Clickable>
+            </>
         );
     }
 }
 
 const lightShadowColor = "rgba(33, 36, 44, 0.16)";
-
-const markerSize = 24;
 
 const styles = StyleSheet.create({
     marker: {
@@ -200,17 +186,13 @@ const styles = StyleSheet.create({
         },
 
         backgroundColor: Color.white,
-        borderRadius: markerSize,
+        borderRadius: MARKER_SIZE,
 
         // Center marker position based on its maximum size.
-        width: markerSize,
-        height: markerSize,
-        marginLeft: markerSize / -2,
-        marginTop: markerSize / -2,
-    },
-
-    disabled: {
-        pointerEvents: "none",
+        width: MARKER_SIZE,
+        height: MARKER_SIZE,
+        marginLeft: MARKER_SIZE / -2,
+        marginTop: MARKER_SIZE / -2,
     },
 
     // The base and unfilled marker style.
@@ -221,13 +203,11 @@ const styles = StyleSheet.create({
 
         boxSizing: "border-box",
 
-        width: markerSize,
-        height: markerSize,
-
-        cursor: "pointer",
+        width: MARKER_SIZE,
+        height: MARKER_SIZE,
 
         border: `2px solid ${Color.offBlack64}`,
-        borderRadius: markerSize,
+        borderRadius: MARKER_SIZE,
 
         boxShadow: `0 8px 8px ${Color.offBlack8}`,
     },
@@ -275,7 +255,7 @@ const styles = StyleSheet.create({
 
         border: `solid 4px ${Color.white}`,
         backgroundColor: Color.blue,
-        borderRadius: markerSize,
+        borderRadius: MARKER_SIZE,
         transform: "rotate(180deg)",
     },
 
@@ -289,8 +269,8 @@ const styles = StyleSheet.create({
     },
 
     markerGraded: {
-        width: markerSize,
-        height: markerSize,
+        width: MARKER_SIZE,
+        height: MARKER_SIZE,
 
         justifyContent: "center",
         alignItems: "center",

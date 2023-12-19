@@ -45,7 +45,6 @@ const defaultChoices = [
 
 const WithState = ({multipleSelect}) => {
     const [choices, setChoices] = React.useState([...defaultChoices]);
-    const [opened, setOpened] = React.useState<boolean>(false);
 
     const handleChange = (selection) => {
         setChoices([
@@ -61,10 +60,7 @@ const WithState = ({multipleSelect}) => {
             choices={choices}
             multipleSelect={multipleSelect}
             onChange={(selection) => handleChange(selection)}
-            opener={() => (
-                <button onClick={() => setOpened(!opened)}>Open</button>
-            )}
-            opened={opened}
+            opener={() => <button>Open</button>}
         />
     );
 };

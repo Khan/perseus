@@ -28,7 +28,8 @@ type AnswerChoicesProps = {
     onChange: (selection: ReadonlyArray<boolean>) => void;
     // Callback to define custom opener.
     opener: SingleSelect["props"]["opener"];
-    opened: boolean;
+    // Callback to handle toggle of dropdown.
+    onToggle: (opened: boolean) => unknown;
 };
 
 const AnswerChoices = (props: AnswerChoicesProps) => {
@@ -74,12 +75,14 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
         .filter((choice) => choice.checked)
         .map((choice) => choice.content);
 
+    const {opener, onToggle} = props;
+
     const args = {
         // reset to allow child (answer pill) to control z-index
         style: {zIndex: "unset"},
         children: AnswerItems(props.choices),
-        opener: props.opener,
-        opened: props.opened,
+        opener,
+        onToggle,
     };
 
     return props.multipleSelect ? (
