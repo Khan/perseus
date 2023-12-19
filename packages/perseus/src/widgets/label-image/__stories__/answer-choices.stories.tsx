@@ -1,3 +1,4 @@
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import AnswerChoices from "../answer-choices";
@@ -45,6 +46,7 @@ const defaultChoices = [
 
 const WithState = ({multipleSelect}) => {
     const [choices, setChoices] = React.useState([...defaultChoices]);
+    const [isOpened, setIsOpened] = React.useState(false);
 
     const handleChange = (selection) => {
         setChoices([
@@ -56,12 +58,22 @@ const WithState = ({multipleSelect}) => {
     };
 
     return (
-        <AnswerChoices
-            choices={choices}
-            multipleSelect={multipleSelect}
-            onChange={(selection) => handleChange(selection)}
-            opener={() => <button>Open</button>}
-        />
+        <>
+            <AnswerChoices
+                choices={choices}
+                multipleSelect={multipleSelect}
+                onChange={(selection) => handleChange(selection)}
+                opener={() => <button>{isOpened ? "Close" : "Open"}</button>}
+                onToggle={(opened) => setIsOpened(opened)}
+            />
+            <>
+                {choices
+                    .filter(({checked}) => checked)
+                    .map(({content}) => (
+                        <LabelLarge key={content}>{content}</LabelLarge>
+                    ))}
+            </>
+        </>
     );
 };
 
