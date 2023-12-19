@@ -616,13 +616,7 @@ export class LabelImage extends React.Component<
                                 showCorrectness={showCorrectness}
                                 showSelected={answerChoicesActive}
                                 showPulsate={!markersInteracted}
-                                onClick={() => {
-                                    this.props.analytics?.onAnalyticsEvent({
-                                        type: "perseus:label-image:marker-interacted-with",
-                                        payload: null,
-                                    });
-                                    this.activateMarker(index);
-                                }}
+                                onClick={() => this.activateMarker(index)}
                                 onKeyDown={(e) =>
                                     this.handleMarkerKeyDown(index, e)
                                 }
@@ -630,6 +624,7 @@ export class LabelImage extends React.Component<
                                 showAnswer={showAnswerChoice}
                                 answerSide={side}
                                 answerStyles={adjustPillDistance}
+                                analytics={this.props.analytics}
                             />
                         )}
                         opened={answerChoicesActive}

@@ -17,6 +17,7 @@ import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 import {AnswerPill} from "./answer-pill";
 
 import type {InteractiveMarkerType} from "./types";
+import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 import type {ClickableState} from "@khanacademy/wonder-blocks-clickable";
 import type {CSSProperties} from "aphrodite";
 
@@ -31,6 +32,9 @@ type Props = InteractiveMarkerType & {
     answerSide: "top" | "bottom" | "left" | "right";
     answerStyles?: CSSProperties;
     showAnswer?: boolean;
+    analytics?: {
+        onAnalyticsEvent: AnalyticsEventHandlerFn;
+    };
 };
 
 function shouldReduceMotion(): boolean {
@@ -121,6 +125,12 @@ export default class Marker extends React.Component<Props> {
             <View
                 style={[styles.markerIcon, iconStyles]}
                 ref={(node) => (this._icon = node)}
+                onClick={() => {
+                    this.props.analytics?.onAnalyticsEvent({
+                        type: "perseus:label-image:marker-interacted-with",
+                        payload: null,
+                    });
+                }}
             >
                 {innerIcon}
             </View>
