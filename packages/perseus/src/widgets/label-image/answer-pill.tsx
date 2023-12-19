@@ -13,11 +13,19 @@ export const AnswerPill = (props: {
     showCorrectness?: "correct" | "incorrect";
     markerRef?: HTMLElement;
     side: "top" | "bottom" | "left" | "right";
-    onClick: () => void;
     style?: CSSProperties;
+    hovered?: boolean;
+    focused?: boolean;
 }) => {
-    const {selectedAnswers, showCorrectness, markerRef, side, onClick, style} =
-        props;
+    const {
+        selectedAnswers,
+        showCorrectness,
+        markerRef,
+        side,
+        style,
+        focused,
+        hovered,
+    } = props;
 
     const idFactory = useUniqueIdWithMock();
 
@@ -59,17 +67,14 @@ export const AnswerPill = (props: {
                     size="large"
                     kind="accent"
                     id={idFactory.get("perseus-label-image-widget-answer-pill")}
-                    onClick={correct ? undefined : onClick}
                     ref={ref}
                     style={[
                         style,
                         popperStyle,
-                        {
-                            ":hover": bringToFront,
-                            ":focus": bringToFront,
-                        },
+                        styles.relative,
                         correct && styles.correct,
                         incorrect && styles.incorrect,
+                        (focused || hovered) && bringToFront,
                     ]}
                 >
                     <Renderer content={answerString} inline />
