@@ -51,6 +51,7 @@ export default class Marker extends React.Component<Props> {
     renderIcon({
         focused,
         pressed,
+        hovered,
     }: ClickableState): React.ReactElement<React.ComponentProps<"div">> {
         const {selected, showCorrectness, showSelected, showPulsate} =
             this.props;
@@ -88,7 +89,7 @@ export default class Marker extends React.Component<Props> {
                     isSelected && styles.markerSelected,
                 ];
             }
-        } else if (focused) {
+        } else if (focused || hovered) {
             iconStyles = [
                 styles.markerFocused,
                 selected && selected.length > 0 && styles.markerFilled,
