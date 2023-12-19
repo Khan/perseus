@@ -26,7 +26,7 @@ type Props = {
     answerArea?: any; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
     contentPaths?: ReadonlyArray<string>;
-    // Only used in the perseus demos. Consider removing.
+    // "Power user" mode. Shows the raw JSON of the question.
     developerMode: boolean;
     // Source HTML for the iframe to render
     frameSource: string;
@@ -254,10 +254,15 @@ class EditorPage extends React.Component<Props, State> {
         return (
             <div id="perseus" className={className}>
                 <div style={{marginBottom: 10}}>
+                    <ViewportResizer
+                        enabled={!this.props.jsonMode}
+                        deviceType={this.props.previewDevice}
+                        onViewportSizeChanged={this.props.onPreviewDeviceChange}
+                    />
+
                     {this.props.developerMode && (
-                        <span>
+                        <span style={{marginLeft: "20px"}}>
                             <label>
-                                {" "}
                                 Developer JSON Mode:{" "}
                                 <input
                                     type="checkbox"
@@ -266,15 +271,6 @@ class EditorPage extends React.Component<Props, State> {
                                 />
                             </label>{" "}
                         </span>
-                    )}
-
-                    {!this.props.jsonMode && (
-                        <ViewportResizer
-                            deviceType={this.props.previewDevice}
-                            onViewportSizeChanged={
-                                this.props.onPreviewDeviceChange
-                            }
-                        />
                     )}
 
                     {!this.props.jsonMode && (

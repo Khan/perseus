@@ -1,7 +1,11 @@
 import type {SerializedHighlightSet} from "./components/highlighting/types";
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
-import type {PerseusWidget} from "./perseus-types";
+import type {
+    PerseusAnswerArea,
+    PerseusRenderer,
+    PerseusWidget,
+} from "./perseus-types";
 import type {SizeClass} from "./util/sizing-utils";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
@@ -45,10 +49,7 @@ export type PerseusScore =
           message?: string | null | undefined;
       };
 
-export type Hint = {
-    widgets: WidgetDict;
-    content: string; // JSON string,
-    images: ImageDict;
+export type Hint = PerseusRenderer & {
     replace?: boolean;
 };
 
@@ -78,7 +79,7 @@ export type ChangeHandler = (
         images?: ImageDict;
         // used only in EditorPage
         question?: any;
-        answerArea?: any;
+        answerArea?: PerseusAnswerArea | null;
         itemDataVersion?: Version;
         // used in MutirenderEditor
         item?: Item;

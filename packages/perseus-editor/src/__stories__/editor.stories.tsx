@@ -4,14 +4,12 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
+import {Editor} from "..";
 import SideBySide from "../../../../testing/side-by-side";
 import {question1} from "../__testdata__/input-number.testdata";
-import Editor from "../editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import type {PerseusRenderer} from "@khanacademy/perseus";
-
-import "../styles/perseus-editor.less";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
