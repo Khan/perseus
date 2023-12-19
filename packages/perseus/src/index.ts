@@ -120,15 +120,16 @@ export type {
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
-    MathFormat,
     InputNumberWidget,
+    MathFormat,
+    PerseusAnswerArea,
+    PerseusExpressionWidgetOptions,
     PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
-    PerseusRadioWidgetOptions,
-    PerseusExpressionWidgetOptions,
+    PerseusItem,
     PerseusPlotterWidgetOptions,
+    PerseusRadioWidgetOptions,
     PerseusRenderer,
-    PerseusAnswerArea,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";
