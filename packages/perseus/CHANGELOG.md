@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 17.3.3
+
+### Patch Changes
+
+-   [#876](https://github.com/Khan/perseus/pull/876) [`fdc00c90`](https://github.com/Khan/perseus/commit/fdc00c90a19d3e241b3a5cdc2b1df5d761b24af3) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Adjust CSS to ensure all `code` and `pre` blocks rendered by Perseus have a monospace font and common styling
+
 ## 17.3.2
 
 ### Patch Changes
