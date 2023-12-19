@@ -1,17 +1,13 @@
 {
     "editor.renderWhitespace": "boundary",
     "editor.codeActionsOnSave": {
-        "source.fixAll": true
+        "source.fixAll": "explicit"
     },
-
     "eslint.codeActionsOnSave.mode": "all",
-
     "files.trimTrailingWhitespace": true,
-
     "todo-tree.filtering.excludeGlobs": [
         "**/dist/**",
     ],
-
     "typescript.format.enable": false,
     "typescript.validate.enable": true,
     "typescript.tsdk": "node_modules/typescript/lib",
