@@ -16,12 +16,14 @@ export const AnswerPill = (props: {
     style?: CSSProperties;
     hovered?: boolean;
     focused?: boolean;
+    onClick?: () => void;
 }) => {
     const {
         selectedAnswers,
         showCorrectness,
         markerRef,
         side,
+        onClick,
         style,
         focused,
         hovered,
@@ -67,6 +69,7 @@ export const AnswerPill = (props: {
                     size="large"
                     kind="accent"
                     id={idFactory.get("perseus-label-image-widget-answer-pill")}
+                    onClick={correct ? undefined : onClick}
                     ref={ref}
                     style={[
                         style,
