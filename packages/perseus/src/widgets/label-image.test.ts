@@ -319,6 +319,544 @@ describe("LabelImage", function () {
         });
     });
 
+    describe("navigateToMarkerIndex", function () {
+        it("should not navigate if all other markers were answered", function () {
+            const markers = [
+                {
+                    ...emptyMarker,
+                    label: "this",
+                },
+                {
+                    ...emptyMarker,
+                    label: "above",
+                    y: -1,
+                    showCorrectness: "correct",
+                },
+                {
+                    ...emptyMarker,
+                    label: "right",
+                    x: 1,
+                    showCorrectness: "correct",
+                },
+                {
+                    ...emptyMarker,
+                    label: "below",
+                    y: 1,
+                    showCorrectness: "correct",
+                },
+                {
+                    ...emptyMarker,
+                    label: "left",
+                    x: -1,
+                    showCorrectness: "correct",
+                },
+            ];
+
+            expect(
+                markers[
+                    // @ts-expect-error - TS2345 - Argument of type '({ label: string; answers: readonly []; selected: readonly []; x: 0; y: 0; } | { label: string; y: number; showCorrectness: string; answers: readonly []; selected: readonly []; x: 0; } | { label: string; x: number; showCorrectness: string; answers: readonly []; selected: readonly []; y: 0; })[]' is not assignable to parameter of type 'readonly InteractiveMarkerType[]'.
+                    LabelImage.navigateToMarkerIndex({x: 0, y: 0}, markers, 0)
+                ].label,
+            ).toEqual("this");
+        });
+
+        describe("up direction", function () {
+            const navigateDirecton = {x: 0, y: -1} as const;
+
+            it("should navigate to marker above", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        y: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "below",
+                        y: 1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "above",
+                        y: -1,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("above");
+            });
+
+            it("should navigate to lowest marker", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        y: -1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "lowest",
+                        y: 1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "below",
+                        y: 0,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("lowest");
+            });
+
+            it("should navigate to the next above marker in original order", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        y: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "above 1",
+                        y: -1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "above 2",
+                        y: -1,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("above 1");
+            });
+
+            it("should navigate to the next coplanar marker in original order", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        y: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "coplanar 1",
+                        y: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "coplanar 2",
+                        y: 0,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("coplanar 1");
+            });
+        });
+
+        describe("right direction", function () {
+            const navigateDirecton = {x: 1, y: 0} as const;
+
+            it("should navigate to marker on the right", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        x: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "left",
+                        x: -1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "right",
+                        x: 1,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("right");
+            });
+
+            it("should navigate to leftmost marker", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        x: 1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "leftmost",
+                        x: -1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "left",
+                        x: 0,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("leftmost");
+            });
+
+            it("should navigate to the next right marker in original order", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        x: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "right 1",
+                        x: 1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "right 2",
+                        x: 1,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("right 1");
+            });
+
+            it("should navigate to the next coplanar marker in original order", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        x: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "coplanar 1",
+                        x: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "coplanar 2",
+                        x: 0,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("coplanar 1");
+            });
+        });
+
+        describe("down direction", function () {
+            const navigateDirecton = {x: 0, y: 1} as const;
+
+            it("should navigate to marker below", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        y: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "above",
+                        y: -1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "below",
+                        y: 1,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("below");
+            });
+
+            it("should navigate to highest marker", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        y: 1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "highest",
+                        y: -1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "above",
+                        y: 0,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("highest");
+            });
+
+            it("should navigate to the next below marker in original order", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        y: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "below 1",
+                        y: 1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "below 2",
+                        y: 1,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("below 1");
+            });
+
+            it("should navigate to the next coplanar marker in original order", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        y: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "coplanar 1",
+                        y: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "coplanar 2",
+                        y: 0,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("coplanar 1");
+            });
+        });
+
+        describe("left direction", function () {
+            const navigateDirecton = {x: -1, y: 0} as const;
+
+            it("should navigate to marker on the left", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        x: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "right",
+                        x: 1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "left",
+                        x: -1,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("left");
+            });
+
+            it("should navigate to rightmost marker", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        x: -1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "rightmost",
+                        x: 1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "right",
+                        x: 0,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("rightmost");
+            });
+
+            it("should navigate to the next left marker in original order", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        x: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "left 1",
+                        x: -1,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "left 2",
+                        x: -1,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("left 1");
+            });
+
+            it("should navigate to the next coplanar marker in original order", function () {
+                const markers = [
+                    {
+                        ...emptyMarker,
+                        label: "this",
+                        x: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "coplanar 1",
+                        x: 0,
+                    },
+                    {
+                        ...emptyMarker,
+                        label: "coplanar 2",
+                        x: 0,
+                    },
+                ];
+
+                expect(
+                    markers[
+                        LabelImage.navigateToMarkerIndex(
+                            navigateDirecton,
+                            markers,
+                            0,
+                        )
+                    ].label,
+                ).toEqual("coplanar 1");
+            });
+        });
+    });
+
     describe("analytics", () => {
         beforeEach(() => {
             jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
