@@ -91,10 +91,6 @@ const styles = StyleSheet.create({
     correct: {
         // WB green darkened by 18%
         backgroundColor: "#00880b",
-        // Workaround for hover disabled on correct answer.
-        // Since we cannot make disabled buttons untabbable, we should match the
-        // hover style to the focus state.
-        ":hover": BringToFront,
     },
     incorrect: {
         backgroundColor: Color.offBlack64,
