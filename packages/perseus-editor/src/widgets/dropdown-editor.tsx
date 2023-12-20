@@ -174,6 +174,7 @@ class DropdownEditor extends React.Component<Props> {
                                     <a
                                         href="#"
                                         className="simple-button orange"
+                                        aria-label="Delete choice"
                                         // eslint-disable-next-line react/jsx-no-bind
                                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                         onClick={this.removeChoice.bind(
