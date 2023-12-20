@@ -1,0 +1,5235 @@
+{
+  "$id": "https://khanacademy.org/schema/perseus.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PerseusItem",
+  "definitions": {
+    "PerseusItem": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "$ref": "#/definitions/PerseusRenderer"
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusRenderer"
+          }
+        },
+        "answerArea": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusAnswerArea"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "_multi": {},
+        "itemDataVersion": {
+          "$ref": "#/definitions/Version"
+        },
+        "answer": {}
+      },
+      "required": [
+        "question",
+        "hints",
+        "_multi",
+        "itemDataVersion",
+        "answer"
+      ],
+      "additionalProperties": false,
+      "description": "The PerseusItem is the main data structure for a Perseus Item.  It is a collection of widgets that are rendered to the user.  The user can interact with the widgets and the widgets can be graded."
+    },
+    "PerseusRenderer": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "widgets": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PerseusWidget"
+          }
+        },
+        "replace": {
+          "type": "boolean"
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "images": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PerseusImageDetail"
+          }
+        }
+      },
+      "required": [
+        "content",
+        "widgets",
+        "images"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusWidget": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/CategorizerWidget"
+        },
+        {
+          "$ref": "#/definitions/CSProgramWidget"
+        },
+        {
+          "$ref": "#/definitions/DefinitionWidget"
+        },
+        {
+          "$ref": "#/definitions/DropdownWidget"
+        },
+        {
+          "$ref": "#/definitions/ExampleGraphieWidget"
+        },
+        {
+          "$ref": "#/definitions/ExampleWidget"
+        },
+        {
+          "$ref": "#/definitions/ExplanationWidget"
+        },
+        {
+          "$ref": "#/definitions/ExpressionWidget"
+        },
+        {
+          "$ref": "#/definitions/GradedGroupSetWidget"
+        },
+        {
+          "$ref": "#/definitions/GradedGroupWidget"
+        },
+        {
+          "$ref": "#/definitions/GrapherWidget"
+        },
+        {
+          "$ref": "#/definitions/GroupWidget"
+        },
+        {
+          "$ref": "#/definitions/IFrameWidget"
+        },
+        {
+          "$ref": "#/definitions/ImageWidget"
+        },
+        {
+          "$ref": "#/definitions/InputNumberWidget"
+        },
+        {
+          "$ref": "#/definitions/InteractionWidget"
+        },
+        {
+          "$ref": "#/definitions/InteractiveGraphWidget"
+        },
+        {
+          "$ref": "#/definitions/LabelImageWidget"
+        },
+        {
+          "$ref": "#/definitions/LightsPuzzleWidget"
+        },
+        {
+          "$ref": "#/definitions/MatcherWidget"
+        },
+        {
+          "$ref": "#/definitions/MatrixWidget"
+        },
+        {
+          "$ref": "#/definitions/MeasurerWidget"
+        },
+        {
+          "$ref": "#/definitions/MoleculeRendererWidget"
+        },
+        {
+          "$ref": "#/definitions/NumberLineWidget"
+        },
+        {
+          "$ref": "#/definitions/NumericInputWidget"
+        },
+        {
+          "$ref": "#/definitions/OrdererWidget"
+        },
+        {
+          "$ref": "#/definitions/PassageRefWidget"
+        },
+        {
+          "$ref": "#/definitions/PassageWidget"
+        },
+        {
+          "$ref": "#/definitions/PlotterWidget"
+        },
+        {
+          "$ref": "#/definitions/RadioWidget"
+        },
+        {
+          "$ref": "#/definitions/ReactionDiagramWidget"
+        },
+        {
+          "$ref": "#/definitions/RefTargetWidget"
+        },
+        {
+          "$ref": "#/definitions/SequenceWidget"
+        },
+        {
+          "$ref": "#/definitions/SimpleMarkdownTesterWidget"
+        },
+        {
+          "$ref": "#/definitions/SimulatorWidget"
+        },
+        {
+          "$ref": "#/definitions/SorterWidget"
+        },
+        {
+          "$ref": "#/definitions/TableWidget"
+        },
+        {
+          "$ref": "#/definitions/TransformerWidget"
+        },
+        {
+          "$ref": "#/definitions/UnitInputWidget"
+        },
+        {
+          "$ref": "#/definitions/VideoWidget"
+        }
+      ]
+    },
+    "CategorizerWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "categorizer"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusCategorizerWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusCategorizerWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "randomizeItems": {
+          "type": "boolean"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "highlightLint": {
+          "type": "boolean"
+        },
+        "linterContext": {
+          "$ref": "#/definitions/PerseusLinterContext"
+        }
+      },
+      "required": [
+        "items",
+        "categories",
+        "randomizeItems",
+        "static",
+        "values"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusLinterContext": {
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "contentType",
+        "paths",
+        "stack"
+      ],
+      "additionalProperties": false
+    },
+    "Version": {
+      "type": "object",
+      "properties": {
+        "major": {
+          "type": "number"
+        },
+        "minor": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "major",
+        "minor"
+      ],
+      "additionalProperties": false
+    },
+    "CSProgramWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "cs-program"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusCSProgramWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusCSProgramWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "programID": {
+          "type": "string"
+        },
+        "programType": {},
+        "settings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusCSProgramSetting"
+          }
+        },
+        "showEditor": {
+          "type": "boolean"
+        },
+        "showButtons": {
+          "type": "boolean"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "programID",
+        "settings",
+        "showEditor",
+        "showButtons",
+        "width",
+        "height",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusCSProgramSetting": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "DefinitionWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "definition"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusDefinitionWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusDefinitionWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "togglePrompt": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "togglePrompt",
+        "definition",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "DropdownWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "dropdown"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusDropdownWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusDropdownWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusDropdownChoice"
+          }
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "choices",
+        "placeholder",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusDropdownChoice": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "correct": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "content",
+        "correct"
+      ],
+      "additionalProperties": false
+    },
+    "ExampleGraphieWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "example-graphie-widget"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusExampleGraphieWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusExampleGraphieWidgetOptions": {},
+    "ExampleWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "example-widget"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusExampleWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusExampleWidgetOptions": {},
+    "ExplanationWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "explanation"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusExplanationWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusExplanationWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "showPrompt": {
+          "type": "string"
+        },
+        "hidePrompt": {
+          "type": "string"
+        },
+        "explanation": {
+          "type": "string"
+        },
+        "widgets": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PerseusWidget"
+          }
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "showPrompt",
+        "hidePrompt",
+        "explanation",
+        "widgets",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "ExpressionWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "expression"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusExpressionWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusExpressionWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "answerForms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusExpressionAnswerForm"
+          }
+        },
+        "buttonSets": {
+          "$ref": "#/definitions/LegacyButtonSets"
+        },
+        "functions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "times": {
+          "type": "boolean"
+        },
+        "buttonsVisible": {
+          "type": "string",
+          "enum": [
+            "always",
+            "never",
+            "focused"
+          ]
+        }
+      },
+      "required": [
+        "answerForms",
+        "buttonSets",
+        "functions",
+        "times"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusExpressionAnswerForm": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "form": {
+          "type": "boolean"
+        },
+        "simplify": {
+          "type": "boolean"
+        },
+        "considered": {
+          "type": "string",
+          "enum": [
+            "correct",
+            "wrong",
+            "ungraded"
+          ]
+        },
+        "key": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "form",
+        "simplify",
+        "considered"
+      ],
+      "additionalProperties": false
+    },
+    "LegacyButtonSets": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "basic",
+          "basic+div",
+          "trig",
+          "prealgebra",
+          "logarithms",
+          "basic relations",
+          "advanced relations"
+        ]
+      }
+    },
+    "GradedGroupSetWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "graded-group-set"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusGradedGroupSetWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusGradedGroupSetWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "gradedGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusGradedGroupWidgetOptions"
+          }
+        }
+      },
+      "required": [
+        "gradedGroups"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusGradedGroupWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "hasHint": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "hint": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusRenderer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "widgets": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PerseusWidget"
+          }
+        },
+        "widgetEnabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "immutableWidgets": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "images": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PerseusImageDetail"
+          }
+        }
+      },
+      "required": [
+        "title",
+        "content",
+        "widgets",
+        "images"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusImageDetail": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ],
+      "additionalProperties": false
+    },
+    "GradedGroupWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "graded-group"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusGradedGroupWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "GrapherWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "grapher"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusGrapherWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusGrapherWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "availableTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "absolute_value",
+              "exponential",
+              "linear",
+              "logarithm",
+              "quadratic",
+              "sinusoid",
+              "tangent"
+            ]
+          }
+        },
+        "correct": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "absolute_value"
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "type",
+                "coords"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "exponential"
+                },
+                "asymptote": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "type",
+                "asymptote",
+                "coords"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "linear"
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "type",
+                "coords"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "logarithm"
+                },
+                "asymptote": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "type",
+                "asymptote",
+                "coords"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "quadratic"
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "type",
+                "coords"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "sinusoid"
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "type",
+                "coords"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "tangent"
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "type",
+                "coords"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "graph": {
+          "type": "object",
+          "properties": {
+            "backgroundImage": {
+              "type": "object",
+              "properties": {
+                "bottom": {
+                  "type": "number"
+                },
+                "height": {
+                  "type": "number"
+                },
+                "left": {
+                  "type": "number"
+                },
+                "scale": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "width": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            },
+            "box": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "editableSettings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "graph",
+                  "snap",
+                  "image",
+                  "measure"
+                ]
+              }
+            },
+            "gridStep": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "labels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "markings": {
+              "type": "string",
+              "enum": [
+                "graph",
+                "none",
+                "grid"
+              ]
+            },
+            "range": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "rulerLabel": {
+              "type": "string",
+              "const": ""
+            },
+            "rulerTicks": {
+              "type": "number"
+            },
+            "showProtractor": {
+              "type": "boolean"
+            },
+            "showRuler": {
+              "type": "boolean"
+            },
+            "showTooltips": {
+              "type": "boolean"
+            },
+            "snapStep": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "step": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "valid": {
+              "type": [
+                "boolean",
+                "string"
+              ]
+            }
+          },
+          "required": [
+            "backgroundImage",
+            "labels",
+            "markings",
+            "range",
+            "rulerLabel",
+            "rulerTicks",
+            "step"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "availableTypes",
+        "correct",
+        "graph"
+      ],
+      "additionalProperties": false
+    },
+    "Coord": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "GroupWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "group"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusGroupWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusGroupWidgetOptions": {
+      "$ref": "#/definitions/PerseusRenderer"
+    },
+    "IFrameWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "iframe"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusIFrameWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusIFrameWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "settings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusCSProgramSetting"
+          }
+        },
+        "width": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "height": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "allowFullScreen": {
+          "type": "boolean"
+        },
+        "allowTopNavigation": {
+          "type": "boolean"
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "url",
+        "settings",
+        "width",
+        "height",
+        "allowFullScreen",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "ImageWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "image"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusImageWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusImageWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "backgroundImage": {
+          "$ref": "#/definitions/PerseusImageBackground"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusImageLabel"
+          }
+        },
+        "range": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Range"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "box": {
+          "$ref": "#/definitions/Size"
+        }
+      },
+      "required": [
+        "backgroundImage"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusImageBackground": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "top": {
+          "type": "number"
+        },
+        "left": {
+          "type": "number"
+        },
+        "scale": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "bottom": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PerseusImageLabel": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "content",
+        "alignment",
+        "coordinates"
+      ],
+      "additionalProperties": false
+    },
+    "Range": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "Size": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "InputNumberWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "input-number"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusInputNumberWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInputNumberWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "answerType": {
+          "type": "string",
+          "enum": [
+            "number",
+            "decimal",
+            "integer",
+            "rational",
+            "improper",
+            "mixed",
+            "percent",
+            "pi"
+          ]
+        },
+        "inexact": {
+          "type": "boolean"
+        },
+        "maxError": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "rightAlign": {
+          "type": "boolean"
+        },
+        "simplify": {
+          "type": "string",
+          "enum": [
+            "required",
+            "optional",
+            "enforced"
+          ]
+        },
+        "size": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "small"
+          ]
+        },
+        "value": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "customKeypad": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "simplify",
+        "size",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "InteractionWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "interaction"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusInteractionWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "graph": {
+          "$ref": "#/definitions/PerseusInteractionGraph"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusInteractionElement"
+          }
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "graph",
+        "elements",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionGraph": {
+      "type": "object",
+      "properties": {
+        "editableSettings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "canvas",
+              "graph"
+            ]
+          }
+        },
+        "box": {
+          "$ref": "#/definitions/Size"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "range": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Range"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "gridStep": {
+          "type": "object",
+          "properties": {
+            "0": {
+              "type": "number"
+            },
+            "1": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "0",
+            "1"
+          ],
+          "additionalProperties": false
+        },
+        "markings": {
+          "type": "string"
+        },
+        "snapStep": {
+          "type": "object",
+          "properties": {
+            "0": {
+              "type": "number"
+            },
+            "1": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "0",
+            "1"
+          ],
+          "additionalProperties": false
+        },
+        "valid": {
+          "type": [
+            "boolean",
+            "string"
+          ]
+        },
+        "backgroundImage": {
+          "$ref": "#/definitions/PerseusImageBackground"
+        },
+        "showProtractor": {
+          "type": "boolean"
+        },
+        "showRuler": {
+          "type": "boolean"
+        },
+        "rulerLabel": {
+          "type": "string"
+        },
+        "rulerTicks": {
+          "type": "number"
+        },
+        "tickStep": {
+          "type": "object",
+          "properties": {
+            "0": {
+              "type": "number"
+            },
+            "1": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "0",
+            "1"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "box",
+        "labels",
+        "range",
+        "gridStep",
+        "markings",
+        "tickStep"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionElement": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "function"
+            },
+            "key": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/PerseusInteractionFunctionElementOptions"
+            }
+          },
+          "required": [
+            "type",
+            "key",
+            "options"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "label"
+            },
+            "key": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/PerseusInteractionLabelElementOptions"
+            }
+          },
+          "required": [
+            "type",
+            "key",
+            "options"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "line"
+            },
+            "key": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/PerseusInteractionLineElementOptions"
+            }
+          },
+          "required": [
+            "type",
+            "key",
+            "options"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "movable-line"
+            },
+            "key": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/PerseusInteractionMovableLineElementOptions"
+            }
+          },
+          "required": [
+            "type",
+            "key",
+            "options"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "movable-point"
+            },
+            "key": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/PerseusInteractionMovablePointElementOptions"
+            }
+          },
+          "required": [
+            "type",
+            "key",
+            "options"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "parametric"
+            },
+            "key": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/PerseusInteractionParametricElementOptions"
+            }
+          },
+          "required": [
+            "type",
+            "key",
+            "options"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "point"
+            },
+            "key": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/PerseusInteractionPointElementOptions"
+            }
+          },
+          "required": [
+            "type",
+            "key",
+            "options"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "rectangle"
+            },
+            "key": {
+              "type": "string"
+            },
+            "options": {
+              "$ref": "#/definitions/PerseusInteractionRectangleElementOptions"
+            }
+          },
+          "required": [
+            "type",
+            "key",
+            "options"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "PerseusInteractionFunctionElementOptions": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "funcName": {
+          "type": "string"
+        },
+        "rangeMin": {
+          "type": "string"
+        },
+        "rangeMax": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "strokeDasharray": {
+          "type": "string"
+        },
+        "strokeWidth": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "funcName",
+        "rangeMin",
+        "rangeMax",
+        "color",
+        "strokeDasharray",
+        "strokeWidth"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionLabelElementOptions": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "coordX": {
+          "type": "string"
+        },
+        "coordY": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "color",
+        "coordX",
+        "coordY"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionLineElementOptions": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "startX": {
+          "type": "string"
+        },
+        "startY": {
+          "type": "string"
+        },
+        "endX": {
+          "type": "string"
+        },
+        "endY": {
+          "type": "string"
+        },
+        "strokeDasharray": {
+          "type": "string"
+        },
+        "strokeWidth": {
+          "type": "number"
+        },
+        "arrows": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "color",
+        "startX",
+        "startY",
+        "endX",
+        "endY",
+        "strokeDasharray",
+        "strokeWidth",
+        "arrows"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionMovableLineElementOptions": {
+      "type": "object",
+      "properties": {
+        "startX": {
+          "type": "string"
+        },
+        "startY": {
+          "type": "string"
+        },
+        "startSubscript": {
+          "type": "number"
+        },
+        "endX": {
+          "type": "string"
+        },
+        "endY": {
+          "type": "string"
+        },
+        "endSubscript": {
+          "type": "number"
+        },
+        "constraint": {
+          "type": "string"
+        },
+        "snap": {
+          "type": "number"
+        },
+        "constraintFn": {
+          "type": "string"
+        },
+        "constraintXMin": {
+          "type": "string"
+        },
+        "constraintXMax": {
+          "type": "string"
+        },
+        "constraintYMin": {
+          "type": "string"
+        },
+        "constraintYMax": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "startX",
+        "startY",
+        "startSubscript",
+        "endX",
+        "endY",
+        "endSubscript",
+        "constraint",
+        "snap",
+        "constraintFn",
+        "constraintXMin",
+        "constraintXMax",
+        "constraintYMin",
+        "constraintYMax"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionMovablePointElementOptions": {
+      "type": "object",
+      "properties": {
+        "startX": {
+          "type": "string"
+        },
+        "startY": {
+          "type": "string"
+        },
+        "varSubscript": {
+          "type": "number"
+        },
+        "constraint": {
+          "type": "string"
+        },
+        "snap": {
+          "type": "number"
+        },
+        "constraintFn": {
+          "type": "string"
+        },
+        "constraintXMin": {
+          "type": "string"
+        },
+        "constraintXMax": {
+          "type": "string"
+        },
+        "constraintYMin": {
+          "type": "string"
+        },
+        "constraintYMax": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "startX",
+        "startY",
+        "varSubscript",
+        "constraint",
+        "snap",
+        "constraintFn",
+        "constraintXMin",
+        "constraintXMax",
+        "constraintYMin",
+        "constraintYMax"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionParametricElementOptions": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "string"
+        },
+        "y": {
+          "type": "string"
+        },
+        "rangeMin": {
+          "type": "string"
+        },
+        "rangeMax": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "strokeDasharray": {
+          "type": "string"
+        },
+        "strokeWidth": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "rangeMin",
+        "rangeMax",
+        "color",
+        "strokeDasharray",
+        "strokeWidth"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionPointElementOptions": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "coordX": {
+          "type": "string"
+        },
+        "coordY": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "color",
+        "coordX",
+        "coordY"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractionRectangleElementOptions": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "coordX": {
+          "type": "string"
+        },
+        "coordY": {
+          "type": "string"
+        },
+        "width": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "color",
+        "coordX",
+        "coordY",
+        "width",
+        "height"
+      ],
+      "additionalProperties": false
+    },
+    "InteractiveGraphWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "interactive-graph"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusInteractiveGraphWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusInteractiveGraphWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "step": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "gridStep": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "snapStep": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "backgroundImage": {
+          "$ref": "#/definitions/PerseusImageBackground"
+        },
+        "markings": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "showProtractor": {
+          "type": "boolean"
+        },
+        "showRuler": {
+          "type": "boolean"
+        },
+        "showTooltips": {
+          "type": "boolean"
+        },
+        "rulerLabel": {
+          "type": "string"
+        },
+        "rulerTicks": {
+          "type": "number"
+        },
+        "range": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "graph": {
+          "$ref": "#/definitions/PerseusGraphType"
+        },
+        "correct": {
+          "$ref": "#/definitions/PerseusGraphType"
+        }
+      },
+      "required": [
+        "step",
+        "gridStep",
+        "snapStep",
+        "markings",
+        "labels",
+        "showProtractor",
+        "showRuler",
+        "rulerLabel",
+        "rulerTicks",
+        "range",
+        "graph",
+        "correct"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusGraphType": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/PerseusGraphTypeAngle"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypeCircle"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypeLinear"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypeLinearSystem"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypePoint"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypePolygon"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypeQuadratic"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypeRay"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypeSegment"
+        },
+        {
+          "$ref": "#/definitions/PerseusGraphTypeSinusoid"
+        }
+      ]
+    },
+    "PerseusGraphTypeAngle": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "angle"
+        },
+        "showAngles": {
+          "type": "boolean"
+        },
+        "allowReflexAngles": {
+          "type": "boolean"
+        },
+        "angleOffsetDeg": {
+          "type": "number"
+        },
+        "snapDegrees": {
+          "type": "number"
+        },
+        "match": {
+          "type": "string",
+          "const": "congruent"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coord"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusGraphTypeCircle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "circle"
+        },
+        "center": {
+          "$ref": "#/definitions/Coord"
+        },
+        "radius": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "PerseusGraphTypeLinear": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "linear"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coord"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "PerseusGraphTypeLinearSystem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "linear-system"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Coord"
+            }
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "PerseusGraphTypePoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "point"
+        },
+        "numPoints": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": "unlimited"
+            }
+          ]
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coord"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "PerseusGraphTypePolygon": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "polygon"
+        },
+        "numSides": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "const": "unlimited"
+            }
+          ]
+        },
+        "showAngles": {
+          "type": "boolean"
+        },
+        "showSides": {
+          "type": "boolean"
+        },
+        "snapTo": {
+          "type": "string"
+        },
+        "match": {
+          "type": "string",
+          "enum": [
+            "similar",
+            "congruent",
+            "approx"
+          ]
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coord"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "PerseusGraphTypeQuadratic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "quadratic"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coord"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "PerseusGraphTypeRay": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "ray"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coord"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "PerseusGraphTypeSegment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "segment"
+        },
+        "numSegments": {
+          "type": "number"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Coord"
+            }
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "PerseusGraphTypeSinusoid": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coord": {
+          "$ref": "#/definitions/Coord"
+        },
+        "type": {
+          "type": "string",
+          "const": "sinusoid"
+        },
+        "coords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coord"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "LabelImageWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "label-image"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusLabelImageWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusLabelImageWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "imageAlt": {
+          "type": "string"
+        },
+        "imageHeight": {
+          "type": "number"
+        },
+        "imageWidth": {
+          "type": "number"
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusLabelImageMarker"
+          }
+        },
+        "hideChoicesFromInstructions": {
+          "type": "boolean"
+        },
+        "multipleAnswers": {
+          "type": "boolean"
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "choices",
+        "imageUrl",
+        "imageAlt",
+        "imageHeight",
+        "imageWidth",
+        "markers",
+        "hideChoicesFromInstructions",
+        "multipleAnswers",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusLabelImageMarker": {
+      "type": "object",
+      "properties": {
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "label": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "answers",
+        "label",
+        "x",
+        "y"
+      ],
+      "additionalProperties": false
+    },
+    "LightsPuzzleWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "lights-puzzle"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusLightsPuzzleWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusLightsPuzzleWidgetOptions": {},
+    "MatcherWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "matcher"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusMatcherWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusMatcherWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "left": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "right": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "orderMatters": {
+          "type": "boolean"
+        },
+        "padding": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "labels",
+        "left",
+        "right",
+        "orderMatters",
+        "padding"
+      ],
+      "additionalProperties": false
+    },
+    "MatrixWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "matrix"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusMatrixWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusMatrixWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "type": "string"
+        },
+        "suffix": {
+          "type": "string"
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "cursorPosition": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "matrixBoardSize": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "prefix",
+        "suffix",
+        "answers",
+        "cursorPosition",
+        "matrixBoardSize",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "MeasurerWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "measurer"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusMeasurerWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusMeasurerWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/PerseusImageBackground"
+        },
+        "showProtractor": {
+          "type": "boolean"
+        },
+        "showRuler": {
+          "type": "boolean"
+        },
+        "rulerLabel": {
+          "type": "string"
+        },
+        "rulerTicks": {
+          "type": "number"
+        },
+        "rulerPixels": {
+          "type": "number"
+        },
+        "rulerLength": {
+          "type": "number"
+        },
+        "box": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "image",
+        "showProtractor",
+        "showRuler",
+        "rulerLabel",
+        "rulerTicks",
+        "rulerPixels",
+        "rulerLength",
+        "box",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "MoleculeRendererWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "molecule-renderer"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusMoleculeRendererWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusMoleculeRendererWidgetOptions": {},
+    "NumberLineWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "number-line"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusNumberLineWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusNumberLineWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "range": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "labelRange": {
+          "type": "array",
+          "items": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "labelStyle": {
+          "type": "string"
+        },
+        "labelTicks": {
+          "type": "boolean"
+        },
+        "isTickCtrl": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "divisionRange": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "numDivisions": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "snapDivisions": {
+          "type": "number"
+        },
+        "tickStep": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "correctRel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "correctX": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "initialX": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "showTooltip": {
+          "type": "boolean"
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "range",
+        "labelRange",
+        "labelStyle",
+        "labelTicks",
+        "divisionRange",
+        "snapDivisions",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "NumericInputWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "numeric-input"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusNumericInputWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusNumericInputWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "answers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusNumericInputAnswer"
+          }
+        },
+        "labelText": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "coefficient": {
+          "type": "boolean"
+        },
+        "rightAlign": {
+          "type": "boolean"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "answerForms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusNumericInputAnswerForm"
+          }
+        }
+      },
+      "required": [
+        "answers",
+        "labelText",
+        "size",
+        "coefficient",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusNumericInputAnswer": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        },
+        "answerForms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MathFormat"
+          }
+        },
+        "strict": {
+          "type": "boolean"
+        },
+        "maxError": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "simplify": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "message",
+        "value",
+        "status",
+        "strict"
+      ],
+      "additionalProperties": false
+    },
+    "MathFormat": {
+      "type": "string",
+      "enum": [
+        "integer",
+        "mixed",
+        "improper",
+        "proper",
+        "decimal",
+        "percent",
+        "pi"
+      ]
+    },
+    "PerseusNumericInputAnswerForm": {
+      "type": "object",
+      "properties": {
+        "simplify": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "required",
+            "correct",
+            "enforced",
+            "optional",
+            null
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/MathFormat"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "OrdererWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "orderer"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusOrdererWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusOrdererWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusRenderer"
+          }
+        },
+        "correctOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusRenderer"
+          }
+        },
+        "otherOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusRenderer"
+          }
+        },
+        "height": {
+          "type": "string"
+        },
+        "layout": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "options",
+        "correctOptions",
+        "otherOptions",
+        "height",
+        "layout"
+      ],
+      "additionalProperties": false
+    },
+    "PassageRefWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "passage-ref"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusPassageRefWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusPassageRefWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "passageNumber": {
+          "type": "number"
+        },
+        "referenceNumber": {
+          "type": "number"
+        },
+        "summaryText": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "passageNumber",
+        "referenceNumber",
+        "summaryText"
+      ],
+      "additionalProperties": false
+    },
+    "PassageWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "passage"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusPassageWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusPassageWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "footnotes": {
+          "type": "string"
+        },
+        "passageText": {
+          "type": "string"
+        },
+        "passageTitle": {
+          "type": "string"
+        },
+        "showLineNumbers": {
+          "type": "boolean"
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "footnotes",
+        "passageText",
+        "passageTitle",
+        "showLineNumbers",
+        "static"
+      ],
+      "additionalProperties": false
+    },
+    "PlotterWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "plotter"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusPlotterWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusPlotterWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "$ref": "#/definitions/PlotType"
+        },
+        "maxY": {
+          "type": "number"
+        },
+        "scaleY": {
+          "type": "number"
+        },
+        "labelInterval": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "snapsPerLine": {
+          "type": "number"
+        },
+        "starting": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "correct": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "picUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "picSize": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "picBoxHeight": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "plotDimensions": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "labels",
+        "categories",
+        "type",
+        "maxY",
+        "scaleY",
+        "snapsPerLine",
+        "starting",
+        "correct",
+        "plotDimensions"
+      ],
+      "additionalProperties": false
+    },
+    "PlotType": {
+      "type": "string",
+      "enum": [
+        "bar",
+        "line",
+        "pic",
+        "histogram",
+        "dotplot"
+      ]
+    },
+    "RadioWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "radio"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusRadioWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusRadioWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusRadioChoice"
+          }
+        },
+        "hasNoneOfTheAbove": {
+          "type": "boolean"
+        },
+        "countChoices": {
+          "type": "boolean"
+        },
+        "randomize": {
+          "type": "boolean"
+        },
+        "multipleSelect": {
+          "type": "boolean"
+        },
+        "deselectEnabled": {
+          "type": "boolean"
+        },
+        "onePerLine": {
+          "type": "boolean"
+        },
+        "displayCount": {},
+        "noneOfTheAbove": {
+          "type": "boolean",
+          "const": false
+        }
+      },
+      "required": [
+        "choices"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusRadioChoice": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "clue": {
+          "type": "string"
+        },
+        "correct": {
+          "type": "boolean"
+        },
+        "isNoneOfTheAbove": {
+          "type": "boolean"
+        },
+        "widgets": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PerseusWidget"
+          }
+        }
+      },
+      "required": [
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "ReactionDiagramWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "reaction-diagtram"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusReactionDiagramWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusReactionDiagramWidgetOptions": {},
+    "RefTargetWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "passage-ref-target"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusPassageRefTargetWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusPassageRefTargetWidgetOptions": {},
+    "SequenceWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "sequence"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusSequenceWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusSequenceWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "json": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PerseusRenderer"
+          }
+        }
+      },
+      "required": [
+        "json"
+      ],
+      "additionalProperties": false
+    },
+    "SimpleMarkdownTesterWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "simple-markdown-tester"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusSimpleMarkdownTesterWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusSimpleMarkdownTesterWidgetOptions": {},
+    "SimulatorWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "simulator"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusSimulatorWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusSimulatorWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "xAxisLabel": {
+          "type": "string"
+        },
+        "yAxisLabel": {
+          "type": "string"
+        },
+        "proportionLabel": {
+          "type": "string"
+        },
+        "proportionOrPercentage": {
+          "type": "string"
+        },
+        "numTrials": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "xAxisLabel",
+        "yAxisLabel",
+        "proportionLabel",
+        "proportionOrPercentage",
+        "numTrials"
+      ],
+      "additionalProperties": false
+    },
+    "SorterWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "sorter"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusSorterWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusSorterWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "correct": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "padding": {
+          "type": "boolean"
+        },
+        "layout": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "correct",
+        "padding",
+        "layout"
+      ],
+      "additionalProperties": false
+    },
+    "TableWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "table"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusTableWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusTableWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "headers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rows": {
+          "type": "number"
+        },
+        "columns": {
+          "type": "number"
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "headers",
+        "rows",
+        "columns",
+        "answers"
+      ],
+      "additionalProperties": false
+    },
+    "TransformerWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "transformer"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusTransformerWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusTransformerWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "correct": {
+          "type": "object",
+          "properties": {
+            "shape": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "polygon-5",
+                      "polygon-3",
+                      "polygon-4",
+                      "lineSegment",
+                      "polygon-6",
+                      "angle",
+                      "line",
+                      "circle"
+                    ]
+                  }
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  }
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "reflex": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "type",
+                "coords"
+              ],
+              "additionalProperties": false
+            },
+            "transformations": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PerseusTransformerTransformation"
+              }
+            }
+          },
+          "required": [
+            "shape",
+            "transformations"
+          ],
+          "additionalProperties": false
+        },
+        "drawSolutionShape": {
+          "type": "boolean"
+        },
+        "gradeEmpty": {
+          "type": "boolean"
+        },
+        "graph": {
+          "type": "object",
+          "properties": {
+            "backgroundImage": {
+              "type": "object",
+              "properties": {
+                "bottom": {
+                  "type": "number"
+                },
+                "height": {
+                  "type": "number"
+                },
+                "left": {
+                  "type": "number"
+                },
+                "scale": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            },
+            "gridStep": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "labels": {
+              "type": "array",
+              "minItems": 2,
+              "items": [
+                {
+                  "type": "string",
+                  "const": "x"
+                },
+                {
+                  "type": "string",
+                  "const": "y"
+                }
+              ],
+              "maxItems": 2
+            },
+            "markings": {
+              "type": "string",
+              "enum": [
+                "none",
+                "graph",
+                "grid"
+              ]
+            },
+            "range": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "rulerLabel": {
+              "type": "string"
+            },
+            "rulerTicks": {
+              "type": "number"
+            },
+            "showProtractor": {
+              "type": "boolean"
+            },
+            "showRuler": {
+              "type": "boolean"
+            },
+            "snapStep": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "step": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "backgroundImage",
+            "markings",
+            "range",
+            "showProtractor",
+            "step"
+          ],
+          "additionalProperties": false
+        },
+        "graphMode": {
+          "type": "string",
+          "enum": [
+            "dynamic",
+            "interactive",
+            "static"
+          ]
+        },
+        "listMode": {
+          "type": "string",
+          "enum": [
+            "interactive",
+            "dynamic",
+            "static"
+          ]
+        },
+        "starting": {
+          "type": "object",
+          "properties": {
+            "shape": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "polygon-5",
+                          "polygon-3",
+                          "polygon-4",
+                          "lineSegment",
+                          "polygon-6"
+                        ]
+                      }
+                    },
+                    "coords": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Coord"
+                      }
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "coords"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "polygon-3"
+                    },
+                    "coords": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Coord"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "coords"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "polygon-3",
+                          "lineSegment",
+                          "polygon-4",
+                          "polygon-5",
+                          "polygon-6",
+                          "line",
+                          "circle"
+                        ]
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    },
+                    "coords": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Coord"
+                      }
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "coords",
+                    "options"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "const": "polygon-3"
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    },
+                    "coords": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Coord"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "coords"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "const": "angle"
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    },
+                    "coords": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Coord"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "reflex": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "reflex"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "coords",
+                    "options"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "line",
+                          "lineSegment"
+                        ]
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    },
+                    "coords": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Coord"
+                      },
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 1
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "coords"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "const": "polygon"
+                    },
+                    "coords": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Coord"
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "coords"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "transformations": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PerseusTransformerTransformation"
+              }
+            }
+          },
+          "required": [
+            "shape",
+            "transformations"
+          ],
+          "additionalProperties": false
+        },
+        "tools": {
+          "type": "object",
+          "properties": {
+            "dilation": {
+              "type": "object",
+              "properties": {
+                "constraints": {
+                  "$ref": "#/definitions/PerseusTransformerToolConstraints"
+                },
+                "coord": {
+                  "$ref": "#/definitions/Coord"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "constraints",
+                "coord",
+                "enabled"
+              ],
+              "additionalProperties": false
+            },
+            "reflection": {
+              "type": "object",
+              "properties": {
+                "constraints": {
+                  "$ref": "#/definitions/PerseusTransformerToolConstraints"
+                },
+                "coords": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Coord"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "constraints",
+                "coords",
+                "enabled"
+              ],
+              "additionalProperties": false
+            },
+            "rotation": {
+              "type": "object",
+              "properties": {
+                "constraints": {
+                  "$ref": "#/definitions/PerseusTransformerToolConstraints"
+                },
+                "coord": {
+                  "$ref": "#/definitions/Coord"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "constraints",
+                "coord",
+                "enabled"
+              ],
+              "additionalProperties": false
+            },
+            "translation": {
+              "type": "object",
+              "properties": {
+                "constraints": {
+                  "type": "object",
+                  "additionalProperties": false
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "required": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "constraints",
+                "enabled"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "dilation",
+            "reflection",
+            "rotation",
+            "translation"
+          ],
+          "additionalProperties": false
+        },
+        "version": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "correct",
+        "drawSolutionShape",
+        "gradeEmpty",
+        "graph",
+        "graphMode",
+        "listMode",
+        "starting",
+        "tools",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusTransformerTransformation": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/DilationTransformation"
+        },
+        {
+          "$ref": "#/definitions/ReflectionTransformation"
+        },
+        {
+          "$ref": "#/definitions/RotationTransformation"
+        },
+        {
+          "$ref": "#/definitions/TranslationTransformation"
+        }
+      ]
+    },
+    "DilationTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "dilation"
+        },
+        "center": {
+          "$ref": "#/definitions/Coord"
+        },
+        "scale": {
+          "type": "number"
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "fixed"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "center",
+        "scale",
+        "constraints"
+      ],
+      "additionalProperties": false
+    },
+    "ReflectionTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "reflection"
+        },
+        "line": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coord"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "fixed"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "line"
+      ],
+      "additionalProperties": false
+    },
+    "RotationTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "rotation"
+        },
+        "angleDeg": {
+          "type": "number"
+        },
+        "center": {
+          "$ref": "#/definitions/Coord"
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "fixed"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "angleDeg",
+        "center",
+        "constraints"
+      ],
+      "additionalProperties": false
+    },
+    "TranslationTransformation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "translation"
+        },
+        "vector": {
+          "$ref": "#/definitions/Coord"
+        },
+        "contraints": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "vector",
+        "contraints"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusTransformerToolConstraints": {
+      "type": "object",
+      "properties": {
+        "fixed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "fixed"
+      ],
+      "additionalProperties": false
+    },
+    "UnitInputWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "unit-input"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusUnitInputWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusUnitInputWidgetOptions": {},
+    "VideoWidget": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "video"
+        },
+        "static": {
+          "type": "boolean"
+        },
+        "graded": {
+          "type": "boolean"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PerseusVideoWidgetOptions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusVideoWidgetOptions": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string"
+        },
+        "static": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "location"
+      ],
+      "additionalProperties": false
+    },
+    "PerseusAnswerArea": {
+      "type": "object",
+      "properties": {
+        "zTable": {
+          "type": "boolean"
+        },
+        "chi2Table": {
+          "type": "boolean"
+        },
+        "tTable": {
+          "type": "boolean"
+        },
+        "calculator": {
+          "type": "boolean"
+        },
+        "periodicTable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "zTable",
+        "chi2Table",
+        "tTable",
+        "calculator",
+        "periodicTable"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
