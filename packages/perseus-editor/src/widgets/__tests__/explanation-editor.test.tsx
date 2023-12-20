@@ -8,7 +8,7 @@ import "@testing-library/jest-dom";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import ExplanationEditor from "../explanation-editor";
 
-describe("dropdown-editor", () => {
+describe("explanation-editor", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
