@@ -186,6 +186,7 @@ class InputNumberEditor extends React.Component<Props> {
                             type="text"
                             disabled={!this.props.inexact}
                             defaultValue={this.props.maxError}
+                            aria-label="Max error"
                             onBlur={(e) => {
                                 const ans =
                                     "" +
@@ -206,6 +207,7 @@ class InputNumberEditor extends React.Component<Props> {
                             // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
                             this.props.onChange({answerType: e.target.value});
                         }}
+                        aria-label="Answer type"
                     >
                         {answerTypeOptions}
                     </select>
