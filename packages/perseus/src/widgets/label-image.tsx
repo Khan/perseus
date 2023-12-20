@@ -405,24 +405,6 @@ export class LabelImage extends React.Component<
         onChange({markers: updatedMarkers}, null, true);
     }
 
-    dismissMarkerPopup() {
-        const {activeMarkerIndex} = this.state;
-
-        // No popup should be open if there's no selected marker.
-        if (activeMarkerIndex === -1) {
-            return;
-        }
-
-        this.setState({activeMarkerIndex: -1}, () => {
-            const marker = this._markers[activeMarkerIndex];
-            // Set focus on the just-deselected-marker, to enable to resume
-            // navigating between the markers using the keyboard.
-            if (marker) {
-                (ReactDOM.findDOMNode(marker) as HTMLElement).focus();
-            }
-        });
-    }
-
     handleMarkerChange(index: number, marker: InteractiveMarkerType) {
         const {markers, onChange} = this.props;
 
@@ -443,6 +425,11 @@ export class LabelImage extends React.Component<
     }
 
     activateMarker(index: number, opened: boolean) {
+        this.props.analytics?.onAnalyticsEvent({
+            type: "perseus:label-image:marker-interacted-with",
+            payload: null,
+        });
+
         const {activeMarkerIndex} = this.state;
         // Set index of opened marker
         if (activeMarkerIndex !== index && opened) {
@@ -497,7 +484,7 @@ export class LabelImage extends React.Component<
         index: number,
         selection: ReadonlyArray<boolean>,
     ) {
-        const {choices, markers, multipleAnswers} = this.props;
+        const {choices, markers} = this.props;
 
         // Compile the user selected answer choices.
         const selected = choices.filter((_, index) => selection[index]);
@@ -506,10 +493,6 @@ export class LabelImage extends React.Component<
             ...markers[index],
             selected: selected.length ? selected : undefined,
         });
-
-        if (!multipleAnswers) {
-            this.dismissMarkerPopup();
-        }
     }
 
     renderMarkers(): ReadonlyArray<React.ReactNode> {
@@ -611,8 +594,16 @@ export class LabelImage extends React.Component<
                         onToggle={(opened) =>
                             this.activateMarker(index, opened)
                         }
-                        opener={({opened}) => (
-                            <Clickable role="button">
+                        opener={({opened, text}) => (
+                            <Clickable
+                                role="button"
+                                key={`marker-${marker.x}.${marker.y}`}
+                                aria-label={
+                                    marker.selected
+                                        ? (text as string)
+                                        : marker.label
+                                }
+                            >
                                 {({hovered, focused, pressed}) => (
                                     <Marker
                                         {...marker}

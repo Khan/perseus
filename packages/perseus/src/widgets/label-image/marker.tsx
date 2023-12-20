@@ -121,12 +121,6 @@ export default class Marker extends React.Component<Props> {
             <View
                 style={[styles.markerIcon, iconStyles]}
                 ref={(node) => (this._icon = node)}
-                onClick={() => {
-                    this.props.analytics?.onAnalyticsEvent({
-                        type: "perseus:label-image:marker-interacted-with",
-                        payload: null,
-                    });
-                }}
             >
                 <Icon
                     icon={innerIcon}
@@ -143,7 +137,6 @@ export default class Marker extends React.Component<Props> {
 
     render(): React.ReactNode {
         const {
-            // label,
             showCorrectness,
             selected,
             showAnswer,

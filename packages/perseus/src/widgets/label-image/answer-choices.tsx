@@ -33,10 +33,6 @@ type AnswerChoicesProps = {
 };
 
 const AnswerChoices = (props: AnswerChoicesProps) => {
-    // const idFactory = useUniqueIdWithMock();
-    // const switchId = idFactory.get("answer-choices-toggle");
-    // const labelId = idFactory.get("hide-answers-label");
-
     const onAnswerChange = (selected: string[]) => {
         const {choices, multipleSelect, onChange} = props;
 
