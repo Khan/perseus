@@ -30,6 +30,8 @@ type AnswerChoicesProps = {
     opener: SingleSelect["props"]["opener"];
     // Callback to handle toggle of dropdown.
     onToggle: (opened: boolean) => unknown;
+    // Whether the answer choices are disabled.
+    disabled: boolean;
 };
 
 const AnswerChoices = (props: AnswerChoicesProps) => {
@@ -71,7 +73,7 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
         .filter((choice) => choice.checked)
         .map((choice) => choice.content);
 
-    const {opener, onToggle} = props;
+    const {opener, onToggle, disabled} = props;
 
     const args = {
         // reset to allow child (answer pill) to control z-index
@@ -79,6 +81,7 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
         children: AnswerItems(props.choices),
         opener,
         onToggle,
+        disabled,
     };
 
     return props.multipleSelect ? (

@@ -548,6 +548,9 @@ export class LabelImage extends React.Component<
                     ? "correct"
                     : marker.showCorrectness;
 
+            // Disable marker interaction once the question is answered correctly.
+            const disabled = showCorrectness === "correct";
+
             const adjustPillDistance: CSSProperties = {
                 [`margin${
                     markerPosition.charAt(0).toUpperCase() +
@@ -594,6 +597,8 @@ export class LabelImage extends React.Component<
                         onToggle={(opened) =>
                             this.activateMarker(index, opened)
                         }
+                        // cannot change answer choices once question is answered
+                        disabled={disabled}
                         opener={({opened, text}) => (
                             <Clickable
                                 role="button"

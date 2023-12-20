@@ -65,6 +65,7 @@ const WithState = ({multipleSelect}) => {
                 onChange={(selection) => handleChange(selection)}
                 opener={() => <button>{isOpened ? "Close" : "Open"}</button>}
                 onToggle={(opened) => setIsOpened(opened)}
+                disabled={false}
             />
             <>
                 {choices

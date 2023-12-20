@@ -8,6 +8,11 @@ import {Popper} from "react-popper";
 
 import Renderer from "../../renderer";
 
+const BringToFront: CSSProperties = {
+    boxShadow: `0 8px 8px ${Color.offBlack64}`,
+    zIndex: 1000,
+};
+
 export const AnswerPill = (props: {
     selectedAnswers: readonly string[];
     showCorrectness?: "correct" | "incorrect";
@@ -46,11 +51,6 @@ export const AnswerPill = (props: {
     const correct = showCorrectness === "correct";
     const incorrect = showCorrectness === "incorrect";
 
-    const bringToFront = {
-        boxShadow: `0 8px 8px ${Color.offBlack64}`,
-        zIndex: 1000,
-    };
-
     return (
         <Popper
             placement={side}
@@ -77,7 +77,7 @@ export const AnswerPill = (props: {
                         styles.relative,
                         correct && styles.correct,
                         incorrect && styles.incorrect,
-                        (focused || hovered) && bringToFront,
+                        (focused || hovered) && BringToFront,
                     ]}
                 >
                     <Renderer content={answerString} inline />
@@ -89,7 +89,12 @@ export const AnswerPill = (props: {
 
 const styles = StyleSheet.create({
     correct: {
-        backgroundColor: "#00880b", // WB green darkened by 18%
+        // WB green darkened by 18%
+        backgroundColor: "#00880b",
+        // Workaround for hover disabled on correct answer.
+        // Since we cannot make disabled buttons untabbable, we should match the
+        // hover style to the focus state.
+        ":hover": BringToFront,
     },
     incorrect: {
         backgroundColor: Color.offBlack64,

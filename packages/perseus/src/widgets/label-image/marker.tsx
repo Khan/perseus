@@ -11,12 +11,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import Icon from "../../components/icon";
-import {
-    iconCheck,
-    iconChevronDown,
-    iconMinus,
-    iconCircle,
-} from "../../icon-paths";
+import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
 import {AnswerPill} from "./answer-pill";
 
@@ -57,54 +52,54 @@ export default class Marker extends React.Component<Props> {
         selected: [],
     };
 
-    renderIcon({
-        focused,
-        hovered,
-    }): React.ReactElement<React.ComponentProps<"div">> {
+    renderIcon() {
         const {selected, showCorrectness, showSelected, showPulsate} =
             this.props;
 
         // Only a single marker may be "selected" at a time.
         // `showSelected` is a controlled prop, that may be set to `true` for
         // one marker at a time.
-        // `focused` is a controlled state, driven by focus events, and may
-        // only be `true` when there's no answer choices popup visible, and
-        // keyboard focus is given to the marker.
-        const isSelected = showSelected || focused;
+        const isOpen = showSelected;
+
+        const selectedAnswers = selected;
 
         let iconStyles: StyleType;
-        let innerIcon: IconType = iconCircle;
+
+        const iconNull: IconType = {
+            path: "",
+            height: 0,
+            width: 0,
+        };
+
+        // default dot
+        let args: Icon["props"] = {
+            size: MARKER_SIZE,
+            color: Color.white,
+            icon: iconNull,
+        };
 
         if (showCorrectness) {
-            innerIcon = showCorrectness === "correct" ? iconCheck : iconMinus;
-
-            if (showCorrectness === "correct") {
-                iconStyles = [
-                    styles.markerGraded,
-                    styles.markerCorrect,
-                    isSelected && styles.markerSelected,
-                ];
-            } else {
-                iconStyles = [
-                    styles.markerGraded,
-                    styles.markerIncorrect,
-                    isSelected && styles.markerSelected,
-                ];
-            }
-        } else if (focused || hovered) {
             iconStyles = [
-                styles.markerFocused,
-                selected && selected.length > 0 && styles.markerFilled,
-                showSelected && styles.markerSelected,
+                styles.markerGraded,
+                showCorrectness === "correct"
+                    ? styles.markerCorrect
+                    : styles.markerIncorrect,
+                isOpen && styles.markerSelected,
             ];
-        } else if (selected && selected.length > 0) {
-            iconStyles = [
-                styles.markerFilled,
-                isSelected && styles.markerSelected,
-            ];
-        } else if (isSelected) {
+            args = {
+                ...args,
+                icon: showCorrectness === "correct" ? iconCheck : iconMinus,
+            };
+        } else if (selectedAnswers && selectedAnswers.length > 0) {
+            iconStyles = [styles.markerFilled, isOpen && styles.markerSelected];
+        } else if (isOpen) {
             iconStyles = [styles.markerSelected];
-        } else {
+            args = {
+                ...args,
+                icon: iconChevronDown,
+                size: 8,
+            };
+        } else if (showPulsate) {
             iconStyles = [
                 styles.markerPulsateBase,
                 shouldReduceMotion()
@@ -113,24 +108,12 @@ export default class Marker extends React.Component<Props> {
             ];
         }
 
-        if (isSelected && selected) {
-            innerIcon = iconChevronDown;
-        }
-
         return (
             <View
                 style={[styles.markerIcon, iconStyles]}
                 ref={(node) => (this._icon = node)}
             >
-                <Icon
-                    icon={innerIcon}
-                    size={showCorrectness ? MARKER_SIZE : 8}
-                    color={
-                        innerIcon.path !== iconCircle.path
-                            ? Color.white
-                            : "transparent"
-                    }
-                />
+                <Icon {...args} />
             </View>
         );
     }
@@ -146,10 +129,20 @@ export default class Marker extends React.Component<Props> {
             focused,
         } = this.props;
 
+        // We cannot make dropdown openers untabbable, so we isolate tabbing
+        // to answer pills when interaction is disabled.
+        const markerDisabled = showCorrectness === "correct";
+        const active = hovered || focused;
+
         return (
             <>
-                <View style={[styles.marker]}>
-                    {this.renderIcon({hovered, focused})}
+                <View
+                    style={[
+                        styles.marker,
+                        active && !markerDisabled && styles.markerActive,
+                    ]}
+                >
+                    {this.renderIcon()}
                 </View>
                 {!!selected && showAnswer && (
                     <AnswerPill
@@ -167,16 +160,9 @@ export default class Marker extends React.Component<Props> {
     }
 }
 
-const lightShadowColor = "rgba(33, 36, 44, 0.16)";
-
 const styles = StyleSheet.create({
     marker: {
         position: "absolute",
-        outlineOffset: 2,
-
-        ":hover": {
-            outline: `2px solid ${Color.blue}`,
-        },
 
         backgroundColor: Color.white,
         borderRadius: MARKER_SIZE,
@@ -186,6 +172,9 @@ const styles = StyleSheet.create({
         height: MARKER_SIZE,
         marginLeft: MARKER_SIZE / -2,
         marginTop: MARKER_SIZE / -2,
+
+        // Add a shadow to the marker to make it stand out from the image.
+        boxShadow: `0 8px 8px ${Color.offBlack8}`,
     },
 
     // The base and unfilled marker style.
@@ -201,8 +190,6 @@ const styles = StyleSheet.create({
 
         border: `2px solid ${Color.offBlack64}`,
         borderRadius: MARKER_SIZE,
-
-        boxShadow: `0 8px 8px ${Color.offBlack8}`,
     },
 
     // The animation that presents the marker to the learner
@@ -237,7 +224,7 @@ const styles = StyleSheet.create({
         animationIterationCount: "2",
     },
 
-    markerFocused: {
+    markerActive: {
         outline: `2px solid ${Color.blue}`,
         outlineOffset: 2,
     },
@@ -255,10 +242,7 @@ const styles = StyleSheet.create({
     // The learner has made a selection
     markerFilled: {
         backgroundColor: "#ECF3FE",
-
         border: `4px solid ${Color.blue}`,
-
-        boxShadow: `0 1px 1px 0 ${lightShadowColor}`,
     },
 
     markerGraded: {
@@ -268,7 +252,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         border: `2px solid ${Color.white}`,
-        boxShadow: `0 8px 8px ${Color.offBlack8}`,
     },
 
     markerCorrect: {
