@@ -1,3 +1,4 @@
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import DropdownEditor from "../dropdown-editor";
@@ -13,5 +14,5 @@ export default {
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <DropdownEditor onChange={() => {}} />;
+    return <DropdownEditor onChange={action("onChange")} />;
 };
