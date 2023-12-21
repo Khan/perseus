@@ -44,6 +44,7 @@ class ItemEditor extends React.Component<Props> {
 
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
+    itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
@@ -80,9 +81,7 @@ class ItemEditor extends React.Component<Props> {
     } = (options: any) => {
         return {
             question: this.questionEditor.current?.serialize(options),
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            answerArea: this.refs.itemExtrasEditor.serialize(options),
+            answerArea: this.itemExtrasEditor.current?.serialize(),
             itemDataVersion: ITEM_DATA_VERSION,
         };
     };
@@ -141,8 +140,7 @@ class ItemEditor extends React.Component<Props> {
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question extras</div>
                         <ItemExtrasEditor
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="itemExtrasEditor"
+                            ref={this.itemExtrasEditor}
                             onChange={this.handleItemExtrasChange}
                             {...this.props.answerArea}
                         />
