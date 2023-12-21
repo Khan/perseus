@@ -42,6 +42,8 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
 
+    frame = React.createRef<IframeContentRenderer>();
+
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
         const props = _(this.props).pick("question", "answerArea");
@@ -50,9 +52,7 @@ class ItemEditor extends React.Component<Props> {
     };
 
     triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-        this.refs.frame.sendNewData(newData);
+        this.frame.current?.sendNewData(newData);
     };
 
     handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
@@ -124,8 +124,7 @@ class ItemEditor extends React.Component<Props> {
                                 nochrome={true}
                             >
                                 <IframeContentRenderer
-                                    // eslint-disable-next-line react/no-string-refs
-                                    ref="frame"
+                                    ref={this.frame}
                                     key={this.props.deviceType}
                                     datasetKey="mobile"
                                     datasetValue={isMobile}
