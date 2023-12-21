@@ -15,7 +15,6 @@ import type {
     Hint,
     ImageUploader,
     Version,
-    PerseusItem,
 } from "@khanacademy/perseus";
 import type {KEScore} from "@khanacademy/perseus-core";
 
@@ -26,7 +25,7 @@ type Props = {
     answerArea?: any; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
     contentPaths?: ReadonlyArray<string>;
-    // "Power user" mode. Shows the raw JSON of the question.
+    // Only used in the perseus demos. Consider removing.
     developerMode: boolean;
     // Source HTML for the iframe to render
     frameSource: string;
@@ -54,8 +53,15 @@ type Props = {
     previewURL: string;
 };
 
+type PerseusJson = {
+    question: any;
+    answerArea: any;
+    hints: ReadonlyArray<Hint>;
+    itemDataVersion?: Version;
+};
+
 type State = {
-    json: PerseusItem;
+    json: PerseusJson;
     gradeMessage: string;
     wasAnswered: boolean;
     highlightLint: boolean;
@@ -201,7 +207,7 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
-    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
+    serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusJson {
         if (this.props.jsonMode) {
             return this.state.json;
         }
@@ -220,7 +226,7 @@ class EditorPage extends React.Component<Props, State> {
         this.props.onChange(newProps, cb, silent);
     };
 
-    changeJSON: (newJson: PerseusItem) => void = (newJson: PerseusItem) => {
+    changeJSON: (newJson: PerseusJson) => void = (newJson: PerseusJson) => {
         this.setState({
             json: newJson,
         });
