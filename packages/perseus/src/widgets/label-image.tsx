@@ -401,7 +401,6 @@ export class LabelImage extends React.Component<
 
         // Update Perseus widget state with user selected answers without
         // triggering interaction events for listeners.
-        // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
         onChange({markers: updatedMarkers}, null, true);
     }
 

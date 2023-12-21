@@ -6,17 +6,18 @@ import {
     EditorJsonify,
     Util,
 } from "@khanacademy/perseus";
-import createReactClass from "create-react-class";
 import * as React from "react";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 import Editor from "../editor";
 
+import type {APIOptions, Range, Size} from "@khanacademy/perseus";
+
 const {InfoTip, InlineIcon, RangeInput} = components;
 
 const defaultBoxSize = 400;
-const defaultRange = [0, 10];
+const defaultRange = [0, 10] as const;
 const defaultBackgroundImage = {
     url: null,
     width: 0,
@@ -53,46 +54,63 @@ const captionAlignments = [
     "above left",
 ];
 
-const ImageEditor: any = createReactClass({
-    displayName: "ImageEditor",
+type Props = Changeable.ChangeableProps & {
+    apiOptions: APIOptions;
 
-    propTypes: {
-        ...Changeable.propTypes,
-    },
+    title: string;
+    range: [Readonly<Range>, Readonly<Range>];
+    box: Size;
+    backgroundImage: any;
+    labels: ReadonlyArray<string>;
+    alt: string;
+    caption: string;
+};
 
-    statics: {
-        widgetName: "image",
-    },
+type DefaultProps = {
+    title: NonNullable<Props["title"]>;
+    range: NonNullable<Props["range"]>;
+    box: NonNullable<Props["box"]>;
+    backgroundImage: NonNullable<Props["backgroundImage"]>;
+    labels: NonNullable<Props["labels"]>;
+    alt: NonNullable<Props["alt"]>;
+    caption: NonNullable<Props["caption"]>;
+};
 
-    componentDidMount: function () {
+type State = {
+    backgroundImageError?: string;
+};
+
+class ImageEditor extends React.Component<Props> {
+    _isMounted = false;
+
+    static displayName = "ImageEditor";
+    static widgetName = "image";
+
+    static defaultProps: DefaultProps = {
+        title: "",
+        range: [defaultRange, defaultRange],
+        box: [defaultBoxSize, defaultBoxSize],
+        backgroundImage: defaultBackgroundImage,
+        labels: [],
+        alt: "",
+        caption: "",
+    };
+
+    state: State = {
+        backgroundImageError: "",
+    };
+
+    componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
-    },
+    }
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
         this._isMounted = false;
-    },
+    }
 
-    getDefaultProps: function () {
-        return {
-            title: "",
-            range: [defaultRange, defaultRange],
-            box: [defaultBoxSize, defaultBoxSize],
-            backgroundImage: defaultBackgroundImage,
-            labels: [],
-            alt: "",
-            caption: "",
-        };
-    },
-
-    getInitialState: function () {
-        return {
-            backgroundImageError: "",
-        };
-    },
-
-    render: function () {
+    render() {
         const backgroundImage = this.props.backgroundImage;
 
         const imageSettings = (
@@ -183,9 +201,9 @@ const ImageEditor: any = createReactClass({
                 {backgroundImage.url && imageSettings}
             </div>
         );
-    },
+    }
 
-    _renderRowForLabel: function (label, i) {
+    _renderRowForLabel(label, i) {
         return (
             <tr key={i}>
                 <td>
@@ -233,46 +251,46 @@ const ImageEditor: any = createReactClass({
                 </td>
             </tr>
         );
-    },
+    }
 
     change(...args) {
         return Changeable.change.apply(this, args);
-    },
+    }
 
-    removeLabel: function (labelIndex, e) {
+    removeLabel(labelIndex, e) {
         e.preventDefault();
-        const labels = _(this.props.labels).clone();
+        const labels = [...this.props.labels];
         labels.splice(labelIndex, 1);
         this.props.onChange({labels: labels});
-    },
+    }
 
-    onCoordinateChange: function (labelIndex, newCoordinates) {
+    onCoordinateChange(labelIndex, newCoordinates) {
         const labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
             coordinates: newCoordinates,
         });
         this.props.onChange({labels: labels});
-    },
+    }
 
-    onContentChange: function (labelIndex, e) {
+    onContentChange(labelIndex, e) {
         const newContent = e.target.value;
         const labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
             content: newContent,
         });
         this.props.onChange({labels: labels});
-    },
+    }
 
-    onAlignmentChange: function (labelIndex, e) {
+    onAlignmentChange(labelIndex, e) {
         const newAlignment = e.target.value;
         const labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
             alignment: newAlignment,
         });
         this.props.onChange({labels: labels});
-    },
+    }
 
-    setUrl: function (url, width, height, silent) {
+    setUrl(url, width, height, silent) {
         // Because this calls into WidgetEditor._handleWidgetChange, which
         // checks for this widget's ref to serialize it.
         //
@@ -295,15 +313,12 @@ const ImageEditor: any = createReactClass({
             null,
             silent,
         );
-    },
+    }
 
     // silently load the image when the component mounts
     // silently update url and sizes when the image loads
     // noisily load the image in response to the author changing it
-    onUrlChange: async function (
-        url: string | undefined | null,
-        silent: boolean,
-    ) {
+    async onUrlChange(url: string | undefined | null, silent: boolean) {
         // Check if we've been passed something that looks like a URL
         if (!url) {
             this.setUrl(url, 0, 0, silent);
@@ -336,17 +351,17 @@ const ImageEditor: any = createReactClass({
                 )}`,
             });
         }
-    },
+    }
 
-    onRangeChange: function (type, newRange) {
+    onRangeChange(type, newRange) {
         const range = this.props.range.slice();
         range[type] = newRange;
         this.props.onChange({range: range});
-    },
+    }
 
     serialize() {
         return EditorJsonify.serialize.call(this);
-    },
-});
+    }
+}
 
 export default ImageEditor;
