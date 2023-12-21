@@ -254,15 +254,10 @@ class EditorPage extends React.Component<Props, State> {
         return (
             <div id="perseus" className={className}>
                 <div style={{marginBottom: 10}}>
-                    <ViewportResizer
-                        enabled={!this.props.jsonMode}
-                        deviceType={this.props.previewDevice}
-                        onViewportSizeChanged={this.props.onPreviewDeviceChange}
-                    />
-
                     {this.props.developerMode && (
-                        <span style={{marginLeft: "20px"}}>
+                        <span>
                             <label>
+                                {" "}
                                 Developer JSON Mode:{" "}
                                 <input
                                     type="checkbox"
@@ -271,6 +266,15 @@ class EditorPage extends React.Component<Props, State> {
                                 />
                             </label>{" "}
                         </span>
+                    )}
+
+                    {!this.props.jsonMode && (
+                        <ViewportResizer
+                            deviceType={this.props.previewDevice}
+                            onViewportSizeChanged={
+                                this.props.onPreviewDeviceChange
+                            }
+                        />
                     )}
 
                     {!this.props.jsonMode && (
