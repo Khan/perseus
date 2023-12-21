@@ -69,8 +69,6 @@ type State = {
 
 class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
-    // @ts-expect-error - TS2564 - Property 'rendererMountNode' has no initializer and is not definitely assigned in the constructor.
-    rendererMountNode: HTMLDivElement;
     renderer: any;
 
     itemEditor = React.createRef<ItemEditor>();
@@ -111,7 +109,6 @@ class EditorPage extends React.Component<Props, State> {
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 
-        this.rendererMountNode = document.createElement("div");
         this.updateRenderer();
     }
 
