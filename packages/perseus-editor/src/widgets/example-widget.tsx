@@ -16,11 +16,12 @@ import _ from "underscore";
 import type {WidgetExports} from "@khanacademy/perseus";
 
 class TextInput extends React.Component<any> {
+    input = React.createRef<HTMLInputElement>();
+
     render(): React.ReactNode {
         return (
             <input
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={this.input}
                 value={this.props.value || ""}
                 onChange={this.changeValue}
             />
@@ -28,9 +29,7 @@ class TextInput extends React.Component<any> {
     }
 
     focus = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        this.input.current?.focus();
         return true;
     };
 
@@ -55,6 +54,8 @@ class ExampleWidget extends React.Component<any> {
     static defaultProps: any = {
         value: "",
     };
+
+    input = React.createRef<TextInput>();
 
     /**
      * This is the widget's grading function. simpleValidate generally
@@ -98,8 +99,7 @@ class ExampleWidget extends React.Component<any> {
     render(): React.ReactNode {
         return (
             <TextInput
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={this.input}
                 value={this.props.value}
                 // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                 onChange={this.change("value")}
@@ -117,9 +117,7 @@ class ExampleWidget extends React.Component<any> {
      * focused on page load.
      */
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        this.input.current?.focus();
         return true;
     };
 
