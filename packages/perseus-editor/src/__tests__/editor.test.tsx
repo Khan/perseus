@@ -84,63 +84,59 @@ describe("Editor", () => {
         expect(onChangeMock).not.toHaveBeenCalled();
     });
 
-    describe("input-number widget", () => {
-        test("clicking on the widget editor should open it", async () => {
-            // Arrange
-            render(<Harnessed />);
+    test("clicking on the widget editor should open it", async () => {
+        // Arrange
+        render(<Harnessed />);
 
-            // Act
-            const widgetDisclosure = screen.getByRole("link", {
-                name: "image 1",
-            });
-            userEvent.click(widgetDisclosure);
-
-            // Assert
-            const previewImage = screen.getByAltText("Editor preview of image");
-            expect(previewImage).toHaveAttribute(
-                "src",
-                "http://placekitten.com/200/300",
-            );
+        // Act
+        const widgetDisclosure = screen.getByRole("link", {
+            name: "image 1",
         });
+        userEvent.click(widgetDisclosure);
 
-        it("should update values", async () => {
-            // Arrange
-            jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([
-                200, 200,
-            ]);
+        // Assert
+        const previewImage = screen.getByAltText("Editor preview of image");
+        expect(previewImage).toHaveAttribute(
+            "src",
+            "http://placekitten.com/200/300",
+        );
+    });
 
-            const changeFn = jest.fn();
-            render(<Harnessed onChange={changeFn} />);
+    it("should update values", async () => {
+        // Arrange
+        jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 200]);
 
-            // Act
-            const widgetDisclosure = screen.getByRole("link", {
-                name: "image 1",
-            });
-            userEvent.click(widgetDisclosure);
+        const changeFn = jest.fn();
+        render(<Harnessed onChange={changeFn} />);
 
-            const captionInput = screen.getByLabelText(/Caption:/);
+        // Act
+        const widgetDisclosure = screen.getByRole("link", {
+            name: "image 1",
+        });
+        userEvent.click(widgetDisclosure);
 
-            userEvent.clear(captionInput);
-            userEvent.type(captionInput, "A picture of kittens");
-            userEvent.tab(); // blurring the input triggers onChange to be called
-            jest.runOnlyPendingTimers();
+        const captionInput = screen.getByLabelText(/Caption:/);
 
-            // Assert
-            expect(changeFn).toHaveBeenCalledWith(
-                {
-                    widgets: {
-                        "image 1": expect.objectContaining({
-                            type: "image",
-                            graded: true,
-                            options: expect.objectContaining({
-                                caption: "A picture of kittens",
-                            }),
+        userEvent.clear(captionInput);
+        userEvent.type(captionInput, "A picture of kittens");
+        userEvent.tab(); // blurring the input triggers onChange to be called
+        jest.runOnlyPendingTimers();
+
+        // Assert
+        expect(changeFn).toHaveBeenCalledWith(
+            {
+                widgets: {
+                    "image 1": expect.objectContaining({
+                        type: "image",
+                        graded: true,
+                        options: expect.objectContaining({
+                            caption: "A picture of kittens",
                         }),
-                    },
+                    }),
                 },
-                undefined,
-                undefined,
-            );
-        });
+            },
+            undefined,
+            undefined,
+        );
     });
 });
