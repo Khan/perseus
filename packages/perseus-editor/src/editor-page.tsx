@@ -74,6 +74,7 @@ class EditorPage extends React.Component<Props, State> {
     renderer: any;
 
     itemEditor = React.createRef<ItemEditor>();
+    hintsEditor = React.createRef<CombinedHintsEditor>();
 
     static defaultProps: {
         developerMode: boolean;
@@ -197,9 +198,7 @@ class EditorPage extends React.Component<Props, State> {
 
     getSaveWarnings(): any {
         const issues1 = this.itemEditor.current?.getSaveWarnings();
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        const issues2 = this.refs.hintsEditor.getSaveWarnings();
+        const issues2 = this.hintsEditor.current?.getSaveWarnings();
         return issues1.concat(issues2);
     }
 
@@ -207,10 +206,8 @@ class EditorPage extends React.Component<Props, State> {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            hints: this.refs.hintsEditor.serialize(options),
         return _.extend(this.itemEditor.current?.serialize(options), {
+            hints: this.hintsEditor.current?.serialize(options),
         });
     }
 
@@ -318,8 +315,7 @@ class EditorPage extends React.Component<Props, State> {
 
                 {(!this.props.developerMode || !this.props.jsonMode) && (
                     <CombinedHintsEditor
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="hintsEditor"
+                        ref={this.hintsEditor}
                         itemId={this.props.itemId}
                         hints={this.props.hints}
                         imageUploader={this.props.imageUploader}
