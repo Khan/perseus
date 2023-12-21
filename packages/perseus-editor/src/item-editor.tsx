@@ -43,6 +43,7 @@ class ItemEditor extends React.Component<Props> {
     };
 
     frame = React.createRef<IframeContentRenderer>();
+    questionEditor = React.createRef<Editor>();
 
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
@@ -66,9 +67,7 @@ class ItemEditor extends React.Component<Props> {
     };
 
     getSaveWarnings: () => any = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        return this.refs.questionEditor.getSaveWarnings();
+        return this.questionEditor.current?.getSaveWarnings();
     };
 
     serialize: (options?: any) => {
@@ -80,9 +79,7 @@ class ItemEditor extends React.Component<Props> {
         question: any;
     } = (options: any) => {
         return {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            question: this.refs.questionEditor.serialize(options),
+            question: this.questionEditor.current?.serialize(options),
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             answerArea: this.refs.itemExtrasEditor.serialize(options),
@@ -100,8 +97,7 @@ class ItemEditor extends React.Component<Props> {
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question</div>
                         <Editor
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="questionEditor"
+                            ref={this.questionEditor}
                             // Using the AssessmentItem content ID as the key
                             // ensures that when the user navigates to another
                             // item in the Sidebar, the question editor is
