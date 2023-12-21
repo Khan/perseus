@@ -73,6 +73,8 @@ class EditorPage extends React.Component<Props, State> {
     rendererMountNode: HTMLDivElement;
     renderer: any;
 
+    itemEditor = React.createRef<ItemEditor>();
+
     static defaultProps: {
         developerMode: boolean;
         jsonMode: boolean;
@@ -160,9 +162,7 @@ class EditorPage extends React.Component<Props, State> {
             isMobile: touch,
         };
 
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'triggerPreviewUpdate' does not exist on type 'ReactInstance'.
-        this.refs.itemEditor.triggerPreviewUpdate({
+        this.itemEditor.current?.triggerPreviewUpdate({
             type: "question",
             data: _({
                 item: this.serialize(),
@@ -176,9 +176,7 @@ class EditorPage extends React.Component<Props, State> {
                     paths: this.props.contentPaths || [],
                 },
                 reviewMode: true,
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-                legacyPerseusLint: this.refs.itemEditor.getSaveWarnings(),
+                legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
             }).extend(
                 _(this.props).pick(
                     "workAreaSelector",
@@ -198,9 +196,7 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     getSaveWarnings(): any {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        const issues1 = this.refs.itemEditor.getSaveWarnings();
+        const issues1 = this.itemEditor.current?.getSaveWarnings();
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
         const issues2 = this.refs.hintsEditor.getSaveWarnings();
@@ -211,12 +207,10 @@ class EditorPage extends React.Component<Props, State> {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-        return _.extend(this.refs.itemEditor.serialize(options), {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             hints: this.refs.hintsEditor.serialize(options),
+        return _.extend(this.itemEditor.current?.serialize(options), {
         });
     }
 
@@ -308,8 +302,7 @@ class EditorPage extends React.Component<Props, State> {
 
                 {(!this.props.developerMode || !this.props.jsonMode) && (
                     <ItemEditor
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="itemEditor"
+                        ref={this.itemEditor}
                         itemId={this.props.itemId}
                         question={this.props.question}
                         answerArea={this.props.answerArea}
