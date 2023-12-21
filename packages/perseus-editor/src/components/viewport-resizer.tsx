@@ -13,7 +13,6 @@ const {devices} = constants;
 const {iconDesktop, iconMobilePhone, iconTablet} = icons;
 
 type Props = {
-    enabled: boolean;
     deviceType: DeviceType;
     onViewportSizeChanged: (arg1: DeviceType) => unknown;
 };
