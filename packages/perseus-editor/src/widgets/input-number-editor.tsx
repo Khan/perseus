@@ -90,6 +90,8 @@ class InputNumberEditor extends React.Component<Props> {
         rightAlign: false,
     };
 
+    input = React.createRef<BlurInput>();
+
     handleAnswerChange: (arg1: string) => void = (str) => {
         const value = Util.firstNumericalParse(str) || 0;
         this.props.onChange({value: value});
@@ -116,8 +118,7 @@ class InputNumberEditor extends React.Component<Props> {
                         <BlurInput
                             value={"" + this.props.value}
                             onChange={this.handleAnswerChange}
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="input"
+                            ref={this.input}
                         />
                     </label>
                 </div>
@@ -260,8 +261,7 @@ class InputNumberEditor extends React.Component<Props> {
     }
 
     focus: () => boolean = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.input).focus(); // eslint-disable-line react/no-string-refs
+        this.input.current?.focus();
         return true;
     };
 

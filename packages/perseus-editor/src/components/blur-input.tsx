@@ -27,6 +27,8 @@ type State = {
  */
 // eslint-disable-next-line react/no-unsafe
 class BlurInput extends React.Component<Props, State> {
+    input = React.createRef<HTMLInputElement>();
+
     constructor(props: Props) {
         super(props);
         this.state = {value: this.props.value};
@@ -45,9 +47,14 @@ class BlurInput extends React.Component<Props, State> {
         this.props.onChange(e.target.value);
     };
 
+    focus() {
+        this.input.current?.focus();
+    }
+
     render(): React.ReactNode {
         return (
             <input
+                ref={this.input}
                 className={this.props.className}
                 style={this.props.style}
                 type="text"
