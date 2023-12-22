@@ -2,7 +2,24 @@
 @import "./variables.less";
 @import "./util.less";
 
-// Article Renderer
+// Common styles for _all_ of Perseus
+.framework-perseus {
+    code {
+        font-family: Courier, monospace;
+    }
+
+    pre {
+        background-color: @gray95;
+        border-radius: 4px;
+        color: @gray17;
+        font-size: 18px;
+        padding: 16px;
+        white-space: pre;
+        overflow: auto;
+    }
+}
+
+// Desktop Articles
 .framework-perseus.perseus-article:not(.perseus-mobile) {
     @textColor: #21242c;
     .body-text() {
@@ -190,25 +207,12 @@
         }
     }
 
-    code {
-        font-family: Courier, monospace;
-    }
-
     pre {
-        background-color: @gray95;
-        border-radius: 4px;
-        color: @gray17;
-        font-size: 18px;
-        padding: 16px;
-        white-space: pre;
-        overflow: auto;
         margin: 0 -16px 32px -16px;
     }
 }
 
-// HACK(emily): This is a copy of a bunch of the mixins from the block of
-// styles down below. However, those styles are limited to mobile devices
-// only, so this block is for non-mobile devices.
+// Desktop Exercises
 .framework-perseus:not(.perseus-article):not(.perseus-mobile) {
     // Mixins
     .text(@fontSize; @lineHeight; @color) {
@@ -251,6 +255,7 @@
     .choice-text(14px, 1.25);
 }
 
+// Mobile Articles and Exercises
 .framework-perseus.perseus-mobile {
     .perseus-article {
         .perseus-widget-container {

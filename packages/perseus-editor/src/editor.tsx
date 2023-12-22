@@ -132,7 +132,7 @@ type Props = Readonly<{
     onChange: ChangeHandler;
 }>;
 
-type DeafultProps = {
+type DefaultProps = {
     content: string;
     disabled: boolean;
     images: Record<any, any>;
@@ -157,7 +157,7 @@ class Editor extends React.Component<Props, State> {
     deferredChange: any | null | undefined;
     widgetIds: any | null | undefined;
 
-    static defaultProps: DeafultProps = {
+    static defaultProps: DefaultProps = {
         content: "",
         placeholder: "",
         widgets: {},

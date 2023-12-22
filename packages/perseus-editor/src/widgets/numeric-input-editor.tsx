@@ -381,6 +381,7 @@ const NumericInputEditor: any = createReactClass({
                             <a
                                 href="javascript:void(0)"
                                 className="answer-trash"
+                                aria-label="Delete answer"
                                 onClick={() => this.onTrashAnswer(i)}
                                 onKeyDown={(e) =>
                                     this.onSpace(e, this.onTrashAnswer, i)
@@ -391,6 +392,7 @@ const NumericInputEditor: any = createReactClass({
                             <a
                                 href="javascript:void(0)"
                                 className="options-toggle"
+                                aria-label="Toggle options"
                                 onClick={() => this.onToggleOptions(i)}
                                 onKeyDown={(e) =>
                                     this.onSpace(e, this.onToggleOptions, i)

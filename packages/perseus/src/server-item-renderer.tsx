@@ -2,12 +2,12 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 /**
- * A copy of the ItemRenderer which renders its question renderer and hints
- * renderer normally instead of ReactDOM.render()ing them into elements in the
- * DOM.
+ * The main item (aka Exercise) renderer in Perseus. This component renders its
+ * question renderer and hints renderer using standard React practices (an
+ * earlier ItemRenderer component used to use jQuery and ReactDOM.render()ing
+ * to render into elements it didn't own.
  *
- * This allows this component to be used in server-rendering of a perseus
- * exercise.
+ * This component is compatible with server-rendering of a perseus exercise.
  */
 import * as React from "react";
 import _ from "underscore";
