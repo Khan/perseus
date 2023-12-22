@@ -51,7 +51,7 @@ jobs:
               run: yarn build-storybook
 
             - name: Deploy to GitHub pages
-              uses: JamesIves/github-pages-deploy-action@v4.4.2
+              uses: JamesIves/github-pages-deploy-action@v4.5.0
               with:
                   # The branch the action should deploy to.
                   branch: gh-pages
