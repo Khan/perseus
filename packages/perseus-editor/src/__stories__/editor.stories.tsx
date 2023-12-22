@@ -16,7 +16,7 @@ import "../styles/perseus-editor.less";
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
-    title: "Perseus/Editor",
+    title: "Perseus/Editor/Editor",
 };
 
 export const Demo = (): React.ReactElement => {
