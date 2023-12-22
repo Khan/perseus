@@ -47,4 +47,19 @@ describe("BlurInput", () => {
         // Assert
         expect(onChange).not.toHaveBeenCalledTimes(1);
     });
+
+    it("should focus input through focus function", () => {
+        const ref = React.createRef<BlurInput>();
+
+        // Arrange
+        render(
+            <BlurInput ref={ref} value="Hello world!" onChange={() => {}} />,
+        );
+
+        // Act
+        ref.current?.focus();
+
+        // Assert
+        expect(document.activeElement).toBe(screen.getByRole("textbox"));
+    });
 });
