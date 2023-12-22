@@ -18,7 +18,7 @@ jobs:
                 node-version: [20.x]
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
 
@@ -50,7 +50,7 @@ jobs:
                 node-version: [20.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -128,7 +128,7 @@ jobs:
                 node-version: [20.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -161,7 +161,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -184,7 +184,7 @@ jobs:
         runs-on: ubuntu-latest
         needs: [cypress, coverage]
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -225,7 +225,7 @@ jobs:
                 node-version: [20.x]
         steps:
             - name: Checking out latest commit
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -254,7 +254,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
 
             - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
               uses: Khan/actions@shared-node-cache-v0
@@ -279,7 +279,7 @@ jobs:
         steps:
             # We need to checkout all history, so that the changeseat tool can diff it
             - name: Checkout current commit
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: "0"
             - name: Ensure main branch is avaialble
@@ -365,7 +365,7 @@ jobs:
             # chromaui/@action doesn't work with shallow checkouts which is the
             # default for actions/checkout so we need to force it to checkout
             # more stuff.
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
               with:
                   fetch-depth: 0
 
