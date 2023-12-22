@@ -1,7 +1,6 @@
 /* eslint-disable react/sort-comp */
 import {components, Util} from "@khanacademy/perseus";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
