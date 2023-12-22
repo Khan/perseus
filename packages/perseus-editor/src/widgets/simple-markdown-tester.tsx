@@ -57,8 +57,6 @@ class SimpleMarkdownTester extends React.Component<Props> {
      * focused on page load.
      */
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs.input.focus();
         return true;
     };
