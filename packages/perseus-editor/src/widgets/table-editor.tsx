@@ -2,7 +2,6 @@
 import {components, TableWidget, Util} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import Editor from "../editor";
@@ -36,9 +35,10 @@ class TableEditor extends React.Component<Props> {
         };
     })();
 
+    numberOfColumns = React.createRef<components.NumberInput>();
+
     focus: () => void = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.numberOfColumns).focus(); // eslint-disable-line react/no-string-refs
+        this.numberOfColumns.current?.focus();
     };
 
     render(): React.ReactNode {
@@ -63,8 +63,7 @@ class TableEditor extends React.Component<Props> {
                     <label>
                         Number of columns:{" "}
                         <NumberInput
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="numberOfColumns"
+                            ref={this.numberOfColumns}
                             value={this.props.columns}
                             onChange={(val) => {
                                 if (val) {
