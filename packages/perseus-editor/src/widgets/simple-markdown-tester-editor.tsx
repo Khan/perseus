@@ -49,6 +49,8 @@ class SimpleMarkdownTesterEditor extends React.Component<SimpleMarkdownTesterEdi
         value: "",
     };
 
+    input = React.createRef<TextArea>();
+
     render(): React.ReactNode {
         return (
             <div>
@@ -59,8 +61,7 @@ class SimpleMarkdownTesterEditor extends React.Component<SimpleMarkdownTesterEdi
                             value={this.props.value}
                             // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                             onChange={this.change("value")}
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="input"
+                            ref={this.input}
                         />
                     </div>
                 </label>
@@ -73,9 +74,7 @@ class SimpleMarkdownTesterEditor extends React.Component<SimpleMarkdownTesterEdi
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        this.input.current?.focus();
         return true;
     };
 
