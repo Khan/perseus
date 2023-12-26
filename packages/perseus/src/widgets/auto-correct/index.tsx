@@ -1,4 +1,5 @@
 import Banner from "@khanacademy/wonder-blocks-banner";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import React from "react";
 
 import type {PerseusScore, WidgetExports} from "../../types";
@@ -38,7 +39,9 @@ class AutoCorrect extends React.Component<AutoCorrectProps> {
                 }}
             >
                 <Banner
-                    text="This part of the question is no-longer available. You will not be graded on this part."
+                    text={i18n._(
+                        "This part of the question is no-longer available. You will not be graded on this part.",
+                    )}
                     kind="warning"
                     layout="full-width"
                 />

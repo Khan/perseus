@@ -1,12 +1,8 @@
-import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
-
-import {renderQuestion} from "./renderQuestion";
+import {testDependencies} from "../../../../../../testing/test-dependencies";
+import * as Dependencies from "../../../dependencies";
+import {renderQuestion} from "../../__tests__/renderQuestion";
 
 const question = {
     content:
