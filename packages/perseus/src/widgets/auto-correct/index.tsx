@@ -33,13 +33,14 @@ class AutoCorrect extends React.Component<AutoCorrectProps> {
         return (
             <div
                 style={{
-                    padding: 8,
+                    paddingTop: 8,
+                    paddingBottom: 8,
                 }}
             >
                 <Banner
                     text="This part of the question is no-longer available. You will not be graded on this part."
                     kind="warning"
-                    layout="floating"
+                    layout="full-width"
                 />
             </div>
         );

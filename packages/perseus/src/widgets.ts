@@ -43,10 +43,16 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
     validateAlignments();
 };
 
+// name is the widget that you are trying to replace
+// replacementName is the name of the widget that takes its place
+// e.g. replaceWidget("transformer", "always-correct") will make it so
+// the transformer widget is replaced by the always correct widget
 export const replaceWidget = (name: string, replacementName: string) => {
     const substitueWidget = widgets[replacementName];
 
     if (!substitueWidget) {
+        // The logger may not have been loaded at this point so we use the console
+        // eslint-disable-next-line no-console
         console.error(
             `Failed to replace ${name} with ${replacementName}`,
             Errors.Internal,
@@ -56,6 +62,8 @@ export const replaceWidget = (name: string, replacementName: string) => {
 
     registerWidget(name, substitueWidget);
 
+    // The logger may not have been loaded at this point so we use the console
+    // eslint-disable-next-line no-console
     console.log(`INFO: Replacing widget ${name} with ${replacementName}`);
 };
 

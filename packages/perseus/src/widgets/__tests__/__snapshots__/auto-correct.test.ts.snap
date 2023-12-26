@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auto correct widget should have a default snapshot: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        Read the excerpt and answer the question below. 
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            style="padding-top: 8px; padding-bottom: 8px;"
+          >
+            <div
+              aria-live="polite"
+              class="default_xu2jcg-o_O-containerOuter_xu9ezy-o_O-inlineStyles_1ozd0sx"
+              role="alert"
+            >
+              <div
+                class="default_xu2jcg-o_O-backgroundColor_10s9e9d-o_O-inlineStyles_tkl0uy"
+              />
+              <div
+                class="default_xu2jcg-o_O-containerInner_mm2xcu"
+              >
+                <span
+                  aria-label="warning"
+                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_16tp01m-o_O-inlineStyles_g0hdza"
+                  data-test-id="banner-kind-icon"
+                  role="img"
+                />
+                <div
+                  class="default_xu2jcg-o_O-labelAndButtonsContainer_14rogkt"
+                >
+                  <div
+                    class="default_xu2jcg-o_O-labelContainer_1fjq5ke"
+                  >
+                    <span
+                      class="text_f1191h-o_O-LabelSmall_hl4zs1"
+                    >
+                      This part of the question is no-longer available. You will not be graded on this part.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        , upon these conditions.
+      </div>
+    </div>
+  </div>
+</div>
+`;
