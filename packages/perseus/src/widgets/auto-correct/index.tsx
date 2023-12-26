@@ -1,3 +1,4 @@
+import Banner from "@khanacademy/wonder-blocks-banner";
 import React from "react";
 
 import type {PerseusScore, WidgetExports} from "../../types";
@@ -10,10 +11,12 @@ type UserInput = Empty;
 
 class AutoCorrect extends React.Component<AutoCorrectProps> {
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
+        // Since this mean to replace an existing widget the learner
+        // WILL earn points for this widget
         return {
             type: "points",
-            earned: 0,
-            total: 0,
+            earned: 1,
+            total: 1,
             message: null,
         };
     }
@@ -30,12 +33,14 @@ class AutoCorrect extends React.Component<AutoCorrectProps> {
         return (
             <div
                 style={{
-                    backgroundColor: "gray",
-                    border: "1px solid red",
+                    padding: 8,
                 }}
             >
-                <h1>Gone</h1>
-                <p>The widget you are trying to reach is no longer available</p>
+                <Banner
+                    text="This part of the question is no-longer available. You will not be graded on this part."
+                    kind="warning"
+                    layout="floating"
+                />
             </div>
         );
     }

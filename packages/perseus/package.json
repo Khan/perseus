@@ -28,7 +28,8 @@
         "@khanacademy/perseus-core": "1.4.1",
         "@khanacademy/perseus-linter": "^0.3.10",
         "@khanacademy/pure-markdown": "^0.2.13",
-        "@khanacademy/simple-markdown": "^0.11.2"
+        "@khanacademy/simple-markdown": "^0.11.2",
+        "@khanacademy/wonder-blocks-banner": "^3.0.33"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-button": "^6.2.4",
