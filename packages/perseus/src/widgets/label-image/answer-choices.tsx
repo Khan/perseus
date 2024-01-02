@@ -36,26 +36,8 @@ type AnswerChoicesProps = {
 
 const AnswerChoices = (props: AnswerChoicesProps) => {
     const onAnswerChange = (selected: string[]) => {
-        const {choices, multipleSelect, onChange} = props;
-
-        const selection: Array<boolean> = [];
-
-        // Compile the selection state of answer choices. In single selection
-        // mode (radio input type), only 0 or 1 answer may be chosen.
-        for (const choice of choices) {
-            const included = selected.includes(choice.content);
-            selection.push(
-                multipleSelect
-                    ? included
-                        ? true
-                        : choice.checked
-                    : included
-                    ? true
-                    : false,
-            );
-        }
-
-        onChange(selection);
+        const {choices, onChange} = props;
+        onChange(choices.map((choice) => selected.includes(choice.content)));
     };
 
     // WB Dropdown types only take an array of nodes, so we can't use a
