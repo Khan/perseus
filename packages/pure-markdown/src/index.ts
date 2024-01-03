@@ -32,13 +32,13 @@ const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
  *
  * This can also match block-math, which is math alone in a paragraph.
  */
-export const mathMatcher = (source: any, state?: any, isBlock?: boolean) => {
+const mathMatcher = (source: any, state: any, isBlock: boolean) => {
     const length = source.length;
     let index = 0;
 
     // When looking for blocks, skip over leading spaces
     if (isBlock) {
-        if (state?.inline) {
+        if (state.inline) {
             return null;
         }
         while (index < length && source[index] === " ") {
