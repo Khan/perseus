@@ -46,6 +46,7 @@ const WrappedKeypadContext = ({
                             apiOptions={{
                                 isMobile: isMobile,
                                 customKeypad: customKeypad,
+                                onFocusChange: () => {},
                             }}
                         />
                     );

@@ -26,9 +26,9 @@ import MockAssetLoadingWidgetExport, {
 } from "./mock-asset-loading-widget";
 import MockWidgetExport from "./mock-widget";
 
-import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {PerseusItem} from "../perseus-types";
 import type {APIOptions} from "../types";
+import type {MockAssetLoadingWidget} from "./mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -335,7 +335,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledWith(
                 ["input-number 1"],
                 null,
-                undefined,
+                0,
                 expect.any(Object),
             );
         });
@@ -343,7 +343,15 @@ describe("server item renderer", () => {
         it("activates the keypadElement when focusing the renderer on mobile", () => {
             // Arranged
             const onFocusChange = jest.fn();
-            const keypadElementDOMNode = <div />;
+            const keypadElementDOMNode = document.createElement("div");
+
+            // We need to mock the getBoundingClientRect() method for our
+            // onFocusChange() callback to work properly.
+            keypadElementDOMNode.getBoundingClientRect = () =>
+                ({
+                    height: 250,
+                } as DOMRect);
+
             const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
@@ -372,7 +380,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledWith(
                 ["input-number 1"],
                 null,
-                keypadElementDOMNode,
+                250,
                 expect.any(Object),
             );
         });
@@ -399,7 +407,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
                 ["input-number 1"],
-                null,
+                0,
                 null,
             );
         });
@@ -407,7 +415,15 @@ describe("server item renderer", () => {
         it("dismisses the keypadElement when blurring the renderer on mobile", () => {
             // Arranged
             const onFocusChange = jest.fn();
-            const keypadElementDOMNode = <div />;
+            const keypadElementDOMNode = document.createElement("div");
+
+            // We need to mock the getBoundingClientRect() method for our
+            // onFocusChange() callback to work properly.
+            keypadElementDOMNode.getBoundingClientRect = () =>
+                ({
+                    height: 250,
+                } as DOMRect);
+
             const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
@@ -440,7 +456,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
                 ["input-number 1"],
-                null,
+                0,
                 null,
             );
         });
@@ -459,7 +475,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledWith(
                 ["input-number 1"],
                 null,
-                undefined,
+                0,
                 expect.any(Object),
             );
         });
