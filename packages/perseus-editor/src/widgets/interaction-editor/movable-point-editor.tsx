@@ -4,7 +4,6 @@ import {
     Dependencies,
     EditorJsonify,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -13,7 +12,22 @@ import ConstraintEditor from "./constraint-editor";
 const {MathInput, NumberInput} = components;
 const {getDependencies} = Dependencies;
 
-type MovablePointEditorProps = any;
+type Props = Changeable.ChangeableProps & {
+    startX: string;
+    startY: string;
+    constraint: string;
+    snap: number;
+    constraintFn: string;
+    varSubscript: number;
+};
+
+type DefaultProps = {
+    startX: Props["startX"];
+    startY: Props["startY"];
+    constraint: Props["constraint"];
+    snap: Props["snap"];
+    constraintFn: Props["constraintFn"];
+};
 
 //
 // Editor for interactive movable points
@@ -21,22 +35,14 @@ type MovablePointEditorProps = any;
 // TODO(eater): Factor this out
 // TODO(eater): Rethink how constraints are represented
 //
-class MovablePointEditor extends React.Component<MovablePointEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        startX: PropTypes.string,
-        startY: PropTypes.string,
-        constraint: PropTypes.string,
-        snap: PropTypes.number,
-        constraintFn: PropTypes.string,
-    };
-
-    static defaultProps = {
+class MovablePointEditor extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         startX: "0",
         startY: "0",
         constraint: "none",
         snap: 0.5,
         constraintFn: "0",
+        // @ts-expect-error - TS2561
         constraintXMin: "-10",
         constraintXMax: "10",
         constraintYMin: "-10",
@@ -82,7 +88,6 @@ class MovablePointEditor extends React.Component<MovablePointEditorProps> {
                         onChange={this.change("varSubscript")}
                     />
                 </div>
-                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <ConstraintEditor {...this.props} />
             </div>
         );
