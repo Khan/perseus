@@ -19,6 +19,7 @@ import GraphSettings from "../components/graph-settings";
 
 import ConstraintEditor from "./interaction/constraint-editor";
 import LineEditor from "./interaction/line-editor";
+import MovablePointEditor from "./interaction/movable-point-editor";
 import PointEditor from "./interaction/point-editor";
 
 const {MathInput, NumberInput, TextInput} = components;
@@ -39,82 +40,6 @@ const defaultInteractionProps = {
     },
     elements: [],
 } as const;
-
-type MovablePointEditorProps = any;
-
-//
-// Editor for interactive movable points
-//
-// TODO(eater): Factor this out
-// TODO(eater): Rethink how constraints are represented
-//
-class MovablePointEditor extends React.Component<MovablePointEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        startX: PropTypes.string,
-        startY: PropTypes.string,
-        constraint: PropTypes.string,
-        snap: PropTypes.number,
-        constraintFn: PropTypes.string,
-    };
-
-    static defaultProps = {
-        startX: "0",
-        startY: "0",
-        constraint: "none",
-        snap: 0.5,
-        constraintFn: "0",
-        constraintXMin: "-10",
-        constraintXMax: "10",
-        constraintYMin: "-10",
-        constraintYMax: "10",
-    };
-
-    render(): React.ReactNode {
-        const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
-
-        return (
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    Start: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.startX}
-                        onChange={this.change("startX")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.startY}
-                        onChange={this.change("startY")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>\Large)</TeX>
-                </div>
-                <div className="perseus-widget-row">
-                    Update <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>{" "}
-                    <NumberInput
-                        value={this.props.varSubscript}
-                        placeholder={0}
-                        onChange={this.change("varSubscript")}
-                    />
-                </div>
-                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
-                <ConstraintEditor {...this.props} />
-            </div>
-        );
-    }
-
-    change = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-}
 
 type MovableLineEditorProps = any;
 
