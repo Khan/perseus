@@ -7,32 +7,37 @@ import {
     ColorPicker,
     DashPicker,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {MathInput, NumberInput} = components;
 const {getDependencies} = Dependencies;
 
-type FunctionEditorProps = any;
+type Props = Changeable.ChangeableProps & {
+    value: string;
+    rangeMin: string;
+    rangeMax: string;
+    color: string;
+    strokeDasharray: string;
+    strokeWidth: number;
+};
+
+type DefaultProps = {
+    value: Props["value"];
+    rangeMin: Props["rangeMin"];
+    rangeMax: Props["rangeMax"];
+    color: Props["color"];
+    strokeDasharray: Props["strokeDasharray"];
+    strokeWidth: Props["strokeWidth"];
+};
 
 //
 // Editor for function plots
 //
 // TODO(eater): Factor this out
 //
-class FunctionEditor extends React.Component<FunctionEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        value: PropTypes.string,
-        rangeMin: PropTypes.string,
-        rangeMax: PropTypes.string,
-        color: PropTypes.string,
-        strokeDashArray: PropTypes.string,
-        strokeWidth: PropTypes.number,
-    };
-
-    static defaultProps = {
+class FunctionEditor extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         value: "x",
         rangeMin: "-10",
         rangeMax: "10",
@@ -56,6 +61,7 @@ class FunctionEditor extends React.Component<FunctionEditorProps> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
+                    {/* @ts-expect-error - TS2339 - Property 'funcName' does not exist on type props. */}
                     <TeX>{this.props.funcName + "(x)="}</TeX>{" "}
                     <MathInput
                         buttonsVisible="never"
