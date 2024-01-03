@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 17.4.0
+
+### Minor Changes
+
+-   [#902](https://github.com/Khan/perseus/pull/902) [`c9db8185`](https://github.com/Khan/perseus/commit/c9db818510e2e0fd142c23298890dcad89a7549a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updated OnFocusChange method to return the keypadHeight rather than the DOMNode
+
+### Patch Changes
+
+-   [#887](https://github.com/Khan/perseus/pull/887) [`d09fdb98`](https://github.com/Khan/perseus/commit/d09fdb98963f23dbeb2009518513db671e0f09bb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export `PerseusItem` type which represents an exercise question
+
 ## 17.3.3
 
 ### Patch Changes

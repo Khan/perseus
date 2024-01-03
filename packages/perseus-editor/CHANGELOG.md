@@ -1,5 +1,34 @@
 # @khanacademy/perseus-editor
 
+## 2.15.4
+
+### Patch Changes
+
+-   [#892](https://github.com/Khan/perseus/pull/892) [`22a8f42c`](https://github.com/Khan/perseus/commit/22a8f42c9e31cc74f1ab2f5a375ce5166353153f) Thanks [@handeyeco](https://github.com/handeyeco)! - add tests for NumberLineEditor
+
+*   [#887](https://github.com/Khan/perseus/pull/887) [`d09fdb98`](https://github.com/Khan/perseus/commit/d09fdb98963f23dbeb2009518513db671e0f09bb) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add Storybook story for EditorPage component
+
+-   [#882](https://github.com/Khan/perseus/pull/882) [`6f1ddaa3`](https://github.com/Khan/perseus/commit/6f1ddaa3eae41d87aaf3514ab0f4cd7875b3125b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for RadioEditor
+
+*   [#893](https://github.com/Khan/perseus/pull/893) [`cbd51e81`](https://github.com/Khan/perseus/commit/cbd51e810cc6f6f406fa92b5faceb4fb3655bbb4) Thanks [@handeyeco](https://github.com/handeyeco)! - add tests for InputNumber
+
+-   [#884](https://github.com/Khan/perseus/pull/884) [`c2172fb9`](https://github.com/Khan/perseus/commit/c2172fb90f247b3a914eaf7eb01b7b15ceb1f0c0) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for DropdownEditor
+
+*   [#891](https://github.com/Khan/perseus/pull/891) [`4fe720db`](https://github.com/Khan/perseus/commit/4fe720dbb388b71606bbf98c0606523b3eb3e395) Thanks [@handeyeco](https://github.com/handeyeco)! - add tests for DefinitionEditor
+
+-   [#890](https://github.com/Khan/perseus/pull/890) [`6607ed0d`](https://github.com/Khan/perseus/commit/6607ed0d81adedc84a201ddb4b55f32a78e92dc0) Thanks [@handeyeco](https://github.com/handeyeco)! - add tests for CategorizerEditor
+
+*   [#888](https://github.com/Khan/perseus/pull/888) [`68d8a766`](https://github.com/Khan/perseus/commit/68d8a766bfa769b8ab57c60e79be7080c6b32593) Thanks [@handeyeco](https://github.com/handeyeco)! - add tests for MatcherEditor
+
+-   [#886](https://github.com/Khan/perseus/pull/886) [`eeac31b7`](https://github.com/Khan/perseus/commit/eeac31b7be6ef2526f0f7ae20cc6bfa237581798) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for SorterEditor
+
+*   [#885](https://github.com/Khan/perseus/pull/885) [`8e0eb5bc`](https://github.com/Khan/perseus/commit/8e0eb5bc7059c99054f9b13af9780c1103ebf5ee) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for ExplanationEditor
+
+-   [#883](https://github.com/Khan/perseus/pull/883) [`0b90e681`](https://github.com/Khan/perseus/commit/0b90e681b7c81f76bca419c879c0985e3fa1226f) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for NumericInputEditor
+
+-   Updated dependencies [[`c9db8185`](https://github.com/Khan/perseus/commit/c9db818510e2e0fd142c23298890dcad89a7549a), [`d09fdb98`](https://github.com/Khan/perseus/commit/d09fdb98963f23dbeb2009518513db671e0f09bb)]:
+    -   @khanacademy/perseus@17.4.0
+
 ## 2.15.3
 
 ### Patch Changes
