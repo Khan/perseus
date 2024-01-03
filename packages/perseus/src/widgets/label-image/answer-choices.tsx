@@ -2,11 +2,13 @@
  * Enables single or multiple answers selection using WonderBlocks dropdowns.
  */
 
+import {mathMatcher} from "@khanacademy/pure-markdown";
 import {
     MultiSelect,
     SingleSelect,
     OptionItem,
 } from "@khanacademy/wonder-blocks-dropdown";
+import sre from "latex-to-speech";
 import * as React from "react";
 import _ from "underscore";
 
@@ -34,33 +36,59 @@ type AnswerChoicesProps = {
     disabled: boolean;
 };
 
+const optionArgs = (content: string) => ({
+    key: content,
+    value: content,
+    label: <Renderer content={content} inline />,
+});
+
 const AnswerChoices = (props: AnswerChoicesProps) => {
+    const {opener, onToggle, disabled, choices} = props;
+
+    // This will be asynchronously replaced with OptionItems with
+    // human-readable labels. It should be near-instantaneous, but we still
+    // need to account for the loading state.
+    const [children, setChildren] = React.useState<JSX.Element[]>(
+        choices.map(({content}) => <OptionItem {...optionArgs(content)} />),
+    );
+
     const onAnswerChange = (selected: string[]) => {
         const {choices, onChange} = props;
         onChange(choices.map((choice) => selected.includes(choice.content)));
     };
 
-    // WB Dropdown types only take an array of nodes, so we can't use a
-    // functional component, which can only return a single node.
-    const AnswerItems = (choices: readonly AnswerType[]) =>
-        choices.map(({content}) => (
-            <OptionItem
-                key={content}
-                value={content}
-                label={<Renderer content={content} inline />}
-            />
-        ));
-
     const selectedValues = props.choices
         .filter((choice) => choice.checked)
         .map((choice) => choice.content);
 
-    const {opener, onToggle, disabled} = props;
+    React.useEffect(() => {
+        const setChildrenWithLabels = async () => {
+            setChildren(
+                await Promise.all(
+                    choices.map(async ({content}) => (
+                        <OptionItem
+                            {...optionArgs(content)}
+                            labelAsText={
+                                // If the content is a TeX expression, convert
+                                // to readable text using the same technology as
+                                // MathJax internally: Speech Rule Engine.
+                                // https://docs.mathjax.org/en/latest/basic/a11y-extensions.html#accessibility-extension
+                                mathMatcher(content)
+                                    ? await sre([content.slice(1, -1)])[0]
+                                    : undefined
+                            }
+                        />
+                    )),
+                ),
+            );
+        };
+        setChildrenWithLabels();
+    }, [choices]);
 
     const args = {
         // reset to allow child (answer pill) to control z-index
         style: {zIndex: "unset"},
-        children: AnswerItems(props.choices),
+        children,
         opener,
         onToggle,
         disabled,
