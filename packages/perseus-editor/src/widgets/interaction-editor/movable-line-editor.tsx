@@ -4,7 +4,6 @@ import {
     Dependencies,
     EditorJsonify,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -13,7 +12,27 @@ import ConstraintEditor from "./constraint-editor";
 const {MathInput, NumberInput} = components;
 const {getDependencies} = Dependencies;
 
-type MovableLineEditorProps = any;
+type Props = Changeable.ChangeableProps & {
+    startX: string;
+    startY: string;
+    endX: string;
+    endY: string;
+    constraint: string;
+    snap: number;
+    constraintFn: string;
+    startSubscript: number;
+    endSubscript: number;
+};
+
+type DefaultProps = {
+    startX: Props["startX"];
+    startY: Props["startY"];
+    endX: Props["endX"];
+    endY: Props["endY"];
+    constraint: Props["constraint"];
+    snap: Props["snap"];
+    constraintFn: Props["constraintFn"];
+};
 
 //
 // Editor for interactive movable line segments
@@ -21,19 +40,8 @@ type MovableLineEditorProps = any;
 // TODO(eater): Factor this out
 // TODO(eater): Rethink how constraints are represented
 //
-class MovableLineEditor extends React.Component<MovableLineEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        startX: PropTypes.string,
-        startY: PropTypes.string,
-        endX: PropTypes.string,
-        endY: PropTypes.string,
-        constraint: PropTypes.string,
-        snap: PropTypes.number,
-        constraintFn: PropTypes.string,
-    };
-
-    static defaultProps = {
+class MovableLineEditor extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         startX: "-5",
         startY: "5",
         endX: "5",
@@ -41,6 +49,7 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
         constraint: "none",
         snap: 0.5,
         constraintFn: "0",
+        // @ts-expect-error - TS2561
         constraintXMin: "-10",
         constraintXMax: "10",
         constraintYMin: "-10",
@@ -115,7 +124,6 @@ class MovableLineEditor extends React.Component<MovableLineEditorProps> {
                 <div className="perseus-widget-row">
                     All constraints are applied to the start point.
                 </div>
-                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <ConstraintEditor {...this.props} />
             </div>
         );
