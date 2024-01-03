@@ -14,8 +14,6 @@ import {LabelImage} from "./label-image";
 
 import "@testing-library/jest-dom";
 
-jest.mock("latex-to-speech", () => jest.fn());
-
 const emptyMarker = {
     label: "",
     answers: [],
