@@ -138,7 +138,7 @@ class ReactionDiagramWidget extends React.Component<any> {
 
 export default {
     name: "reaction-diagram",
-    displayName: "Chemical reaction",
+    displayName: "Chemical reaction diagram",
     hidden: true,
     widget: ReactionDiagramWidget,
 } as WidgetExports<typeof ReactionDiagramWidget>;

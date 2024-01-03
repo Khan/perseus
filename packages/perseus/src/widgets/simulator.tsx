@@ -822,7 +822,7 @@ const propTransform: (arg1: any) => any = (editorProps) => {
 
 export default {
     name: "simulator",
-    displayName: "Simulator",
+    displayName: "Simulator (deprecated)",
     widget: Simulator,
     transform: propTransform,
     hidden: true,

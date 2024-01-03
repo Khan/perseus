@@ -188,7 +188,7 @@ _.extend(Iframe, {
 
 export default {
     name: "iframe",
-    displayName: "Iframe",
+    displayName: "Iframe (deprecated)",
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
