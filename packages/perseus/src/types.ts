@@ -144,7 +144,7 @@ export type APIOptions = Readonly<{
     onFocusChange?: (
         newFocusPath: FocusPath,
         oldFocusPath: FocusPath,
-        keypadHeight?: number,
+        keypadHeight: number,
         focusedElement?: HTMLElement,
     ) => unknown;
     GroupMetadataEditor?: React.ComponentType<StubTagEditorType>;

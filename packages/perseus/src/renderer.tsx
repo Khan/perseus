@@ -1427,6 +1427,12 @@ class Renderer extends React.Component<Props, State> {
     // we send an onChangeFocus event back to our parent.
     _setCurrentFocus: (path: FocusPath) => void = (path: FocusPath) => {
         const apiOptions = this.getApiOptions();
+        // First, calculate the current keypad height
+        const keypadDomNode: HTMLElement =
+            this.props.keypadElement?.getDOMNode() as HTMLElement;
+        const keypadHeight = keypadDomNode
+            ? keypadDomNode.getBoundingClientRect().height
+            : 0;
 
         // We don't do this when the new path is a prefix because
         // that prefix is already focused (we're just in a more specific
@@ -1443,7 +1449,11 @@ class Renderer extends React.Component<Props, State> {
             }
 
             this._currentFocus = path;
-            apiOptions.onFocusChange(this._currentFocus, prevFocus);
+            apiOptions.onFocusChange(
+                this._currentFocus,
+                prevFocus,
+                keypadHeight,
+            );
         }
     };
 
