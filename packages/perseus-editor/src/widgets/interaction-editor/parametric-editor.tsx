@@ -7,33 +7,39 @@ import {
     ColorPicker,
     DashPicker,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {MathInput, NumberInput} = components;
 const {getDependencies} = Dependencies;
 
-type ParametricEditorProps = any;
+type Props = Changeable.ChangeableProps & {
+    x: string;
+    y: string;
+    rangeMin: string;
+    rangeMax: string;
+    color: string;
+    strokeDasharray: string;
+    strokeWidth: number;
+};
+
+type DefaultProps = {
+    x: Props["x"];
+    y: Props["y"];
+    rangeMin: Props["rangeMin"];
+    rangeMax: Props["rangeMax"];
+    color: Props["color"];
+    strokeDasharray: Props["strokeDasharray"];
+    strokeWidth: Props["strokeWidth"];
+};
 
 //
 // Editor for parametric plots
 //
 // TODO(eater): Factor this out
 //
-class ParametricEditor extends React.Component<ParametricEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        x: PropTypes.string,
-        y: PropTypes.string,
-        rangeMin: PropTypes.string,
-        rangeMax: PropTypes.string,
-        color: PropTypes.string,
-        strokeDashArray: PropTypes.string,
-        strokeWidth: PropTypes.number,
-    };
-
-    static defaultProps = {
+class ParametricEditor extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         x: "cos(t)",
         y: "sin(t)",
         rangeMin: "0",
