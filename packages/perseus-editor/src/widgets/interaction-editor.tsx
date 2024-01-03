@@ -17,6 +17,7 @@ import _ from "underscore";
 
 import GraphSettings from "../components/graph-settings";
 
+import FunctionEditor from "./interaction/function-editor";
 import LineEditor from "./interaction/line-editor";
 import MovableLineEditor from "./interaction/movable-line-editor";
 import MovablePointEditor from "./interaction/movable-point-editor";
@@ -40,106 +41,6 @@ const defaultInteractionProps = {
     },
     elements: [],
 } as const;
-
-type FunctionEditorProps = any;
-
-//
-// Editor for function plots
-//
-// TODO(eater): Factor this out
-//
-class FunctionEditor extends React.Component<FunctionEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        value: PropTypes.string,
-        rangeMin: PropTypes.string,
-        rangeMax: PropTypes.string,
-        color: PropTypes.string,
-        strokeDashArray: PropTypes.string,
-        strokeWidth: PropTypes.number,
-    };
-
-    static defaultProps = {
-        value: "x",
-        rangeMin: "-10",
-        rangeMax: "10",
-        color: KhanColors.BLUE,
-        strokeDasharray: "",
-        strokeWidth: 2,
-    };
-
-    render(): React.ReactNode {
-        const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
-
-        return (
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    <TeX>{this.props.funcName + "(x)="}</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.value}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("value")}
-                        analytics={analyticsStub}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    Range: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.rangeMin}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("rangeMin")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.rangeMax}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("rangeMax")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>\Large)</TeX>
-                </div>
-                <div className="perseus-widget-row">
-                    <ColorPicker
-                        value={this.props.color}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("color")}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    <DashPicker
-                        value={this.props.strokeDasharray}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("strokeDasharray")}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        Width:{" "}
-                        <NumberInput
-                            value={this.props.strokeWidth}
-                            placeholder={2}
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                            onChange={this.change("strokeWidth")}
-                        />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-}
 
 type ParametricEditorProps = any;
 
