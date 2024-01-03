@@ -72,3 +72,19 @@ describe("Widget API support", () => {
         },
     );
 });
+
+describe("replaceWidget", () => {
+    beforeEach(() => {
+        registerAllWidgetsForTesting();
+    });
+
+    it("replaces an existing widget", () => {
+        Widgets.replaceWidget("transformer", "radio");
+        expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
+    });
+
+    it("Does nothing when the replacement isn't available", () => {
+        Widgets.replaceWidget("radio", "dog-cat");
+        expect(Widgets.getWidget("radio")?.name).toBe("Radio");
+    });
+});
