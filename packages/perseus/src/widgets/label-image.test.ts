@@ -1,5 +1,6 @@
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import * as _ from "latex-to-speech";
 
 import {
     testDependencies,
@@ -12,6 +13,8 @@ import {renderQuestion} from "./__tests__/renderQuestion";
 import {LabelImage} from "./label-image";
 
 import "@testing-library/jest-dom";
+
+jest.mock("latex-to-speech", () => jest.fn());
 
 const emptyMarker = {
     label: "",
