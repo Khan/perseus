@@ -104,21 +104,27 @@ class ArticleRenderer
                 );
         }
 
-        if (this.props.apiOptions.onFocusChange != null) {
-            this.props.apiOptions.onFocusChange(
-                this._currentFocus,
-                prevFocusPath,
-                didFocusInput ? keypadElement?.getDOMNode() : null,
-                didFocusInput ? focusedInput : null,
-            );
-        }
-
         if (keypadElement && isMobile) {
             if (didFocusInput) {
                 keypadElement.activate();
             } else {
                 keypadElement.dismiss();
             }
+        }
+
+        if (this.props.apiOptions.onFocusChange != null) {
+            const keypadDomNode = keypadElement?.getDOMNode() as HTMLElement;
+            const keypadHeight =
+                keypadDomNode && didFocusInput
+                    ? keypadDomNode.getBoundingClientRect().height
+                    : 0;
+
+            this.props.apiOptions.onFocusChange(
+                this._currentFocus,
+                prevFocusPath,
+                keypadHeight,
+                didFocusInput ? focusedInput : null,
+            );
         }
     };
 
