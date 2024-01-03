@@ -17,13 +17,14 @@ import _ from "underscore";
 import GraphSettings from "../components/graph-settings";
 
 import FunctionEditor from "./interaction/function-editor";
+import LabelEditor from "./interaction/label-editor";
 import LineEditor from "./interaction/line-editor";
 import MovableLineEditor from "./interaction/movable-line-editor";
 import MovablePointEditor from "./interaction/movable-point-editor";
 import ParametricEditor from "./interaction/parametric-editor";
 import PointEditor from "./interaction/point-editor";
 
-const {MathInput, TextInput} = components;
+const {MathInput} = components;
 const {getDependencies} = Dependencies;
 const {unescapeMathMode} = Util;
 
@@ -41,85 +42,6 @@ const defaultInteractionProps = {
     },
     elements: [],
 } as const;
-
-type LabelEditorProps = any;
-
-//
-// Editor for labels
-//
-// TODO(eater): Factor this out maybe?
-// TODO(eater): Add text direction
-//
-class LabelEditor extends React.Component<LabelEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        color: PropTypes.string,
-        coordX: PropTypes.string,
-        coordY: PropTypes.string,
-        label: PropTypes.string,
-    };
-
-    static defaultProps = {
-        coordX: "0",
-        coordY: "0",
-        color: KhanColors.BLACK,
-        label: "\\phi",
-    };
-
-    render(): React.ReactNode {
-        const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
-
-        return (
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    <TextInput
-                        value={this.props.label}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("label")}
-                        style={{
-                            width: "100%",
-                        }}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    Location: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.coordX}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("coordX")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.coordY}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("coordY")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>\Large)</TeX>
-                </div>
-                <div className="perseus-widget-row">
-                    <ColorPicker
-                        value={this.props.color}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("color")}
-                    />
-                </div>
-            </div>
-        );
-    }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-}
 
 type RectangleEditorProps = any;
 
