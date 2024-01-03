@@ -8,7 +8,6 @@ import {
     KhanColors,
     Util,
     ColorPicker,
-    DashPicker,
     ElementContainer,
 } from "@khanacademy/perseus";
 import PropTypes from "prop-types";
@@ -21,9 +20,10 @@ import FunctionEditor from "./interaction/function-editor";
 import LineEditor from "./interaction/line-editor";
 import MovableLineEditor from "./interaction/movable-line-editor";
 import MovablePointEditor from "./interaction/movable-point-editor";
+import ParametricEditor from "./interaction/parametric-editor";
 import PointEditor from "./interaction/point-editor";
 
-const {MathInput, NumberInput, TextInput} = components;
+const {MathInput, TextInput} = components;
 const {getDependencies} = Dependencies;
 const {unescapeMathMode} = Util;
 
@@ -41,118 +41,6 @@ const defaultInteractionProps = {
     },
     elements: [],
 } as const;
-
-type ParametricEditorProps = any;
-
-//
-// Editor for parametric plots
-//
-// TODO(eater): Factor this out
-//
-class ParametricEditor extends React.Component<ParametricEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        x: PropTypes.string,
-        y: PropTypes.string,
-        rangeMin: PropTypes.string,
-        rangeMax: PropTypes.string,
-        color: PropTypes.string,
-        strokeDashArray: PropTypes.string,
-        strokeWidth: PropTypes.number,
-    };
-
-    static defaultProps = {
-        x: "cos(t)",
-        y: "sin(t)",
-        rangeMin: "0",
-        rangeMax: "2\\pi",
-        color: KhanColors.BLUE,
-        strokeDasharray: "",
-        strokeWidth: 2,
-    };
-
-    render(): React.ReactNode {
-        const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
-
-        return (
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    <TeX>X(t) =</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.x}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("x")}
-                        analytics={analyticsStub}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    <TeX>Y(t) =</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.y}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("y")}
-                        analytics={analyticsStub}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    Range: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.rangeMin}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("rangeMin")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.rangeMax}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("rangeMax")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>\Large)</TeX>
-                </div>
-                <div className="perseus-widget-row">
-                    <ColorPicker
-                        value={this.props.color}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("color")}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    <DashPicker
-                        value={this.props.strokeDasharray}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("strokeDasharray")}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        Width:{" "}
-                        <NumberInput
-                            value={this.props.strokeWidth}
-                            placeholder={2}
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                            onChange={this.change("strokeWidth")}
-                        />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-}
 
 type LabelEditorProps = any;
 
