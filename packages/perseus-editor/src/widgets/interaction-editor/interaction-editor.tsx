@@ -1,30 +1,27 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import {
-    components,
     Changeable,
     Dependencies,
     EditorJsonify,
-    KhanColors,
     Util,
-    ColorPicker,
     ElementContainer,
 } from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import GraphSettings from "../components/graph-settings";
+import GraphSettings from "../../components/graph-settings";
 
-import FunctionEditor from "./interaction/function-editor";
-import LabelEditor from "./interaction/label-editor";
-import LineEditor from "./interaction/line-editor";
-import MovableLineEditor from "./interaction/movable-line-editor";
-import MovablePointEditor from "./interaction/movable-point-editor";
-import ParametricEditor from "./interaction/parametric-editor";
-import PointEditor from "./interaction/point-editor";
+import FunctionEditor from "./function-editor";
+import LabelEditor from "./label-editor";
+import LineEditor from "./line-editor";
+import MovableLineEditor from "./movable-line-editor";
+import MovablePointEditor from "./movable-point-editor";
+import ParametricEditor from "./parametric-editor";
+import PointEditor from "./point-editor";
+import RectangleEditor from "./rectangle-editor";
 
-const {MathInput} = components;
 const {getDependencies} = Dependencies;
 const {unescapeMathMode} = Util;
 
@@ -42,100 +39,6 @@ const defaultInteractionProps = {
     },
     elements: [],
 } as const;
-
-type RectangleEditorProps = any;
-
-//
-// Editor for rectangles
-//
-// TODO(eater): Factor this out maybe?
-//
-class RectangleEditor extends React.Component<RectangleEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        color: PropTypes.string,
-        coordX: PropTypes.string,
-        coordY: PropTypes.string,
-        height: PropTypes.string,
-        width: PropTypes.string,
-    };
-
-    static defaultProps = {
-        coordX: "-5",
-        coordY: "5",
-        width: "2",
-        height: "3",
-        color: KhanColors.LIGHT_BLUE,
-    };
-
-    render(): React.ReactNode {
-        const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
-
-        return (
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    Bottom left: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.coordX}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("coordX")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.coordY}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("coordY")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>\Large)</TeX>
-                </div>
-                <div className="perseus-widget-row">
-                    Width:{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.width}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("width")}
-                        analytics={analyticsStub}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    Height:{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.height}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("height")}
-                        analytics={analyticsStub}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    <ColorPicker
-                        value={this.props.color}
-                        lightColors={true}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("color")}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    You want a border? Sorry, draw your own.
-                </div>
-            </div>
-        );
-    }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-}
 
 type InteractionEditorProps = any;
 type InteractionEditorState = any;
@@ -297,6 +200,10 @@ class InteractionEditor extends React.Component<
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
+    };
+
+    serialize: () => any = () => {
+        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {
@@ -830,10 +737,6 @@ class InteractionEditor extends React.Component<
         );
         /* eslint-enable max-len */
     }
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
 }
 
 export default InteractionEditor;
