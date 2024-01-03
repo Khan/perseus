@@ -19,6 +19,7 @@ import _ from "underscore";
 import GraphSettings from "../components/graph-settings";
 
 import ConstraintEditor from "./interaction/constraint-editor";
+import PointEditor from "./interaction/point-editor";
 
 const {MathInput, NumberInput, TextInput} = components;
 const {getDependencies} = Dependencies;
@@ -38,72 +39,6 @@ const defaultInteractionProps = {
     },
     elements: [],
 } as const;
-
-type PointEditorProps = any;
-
-//
-// Editor for non-interactive points
-//
-// TODO(eater): Factor this out
-//
-class PointEditor extends React.Component<PointEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        coordX: PropTypes.string,
-        coordY: PropTypes.string,
-        color: PropTypes.string,
-    };
-
-    static defaultProps = {
-        coordX: "0",
-        coordY: "0",
-        color: KhanColors.BLACK,
-    };
-
-    render(): React.ReactNode {
-        const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
-
-        return (
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    Coordinate: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.coordX}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("coordX")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
-                        value={this.props.coordY}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("coordY")}
-                        analytics={analyticsStub}
-                    />
-                    <TeX>\Large)</TeX>
-                </div>
-                <div className="perseus-widget-row">
-                    <ColorPicker
-                        value={this.props.color}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("color")}
-                    />
-                </div>
-            </div>
-        );
-    }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-}
 
 type LineEditorProps = any;
 
