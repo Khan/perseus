@@ -15,10 +15,5 @@ export default {
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return (
-        <InteractionEditor
-            onChange={action("onChange")}
-            apiOptions={ApiOptions.defaults}
-        />
-    );
+    return <InteractionEditor onChange={action("onChange")} />;
 };

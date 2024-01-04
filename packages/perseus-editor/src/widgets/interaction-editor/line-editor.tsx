@@ -36,9 +36,6 @@ type DefaultProps = {
     strokeWidth: Props["strokeWidth"];
 };
 
-//
-// Editor for non-interactive line segments
-//
 // TODO(eater): Factor this out
 //
 class LineEditor extends React.Component<Props> {
