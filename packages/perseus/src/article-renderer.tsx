@@ -104,8 +104,8 @@ class ArticleRenderer
                 );
         }
 
-        if (this.props.apiOptions.onFocusChange != null) {
-            const {onFocusChange} = this.props.apiOptions;
+        const {onFocusChange} = this.props.apiOptions;
+        if (onFocusChange) {
             // Wait for the keypad to mount before getting the height
             setTimeout(() => {
                 const keypadDomNode =
