@@ -104,27 +104,32 @@ class ArticleRenderer
                 );
         }
 
+        if (this.props.apiOptions.onFocusChange != null) {
+            const {onFocusChange} = this.props.apiOptions;
+            // Wait for the keypad to mount before getting the height
+            setTimeout(() => {
+                const keypadDomNode =
+                    keypadElement?.getDOMNode() as HTMLElement;
+                const keypadHeight =
+                    keypadDomNode && didFocusInput
+                        ? keypadDomNode.getBoundingClientRect().height
+                        : 0;
+
+                onFocusChange(
+                    this._currentFocus,
+                    prevFocusPath,
+                    keypadHeight,
+                    didFocusInput ? focusedInput : null,
+                );
+            }, 0);
+        }
+
         if (keypadElement && isMobile) {
             if (didFocusInput) {
                 keypadElement.activate();
             } else {
                 keypadElement.dismiss();
             }
-        }
-
-        if (this.props.apiOptions.onFocusChange != null) {
-            const keypadDomNode = keypadElement?.getDOMNode() as HTMLElement;
-            const keypadHeight =
-                keypadDomNode && didFocusInput
-                    ? keypadDomNode.getBoundingClientRect().height
-                    : 0;
-
-            this.props.apiOptions.onFocusChange(
-                this._currentFocus,
-                prevFocusPath,
-                keypadHeight,
-                didFocusInput ? focusedInput : null,
-            );
         }
     };
 

@@ -1,4 +1,5 @@
 import {KeypadContext} from "@khanacademy/math-input";
+import {action} from "@storybook/addon-actions";
 import React from "react";
 
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
@@ -67,6 +68,7 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                     apiOptions={{
                         isMobile: true,
                         customKeypad: true,
+                        onFocusChange: action("onFocusChange"),
                     }}
                     keypadElement={keypadElement}
                 />
