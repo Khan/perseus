@@ -10,6 +10,11 @@ type Props = {
     onChange: (value: string) => void;
 };
 
+/**
+ * A simple Mathquill MathField input for the InteractionEditor.
+ * Unlike our other uses of Mathquill, we're not using a keypad here;
+ * it's just the input itself for use writing TeX.
+ */
 export default function MathquillInput(props: Props) {
     const mathFieldWrapperRef = useRef<HTMLSpanElement>(null);
     const mathFieldInstance = useRef<MathFieldInterface>();
