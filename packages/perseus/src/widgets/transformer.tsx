@@ -2931,5 +2931,6 @@ class Transformer extends React.Component<Props> {
 export default {
     name: "transformer",
     displayName: "Transformer (deprecated)",
+    hidden: true,
     widget: Transformer,
 } as WidgetExports<typeof Transformer>;
