@@ -48,7 +48,7 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
 // e.g. replaceWidget("transformer", "always-correct") will make it so
 // the transformer widget is replaced by the always correct widget
 export const replaceWidget = (name: string, replacementName: string) => {
-    const substitueWidget = widgets[replacementName];
+    const substituteWidget = widgets[replacementName];
 
     if (!substitueWidget) {
         // The logger may not have been loaded at this point so we use the console
