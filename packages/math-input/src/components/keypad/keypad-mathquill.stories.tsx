@@ -21,7 +21,7 @@ export function V2KeypadWithMathquill() {
     const [mathField, setMathField] = React.useState<MathFieldInterface>();
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(true);
     const [cursorContext, setCursorContext] = React.useState<
-        typeof CursorContext[keyof typeof CursorContext]
+        (typeof CursorContext)[keyof typeof CursorContext]
     >(CursorContext.NONE);
 
     React.useEffect(() => {

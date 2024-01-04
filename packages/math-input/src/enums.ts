@@ -24,4 +24,4 @@ export const KeyTypes = [
     // themselves.
     "MANY",
 ];
-export type KeyType = typeof KeyTypes[number];
+export type KeyType = (typeof KeyTypes)[number];
