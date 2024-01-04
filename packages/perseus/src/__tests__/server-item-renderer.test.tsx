@@ -326,9 +326,9 @@ describe("server item renderer", () => {
 
             // Act
             const gotFocus = renderer.focus();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(gotFocus).toBeTrue();
@@ -370,9 +370,9 @@ describe("server item renderer", () => {
 
             // Act
             const gotFocus = renderer.focus();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(keypadElement.activate).toHaveBeenCalled();
@@ -392,15 +392,12 @@ describe("server item renderer", () => {
                 onFocusChange,
             });
             renderer.focus();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
 
             // Act
             renderer.blur();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(2);
@@ -440,15 +437,12 @@ describe("server item renderer", () => {
                 {keypadElement},
             );
             renderer.focus();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
 
             // Act
             renderer.blur();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(keypadElement.dismiss).toHaveBeenCalled();
@@ -470,6 +464,9 @@ describe("server item renderer", () => {
 
             // Act
             renderer.focusPath(["input-number 1"]);
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
