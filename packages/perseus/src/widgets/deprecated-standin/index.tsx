@@ -51,7 +51,7 @@ class AutoCorrect extends React.Component<AutoCorrectProps> {
 }
 
 export default {
-    name: "auto-correct",
-    displayName: "Auto Program",
+    name: "deprecated-standin",
+    displayName: "Deprecated Standin",
     widget: AutoCorrect,
 } as WidgetExports<typeof AutoCorrect>;

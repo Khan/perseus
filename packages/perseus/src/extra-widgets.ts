@@ -2,10 +2,10 @@
 // As new widgets get added here, please also make sure they get added in
 // content_internal/perseus_traversal.py so they can be properly translated.
 
-import AutoCorrect from "./widgets/auto-correct";
 import Categorizer from "./widgets/categorizer";
 import CSProgram from "./widgets/cs-program";
 import Definition from "./widgets/definition";
+import DeprecatedStandin from "./widgets/deprecated-standin";
 import Dropdown from "./widgets/dropdown";
 import Explanation from "./widgets/explanation";
 import GradedGroup from "./widgets/graded-group";
@@ -73,5 +73,5 @@ export default [
     Transformer,
     Unit,
     Video,
-    AutoCorrect,
+    DeprecatedStandin,
 ] as ReadonlyArray<WidgetExports>;

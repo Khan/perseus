@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom"; // Imports custom matchers
 
-import {testDependencies} from "../../../../../../testing/test-dependencies";
+import {testDependencies} from "perseus/testing/test-dependencies";
+
 import * as Dependencies from "../../../dependencies";
 import {renderQuestion} from "../../__tests__/renderQuestion";
 
@@ -16,7 +17,7 @@ const question = {
                 minor: 0,
             },
             static: false,
-            type: "auto-correct",
+            type: "deprecated-standin",
             options: {
                 static: false,
             },

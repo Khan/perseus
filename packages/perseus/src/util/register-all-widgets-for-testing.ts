@@ -11,5 +11,5 @@ export const registerAllWidgetsForTesting = () => {
 
     // When it's time to replace the transformer widget
     // uncomment this line
-    // Widgets.replaceWidget("transformer", "auto-correct");
+    // Widgets.replaceWidget("transformer", "deprecated-standin");
 };

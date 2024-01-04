@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Replace transformer widget with an auto-correct widget
+Replace transformer widget with a deprecated-standin widget

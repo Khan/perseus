@@ -1,3 +1,5 @@
+import {testDependencies} from "../../../../testing/test-dependencies";
+import {setDependencies} from "../dependencies";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import * as Widgets from "../widgets";
 
@@ -10,7 +12,7 @@ describe("Widget API support", () => {
     // validate function. Not all widgets support this function so even though
     // this list looks exhaustive, it's not!
     it.each([
-        "auto-correct",
+        "deprecated-standin",
         "radio",
         "input-number",
         "numeric-input",
@@ -75,6 +77,7 @@ describe("Widget API support", () => {
 
 describe("replaceWidget", () => {
     beforeEach(() => {
+        setDependencies(testDependencies);
         registerAllWidgetsForTesting();
     });
 

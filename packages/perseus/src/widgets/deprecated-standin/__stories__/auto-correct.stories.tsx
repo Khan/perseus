@@ -18,7 +18,7 @@ const question1 = {
                 minor: 0,
             },
             static: false,
-            type: "auto-correct",
+            type: "deprecated-standin",
             options: {
                 static: false,
             },
