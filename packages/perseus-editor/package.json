@@ -24,6 +24,7 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.7",
         "@khanacademy/kmath": "^0.1.8",
+        "@khanacademy/math-input": "^16.4.0",
         "@khanacademy/perseus": "^17.5.0",
         "@khanacademy/perseus-core": "1.4.1"
     },

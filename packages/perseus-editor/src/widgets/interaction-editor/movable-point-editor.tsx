@@ -30,12 +30,8 @@ type DefaultProps = {
     constraintFn: Props["constraintFn"];
 };
 
-//
 // Editor for interactive movable points
-//
-// TODO(eater): Factor this out
 // TODO(eater): Rethink how constraints are represented
-//
 class MovablePointEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         startX: "0",

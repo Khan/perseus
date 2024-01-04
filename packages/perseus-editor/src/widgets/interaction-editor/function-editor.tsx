@@ -33,11 +33,7 @@ type DefaultProps = {
     strokeWidth: Props["strokeWidth"];
 };
 
-//
 // Editor for function plots
-//
-// TODO(eater): Factor this out
-//
 class FunctionEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         value: "x",

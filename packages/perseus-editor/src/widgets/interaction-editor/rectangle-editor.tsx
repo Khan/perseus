@@ -1,5 +1,4 @@
 import {
-    components,
     Changeable,
     Dependencies,
     EditorJsonify,
@@ -29,11 +28,7 @@ type DefaultProps = {
     width: Props["width"];
 };
 
-//
 // Editor for rectangles
-//
-// TODO(eater): Factor this out maybe?
-//
 class RectangleEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         coordX: "-5",

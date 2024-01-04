@@ -1,9 +1,11 @@
-import {MathFieldInterface, createMathField} from "@khanacademy/math-input";
-import * as React from "react";
-import {useRef, useEffect} from "react";
-import {StyleSheet} from "aphrodite";
+import {createMathField} from "@khanacademy/math-input";
 import Color from "@khanacademy/wonder-blocks-color";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
+import {useRef, useEffect} from "react";
+
+import type {MathFieldInterface} from "@khanacademy/math-input";
 
 type Props = {
     value: string;

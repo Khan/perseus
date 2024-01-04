@@ -35,11 +35,7 @@ type DefaultProps = {
     strokeWidth: Props["strokeWidth"];
 };
 
-//
 // Editor for parametric plots
-//
-// TODO(eater): Factor this out
-//
 class ParametricEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         x: "cos(t)",

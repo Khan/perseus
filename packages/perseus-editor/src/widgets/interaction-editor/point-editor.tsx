@@ -1,5 +1,4 @@
 import {
-    components,
     Changeable,
     Dependencies,
     EditorJsonify,
@@ -25,11 +24,7 @@ type DefaultProps = {
     color: Props["color"];
 };
 
-//
 // Editor for non-interactive points
-//
-// TODO(eater): Factor this out
-//
 class PointEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         coordX: "0",
