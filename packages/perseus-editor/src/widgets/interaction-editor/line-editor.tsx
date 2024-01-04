@@ -10,6 +10,7 @@ import {
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
+
 import MathquillInput from "./mathquill-input";
 
 const {NumberInput} = components;

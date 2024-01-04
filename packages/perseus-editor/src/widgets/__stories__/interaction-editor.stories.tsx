@@ -1,4 +1,3 @@
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
 import {useState} from "react";
 

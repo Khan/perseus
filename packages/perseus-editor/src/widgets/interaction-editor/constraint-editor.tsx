@@ -1,5 +1,6 @@
 import {components, Changeable, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
+
 import MathquillInput from "./mathquill-input";
 
 const {ButtonGroup, NumberInput} = components;
