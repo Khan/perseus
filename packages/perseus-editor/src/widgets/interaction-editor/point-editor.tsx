@@ -1,5 +1,4 @@
 import {
-    components,
     Changeable,
     Dependencies,
     EditorJsonify,
@@ -9,7 +8,8 @@ import {
 import * as React from "react";
 import _ from "underscore";
 
-const {MathInput} = components;
+import MathquillInput from "./mathquill-input";
+
 const {getDependencies} = Dependencies;
 
 type Props = Changeable.ChangeableProps & {
@@ -24,11 +24,7 @@ type DefaultProps = {
     color: Props["color"];
 };
 
-//
 // Editor for non-interactive points
-//
-// TODO(eater): Factor this out
-//
 class PointEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         coordX: "0",
@@ -46,24 +42,19 @@ class PointEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     Coordinate: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.coordX}
                         onChange={this.change("coordX")}
-                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.coordY}
                         onChange={this.change("coordY")}
-                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>

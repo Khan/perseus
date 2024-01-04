@@ -1,5 +1,5 @@
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
+import {useState} from "react";
 
 import InteractionEditor from "../interaction-editor";
 
@@ -14,5 +14,24 @@ export default {
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <InteractionEditor onChange={action("onChange")} />;
+    const [elements, setElements] = useState();
+    const [graph, setGraph] = useState();
+
+    function handleChange(next) {
+        if (next.graph) {
+            setGraph(next.graph);
+        }
+
+        if (next.elements) {
+            setElements(next.elements);
+        }
+    }
+
+    return (
+        <InteractionEditor
+            onChange={handleChange}
+            elements={elements}
+            graph={graph}
+        />
+    );
 };

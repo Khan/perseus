@@ -8,8 +8,9 @@ import * as React from "react";
 import _ from "underscore";
 
 import ConstraintEditor from "./constraint-editor";
+import MathquillInput from "./mathquill-input";
 
-const {MathInput, NumberInput} = components;
+const {NumberInput} = components;
 const {getDependencies} = Dependencies;
 
 type Props = Changeable.ChangeableProps & {
@@ -29,12 +30,8 @@ type DefaultProps = {
     constraintFn: Props["constraintFn"];
 };
 
-//
 // Editor for interactive movable points
-//
-// TODO(eater): Factor this out
 // TODO(eater): Rethink how constraints are represented
-//
 class MovablePointEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {
         startX: "0",
@@ -59,24 +56,19 @@ class MovablePointEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     Start: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.startX}
                         onChange={this.change("startX")}
-                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.startY}
                         onChange={this.change("startY")}
-                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
