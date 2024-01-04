@@ -73,7 +73,7 @@ type DefaultProps = {
 type State = {
     focused: boolean;
     keypadOpen: boolean;
-    cursorContext: (typeof CursorContext)[keyof typeof CursorContext];
+    cursorContext: typeof CursorContext[keyof typeof CursorContext];
     openedWithEventType?: string;
 };
 

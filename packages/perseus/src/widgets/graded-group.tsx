@@ -89,7 +89,7 @@ type DefaultProps = {
 };
 
 type State = {
-    status: (typeof GRADING_STATUSES)[keyof typeof GRADING_STATUSES];
+    status: typeof GRADING_STATUSES[keyof typeof GRADING_STATUSES];
     showHint: boolean;
     message: string;
     answerBarState: ANSWER_BAR_STATES;
