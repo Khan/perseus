@@ -25,7 +25,7 @@ const question = {
     },
 } as const;
 
-describe("Auto correct widget", () => {
+describe("Deprecated Standin widget", () => {
     beforeEach(() => {
         jest.useRealTimers();
 
