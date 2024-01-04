@@ -6,14 +6,25 @@ import {
     KhanColors,
     ColorPicker,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {MathInput, TextInput} = components;
 const {getDependencies} = Dependencies;
 
-type LabelEditorProps = any;
+type Props = Changeable.ChangeableProps & {
+    color: string;
+    coordX: string;
+    coordY: string;
+    label: string;
+};
+
+type DefaultProps = {
+    color: Props["color"];
+    coordX: Props["coordX"];
+    coordY: Props["coordY"];
+    label: Props["label"];
+};
 
 //
 // Editor for labels
@@ -21,16 +32,8 @@ type LabelEditorProps = any;
 // TODO(eater): Factor this out maybe?
 // TODO(eater): Add text direction
 //
-class LabelEditor extends React.Component<LabelEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        color: PropTypes.string,
-        coordX: PropTypes.string,
-        coordY: PropTypes.string,
-        label: PropTypes.string,
-    };
-
-    static defaultProps = {
+class LabelEditor extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         coordX: "0",
         coordY: "0",
         color: KhanColors.BLACK,

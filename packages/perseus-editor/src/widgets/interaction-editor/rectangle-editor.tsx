@@ -6,31 +6,35 @@ import {
     KhanColors,
     ColorPicker,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {MathInput} = components;
 const {getDependencies} = Dependencies;
 
-type RectangleEditorProps = any;
+type Props = Changeable.ChangeableProps & {
+    color: string;
+    coordX: string;
+    coordY: string;
+    height: string;
+    width: string;
+};
+
+type DefaultProps = {
+    color: Props["color"];
+    coordX: Props["coordX"];
+    coordY: Props["coordY"];
+    height: Props["height"];
+    width: Props["width"];
+};
 
 //
 // Editor for rectangles
 //
 // TODO(eater): Factor this out maybe?
 //
-class RectangleEditor extends React.Component<RectangleEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        color: PropTypes.string,
-        coordX: PropTypes.string,
-        coordY: PropTypes.string,
-        height: PropTypes.string,
-        width: PropTypes.string,
-    };
-
-    static defaultProps = {
+class RectangleEditor extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         coordX: "-5",
         coordY: "5",
         width: "2",

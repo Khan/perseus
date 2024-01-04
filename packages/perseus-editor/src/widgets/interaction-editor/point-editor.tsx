@@ -6,29 +6,31 @@ import {
     KhanColors,
     ColorPicker,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {MathInput} = components;
 const {getDependencies} = Dependencies;
 
-type PointEditorProps = any;
+type Props = Changeable.ChangeableProps & {
+    coordX: string;
+    coordY: string;
+    color: string;
+};
+
+type DefaultProps = {
+    coordX: Props["coordX"];
+    coordY: Props["coordY"];
+    color: Props["color"];
+};
 
 //
 // Editor for non-interactive points
 //
 // TODO(eater): Factor this out
 //
-class PointEditor extends React.Component<PointEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        coordX: PropTypes.string,
-        coordY: PropTypes.string,
-        color: PropTypes.string,
-    };
-
-    static defaultProps = {
+class PointEditor extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         coordX: "0",
         coordY: "0",
         color: KhanColors.BLACK,

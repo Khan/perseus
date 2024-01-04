@@ -8,34 +8,38 @@ import {
     ColorPicker,
     DashPicker,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 const {MathInput, NumberInput} = components;
 const {getDependencies} = Dependencies;
 
-type LineEditorProps = any;
+type Props = Changeable.ChangeableProps & {
+    startX: string;
+    startY: string;
+    endX: string;
+    endY: string;
+    color: string;
+    strokeDasharray: string;
+    arrows: string;
+    strokeWidth: number;
+};
 
-//
-// Editor for non-interactive line segments
-//
+type DefaultProps = {
+    startX: Props["startX"];
+    startY: Props["startY"];
+    endX: Props["endX"];
+    endY: Props["endY"];
+    color: Props["color"];
+    strokeDasharray: Props["strokeDasharray"];
+    arrows: Props["arrows"];
+    strokeWidth: Props["strokeWidth"];
+};
+
 // TODO(eater): Factor this out
 //
-class LineEditor extends React.Component<LineEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        startX: PropTypes.string,
-        startY: PropTypes.string,
-        endX: PropTypes.string,
-        endY: PropTypes.string,
-        color: PropTypes.string,
-        strokeDasharray: PropTypes.string,
-        arrows: PropTypes.string,
-        strokeWidth: PropTypes.number,
-    };
-
-    static defaultProps = {
+class LineEditor extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         startX: "-5",
         startY: "5",
         endX: "5",

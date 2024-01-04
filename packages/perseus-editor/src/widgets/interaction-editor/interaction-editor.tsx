@@ -7,7 +7,6 @@ import {
     Util,
     ElementContainer,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -40,30 +39,38 @@ const defaultInteractionProps = {
     elements: [],
 } as const;
 
-type InteractionEditorProps = any;
-type InteractionEditorState = any;
+type Graph = {
+    box: ReadonlyArray<number>;
+    labels: ReadonlyArray<string>;
+    range: ReadonlyArray<ReadonlyArray<number>>;
+    tickStep: ReadonlyArray<number>;
+    gridStep: ReadonlyArray<number>;
+    markings: string;
+    valid?: boolean;
+};
 
-class InteractionEditor extends React.Component<
-    InteractionEditorProps,
-    InteractionEditorState
-> {
-    // TODO(eater): Make more better
-    static propTypes = {
-        ...Changeable.propTypes,
-        // eslint-disable-next-line react/forbid-prop-types
-        elements: PropTypes.arrayOf(PropTypes.object),
-        graph: PropTypes.objectOf(PropTypes.any),
-    };
+type Props = Changeable.ChangeableProps & {
+    elements: ReadonlyArray<any>;
+    graph: Graph;
+};
 
+type DefaultProps = {
+    elements: Props["elements"];
+    graph: Props["graph"];
+};
+
+type State = any;
+
+class InteractionEditor extends React.Component<Props, State> {
     static widgetName = "interaction" as const;
-    static defaultProps: InteractionEditorProps = defaultInteractionProps;
+    static defaultProps: DefaultProps = defaultInteractionProps;
 
-    state: InteractionEditorState = {
+    state: State = {
         usedVarSubscripts: this._getAllVarSubscripts(this.props.elements),
         usedFunctionNames: this._getAllFunctionNames(this.props.elements),
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps: InteractionEditorProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({
             usedVarSubscripts: this._getAllVarSubscripts(nextProps.elements),
             usedFunctionNames: this._getAllFunctionNames(nextProps.elements),

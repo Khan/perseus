@@ -1,4 +1,3 @@
-import {ApiOptions} from "@khanacademy/perseus";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
@@ -15,10 +14,5 @@ export default {
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return (
-        <InteractionEditor
-            onChange={action("onChange")}
-            apiOptions={ApiOptions.defaults}
-        />
-    );
+    return <InteractionEditor onChange={action("onChange")} />;
 };
