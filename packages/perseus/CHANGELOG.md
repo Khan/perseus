@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 17.5.0
+
+### Minor Changes
+
+-   [#909](https://github.com/Khan/perseus/pull/909) [`6c841f55`](https://github.com/Khan/perseus/commit/6c841f55027c87bfc8339816dac582f175a84193) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Reworked onFocusChange logic to solve a bug on initial render.
+
+### Patch Changes
+
+-   [#908](https://github.com/Khan/perseus/pull/908) [`29563723`](https://github.com/Khan/perseus/commit/29563723cf229a9169d0c78a0174a8dbc8029861) Thanks [@benchristel](https://github.com/benchristel)! - Lighten the background color for odd-numbered rows of Markdown tables on
+    desktop-sized screens. Previously, the color was `#ededed`; it is now
+    `#f7f8fa` (Wonder Blocks offWhite).
+
+    This change ensures that color-coded math expressions will have accessible
+    contrast with the background.
+
 ## 17.4.0
 
 ### Minor Changes

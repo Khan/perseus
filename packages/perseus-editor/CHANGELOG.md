@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 2.15.5
+
+### Patch Changes
+
+-   [#904](https://github.com/Khan/perseus/pull/904) [`ca241171`](https://github.com/Khan/perseus/commit/ca241171e5fa893fc114241ac1ebc0260c9d57c5) Thanks [@handeyeco](https://github.com/handeyeco)! - Restructure interaction-editor subcomponents
+
+-   Updated dependencies [[`29563723`](https://github.com/Khan/perseus/commit/29563723cf229a9169d0c78a0174a8dbc8029861), [`6c841f55`](https://github.com/Khan/perseus/commit/6c841f55027c87bfc8339816dac582f175a84193)]:
+    -   @khanacademy/perseus@17.5.0
+
 ## 2.15.4
 
 ### Patch Changes
