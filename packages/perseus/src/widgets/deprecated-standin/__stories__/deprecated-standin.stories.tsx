@@ -3,7 +3,7 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
 
 export default {
-    title: "Perseus/Widgets/Auto Correct",
+    title: "Perseus/Widgets/Deprecated Standin",
 };
 
 const question1 = {
