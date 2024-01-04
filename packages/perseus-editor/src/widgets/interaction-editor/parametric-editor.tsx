@@ -9,8 +9,9 @@ import {
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
+import MathquillInput from "./mathquill-input";
 
-const {MathInput, NumberInput} = components;
+const {NumberInput} = components;
 const {getDependencies} = Dependencies;
 
 type Props = Changeable.ChangeableProps & {
@@ -59,42 +60,33 @@ class ParametricEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     <TeX>X(t) =</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.x}
                         onChange={this.change("x")}
-                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <TeX>Y(t) =</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.y}
                         onChange={this.change("y")}
-                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     Range: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.rangeMin}
                         onChange={this.change("rangeMin")}
-                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.rangeMax}
                         onChange={this.change("rangeMax")}
-                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>

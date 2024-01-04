@@ -8,8 +8,8 @@ import {
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
+import MathquillInput from "./mathquill-input";
 
-const {MathInput} = components;
 const {getDependencies} = Dependencies;
 
 type Props = Changeable.ChangeableProps & {
@@ -52,43 +52,34 @@ class RectangleEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     Bottom left: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.coordX}
                         onChange={this.change("coordX")}
-                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.coordY}
                         onChange={this.change("coordY")}
-                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     Width:{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.width}
                         onChange={this.change("width")}
-                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     Height:{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.height}
                         onChange={this.change("height")}
-                        analytics={analyticsStub}
                     />
                 </div>
                 <div className="perseus-widget-row">

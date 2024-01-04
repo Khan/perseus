@@ -8,8 +8,9 @@ import {
 } from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
+import MathquillInput from "./mathquill-input";
 
-const {MathInput, TextInput} = components;
+const {TextInput} = components;
 const {getDependencies} = Dependencies;
 
 type Props = Changeable.ChangeableProps & {
@@ -50,7 +51,6 @@ class LabelEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         const {TeX} = getDependencies();
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
 
         return (
             <div className="graph-settings">
@@ -65,18 +65,14 @@ class LabelEditor extends React.Component<Props> {
                 </div>
                 <div className="perseus-widget-row">
                     Location: <TeX>\Large(</TeX>
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.coordX}
                         onChange={this.change("coordX")}
-                        analytics={analyticsStub}
                     />
                     <TeX>,</TeX>{" "}
-                    <MathInput
-                        buttonsVisible="never"
+                    <MathquillInput
                         value={this.props.coordY}
                         onChange={this.change("coordY")}
-                        analytics={analyticsStub}
                     />
                     <TeX>\Large)</TeX>
                 </div>
