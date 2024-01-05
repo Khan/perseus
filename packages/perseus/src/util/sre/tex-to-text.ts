@@ -3,9 +3,9 @@ import {STATE} from "mathjax-full/js/core/MathItem";
 import {SerializedMmlVisitor} from "mathjax-full/js/core/MmlTree/SerializedMmlVisitor";
 import {HTMLDocument} from "mathjax-full/js/handlers/html/HTMLDocument";
 import {TeX} from "mathjax-full/js/input/tex";
-// eslint-disable-next-line no-restricted-syntax
-import {AllPackages} from "mathjax-full/js/input/tex/AllPackages.js";
-import {setupEngine, toSpeech} from "speech-rule-engine/js/common/system";
+import {AllPackages} from "mathjax-full/js/input/tex/AllPackages";
+
+import {toSpeech} from "./sre";
 
 import type {MmlNode} from "mathjax-full/js/core/MmlTree/MmlNode";
 
@@ -29,17 +29,8 @@ const tex2mml = (tex: string) => {
 };
 
 /**
- * Sets up the speech rule engine with given options.
- * @param options Options to pass to the speech rule engine.
- * @returns A promise that resolves when the speech rule engine is ready: a string containing the locale.
- */
-export const setupSRE = async (
-    options: Parameters<typeof setupEngine>[0],
-): Promise<string> => await setupEngine(options);
-
-/**
  * Converts TeX to speech using the speech rule engine.
- * This must be called after setupSRE.
+ * Warning: This must be called after sre.setup.
  * @param tex The TeX to convert.
  * @returns The human-readable string.
  */

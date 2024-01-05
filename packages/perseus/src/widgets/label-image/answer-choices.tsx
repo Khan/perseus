@@ -13,7 +13,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import Renderer from "../../renderer";
-import {setupSRE, texToText} from "../../util/tex-to-text";
+import * as SRE from "../../util/sre";
 
 export type AnswerType = {
     // The answer string, can be plain text or a KaTeX expression.
@@ -43,19 +43,24 @@ const optionArgs = (content: string) => ({
     label: <Renderer content={content} inline />,
 });
 
+const maybeGetMath = (content: string) => {
+    const match = mathMatcher(content);
+    return match?.length ? match[1] : undefined;
+};
+
 // If the content is a TeX expression, convert to readable text using the same
 // technology as MathJax internally: Speech Rule Engine.
 // https://docs.mathjax.org/en/latest/basic/a11y-extensions.html#accessibility-extension
 // The `option` role makes all descendents presentational, so the MathML is not
 // read by screen readers. We use Speech Rule Engine, which is forked from the
 // ChromeVox screen reader, to parse the TeX to MathML then generate a label.
-const maybeMathLabel = (content: string) => {
-    let srLabel: string | undefined = undefined;
-    const match = mathMatcher(content);
-    if (match?.length) {
-        srLabel = texToText(match[1]);
+const maybeMathLabelFromTex = (content: string) => {
+    let label: string | undefined = undefined;
+    const math = maybeGetMath(content);
+    if (math) {
+        label = SRE.texToText(math);
     }
-    return srLabel;
+    return label;
 };
 
 const AnswerChoices = (props: AnswerChoicesProps) => {
@@ -78,22 +83,19 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
         .map((choice) => choice.content);
 
     React.useEffect(() => {
-        const sreFn = () =>
-            setupSRE({
-                domain: "clearspeak",
-                locale: getLocale(),
-            });
-
-        sreFn().then(() =>
-            setChildren(
-                choices.map(({content}) => (
-                    <OptionItem
-                        {...optionArgs(content)}
-                        aria-label={maybeMathLabel(content)}
-                    />
-                )),
-            ),
-        );
+        const locale = getLocale();
+        if (SRE.locales.get(locale)) {
+            SRE.setup({domain: "clearspeak", locale}).then(() =>
+                setChildren(
+                    choices.map(({content}) => (
+                        <OptionItem
+                            {...optionArgs(content)}
+                            aria-label={maybeMathLabelFromTex(content)}
+                        />
+                    )),
+                ),
+            );
+        }
     }, [choices]);
 
     const args: Partial<
