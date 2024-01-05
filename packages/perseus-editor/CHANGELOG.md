@@ -1,5 +1,13 @@
 # @khanacademy/perseus-editor
 
+## 2.15.6
+
+### Patch Changes
+
+-   [#905](https://github.com/Khan/perseus/pull/905) [`b18ddb28`](https://github.com/Khan/perseus/commit/b18ddb28d9b1f77b1263b3cf24b55a862998fb78) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert interaction-editor components from PropTypes to TS
+
+*   [#911](https://github.com/Khan/perseus/pull/911) [`e9a8808d`](https://github.com/Khan/perseus/commit/e9a8808de00132db4cb992c1428d3ac3628e389c) Thanks [@handeyeco](https://github.com/handeyeco)! - Restructure interaction-editor subcomponents
+
 ## 2.15.5
 
 ### Patch Changes
