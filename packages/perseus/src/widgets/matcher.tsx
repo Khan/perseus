@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
 
 export default {
     name: "matcher",
-    displayName: "Two column matcher",
+    displayName: "Matcher (two column)",
     widget: Matcher,
     isLintable: true,
 } as WidgetExports<typeof Matcher>;

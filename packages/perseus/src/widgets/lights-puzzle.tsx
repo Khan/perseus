@@ -352,7 +352,7 @@ const transformProps: (arg1: any) => any = function (editorProps) {
 
 export default {
     name: "lights-puzzle",
-    displayName: "Lights Puzzle",
+    displayName: "Lights puzzle (deprecated)",
     hidden: true,
     widget: LightsPuzzle,
     transform: transformProps,

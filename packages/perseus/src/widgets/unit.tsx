@@ -365,7 +365,7 @@ const primUnits = function (expr) {
 
 export default {
     name: "unit-input",
-    displayName: "Unit",
+    displayName: "Unit input",
     defaultAlignment: "inline-block",
     widget: OldUnitInput,
     transform: (x: any): any => lens(x).del(["value"]).freeze(),
