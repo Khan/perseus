@@ -55,4 +55,39 @@ describe("Deprecated Standin widget", () => {
             message: null,
         });
     });
+
+    it("should return an empty object for getUserInput()", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question);
+
+        // Act
+        const userInput = renderer.getUserInput();
+
+        // Assert
+        expect(userInput).toMatchInlineSnapshot(`
+            [
+              {},
+            ]
+        `);
+    });
+
+    it("should return a correct answer score for simpleValidate()", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question);
+
+        // Act
+        const score = renderer.scoreWidgets();
+
+        // Assert
+        expect(score).toMatchInlineSnapshot(`
+            {
+              "widget 1": {
+                "earned": 1,
+                "message": null,
+                "total": 1,
+                "type": "points",
+              },
+            }
+        `);
+    });
 });

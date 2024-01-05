@@ -54,15 +54,9 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
 export const replaceWidget = (name: string, replacementName: string) => {
     const substituteWidget = widgets[replacementName];
 
-    if (!substituteWidget) {
+    if (!substituteWidget && Log) {
         const errorMsg = `Failed to replace ${name} with ${replacementName}`;
-        if (Log) {
-            Log.error(errorMsg, Errors.Internal);
-        } else {
-            // The logger may not have been loaded at this point so we use the console
-            // eslint-disable-next-line no-console
-            console.error(errorMsg, Errors.Internal);
-        }
+        Log.error(errorMsg, Errors.Internal);
         return;
     }
 
