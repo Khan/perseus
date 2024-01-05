@@ -9,7 +9,7 @@ import {toSpeech} from "./sre";
 
 import type {MmlNode} from "mathjax-full/js/core/MmlTree/MmlNode";
 
-// Code from https://github.com/Speech-Rule-Engine/sre-latex/blob/main/tex2mml/tex2mml.js
+// Code adapted from https://github.com/Speech-Rule-Engine/sre-latex/blob/main/tex2mml/tex2mml.js
 
 //  Busproofs requires an output jax, which we aren't using
 const packages = AllPackages.filter((name) => name !== "bussproofs");
@@ -24,7 +24,7 @@ const html = new HTMLDocument("", liteAdaptor(), {InputJax: tex});
 const visitor = new SerializedMmlVisitor();
 const toMathML = (node: MmlNode) => visitor.visitTree(node);
 
-const tex2mml = (tex: string) => {
+const texToMml = (tex: string) => {
     return toMathML(html.convert(tex, {display: true, end: STATE.CONVERT}));
 };
 
@@ -34,4 +34,4 @@ const tex2mml = (tex: string) => {
  * @param tex The TeX to convert.
  * @returns The human-readable string.
  */
-export const texToText = (tex: string) => toSpeech(tex2mml(tex));
+export const texToText = (tex: string) => toSpeech(texToMml(tex));

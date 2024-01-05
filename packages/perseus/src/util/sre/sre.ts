@@ -6,15 +6,12 @@ export type {Highlighter} from "speech-rule-engine/js/highlighter/highlighter";
 export type {SpeechGenerator} from "speech-rule-engine/js/speech_generator/speech_generator";
 export type {Walker} from "speech-rule-engine/js/walker/walker";
 
-export const locales = Variables.LOCALES;
-
-export const ready = Api.engineReady;
-
-export const toSpeech = Api.toSpeech;
-
 // Setting delay stops SRE from setting itself up (and loading locales) when it
 // is not actually being used.
 Engine.getInstance().delay = true;
+
+export const locales = Variables.LOCALES;
+export const toSpeech = Api.toSpeech;
 
 /**
  * Sets up the speech rule engine with given options.
