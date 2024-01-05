@@ -9,6 +9,8 @@ import {StyleSheetTestUtils} from "aphrodite";
 import jestSerializerHtml from "jest-serializer-html";
 import {addSerializer} from "jest-specific-snapshot";
 
+import * as texToText from "../../packages/perseus/src/util/tex-to-text";
+
 // Prevent aphrodite from trying to inject styles into the CSSOM
 StyleSheetTestUtils.suppressStyleInjection();
 
@@ -78,4 +80,7 @@ beforeEach(() => {
     // Fake versions must be run/advanced by calling appropriate jest functions.
     // See https://jestjs.io/docs/en/jest-object#mock-timers.
     jest.useFakeTimers();
+
+    jest.spyOn(texToText, "setupSRE").mockResolvedValue("en");
+    jest.spyOn(texToText, "texToText").mockReturnValue("SRE Label");
 });
