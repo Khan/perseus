@@ -599,7 +599,7 @@ export class LabelImage extends React.Component<
                         }
                         // cannot change answer choices once question is answered
                         disabled={disabled}
-                        opener={({opened, text}) => (
+                        opener={({opened}) => (
                             <Clickable
                                 role="button"
                                 key={`marker-${marker.x}.${marker.y}`}

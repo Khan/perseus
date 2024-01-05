@@ -9,11 +9,11 @@ import {
     OptionItem,
 } from "@khanacademy/wonder-blocks-dropdown";
 import {getLocale} from "@khanacademy/wonder-blocks-i18n";
-import sre from "latex-to-speech";
 import * as React from "react";
 import _ from "underscore";
 
 import Renderer from "../../renderer";
+import {setupSRE, texToText} from "../../util/tex-to-text";
 
 export type AnswerType = {
     // The answer string, can be plain text or a KaTeX expression.
@@ -49,15 +49,11 @@ const optionArgs = (content: string) => ({
 // The `option` role makes all descendents presentational, so the MathML is not
 // read by screen readers. We use Speech Rule Engine, which is forked from the
 // ChromeVox screen reader, to parse the TeX to MathML then generate a label.
-const maybeMathLabel = async (content: string) => {
+const maybeMathLabel = (content: string) => {
     let srLabel: string | undefined = undefined;
     const match = mathMatcher(content);
     if (match?.length) {
-        const generated: Array<string> = await sre([match[1]], {
-            domain: "clearspeak",
-            locale: getLocale(),
-        });
-        srLabel = generated[0];
+        srLabel = texToText(match[1]);
     }
     return srLabel;
 };
@@ -82,20 +78,22 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
         .map((choice) => choice.content);
 
     React.useEffect(() => {
-        const setChildrenWithLabels = async () => {
-            setChildren(
-                await Promise.all(
-                    choices.map(async ({content}) => (
-                        <OptionItem
-                            {...optionArgs(content)}
-                            aria-label={await maybeMathLabel(content)}
-                        />
-                    )),
-                ),
-            );
-        };
+        const sreFn = () =>
+            setupSRE({
+                domain: "clearspeak",
+                locale: getLocale(),
+            });
 
-        setChildrenWithLabels();
+        sreFn().then(() =>
+            setChildren(
+                choices.map(({content}) => (
+                    <OptionItem
+                        {...optionArgs(content)}
+                        aria-label={maybeMathLabel(content)}
+                    />
+                )),
+            ),
+        );
     }, [choices]);
 
     const args: Partial<

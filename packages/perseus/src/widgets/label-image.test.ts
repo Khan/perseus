@@ -1,12 +1,12 @@
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as _ from "latex-to-speech";
 
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
+import * as t2t from "../util/tex-to-text";
 
 import {textQuestion} from "./__testdata__/label-image.testdata";
 import {renderQuestion} from "./__tests__/renderQuestion";
@@ -23,6 +23,10 @@ const emptyMarker = {
 } as const;
 
 describe("LabelImage", function () {
+    beforeAll(() => {
+        jest.spyOn(t2t, "setupSRE").mockResolvedValue("en");
+        jest.spyOn(t2t, "texToText").mockReturnValue("Trucks");
+    });
     describe("gradeMarker", function () {
         it("should score correct for empty marker with no user answers", function () {
             const score = LabelImage.gradeMarker({

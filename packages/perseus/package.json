@@ -62,12 +62,14 @@
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
         "lodash.debounce": "^4.0.8",
+        "mathjax-full": "3.2.2",
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc",
         "perseus-build-settings": "^0.3.0",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
         "react-dom": "16.14.0",
         "react-popper": "^2.0.0",
+        "speech-rule-engine": "^4.0.7",
         "underscore": "^1.4.4"
     },
     "peerDependencies": {
@@ -98,10 +100,12 @@
         "intersection-observer": "^0.12.0",
         "jquery": "^2.1.1",
         "lodash.debounce": "^4.0.8",
+        "mathjax-full": "3.2.2",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
         "react-dom": "16.14.0",
         "react-popper": "^2.0.0",
+        "speech-rule-engine": "^4.0.7",
         "underscore": "^1.4.4"
     },
     "keywords": []
