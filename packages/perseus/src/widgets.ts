@@ -62,9 +62,9 @@ export const replaceWidget = (name: string, replacementName: string) => {
 
     registerWidget(name, substituteWidget);
 
-    // The logger may not have been loaded at this point so we use the console
-    // eslint-disable-next-line no-console
-    console.log(`INFO: Replacing widget ${name} with ${replacementName}`);
+    if (Log) {
+        Log.log(`INFO: Replacing widget ${name} with ${replacementName}`);
+    }
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
