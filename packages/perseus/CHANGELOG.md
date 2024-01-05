@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 17.6.0
+
+### Minor Changes
+
+-   [#907](https://github.com/Khan/perseus/pull/907) [`83884550`](https://github.com/Khan/perseus/commit/83884550df8b394e9afa6e95947c987614e2d242) Thanks [@nishasy](https://github.com/nishasy)! - Display names have been updated to better match type names
+
 ## 17.5.0
 
 ### Minor Changes
