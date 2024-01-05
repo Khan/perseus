@@ -8,6 +8,7 @@ import {
     SingleSelect,
     OptionItem,
 } from "@khanacademy/wonder-blocks-dropdown";
+import {getLocale} from "@khanacademy/wonder-blocks-i18n";
 import sre from "latex-to-speech";
 import * as React from "react";
 import _ from "underscore";
@@ -42,6 +43,25 @@ const optionArgs = (content: string) => ({
     label: <Renderer content={content} inline />,
 });
 
+// If the content is a TeX expression, convert to readable text using the same
+// technology as MathJax internally: Speech Rule Engine.
+// https://docs.mathjax.org/en/latest/basic/a11y-extensions.html#accessibility-extension
+// The `option` role makes all descendents presentational, so the MathML is not
+// read by screen readers. We use Speech Rule Engine, which is forked from the
+// ChromeVox screen reader, to parse the TeX to MathML then generate a label.
+const maybeMathLabel = async (content: string) => {
+    let srLabel: string | undefined = undefined;
+    const match = mathMatcher(content);
+    if (match?.length) {
+        const generated: Array<string> = await sre([match[1]], {
+            domain: "clearspeak",
+            locale: getLocale(),
+        });
+        srLabel = generated[0];
+    }
+    return srLabel;
+};
+
 const AnswerChoices = (props: AnswerChoicesProps) => {
     const {opener, onToggle, disabled, choices} = props;
 
@@ -68,24 +88,20 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
                     choices.map(async ({content}) => (
                         <OptionItem
                             {...optionArgs(content)}
-                            labelAsText={
-                                // If the content is a TeX expression, convert
-                                // to readable text using the same technology as
-                                // MathJax internally: Speech Rule Engine.
-                                // https://docs.mathjax.org/en/latest/basic/a11y-extensions.html#accessibility-extension
-                                mathMatcher(content)
-                                    ? await sre([content.slice(1, -1)])[0]
-                                    : undefined
-                            }
+                            aria-label={await maybeMathLabel(content)}
                         />
                     )),
                 ),
             );
         };
+
         setChildrenWithLabels();
     }, [choices]);
 
-    const args = {
+    const args: Partial<
+        React.ComponentProps<typeof MultiSelect> &
+            React.ComponentProps<typeof SingleSelect>
+    > = {
         // reset to allow child (answer pill) to control z-index
         style: {zIndex: "unset"},
         children,
@@ -96,15 +112,15 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
 
     return props.multipleSelect ? (
         <MultiSelect
+            {...args}
             selectedValues={selectedValues}
             onChange={(selected) => onAnswerChange(selected)}
-            {...args}
         />
     ) : (
         <SingleSelect
+            {...args}
             selectedValue={selectedValues[0]}
             onChange={(selected) => onAnswerChange([selected])}
-            {...args}
             placeholder={props.choices[0].content} // not visible, but required
         />
     );
