@@ -81,7 +81,5 @@ beforeEach(() => {
 
     // This prevents asynchrounous code from being called, which causes
     // seemingly random test failures.
-    jest.mock("../../packages/perseus/src/util/sre", () => ({
-        locales: new Map(),
-    }));
+    jest.mock("../../packages/perseus/src/util/sre");
 });
