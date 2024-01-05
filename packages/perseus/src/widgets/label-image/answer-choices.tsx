@@ -85,10 +85,6 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
     React.useEffect(() => {
         const locale = getLocale();
         if (SRE.locales.get(locale)) {
-            // eslint-disable-next-line no-console
-            console.log({locales: SRE.locales, locale});
-            // eslint-disable-next-line no-console
-            console.trace("Debugging CI issue");
             SRE.setup({domain: "clearspeak", locale}).then(() =>
                 setChildren(
                     choices.map(({content}) => (
