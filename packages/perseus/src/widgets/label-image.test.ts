@@ -1,5 +1,6 @@
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import * as _ from "latex-to-speech";
 
 import {
     testDependencies,
