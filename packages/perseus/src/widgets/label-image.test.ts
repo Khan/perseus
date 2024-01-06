@@ -6,15 +6,13 @@ import {
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
+import * as SRE from "../util/sre";
 
 import {numberline, textQuestion} from "./__testdata__/label-image.testdata";
 import {renderQuestion} from "./__tests__/renderQuestion";
 import {LabelImage} from "./label-image";
 
-import * as SRE from "../util/sre";
-
 import "@testing-library/jest-dom";
-import {number} from "@storybook/addon-knobs";
 
 const emptyMarker = {
     label: "",

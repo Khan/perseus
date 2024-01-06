@@ -1,8 +1,9 @@
 import {getLocale} from "@khanacademy/wonder-blocks-i18n";
 import Engine from "speech-rule-engine/js/common/engine";
-import * as Api from "speech-rule-engine/js/common/system";
+import {setupEngine} from "speech-rule-engine/js/common/system";
 import {Variables} from "speech-rule-engine/js/common/variables";
 
+export {toSpeech} from "speech-rule-engine/js/common/system";
 export type {Highlighter} from "speech-rule-engine/js/highlighter/highlighter";
 export type {SpeechGenerator} from "speech-rule-engine/js/speech_generator/speech_generator";
 export type {Walker} from "speech-rule-engine/js/walker/walker";
@@ -11,8 +12,9 @@ export type {Walker} from "speech-rule-engine/js/walker/walker";
 // is not actually being used.
 Engine.getInstance().delay = true;
 
+// This is a map of locales that are supported by SRE. The keys are the locale
+// codes and the values are the locale names.
 export const locales = Variables.LOCALES;
-export const toSpeech = Api.toSpeech;
 
 const defaultOptions = {
     domain: "mathspeak",
@@ -26,9 +28,9 @@ const defaultOptions = {
  * @returns A promise that resolves when the speech rule engine is ready: a string containing the locale.
  */
 export const setup = async (
-    options: Parameters<typeof Api.setupEngine>[0] = {},
+    options: Parameters<typeof setupEngine>[0] = {},
 ): Promise<string> =>
-    await Api.setupEngine({
+    await setupEngine({
         ...defaultOptions,
         ...options,
     });
