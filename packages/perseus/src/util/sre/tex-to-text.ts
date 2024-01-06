@@ -5,7 +5,7 @@ import {HTMLDocument} from "mathjax-full/js/handlers/html/HTMLDocument";
 import {TeX} from "mathjax-full/js/input/tex";
 import {AllPackages} from "mathjax-full/js/input/tex/AllPackages";
 
-import {toSpeech} from "./sre";
+import * as SRE from "./sre";
 
 import type {MmlNode} from "mathjax-full/js/core/MmlTree/MmlNode";
 
@@ -34,4 +34,4 @@ const texToMml = (tex: string) => {
  * @param tex The TeX to convert.
  * @returns The human-readable string.
  */
-export const texToText = (tex: string) => toSpeech(texToMml(tex));
+export const texToText = (tex: string) => SRE.toSpeech(texToMml(tex));
