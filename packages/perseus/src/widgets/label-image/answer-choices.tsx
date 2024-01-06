@@ -8,7 +8,6 @@ import {
     SingleSelect,
     OptionItem,
 } from "@khanacademy/wonder-blocks-dropdown";
-import {getLocale} from "@khanacademy/wonder-blocks-i18n";
 import * as React from "react";
 import _ from "underscore";
 
@@ -43,22 +42,24 @@ const optionArgs = (content: string) => ({
     label: <Renderer content={content} inline />,
 });
 
-const maybeGetMath = (content: string) => {
+// `mathMatcher` comes from our very own PureMarkdown library. It's the same
+// parser used by the Renderer component, so it should have good parity.
+const maybeGetTex = (content: string) => {
     const match = mathMatcher(content);
     return match?.length ? match[1] : undefined;
 };
 
-// If the content is a TeX expression, convert to readable text using the same
-// technology as MathJax internally: Speech Rule Engine.
-// https://docs.mathjax.org/en/latest/basic/a11y-extensions.html#accessibility-extension
+// If the content is only a TeX expression, convert to readable text using the
+// same technology as MathJax internally: Speech Rule Engine (SRE).
+// docs.mathjax.org/en/latest/basic/a11y-extensions.html#accessibility-extension
 // The `option` role makes all descendents presentational, so the MathML is not
-// read by screen readers. We use Speech Rule Engine, which is forked from the
-// ChromeVox screen reader, to parse the TeX to MathML then generate a label.
+// read by screen readers. We use SRE, which is forked from the ChromeVox screen
+// reader, to parse the TeX to MathML then generate a label.
 const maybeMathLabelFromTex = (content: string) => {
     let label: string | undefined = undefined;
-    const math = maybeGetMath(content);
-    if (math) {
-        label = SRE.texToText(math);
+    const tex = maybeGetTex(content);
+    if (tex) {
+        label = SRE.texToText(tex);
     }
     return label;
 };
@@ -83,19 +84,19 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
         .map((choice) => choice.content);
 
     React.useEffect(() => {
-        const locale = getLocale();
-        if (SRE.locales.get(locale)) {
-            SRE.setup({domain: "clearspeak", locale}).then(() =>
-                setChildren(
-                    choices.map(({content}) => (
-                        <OptionItem
-                            {...optionArgs(content)}
-                            aria-label={maybeMathLabelFromTex(content)}
-                        />
-                    )),
-                ),
-            );
-        }
+        // Asynchrously add human-readable labels to the dropdown options.
+        // This takes milliseconds, but since it's async we don't want to block
+        // the render.
+        SRE.setup().then(() =>
+            setChildren(
+                choices.map(({content}) => (
+                    <OptionItem
+                        {...optionArgs(content)}
+                        aria-label={maybeMathLabelFromTex(content)}
+                    />
+                )),
+            ),
+        );
     }, [choices]);
 
     const args: Partial<
