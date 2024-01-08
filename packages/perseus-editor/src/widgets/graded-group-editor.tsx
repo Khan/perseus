@@ -33,6 +33,9 @@ class GradedGroupEditor extends React.Component<Props> {
         hint: null,
     };
 
+    editor = React.createRef<Editor>();
+    hintEditor = React.createRef<Editor>();
+
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -40,9 +43,7 @@ class GradedGroupEditor extends React.Component<Props> {
     handleAddHint: () => void = () => {
         const hint = {content: ""} as const;
         this.props.onChange({hint}, () => {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs["hint-editor"].focus();
+            this.hintEditor.current?.focus();
         });
     };
 
@@ -65,8 +66,7 @@ class GradedGroupEditor extends React.Component<Props> {
                     </label>
                 </div>
                 <Editor
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="editor"
+                    ref={this.editor}
                     content={this.props.content}
                     widgets={this.props.widgets}
                     apiOptions={this.props.apiOptions}
@@ -91,8 +91,7 @@ class GradedGroupEditor extends React.Component<Props> {
                     <div className="perseus-hint-editor">
                         <div className={css(styles.hintsTitle)}>Hint</div>
                         <Editor
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="hint-editor"
+                            ref={this.hintEditor}
                             content={
                                 this.props.hint ? this.props.hint.content : ""
                             }
@@ -127,9 +126,7 @@ class GradedGroupEditor extends React.Component<Props> {
     }
 
     getSaveWarnings: () => any = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        return this.refs.editor.getSaveWarnings();
+        return this.editor.current?.getSaveWarnings();
     };
 
     serialize: () => {
@@ -138,15 +135,8 @@ class GradedGroupEditor extends React.Component<Props> {
     } = () => {
         return {
             title: this.props.title,
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            ...this.refs.editor.serialize(),
-            hint:
-                // eslint-disable-next-line react/no-string-refs
-                this.refs["hint-editor"] &&
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-                this.refs["hint-editor"].serialize(),
+            ...this.editor.current?.serialize(),
+            hint: this.hintEditor.current?.serialize(),
         };
     };
 }

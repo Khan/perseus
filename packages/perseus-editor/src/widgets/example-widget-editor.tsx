@@ -19,6 +19,8 @@ class ExampleWidgetEditor extends React.Component<Props> {
         correct: "",
     };
 
+    input = React.createRef<HTMLInputElement>();
+
     handleAnswerChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
         event,
     ) => {
@@ -36,8 +38,7 @@ class ExampleWidgetEditor extends React.Component<Props> {
                     <input
                         value={this.props.correct}
                         onChange={this.handleAnswerChange}
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
+                        ref={this.input}
                     />
                 </label>
             </div>
@@ -49,9 +50,7 @@ class ExampleWidgetEditor extends React.Component<Props> {
     };
 
     focus: () => boolean = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        this.input.current?.focus();
         return true;
     };
 

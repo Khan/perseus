@@ -63,9 +63,10 @@ type State = {
 
 class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
-    // @ts-expect-error - TS2564 - Property 'rendererMountNode' has no initializer and is not definitely assigned in the constructor.
-    rendererMountNode: HTMLDivElement;
     renderer: any;
+
+    itemEditor = React.createRef<ItemEditor>();
+    hintsEditor = React.createRef<CombinedHintsEditor>();
 
     static defaultProps: {
         developerMode: boolean;
@@ -102,7 +103,6 @@ class EditorPage extends React.Component<Props, State> {
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 
-        this.rendererMountNode = document.createElement("div");
         this.updateRenderer();
     }
 
@@ -154,9 +154,7 @@ class EditorPage extends React.Component<Props, State> {
             isMobile: touch,
         };
 
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'triggerPreviewUpdate' does not exist on type 'ReactInstance'.
-        this.refs.itemEditor.triggerPreviewUpdate({
+        this.itemEditor.current?.triggerPreviewUpdate({
             type: "question",
             data: _({
                 item: this.serialize(),
@@ -170,9 +168,7 @@ class EditorPage extends React.Component<Props, State> {
                     paths: this.props.contentPaths || [],
                 },
                 reviewMode: true,
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-                legacyPerseusLint: this.refs.itemEditor.getSaveWarnings(),
+                legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
             }).extend(
                 _(this.props).pick(
                     "workAreaSelector",
@@ -192,12 +188,8 @@ class EditorPage extends React.Component<Props, State> {
     }
 
     getSaveWarnings(): any {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        const issues1 = this.refs.itemEditor.getSaveWarnings();
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        const issues2 = this.refs.hintsEditor.getSaveWarnings();
+        const issues1 = this.itemEditor.current?.getSaveWarnings();
+        const issues2 = this.hintsEditor.current?.getSaveWarnings();
         return issues1.concat(issues2);
     }
 
@@ -205,12 +197,8 @@ class EditorPage extends React.Component<Props, State> {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-        return _.extend(this.refs.itemEditor.serialize(options), {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            hints: this.refs.hintsEditor.serialize(options),
+        return _.extend(this.itemEditor.current?.serialize(options), {
+            hints: this.hintsEditor.current?.serialize(options),
         });
     }
 
@@ -302,8 +290,7 @@ class EditorPage extends React.Component<Props, State> {
 
                 {(!this.props.developerMode || !this.props.jsonMode) && (
                     <ItemEditor
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="itemEditor"
+                        ref={this.itemEditor}
                         itemId={this.props.itemId}
                         question={this.props.question}
                         answerArea={this.props.answerArea}
@@ -319,8 +306,7 @@ class EditorPage extends React.Component<Props, State> {
 
                 {(!this.props.developerMode || !this.props.jsonMode) && (
                     <CombinedHintsEditor
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="hintsEditor"
+                        ref={this.hintsEditor}
                         itemId={this.props.itemId}
                         hints={this.props.hints}
                         imageUploader={this.props.imageUploader}

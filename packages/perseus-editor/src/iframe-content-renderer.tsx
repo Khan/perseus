@@ -66,6 +66,8 @@ type Props = {
 
 class IframeContentRenderer extends React.Component<Props> {
     _frame: HTMLIFrameElement | null | undefined;
+    container = React.createRef<HTMLDivElement>();
+
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
     _lastData: any;
@@ -89,10 +91,12 @@ class IframeContentRenderer extends React.Component<Props> {
 
         updateIframeHeight[this.iframeID] = (height: any) => {
             this._lastHeight = height;
-            if (this._isMounted && this.props.seamless) {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2339 - Property 'style' does not exist on type 'ReactInstance'.
-                this.refs.container.style.height = height + "px";
+            if (
+                this._isMounted &&
+                this.props.seamless &&
+                this.container.current
+            ) {
+                this.container.current.style.height = height + "px";
             }
         };
     }
@@ -105,14 +109,12 @@ class IframeContentRenderer extends React.Component<Props> {
     }
 
     componentDidUpdate(prevProps: Props) {
-        if (!this.props.seamless) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'style' does not exist on type 'ReactInstance'.
-            this.refs.container.style.height = "100%";
-        } else {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'style' does not exist on type 'ReactInstance'.
-            this.refs.container.style.height = this._lastHeight + "px";
+        if (this.container.current) {
+            if (!this.props.seamless) {
+                this.container.current.style.height = "100%";
+            } else {
+                this.container.current.style.height = this._lastHeight + "px";
+            }
         }
 
         if (prevProps.datasetValue !== this.props.datasetValue) {
@@ -131,9 +133,7 @@ class IframeContentRenderer extends React.Component<Props> {
     _prepareFrame() {
         // Don't initialize the iframe until the page has loaded
         if (this._frame) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'removeChild' does not exist on type 'ReactInstance'.
-            this.refs.container.removeChild(this._frame);
+            this.container.current?.removeChild(this._frame);
         }
 
         const frame = document.createElement("iframe");
@@ -159,9 +159,7 @@ class IframeContentRenderer extends React.Component<Props> {
             frame.dataset.lintGutter = "true";
         }
 
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'appendChild' does not exist on type 'ReactInstance'.
-        this.refs.container.appendChild(frame);
+        this.container.current?.appendChild(frame);
 
         this._frame = frame;
     }
@@ -181,8 +179,9 @@ class IframeContentRenderer extends React.Component<Props> {
     }
 
     render(): React.ReactNode {
-        // eslint-disable-next-line react/no-string-refs
-        return <div ref="container" style={{width: "100%", height: "100%"}} />;
+        return (
+            <div ref={this.container} style={{width: "100%", height: "100%"}} />
+        );
     }
 }
 
