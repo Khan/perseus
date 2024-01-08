@@ -184,6 +184,9 @@ class Editor extends React.Component<Props, State> {
         // this.props.onChange during that, since it calls our parent's
         // setState
         this._sizeImages(this.props);
+        // NOTE(jeremy): We use the non-null assertion here (!) because refs
+        // are guaranteed to be up-to-date before componentDidMount or
+        // componentDidUpdate fires.
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         $(this.textarea.current!)
             // @ts-expect-error - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
@@ -438,7 +441,8 @@ class Editor extends React.Component<Props, State> {
         // type `[[im`, then tab.
         if (e.key === "Tab") {
             // We're in an event handler attached to the textarea, so the ref
-            // can't be empty/undefined!
+            // can't be empty/undefined! (which is why its safe to use the
+            // non-null-assertion here. aka the `!` suffix)
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const textarea = this.textarea.current!;
 
