@@ -35,7 +35,6 @@ import SimpleMarkdownTesterEditor from "./widgets/simple-markdown-tester-editor"
 import SimulatorEditor from "./widgets/simulator-editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
-import TransformerEditor from "./widgets/transformer-editor";
 import UnitEditor from "./widgets/unit-editor";
 import VideoEditor from "./widgets/video-editor";
 
@@ -76,7 +75,6 @@ export default [
     SimulatorEditor,
     SorterEditor,
     TableEditor,
-    TransformerEditor,
     UnitEditor,
     VideoEditor,
     RadioEditor,

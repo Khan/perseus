@@ -92,7 +92,6 @@ export type ChangeHandler = (
         currentValue?: string;
         // perseus-all-package/widgets/dropdown.jsx
         selected?: number;
-        // perseus-all-package/widgets/transformer.jsx
         tools?: ReadonlyArray<any>;
         transformations?: ReadonlyArray<any>;
         highlights?: SerializedHighlightSet;

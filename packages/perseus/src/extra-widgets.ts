@@ -33,7 +33,6 @@ import Sequence from "./widgets/sequence";
 import Simulator from "./widgets/simulator";
 import Sorter from "./widgets/sorter";
 import Table from "./widgets/table";
-import Transformer from "./widgets/transformer";
 import Unit from "./widgets/unit";
 import Video from "./widgets/video";
 
@@ -70,7 +69,6 @@ export default [
     Simulator,
     Sorter,
     Table,
-    Transformer,
     Unit,
     Video,
     DeprecatedStandin,

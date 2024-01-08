@@ -1,3 +1,4 @@
+import {testDependencies} from "../../../../testing/test-dependencies";
 import PerseusItemVersion from "../item-version";
 import {isItemRenderableByVersion} from "../renderability";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
@@ -314,6 +315,7 @@ const sampleGroupWithRadioItem = {
 
 describe("Renderability", () => {
     beforeEach(() => {
+        setDependencies(testDependencies);
         registerAllWidgetsForTesting();
     });
 

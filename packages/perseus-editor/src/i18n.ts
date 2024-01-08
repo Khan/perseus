@@ -92,8 +92,6 @@ function widgetCallback(widgetInfo: any, images: Array<any>) {
         images.push(widgetInfo.options.image.url);
     } else if (widgetInfo.type === "plotter") {
         images.push(widgetInfo.options.picUrl);
-    } else if (widgetInfo.type === "transformer") {
-        handleBackgroundImage(widgetInfo.options.graph, images);
     }
 }
 

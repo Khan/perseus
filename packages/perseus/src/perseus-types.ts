@@ -90,7 +90,7 @@ type Widget<Type extends string, Options> = {
     // Whether this widget is displayed with the values and is immutable.  For display only
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     static?: boolean;
-    // Whether a widget is scored.  Usually true except for IFrame widgets (deprecated) and Transformer widgets
+    // Whether a widget is scored.  Usually true except for IFrame widgets (deprecated)
     // Default: true
     graded?: boolean;
     // The HTML alignment of the widget.  "default" or "block"
@@ -165,9 +165,6 @@ export type SorterWidget = Widget<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
 export type TableWidget = Widget<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
-export type TransformerWidget = Widget<'transformer', PerseusTransformerWidgetOptions>;
-
-// prettier-ignore
 export type ExampleGraphieWidget = Widget<'example-graphie-widget', PerseusExampleGraphieWidgetOptions>;
 // prettier-ignore
 export type ExampleWidget = Widget<'example-widget', PerseusExampleWidgetOptions>;
@@ -228,7 +225,6 @@ export type PerseusWidget =
     | SimulatorWidget
     | SorterWidget
     | TableWidget
-    | TransformerWidget
     | UnitInputWidget
     | VideoWidget
     | AutoCorrectWidget;
@@ -456,7 +452,6 @@ export type PerseusGrapherWidgetOptions = {
               // Two points on the same slope in the tangent wave line.
               coords: [Coord, Coord];
           };
-    // TODO(jeremy): Unify with PerseusTransformerWidgetOptions's .graph
     graph: {
         backgroundImage: {
             bottom?: number;
@@ -989,115 +984,6 @@ export type PerseusTableWidgetOptions = {
     answers: ReadonlyArray<ReadonlyArray<string>>;
 };
 
-export type PerseusTransformerWidgetOptions = {
-    correct: {
-        shape: {
-            type: ReadonlyArray<
-                | "polygon-5"
-                | "polygon-3"
-                | "polygon-4"
-                | "lineSegment"
-                | "polygon-6"
-                | "angle"
-                | "line"
-                | "circle"
-            >;
-            coords: ReadonlyArray<Coord>;
-            options?: ReadonlyArray<{
-                reflex?: boolean;
-            }>;
-        };
-        transformations: ReadonlyArray<PerseusTransformerTransformation>;
-    };
-    drawSolutionShape: boolean;
-    gradeEmpty: boolean;
-    // TODO(jeremy): Unify with PerseusGrapherWidgetOptions's .graph
-    graph: {
-        backgroundImage: {
-            bottom?: number;
-            height?: number;
-            left?: number;
-            scale?: number;
-            url?: string;
-            width?: number;
-        };
-        gridStep?: [number, number];
-        labels?: ["x", "y"];
-        markings: "none" | "graph" | "grid";
-        range: [[number, number], [number, number]];
-        rulerLabel?: string;
-        rulerTicks?: number;
-        showProtractor: boolean;
-        showRuler?: boolean;
-        snapStep?: [number, number];
-        step: [number, number];
-    };
-    graphMode: "dynamic" | "interactive" | "static";
-    listMode: "interactive" | "dynamic" | "static";
-    starting: {
-        shape:
-            | {
-                  type: ReadonlyArray<
-                      | "polygon-5"
-                      | "polygon-3"
-                      | "polygon-4"
-                      | "lineSegment"
-                      | "polygon-6"
-                  >;
-                  coords: ReadonlyArray<Coord>;
-                  options?: ReadonlyArray<Empty>;
-              }
-            | {
-                  type: "polygon-3";
-                  coords: [Coord, Coord, Coord];
-              }
-            | {
-                  type: [
-                      | "polygon-3"
-                      | "lineSegment"
-                      | "polygon-4"
-                      | "polygon-5"
-                      | "polygon-6"
-                      | "line"
-                      | "circle",
-                  ];
-                  coords: ReadonlyArray<Coord>;
-                  options: [Empty];
-              }
-            | {
-                  type: ["polygon-3"];
-                  coords: [Coord, Coord, Coord];
-                  options?: [Empty];
-              }
-            | {
-                  type: ["angle"];
-                  coords: [Coord, Coord, Coord];
-                  options: [
-                      {
-                          reflex: boolean;
-                      },
-                  ];
-              }
-            | {
-                  type: ["line" | "lineSegment"];
-                  coords: [Coord, Coord];
-                  options?: [Empty];
-              }
-            | {
-                  type: "polygon";
-                  coords: ReadonlyArray<Coord>;
-              };
-        transformations: ReadonlyArray<PerseusTransformerTransformation>;
-    };
-    tools: {
-        dilation: DilationTool;
-        reflection: ReflectionTool;
-        rotation: RotationTool;
-        translation: TranslationTool;
-    };
-    version: number;
-};
-
 export type DilationTransformation = {
     type: "dilation";
     center: Coord;
@@ -1128,44 +1014,6 @@ export type TranslationTransformation = {
     type: "translation";
     vector: Coord;
     contraints: Empty;
-};
-
-export type PerseusTransformerTransformation =
-    | DilationTransformation
-    | ReflectionTransformation
-    | RotationTransformation
-    | TranslationTransformation;
-
-type DilationTool = {
-    constraints: PerseusTransformerToolConstraints;
-    coord: Coord;
-    enabled: boolean;
-    required?: boolean;
-};
-
-type ReflectionTool = {
-    constraints: PerseusTransformerToolConstraints;
-    coords: [Coord, Coord];
-    enabled: boolean;
-    required?: boolean;
-};
-
-type RotationTool = {
-    constraints: PerseusTransformerToolConstraints;
-    coord: Coord;
-    enabled: boolean;
-    required?: boolean;
-};
-
-type TranslationTool = {
-    constraints: Empty;
-    enabled: boolean;
-    required?: boolean;
-};
-
-export type PerseusTransformerToolConstraints = {
-    // Whether we should prevent the student from repositioning the tool
-    fixed: boolean;
 };
 
 export type PerseusInteractionWidgetOptions = {
@@ -1513,6 +1361,5 @@ export type PerseusWidgetOptions =
     | PerseusSimulatorWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions
-    | PerseusTransformerWidgetOptions
     | PerseusUnitInputWidgetOptions
     | PerseusVideoWidgetOptions;

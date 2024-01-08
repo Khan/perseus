@@ -3,8 +3,15 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 // eslint-disable-next-line import/no-relative-packages
-import {testDependenciesV2} from "../../../../../testing/test-dependencies";
-import {DependenciesContext, useDependencies} from "../../dependencies";
+import {
+    testDependenciesV2,
+    testDependencies,
+} from "../../../../../testing/test-dependencies";
+import {
+    DependenciesContext,
+    useDependencies,
+    setDependencies,
+} from "../../dependencies";
 import * as Perseus from "../../index";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
@@ -27,6 +34,8 @@ export const renderQuestion = (
     ) => void;
     unmount: RenderResult["unmount"];
 } => {
+    console.log("oop");
+    setDependencies(testDependencies);
     registerAllWidgetsForTesting();
 
     let renderer: Perseus.Renderer | null = null;
