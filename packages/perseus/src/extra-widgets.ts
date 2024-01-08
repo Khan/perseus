@@ -5,6 +5,7 @@
 import Categorizer from "./widgets/categorizer";
 import CSProgram from "./widgets/cs-program";
 import Definition from "./widgets/definition";
+import DeprecatedStandin from "./widgets/deprecated-standin";
 import Dropdown from "./widgets/dropdown";
 import Explanation from "./widgets/explanation";
 import GradedGroup from "./widgets/graded-group";
@@ -72,4 +73,5 @@ export default [
     Transformer,
     Unit,
     Video,
+    DeprecatedStandin,
 ] as ReadonlyArray<WidgetExports>;

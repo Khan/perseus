@@ -43,6 +43,30 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
     validateAlignments();
 };
 
+/**
+ *
+ * @param name - the widget that you are trying to replace
+ * @param replacementName - the name of the widget that takes its place
+ *
+ * e.g. replaceWidget("transformer", "always-correct") will make it so the
+ * transformer widget is replaced by the always correct widget
+ */
+export const replaceWidget = (name: string, replacementName: string) => {
+    const substituteWidget = widgets[replacementName];
+
+    if (!substituteWidget && Log) {
+        const errorMsg = `Failed to replace ${name} with ${replacementName}`;
+        Log.error(errorMsg, Errors.Internal);
+        return;
+    }
+
+    registerWidget(name, substituteWidget);
+
+    if (Log) {
+        Log.log(`INFO: Replacing widget ${name} with ${replacementName}`);
+    }
+};
+
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
     editorsToRegister.forEach((editor) => {
         if (!editor.widgetName) {
