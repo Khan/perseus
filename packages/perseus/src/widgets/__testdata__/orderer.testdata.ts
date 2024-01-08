@@ -55,3 +55,69 @@ export const question2: PerseusRenderer = {
         },
     },
 };
+
+export const questionWithImages: PerseusRenderer = {
+    content: "**Put $6$ flowers in the box.**\n\n[[☃ orderer 1]]",
+    images: {},
+    widgets: {
+        "orderer 1": {
+            graded: true,
+            options: {
+                correctOptions: [
+                    {
+                        content:
+                            "![](https://ka-perseus-graphie.s3.amazonaws.com/b7a6f30d245d186cf42961677ddafa118fef5fdd.png)",
+                        widgets: {},
+                        images: {},
+                    },
+                    {
+                        content:
+                            "![](https://ka-perseus-graphie.s3.amazonaws.com/b7a6f30d245d186cf42961677ddafa118fef5fdd.png)",
+                        widgets: {},
+                        images: {},
+                    },
+                    {
+                        content:
+                            "![](https://ka-perseus-graphie.s3.amazonaws.com/b7a6f30d245d186cf42961677ddafa118fef5fdd.png)",
+                        widgets: {},
+                        images: {},
+                    },
+                    {
+                        content:
+                            "![](https://ka-perseus-graphie.s3.amazonaws.com/b7a6f30d245d186cf42961677ddafa118fef5fdd.png)",
+                        widgets: {},
+                        images: {},
+                    },
+                    {
+                        content:
+                            "![](https://ka-perseus-graphie.s3.amazonaws.com/b7a6f30d245d186cf42961677ddafa118fef5fdd.png)",
+                        widgets: {},
+                        images: {},
+                    },
+                    {
+                        content:
+                            "![](https://ka-perseus-graphie.s3.amazonaws.com/b7a6f30d245d186cf42961677ddafa118fef5fdd.png)",
+                        widgets: {},
+                        images: {},
+                    },
+                ],
+                height: "auto",
+                layout: "horizontal",
+                options: [
+                    {
+                        content:
+                            "![](https://ka-perseus-graphie.s3.amazonaws.com/b7a6f30d245d186cf42961677ddafa118fef5fdd.png)",
+                        widgets: {},
+                        images: {},
+                    },
+                ],
+                otherOptions: [],
+            },
+            type: "orderer",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
