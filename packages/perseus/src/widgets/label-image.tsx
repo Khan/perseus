@@ -576,6 +576,12 @@ export class LabelImage extends React.Component<
                     }}
                 >
                     <AnswerChoices
+                        label={
+                            // already translated in: /widgets/graded-group.tsx
+                            showCorrectness === "correct"
+                                ? i18n._("Correct!")
+                                : marker.label
+                        }
                         key={`answers-${marker.x}.${marker.y}`}
                         choices={this.props.choices.map((choice) => ({
                             content: choice,
@@ -599,14 +605,13 @@ export class LabelImage extends React.Component<
                         }
                         // cannot change answer choices once question is answered
                         disabled={disabled}
-                        opener={({opened}) => (
+                        opener={({opened, text}) => (
                             <Clickable
                                 role="button"
                                 key={`marker-${marker.x}.${marker.y}`}
                                 aria-label={
-                                    // already translated in: /widgets/graded-group.tsx
-                                    showCorrectness === "correct"
-                                        ? i18n._("Correct!")
+                                    marker.selected
+                                        ? (text as string)
                                         : marker.label
                                 }
                             >

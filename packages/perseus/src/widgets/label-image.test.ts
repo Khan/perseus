@@ -6,9 +6,8 @@ import {
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
-import * as SRE from "../util/sre";
 
-import {numberline, textQuestion} from "./__testdata__/label-image.testdata";
+import {textQuestion} from "./__testdata__/label-image.testdata";
 import {renderQuestion} from "./__tests__/renderQuestion";
 import {LabelImage} from "./label-image";
 
@@ -924,52 +923,6 @@ describe("LabelImage", function () {
                 type: "perseus:label-image:choiced-interacted-with",
                 payload: null,
             });
-        });
-    });
-
-    describe("accessibility", () => {
-        beforeEach(() => {
-            jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-            jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
-                testDependenciesV2,
-            );
-
-            jest.spyOn(SRE, "setup").mockResolvedValue("en");
-            jest.spyOn(SRE, "texToText").mockReturnValue("Special Math Label");
-        });
-
-        it("should have a special aria-label on math answer choices", async () => {
-            renderQuestion(numberline);
-
-            const markers = numberline.widgets["label-image 1"].options.markers;
-
-            // Toggle the marker
-            const markerButton = await screen.findByLabelText(markers[0].label);
-            userEvent.click(markerButton);
-
-            // Select a choice
-            const choices = await screen.findAllByLabelText(
-                "Special Math Label",
-            );
-            expect(choices).toHaveLength(markers.length);
-        });
-
-        it("should not add special labels to non-math", async () => {
-            renderQuestion(textQuestion);
-
-            const markers =
-                textQuestion.widgets["label-image 1"].options.markers;
-
-            // Toggle the marker
-            const markerButton = await screen.findByLabelText(markers[0].label);
-            userEvent.click(markerButton);
-
-            // Select a choice
-            const choices = screen.queryAllByLabelText("Special Math Label");
-            expect(choices).toHaveLength(0);
         });
     });
 });

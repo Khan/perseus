@@ -2,7 +2,6 @@
  * Enables single or multiple answers selection using WonderBlocks dropdowns.
  */
 
-import {mathMatcher} from "@khanacademy/pure-markdown";
 import {
     MultiSelect,
     SingleSelect,
@@ -12,7 +11,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import Renderer from "../../renderer";
-import * as SRE from "../../util/sre";
 
 export type AnswerType = {
     // The answer string, can be plain text or a KaTeX expression.
@@ -36,68 +34,28 @@ type AnswerChoicesProps = {
     disabled: boolean;
 };
 
-const optionArgs = (content: string) => ({
-    key: content,
-    value: content,
-    label: <Renderer content={content} inline />,
-});
-
-// `mathMatcher` comes from our very own PureMarkdown library. It's the same
-// parser used by the Renderer component, so it should have good parity.
-const maybeGetTex = (content: string) => {
-    const match = mathMatcher(content);
-    return match?.length ? match[1] : undefined;
-};
-
-// If the content is only a TeX expression, convert to readable text using the
-// same technology as MathJax internally: Speech Rule Engine (SRE).
-// docs.mathjax.org/en/latest/basic/a11y-extensions.html#accessibility-extension
-// The `option` role makes all descendents presentational, so the MathML is not
-// read by screen readers. We use SRE, which is forked from the ChromeVox screen
-// reader, to parse the TeX to MathML then generate a label.
-const maybeMathLabelFromTex = (content: string) => {
-    let label: string | undefined = undefined;
-    const tex = maybeGetTex(content);
-    if (tex) {
-        label = SRE.texToText(tex);
-    }
-    return label;
-};
-
 const AnswerChoices = (props: AnswerChoicesProps) => {
-    const {opener, onToggle, disabled, choices} = props;
-
-    // This will be asynchronously replaced with OptionItems with
-    // human-readable labels. It should be near-instantaneous, but we still
-    // need to account for the loading state.
-    const [children, setChildren] = React.useState<JSX.Element[]>(
-        choices.map(({content}) => <OptionItem {...optionArgs(content)} />),
-    );
-
     const onAnswerChange = (selected: string[]) => {
         const {choices, onChange} = props;
         onChange(choices.map((choice) => selected.includes(choice.content)));
     };
 
+    // WB Dropdown types only take an array of nodes, so we can't use a
+    // functional component, which can only return a single node.
+    const AnswerItems = (choices: readonly AnswerType[]) =>
+        choices.map(({content}) => (
+            <OptionItem
+                key={content}
+                value={content}
+                label={<Renderer content={content} inline />}
+            />
+        ));
+
     const selectedValues = props.choices
         .filter((choice) => choice.checked)
         .map((choice) => choice.content);
 
-    React.useEffect(() => {
-        // Asynchrously add human-readable labels to the dropdown options.
-        // This takes milliseconds, but since it's async we don't want to block
-        // the render.
-        SRE.setup().then(() =>
-            setChildren(
-                choices.map(({content}) => (
-                    <OptionItem
-                        {...optionArgs(content)}
-                        aria-label={maybeMathLabelFromTex(content)}
-                    />
-                )),
-            ),
-        );
-    }, [choices]);
+    const {opener, onToggle, disabled} = props;
 
     const args: Partial<
         React.ComponentProps<typeof MultiSelect> &
@@ -105,7 +63,7 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
     > = {
         // reset to allow child (answer pill) to control z-index
         style: {zIndex: "unset"},
-        children,
+        children: AnswerItems(props.choices),
         opener,
         onToggle,
         disabled,

@@ -78,8 +78,4 @@ beforeEach(() => {
     // Fake versions must be run/advanced by calling appropriate jest functions.
     // See https://jestjs.io/docs/en/jest-object#mock-timers.
     jest.useFakeTimers();
-
-    // This prevents asynchrounous code from being called, which causes
-    // seemingly random test failures.
-    jest.mock("../../packages/perseus/src/util/sre");
 });
