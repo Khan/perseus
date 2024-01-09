@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 2.16.0
+
+### Minor Changes
+
+-   [#897](https://github.com/Khan/perseus/pull/897) [`e8020f58`](https://github.com/Khan/perseus/commit/e8020f58bb538372f77785a14a31dc11be2bc441) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Convert many string refs to React refs
+
+### Patch Changes
+
+-   [#881](https://github.com/Khan/perseus/pull/881) [`f02eb991`](https://github.com/Khan/perseus/commit/f02eb991cec37dcff02056c0d6b54fc6dfd96948) Thanks [@nedredmond](https://github.com/nedredmond)! - Swap out Label Image custom dropdown for WonderBlocks
+
+*   [#870](https://github.com/Khan/perseus/pull/870) [`9354fb55`](https://github.com/Khan/perseus/commit/9354fb55357f2441a2ca6198c52cca33edeba3c0) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Replace transformer widget with a deprecated-standin widget
+
+*   Updated dependencies [[`f02eb991`](https://github.com/Khan/perseus/commit/f02eb991cec37dcff02056c0d6b54fc6dfd96948), [`9354fb55`](https://github.com/Khan/perseus/commit/9354fb55357f2441a2ca6198c52cca33edeba3c0)]:
+    -   @khanacademy/math-input@16.4.1
+    -   @khanacademy/perseus@17.6.1
+
 ## 2.15.7
 
 ### Patch Changes
