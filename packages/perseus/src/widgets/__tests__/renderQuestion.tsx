@@ -34,7 +34,6 @@ export const renderQuestion = (
     ) => void;
     unmount: RenderResult["unmount"];
 } => {
-    console.log("oop");
     setDependencies(testDependencies);
     registerAllWidgetsForTesting();
 

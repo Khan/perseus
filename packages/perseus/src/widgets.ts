@@ -61,10 +61,6 @@ export const replaceWidget = (name: string, replacementName: string) => {
     }
 
     registerWidget(name, substituteWidget);
-
-    if (Log) {
-        Log.log(`INFO: Replacing widget ${name} with ${replacementName}`);
-    }
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
