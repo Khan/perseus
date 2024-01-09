@@ -576,12 +576,6 @@ export class LabelImage extends React.Component<
                     }}
                 >
                     <AnswerChoices
-                        label={
-                            // already translated in: /widgets/graded-group.tsx
-                            showCorrectness === "correct"
-                                ? i18n._("Correct!")
-                                : marker.label
-                        }
                         key={`answers-${marker.x}.${marker.y}`}
                         choices={this.props.choices.map((choice) => ({
                             content: choice,
@@ -610,8 +604,9 @@ export class LabelImage extends React.Component<
                                 role="button"
                                 key={`marker-${marker.x}.${marker.y}`}
                                 aria-label={
-                                    marker.selected
-                                        ? (text as string)
+                                    // already translated in: /widgets/graded-group.tsx
+                                    showCorrectness === "correct"
+                                        ? i18n._("Correct!")
                                         : marker.label
                                 }
                             >
