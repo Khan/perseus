@@ -67,8 +67,8 @@ export default class Marker extends React.Component<Props> {
 
         const iconNull: IconType = {
             path: "",
-            height: 0,
-            width: 0,
+            height: 1,
+            width: 1,
         };
 
         // default dot
