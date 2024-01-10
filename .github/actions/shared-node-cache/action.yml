@@ -1,0 +1,25 @@
+name: 'Shared Node Cache'
+description: 'Install & cache our npm dependencies'
+
+# The inputs this action expects.
+inputs:
+  node-version:
+    description: 'Node version to use'
+    required: true
+  cache-bust:
+    description: 'A unique string to bust the cache'
+    required: true
+
+# The steps this action runs.
+runs:
+  using: "composite"
+  steps:
+
+    - uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+
+    - name: Use Node.js ${{ inputs.node-version }} & Install & cache node_modules
+      uses: Khan/actions@shared-node-cache-v0
+      with:
+        node-version: ${{ inputs.node-version }}
