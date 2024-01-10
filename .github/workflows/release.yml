@@ -94,7 +94,7 @@ jobs:
                   SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
                   SLACK_USERNAME: GithubGoose
                   SLACK_ICON_EMOJI: ":goose:"
-                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! 🎉 \nRelease notes → https://github.com/${{ github.repository }}/releases/"
+                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! \nRelease notes → https://github.com/${{ github.repository }}/releases/"
                   SLACK_TITLE: "New Perseus release!"
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true

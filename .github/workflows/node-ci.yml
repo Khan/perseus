@@ -330,7 +330,7 @@ jobs:
                   body: |
                       # npm Snapshot: Published
 
-                      🎉 Good news!! We've packaged up the latest commit from this PR (${{
+                      Good news!! We've packaged up the latest commit from this PR (${{
                       steps.short-sha.outputs.short_sha }}) and published it to npm. You
                       can install it using the tag `${{
                       steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
@@ -351,7 +351,7 @@ jobs:
                   body: |
                       # npm Snapshot: **NOT** Published
 
-                      🤕 Oh noes!! We couldn't find any changesets in this PR (${{
+                      Oh noes!! We couldn't find any changesets in this PR (${{
                       steps.short-sha.outputs.short_sha }}). As a result, we did not
                       publish an npm snapshot for you.
 
