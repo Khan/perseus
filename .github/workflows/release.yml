@@ -44,7 +44,7 @@ jobs:
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
               with:
-                node-version: ${{ matrix.node-version }}
+                  node-version: ${{ matrix.node-version }}
 
             - name: Build Storybook
               # Generate a static version of storybook inside "storybook-static/"
