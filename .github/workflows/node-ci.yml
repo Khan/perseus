@@ -57,6 +57,7 @@ jobs:
               uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Get All Changed Files
               uses: Khan/actions@get-changed-files-v1
@@ -135,6 +136,7 @@ jobs:
               uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Run test with coverage
               run: yarn cypress:ci
@@ -168,6 +170,7 @@ jobs:
               uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Jest with coverage
               run: yarn coverage
@@ -191,6 +194,7 @@ jobs:
               uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Download Jest Coverage
               uses: actions/download-artifact@v4
@@ -232,6 +236,7 @@ jobs:
               uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
             # Make sure our packages aren't growing unexpectedly
             # This must come last as it builds the old code last and so leaves the
             # wrong code in place for the next job.
@@ -261,6 +266,7 @@ jobs:
               uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Extract strings
               run: yarn extract-strings
@@ -283,7 +289,7 @@ jobs:
               uses: actions/checkout@v4
               with:
                   fetch-depth: "0"
-            - name: Ensure main branch is avaialble
+            - name: Ensure main branch is available
               run: |
                   REF=$(git rev-parse HEAD)
                   git checkout main
@@ -293,6 +299,7 @@ jobs:
               uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
@@ -374,6 +381,7 @@ jobs:
               uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Publish to Chromatic
               uses: chromaui/action@v1
