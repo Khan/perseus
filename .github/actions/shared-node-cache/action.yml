@@ -10,14 +10,13 @@ inputs:
         description: "A unique string to bust the cache"
         required: true
     ssh-private-key:
-        description: 'A private SSH key so that we can obtain private dependencies like our event schema package'
+        description: "A private SSH key so that we can obtain private dependencies like our event schema package"
         required: true
 
 # The steps this action runs.
 runs:
     using: "composite"
     steps:
-
         - name: Use Node.js ${{ inputs.node-version }} & Install & cache node_modules
           uses: Khan/actions@shared-node-cache-v0
           with:
@@ -25,4 +24,4 @@ runs:
 
         - uses: webfactory/ssh-agent@v0.7.0
           with:
-            ssh-private-key: ${{ inputs.ssh-private-key }}
+              ssh-private-key: ${{ inputs.ssh-private-key }}
