@@ -54,7 +54,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+              uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
@@ -132,7 +132,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+              uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
@@ -165,7 +165,7 @@ jobs:
             - uses: actions/checkout@v4
 
             - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+              uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
@@ -188,7 +188,7 @@ jobs:
             - uses: actions/checkout@v4
 
             - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+              uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
@@ -229,7 +229,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+              uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
             # Make sure our packages aren't growing unexpectedly
@@ -258,7 +258,7 @@ jobs:
             - uses: actions/checkout@v4
 
             - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+              uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
@@ -290,7 +290,7 @@ jobs:
                   git checkout $REF
 
             - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+              uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
@@ -371,7 +371,7 @@ jobs:
                   fetch-depth: 0
 
             - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+              uses: ./actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
 
