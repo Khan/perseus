@@ -41,10 +41,10 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
 
             - name: Build Storybook
               # Generate a static version of storybook inside "storybook-static/"

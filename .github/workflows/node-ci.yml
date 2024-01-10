@@ -1,6 +1,7 @@
 name: Node CI
 
 on:
+    workflow_dispatch: 
     pull_request:
         # edited is needed because that's the trigger when the base branch is
         # changed on a PR
@@ -65,10 +66,10 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
 
             - name: Get All Changed Files
               uses: Khan/actions@get-changed-files-v1
@@ -143,10 +144,10 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
 
             - name: Run test with coverage
               run: yarn cypress:ci
@@ -176,10 +177,10 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
 
             - name: Jest with coverage
               run: yarn coverage
@@ -199,10 +200,10 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
 
             - name: Download Jest Coverage
               uses: actions/download-artifact@v4
@@ -240,10 +241,10 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
             # Make sure our packages aren't growing unexpectedly
             # This must come last as it builds the old code last and so leaves the
             # wrong code in place for the next job.
@@ -269,10 +270,10 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
 
             - name: Extract strings
               run: yarn extract-strings
@@ -301,10 +302,10 @@ jobs:
                   git checkout main
                   git checkout $REF
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
@@ -382,10 +383,10 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  node-version: ${{ matrix.node-version }}
+                node-version: ${{ matrix.node-version }}
 
             - name: Publish to Chromatic
               uses: chromaui/action@v1
