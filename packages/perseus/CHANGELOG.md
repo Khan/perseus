@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 17.6.2
+
+### Patch Changes
+
+-   [#918](https://github.com/Khan/perseus/pull/918) [`21222f55`](https://github.com/Khan/perseus/commit/21222f55b1efd46acbc0fe1dcc8aa0399b8555ee) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix bug that caused svg to be 300px wide
+
 ## 17.6.1
 
 ### Patch Changes
