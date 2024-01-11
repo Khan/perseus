@@ -12,6 +12,8 @@ import {
     expressionItem2,
     expressionItem3,
     expressionItem3Options,
+    expressionItemWithAnswer,
+    expressionItemWithSin,
 } from "../__testdata__/expression.testdata";
 import {Expression} from "../expression";
 
@@ -181,6 +183,33 @@ describe("Expression Widget", function () {
             expect(err).toStrictEqual({message: null, type: "invalid"});
         });
     });
+
+    describe("when the question uses the sin function", () => {
+        it("allows parens", () => {
+            const item = expressionItemWithAnswer("sin(x)");
+            assertCorrect(item, "sin(x)");
+        });
+
+        it("allows no parens", () => {
+            const item = expressionItemWithAnswer("sin(x)");
+            assertCorrect(item, "sin x");
+        });
+
+        it("grades a wrong answer as incorrect", () => {
+            const item = expressionItemWithAnswer("sin(x)");
+            assertIncorrect(item, "2");
+        });
+
+        it("treats sen as equivalent to sin", () => {
+            const item = expressionItemWithAnswer("sin(x)");
+            assertCorrect(item, "sen x");
+        });
+
+        it("treats multiple usages of sen as equivalent to sin", () => {
+            const item = expressionItemWithAnswer("sin(sin(x))");
+            assertCorrect(item, "sen(sen(x))");
+        });
+    })
 
     describe("analytics", () => {
         const assertKeypadVersion = (
@@ -435,5 +464,22 @@ describe("error tooltip", () => {
         expect(
             screen.getByText("Sorry, I don't understand that!"),
         ).toBeVisible();
+    });
+
+    it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(expressionItem2.question);
+        const expression = renderer.findWidgets("expression 1")[0];
+
+        // Act
+        expression.insert("sen(x)");
+        screen.getByRole("textbox").blur();
+        renderer.guessAndScore();
+
+        // Assert
+        expect(screen.queryByText("Oops!")).toBeNull();
+        expect(
+            screen.queryByText("Sorry, I don't understand that!"),
+        ).toBeNull();
     });
 });
