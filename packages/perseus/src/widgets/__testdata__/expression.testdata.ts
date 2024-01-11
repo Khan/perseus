@@ -48,6 +48,26 @@ const createItemJson = (
     };
 };
 
+export const expressionItemWithAnswer = (answer: string): PerseusItem => {
+    return createItemJson(
+        {
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    simplify: false,
+                    value: answer,
+                },
+            ],
+            times: false,
+            buttonSets: ["basic"],
+            functions: [],
+            buttonsVisible: "always",
+        },
+        {major: 1, minor: 0},
+    );
+};
+
 export const expressionItem2: PerseusItem = createItemJson(
     {
         answerForms: [

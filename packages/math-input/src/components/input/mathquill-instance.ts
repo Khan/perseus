@@ -14,6 +14,46 @@ function createBaseConfig(): MathFieldConfig {
         // appropriate symbol. This does not include ln, log, or any of the
         // trig functions; those are always interpreted as commands.
         autoCommands: "pi theta phi sqrt nthroot",
+        // Most of these autoOperatorNames are simply the MathQuill defaults.
+        // We have to list them all in order to add the `sen` operator (see
+        // comment below).
+        autoOperatorNames: [
+            "arccos",
+            "arcsin",
+            "arctan",
+            "arg",
+            "cos",
+            "cosh",
+            "cot",
+            "coth",
+            "csc",
+            "deg",
+            "det",
+            "dim",
+            "exp",
+            "gcd",
+            "hom",
+            "inf",
+            "ker",
+            "lg",
+            "lim",
+            "liminf",
+            "limsup",
+            "ln",
+            "log",
+            "max",
+            "min",
+            "Pr",
+            "projlim",
+            "sec",
+            // sen is used instead of sin in e.g. Portuguese
+            "sen",
+            "sin",
+            "sinh",
+            "sup",
+            "tan",
+            "tanh",
+        ].join(" "),
 
         // Pop the cursor out of super/subscripts on arithmetic operators
         // or (in)equalities.

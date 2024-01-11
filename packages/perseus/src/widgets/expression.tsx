@@ -57,6 +57,17 @@ const insertBraces = (value) => {
     return value.replace(/([_^])([^{])/g, "$1{$2}");
 };
 
+const anglicizeOperators = (tex: string): string => {
+    // sen is used instead of sin in some languages, e.g. Portuguese.
+    // To ensure that answers in various languages are graded correctly, we
+    // convert operators to their Englishy forms.
+    return tex.replace(/\\operatorname{sen}/g, "\\sin ");
+};
+
+const normalizeTex = (tex: string): string => {
+    return anglicizeOperators(insertBraces(tex));
+};
+
 const deriveKeypadVersion = (apiOptions: APIOptions) => {
     // We can derive which version of the keypad is in use. This is
     // a bit tricky, but this code will be relatively short-lived
@@ -280,7 +291,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
     }
 
     static getUserInputFromProps(props: Props): string {
-        return insertBraces(props.value);
+        return normalizeTex(props.value);
     }
 
     static getOneCorrectAnswerFromRubric(
@@ -410,7 +421,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         _.extend(options, {
             decimal_separator: i18n.getDecimalSeparator(),
         });
-        return KAS.parse(insertBraces(value), options);
+        return KAS.parse(normalizeTex(value), options);
     };
 
     changeAndTrack: (e: any, cb: () => void) => void = (
