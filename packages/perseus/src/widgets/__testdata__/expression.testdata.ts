@@ -66,7 +66,7 @@ export const expressionItemWithAnswer = (answer: string): PerseusItem => {
         },
         {major: 1, minor: 0},
     );
-}
+};
 
 export const expressionItem2: PerseusItem = createItemJson(
     {

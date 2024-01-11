@@ -62,11 +62,11 @@ const anglicizeOperators = (tex: string): string => {
     // To ensure that answers in various languages are graded correctly, we
     // convert operators to their Englishy forms.
     return tex.replace(/\\operatorname{sen}/g, "\\sin ");
-}
+};
 
 const normalizeTex = (tex: string): string => {
     return anglicizeOperators(insertBraces(tex));
-}
+};
 
 const deriveKeypadVersion = (apiOptions: APIOptions) => {
     // We can derive which version of the keypad is in use. This is

@@ -13,7 +13,6 @@ import {
     expressionItem3,
     expressionItem3Options,
     expressionItemWithAnswer,
-    expressionItemWithSin,
 } from "../__testdata__/expression.testdata";
 import {Expression} from "../expression";
 
@@ -209,7 +208,7 @@ describe("Expression Widget", function () {
             const item = expressionItemWithAnswer("sin(sin(x))");
             assertCorrect(item, "sen(sen(x))");
         });
-    })
+    });
 
     describe("analytics", () => {
         const assertKeypadVersion = (
