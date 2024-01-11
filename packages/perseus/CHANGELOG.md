@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 17.7.0
+
+### Minor Changes
+
+-   [#921](https://github.com/Khan/perseus/pull/921) [`81b9a562`](https://github.com/Khan/perseus/commit/81b9a562d0fb8ff2cd82e708781432bff8437116) Thanks [@benchristel](https://github.com/benchristel)! - Make the Expression widget treat `sen` as equivalent to `sin`. The spelling
+    `sen` is used in Portuguese.
+
+### Patch Changes
+
+-   Updated dependencies [[`81b9a562`](https://github.com/Khan/perseus/commit/81b9a562d0fb8ff2cd82e708781432bff8437116)]:
+    -   @khanacademy/math-input@16.5.0
+
 ## 17.6.2
 
 ### Patch Changes
