@@ -1,6 +1,7 @@
 name: Node CI
 
 on:
+    workflow_dispatch:
     pull_request:
         # edited is needed because that's the trigger when the base branch is
         # changed on a PR
@@ -52,10 +53,11 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Get All Changed Files
               uses: Khan/actions@get-changed-files-v1
@@ -130,10 +132,11 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Run test with coverage
               run: yarn cypress:ci
@@ -163,10 +166,11 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Jest with coverage
               run: yarn coverage
@@ -186,10 +190,11 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Download Jest Coverage
               uses: actions/download-artifact@v4
@@ -227,10 +232,11 @@ jobs:
             - name: Checking out latest commit
               uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
             # Make sure our packages aren't growing unexpectedly
             # This must come last as it builds the old code last and so leaves the
             # wrong code in place for the next job.
@@ -256,10 +262,11 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Extract strings
               run: yarn extract-strings
@@ -282,16 +289,17 @@ jobs:
               uses: actions/checkout@v4
               with:
                   fetch-depth: "0"
-            - name: Ensure main branch is avaialble
+            - name: Ensure main branch is available
               run: |
                   REF=$(git rev-parse HEAD)
                   git checkout main
                   git checkout $REF
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
@@ -329,7 +337,7 @@ jobs:
                   body: |
                       # npm Snapshot: Published
 
-                      🎉 Good news!! We've packaged up the latest commit from this PR (${{
+                      Good news!! We've packaged up the latest commit from this PR (${{
                       steps.short-sha.outputs.short_sha }}) and published it to npm. You
                       can install it using the tag `${{
                       steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
@@ -350,7 +358,7 @@ jobs:
                   body: |
                       # npm Snapshot: **NOT** Published
 
-                      🤕 Oh noes!! We couldn't find any changesets in this PR (${{
+                      Oh noes!! We couldn't find any changesets in this PR (${{
                       steps.short-sha.outputs.short_sha }}). As a result, we did not
                       publish an npm snapshot for you.
 
@@ -369,10 +377,11 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Publish to Chromatic
               uses: chromaui/action@v1
