@@ -252,6 +252,10 @@ jobs:
                   # Build production
                   build-script: "build:prodsizecheck"
 
+            #
+            # Do not place any steps after "Check Builds"
+            #
+
     extract_strings:
         name: Extract i18n strings
         runs-on: ${{ matrix.os }}
