@@ -6,9 +6,6 @@ inputs:
     node-version:
         description: "Node version to use"
         required: true
-    cache-bust:
-        description: "A unique string to bust the cache"
-        required: true
     ssh-private-key:
         description: "A private SSH key so that we can obtain private dependencies like our event schema package"
         required: true
