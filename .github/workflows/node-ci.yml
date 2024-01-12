@@ -41,6 +41,7 @@ jobs:
               uses: Khan/changeset-per-package@v1.0.1
               with:
                   changed_files: ${{ steps.match.outputs.filtered }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
     lint:
         name: Lint, Typecheck, Format, and Test
