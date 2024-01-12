@@ -19,13 +19,15 @@ const renderer = new MathJaxRenderer({
 
 type Props = {
     children: string;
+    onRender?: (root?: any) => unknown;
 };
 
-export function TestMathjax({children: tex}: Props) {
+export function TestMathjax({children: tex, onRender}: Props) {
     const {domElement} = renderer.render(tex);
 
     React.useEffect(() => {
         renderer.updateStyles();
-    }, [tex]);
+        onRender?.();
+    }, [tex, onRender]);
     return <span dangerouslySetInnerHTML={{__html: domElement.outerHTML}} />;
 }
