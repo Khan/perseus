@@ -239,7 +239,7 @@ jobs:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
             # Make sure our packages aren't growing unexpectedly
             # This must come last as it builds the old code last and so leaves the
-            # wrong code in place for the next job.
+            # wrong code in place for the next job; in other words, it leaves the repo on a base branch.
             - name: Check Builds
               uses: preactjs/compressed-size-action@v2
               with:
