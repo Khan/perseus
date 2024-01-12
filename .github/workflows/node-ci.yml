@@ -37,11 +37,15 @@ jobs:
                   matchAllGlobs: true # Default is to match any of the globs, which ends up matching all files
                   conjunctive: true # Only match files that match all of the above
 
+            - name: Access SSH key
+              uses: ./.github/actions/shared-node-cache
+              with:
+                ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
+
             - name: Verify changeset entries
               uses: Khan/changeset-per-package@v1.0.1
               with:
                   changed_files: ${{ steps.match.outputs.filtered }}
-                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
     lint:
         name: Lint, Typecheck, Format, and Test
