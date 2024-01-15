@@ -1,7 +1,7 @@
 {
   "name": "perseus",
   "version": "1.0.1",
-  "main": "index.js",
+  "main": "./dist/perseus-main.js",
   "repository": "git@github.com:Khan/perseus.git",
   "license": "MIT",
   "private": true,
@@ -112,9 +112,11 @@
     "sloc": "^0.2.1",
     "storybook": "7.5.3",
     "style-loader": "^3.3.3",
+    "svg-inline-loader": "^0.8.2",
     "typescript": "4.9.5",
     "typescript-coverage-report": "^0.7.0",
     "webpack": "5",
+    "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.9.0",
     "winston": "^3.7.2"
   },
