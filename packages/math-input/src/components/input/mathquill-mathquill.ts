@@ -1,4 +1,4 @@
-import MathQuill from "khan-mathquill";
+import MathQuill from "mathquill-mathquill/build/mathquill";
 
 import type {MathQuillInterface, MathFieldConfig} from "./mathquill-types";
 

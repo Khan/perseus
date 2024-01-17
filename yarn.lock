@@ -7659,6 +7659,10 @@ dequal@^2.0.2, dequal@^2.0.3:
   resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.3.tgz#2644214f1997d39ed0ee0ece72335490a7ac67be"
   integrity sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==
 
+"desmos-mathquill@git+https://git@github.com/nedredmond/desmos-mathquill":
+  version "0.10.1"
+  resolved "git+https://git@github.com/nedredmond/desmos-mathquill#bd02ae3b4e570c23101b757400a6b17ea2d1150d"
+
 destroy@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.2.0.tgz#4803735509ad8be552934c67df614f94e66fa015"
@@ -11931,6 +11935,12 @@ keyv@^4.5.3:
   dependencies:
     json-buffer "3.0.1"
 
+"khan-mathquill@git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc", "mathquill@git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc":
+  version "0.10.1"
+  resolved "git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc"
+  dependencies:
+    pjs "3.x"
+
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -12359,11 +12369,9 @@ mathjax-full@3.2.2:
     mj-context-menu "^0.6.1"
     speech-rule-engine "^4.0.6"
 
-"mathquill@git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc":
+"mathquill-mathquill@git+https://git@github.com/nishasy/mathquill-mathquill#8b69e9d":
   version "0.10.1"
-  resolved "git+https://git@github.com/Khan/mathquill.git#48410e80d760bbd5105544d4a4ab459a28dc2cbc"
-  dependencies:
-    pjs "3.x"
+  resolved "git+https://git@github.com/nishasy/mathquill-mathquill#8b69e9d1fbe567ca1c0d1153f52a6ecf6faece20"
 
 mdast-util-definitions@^4.0.0:
   version "4.0.0"

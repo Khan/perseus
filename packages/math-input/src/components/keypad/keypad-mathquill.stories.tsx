@@ -3,8 +3,10 @@ import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
 
 import {CursorContext} from "../input/cursor-contexts";
+import {createMathField as desmos} from "../input/mathquill-desmos";
 import {getCursorContext} from "../input/mathquill-helpers";
 import {createMathField} from "../input/mathquill-instance";
+import {createMathField as mqMq} from "../input/mathquill-mathquill";
 import keyTranslator from "../key-handlers/key-translator";
 
 import type Key from "../../data/keys";
@@ -14,12 +16,197 @@ import Keypad from "./index";
 
 export default {
     title: "math-input/components/v2 Keypad With Mathquill",
+    component: Keypad,
 };
 
-export function V2KeypadWithMathquill() {
+export function V2KeypadWithMathquillFromMathquill() {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
     const [mathField, setMathField] = React.useState<MathFieldInterface>();
-    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(true);
+    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
+    const [cursorContext, setCursorContext] = React.useState<
+        typeof CursorContext[keyof typeof CursorContext]
+    >(CursorContext.NONE);
+
+    React.useEffect(() => {
+        if (!mathField && mathFieldWrapperRef.current) {
+            const mathFieldInstance = mqMq(
+                mathFieldWrapperRef.current,
+                (baseConfig) => ({
+                    ...baseConfig,
+                    handlers: {
+                        edit: (_mathField) => {
+                            setCursorContext(getCursorContext(_mathField));
+                        },
+                    },
+                }),
+            );
+            setMathField(mathFieldInstance);
+        }
+    }, [mathField]);
+
+    function handleClickKey(key: Key) {
+        if (!mathField) {
+            return;
+        }
+
+        if (key === "DISMISS") {
+            setKeypadOpen(false);
+        }
+
+        const mathFieldCallback = keyTranslator[key];
+        if (mathFieldCallback) {
+            mathFieldCallback(mathField, key);
+            setCursorContext(getCursorContext(mathField));
+        } else {
+            // eslint-disable-next-line no-console
+            console.warn(`No translation to Mathquill for: ${key}`);
+        }
+    }
+
+    return (
+        <div style={{maxWidth: "400px", margin: "2em"}}>
+            <Popover
+                content={
+                    <PopoverContentCore
+                        style={{
+                            padding: 10,
+                            maxWidth: "initial",
+                        }}
+                    >
+                        <Keypad
+                            extraKeys={["x", "y", "PI", "THETA"]}
+                            onClickKey={handleClickKey}
+                            cursorContext={cursorContext}
+                            advancedRelations
+                            basicRelations
+                            divisionKey
+                            logarithms
+                            convertDotToTimes
+                            preAlgebra
+                            trigonometry
+                            onAnalyticsEvent={async (event) => {
+                                // eslint-disable-next-line no-console
+                                console.log("Send Event:", event);
+                            }}
+                            showDismiss
+                        />
+                    </PopoverContentCore>
+                }
+                dismissEnabled
+                opened={keypadOpen}
+            >
+                <div
+                    style={{
+                        width: "100%",
+                        marginBottom: "1em",
+                        border: `1px solid ${Color.offBlack16}`,
+                    }}
+                    ref={mathFieldWrapperRef}
+                />
+            </Popover>
+            <button onClick={() => setKeypadOpen(!keypadOpen)}>
+                {keypadOpen ? "close keypad" : "open keypad"}
+            </button>
+        </div>
+    );
+}
+
+export function V2KeypadWithMathquillFromDesmos() {
+    const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
+    const [mathField, setMathField] = React.useState<MathFieldInterface>();
+    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
+    const [cursorContext, setCursorContext] = React.useState<
+        typeof CursorContext[keyof typeof CursorContext]
+    >(CursorContext.NONE);
+
+    React.useEffect(() => {
+        if (!mathField && mathFieldWrapperRef.current) {
+            const mathFieldInstance = desmos(
+                mathFieldWrapperRef.current,
+                (baseConfig) => ({
+                    ...baseConfig,
+                    handlers: {
+                        edit: (_mathField) => {
+                            setCursorContext(getCursorContext(_mathField));
+                        },
+                    },
+                }),
+            );
+            setMathField(mathFieldInstance);
+        }
+    }, [mathField]);
+
+    function handleClickKey(key: Key) {
+        if (!mathField) {
+            return;
+        }
+
+        if (key === "DISMISS") {
+            setKeypadOpen(false);
+        }
+
+        const mathFieldCallback = keyTranslator[key];
+        if (mathFieldCallback) {
+            mathFieldCallback(mathField, key);
+            setCursorContext(getCursorContext(mathField));
+        } else {
+            // eslint-disable-next-line no-console
+            console.warn(`No translation to Mathquill for: ${key}`);
+        }
+    }
+
+    return (
+        <div style={{maxWidth: "400px", margin: "2em"}}>
+            <Popover
+                content={
+                    <PopoverContentCore
+                        style={{
+                            padding: 10,
+                            maxWidth: "initial",
+                        }}
+                    >
+                        <Keypad
+                            extraKeys={["x", "y", "PI", "THETA"]}
+                            onClickKey={handleClickKey}
+                            cursorContext={cursorContext}
+                            advancedRelations
+                            basicRelations
+                            divisionKey
+                            logarithms
+                            convertDotToTimes
+                            preAlgebra
+                            trigonometry
+                            onAnalyticsEvent={async (event) => {
+                                // eslint-disable-next-line no-console
+                                console.log("Send Event:", event);
+                            }}
+                            showDismiss
+                        />
+                    </PopoverContentCore>
+                }
+                dismissEnabled
+                opened={keypadOpen}
+            >
+                <div
+                    style={{
+                        width: "100%",
+                        marginBottom: "1em",
+                        border: `1px solid ${Color.offBlack16}`,
+                    }}
+                    ref={mathFieldWrapperRef}
+                />
+            </Popover>
+            <button onClick={() => setKeypadOpen(!keypadOpen)}>
+                {keypadOpen ? "close keypad" : "open keypad"}
+            </button>
+        </div>
+    );
+}
+
+export function V2KeypadWithMathquillFromKhan() {
+    const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
+    const [mathField, setMathField] = React.useState<MathFieldInterface>();
+    const [keypadOpen, setKeypadOpen] = React.useState<boolean>(false);
     const [cursorContext, setCursorContext] = React.useState<
         typeof CursorContext[keyof typeof CursorContext]
     >(CursorContext.NONE);
