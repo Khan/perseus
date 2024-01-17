@@ -40,9 +40,9 @@ class AutoCorrect extends React.Component<AutoCorrectProps> {
             >
                 <Banner
                     text={i18n._(
-                        "This part of the question is no-longer available. You will not be graded on this part.",
+                        "Sorry, this part of the question is no longer available. Don't worry, you won't be graded on this part. 😅 Keep going!",
                     )}
-                    kind="warning"
+                    kind="info"
                     layout="full-width"
                 />
             </div>
