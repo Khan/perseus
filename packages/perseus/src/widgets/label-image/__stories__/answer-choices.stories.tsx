@@ -1,8 +1,7 @@
+import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import AnswerChoices from "../answer-choices";
-
-import type {AnswerType} from "../answer-choices";
 
 type StoryArgs = Record<any, any>;
 
@@ -45,47 +44,43 @@ const defaultChoices = [
     },
 ];
 
-class WithState extends React.Component<
-    {
-        multipleSelect: boolean;
-    },
-    {
-        choices: ReadonlyArray<AnswerType>;
-    }
-> {
-    static defaultProps = {
-        multipleSelect: false,
-    };
+const WithState = ({multipleSelect}) => {
+    const [choices, setChoices] = React.useState([...defaultChoices]);
+    const [isOpened, setIsOpened] = React.useState(false);
 
-    state = {
-        choices: [...defaultChoices],
-    };
-
-    handleChange(selection) {
-        const {choices} = this.state;
-
-        this.setState({
-            choices: choices.map((choice, index) => ({
+    const handleChange = (selection) => {
+        setChoices([
+            ...choices.map((choice, index) => ({
                 ...choice,
                 checked: selection[index],
             })),
-        });
-    }
+        ]);
+    };
 
-    render(): React.ReactNode {
-        const {multipleSelect} = this.props;
-
-        const {choices} = this.state;
-
-        return (
+    return (
+        <>
             <AnswerChoices
                 choices={choices}
                 multipleSelect={multipleSelect}
-                onChange={(selection) => this.handleChange(selection)}
+                onChange={(selection) => handleChange(selection)}
+                opener={() => <button>{isOpened ? "Close" : "Open"}</button>}
+                onToggle={(opened) => setIsOpened(opened)}
+                disabled={false}
             />
-        );
-    }
-}
+            <>
+                {choices
+                    .filter(({checked}) => checked)
+                    .map(({content}) => (
+                        <LabelLarge key={content}>{content}</LabelLarge>
+                    ))}
+            </>
+        </>
+    );
+};
+
+WithState.defaultProps = {
+    multipleSelect: false,
+};
 
 export const SingleSelect = (args: StoryArgs): React.ReactElement => {
     return <WithState />;

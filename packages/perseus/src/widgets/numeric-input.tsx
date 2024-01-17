@@ -567,7 +567,7 @@ const propsTransform = function (
 
 export default {
     name: "numeric-input",
-    displayName: "Number text box",
+    displayName: "Numeric input",
     defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,

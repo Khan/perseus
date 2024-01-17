@@ -18,7 +18,6 @@ import katex from "katex";
 // eslint-disable-next-line import/no-unassigned-import
 import "./katex-mhchem";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import _ from "underscore";
 
 import DragTarget from "./components/drag-target";
@@ -88,8 +87,7 @@ const IMAGE_REGEX = /!\[[^\]]*\]\(([^\s)]+)[^)]*\)/g;
  * ignores captures. If you don't need captures, use String::match
  */
 const allMatches = function (regex: RegExp, str: string) {
-    // @ts-expect-error - TS2702 - 'RegExp' only refers to a type, but is being used as a namespace here.
-    const result: Array<any | RegExp.matchResult> = [];
+    const result: Array<RegExpExecArray> = [];
     // eslint-disable-next-line no-constant-condition
     while (true) {
         const match = regex.exec(str);
@@ -106,7 +104,7 @@ const allMatches = function (regex: RegExp, str: string) {
  * markdown.
  */
 const imageUrlsFromContent = function (content: string) {
-    return _.map(allMatches(IMAGE_REGEX, content), (capture) => capture[1]);
+    return allMatches(IMAGE_REGEX, content).map((capture) => capture[1]);
 };
 
 type Props = Readonly<{
@@ -157,6 +155,9 @@ class Editor extends React.Component<Props, State> {
     deferredChange: any | null | undefined;
     widgetIds: any | null | undefined;
 
+    underlay = React.createRef<HTMLDivElement>();
+    textarea = React.createRef<HTMLTextAreaElement>();
+
     static defaultProps: DefaultProps = {
         content: "",
         placeholder: "",
@@ -183,11 +184,14 @@ class Editor extends React.Component<Props, State> {
         // this.props.onChange during that, since it calls our parent's
         // setState
         this._sizeImages(this.props);
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2769 - No overload matches this call.
-        $(ReactDOM.findDOMNode(this.refs.textarea))
+        // NOTE(jeremy): We use the non-null assertion here (!) because refs
+        // are guaranteed to be up-to-date before componentDidMount or
+        // componentDidUpdate fires.
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        $(this.textarea.current!)
             // @ts-expect-error - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
             .on("copy cut", this._maybeCopyWidgets)
+            // @ts-expect-error - TS2769 - No overload matches this call.
             .on("paste", this._maybePasteWidgets);
     }
 
@@ -200,9 +204,7 @@ class Editor extends React.Component<Props, State> {
     }
 
     componentDidUpdate(prevProps: Props) {
-        // TODO(alpert): Maybe fix React so this isn't necessary
-        // eslint-disable-next-line react/no-string-refs
-        const textarea = ReactDOM.findDOMNode(this.refs.textarea);
+        const textarea = this.textarea.current;
 
         // Slightly unorthodox method to ensure that programmatic text changes
         // are in the browser's undo stack.
@@ -211,20 +213,11 @@ class Editor extends React.Component<Props, State> {
         // will return false. However at least in Firefox setting `value` on a
         // textbox clears the undo stack so we don't get unexpected undo
         // behavior.
-        if (this.lastUserValue !== null && textarea) {
-            /**
-             * TODO(somewhatabstract, JIRA-XXXX):
-             * textarea should be refined with an instanceof check to
-             * HTMLTextAreaElement so that these props are available.
-             */
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        if (this.lastUserValue != null && textarea) {
             textarea.focus();
-            // @ts-expect-error - TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.value = this.lastUserValue;
-            // @ts-expect-error - TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'.
             textarea.selectionStart = 0;
-            // @ts-expect-error - TS2339 - Property 'select' does not exist on type 'Element | Text'.
-            textarea.select(0, prevProps.content.length);
+            textarea.setSelectionRange(0, prevProps.content.length);
             if (
                 document.execCommand(
                     "insertText",
@@ -234,7 +227,6 @@ class Editor extends React.Component<Props, State> {
             ) {
                 // This command is not implemented. Fall back to setting `value`
                 // directly.
-                // @ts-expect-error - TS2339 - Property 'value' does not exist on type 'Element | Text'.
                 textarea.value = this.props.content;
             }
             this.lastUserValue = null;
@@ -298,11 +290,9 @@ class Editor extends React.Component<Props, State> {
             return;
         }
 
-        // eslint-disable-next-line react/no-string-refs
-        const textarea = this.refs.textarea;
+        const textarea = this.textarea.current;
         const re = new RegExp(widgetRegExp.replace("{id}", id), "gm");
-        // @ts-expect-error - TS2339 - Property 'value' does not exist on type 'ReactInstance'.
-        this.props.onChange({content: textarea.value.replace(re, "")});
+        this.props.onChange({content: textarea?.value.replace(re, "")});
     };
 
     /**
@@ -455,11 +445,12 @@ class Editor extends React.Component<Props, State> {
         // Tab-completion of widgets. For example, to insert an image:
         // type `[[im`, then tab.
         if (e.key === "Tab") {
-            // eslint-disable-next-line react/no-string-refs
-            const textarea = ReactDOM.findDOMNode(this.refs.textarea);
+            // We're in an event handler attached to the textarea, so the ref
+            // can't be empty/undefined! (which is why its safe to use the
+            // non-null-assertion here. aka the `!` suffix)
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const textarea = this.textarea.current!;
 
-            // findDOMNode can also return Text, but we know it's an element.
-            // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
             const word = Util.textarea.getWordBeforeCursor(textarea);
             const matches = word.string.toLowerCase().match(shortcutRegexp);
 
@@ -650,9 +641,6 @@ class Editor extends React.Component<Props, State> {
         cursorRange: ReadonlyArray<number>,
         widgetType: string,
     ) => {
-        // eslint-disable-next-line react/no-string-refs
-        const textarea = ReactDOM.findDOMNode(this.refs.textarea);
-
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
         // widgets were found.
@@ -715,11 +703,13 @@ class Editor extends React.Component<Props, State> {
                 content: newContent,
                 widgets: newWidgets,
             },
-            function () {
+            () => {
+                if (!this.textarea.current) {
+                    return;
+                }
+
                 Util.textarea.moveCursor(
-                    // findDOMNode can return Text but we know this is Element
-                    // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLTextAreaElement'.
-                    textarea,
+                    this.textarea.current,
                     // We want to put the cursor after the widget
                     // and after any added newlines
                     newContent.length - postlude.length,
@@ -729,21 +719,21 @@ class Editor extends React.Component<Props, State> {
     };
 
     _addWidget: (widgetType: string) => void = (widgetType: string) => {
-        // eslint-disable-next-line react/no-string-refs
-        const textarea = this.refs.textarea;
+        const textarea = this.textarea.current;
+        if (!textarea) {
+            return;
+        }
 
         this._addWidgetToContent(
             this.props.content,
-            // @ts-expect-error - TS2339 - Property 'selectionStart' does not exist on type 'ReactInstance'. | TS2339 - Property 'selectionEnd' does not exist on type 'ReactInstance'.
             [textarea.selectionStart, textarea.selectionEnd],
             widgetType,
         );
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         textarea.focus();
     };
 
-    addTemplate: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void = (
-        e: React.SyntheticEvent<HTMLTextAreaElement>,
+    addTemplate: (e: React.SyntheticEvent<HTMLSelectElement>) => void = (
+        e: React.SyntheticEvent<HTMLSelectElement>,
     ) => {
         const templateType = e.currentTarget.value;
         if (templateType === "") {
@@ -825,32 +815,17 @@ class Editor extends React.Component<Props, State> {
     };
 
     focus: () => void = () => {
-        // eslint-disable-next-line react/no-string-refs
-        const textarea = ReactDOM.findDOMNode(this.refs.textarea);
+        const textarea = this.textarea.current;
         if (textarea) {
-            /**
-             * TODO(somewhatabstract, JIRA-XXXX):
-             * textarea should be refined with an instanceof check to
-             * HTMLTextAreaElement so that these props are available.
-             */
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             textarea.focus();
         }
     };
 
     focusAndMoveToEnd: () => void = () => {
         this.focus();
-        // eslint-disable-next-line react/no-string-refs
-        const textarea = ReactDOM.findDOMNode(this.refs.textarea);
+        const textarea = this.textarea.current;
         if (textarea) {
-            /**
-             * TODO(somewhatabstract, JIRA-XXXX):
-             * textarea should be refined with an instanceof check to
-             * HTMLTextAreaElement so that these props are available.
-             */
-            // @ts-expect-error - TS2339 - Property 'selectionStart' does not exist on type 'Element | Text'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.selectionStart = textarea.value.length;
-            // @ts-expect-error - TS2339 - Property 'selectionEnd' does not exist on type 'Element | Text'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
             textarea.selectionEnd = textarea.value.length;
         }
     };
@@ -1010,7 +985,6 @@ class Editor extends React.Component<Props, State> {
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
-                // @ts-expect-error - TS2322 - Type '(e: SyntheticEvent<HTMLTextAreaElement, Event>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                 <select onChange={this.addTemplate}>
                     <option value="">{insertTemplateString}</option>
                     <option disabled>--</option>
@@ -1051,15 +1025,13 @@ class Editor extends React.Component<Props, State> {
         const completeTextarea = [
             <div
                 className="perseus-textarea-underlay"
-                // eslint-disable-next-line react/no-string-refs
-                ref="underlay"
+                ref={this.underlay}
                 key="underlay"
             >
                 {underlayPieces}
             </div>,
             <textarea
-                // eslint-disable-next-line react/no-string-refs
-                ref="textarea"
+                ref={this.textarea}
                 key="textarea"
                 onChange={this.handleChange}
                 onKeyDown={this._handleKeyDown}

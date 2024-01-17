@@ -8,16 +8,31 @@ import {Popper} from "react-popper";
 
 import Renderer from "../../renderer";
 
+const BringToFront: CSSProperties = {
+    boxShadow: `0 8px 8px ${Color.offBlack64}`,
+    zIndex: 1000,
+};
+
 export const AnswerPill = (props: {
     selectedAnswers: readonly string[];
     showCorrectness?: "correct" | "incorrect";
     markerRef?: HTMLElement;
     side: "top" | "bottom" | "left" | "right";
-    onClick: () => void;
     style?: CSSProperties;
+    hovered?: boolean;
+    focused?: boolean;
+    onClick?: () => void;
 }) => {
-    const {selectedAnswers, showCorrectness, markerRef, side, onClick, style} =
-        props;
+    const {
+        selectedAnswers,
+        showCorrectness,
+        markerRef,
+        side,
+        onClick,
+        style,
+        focused,
+        hovered,
+    } = props;
 
     const idFactory = useUniqueIdWithMock();
 
@@ -35,11 +50,6 @@ export const AnswerPill = (props: {
     // has been labeled (answered) correctly.
     const correct = showCorrectness === "correct";
     const incorrect = showCorrectness === "incorrect";
-
-    const bringToFront = {
-        boxShadow: `0 8px 8px ${Color.offBlack64}`,
-        zIndex: 1000,
-    };
 
     return (
         <Popper
@@ -64,12 +74,10 @@ export const AnswerPill = (props: {
                     style={[
                         style,
                         popperStyle,
-                        {
-                            ":hover": bringToFront,
-                            ":focus": bringToFront,
-                        },
+                        styles.relative,
                         correct && styles.correct,
                         incorrect && styles.incorrect,
+                        (focused || hovered) && BringToFront,
                     ]}
                 >
                     <Renderer content={answerString} inline />
@@ -81,7 +89,8 @@ export const AnswerPill = (props: {
 
 const styles = StyleSheet.create({
     correct: {
-        backgroundColor: "#00880b", // WB green darkened by 18%
+        // WB green darkened by 18%
+        backgroundColor: "#00880b",
     },
     incorrect: {
         backgroundColor: Color.offBlack64,

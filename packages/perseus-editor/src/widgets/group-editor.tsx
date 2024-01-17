@@ -30,6 +30,8 @@ class GroupEditor extends React.Component<Props> {
         metadata: undefined,
     };
 
+    editor = React.createRef<Editor>();
+
     render(): React.ReactNode {
         return (
             <div className="perseus-group-editor">
@@ -39,8 +41,7 @@ class GroupEditor extends React.Component<Props> {
                     {this._renderMetadataEditor()}
                 </div>
                 <Editor
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="editor"
+                    ref={this.editor}
                     content={this.props.content}
                     widgets={this.props.widgets}
                     apiOptions={this.props.apiOptions}
@@ -69,15 +70,11 @@ class GroupEditor extends React.Component<Props> {
     };
 
     getSaveWarnings: () => ReadonlyArray<any> = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        return this.refs.editor.getSaveWarnings();
+        return this.editor.current?.getSaveWarnings();
     };
 
     serialize: () => any = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-        return _.extend({}, this.refs.editor.serialize(), {
+        return _.extend({}, this.editor.current?.serialize(), {
             metadata: this.props.metadata,
         });
     };

@@ -74,6 +74,8 @@ export class HintEditor extends React.Component<HintEditorProps> {
         showRemoveButton: true,
     };
 
+    editor = React.createRef<Editor>();
+
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (
         e: React.ChangeEvent<HTMLInputElement>,
     ) => {
@@ -81,21 +83,15 @@ export class HintEditor extends React.Component<HintEditorProps> {
     };
 
     focus: () => void = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.editor.focus();
+        this.editor.current?.focus();
     };
 
     getSaveWarnings: () => any = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        return this.refs.editor.getSaveWarnings();
+        return this.editor.current?.getSaveWarnings();
     };
 
     serialize: (options?: any) => any = (options: any) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-        return this.refs.editor.serialize(options);
+        return this.editor.current?.serialize(options);
     };
 
     render(): React.ReactNode {
@@ -103,8 +99,7 @@ export class HintEditor extends React.Component<HintEditorProps> {
             <div className={"perseus-hint-editor " + this.props.className}>
                 {this.props.showTitle && <div className="pod-title">Hint</div>}
                 <Editor
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="editor"
+                    ref={this.editor}
                     // Using the AssessmentItem content ID as the key
                     // ensures that when the user navigates to another
                     // item in the Sidebar, the question editor is
@@ -192,6 +187,9 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
         highlightLint: false,
     };
 
+    editor = React.createRef<HintEditor>();
+    frame = React.createRef<IframeContentRenderer>();
+
     componentDidMount() {
         this.updatePreview();
     }
@@ -204,9 +202,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
         const shouldBold =
             this.props.isLast && !/\*\*/.test(this.props.hint.content);
 
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-        this.refs.frame.sendNewData({
+        this.frame.current?.sendNewData({
             type: "hint",
             data: {
                 hint: this.props.hint,
@@ -223,21 +219,15 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     };
 
     getSaveWarnings = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        return this.refs.editor.getSaveWarnings();
+        return this.editor.current?.getSaveWarnings();
     };
 
     serialize = (options: any) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-        return this.refs.editor.serialize(options);
+        return this.editor.current?.serialize(options);
     };
 
     focus = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.editor.focus();
+        this.editor.current?.focus();
     };
 
     render(): React.ReactNode {
@@ -252,8 +242,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
             >
                 <div className="perseus-editor-left-cell">
                     <HintEditor
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="editor"
+                        ref={this.editor}
                         itemId={this.props.itemId}
                         isFirst={this.props.isFirst}
                         isLast={this.props.isLast}
@@ -274,8 +263,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         nochrome={true}
                     >
                         <IframeContentRenderer
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="frame"
+                            ref={this.frame}
                             datasetKey="mobile"
                             datasetValue={isMobile}
                             seamless={true}

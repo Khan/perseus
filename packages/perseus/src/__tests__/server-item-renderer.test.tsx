@@ -326,16 +326,16 @@ describe("server item renderer", () => {
 
             // Act
             const gotFocus = renderer.focus();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(gotFocus).toBeTrue();
             expect(onFocusChange).toHaveBeenCalledWith(
                 ["input-number 1"],
                 null,
-                undefined,
+                0,
                 expect.any(Object),
             );
         });
@@ -343,7 +343,15 @@ describe("server item renderer", () => {
         it("activates the keypadElement when focusing the renderer on mobile", () => {
             // Arranged
             const onFocusChange = jest.fn();
-            const keypadElementDOMNode = <div />;
+            const keypadElementDOMNode = document.createElement("div");
+
+            // We need to mock the getBoundingClientRect() method for our
+            // onFocusChange() callback to work properly.
+            keypadElementDOMNode.getBoundingClientRect = () =>
+                ({
+                    height: 250,
+                } as DOMRect);
+
             const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
@@ -362,9 +370,9 @@ describe("server item renderer", () => {
 
             // Act
             const gotFocus = renderer.focus();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(keypadElement.activate).toHaveBeenCalled();
@@ -372,7 +380,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenCalledWith(
                 ["input-number 1"],
                 null,
-                keypadElementDOMNode,
+                250,
                 expect.any(Object),
             );
         });
@@ -384,22 +392,19 @@ describe("server item renderer", () => {
                 onFocusChange,
             });
             renderer.focus();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
 
             // Act
             renderer.blur();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledTimes(2);
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
                 ["input-number 1"],
-                null,
+                0,
                 null,
             );
         });
@@ -407,7 +412,15 @@ describe("server item renderer", () => {
         it("dismisses the keypadElement when blurring the renderer on mobile", () => {
             // Arranged
             const onFocusChange = jest.fn();
-            const keypadElementDOMNode = <div />;
+            const keypadElementDOMNode = document.createElement("div");
+
+            // We need to mock the getBoundingClientRect() method for our
+            // onFocusChange() callback to work properly.
+            keypadElementDOMNode.getBoundingClientRect = () =>
+                ({
+                    height: 250,
+                } as DOMRect);
+
             const keypadElement: KeypadAPI = {
                 getDOMNode: jest
                     .fn()
@@ -424,15 +437,12 @@ describe("server item renderer", () => {
                 {keypadElement},
             );
             renderer.focus();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
 
             // Act
             renderer.blur();
-            // We have _two_ different async processes that need to be resolved here
-            jest.runOnlyPendingTimers();
-            jest.runOnlyPendingTimers();
+
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
 
             // Assert
             expect(keypadElement.dismiss).toHaveBeenCalled();
@@ -440,7 +450,7 @@ describe("server item renderer", () => {
             expect(onFocusChange).toHaveBeenLastCalledWith(
                 null,
                 ["input-number 1"],
-                null,
+                0,
                 null,
             );
         });
@@ -455,11 +465,14 @@ describe("server item renderer", () => {
             // Act
             renderer.focusPath(["input-number 1"]);
 
+            // We have some async processes that need to be resolved here
+            jest.runAllTimers();
+
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
                 ["input-number 1"],
                 null,
-                undefined,
+                0,
                 expect.any(Object),
             );
         });

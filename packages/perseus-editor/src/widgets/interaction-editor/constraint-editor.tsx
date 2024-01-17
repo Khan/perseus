@@ -1,7 +1,9 @@
 import {components, Changeable, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
-const {ButtonGroup, MathInput, NumberInput} = components;
+import MathquillInput from "./mathquill-input";
+
+const {ButtonGroup, NumberInput} = components;
 
 type Props = Changeable.ChangeableProps & {
     constraint: string;
@@ -45,8 +47,6 @@ class ConstraintEditor extends React.Component<Props> {
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
 
-        const analyticsStub = {onAnalyticsEvent: () => Promise.resolve()};
-
         return (
             <div>
                 <div className="perseus-widget-row">
@@ -77,11 +77,9 @@ class ConstraintEditor extends React.Component<Props> {
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
                             <TeX>x=</TeX>{" "}
-                            <MathInput
-                                buttonsVisible="never"
+                            <MathquillInput
                                 value={this.props.constraintFn}
                                 onChange={this.change("constraintFn")}
-                                analytics={analyticsStub}
                             />
                         </div>
                     </div>
@@ -90,11 +88,9 @@ class ConstraintEditor extends React.Component<Props> {
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
                             <TeX>y=</TeX>{" "}
-                            <MathInput
-                                buttonsVisible="never"
+                            <MathquillInput
                                 value={this.props.constraintFn}
                                 onChange={this.change("constraintFn")}
-                                analytics={analyticsStub}
                             />
                         </div>
                     </div>
@@ -103,18 +99,14 @@ class ConstraintEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-row">
                         <TeX>x \in \Large[</TeX>{" "}
-                        <MathInput
-                            buttonsVisible="never"
+                        <MathquillInput
                             value={this.props.constraintXMin}
                             onChange={this.change("constraintXMin")}
-                            analytics={analyticsStub}
                         />
                         <TeX>, </TeX>{" "}
-                        <MathInput
-                            buttonsVisible="never"
+                        <MathquillInput
                             value={this.props.constraintXMax}
                             onChange={this.change("constraintXMax")}
-                            analytics={analyticsStub}
                         />{" "}
                         <TeX>\Large]</TeX>
                     </div>
@@ -122,18 +114,14 @@ class ConstraintEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-row">
                         <TeX>y \in \Large[</TeX>{" "}
-                        <MathInput
-                            buttonsVisible="never"
+                        <MathquillInput
                             value={this.props.constraintYMin}
                             onChange={this.change("constraintYMin")}
-                            analytics={analyticsStub}
                         />
                         <TeX>, </TeX>{" "}
-                        <MathInput
-                            buttonsVisible="never"
+                        <MathquillInput
                             value={this.props.constraintYMax}
                             onChange={this.change("constraintYMax")}
-                            analytics={analyticsStub}
                         />{" "}
                         <TeX>\Large]</TeX>
                     </div>

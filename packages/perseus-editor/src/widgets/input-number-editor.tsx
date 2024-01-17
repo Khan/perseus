@@ -1,7 +1,6 @@
 /* eslint-disable react/sort-comp */
 import {components, Util} from "@khanacademy/perseus";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
@@ -90,6 +89,8 @@ class InputNumberEditor extends React.Component<Props> {
         rightAlign: false,
     };
 
+    input = React.createRef<BlurInput>();
+
     handleAnswerChange: (arg1: string) => void = (str) => {
         const value = Util.firstNumericalParse(str) || 0;
         this.props.onChange({value: value});
@@ -116,8 +117,7 @@ class InputNumberEditor extends React.Component<Props> {
                         <BlurInput
                             value={"" + this.props.value}
                             onChange={this.handleAnswerChange}
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="input"
+                            ref={this.input}
                         />
                     </label>
                 </div>
@@ -186,6 +186,7 @@ class InputNumberEditor extends React.Component<Props> {
                             type="text"
                             disabled={!this.props.inexact}
                             defaultValue={this.props.maxError}
+                            aria-label="Max error"
                             onBlur={(e) => {
                                 const ans =
                                     "" +
@@ -206,6 +207,7 @@ class InputNumberEditor extends React.Component<Props> {
                             // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"number" | "integer" | "mixed" | "decimal" | "improper" | "percent" | "pi" | "rational" | undefined'.
                             this.props.onChange({answerType: e.target.value});
                         }}
+                        aria-label="Answer type"
                     >
                         {answerTypeOptions}
                     </select>
@@ -260,8 +262,7 @@ class InputNumberEditor extends React.Component<Props> {
     }
 
     focus: () => boolean = () => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs.input).focus(); // eslint-disable-line react/no-string-refs
+        this.input.current?.focus();
         return true;
     };
 

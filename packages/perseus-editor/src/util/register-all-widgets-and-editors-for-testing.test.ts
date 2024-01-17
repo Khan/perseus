@@ -6,7 +6,9 @@ describe("Registering all widgets and editors", () => {
     it("should have an editor for every widget", () => {
         registerAllWidgetsAndEditorsForTesting();
 
-        const allWidgetsTypes = Widgets.getAllWidgetTypes();
+        const allWidgetsTypes = Widgets.getAllWidgetTypes()
+            // Auto correct is a special kind of widget, it DOES NOT need an editor
+            .filter((a) => a !== "deprecated-standin");
 
         expect(allWidgetsTypes).not.toContain("undefined");
 

@@ -187,6 +187,8 @@ export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', Perseu
 export type UnitInputWidget = Widget<'unit-input', PerseusUnitInputWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = Widget<'video', PerseusVideoWidgetOptions>;
+//prettier-ignore
+export type AutoCorrectWidget = Widget<'deprecated-standin', PerseusWidgetOptions>;
 
 export type PerseusWidget =
     | CategorizerWidget
@@ -228,7 +230,8 @@ export type PerseusWidget =
     | TableWidget
     | TransformerWidget
     | UnitInputWidget
-    | VideoWidget;
+    | VideoWidget
+    | AutoCorrectWidget;
 
 // A background image applied to various widgets.
 export type PerseusImageBackground = {

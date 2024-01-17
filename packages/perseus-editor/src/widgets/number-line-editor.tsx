@@ -214,12 +214,23 @@ class NumberLineEditor extends React.Component<Props> {
                         value={this.props.correctRel}
                         // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                         onChange={this.onChangeRelation}
+                        aria-label="Select relationship"
                     >
-                        <option value="eq"> = </option>
-                        <option value="lt"> &lt; </option>
-                        <option value="gt"> &gt; </option>
-                        <option value="le"> &le; </option>
-                        <option value="ge"> &ge; </option>
+                        <option value="eq" aria-label="Equal">
+                            =
+                        </option>
+                        <option value="lt" aria-label="Less than">
+                            &lt;
+                        </option>
+                        <option value="gt" aria-label="Greater than">
+                            &gt;
+                        </option>
+                        <option value="le" aria-label="Less than or equal">
+                            &le;
+                        </option>
+                        <option value="ge" aria-label="Greater than or equal">
+                            &ge;
+                        </option>
                     </select>{" "}
                     <NumberInput
                         value={this.props.correctX}

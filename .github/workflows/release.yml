@@ -37,21 +37,22 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
               with:
                   fetch-depth: 0
 
-            - name: Use Node.js ${{ matrix.node-version }} & Install & cache node_modules
-              uses: Khan/actions@shared-node-cache-v0
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
                   node-version: ${{ matrix.node-version }}
+                  ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Build Storybook
               # Generate a static version of storybook inside "storybook-static/"
               run: yarn build-storybook
 
             - name: Deploy to GitHub pages
-              uses: JamesIves/github-pages-deploy-action@v4.4.2
+              uses: JamesIves/github-pages-deploy-action@v4.5.0
               with:
                   # The branch the action should deploy to.
                   branch: gh-pages
@@ -94,7 +95,7 @@ jobs:
                   SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
                   SLACK_USERNAME: GithubGoose
                   SLACK_ICON_EMOJI: ":goose:"
-                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! 🎉 \nRelease notes → https://github.com/${{ github.repository }}/releases/"
+                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! \nRelease notes → https://github.com/${{ github.repository }}/releases/"
                   SLACK_TITLE: "New Perseus release!"
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true

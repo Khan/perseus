@@ -1,5 +1,18 @@
 # @khanacademy/math-input
 
+## 16.5.0
+
+### Minor Changes
+
+-   [#921](https://github.com/Khan/perseus/pull/921) [`81b9a562`](https://github.com/Khan/perseus/commit/81b9a562d0fb8ff2cd82e708781432bff8437116) Thanks [@benchristel](https://github.com/benchristel)! - Make the Expression widget treat `sen` as equivalent to `sin`. The spelling
+    `sen` is used in Portuguese.
+
+## 16.4.1
+
+### Patch Changes
+
+-   [#881](https://github.com/Khan/perseus/pull/881) [`f02eb991`](https://github.com/Khan/perseus/commit/f02eb991cec37dcff02056c0d6b54fc6dfd96948) Thanks [@nedredmond](https://github.com/nedredmond)! - Swap out Label Image custom dropdown for WonderBlocks
+
 ## 16.4.0
 
 ### Minor Changes

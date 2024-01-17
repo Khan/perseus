@@ -4,7 +4,7 @@ import * as React from "react";
 
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
 
-import {TestTeX} from "./test-tex";
+import {TestMathjax} from "./test-mathjax";
 
 import type {ILogger} from "../packages/perseus/src/logging/log";
 import type {
@@ -121,7 +121,7 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
 
 export const storybookTestDependencies: PerseusDependencies = {
     ...testDependencies,
-    TeX: TestTeX,
+    TeX: TestMathjax,
     // $FlowIgnore[incompatible-type]
     staticUrl: (str) => str,
 };
@@ -133,7 +133,7 @@ export const storybookDependenciesV2: PerseusDependenciesV2 = {
 
 export const cypressTestDependencies: PerseusDependencies = {
     ...testDependencies,
-    TeX: TestTeX,
+    TeX: TestMathjax,
     // $FlowIgnore[incompatible-type]
     staticUrl: (str) => str,
 };

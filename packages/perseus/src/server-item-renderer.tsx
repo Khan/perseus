@@ -181,14 +181,26 @@ export class ServerItemRenderer
             });
 
         if (onFocusChange != null) {
-            onFocusChange(
-                this._currentFocus,
-                prevFocus,
-                didFocusInput ? keypadElement?.getDOMNode() : null,
-                // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
-                didFocusInput &&
-                    this.questionRenderer.getDOMNodeForPath(newFocus),
-            );
+            // Wait for the keypad to mount before getting the height
+            setTimeout(() => {
+                // First, calculate the current keypad height
+                const keypadDomNode: HTMLElement =
+                    keypadElement?.getDOMNode() as HTMLElement;
+                const keypadHeight =
+                    keypadDomNode && didFocusInput
+                        ? keypadDomNode.getBoundingClientRect().height
+                        : 0;
+
+                // Then call the callback
+                onFocusChange(
+                    this._currentFocus,
+                    prevFocus,
+                    keypadHeight,
+                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
+                    didFocusInput &&
+                        this.questionRenderer.getDOMNodeForPath(newFocus),
+                );
+            }, 0);
         }
 
         if (keypadElement && isMobile) {

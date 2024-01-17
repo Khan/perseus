@@ -42,6 +42,10 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
 
+    frame = React.createRef<IframeContentRenderer>();
+    questionEditor = React.createRef<Editor>();
+    itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
         const props = _(this.props).pick("question", "answerArea");
@@ -50,9 +54,7 @@ class ItemEditor extends React.Component<Props> {
     };
 
     triggerPreviewUpdate: (newData?: any) => void = (newData: any) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'sendNewData' does not exist on type 'ReactInstance'.
-        this.refs.frame.sendNewData(newData);
+        this.frame.current?.sendNewData(newData);
     };
 
     handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
@@ -66,9 +68,7 @@ class ItemEditor extends React.Component<Props> {
     };
 
     getSaveWarnings: () => any = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        return this.refs.questionEditor.getSaveWarnings();
+        return this.questionEditor.current?.getSaveWarnings();
     };
 
     serialize: (options?: any) => {
@@ -80,12 +80,8 @@ class ItemEditor extends React.Component<Props> {
         question: any;
     } = (options: any) => {
         return {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            question: this.refs.questionEditor.serialize(options),
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            answerArea: this.refs.itemExtrasEditor.serialize(options),
+            question: this.questionEditor.current?.serialize(options),
+            answerArea: this.itemExtrasEditor.current?.serialize(),
             itemDataVersion: ITEM_DATA_VERSION,
         };
     };
@@ -100,8 +96,7 @@ class ItemEditor extends React.Component<Props> {
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question</div>
                         <Editor
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="questionEditor"
+                            ref={this.questionEditor}
                             // Using the AssessmentItem content ID as the key
                             // ensures that when the user navigates to another
                             // item in the Sidebar, the question editor is
@@ -124,8 +119,7 @@ class ItemEditor extends React.Component<Props> {
                                 nochrome={true}
                             >
                                 <IframeContentRenderer
-                                    // eslint-disable-next-line react/no-string-refs
-                                    ref="frame"
+                                    ref={this.frame}
                                     key={this.props.deviceType}
                                     datasetKey="mobile"
                                     datasetValue={isMobile}
@@ -146,8 +140,7 @@ class ItemEditor extends React.Component<Props> {
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question extras</div>
                         <ItemExtrasEditor
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="itemExtrasEditor"
+                            ref={this.itemExtrasEditor}
                             onChange={this.handleItemExtrasChange}
                             {...this.props.answerArea}
                         />

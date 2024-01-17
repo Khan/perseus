@@ -6,8 +6,9 @@
  * knowledge by directly interacting with the image.
  */
 
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -21,7 +22,6 @@ import {typography} from "../styles/global-styles";
 import mediaQueries from "../styles/media-queries";
 
 import AnswerChoices from "./label-image/answer-choices";
-import {AnswerPill} from "./label-image/answer-pill";
 import {HideAnswersToggle} from "./label-image/hide-answers-toggle";
 import Marker from "./label-image/marker";
 
@@ -96,8 +96,6 @@ type LabelImageState = {
     activeMarkerIndex: number;
     // Whether any of the markers were interacted with by the user.
     markersInteracted: boolean;
-    // The currently focused marker index; defaults to -1, no focus.
-    focusedMarkerIndex: number;
     // Hide answer pills.
     hideAnswers: boolean;
 };
@@ -108,12 +106,6 @@ export class LabelImage extends React.Component<
 > {
     // The rendered markers on the question image for labeling.
     _markers: Array<Marker | null | undefined>;
-
-    // The popup component containing the answer choices.
-    _selectedMarkerPopup: Popover | null | undefined;
-
-    // The rendered list of answer choices for the currently selected marker.
-    _answerChoices: AnswerChoices | null | undefined;
 
     static gradeMarker(marker: InteractiveMarkerType): InteractiveMarkerScore {
         const score = {
@@ -375,7 +367,6 @@ export class LabelImage extends React.Component<
 
         this.state = {
             activeMarkerIndex: -1,
-            focusedMarkerIndex: -1,
             markersInteracted: false,
             hideAnswers: false,
         };
@@ -414,24 +405,6 @@ export class LabelImage extends React.Component<
         onChange({markers: updatedMarkers}, null, true);
     }
 
-    dismissMarkerPopup() {
-        const {activeMarkerIndex} = this.state;
-
-        // No popup should be open if there's no selected marker.
-        if (activeMarkerIndex === -1) {
-            return;
-        }
-
-        this.setState({activeMarkerIndex: -1}, () => {
-            const marker = this._markers[activeMarkerIndex];
-            // Set focus on the just-deselected-marker, to enable to resume
-            // navigating between the markers using the keyboard.
-            if (marker) {
-                (ReactDOM.findDOMNode(marker) as HTMLElement).focus();
-            }
-        });
-    }
-
     handleMarkerChange(index: number, marker: InteractiveMarkerType) {
         const {markers, onChange} = this.props;
 
@@ -451,33 +424,21 @@ export class LabelImage extends React.Component<
         onChange({markers: updatedMarkers});
     }
 
-    activateMarker(index: number) {
-        const {activeMarkerIndex} = this.state;
+    activateMarker(index: number, opened: boolean) {
+        this.props.analytics?.onAnalyticsEvent({
+            type: "perseus:label-image:marker-interacted-with",
+            payload: null,
+        });
 
-        // Select the marker, revealing answer choices.
-        if (activeMarkerIndex !== index) {
-            this.setState(
-                {
-                    activeMarkerIndex: index,
-                    markersInteracted: true,
-                },
-                () => {
-                    // A delay is required to allow answer choices to first render
-                    // before trying to set focus on the first choice.
-                    // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-                    // eslint-disable-next-line no-restricted-syntax
-                    setTimeout(() => {
-                        if (this._answerChoices) {
-                            this._answerChoices.focusAnswer();
-                        }
-                    }, 100);
-                },
-            );
+        const {activeMarkerIndex} = this.state;
+        // Set index of opened marker
+        if (activeMarkerIndex !== index && opened) {
+            this.setState({
+                activeMarkerIndex: index,
+                markersInteracted: true,
+            });
         } else {
-            // The answer choices are shown within a popup attached to the
-            // selected marker. Close the popup and set focus back to the
-            // marker.
-            this.dismissMarkerPopup();
+            this.setState({activeMarkerIndex: -1});
         }
     }
 
@@ -523,7 +484,7 @@ export class LabelImage extends React.Component<
         index: number,
         selection: ReadonlyArray<boolean>,
     ) {
-        const {choices, markers, multipleAnswers} = this.props;
+        const {choices, markers} = this.props;
 
         // Compile the user selected answer choices.
         const selected = choices.filter((_, index) => selection[index]);
@@ -532,48 +493,6 @@ export class LabelImage extends React.Component<
             ...markers[index],
             selected: selected.length ? selected : undefined,
         });
-
-        if (!multipleAnswers) {
-            this.dismissMarkerPopup();
-        }
-    }
-
-    renderAnswerChoicesForMarker(
-        index: number,
-        marker: InteractiveMarkerType,
-    ): React.ReactElement<React.ComponentProps<"div">> {
-        const {choices, multipleAnswers} = this.props;
-
-        // The user selected answer choices.
-        const selected = marker.selected;
-
-        return (
-            <div
-                className={classNames(
-                    "perseus-label-image-widget-answer-choices",
-                    css(styles.scrollableChoices),
-                )}
-            >
-                <AnswerChoices
-                    choices={choices.map((choice) => ({
-                        content: choice,
-                        checked: selected ? selected.includes(choice) : false,
-                    }))}
-                    multipleSelect={multipleAnswers}
-                    onChange={(selection) => {
-                        this.props.analytics?.onAnalyticsEvent({
-                            type: "perseus:label-image:choiced-interacted-with",
-                            payload: null,
-                        });
-                        this.handleAnswerChoicesChangeForMarker(
-                            index,
-                            selection,
-                        );
-                    }}
-                    ref={(node) => (this._answerChoices = node)}
-                />
-            </div>
-        );
     }
 
     renderMarkers(): ReadonlyArray<React.ReactNode> {
@@ -584,43 +503,6 @@ export class LabelImage extends React.Component<
 
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
-            const score = LabelImage.gradeMarker(marker);
-            // Once the question is answered, show markers
-            // with correct answers, otherwise passthrough
-            // the correctness state.
-            const showCorrectness =
-                questionCompleted && score.hasAnswers && score.isCorrect
-                    ? "correct"
-                    : marker.showCorrectness;
-
-            const element = (
-                <Marker
-                    {...marker}
-                    showCorrectness={showCorrectness}
-                    showSelected={index === activeMarkerIndex}
-                    showPulsate={!markersInteracted}
-                    key={`${marker.x}.${marker.y}`}
-                    onClick={() => {
-                        this.props.analytics?.onAnalyticsEvent({
-                            type: "perseus:label-image:marker-interacted-with",
-                            payload: null,
-                        });
-                        this.activateMarker(index);
-                    }}
-                    onKeyDown={(e) => this.handleMarkerKeyDown(index, e)}
-                    ref={(node) => (this._markers[index] = node)}
-                    focused={index === this.state.focusedMarkerIndex}
-                    onFocus={() => {
-                        this.setState({focusedMarkerIndex: index});
-                    }}
-                    onBlur={() => {
-                        if (index === this.state.focusedMarkerIndex) {
-                            this.setState({focusedMarkerIndex: -1});
-                        }
-                    }}
-                />
-            );
-
             // Determine whether page is rendered in a narrow browser window.
             const isNarrowPage = window.matchMedia(
                 mediaQueries.xsOrSmaller.replace("@media ", ""),
@@ -657,66 +539,98 @@ export class LabelImage extends React.Component<
                 }[markerPosition];
             }
 
-            const answerChoicesActive = index === activeMarkerIndex;
+            const score = LabelImage.gradeMarker(marker);
+            // Once the question is answered, show markers
+            // with correct answers, otherwise passthrough
+            // the correctness state.
+            const showCorrectness =
+                questionCompleted && score.hasAnswers && score.isCorrect
+                    ? "correct"
+                    : marker.showCorrectness;
 
-            const adjustPopoverDistance: CSSProperties = {
-                [side]: 15, // move the popover closer to the marker
-            };
+            // Disable marker interaction once the question is answered correctly.
+            const disabled = showCorrectness === "correct";
 
             const adjustPillDistance: CSSProperties = {
                 [`margin${
                     markerPosition.charAt(0).toUpperCase() +
                     markerPosition.slice(1)
-                }`]: 15, // move pill further from marker
+                }`]: 10, // move pill further from marker
             };
 
+            const answerChoicesActive = index === activeMarkerIndex;
+
             const showAnswerChoice =
-                !answerChoicesActive && !this.state.hideAnswers;
+                marker.selected &&
+                !answerChoicesActive &&
+                !this.state.hideAnswers;
 
             return (
-                <div key={`answers-${marker.x}.${marker.y}`}>
-                    <Popover
-                        content={() => (
-                            <PopoverContentCore
-                                style={[
-                                    adjustPopoverDistance,
-                                    styles.choicesPopover,
-                                ]}
+                <View
+                    style={{
+                        position: "absolute",
+                        left: `${marker.x}%`,
+                        top: `${marker.y}%`,
+                        // reset to allow child (answer pill) to control z-index
+                        zIndex: "unset",
+                    }}
+                >
+                    <AnswerChoices
+                        key={`answers-${marker.x}.${marker.y}`}
+                        choices={this.props.choices.map((choice) => ({
+                            content: choice,
+                            checked: marker.selected
+                                ? marker.selected.includes(choice)
+                                : false,
+                        }))}
+                        multipleSelect={this.props.multipleAnswers}
+                        onChange={(selection) => {
+                            this.props.analytics?.onAnalyticsEvent({
+                                type: "perseus:label-image:choiced-interacted-with",
+                                payload: null,
+                            });
+                            this.handleAnswerChoicesChangeForMarker(
+                                index,
+                                selection,
+                            );
+                        }}
+                        onToggle={(opened) =>
+                            this.activateMarker(index, opened)
+                        }
+                        // cannot change answer choices once question is answered
+                        disabled={disabled}
+                        opener={({opened, text}) => (
+                            <Clickable
+                                role="button"
+                                key={`marker-${marker.x}.${marker.y}`}
+                                aria-label={
+                                    // already translated in: /widgets/graded-group.tsx
+                                    showCorrectness === "correct"
+                                        ? i18n._("Correct!")
+                                        : marker.label
+                                }
                             >
-                                {this.renderAnswerChoicesForMarker(
-                                    index,
-                                    marker,
+                                {({hovered, focused, pressed}) => (
+                                    <Marker
+                                        {...marker}
+                                        showCorrectness={showCorrectness}
+                                        showSelected={opened}
+                                        showPulsate={!markersInteracted}
+                                        ref={(node) =>
+                                            (this._markers[index] = node)
+                                        }
+                                        showAnswer={showAnswerChoice}
+                                        answerSide={side}
+                                        answerStyles={adjustPillDistance}
+                                        analytics={this.props.analytics}
+                                        focused={focused || pressed}
+                                        hovered={hovered}
+                                    />
                                 )}
-                            </PopoverContentCore>
+                            </Clickable>
                         )}
-                        placement={side}
-                        onClose={() => this.dismissMarkerPopup()}
-                        opened={answerChoicesActive}
-                        ref={(node) => (this._selectedMarkerPopup = node)}
-                        showTail={false}
-                        dismissEnabled
-                    >
-                        {element}
-                    </Popover>
-                    {!!marker.selected && showAnswerChoice && (
-                        <AnswerPill
-                            selectedAnswers={marker.selected}
-                            showCorrectness={showCorrectness}
-                            markerRef={
-                                // this throws a warning because it's inadvisable to
-                                // call ReactDOM fns in render. we aren't storing
-                                // actual refs in this array, so not much I can do
-                                // outside of a refactor.
-                                ReactDOM.findDOMNode(
-                                    this._markers[index],
-                                ) as HTMLElement
-                            }
-                            side={side}
-                            onClick={() => this.activateMarker(index)}
-                            style={adjustPillDistance}
-                        />
-                    )}
-                </div>
+                    />
+                </View>
             );
         });
     }
@@ -882,21 +796,6 @@ const styles = StyleSheet.create({
 
     imageInteractionDisabled: {
         pointerEvents: "none",
-    },
-
-    scrollableChoices: {
-        paddingTop: 8,
-        paddingBottom: 8,
-
-        // Enable scroll for answer choices within popup on mobile phones.
-        [mediaQueries.xsOrSmaller]: {
-            maxHeight: 250,
-            overflowY: "auto",
-        },
-    },
-
-    choicesPopover: {
-        padding: 0,
     },
 });
 

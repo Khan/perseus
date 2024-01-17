@@ -1,4 +1,5 @@
 import {KeypadContext, KeypadType} from "@khanacademy/math-input";
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
@@ -46,6 +47,7 @@ const WrappedKeypadContext = ({
                             apiOptions={{
                                 isMobile: isMobile,
                                 customKeypad: customKeypad,
+                                onFocusChange: action("onFocusChange"),
                             }}
                         />
                     );

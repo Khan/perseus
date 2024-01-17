@@ -146,7 +146,7 @@ const propUpgrades = {
 
 export default {
     name: "radio",
-    displayName: "Multiple choice",
+    displayName: "Radio / Multiple choice",
     accessible: true,
     widget: Radio,
     transform: transform,

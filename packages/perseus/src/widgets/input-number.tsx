@@ -403,7 +403,7 @@ const propTransform = (
 
 export default {
     name: "input-number",
-    displayName: "Number text box (old)",
+    displayName: "Input number (deprecated - use numeric input instead)",
     defaultAlignment: "inline-block",
     hidden: true,
     widget: InputNumber,

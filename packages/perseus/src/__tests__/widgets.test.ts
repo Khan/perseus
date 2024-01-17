@@ -1,3 +1,5 @@
+import {testDependencies} from "../../../../testing/test-dependencies";
+import {setDependencies} from "../dependencies";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import * as Widgets from "../widgets";
 
@@ -10,6 +12,7 @@ describe("Widget API support", () => {
     // validate function. Not all widgets support this function so even though
     // this list looks exhaustive, it's not!
     it.each([
+        "deprecated-standin",
         "radio",
         "input-number",
         "numeric-input",
@@ -70,4 +73,21 @@ describe("Widget API support", () => {
             expect(Widget).toHaveProperty("getOneCorrectAnswerFromRubric");
         },
     );
+});
+
+describe("replaceWidget", () => {
+    beforeEach(() => {
+        setDependencies(testDependencies);
+        registerAllWidgetsForTesting();
+    });
+
+    it("replaces an existing widget", () => {
+        Widgets.replaceWidget("transformer", "radio");
+        expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
+    });
+
+    it("Does nothing when the replacement isn't available", () => {
+        Widgets.replaceWidget("radio", "dog-cat");
+        expect(Widgets.getWidget("radio")?.name).toBe("Radio");
+    });
 });

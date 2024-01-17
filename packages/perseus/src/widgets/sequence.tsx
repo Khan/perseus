@@ -133,7 +133,7 @@ const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
 
 export default {
     name: "sequence",
-    displayName: "Graded Sequence",
+    displayName: "Graded sequence (deprecated)",
     widget: Sequence,
     traverseChildWidgets: traverseChildWidgets,
     tracking: "all",
