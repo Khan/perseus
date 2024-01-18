@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 2.17.0
+
+### Minor Changes
+
+-   [#894](https://github.com/Khan/perseus/pull/894) [`49d5c821`](https://github.com/Khan/perseus/commit/49d5c821a2ad07aadf31f09f2814859de2c0f157) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add a confirmation before deleting a configured widget in the Exercise Editor
+
+*   [#896](https://github.com/Khan/perseus/pull/896) [`04981063`](https://github.com/Khan/perseus/commit/049810636968afac5672f790896768338319810a) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add a confirmation before deleting a hint in the Exercise Editor
+
+### Patch Changes
+
+-   Updated dependencies [[`a5479339`](https://github.com/Khan/perseus/commit/a547933946b8be33b388fa4654d87289734848f0)]:
+    -   @khanacademy/perseus@17.8.0
+
 ## 2.16.2
 
 ### Patch Changes
