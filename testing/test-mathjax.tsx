@@ -23,11 +23,24 @@ type Props = {
 };
 
 export function TestMathjax({children: tex, onRender}: Props) {
-    const {domElement} = renderer.render(tex);
+    const ref = React.useRef<HTMLSpanElement>(null);
+    const {domElement, addLabelWhenPresentational} = React.useMemo(
+        () => renderer.render(tex),
+        [tex],
+    );
+
+    React.useLayoutEffect(() => {
+        if (ref.current) {
+            addLabelWhenPresentational(ref.current);
+            ref.current.innerHTML = "";
+            ref.current.appendChild(domElement);
+        }
+    });
 
     React.useEffect(() => {
         renderer.updateStyles();
         onRender?.();
     }, [tex, onRender]);
-    return <span dangerouslySetInnerHTML={{__html: domElement.outerHTML}} />;
+
+    return <span ref={ref} />;
 }
