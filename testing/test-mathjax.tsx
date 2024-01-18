@@ -29,11 +29,6 @@ export function TestMathjax({children: tex, onRender}: Props) {
         [tex],
     );
 
-    React.useEffect(() => {
-        renderer.updateStyles();
-        onRender?.();
-    }, [tex, onRender]);
-
     React.useLayoutEffect(() => {
         if (ref.current) {
             addLabelWhenPresentational(ref.current);
@@ -41,6 +36,11 @@ export function TestMathjax({children: tex, onRender}: Props) {
             ref.current.appendChild(domElement);
         }
     });
+
+    React.useEffect(() => {
+        renderer.updateStyles();
+        onRender?.();
+    }, [tex, onRender]);
 
     return <span ref={ref} />;
 }
