@@ -42,6 +42,14 @@ export default {
         if ($elem.attr("data-math-formula") == null || force) {
             const $texHolder = findChildOrAdd($elem, "tex-holder");
 
+            // If text wasn't provided, we use the cached text.
+            // TODO(benchristel): I'm not sure if text can ever be null. It's
+            // possible we don't need this check.
+            if (text == null && $elem.attr("data-math-formula")) {
+                // @ts-expect-error - TS2322 - Type 'string | undefined' is not assignable to type 'string'.
+                text = $elem.attr("data-math-formula");
+            }
+
             text = text != null ? text + "" : "";
 
             // Attempt to clean up some of the math
