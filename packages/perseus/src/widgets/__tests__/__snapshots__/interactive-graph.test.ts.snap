@@ -329,10 +329,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -341,10 +338,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -353,10 +347,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -365,10 +356,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 269.14285714285717px; top: 126.85714285714285px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -377,10 +365,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 122.85714285714286px; top: 142.85714285714286px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -389,10 +374,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 257.14285714285717px; top: 248.57142857142856px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
               </div>
@@ -741,10 +723,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -753,10 +732,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -765,10 +741,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -777,10 +750,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -789,10 +759,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -801,10 +768,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
               </div>
@@ -1666,10 +1630,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -1678,10 +1639,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -1690,10 +1648,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -1702,10 +1657,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -1714,10 +1666,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -1726,10 +1675,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -1738,10 +1684,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -1750,10 +1693,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
               </div>
@@ -2081,10 +2021,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2093,10 +2030,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2105,10 +2039,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2117,10 +2048,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2129,10 +2057,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2141,10 +2066,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 248.57142857142856px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
               </div>
@@ -2493,10 +2415,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2505,10 +2424,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2517,10 +2433,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2529,10 +2442,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2541,10 +2451,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -2553,10 +2460,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
               </div>
