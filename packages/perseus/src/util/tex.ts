@@ -40,7 +40,7 @@ export default {
 
         // Only process if it hasn't been done before, or it is forced
         if ($elem.attr("data-math-formula") == null || force) {
-            const $katexHolder = findChildOrAdd($elem, "katex-holder");
+            const $texHolder = findChildOrAdd($elem, "tex-holder");
 
             text = text != null ? text + "" : "";
 
@@ -58,7 +58,7 @@ export default {
                     children: text,
                     onRender: callback,
                 }),
-                $katexHolder[0],
+                $texHolder[0],
             );
         }
     },
