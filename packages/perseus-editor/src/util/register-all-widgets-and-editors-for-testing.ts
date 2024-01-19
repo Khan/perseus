@@ -11,4 +11,8 @@ import allWidgets from "../all-widgets";
 export const registerAllWidgetsAndEditorsForTesting = () => {
     Widgets.registerWidgets(allWidgets);
     Widgets.registerEditors(allEditors);
+
+    // When it's time to ship transformer's deprecation uncomment
+    // Widgets.replaceEditor("transformer", "deprecated-standin");
+    // Widgets.replaceWidget("transformer", "deprecatd-standin");
 };

@@ -145,15 +145,6 @@ class WidgetEditor extends React.Component<
 
         const supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
 
-        const isUngradedEnabled = widgetInfo.type === "transformer";
-        const gradedPropBox = (
-            <PropCheckBox
-                label="Graded:"
-                graded={widgetInfo.graded}
-                onChange={this.props.onChange}
-            />
-        );
-
         return (
             <div className="perseus-widget-editor">
                 <div
@@ -214,7 +205,6 @@ class WidgetEditor extends React.Component<
                         (this.state.showWidget ? "enter" : "leave")
                     }
                 >
-                    {isUngradedEnabled && gradedPropBox}
                     {Ed && (
                         <Ed
                             // eslint-disable-next-line react/no-string-refs
