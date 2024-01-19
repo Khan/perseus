@@ -1131,7 +1131,6 @@ GraphUtils.createGraphie = function (el: any) {
     // - labelStep: [a, b] or number (relative to tick steps)
     // - yLabelFormat: fn to format label string for y-axis
     // - xLabelFormat: fn to format label string for x-axis
-    // - smartLabelPositioning: true or false to ignore minus sign
     graphie.graphInit = function (options: any) {
         options = options || {};
 
@@ -1199,10 +1198,6 @@ GraphUtils.createGraphie = function (el: any) {
             };
         let xLabelFormat = options.xLabelFormat || labelFormat;
         let yLabelFormat = options.yLabelFormat || labelFormat;
-        const smartLabelPositioning =
-            options.smartLabelPositioning != null
-                ? options.smartLabelPositioning
-                : true;
         const realRange = [
             [
                 range[0][0] - (range[0][0] > 0 ? 1 : 0),
@@ -1218,16 +1213,14 @@ GraphUtils.createGraphie = function (el: any) {
             unityLabels = [unityLabels, unityLabels];
         }
 
-        if (smartLabelPositioning) {
-            const minusIgnorer = function (lf: any) {
-                return function (a) {
-                    return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
-                };
+        const minusIgnorer = function (lf: any) {
+            return function (a) {
+                return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
             };
+        };
 
-            xLabelFormat = minusIgnorer(xLabelFormat);
-            yLabelFormat = minusIgnorer(yLabelFormat);
-        }
+        xLabelFormat = minusIgnorer(xLabelFormat);
+        yLabelFormat = minusIgnorer(yLabelFormat);
 
         this.init({
             range: realRange,
