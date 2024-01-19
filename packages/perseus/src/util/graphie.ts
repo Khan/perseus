@@ -17,6 +17,8 @@ import KhanMath from "./math";
 import Tex from "./tex";
 
 import type {Coord} from "../interactive2/types";
+import { Interval, size } from "./interval";
+import { DrawingTransform } from "./drawing-transform";
 
 const {processMath} = Tex;
 
@@ -137,8 +139,9 @@ const SVG_SPECIFIC_STYLE_MASK = {
 GraphUtils.createGraphie = function (el: any) {
     let xScale = 40;
     let yScale = 40;
-    let xRange;
-    let yRange;
+    let xRange: Interval;
+    let yRange: Interval;
+    let drawingTransform: DrawingTransform;
 
     $(el).css("position", "relative");
     const raphael = Raphael(el);
@@ -153,41 +156,19 @@ GraphUtils.createGraphie = function (el: any) {
     };
 
     const scaleVector = function (point: number | Coord) {
-        if (typeof point === "number") {
-            return scaleVector([point, point]);
-        }
-
-        const x = point[0];
-        const y = point[1];
-        return [x * xScale, y * yScale];
+        return drawingTransform.scaleVector(point)
     };
 
     const scalePoint = function scalePoint(point: number | Coord): Coord {
-        if (typeof point === "number") {
-            return scalePoint([point, point]);
-        }
-
-        const x = point[0];
-        const y = point[1];
-        return [(x - xRange[0]) * xScale, (yRange[1] - y) * yScale];
+        return drawingTransform.scalePoint(point);
     };
 
     const unscalePoint = function (point: Array<never>) {
-        if (typeof point === "number") {
-            return unscalePoint([point, point]);
-        }
-
-        const x = point[0];
-        const y = point[1];
-        return [x / xScale + xRange[0], yRange[1] - y / yScale];
+        return drawingTransform.unscalePoint(point);
     };
 
     const unscaleVector = function (point: Array<never>) {
-        if (typeof point === "number") {
-            return unscaleVector([point, point]);
-        }
-
-        return [point[0] / xScale, point[1] / yScale];
+        return drawingTransform.unscaleVector(point);
     };
 
     const setLabelMargins = function (span: any, size: Array<any>) {
@@ -336,7 +317,7 @@ GraphUtils.createGraphie = function (el: any) {
         };
 
         // How many quarter-periods do we need to span the graph?
-        const extent = xRange[1] - xRange[0];
+        const extent = size(xRange);
         const numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
 
         // Find starting coordinate: first anchor point curve left of xRange[0]
@@ -389,18 +370,7 @@ GraphUtils.createGraphie = function (el: any) {
     const processAttributes = function (attrs) {
         const transformers = {
             scale: function (scale) {
-                if (typeof scale === "number") {
-                    scale = [scale, scale];
-                }
-
-                xScale = scale[0];
-                yScale = scale[1];
-
-                // Update the canvas size
-                raphael.setSize(
-                    (xRange[1] - xRange[0]) * xScale,
-                    (yRange[1] - yRange[0]) * yScale,
-                );
+                drawingTransform.setScale(scale);
             },
 
             clipRect: function (pair) {
@@ -1015,7 +985,7 @@ GraphUtils.createGraphie = function (el: any) {
     _.extend(graphie, {
         raphael: raphael,
 
-        init: function (options) {
+        init: function (options: {range: [Interval, Interval], scale: number | [number, number], isMobile: boolean}) {
             let scale = options.scale || [40, 40];
             scale = typeof scale === "number" ? [scale, scale] : scale;
 
@@ -1032,9 +1002,9 @@ GraphUtils.createGraphie = function (el: any) {
             xRange = options.range[0];
             yRange = options.range[1];
 
-            const w = (xRange[1] - xRange[0]) * xScale;
-            const h = (yRange[1] - yRange[0]) * yScale;
-            raphael.setSize(w, h);
+            drawingTransform = new DrawingTransform(raphael, [xScale, yScale], [xRange, yRange]);
+
+            const [w, h] = drawingTransform.canvasDimensions();
 
             $(el).css({
                 width: w,
@@ -1043,6 +1013,8 @@ GraphUtils.createGraphie = function (el: any) {
 
             this.range = options.range;
             this.scale = scale;
+            // TODO(benchristel): I don't think dimensions is used. Can we
+            // remove it?
             this.dimensions = [w, h];
             this.xpixels = w;
             this.ypixels = h;
