@@ -40,7 +40,7 @@ function cartToPolar(coord: any, angleInRadians: any) {
     return [r, theta];
 }
 
-function polar(r: Array<never>, th: number) {
+function polar(r: number | Coord, th: number) {
     if (typeof r === "number") {
         r = [r, r];
     }
