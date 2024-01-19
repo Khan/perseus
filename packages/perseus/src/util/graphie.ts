@@ -161,11 +161,11 @@ GraphUtils.createGraphie = function (el: any) {
         return drawingTransform.scalePoint(point);
     };
 
-    const unscalePoint = function (point: Array<never>) {
+    const unscalePoint = function (point: Coord) {
         return drawingTransform.unscalePoint(point);
     };
 
-    const unscaleVector = function (point: Array<never>) {
+    const unscaleVector = function (point: Coord) {
         return drawingTransform.unscaleVector(point);
     };
 

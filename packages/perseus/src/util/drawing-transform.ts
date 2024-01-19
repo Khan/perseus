@@ -14,7 +14,7 @@ export class DrawingTransform {
     // Scale is measured in pixels per unit on the Cartesian plane.
     xScale: number;
     yScale: number;
-    bounds: GraphBounds
+    bounds: GraphBounds;
 
     constructor(raphael: Raphael, initialScale: [number, number], bounds: GraphBounds) {
         this.raphael = raphael;
@@ -45,7 +45,7 @@ export class DrawingTransform {
         return [(x - this.bounds.xMin) * this.xScale, (this.bounds.yMax - y) * this.yScale];
     };
 
-    unscalePoint = (point: Array<never>) => {
+    unscalePoint = (point: number | Coord) => {
         if (typeof point === "number") {
             return this.unscalePoint([point, point]);
         }
@@ -55,7 +55,7 @@ export class DrawingTransform {
         return [x / this.xScale + this.bounds.xMin, this.bounds.yMax - y / this.yScale];
     };
 
-    unscaleVector = (point: Array<never>) => {
+    unscaleVector = (point: number | Coord) => {
         if (typeof point === "number") {
             return this.unscaleVector([point, point]);
         }

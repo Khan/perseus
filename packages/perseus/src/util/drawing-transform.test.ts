@@ -1,0 +1,36 @@
+import { Coord } from "../interactive2/types";
+import { DrawingTransform } from "./drawing-transform";
+import { GraphBounds } from "./graph-bounds";
+
+describe("DrawingTransform", () => {
+    describe("with bounds of -10 to 10, and 5px per unit", () => {
+        let transform: DrawingTransform;
+        beforeEach(() => {
+            const bounds = new GraphBounds([-10, 10], [-10, 10])
+            // Each unit in both dimensions is 5 pixels, so the whole graph
+            // is 100px by 100px
+            const scale: [number, number] = [5, 5]
+            transform = new DrawingTransform(new NullRaphael(), scale, bounds);
+        });
+
+        const testPoints: [string, Coord, Coord][] = [
+            ["lower left corner", [-10, -10], [0, 100]],
+            ["upper left corner", [-10, 10], [0, 0]],
+            ["lower right corner", [10, -10], [100, 100]],
+            ["upper right corner", [10, 10], [100, 0]],
+            ["origin", [0, 0], [50, 50]],
+        ];
+
+        it.each(testPoints)("transforms the point at the %s from math coords to canvas coords", (_, cartesian, canvas) => {
+            expect(transform.scalePoint(cartesian)).toEqual(canvas)
+        });
+
+        it.each(testPoints)("transforms the point at the %s from canvas coords to math coords", (_, cartesian, canvas) => {
+            expect(transform.unscalePoint(canvas)).toEqual(cartesian)
+        });
+    });
+});
+
+class NullRaphael {
+    setSize() {}
+}
