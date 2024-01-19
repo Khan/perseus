@@ -1,6 +1,3 @@
-// DrawingTransform is responsible for transforming from "math coordinates"
-// (on the Cartesian plane) to "canvas coordinates" in pixels.
-
 import type {Coord} from "../interactive2/types";
 import { GraphBounds } from "./graph-bounds";
 
@@ -8,6 +5,8 @@ interface Raphael {
     setSize(width: number, height: number);
 }
 
+// DrawingTransform is responsible for transforming from "math coordinates"
+// (on the Cartesian plane) to "canvas coordinates" in pixels.
 export class DrawingTransform {
     raphael: Raphael;
 
@@ -18,9 +17,8 @@ export class DrawingTransform {
 
     constructor(raphael: Raphael, initialScale: [number, number], bounds: GraphBounds) {
         this.raphael = raphael;
-        [this.xScale, this.yScale] = initialScale;
         this.bounds = bounds;
-        raphael.setSize(...this.canvasDimensions());
+        this.setScale(initialScale);
     }
 
     // TODO(benchristel): rename these methods to transform* instead of scale*.
@@ -72,10 +70,7 @@ export class DrawingTransform {
         this.yScale = scale[1];
 
         // Update the canvas size
-        this.raphael.setSize(
-            this.bounds.width() * this.xScale,
-            this.bounds.height() * this.yScale,
-        );
+        this.raphael.setSize(...this.canvasDimensions());
     }
 
     canvasDimensions = (): Coord => {

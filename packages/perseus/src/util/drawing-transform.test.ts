@@ -29,6 +29,34 @@ describe("DrawingTransform", () => {
             expect(transform.unscalePoint(canvas)).toEqual(cartesian)
         });
     });
+
+    it("updates the size of the Raphael canvas when setScale is called with a number", () => {
+        const raphael = {setSize: jest.fn()};
+        const scale: Coord = [40, 40];
+        const bounds = new GraphBounds([-10, 10], [-10, 10]);
+        const transform = new DrawingTransform(raphael, scale, bounds);
+        expect(raphael.setSize).toHaveBeenCalledWith(800, 800);
+
+        // Act
+        transform.setScale(5);
+
+        // Assert
+        expect(raphael.setSize).toHaveBeenCalledWith(100, 100);
+    });
+
+    it("updates the size of the Raphael canvas when setScale is called with dimensions", () => {
+        const raphael = {setSize: jest.fn()};
+        const scale: Coord = [40, 40];
+        const bounds = new GraphBounds([-5, 5], [-5, 5]);
+        const transform = new DrawingTransform(raphael, scale, bounds);
+        expect(raphael.setSize).toHaveBeenCalledWith(400, 400);
+
+        // Act
+        transform.setScale([3, 7]);
+
+        // Assert
+        expect(raphael.setSize).toHaveBeenCalledWith(30, 70);
+    });
 });
 
 class NullRaphael {
