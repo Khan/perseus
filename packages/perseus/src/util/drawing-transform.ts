@@ -18,6 +18,8 @@ export class DrawingTransform {
     constructor(raphael: Raphael, initialScale: [number, number], bounds: GraphBounds) {
         this.raphael = raphael;
         this.bounds = bounds;
+        this.xScale = initialScale[0];
+        this.yScale = initialScale[1];
         this.setScale(initialScale);
     }
 
