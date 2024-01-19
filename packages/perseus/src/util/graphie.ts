@@ -88,7 +88,8 @@ const GraphUtils: any = {
     graphs: {},
 };
 
-const Graphie = (GraphUtils.Graphie = function () {});
+class Graphie {}
+GraphUtils.Graphie = Graphie
 
 const labelDirections = {
     center: [-0.5, -0.5],
