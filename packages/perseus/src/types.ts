@@ -415,12 +415,15 @@ export type WidgetExports<
     // the `validate` method.
     getWidget?: () => T;
     accessible?: boolean | ((props: any) => boolean);
+    /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
-    // The widget version. Any time the _major_ version changes, the widget
-    // should provide a new entry in the propUpgrades map to migrate from the
-    // older version to the current (new) version. Minor version changes must
-    // be backwards compatible with previous minor versions widget options.
-    // This key defaults to `{major: 0, minor: 0}` if not provided.
+    /**
+    The widget version. Any time the _major_ version changes, the widget
+    should provide a new entry in the propUpgrades map to migrate from the
+    older version to the current (new) version. Minor version changes must
+    be backwards compatible with previous minor versions widget options.
+    This key defaults to `{major: 0, minor: 0}` if not provided.
+     */
     version?: Version;
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
@@ -430,17 +433,19 @@ export type WidgetExports<
 
     traverseChildWidgets?: any; // (Props, traverseRenderer) => NewProps,
 
-    // transforms the widget options to the props used to render the widget
+    /** transforms the widget options to the props used to render the widget */
     transform?: WidgetTransform;
-    // transforms the widget options to the props used to render the widget for
-    // static renders
+    /** transforms the widget options to the props used to render the widget for
+    static renders  */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
-    // A map of major version numbers (as a string, eg "1") to a function that
-    // migrates from the _previous_ major version.
-    // Example:
-    //   propUpgrades: {'1': (options) => ({...options})}
-    // would migrate from major version 0 to 1.
+    /**
+    A map of major version numbers (as a string, eg "1") to a function that
+    migrates from the _previous_ major version.
+    Example:
+      propUpgrades: {'1': (options) => ({...options})}
+    would migrate from major version 0 to 1.
+    */
     propUpgrades?: {
         [key: string]: (arg1: any) => any;
     }; // OldProps => NewProps,

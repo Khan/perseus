@@ -6,11 +6,11 @@ import type {PerseusScore, WidgetExports} from "../../types";
 
 // The props are type `any` on purpose so that this can receive props
 // from any deprecated widget
-type AutoCorrectProps = any;
+type DeprecatedStandinProps = any;
 type Rubric = any;
 type UserInput = Empty;
 
-class AutoCorrect extends React.Component<AutoCorrectProps> {
+class DeprecatedStandin extends React.Component<DeprecatedStandinProps> {
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
         // Since this mean to replace an existing widget the learner
         // WILL earn points for this widget
@@ -27,7 +27,7 @@ class AutoCorrect extends React.Component<AutoCorrectProps> {
     };
 
     simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
-        return AutoCorrect.validate(this.getUserInput(), rubric);
+        return DeprecatedStandin.validate(this.getUserInput(), rubric);
     };
 
     render() {
@@ -40,7 +40,7 @@ class AutoCorrect extends React.Component<AutoCorrectProps> {
             >
                 <Banner
                     text={i18n._(
-                        "Sorry, this part of the question is no longer available. Don't worry, you won't be graded on this part. 😅 Keep going!",
+                        "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!",
                     )}
                     kind="info"
                     layout="full-width"
@@ -53,5 +53,6 @@ class AutoCorrect extends React.Component<AutoCorrectProps> {
 export default {
     name: "deprecated-standin",
     displayName: "Deprecated Standin",
-    widget: AutoCorrect,
-} as WidgetExports<typeof AutoCorrect>;
+    widget: DeprecatedStandin,
+    hidden: true,
+} as WidgetExports<typeof DeprecatedStandin>;
