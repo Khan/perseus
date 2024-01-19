@@ -960,20 +960,6 @@ GraphUtils.createGraphie = function (el: any) {
             return paths;
         },
 
-        plotPolar: function (fn, range) {
-            const min = range[0];
-            const max = range[1];
-
-            // There is probably a better heuristic for this
-            if (!currentStyle["plot-points"]) {
-                currentStyle["plot-points"] = 2 * (max - min) * xScale;
-            }
-
-            return this.plotParametric(function (th) {
-                return polar(fn(th), (th * 180) / Math.PI);
-            }, range);
-        },
-
         plot: function (fn, range, swapAxes, shade, fn2) {
             const min = range[0];
             const max = range[1];
@@ -1022,78 +1008,6 @@ GraphUtils.createGraphie = function (el: any) {
                 range,
                 shade,
             );
-        },
-
-        /**
-         * Given a piecewise function, return a Raphael set of paths that
-         * can be used to draw the function, e.g. using style().
-         * Calls plotParametric.
-         *
-         * @param  {[]} fnArray    array of functions which when called
-         *                         with a parameter i return the value of
-         *                         the function at i
-         * @param  {[]} rangeArray array of ranges over which the
-         *                         corresponding functions are defined
-         * @return {Set<any>}      set of paths
-         */
-        plotPiecewise: function (fnArray, rangeArray) {
-            const paths = raphael.set();
-            const self = this;
-            _.times(fnArray.length, function (i) {
-                const fn = fnArray[i];
-                const range = rangeArray[i];
-                const fnPaths = self.plotParametric(function (x) {
-                    return [x, fn(x)];
-                }, range);
-                _.each(fnPaths, function (fnPath) {
-                    paths.push(fnPath);
-                });
-            });
-
-            return paths;
-        },
-
-        /**
-         * Given an array of coordinates of the form [x, y], create and
-         * return a Raphael set of Raphael circle objects at those
-         * coordinates
-         *
-         * @param  {Array<[number, number]>} endpointArray
-         * @return {Set<any>} set of circles
-         */
-        plotEndpointCircles: function (endpointArray) {
-            const circles = raphael.set();
-            const self = this;
-
-            _.each(endpointArray, function (coord, i) {
-                circles.push(self.circle(coord, 0.15));
-            });
-
-            return circles;
-        },
-
-        plotAsymptotes: function (fn, range) {
-            const min = range[0];
-            const max = range[1];
-            const step = (max - min) / (currentStyle["plot-points"] || 800);
-
-            const asymptotes = raphael.set();
-            let lastVal = fn(min);
-
-            for (let t = min; t <= max; t += step) {
-                const funcVal = fn(t);
-
-                if (
-                    funcVal < 0 !== lastVal < 0 &&
-                    Math.abs(funcVal - lastVal) > 2 * yScale
-                ) {
-                    asymptotes.push(this.line([t, yScale], [t, -yScale]));
-                }
-
-                lastVal = funcVal;
-            }
-
-            return asymptotes;
         },
     };
 
