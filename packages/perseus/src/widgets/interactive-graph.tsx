@@ -46,6 +46,7 @@ import type {
     SineCoefficient,
     Range,
 } from "../util/geometry";
+import { polar } from "../util/graphie";
 
 const {DeprecationMixin} = Util;
 
@@ -1216,7 +1217,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     coords[rel(-1)],
                 );
 
-                const offset = this.graphie?.polar(
+                const offset = polar(
                     side,
                     outerAngle + (onLeft ? 1 : -1) * innerAngles[0],
                 );
@@ -1263,7 +1264,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 const onLeft =
                     sign(ccw(coords[rel(-1)], coords[rel(1)], coords[i])) === 1;
 
-                const offset = this.graphie?.polar(
+                const offset = polar(
                     sides[0],
                     outerAngle + (onLeft ? 1 : -1) * innerAngle,
                 );

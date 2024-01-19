@@ -23,24 +23,7 @@ import type {Coord} from "../interactive2/types";
 
 const {processMath} = Tex;
 
-/* Convert cartesian coordinates [x, y] to polar coordinates [r,
- * theta], with theta in degrees, or in radians if angleInRadians is
- * specified.
- */
-function cartToPolar(coord: any, angleInRadians: any) {
-    const r = Math.sqrt(Math.pow(coord[0], 2) + Math.pow(coord[1], 2));
-    let theta = Math.atan2(coord[1], coord[0]);
-    // convert angle range from [-pi, pi] to [0, 2pi]
-    if (theta < 0) {
-        theta += 2 * Math.PI;
-    }
-    if (!angleInRadians) {
-        theta = (theta * 180) / Math.PI;
-    }
-    return [r, theta];
-}
-
-function polar(r: number | Coord, th: number) {
+export function polar(r: number | Coord, th: number) {
     if (typeof r === "number") {
         r = [r, r];
     }
@@ -106,11 +89,6 @@ const GraphUtils: any = {
 };
 
 const Graphie = (GraphUtils.Graphie = function () {});
-
-_.extend(Graphie.prototype, {
-    cartToPolar: cartToPolar,
-    polar: polar,
-});
 
 const labelDirections = {
     center: [-0.5, -0.5],
