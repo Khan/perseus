@@ -2,7 +2,7 @@
 // (on the Cartesian plane) to "canvas coordinates" in pixels.
 
 import type {Coord} from "../interactive2/types";
-import { Interval, size } from "./interval";
+import { GraphBounds } from "./graph-bounds";
 
 interface Raphael {
     setSize(width: number, height: number);
@@ -12,16 +12,14 @@ export class DrawingTransform {
     raphael: Raphael;
 
     // Scale is measured in pixels per unit on the Cartesian plane.
-    // TODO(benchristel): confirm that this is true.
     xScale: number;
     yScale: number;
-    xRange: Interval;
-    yRange: Interval;
+    bounds: GraphBounds
 
-    constructor(raphael: Raphael, initialScale: [number, number], initialRanges: [Interval, Interval]) {
+    constructor(raphael: Raphael, initialScale: [number, number], bounds: GraphBounds) {
         this.raphael = raphael;
         [this.xScale, this.yScale] = initialScale;
-        [this.xRange, this.yRange] = initialRanges;
+        this.bounds = bounds;
         raphael.setSize(...this.canvasDimensions());
     }
 
@@ -44,7 +42,7 @@ export class DrawingTransform {
 
         const x = point[0];
         const y = point[1];
-        return [(x - this.xRange[0]) * this.xScale, (this.yRange[1] - y) * this.yScale];
+        return [(x - this.bounds.xMin) * this.xScale, (this.bounds.yMax - y) * this.yScale];
     };
 
     unscalePoint = (point: Array<never>) => {
@@ -54,7 +52,7 @@ export class DrawingTransform {
 
         const x = point[0];
         const y = point[1];
-        return [x / this.xScale + this.xRange[0], this.yRange[1] - y / this.yScale];
+        return [x / this.xScale + this.bounds.xMin, this.bounds.yMax - y / this.yScale];
     };
 
     unscaleVector = (point: Array<never>) => {
@@ -75,13 +73,21 @@ export class DrawingTransform {
 
         // Update the canvas size
         this.raphael.setSize(
-            size(this.xRange) * this.xScale,
-            size(this.yRange) * this.yScale,
+            this.bounds.width() * this.xScale,
+            this.bounds.height() * this.yScale,
         );
     }
 
     canvasDimensions = (): Coord => {
-        return [size(this.xRange) * this.xScale, size(this.yRange) * this.yScale];
+        return [this.bounds.width() * this.xScale, this.bounds.height() * this.yScale];
+    }
+
+    pixelsPerUnitX = (): number => {
+        return this.xScale;
+    }
+
+    pixelsPerUnitY = (): number => {
+        return this.yScale;
     }
 }
 

@@ -19,6 +19,7 @@ import Tex from "./tex";
 import type {Coord} from "../interactive2/types";
 import { Interval, size } from "./interval";
 import { DrawingTransform } from "./drawing-transform";
+import { GraphBounds } from "./graph-bounds";
 
 const {processMath} = Tex;
 
@@ -137,10 +138,7 @@ const SVG_SPECIFIC_STYLE_MASK = {
 } as const;
 
 GraphUtils.createGraphie = function (el: any) {
-    let xScale = 40;
-    let yScale = 40;
-    let xRange: Interval;
-    let yRange: Interval;
+    let bounds: GraphBounds;
     let drawingTransform: DrawingTransform;
 
     $(el).css("position", "relative");
@@ -228,9 +226,10 @@ GraphUtils.createGraphie = function (el: any) {
 
         // If points are collinear, plot a line instead
         if (a === 0) {
-            const points = _.map(xRange, function (x) {
-                return [x, computeParabola(x)];
-            });
+            const points = [
+                [bounds.xMin, computeParabola(bounds.xMin)],
+                [bounds.xMax, computeParabola(bounds.xMax)],
+            ]
             // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             return svgPath(points);
         }
@@ -238,8 +237,8 @@ GraphUtils.createGraphie = function (el: any) {
         // Calculate x coordinates of points on parabola
         const xVertex = -b / (2 * a);
         const distToEdge = Math.max(
-            Math.abs(xVertex - xRange[0]),
-            Math.abs(xVertex - xRange[1]),
+            Math.abs(xVertex - bounds.xMin),
+            Math.abs(xVertex - bounds.xMax),
         );
 
         // To guarantee that drawn parabola to spans the viewport, use a point
@@ -317,12 +316,12 @@ GraphUtils.createGraphie = function (el: any) {
         };
 
         // How many quarter-periods do we need to span the graph?
-        const extent = size(xRange);
+        const extent = bounds.width();
         const numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
 
-        // Find starting coordinate: first anchor point curve left of xRange[0]
+        // Find starting coordinate: first anchor point curve left of bounds.xMin
         let initial = c / b;
-        const distToEdge = initial - xRange[0];
+        const distToEdge = initial - bounds.xMin;
         initial -= quarterPeriod * Math.ceil(distToEdge / quarterPeriod);
 
         // First portion of path is special-case, requiring move-to ('M')
@@ -886,7 +885,7 @@ GraphUtils.createGraphie = function (el: any) {
                     // if there is an asymptote here, meaning that the graph
                     // switches signs and has a large difference
                     (diff[1] < 0 !== lastDiff[1] < 0 &&
-                        Math.abs(diff[1] - lastDiff[1]) > 2 * yScale) ||
+                        Math.abs(diff[1] - lastDiff[1]) > 2 * drawingTransform.pixelsPerUnitY()) ||
                     // or the function is undefined
                     isNaN(diff[1])
                 ) {
@@ -934,7 +933,7 @@ GraphUtils.createGraphie = function (el: any) {
             const min = range[0];
             const max = range[1];
             if (!currentStyle["plot-points"]) {
-                currentStyle["plot-points"] = 2 * (max - min) * xScale;
+                currentStyle["plot-points"] = 2 * (max - min) * drawingTransform.pixelsPerUnitX();
             }
 
             if (swapAxes) {
@@ -989,9 +988,6 @@ GraphUtils.createGraphie = function (el: any) {
             let scale = options.scale || [40, 40];
             scale = typeof scale === "number" ? [scale, scale] : scale;
 
-            xScale = scale[0];
-            yScale = scale[1];
-
             if (options.range == null) {
                 throw new PerseusError(
                     "range should be specified in graph init",
@@ -999,10 +995,9 @@ GraphUtils.createGraphie = function (el: any) {
                 );
             }
 
-            xRange = options.range[0];
-            yRange = options.range[1];
+            bounds = new GraphBounds(...options.range);
 
-            drawingTransform = new DrawingTransform(raphael, [xScale, yScale], [xRange, yRange]);
+            drawingTransform = new DrawingTransform(raphael, scale, bounds);
 
             const [w, h] = drawingTransform.canvasDimensions();
 
