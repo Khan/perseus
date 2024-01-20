@@ -458,405 +458,404 @@ GraphUtils.createGraphie = function (el: any) {
         return path;
     };
 
-    const drawingTools: any = {
-        circle: function (center, radius) {
-            return raphael.ellipse(
-                ...scalePoint(center).concat(scaleVector([radius, radius])),
-            );
-        },
+    function circle(center, radius) {
+        return raphael.ellipse(
+            ...scalePoint(center).concat(scaleVector([radius, radius])),
+        );
+    }
 
-        // (x, y) is coordinate of bottom left corner
-        rect: function (x, y, width, height) {
-            // Raphael needs (x, y) to be coordinate of upper left corner
-            const corner = scalePoint([x, y + height]);
-            const dims = scaleVector([width, height]);
-            const elem = raphael.rect(...corner.concat(dims));
+    // (x, y) is coordinate of bottom left corner
+    function rect(x, y, width, height) {
+        // Raphael needs (x, y) to be coordinate of upper left corner
+        const corner = scalePoint([x, y + height]);
+        const dims = scaleVector([width, height]);
+        const elem = raphael.rect(...corner.concat(dims));
 
-            if (graphie.isMobile) {
-                elem.node.style.shapeRendering = "crispEdges";
-            }
+        if (graphie.isMobile) {
+            elem.node.style.shapeRendering = "crispEdges";
+        }
 
-            return elem;
-        },
+        return elem;
+    }
 
-        ellipse: function (center, radii) {
-            return raphael.ellipse(
-                ...scalePoint(center).concat(scaleVector(radii)),
-            );
-        },
+    function ellipse(center, radii) {
+        return raphael.ellipse(
+            ...scalePoint(center).concat(scaleVector(radii)),
+        );
+    }
 
-        fixedEllipse: function (
-            center: number | Coord,
-            // Different type than Coord, this is radiusX, radiusY
-            radii: number | [number, number],
-            maxScale: number,
-            padding: number,
-        ) {
-            // Scale point and radius
-            const scaledPoint = scalePoint(center);
-            const scaledRadii = scaleVector(radii);
+    function fixedEllipse(
+        center: number | Coord,
+        // Different type than Coord, this is radiusX, radiusY
+        radii: number | [number, number],
+        maxScale: number,
+        padding: number,
+    ) {
+        // Scale point and radius
+        const scaledPoint = scalePoint(center);
+        const scaledRadii = scaleVector(radii);
 
-            const width = 2 * scaledRadii[0] * maxScale + padding;
-            const height = 2 * scaledRadii[1] * maxScale + padding;
+        const width = 2 * scaledRadii[0] * maxScale + padding;
+        const height = 2 * scaledRadii[1] * maxScale + padding;
 
-            // Calculate absolute left, top
-            const left = scaledPoint[0] - width / 2;
-            const top = scaledPoint[1] - height / 2;
+        // Calculate absolute left, top
+        const left = scaledPoint[0] - width / 2;
+        const top = scaledPoint[1] - height / 2;
 
-            // Wrap in <div>
-            const wrapper = document.createElement("div");
-            $(wrapper).css({
-                position: "absolute",
-                width: width + "px",
-                height: height + "px",
-                left: left + "px",
-                top: top + "px",
-            });
-            // wrapper.setAttribute("data-graphie-type", "ellipse");
+        // Wrap in <div>
+        const wrapper = document.createElement("div");
+        $(wrapper).css({
+            position: "absolute",
+            width: width + "px",
+            height: height + "px",
+            left: left + "px",
+            top: top + "px",
+        });
+        // wrapper.setAttribute("data-graphie-type", "ellipse");
 
-            // Create Raphael canvas
-            const localRaphael = Raphael(wrapper, width, height);
-            const visibleShape = localRaphael.ellipse(
-                width / 2,
-                height / 2,
-                scaledRadii[0],
-                scaledRadii[1],
-            );
+        // Create Raphael canvas
+        const localRaphael = Raphael(wrapper, width, height);
+        const visibleShape = localRaphael.ellipse(
+            width / 2,
+            height / 2,
+            scaledRadii[0],
+            scaledRadii[1],
+        );
 
-            return {
-                wrapper: wrapper,
-                visibleShape: visibleShape,
-            };
-        },
+        return {
+            wrapper: wrapper,
+            visibleShape: visibleShape,
+        };
+    }
 
-        arc: function (center, radius, startAngle, endAngle, sector) {
-            startAngle = ((startAngle % 360) + 360) % 360;
-            endAngle = ((endAngle % 360) + 360) % 360;
+    function arc(center, radius, startAngle, endAngle, sector) {
+        startAngle = ((startAngle % 360) + 360) % 360;
+        endAngle = ((endAngle % 360) + 360) % 360;
 
-            const cent = scalePoint(center);
-            const radii = scaleVector(radius);
-            const startVector = polar(radius, startAngle);
-            const endVector = polar(radius, endAngle);
+        const cent = scalePoint(center);
+        const radii = scaleVector(radius);
+        const startVector = polar(radius, startAngle);
+        const endVector = polar(radius, endAngle);
 
-            const startPoint = scalePoint([
-                center[0] + startVector[0],
-                center[1] + startVector[1],
-            ]);
-            const endPoint = scalePoint([
-                center[0] + endVector[0],
-                center[1] + endVector[1],
-            ]);
+        const startPoint = scalePoint([
+            center[0] + startVector[0],
+            center[1] + startVector[1],
+        ]);
+        const endPoint = scalePoint([
+            center[0] + endVector[0],
+            center[1] + endVector[1],
+        ]);
 
-            const largeAngle =
-                (((endAngle - startAngle) % 360) + 360) % 360 > 180;
+        const largeAngle =
+            (((endAngle - startAngle) % 360) + 360) % 360 > 180;
 
-            return raphael.path(
-                "M" +
-                    startPoint.join(" ") +
-                    "A" +
-                    radii.join(" ") +
-                    " 0 " + // ellipse rotation
-                    (largeAngle ? 1 : 0) +
-                    " 0 " + // sweep flag
-                    endPoint.join(" ") +
-                    (sector ? "L" + cent.join(" ") + "z" : ""),
-            );
-        },
+        return raphael.path(
+            "M" +
+                startPoint.join(" ") +
+                "A" +
+                radii.join(" ") +
+                " 0 " + // ellipse rotation
+                (largeAngle ? 1 : 0) +
+                " 0 " + // sweep flag
+                endPoint.join(" ") +
+                (sector ? "L" + cent.join(" ") + "z" : ""),
+        );
+    }
 
-        path: function (points) {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-            const p = raphael.path(svgPath(points));
-            p.graphiePath = points;
+    function path(points) {
+        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+        const p = raphael.path(svgPath(points));
+        p.graphiePath = points;
 
-            return p;
-        },
+        return p;
+    }
 
-        fixedPath: function (points, center, createPath) {
-            points = _.map(points, scalePoint);
-            center = center ? scalePoint(center) : null;
-            createPath = createPath || svgPath;
+    function fixedPath(points, center, createPath) {
+        points = _.map(points, scalePoint);
+        center = center ? scalePoint(center) : null;
+        createPath = createPath || svgPath;
 
-            const pathLeft = _.min(_.pluck(points, 0));
-            const pathRight = _.max(_.pluck(points, 0));
-            const pathTop = _.min(_.pluck(points, 1));
-            const pathBottom = _.max(_.pluck(points, 1));
+        const pathLeft = _.min(_.pluck(points, 0));
+        const pathRight = _.max(_.pluck(points, 0));
+        const pathTop = _.min(_.pluck(points, 1));
+        const pathBottom = _.max(_.pluck(points, 1));
 
-            // Apply padding to line
-            const padding = [4, 4];
+        // Apply padding to line
+        const padding = [4, 4];
 
-            // Calculate and apply additional offset
-            const extraOffset = [pathLeft, pathTop];
+        // Calculate and apply additional offset
+        const extraOffset = [pathLeft, pathTop];
 
-            // Apply padding and offset to points
-            points = _.map(points, function (point) {
-                return kvector.add(
-                    kvector.subtract(point, extraOffset),
-                    kvector.scale(padding, 0.5),
-                );
-            });
-
-            // Calculate <div> dimensions
-            const width = pathRight - pathLeft + padding[0];
-            const height = pathBottom - pathTop + padding[1];
-            const left = extraOffset[0] - padding[0] / 2;
-            const top = extraOffset[1] - padding[1] / 2;
-
-            // Create <div>
-            const wrapper = document.createElement("div");
-            $(wrapper).css({
-                position: "absolute",
-                width: width + "px",
-                height: height + "px",
-                left: left + "px",
-                top: top + "px",
-                // If user specified a center, set it
-                // NOTE(kevinb): jQuery doesn't like that `transformOrigin `could be `null`
-                // so we cast to `any` here.
-                transformOrigin: center
-                    ? width / 2 +
-                      center[0] +
-                      "px " +
-                      (height / 2 + center[1]) +
-                      "px"
-                    : null,
-            } as any);
-
-            // Create Raphael canvas
-            const localRaphael = Raphael(wrapper, width, height);
-
-            // Calculate path
-            const visibleShape = localRaphael.path(createPath(points));
-
-            return {
-                wrapper: wrapper,
-                visibleShape: visibleShape,
-            };
-        },
-
-        scaledPath: function (points) {
-            const p = raphael.path(svgPath(points, /* alreadyScaled */ true));
-            p.graphiePath = points;
-            return p;
-        },
-
-        line: function (start, end) {
-            const l = this.path([start, end]);
-
-            if (graphie.isMobile) {
-                l.node.style.shapeRendering = "crispEdges";
-            }
-
-            return l;
-        },
-
-        parabola: function (a, b, c) {
-            // Plot a parabola of the form: f(x) = (a * x + b) * x + c
-            return raphael.path(svgParabolaPath(a, b, c));
-        },
-
-        fixedLine: function (start, end, thickness) {
-            // Apply padding to line
-            const padding = [thickness, thickness];
-
-            // Scale points to get values in pixels
-            start = scalePoint(start);
-            end = scalePoint(end);
-
-            // Calculate and apply additional offset
-            const extraOffset = [
-                Math.min(start[0], end[0]),
-                Math.min(start[1], end[1]),
-            ];
-
-            // Apply padding and offset to start, end points
-            start = kvector.add(
-                kvector.subtract(start, extraOffset),
+        // Apply padding and offset to points
+        points = _.map(points, function (point) {
+            return kvector.add(
+                kvector.subtract(point, extraOffset),
                 kvector.scale(padding, 0.5),
             );
-            end = kvector.add(
-                kvector.subtract(end, extraOffset),
-                kvector.scale(padding, 0.5),
-            );
+        });
 
-            // Calculate <div> dimensions
-            const left = extraOffset[0] - padding[0] / 2;
-            const top = extraOffset[1] - padding[1] / 2;
-            const width = Math.abs(start[0] - end[0]) + padding[0];
-            const height = Math.abs(start[1] - end[1]) + padding[1];
+        // Calculate <div> dimensions
+        const width = pathRight - pathLeft + padding[0];
+        const height = pathBottom - pathTop + padding[1];
+        const left = extraOffset[0] - padding[0] / 2;
+        const top = extraOffset[1] - padding[1] / 2;
 
-            // Create <div>
-            const wrapper = document.createElement("div");
-            $(wrapper).css({
-                position: "absolute",
-                width: width + "px",
-                height: height + "px",
-                left: left + "px",
-                top: top + "px",
-                // Outsiders should feel like the line's 'origin' (i.e., for
-                // rotation) is the starting point
-                transformOrigin: start[0] + "px " + start[1] + "px",
+        // Create <div>
+        const wrapper = document.createElement("div");
+        $(wrapper).css({
+            position: "absolute",
+            width: width + "px",
+            height: height + "px",
+            left: left + "px",
+            top: top + "px",
+            // If user specified a center, set it
+            // NOTE(kevinb): jQuery doesn't like that `transformOrigin `could be `null`
+            // so we cast to `any` here.
+            transformOrigin: center
+                ? width / 2 +
+                    center[0] +
+                    "px " +
+                    (height / 2 + center[1]) +
+                    "px"
+                : null,
+        } as any);
+
+        // Create Raphael canvas
+        const localRaphael = Raphael(wrapper, width, height);
+
+        // Calculate path
+        const visibleShape = localRaphael.path(createPath(points));
+
+        return {
+            wrapper: wrapper,
+            visibleShape: visibleShape,
+        };
+    }
+
+    function scaledPath(points) {
+        const p = raphael.path(svgPath(points, /* alreadyScaled */ true));
+        p.graphiePath = points;
+        return p;
+    }
+
+    function line(start, end) {
+        const l = path([start, end]);
+
+        if (graphie.isMobile) {
+            l.node.style.shapeRendering = "crispEdges";
+        }
+
+        return l;
+    }
+
+    function parabola(a, b, c) {
+        // Plot a parabola of the form: f(x) = (a * x + b) * x + c
+        return raphael.path(svgParabolaPath(a, b, c));
+    }
+
+    function fixedLine(start, end, thickness) {
+        // Apply padding to line
+        const padding = [thickness, thickness];
+
+        // Scale points to get values in pixels
+        start = scalePoint(start);
+        end = scalePoint(end);
+
+        // Calculate and apply additional offset
+        const extraOffset = [
+            Math.min(start[0], end[0]),
+            Math.min(start[1], end[1]),
+        ];
+
+        // Apply padding and offset to start, end points
+        start = kvector.add(
+            kvector.subtract(start, extraOffset),
+            kvector.scale(padding, 0.5),
+        );
+        end = kvector.add(
+            kvector.subtract(end, extraOffset),
+            kvector.scale(padding, 0.5),
+        );
+
+        // Calculate <div> dimensions
+        const left = extraOffset[0] - padding[0] / 2;
+        const top = extraOffset[1] - padding[1] / 2;
+        const width = Math.abs(start[0] - end[0]) + padding[0];
+        const height = Math.abs(start[1] - end[1]) + padding[1];
+
+        // Create <div>
+        const wrapper = document.createElement("div");
+        $(wrapper).css({
+            position: "absolute",
+            width: width + "px",
+            height: height + "px",
+            left: left + "px",
+            top: top + "px",
+            // Outsiders should feel like the line's 'origin' (i.e., for
+            // rotation) is the starting point
+            transformOrigin: start[0] + "px " + start[1] + "px",
+        });
+
+        // Create Raphael canvas
+        const localRaphael = Raphael(wrapper, width, height);
+
+        // Calculate path
+        const path =
+            "M" +
+            start[0] +
+            " " +
+            start[1] +
+            " " +
+            "L" +
+            end[0] +
+            " " +
+            end[1];
+        const visibleShape = localRaphael.path(path);
+        visibleShape.graphiePath = [start, end];
+
+        return {
+            wrapper: wrapper,
+            visibleShape: visibleShape,
+        };
+    }
+
+    function sinusoid(a, b, c, d) {
+        // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
+        return raphael.path(svgSinusoidPath(a, b, c, d));
+    }
+
+    function grid(xr, yr) {
+        const step: any = currentStyle.step || [1, 1];
+        const set = raphael.set();
+
+        let x = step[0] * Math.ceil(xr[0] / step[0]);
+        for (; x <= xr[1]; x += step[0]) {
+            set.push(line([x, yr[0]], [x, yr[1]]));
+        }
+
+        let y = step[1] * Math.ceil(yr[0] / step[1]);
+        for (; y <= yr[1]; y += step[1]) {
+            set.push(line([xr[0], y], [xr[1], y]));
+        }
+
+        return set;
+    }
+
+    function label(point, text, direction, latex) {
+        latex = typeof latex === "undefined" || latex;
+
+        const $span = $("<span>").addClass("graphie-label");
+
+        const pad = currentStyle["label-distance"];
+
+        $span
+            .css(
+                $.extend(
+                    {},
+                    {
+                        position: "absolute",
+                        padding: (pad != null ? pad : 7) + "px",
+                        color: "black",
+                    },
+                ),
+            )
+            .data("labelDirection", direction)
+            .appendTo(el);
+
+        // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
+        $span.setPosition = function (point) {
+            const scaledPoint = scalePoint(point);
+            $span.css({
+                left: scaledPoint[0],
+                top: scaledPoint[1],
             });
+        };
 
-            // Create Raphael canvas
-            const localRaphael = Raphael(wrapper, width, height);
+        // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
+        $span.setPosition(point);
 
-            // Calculate path
-            const path =
-                "M" +
-                start[0] +
-                " " +
-                start[1] +
-                " " +
-                "L" +
-                end[0] +
-                " " +
-                end[1];
-            const visibleShape = localRaphael.path(path);
-            visibleShape.graphiePath = [start, end];
+        const span = $span[0];
 
-            return {
-                wrapper: wrapper,
-                visibleShape: visibleShape,
-            };
-        },
-
-        sinusoid: function (a, b, c, d) {
-            // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-            return raphael.path(svgSinusoidPath(a, b, c, d));
-        },
-
-        grid: function (xr, yr) {
-            const step: any = currentStyle.step || [1, 1];
-            const set = raphael.set();
-
-            let x = step[0] * Math.ceil(xr[0] / step[0]);
-            for (; x <= xr[1]; x += step[0]) {
-                set.push(this.line([x, yr[0]], [x, yr[1]]));
-            }
-
-            let y = step[1] * Math.ceil(yr[0] / step[1]);
-            for (; y <= yr[1]; y += step[1]) {
-                set.push(this.line([xr[0], y], [xr[1], y]));
-            }
-
-            return set;
-        },
-
-        label: function (point, text, direction, latex) {
-            latex = typeof latex === "undefined" || latex;
-
-            const $span = $("<span>").addClass("graphie-label");
-
-            const pad = currentStyle["label-distance"];
-
-            $span
-                .css(
-                    $.extend(
-                        {},
-                        {
-                            position: "absolute",
-                            padding: (pad != null ? pad : 7) + "px",
-                            color: "black",
-                        },
-                    ),
-                )
-                .data("labelDirection", direction)
-                .appendTo(el);
-
-            // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
-            $span.setPosition = function (point) {
-                const scaledPoint = scalePoint(point);
-                $span.css({
-                    left: scaledPoint[0],
-                    top: scaledPoint[1],
-                });
-            };
-
-            // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
-            $span.setPosition(point);
-
-            const span = $span[0];
-
-            // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
-            $span.processMath = function (math, force) {
-                processMath(span, math, force, function () {
-                    const width = span.scrollWidth;
-                    const height = span.scrollHeight;
-                    setLabelMargins(span, [width, height]);
-                });
-            };
-
-            // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
-            $span.processText = function (text: any) {
-                $span.html(text);
+        // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
+        $span.processMath = function (math, force) {
+            processMath(span, math, force, function () {
                 const width = span.scrollWidth;
                 const height = span.scrollHeight;
                 setLabelMargins(span, [width, height]);
+            });
+        };
+
+        // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
+        $span.processText = function (text: any) {
+            $span.html(text);
+            const width = span.scrollWidth;
+            const height = span.scrollHeight;
+            setLabelMargins(span, [width, height]);
+        };
+
+        if (latex) {
+            // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
+            $span.processMath(text, /* force */ false);
+        } else {
+            // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
+            $span.processText(text);
+        }
+
+        return $span;
+    }
+
+    function plotParametric(fn: (t: number) => Coord, range, shade, fn2?: (t: number) => Coord) {
+        // Note: fn2 should only be set if 'shade' is true, as it denotes
+        // the function between which fn should have its area shaded.
+        // In general, plotParametric shouldn't be used to shade the area
+        // between two arbitrary parametrics functions over an interval,
+        // as the method assumes that fn and fn2 are both of the form
+        // fn(t) = (t, fn'(t)) for some initial fn'.
+        fn2 =
+            fn2 ||
+            function (t) {
+                return [t, 0];
             };
 
-            if (latex) {
-                // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
-                $span.processMath(text, /* force */ false);
-            } else {
-                // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
-                $span.processText(text);
+        // We truncate to 500,000, since anything bigger causes
+        // overflow in the firefox svg renderer.  This is safe
+        // since 500,000 is outside the viewport anyway.  We
+        // write these functions the way we do to handle undefined.
+        const clipper = (xy) => {
+            if (Math.abs(xy[1]) > 500000) {
+                return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
             }
+            return xy;
+        };
+        const clippedFn = (x) => clipper(fn(x));
+        const clippedFn2 = (x: number) => clipper(fn2(x));
 
-            return $span;
-        },
+        if (!currentStyle.strokeLinejoin) {
+            currentStyle.strokeLinejoin = "round";
+        }
+        if (!currentStyle.strokeLinecap) {
+            currentStyle.strokeLinecap = "round";
+        }
 
-        plotParametric: function (fn, range, shade, fn2) {
-            // Note: fn2 should only be set if 'shade' is true, as it denotes
-            // the function between which fn should have its area shaded.
-            // In general, plotParametric shouldn't be used to shade the area
-            // between two arbitrary parametrics functions over an interval,
-            // as the method assumes that fn and fn2 are both of the form
-            // fn(t) = (t, fn'(t)) for some initial fn'.
-            fn2 =
-                fn2 ||
-                function (t) {
-                    return [t, 0];
-                };
+        const min = range[0];
+        const max = range[1];
+        let step = (max - min) / (currentStyle["plot-points"] || 800);
+        if (step === 0) {
+            step = 1;
+        }
 
-            // We truncate to 500,000, since anything bigger causes
-            // overflow in the firefox svg renderer.  This is safe
-            // since 500,000 is outside the viewport anyway.  We
-            // write these functions the way we do to handle undefined.
-            const clipper = (xy) => {
-                if (Math.abs(xy[1]) > 500000) {
-                    return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
-                }
-                return xy;
-            };
-            const clippedFn = (x) => clipper(fn(x));
-            const clippedFn2 = (x: number) => clipper(fn2(x));
+        const paths = raphael.set();
+        let points = [];
+        let lastDiff = GraphUtils.coordDiff(
+            clippedFn(min),
+            clippedFn2(min),
+        );
 
-            if (!currentStyle.strokeLinejoin) {
-                currentStyle.strokeLinejoin = "round";
-            }
-            if (!currentStyle.strokeLinecap) {
-                currentStyle.strokeLinecap = "round";
-            }
-
-            const min = range[0];
-            const max = range[1];
-            let step = (max - min) / (currentStyle["plot-points"] || 800);
-            if (step === 0) {
-                step = 1;
-            }
-
-            const paths = raphael.set();
-            let points = [];
-            let lastDiff = GraphUtils.coordDiff(
-                clippedFn(min),
-                clippedFn2(min),
-            );
-
-            let lastFlip = min;
-            for (let t = min; t <= max; t += step) {
-                const top = clippedFn(t);
-                const bottom = clippedFn2(t);
-                const diff = GraphUtils.coordDiff(top, bottom);
+        let lastFlip = min;
+        for (let t = min; t <= max; t += step) {
+            const top = clippedFn(t);
+            const bottom = clippedFn2(t);
+            const diff = GraphUtils.coordDiff(top, bottom);
 
                 // Find points where it flips
                 // Create path that sketches area between the two functions
@@ -874,92 +873,110 @@ GraphUtils.createGraphie = function (el: any) {
                         // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                         points.push(top);
 
-                        // backtrack to draw paired function
-                        for (let u = t - step; u >= lastFlip; u -= step) {
-                            // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                            points.push(clippedFn2(u));
-                        }
-                        lastFlip = t;
-                    }
-                    paths.push(this.path(points));
-                    // restart the path, excluding this point
-                    points = [];
-                    if (shade) {
+                    // backtrack to draw paired function
+                    for (let u = t - step; u >= lastFlip; u -= step) {
                         // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                        points.push(top);
+                        points.push(clippedFn2(u));
                     }
-                } else {
-                    // otherwise, just add the point to the path
+                    lastFlip = t;
+                }
+                paths.push(path(points));
+                // restart the path, excluding this point
+                points = [];
+                if (shade) {
                     // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     points.push(top);
                 }
-
-                lastDiff = diff;
+            } else {
+                // otherwise, just add the point to the path
+                // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                points.push(top);
             }
 
-            if (shade) {
-                // backtrack to draw paired function
-                for (let u = max - step; u >= lastFlip; u -= step) {
-                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                    points.push(clippedFn2(u));
-                }
-            }
-            paths.push(this.path(points));
+            lastDiff = diff;
+        }
 
-            return paths;
-        },
-
-        plot: function (fn, range, swapAxes, shade, fn2) {
-            const min = range[0];
-            const max = range[1];
-            if (!currentStyle["plot-points"]) {
-                currentStyle["plot-points"] =
-                    2 * (max - min) * drawingTransform.pixelsPerUnitX();
+        if (shade) {
+            // backtrack to draw paired function
+            for (let u = max - step; u >= lastFlip; u -= step) {
+                // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                points.push(clippedFn2(u));
             }
+        }
+        paths.push(path(points));
 
-            if (swapAxes) {
-                if (fn2) {
-                    // TODO(charlie): support swapped axis area shading
-                    throw new PerseusError(
-                        "Can't shade area between functions with swapped axes.",
-                        Errors.Internal,
-                    );
-                }
-                return this.plotParametric(
-                    function (y) {
-                        return [fn(y), y];
-                    },
-                    range,
-                    shade,
-                );
-            }
+        return paths;
+    }
+
+    function plot(fn, range, swapAxes, shade, fn2) {
+        const min = range[0];
+        const max = range[1];
+        if (!currentStyle["plot-points"]) {
+            currentStyle["plot-points"] =
+                2 * (max - min) * drawingTransform.pixelsPerUnitX();
+        }
+
+        if (swapAxes) {
             if (fn2) {
-                if (shade) {
-                    return this.plotParametric(
-                        function (x) {
-                            return [x, fn(x)];
-                        },
-                        range,
-                        shade,
-                        function (x) {
-                            return [x, fn2(x)];
-                        },
-                    );
-                }
+                // TODO(charlie): support swapped axis area shading
                 throw new PerseusError(
-                    "fn2 should only be set when 'shade' is True.",
+                    "Can't shade area between functions with swapped axes.",
                     Errors.Internal,
                 );
             }
-            return this.plotParametric(
-                function (x) {
-                    return [x, fn(x)];
+            return plotParametric(
+                function (y) {
+                    return [fn(y), y];
                 },
                 range,
                 shade,
             );
-        },
-    };
+        }
+        if (fn2) {
+            if (shade) {
+                return plotParametric(
+                    function (x) {
+                        return [x, fn(x)];
+                    },
+                    range,
+                    shade,
+                    function (x) {
+                        return [x, fn2(x)];
+                    },
+                );
+            }
+            throw new PerseusError(
+                "fn2 should only be set when 'shade' is True.",
+                Errors.Internal,
+            );
+        }
+        return plotParametric(
+            function (x) {
+                return [x, fn(x)];
+            },
+            range,
+            shade,
+        );
+    }
+
+    const drawingTools = {
+        circle,
+        rect,
+        ellipse,
+        fixedEllipse,
+        arc,
+        path,
+        fixedPath,
+        scaledPath,
+        line,
+        parabola,
+        fixedLine,
+        sinusoid,
+        grid,
+        label,
+        plotParametric,
+        plot,
+    }
 
     const graphie = new Graphie();
     _.extend(graphie, {
