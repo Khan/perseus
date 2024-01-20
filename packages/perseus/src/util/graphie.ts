@@ -1204,7 +1204,7 @@ GraphUtils.createGraphie = function (el: any) {
         xLabelFormat = minusIgnorer(xLabelFormat);
         yLabelFormat = minusIgnorer(yLabelFormat);
 
-        this.init({
+        graphie.init({
             range: realRange,
             scale: scale,
             isMobile: options.isMobile,
@@ -1212,7 +1212,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         // draw grid
         if (grid) {
-            this.grid(gridRange[0], gridRange[1], {
+            graphie.grid(gridRange[0], gridRange[1], {
                 stroke: options.isMobile ? KhanColors.GRAY_C : "#000000",
                 opacity: options.isMobile ? 1 : gridOpacity,
                 step: gridStep,
@@ -1224,7 +1224,7 @@ GraphUtils.createGraphie = function (el: any) {
         if (axes) {
             // this is a slight hack until <-> arrowheads work
             if (axisArrows === "<->" || axisArrows === true) {
-                this.style(
+                graphie.style(
                     {
                         stroke: options.isMobile
                             ? KhanColors.GRAY_G
@@ -1236,24 +1236,24 @@ GraphUtils.createGraphie = function (el: any) {
                     function () {
                         if (range[1][0] < 0 && range[1][1] > 0) {
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.path([
+                            graphie.path([
                                 axisCenter,
                                 [gridRange[0][0], axisCenter[1]],
                             ]);
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.path([
+                            graphie.path([
                                 axisCenter,
                                 [gridRange[0][1], axisCenter[1]],
                             ]);
                         }
                         if (range[0][0] < 0 && range[0][1] > 0) {
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.path([
+                            graphie.path([
                                 axisCenter,
                                 [axisCenter[0], gridRange[1][0]],
                             ]);
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.path([
+                            graphie.path([
                                 axisCenter,
                                 [axisCenter[0], gridRange[1][1]],
                             ]);
@@ -1264,7 +1264,7 @@ GraphUtils.createGraphie = function (el: any) {
                 // also, we don't support "<-" arrows yet, but why you
                 // would want that on your graph is beyond me.
             } else if (axisArrows === "->" || axisArrows === "") {
-                this.style(
+                graphie.style(
                     {
                         stroke: "#000000",
                         opacity: axisOpacity,
@@ -1273,12 +1273,12 @@ GraphUtils.createGraphie = function (el: any) {
                     },
                     function () {
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.path([
+                        graphie.path([
                             [gridRange[0][0], axisCenter[1]],
                             [gridRange[0][1], axisCenter[1]],
                         ]);
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.path([
+                        graphie.path([
                             [axisCenter[0], gridRange[1][0]],
                             [axisCenter[0], gridRange[1][1]],
                         ]);
@@ -1287,12 +1287,12 @@ GraphUtils.createGraphie = function (el: any) {
             }
 
             if (axisLabels && axisLabels.length === 2) {
-                this.label(
+                graphie.label(
                     [gridRange[0][1], axisCenter[1]],
                     axisLabels[0],
                     "right",
                 );
-                this.label(
+                graphie.label(
                     [axisCenter[0], gridRange[1][1]],
                     axisLabels[1],
                     "above",
@@ -1303,7 +1303,7 @@ GraphUtils.createGraphie = function (el: any) {
         // draw tick marks
         if (ticks) {
             const halfWidthTicks = options.isMobile;
-            this.style(
+            graphie.style(
                 {
                     stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
                     opacity: options.isMobile ? 1 : tickOpacity,
@@ -1324,7 +1324,7 @@ GraphUtils.createGraphie = function (el: any) {
                         ) {
                             if (x < stop || !axisArrows) {
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.line(
+                                graphie.line(
                                     [x, -len + axisCenter[1]],
                                     [
                                         x,
@@ -1343,7 +1343,7 @@ GraphUtils.createGraphie = function (el: any) {
                         ) {
                             if (x > start || !axisArrows) {
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.line(
+                                graphie.line(
                                     [x, -len + axisCenter[1]],
                                     [
                                         x,
@@ -1370,7 +1370,7 @@ GraphUtils.createGraphie = function (el: any) {
                         ) {
                             if (y < stop || !axisArrows) {
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.line(
+                                graphie.line(
                                     [-len + axisCenter[0], y],
                                     [
                                         halfWidthTicks
@@ -1389,7 +1389,7 @@ GraphUtils.createGraphie = function (el: any) {
                         ) {
                             if (y > start || !axisArrows) {
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.line(
+                                graphie.line(
                                     [-len + axisCenter[0], y],
                                     [
                                         halfWidthTicks
@@ -1407,7 +1407,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         // draw axis labels
         if (labels) {
-            this.style(
+            graphie.style(
                 {
                     stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
                     opacity: options.isMobile ? 1 : labelOpacity,
@@ -1435,8 +1435,7 @@ GraphUtils.createGraphie = function (el: any) {
                         x += step
                     ) {
                         if (x < stop || !axisArrows) {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.label(
+                            graphie.label(
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
                                 xAxisPosition,
@@ -1451,8 +1450,7 @@ GraphUtils.createGraphie = function (el: any) {
                         x -= step
                     ) {
                         if (x > start || !axisArrows) {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.label(
+                            graphie.label(
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
                                 xAxisPosition,
@@ -1471,8 +1469,7 @@ GraphUtils.createGraphie = function (el: any) {
                         y += step
                     ) {
                         if (y < stop || !axisArrows) {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.label(
+                            graphie.label(
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
                                 yAxisPosition,
@@ -1487,8 +1484,7 @@ GraphUtils.createGraphie = function (el: any) {
                         y -= step
                     ) {
                         if (y > start || !axisArrows) {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.label(
+                            graphie.label(
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
                                 yAxisPosition,
