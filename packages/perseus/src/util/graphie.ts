@@ -88,7 +88,20 @@ const GraphUtils: any = {
     graphs: {},
 };
 
-class Graphie {}
+class Graphie {
+    isMobile = false
+
+    init(options: any) {}
+
+    graphInit(options: any) {}
+
+    style(attrs: any, fn: any) {}
+
+    label(point: any, text: any, direction: any, latex?: any) {}
+
+    grid(xr: any, yr: any, styleAttributes: any) {}
+}
+
 GraphUtils.Graphie = Graphie
 
 const labelDirections = {
@@ -804,18 +817,14 @@ GraphUtils.createGraphie = function (el: any) {
         return $span;
     }
 
-    function plotParametric(fn: (t: number) => Coord, range, shade, fn2?: (t: number) => Coord) {
+
+    function plotParametric(fn: (t: number) => Coord, range, shade, fn2: (t: number) => Coord = (t) => [t, 0]) {
         // Note: fn2 should only be set if 'shade' is true, as it denotes
         // the function between which fn should have its area shaded.
         // In general, plotParametric shouldn't be used to shade the area
         // between two arbitrary parametrics functions over an interval,
         // as the method assumes that fn and fn2 are both of the form
         // fn(t) = (t, fn'(t)) for some initial fn'.
-        fn2 =
-            fn2 ||
-            function (t) {
-                return [t, 0];
-            };
 
         // We truncate to 500,000, since anything bigger causes
         // overflow in the firefox svg renderer.  This is safe
@@ -1047,8 +1056,8 @@ GraphUtils.createGraphie = function (el: any) {
         svgSinusoidPath: svgSinusoidPath,
     });
 
-    $.each(drawingTools, function (name) {
-        graphie[name] = function (...args) {
+    function graphify(drawingFn: any): any {
+        return function (...args) {
             const last = args[args.length - 1];
             const oldStyle = currentStyle;
             let result;
@@ -1061,11 +1070,11 @@ GraphUtils.createGraphie = function (el: any) {
                 };
 
                 const rest = [].slice.call(args, 0, args.length - 1);
-                result = drawingTools[name](...rest);
+                result = drawingFn(...rest);
             } else {
                 currentStyle = $.extend({}, currentStyle);
 
-                result = drawingTools[name](...args);
+                result = drawingFn(...args);
             }
 
             // Bad heuristic for recognizing Raphael elements and sets
@@ -1086,6 +1095,10 @@ GraphUtils.createGraphie = function (el: any) {
             currentStyle = oldStyle;
             return result;
         };
+    }
+
+    $.each(drawingTools, function (name) {
+        graphie[name] = graphify(drawingTools[name])
     });
 
     // Initializes graphie settings for a graph and draws the basic graph
