@@ -1524,7 +1524,7 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return function (...args) {
             const last = args[args.length - 1];
             const oldStyle = thisGraphie.currentStyle;
-            let result;
+            let argsToDrawingFn;
 
             // The last argument is probably trying to change the style
             if (typeof last === "object" && !_.isArray(last)) {
@@ -1534,15 +1534,18 @@ GraphUtils.createGraphie = function (el: any): Graphie {
                 };
 
                 const rest = [].slice.call(args, 0, args.length - 1);
-                result = drawingFn(...rest);
+
+                argsToDrawingFn = rest;
             } else {
                 thisGraphie.currentStyle = $.extend(
                     {},
                     thisGraphie.currentStyle,
                 );
 
-                result = drawingFn(...args);
+                argsToDrawingFn = args;
             }
+
+            let result = drawingFn(...argsToDrawingFn);
 
             // Bad heuristic for recognizing Raphael elements and sets
             const type = result.constructor.prototype;
