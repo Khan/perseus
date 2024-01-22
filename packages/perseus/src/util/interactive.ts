@@ -31,7 +31,7 @@ import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 
 import KhanColors from "./colors";
-import GraphUtils, { polar } from "./graphie";
+import GraphUtils, {polar} from "./graphie";
 import KhanMath from "./math";
 
 import type {Coord} from "../interactive2/types";

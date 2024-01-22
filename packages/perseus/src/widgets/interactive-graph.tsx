@@ -29,6 +29,7 @@ import {
     similar,
 } from "../util/geometry";
 import GraphUtils from "../util/graph-utils";
+import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import type {Coord} from "../interactive2/types";
@@ -46,7 +47,6 @@ import type {
     SineCoefficient,
     Range,
 } from "../util/geometry";
-import { polar } from "../util/graphie";
 
 const {DeprecationMixin} = Util;
 
