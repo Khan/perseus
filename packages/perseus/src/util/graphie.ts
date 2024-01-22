@@ -89,7 +89,10 @@ const GraphUtils: any = {
 };
 
 class Graphie {
-    isMobile = false
+    bounds?: GraphBounds;
+    drawingTransform?: DrawingTransform;
+    raphael?: any;
+    isMobile = false;
 
     init(options: any) {}
 
@@ -102,7 +105,7 @@ class Graphie {
     grid(xr: any, yr: any, styleAttributes: any) {}
 }
 
-GraphUtils.Graphie = Graphie
+GraphUtils.Graphie = Graphie;
 
 const labelDirections = {
     center: [-0.5, -0.5],
@@ -130,11 +133,9 @@ const SVG_SPECIFIC_STYLE_MASK = {
 } as const;
 
 GraphUtils.createGraphie = function (el: any) {
-    let bounds: GraphBounds;
-    let drawingTransform: DrawingTransform;
-
+    const graphie = new Graphie();
     $(el).css("position", "relative");
-    const raphael = Raphael(el);
+    graphie.raphael = Raphael(el);
 
     // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
     $(el).children("div").css("position", "absolute");
@@ -146,19 +147,19 @@ GraphUtils.createGraphie = function (el: any) {
     };
 
     const scaleVector = function (point: number | Coord) {
-        return drawingTransform.scaleVector(point);
+        return graphie.drawingTransform.scaleVector(point);
     };
 
     const scalePoint = function scalePoint(point: number | Coord): Coord {
-        return drawingTransform.scalePoint(point);
+        return graphie.drawingTransform.scalePoint(point);
     };
 
     const unscalePoint = function (point: Coord) {
-        return drawingTransform.unscalePoint(point);
+        return graphie.drawingTransform.unscalePoint(point);
     };
 
     const unscaleVector = function (point: Coord) {
-        return drawingTransform.unscaleVector(point);
+        return graphie.drawingTransform.unscaleVector(point);
     };
 
     const setLabelMargins = function (span: any, size: Array<any>) {
@@ -219,8 +220,8 @@ GraphUtils.createGraphie = function (el: any) {
         // If points are collinear, plot a line instead
         if (a === 0) {
             const points = [
-                [bounds.xMin, computeParabola(bounds.xMin)],
-                [bounds.xMax, computeParabola(bounds.xMax)],
+                [graphie.bounds.xMin, computeParabola(graphie.bounds.xMin)],
+                [graphie.bounds.xMax, computeParabola(graphie.bounds.xMax)],
             ];
             // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             return svgPath(points);
@@ -229,8 +230,8 @@ GraphUtils.createGraphie = function (el: any) {
         // Calculate x coordinates of points on parabola
         const xVertex = -b / (2 * a);
         const distToEdge = Math.max(
-            Math.abs(xVertex - bounds.xMin),
-            Math.abs(xVertex - bounds.xMax),
+            Math.abs(xVertex - graphie.bounds.xMin),
+            Math.abs(xVertex - graphie.bounds.xMax),
         );
 
         // To guarantee that drawn parabola to spans the viewport, use a point
@@ -308,12 +309,12 @@ GraphUtils.createGraphie = function (el: any) {
         };
 
         // How many quarter-periods do we need to span the graph?
-        const extent = bounds.width();
+        const extent = graphie.bounds.width();
         const numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
 
         // Find starting coordinate: first anchor point curve left of bounds.xMin
         let initial = c / b;
-        const distToEdge = initial - bounds.xMin;
+        const distToEdge = initial - graphie.bounds.xMin;
         initial -= quarterPeriod * Math.ceil(distToEdge / quarterPeriod);
 
         // First portion of path is special-case, requiring move-to ('M')
@@ -361,7 +362,7 @@ GraphUtils.createGraphie = function (el: any) {
     const processAttributes = function (attrs) {
         const transformers = {
             scale: function (scale) {
-                drawingTransform.setScale(scale);
+                graphie.drawingTransform.setScale(scale);
             },
 
             clipRect: function (pair) {
@@ -424,8 +425,8 @@ GraphUtils.createGraphie = function (el: any) {
                 const w = path.attr("stroke-width");
                 const s = 0.6 + 0.4 * w;
                 const l = path.getTotalLength();
-                const set = raphael.set();
-                const head = raphael.path(
+                const set = graphie.raphael.set();
+                const head = graphie.raphael.path(
                     graphie.isMobile
                         ? "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4"
                         : "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4",
@@ -443,7 +444,7 @@ GraphUtils.createGraphie = function (el: any) {
                 delete attrs.path;
 
                 let subpath = path.getSubpath(0, l - 0.75 * s);
-                subpath = raphael.path(subpath).attr(attrs);
+                subpath = graphie.raphael.path(subpath).attr(attrs);
                 subpath.arrowheadsDrawn = true;
                 path.remove();
 
@@ -472,7 +473,7 @@ GraphUtils.createGraphie = function (el: any) {
     };
 
     function circle(center, radius) {
-        return raphael.ellipse(
+        return graphie.raphael.ellipse(
             ...scalePoint(center).concat(scaleVector([radius, radius])),
         );
     }
@@ -482,7 +483,7 @@ GraphUtils.createGraphie = function (el: any) {
         // Raphael needs (x, y) to be coordinate of upper left corner
         const corner = scalePoint([x, y + height]);
         const dims = scaleVector([width, height]);
-        const elem = raphael.rect(...corner.concat(dims));
+        const elem = graphie.raphael.rect(...corner.concat(dims));
 
         if (graphie.isMobile) {
             elem.node.style.shapeRendering = "crispEdges";
@@ -492,7 +493,7 @@ GraphUtils.createGraphie = function (el: any) {
     }
 
     function ellipse(center, radii) {
-        return raphael.ellipse(
+        return graphie.raphael.ellipse(
             ...scalePoint(center).concat(scaleVector(radii)),
         );
     }
@@ -559,10 +560,9 @@ GraphUtils.createGraphie = function (el: any) {
             center[1] + endVector[1],
         ]);
 
-        const largeAngle =
-            (((endAngle - startAngle) % 360) + 360) % 360 > 180;
+        const largeAngle = (((endAngle - startAngle) % 360) + 360) % 360 > 180;
 
-        return raphael.path(
+        return graphie.raphael.path(
             "M" +
                 startPoint.join(" ") +
                 "A" +
@@ -577,7 +577,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function path(points) {
         // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-        const p = raphael.path(svgPath(points));
+        const p = graphie.raphael.path(svgPath(points));
         p.graphiePath = points;
 
         return p;
@@ -626,10 +626,10 @@ GraphUtils.createGraphie = function (el: any) {
             // so we cast to `any` here.
             transformOrigin: center
                 ? width / 2 +
-                    center[0] +
-                    "px " +
-                    (height / 2 + center[1]) +
-                    "px"
+                  center[0] +
+                  "px " +
+                  (height / 2 + center[1]) +
+                  "px"
                 : null,
         } as any);
 
@@ -646,7 +646,9 @@ GraphUtils.createGraphie = function (el: any) {
     }
 
     function scaledPath(points) {
-        const p = raphael.path(svgPath(points, /* alreadyScaled */ true));
+        const p = graphie.raphael.path(
+            svgPath(points, /* alreadyScaled */ true),
+        );
         p.graphiePath = points;
         return p;
     }
@@ -663,7 +665,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function parabola(a, b, c) {
         // Plot a parabola of the form: f(x) = (a * x + b) * x + c
-        return raphael.path(svgParabolaPath(a, b, c));
+        return graphie.raphael.path(svgParabolaPath(a, b, c));
     }
 
     function fixedLine(start, end, thickness) {
@@ -714,15 +716,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         // Calculate path
         const path =
-            "M" +
-            start[0] +
-            " " +
-            start[1] +
-            " " +
-            "L" +
-            end[0] +
-            " " +
-            end[1];
+            "M" + start[0] + " " + start[1] + " " + "L" + end[0] + " " + end[1];
         const visibleShape = localRaphael.path(path);
         visibleShape.graphiePath = [start, end];
 
@@ -734,12 +728,12 @@ GraphUtils.createGraphie = function (el: any) {
 
     function sinusoid(a, b, c, d) {
         // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-        return raphael.path(svgSinusoidPath(a, b, c, d));
+        return graphie.raphael.path(svgSinusoidPath(a, b, c, d));
     }
 
     function grid(xr, yr) {
         const step: any = currentStyle.step || [1, 1];
-        const set = raphael.set();
+        const set = graphie.raphael.set();
 
         let x = step[0] * Math.ceil(xr[0] / step[0]);
         for (; x <= xr[1]; x += step[0]) {
@@ -817,8 +811,12 @@ GraphUtils.createGraphie = function (el: any) {
         return $span;
     }
 
-
-    function plotParametric(fn: (t: number) => Coord, range, shade, fn2: (t: number) => Coord = (t) => [t, 0]) {
+    function plotParametric(
+        fn: (t: number) => Coord,
+        range,
+        shade,
+        fn2: (t: number) => Coord = (t) => [t, 0],
+    ) {
         // Note: fn2 should only be set if 'shade' is true, as it denotes
         // the function between which fn should have its area shaded.
         // In general, plotParametric shouldn't be used to shade the area
@@ -853,12 +851,9 @@ GraphUtils.createGraphie = function (el: any) {
             step = 1;
         }
 
-        const paths = raphael.set();
+        const paths = graphie.raphael.set();
         let points = [];
-        let lastDiff = GraphUtils.coordDiff(
-            clippedFn(min),
-            clippedFn2(min),
-        );
+        let lastDiff = GraphUtils.coordDiff(clippedFn(min), clippedFn2(min));
 
         let lastFlip = min;
         for (let t = min; t <= max; t += step) {
@@ -866,21 +861,21 @@ GraphUtils.createGraphie = function (el: any) {
             const bottom = clippedFn2(t);
             const diff = GraphUtils.coordDiff(top, bottom);
 
-                // Find points where it flips
-                // Create path that sketches area between the two functions
-                if (
-                    // if there is an asymptote here, meaning that the graph
-                    // switches signs and has a large difference
-                    (diff[1] < 0 !== lastDiff[1] < 0 &&
-                        Math.abs(diff[1] - lastDiff[1]) >
-                            2 * drawingTransform.pixelsPerUnitY()) ||
-                    // or the function is undefined
-                    isNaN(diff[1])
-                ) {
-                    // split the path at this point, and draw it
-                    if (shade) {
-                        // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                        points.push(top);
+            // Find points where it flips
+            // Create path that sketches area between the two functions
+            if (
+                // if there is an asymptote here, meaning that the graph
+                // switches signs and has a large difference
+                (diff[1] < 0 !== lastDiff[1] < 0 &&
+                    Math.abs(diff[1] - lastDiff[1]) >
+                        2 * graphie.drawingTransform.pixelsPerUnitY()) ||
+                // or the function is undefined
+                isNaN(diff[1])
+            ) {
+                // split the path at this point, and draw it
+                if (shade) {
+                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                    points.push(top);
 
                     // backtrack to draw paired function
                     for (let u = t - step; u >= lastFlip; u -= step) {
@@ -922,7 +917,7 @@ GraphUtils.createGraphie = function (el: any) {
         const max = range[1];
         if (!currentStyle["plot-points"]) {
             currentStyle["plot-points"] =
-                2 * (max - min) * drawingTransform.pixelsPerUnitX();
+                2 * (max - min) * graphie.drawingTransform.pixelsPerUnitX();
         }
 
         if (swapAxes) {
@@ -985,12 +980,9 @@ GraphUtils.createGraphie = function (el: any) {
         label,
         plotParametric,
         plot,
-    }
+    };
 
-    const graphie = new Graphie();
     _.extend(graphie, {
-        raphael: raphael,
-
         init: function (options: {
             range: [Interval, Interval];
             scale: number | [number, number];
@@ -1006,11 +998,15 @@ GraphUtils.createGraphie = function (el: any) {
                 );
             }
 
-            bounds = new GraphBounds(...options.range);
+            graphie.bounds = new GraphBounds(...options.range);
 
-            drawingTransform = new DrawingTransform(raphael, scale, bounds);
+            graphie.drawingTransform = new DrawingTransform(
+                graphie.raphael,
+                scale,
+                graphie.bounds,
+            );
 
-            const [w, h] = drawingTransform.canvasDimensions();
+            const [w, h] = graphie.drawingTransform.canvasDimensions();
 
             $(el).css({
                 width: w,
@@ -1098,7 +1094,7 @@ GraphUtils.createGraphie = function (el: any) {
     }
 
     $.each(drawingTools, function (name) {
-        graphie[name] = graphify(drawingTools[name])
+        graphie[name] = graphify(drawingTools[name]);
     });
 
     // Initializes graphie settings for a graph and draws the basic graph
