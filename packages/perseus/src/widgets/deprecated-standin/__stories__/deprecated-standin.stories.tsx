@@ -8,21 +8,17 @@ export default {
 
 const question1 = {
     content:
-        "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
-    images: {},
+        "$\\overleftrightarrow{MN}$ is the perpendicular bisector of segment $\\overline{JL}$.  \n\n**Perform a reflection that proves $M$ must be equidistant from $J$ and $L$ and select the option which explains the proof.**  \nThe statement must be true for any point $M$ which lies on the perpendicular bisector.  \n\n[[☃ standin 1]]  \n\n",
+    images: {
+        "https://ka-perseus-images.s3.amazonaws.com/6cf0d9f007084e9d06e3ce0e241416dde920ec9c.png":
+            {height: 503, width: 504},
+    },
     widgets: {
-        "definition 1": {
+        "standin 1": {
             graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            static: false,
+            options: {},
             type: "deprecated-standin",
-            options: {
-                static: false,
-            },
-            alignment: "default",
+            version: {major: 0, minor: 0},
         },
     },
 } as const;

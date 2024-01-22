@@ -79,6 +79,30 @@ export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
     });
 };
 
+/**
+ *
+ * @param name - the widget that you are trying to replace
+ * @param replacementName - the name of the widget that takes its place
+ *
+ * e.g. replaceEditor("transformer", "always-correct") will make it so the
+ * transformer widget is replaced by the always correct widget
+ */
+export const replaceEditor = (name: string, replacementName: string) => {
+    const substituteEditor = editors[replacementName];
+
+    if (!substituteEditor && Log) {
+        const errorMsg = `Failed to replace editor ${name} with ${replacementName}`;
+        Log.error(errorMsg, Errors.Internal);
+        return;
+    }
+
+    editors[name] = substituteEditor;
+
+    if (Log) {
+        Log.log(`INFO: Replacing editor ${name} with ${replacementName}`);
+    }
+};
+
 export const getWidget = (
     name: string,
 ): React.ComponentType<any> | null | undefined => {
