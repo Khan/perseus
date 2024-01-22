@@ -100,6 +100,15 @@ class Graphie {
         fill: "none",
     };
 
+    range: [Interval, Interval];
+    scale: Coord;
+    dimensions: Coord;
+    // TODO(benchristel): xpixels and ypixels are never used by this class, but
+    // other code reaches in to access them :(
+    // Refactor to accessor methods that look at this.dimensions.
+    xpixels: number;
+    ypixels: number;
+
     constructor(el: HTMLElement) {
         this.el = el;
         $(el).css("position", "relative");
@@ -109,7 +118,44 @@ class Graphie {
         $(el).children("div").css("position", "absolute");
     }
 
-    init(options: any) {}
+    init(options: any) {
+        let scale = options.scale || [40, 40];
+        scale = typeof scale === "number" ? [scale, scale] : scale;
+
+        if (options.range == null) {
+            throw new PerseusError(
+                "range should be specified in graph init",
+                Errors.Internal,
+            );
+        }
+
+        this.bounds = new GraphBounds(...options.range);
+
+        this.drawingTransform = new DrawingTransform(
+            this.raphael,
+            scale,
+            this.bounds,
+        );
+
+        const [w, h] = this.drawingTransform.canvasDimensions();
+
+        $(this.el).css({
+            width: w,
+            height: h,
+        });
+
+        this.range = options.range;
+        this.scale = scale;
+        // TODO(benchristel): I don't think dimensions is used. Can we
+        // remove it?
+        this.dimensions = [w, h];
+        this.xpixels = w;
+        this.ypixels = h;
+
+        this.isMobile = options.isMobile;
+
+        return this;
+    }
 
     // Initializes graphie settings for a graph and draws the basic graph
     // features (axes, grid, tick marks, and axis labels)
@@ -1380,49 +1426,6 @@ GraphUtils.createGraphie = function (el: any) {
     };
 
     _.extend(thisGraphie, {
-        init: function (options: {
-            range: [Interval, Interval];
-            scale: number | [number, number];
-            isMobile: boolean;
-        }) {
-            let scale = options.scale || [40, 40];
-            scale = typeof scale === "number" ? [scale, scale] : scale;
-
-            if (options.range == null) {
-                throw new PerseusError(
-                    "range should be specified in graph init",
-                    Errors.Internal,
-                );
-            }
-
-            thisGraphie.bounds = new GraphBounds(...options.range);
-
-            thisGraphie.drawingTransform = new DrawingTransform(
-                thisGraphie.raphael,
-                scale,
-                thisGraphie.bounds,
-            );
-
-            const [w, h] = thisGraphie.drawingTransform.canvasDimensions();
-
-            $(thisGraphie.el).css({
-                width: w,
-                height: h,
-            });
-
-            this.range = options.range;
-            this.scale = scale;
-            // TODO(benchristel): I don't think dimensions is used. Can we
-            // remove it?
-            this.dimensions = [w, h];
-            this.xpixels = w;
-            this.ypixels = h;
-
-            this.isMobile = options.isMobile;
-
-            return this;
-        },
-
         style: function (attrs, fn) {
             const processed = processAttributes(attrs);
 
