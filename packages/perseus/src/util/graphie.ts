@@ -1520,30 +1520,33 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         plot,
     };
 
+    function preprocessDrawingArgs(args: any[]): any[] {
+        const last = args[args.length - 1];
+
+        // The last argument is probably trying to change the style
+        if (typeof last === "object" && !_.isArray(last)) {
+            thisGraphie.currentStyle = {
+                ...thisGraphie.currentStyle,
+                ...thisGraphie.processAttributes(last),
+            };
+
+            const rest = [].slice.call(args, 0, args.length - 1);
+
+            return rest;
+        } else {
+            thisGraphie.currentStyle = $.extend(
+                {},
+                thisGraphie.currentStyle,
+            );
+
+            return args;
+        }
+    }
+
     function graphify(drawingFn: any): any {
         return function (...args) {
-            const last = args[args.length - 1];
             const oldStyle = thisGraphie.currentStyle;
-            let argsToDrawingFn;
-
-            // The last argument is probably trying to change the style
-            if (typeof last === "object" && !_.isArray(last)) {
-                thisGraphie.currentStyle = {
-                    ...thisGraphie.currentStyle,
-                    ...thisGraphie.processAttributes(last),
-                };
-
-                const rest = [].slice.call(args, 0, args.length - 1);
-
-                argsToDrawingFn = rest;
-            } else {
-                thisGraphie.currentStyle = $.extend(
-                    {},
-                    thisGraphie.currentStyle,
-                );
-
-                argsToDrawingFn = args;
-            }
+            const argsToDrawingFn = preprocessDrawingArgs(args);
 
             let result = drawingFn(...argsToDrawingFn);
 
