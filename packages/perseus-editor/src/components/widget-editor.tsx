@@ -12,7 +12,7 @@ import SectionControlButton from "./section-control-button";
 
 import type {Alignment, WidgetInfo} from "@khanacademy/perseus";
 
-const {InlineIcon, PropCheckBox} = components;
+const {InlineIcon} = components;
 const {iconChevronDown, iconChevronRight, iconTrash} = icons;
 
 type WidgetEditorProps = {
