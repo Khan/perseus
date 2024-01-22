@@ -89,10 +89,15 @@ const GraphUtils: any = {
 };
 
 class Graphie {
+    el: HTMLElement;
     bounds?: GraphBounds;
     drawingTransform?: DrawingTransform;
     raphael?: any;
     isMobile = false;
+
+    constructor(el: HTMLElement) {
+        this.el = el;
+    }
 
     init(options: any) {}
 
@@ -526,12 +531,12 @@ const SVG_SPECIFIC_STYLE_MASK = {
 } as const;
 
 GraphUtils.createGraphie = function (el: any) {
-    const thisGraphie = new Graphie();
-    $(el).css("position", "relative");
+    const thisGraphie = new Graphie(el);
+    $(thisGraphie.el).css("position", "relative");
     thisGraphie.raphael = Raphael(el);
 
     // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
-    $(el).children("div").css("position", "absolute");
+    $(thisGraphie.el).children("div").css("position", "absolute");
 
     // Set up some reasonable defaults
     let currentStyle: any = {
@@ -1160,7 +1165,7 @@ GraphUtils.createGraphie = function (el: any) {
                 ),
             )
             .data("labelDirection", direction)
-            .appendTo(el);
+            .appendTo(thisGraphie.el);
 
         // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
         $span.setPosition = function (point) {
@@ -1401,7 +1406,7 @@ GraphUtils.createGraphie = function (el: any) {
 
             const [w, h] = thisGraphie.drawingTransform.canvasDimensions();
 
-            $(el).css({
+            $(thisGraphie.el).css({
                 width: w,
                 height: h,
             });
