@@ -888,6 +888,86 @@ export class Graphie {
         }
     }
 
+    postprocessDrawingResult(result: any): any {
+        // Bad heuristic for recognizing Raphael elements and sets
+        const type = result.constructor.prototype;
+        if (type === Raphael.el || type === Raphael.st) {
+            result.attr(this.currentStyle);
+
+            if (this.currentStyle.arrows) {
+                result = this.addArrowheads(result);
+            }
+        } else if (result instanceof $) {
+            // We assume that if it's not a Raphael element/set, it
+            // does not contain SVG.
+            // @ts-expect-error - TS2339 - Property 'css' does not exist on type '{}'.
+            result.css({
+                ...this.currentStyle,
+                ...SVG_SPECIFIC_STYLE_MASK,
+            });
+        }
+
+        return result;
+    }
+
+    addArrowheads(path: any) {
+        const type = path.constructor.prototype;
+
+        if (type === Raphael.el) {
+            if (
+                path.type === "path" &&
+                typeof path.arrowheadsDrawn === "undefined"
+            ) {
+                const w = path.attr("stroke-width");
+                const s = 0.6 + 0.4 * w;
+                const l = path.getTotalLength();
+                const set = this.raphael.set();
+                const head = this.raphael.path(
+                    this.isMobile
+                        ? "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4"
+                        : "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4",
+                );
+                const end = path.getPointAtLength(l - 0.4);
+                const almostTheEnd = path.getPointAtLength(l - 0.75 * s);
+                const angle =
+                    (Math.atan2(
+                            end.y - almostTheEnd.y,
+                            end.x - almostTheEnd.x,
+                        ) *
+                        180) /
+                    Math.PI;
+                const attrs = path.attr();
+                delete attrs.path;
+
+                let subpath = path.getSubpath(0, l - 0.75 * s);
+                subpath = this.raphael.path(subpath).attr(attrs);
+                subpath.arrowheadsDrawn = true;
+                path.remove();
+
+                // For some unknown reason 0 doesn't work for the rotation
+                // origin so we use a tiny number.
+                head.rotate(angle, this.isMobile ? 1e-5 : 0.75, 0)
+                    .scale(s, s, 0.75, 0)
+                    .translate(almostTheEnd.x, almostTheEnd.y)
+                    .attr(attrs)
+                    .attr({
+                        "stroke-linejoin": "round",
+                        "stroke-linecap": "round",
+                    });
+
+                head.arrowheadsDrawn = true;
+                set.push(subpath);
+                set.push(head);
+                return set;
+            }
+        } else if (type === Raphael.st) {
+            for (let i = 0, l = path.items.length; i < l; i++) {
+                this.addArrowheads(path.items[i]);
+            }
+        }
+        return path;
+    };
+
     scalePoint = (point: number | Coord): Coord => {
         return this.drawingTransform().scalePoint(point);
     };
@@ -1027,64 +1107,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
-
-    const addArrowheads = function arrows(path: any) {
-        const type = path.constructor.prototype;
-
-        if (type === Raphael.el) {
-            if (
-                path.type === "path" &&
-                typeof path.arrowheadsDrawn === "undefined"
-            ) {
-                const w = path.attr("stroke-width");
-                const s = 0.6 + 0.4 * w;
-                const l = path.getTotalLength();
-                const set = thisGraphie.raphael.set();
-                const head = thisGraphie.raphael.path(
-                    thisGraphie.isMobile
-                        ? "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4"
-                        : "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4",
-                );
-                const end = path.getPointAtLength(l - 0.4);
-                const almostTheEnd = path.getPointAtLength(l - 0.75 * s);
-                const angle =
-                    (Math.atan2(
-                        end.y - almostTheEnd.y,
-                        end.x - almostTheEnd.x,
-                    ) *
-                        180) /
-                    Math.PI;
-                const attrs = path.attr();
-                delete attrs.path;
-
-                let subpath = path.getSubpath(0, l - 0.75 * s);
-                subpath = thisGraphie.raphael.path(subpath).attr(attrs);
-                subpath.arrowheadsDrawn = true;
-                path.remove();
-
-                // For some unknown reason 0 doesn't work for the rotation
-                // origin so we use a tiny number.
-                head.rotate(angle, thisGraphie.isMobile ? 1e-5 : 0.75, 0)
-                    .scale(s, s, 0.75, 0)
-                    .translate(almostTheEnd.x, almostTheEnd.y)
-                    .attr(attrs)
-                    .attr({
-                        "stroke-linejoin": "round",
-                        "stroke-linecap": "round",
-                    });
-
-                head.arrowheadsDrawn = true;
-                set.push(subpath);
-                set.push(head);
-                return set;
-            }
-        } else if (type === Raphael.st) {
-            for (let i = 0, l = path.items.length; i < l; i++) {
-                arrows(path.items[i]);
-            }
-        }
-        return path;
-    };
 
     function circle(center, radius) {
         return thisGraphie.raphael.ellipse(
@@ -1543,34 +1565,12 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         plot,
     };
 
-    function postprocessDrawingResult(result: any): any {
-        // Bad heuristic for recognizing Raphael elements and sets
-        const type = result.constructor.prototype;
-        if (type === Raphael.el || type === Raphael.st) {
-            result.attr(thisGraphie.currentStyle);
-
-            if (thisGraphie.currentStyle.arrows) {
-                result = addArrowheads(result);
-            }
-        } else if (result instanceof $) {
-            // We assume that if it's not a Raphael element/set, it
-            // does not contain SVG.
-            // @ts-expect-error - TS2339 - Property 'css' does not exist on type '{}'.
-            result.css({
-                ...thisGraphie.currentStyle,
-                ...SVG_SPECIFIC_STYLE_MASK,
-            });
-        }
-
-        return result;
-    }
-
     function graphify(drawingFn: any): any {
         return function (...args) {
             const oldStyle = thisGraphie.currentStyle;
             const argsToDrawingFn = thisGraphie.preprocessDrawingArgs(args);
 
-            const result = postprocessDrawingResult(
+            const result = thisGraphie.postprocessDrawingResult(
                 drawingFn(...argsToDrawingFn),
             );
 
