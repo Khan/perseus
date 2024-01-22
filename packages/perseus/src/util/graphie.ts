@@ -558,6 +558,22 @@ class Graphie {
 
     grid(xr: any, yr: any, styleAttributes: any) {}
 
+    scalePoint = (point: number | Coord): Coord => {
+        return this.drawingTransform.scalePoint(point);
+    };
+
+    scaleVector = (point: number | Coord) => {
+        return this.drawingTransform.scaleVector(point);
+    };
+
+    unscalePoint = (point: Coord) => {
+        return this.drawingTransform.unscalePoint(point);
+    };
+
+    unscaleVector = (point: Coord) => {
+        return this.drawingTransform.unscaleVector(point);
+    };
+
     processAttributes(attrs: any) {
         const transformers = {
             scale: (scale) => {
@@ -570,8 +586,8 @@ class Graphie {
                 point[1] += size[1]; // because our coordinates are flipped
 
                 return {
-                    "clip-rect": this.drawingTransform.scalePoint(point)
-                        .concat(this.drawingTransform.scaleVector(size))
+                    "clip-rect": this.scalePoint(point)
+                        .concat(this.scaleVector(size))
                         .join(" "),
                 };
             },
@@ -581,15 +597,15 @@ class Graphie {
             },
 
             rx: (val) => {
-                return {rx: this.drawingTransform.scaleVector([val, 0])[0]};
+                return {rx: this.scaleVector([val, 0])[0]};
             },
 
             ry: (val) => {
-                return {ry: this.drawingTransform.scaleVector([0, val])[1]};
+                return {ry: this.scaleVector([0, val])[1]};
             },
 
             r: (val) => {
-                const scaled = this.drawingTransform.scaleVector([val, val]);
+                const scaled = this.scaleVector([val, val]);
                 return {rx: scaled[0], ry: scaled[1]};
             },
         } as const;
@@ -644,22 +660,6 @@ const SVG_SPECIFIC_STYLE_MASK = {
 GraphUtils.createGraphie = function (el: any) {
     const thisGraphie = new Graphie(el);
 
-    const scaleVector = function (point: number | Coord) {
-        return thisGraphie.drawingTransform.scaleVector(point);
-    };
-
-    const scalePoint = function scalePoint(point: number | Coord): Coord {
-        return thisGraphie.drawingTransform.scalePoint(point);
-    };
-
-    const unscalePoint = function (point: Coord) {
-        return thisGraphie.drawingTransform.unscalePoint(point);
-    };
-
-    const unscaleVector = function (point: Coord) {
-        return thisGraphie.drawingTransform.unscaleVector(point);
-    };
-
     const setLabelMargins = function (span: any, size: Array<any>) {
         const $span = $(span);
         const direction = $span.data("labelDirection");
@@ -700,7 +700,7 @@ GraphUtils.createGraphie = function (el: any) {
             if (point === true) {
                 return "z";
             }
-            const scaled = alreadyScaled ? point : scalePoint(point);
+            const scaled = alreadyScaled ? point : thisGraphie.scalePoint(point);
             return (
                 (i === 0 ? "M" : "L") +
                 KhanMath.bound(scaled[0]) +
@@ -750,7 +750,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         // Scale and bound
         // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
-        const points = _.map([left, control, right], scalePoint);
+        const points = _.map([left, control, right], thisGraphie.scalePoint);
         const values = _.map(_.flatten(points), KhanMath.bound);
         return (
             "M" +
@@ -803,7 +803,7 @@ GraphUtils.createGraphie = function (el: any) {
 
             // Zip and scale
             // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
-            return _.map(_.zip(xCoords, yCoords), scalePoint);
+            return _.map(_.zip(xCoords, yCoords), thisGraphie.scalePoint);
         };
 
         // How many quarter-periods do we need to span the graph?
@@ -917,15 +917,15 @@ GraphUtils.createGraphie = function (el: any) {
 
     function circle(center, radius) {
         return thisGraphie.raphael.ellipse(
-            ...scalePoint(center).concat(scaleVector([radius, radius])),
+            ...thisGraphie.scalePoint(center).concat(thisGraphie.scaleVector([radius, radius])),
         );
     }
 
     // (x, y) is coordinate of bottom left corner
     function rect(x, y, width, height) {
         // Raphael needs (x, y) to be coordinate of upper left corner
-        const corner = scalePoint([x, y + height]);
-        const dims = scaleVector([width, height]);
+        const corner = thisGraphie.scalePoint([x, y + height]);
+        const dims = thisGraphie.scaleVector([width, height]);
         const elem = thisGraphie.raphael.rect(...corner.concat(dims));
 
         if (thisGraphie.isMobile) {
@@ -937,7 +937,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function ellipse(center, radii) {
         return thisGraphie.raphael.ellipse(
-            ...scalePoint(center).concat(scaleVector(radii)),
+            ...thisGraphie.scalePoint(center).concat(thisGraphie.scaleVector(radii)),
         );
     }
 
@@ -949,8 +949,8 @@ GraphUtils.createGraphie = function (el: any) {
         padding: number,
     ) {
         // Scale point and radius
-        const scaledPoint = scalePoint(center);
-        const scaledRadii = scaleVector(radii);
+        const scaledPoint = thisGraphie.scalePoint(center);
+        const scaledRadii = thisGraphie.scaleVector(radii);
 
         const width = 2 * scaledRadii[0] * maxScale + padding;
         const height = 2 * scaledRadii[1] * maxScale + padding;
@@ -989,16 +989,16 @@ GraphUtils.createGraphie = function (el: any) {
         startAngle = ((startAngle % 360) + 360) % 360;
         endAngle = ((endAngle % 360) + 360) % 360;
 
-        const cent = scalePoint(center);
-        const radii = scaleVector(radius);
+        const cent = thisGraphie.scalePoint(center);
+        const radii = thisGraphie.scaleVector(radius);
         const startVector = polar(radius, startAngle);
         const endVector = polar(radius, endAngle);
 
-        const startPoint = scalePoint([
+        const startPoint = thisGraphie.scalePoint([
             center[0] + startVector[0],
             center[1] + startVector[1],
         ]);
-        const endPoint = scalePoint([
+        const endPoint = thisGraphie.scalePoint([
             center[0] + endVector[0],
             center[1] + endVector[1],
         ]);
@@ -1027,8 +1027,8 @@ GraphUtils.createGraphie = function (el: any) {
     }
 
     function fixedPath(points, center, createPath) {
-        points = _.map(points, scalePoint);
-        center = center ? scalePoint(center) : null;
+        points = _.map(points, thisGraphie.scalePoint);
+        center = center ? thisGraphie.scalePoint(center) : null;
         createPath = createPath || svgPath;
 
         const pathLeft = _.min(_.pluck(points, 0));
@@ -1116,8 +1116,8 @@ GraphUtils.createGraphie = function (el: any) {
         const padding = [thickness, thickness];
 
         // Scale points to get values in pixels
-        start = scalePoint(start);
-        end = scalePoint(end);
+        start = thisGraphie.scalePoint(start);
+        end = thisGraphie.scalePoint(end);
 
         // Calculate and apply additional offset
         const extraOffset = [
@@ -1214,7 +1214,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
         $span.setPosition = function (point) {
-            const scaledPoint = scalePoint(point);
+            const scaledPoint = thisGraphie.scalePoint(point);
             $span.css({
                 left: scaledPoint[0],
                 top: scaledPoint[1],
@@ -1438,12 +1438,6 @@ GraphUtils.createGraphie = function (el: any) {
             }
             $.extend(thisGraphie.currentStyle, processed);
         },
-
-        scalePoint: scalePoint,
-        scaleVector: scaleVector,
-
-        unscalePoint: unscalePoint,
-        unscaleVector: unscaleVector,
 
         // Custom SVG path functions that are dependent on graphie range
         // `svgPath`, while independent of range, is exported for consistency
