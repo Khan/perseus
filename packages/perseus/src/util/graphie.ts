@@ -631,6 +631,92 @@ class Graphie {
         );
     };
 
+    svgSinusoidPath = (a, b, c: any, d: any) => {
+        // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
+        const quarterPeriod = Math.abs(Math.PI / (2 * b));
+
+        const computeSine = function (x: number) {
+            return a * Math.sin(b * x - c) + d;
+        };
+
+        const computeDerivative = function (x) {
+            return a * b * Math.cos(c - b * x);
+        };
+
+        const coordsForOffset = (initial: number, i: number) => {
+            // Return the cubic coordinates (including the two anchor and two
+            // control points) for the ith portion of the sinusoid.
+            const x0 = initial + quarterPeriod * i;
+            const x1 = x0 + quarterPeriod;
+
+            // Interpolate using derivative technique
+            // See: http://stackoverflow.com/questions/13932704/how-to-draw-sine-waves-with-svg-js
+            const xCoords = [
+                x0,
+                (x0 * 2) / 3 + (x1 * 1) / 3,
+                (x0 * 1) / 3 + (x1 * 2) / 3,
+                x1,
+            ];
+            const yCoords = [
+                computeSine(x0),
+                computeSine(x0) + (computeDerivative(x0) * (x1 - x0)) / 3,
+                computeSine(x1) - (computeDerivative(x1) * (x1 - x0)) / 3,
+                computeSine(x1),
+            ];
+
+            // Zip and scale
+            // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
+            return _.map(_.zip(xCoords, yCoords), this.scalePoint);
+        };
+
+        // How many quarter-periods do we need to span the graph?
+        const extent = this.bounds.width();
+        const numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
+
+        // Find starting coordinate: first anchor point curve left of bounds.xMin
+        let initial = c / b;
+        const distToEdge = initial - this.bounds.xMin;
+        initial -= quarterPeriod * Math.ceil(distToEdge / quarterPeriod);
+
+        // First portion of path is special-case, requiring move-to ('M')
+        let coords = coordsForOffset(initial, 0);
+        let path =
+            "M" +
+            coords[0][0] +
+            "," +
+            coords[0][1] +
+            " C" +
+            coords[1][0] +
+            "," +
+            coords[1][1] +
+            " " +
+            coords[2][0] +
+            "," +
+            coords[2][1] +
+            " " +
+            coords[3][0] +
+            "," +
+            coords[3][1];
+        for (let i = 1; i < numQuarterPeriods; i++) {
+            coords = coordsForOffset(initial, i);
+            path +=
+                " C" +
+                coords[1][0] +
+                "," +
+                coords[1][1] +
+                " " +
+                coords[2][0] +
+                "," +
+                coords[2][1] +
+                " " +
+                coords[3][0] +
+                "," +
+                coords[3][1];
+        }
+
+        return path;
+    };
+
     scalePoint = (point: number | Coord): Coord => {
         return this.drawingTransform.scalePoint(point);
     };
@@ -768,91 +854,7 @@ GraphUtils.createGraphie = function (el: any) {
         }
     };
 
-    const svgSinusoidPath = function (a, b, c: any, d: any) {
-        // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-        const quarterPeriod = Math.abs(Math.PI / (2 * b));
 
-        const computeSine = function (x: number) {
-            return a * Math.sin(b * x - c) + d;
-        };
-
-        const computeDerivative = function (x) {
-            return a * b * Math.cos(c - b * x);
-        };
-
-        const coordsForOffset = function (initial: number, i: number) {
-            // Return the cubic coordinates (including the two anchor and two
-            // control points) for the ith portion of the sinusoid.
-            const x0 = initial + quarterPeriod * i;
-            const x1 = x0 + quarterPeriod;
-
-            // Interpolate using derivative technique
-            // See: http://stackoverflow.com/questions/13932704/how-to-draw-sine-waves-with-svg-js
-            const xCoords = [
-                x0,
-                (x0 * 2) / 3 + (x1 * 1) / 3,
-                (x0 * 1) / 3 + (x1 * 2) / 3,
-                x1,
-            ];
-            const yCoords = [
-                computeSine(x0),
-                computeSine(x0) + (computeDerivative(x0) * (x1 - x0)) / 3,
-                computeSine(x1) - (computeDerivative(x1) * (x1 - x0)) / 3,
-                computeSine(x1),
-            ];
-
-            // Zip and scale
-            // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
-            return _.map(_.zip(xCoords, yCoords), thisGraphie.scalePoint);
-        };
-
-        // How many quarter-periods do we need to span the graph?
-        const extent = thisGraphie.bounds.width();
-        const numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
-
-        // Find starting coordinate: first anchor point curve left of bounds.xMin
-        let initial = c / b;
-        const distToEdge = initial - thisGraphie.bounds.xMin;
-        initial -= quarterPeriod * Math.ceil(distToEdge / quarterPeriod);
-
-        // First portion of path is special-case, requiring move-to ('M')
-        let coords = coordsForOffset(initial, 0);
-        let path =
-            "M" +
-            coords[0][0] +
-            "," +
-            coords[0][1] +
-            " C" +
-            coords[1][0] +
-            "," +
-            coords[1][1] +
-            " " +
-            coords[2][0] +
-            "," +
-            coords[2][1] +
-            " " +
-            coords[3][0] +
-            "," +
-            coords[3][1];
-        for (let i = 1; i < numQuarterPeriods; i++) {
-            coords = coordsForOffset(initial, i);
-            path +=
-                " C" +
-                coords[1][0] +
-                "," +
-                coords[1][1] +
-                " " +
-                coords[2][0] +
-                "," +
-                coords[2][1] +
-                " " +
-                coords[3][0] +
-                "," +
-                coords[3][1];
-        }
-
-        return path;
-    };
 
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
@@ -1171,7 +1173,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function sinusoid(a, b, c, d) {
         // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-        return thisGraphie.raphael.path(svgSinusoidPath(a, b, c, d));
+        return thisGraphie.raphael.path(thisGraphie.svgSinusoidPath(a, b, c, d));
     }
 
     function grid(xr, yr) {
@@ -1438,9 +1440,6 @@ GraphUtils.createGraphie = function (el: any) {
             }
             $.extend(thisGraphie.currentStyle, processed);
         },
-
-        // Custom SVG path functions that are dependent on graphie range
-        svgSinusoidPath: svgSinusoidPath,
     });
 
     function graphify(drawingFn: any): any {
