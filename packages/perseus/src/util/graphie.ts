@@ -133,9 +133,9 @@ const SVG_SPECIFIC_STYLE_MASK = {
 } as const;
 
 GraphUtils.createGraphie = function (el: any) {
-    const graphie = new Graphie();
+    const thisGraphie = new Graphie();
     $(el).css("position", "relative");
-    graphie.raphael = Raphael(el);
+    thisGraphie.raphael = Raphael(el);
 
     // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
     $(el).children("div").css("position", "absolute");
@@ -147,19 +147,19 @@ GraphUtils.createGraphie = function (el: any) {
     };
 
     const scaleVector = function (point: number | Coord) {
-        return graphie.drawingTransform.scaleVector(point);
+        return thisGraphie.drawingTransform.scaleVector(point);
     };
 
     const scalePoint = function scalePoint(point: number | Coord): Coord {
-        return graphie.drawingTransform.scalePoint(point);
+        return thisGraphie.drawingTransform.scalePoint(point);
     };
 
     const unscalePoint = function (point: Coord) {
-        return graphie.drawingTransform.unscalePoint(point);
+        return thisGraphie.drawingTransform.unscalePoint(point);
     };
 
     const unscaleVector = function (point: Coord) {
-        return graphie.drawingTransform.unscaleVector(point);
+        return thisGraphie.drawingTransform.unscaleVector(point);
     };
 
     const setLabelMargins = function (span: any, size: Array<any>) {
@@ -220,8 +220,8 @@ GraphUtils.createGraphie = function (el: any) {
         // If points are collinear, plot a line instead
         if (a === 0) {
             const points = [
-                [graphie.bounds.xMin, computeParabola(graphie.bounds.xMin)],
-                [graphie.bounds.xMax, computeParabola(graphie.bounds.xMax)],
+                [thisGraphie.bounds.xMin, computeParabola(thisGraphie.bounds.xMin)],
+                [thisGraphie.bounds.xMax, computeParabola(thisGraphie.bounds.xMax)],
             ];
             // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             return svgPath(points);
@@ -230,8 +230,8 @@ GraphUtils.createGraphie = function (el: any) {
         // Calculate x coordinates of points on parabola
         const xVertex = -b / (2 * a);
         const distToEdge = Math.max(
-            Math.abs(xVertex - graphie.bounds.xMin),
-            Math.abs(xVertex - graphie.bounds.xMax),
+            Math.abs(xVertex - thisGraphie.bounds.xMin),
+            Math.abs(xVertex - thisGraphie.bounds.xMax),
         );
 
         // To guarantee that drawn parabola to spans the viewport, use a point
@@ -309,12 +309,12 @@ GraphUtils.createGraphie = function (el: any) {
         };
 
         // How many quarter-periods do we need to span the graph?
-        const extent = graphie.bounds.width();
+        const extent = thisGraphie.bounds.width();
         const numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
 
         // Find starting coordinate: first anchor point curve left of bounds.xMin
         let initial = c / b;
-        const distToEdge = initial - graphie.bounds.xMin;
+        const distToEdge = initial - thisGraphie.bounds.xMin;
         initial -= quarterPeriod * Math.ceil(distToEdge / quarterPeriod);
 
         // First portion of path is special-case, requiring move-to ('M')
@@ -362,7 +362,7 @@ GraphUtils.createGraphie = function (el: any) {
     const processAttributes = function (attrs) {
         const transformers = {
             scale: function (scale) {
-                graphie.drawingTransform.setScale(scale);
+                thisGraphie.drawingTransform.setScale(scale);
             },
 
             clipRect: function (pair) {
@@ -425,9 +425,9 @@ GraphUtils.createGraphie = function (el: any) {
                 const w = path.attr("stroke-width");
                 const s = 0.6 + 0.4 * w;
                 const l = path.getTotalLength();
-                const set = graphie.raphael.set();
-                const head = graphie.raphael.path(
-                    graphie.isMobile
+                const set = thisGraphie.raphael.set();
+                const head = thisGraphie.raphael.path(
+                    thisGraphie.isMobile
                         ? "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4"
                         : "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4",
                 );
@@ -444,13 +444,13 @@ GraphUtils.createGraphie = function (el: any) {
                 delete attrs.path;
 
                 let subpath = path.getSubpath(0, l - 0.75 * s);
-                subpath = graphie.raphael.path(subpath).attr(attrs);
+                subpath = thisGraphie.raphael.path(subpath).attr(attrs);
                 subpath.arrowheadsDrawn = true;
                 path.remove();
 
                 // For some unknown reason 0 doesn't work for the rotation
                 // origin so we use a tiny number.
-                head.rotate(angle, graphie.isMobile ? 1e-5 : 0.75, 0)
+                head.rotate(angle, thisGraphie.isMobile ? 1e-5 : 0.75, 0)
                     .scale(s, s, 0.75, 0)
                     .translate(almostTheEnd.x, almostTheEnd.y)
                     .attr(attrs)
@@ -473,7 +473,7 @@ GraphUtils.createGraphie = function (el: any) {
     };
 
     function circle(center, radius) {
-        return graphie.raphael.ellipse(
+        return thisGraphie.raphael.ellipse(
             ...scalePoint(center).concat(scaleVector([radius, radius])),
         );
     }
@@ -483,9 +483,9 @@ GraphUtils.createGraphie = function (el: any) {
         // Raphael needs (x, y) to be coordinate of upper left corner
         const corner = scalePoint([x, y + height]);
         const dims = scaleVector([width, height]);
-        const elem = graphie.raphael.rect(...corner.concat(dims));
+        const elem = thisGraphie.raphael.rect(...corner.concat(dims));
 
-        if (graphie.isMobile) {
+        if (thisGraphie.isMobile) {
             elem.node.style.shapeRendering = "crispEdges";
         }
 
@@ -493,7 +493,7 @@ GraphUtils.createGraphie = function (el: any) {
     }
 
     function ellipse(center, radii) {
-        return graphie.raphael.ellipse(
+        return thisGraphie.raphael.ellipse(
             ...scalePoint(center).concat(scaleVector(radii)),
         );
     }
@@ -562,7 +562,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         const largeAngle = (((endAngle - startAngle) % 360) + 360) % 360 > 180;
 
-        return graphie.raphael.path(
+        return thisGraphie.raphael.path(
             "M" +
                 startPoint.join(" ") +
                 "A" +
@@ -577,7 +577,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function path(points) {
         // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-        const p = graphie.raphael.path(svgPath(points));
+        const p = thisGraphie.raphael.path(svgPath(points));
         p.graphiePath = points;
 
         return p;
@@ -646,7 +646,7 @@ GraphUtils.createGraphie = function (el: any) {
     }
 
     function scaledPath(points) {
-        const p = graphie.raphael.path(
+        const p = thisGraphie.raphael.path(
             svgPath(points, /* alreadyScaled */ true),
         );
         p.graphiePath = points;
@@ -656,7 +656,7 @@ GraphUtils.createGraphie = function (el: any) {
     function line(start, end) {
         const l = path([start, end]);
 
-        if (graphie.isMobile) {
+        if (thisGraphie.isMobile) {
             l.node.style.shapeRendering = "crispEdges";
         }
 
@@ -665,7 +665,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function parabola(a, b, c) {
         // Plot a parabola of the form: f(x) = (a * x + b) * x + c
-        return graphie.raphael.path(svgParabolaPath(a, b, c));
+        return thisGraphie.raphael.path(svgParabolaPath(a, b, c));
     }
 
     function fixedLine(start, end, thickness) {
@@ -728,12 +728,12 @@ GraphUtils.createGraphie = function (el: any) {
 
     function sinusoid(a, b, c, d) {
         // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-        return graphie.raphael.path(svgSinusoidPath(a, b, c, d));
+        return thisGraphie.raphael.path(svgSinusoidPath(a, b, c, d));
     }
 
     function grid(xr, yr) {
         const step: any = currentStyle.step || [1, 1];
-        const set = graphie.raphael.set();
+        const set = thisGraphie.raphael.set();
 
         let x = step[0] * Math.ceil(xr[0] / step[0]);
         for (; x <= xr[1]; x += step[0]) {
@@ -851,7 +851,7 @@ GraphUtils.createGraphie = function (el: any) {
             step = 1;
         }
 
-        const paths = graphie.raphael.set();
+        const paths = thisGraphie.raphael.set();
         let points = [];
         let lastDiff = GraphUtils.coordDiff(clippedFn(min), clippedFn2(min));
 
@@ -868,7 +868,7 @@ GraphUtils.createGraphie = function (el: any) {
                 // switches signs and has a large difference
                 (diff[1] < 0 !== lastDiff[1] < 0 &&
                     Math.abs(diff[1] - lastDiff[1]) >
-                        2 * graphie.drawingTransform.pixelsPerUnitY()) ||
+                        2 * thisGraphie.drawingTransform.pixelsPerUnitY()) ||
                 // or the function is undefined
                 isNaN(diff[1])
             ) {
@@ -917,7 +917,7 @@ GraphUtils.createGraphie = function (el: any) {
         const max = range[1];
         if (!currentStyle["plot-points"]) {
             currentStyle["plot-points"] =
-                2 * (max - min) * graphie.drawingTransform.pixelsPerUnitX();
+                2 * (max - min) * thisGraphie.drawingTransform.pixelsPerUnitX();
         }
 
         if (swapAxes) {
@@ -982,7 +982,7 @@ GraphUtils.createGraphie = function (el: any) {
         plot,
     };
 
-    _.extend(graphie, {
+    _.extend(thisGraphie, {
         init: function (options: {
             range: [Interval, Interval];
             scale: number | [number, number];
@@ -998,15 +998,15 @@ GraphUtils.createGraphie = function (el: any) {
                 );
             }
 
-            graphie.bounds = new GraphBounds(...options.range);
+            thisGraphie.bounds = new GraphBounds(...options.range);
 
-            graphie.drawingTransform = new DrawingTransform(
-                graphie.raphael,
+            thisGraphie.drawingTransform = new DrawingTransform(
+                thisGraphie.raphael,
                 scale,
-                graphie.bounds,
+                thisGraphie.bounds,
             );
 
-            const [w, h] = graphie.drawingTransform.canvasDimensions();
+            const [w, h] = thisGraphie.drawingTransform.canvasDimensions();
 
             $(el).css({
                 width: w,
@@ -1032,7 +1032,7 @@ GraphUtils.createGraphie = function (el: any) {
             if (typeof fn === "function") {
                 const oldStyle = currentStyle;
                 currentStyle = $.extend({}, currentStyle, processed);
-                const result = fn.call(graphie);
+                const result = fn.call(thisGraphie);
                 currentStyle = oldStyle;
                 return result;
             }
@@ -1094,7 +1094,7 @@ GraphUtils.createGraphie = function (el: any) {
     }
 
     $.each(drawingTools, function (name) {
-        graphie[name] = graphify(drawingTools[name]);
+        thisGraphie[name] = graphify(drawingTools[name]);
     });
 
     // Initializes graphie settings for a graph and draws the basic graph
@@ -1109,7 +1109,7 @@ GraphUtils.createGraphie = function (el: any) {
     // - labelStep: [a, b] or number (relative to tick steps)
     // - yLabelFormat: fn to format label string for y-axis
     // - xLabelFormat: fn to format label string for x-axis
-    graphie.graphInit = function (options: any) {
+    thisGraphie.graphInit = function (options: any) {
         options = options || {};
 
         $.each(options, function (prop, val: any) {
@@ -1200,7 +1200,7 @@ GraphUtils.createGraphie = function (el: any) {
         xLabelFormat = minusIgnorer(xLabelFormat);
         yLabelFormat = minusIgnorer(yLabelFormat);
 
-        graphie.init({
+        thisGraphie.init({
             range: realRange,
             scale: scale,
             isMobile: options.isMobile,
@@ -1208,7 +1208,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         // draw grid
         if (grid) {
-            graphie.grid(gridRange[0], gridRange[1], {
+            thisGraphie.grid(gridRange[0], gridRange[1], {
                 stroke: options.isMobile ? KhanColors.GRAY_C : "#000000",
                 opacity: options.isMobile ? 1 : gridOpacity,
                 step: gridStep,
@@ -1220,7 +1220,7 @@ GraphUtils.createGraphie = function (el: any) {
         if (axes) {
             // this is a slight hack until <-> arrowheads work
             if (axisArrows === "<->" || axisArrows === true) {
-                graphie.style(
+                thisGraphie.style(
                     {
                         stroke: options.isMobile
                             ? KhanColors.GRAY_G
@@ -1232,24 +1232,24 @@ GraphUtils.createGraphie = function (el: any) {
                     function () {
                         if (range[1][0] < 0 && range[1][1] > 0) {
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            graphie.path([
+                            thisGraphie.path([
                                 axisCenter,
                                 [gridRange[0][0], axisCenter[1]],
                             ]);
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            graphie.path([
+                            thisGraphie.path([
                                 axisCenter,
                                 [gridRange[0][1], axisCenter[1]],
                             ]);
                         }
                         if (range[0][0] < 0 && range[0][1] > 0) {
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            graphie.path([
+                            thisGraphie.path([
                                 axisCenter,
                                 [axisCenter[0], gridRange[1][0]],
                             ]);
                             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            graphie.path([
+                            thisGraphie.path([
                                 axisCenter,
                                 [axisCenter[0], gridRange[1][1]],
                             ]);
@@ -1260,7 +1260,7 @@ GraphUtils.createGraphie = function (el: any) {
                 // also, we don't support "<-" arrows yet, but why you
                 // would want that on your graph is beyond me.
             } else if (axisArrows === "->" || axisArrows === "") {
-                graphie.style(
+                thisGraphie.style(
                     {
                         stroke: "#000000",
                         opacity: axisOpacity,
@@ -1269,12 +1269,12 @@ GraphUtils.createGraphie = function (el: any) {
                     },
                     function () {
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        graphie.path([
+                        thisGraphie.path([
                             [gridRange[0][0], axisCenter[1]],
                             [gridRange[0][1], axisCenter[1]],
                         ]);
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        graphie.path([
+                        thisGraphie.path([
                             [axisCenter[0], gridRange[1][0]],
                             [axisCenter[0], gridRange[1][1]],
                         ]);
@@ -1283,12 +1283,12 @@ GraphUtils.createGraphie = function (el: any) {
             }
 
             if (axisLabels && axisLabels.length === 2) {
-                graphie.label(
+                thisGraphie.label(
                     [gridRange[0][1], axisCenter[1]],
                     axisLabels[0],
                     "right",
                 );
-                graphie.label(
+                thisGraphie.label(
                     [axisCenter[0], gridRange[1][1]],
                     axisLabels[1],
                     "above",
@@ -1299,7 +1299,7 @@ GraphUtils.createGraphie = function (el: any) {
         // draw tick marks
         if (ticks) {
             const halfWidthTicks = options.isMobile;
-            graphie.style(
+            thisGraphie.style(
                 {
                     stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
                     opacity: options.isMobile ? 1 : tickOpacity,
@@ -1320,7 +1320,7 @@ GraphUtils.createGraphie = function (el: any) {
                         ) {
                             if (x < stop || !axisArrows) {
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                graphie.line(
+                                thisGraphie.line(
                                     [x, -len + axisCenter[1]],
                                     [
                                         x,
@@ -1339,7 +1339,7 @@ GraphUtils.createGraphie = function (el: any) {
                         ) {
                             if (x > start || !axisArrows) {
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                graphie.line(
+                                thisGraphie.line(
                                     [x, -len + axisCenter[1]],
                                     [
                                         x,
@@ -1366,7 +1366,7 @@ GraphUtils.createGraphie = function (el: any) {
                         ) {
                             if (y < stop || !axisArrows) {
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                graphie.line(
+                                thisGraphie.line(
                                     [-len + axisCenter[0], y],
                                     [
                                         halfWidthTicks
@@ -1385,7 +1385,7 @@ GraphUtils.createGraphie = function (el: any) {
                         ) {
                             if (y > start || !axisArrows) {
                                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                graphie.line(
+                                thisGraphie.line(
                                     [-len + axisCenter[0], y],
                                     [
                                         halfWidthTicks
@@ -1403,7 +1403,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         // draw axis labels
         if (labels) {
-            graphie.style(
+            thisGraphie.style(
                 {
                     stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
                     opacity: options.isMobile ? 1 : labelOpacity,
@@ -1431,7 +1431,7 @@ GraphUtils.createGraphie = function (el: any) {
                         x += step
                     ) {
                         if (x < stop || !axisArrows) {
-                            graphie.label(
+                            thisGraphie.label(
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
                                 xAxisPosition,
@@ -1446,7 +1446,7 @@ GraphUtils.createGraphie = function (el: any) {
                         x -= step
                     ) {
                         if (x > start || !axisArrows) {
-                            graphie.label(
+                            thisGraphie.label(
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
                                 xAxisPosition,
@@ -1465,7 +1465,7 @@ GraphUtils.createGraphie = function (el: any) {
                         y += step
                     ) {
                         if (y < stop || !axisArrows) {
-                            graphie.label(
+                            thisGraphie.label(
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
                                 yAxisPosition,
@@ -1480,7 +1480,7 @@ GraphUtils.createGraphie = function (el: any) {
                         y -= step
                     ) {
                         if (y > start || !axisArrows) {
-                            graphie.label(
+                            thisGraphie.label(
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
                                 yAxisPosition,
@@ -1492,7 +1492,7 @@ GraphUtils.createGraphie = function (el: any) {
         }
     };
 
-    return graphie;
+    return thisGraphie;
 };
 
 export default GraphUtils;
