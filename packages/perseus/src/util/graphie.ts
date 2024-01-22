@@ -558,6 +558,21 @@ class Graphie {
 
     grid(xr: any, yr: any, styleAttributes: any) {}
 
+    svgPath = (points: any, alreadyScaled) => {
+        return $.map(points, (point, i) => {
+            if (point === true) {
+                return "z";
+            }
+            const scaled = alreadyScaled ? point : this.scalePoint(point);
+            return (
+                (i === 0 ? "M" : "L") +
+                KhanMath.bound(scaled[0]) +
+                " " +
+                KhanMath.bound(scaled[1])
+            );
+        }).join("");
+    };
+
     scalePoint = (point: number | Coord): Coord => {
         return this.drawingTransform.scalePoint(point);
     };
@@ -695,21 +710,6 @@ GraphUtils.createGraphie = function (el: any) {
         }
     };
 
-    const svgPath = function (points: any, alreadyScaled) {
-        return $.map(points, function (point, i) {
-            if (point === true) {
-                return "z";
-            }
-            const scaled = alreadyScaled ? point : thisGraphie.scalePoint(point);
-            return (
-                (i === 0 ? "M" : "L") +
-                KhanMath.bound(scaled[0]) +
-                " " +
-                KhanMath.bound(scaled[1])
-            );
-        }).join("");
-    };
-
     const svgParabolaPath = function (a: any, b: any, c: any) {
         const computeParabola = function (x) {
             return (a * x + b) * x + c;
@@ -722,7 +722,7 @@ GraphUtils.createGraphie = function (el: any) {
                 [thisGraphie.bounds.xMax, computeParabola(thisGraphie.bounds.xMax)],
             ];
             // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-            return svgPath(points);
+            return thisGraphie.svgPath(points);
         }
 
         // Calculate x coordinates of points on parabola
@@ -855,7 +855,7 @@ GraphUtils.createGraphie = function (el: any) {
     };
 
     // `svgPath` is independent of graphie range, so we export it independently
-    GraphUtils.svgPath = svgPath;
+    GraphUtils.svgPath = thisGraphie.svgPath;
 
     const addArrowheads = function arrows(path: any) {
         const type = path.constructor.prototype;
@@ -1020,7 +1020,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function path(points) {
         // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-        const p = thisGraphie.raphael.path(svgPath(points));
+        const p = thisGraphie.raphael.path(thisGraphie.svgPath(points));
         p.graphiePath = points;
 
         return p;
@@ -1029,7 +1029,7 @@ GraphUtils.createGraphie = function (el: any) {
     function fixedPath(points, center, createPath) {
         points = _.map(points, thisGraphie.scalePoint);
         center = center ? thisGraphie.scalePoint(center) : null;
-        createPath = createPath || svgPath;
+        createPath = createPath || thisGraphie.svgPath;
 
         const pathLeft = _.min(_.pluck(points, 0));
         const pathRight = _.max(_.pluck(points, 0));
@@ -1090,7 +1090,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function scaledPath(points) {
         const p = thisGraphie.raphael.path(
-            svgPath(points, /* alreadyScaled */ true),
+            thisGraphie.svgPath(points, /* alreadyScaled */ true),
         );
         p.graphiePath = points;
         return p;
@@ -1440,8 +1440,6 @@ GraphUtils.createGraphie = function (el: any) {
         },
 
         // Custom SVG path functions that are dependent on graphie range
-        // `svgPath`, while independent of range, is exported for consistency
-        svgPath: svgPath,
         svgParabolaPath: svgParabolaPath,
         svgSinusoidPath: svgSinusoidPath,
     });
