@@ -90,8 +90,8 @@ const GraphUtils: any = {
 
 class Graphie {
     el: HTMLElement;
-    bounds?: GraphBounds;
-    drawingTransform?: DrawingTransform;
+    #bounds?: GraphBounds;
+    #drawingTransform?: DrawingTransform;
     raphael?: any;
     isMobile = false;
     // Set up some reasonable defaults
@@ -118,7 +118,7 @@ class Graphie {
         $(el).children("div").css("position", "absolute");
     }
 
-    init(options: any) {
+    init(options: {range?: [Interval, Interval], scale?: number | Coord, isMobile: boolean}) {
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
 
@@ -129,15 +129,15 @@ class Graphie {
             );
         }
 
-        this.bounds = new GraphBounds(...options.range);
+        this.#bounds = new GraphBounds(...options.range);
 
-        this.drawingTransform = new DrawingTransform(
+        this.#drawingTransform = new DrawingTransform(
             this.raphael,
             scale,
-            this.bounds,
+            this.bounds(),
         );
 
-        const [w, h] = this.drawingTransform.canvasDimensions();
+        const [w, h] = this.drawingTransform().canvasDimensions();
 
         $(this.el).css({
             width: w,
@@ -245,7 +245,7 @@ class Graphie {
                 range[1][0] - (range[1][0] > 0 ? 1 : 0),
                 range[1][1] + (range[1][1] < 0 ? 1 : 0),
             ],
-        ];
+        ] as [Interval, Interval];
 
         if (!_.isArray(unityLabels)) {
             unityLabels = [unityLabels, unityLabels];
@@ -552,6 +552,20 @@ class Graphie {
         }
     }
 
+    drawingTransform(): DrawingTransform {
+        if (this.#drawingTransform == null) {
+            throw new Error("Can't get drawingTransform of an uninitialized Graphie");
+        }
+        return this.#drawingTransform;
+    }
+
+    bounds(): GraphBounds {
+        if (this.#bounds == null) {
+            throw new Error("Can't get bounds of an uninitialized Graphie")
+        }
+        return this.#bounds;
+    }
+
     style(attrs: any, fn: any) {
         const processed = this.processAttributes(attrs);
 
@@ -592,8 +606,8 @@ class Graphie {
         // If points are collinear, plot a line instead
         if (a === 0) {
             const points = [
-                [this.bounds.xMin, computeParabola(this.bounds.xMin)],
-                [this.bounds.xMax, computeParabola(this.bounds.xMax)],
+                [this.bounds().xMin, computeParabola(this.bounds().xMin)],
+                [this.bounds().xMax, computeParabola(this.bounds().xMax)],
             ];
             // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             return this.svgPath(points);
@@ -602,8 +616,8 @@ class Graphie {
         // Calculate x coordinates of points on parabola
         const xVertex = -b / (2 * a);
         const distToEdge = Math.max(
-            Math.abs(xVertex - this.bounds.xMin),
-            Math.abs(xVertex - this.bounds.xMax),
+            Math.abs(xVertex - this.bounds().xMin),
+            Math.abs(xVertex - this.bounds().xMax),
         );
 
         // To guarantee that drawn parabola to spans the viewport, use a point
@@ -681,12 +695,12 @@ class Graphie {
         };
 
         // How many quarter-periods do we need to span the graph?
-        const extent = this.bounds.width();
+        const extent = this.bounds().width();
         const numQuarterPeriods = Math.ceil(extent / quarterPeriod) + 1;
 
         // Find starting coordinate: first anchor point curve left of bounds.xMin
         let initial = c / b;
-        const distToEdge = initial - this.bounds.xMin;
+        const distToEdge = initial - this.bounds().xMin;
         initial -= quarterPeriod * Math.ceil(distToEdge / quarterPeriod);
 
         // First portion of path is special-case, requiring move-to ('M')
@@ -729,25 +743,25 @@ class Graphie {
     };
 
     scalePoint = (point: number | Coord): Coord => {
-        return this.drawingTransform.scalePoint(point);
+        return this.drawingTransform().scalePoint(point);
     };
 
     scaleVector = (point: number | Coord) => {
-        return this.drawingTransform.scaleVector(point);
+        return this.drawingTransform().scaleVector(point);
     };
 
     unscalePoint = (point: Coord) => {
-        return this.drawingTransform.unscalePoint(point);
+        return this.drawingTransform().unscalePoint(point);
     };
 
     unscaleVector = (point: Coord) => {
-        return this.drawingTransform.unscaleVector(point);
+        return this.drawingTransform().unscaleVector(point);
     };
 
     processAttributes(attrs: any) {
         const transformers = {
             scale: (scale) => {
-                this.drawingTransform.setScale(scale);
+                this.drawingTransform().setScale(scale);
             },
 
             clipRect: (pair) => {
@@ -1324,7 +1338,7 @@ GraphUtils.createGraphie = function (el: any) {
                 // switches signs and has a large difference
                 (diff[1] < 0 !== lastDiff[1] < 0 &&
                     Math.abs(diff[1] - lastDiff[1]) >
-                        2 * thisGraphie.drawingTransform.pixelsPerUnitY()) ||
+                        2 * thisGraphie.drawingTransform().pixelsPerUnitY()) ||
                 // or the function is undefined
                 isNaN(diff[1])
             ) {
@@ -1373,7 +1387,7 @@ GraphUtils.createGraphie = function (el: any) {
         const max = range[1];
         if (!thisGraphie.currentStyle["plot-points"]) {
             thisGraphie.currentStyle["plot-points"] =
-                2 * (max - min) * thisGraphie.drawingTransform.pixelsPerUnitX();
+                2 * (max - min) * thisGraphie.drawingTransform().pixelsPerUnitX();
         }
 
         if (swapAxes) {
