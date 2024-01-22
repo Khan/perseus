@@ -552,7 +552,18 @@ class Graphie {
         }
     }
 
-    style(attrs: any, fn: any) {}
+    style(attrs: any, fn: any) {
+        const processed = this.processAttributes(attrs);
+
+        if (typeof fn === "function") {
+            const oldStyle = this.currentStyle;
+            this.currentStyle = $.extend({}, this.currentStyle, processed);
+            const result = fn.call(this);
+            this.currentStyle = oldStyle;
+            return result;
+        }
+        $.extend(this.currentStyle, processed);
+    }
 
     label(point: any, text: any, direction: any, latex?: any) {}
 
@@ -1426,21 +1437,6 @@ GraphUtils.createGraphie = function (el: any) {
         plotParametric,
         plot,
     };
-
-    _.extend(thisGraphie, {
-        style: function (attrs, fn) {
-            const processed = thisGraphie.processAttributes(attrs);
-
-            if (typeof fn === "function") {
-                const oldStyle = thisGraphie.currentStyle;
-                thisGraphie.currentStyle = $.extend({}, thisGraphie.currentStyle, processed);
-                const result = fn.call(thisGraphie);
-                thisGraphie.currentStyle = oldStyle;
-                return result;
-            }
-            $.extend(thisGraphie.currentStyle, processed);
-        },
-    });
 
     function graphify(drawingFn: any): any {
         return function (...args) {
