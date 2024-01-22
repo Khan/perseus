@@ -100,14 +100,14 @@ class Graphie {
         fill: "none",
     };
 
-    range: [Interval, Interval];
-    scale: Coord;
-    dimensions: Coord;
+    range?: [Interval, Interval];
+    scale?: Coord;
+    dimensions?: Coord;
     // TODO(benchristel): xpixels and ypixels are never used by this class, but
     // other code reaches in to access them :(
     // Refactor to accessor methods that look at this.dimensions.
-    xpixels: number;
-    ypixels: number;
+    xpixels?: number;
+    ypixels?: number;
 
     constructor(el: HTMLElement) {
         this.el = el;
@@ -284,6 +284,7 @@ class Graphie {
         if (axes) {
             // this is a slight hack until <-> arrowheads work
             if (axisArrows === "<->" || axisArrows === true) {
+                const thisGraphie = this;
                 this.style(
                     {
                         stroke: options.isMobile
@@ -295,25 +296,21 @@ class Graphie {
                     },
                     function () {
                         if (range[1][0] < 0 && range[1][1] > 0) {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.path([
+                            thisGraphie.path([
                                 axisCenter,
                                 [gridRange[0][0], axisCenter[1]],
                             ]);
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.path([
+                            thisGraphie.path([
                                 axisCenter,
                                 [gridRange[0][1], axisCenter[1]],
                             ]);
                         }
                         if (range[0][0] < 0 && range[0][1] > 0) {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.path([
+                            thisGraphie.path([
                                 axisCenter,
                                 [axisCenter[0], gridRange[1][0]],
                             ]);
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.path([
+                            thisGraphie.path([
                                 axisCenter,
                                 [axisCenter[0], gridRange[1][1]],
                             ]);
@@ -324,6 +321,7 @@ class Graphie {
                 // also, we don't support "<-" arrows yet, but why you
                 // would want that on your graph is beyond me.
             } else if (axisArrows === "->" || axisArrows === "") {
+                const thisGraphie = this;
                 this.style(
                     {
                         stroke: "#000000",
@@ -332,13 +330,11 @@ class Graphie {
                         arrows: axisArrows,
                     },
                     function () {
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.path([
+                        thisGraphie.path([
                             [gridRange[0][0], axisCenter[1]],
                             [gridRange[0][1], axisCenter[1]],
                         ]);
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.path([
+                        thisGraphie.path([
                             [axisCenter[0], gridRange[1][0]],
                             [axisCenter[0], gridRange[1][1]],
                         ]);
@@ -363,6 +359,7 @@ class Graphie {
         // draw tick marks
         if (ticks) {
             const halfWidthTicks = options.isMobile;
+            const thisGraphie = this;
             this.style(
                 {
                     stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
@@ -383,8 +380,7 @@ class Graphie {
                             x += step
                         ) {
                             if (x < stop || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.line(
+                                thisGraphie.line(
                                     [x, -len + axisCenter[1]],
                                     [
                                         x,
@@ -402,8 +398,7 @@ class Graphie {
                             x -= step
                         ) {
                             if (x > start || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.line(
+                                thisGraphie.line(
                                     [x, -len + axisCenter[1]],
                                     [
                                         x,
@@ -467,6 +462,7 @@ class Graphie {
 
         // draw axis labels
         if (labels) {
+            const thisGraphie = this;
             this.style(
                 {
                     stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
@@ -495,7 +491,7 @@ class Graphie {
                         x += step
                     ) {
                         if (x < stop || !axisArrows) {
-                            this.label(
+                            thisGraphie.label(
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
                                 xAxisPosition,
@@ -510,7 +506,7 @@ class Graphie {
                         x -= step
                     ) {
                         if (x > start || !axisArrows) {
-                            this.label(
+                            thisGraphie.label(
                                 [x, axisCenter[1]],
                                 xLabelFormat(x),
                                 xAxisPosition,
@@ -529,7 +525,7 @@ class Graphie {
                         y += step
                     ) {
                         if (y < stop || !axisArrows) {
-                            this.label(
+                            thisGraphie.label(
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
                                 yAxisPosition,
@@ -544,7 +540,7 @@ class Graphie {
                         y -= step
                     ) {
                         if (y > start || !axisArrows) {
-                            this.label(
+                            thisGraphie.label(
                                 [axisCenter[0], y],
                                 yLabelFormat(y),
                                 yAxisPosition,
@@ -588,6 +584,14 @@ class Graphie {
     label(point: any, text: any, direction: any, latex?: any) {}
 
     grid(xr: any, yr: any, styleAttributes: any) {}
+
+    // path is a stub that gets overwritten with a function from drawingTools
+    // in createGraphie
+    path(points: any) {}
+
+    // line is a stub that gets overwritten with a function from drawingTools
+    // in createGraphie
+    line(start: any, end: any) {}
 
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
