@@ -19,7 +19,7 @@ class DeprecatedStandinEditor extends React.Component<Props> {
                 <p>This widget has been deprecated and removed</p>
                 <p>
                     Learners will see a message and they will not be graded on
-                    this part
+                    this part. Please replace this widget with a supported one.
                 </p>
             </div>
         );
