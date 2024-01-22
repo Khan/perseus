@@ -5,7 +5,7 @@ import type {MathQuillInterface, MathFieldConfig} from "./mathquill-types";
 // We only need one MathQuill instance (referred to as MQ in the docs)
 // and that contains some MQ constants and the MathField constructor
 export const mathQuillInstance = MathQuill.getInterface(
-    2,
+    3,
 ) as MathQuillInterface;
 
 function createBaseConfig(): MathFieldConfig {
