@@ -118,7 +118,11 @@ class Graphie {
         $(el).children("div").css("position", "absolute");
     }
 
-    init(options: {range?: [Interval, Interval], scale?: number | Coord, isMobile: boolean}) {
+    init(options: {
+        range?: [Interval, Interval];
+        scale?: number | Coord;
+        isMobile: boolean;
+    }) {
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
 
@@ -554,14 +558,16 @@ class Graphie {
 
     drawingTransform(): DrawingTransform {
         if (this.#drawingTransform == null) {
-            throw new Error("Can't get drawingTransform of an uninitialized Graphie");
+            throw new Error(
+                "Can't get drawingTransform of an uninitialized Graphie",
+            );
         }
         return this.#drawingTransform;
     }
 
     bounds(): GraphBounds {
         if (this.#bounds == null) {
-            throw new Error("Can't get bounds of an uninitialized Graphie")
+            throw new Error("Can't get bounds of an uninitialized Graphie");
         }
         return this.#bounds;
     }
@@ -879,8 +885,6 @@ GraphUtils.createGraphie = function (el: any) {
         }
     };
 
-
-
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
 
@@ -944,7 +948,9 @@ GraphUtils.createGraphie = function (el: any) {
 
     function circle(center, radius) {
         return thisGraphie.raphael.ellipse(
-            ...thisGraphie.scalePoint(center).concat(thisGraphie.scaleVector([radius, radius])),
+            ...thisGraphie
+                .scalePoint(center)
+                .concat(thisGraphie.scaleVector([radius, radius])),
         );
     }
 
@@ -964,7 +970,9 @@ GraphUtils.createGraphie = function (el: any) {
 
     function ellipse(center, radii) {
         return thisGraphie.raphael.ellipse(
-            ...thisGraphie.scalePoint(center).concat(thisGraphie.scaleVector(radii)),
+            ...thisGraphie
+                .scalePoint(center)
+                .concat(thisGraphie.scaleVector(radii)),
         );
     }
 
@@ -1198,7 +1206,9 @@ GraphUtils.createGraphie = function (el: any) {
 
     function sinusoid(a, b, c, d) {
         // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-        return thisGraphie.raphael.path(thisGraphie.svgSinusoidPath(a, b, c, d));
+        return thisGraphie.raphael.path(
+            thisGraphie.svgSinusoidPath(a, b, c, d),
+        );
     }
 
     function grid(xr, yr) {
@@ -1316,7 +1326,8 @@ GraphUtils.createGraphie = function (el: any) {
 
         const min = range[0];
         const max = range[1];
-        let step = (max - min) / (thisGraphie.currentStyle["plot-points"] || 800);
+        let step =
+            (max - min) / (thisGraphie.currentStyle["plot-points"] || 800);
         if (step === 0) {
             step = 1;
         }
@@ -1387,7 +1398,9 @@ GraphUtils.createGraphie = function (el: any) {
         const max = range[1];
         if (!thisGraphie.currentStyle["plot-points"]) {
             thisGraphie.currentStyle["plot-points"] =
-                2 * (max - min) * thisGraphie.drawingTransform().pixelsPerUnitX();
+                2 *
+                (max - min) *
+                thisGraphie.drawingTransform().pixelsPerUnitX();
         }
 
         if (swapAxes) {
@@ -1468,7 +1481,10 @@ GraphUtils.createGraphie = function (el: any) {
                 const rest = [].slice.call(args, 0, args.length - 1);
                 result = drawingFn(...rest);
             } else {
-                thisGraphie.currentStyle = $.extend({}, thisGraphie.currentStyle);
+                thisGraphie.currentStyle = $.extend(
+                    {},
+                    thisGraphie.currentStyle,
+                );
 
                 result = drawingFn(...args);
             }
@@ -1485,7 +1501,10 @@ GraphUtils.createGraphie = function (el: any) {
                 // We assume that if it's not a Raphael element/set, it
                 // does not contain SVG.
                 // @ts-expect-error - TS2339 - Property 'css' does not exist on type '{}'.
-                result.css({...thisGraphie.currentStyle, ...SVG_SPECIFIC_STYLE_MASK});
+                result.css({
+                    ...thisGraphie.currentStyle,
+                    ...SVG_SPECIFIC_STYLE_MASK,
+                });
             }
 
             thisGraphie.currentStyle = oldStyle;
