@@ -573,6 +573,64 @@ class Graphie {
         }).join("");
     };
 
+    svgParabolaPath = (a: any, b: any, c: any) => {
+        const computeParabola = function (x) {
+            return (a * x + b) * x + c;
+        };
+
+        // If points are collinear, plot a line instead
+        if (a === 0) {
+            const points = [
+                [this.bounds.xMin, computeParabola(this.bounds.xMin)],
+                [this.bounds.xMax, computeParabola(this.bounds.xMax)],
+            ];
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            return this.svgPath(points);
+        }
+
+        // Calculate x coordinates of points on parabola
+        const xVertex = -b / (2 * a);
+        const distToEdge = Math.max(
+            Math.abs(xVertex - this.bounds.xMin),
+            Math.abs(xVertex - this.bounds.xMax),
+        );
+
+        // To guarantee that drawn parabola to spans the viewport, use a point
+        // on the edge of the graph furtherest from the vertex
+        const xPoint = xVertex + distToEdge;
+
+        // Compute parabola and other point on the curve
+        const vertex = [xVertex, computeParabola(xVertex)];
+        const point = [xPoint, computeParabola(xPoint)];
+
+        // Calculate SVG 'control' point, defined by spec
+        const control = [vertex[0], vertex[1] - (point[1] - vertex[1])];
+
+        // Calculate mirror points across parabola's axis of symmetry
+        const dx = Math.abs(vertex[0] - point[0]);
+        const left = [vertex[0] - dx, point[1]];
+        const right = [vertex[0] + dx, point[1]];
+
+        // Scale and bound
+        // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
+        const points = _.map([left, control, right], this.scalePoint);
+        const values = _.map(_.flatten(points), KhanMath.bound);
+        return (
+            "M" +
+            values[0] +
+            "," +
+            values[1] +
+            " Q" +
+            values[2] +
+            "," +
+            values[3] +
+            " " +
+            values[4] +
+            "," +
+            values[5]
+        );
+    };
+
     scalePoint = (point: number | Coord): Coord => {
         return this.drawingTransform.scalePoint(point);
     };
@@ -708,64 +766,6 @@ GraphUtils.createGraphie = function (el: any) {
                 marginTop: Math.round(height * multipliers[1]),
             });
         }
-    };
-
-    const svgParabolaPath = function (a: any, b: any, c: any) {
-        const computeParabola = function (x) {
-            return (a * x + b) * x + c;
-        };
-
-        // If points are collinear, plot a line instead
-        if (a === 0) {
-            const points = [
-                [thisGraphie.bounds.xMin, computeParabola(thisGraphie.bounds.xMin)],
-                [thisGraphie.bounds.xMax, computeParabola(thisGraphie.bounds.xMax)],
-            ];
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-            return thisGraphie.svgPath(points);
-        }
-
-        // Calculate x coordinates of points on parabola
-        const xVertex = -b / (2 * a);
-        const distToEdge = Math.max(
-            Math.abs(xVertex - thisGraphie.bounds.xMin),
-            Math.abs(xVertex - thisGraphie.bounds.xMax),
-        );
-
-        // To guarantee that drawn parabola to spans the viewport, use a point
-        // on the edge of the graph furtherest from the vertex
-        const xPoint = xVertex + distToEdge;
-
-        // Compute parabola and other point on the curve
-        const vertex = [xVertex, computeParabola(xVertex)];
-        const point = [xPoint, computeParabola(xPoint)];
-
-        // Calculate SVG 'control' point, defined by spec
-        const control = [vertex[0], vertex[1] - (point[1] - vertex[1])];
-
-        // Calculate mirror points across parabola's axis of symmetry
-        const dx = Math.abs(vertex[0] - point[0]);
-        const left = [vertex[0] - dx, point[1]];
-        const right = [vertex[0] + dx, point[1]];
-
-        // Scale and bound
-        // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
-        const points = _.map([left, control, right], thisGraphie.scalePoint);
-        const values = _.map(_.flatten(points), KhanMath.bound);
-        return (
-            "M" +
-            values[0] +
-            "," +
-            values[1] +
-            " Q" +
-            values[2] +
-            "," +
-            values[3] +
-            " " +
-            values[4] +
-            "," +
-            values[5]
-        );
     };
 
     const svgSinusoidPath = function (a, b, c: any, d: any) {
@@ -1108,7 +1108,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     function parabola(a, b, c) {
         // Plot a parabola of the form: f(x) = (a * x + b) * x + c
-        return thisGraphie.raphael.path(svgParabolaPath(a, b, c));
+        return thisGraphie.raphael.path(thisGraphie.svgParabolaPath(a, b, c));
     }
 
     function fixedLine(start, end, thickness) {
@@ -1440,7 +1440,6 @@ GraphUtils.createGraphie = function (el: any) {
         },
 
         // Custom SVG path functions that are dependent on graphie range
-        svgParabolaPath: svgParabolaPath,
         svgSinusoidPath: svgSinusoidPath,
     });
 
