@@ -865,6 +865,29 @@ export class Graphie {
         return path;
     };
 
+    preprocessDrawingArgs(args: any[]): any[] {
+        const last = args[args.length - 1];
+
+        // The last argument is probably trying to change the style
+        if (typeof last === "object" && !_.isArray(last)) {
+            this.currentStyle = {
+                ...this.currentStyle,
+                ...this.processAttributes(last),
+            };
+
+            const rest = [].slice.call(args, 0, args.length - 1);
+
+            return rest;
+        } else {
+            this.currentStyle = $.extend(
+                {},
+                this.currentStyle,
+            );
+
+            return args;
+        }
+    }
+
     scalePoint = (point: number | Coord): Coord => {
         return this.drawingTransform().scalePoint(point);
     };
@@ -1520,29 +1543,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         plot,
     };
 
-    function preprocessDrawingArgs(args: any[]): any[] {
-        const last = args[args.length - 1];
-
-        // The last argument is probably trying to change the style
-        if (typeof last === "object" && !_.isArray(last)) {
-            thisGraphie.currentStyle = {
-                ...thisGraphie.currentStyle,
-                ...thisGraphie.processAttributes(last),
-            };
-
-            const rest = [].slice.call(args, 0, args.length - 1);
-
-            return rest;
-        } else {
-            thisGraphie.currentStyle = $.extend(
-                {},
-                thisGraphie.currentStyle,
-            );
-
-            return args;
-        }
-    }
-
     function postprocessDrawingResult(result: any): any {
         // Bad heuristic for recognizing Raphael elements and sets
         const type = result.constructor.prototype;
@@ -1568,7 +1568,7 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     function graphify(drawingFn: any): any {
         return function (...args) {
             const oldStyle = thisGraphie.currentStyle;
-            const argsToDrawingFn = preprocessDrawingArgs(args);
+            const argsToDrawingFn = thisGraphie.preprocessDrawingArgs(args);
 
             const result = postprocessDrawingResult(
                 drawingFn(...argsToDrawingFn),
