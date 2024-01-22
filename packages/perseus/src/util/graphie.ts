@@ -559,20 +559,19 @@ class Graphie {
     grid(xr: any, yr: any, styleAttributes: any) {}
 
     processAttributes(attrs: any) {
-        const thisGraphie = this;
         const transformers = {
-            scale: function (scale) {
-                thisGraphie.drawingTransform.setScale(scale);
+            scale: (scale) => {
+                this.drawingTransform.setScale(scale);
             },
 
-            clipRect: function (pair) {
+            clipRect: (pair) => {
                 const point = pair[0];
                 const size = pair[1];
                 point[1] += size[1]; // because our coordinates are flipped
 
                 return {
-                    "clip-rect": thisGraphie.drawingTransform.scalePoint(point)
-                        .concat(thisGraphie.drawingTransform.scaleVector(size))
+                    "clip-rect": this.drawingTransform.scalePoint(point)
+                        .concat(this.drawingTransform.scaleVector(size))
                         .join(" "),
                 };
             },
@@ -581,16 +580,16 @@ class Graphie {
                 return {"stroke-width": parseFloat(val)};
             },
 
-            rx: function (val) {
-                return {rx: thisGraphie.drawingTransform.scaleVector([val, 0])[0]};
+            rx: (val) => {
+                return {rx: this.drawingTransform.scaleVector([val, 0])[0]};
             },
 
-            ry: function (val) {
-                return {ry: thisGraphie.drawingTransform.scaleVector([0, val])[1]};
+            ry: (val) => {
+                return {ry: this.drawingTransform.scaleVector([0, val])[1]};
             },
 
-            r: function (val) {
-                const scaled = thisGraphie.drawingTransform.scaleVector([val, val]);
+            r: (val) => {
+                const scaled = this.drawingTransform.scaleVector([val, val]);
                 return {rx: scaled[0], ry: scaled[1]};
             },
         } as const;
