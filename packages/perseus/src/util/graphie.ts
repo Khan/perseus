@@ -1543,30 +1543,36 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         }
     }
 
+    function postprocessDrawingResult(result: any): any {
+        // Bad heuristic for recognizing Raphael elements and sets
+        const type = result.constructor.prototype;
+        if (type === Raphael.el || type === Raphael.st) {
+            result.attr(thisGraphie.currentStyle);
+
+            if (thisGraphie.currentStyle.arrows) {
+                result = addArrowheads(result);
+            }
+        } else if (result instanceof $) {
+            // We assume that if it's not a Raphael element/set, it
+            // does not contain SVG.
+            // @ts-expect-error - TS2339 - Property 'css' does not exist on type '{}'.
+            result.css({
+                ...thisGraphie.currentStyle,
+                ...SVG_SPECIFIC_STYLE_MASK,
+            });
+        }
+
+        return result;
+    }
+
     function graphify(drawingFn: any): any {
         return function (...args) {
             const oldStyle = thisGraphie.currentStyle;
             const argsToDrawingFn = preprocessDrawingArgs(args);
 
-            let result = drawingFn(...argsToDrawingFn);
-
-            // Bad heuristic for recognizing Raphael elements and sets
-            const type = result.constructor.prototype;
-            if (type === Raphael.el || type === Raphael.st) {
-                result.attr(thisGraphie.currentStyle);
-
-                if (thisGraphie.currentStyle.arrows) {
-                    result = addArrowheads(result);
-                }
-            } else if (result instanceof $) {
-                // We assume that if it's not a Raphael element/set, it
-                // does not contain SVG.
-                // @ts-expect-error - TS2339 - Property 'css' does not exist on type '{}'.
-                result.css({
-                    ...thisGraphie.currentStyle,
-                    ...SVG_SPECIFIC_STYLE_MASK,
-                });
-            }
+            const result = postprocessDrawingResult(
+                drawingFn(...argsToDrawingFn),
+            );
 
             thisGraphie.currentStyle = oldStyle;
             return result;
