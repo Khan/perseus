@@ -94,6 +94,11 @@ class Graphie {
     drawingTransform?: DrawingTransform;
     raphael?: any;
     isMobile = false;
+    // Set up some reasonable defaults
+    currentStyle: any = {
+        "stroke-width": 2,
+        fill: "none",
+    };
 
     constructor(el: HTMLElement) {
         this.el = el;
@@ -537,12 +542,6 @@ const SVG_SPECIFIC_STYLE_MASK = {
 
 GraphUtils.createGraphie = function (el: any) {
     const thisGraphie = new Graphie(el);
-
-    // Set up some reasonable defaults
-    let currentStyle: any = {
-        "stroke-width": 2,
-        fill: "none",
-    };
 
     const scaleVector = function (point: number | Coord) {
         return thisGraphie.drawingTransform.scaleVector(point);
@@ -1130,7 +1129,7 @@ GraphUtils.createGraphie = function (el: any) {
     }
 
     function grid(xr, yr) {
-        const step: any = currentStyle.step || [1, 1];
+        const step: any = thisGraphie.currentStyle.step || [1, 1];
         const set = thisGraphie.raphael.set();
 
         let x = step[0] * Math.ceil(xr[0] / step[0]);
@@ -1151,7 +1150,7 @@ GraphUtils.createGraphie = function (el: any) {
 
         const $span = $("<span>").addClass("graphie-label");
 
-        const pad = currentStyle["label-distance"];
+        const pad = thisGraphie.currentStyle["label-distance"];
 
         $span
             .css(
@@ -1235,16 +1234,16 @@ GraphUtils.createGraphie = function (el: any) {
         const clippedFn = (x) => clipper(fn(x));
         const clippedFn2 = (x: number) => clipper(fn2(x));
 
-        if (!currentStyle.strokeLinejoin) {
-            currentStyle.strokeLinejoin = "round";
+        if (!thisGraphie.currentStyle.strokeLinejoin) {
+            thisGraphie.currentStyle.strokeLinejoin = "round";
         }
-        if (!currentStyle.strokeLinecap) {
-            currentStyle.strokeLinecap = "round";
+        if (!thisGraphie.currentStyle.strokeLinecap) {
+            thisGraphie.currentStyle.strokeLinecap = "round";
         }
 
         const min = range[0];
         const max = range[1];
-        let step = (max - min) / (currentStyle["plot-points"] || 800);
+        let step = (max - min) / (thisGraphie.currentStyle["plot-points"] || 800);
         if (step === 0) {
             step = 1;
         }
@@ -1313,8 +1312,8 @@ GraphUtils.createGraphie = function (el: any) {
     function plot(fn, range, swapAxes, shade, fn2) {
         const min = range[0];
         const max = range[1];
-        if (!currentStyle["plot-points"]) {
-            currentStyle["plot-points"] =
+        if (!thisGraphie.currentStyle["plot-points"]) {
+            thisGraphie.currentStyle["plot-points"] =
                 2 * (max - min) * thisGraphie.drawingTransform.pixelsPerUnitX();
         }
 
@@ -1428,13 +1427,13 @@ GraphUtils.createGraphie = function (el: any) {
             const processed = processAttributes(attrs);
 
             if (typeof fn === "function") {
-                const oldStyle = currentStyle;
-                currentStyle = $.extend({}, currentStyle, processed);
+                const oldStyle = thisGraphie.currentStyle;
+                thisGraphie.currentStyle = $.extend({}, thisGraphie.currentStyle, processed);
                 const result = fn.call(thisGraphie);
-                currentStyle = oldStyle;
+                thisGraphie.currentStyle = oldStyle;
                 return result;
             }
-            $.extend(currentStyle, processed);
+            $.extend(thisGraphie.currentStyle, processed);
         },
 
         scalePoint: scalePoint,
@@ -1453,20 +1452,20 @@ GraphUtils.createGraphie = function (el: any) {
     function graphify(drawingFn: any): any {
         return function (...args) {
             const last = args[args.length - 1];
-            const oldStyle = currentStyle;
+            const oldStyle = thisGraphie.currentStyle;
             let result;
 
             // The last argument is probably trying to change the style
             if (typeof last === "object" && !_.isArray(last)) {
-                currentStyle = {
-                    ...currentStyle,
+                thisGraphie.currentStyle = {
+                    ...thisGraphie.currentStyle,
                     ...processAttributes(last),
                 };
 
                 const rest = [].slice.call(args, 0, args.length - 1);
                 result = drawingFn(...rest);
             } else {
-                currentStyle = $.extend({}, currentStyle);
+                thisGraphie.currentStyle = $.extend({}, thisGraphie.currentStyle);
 
                 result = drawingFn(...args);
             }
@@ -1474,19 +1473,19 @@ GraphUtils.createGraphie = function (el: any) {
             // Bad heuristic for recognizing Raphael elements and sets
             const type = result.constructor.prototype;
             if (type === Raphael.el || type === Raphael.st) {
-                result.attr(currentStyle);
+                result.attr(thisGraphie.currentStyle);
 
-                if (currentStyle.arrows) {
+                if (thisGraphie.currentStyle.arrows) {
                     result = addArrowheads(result);
                 }
             } else if (result instanceof $) {
                 // We assume that if it's not a Raphael element/set, it
                 // does not contain SVG.
                 // @ts-expect-error - TS2339 - Property 'css' does not exist on type '{}'.
-                result.css({...currentStyle, ...SVG_SPECIFIC_STYLE_MASK});
+                result.css({...thisGraphie.currentStyle, ...SVG_SPECIFIC_STYLE_MASK});
             }
 
-            currentStyle = oldStyle;
+            thisGraphie.currentStyle = oldStyle;
             return result;
         };
     }
