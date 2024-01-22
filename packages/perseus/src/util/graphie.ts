@@ -97,6 +97,11 @@ class Graphie {
 
     constructor(el: HTMLElement) {
         this.el = el;
+        $(el).css("position", "relative");
+        this.raphael = Raphael(el);
+
+        // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
+        $(el).children("div").css("position", "absolute");
     }
 
     init(options: any) {}
@@ -532,11 +537,6 @@ const SVG_SPECIFIC_STYLE_MASK = {
 
 GraphUtils.createGraphie = function (el: any) {
     const thisGraphie = new Graphie(el);
-    $(thisGraphie.el).css("position", "relative");
-    thisGraphie.raphael = Raphael(el);
-
-    // For a sometimes-reproducible IE8 bug; doesn't affect SVG browsers at all
-    $(thisGraphie.el).children("div").css("position", "absolute");
 
     // Set up some reasonable defaults
     let currentStyle: any = {
