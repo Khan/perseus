@@ -96,7 +96,400 @@ class Graphie {
 
     init(options: any) {}
 
-    graphInit(options: any) {}
+    // Initializes graphie settings for a graph and draws the basic graph
+    // features (axes, grid, tick marks, and axis labels)
+    // Options expected are:
+    // - range: [[a, b], [c, d]] or [a, b]
+    // - scale: [a, b] or number
+    // - gridOpacity: number (0 - 1)
+    // - gridStep: [a, b] or number (relative to units)
+    // - tickStep: [a, b] or number (relative to grid steps)
+    // - tickLen: [a, b] or number (in pixels)
+    // - labelStep: [a, b] or number (relative to tick steps)
+    // - yLabelFormat: fn to format label string for y-axis
+    // - xLabelFormat: fn to format label string for x-axis
+    graphInit(options: any) {
+        options = options || {};
+
+        $.each(options, function (prop, val: any) {
+            // allow options to be specified by a single number for shorthand if
+            // the horizontal and vertical components are the same
+            if (
+                // @ts-expect-error - TS2339 - Property 'match' does not exist on type 'string | number | symbol'.
+                !prop.match(/.*Opacity$/) &&
+                prop !== "range" &&
+                typeof val === "number"
+            ) {
+                options[prop] = [val, val];
+            }
+
+            // allow symmetric ranges to be specified by the absolute values
+            if (prop === "range" || prop === "gridRange") {
+                if (val.constructor === Array) {
+                    // but don't mandate symmetric ranges
+                    if (val[0].constructor !== Array) {
+                        options[prop] = [
+                            [-val[0], val[0]],
+                            [-val[1], val[1]],
+                        ];
+                    }
+                } else if (typeof val === "number") {
+                    options[prop] = [
+                        [-val, val],
+                        [-val, val],
+                    ];
+                }
+            }
+        });
+
+        const range = options.range || [
+            [-10, 10],
+            [-10, 10],
+        ];
+        const gridRange = options.gridRange || options.range;
+        const scale = options.scale || [20, 20];
+        const grid = options.grid != null ? options.grid : true;
+        const gridOpacity = options.gridOpacity || 0.1;
+        const gridStep = options.gridStep || [1, 1];
+        const axes = options.axes != null ? options.axes : true;
+        const axisArrows = options.axisArrows || "";
+        const axisOpacity = options.axisOpacity || 1.0;
+        const axisCenter = options.axisCenter || [
+            Math.min(Math.max(range[0][0], 0), range[0][1]),
+            Math.min(Math.max(range[1][0], 0), range[1][1]),
+        ];
+        const axisLabels =
+            options.axisLabels != null ? options.axisLabels : false;
+        const ticks = options.ticks != null ? options.ticks : true;
+        const tickStep = options.tickStep || [2, 2];
+        const tickLen = options.tickLen || [5, 5];
+        const tickOpacity = options.tickOpacity || 1.0;
+        const labels = options.labels || options.labelStep || false;
+        const labelStep = options.labelStep || [1, 1];
+        const labelOpacity = options.labelOpacity || 1.0;
+        let unityLabels = options.unityLabels || false;
+        const labelFormat =
+            options.labelFormat ||
+            function (a: any) {
+                return a;
+            };
+        let xLabelFormat = options.xLabelFormat || labelFormat;
+        let yLabelFormat = options.yLabelFormat || labelFormat;
+        const realRange = [
+            [
+                range[0][0] - (range[0][0] > 0 ? 1 : 0),
+                range[0][1] + (range[0][1] < 0 ? 1 : 0),
+            ],
+            [
+                range[1][0] - (range[1][0] > 0 ? 1 : 0),
+                range[1][1] + (range[1][1] < 0 ? 1 : 0),
+            ],
+        ];
+
+        if (!_.isArray(unityLabels)) {
+            unityLabels = [unityLabels, unityLabels];
+        }
+
+        const minusIgnorer = function (lf: any) {
+            return function (a) {
+                return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
+            };
+        };
+
+        xLabelFormat = minusIgnorer(xLabelFormat);
+        yLabelFormat = minusIgnorer(yLabelFormat);
+
+        this.init({
+            range: realRange,
+            scale: scale,
+            isMobile: options.isMobile,
+        });
+
+        // draw grid
+        if (grid) {
+            this.grid(gridRange[0], gridRange[1], {
+                stroke: options.isMobile ? KhanColors.GRAY_C : "#000000",
+                opacity: options.isMobile ? 1 : gridOpacity,
+                step: gridStep,
+                strokeWidth: options.isMobile ? 1 : 2,
+            });
+        }
+
+        // draw axes
+        if (axes) {
+            // this is a slight hack until <-> arrowheads work
+            if (axisArrows === "<->" || axisArrows === true) {
+                this.style(
+                    {
+                        stroke: options.isMobile
+                            ? KhanColors.GRAY_G
+                            : "#000000",
+                        opacity: options.isMobile ? 1 : axisOpacity,
+                        strokeWidth: options.isMobile ? 1 : 2,
+                        arrows: "->",
+                    },
+                    function () {
+                        if (range[1][0] < 0 && range[1][1] > 0) {
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.path([
+                                axisCenter,
+                                [gridRange[0][0], axisCenter[1]],
+                            ]);
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.path([
+                                axisCenter,
+                                [gridRange[0][1], axisCenter[1]],
+                            ]);
+                        }
+                        if (range[0][0] < 0 && range[0][1] > 0) {
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.path([
+                                axisCenter,
+                                [axisCenter[0], gridRange[1][0]],
+                            ]);
+                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                            this.path([
+                                axisCenter,
+                                [axisCenter[0], gridRange[1][1]],
+                            ]);
+                        }
+                    },
+                );
+
+                // also, we don't support "<-" arrows yet, but why you
+                // would want that on your graph is beyond me.
+            } else if (axisArrows === "->" || axisArrows === "") {
+                this.style(
+                    {
+                        stroke: "#000000",
+                        opacity: axisOpacity,
+                        strokeWidth: 2,
+                        arrows: axisArrows,
+                    },
+                    function () {
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        this.path([
+                            [gridRange[0][0], axisCenter[1]],
+                            [gridRange[0][1], axisCenter[1]],
+                        ]);
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        this.path([
+                            [axisCenter[0], gridRange[1][0]],
+                            [axisCenter[0], gridRange[1][1]],
+                        ]);
+                    },
+                );
+            }
+
+            if (axisLabels && axisLabels.length === 2) {
+                this.label(
+                    [gridRange[0][1], axisCenter[1]],
+                    axisLabels[0],
+                    "right",
+                );
+                this.label(
+                    [axisCenter[0], gridRange[1][1]],
+                    axisLabels[1],
+                    "above",
+                );
+            }
+        }
+
+        // draw tick marks
+        if (ticks) {
+            const halfWidthTicks = options.isMobile;
+            this.style(
+                {
+                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    opacity: options.isMobile ? 1 : tickOpacity,
+                    strokeWidth: 1,
+                },
+                function () {
+                    // horizontal axis
+                    let step = gridStep[0] * tickStep[0];
+                    let len = tickLen[0] / scale[1];
+                    let start = gridRange[0][0];
+                    let stop = gridRange[0][1];
+
+                    if (range[1][0] < 0 && range[1][1] > 0) {
+                        for (
+                            let x = step + axisCenter[0];
+                            x <= stop;
+                            x += step
+                        ) {
+                            if (x < stop || !axisArrows) {
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this.line(
+                                    [x, -len + axisCenter[1]],
+                                    [
+                                        x,
+                                        halfWidthTicks
+                                            ? 0
+                                            : len + axisCenter[1],
+                                    ],
+                                );
+                            }
+                        }
+
+                        for (
+                            let x = -step + axisCenter[0];
+                            x >= start;
+                            x -= step
+                        ) {
+                            if (x > start || !axisArrows) {
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this.line(
+                                    [x, -len + axisCenter[1]],
+                                    [
+                                        x,
+                                        halfWidthTicks
+                                            ? 0
+                                            : len + axisCenter[1],
+                                    ],
+                                );
+                            }
+                        }
+                    }
+
+                    // vertical axis
+                    step = gridStep[1] * tickStep[1];
+                    len = tickLen[1] / scale[0];
+                    start = gridRange[1][0];
+                    stop = gridRange[1][1];
+
+                    if (range[0][0] < 0 && range[0][1] > 0) {
+                        for (
+                            let y = step + axisCenter[1];
+                            y <= stop;
+                            y += step
+                        ) {
+                            if (y < stop || !axisArrows) {
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this.line(
+                                    [-len + axisCenter[0], y],
+                                    [
+                                        halfWidthTicks
+                                            ? 0
+                                            : len + axisCenter[0],
+                                        y,
+                                    ],
+                                );
+                            }
+                        }
+
+                        for (
+                            let y = -step + axisCenter[1];
+                            y >= start;
+                            y -= step
+                        ) {
+                            if (y > start || !axisArrows) {
+                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                this.line(
+                                    [-len + axisCenter[0], y],
+                                    [
+                                        halfWidthTicks
+                                            ? 0
+                                            : len + axisCenter[0],
+                                        y,
+                                    ],
+                                );
+                            }
+                        }
+                    }
+                },
+            );
+        }
+
+        // draw axis labels
+        if (labels) {
+            this.style(
+                {
+                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    opacity: options.isMobile ? 1 : labelOpacity,
+                },
+                function () {
+                    // horizontal axis
+                    let step = gridStep[0] * tickStep[0] * labelStep[0];
+                    let start = gridRange[0][0];
+                    let stop = gridRange[0][1];
+                    const xAxisPosition = axisCenter[0] < 0 ? "above" : "below";
+                    const yAxisPosition = axisCenter[0] < 0 ? "right" : "left";
+                    const xShowZero =
+                        axisCenter[0] === 0 && axisCenter[1] !== 0;
+                    const yShowZero =
+                        axisCenter[0] !== 0 && axisCenter[1] === 0;
+                    const axisOffCenter =
+                        axisCenter[0] !== 0 || axisCenter[1] !== 0;
+                    const showUnityX = unityLabels[0] || axisOffCenter;
+                    const showUnityY = unityLabels[1] || axisOffCenter;
+
+                    // positive x-axis
+                    for (
+                        let x = (xShowZero ? 0 : step) + axisCenter[0];
+                        x <= stop;
+                        x += step
+                    ) {
+                        if (x < stop || !axisArrows) {
+                            this.label(
+                                [x, axisCenter[1]],
+                                xLabelFormat(x),
+                                xAxisPosition,
+                            );
+                        }
+                    }
+
+                    // negative x-axis
+                    for (
+                        let x = -step * (showUnityX ? 1 : 2) + axisCenter[0];
+                        x >= start;
+                        x -= step
+                    ) {
+                        if (x > start || !axisArrows) {
+                            this.label(
+                                [x, axisCenter[1]],
+                                xLabelFormat(x),
+                                xAxisPosition,
+                            );
+                        }
+                    }
+
+                    step = gridStep[1] * tickStep[1] * labelStep[1];
+                    start = gridRange[1][0];
+                    stop = gridRange[1][1];
+
+                    // positive y-axis
+                    for (
+                        let y = (yShowZero ? 0 : step) + axisCenter[1];
+                        y <= stop;
+                        y += step
+                    ) {
+                        if (y < stop || !axisArrows) {
+                            this.label(
+                                [axisCenter[0], y],
+                                yLabelFormat(y),
+                                yAxisPosition,
+                            );
+                        }
+                    }
+
+                    // negative y-axis
+                    for (
+                        let y = -step * (showUnityY ? 1 : 2) + axisCenter[1];
+                        y >= start;
+                        y -= step
+                    ) {
+                        if (y > start || !axisArrows) {
+                            this.label(
+                                [axisCenter[0], y],
+                                yLabelFormat(y),
+                                yAxisPosition,
+                            );
+                        }
+                    }
+                },
+            );
+        }
+    }
 
     style(attrs: any, fn: any) {}
 
@@ -1096,401 +1489,6 @@ GraphUtils.createGraphie = function (el: any) {
     $.each(drawingTools, function (name) {
         thisGraphie[name] = graphify(drawingTools[name]);
     });
-
-    // Initializes graphie settings for a graph and draws the basic graph
-    // features (axes, grid, tick marks, and axis labels)
-    // Options expected are:
-    // - range: [[a, b], [c, d]] or [a, b]
-    // - scale: [a, b] or number
-    // - gridOpacity: number (0 - 1)
-    // - gridStep: [a, b] or number (relative to units)
-    // - tickStep: [a, b] or number (relative to grid steps)
-    // - tickLen: [a, b] or number (in pixels)
-    // - labelStep: [a, b] or number (relative to tick steps)
-    // - yLabelFormat: fn to format label string for y-axis
-    // - xLabelFormat: fn to format label string for x-axis
-    thisGraphie.graphInit = function (options: any) {
-        options = options || {};
-
-        $.each(options, function (prop, val: any) {
-            // allow options to be specified by a single number for shorthand if
-            // the horizontal and vertical components are the same
-            if (
-                // @ts-expect-error - TS2339 - Property 'match' does not exist on type 'string | number | symbol'.
-                !prop.match(/.*Opacity$/) &&
-                prop !== "range" &&
-                typeof val === "number"
-            ) {
-                options[prop] = [val, val];
-            }
-
-            // allow symmetric ranges to be specified by the absolute values
-            if (prop === "range" || prop === "gridRange") {
-                if (val.constructor === Array) {
-                    // but don't mandate symmetric ranges
-                    if (val[0].constructor !== Array) {
-                        options[prop] = [
-                            [-val[0], val[0]],
-                            [-val[1], val[1]],
-                        ];
-                    }
-                } else if (typeof val === "number") {
-                    options[prop] = [
-                        [-val, val],
-                        [-val, val],
-                    ];
-                }
-            }
-        });
-
-        const range = options.range || [
-            [-10, 10],
-            [-10, 10],
-        ];
-        const gridRange = options.gridRange || options.range;
-        const scale = options.scale || [20, 20];
-        const grid = options.grid != null ? options.grid : true;
-        const gridOpacity = options.gridOpacity || 0.1;
-        const gridStep = options.gridStep || [1, 1];
-        const axes = options.axes != null ? options.axes : true;
-        const axisArrows = options.axisArrows || "";
-        const axisOpacity = options.axisOpacity || 1.0;
-        const axisCenter = options.axisCenter || [
-            Math.min(Math.max(range[0][0], 0), range[0][1]),
-            Math.min(Math.max(range[1][0], 0), range[1][1]),
-        ];
-        const axisLabels =
-            options.axisLabels != null ? options.axisLabels : false;
-        const ticks = options.ticks != null ? options.ticks : true;
-        const tickStep = options.tickStep || [2, 2];
-        const tickLen = options.tickLen || [5, 5];
-        const tickOpacity = options.tickOpacity || 1.0;
-        const labels = options.labels || options.labelStep || false;
-        const labelStep = options.labelStep || [1, 1];
-        const labelOpacity = options.labelOpacity || 1.0;
-        let unityLabels = options.unityLabels || false;
-        const labelFormat =
-            options.labelFormat ||
-            function (a: any) {
-                return a;
-            };
-        let xLabelFormat = options.xLabelFormat || labelFormat;
-        let yLabelFormat = options.yLabelFormat || labelFormat;
-        const realRange = [
-            [
-                range[0][0] - (range[0][0] > 0 ? 1 : 0),
-                range[0][1] + (range[0][1] < 0 ? 1 : 0),
-            ],
-            [
-                range[1][0] - (range[1][0] > 0 ? 1 : 0),
-                range[1][1] + (range[1][1] < 0 ? 1 : 0),
-            ],
-        ];
-
-        if (!_.isArray(unityLabels)) {
-            unityLabels = [unityLabels, unityLabels];
-        }
-
-        const minusIgnorer = function (lf: any) {
-            return function (a) {
-                return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
-            };
-        };
-
-        xLabelFormat = minusIgnorer(xLabelFormat);
-        yLabelFormat = minusIgnorer(yLabelFormat);
-
-        thisGraphie.init({
-            range: realRange,
-            scale: scale,
-            isMobile: options.isMobile,
-        });
-
-        // draw grid
-        if (grid) {
-            thisGraphie.grid(gridRange[0], gridRange[1], {
-                stroke: options.isMobile ? KhanColors.GRAY_C : "#000000",
-                opacity: options.isMobile ? 1 : gridOpacity,
-                step: gridStep,
-                strokeWidth: options.isMobile ? 1 : 2,
-            });
-        }
-
-        // draw axes
-        if (axes) {
-            // this is a slight hack until <-> arrowheads work
-            if (axisArrows === "<->" || axisArrows === true) {
-                thisGraphie.style(
-                    {
-                        stroke: options.isMobile
-                            ? KhanColors.GRAY_G
-                            : "#000000",
-                        opacity: options.isMobile ? 1 : axisOpacity,
-                        strokeWidth: options.isMobile ? 1 : 2,
-                        arrows: "->",
-                    },
-                    function () {
-                        if (range[1][0] < 0 && range[1][1] > 0) {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            thisGraphie.path([
-                                axisCenter,
-                                [gridRange[0][0], axisCenter[1]],
-                            ]);
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            thisGraphie.path([
-                                axisCenter,
-                                [gridRange[0][1], axisCenter[1]],
-                            ]);
-                        }
-                        if (range[0][0] < 0 && range[0][1] > 0) {
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            thisGraphie.path([
-                                axisCenter,
-                                [axisCenter[0], gridRange[1][0]],
-                            ]);
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            thisGraphie.path([
-                                axisCenter,
-                                [axisCenter[0], gridRange[1][1]],
-                            ]);
-                        }
-                    },
-                );
-
-                // also, we don't support "<-" arrows yet, but why you
-                // would want that on your graph is beyond me.
-            } else if (axisArrows === "->" || axisArrows === "") {
-                thisGraphie.style(
-                    {
-                        stroke: "#000000",
-                        opacity: axisOpacity,
-                        strokeWidth: 2,
-                        arrows: axisArrows,
-                    },
-                    function () {
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        thisGraphie.path([
-                            [gridRange[0][0], axisCenter[1]],
-                            [gridRange[0][1], axisCenter[1]],
-                        ]);
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        thisGraphie.path([
-                            [axisCenter[0], gridRange[1][0]],
-                            [axisCenter[0], gridRange[1][1]],
-                        ]);
-                    },
-                );
-            }
-
-            if (axisLabels && axisLabels.length === 2) {
-                thisGraphie.label(
-                    [gridRange[0][1], axisCenter[1]],
-                    axisLabels[0],
-                    "right",
-                );
-                thisGraphie.label(
-                    [axisCenter[0], gridRange[1][1]],
-                    axisLabels[1],
-                    "above",
-                );
-            }
-        }
-
-        // draw tick marks
-        if (ticks) {
-            const halfWidthTicks = options.isMobile;
-            thisGraphie.style(
-                {
-                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
-                    opacity: options.isMobile ? 1 : tickOpacity,
-                    strokeWidth: 1,
-                },
-                function () {
-                    // horizontal axis
-                    let step = gridStep[0] * tickStep[0];
-                    let len = tickLen[0] / scale[1];
-                    let start = gridRange[0][0];
-                    let stop = gridRange[0][1];
-
-                    if (range[1][0] < 0 && range[1][1] > 0) {
-                        for (
-                            let x = step + axisCenter[0];
-                            x <= stop;
-                            x += step
-                        ) {
-                            if (x < stop || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                thisGraphie.line(
-                                    [x, -len + axisCenter[1]],
-                                    [
-                                        x,
-                                        halfWidthTicks
-                                            ? 0
-                                            : len + axisCenter[1],
-                                    ],
-                                );
-                            }
-                        }
-
-                        for (
-                            let x = -step + axisCenter[0];
-                            x >= start;
-                            x -= step
-                        ) {
-                            if (x > start || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                thisGraphie.line(
-                                    [x, -len + axisCenter[1]],
-                                    [
-                                        x,
-                                        halfWidthTicks
-                                            ? 0
-                                            : len + axisCenter[1],
-                                    ],
-                                );
-                            }
-                        }
-                    }
-
-                    // vertical axis
-                    step = gridStep[1] * tickStep[1];
-                    len = tickLen[1] / scale[0];
-                    start = gridRange[1][0];
-                    stop = gridRange[1][1];
-
-                    if (range[0][0] < 0 && range[0][1] > 0) {
-                        for (
-                            let y = step + axisCenter[1];
-                            y <= stop;
-                            y += step
-                        ) {
-                            if (y < stop || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                thisGraphie.line(
-                                    [-len + axisCenter[0], y],
-                                    [
-                                        halfWidthTicks
-                                            ? 0
-                                            : len + axisCenter[0],
-                                        y,
-                                    ],
-                                );
-                            }
-                        }
-
-                        for (
-                            let y = -step + axisCenter[1];
-                            y >= start;
-                            y -= step
-                        ) {
-                            if (y > start || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                thisGraphie.line(
-                                    [-len + axisCenter[0], y],
-                                    [
-                                        halfWidthTicks
-                                            ? 0
-                                            : len + axisCenter[0],
-                                        y,
-                                    ],
-                                );
-                            }
-                        }
-                    }
-                },
-            );
-        }
-
-        // draw axis labels
-        if (labels) {
-            thisGraphie.style(
-                {
-                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
-                    opacity: options.isMobile ? 1 : labelOpacity,
-                },
-                function () {
-                    // horizontal axis
-                    let step = gridStep[0] * tickStep[0] * labelStep[0];
-                    let start = gridRange[0][0];
-                    let stop = gridRange[0][1];
-                    const xAxisPosition = axisCenter[0] < 0 ? "above" : "below";
-                    const yAxisPosition = axisCenter[0] < 0 ? "right" : "left";
-                    const xShowZero =
-                        axisCenter[0] === 0 && axisCenter[1] !== 0;
-                    const yShowZero =
-                        axisCenter[0] !== 0 && axisCenter[1] === 0;
-                    const axisOffCenter =
-                        axisCenter[0] !== 0 || axisCenter[1] !== 0;
-                    const showUnityX = unityLabels[0] || axisOffCenter;
-                    const showUnityY = unityLabels[1] || axisOffCenter;
-
-                    // positive x-axis
-                    for (
-                        let x = (xShowZero ? 0 : step) + axisCenter[0];
-                        x <= stop;
-                        x += step
-                    ) {
-                        if (x < stop || !axisArrows) {
-                            thisGraphie.label(
-                                [x, axisCenter[1]],
-                                xLabelFormat(x),
-                                xAxisPosition,
-                            );
-                        }
-                    }
-
-                    // negative x-axis
-                    for (
-                        let x = -step * (showUnityX ? 1 : 2) + axisCenter[0];
-                        x >= start;
-                        x -= step
-                    ) {
-                        if (x > start || !axisArrows) {
-                            thisGraphie.label(
-                                [x, axisCenter[1]],
-                                xLabelFormat(x),
-                                xAxisPosition,
-                            );
-                        }
-                    }
-
-                    step = gridStep[1] * tickStep[1] * labelStep[1];
-                    start = gridRange[1][0];
-                    stop = gridRange[1][1];
-
-                    // positive y-axis
-                    for (
-                        let y = (yShowZero ? 0 : step) + axisCenter[1];
-                        y <= stop;
-                        y += step
-                    ) {
-                        if (y < stop || !axisArrows) {
-                            thisGraphie.label(
-                                [axisCenter[0], y],
-                                yLabelFormat(y),
-                                yAxisPosition,
-                            );
-                        }
-                    }
-
-                    // negative y-axis
-                    for (
-                        let y = -step * (showUnityY ? 1 : 2) + axisCenter[1];
-                        y >= start;
-                        y -= step
-                    ) {
-                        if (y > start || !axisArrows) {
-                            thisGraphie.label(
-                                [axisCenter[0], y],
-                                yLabelFormat(y),
-                                yAxisPosition,
-                            );
-                        }
-                    }
-                },
-            );
-        }
-    };
 
     return thisGraphie;
 };
