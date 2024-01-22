@@ -6,11 +6,11 @@ import type {PerseusScore, WidgetExports} from "../../types";
 
 // The props are type `any` on purpose so that this can receive props
 // from any deprecated widget
-type DeprecatedStandinProps = any;
+type Props = any;
 type Rubric = any;
 type UserInput = Empty;
 
-class DeprecatedStandin extends React.Component<DeprecatedStandinProps> {
+class DeprecatedStandin extends React.Component<Props> {
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
         // Since this mean to replace an existing widget the learner
         // WILL earn points for this widget
