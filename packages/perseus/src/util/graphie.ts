@@ -632,6 +632,18 @@ export class Graphie {
         style?: Record<string, any>,
     ): RaphaelElement {}
 
+    circle(center: Coord, radius: number, style?: Record<string, any>) {
+        return this.withStyle(style, () =>
+            this.postprocessDrawingResult(
+                this.raphael.ellipse(
+                    ...this.scalePoint(center).concat(
+                        this.scaleVector([radius, radius]),
+                    ),
+                ),
+            ),
+        );
+    }
+
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
@@ -865,6 +877,17 @@ export class Graphie {
         return path;
     };
 
+    withStyle<T>(style: Record<string, any> | undefined, fn: () => T): T {
+        const oldStyle = this.currentStyle;
+        this.currentStyle = {
+            ...this.currentStyle,
+            ...this.processAttributes(style),
+        };
+        const result = fn();
+        this.currentStyle = oldStyle;
+        return result;
+    }
+
     preprocessDrawingArgs(args: any[]): any[] {
         const last = args[args.length - 1];
 
@@ -879,6 +902,11 @@ export class Graphie {
 
             return rest;
         } else {
+            // NOTE(benchristel): This just copies the currentStyle object. It
+            // looks pointless, but I believe it is necessary to ensure that the
+            // style object won't be modified by the drawing function (to which
+            // these `args` are passed). We mutate currentStyle in several
+            // places...
             this.currentStyle = $.extend(
                 {},
                 this.currentStyle,
@@ -1107,14 +1135,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
-
-    function circle(center, radius) {
-        return thisGraphie.raphael.ellipse(
-            ...thisGraphie
-                .scalePoint(center)
-                .concat(thisGraphie.scaleVector([radius, radius])),
-        );
-    }
 
     // (x, y) is coordinate of bottom left corner
     function rect(x, y, width, height) {
@@ -1547,7 +1567,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        circle,
         rect,
         ellipse,
         fixedEllipse,
