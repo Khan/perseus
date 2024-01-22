@@ -557,6 +557,62 @@ class Graphie {
     label(point: any, text: any, direction: any, latex?: any) {}
 
     grid(xr: any, yr: any, styleAttributes: any) {}
+
+    processAttributes(attrs: any) {
+        const thisGraphie = this;
+        const transformers = {
+            scale: function (scale) {
+                thisGraphie.drawingTransform.setScale(scale);
+            },
+
+            clipRect: function (pair) {
+                const point = pair[0];
+                const size = pair[1];
+                point[1] += size[1]; // because our coordinates are flipped
+
+                return {
+                    "clip-rect": thisGraphie.drawingTransform.scalePoint(point)
+                        .concat(thisGraphie.drawingTransform.scaleVector(size))
+                        .join(" "),
+                };
+            },
+
+            strokeWidth: function (val) {
+                return {"stroke-width": parseFloat(val)};
+            },
+
+            rx: function (val) {
+                return {rx: thisGraphie.drawingTransform.scaleVector([val, 0])[0]};
+            },
+
+            ry: function (val) {
+                return {ry: thisGraphie.drawingTransform.scaleVector([0, val])[1]};
+            },
+
+            r: function (val) {
+                const scaled = thisGraphie.drawingTransform.scaleVector([val, val]);
+                return {rx: scaled[0], ry: scaled[1]};
+            },
+        } as const;
+
+        const processed: Record<string, any> = {};
+        $.each(attrs || {}, function (key, value) {
+            const transformer = transformers[key];
+
+            if (typeof transformer === "function") {
+                $.extend(processed, transformer(value));
+            } else {
+                const dasherized = key
+                    // @ts-expect-error - TS2339 - Property 'replace' does not exist on type 'string | number | symbol'.
+                    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+                    .replace(/([a-z\d])([A-Z])/g, "$1-$2")
+                    .toLowerCase();
+                processed[dasherized] = value;
+            }
+        });
+
+        return processed;
+    }
 }
 
 GraphUtils.Graphie = Graphie;
@@ -801,61 +857,6 @@ GraphUtils.createGraphie = function (el: any) {
 
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = svgPath;
-
-    const processAttributes = function (attrs) {
-        const transformers = {
-            scale: function (scale) {
-                thisGraphie.drawingTransform.setScale(scale);
-            },
-
-            clipRect: function (pair) {
-                const point = pair[0];
-                const size = pair[1];
-                point[1] += size[1]; // because our coordinates are flipped
-
-                return {
-                    "clip-rect": scalePoint(point)
-                        .concat(scaleVector(size))
-                        .join(" "),
-                };
-            },
-
-            strokeWidth: function (val) {
-                return {"stroke-width": parseFloat(val)};
-            },
-
-            rx: function (val) {
-                return {rx: scaleVector([val, 0])[0]};
-            },
-
-            ry: function (val) {
-                return {ry: scaleVector([0, val])[1]};
-            },
-
-            r: function (val) {
-                const scaled = scaleVector([val, val]);
-                return {rx: scaled[0], ry: scaled[1]};
-            },
-        } as const;
-
-        const processed: Record<string, any> = {};
-        $.each(attrs || {}, function (key, value) {
-            const transformer = transformers[key];
-
-            if (typeof transformer === "function") {
-                $.extend(processed, transformer(value));
-            } else {
-                const dasherized = key
-                    // @ts-expect-error - TS2339 - Property 'replace' does not exist on type 'string | number | symbol'.
-                    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
-                    .replace(/([a-z\d])([A-Z])/g, "$1-$2")
-                    .toLowerCase();
-                processed[dasherized] = value;
-            }
-        });
-
-        return processed;
-    };
 
     const addArrowheads = function arrows(path: any) {
         const type = path.constructor.prototype;
@@ -1427,7 +1428,7 @@ GraphUtils.createGraphie = function (el: any) {
 
     _.extend(thisGraphie, {
         style: function (attrs, fn) {
-            const processed = processAttributes(attrs);
+            const processed = thisGraphie.processAttributes(attrs);
 
             if (typeof fn === "function") {
                 const oldStyle = thisGraphie.currentStyle;
@@ -1462,7 +1463,7 @@ GraphUtils.createGraphie = function (el: any) {
             if (typeof last === "object" && !_.isArray(last)) {
                 thisGraphie.currentStyle = {
                     ...thisGraphie.currentStyle,
-                    ...processAttributes(last),
+                    ...thisGraphie.processAttributes(last),
                 };
 
                 const rest = [].slice.call(args, 0, args.length - 1);
