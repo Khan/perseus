@@ -650,15 +650,13 @@ export class Graphie {
             // Raphael needs (x, y) to be coordinate of upper left corner
             const corner = this.scalePoint([x, y + height]);
             const dims = this.scaleVector([width, height]);
-            const elem = this.postprocessDrawingResult(
-                this.raphael.rect(...corner.concat(dims)),
-            );
+            const elem = this.raphael.rect(...corner.concat(dims));
 
             if (this.isMobile) {
                 elem.node.style.shapeRendering = "crispEdges";
             }
 
-            return elem;
+            return this.postprocessDrawingResult(elem);
         });
     }
 
