@@ -29,6 +29,7 @@ import {
     similar,
 } from "../util/geometry";
 import GraphUtils from "../util/graph-utils";
+import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import type {Coord} from "../interactive2/types";
@@ -1216,7 +1217,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                     coords[rel(-1)],
                 );
 
-                const offset = this.graphie?.polar(
+                const offset = polar(
                     side,
                     outerAngle + (onLeft ? 1 : -1) * innerAngles[0],
                 );
@@ -1263,7 +1264,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                 const onLeft =
                     sign(ccw(coords[rel(-1)], coords[rel(1)], coords[i])) === 1;
 
-                const offset = this.graphie?.polar(
+                const offset = polar(
                     sides[0],
                     outerAngle + (onLeft ? 1 : -1) * innerAngle,
                 );
