@@ -670,6 +670,55 @@ export class Graphie {
         });
     }
 
+    fixedEllipse(
+        center: number | Coord,
+        // Different type than Coord, this is radiusX, radiusY
+        radii: number | [number, number],
+        maxScale: number,
+        padding: number,
+        style?: Record<string, any>,
+    ) {
+        return this.withStyle(style, () => {
+            // Scale point and radius
+            const scaledPoint = this.scalePoint(center);
+            const scaledRadii = this.scaleVector(radii);
+
+            const width = 2 * scaledRadii[0] * maxScale + padding;
+            const height = 2 * scaledRadii[1] * maxScale + padding;
+
+            // Calculate absolute left, top
+            const left = scaledPoint[0] - width / 2;
+            const top = scaledPoint[1] - height / 2;
+
+            // Wrap in <div>
+            const wrapper = document.createElement("div");
+            $(wrapper).css({
+                position: "absolute",
+                width: width + "px",
+                height: height + "px",
+                left: left + "px",
+                top: top + "px",
+            });
+            // wrapper.setAttribute("data-graphie-type", "ellipse");
+
+            // Create Raphael canvas
+            const localRaphael = Raphael(wrapper, width, height);
+            const visibleShape = localRaphael.ellipse(
+                width / 2,
+                height / 2,
+                scaledRadii[0],
+                scaledRadii[1],
+            );
+
+            // We don't call postprocessDrawingResult here because it wouldn't
+            // do anything.
+            return {
+                wrapper: wrapper,
+                visibleShape: visibleShape,
+            };
+        });
+    }
+
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
@@ -1159,50 +1208,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
 
-    function fixedEllipse(
-        center: number | Coord,
-        // Different type than Coord, this is radiusX, radiusY
-        radii: number | [number, number],
-        maxScale: number,
-        padding: number,
-    ) {
-        // Scale point and radius
-        const scaledPoint = thisGraphie.scalePoint(center);
-        const scaledRadii = thisGraphie.scaleVector(radii);
-
-        const width = 2 * scaledRadii[0] * maxScale + padding;
-        const height = 2 * scaledRadii[1] * maxScale + padding;
-
-        // Calculate absolute left, top
-        const left = scaledPoint[0] - width / 2;
-        const top = scaledPoint[1] - height / 2;
-
-        // Wrap in <div>
-        const wrapper = document.createElement("div");
-        $(wrapper).css({
-            position: "absolute",
-            width: width + "px",
-            height: height + "px",
-            left: left + "px",
-            top: top + "px",
-        });
-        // wrapper.setAttribute("data-graphie-type", "ellipse");
-
-        // Create Raphael canvas
-        const localRaphael = Raphael(wrapper, width, height);
-        const visibleShape = localRaphael.ellipse(
-            width / 2,
-            height / 2,
-            scaledRadii[0],
-            scaledRadii[1],
-        );
-
-        return {
-            wrapper: wrapper,
-            visibleShape: visibleShape,
-        };
-    }
-
     function arc(center, radius, startAngle, endAngle, sector) {
         startAngle = ((startAngle % 360) + 360) % 360;
         endAngle = ((endAngle % 360) + 360) % 360;
@@ -1568,7 +1573,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        fixedEllipse,
         arc,
         path,
         fixedPath,
