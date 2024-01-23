@@ -48,16 +48,19 @@ export function getCursor(mathField: MathFieldInterface): MathFieldCursor {
     return mathField.__controller.cursor;
 }
 
+const mqNodeHasClass = (node: any, className: string): boolean =>
+    node._el && (node._el as HTMLElement).classList.contains(className);
+
 export function isFraction(node): boolean {
-    return node.jQ && node.jQ.hasClass("mq-fraction");
+    return mqNodeHasClass(node, "mq-fraction");
 }
 
 export function isNumerator(node): boolean {
-    return node.jQ && node.jQ.hasClass("mq-numerator");
+    return mqNodeHasClass(node, "mq-numerator");
 }
 
 export function isDenominator(node): boolean {
-    return node.jQ && node.jQ.hasClass("mq-denominator");
+    return mqNodeHasClass(node, "mq-denominator");
 }
 
 export function isSubScript(node): boolean {
@@ -65,8 +68,7 @@ export function isSubScript(node): boolean {
     // to be represented as a parent node with 'mq-sup-only' containing a
     // single child with 'mq-sup'.
     return (
-        node.jQ &&
-        (node.jQ.hasClass("mq-sub-only") || node.jQ.hasClass("mq-sub"))
+        mqNodeHasClass(node, "mq-sub-only") || mqNodeHasClass(node, "mq-sub")
     );
 }
 
@@ -75,8 +77,7 @@ export function isSuperScript(node): boolean {
     // to be represented as a parent node with 'mq-sup-only' containing a
     // single child with 'mq-sup'.
     return (
-        node.jQ &&
-        (node.jQ.hasClass("mq-sup-only") || node.jQ.hasClass("mq-sup"))
+        mqNodeHasClass(node, "mq-sup-only") || mqNodeHasClass(node, "mq-sup")
     );
 }
 
@@ -89,29 +90,21 @@ export function isLeaf(node): boolean {
 }
 
 export function isSquareRoot(node): boolean {
-    return (
-        node.blocks &&
-        node.blocks[0].jQ &&
-        node.blocks[0].jQ.hasClass("mq-sqrt-stem")
-    );
+    return node.blocks && mqNodeHasClass(node, "mq-sqrt-stem");
 }
 
 export function isNthRoot(node): boolean {
-    return (
-        node.blocks &&
-        node.blocks[0].jQ &&
-        node.blocks[0].jQ.hasClass("mq-nthroot")
-    );
+    return node.blocks && mqNodeHasClass(node.blocks[0], "mq-nthroot");
 }
 
 export function isNthRootIndex(node): boolean {
-    return node.jQ && node.jQ.hasClass("mq-nthroot");
+    return mqNodeHasClass(node, "mq-nthroot");
 }
 
 export function isInsideLogIndex(cursor: MathFieldCursor): boolean {
     const grandparent = cursor.parent.parent;
 
-    if (grandparent && grandparent.jQ.hasClass("mq-supsub")) {
+    if (grandparent && mqNodeHasClass(grandparent, "mq-log")) {
         const command = maybeFindCommandBeforeParens(grandparent);
 
         if (command && command.name === "\\log") {
@@ -254,6 +247,8 @@ export function getCursorContext(
         }
         visitor = visitor[mathQuillInstance.R];
     }
+
+    console.log({cursor});
 
     // If that didn't work, check if the parent or grandparent is a special
     // context, so that we can jump outwards.
