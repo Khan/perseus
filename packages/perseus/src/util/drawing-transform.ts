@@ -1,5 +1,5 @@
+import type {GraphBounds} from "./graph-bounds";
 import type {Coord} from "../interactive2/types";
-import { GraphBounds } from "./graph-bounds";
 
 interface Raphael {
     setSize(width: number, height: number);
@@ -15,7 +15,11 @@ export class DrawingTransform {
     yScale: number;
     bounds: GraphBounds;
 
-    constructor(raphael: Raphael, initialScale: [number, number], bounds: GraphBounds) {
+    constructor(
+        raphael: Raphael,
+        initialScale: [number, number],
+        bounds: GraphBounds,
+    ) {
         this.raphael = raphael;
         this.bounds = bounds;
         this.xScale = initialScale[0];
@@ -42,7 +46,10 @@ export class DrawingTransform {
 
         const x = point[0];
         const y = point[1];
-        return [(x - this.bounds.xMin) * this.xScale, (this.bounds.yMax - y) * this.yScale];
+        return [
+            (x - this.bounds.xMin) * this.xScale,
+            (this.bounds.yMax - y) * this.yScale,
+        ];
     };
 
     unscalePoint = (point: number | Coord) => {
@@ -52,7 +59,10 @@ export class DrawingTransform {
 
         const x = point[0];
         const y = point[1];
-        return [x / this.xScale + this.bounds.xMin, this.bounds.yMax - y / this.yScale];
+        return [
+            x / this.xScale + this.bounds.xMin,
+            this.bounds.yMax - y / this.yScale,
+        ];
     };
 
     unscaleVector = (point: number | Coord) => {
@@ -73,18 +83,20 @@ export class DrawingTransform {
 
         // Update the canvas size
         this.raphael.setSize(...this.canvasDimensions());
-    }
+    };
 
     canvasDimensions = (): Coord => {
-        return [this.bounds.width() * this.xScale, this.bounds.height() * this.yScale];
-    }
+        return [
+            this.bounds.width() * this.xScale,
+            this.bounds.height() * this.yScale,
+        ];
+    };
 
     pixelsPerUnitX = (): number => {
         return this.xScale;
-    }
+    };
 
     pixelsPerUnitY = (): number => {
         return this.yScale;
-    }
+    };
 }
-

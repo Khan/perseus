@@ -1,15 +1,16 @@
-import { Coord } from "../interactive2/types";
-import { DrawingTransform } from "./drawing-transform";
-import { GraphBounds } from "./graph-bounds";
+import {DrawingTransform} from "./drawing-transform";
+import {GraphBounds} from "./graph-bounds";
+
+import type {Coord} from "../interactive2/types";
 
 describe("DrawingTransform", () => {
     describe("with bounds of -10 to 10, and 5px per unit", () => {
         let transform: DrawingTransform;
         beforeEach(() => {
-            const bounds = new GraphBounds([-10, 10], [-10, 10])
+            const bounds = new GraphBounds([-10, 10], [-10, 10]);
             // Each unit in both dimensions is 5 pixels, so the whole graph
             // is 100px by 100px
-            const scale: [number, number] = [5, 5]
+            const scale: [number, number] = [5, 5];
             transform = new DrawingTransform(new NullRaphael(), scale, bounds);
         });
 
@@ -21,13 +22,19 @@ describe("DrawingTransform", () => {
             ["origin", [0, 0], [50, 50]],
         ];
 
-        it.each(testPoints)("transforms the point at the %s from math coords to canvas coords", (_, cartesian, canvas) => {
-            expect(transform.scalePoint(cartesian)).toEqual(canvas)
-        });
+        it.each(testPoints)(
+            "transforms the point at the %s from math coords to canvas coords",
+            (_, cartesian, canvas) => {
+                expect(transform.scalePoint(cartesian)).toEqual(canvas);
+            },
+        );
 
-        it.each(testPoints)("transforms the point at the %s from canvas coords to math coords", (_, cartesian, canvas) => {
-            expect(transform.unscalePoint(canvas)).toEqual(cartesian)
-        });
+        it.each(testPoints)(
+            "transforms the point at the %s from canvas coords to math coords",
+            (_, cartesian, canvas) => {
+                expect(transform.unscalePoint(canvas)).toEqual(cartesian);
+            },
+        );
     });
 
     it("updates the size of the Raphael canvas when setScale is called with a number", () => {

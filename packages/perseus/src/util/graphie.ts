@@ -13,13 +13,13 @@ import {Errors, Log} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 
 import KhanColors from "./colors";
+import {DrawingTransform} from "./drawing-transform";
+import {GraphBounds} from "./graph-bounds";
 import KhanMath from "./math";
 import Tex from "./tex";
 
+import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
-import { Interval, size } from "./interval";
-import { DrawingTransform } from "./drawing-transform";
-import { GraphBounds } from "./graph-bounds";
 
 const {processMath} = Tex;
 
@@ -154,7 +154,7 @@ GraphUtils.createGraphie = function (el: any) {
     };
 
     const scaleVector = function (point: number | Coord) {
-        return drawingTransform.scaleVector(point)
+        return drawingTransform.scaleVector(point);
     };
 
     const scalePoint = function scalePoint(point: number | Coord): Coord {
@@ -229,7 +229,7 @@ GraphUtils.createGraphie = function (el: any) {
             const points = [
                 [bounds.xMin, computeParabola(bounds.xMin)],
                 [bounds.xMax, computeParabola(bounds.xMax)],
-            ]
+            ];
             // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             return svgPath(points);
         }
@@ -885,7 +885,8 @@ GraphUtils.createGraphie = function (el: any) {
                     // if there is an asymptote here, meaning that the graph
                     // switches signs and has a large difference
                     (diff[1] < 0 !== lastDiff[1] < 0 &&
-                        Math.abs(diff[1] - lastDiff[1]) > 2 * drawingTransform.pixelsPerUnitY()) ||
+                        Math.abs(diff[1] - lastDiff[1]) >
+                            2 * drawingTransform.pixelsPerUnitY()) ||
                     // or the function is undefined
                     isNaN(diff[1])
                 ) {
@@ -933,7 +934,8 @@ GraphUtils.createGraphie = function (el: any) {
             const min = range[0];
             const max = range[1];
             if (!currentStyle["plot-points"]) {
-                currentStyle["plot-points"] = 2 * (max - min) * drawingTransform.pixelsPerUnitX();
+                currentStyle["plot-points"] =
+                    2 * (max - min) * drawingTransform.pixelsPerUnitX();
             }
 
             if (swapAxes) {
@@ -984,7 +986,11 @@ GraphUtils.createGraphie = function (el: any) {
     _.extend(graphie, {
         raphael: raphael,
 
-        init: function (options: {range: [Interval, Interval], scale: number | [number, number], isMobile: boolean}) {
+        init: function (options: {
+            range: [Interval, Interval];
+            scale: number | [number, number];
+            isMobile: boolean;
+        }) {
             let scale = options.scale || [40, 40];
             scale = typeof scale === "number" ? [scale, scale] : scale;
 
