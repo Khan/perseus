@@ -912,8 +912,6 @@ describe("LabelImage", function () {
             );
             userEvent.click(markerButton);
 
-            await screen.findByRole("dialog");
-
             // Select a choice
             const choices = await screen.findAllByText("Trucks");
             const choice = choices[choices.length - 1];

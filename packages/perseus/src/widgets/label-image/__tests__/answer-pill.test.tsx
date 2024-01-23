@@ -17,11 +17,7 @@ describe("AnswerPill", () => {
     it("should display the correct answer string when there is only one selected answer", () => {
         const selectedAnswers = ["Answer 1"];
         const screen = render(
-            <AnswerPill
-                selectedAnswers={selectedAnswers}
-                side={"top"}
-                onClick={() => {}}
-            />,
+            <AnswerPill selectedAnswers={selectedAnswers} side={"top"} />,
             {wrapper: RenderStateRoot},
         );
         expect(screen.getByText("Answer 1")).toBeInTheDocument();
@@ -30,11 +26,7 @@ describe("AnswerPill", () => {
     it("should display the correct answer string when there are multiple selected answers", () => {
         const selectedAnswers = ["Answer 1", "Answer 2", "Answer 3"];
         const screen = render(
-            <AnswerPill
-                selectedAnswers={selectedAnswers}
-                side={"top"}
-                onClick={() => {}}
-            />,
+            <AnswerPill selectedAnswers={selectedAnswers} side={"top"} />,
             {wrapper: RenderStateRoot},
         );
         expect(screen.getByText("3 answers")).toBeInTheDocument();

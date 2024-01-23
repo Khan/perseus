@@ -30,19 +30,18 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
             style="padding-top: 8px; padding-bottom: 8px;"
           >
             <div
-              aria-live="polite"
-              class="default_xu2jcg-o_O-containerOuter_xu9ezy-o_O-inlineStyles_1ozd0sx"
-              role="alert"
+              class="default_xu2jcg-o_O-containerOuter_xu9ezy-o_O-inlineStyles_1ipey8s"
+              role="status"
             >
               <div
-                class="default_xu2jcg-o_O-backgroundColor_10s9e9d-o_O-inlineStyles_tkl0uy"
+                class="default_xu2jcg-o_O-backgroundColor_10s9e9d-o_O-inlineStyles_14jsc6v"
               />
               <div
                 class="default_xu2jcg-o_O-containerInner_mm2xcu"
               >
                 <span
-                  aria-label="warning"
-                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_16tp01m-o_O-inlineStyles_g0hdza"
+                  aria-label="info"
+                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_16tp01m-o_O-inlineStyles_94g682"
                   data-test-id="banner-kind-icon"
                   role="img"
                 />
@@ -55,7 +54,7 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
                     <span
                       class="text_f1191h-o_O-LabelSmall_hl4zs1"
                     >
-                      This part of the question is no-longer available. You will not be graded on this part.
+                      Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
                     </span>
                   </div>
                 </div>

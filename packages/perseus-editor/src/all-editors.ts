@@ -1,6 +1,7 @@
 import CategorizerEditor from "./widgets/categorizer-editor";
 import CSProgramEditor from "./widgets/cs-program-editor";
 import DefinitionEditor from "./widgets/definition-editor";
+import DeprecatedStandinEditor from "./widgets/deprecated-standin-editor";
 import DropdownEditor from "./widgets/dropdown-editor";
 import ExampleGraphieWidgetEditor from "./widgets/example-graphie-widget-editor";
 import ExampleWidgetEditor from "./widgets/example-widget-editor";
@@ -78,4 +79,5 @@ export default [
     UnitEditor,
     VideoEditor,
     RadioEditor,
+    DeprecatedStandinEditor,
 ];

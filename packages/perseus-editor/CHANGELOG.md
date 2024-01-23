@@ -1,5 +1,49 @@
 # @khanacademy/perseus-editor
 
+## 2.17.0
+
+### Minor Changes
+
+-   [#894](https://github.com/Khan/perseus/pull/894) [`49d5c821`](https://github.com/Khan/perseus/commit/49d5c821a2ad07aadf31f09f2814859de2c0f157) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add a confirmation before deleting a configured widget in the Exercise Editor
+
+*   [#896](https://github.com/Khan/perseus/pull/896) [`04981063`](https://github.com/Khan/perseus/commit/049810636968afac5672f790896768338319810a) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add a confirmation before deleting a hint in the Exercise Editor
+
+### Patch Changes
+
+-   Updated dependencies [[`a5479339`](https://github.com/Khan/perseus/commit/a547933946b8be33b388fa4654d87289734848f0)]:
+    -   @khanacademy/perseus@17.8.0
+
+## 2.16.2
+
+### Patch Changes
+
+-   Updated dependencies [[`81b9a562`](https://github.com/Khan/perseus/commit/81b9a562d0fb8ff2cd82e708781432bff8437116)]:
+    -   @khanacademy/math-input@16.5.0
+    -   @khanacademy/perseus@17.7.0
+
+## 2.16.1
+
+### Patch Changes
+
+-   Updated dependencies [[`21222f55`](https://github.com/Khan/perseus/commit/21222f55b1efd46acbc0fe1dcc8aa0399b8555ee)]:
+    -   @khanacademy/perseus@17.6.2
+
+## 2.16.0
+
+### Minor Changes
+
+-   [#897](https://github.com/Khan/perseus/pull/897) [`e8020f58`](https://github.com/Khan/perseus/commit/e8020f58bb538372f77785a14a31dc11be2bc441) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Convert many string refs to React refs
+
+### Patch Changes
+
+-   [#881](https://github.com/Khan/perseus/pull/881) [`f02eb991`](https://github.com/Khan/perseus/commit/f02eb991cec37dcff02056c0d6b54fc6dfd96948) Thanks [@nedredmond](https://github.com/nedredmond)! - Swap out Label Image custom dropdown for WonderBlocks
+
+*   [#870](https://github.com/Khan/perseus/pull/870) [`9354fb55`](https://github.com/Khan/perseus/commit/9354fb55357f2441a2ca6198c52cca33edeba3c0) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Replace transformer widget with a deprecated-standin widget
+
+*   Updated dependencies [[`f02eb991`](https://github.com/Khan/perseus/commit/f02eb991cec37dcff02056c0d6b54fc6dfd96948), [`9354fb55`](https://github.com/Khan/perseus/commit/9354fb55357f2441a2ca6198c52cca33edeba3c0)]:
+    -   @khanacademy/math-input@16.4.1
+    -   @khanacademy/perseus@17.6.1
+
 ## 2.15.7
 
 ### Patch Changes

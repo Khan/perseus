@@ -230,10 +230,7 @@ exports[`interaction widget should render 1`] = `
                 style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 116.59637038983988px; top: 88.69565217391305px; fill: none;"
               >
                 <span
-                  class="katex-holder"
-                />
-                <span
-                  class="mathjax-holder"
+                  class="tex-holder"
                 />
               </span>
               <span
@@ -242,10 +239,7 @@ exports[`interaction widget should render 1`] = `
                 style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 181.46123525470475px; top: 88.69565217391305px; fill: none;"
               >
                 <span
-                  class="katex-holder"
-                />
-                <span
-                  class="mathjax-holder"
+                  class="tex-holder"
                 />
               </span>
               <span
@@ -254,10 +248,7 @@ exports[`interaction widget should render 1`] = `
                 style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.3261001195696px; top: 88.69565217391305px; fill: none;"
               >
                 <span
-                  class="katex-holder"
-                />
-                <span
-                  class="mathjax-holder"
+                  class="tex-holder"
                 />
               </span>
               <span
@@ -266,10 +257,7 @@ exports[`interaction widget should render 1`] = `
                 style="position: absolute; padding: 7px; color: gray; left: 19.459459459459445px; top: 26.08695652173914px; fill: none;"
               >
                 <span
-                  class="katex-holder"
-                />
-                <span
-                  class="mathjax-holder"
+                  class="tex-holder"
                 />
               </span>
               <span
@@ -278,10 +266,7 @@ exports[`interaction widget should render 1`] = `
                 style="position: absolute; padding: 7px; color: gray; left: 149.18918918918916px; top: 26.08695652173914px; fill: none;"
               >
                 <span
-                  class="katex-holder"
-                />
-                <span
-                  class="mathjax-holder"
+                  class="tex-holder"
                 />
               </span>
             </div>

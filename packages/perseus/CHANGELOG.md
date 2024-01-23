@@ -1,5 +1,40 @@
 # @khanacademy/perseus
 
+## 17.8.0
+
+### Minor Changes
+
+-   [#917](https://github.com/Khan/perseus/pull/917) [`a5479339`](https://github.com/Khan/perseus/commit/a547933946b8be33b388fa4654d87289734848f0) Thanks [@Myranae](https://github.com/Myranae)! - Update Perseus' Storybook to use MathJax instead of KaTeX
+
+## 17.7.0
+
+### Minor Changes
+
+-   [#921](https://github.com/Khan/perseus/pull/921) [`81b9a562`](https://github.com/Khan/perseus/commit/81b9a562d0fb8ff2cd82e708781432bff8437116) Thanks [@benchristel](https://github.com/benchristel)! - Make the Expression widget treat `sen` as equivalent to `sin`. The spelling
+    `sen` is used in Portuguese.
+
+### Patch Changes
+
+-   Updated dependencies [[`81b9a562`](https://github.com/Khan/perseus/commit/81b9a562d0fb8ff2cd82e708781432bff8437116)]:
+    -   @khanacademy/math-input@16.5.0
+
+## 17.6.2
+
+### Patch Changes
+
+-   [#918](https://github.com/Khan/perseus/pull/918) [`21222f55`](https://github.com/Khan/perseus/commit/21222f55b1efd46acbc0fe1dcc8aa0399b8555ee) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix bug that caused svg to be 300px wide
+
+## 17.6.1
+
+### Patch Changes
+
+-   [#881](https://github.com/Khan/perseus/pull/881) [`f02eb991`](https://github.com/Khan/perseus/commit/f02eb991cec37dcff02056c0d6b54fc6dfd96948) Thanks [@nedredmond](https://github.com/nedredmond)! - Swap out Label Image custom dropdown for WonderBlocks
+
+*   [#870](https://github.com/Khan/perseus/pull/870) [`9354fb55`](https://github.com/Khan/perseus/commit/9354fb55357f2441a2ca6198c52cca33edeba3c0) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Replace transformer widget with a deprecated-standin widget
+
+*   Updated dependencies [[`f02eb991`](https://github.com/Khan/perseus/commit/f02eb991cec37dcff02056c0d6b54fc6dfd96948)]:
+    -   @khanacademy/math-input@16.4.1
+
 ## 17.6.0
 
 ### Minor Changes

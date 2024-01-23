@@ -704,10 +704,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 75px; top: 325px; fill: none;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -716,10 +713,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 75px; top: 275px; fill: none;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -728,10 +722,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 75px; top: 225px; fill: none;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -740,10 +731,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 75px; top: 175px; fill: none;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -752,10 +740,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 75px; top: 125px; fill: none;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -764,10 +749,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 75px; top: 75px; fill: none;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -776,10 +758,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 75px; top: 25px; fill: none;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -788,10 +767,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 121.60377358490565px; top: 325px; fill: none; stroke: #71B307; transform: none; transform-origin: 100%;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -800,10 +776,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 193.30188679245282px; top: 325px; fill: none; stroke: #71B307; transform: none; transform-origin: 100%;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -812,10 +785,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 265px; top: 325px; fill: none; stroke: #71B307; transform: none; transform-origin: 100%;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -824,10 +794,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 336.6981132075471px; top: 325px; fill: none; stroke: #71B307; transform: none; transform-origin: 100%;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
@@ -836,10 +803,7 @@ exports[`plotter widget should snapshot basic question: initial render 1`] = `
               style="position: absolute; padding: 7px; color: black; left: 408.3962264150943px; top: 325px; fill: none; stroke: #71B307; transform: none; transform-origin: 100%;"
             >
               <span
-                class="katex-holder"
-              />
-              <span
-                class="mathjax-holder"
+                class="tex-holder"
               />
             </span>
             <span
