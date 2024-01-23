@@ -662,6 +662,16 @@ export class Graphie {
         });
     }
 
+    ellipse(center, radii, style?: Record<string, any>) {
+        return this.withStyle(style, () => {
+            return this.postprocessDrawingResult(
+                this.raphael.ellipse(
+                    ...this.scalePoint(center).concat(this.scaleVector(radii)),
+                ),
+            );
+        });
+    }
+
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
@@ -925,10 +935,7 @@ export class Graphie {
             // style object won't be modified by the drawing function (to which
             // these `args` are passed). We mutate currentStyle in several
             // places...
-            this.currentStyle = $.extend(
-                {},
-                this.currentStyle,
-            );
+            this.currentStyle = $.extend({}, this.currentStyle);
 
             return args;
         }
@@ -977,9 +984,9 @@ export class Graphie {
                 const almostTheEnd = path.getPointAtLength(l - 0.75 * s);
                 const angle =
                     (Math.atan2(
-                            end.y - almostTheEnd.y,
-                            end.x - almostTheEnd.x,
-                        ) *
+                        end.y - almostTheEnd.y,
+                        end.x - almostTheEnd.x,
+                    ) *
                         180) /
                     Math.PI;
                 const attrs = path.attr();
@@ -1012,7 +1019,7 @@ export class Graphie {
             }
         }
         return path;
-    };
+    }
 
     scalePoint = (point: number | Coord): Coord => {
         return this.drawingTransform().scalePoint(point);
@@ -1153,14 +1160,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
-
-    function ellipse(center, radii) {
-        return thisGraphie.raphael.ellipse(
-            ...thisGraphie
-                .scalePoint(center)
-                .concat(thisGraphie.scaleVector(radii)),
-        );
-    }
 
     function fixedEllipse(
         center: number | Coord,
@@ -1571,7 +1570,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        ellipse,
         fixedEllipse,
         arc,
         path,
