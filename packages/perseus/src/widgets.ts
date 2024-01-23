@@ -48,7 +48,7 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
  * @param name - the widget that you are trying to replace
  * @param replacementName - the name of the widget that takes its place
  *
- * e.g. replaceWidget("transformer", "always-correct") will make it so the
+ * e.g. replaceWidget("transformer", "deprecated-standin") will make it so the
  * transformer widget is replaced by the always correct widget
  */
 export const replaceWidget = (name: string, replacementName: string) => {
@@ -93,10 +93,6 @@ export const replaceEditor = (name: string, replacementName: string) => {
     }
 
     editors[name] = substituteEditor;
-
-    if (Log) {
-        Log.log(`INFO: Replacing editor ${name} with ${replacementName}`);
-    }
 };
 
 export const getWidget = (
