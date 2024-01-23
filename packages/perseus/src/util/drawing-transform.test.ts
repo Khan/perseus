@@ -11,7 +11,7 @@ describe("DrawingTransform", () => {
             // Each unit in both dimensions is 5 pixels, so the whole graph
             // is 100px by 100px
             const scale: [number, number] = [5, 5];
-            transform = new DrawingTransform(new NullRaphael(), scale, bounds);
+            transform = new DrawingTransform({setSize() {}}, scale, bounds);
         });
 
         const testPoints: [string, Coord, Coord][] = [
@@ -65,7 +65,3 @@ describe("DrawingTransform", () => {
         expect(raphael.setSize).toHaveBeenCalledWith(30, 70);
     });
 });
-
-class NullRaphael {
-    setSize() {}
-}
