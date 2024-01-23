@@ -3,12 +3,12 @@ import _ from "underscore";
 import {Errors, Log} from "./logging/log";
 import {PerseusError} from "./perseus-error";
 
+import type {PerseusWidget} from "./perseus-types";
 import type {
     Alignment,
     Tracking,
     Version,
     WidgetExports,
-    WidgetInfo,
     WidgetTransform,
 } from "./types";
 import type * as React from "react";
@@ -130,12 +130,12 @@ export const getTransform = (
     return _.has(widgets, name) ? widgets[name].transform || _.identity : null;
 };
 
-export const getVersion = (name: string): Version | null | undefined => {
+export const getVersion = (name: string): Version | undefined => {
     const widgetInfo = widgets[name];
     if (widgetInfo) {
         return widgets[name].version || {major: 0, minor: 0};
     }
-    return null;
+    return undefined;
 };
 
 export const getVersionVector = (): {
@@ -160,7 +160,7 @@ export const getPublicWidgets = (): ReadonlyArray<WidgetExports> => {
     );
 };
 
-export const isAccessible = (widgetInfo: WidgetInfo): boolean => {
+export const isAccessible = (widgetInfo: PerseusWidget): boolean => {
     const accessible = widgets[widgetInfo.type].accessible;
     if (typeof accessible === "function") {
         return accessible(widgetInfo.options);
@@ -173,8 +173,8 @@ export const getAllWidgetTypes = (): ReadonlyArray<string> => {
 };
 
 export const upgradeWidgetInfoToLatestVersion = (
-    oldWidgetInfo: WidgetInfo,
-): WidgetInfo => {
+    oldWidgetInfo: PerseusWidget,
+): PerseusWidget => {
     const type = oldWidgetInfo.type;
     // TODO(LP-10707): Remove unnecessary type checking (`type` is a string)
     if (!_.isString(type)) {
@@ -295,9 +295,9 @@ export const upgradeWidgetInfoToLatestVersion = (
 };
 
 export const getRendererPropsForWidgetInfo = (
-    widgetInfo: WidgetInfo,
+    widgetInfo: PerseusWidget,
     problemNum?: number,
-): any => {
+): PerseusWidget => {
     const type = widgetInfo.type;
     const widgetExports = widgets[type];
     if (widgetExports == null) {
@@ -322,9 +322,9 @@ export const getRendererPropsForWidgetInfo = (
 };
 
 export const traverseChildWidgets = (
-    widgetInfo: WidgetInfo,
+    widgetInfo: PerseusWidget,
     traverseRenderer: any,
-): WidgetInfo => {
+): PerseusWidget => {
     if (!traverseRenderer) {
         throw new PerseusError(
             "traverseRenderer must be provided, but was not",

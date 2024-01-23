@@ -10,7 +10,7 @@ import _ from "underscore";
 
 import SectionControlButton from "./section-control-button";
 
-import type {Alignment, WidgetInfo} from "@khanacademy/perseus";
+import type {Alignment, PerseusWidget} from "@khanacademy/perseus";
 
 const {InlineIcon} = components;
 const {iconChevronDown, iconChevronRight, iconTrash} = icons;
@@ -19,24 +19,24 @@ type WidgetEditorProps = {
     // Unserialized props
     id: string;
     onChange: (
-        widgetInfo: WidgetInfo,
+        widgetInfo: PerseusWidget,
         cb?: () => unknown,
         silent?: boolean,
     ) => unknown;
     onRemove: () => unknown;
     apiOptions: any;
-} & WidgetInfo;
+} & PerseusWidget;
 
 type WidgetEditorState = {
     showWidget: boolean;
-    widgetInfo: WidgetInfo;
+    widgetInfo: PerseusWidget;
 };
 
-const _upgradeWidgetInfo = (props: WidgetEditorProps): React.ReactElement => {
+const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
-    // @ts-expect-error - TS2322 - Type 'PerseusWidget' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'. | TS2345 - Argument of type 'Partial<{ id: string; onChange: (widgetInfo: PerseusWidget, cb?: (() => unknown) | undefined, silent?: boolean | undefined) => unknown; onRemove: () => unknown; apiOptions: any; } & CategorizerWidget & { ...; }> | ... 38 more ... | Partial<...>' is not assignable to parameter of type 'PerseusWidget'.
+    // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
     return Widgets.upgradeWidgetInfoToLatestVersion(filteredProps);
 };
 
@@ -53,14 +53,12 @@ class WidgetEditor extends React.Component<
         super(props);
         this.state = {
             showWidget: false,
-            // @ts-expect-error - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
             widgetInfo: _upgradeWidgetInfo(props),
         };
     }
 
     // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
-        // @ts-expect-error - TS2322 - Type 'ReactElement<any, any> | null' is not assignable to type 'PerseusWidget'.
         this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});
     }
 
@@ -77,7 +75,7 @@ class WidgetEditor extends React.Component<
         const newWidgetInfo = Object.assign(
             {},
             this.state.widgetInfo,
-        ) as WidgetInfo;
+        ) as PerseusWidget;
         newWidgetInfo.options = Object.assign(
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
@@ -91,7 +89,7 @@ class WidgetEditor extends React.Component<
         e.preventDefault();
         const newWidgetInfo = Object.assign({}, this.state.widgetInfo, {
             static: !this.state.widgetInfo.static,
-        }) as WidgetInfo;
+        }) as PerseusWidget;
         this.props.onChange(newWidgetInfo);
     };
 
@@ -100,7 +98,7 @@ class WidgetEditor extends React.Component<
         const newWidgetInfo = Object.assign(
             {},
             this.state.widgetInfo,
-        ) as WidgetInfo;
+        ) as PerseusWidget;
         newWidgetInfo.alignment = newAlignment;
         this.props.onChange(newWidgetInfo);
     };

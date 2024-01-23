@@ -25,7 +25,7 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
-import type {ChangeHandler, WidgetInfo} from "@khanacademy/perseus";
+import type {ChangeHandler, PerseusWidget} from "@khanacademy/perseus";
 
 // like [[snowman input-number 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -114,7 +114,7 @@ type Props = Readonly<{
     replace?: any;
     placeholder: string;
     widgets: {
-        [name: string]: WidgetInfo;
+        [name: string]: PerseusWidget;
     };
     images: any;
     disabled: boolean;
@@ -141,7 +141,7 @@ type DefaultProps = {
     warnNoWidgets: boolean;
     widgetEnabled: boolean;
     widgets: {
-        [name: string]: WidgetInfo;
+        [name: string]: PerseusWidget;
     };
 };
 
@@ -245,37 +245,35 @@ class Editor extends React.Component<Props, State> {
         clearTimeout(this.deferredChange);
     }
 
-    getWidgetEditor: (id: string, type: string) => undefined | React.ReactNode =
-        (id: string, type: string) => {
-            if (!Widgets.getEditor(type)) {
-                return;
-            }
-            return (
-                <WidgetEditor
-                    // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                    key={id}
-                    ref={id}
-                    id={id}
-                    // @ts-expect-error - TS2783 - 'type' is specified more than once, so this usage will be overwritten.
-                    type={type}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onChange={this._handleWidgetEditorChange.bind(this, id)}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onRemove={this._handleWidgetEditorRemove.bind(this, id)}
-                    apiOptions={this.props.apiOptions}
-                    {...this.props.widgets[id]}
-                />
-            );
-        };
+    getWidgetEditor(
+        id: string,
+        type: PerseusWidget["type"],
+    ): undefined | React.ReactNode {
+        if (!Widgets.getEditor(type)) {
+            return;
+        }
+        return (
+            <WidgetEditor
+                ref={id}
+                id={id}
+                // eslint-disable-next-line react/jsx-no-bind
+                onChange={this._handleWidgetEditorChange.bind(this, id)}
+                // eslint-disable-next-line react/jsx-no-bind
+                onRemove={this._handleWidgetEditorRemove.bind(this, id)}
+                apiOptions={this.props.apiOptions}
+                {...this.props.widgets[id]}
+            />
+        );
+    }
 
     _handleWidgetEditorChange: (
         id: string,
-        newWidgetInfo: WidgetInfo,
+        newWidgetInfo: PerseusWidget,
         cb?: () => unknown,
         silent?: boolean,
     ) => void = (
         id: string,
-        newWidgetInfo: WidgetInfo,
+        newWidgetInfo: PerseusWidget,
         cb?: () => unknown,
         silent?: boolean,
     ) => {
@@ -685,14 +683,13 @@ class Editor extends React.Component<Props, State> {
         const newContent = newPrelude + widgetContent + newPostlude;
 
         const newWidgets = _.clone(this.props.widgets);
+        // @ts-expect-error TS(2345) Type '"categorizer" | undefined' is not assignable to type '"deprecated-standin"'.
         newWidgets[id] = {
             options: Widgets.getEditor(widgetType)?.defaultProps,
-            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"video" | "image" | "iframe" | "table" | "radio" | "definition" | "group" | "matrix" | "categorizer" | "cs-program" | "dropdown" | "example-graphie-widget" | "example-widget" | ... 26 more ... | "unit-input"'.
-            type: widgetType,
+            type: widgetType as PerseusWidget["type"],
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
             // pre-versioning creation time.
-            // @ts-expect-error - TS2322 - Type 'Version | null | undefined' is not assignable to type 'Version | undefined'.
             version: Widgets.getVersion(widgetType),
         };
 
@@ -940,7 +937,7 @@ class Editor extends React.Component<Props, State> {
                     const match = Util.rWidgetParts.exec(pieces[i]);
                     if (match != null) {
                         const id = match[1];
-                        const type = match[2];
+                        const type = match[2] as PerseusWidget["type"];
 
                         const selected = false;
                         // TODO(alpert):
