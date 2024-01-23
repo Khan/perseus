@@ -644,6 +644,24 @@ export class Graphie {
         );
     }
 
+    // (x, y) is coordinate of bottom left corner
+    rect(x, y, width, height, style?: Record<string, any>) {
+        return this.withStyle(style, () => {
+            // Raphael needs (x, y) to be coordinate of upper left corner
+            const corner = this.scalePoint([x, y + height]);
+            const dims = this.scaleVector([width, height]);
+            const elem = this.postprocessDrawingResult(
+                this.raphael.rect(...corner.concat(dims)),
+            );
+
+            if (this.isMobile) {
+                elem.node.style.shapeRendering = "crispEdges";
+            }
+
+            return elem;
+        });
+    }
+
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
@@ -1136,20 +1154,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
 
-    // (x, y) is coordinate of bottom left corner
-    function rect(x, y, width, height) {
-        // Raphael needs (x, y) to be coordinate of upper left corner
-        const corner = thisGraphie.scalePoint([x, y + height]);
-        const dims = thisGraphie.scaleVector([width, height]);
-        const elem = thisGraphie.raphael.rect(...corner.concat(dims));
-
-        if (thisGraphie.isMobile) {
-            elem.node.style.shapeRendering = "crispEdges";
-        }
-
-        return elem;
-    }
-
     function ellipse(center, radii) {
         return thisGraphie.raphael.ellipse(
             ...thisGraphie
@@ -1567,7 +1571,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        rect,
         ellipse,
         fixedEllipse,
         arc,
