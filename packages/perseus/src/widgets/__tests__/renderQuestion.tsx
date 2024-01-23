@@ -2,10 +2,10 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-// eslint-disable-next-line import/no-relative-packages
 import {
     testDependenciesV2,
     testDependencies,
+    // eslint-disable-next-line import/no-relative-packages
 } from "../../../../../testing/test-dependencies";
 import {
     DependenciesContext,
