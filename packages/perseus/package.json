@@ -63,7 +63,7 @@
         "jquery": "^2.1.1",
         "katex": "^0.11.1",
         "lodash.debounce": "^4.0.8",
-        "mathquill": "git+https://git@github.com/Khan/mathquill.git#02137aa753c4b6f446f23becc12ba9b183a103aa",
+        "mathquill": "git+https://git@github.com/Khan/mathquill.git#9f1c945a8067e09051f1bb91423ded37d793f604",
         "perseus-build-settings": "^0.3.0",
         "prop-types": "^15.6.1",
         "react": "16.14.0",
