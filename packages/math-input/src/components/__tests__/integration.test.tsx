@@ -17,7 +17,7 @@ import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
 
 import type {KeypadConfiguration} from "../../types";
 
-const MQ = MathQuill.getInterface(2);
+const MQ = MathQuill.getInterface(3);
 
 const defaultConfiguration: KeypadConfiguration = {
     keypadType: KeypadType.FRACTION,

@@ -1,5 +1,4 @@
 import MathWrapper from "../math-wrapper";
-import {mathQuillInstance} from "../mathquill-instance";
 
 export default class TestMathWrapper extends MathWrapper {
     getContent() {
@@ -15,7 +14,7 @@ export default class TestMathWrapper extends MathWrapper {
     }
 
     moveToStart() {
-        this.mathField.moveToDirEnd(mathQuillInstance.L);
+        this.mathField.moveToLeftEnd();
     }
 
     isSelected() {

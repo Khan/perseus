@@ -1,6 +1,10 @@
 import MathQuill from "mathquill";
 
-import type {MathQuillInterface, MathFieldConfig} from "./mathquill-types";
+import type {
+    MathQuillInterface,
+    MathFieldConfig,
+    MathFieldInterface,
+} from "./mathquill-types";
 
 // We only need one MathQuill instance (referred to as MQ in the docs)
 // and that contains some MQ constants and the MathField constructor
@@ -88,7 +92,7 @@ const createBaseConfig = (): MathFieldConfig => ({
 export function createMathField(
     container: HTMLDivElement | HTMLSpanElement,
     configCallback?: (baseConfig: MathFieldConfig) => MathFieldConfig,
-) {
+): MathFieldInterface {
     const baseConfig = createBaseConfig();
     const config = configCallback ? configCallback(baseConfig) : baseConfig;
 

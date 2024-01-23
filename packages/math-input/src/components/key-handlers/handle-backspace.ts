@@ -6,7 +6,6 @@ import {
     isInsideLogIndex,
     isInsideEmptyNode,
     selectNode,
-    getCursor,
     maybeFindCommandBeforeParens,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
@@ -70,7 +69,7 @@ function handleBackspaceInRootIndex(
 
             // Adjust the cursor to be to the left the sqrt.
             if (reinsertionPoint === MathFieldActionType.MQ_END) {
-                mathField.moveToDirEnd(mathQuillInstance.L);
+                mathField.moveToLeftEnd();
             } else {
                 cursor.insRightOf(reinsertionPoint);
             }
@@ -237,7 +236,7 @@ function handleBackspaceAfterLigaturedSymbol(mathField: MathFieldInterface) {
  * See inline comments for precise behavior of different cases.
  */
 function handleBackspace(mathField: MathFieldInterface) {
-    const cursor = getCursor(mathField);
+    const cursor = mathField.cursor();
     if (!cursor.selection) {
         const parent = cursor.parent;
         const grandparent = parent.parent;

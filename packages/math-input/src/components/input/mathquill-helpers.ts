@@ -2,7 +2,7 @@ import {CursorContext} from "./cursor-contexts";
 import {mathQuillInstance} from "./mathquill-instance";
 import {MathFieldActionType} from "./mathquill-types";
 
-import type {MathFieldCursor, MathFieldInterface} from "./mathquill-types";
+import type {MathFieldInterface} from "./mathquill-types";
 
 const Numerals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const GreekLetters = ["\\theta", "\\pi"];
@@ -43,10 +43,6 @@ const ValidLeaves = [
     ...Letters.map((letter) => letter.toLowerCase()),
     ...Letters.map((letter) => letter.toUpperCase()),
 ];
-
-export function getCursor(mathField: MathFieldInterface): MathFieldCursor {
-    return mathField.__controller.cursor;
-}
 
 const mqNodeHasClass = (node: any, className: string): boolean =>
     node._el && (node._el as HTMLElement).classList.contains(className);
@@ -101,7 +97,7 @@ export function isNthRootIndex(node): boolean {
     return mqNodeHasClass(node, "mq-nthroot");
 }
 
-export function isInsideLogIndex(cursor: MathFieldCursor): boolean {
+export function isInsideLogIndex(cursor): boolean {
     const grandparent = cursor.parent.parent;
 
     if (grandparent && mqNodeHasClass(grandparent, "mq-log")) {
@@ -115,7 +111,7 @@ export function isInsideLogIndex(cursor: MathFieldCursor): boolean {
     return false;
 }
 
-export function isInsideEmptyNode(cursor: MathFieldCursor): boolean {
+export function isInsideEmptyNode(cursor): boolean {
     return (
         cursor[mathQuillInstance.L] === MathFieldActionType.MQ_END &&
         cursor[mathQuillInstance.R] === MathFieldActionType.MQ_END
@@ -237,7 +233,7 @@ export function getCursorContext(
     }
 
     // First, try to find any fraction to the right, unimpeded.
-    const cursor = getCursor(mathField);
+    const cursor = mathField.cursor();
     let visitor = cursor;
     while (visitor[mathQuillInstance.R] !== MathFieldActionType.MQ_END) {
         if (isFraction(visitor[mathQuillInstance.R])) {
@@ -247,8 +243,6 @@ export function getCursorContext(
         }
         visitor = visitor[mathQuillInstance.R];
     }
-
-    console.log({cursor});
 
     // If that didn't work, check if the parent or grandparent is a special
     // context, so that we can jump outwards.

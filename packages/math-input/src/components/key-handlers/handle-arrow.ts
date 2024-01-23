@@ -1,7 +1,6 @@
 import {
     maybeFindCommand,
     maybeFindCommandBeforeParens,
-    getCursor,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
 import {MathFieldActionType} from "../input/mathquill-types";
@@ -61,7 +60,7 @@ function handleRightArrow(
 }
 
 export default function handleArrow(mathField: MathFieldInterface, key: Key) {
-    const cursor = getCursor(mathField);
+    const cursor = mathField.cursor();
 
     if (key === "LEFT") {
         handleLeftArrow(mathField, cursor);

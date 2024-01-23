@@ -26,7 +26,7 @@ import {registerWidget} from "../../widgets";
 import {expressionItem2} from "../__testdata__/expression.testdata";
 import ExpressionExport from "../expression";
 
-const MQ = MathQuill.getInterface(2);
+const MQ = MathQuill.getInterface(3);
 
 function RendererWithContext({item}) {
     return (
@@ -355,6 +355,6 @@ describe("expression mobile", () => {
             // eslint-disable-next-line testing-library/no-node-access
             MQ(document.getElementsByClassName("mq-editable-field")[0]);
 
-        expect(mathquillInstance.latex()).toBe("x=\\sin\\left(9\\right)");
+        expect(mathquillInstance?.latex()).toBe("x=\\sin\\left(9\\right)");
     });
 });

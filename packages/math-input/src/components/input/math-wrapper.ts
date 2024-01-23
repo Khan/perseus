@@ -19,11 +19,7 @@ import $ from "jquery";
 import handleBackspace from "../key-handlers/handle-backspace";
 import keyTranslator from "../key-handlers/key-translator";
 
-import {
-    getCursor,
-    getCursorContext,
-    maybeFindCommand,
-} from "./mathquill-helpers";
+import {getCursorContext, maybeFindCommand} from "./mathquill-helpers";
 import {createMathField, mathQuillInstance} from "./mathquill-instance";
 
 import type {
@@ -31,7 +27,6 @@ import type {
     MathFieldUpdaterCallback,
 } from "./mathquill-types";
 import type Key from "../../data/keys";
-import type {Cursor} from "../../types";
 
 const mobileKeyTranslator: Record<Key, MathFieldUpdaterCallback> = {
     ...keyTranslator,
@@ -70,19 +65,17 @@ class MathWrapper {
         // HACK(charlie): We shouldn't reaching into MathQuill internals like
         // this, but it's the easiest way to allow us to manage the focus state
         // ourselves.
-        const controller = this.mathField.__controller;
-        controller.cursor.show();
+        this.mathField.cursor().show();
 
         // Set MathQuill's internal state to reflect the focus, otherwise it
         // will consistently try to hide the cursor on key-press and introduce
         // layout jank.
-        controller.blurred = false;
+        this.mathField.focus();
     }
 
     blur() {
-        const controller = this.mathField.__controller;
-        controller.cursor.hide();
-        controller.blurred = true;
+        this.mathField.cursor().hide();
+        this.mathField.blur();
     }
 
     /**
@@ -91,7 +84,7 @@ class MathWrapper {
      * @param {Key} key - an enum representing the key that was pressed
      * @returns {object} a cursor object, consisting of a cursor context
      */
-    pressKey(key: Key): Cursor {
+    pressKey(key: Key) {
         const cursor = this.getCursor();
         const translator = mobileKeyTranslator[key];
 
@@ -166,7 +159,7 @@ class MathWrapper {
     // note(Matthew): extracted this logic to share it elsewhere,
     // but it's part of the public MathWrapper API
     getCursor() {
-        return getCursor(this.mathField);
+        return this.mathField.cursor();
     }
 
     // note(Matthew): extracted this logic to keep this file focused,
