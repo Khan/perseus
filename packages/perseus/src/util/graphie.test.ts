@@ -1,0 +1,149 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Raphael from "raphael";
+
+import GraphUtils from "./graphie";
+
+describe("Graphie drawing tools", () => {
+    describe("circle", () => {
+        it("uses the given center and radius", () => {
+            const graphie = GraphUtils.createGraphie();
+            const mockRaphaelElement = {
+                constructor: {prototype: Raphael.el},
+                attr: jest.fn().mockName("mockRaphaelElement.attr"),
+            };
+            graphie.raphael = {
+                setSize: jest.fn().mockName("raphael.setSize"),
+                ellipse: jest
+                    .fn()
+                    .mockName("raphael.ellipse")
+                    .mockReturnValue(mockRaphaelElement),
+            };
+
+            graphie.init({
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
+                scale: 5,
+                isMobile: false,
+            });
+
+            graphie.circle([1, 2], 3);
+
+            // The size of the canvas (width and height) should have been set:
+            expect(graphie.raphael.setSize).toHaveBeenCalledWith(50, 50);
+            expect(graphie.raphael.ellipse).toHaveBeenCalledWith(5, 40, 15, 15);
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
+                // The defaults
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("uses the style, if given", () => {
+            const graphie = GraphUtils.createGraphie();
+            const mockRaphaelElement = {
+                constructor: {prototype: Raphael.el},
+                attr: jest.fn().mockName("mockRaphaelElement.attr"),
+            };
+            graphie.raphael = {
+                setSize: jest.fn().mockName("raphael.setSize"),
+                ellipse: jest
+                    .fn()
+                    .mockName("raphael.ellipse")
+                    .mockReturnValue(mockRaphaelElement),
+            };
+
+            graphie.init({
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
+                scale: 5,
+                isMobile: false,
+            });
+
+            graphie.circle([0, 0], 1, {fill: "#112233", stroke: "#445566"});
+
+            // The size of the canvas (width and height) should have been set:
+            expect(graphie.raphael.setSize).toHaveBeenCalledWith(50, 50);
+            expect(graphie.raphael.ellipse).toHaveBeenCalledWith(0, 50, 5, 5);
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
+                // The defaults
+                fill: "#112233",
+                stroke: "#445566",
+                "stroke-width": 2,
+            });
+        });
+
+        it("restores the previous style after drawing", () => {
+            const graphie = GraphUtils.createGraphie();
+            const mockRaphaelElement1 = {
+                constructor: {prototype: Raphael.el},
+                attr: jest.fn().mockName("mockRaphaelElement1.attr"),
+            };
+            const mockRaphaelElement2 = {
+                constructor: {prototype: Raphael.el},
+                attr: jest.fn().mockName("mockRaphaelElement2.attr"),
+            };
+            graphie.raphael = {
+                setSize: jest.fn().mockName("raphael.setSize"),
+                ellipse: jest
+                    .fn()
+                    .mockName("raphael.ellipse")
+                    .mockReturnValueOnce(mockRaphaelElement1)
+                    .mockReturnValueOnce(mockRaphaelElement2),
+            };
+
+            graphie.init({
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
+                scale: 5,
+                isMobile: false,
+            });
+
+            graphie.circle([0, 0], 1, {fill: "#112233", stroke: "#445566"});
+            graphie.circle([0, 0], 1);
+
+            expect(mockRaphaelElement2.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
+            const graphie = GraphUtils.createGraphie();
+            const mockRaphaelElement = {
+                constructor: {prototype: Raphael.el},
+                attr: jest.fn().mockName("mockRaphaelElement.attr"),
+            };
+            graphie.raphael = {
+                setSize: jest.fn().mockName("raphael.setSize"),
+                ellipse: jest
+                    .fn()
+                    .mockName("raphael.ellipse")
+                    .mockReturnValue(mockRaphaelElement),
+            };
+
+            graphie.init({
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
+                scale: 5,
+                isMobile: false,
+            });
+
+            graphie.circle([0, 0], 1, {strokeWidth: 42});
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    fill: "none",
+                    "stroke-width": 42,
+                }),
+            );
+        });
+    });
+});
