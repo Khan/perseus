@@ -3,21 +3,27 @@ import Raphael from "raphael";
 
 import GraphUtils from "./graphie";
 
+function createMockRaphaelElement(name = "mockRaphaelElement") {
+    return {
+        constructor: {prototype: Raphael.el},
+        attr: jest.fn().mockName(`${name}.attr`),
+    };
+}
+
+function createMockRaphael() {
+    return {
+        setSize: jest.fn().mockName("raphael.setSize"),
+        ellipse: jest.fn().mockName("raphael.ellipse"),
+    };
+}
+
 describe("Graphie drawing tools", () => {
     describe("circle", () => {
         it("uses the given center and radius", () => {
             const graphie = GraphUtils.createGraphie();
-            const mockRaphaelElement = {
-                constructor: {prototype: Raphael.el},
-                attr: jest.fn().mockName("mockRaphaelElement.attr"),
-            };
-            graphie.raphael = {
-                setSize: jest.fn().mockName("raphael.setSize"),
-                ellipse: jest
-                    .fn()
-                    .mockName("raphael.ellipse")
-                    .mockReturnValue(mockRaphaelElement),
-            };
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael = createMockRaphael();
+            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
 
             graphie.init({
                 range: [
@@ -42,17 +48,9 @@ describe("Graphie drawing tools", () => {
 
         it("uses the style, if given", () => {
             const graphie = GraphUtils.createGraphie();
-            const mockRaphaelElement = {
-                constructor: {prototype: Raphael.el},
-                attr: jest.fn().mockName("mockRaphaelElement.attr"),
-            };
-            graphie.raphael = {
-                setSize: jest.fn().mockName("raphael.setSize"),
-                ellipse: jest
-                    .fn()
-                    .mockName("raphael.ellipse")
-                    .mockReturnValue(mockRaphaelElement),
-            };
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael = createMockRaphael();
+            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
 
             graphie.init({
                 range: [
@@ -69,7 +67,6 @@ describe("Graphie drawing tools", () => {
             expect(graphie.raphael.setSize).toHaveBeenCalledWith(50, 50);
             expect(graphie.raphael.ellipse).toHaveBeenCalledWith(0, 50, 5, 5);
             expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
-                // The defaults
                 fill: "#112233",
                 stroke: "#445566",
                 "stroke-width": 2,
@@ -78,22 +75,15 @@ describe("Graphie drawing tools", () => {
 
         it("restores the previous style after drawing", () => {
             const graphie = GraphUtils.createGraphie();
-            const mockRaphaelElement1 = {
-                constructor: {prototype: Raphael.el},
-                attr: jest.fn().mockName("mockRaphaelElement1.attr"),
-            };
-            const mockRaphaelElement2 = {
-                constructor: {prototype: Raphael.el},
-                attr: jest.fn().mockName("mockRaphaelElement2.attr"),
-            };
-            graphie.raphael = {
-                setSize: jest.fn().mockName("raphael.setSize"),
-                ellipse: jest
-                    .fn()
-                    .mockName("raphael.ellipse")
-                    .mockReturnValueOnce(mockRaphaelElement1)
-                    .mockReturnValueOnce(mockRaphaelElement2),
-            };
+            const mockRaphaelElement1 = createMockRaphaelElement(
+                "mockRaphaelElement1",
+            );
+            const mockRaphaelElement2 = createMockRaphaelElement(
+                "mockRaphaelElement2",
+            );
+            graphie.raphael = createMockRaphael();
+            graphie.raphael.ellipse.mockReturnValueOnce(mockRaphaelElement1);
+            graphie.raphael.ellipse.mockReturnValueOnce(mockRaphaelElement2);
 
             graphie.init({
                 range: [
@@ -107,25 +97,21 @@ describe("Graphie drawing tools", () => {
             graphie.circle([0, 0], 1, {fill: "#112233", stroke: "#445566"});
             graphie.circle([0, 0], 1);
 
-            expect(mockRaphaelElement2.attr).toHaveBeenCalledWith({
-                fill: "none",
-                "stroke-width": 2,
-            });
+            expect(mockRaphaelElement2.attr.mock.calls).toEqual([
+                [
+                    {
+                        fill: "none",
+                        "stroke-width": 2,
+                    },
+                ],
+            ]);
         });
 
         it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
             const graphie = GraphUtils.createGraphie();
-            const mockRaphaelElement = {
-                constructor: {prototype: Raphael.el},
-                attr: jest.fn().mockName("mockRaphaelElement.attr"),
-            };
-            graphie.raphael = {
-                setSize: jest.fn().mockName("raphael.setSize"),
-                ellipse: jest
-                    .fn()
-                    .mockName("raphael.ellipse")
-                    .mockReturnValue(mockRaphaelElement),
-            };
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael = createMockRaphael();
+            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
 
             graphie.init({
                 range: [
