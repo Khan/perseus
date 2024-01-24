@@ -88,7 +88,9 @@ const GraphUtils: any = {
     graphs: {},
 };
 
-class Graphie {
+type RaphaelElement = any;
+
+export class Graphie {
     el: HTMLElement;
     #bounds?: GraphBounds;
     #drawingTransform?: DrawingTransform;
@@ -585,6 +587,14 @@ class Graphie {
 
     grid(xr: any, yr: any, styleAttributes: any) {}
 
+    // circle is a stub that gets overwritten with a function from drawingTools
+    // in createGraphie
+    circle(
+        center: Coord,
+        radius: number,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     path(points: any) {}
@@ -851,7 +861,7 @@ const SVG_SPECIFIC_STYLE_MASK = {
     "stroke-width": null,
 } as const;
 
-GraphUtils.createGraphie = function (el: any) {
+GraphUtils.createGraphie = function (el: any): Graphie {
     const thisGraphie = new Graphie(el);
 
     const setLabelMargins = function (span: any, size: Array<any>) {

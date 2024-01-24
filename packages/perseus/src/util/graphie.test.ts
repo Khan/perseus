@@ -3,6 +3,8 @@ import Raphael from "raphael";
 
 import GraphUtils from "./graphie";
 
+import type {Graphie} from "./graphie";
+
 function createMockRaphaelElement(name = "mockRaphaelElement") {
     return {
         constructor: {prototype: Raphael.el},
@@ -17,23 +19,30 @@ function createMockRaphael() {
     };
 }
 
+function createAndInitGraphie(): Graphie {
+    const graphie = GraphUtils.createGraphie();
+    graphie.raphael = createMockRaphael();
+
+    // The graph is 50px by 50px
+    graphie.init({
+        range: [
+            [0, 10],
+            [0, 10],
+        ],
+        scale: 5,
+        isMobile: false,
+    });
+
+    return graphie;
+}
+
 describe("Graphie drawing tools", () => {
     describe("circle", () => {
         it("uses the given center and radius", () => {
-            const graphie = GraphUtils.createGraphie();
-            const mockRaphaelElement = createMockRaphaelElement();
-            graphie.raphael = createMockRaphael();
-            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
+            const graphie = createAndInitGraphie();
 
-            // The graph is 50px by 50px
-            graphie.init({
-                range: [
-                    [0, 10],
-                    [0, 10],
-                ],
-                scale: 5,
-                isMobile: false,
-            });
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
 
             graphie.circle([1, 2], 3);
 
@@ -43,20 +52,10 @@ describe("Graphie drawing tools", () => {
         });
 
         it("uses the style, if given", () => {
-            const graphie = GraphUtils.createGraphie();
-            const mockRaphaelElement = createMockRaphaelElement();
-            graphie.raphael = createMockRaphael();
-            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
+            const graphie = createAndInitGraphie();
 
-            // The graph is 50px by 50px
-            graphie.init({
-                range: [
-                    [0, 10],
-                    [0, 10],
-                ],
-                scale: 5,
-                isMobile: false,
-            });
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
 
             graphie.circle([0, 0], 1, {fill: "#112233", stroke: "#445566"});
 
@@ -72,20 +71,9 @@ describe("Graphie drawing tools", () => {
         });
 
         it("uses the default style, if none given", () => {
-            const graphie = GraphUtils.createGraphie();
+            const graphie = createAndInitGraphie();
             const mockRaphaelElement = createMockRaphaelElement();
-            graphie.raphael = createMockRaphael();
             graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
-
-            // The graph is 50px by 50px
-            graphie.init({
-                range: [
-                    [0, 10],
-                    [0, 10],
-                ],
-                scale: 5,
-                isMobile: false,
-            });
 
             graphie.circle([0, 0], 1);
 
@@ -97,25 +85,16 @@ describe("Graphie drawing tools", () => {
         });
 
         it("restores the previous style after drawing", () => {
-            const graphie = GraphUtils.createGraphie();
+            const graphie = createAndInitGraphie();
+
             const mockRaphaelElement1 = createMockRaphaelElement(
                 "mockRaphaelElement1",
             );
             const mockRaphaelElement2 = createMockRaphaelElement(
                 "mockRaphaelElement2",
             );
-            graphie.raphael = createMockRaphael();
             graphie.raphael.ellipse.mockReturnValueOnce(mockRaphaelElement1);
             graphie.raphael.ellipse.mockReturnValueOnce(mockRaphaelElement2);
-
-            graphie.init({
-                range: [
-                    [0, 10],
-                    [0, 10],
-                ],
-                scale: 5,
-                isMobile: false,
-            });
 
             graphie.circle([0, 0], 1, {fill: "#112233", stroke: "#445566"});
             graphie.circle([0, 0], 1);
@@ -131,19 +110,9 @@ describe("Graphie drawing tools", () => {
         });
 
         it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
-            const graphie = GraphUtils.createGraphie();
+            const graphie = createAndInitGraphie();
             const mockRaphaelElement = createMockRaphaelElement();
-            graphie.raphael = createMockRaphael();
             graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
-
-            graphie.init({
-                range: [
-                    [0, 10],
-                    [0, 10],
-                ],
-                scale: 5,
-                isMobile: false,
-            });
 
             graphie.circle([0, 0], 1, {strokeWidth: 42});
 
@@ -155,24 +124,13 @@ describe("Graphie drawing tools", () => {
         });
 
         it("returns the Raphael element", () => {
-            const graphie = GraphUtils.createGraphie();
+            const graphie = createAndInitGraphie();
             const mockRaphaelElement = createMockRaphaelElement();
-            graphie.raphael = createMockRaphael();
             graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
 
-            // The graph is 50px by 50px
-            graphie.init({
-                range: [
-                    [0, 10],
-                    [0, 10],
-                ],
-                scale: 5,
-                isMobile: false,
-            });
-
-            const result = graphie.circle([0, 0], 1)
+            const result = graphie.circle([0, 0], 1);
 
             expect(result).toBe(mockRaphaelElement);
-        })
+        });
     });
 });
