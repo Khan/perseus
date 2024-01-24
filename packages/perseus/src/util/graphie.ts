@@ -605,6 +605,14 @@ export class Graphie {
         style?: Record<string, any>,
     ): RaphaelElement {}
 
+    // ellipse is a stub that gets overwritten with a function from drawingTools
+    // in createGraphie
+    ellipse(
+        center: Coord,
+        radii: Coord,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     path(points: any) {}
