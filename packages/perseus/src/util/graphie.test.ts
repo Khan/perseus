@@ -529,4 +529,26 @@ describe("Graphie drawing tools", () => {
             expect(result).toBe(mockRaphaelElement);
         });
     });
+
+    describe("fixedPath", () => {
+        it("creates a container element the size of the path, with 2px padding on each side", () => {
+            const graphie = createAndInitGraphie();
+
+            const {wrapper, visibleShape} = graphie.fixedPath(
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                [0, 0],
+                (points) => "M" + points.map(([x, y]) => `${x},${y}`).join("L"),
+            );
+
+            expect(wrapper.style.position).toBe("absolute");
+            expect(wrapper.style.top).toBe("43px");
+            expect(wrapper.style.left).toBe("-2px");
+            expect(wrapper.style.height).toBe("9px");
+            expect(wrapper.style.width).toBe("9px");
+            expect(visibleShape[0].getAttribute("d")).toBe("M2,7L7,2");
+        });
+    });
 });

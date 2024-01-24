@@ -635,6 +635,14 @@ export class Graphie {
     // in createGraphie
     path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
 
+    fixedPath(
+        points: Coord[],
+        center: Coord,
+        toSvgPath: (scaledPoints: Coord[]) => string,
+    ): {wrapper: HTMLDivElement; visibleShape: any} {
+        throw new Error("fixedPath called on uninitialized Graphie");
+    }
+
     // line is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     line(start: any, end: any) {}
@@ -1116,6 +1124,7 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         center = center ? thisGraphie.scalePoint(center) : null;
         createPath = createPath || thisGraphie.svgPath;
 
+        // Compute bounding box
         const pathLeft = _.min(_.pluck(points, 0));
         const pathRight = _.max(_.pluck(points, 0));
         const pathTop = _.min(_.pluck(points, 1));
@@ -1125,12 +1134,13 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         const padding = [4, 4];
 
         // Calculate and apply additional offset
-        const extraOffset = [pathLeft, pathTop];
+        const topLeftOfBoundingBox = [pathLeft, pathTop];
 
-        // Apply padding and offset to points
+        // Apply padding and offset to points to convert from
+        // canvas coordinates to pixel coordinates relative to bounding box
         points = _.map(points, function (point) {
             return kvector.add(
-                kvector.subtract(point, extraOffset),
+                kvector.subtract(point, topLeftOfBoundingBox),
                 kvector.scale(padding, 0.5),
             );
         });
@@ -1138,8 +1148,8 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         // Calculate <div> dimensions
         const width = pathRight - pathLeft + padding[0];
         const height = pathBottom - pathTop + padding[1];
-        const left = extraOffset[0] - padding[0] / 2;
-        const top = extraOffset[1] - padding[1] / 2;
+        const left = topLeftOfBoundingBox[0] - padding[0] / 2;
+        const top = topLeftOfBoundingBox[1] - padding[1] / 2;
 
         // Create <div>
         const wrapper = document.createElement("div");
