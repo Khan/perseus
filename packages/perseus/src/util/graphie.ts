@@ -618,9 +618,18 @@ export class Graphie {
         radii: Coord,
         scale: number,
         padding: number,
-    ): {wrapper: HTMLDivElement, visibleShape: RaphaelElement} {
+    ): {wrapper: HTMLDivElement; visibleShape: RaphaelElement} {
         throw new Error("fixedEllipse called on uninitialized Graphie");
     }
+
+    arc(
+        center: Coord,
+        radius: Coord,
+        startAngle: number,
+        endAngle: number,
+        sector: boolean,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
 
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
@@ -1075,8 +1084,8 @@ GraphUtils.createGraphie = function (el: any): Graphie {
             center[1] + startVector[1],
         ]);
         const endPoint = thisGraphie.scalePoint([
-            center[0] + endVector[0],
-            center[1] + endVector[1],
+            (center[0] + endVector[0]).toFixed(6),
+            (center[1] + endVector[1]).toFixed(6),
         ]);
 
         const largeAngle = (((endAngle - startAngle) % 360) + 360) % 360 > 180;

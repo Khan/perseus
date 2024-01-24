@@ -17,6 +17,7 @@ function createMockRaphael() {
         setSize: jest.fn().mockName("raphael.setSize"),
         ellipse: jest.fn().mockName("raphael.ellipse"),
         rect: jest.fn().mockName("raphael.rect"),
+        path: jest.fn().mockName("raphael.path"),
     };
 }
 
@@ -235,9 +236,11 @@ describe("Graphie drawing tools", () => {
 
             graphie.ellipse([0, 0], [1, 1], {fill: "#123456"});
 
-            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(expect.objectContaining({
-                fill: "#123456"
-            }));
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    fill: "#123456",
+                }),
+            );
         });
 
         it("uses the default style, if none given", () => {
@@ -276,9 +279,11 @@ describe("Graphie drawing tools", () => {
 
             graphie.ellipse([0, 0], [1, 1], {strokeWidth: 42});
 
-            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(expect.objectContaining({
-                "stroke-width": 42,
-            }));
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    "stroke-width": 42,
+                }),
+            );
         });
 
         it("returns the Raphael element", () => {
@@ -296,19 +301,123 @@ describe("Graphie drawing tools", () => {
         it("uses the given center and radii to position and size the wrapper element", () => {
             const graphie = createAndInitGraphie();
 
-            const {wrapper, visibleShape} = graphie.fixedEllipse([1, 2], [3, 4], 1, 0);
+            const {wrapper, visibleShape} = graphie.fixedEllipse(
+                [1, 2],
+                [3, 4],
+                1,
+                0,
+            );
 
-            expect(wrapper.style.width).toBe("30px")
-            expect(wrapper.style.height).toBe("40px")
-            expect(wrapper.style.top).toBe("20px")
-            expect(wrapper.style.left).toBe("-10px")
-            expect(visibleShape.attrs).toEqual(expect.objectContaining({
-                cx: 15,
-                cy: 20,
-                rx: 15,
-                ry: 20,
-            }))
+            expect(wrapper.style.width).toBe("30px");
+            expect(wrapper.style.height).toBe("40px");
+            expect(wrapper.style.top).toBe("20px");
+            expect(wrapper.style.left).toBe("-10px");
+            expect(visibleShape.attrs).toEqual(
+                expect.objectContaining({
+                    cx: 15,
+                    cy: 20,
+                    rx: 15,
+                    ry: 20,
+                }),
+            );
             expect(visibleShape.type).toBe("ellipse");
+        });
+    });
+
+    describe("arc", () => {
+        it("uses the given center, radius, and angles", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.arc([0, 0], [1, 1], 0, 90, false);
+
+            expect(graphie.raphael.path).toHaveBeenCalledWith(
+                "M5 50A5 5 0 0 0 0 45",
+            );
+        });
+
+        it("draws an arc larger than 180 degrees", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.arc([0, 0], [1, 1], 0, 270, false);
+
+            expect(graphie.raphael.path).toHaveBeenCalledWith(
+                "M5 50A5 5 0 1 0 0 55",
+            );
+        });
+
+        it("uses the style, if given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.arc([0, 0], [1, 1], 0, 90, false, {
+                fill: "#112233",
+                stroke: "#445566",
+            });
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    fill: "#112233",
+                    stroke: "#445566",
+                }),
+            );
+        });
+
+        it("uses the default style, if none given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.arc([0, 0], [1, 1], 0, 90, false);
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("restores the previous style after drawing", () => {
+            const graphie = createAndInitGraphie();
+            const el1 = createMockRaphaelElement("el1");
+            const el2 = createMockRaphaelElement("el2");
+            graphie.raphael.path.mockReturnValue(el1);
+            graphie.raphael.path.mockReturnValue(el2);
+
+            graphie.arc([0, 0], [1, 1], 0, 90, false, {fill: "#112233"});
+            graphie.arc([0, 0], [1, 1], 0, 90, false);
+
+            expect(el2.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.arc([0, 0], [1, 1], 0, 90, false, {strokeWidth: 42});
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    "stroke-width": 42,
+                }),
+            );
+        });
+
+        it("returns the Raphael element", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            const result = graphie.arc([0, 0], [1, 1], 0, 90, false);
+
+            expect(result).toBe(mockRaphaelElement);
         });
     });
 });
