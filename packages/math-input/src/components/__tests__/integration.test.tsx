@@ -176,11 +176,14 @@ describe("math input integration", () => {
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
+        const mathquillInstance = MQ(
             // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
+            document.getElementsByClassName(
+                "mq-editable-field",
+            )[0] as HTMLElement,
+        );
 
-        expect(mathquillInstance.latex()).toBe("8675309");
+        expect(mathquillInstance?.latex()).toBe("8675309");
     });
 
     it("can handle symbols", async () => {
@@ -202,11 +205,14 @@ describe("math input integration", () => {
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
+        const mathquillInstance = MQ(
             // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
+            document.getElementsByClassName(
+                "mq-editable-field",
+            )[0] as HTMLElement,
+        );
 
-        expect(mathquillInstance.latex()).toBe("42\\%");
+        expect(mathquillInstance?.latex()).toBe("42\\%");
     });
 
     it("handles fractions correctly in expression", async () => {
@@ -243,11 +249,14 @@ describe("math input integration", () => {
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
+        const mathquillInstance = MQ(
             // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
+            document.getElementsByClassName(
+                "mq-editable-field",
+            )[0] as HTMLElement,
+        );
 
-        expect(mathquillInstance.latex()).toBe("1\\frac{4}{2}");
+        expect(mathquillInstance?.latex()).toBe("1\\frac{4}{2}");
     });
 
     it("handles fractions correctly in fraction", async () => {
@@ -279,10 +288,13 @@ describe("math input integration", () => {
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
+        const mathquillInstance = MQ(
             // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
+            document.getElementsByClassName(
+                "mq-editable-field",
+            )[0] as HTMLElement,
+        );
 
-        expect(mathquillInstance.latex()).toBe("1\\frac{4}{2}");
+        expect(mathquillInstance?.latex()).toBe("1\\frac{4}{2}");
     });
 });

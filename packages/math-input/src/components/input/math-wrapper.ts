@@ -128,10 +128,10 @@ class MathWrapper {
             if (el.hasAttribute("mq-root-block")) {
                 // If we're in the empty area place the cursor at the right
                 // end of the expression.
-                cursor.insAtRightEnd(this.mathField.__controller.root);
+                cursor.insAtRightEnd(this.mathField.controller().root);
             } else {
                 // Otherwise place beside the element at x, y.
-                const controller = this.mathField.__controller;
+                const controller = this.mathField.controller();
 
                 const pageX = x - document.body.scrollLeft;
                 const pageY = y - document.body.scrollTop;

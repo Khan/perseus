@@ -46,7 +46,7 @@ export default function MathquillInput(props: Props) {
                                 props.onChange(value);
                             }
                         },
-                        upOutOf: (mathField) => {
+                        upOutOf: (mathField: MathFieldInterface) => {
                             // This handler is called when the user presses the up
                             // arrow key, but there is nowhere in the expression to go
                             // up to (no numerator or exponent). For ease of use,

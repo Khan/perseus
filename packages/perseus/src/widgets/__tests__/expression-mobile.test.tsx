@@ -351,9 +351,12 @@ describe("expression mobile", () => {
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
+        const mathquillInstance = MQ(
             // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
+            document.getElementsByClassName(
+                "mq-editable-field",
+            )[0] as HTMLElement,
+        );
 
         expect(mathquillInstance?.latex()).toBe("x=\\sin\\left(9\\right)");
     });
