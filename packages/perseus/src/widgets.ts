@@ -135,7 +135,7 @@ export const getVersion = (name: string): Version | undefined => {
     if (widgetInfo) {
         return widgets[name].version || {major: 0, minor: 0};
     }
-    return undefined;
+    return;
 };
 
 export const getVersionVector = (): {
