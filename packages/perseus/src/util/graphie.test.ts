@@ -420,4 +420,113 @@ describe("Graphie drawing tools", () => {
             expect(result).toBe(mockRaphaelElement);
         });
     });
+
+    describe("path", () => {
+        it("draws an SVG path connecting the given points", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.path([
+                [0, 0],
+                [1, 1],
+            ]);
+
+            expect(graphie.raphael.path).toHaveBeenCalledWith("M0 50L5 45");
+        });
+
+        it("uses the style, if given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.path(
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                {fill: "#112233"},
+            );
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    fill: "#112233",
+                }),
+            );
+        });
+
+        it("uses the default style, if none given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.path([
+                [0, 0],
+                [1, 1],
+            ]);
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("restores the previous style after drawing", () => {
+            const graphie = createAndInitGraphie();
+            const el1 = createMockRaphaelElement("el1");
+            const el2 = createMockRaphaelElement("el2");
+            graphie.raphael.path.mockReturnValueOnce(el1);
+            graphie.raphael.path.mockReturnValueOnce(el2);
+
+            graphie.path(
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                {fill: "#999999"},
+            );
+            graphie.path([
+                [0, 0],
+                [1, 1],
+            ]);
+
+            expect(el2.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.path(
+                [
+                    [0, 0],
+                    [1, 1],
+                ],
+                {strokeWidth: 42},
+            );
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    "stroke-width": 42,
+                }),
+            );
+        });
+
+        it("returns the Raphael element", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            const result = graphie.path([
+                [0, 0],
+                [1, 1],
+            ]);
+
+            expect(result).toBe(mockRaphaelElement);
+        });
+    });
 });

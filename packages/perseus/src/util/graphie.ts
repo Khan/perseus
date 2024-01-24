@@ -633,7 +633,7 @@ export class Graphie {
 
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
-    path(points: any) {}
+    path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
 
     // line is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
