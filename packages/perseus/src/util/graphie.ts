@@ -613,6 +613,15 @@ export class Graphie {
         style?: Record<string, any>,
     ): RaphaelElement {}
 
+    fixedEllipse(
+        center: Coord,
+        radii: Coord,
+        scale: number,
+        padding: number,
+    ): {wrapper: HTMLDivElement, visibleShape: RaphaelElement} {
+        throw new Error("fixedEllipse called on uninitialized Graphie");
+    }
+
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     path(points: any) {}

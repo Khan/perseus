@@ -291,4 +291,24 @@ describe("Graphie drawing tools", () => {
             expect(result).toBe(mockRaphaelElement);
         });
     });
+
+    describe("fixedEllipse", () => {
+        it("uses the given center and radii to position and size the wrapper element", () => {
+            const graphie = createAndInitGraphie();
+
+            const {wrapper, visibleShape} = graphie.fixedEllipse([1, 2], [3, 4], 1, 0);
+
+            expect(wrapper.style.width).toBe("30px")
+            expect(wrapper.style.height).toBe("40px")
+            expect(wrapper.style.top).toBe("20px")
+            expect(wrapper.style.left).toBe("-10px")
+            expect(visibleShape.attrs).toEqual(expect.objectContaining({
+                cx: 15,
+                cy: 20,
+                rx: 15,
+                ry: 20,
+            }))
+            expect(visibleShape.type).toBe("ellipse");
+        });
+    });
 });
