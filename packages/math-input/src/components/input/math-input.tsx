@@ -99,21 +99,6 @@ class MathInput extends React.Component<Props, State> {
             },
         });
 
-        // NOTE(charlie): MathQuill binds this handler to manage its
-        // drag-to-select behavior. For reasons that I can't explain, the event
-        // itself gets triggered even if you tap slightly outside of the
-        // bound container (maybe 5px outside of any boundary). As a result, the
-        // cursor appears when tapping at those locations, even though the input
-        // itself doesn't receive any touch start or mouse down event and, as
-        // such, doesn't focus itself. This makes for a confusing UX, as the
-        // cursor appears, but the keypad does not and the input otherwise
-        // treats itself as unfocused. Thankfully, we don't need this behavior--
-        // we manage all of the cursor interactions ourselves--so we can safely
-        // unbind the handler.
-        this.mathField.mathField.__controller.container.unbind(
-            "mousedown.mathquill",
-        );
-
         this.mathField.setContent(this.props.value);
 
         this._updateInputPadding();
@@ -542,7 +527,7 @@ class MathInput extends React.Component<Props, State> {
         // Pre-emptively check if the input has any child nodes; if not, the
         // input is empty, so we throw the cursor at the start.
         if (!this._root.hasChildNodes()) {
-            cursor.insAtLeftEnd(this.mathField.mathField.__controller.root);
+            cursor.insAtLeftEnd(this.mathField.mathField.controller().root);
             return;
         }
 
@@ -595,9 +580,9 @@ class MathInput extends React.Component<Props, State> {
         // or left of all of the math, so we place the cursor at the end to
         // which it's closest.
         if (Math.abs(x - right) < Math.abs(x - left)) {
-            cursor.insAtRightEnd(this.mathField.mathField.__controller.root);
+            cursor.insAtRightEnd(this.mathField.mathField.controller().root);
         } else {
-            cursor.insAtLeftEnd(this.mathField.mathField.__controller.root);
+            cursor.insAtLeftEnd(this.mathField.mathField.controller().root);
         }
         // In that event, we need to update the cursor context ourselves.
         this.props.keypadElement &&
