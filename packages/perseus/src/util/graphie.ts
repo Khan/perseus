@@ -595,6 +595,16 @@ export class Graphie {
         style?: Record<string, any>,
     ): RaphaelElement {}
 
+    // rect is a stub that gets overwritten with a function from drawingTools
+    // in createGraphie
+    rect(
+        left: number,
+        bottom: number,
+        width: number,
+        height: number,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
     path(points: any) {}

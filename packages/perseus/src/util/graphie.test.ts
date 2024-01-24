@@ -16,6 +16,7 @@ function createMockRaphael() {
     return {
         setSize: jest.fn().mockName("raphael.setSize"),
         ellipse: jest.fn().mockName("raphael.ellipse"),
+        rect: jest.fn().mockName("raphael.rect"),
     };
 }
 
@@ -129,6 +130,88 @@ describe("Graphie drawing tools", () => {
             graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
 
             const result = graphie.circle([0, 0], 1);
+
+            expect(result).toBe(mockRaphaelElement);
+        });
+    });
+
+    describe("rect", () => {
+        it("uses the given bottom left corner, width, and height", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.rect.mockReturnValue(mockRaphaelElement);
+
+            graphie.rect(1, 2, 3, 4);
+
+            // Raphael.rect() takes the *top*-left corner of the rectangle in
+            // pixel coordinates.
+            expect(graphie.raphael.rect).toHaveBeenCalledWith(5, 20, 15, 20);
+        });
+
+        it("uses the style, if given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.rect.mockReturnValue(mockRaphaelElement);
+
+            graphie.rect(0, 0, 1, 1, {fill: "#112233", stroke: "#445566"});
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    fill: "#112233",
+                    stroke: "#445566",
+                }),
+            );
+        });
+
+        it("uses the default style, if none given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.rect.mockReturnValue(mockRaphaelElement);
+
+            graphie.rect(0, 0, 1, 1);
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("restores the previous style after drawing", () => {
+            const graphie = createAndInitGraphie();
+            const el1 = createMockRaphaelElement("el1");
+            const el2 = createMockRaphaelElement("el2");
+            graphie.raphael.rect.mockReturnValueOnce(el1);
+            graphie.raphael.rect.mockReturnValueOnce(el2);
+
+            graphie.rect(0, 0, 1, 1, {fill: "#123456"});
+            graphie.rect(0, 0, 1, 1);
+
+            expect(el2.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.rect.mockReturnValueOnce(mockRaphaelElement);
+
+            graphie.rect(0, 0, 1, 1, {strokeWidth: 42});
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    "stroke-width": 42,
+                }),
+            );
+        });
+
+        it("returns the Raphael element", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.rect.mockReturnValueOnce(mockRaphaelElement);
+
+            const result = graphie.rect(0, 0, 1, 1);
 
             expect(result).toBe(mockRaphaelElement);
         });
