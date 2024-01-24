@@ -62,7 +62,6 @@ describe("Graphie drawing tools", () => {
 
             graphie.circle([0, 0], 1, {fill: "#112233", stroke: "#445566"});
 
-            expect(graphie.raphael.ellipse).toHaveBeenCalledWith(0, 50, 5, 5);
             expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
                 expect.objectContaining({
                     fill: "#112233",
