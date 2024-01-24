@@ -40,11 +40,6 @@ describe("Graphie drawing tools", () => {
             // The size of the canvas (width and height) should have been set:
             expect(graphie.raphael.setSize).toHaveBeenCalledWith(50, 50);
             expect(graphie.raphael.ellipse).toHaveBeenCalledWith(5, 40, 15, 15);
-            expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
-                // The defaults
-                fill: "none",
-                "stroke-width": 2,
-            });
         });
 
         it("uses the style, if given", () => {
@@ -74,6 +69,31 @@ describe("Graphie drawing tools", () => {
                     stroke: "#445566",
                 }),
             );
+        });
+
+        it("uses the default style, if none given", () => {
+            const graphie = GraphUtils.createGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael = createMockRaphael();
+            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
+
+            // The graph is 50px by 50px
+            graphie.init({
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
+                scale: 5,
+                isMobile: false,
+            });
+
+            graphie.circle([0, 0], 1);
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
+                // The defaults
+                fill: "none",
+                "stroke-width": 2,
+            });
         });
 
         it("restores the previous style after drawing", () => {
@@ -129,7 +149,6 @@ describe("Graphie drawing tools", () => {
 
             expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    fill: "none",
                     "stroke-width": 42,
                 }),
             );
