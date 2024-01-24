@@ -71,6 +71,7 @@ export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
+export {getAnswersFromWidgets, injectWidgets} from "./extract-perseus-data";
 
 /**
  * Util
