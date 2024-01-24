@@ -636,9 +636,8 @@ export class Graphie {
         return this.withStyle(style, () =>
             this.postprocessDrawingResult(
                 this.raphael.ellipse(
-                    ...this.scalePoint(center).concat(
-                        this.scaleVector([radius, radius]),
-                    ),
+                    ...this.scalePoint(center),
+                    ...this.scaleVector([radius, radius]),
                 ),
             ),
         );
