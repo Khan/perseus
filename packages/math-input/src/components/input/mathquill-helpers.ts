@@ -86,7 +86,7 @@ export function isLeaf(node): boolean {
 }
 
 export function isSquareRoot(node): boolean {
-    return node.blocks && mqNodeHasClass(node, "mq-sqrt-stem");
+    return node.blocks && mqNodeHasClass(node.blocks[0], "mq-sqrt-stem");
 }
 
 export function isNthRoot(node): boolean {
@@ -100,7 +100,7 @@ export function isNthRootIndex(node): boolean {
 export function isInsideLogIndex(cursor): boolean {
     const grandparent = cursor.parent.parent;
 
-    if (grandparent && mqNodeHasClass(grandparent, "mq-log")) {
+    if (grandparent && mqNodeHasClass(grandparent, "mq-supsub")) {
         const command = maybeFindCommandBeforeParens(grandparent);
 
         if (command && command.name === "\\log") {
