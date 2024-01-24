@@ -1,6 +1,6 @@
 import {keys} from "@khanacademy/wonder-stuff-core";
 
-import type {PerseusRenderer} from "./perseus-types";
+import type {PerseusRenderer} from "../perseus-types";
 
 /**
  * This function extracts the answers from the widgets.

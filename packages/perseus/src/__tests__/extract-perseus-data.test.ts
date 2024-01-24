@@ -1,6 +1,9 @@
 import {describe, it, expect} from "@jest/globals";
 
-import {getAnswersFromWidgets, injectWidgets} from "../extract-perseus-data";
+import {
+    getAnswersFromWidgets,
+    injectWidgets,
+} from "../util/extract-perseus-data";
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {

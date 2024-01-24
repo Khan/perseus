@@ -71,7 +71,6 @@ export {isItemRenderableByVersion} from "./renderability";
 export {violatingWidgets} from "./a11y";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
-export {getAnswersFromWidgets, injectWidgets} from "./extract-perseus-data";
 
 /**
  * Util
@@ -81,6 +80,10 @@ export {default as KhanColors} from "./util/colors";
 export {default as preprocessTex} from "./util/katex-preprocess";
 export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 export * as SizingUtils from "./util/sizing-utils";
+export {
+    getAnswersFromWidgets,
+    injectWidgets,
+} from "./util/extract-perseus-data";
 
 /**
  * Mixins
