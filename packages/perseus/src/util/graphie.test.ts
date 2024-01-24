@@ -134,5 +134,26 @@ describe("Graphie drawing tools", () => {
                 }),
             );
         });
+
+        it("returns the Raphael element", () => {
+            const graphie = GraphUtils.createGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael = createMockRaphael();
+            graphie.raphael.ellipse.mockReturnValue(mockRaphaelElement);
+
+            // The graph is 50px by 50px
+            graphie.init({
+                range: [
+                    [0, 10],
+                    [0, 10],
+                ],
+                scale: 5,
+                isMobile: false,
+            });
+
+            const result = graphie.circle([0, 0], 1)
+
+            expect(result).toBe(mockRaphaelElement);
+        })
     });
 });
