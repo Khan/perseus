@@ -37,6 +37,11 @@ function createAndInitGraphie(): Graphie {
 }
 
 describe("Graphie drawing tools", () => {
+    it("sets the canvas size when initialized", () => {
+        const graphie = createAndInitGraphie();
+        expect(graphie.raphael.setSize).toHaveBeenCalledWith(50, 50);
+    });
+
     describe("circle", () => {
         it("uses the given center and radius", () => {
             const graphie = createAndInitGraphie();
@@ -46,8 +51,6 @@ describe("Graphie drawing tools", () => {
 
             graphie.circle([1, 2], 3);
 
-            // The size of the canvas (width and height) should have been set:
-            expect(graphie.raphael.setSize).toHaveBeenCalledWith(50, 50);
             expect(graphie.raphael.ellipse).toHaveBeenCalledWith(5, 40, 15, 15);
         });
 
@@ -59,8 +62,6 @@ describe("Graphie drawing tools", () => {
 
             graphie.circle([0, 0], 1, {fill: "#112233", stroke: "#445566"});
 
-            // The size of the canvas (width and height) should have been set:
-            expect(graphie.raphael.setSize).toHaveBeenCalledWith(50, 50);
             expect(graphie.raphael.ellipse).toHaveBeenCalledWith(0, 50, 5, 5);
             expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
                 expect.objectContaining({
