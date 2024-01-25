@@ -1419,12 +1419,9 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return $span;
     }
 
-    function plotParametric(
-        fn: (t: number) => Coord,
-        range,
-        shade,
-        fn2: (t: number) => Coord = (t) => [t, 0],
-    ) {
+    function plotParametric(fn: (t: number) => Coord, range) {
+        const shade = undefined;
+        const fn2 = (t) => [t, 0];
         // Note: fn2 should only be set if 'shade' is true, as it denotes
         // the function between which fn should have its area shaded.
         // In general, plotParametric shouldn't be used to shade the area
@@ -1521,7 +1518,9 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return paths;
     }
 
-    function plot(fn, range, swapAxes, shade, fn2) {
+    function plot(fn, range, swapAxes) {
+        const shade = undefined;
+        const fn2 = undefined;
         const min = range[0];
         const max = range[1];
         if (!thisGraphie.currentStyle["plot-points"]) {
@@ -1539,39 +1538,24 @@ GraphUtils.createGraphie = function (el: any): Graphie {
                     Errors.Internal,
                 );
             }
-            return plotParametric(
-                function (y) {
-                    return [fn(y), y];
-                },
-                range,
-                shade,
-            );
+            return plotParametric(function (y) {
+                return [fn(y), y];
+            }, range);
         }
         if (fn2) {
             if (shade) {
-                return plotParametric(
-                    function (x) {
-                        return [x, fn(x)];
-                    },
-                    range,
-                    shade,
-                    function (x) {
-                        return [x, fn2(x)];
-                    },
-                );
+                return plotParametric(function (x) {
+                    return [x, fn(x)];
+                }, range);
             }
             throw new PerseusError(
                 "fn2 should only be set when 'shade' is True.",
                 Errors.Internal,
             );
         }
-        return plotParametric(
-            function (x) {
-                return [x, fn(x)];
-            },
-            range,
-            shade,
-        );
+        return plotParametric(function (x) {
+            return [x, fn(x)];
+        }, range);
     }
 
     const drawingTools = {
