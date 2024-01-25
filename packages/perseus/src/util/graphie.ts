@@ -580,12 +580,23 @@ export class Graphie {
         $.extend(this.currentStyle, processed);
     }
 
-    grid(
-        xr: Interval,
-        yr: Interval,
-        styleAttributes?: Record<string, any>,
-    ): RaphaelSet {
-        throw new Error("grid called on uninitialized Graphie");
+    grid(xr: Interval, yr: Interval, style?: Record<string, any>): RaphaelSet {
+        return this.withStyle(style, () => {
+            const step: any = this.currentStyle.step || [1, 1];
+            const set = this.raphael.set();
+
+            let x = step[0] * Math.ceil(xr[0] / step[0]);
+            for (; x <= xr[1]; x += step[0]) {
+                set.push(this.line([x, yr[0]], [x, yr[1]]));
+            }
+
+            let y = step[1] * Math.ceil(yr[0] / step[1]);
+            for (; y <= yr[1]; y += step[1]) {
+                set.push(this.line([xr[0], y], [xr[1], y]));
+            }
+
+            return this.postprocessDrawingResult(set);
+        });
     }
 
     arc(
@@ -908,11 +919,10 @@ export class Graphie {
     ): RaphaelElement {
         return this.withStyle(style, () => {
             // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-            return this.postprocessDrawingResult(this.raphael.path(
-                this.svgSinusoidPath(a, b, c, d),
-            ));
-        })
-
+            return this.postprocessDrawingResult(
+                this.raphael.path(this.svgSinusoidPath(a, b, c, d)),
+            );
+        });
     }
 
     label(
@@ -1367,23 +1377,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return p;
     }
 
-    function grid(xr, yr) {
-        const step: any = thisGraphie.currentStyle.step || [1, 1];
-        const set = thisGraphie.raphael.set();
-
-        let x = step[0] * Math.ceil(xr[0] / step[0]);
-        for (; x <= xr[1]; x += step[0]) {
-            set.push(thisGraphie.line([x, yr[0]], [x, yr[1]]));
-        }
-
-        let y = step[1] * Math.ceil(yr[0] / step[1]);
-        for (; y <= yr[1]; y += step[1]) {
-            set.push(thisGraphie.line([xr[0], y], [xr[1], y]));
-        }
-
-        return set;
-    }
-
     function label(point, text, direction, latex) {
         latex = typeof latex === "undefined" || latex;
 
@@ -1539,7 +1532,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        grid,
         label,
         plotParametric,
         plot,
