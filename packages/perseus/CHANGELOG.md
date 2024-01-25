@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 18.0.1
+
+### Patch Changes
+
+-   [#940](https://github.com/Khan/perseus/pull/940) [`e970dfcc`](https://github.com/Khan/perseus/commit/e970dfcc51e7b535e94669e6ffe0cbdd6d9b7b89) Thanks [@nishasy](https://github.com/nishasy)! - Fixed the answer pill's height in Label Image widget to account for multi-line answers
+
+-   Updated dependencies [[`e970dfcc`](https://github.com/Khan/perseus/commit/e970dfcc51e7b535e94669e6ffe0cbdd6d9b7b89)]:
+    -   @khanacademy/math-input@16.5.1
+
 ## 18.0.0
 
 ### Major Changes
