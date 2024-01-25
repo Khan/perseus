@@ -84,6 +84,7 @@ export {
     getAnswersFromWidgets,
     injectWidgets,
 } from "./util/extract-perseus-data";
+export {default as parsePerseusJSON} from "./util/parse-perseus-json";
 
 /**
  * Mixins
@@ -120,7 +121,6 @@ export type {
     VideoKind,
     WidgetDict,
     WidgetExports,
-    WidgetInfo,
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
@@ -134,6 +134,7 @@ export type {
     PerseusPlotterWidgetOptions,
     PerseusRadioWidgetOptions,
     PerseusRenderer,
+    PerseusWidget,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";

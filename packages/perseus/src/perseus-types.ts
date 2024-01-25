@@ -97,7 +97,7 @@ type Widget<Type extends string, Options> = {
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     alignment?: string;
     // Options specific to the type field of the widget.  See Perseus*WidgetOptions for more details
-    options: Options | null | undefined;
+    options: Options;
     // Only used by interactive child widgets (line, point, etc) to identify the components
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     key?: number;
@@ -704,13 +704,14 @@ export type PerseusMatcherWidgetOptions = {
     padding: boolean;
 };
 
+export type PerseusMatrixWidgetAnswers = ReadonlyArray<ReadonlyArray<number>>;
 export type PerseusMatrixWidgetOptions = {
     // Translatable Text; Shown before the matrix
     prefix: string;
     // Translatable Text; Shown after the matrix
     suffix: string;
     // A data matrix representing the "correct" answers to be entered into the matrix
-    answers: ReadonlyArray<ReadonlyArray<number>>;
+    answers: PerseusMatrixWidgetAnswers;
     // The coordinate location of the cursor position at start. default: [0, 0]
     cursorPosition: ReadonlyArray<number>;
     // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
@@ -821,7 +822,7 @@ export type PerseusNumberLineWidgetOptions = {
     // The correct relative value. default: "eq". options: "eq", "lt", "gt", "le", "ge"
     correctRel: string | null | undefined;
     // This is the correct answer. The answer is validated (as right or wrong) by using only the end position of the point and the relation (=, &lt;, &gt;, ≤, ≥).
-    correctX: number | null | undefined;
+    correctX: number;
     // This controls the initial position of the point along the number line
     initialX: number | null | undefined;
     // Show tooltips

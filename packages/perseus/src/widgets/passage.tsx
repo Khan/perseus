@@ -15,13 +15,11 @@ import PassageMarkdown from "./passage/passage-markdown";
 import type {ParseState} from "./passage/passage-markdown";
 import type {SerializedHighlightSet} from "../components/highlighting/types";
 import type {ChangeableProps} from "../mixins/changeable";
-import type {PerseusPassageWidgetOptions} from "../perseus-types";
 import type {
-    PerseusScore,
-    WidgetExports,
-    WidgetInfo,
-    WidgetProps,
-} from "../types";
+    PerseusPassageWidgetOptions,
+    PerseusWidget,
+} from "../perseus-types";
+import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 // A fake paragraph to measure the line height of the passage,
@@ -71,7 +69,7 @@ type RenderProps = {
     showLineNumbers: PerseusPassageWidgetOptions["showLineNumbers"];
 };
 
-type FindWidgetsCallback = (id: string, widgetInfo: WidgetInfo) => boolean;
+type FindWidgetsCallback = (id: string, widgetInfo: PerseusWidget) => boolean;
 
 type PassageProps = ChangeableProps &
     WidgetProps<RenderProps, Rubric> & {
