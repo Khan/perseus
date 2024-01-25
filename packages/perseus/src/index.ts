@@ -80,6 +80,10 @@ export {default as KhanColors} from "./util/colors";
 export {default as preprocessTex} from "./util/katex-preprocess";
 export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 export * as SizingUtils from "./util/sizing-utils";
+export {
+    getAnswersFromWidgets,
+    injectWidgets,
+} from "./util/extract-perseus-data";
 export {default as parsePerseusJSON} from "./util/parse-perseus-json";
 
 /**
