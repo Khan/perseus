@@ -1420,7 +1420,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     function plotParametric(fn: (t: number) => Coord, range) {
-        const shade = undefined;
         const fn2 = (t) => [t, 0];
         // Note: fn2 should only be set if 'shade' is true, as it denotes
         // the function between which fn should have its area shaded.
@@ -1461,7 +1460,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         let points = [];
         let lastDiff = GraphUtils.coordDiff(clippedFn(min), clippedFn2(min));
 
-        let lastFlip = min;
         for (let t = min; t <= max; t += step) {
             const top = clippedFn(t);
             const bottom = clippedFn2(t);
@@ -1479,24 +1477,9 @@ GraphUtils.createGraphie = function (el: any): Graphie {
                 isNaN(diff[1])
             ) {
                 // split the path at this point, and draw it
-                if (shade) {
-                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                    points.push(top);
-
-                    // backtrack to draw paired function
-                    for (let u = t - step; u >= lastFlip; u -= step) {
-                        // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                        points.push(clippedFn2(u));
-                    }
-                    lastFlip = t;
-                }
                 paths.push(path(points));
                 // restart the path, excluding this point
                 points = [];
-                if (shade) {
-                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                    points.push(top);
-                }
             } else {
                 // otherwise, just add the point to the path
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
@@ -1506,13 +1489,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
             lastDiff = diff;
         }
 
-        if (shade) {
-            // backtrack to draw paired function
-            for (let u = max - step; u >= lastFlip; u -= step) {
-                // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                points.push(clippedFn2(u));
-            }
-        }
         paths.push(path(points));
 
         return paths;
