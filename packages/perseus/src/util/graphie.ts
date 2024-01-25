@@ -664,6 +664,14 @@ export class Graphie {
         style?: Record<string, any>,
     ): RaphaelElement {}
 
+    fixedLine(
+        start: Coord,
+        end: Coord,
+        thickness: number,
+    ): {wrapper: HTMLDivElement; visibleShape: any} {
+        throw new Error("fixedLine called on uninitialized Graphie");
+    }
+
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
             if (point === true) {

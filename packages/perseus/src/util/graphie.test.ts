@@ -815,4 +815,23 @@ describe("Graphie drawing tools", () => {
             expect(result).toBe(mockRaphaelElement);
         });
     });
+
+    describe("fixedLine", () => {
+        it("creates a container element the size of the line", () => {
+            const graphie = createAndInitGraphie();
+
+            const {wrapper, visibleShape} = graphie.fixedLine(
+                [0, 0],
+                [1, 1],
+                6,
+            );
+
+            expect(wrapper.style.position).toBe("absolute");
+            expect(wrapper.style.top).toBe("42px");
+            expect(wrapper.style.left).toBe("-3px");
+            expect(wrapper.style.height).toBe("11px");
+            expect(wrapper.style.width).toBe("11px");
+            expect(visibleShape[0].getAttribute("d")).toBe("M3,8L8,3");
+        });
+    });
 });
