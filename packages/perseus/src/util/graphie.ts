@@ -590,7 +590,7 @@ export class Graphie {
 
     arc(
         center: Coord,
-        radii: Coord,
+        radius: Coord,
         startAngle: number,
         endAngle: number,
         sector: boolean,
@@ -733,10 +733,70 @@ export class Graphie {
     // drawingTools in createGraphie
     fixedPath(
         points: Coord[],
-        center: Coord,
-        toSvgPath: (scaledPoints: Coord[]) => string,
+        center: Coord | null,
+        createPath: (scaledPoints: Coord[]) => string,
     ): PositionedShape {
-        throw new Error("fixedPath called on uninitialized Graphie");
+        points = _.map(points, this.scalePoint);
+        center = center ? this.scalePoint(center) : null;
+        createPath = createPath || this.svgPath;
+
+        // Compute bounding box
+        const pathLeft = _.min(_.pluck(points, 0));
+        const pathRight = _.max(_.pluck(points, 0));
+        const pathTop = _.min(_.pluck(points, 1));
+        const pathBottom = _.max(_.pluck(points, 1));
+
+        // Apply padding to line
+        const padding: Coord = [4, 4];
+
+        // Calculate and apply additional offset
+        const topLeftOfBoundingBox: Coord = [pathLeft, pathTop];
+
+        // Apply padding and offset to points to convert from
+        // canvas coordinates to pixel coordinates relative to bounding box
+        points = _.map(points, function (point) {
+            return kvector.add(
+                kvector.subtract(point, topLeftOfBoundingBox),
+                kvector.scale(padding, 0.5),
+            );
+        });
+
+        // Calculate <div> dimensions
+        const width = pathRight - pathLeft + padding[0];
+        const height = pathBottom - pathTop + padding[1];
+        const left = topLeftOfBoundingBox[0] - padding[0] / 2;
+        const top = topLeftOfBoundingBox[1] - padding[1] / 2;
+
+        // Create <div>
+        const wrapper = document.createElement("div");
+        $(wrapper).css({
+            position: "absolute",
+            width: width + "px",
+            height: height + "px",
+            left: left + "px",
+            top: top + "px",
+            // If user specified a center, set it
+            // NOTE(kevinb): jQuery doesn't like that `transformOrigin `could be `null`
+            // so we cast to `any` here.
+            transformOrigin: center
+                ? width / 2 +
+                  center[0] +
+                  "px " +
+                  (height / 2 + center[1]) +
+                  "px"
+                : null,
+        } as any);
+
+        // Create Raphael canvas
+        const localRaphael = Raphael(wrapper, width, height);
+
+        // Calculate path
+        const visibleShape = localRaphael.path(createPath(points));
+
+        return {
+            wrapper: wrapper,
+            visibleShape: visibleShape,
+        };
     }
 
     // scaledPath is a stub that gets overwritten with a function from
@@ -1222,70 +1282,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return p;
     }
 
-    function fixedPath(points, center, createPath) {
-        points = _.map(points, thisGraphie.scalePoint);
-        center = center ? thisGraphie.scalePoint(center) : null;
-        createPath = createPath || thisGraphie.svgPath;
-
-        // Compute bounding box
-        const pathLeft = _.min(_.pluck(points, 0));
-        const pathRight = _.max(_.pluck(points, 0));
-        const pathTop = _.min(_.pluck(points, 1));
-        const pathBottom = _.max(_.pluck(points, 1));
-
-        // Apply padding to line
-        const padding = [4, 4];
-
-        // Calculate and apply additional offset
-        const topLeftOfBoundingBox = [pathLeft, pathTop];
-
-        // Apply padding and offset to points to convert from
-        // canvas coordinates to pixel coordinates relative to bounding box
-        points = _.map(points, function (point) {
-            return kvector.add(
-                kvector.subtract(point, topLeftOfBoundingBox),
-                kvector.scale(padding, 0.5),
-            );
-        });
-
-        // Calculate <div> dimensions
-        const width = pathRight - pathLeft + padding[0];
-        const height = pathBottom - pathTop + padding[1];
-        const left = topLeftOfBoundingBox[0] - padding[0] / 2;
-        const top = topLeftOfBoundingBox[1] - padding[1] / 2;
-
-        // Create <div>
-        const wrapper = document.createElement("div");
-        $(wrapper).css({
-            position: "absolute",
-            width: width + "px",
-            height: height + "px",
-            left: left + "px",
-            top: top + "px",
-            // If user specified a center, set it
-            // NOTE(kevinb): jQuery doesn't like that `transformOrigin `could be `null`
-            // so we cast to `any` here.
-            transformOrigin: center
-                ? width / 2 +
-                  center[0] +
-                  "px " +
-                  (height / 2 + center[1]) +
-                  "px"
-                : null,
-        } as any);
-
-        // Create Raphael canvas
-        const localRaphael = Raphael(wrapper, width, height);
-
-        // Calculate path
-        const visibleShape = localRaphael.path(createPath(points));
-
-        return {
-            wrapper: wrapper,
-            visibleShape: visibleShape,
-        };
-    }
-
     function scaledPath(points) {
         const p = thisGraphie.raphael.path(
             thisGraphie.svgPath(points, /* alreadyScaled */ true),
@@ -1546,7 +1542,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        fixedPath,
         scaledPath,
         line,
         parabola,
