@@ -834,4 +834,81 @@ describe("Graphie drawing tools", () => {
             expect(visibleShape[0].getAttribute("d")).toBe("M3,8L8,3");
         });
     });
+
+    describe("sinusoid", () => {
+        it("draws a path", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.sinusoid(1, 2, 3, 4);
+
+            expect(graphie.raphael.path).toHaveBeenCalled();
+        });
+
+        it("uses the style, if given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.sinusoid(1, 2, 3, 4, {stroke: "#112233"});
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({stroke: "#112233"}),
+            );
+        });
+
+        it("uses the default style, if none given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.sinusoid(1, 2, 3, 4);
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("restores the previous style after drawing", () => {
+            const graphie = createAndInitGraphie();
+            const el1 = createMockRaphaelElement("el1");
+            const el2 = createMockRaphaelElement("el2");
+            graphie.raphael.path.mockReturnValueOnce(el1);
+            graphie.raphael.path.mockReturnValueOnce(el2);
+
+            graphie.sinusoid(1, 2, 3, 4, {stroke: "#112233"});
+            graphie.sinusoid(1, 2, 3, 4);
+
+            expect(el2.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+            });
+        });
+
+        it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.sinusoid(1, 2, 3, 4, {strokeWidth: 42});
+
+            expect(mockRaphaelElement.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    "stroke-width": 42,
+                }),
+            );
+        });
+
+        it("returns the Raphael element", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            const result = graphie.sinusoid(1, 2, 3, 4);
+
+            expect(result).toBe(mockRaphaelElement);
+        });
+    });
 });
