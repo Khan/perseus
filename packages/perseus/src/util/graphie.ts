@@ -595,7 +595,43 @@ export class Graphie {
         endAngle: number,
         sector: boolean,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => {
+            startAngle = ((startAngle % 360) + 360) % 360;
+            endAngle = ((endAngle % 360) + 360) % 360;
+
+            const cent = this.scalePoint(center);
+            const radii = this.scaleVector(radius);
+            const startVector = polar(radius, startAngle);
+            const endVector = polar(radius, endAngle);
+
+            const startPoint = this.scalePoint([
+                +(center[0] + startVector[0]).toFixed(6),
+                +(center[1] + startVector[1]).toFixed(6),
+            ]);
+            const endPoint = this.scalePoint([
+                +(center[0] + endVector[0]).toFixed(6),
+                +(center[1] + endVector[1]).toFixed(6),
+            ]);
+
+            const largeAngle =
+                (((endAngle - startAngle) % 360) + 360) % 360 > 180;
+
+            return this.postprocessDrawingResult(
+                this.raphael.path(
+                    "M" +
+                        startPoint.join(" ") +
+                        "A" +
+                        radii.join(" ") +
+                        " 0 " + // ellipse rotation
+                        (largeAngle ? 1 : 0) +
+                        " 0 " + // sweep flag
+                        endPoint.join(" ") +
+                        (sector ? "L" + cent.join(" ") + "z" : ""),
+                ),
+            );
+        });
+    }
 
     circle(center: Coord, radius: number, style?: Record<string, any>) {
         return this.withStyle(style, () =>
@@ -1172,39 +1208,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
 
-    function arc(center, radius, startAngle, endAngle, sector) {
-        startAngle = ((startAngle % 360) + 360) % 360;
-        endAngle = ((endAngle % 360) + 360) % 360;
-
-        const cent = thisGraphie.scalePoint(center);
-        const radii = thisGraphie.scaleVector(radius);
-        const startVector = polar(radius, startAngle);
-        const endVector = polar(radius, endAngle);
-
-        const startPoint = thisGraphie.scalePoint([
-            center[0] + startVector[0],
-            center[1] + startVector[1],
-        ]);
-        const endPoint = thisGraphie.scalePoint([
-            (center[0] + endVector[0]).toFixed(6),
-            (center[1] + endVector[1]).toFixed(6),
-        ]);
-
-        const largeAngle = (((endAngle - startAngle) % 360) + 360) % 360 > 180;
-
-        return thisGraphie.raphael.path(
-            "M" +
-                startPoint.join(" ") +
-                "A" +
-                radii.join(" ") +
-                " 0 " + // ellipse rotation
-                (largeAngle ? 1 : 0) +
-                " 0 " + // sweep flag
-                endPoint.join(" ") +
-                (sector ? "L" + cent.join(" ") + "z" : ""),
-        );
-    }
-
     function path(points) {
         // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const p = thisGraphie.raphael.path(thisGraphie.svgPath(points));
@@ -1537,7 +1540,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        arc,
         path,
         fixedPath,
         scaledPath,
