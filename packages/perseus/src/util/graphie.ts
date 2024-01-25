@@ -635,6 +635,8 @@ export class Graphie {
     // in createGraphie
     path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
 
+    // fixedPath is a stub that gets overwritten with a function from
+    // drawingTools in createGraphie
     fixedPath(
         points: Coord[],
         center: Coord,
@@ -642,6 +644,10 @@ export class Graphie {
     ): {wrapper: HTMLDivElement; visibleShape: any} {
         throw new Error("fixedPath called on uninitialized Graphie");
     }
+
+    // scaledPath is a stub that gets overwritten with a function from
+    // drawingTools in createGraphie
+    scaledPath(points: Coord[], style?: Record<string, any>): RaphaelElement {}
 
     // line is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
