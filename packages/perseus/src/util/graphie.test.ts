@@ -18,6 +18,21 @@ function createMockRaphael() {
         ellipse: jest.fn().mockName("raphael.ellipse"),
         rect: jest.fn().mockName("raphael.rect"),
         path: jest.fn().mockName("raphael.path"),
+        set: jest
+            .fn()
+            .mockName("raphael.set")
+            .mockImplementation(createFakeRaphaelSet),
+    };
+}
+
+function createFakeRaphaelSet() {
+    const contents: any[] = [];
+    return {
+        constructor: {prototype: Raphael.st},
+        push(...items) {
+            return contents.push(...items);
+        },
+        attr: jest.fn().mockName("raphael.set().attr"),
     };
 }
 
@@ -909,6 +924,83 @@ describe("Graphie drawing tools", () => {
             const result = graphie.sinusoid(1, 2, 3, 4);
 
             expect(result).toBe(mockRaphaelElement);
+        });
+    });
+
+    describe("grid", () => {
+        it("draws each gridline", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.grid([0, 10], [0, 10]);
+
+            expect(graphie.raphael.path).toHaveBeenCalledTimes(22);
+        });
+
+        it("spaces out the gridlines by `step` units", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.grid([0, 10], [0, 10], {step: [2, 2]});
+
+            expect(graphie.raphael.path).toHaveBeenCalledTimes(12);
+        });
+
+        it("uses the given style", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+            const fakeSet = createFakeRaphaelSet();
+            graphie.raphael.set.mockReturnValue(fakeSet);
+
+            graphie.grid([0, 10], [0, 10], {stroke: "#112233"});
+
+            expect(fakeSet.attr).toHaveBeenCalledWith(
+                expect.objectContaining({stroke: "#112233"}),
+            );
+        });
+
+        it("resets `step` to the default if it is not given", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+
+            graphie.grid([0, 10], [0, 10], {step: [2, 2]});
+            expect(graphie.raphael.path).toHaveBeenCalledTimes(12);
+            graphie.raphael.path.mockClear();
+
+            graphie.grid([0, 10], [0, 10]);
+            expect(graphie.raphael.path).toHaveBeenCalledTimes(22);
+        });
+
+        it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+            const fakeSet = createFakeRaphaelSet();
+            graphie.raphael.set.mockReturnValue(fakeSet);
+
+            graphie.grid([0, 10], [0, 10], {strokeWidth: 42});
+
+            expect(fakeSet.attr).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    "stroke-width": 42,
+                }),
+            );
+        });
+
+        it("returns a Raphael `Set` of the elements drawn", () => {
+            const graphie = createAndInitGraphie();
+            const mockRaphaelElement = createMockRaphaelElement();
+            graphie.raphael.path.mockReturnValue(mockRaphaelElement);
+            const fakeSet = createFakeRaphaelSet();
+            graphie.raphael.set.mockReturnValue(fakeSet);
+
+            const result = graphie.grid([0, 10], [0, 10]);
+
+            expect(result).toBe(fakeSet);
         });
     });
 });

@@ -89,6 +89,10 @@ const GraphUtils: any = {
 };
 
 type RaphaelElement = any;
+interface RaphaelSet {
+    push(...items: RaphaelElement[]): unknown;
+    attr(attributes: Record<string, any>): unknown;
+}
 
 export class Graphie {
     el: HTMLElement;
@@ -585,7 +589,13 @@ export class Graphie {
 
     label(point: any, text: any, direction: any, latex?: any) {}
 
-    grid(xr: any, yr: any, styleAttributes: any) {}
+    grid(
+        xr: Interval,
+        yr: Interval,
+        styleAttributes?: Record<string, any>,
+    ): RaphaelSet {
+        throw new Error("grid called on uninitialized Graphie");
+    }
 
     // circle is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
