@@ -588,41 +588,6 @@ export class Graphie {
         throw new Error("grid called on uninitialized Graphie");
     }
 
-    // circle is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
-    circle(
-        center: Coord,
-        radius: number,
-        style?: Record<string, any>,
-    ): RaphaelElement {}
-
-    // rect is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
-    rect(
-        left: number,
-        bottom: number,
-        width: number,
-        height: number,
-        style?: Record<string, any>,
-    ): RaphaelElement {}
-
-    // ellipse is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
-    ellipse(
-        center: Coord,
-        radii: Coord,
-        style?: Record<string, any>,
-    ): RaphaelElement {}
-
-    fixedEllipse(
-        center: Coord,
-        radii: Coord,
-        scale: number,
-        padding: number,
-    ): PositionedShape {
-        throw new Error("fixedEllipse called on uninitialized Graphie");
-    }
-
     arc(
         center: Coord,
         radii: Coord,
@@ -676,7 +641,7 @@ export class Graphie {
         maxScale: number,
         padding: number,
         style?: Record<string, any>,
-    ) {
+    ): PositionedShape {
         return this.withStyle(style, () => {
             // Scale point and radius
             const scaledPoint = this.scalePoint(center);
