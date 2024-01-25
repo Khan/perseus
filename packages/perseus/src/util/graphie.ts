@@ -651,7 +651,11 @@ export class Graphie {
 
     // line is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
-    line(start: any, end: any) {}
+    line(
+        start: Coord,
+        end: Coord,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
 
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
