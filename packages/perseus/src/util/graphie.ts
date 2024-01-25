@@ -834,11 +834,69 @@ export class Graphie {
         c: number,
         style?: Record<string, any>,
     ): RaphaelElement {
-        return this.withStyle(style, () => this.postprocessDrawingResult(this.raphael.path(this.svgParabolaPath(a, b, c))));
+        return this.withStyle(style, () =>
+            this.postprocessDrawingResult(
+                this.raphael.path(this.svgParabolaPath(a, b, c)),
+            ),
+        );
     }
 
     fixedLine(start: Coord, end: Coord, thickness: number): PositionedShape {
-        throw new Error("fixedLine called on uninitialized Graphie");
+        // Apply padding to line
+        const padding: Coord = [thickness, thickness];
+
+        // Scale points to get values in pixels
+        start = this.scalePoint(start);
+        end = this.scalePoint(end);
+
+        // Calculate and apply additional offset
+        const extraOffset: Coord = [
+            Math.min(start[0], end[0]),
+            Math.min(start[1], end[1]),
+        ];
+
+        // Apply padding and offset to start, end points
+        start = kvector.add(
+            kvector.subtract(start, extraOffset),
+            kvector.scale(padding, 0.5),
+        );
+        end = kvector.add(
+            kvector.subtract(end, extraOffset),
+            kvector.scale(padding, 0.5),
+        );
+
+        // Calculate <div> dimensions
+        const left = extraOffset[0] - padding[0] / 2;
+        const top = extraOffset[1] - padding[1] / 2;
+        const width = Math.abs(start[0] - end[0]) + padding[0];
+        const height = Math.abs(start[1] - end[1]) + padding[1];
+
+        // Create <div>
+        const wrapper = document.createElement("div");
+        $(wrapper).css({
+            position: "absolute",
+            width: width + "px",
+            height: height + "px",
+            left: left + "px",
+            top: top + "px",
+            // Outsiders should feel like the line's 'origin' (i.e., for
+            // rotation) is the starting point
+            transformOrigin: start[0] + "px " + start[1] + "px",
+        });
+
+        // Create Raphael canvas
+        const localRaphael = Raphael(wrapper, width, height);
+
+        // Calculate path
+        const path =
+            "M" + start[0] + " " + start[1] + " " + "L" + end[0] + " " + end[1];
+        const visibleShape = localRaphael.path(path);
+        visibleShape.graphiePath = [start, end];
+
+        return {
+            wrapper: wrapper,
+            visibleShape: visibleShape,
+        };
     }
 
     sinusoid(
@@ -1301,64 +1359,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return p;
     }
 
-    function fixedLine(start, end, thickness) {
-        // Apply padding to line
-        const padding = [thickness, thickness];
-
-        // Scale points to get values in pixels
-        start = thisGraphie.scalePoint(start);
-        end = thisGraphie.scalePoint(end);
-
-        // Calculate and apply additional offset
-        const extraOffset = [
-            Math.min(start[0], end[0]),
-            Math.min(start[1], end[1]),
-        ];
-
-        // Apply padding and offset to start, end points
-        start = kvector.add(
-            kvector.subtract(start, extraOffset),
-            kvector.scale(padding, 0.5),
-        );
-        end = kvector.add(
-            kvector.subtract(end, extraOffset),
-            kvector.scale(padding, 0.5),
-        );
-
-        // Calculate <div> dimensions
-        const left = extraOffset[0] - padding[0] / 2;
-        const top = extraOffset[1] - padding[1] / 2;
-        const width = Math.abs(start[0] - end[0]) + padding[0];
-        const height = Math.abs(start[1] - end[1]) + padding[1];
-
-        // Create <div>
-        const wrapper = document.createElement("div");
-        $(wrapper).css({
-            position: "absolute",
-            width: width + "px",
-            height: height + "px",
-            left: left + "px",
-            top: top + "px",
-            // Outsiders should feel like the line's 'origin' (i.e., for
-            // rotation) is the starting point
-            transformOrigin: start[0] + "px " + start[1] + "px",
-        });
-
-        // Create Raphael canvas
-        const localRaphael = Raphael(wrapper, width, height);
-
-        // Calculate path
-        const path =
-            "M" + start[0] + " " + start[1] + " " + "L" + end[0] + " " + end[1];
-        const visibleShape = localRaphael.path(path);
-        visibleShape.graphiePath = [start, end];
-
-        return {
-            wrapper: wrapper,
-            visibleShape: visibleShape,
-        };
-    }
-
     function sinusoid(a, b, c, d) {
         // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
         return thisGraphie.raphael.path(
@@ -1538,7 +1538,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        fixedLine,
         sinusoid,
         grid,
         label,
