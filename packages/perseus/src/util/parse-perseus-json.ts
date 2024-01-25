@@ -6,7 +6,7 @@ import type {PerseusItem} from "../perseus-types";
  * - To make sure types are correct
  * - To give us a central place to validate/transform output if needed
  * @param {string} input - the stringified Perseus JSON
- * @returns {PerseusItem} the parse PerseusItem object
+ * @returns {PerseusItem} the parsed PerseusItem object
  */
 export default function parsePerseusJSON(input: string): PerseusItem {
     return JSON.parse(input);
