@@ -719,9 +719,15 @@ export class Graphie {
         });
     }
 
-    // path is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
-    path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
+    path(points: Coord[], style?: Record<string, any>): RaphaelElement {
+        return this.withStyle(style, () => {
+            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+            const p = this.raphael.path(this.svgPath(points));
+            p.graphiePath = points;
+
+            return this.postprocessDrawingResult(p);
+        });
+    }
 
     // fixedPath is a stub that gets overwritten with a function from
     // drawingTools in createGraphie
@@ -1540,7 +1546,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        path,
         fixedPath,
         scaledPath,
         line,
