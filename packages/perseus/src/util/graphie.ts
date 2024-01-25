@@ -928,7 +928,7 @@ export class Graphie {
     label(
         point: Coord,
         text: string,
-        position:
+        direction:
             | "center"
             | "above"
             | "below"
@@ -938,9 +938,72 @@ export class Graphie {
             | "above left"
             | "below right"
             | "below left",
-        renderTex?: boolean,
+        latex?: boolean,
         style?: Record<string, any>,
-    ): any {}
+    ): any {
+        return this.withStyle(style, () => {
+            latex = typeof latex === "undefined" || latex;
+
+            const $span = $("<span>").addClass("graphie-label");
+
+            const pad = this.currentStyle["label-distance"];
+
+            $span
+                .css(
+                    $.extend(
+                        {},
+                        {
+                            position: "absolute",
+                            padding: (pad != null ? pad : 7) + "px",
+                            color: "black",
+                        },
+                    ),
+                )
+                .data("labelDirection", direction)
+                .appendTo(this.el);
+
+            // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
+            $span.setPosition = (point) => {
+                const scaledPoint = this.scalePoint(point);
+                $span.css({
+                    left: scaledPoint[0],
+                    top: scaledPoint[1],
+                });
+            };
+
+            // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
+            $span.setPosition(point);
+
+            const span = $span[0];
+
+            // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
+            $span.processMath = function (math, force) {
+                processMath(span, math, force, function () {
+                    const width = span.scrollWidth;
+                    const height = span.scrollHeight;
+                    setLabelMargins(span, [width, height]);
+                });
+            };
+
+            // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
+            $span.processText = function (text: any) {
+                $span.html(text);
+                const width = span.scrollWidth;
+                const height = span.scrollHeight;
+                setLabelMargins(span, [width, height]);
+            };
+
+            if (latex) {
+                // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
+                $span.processMath(text, /* force */ false);
+            } else {
+                // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
+                $span.processText(text);
+            }
+
+            return $span;
+        });
+    }
 
     plotParametric(
         fn: (t: number) => Coord,
@@ -1328,43 +1391,43 @@ const SVG_SPECIFIC_STYLE_MASK = {
     "stroke-width": null,
 } as const;
 
+const setLabelMargins = function (span: any, size: Array<any>) {
+    const $span = $(span);
+    const direction = $span.data("labelDirection");
+    let [width, height] = size;
+    // This can happen when a span
+    // is invisible but we still want to update the CSS. At worst, we will
+    // be off by a few pixels instead of in a different position entirely.
+    if (width === 0 && height === 0) {
+        [width, height] = [1, 1];
+        Log.log("Label size was 0x0 in graphie.js; using 1x1 instead");
+    }
+    $span.css("visibility", "");
+
+    if (typeof direction === "number") {
+        const x = Math.cos(direction);
+        const y = Math.sin(direction);
+
+        const scale = Math.min(
+            width / 2 / Math.abs(x),
+            height / 2 / Math.abs(y),
+        );
+
+        $span.css({
+            marginLeft: -width / 2 + x * scale,
+            marginTop: -height / 2 - y * scale,
+        });
+    } else {
+        const multipliers = labelDirections[direction || "center"];
+        $span.css({
+            marginLeft: Math.round(width * multipliers[0]),
+            marginTop: Math.round(height * multipliers[1]),
+        });
+    }
+};
+
 GraphUtils.createGraphie = function (el: any): Graphie {
     const thisGraphie = new Graphie(el);
-
-    const setLabelMargins = function (span: any, size: Array<any>) {
-        const $span = $(span);
-        const direction = $span.data("labelDirection");
-        let [width, height] = size;
-        // This can happen when a span
-        // is invisible but we still want to update the CSS. At worst, we will
-        // be off by a few pixels instead of in a different position entirely.
-        if (width === 0 && height === 0) {
-            [width, height] = [1, 1];
-            Log.log("Label size was 0x0 in graphie.js; using 1x1 instead");
-        }
-        $span.css("visibility", "");
-
-        if (typeof direction === "number") {
-            const x = Math.cos(direction);
-            const y = Math.sin(direction);
-
-            const scale = Math.min(
-                width / 2 / Math.abs(x),
-                height / 2 / Math.abs(y),
-            );
-
-            $span.css({
-                marginLeft: -width / 2 + x * scale,
-                marginTop: -height / 2 - y * scale,
-            });
-        } else {
-            const multipliers = labelDirections[direction || "center"];
-            $span.css({
-                marginLeft: Math.round(width * multipliers[0]),
-                marginTop: Math.round(height * multipliers[1]),
-            });
-        }
-    };
 
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
@@ -1532,7 +1595,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        label,
         plotParametric,
         plot,
     };
