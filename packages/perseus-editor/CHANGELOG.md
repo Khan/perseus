@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 3.0.0
+
+### Major Changes
+
+-   [#933](https://github.com/Khan/perseus/pull/933) [`851c2cb8`](https://github.com/Khan/perseus/commit/851c2cb8cd6f6c0d6a62343f9232cc618476b85e) Thanks [@handeyeco](https://github.com/handeyeco)! - Update external and internal facing Perseus types
+
+### Patch Changes
+
+-   Updated dependencies [[`851c2cb8`](https://github.com/Khan/perseus/commit/851c2cb8cd6f6c0d6a62343f9232cc618476b85e), [`f7ac2929`](https://github.com/Khan/perseus/commit/f7ac2929ac18e6fd18b1e6c460350d5119762b42), [`87bfcc6f`](https://github.com/Khan/perseus/commit/87bfcc6f4a59a95027d76018625802726aa0d309), [`738aa661`](https://github.com/Khan/perseus/commit/738aa6613fdf752b8a4348c43690666fb5f0531f), [`d95e7044`](https://github.com/Khan/perseus/commit/d95e70444e2d038460a3b3fbe4e3c5aa4f4bd41d), [`6c3b6afe`](https://github.com/Khan/perseus/commit/6c3b6afea87f95bc3dc1da78cc0ddd29418d14dc), [`1e179194`](https://github.com/Khan/perseus/commit/1e179194e9674b267be11c280f80faa5cc671d91), [`4c2c2abc`](https://github.com/Khan/perseus/commit/4c2c2abc9c8dbe57a0036ff7873926ef5ecdd6e6), [`544ca540`](https://github.com/Khan/perseus/commit/544ca540469b2d0b34a8d00de256872d32648fda), [`76ebdc76`](https://github.com/Khan/perseus/commit/76ebdc7620a2f1ffe28524f95a99a13393162951), [`237593b8`](https://github.com/Khan/perseus/commit/237593b8d5bd36148cb5adabf51a796acf8f81a4)]:
+    -   @khanacademy/perseus@18.0.0
+
 ## 2.17.0
 
 ### Minor Changes

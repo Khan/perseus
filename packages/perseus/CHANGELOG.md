@@ -1,5 +1,36 @@
 # @khanacademy/perseus
 
+## 18.0.0
+
+### Major Changes
+
+-   [#933](https://github.com/Khan/perseus/pull/933) [`851c2cb8`](https://github.com/Khan/perseus/commit/851c2cb8cd6f6c0d6a62343f9232cc618476b85e) Thanks [@handeyeco](https://github.com/handeyeco)! - Update external and internal facing Perseus types
+
+### Minor Changes
+
+-   [#925](https://github.com/Khan/perseus/pull/925) [`f7ac2929`](https://github.com/Khan/perseus/commit/f7ac2929ac18e6fd18b1e6c460350d5119762b42) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Design changes to the standin widget
+
+*   [#938](https://github.com/Khan/perseus/pull/938) [`738aa661`](https://github.com/Khan/perseus/commit/738aa6613fdf752b8a4348c43690666fb5f0531f) Thanks [@handeyeco](https://github.com/handeyeco)! - export parsePerseusJSON helper
+
+-   [#936](https://github.com/Khan/perseus/pull/936) [`d95e7044`](https://github.com/Khan/perseus/commit/d95e70444e2d038460a3b3fbe4e3c5aa4f4bd41d) Thanks [@Myranae](https://github.com/Myranae)! - Add helper functions for extracting perseus data
+
+### Patch Changes
+
+-   [#929](https://github.com/Khan/perseus/pull/929) [`87bfcc6f`](https://github.com/Khan/perseus/commit/87bfcc6f4a59a95027d76018625802726aa0d309) Thanks [@benchristel](https://github.com/benchristel)! - Internal: delete dead code from graphie.ts
+
+*   [#934](https://github.com/Khan/perseus/pull/934) [`6c3b6afe`](https://github.com/Khan/perseus/commit/6c3b6afea87f95bc3dc1da78cc0ddd29418d14dc) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor graphie.ts
+
+-   [#927](https://github.com/Khan/perseus/pull/927) [`1e179194`](https://github.com/Khan/perseus/commit/1e179194e9674b267be11c280f80faa5cc671d91) Thanks [@benchristel](https://github.com/benchristel)! - Remove unused code related to KaTeX and MathJax 2. It's no longer needed
+    because all callers have upgraded to MathJax 3.
+
+*   [#926](https://github.com/Khan/perseus/pull/926) [`4c2c2abc`](https://github.com/Khan/perseus/commit/4c2c2abc9c8dbe57a0036ff7873926ef5ecdd6e6) Thanks [@nedredmond](https://github.com/nedredmond)! - Upgrade MathJax
+
+-   [#930](https://github.com/Khan/perseus/pull/930) [`544ca540`](https://github.com/Khan/perseus/commit/544ca540469b2d0b34a8d00de256872d32648fda) Thanks [@nedredmond](https://github.com/nedredmond)! - Remove centering style from image widget
+
+*   [#931](https://github.com/Khan/perseus/pull/931) [`76ebdc76`](https://github.com/Khan/perseus/commit/76ebdc7620a2f1ffe28524f95a99a13393162951) Thanks [@benchristel](https://github.com/benchristel)! - Refactor graphie.ts and remove unused cartToPolar function
+
+-   [#932](https://github.com/Khan/perseus/pull/932) [`237593b8`](https://github.com/Khan/perseus/commit/237593b8d5bd36148cb5adabf51a796acf8f81a4) Thanks [@benchristel](https://github.com/benchristel)! - Refactor graphie.ts to use modern JS/TS syntax. No external-facing changes intended.
+
 ## 17.8.0
 
 ### Minor Changes
