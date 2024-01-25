@@ -14,6 +14,8 @@ import {
     question1,
     question2,
     mockedItem,
+    mockedRandomItem,
+    mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {Errors} from "../logging/log";
@@ -285,6 +287,20 @@ describe("renderer", () => {
             // Assert
             expect(screen.getByRole("button")).toHaveTextContent(
                 /^less than or equal to$/,
+            );
+        });
+
+        it("should call the getAllWidgetsStartProps callback if provided in apiOptions", () => {
+            // Arrange
+            const getAllWidgetsStartProps = jest.fn();
+            const apiOptions: Record<string, any> = {getAllWidgetsStartProps};
+
+            // Act
+            renderQuestion(mockedRandomItem, apiOptions);
+
+            // Assert
+            expect(getAllWidgetsStartProps).toHaveBeenCalledWith(
+                mockedShuffledRadioProps,
             );
         });
     });

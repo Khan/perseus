@@ -491,12 +491,16 @@ class Renderer extends React.Component<Props, State> {
         props: Props,
     ) => any = (allWidgetInfo, props) => {
         // @ts-expect-error - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
-        return mapObject(allWidgetInfo, (widgetInfo) => {
+        const widgetStartProps = mapObject(allWidgetInfo, (widgetInfo) => {
             return Widgets.getRendererPropsForWidgetInfo(
                 widgetInfo,
                 props.problemNum,
             );
         });
+        if (props.apiOptions?.getAllWidgetsStartProps) {
+            props.apiOptions.getAllWidgetsStartProps(widgetStartProps);
+        }
+        return widgetStartProps;
     };
 
     // This is only used in _getWidgetInfo as a fallback if widgetId
