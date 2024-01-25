@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 16.5.1
+
+### Patch Changes
+
+-   [#940](https://github.com/Khan/perseus/pull/940) [`e970dfcc`](https://github.com/Khan/perseus/commit/e970dfcc51e7b535e94669e6ffe0cbdd6d9b7b89) Thanks [@nishasy](https://github.com/nishasy)! - Fixed the answer pill's height in Label Image widget to account for multi-line answers
+
 ## 16.5.0
 
 ### Minor Changes
