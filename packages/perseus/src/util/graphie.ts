@@ -657,6 +657,13 @@ export class Graphie {
         style?: Record<string, any>,
     ): RaphaelElement {}
 
+    parabola(
+        a: number,
+        b: number,
+        c: number,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
             if (point === true) {
