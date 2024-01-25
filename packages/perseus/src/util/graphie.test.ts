@@ -1,6 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
 
+import {testDependencies} from "../../../../testing/test-dependencies";
+import * as Dependencies from "../dependencies";
+
 import GraphUtils from "./graphie";
 
 import type {Graphie} from "./graphie";
@@ -1001,6 +1004,76 @@ describe("Graphie drawing tools", () => {
             const result = graphie.grid([0, 10], [0, 10]);
 
             expect(result).toBe(fakeSet);
+        });
+    });
+
+    describe("label", () => {
+        it("creates a span containing the text", () => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            const graphie = createAndInitGraphie();
+
+            const $span = graphie.label(
+                [0, 0],
+                "this is the text",
+                "center",
+                false,
+            );
+
+            expect($span[0].innerHTML).toBe("this is the text");
+        });
+
+        it("puts the specified amount of padding around the label", () => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            const graphie = createAndInitGraphie();
+
+            const $span = graphie.label(
+                [0, 0],
+                "this is the text",
+                "center",
+                false,
+                {labelDistance: 42},
+            );
+
+            expect($span[0].style.padding).toBe("42px");
+        });
+
+        it("defaults the padding to 7px if not specified", () => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            const graphie = createAndInitGraphie();
+
+            const $span = graphie.label(
+                [0, 0],
+                "this is the text",
+                "center",
+                false,
+            );
+
+            expect($span[0].style.padding).toBe("7px");
+        });
+
+        it("resets the padding to the default after each call", () => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            const graphie = createAndInitGraphie();
+
+            graphie.label([0, 0], "this is the text", "center", false, {
+                labelDistance: 42,
+            });
+            const $span = graphie.label(
+                [0, 0],
+                "this is the text",
+                "center",
+                false,
+            );
+
+            expect($span[0].style.padding).toBe("7px");
         });
     });
 });
