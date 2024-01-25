@@ -587,8 +587,6 @@ export class Graphie {
         $.extend(this.currentStyle, processed);
     }
 
-    label(point: any, text: any, direction: any, latex?: any) {}
-
     grid(
         xr: Interval,
         yr: Interval,
@@ -689,6 +687,23 @@ export class Graphie {
         d: number,
         style?: Record<string, any>,
     ): RaphaelElement {}
+
+    label(
+        point: Coord,
+        text: string,
+        position:
+            | "center"
+            | "above"
+            | "below"
+            | "right"
+            | "left"
+            | "above right"
+            | "above left"
+            | "below right"
+            | "below left",
+        renderTex?: boolean,
+        style?: Record<string, any>,
+    ): any {}
 
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
