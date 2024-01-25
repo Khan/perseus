@@ -905,7 +905,15 @@ export class Graphie {
         c: number,
         d: number,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => {
+            // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
+            return this.postprocessDrawingResult(this.raphael.path(
+                this.svgSinusoidPath(a, b, c, d),
+            ));
+        })
+
+    }
 
     label(
         point: Coord,
@@ -1359,13 +1367,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return p;
     }
 
-    function sinusoid(a, b, c, d) {
-        // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-        return thisGraphie.raphael.path(
-            thisGraphie.svgSinusoidPath(a, b, c, d),
-        );
-    }
-
     function grid(xr, yr) {
         const step: any = thisGraphie.currentStyle.step || [1, 1];
         const set = thisGraphie.raphael.set();
@@ -1538,7 +1539,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        sinusoid,
         grid,
         label,
         plotParametric,
