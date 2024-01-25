@@ -799,9 +799,15 @@ export class Graphie {
         };
     }
 
-    // scaledPath is a stub that gets overwritten with a function from
-    // drawingTools in createGraphie
-    scaledPath(points: Coord[], style?: Record<string, any>): RaphaelElement {}
+    scaledPath(points: Coord[], style?: Record<string, any>): RaphaelElement {
+        return this.withStyle(style, () => {
+            const p = this.raphael.path(
+                this.svgPath(points, /* alreadyScaled */ true),
+            );
+            p.graphiePath = points;
+            return this.postprocessDrawingResult(p);
+        })
+    }
 
     // line is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
@@ -1282,14 +1288,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return p;
     }
 
-    function scaledPath(points) {
-        const p = thisGraphie.raphael.path(
-            thisGraphie.svgPath(points, /* alreadyScaled */ true),
-        );
-        p.graphiePath = points;
-        return p;
-    }
-
     function line(start, end) {
         const l = path([start, end]);
 
@@ -1542,7 +1540,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        scaledPath,
         line,
         parabola,
         fixedLine,
