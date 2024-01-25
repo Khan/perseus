@@ -453,13 +453,11 @@ export type WidgetExports<
     widget: T;
 }>;
 
-export type WidgetInfo = PerseusWidget;
-
 export type FilterCriterion =
     | string
     | ((
           id: string,
-          widgetInfo: WidgetInfo,
+          widgetInfo: PerseusWidget,
           widget?: Widget | null | undefined,
       ) => boolean);
 

@@ -30,14 +30,17 @@ import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
-import type {PerseusRenderer, PerseusWidgetOptions} from "./perseus-types";
+import type {
+    PerseusRenderer,
+    PerseusWidget,
+    PerseusWidgetOptions,
+} from "./perseus-types";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
     PerseusScore,
-    WidgetInfo,
     WidgetProps,
 } from "./types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -179,7 +182,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 type State = {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<{
-        [id: string]: WidgetInfo | null | undefined;
+        [id: string]: PerseusWidget | null | undefined;
     }>;
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
@@ -461,7 +464,7 @@ class Renderer extends React.Component<Props, State> {
 
     // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
     _getAllWidgetsInfo: (props: Props) => {
-        [key: string]: WidgetInfo;
+        [key: string]: PerseusWidget;
     } = (props: Props) => {
         // @ts-expect-error - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
         return mapObject(props.widgets, (widgetInfo, widgetId) => {
@@ -483,7 +486,7 @@ class Renderer extends React.Component<Props, State> {
 
     _getAllWidgetsStartProps: (
         allWidgetInfo: {
-            [key: string]: WidgetInfo;
+            [key: string]: PerseusWidget;
         },
         props: Props,
     ) => any = (allWidgetInfo, props) => {
@@ -519,9 +522,9 @@ class Renderer extends React.Component<Props, State> {
         };
     };
 
-    _getWidgetInfo: (widgetId: string) => WidgetInfo = (
+    _getWidgetInfo: (widgetId: string) => PerseusWidget = (
         widgetId: string,
-    ): WidgetInfo => {
+    ): PerseusWidget => {
         return (
             this.state.widgetInfo[widgetId] ||
             this._getDefaultWidgetInfo(widgetId)
@@ -816,14 +819,14 @@ class Renderer extends React.Component<Props, State> {
                 const widgetId = filterCriterion;
                 filterFunc = (
                     id: string,
-                    widgetInfo: WidgetInfo,
+                    widgetInfo: PerseusWidget,
                     widget?: Widget | null,
                 ) => id === widgetId;
             } else {
                 const widgetType = filterCriterion;
                 filterFunc = (
                     id: string,
-                    widgetInfo: WidgetInfo,
+                    widgetInfo: PerseusWidget,
                     widget?: Widget | null,
                 ) => {
                     return widgetInfo.type === widgetType;
