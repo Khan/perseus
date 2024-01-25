@@ -833,7 +833,9 @@ export class Graphie {
         b: number,
         c: number,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => this.postprocessDrawingResult(this.raphael.path(this.svgParabolaPath(a, b, c))));
+    }
 
     fixedLine(start: Coord, end: Coord, thickness: number): PositionedShape {
         throw new Error("fixedLine called on uninitialized Graphie");
@@ -1299,11 +1301,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return p;
     }
 
-    function parabola(a, b, c) {
-        // Plot a parabola of the form: f(x) = (a * x + b) * x + c
-        return thisGraphie.raphael.path(thisGraphie.svgParabolaPath(a, b, c));
-    }
-
     function fixedLine(start, end, thickness) {
         // Apply padding to line
         const padding = [thickness, thickness];
@@ -1541,7 +1538,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        parabola,
         fixedLine,
         sinusoid,
         grid,
