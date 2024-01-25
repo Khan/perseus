@@ -74,7 +74,7 @@ export const AnswerPill = (props: {
                     style={[
                         style,
                         popperStyle,
-                        styles.relative,
+                        styles.pill,
                         correct && styles.correct,
                         incorrect && styles.incorrect,
                         (focused || hovered) && BringToFront,
@@ -94,5 +94,10 @@ const styles = StyleSheet.create({
     },
     incorrect: {
         backgroundColor: Color.offBlack64,
+    },
+    pill: {
+        // Reset the Pill's default height in order to account
+        // for multi-line pills.
+        height: "auto",
     },
 });
