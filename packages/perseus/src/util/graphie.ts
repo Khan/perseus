@@ -705,6 +705,12 @@ export class Graphie {
         style?: Record<string, any>,
     ): any {}
 
+    plotParametric(
+        fn: (t: number) => Coord,
+        range: Interval,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
             if (point === true) {

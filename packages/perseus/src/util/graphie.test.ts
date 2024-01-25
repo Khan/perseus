@@ -1076,4 +1076,89 @@ describe("Graphie drawing tools", () => {
             expect($span[0].style.padding).toBe("7px");
         });
     });
+
+    describe("plotParametric", () => {
+        it("plots the given parametric curve", () => {
+            const graphie = createAndInitGraphie();
+            graphie.raphael.path.mockReturnValue(createMockRaphaelElement());
+
+            graphie.plotParametric((t) => [t, 0], [0, 1]);
+
+            expect(graphie.raphael.path).toHaveBeenCalledWith(
+                expect.stringMatching(/^M0 5/),
+            );
+        });
+
+        it("uses the style, if given", () => {
+            const graphie = createAndInitGraphie();
+            graphie.raphael.path.mockReturnValue(createMockRaphaelElement());
+            const fakeRaphaelSet = createFakeRaphaelSet();
+            graphie.raphael.set.mockReturnValue(fakeRaphaelSet);
+
+            graphie.plotParametric((t) => [t, 0], [0, 1], {stroke: "#112233"});
+
+            expect(fakeRaphaelSet.attr).toHaveBeenCalledWith(
+                expect.objectContaining({stroke: "#112233"}),
+            );
+        });
+
+        it("uses the default style, if none given", () => {
+            const graphie = createAndInitGraphie();
+            graphie.raphael.path.mockReturnValue(createMockRaphaelElement());
+            const fakeRaphaelSet = createFakeRaphaelSet();
+            graphie.raphael.set.mockReturnValue(fakeRaphaelSet);
+
+            graphie.plotParametric((t) => [t, 0], [0, 1]);
+
+            expect(fakeRaphaelSet.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+            });
+        });
+
+        it("restores the previous style after drawing", () => {
+            const graphie = createAndInitGraphie();
+            graphie.raphael.path.mockReturnValue(createMockRaphaelElement());
+            const set1 = createFakeRaphaelSet();
+            const set2 = createFakeRaphaelSet();
+            graphie.raphael.set.mockReturnValue(set1);
+            graphie.raphael.set.mockReturnValue(set2);
+
+            graphie.plotParametric((t) => [t, 0], [0, 1], {stroke: "#112233"});
+            graphie.plotParametric((t) => [t, 0], [0, 1]);
+
+            expect(set2.attr).toHaveBeenCalledWith({
+                fill: "none",
+                "stroke-width": 2,
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+            });
+        });
+
+        it("dasherizes Raphael attribute names (e.g. strokeWidth -> stroke-width)", () => {
+            const graphie = createAndInitGraphie();
+            graphie.raphael.path.mockReturnValue(createMockRaphaelElement());
+            const fakeRaphaelSet = createFakeRaphaelSet();
+            graphie.raphael.set.mockReturnValue(fakeRaphaelSet);
+
+            graphie.plotParametric((t) => [t, 0], [0, 1], {"stroke-width": 42});
+
+            expect(fakeRaphaelSet.attr).toHaveBeenCalledWith(
+                expect.objectContaining({"stroke-width": 42}),
+            );
+        });
+
+        it("returns the Raphael set", () => {
+            const graphie = createAndInitGraphie();
+            graphie.raphael.path.mockReturnValue(createMockRaphaelElement());
+            const fakeRaphaelSet = createFakeRaphaelSet();
+            graphie.raphael.set.mockReturnValue(fakeRaphaelSet);
+
+            const result = graphie.plotParametric((t) => [t, 0], [0, 1]);
+
+            expect(result).toBe(fakeRaphaelSet);
+        });
+    });
 });
