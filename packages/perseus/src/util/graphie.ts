@@ -87,6 +87,40 @@ interface RaphaelSet {
 
 type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
 
+type LabelPosition =
+    | "center"
+    | "above"
+    | "below"
+    | "right"
+    | "left"
+    | "above right"
+    | "above left"
+    | "below right"
+    | "below left";
+
+interface LabelMethod {
+    (point: Coord, text: string, position: LabelPosition): any;
+    (
+        point: Coord,
+        text: string,
+        position: LabelPosition,
+        renderTex: boolean,
+    ): any;
+    (
+        point: Coord,
+        text: string,
+        position: LabelPosition,
+        style: Record<string, any>,
+    ): any;
+    (
+        point: Coord,
+        text: string,
+        position: LabelPosition,
+        renderTex: boolean,
+        style: Record<string, any>,
+    ): any;
+}
+
 export class Graphie {
     el: HTMLElement;
     #bounds?: GraphBounds;
@@ -925,7 +959,7 @@ export class Graphie {
         });
     }
 
-    label(
+    label: LabelMethod = (
         point: Coord,
         text: string,
         direction:
@@ -938,12 +972,12 @@ export class Graphie {
             | "above left"
             | "below right"
             | "below left",
-        latex?: boolean,
-        style?: Record<string, any>,
-    ): any {
+        arg4?: boolean | Record<string, any>,
+        arg5?: Record<string, any>,
+    ): any => {
+        const style = typeof arg4 === "object" ? arg4 : arg5;
+        const latex = typeof arg4 === "boolean" ? arg4 : true;
         return this.withStyle(style, () => {
-            latex = typeof latex === "undefined" || latex;
-
             const $span = $("<span>").addClass("graphie-label");
 
             const pad = this.currentStyle["label-distance"];
@@ -1001,9 +1035,9 @@ export class Graphie {
                 $span.processText(text);
             }
 
-            return $span;
+            return this.postprocessDrawingResult($span);
         });
-    }
+    };
 
     plotParametric(
         fn: (t: number) => Coord,
@@ -1438,69 +1472,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         p.graphiePath = points;
 
         return p;
-    }
-
-    function label(point, text, direction, latex) {
-        latex = typeof latex === "undefined" || latex;
-
-        const $span = $("<span>").addClass("graphie-label");
-
-        const pad = thisGraphie.currentStyle["label-distance"];
-
-        $span
-            .css(
-                $.extend(
-                    {},
-                    {
-                        position: "absolute",
-                        padding: (pad != null ? pad : 7) + "px",
-                        color: "black",
-                    },
-                ),
-            )
-            .data("labelDirection", direction)
-            .appendTo(thisGraphie.el);
-
-        // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
-        $span.setPosition = function (point) {
-            const scaledPoint = thisGraphie.scalePoint(point);
-            $span.css({
-                left: scaledPoint[0],
-                top: scaledPoint[1],
-            });
-        };
-
-        // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
-        $span.setPosition(point);
-
-        const span = $span[0];
-
-        // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
-        $span.processMath = function (math, force) {
-            processMath(span, math, force, function () {
-                const width = span.scrollWidth;
-                const height = span.scrollHeight;
-                setLabelMargins(span, [width, height]);
-            });
-        };
-
-        // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
-        $span.processText = function (text: any) {
-            $span.html(text);
-            const width = span.scrollWidth;
-            const height = span.scrollHeight;
-            setLabelMargins(span, [width, height]);
-        };
-
-        if (latex) {
-            // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
-            $span.processMath(text, /* force */ false);
-        } else {
-            // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
-            $span.processText(text);
-        }
-
-        return $span;
     }
 
     function plotParametric(fn: (t: number) => Coord, range) {
