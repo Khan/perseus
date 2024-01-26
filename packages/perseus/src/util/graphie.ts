@@ -1438,7 +1438,7 @@ GraphUtils.createGraphie = function (el: any): Graphie {
             return xy;
         };
         const clippedFn = (x) => clipper(fn(x));
-        const clippedFn2 = (x: number) => clipper(((t) => [t, 0])(x));
+        const clippedFn2 = (x: number) => clipper([x, 0]);
 
         if (!thisGraphie.currentStyle.strokeLinejoin) {
             thisGraphie.currentStyle.strokeLinejoin = "round";
