@@ -1303,31 +1303,6 @@ export class Graphie {
         return result;
     }
 
-    preprocessDrawingArgs(args: any[]): any[] {
-        const last = args[args.length - 1];
-
-        // The last argument is probably trying to change the style
-        if (typeof last === "object" && !_.isArray(last)) {
-            this.currentStyle = {
-                ...this.currentStyle,
-                ...this.processAttributes(last),
-            };
-
-            const rest = [].slice.call(args, 0, args.length - 1);
-
-            return rest;
-        } else {
-            // NOTE(benchristel): This just copies the currentStyle object. It
-            // looks pointless, but I believe it is necessary to ensure that the
-            // style object won't be modified by the drawing function (to which
-            // these `args` are passed). We mutate currentStyle in several
-            // places...
-            this.currentStyle = $.extend({}, this.currentStyle);
-
-            return args;
-        }
-    }
-
     postprocessDrawingResult(result: any): any {
         // Bad heuristic for recognizing Raphael elements and sets
         const type = result.constructor.prototype;
