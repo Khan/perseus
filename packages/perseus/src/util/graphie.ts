@@ -1043,7 +1043,70 @@ export class Graphie {
         fn: (t: number) => Coord,
         range: Interval,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => {
+            // We truncate to 500,000, since anything bigger causes
+            // overflow in the firefox svg renderer.  This is safe
+            // since 500,000 is outside the viewport anyway.  We
+            // write these functions the way we do to handle undefined.
+            const clip = (xy) => {
+                if (Math.abs(xy[1]) > 500000) {
+                    return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
+                }
+                return xy;
+            };
+            const clippedFn = (x) => clip(fn(x));
+
+            if (!this.currentStyle.strokeLinejoin) {
+                this.currentStyle.strokeLinejoin = "round";
+            }
+            if (!this.currentStyle.strokeLinecap) {
+                this.currentStyle.strokeLinecap = "round";
+            }
+
+            const min = range[0];
+            const max = range[1];
+            let step = (max - min) / (this.currentStyle["plot-points"] || 800);
+            if (step === 0) {
+                step = 1;
+            }
+
+            const paths = this.raphael.set();
+            let points = [];
+            let lastY = clippedFn(min)[1];
+
+            for (let t = min; t <= max; t += step) {
+                const point = clippedFn(t);
+                const y = point[1];
+
+                // Find points where it flips
+                if (
+                    // if there is an asymptote here, meaning that the graph
+                    // switches signs and has a large difference
+                    (y > 0 !== lastY > 0 &&
+                        Math.abs(y - lastY) >
+                            2 * this.drawingTransform().pixelsPerUnitY()) ||
+                    // or the function is undefined
+                    isNaN(y)
+                ) {
+                    // split the path at this point, and draw it
+                    paths.push(this.unstyledPath(points));
+                    // restart the path, excluding this point
+                    points = [];
+                } else {
+                    // otherwise, just add the point to the path
+                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                    points.push(point);
+                }
+
+                lastY = y;
+            }
+
+            paths.push(this.unstyledPath(points));
+
+            return this.postprocessDrawingResult(paths);
+        });
+    }
 
     plot(
         fn: (x: number) => number,
@@ -1474,77 +1537,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return p;
     }
 
-    function plotParametric(fn: (t: number) => Coord, range) {
-        // Note: fn2 should only be set if 'shade' is true, as it denotes
-        // the function between which fn should have its area shaded.
-        // In general, plotParametric shouldn't be used to shade the area
-        // between two arbitrary parametrics functions over an interval,
-        // as the method assumes that fn and fn2 are both of the form
-        // fn(t) = (t, fn'(t)) for some initial fn'.
-
-        // We truncate to 500,000, since anything bigger causes
-        // overflow in the firefox svg renderer.  This is safe
-        // since 500,000 is outside the viewport anyway.  We
-        // write these functions the way we do to handle undefined.
-        const clip = (xy) => {
-            if (Math.abs(xy[1]) > 500000) {
-                return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
-            }
-            return xy;
-        };
-        const clippedFn = (x) => clip(fn(x));
-
-        if (!thisGraphie.currentStyle.strokeLinejoin) {
-            thisGraphie.currentStyle.strokeLinejoin = "round";
-        }
-        if (!thisGraphie.currentStyle.strokeLinecap) {
-            thisGraphie.currentStyle.strokeLinecap = "round";
-        }
-
-        const min = range[0];
-        const max = range[1];
-        let step =
-            (max - min) / (thisGraphie.currentStyle["plot-points"] || 800);
-        if (step === 0) {
-            step = 1;
-        }
-
-        const paths = thisGraphie.raphael.set();
-        let points = [];
-        let lastY = clippedFn(min)[1];
-
-        for (let t = min; t <= max; t += step) {
-            const point = clippedFn(t);
-            const y = point[1];
-
-            // Find points where it flips
-            if (
-                // if there is an asymptote here, meaning that the graph
-                // switches signs and has a large difference
-                (y > 0 !== lastY > 0 &&
-                    Math.abs(y - lastY) >
-                        2 * thisGraphie.drawingTransform().pixelsPerUnitY()) ||
-                // or the function is undefined
-                isNaN(y)
-            ) {
-                // split the path at this point, and draw it
-                paths.push(path(points));
-                // restart the path, excluding this point
-                points = [];
-            } else {
-                // otherwise, just add the point to the path
-                // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                points.push(point);
-            }
-
-            lastY = y;
-        }
-
-        paths.push(path(points));
-
-        return paths;
-    }
-
     function plot(fn, range, swapAxes) {
         const min = range[0];
         const max = range[1];
@@ -1556,17 +1548,16 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         }
 
         if (swapAxes) {
-            return plotParametric(function (y) {
+            return thisGraphie.plotParametric(function (y) {
                 return [fn(y), y];
             }, range);
         }
-        return plotParametric(function (x) {
+        return thisGraphie.plotParametric(function (x) {
             return [x, fn(x)];
         }, range);
     }
 
     const drawingTools = {
-        plotParametric,
         plot,
     };
 
