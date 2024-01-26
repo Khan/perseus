@@ -1438,7 +1438,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
             return xy;
         };
         const clippedFn = (x) => clipper(fn(x));
-        const clippedFn2 = (x: number) => [x, 0];
 
         if (!thisGraphie.currentStyle.strokeLinejoin) {
             thisGraphie.currentStyle.strokeLinejoin = "round";
@@ -1457,12 +1456,11 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
         const paths = thisGraphie.raphael.set();
         let points = [];
-        let lastDiffY = clippedFn2(min)[1] - clippedFn(min)[1];
+        let lastDiffY = 0 - clippedFn(min)[1];
 
         for (let t = min; t <= max; t += step) {
             const top = clippedFn(t);
-            const bottom = clippedFn2(t);
-            const diffY = bottom[1] - top[1];
+            const diffY = 0 - top[1];
 
             // Find points where it flips
             // Create path that sketches area between the two functions
