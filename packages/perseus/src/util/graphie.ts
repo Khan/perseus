@@ -629,7 +629,7 @@ export class Graphie {
                 set.push(this.line([xr[0], y], [xr[1], y]));
             }
 
-            return this.postprocessDrawingResult(set);
+            return set;
         });
     }
 
@@ -662,29 +662,25 @@ export class Graphie {
             const largeAngle =
                 (((endAngle - startAngle) % 360) + 360) % 360 > 180;
 
-            return this.postprocessDrawingResult(
-                this.raphael.path(
-                    "M" +
-                        startPoint.join(" ") +
-                        "A" +
-                        radii.join(" ") +
-                        " 0 " + // ellipse rotation
-                        (largeAngle ? 1 : 0) +
-                        " 0 " + // sweep flag
-                        endPoint.join(" ") +
-                        (sector ? "L" + cent.join(" ") + "z" : ""),
-                ),
+            return this.raphael.path(
+                "M" +
+                    startPoint.join(" ") +
+                    "A" +
+                    radii.join(" ") +
+                    " 0 " + // ellipse rotation
+                    (largeAngle ? 1 : 0) +
+                    " 0 " + // sweep flag
+                    endPoint.join(" ") +
+                    (sector ? "L" + cent.join(" ") + "z" : ""),
             );
         });
     }
 
     circle(center: Coord, radius: number, style?: Record<string, any>) {
         return this.withStyle(style, () =>
-            this.postprocessDrawingResult(
-                this.raphael.ellipse(
-                    ...this.scalePoint(center),
-                    ...this.scaleVector([radius, radius]),
-                ),
+            this.raphael.ellipse(
+                ...this.scalePoint(center),
+                ...this.scaleVector([radius, radius]),
             ),
         );
     }
@@ -701,18 +697,16 @@ export class Graphie {
                 elem.node.style.shapeRendering = "crispEdges";
             }
 
-            return this.postprocessDrawingResult(elem);
+            return elem;
         });
     }
 
     ellipse(center, radii, style?: Record<string, any>) {
-        return this.withStyle(style, () => {
-            return this.postprocessDrawingResult(
-                this.raphael.ellipse(
-                    ...this.scalePoint(center).concat(this.scaleVector(radii)),
-                ),
-            );
-        });
+        return this.withStyle(style, () =>
+            this.raphael.ellipse(
+                ...this.scalePoint(center).concat(this.scaleVector(radii)),
+            ),
+        );
     }
 
     fixedEllipse(
@@ -755,8 +749,6 @@ export class Graphie {
                 scaledRadii[1],
             );
 
-            // We don't call postprocessDrawingResult here because it wouldn't
-            // do anything.
             return {
                 wrapper: wrapper,
                 visibleShape: visibleShape,
@@ -773,7 +765,7 @@ export class Graphie {
 
     path(points: Coord[], style?: Record<string, any>): RaphaelElement {
         return this.withStyle(style, () => {
-            return this.postprocessDrawingResult(this.unstyledPath(points));
+            return this.unstyledPath(points);
         });
     }
 
@@ -853,7 +845,7 @@ export class Graphie {
                 this.svgPath(points, /* alreadyScaled */ true),
             );
             p.graphiePath = points;
-            return this.postprocessDrawingResult(p);
+            return p;
         });
     }
 
@@ -869,7 +861,7 @@ export class Graphie {
                 l.node.style.shapeRendering = "crispEdges";
             }
 
-            return this.postprocessDrawingResult(l);
+            return l;
         });
     }
 
@@ -880,9 +872,7 @@ export class Graphie {
         style?: Record<string, any>,
     ): RaphaelElement {
         return this.withStyle(style, () =>
-            this.postprocessDrawingResult(
-                this.raphael.path(this.svgParabolaPath(a, b, c)),
-            ),
+            this.raphael.path(this.svgParabolaPath(a, b, c)),
         );
     }
 
@@ -951,12 +941,10 @@ export class Graphie {
         d: number,
         style?: Record<string, any>,
     ): RaphaelElement {
-        return this.withStyle(style, () => {
+        return this.withStyle(style, () =>
             // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-            return this.postprocessDrawingResult(
-                this.raphael.path(this.svgSinusoidPath(a, b, c, d)),
-            );
-        });
+            this.raphael.path(this.svgSinusoidPath(a, b, c, d)),
+        );
     }
 
     label: LabelMethod = (
@@ -1035,7 +1023,7 @@ export class Graphie {
                 $span.processText(text);
             }
 
-            return this.postprocessDrawingResult($span);
+            return $span;
         });
     };
 
@@ -1104,7 +1092,7 @@ export class Graphie {
 
             paths.push(this.unstyledPath(points));
 
-            return this.postprocessDrawingResult(paths);
+            return paths;
         });
     }
 
@@ -1127,9 +1115,7 @@ export class Graphie {
             const parametricFn = swapAxes
                 ? (y): Coord => [fn(y), y]
                 : (x): Coord => [x, fn(x)];
-            return this.postprocessDrawingResult(
-                this.plotParametric(parametricFn, range),
-            );
+            return this.plotParametric(parametricFn, range);
         });
     }
 
@@ -1298,7 +1284,7 @@ export class Graphie {
             ...this.currentStyle,
             ...this.processAttributes(style),
         };
-        const result = fn();
+        const result = this.postprocessDrawingResult(fn());
         this.currentStyle = oldStyle;
         return result;
     }
