@@ -51,15 +51,6 @@ const GraphUtils: any = {
     },
 
     /**
-     * Return the difference between two sets of coordinates
-     */
-    coordDiff: function (startCoord, endCoord) {
-        return _.map(endCoord, function (val, i) {
-            return endCoord[i] - startCoord[i];
-        });
-    },
-
-    /**
      * Round the given coordinates to a given snap value
      * (e.g., nearest 0.2 increment)
      */
