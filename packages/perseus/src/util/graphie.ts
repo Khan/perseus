@@ -719,13 +719,16 @@ export class Graphie {
         });
     }
 
+    private unstyledPath(points: Coord[]): RaphaelElement {
+        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+        const p = this.raphael.path(this.svgPath(points));
+        p.graphiePath = points;
+        return p;
+    }
+
     path(points: Coord[], style?: Record<string, any>): RaphaelElement {
         return this.withStyle(style, () => {
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-            const p = this.raphael.path(this.svgPath(points));
-            p.graphiePath = points;
-
-            return this.postprocessDrawingResult(p);
+            return this.postprocessDrawingResult(this.unstyledPath(points));
         });
     }
 
@@ -806,16 +809,24 @@ export class Graphie {
             );
             p.graphiePath = points;
             return this.postprocessDrawingResult(p);
-        })
+        });
     }
 
-    // line is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
     line(
         start: Coord,
         end: Coord,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => {
+            const l = this.unstyledPath([start, end]);
+
+            if (this.isMobile) {
+                l.node.style.shapeRendering = "crispEdges";
+            }
+
+            return this.postprocessDrawingResult(l);
+        });
+    }
 
     parabola(
         a: number,
@@ -1288,16 +1299,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return p;
     }
 
-    function line(start, end) {
-        const l = path([start, end]);
-
-        if (thisGraphie.isMobile) {
-            l.node.style.shapeRendering = "crispEdges";
-        }
-
-        return l;
-    }
-
     function parabola(a, b, c) {
         // Plot a parabola of the form: f(x) = (a * x + b) * x + c
         return thisGraphie.raphael.path(thisGraphie.svgParabolaPath(a, b, c));
@@ -1374,12 +1375,12 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
         let x = step[0] * Math.ceil(xr[0] / step[0]);
         for (; x <= xr[1]; x += step[0]) {
-            set.push(line([x, yr[0]], [x, yr[1]]));
+            set.push(thisGraphie.line([x, yr[0]], [x, yr[1]]));
         }
 
         let y = step[1] * Math.ceil(yr[0] / step[1]);
         for (; y <= yr[1]; y += step[1]) {
-            set.push(line([xr[0], y], [xr[1], y]));
+            set.push(thisGraphie.line([xr[0], y], [xr[1], y]));
         }
 
         return set;
@@ -1540,7 +1541,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     const drawingTools = {
-        line,
         parabola,
         fixedLine,
         sinusoid,
