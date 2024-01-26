@@ -8,8 +8,7 @@ import {createMathField} from "../input/mathquill-instance";
 import keyTranslator from "../key-handlers/key-translator";
 
 import type Key from "../../data/keys";
-import type {MathFieldInterface} from "../input/mathquill-types";
-import type MathQuill from "mathquill";
+import type {MathFieldInterface, MathQuillInterface} from "../input/mathquill-types";
 
 import Keypad from "./index";
 
@@ -32,7 +31,7 @@ export function V2KeypadWithMathquill() {
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
-                        edit: (_mathField: MathQuill.v3.EditableMathQuill) => {
+                        edit: (_mathField: MathQuillInterface) => {
                             setCursorContext(getCursorContext(_mathField));
                         },
                     },
