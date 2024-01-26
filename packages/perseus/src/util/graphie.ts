@@ -1491,8 +1491,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     function plot(fn, range, swapAxes) {
-        const shade = undefined;
-        const fn2 = undefined;
         const min = range[0];
         const max = range[1];
         if (!thisGraphie.currentStyle["plot-points"]) {
@@ -1503,27 +1501,9 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         }
 
         if (swapAxes) {
-            if (fn2) {
-                // TODO(charlie): support swapped axis area shading
-                throw new PerseusError(
-                    "Can't shade area between functions with swapped axes.",
-                    Errors.Internal,
-                );
-            }
             return plotParametric(function (y) {
                 return [fn(y), y];
             }, range);
-        }
-        if (fn2) {
-            if (shade) {
-                return plotParametric(function (x) {
-                    return [x, fn(x)];
-                }, range);
-            }
-            throw new PerseusError(
-                "fn2 should only be set when 'shade' is True.",
-                Errors.Internal,
-            );
         }
         return plotParametric(function (x) {
             return [x, fn(x)];
