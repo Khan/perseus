@@ -1457,12 +1457,12 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
         const paths = thisGraphie.raphael.set();
         let points = [];
-        let lastDiffY = GraphUtils.coordDiff(clippedFn(min), clippedFn2(min))[1];
+        let lastDiffY = clippedFn2(min)[1] - clippedFn(min)[1];
 
         for (let t = min; t <= max; t += step) {
             const top = clippedFn(t);
             const bottom = clippedFn2(t);
-            const diffY = GraphUtils.coordDiff(top, bottom)[1];
+            const diffY = bottom[1] - top[1];
 
             // Find points where it flips
             // Create path that sketches area between the two functions
