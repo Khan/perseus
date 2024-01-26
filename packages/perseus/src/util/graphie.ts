@@ -1463,7 +1463,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
             const y = point[1];
 
             // Find points where it flips
-            // Create path that sketches area between the two functions
             if (
                 // if there is an asymptote here, meaning that the graph
                 // switches signs and has a large difference
