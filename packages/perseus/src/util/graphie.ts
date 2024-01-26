@@ -1420,7 +1420,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
     }
 
     function plotParametric(fn: (t: number) => Coord, range) {
-        const fn2 = (t) => [t, 0];
         // Note: fn2 should only be set if 'shade' is true, as it denotes
         // the function between which fn should have its area shaded.
         // In general, plotParametric shouldn't be used to shade the area
@@ -1439,7 +1438,7 @@ GraphUtils.createGraphie = function (el: any): Graphie {
             return xy;
         };
         const clippedFn = (x) => clipper(fn(x));
-        const clippedFn2 = (x: number) => clipper(fn2(x));
+        const clippedFn2 = (x: number) => clipper(((t) => [t, 0])(x));
 
         if (!thisGraphie.currentStyle.strokeLinejoin) {
             thisGraphie.currentStyle.strokeLinejoin = "round";
