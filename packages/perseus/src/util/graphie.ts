@@ -1431,13 +1431,13 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         // overflow in the firefox svg renderer.  This is safe
         // since 500,000 is outside the viewport anyway.  We
         // write these functions the way we do to handle undefined.
-        const clipper = (xy) => {
+        const clip = (xy) => {
             if (Math.abs(xy[1]) > 500000) {
                 return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
             }
             return xy;
         };
-        const clippedFn = (x) => clipper(fn(x));
+        const clippedFn = (x) => clip(fn(x));
 
         if (!thisGraphie.currentStyle.strokeLinejoin) {
             thisGraphie.currentStyle.strokeLinejoin = "round";
