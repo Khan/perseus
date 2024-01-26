@@ -8,6 +8,7 @@ import _ from "underscore";
 import Util from "../util";
 
 import type {Coord, Line} from "../interactive2/types";
+import {sum} from "./math";
 
 const {eq, deepEq} = Util;
 
@@ -93,6 +94,19 @@ export function addVectors(a: Coord, b: Coord): Coord {
 
 export function reverseVector(vector: Coord): Coord {
     return [-vector[0], -vector[1]];
+}
+
+// Returns whether connecting the given sequence of `points` forms a clockwise
+// path (assuming a closed loop, where the last point connects back to the
+// first).
+export function clockwise(points: Coord[]): boolean {
+    const segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
+    const areas = _.map(segments, function (segment) {
+        const p1 = segment[0];
+        const p2 = segment[1];
+        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
+    });
+    return sum(areas) > 0;
 }
 
 export function magnitude(v: ReadonlyArray<Coord>): number {

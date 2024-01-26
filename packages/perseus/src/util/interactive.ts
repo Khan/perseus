@@ -35,21 +35,11 @@ import GraphUtils, {polar} from "./graphie";
 import KhanMath, {sum} from "./math";
 
 import type {Coord} from "../interactive2/types";
-import {reverseVector, sumVectors} from "./geometry";
+import {clockwise, reverseVector, sumVectors} from "./geometry";
 
 export type MouseHandler = (position: Coord) => void;
 
 const {getCanUse3dTransform} = InteractiveUtil;
-
-function clockwise(points: any) {
-    const segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
-    const areas = _.map(segments, function (segment) {
-        const p1 = segment[0];
-        const p2 = segment[1];
-        return (p2[0] - p1[0]) * (p2[1] + p1[1]);
-    });
-    return sum(areas) > 0;
-}
 
 function scaledDistanceFromAngle(angle: number) {
     const a = 3.51470560176242 * 20;
