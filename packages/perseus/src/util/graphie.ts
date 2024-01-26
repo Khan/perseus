@@ -1459,8 +1459,8 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         let lastY = clippedFn(min)[1];
 
         for (let t = min; t <= max; t += step) {
-            const top = clippedFn(t);
-            const y = top[1];
+            const point = clippedFn(t);
+            const y = point[1];
 
             // Find points where it flips
             // Create path that sketches area between the two functions
@@ -1480,7 +1480,7 @@ GraphUtils.createGraphie = function (el: any): Graphie {
             } else {
                 // otherwise, just add the point to the path
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                points.push(top);
+                points.push(point);
             }
 
             lastY = y;
