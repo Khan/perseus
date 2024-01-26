@@ -35,7 +35,14 @@ export function polar(r: number | Coord, th: number): Coord {
     return [r[0] * Math.cos(th), r[1] * Math.sin(th)];
 }
 
-type RaphaelElement = any;
+interface RaphaelElement {
+    node: {
+        style: {
+            shapeRendering: "crispEdges" | "geometricPrecision"
+        }
+    }
+}
+
 interface RaphaelSet {
     push(...items: RaphaelElement[]): unknown;
     attr(attributes: Record<string, any>): unknown;
