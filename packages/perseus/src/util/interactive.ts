@@ -32,23 +32,14 @@ import {PerseusError} from "../perseus-error";
 
 import KhanColors from "./colors";
 import GraphUtils, {polar} from "./graphie";
-import KhanMath from "./math";
+import KhanMath, {sum} from "./math";
 
 import type {Coord} from "../interactive2/types";
+import {reverseVector, sumVectors} from "./geometry";
 
 export type MouseHandler = (position: Coord) => void;
 
 const {getCanUse3dTransform} = InteractiveUtil;
-
-function sum(array: any) {
-    return _.reduce(
-        array,
-        function (memo, arg) {
-            return memo + arg;
-        },
-        0,
-    );
-}
 
 function clockwise(points: any) {
     const segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
@@ -60,18 +51,6 @@ function clockwise(points: any) {
     return sum(areas) > 0;
 }
 
-/* vector-add multiple [x, y] coords/vectors */
-function addPoints(...points) {
-    const zipped = _.zip(...points);
-    return _.map(zipped, sum);
-}
-
-function reverseVector(vector: Array<number>) {
-    return _.map(vector, function (coord) {
-        return coord * -1;
-    });
-}
-
 function scaledDistanceFromAngle(angle: number) {
     const a = 3.51470560176242 * 20;
     const b = 0.5687298702748785 * 20;
@@ -79,14 +58,14 @@ function scaledDistanceFromAngle(angle: number) {
     return (a - b) * Math.exp(c * angle) + b;
 }
 
-function scaledPolarRad(radius: number, radians: number) {
+function scaledPolarRad(radius: number, radians: number): Coord {
     return [
         radius * Math.cos(radians),
         radius * Math.sin(radians) * -1, // SVG flips y axis
     ];
 }
 
-function scaledPolarDeg(radius: number, degrees) {
+function scaledPolarDeg(radius: number, degrees): Coord {
     const radians = (degrees * Math.PI) / 180;
     return scaledPolarRad(radius, radians);
 }
@@ -291,11 +270,11 @@ _.extend(GraphUtils.Graphie.prototype, {
         const temp: Array<never> = [];
 
         if (Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker) {
-            const v1 = addPoints(sVertex, scaledPolarDeg(sRadius, startAngle));
-            const v2 = addPoints(sVertex, scaledPolarDeg(sRadius, endAngle));
+            const v1 = sumVectors(sVertex, scaledPolarDeg(sRadius, startAngle));
+            const v2 = sumVectors(sVertex, scaledPolarDeg(sRadius, endAngle));
 
             sRadius *= Math.SQRT2;
-            const v3 = addPoints(sVertex, scaledPolarDeg(sRadius, halfAngle));
+            const v3 = sumVectors(sVertex, scaledPolarDeg(sRadius, halfAngle));
 
             _.each([v1, v2], function (v) {
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
@@ -329,7 +308,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             }
 
             const sOffset = scaledPolarDeg(sRadius + 15, halfAngle);
-            const sPosition = addPoints(sVertex, sOffset);
+            const sPosition = sumVectors(sVertex, sOffset);
             const position = graphie.unscalePoint(sPosition);
 
             // Reuse label if possible
@@ -395,8 +374,8 @@ _.extend(GraphUtils.Graphie.prototype, {
                 );
 
                 const sPath = [
-                    addPoints(sMidpoint, sOffsetVector, sHeightVector),
-                    addPoints(
+                    sumVectors(sMidpoint, sOffsetVector, sHeightVector),
+                    sumVectors(
                         sMidpoint,
                         sOffsetVector,
                         reverseVector(sHeightVector),
@@ -436,7 +415,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     sOffsetVector = reverseVector(sOffsetVector);
                 }
 
-                const sEnd = addPoints(sMidpoint, sOffsetVector);
+                const sEnd = sumVectors(sMidpoint, sOffsetVector);
 
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                 temp.push(graphie.scaledPath([sStart, sEnd], style));
@@ -457,7 +436,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             const sOffset = 20;
             const sOffsetVector = scaledPolarRad(sOffset, perpendicularAngle);
-            const sPosition = addPoints(sMidpoint, sOffsetVector);
+            const sPosition = sumVectors(sMidpoint, sOffsetVector);
             const position = graphie.unscalePoint(sPosition);
 
             // Reuse label if possible
@@ -522,7 +501,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
         const sRadius = 10 + scaledDistanceFromAngle(360 - angle);
         const sOffsetVector = scaledPolarDeg(sRadius, halfAngle);
-        const sPosition = addPoints(sVertex, sOffsetVector);
+        const sPosition = sumVectors(sVertex, sOffsetVector);
         const position = graphie.unscalePoint(sPosition);
 
         // Reuse label if possible
@@ -3225,7 +3204,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         return new Ruler(this, options || {});
     },
 
-    addPoints: addPoints,
+    sumVectors: sumVectors,
 });
 
 function Protractor(graph: any, center: any) {
@@ -3970,16 +3949,16 @@ _.extend(MovableAngle.prototype, {
         const points = this.points;
 
         // Drag the vertex to move the entire angle
-        points[1].onMove = function (x, y: any) {
+        points[1].onMove = function (x: number, y: number) {
             const oldVertex = points[1].coord;
-            const newVertex = [x, y];
-            const delta = addPoints(newVertex, reverseVector(oldVertex));
+            const newVertex: Coord = [x, y];
+            const delta = sumVectors(newVertex, reverseVector(oldVertex));
 
             let valid = true;
             const newPoints: Record<string, any> = {};
             _.each([0, 2], function (i) {
                 const oldPoint = points[i].coord;
-                let newPoint = addPoints(oldPoint, delta);
+                let newPoint = sumVectors(oldPoint, delta);
 
                 let angle = GraphUtils.findAngle(newVertex, newPoint);
                 angle *= Math.PI / 180;
@@ -4024,7 +4003,7 @@ _.extend(MovableAngle.prototype, {
                         Math.round((angle - snapOffset) / snap) * snap +
                         snapOffset;
                     const distance = GraphUtils.getDistance(newPoint, vertex);
-                    return addPoints(vertex, polar(distance, angle));
+                    return sumVectors(vertex, polar(distance, angle));
                 }
                 return true;
             };

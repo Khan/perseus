@@ -27,7 +27,7 @@ import type {Coord} from "../interactive2/types";
 
 const {processMath} = Tex;
 
-export function polar(r: number | Coord, th: number) {
+export function polar(r: number | Coord, th: number): Coord {
     if (typeof r === "number") {
         r = [r, r];
     }

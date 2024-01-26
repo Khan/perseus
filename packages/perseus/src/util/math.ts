@@ -283,4 +283,12 @@ const KhanMath = {
     },
 } as const;
 
+export function sum(array: number[]): number {
+    return array.reduce(add, 0);
+}
+
+export function add(a: number, b: number): number {
+    return a + b;
+}
+
 export default KhanMath;
