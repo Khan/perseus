@@ -1458,23 +1458,23 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
         const paths = thisGraphie.raphael.set();
         let points = [];
-        let lastDiff = GraphUtils.coordDiff(clippedFn(min), clippedFn2(min));
+        let lastDiffY = GraphUtils.coordDiff(clippedFn(min), clippedFn2(min))[1];
 
         for (let t = min; t <= max; t += step) {
             const top = clippedFn(t);
             const bottom = clippedFn2(t);
-            const diff = GraphUtils.coordDiff(top, bottom);
+            const diffY = GraphUtils.coordDiff(top, bottom)[1];
 
             // Find points where it flips
             // Create path that sketches area between the two functions
             if (
                 // if there is an asymptote here, meaning that the graph
                 // switches signs and has a large difference
-                (diff[1] < 0 !== lastDiff[1] < 0 &&
-                    Math.abs(diff[1] - lastDiff[1]) >
+                (diffY < 0 !== lastDiffY < 0 &&
+                    Math.abs(diffY - lastDiffY) >
                         2 * thisGraphie.drawingTransform().pixelsPerUnitY()) ||
                 // or the function is undefined
-                isNaN(diff[1])
+                isNaN(diffY)
             ) {
                 // split the path at this point, and draw it
                 paths.push(path(points));
@@ -1486,7 +1486,7 @@ GraphUtils.createGraphie = function (el: any): Graphie {
                 points.push(top);
             }
 
-            lastDiff = diff;
+            lastDiffY = diffY;
         }
 
         paths.push(path(points));
