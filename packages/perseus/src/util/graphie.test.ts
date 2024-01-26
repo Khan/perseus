@@ -1251,3 +1251,15 @@ describe("Graphie drawing tools", () => {
         });
     });
 });
+
+describe("GraphUtils", () => {
+    describe("snapCoord", () => {
+        it("snaps to the nearest integer coordinates", () => {
+            expect(GraphUtils.snapCoord([0.1, 0.9], [1, 1])).toEqual([0, 1])
+        })
+
+        it("snaps to the nearest half", () => {
+            expect(GraphUtils.snapCoord([0.4, 2.2], [0.5, 0.5])).toEqual([0.5, 2])
+        })
+    })
+})
