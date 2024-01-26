@@ -585,7 +585,7 @@ export class Graphie {
         }
     }
 
-    drawingTransform(): DrawingTransform {
+    private drawingTransform(): DrawingTransform {
         if (this.#drawingTransform == null) {
             throw new Error(
                 "Can't get drawingTransform of an uninitialized Graphie",
@@ -594,7 +594,7 @@ export class Graphie {
         return this.#drawingTransform;
     }
 
-    bounds(): GraphBounds {
+    private bounds(): GraphBounds {
         if (this.#bounds == null) {
             throw new Error("Can't get bounds of an uninitialized Graphie");
         }
@@ -1278,7 +1278,10 @@ export class Graphie {
         return path;
     };
 
-    withStyle<T>(style: Record<string, any> | undefined, fn: () => T): T {
+    private withStyle<T>(
+        style: Record<string, any> | undefined,
+        fn: () => T,
+    ): T {
         const oldStyle = this.currentStyle;
         this.currentStyle = {
             ...this.currentStyle,
@@ -1289,7 +1292,7 @@ export class Graphie {
         return result;
     }
 
-    postprocessDrawingResult(result: any): any {
+    private postprocessDrawingResult(result: any): any {
         // Bad heuristic for recognizing Raphael elements and sets
         const type = result.constructor.prototype;
         if (type === Raphael.el || type === Raphael.st) {
@@ -1311,7 +1314,7 @@ export class Graphie {
         return result;
     }
 
-    addArrowheads(path: any) {
+    private addArrowheads(path: any) {
         const type = path.constructor.prototype;
 
         if (type === Raphael.el) {
@@ -1385,7 +1388,7 @@ export class Graphie {
         return this.drawingTransform().unscaleVector(point);
     };
 
-    processAttributes(attrs: any) {
+    private processAttributes(attrs: any) {
         const transformers = {
             scale: (scale) => {
                 this.drawingTransform().setScale(scale);
