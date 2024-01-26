@@ -1111,8 +1111,27 @@ export class Graphie {
     plot(
         fn: (x: number) => number,
         range: Interval,
-        style?: Record<string, any>,
-    ): RaphaelElement {}
+        arg3?: boolean | Record<string, any>,
+        arg4?: Record<string, any>,
+    ): RaphaelElement {
+        const swapAxes = typeof arg3 === "boolean" ? arg3 : false;
+        const style = typeof arg3 === "object" ? arg3 : arg4;
+        return this.withStyle(style, () => {
+            const min = range[0];
+            const max = range[1];
+            if (!this.currentStyle["plot-points"]) {
+                this.currentStyle["plot-points"] =
+                    2 * (max - min) * this.drawingTransform().pixelsPerUnitX();
+            }
+
+            const parametricFn = swapAxes
+                ? (y): Coord => [fn(y), y]
+                : (x): Coord => [x, fn(x)];
+            return this.postprocessDrawingResult(
+                this.plotParametric(parametricFn, range),
+            );
+        });
+    }
 
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
@@ -1528,56 +1547,6 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
-
-    function path(points) {
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-        const p = thisGraphie.raphael.path(thisGraphie.svgPath(points));
-        p.graphiePath = points;
-
-        return p;
-    }
-
-    function plot(fn, range, swapAxes) {
-        const min = range[0];
-        const max = range[1];
-        if (!thisGraphie.currentStyle["plot-points"]) {
-            thisGraphie.currentStyle["plot-points"] =
-                2 *
-                (max - min) *
-                thisGraphie.drawingTransform().pixelsPerUnitX();
-        }
-
-        if (swapAxes) {
-            return thisGraphie.plotParametric(function (y) {
-                return [fn(y), y];
-            }, range);
-        }
-        return thisGraphie.plotParametric(function (x) {
-            return [x, fn(x)];
-        }, range);
-    }
-
-    const drawingTools = {
-        plot,
-    };
-
-    function graphify(drawingFn: any): any {
-        return function (...args) {
-            const oldStyle = thisGraphie.currentStyle;
-            const argsToDrawingFn = thisGraphie.preprocessDrawingArgs(args);
-
-            const result = thisGraphie.postprocessDrawingResult(
-                drawingFn(...argsToDrawingFn),
-            );
-
-            thisGraphie.currentStyle = oldStyle;
-            return result;
-        };
-    }
-
-    $.each(drawingTools, function (name) {
-        thisGraphie[name] = graphify(drawingTools[name]);
-    });
 
     return thisGraphie;
 };
