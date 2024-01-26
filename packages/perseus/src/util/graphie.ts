@@ -1463,12 +1463,7 @@ const GraphUtils: any = {
     Graphie,
 
     createGraphie: function (el: any): Graphie {
-        const thisGraphie = new Graphie(el);
-
-        // `svgPath` is independent of graphie range, so we export it independently
-        GraphUtils.svgPath = thisGraphie.svgPath;
-
-        return thisGraphie;
+        return new Graphie(el);
     },
 
     unscaledSvgPath: function (points) {
