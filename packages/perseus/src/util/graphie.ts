@@ -50,6 +50,15 @@ interface RaphaelSet {
 
 type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
 
+export type StyleParams = {
+    fill?: string,
+    labelDistance?: number,
+    opacity?: number,
+    step?: Coord,
+    stroke?: string,
+    strokeWidth?: number,
+}
+
 type LabelPosition =
     | "center"
     | "above"
@@ -73,14 +82,14 @@ interface LabelMethod {
         point: Coord,
         text: string,
         position: LabelPosition,
-        style: Record<string, any>,
+        style: StyleParams,
     ): any;
     (
         point: Coord,
         text: string,
         position: LabelPosition,
         renderTex: boolean,
-        style: Record<string, any>,
+        style: StyleParams,
     ): any;
 }
 
@@ -577,7 +586,7 @@ export class Graphie {
         $.extend(this.currentStyle, processed);
     }
 
-    grid(xr: Interval, yr: Interval, style?: Record<string, any>): unknown {
+    grid(xr: Interval, yr: Interval, style?: StyleParams): unknown {
         return this.withStyle(style, () => {
             const step: any = this.currentStyle.step || [1, 1];
             const set = this.raphael.set();
@@ -602,7 +611,7 @@ export class Graphie {
         startAngle: number,
         endAngle: number,
         sector: boolean,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () => {
             startAngle = ((startAngle % 360) + 360) % 360;
@@ -643,7 +652,7 @@ export class Graphie {
         });
     }
 
-    circle(center: Coord, radius: number, style?: Record<string, any>) {
+    circle(center: Coord, radius: number, style?: StyleParams) {
         return this.withStyle(style, () =>
             this.raphael.ellipse(
                 ...this.scalePoint(center),
@@ -653,7 +662,7 @@ export class Graphie {
     }
 
     // (x, y) is coordinate of bottom left corner
-    rect(x, y, width, height, style?: Record<string, any>) {
+    rect(x, y, width, height, style?: StyleParams) {
         return this.withStyle(style, () => {
             // Raphael needs (x, y) to be coordinate of upper left corner
             const corner = this.scalePoint([x, y + height]);
@@ -668,7 +677,7 @@ export class Graphie {
         });
     }
 
-    ellipse(center, radii, style?: Record<string, any>) {
+    ellipse(center, radii, style?: StyleParams) {
         return this.withStyle(style, () =>
             this.raphael.ellipse(
                 ...this.scalePoint(center).concat(this.scaleVector(radii)),
@@ -682,7 +691,7 @@ export class Graphie {
         radii: number | [number, number],
         maxScale: number,
         padding: number,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): PositionedShape {
         return this.withStyle(style, () => {
             // Scale point and radius
@@ -730,7 +739,7 @@ export class Graphie {
         return p;
     }
 
-    path(points: Coord[], style?: Record<string, any>): RaphaelElement {
+    path(points: Coord[], style?: StyleParams): RaphaelElement {
         return this.withStyle(style, () => {
             return this.unstyledPath(points);
         });
@@ -806,7 +815,7 @@ export class Graphie {
         };
     }
 
-    scaledPath(points: Coord[], style?: Record<string, any>): RaphaelElement {
+    scaledPath(points: Coord[], style?: StyleParams): RaphaelElement {
         return this.withStyle(style, () => {
             const p = this.raphael.path(
                 this.svgPath(points, /* alreadyScaled */ true),
@@ -819,7 +828,7 @@ export class Graphie {
     line(
         start: Coord,
         end: Coord,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () => {
             const l = this.unstyledPath([start, end]);
@@ -836,7 +845,7 @@ export class Graphie {
         a: number,
         b: number,
         c: number,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () =>
             this.raphael.path(this.svgParabolaPath(a, b, c)),
@@ -906,7 +915,7 @@ export class Graphie {
         b: number,
         c: number,
         d: number,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () =>
             // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
@@ -927,8 +936,8 @@ export class Graphie {
             | "above left"
             | "below right"
             | "below left",
-        arg4?: boolean | Record<string, any>,
-        arg5?: Record<string, any>,
+        arg4?: boolean | StyleParams,
+        arg5?: StyleParams,
     ): any => {
         const style = typeof arg4 === "object" ? arg4 : arg5;
         const latex = typeof arg4 === "boolean" ? arg4 : true;
@@ -997,7 +1006,7 @@ export class Graphie {
     plotParametric(
         fn: (t: number) => Coord,
         range: Interval,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () => {
             // We truncate to 500,000, since anything bigger causes
@@ -1059,7 +1068,7 @@ export class Graphie {
     plot(
         fn: (x: number) => number,
         range: Interval,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () => {
             const min = range[0];
@@ -1233,10 +1242,7 @@ export class Graphie {
         return path;
     };
 
-    private withStyle<T>(
-        style: Record<string, any> | undefined,
-        fn: () => T,
-    ): T {
+    private withStyle<T>(style: StyleParams | undefined, fn: () => T): T {
         const oldStyle = this.currentStyle;
         this.currentStyle = {
             ...this.currentStyle,
