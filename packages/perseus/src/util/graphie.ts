@@ -577,7 +577,7 @@ export class Graphie {
         $.extend(this.currentStyle, processed);
     }
 
-    grid(xr: Interval, yr: Interval, style?: Record<string, any>): RaphaelSet {
+    grid(xr: Interval, yr: Interval, style?: Record<string, any>): unknown {
         return this.withStyle(style, () => {
             const step: any = this.currentStyle.step || [1, 1];
             const set = this.raphael.set();
