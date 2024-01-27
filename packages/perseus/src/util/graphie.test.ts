@@ -1115,8 +1115,6 @@ describe("Graphie drawing tools", () => {
             expect(fakeRaphaelSet.attr).toHaveBeenCalledWith({
                 fill: "none",
                 "stroke-width": 2,
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
             });
         });
 
@@ -1134,8 +1132,6 @@ describe("Graphie drawing tools", () => {
             expect(set2.attr).toHaveBeenCalledWith({
                 fill: "none",
                 "stroke-width": 2,
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
             });
         });
 
@@ -1201,8 +1197,6 @@ describe("Graphie drawing tools", () => {
                 fill: "none",
                 "plot-points": 10,
                 "stroke-width": 2,
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
             });
         });
 
@@ -1221,8 +1215,6 @@ describe("Graphie drawing tools", () => {
                 fill: "none",
                 "plot-points": 10,
                 "stroke-width": 2,
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
             });
         });
 

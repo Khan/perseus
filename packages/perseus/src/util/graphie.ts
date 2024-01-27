@@ -1012,13 +1012,6 @@ export class Graphie {
             };
             const clippedFn = (x) => clip(fn(x));
 
-            if (!this.currentStyle.strokeLinejoin) {
-                this.currentStyle.strokeLinejoin = "round";
-            }
-            if (!this.currentStyle.strokeLinecap) {
-                this.currentStyle.strokeLinecap = "round";
-            }
-
             const min = range[0];
             const max = range[1];
             let step = (max - min) / (this.currentStyle["plot-points"] || 800);
