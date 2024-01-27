@@ -3,6 +3,7 @@ import {
     KeypadContext,
     StatefulKeypadContextProvider,
     MobileKeypad,
+    mathQuillInstance,
 } from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
@@ -13,7 +14,6 @@ import {
     within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MathQuill from "mathquill";
 import * as React from "react";
 
 import {
@@ -26,7 +26,7 @@ import {registerWidget} from "../../widgets";
 import {expressionItem2} from "../__testdata__/expression.testdata";
 import ExpressionExport from "../expression";
 
-const MQ = MathQuill.getInterface(3);
+const MQ = mathQuillInstance;
 
 function RendererWithContext({item}) {
     return (
