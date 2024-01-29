@@ -37,6 +37,8 @@ export function polar(r: number | Coord, th: number): Coord {
 }
 
 interface RaphaelElement {
+    type: string;
+    attrs: Record<string, any>;
     node: {
         style: {
             shapeRendering: "crispEdges" | "geometricPrecision";
@@ -127,7 +129,7 @@ export class Graphie {
     init(options: {
         range?: [Interval, Interval];
         scale?: number | Coord;
-        isMobile: boolean;
+        isMobile?: boolean;
     }) {
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
@@ -162,7 +164,7 @@ export class Graphie {
         this.xpixels = w;
         this.ypixels = h;
 
-        this.isMobile = options.isMobile;
+        this.isMobile = options.isMobile ?? false;
 
         return this;
     }
@@ -179,7 +181,31 @@ export class Graphie {
     // - labelStep: [a, b] or number (relative to tick steps)
     // - yLabelFormat: fn to format label string for y-axis
     // - xLabelFormat: fn to format label string for x-axis
-    graphInit(options: Record<string, any>) {
+    graphInit(options: {
+        range?: [Interval, Interval] | Coord;
+        grid?: boolean;
+        gridRange?: [Interval, Interval] | Coord;
+        scale: Coord | number;
+        axes?: true;
+        axisArrows?: "<->" | "->" | true | "";
+        axisOpacity?: number;
+        axisCenter?: Coord;
+        axisLabels?: [string, string] | false;
+        gridOpacity?: number;
+        gridStep?: Coord | number;
+        ticks?: boolean;
+        tickStep?: Coord | number;
+        tickLen?: Coord | number;
+        tickOpacity?: number;
+        labels?: boolean;
+        labelStep?: number;
+        labelOpacity?: number;
+        labelFormat?: (a: number) => string;
+        yLabelFormat?: (y: number) => string;
+        xLabelFormat?: (x: number) => string;
+        unityLabels?: boolean | [boolean, boolean];
+        isMobile?: boolean;
+    }) {
         options = options || {};
 
         for (const [prop, val] of entries(options)) {
@@ -195,32 +221,33 @@ export class Graphie {
 
             // allow symmetric ranges to be specified by the absolute values
             if (prop === "range" || prop === "gridRange") {
-                if (val.constructor === Array) {
-                    // but don't mandate symmetric ranges
-                    if (val[0].constructor !== Array) {
-                        options[prop] = [
-                            [-val[0], val[0]],
-                            [-val[1], val[1]],
-                        ];
-                    }
-                } else if (typeof val === "number") {
-                    options[prop] = [
-                        [-val, val],
-                        [-val, val],
-                    ];
-                }
+                options[prop] = normalizeRange(options[prop])
+                // if (val.constructor === Array) {
+                //     // but don't mandate symmetric ranges
+                //     if (val[0].constructor !== Array) {
+                //         options[prop] = [
+                //             [-val[0], val[0]],
+                //             [-val[1], val[1]],
+                //         ];
+                //     }
+                // } else if (typeof val === "number") {
+                //     options[prop] = [
+                //         [-val, val],
+                //         [-val, val],
+                //     ];
+                // }
             }
         }
 
-        const range = options.range || [
+        const range = normalizeRange(options.range || [
             [-10, 10],
             [-10, 10],
-        ];
-        const gridRange = options.gridRange || options.range;
+        ]);
+        const gridRange = normalizeRange(options.gridRange || range);
         const scale = options.scale || [20, 20];
         const grid = options.grid != null ? options.grid : true;
         const gridOpacity = options.gridOpacity || 0.1;
-        const gridStep = options.gridStep || [1, 1];
+        const gridStep = toPair(options.gridStep || [1, 1]);
         const axes = options.axes != null ? options.axes : true;
         const axisArrows = options.axisArrows || "";
         const axisOpacity = options.axisOpacity || 1.0;
@@ -1406,6 +1433,57 @@ const labelDirections = {
     left: [-1.0, -0.5],
     "above left": [-1.0, -1.0],
 } as const;
+
+// A range for a Graphie can be specified in one of three forms:
+// - A pair of intervals, [[xMin, xMax], [yMin, yMax]]. This is the
+//   "normalized" form.
+// - A pair of magnitudes for the x and y ranges, respectively. E.g. [5, 10]
+//   is equivalent to [[-5, 5], [-10, 10]].
+// - A single magnitude to be used for both x and y. E.g. 10 is equivalent to
+//   [[-10, 10], [-10, 10]]
+type RangeSpecifier = [Interval, Interval] | Coord | number;
+
+// Overload normalizeRange to specify that it only returns undefined if its
+// argument is undefined.
+export function normalizeRange(range: RangeSpecifier): [Interval, Interval];
+export function normalizeRange(range: RangeSpecifier | undefined): [Interval, Interval] | undefined;
+
+// normalizeRange converts a RangeSpecifier into a pair of Intervals that give
+// the x and y ranges, respectively
+export function normalizeRange(range: RangeSpecifier | undefined): [Interval, Interval] | undefined {
+    function normalizeInterval(magnitude: number | Interval): Interval {
+        if (typeof magnitude === "number") {
+            return [-magnitude, magnitude];
+        } else {
+            return magnitude
+        }
+    }
+
+    function getXAndYRanges(range: RangeSpecifier): Coord | [Interval, Interval] {
+        if (Array.isArray(range)) {
+            return range;
+        } else {
+            return [range, range];
+        }
+    }
+
+    if (range == null) {
+        return range;
+    }
+
+    const [xRange, yRange] = getXAndYRanges(range);
+    return [
+        normalizeInterval(xRange),
+        normalizeInterval(yRange),
+    ];
+}
+
+function toPair(x: number | [number, number]): [number, number] {
+    if (Array.isArray(x)) {
+        return x;
+    }
+    return [x, x];
+}
 
 /**
  * Safari applies some SVG-specific styles to things that are not SVGs, so we
