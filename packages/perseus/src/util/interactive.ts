@@ -31,11 +31,11 @@ import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 
 import KhanColors from "./colors";
+import {clockwise, reverseVector, sumVectors} from "./geometry";
 import GraphUtils, {polar} from "./graphie";
-import KhanMath, {sum} from "./math";
+import KhanMath from "./math";
 
 import type {Coord} from "../interactive2/types";
-import {clockwise, reverseVector, sumVectors} from "./geometry";
 
 export type MouseHandler = (position: Coord) => void;
 

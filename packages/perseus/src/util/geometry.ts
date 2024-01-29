@@ -7,8 +7,9 @@ import _ from "underscore";
 
 import Util from "../util";
 
-import type {Coord, Line} from "../interactive2/types";
 import {sum} from "./math";
+
+import type {Coord, Line} from "../interactive2/types";
 
 const {eq, deepEq} = Util;
 
@@ -85,11 +86,11 @@ export function vector(a, b) {
 }
 
 export function sumVectors(...points: Coord[]): Coord {
-    return points.reduce(addVectors, [0, 0])
+    return points.reduce(addVectors, [0, 0]);
 }
 
 export function addVectors(a: Coord, b: Coord): Coord {
-    return [a[0] + b[0], a[1] + b[1]]
+    return [a[0] + b[0], a[1] + b[1]];
 }
 
 export function reverseVector(vector: Coord): Coord {

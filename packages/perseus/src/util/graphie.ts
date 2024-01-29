@@ -4,6 +4,7 @@ import {
     vector as kvector,
     number as knumber,
 } from "@khanacademy/kmath";
+import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
@@ -24,7 +25,6 @@ import Tex from "./tex";
 
 import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
-import {entries} from "@khanacademy/wonder-stuff-core";
 
 const {processMath} = Tex;
 
@@ -39,9 +39,9 @@ export function polar(r: number | Coord, th: number): Coord {
 interface RaphaelElement {
     node: {
         style: {
-            shapeRendering: "crispEdges" | "geometricPrecision"
-        }
-    }
+            shapeRendering: "crispEdges" | "geometricPrecision";
+        };
+    };
 }
 
 interface RaphaelSet {
@@ -52,13 +52,13 @@ interface RaphaelSet {
 type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
 
 export type StyleParams = {
-    fill?: string,
-    labelDistance?: number,
-    opacity?: number,
-    step?: Coord,
-    stroke?: string,
-    strokeWidth?: number,
-}
+    fill?: string;
+    labelDistance?: number;
+    opacity?: number;
+    step?: Coord;
+    stroke?: string;
+    strokeWidth?: number;
+};
 
 type LabelPosition =
     | "center"
@@ -822,11 +822,7 @@ export class Graphie {
         });
     }
 
-    line(
-        start: Coord,
-        end: Coord,
-        style?: StyleParams,
-    ): RaphaelElement {
+    line(start: Coord, end: Coord, style?: StyleParams): RaphaelElement {
         return this.withStyle(style, () => {
             const l = this.unstyledPath([start, end]);
 
@@ -1183,7 +1179,7 @@ export class Graphie {
                 computeSine(x1),
             ];
 
-            const points = _.zip(xCoords, yCoords) as Coord[]
+            const points = _.zip(xCoords, yCoords) as Coord[];
 
             // Zip and scale
             return _.map(points, this.scalePoint);
