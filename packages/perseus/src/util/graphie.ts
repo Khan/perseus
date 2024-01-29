@@ -24,6 +24,7 @@ import Tex from "./tex";
 
 import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
+import {entries} from "@khanacademy/wonder-stuff-core";
 
 const {processMath} = Tex;
 
@@ -178,14 +179,13 @@ export class Graphie {
     // - labelStep: [a, b] or number (relative to tick steps)
     // - yLabelFormat: fn to format label string for y-axis
     // - xLabelFormat: fn to format label string for x-axis
-    graphInit(options: any) {
+    graphInit(options: Record<string, any>) {
         options = options || {};
 
-        $.each(options, function (prop, val: any) {
+        for (const [prop, val] of entries(options)) {
             // allow options to be specified by a single number for shorthand if
             // the horizontal and vertical components are the same
             if (
-                // @ts-expect-error - TS2339 - Property 'match' does not exist on type 'string | number | symbol'.
                 !prop.match(/.*Opacity$/) &&
                 prop !== "range" &&
                 typeof val === "number"
@@ -210,7 +210,7 @@ export class Graphie {
                     ];
                 }
             }
-        });
+        }
 
         const range = options.range || [
             [-10, 10],
@@ -371,7 +371,7 @@ export class Graphie {
                     opacity: options.isMobile ? 1 : tickOpacity,
                     strokeWidth: 1,
                 },
-                function () {
+                () => {
                     // horizontal axis
                     let step = gridStep[0] * tickStep[0];
                     let len = tickLen[0] / scale[1];
@@ -429,7 +429,6 @@ export class Graphie {
                             y += step
                         ) {
                             if (y < stop || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.line(
                                     [-len + axisCenter[0], y],
                                     [
@@ -448,7 +447,6 @@ export class Graphie {
                             y -= step
                         ) {
                             if (y > start || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.line(
                                     [-len + axisCenter[0], y],
                                     [
@@ -733,7 +731,6 @@ export class Graphie {
     }
 
     private unstyledPath(points: Coord[]): RaphaelElement {
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const p = this.raphael.path(this.svgPath(points));
         p.graphiePath = points;
         return p;
@@ -1029,7 +1026,7 @@ export class Graphie {
             }
 
             const paths = this.raphael.set();
-            let points = [];
+            let points: Coord[] = [];
             let lastY = clippedFn(min)[1];
 
             for (let t = min; t <= max; t += step) {
@@ -1052,7 +1049,6 @@ export class Graphie {
                     points = [];
                 } else {
                     // otherwise, just add the point to the path
-                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     points.push(point);
                 }
 
@@ -1083,7 +1079,7 @@ export class Graphie {
         });
     }
 
-    svgPath = (points: any, alreadyScaled) => {
+    svgPath = (points: (Coord | true)[], alreadyScaled?: boolean) => {
         return $.map(points, (point, i) => {
             if (point === true) {
                 return "z";
@@ -1105,11 +1101,10 @@ export class Graphie {
 
         // If points are collinear, plot a line instead
         if (a === 0) {
-            const points = [
+            const points: Coord[] = [
                 [this.bounds().xMin, computeParabola(this.bounds().xMin)],
                 [this.bounds().xMax, computeParabola(this.bounds().xMax)],
             ];
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             return this.svgPath(points);
         }
 
@@ -1129,16 +1124,15 @@ export class Graphie {
         const point = [xPoint, computeParabola(xPoint)];
 
         // Calculate SVG 'control' point, defined by spec
-        const control = [vertex[0], vertex[1] - (point[1] - vertex[1])];
+        const control: Coord = [vertex[0], vertex[1] - (point[1] - vertex[1])];
 
         // Calculate mirror points across parabola's axis of symmetry
         const dx = Math.abs(vertex[0] - point[0]);
-        const left = [vertex[0] - dx, point[1]];
-        const right = [vertex[0] + dx, point[1]];
+        const left: Coord = [vertex[0] - dx, point[1]];
+        const right: Coord = [vertex[0] + dx, point[1]];
 
         // Scale and bound
-        // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
-        const points = _.map([left, control, right], this.scalePoint);
+        const points = [left, control, right].map(this.scalePoint);
         const values = _.map(_.flatten(points), KhanMath.bound);
         return (
             "M" +
@@ -1189,9 +1183,10 @@ export class Graphie {
                 computeSine(x1),
             ];
 
+            const points = _.zip(xCoords, yCoords) as Coord[]
+
             // Zip and scale
-            // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
-            return _.map(_.zip(xCoords, yCoords), this.scalePoint);
+            return _.map(points, this.scalePoint);
         };
 
         // How many quarter-periods do we need to span the graph?
@@ -1392,8 +1387,7 @@ export class Graphie {
             if (typeof transformer === "function") {
                 $.extend(processed, transformer(value));
             } else {
-                const dasherized = key
-                    // @ts-expect-error - TS2339 - Property 'replace' does not exist on type 'string | number | symbol'.
+                const dasherized = String(key)
                     .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
                     .replace(/([a-z\d])([A-Z])/g, "$1-$2")
                     .toLowerCase();
