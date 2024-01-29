@@ -94,6 +94,8 @@ interface RaphaelSet {
     attr(attributes: Record<string, any>): unknown;
 }
 
+type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
+
 export class Graphie {
     el: HTMLElement;
     #bounds?: GraphBounds;
@@ -626,7 +628,7 @@ export class Graphie {
         radii: Coord,
         scale: number,
         padding: number,
-    ): {wrapper: HTMLDivElement; visibleShape: RaphaelElement} {
+    ): PositionedShape {
         throw new Error("fixedEllipse called on uninitialized Graphie");
     }
 
@@ -649,7 +651,7 @@ export class Graphie {
         points: Coord[],
         center: Coord,
         toSvgPath: (scaledPoints: Coord[]) => string,
-    ): {wrapper: HTMLDivElement; visibleShape: any} {
+    ): PositionedShape {
         throw new Error("fixedPath called on uninitialized Graphie");
     }
 
@@ -672,11 +674,7 @@ export class Graphie {
         style?: Record<string, any>,
     ): RaphaelElement {}
 
-    fixedLine(
-        start: Coord,
-        end: Coord,
-        thickness: number,
-    ): {wrapper: HTMLDivElement; visibleShape: any} {
+    fixedLine(start: Coord, end: Coord, thickness: number): PositionedShape {
         throw new Error("fixedLine called on uninitialized Graphie");
     }
 
