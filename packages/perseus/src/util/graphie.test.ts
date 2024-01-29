@@ -763,9 +763,11 @@ describe("Graphie drawing tools", () => {
 
             graphie.parabola(1, 2, 3);
 
-            expect(graphie.raphael.path).toHaveBeenCalledWith(
-                expect.stringContaining("Q"),
-            );
+            expect(graphie.raphael.path.mock.calls[0]).toMatchInlineSnapshot(`
+                [
+                  "M-60,-565 Q-5,645 50,-565",
+                ]
+            `);
         });
 
         it("uses the style, if given", () => {
