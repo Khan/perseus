@@ -51,15 +51,6 @@ const GraphUtils: any = {
     },
 
     /**
-     * Return the difference between two sets of coordinates
-     */
-    coordDiff: function (startCoord, endCoord) {
-        return _.map(endCoord, function (val, i) {
-            return endCoord[i] - startCoord[i];
-        });
-    },
-
-    /**
      * Round the given coordinates to a given snap value
      * (e.g., nearest 0.2 increment)
      */
@@ -1419,12 +1410,7 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         return $span;
     }
 
-    function plotParametric(
-        fn: (t: number) => Coord,
-        range,
-        shade,
-        fn2: (t: number) => Coord = (t) => [t, 0],
-    ) {
+    function plotParametric(fn: (t: number) => Coord, range) {
         // Note: fn2 should only be set if 'shade' is true, as it denotes
         // the function between which fn should have its area shaded.
         // In general, plotParametric shouldn't be used to shade the area
@@ -1436,14 +1422,13 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         // overflow in the firefox svg renderer.  This is safe
         // since 500,000 is outside the viewport anyway.  We
         // write these functions the way we do to handle undefined.
-        const clipper = (xy) => {
+        const clip = (xy) => {
             if (Math.abs(xy[1]) > 500000) {
                 return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
             }
             return xy;
         };
-        const clippedFn = (x) => clipper(fn(x));
-        const clippedFn2 = (x: number) => clipper(fn2(x));
+        const clippedFn = (x) => clip(fn(x));
 
         if (!thisGraphie.currentStyle.strokeLinejoin) {
             thisGraphie.currentStyle.strokeLinejoin = "round";
@@ -1462,66 +1447,41 @@ GraphUtils.createGraphie = function (el: any): Graphie {
 
         const paths = thisGraphie.raphael.set();
         let points = [];
-        let lastDiff = GraphUtils.coordDiff(clippedFn(min), clippedFn2(min));
+        let lastY = clippedFn(min)[1];
 
-        let lastFlip = min;
         for (let t = min; t <= max; t += step) {
-            const top = clippedFn(t);
-            const bottom = clippedFn2(t);
-            const diff = GraphUtils.coordDiff(top, bottom);
+            const point = clippedFn(t);
+            const y = point[1];
 
             // Find points where it flips
-            // Create path that sketches area between the two functions
             if (
                 // if there is an asymptote here, meaning that the graph
                 // switches signs and has a large difference
-                (diff[1] < 0 !== lastDiff[1] < 0 &&
-                    Math.abs(diff[1] - lastDiff[1]) >
+                (y > 0 !== lastY > 0 &&
+                    Math.abs(y - lastY) >
                         2 * thisGraphie.drawingTransform().pixelsPerUnitY()) ||
                 // or the function is undefined
-                isNaN(diff[1])
+                isNaN(y)
             ) {
                 // split the path at this point, and draw it
-                if (shade) {
-                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                    points.push(top);
-
-                    // backtrack to draw paired function
-                    for (let u = t - step; u >= lastFlip; u -= step) {
-                        // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                        points.push(clippedFn2(u));
-                    }
-                    lastFlip = t;
-                }
                 paths.push(path(points));
                 // restart the path, excluding this point
                 points = [];
-                if (shade) {
-                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                    points.push(top);
-                }
             } else {
                 // otherwise, just add the point to the path
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                points.push(top);
+                points.push(point);
             }
 
-            lastDiff = diff;
+            lastY = y;
         }
 
-        if (shade) {
-            // backtrack to draw paired function
-            for (let u = max - step; u >= lastFlip; u -= step) {
-                // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                points.push(clippedFn2(u));
-            }
-        }
         paths.push(path(points));
 
         return paths;
     }
 
-    function plot(fn, range, swapAxes, shade, fn2) {
+    function plot(fn, range, swapAxes) {
         const min = range[0];
         const max = range[1];
         if (!thisGraphie.currentStyle["plot-points"]) {
@@ -1532,46 +1492,13 @@ GraphUtils.createGraphie = function (el: any): Graphie {
         }
 
         if (swapAxes) {
-            if (fn2) {
-                // TODO(charlie): support swapped axis area shading
-                throw new PerseusError(
-                    "Can't shade area between functions with swapped axes.",
-                    Errors.Internal,
-                );
-            }
-            return plotParametric(
-                function (y) {
-                    return [fn(y), y];
-                },
-                range,
-                shade,
-            );
+            return plotParametric(function (y) {
+                return [fn(y), y];
+            }, range);
         }
-        if (fn2) {
-            if (shade) {
-                return plotParametric(
-                    function (x) {
-                        return [x, fn(x)];
-                    },
-                    range,
-                    shade,
-                    function (x) {
-                        return [x, fn2(x)];
-                    },
-                );
-            }
-            throw new PerseusError(
-                "fn2 should only be set when 'shade' is True.",
-                Errors.Internal,
-            );
-        }
-        return plotParametric(
-            function (x) {
-                return [x, fn(x)];
-            },
-            range,
-            shade,
-        );
+        return plotParametric(function (x) {
+            return [x, fn(x)];
+        }, range);
     }
 
     const drawingTools = {
