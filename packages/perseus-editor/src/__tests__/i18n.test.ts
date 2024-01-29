@@ -8,7 +8,7 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 const exerciseImagesEverywhere = {
     question: {
         content:
-            "![question-a](question-a)\n\n![question-b](question-b)\n\n[[☃ categorizer 1]]\n\n[[☃ group 1]]\n\n[[☃ image 1]]\n\n[[☃ matcher 1]]\n\n[[☃ matrix 1]]\n\n[[☃ orderer 1]]\n\n[[☃ passage 1]]\n\n[[☃ radio 1]]\n\n[[☃ sorter 1]]\n\n[[☃ table 1]]\n\n[[☃ grapher 1]]\n\n[[☃ interactive-graph 1]]\n\n[[☃ measurer 1]]\n\n[[☃ plotter 1]]\n\n[[☃ transformer 1]]",
+            "![question-a](question-a)\n\n![question-b](question-b)\n\n[[☃ categorizer 1]]\n\n[[☃ group 1]]\n\n[[☃ image 1]]\n\n[[☃ matcher 1]]\n\n[[☃ matrix 1]]\n\n[[☃ orderer 1]]\n\n[[☃ passage 1]]\n\n[[☃ radio 1]]\n\n[[☃ sorter 1]]\n\n[[☃ table 1]]\n\n[[☃ grapher 1]]\n\n[[☃ interactive-graph 1]]\n\n[[☃ measurer 1]]\n\n[[☃ plotter 1]]",
         images: {},
         widgets: {
             "categorizer 1": {
@@ -295,89 +295,6 @@ const exerciseImagesEverywhere = {
                 },
                 version: {major: 0, minor: 0},
             },
-            "transformer 1": {
-                type: "transformer",
-                graded: true,
-                options: {
-                    starting: {
-                        shape: {
-                            type: "polygon-3",
-                            coords: [
-                                [2, 2],
-                                [2, 6],
-                                [7, 2],
-                            ],
-                        },
-                        transformations: [],
-                    },
-                    graphMode: "interactive",
-                    listMode: "dynamic",
-                    tools: {
-                        translation: {
-                            enabled: true,
-                            required: false,
-                            constraints: {},
-                        },
-                        rotation: {
-                            enabled: true,
-                            required: false,
-                            constraints: {fixed: false},
-                            coord: [1, 6],
-                        },
-                        reflection: {
-                            enabled: true,
-                            required: false,
-                            constraints: {fixed: false},
-                            coords: [
-                                [2, -4],
-                                [2, 2],
-                            ],
-                        },
-                        dilation: {
-                            enabled: true,
-                            required: false,
-                            constraints: {fixed: false},
-                            coord: [6, 6],
-                        },
-                    },
-                    drawSolutionShape: true,
-                    gradeEmpty: false,
-                    graph: {
-                        range: [
-                            [-10, 10],
-                            [-10, 10],
-                        ],
-                        step: [1, 1],
-                        markings: "grid",
-                        labels: ["x", "y"],
-                        backgroundImage: {
-                            url: "transformer-a",
-                            width: 32,
-                            height: 32,
-                        },
-                        showProtractor: false,
-                        showRuler: false,
-                        rulerLabel: "",
-                        rulerTicks: 10,
-                        gridStep: [1, 1],
-                        snapStep: [0.5, 0.5],
-                    },
-                    version: 1.2,
-                    correct: {
-                        transformations: [],
-                        shape: {
-                            type: ["polygon-3"],
-                            coords: [
-                                [2, 2],
-                                [2, 6],
-                                [7, 2],
-                            ],
-                            options: [{}],
-                        },
-                    },
-                },
-                version: {major: 0, minor: 0},
-            },
         },
     },
     answerArea: {calculator: false},
@@ -504,7 +421,6 @@ const allImages = [
     "interactive-graph-a",
     "measurer-a",
     "plotter-a",
-    "transformer-a",
     "hint1-a",
     "hint1-a",
     "hint1-image-title-a",

@@ -40,7 +40,6 @@ describe("Widget API support", () => {
         "simulator",
         "sorter",
         "table",
-        "transformer",
         "unit-input",
         "video",
     ])("%s widget should provide static validate function", (widgetType) => {

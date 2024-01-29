@@ -1,4 +1,3 @@
-import type {SerializedHighlightSet} from "./components/highlighting/types";
 import type {ILogger} from "./logging/log";
 import type {Item} from "./multi-items/item-types";
 import type {
@@ -92,10 +91,6 @@ export type ChangeHandler = (
         currentValue?: string;
         // perseus-all-package/widgets/dropdown.jsx
         selected?: number;
-        // perseus-all-package/widgets/transformer.jsx
-        tools?: ReadonlyArray<any>;
-        transformations?: ReadonlyArray<any>;
-        highlights?: SerializedHighlightSet;
         // perseus-all-package/widgets/grapher.jsx
         plot?: any;
     },
