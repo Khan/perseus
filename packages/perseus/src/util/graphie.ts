@@ -88,7 +88,15 @@ const GraphUtils: any = {
     graphs: {},
 };
 
-class Graphie {
+type RaphaelElement = any;
+interface RaphaelSet {
+    push(...items: RaphaelElement[]): unknown;
+    attr(attributes: Record<string, any>): unknown;
+}
+
+type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
+
+export class Graphie {
     el: HTMLElement;
     #bounds?: GraphBounds;
     #drawingTransform?: DrawingTransform;
@@ -581,17 +589,131 @@ class Graphie {
         $.extend(this.currentStyle, processed);
     }
 
-    label(point: any, text: any, direction: any, latex?: any) {}
+    grid(
+        xr: Interval,
+        yr: Interval,
+        styleAttributes?: Record<string, any>,
+    ): RaphaelSet {
+        throw new Error("grid called on uninitialized Graphie");
+    }
 
-    grid(xr: any, yr: any, styleAttributes: any) {}
+    // circle is a stub that gets overwritten with a function from drawingTools
+    // in createGraphie
+    circle(
+        center: Coord,
+        radius: number,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
+    // rect is a stub that gets overwritten with a function from drawingTools
+    // in createGraphie
+    rect(
+        left: number,
+        bottom: number,
+        width: number,
+        height: number,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
+    // ellipse is a stub that gets overwritten with a function from drawingTools
+    // in createGraphie
+    ellipse(
+        center: Coord,
+        radii: Coord,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
+    fixedEllipse(
+        center: Coord,
+        radii: Coord,
+        scale: number,
+        padding: number,
+    ): PositionedShape {
+        throw new Error("fixedEllipse called on uninitialized Graphie");
+    }
+
+    arc(
+        center: Coord,
+        radii: Coord,
+        startAngle: number,
+        endAngle: number,
+        sector: boolean,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
 
     // path is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
-    path(points: any) {}
+    path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
+
+    // fixedPath is a stub that gets overwritten with a function from
+    // drawingTools in createGraphie
+    fixedPath(
+        points: Coord[],
+        center: Coord,
+        toSvgPath: (scaledPoints: Coord[]) => string,
+    ): PositionedShape {
+        throw new Error("fixedPath called on uninitialized Graphie");
+    }
+
+    // scaledPath is a stub that gets overwritten with a function from
+    // drawingTools in createGraphie
+    scaledPath(points: Coord[], style?: Record<string, any>): RaphaelElement {}
 
     // line is a stub that gets overwritten with a function from drawingTools
     // in createGraphie
-    line(start: any, end: any) {}
+    line(
+        start: Coord,
+        end: Coord,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
+    parabola(
+        a: number,
+        b: number,
+        c: number,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
+    fixedLine(start: Coord, end: Coord, thickness: number): PositionedShape {
+        throw new Error("fixedLine called on uninitialized Graphie");
+    }
+
+    sinusoid(
+        a: number,
+        b: number,
+        c: number,
+        d: number,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
+    label(
+        point: Coord,
+        text: string,
+        position:
+            | "center"
+            | "above"
+            | "below"
+            | "right"
+            | "left"
+            | "above right"
+            | "above left"
+            | "below right"
+            | "below left",
+        renderTex?: boolean,
+        style?: Record<string, any>,
+    ): any {}
+
+    plotParametric(
+        fn: (t: number) => Coord,
+        range: Interval,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
+
+    plot(
+        fn: (x: number) => number,
+        range: Interval,
+        style?: Record<string, any>,
+    ): RaphaelElement {}
 
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
@@ -851,7 +973,7 @@ const SVG_SPECIFIC_STYLE_MASK = {
     "stroke-width": null,
 } as const;
 
-GraphUtils.createGraphie = function (el: any) {
+GraphUtils.createGraphie = function (el: any): Graphie {
     const thisGraphie = new Graphie(el);
 
     const setLabelMargins = function (span: any, size: Array<any>) {
@@ -1038,8 +1160,8 @@ GraphUtils.createGraphie = function (el: any) {
             center[1] + startVector[1],
         ]);
         const endPoint = thisGraphie.scalePoint([
-            center[0] + endVector[0],
-            center[1] + endVector[1],
+            (center[0] + endVector[0]).toFixed(6),
+            (center[1] + endVector[1]).toFixed(6),
         ]);
 
         const largeAngle = (((endAngle - startAngle) % 360) + 360) % 360 > 180;
@@ -1070,6 +1192,7 @@ GraphUtils.createGraphie = function (el: any) {
         center = center ? thisGraphie.scalePoint(center) : null;
         createPath = createPath || thisGraphie.svgPath;
 
+        // Compute bounding box
         const pathLeft = _.min(_.pluck(points, 0));
         const pathRight = _.max(_.pluck(points, 0));
         const pathTop = _.min(_.pluck(points, 1));
@@ -1079,12 +1202,13 @@ GraphUtils.createGraphie = function (el: any) {
         const padding = [4, 4];
 
         // Calculate and apply additional offset
-        const extraOffset = [pathLeft, pathTop];
+        const topLeftOfBoundingBox = [pathLeft, pathTop];
 
-        // Apply padding and offset to points
+        // Apply padding and offset to points to convert from
+        // canvas coordinates to pixel coordinates relative to bounding box
         points = _.map(points, function (point) {
             return kvector.add(
-                kvector.subtract(point, extraOffset),
+                kvector.subtract(point, topLeftOfBoundingBox),
                 kvector.scale(padding, 0.5),
             );
         });
@@ -1092,8 +1216,8 @@ GraphUtils.createGraphie = function (el: any) {
         // Calculate <div> dimensions
         const width = pathRight - pathLeft + padding[0];
         const height = pathBottom - pathTop + padding[1];
-        const left = extraOffset[0] - padding[0] / 2;
-        const top = extraOffset[1] - padding[1] / 2;
+        const left = topLeftOfBoundingBox[0] - padding[0] / 2;
+        const top = topLeftOfBoundingBox[1] - padding[1] / 2;
 
         // Create <div>
         const wrapper = document.createElement("div");
