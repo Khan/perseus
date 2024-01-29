@@ -31,6 +31,7 @@ import type {
     PerseusImageWidgetOptions,
     PerseusInputNumberWidgetOptions,
 } from "../perseus-types";
+import type {APIOptions} from "../types";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
 // because one of it's "instance" methods is created using `debounce` and Jest
@@ -293,7 +294,7 @@ describe("renderer", () => {
         it("should call the getAllWidgetsStartProps callback if provided in apiOptions", () => {
             // Arrange
             const getAllWidgetsStartProps = jest.fn();
-            const apiOptions: Record<string, any> = {getAllWidgetsStartProps};
+            const apiOptions: APIOptions = {getAllWidgetsStartProps};
 
             // Act
             renderQuestion(mockedRandomItem, apiOptions);

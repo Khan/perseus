@@ -227,7 +227,7 @@ export type APIOptions = Readonly<{
     // after they have been transformed by the widget's transform function.
     // This is useful for when we need to know how a widget has shuffled its
     // the available choices.
-    getAllWidgetsStartProps?: (widgets: any) => any;
+    getAllWidgetsStartProps?: (widgets: PerseusWidgetMap) => PerseusWidgetMap;
 }>;
 
 type TeXProps = {
@@ -452,6 +452,10 @@ export type WidgetExports<
 
     widget: T;
 }>;
+
+export type PerseusWidgetMap = {
+    [key: string]: PerseusWidget;
+};
 
 export type FilterCriterion =
     | string
