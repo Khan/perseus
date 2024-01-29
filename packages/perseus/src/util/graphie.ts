@@ -634,7 +634,7 @@ export class Graphie {
 
     arc(
         center: Coord,
-        radius: Coord,
+        radii: Coord,
         startAngle: number,
         endAngle: number,
         sector: boolean,
