@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 19.0.0
+
+### Major Changes
+
+-   [#915](https://github.com/Khan/perseus/pull/915) [`98bf2106`](https://github.com/Khan/perseus/commit/98bf2106e0ae56f37f3c0c2d0a5563802e4db62d) Thanks [@nixterrimus](https://github.com/nixterrimus)! - Remove Transformer widget and replace with a standin widget
+
 ## 18.0.1
 
 ### Patch Changes
