@@ -1103,11 +1103,8 @@ export class Graphie {
     plot(
         fn: (x: number) => number,
         range: Interval,
-        arg3?: boolean | Record<string, any>,
-        arg4?: Record<string, any>,
+        style?: Record<string, any>,
     ): RaphaelElement {
-        const swapAxes = typeof arg3 === "boolean" ? arg3 : false;
-        const style = typeof arg3 === "object" ? arg3 : arg4;
         return this.withStyle(style, () => {
             const min = range[0];
             const max = range[1];
@@ -1116,9 +1113,7 @@ export class Graphie {
                     2 * (max - min) * this.drawingTransform().pixelsPerUnitX();
             }
 
-            const parametricFn = swapAxes
-                ? (y): Coord => [fn(y), y]
-                : (x): Coord => [x, fn(x)];
+            const parametricFn = (x): Coord => [x, fn(x)];
             return this.plotParametric(parametricFn, range);
         });
     }
