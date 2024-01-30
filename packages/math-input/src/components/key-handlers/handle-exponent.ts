@@ -1,4 +1,3 @@
-import {getCursor} from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
 import {MathFieldActionType} from "../input/mathquill-types";
 
@@ -12,7 +11,7 @@ export default function handleExponent(
     mathField: MathFieldInterface,
     key: Key,
 ) {
-    const cursor = getCursor(mathField);
+    const cursor = mathField.cursor();
     // If there's an invalid operator preceding the cursor (anything that
     // knowingly cannot be raised to a power), add an empty set of
     // parentheses and apply the exponent to that.

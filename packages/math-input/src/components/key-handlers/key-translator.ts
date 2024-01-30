@@ -106,7 +106,7 @@ const keyToMathquillMap: Record<Key, MathFieldUpdaterCallback> = {
     },
 
     FRAC_EXCLUSIVE: (mathQuill) => {
-        const cursor = mathQuill.__controller.cursor;
+        const cursor = mathQuill.cursor();
         // If there's nothing to the left of the cursor, then we want to
         // leave the cursor to the left of the fraction after creating it.
         const shouldNavigateLeft =

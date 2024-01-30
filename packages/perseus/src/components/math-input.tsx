@@ -157,7 +157,7 @@ class MathInput extends React.Component<Props, State> {
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
-                        edit: (mathField) => {
+                        edit: (mathField: MathFieldInterface) => {
                             // This handler is guaranteed to be called on change, but
                             // unlike React it sometimes generates false positives.
                             // One of these is on initialization (with an empty string
@@ -184,11 +184,9 @@ class MathInput extends React.Component<Props, State> {
                                 // directly, instead of waiting for `.latex()` to be
                                 // called in `componentDidUpdate()`.
                                 const left =
-                                    mathField.__controller.cursor[
-                                        mathQuillInstance.L
-                                    ];
+                                    mathField.cursor()[mathQuillInstance.L];
                                 if (left && left.ctrlSeq === "\\cdot ") {
-                                    mathField.__controller.backspace();
+                                    mathField.controller().backspace();
                                     mathField.cmd("\\times");
                                 }
                             } else {
@@ -214,7 +212,7 @@ class MathInput extends React.Component<Props, State> {
                                 $(this.__mathFieldWrapperRef).submit();
                             }
                         },
-                        upOutOf: (mathField) => {
+                        upOutOf: (mathField: MathFieldInterface) => {
                             // This handler is called when the user presses the up
                             // arrow key, but there is nowhere in the expression to go
                             // up to (no numerator or exponent). For ease of use,

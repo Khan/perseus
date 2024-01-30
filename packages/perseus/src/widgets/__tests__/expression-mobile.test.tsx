@@ -3,6 +3,7 @@ import {
     KeypadContext,
     StatefulKeypadContextProvider,
     MobileKeypad,
+    mathQuillInstance,
 } from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
@@ -13,7 +14,6 @@ import {
     within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MathQuill from "mathquill";
 import * as React from "react";
 
 import {
@@ -26,7 +26,7 @@ import {registerWidget} from "../../widgets";
 import {expressionItem2} from "../__testdata__/expression.testdata";
 import ExpressionExport from "../expression";
 
-const MQ = MathQuill.getInterface(2);
+const MQ = mathQuillInstance;
 
 function RendererWithContext({item}) {
     return (
@@ -351,10 +351,13 @@ describe("expression mobile", () => {
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
+        const mathquillInstance = MQ(
             // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
+            document.getElementsByClassName(
+                "mq-editable-field",
+            )[0] as HTMLElement,
+        );
 
-        expect(mathquillInstance.latex()).toBe("x=\\sin\\left(9\\right)");
+        expect(mathquillInstance?.latex()).toBe("x=\\sin\\left(9\\right)");
     });
 });

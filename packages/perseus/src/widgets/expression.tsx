@@ -35,28 +35,6 @@ type InputPath = ReadonlyArray<string>;
 const ERROR_TITLE = i18n._("Oops!");
 const ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
-const insertBraces = (value) => {
-    // HACK(alex): Make sure that all LaTeX super/subscripts are wrapped
-    // in curly braces to avoid the mismatch between KAS and LaTeX sup/sub
-    // parsing.
-    //
-    // What exactly is this mismatch? Due to its heritage of parsing plain
-    // text math from <OldExpression />, KAS parses "x^12" as x^(12).
-    // This is both generally what the user expects to happen, and is
-    // consistent with other computer algebra systems. It is NOT
-    // consistent with LaTeX however, where x^12 is equivalent to x^{1}2.
-    //
-    // Since the only LaTeX we parse comes from MathQuill, this wouldn't
-    // be a problem if MathQuill just always gave us the latter version
-    // (with explicit braces). However, instead it always gives the former.
-    // This behavior is baked in pretty deep; my naive attempts at changing
-    // it triggered all sorts of confusing errors. So instead we just make
-    // sure to add in any missing braces before grading MathQuill input.
-    //
-    // TODO(alex): Properly hack MathQuill to always use explicit braces.
-    return value.replace(/([_^])([^{])/g, "$1{$2}");
-};
-
 const anglicizeOperators = (tex: string): string => {
     // sen is used instead of sin in some languages, e.g. Portuguese.
     // To ensure that answers in various languages are graded correctly, we
@@ -65,7 +43,7 @@ const anglicizeOperators = (tex: string): string => {
 };
 
 const normalizeTex = (tex: string): string => {
-    return anglicizeOperators(insertBraces(tex));
+    return anglicizeOperators(tex);
 };
 
 const deriveKeypadVersion = (apiOptions: APIOptions) => {

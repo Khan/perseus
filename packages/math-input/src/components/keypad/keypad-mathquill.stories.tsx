@@ -31,7 +31,7 @@ export function V2KeypadWithMathquill() {
                 (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
-                        edit: (_mathField) => {
+                        edit: (_mathField: MathFieldInterface) => {
                             setCursorContext(getCursorContext(_mathField));
                         },
                     },

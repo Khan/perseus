@@ -140,7 +140,9 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2=c^2");
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "a^{2}+b^{2}=c^{2}",
+        );
     });
 
     it("can write the Pythagorean theorem (complex)", () => {
@@ -177,7 +179,7 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
-            "c=\\sqrt{a^2+b^2}",
+            "c=\\sqrt{a^{2}+b^{2}}",
         );
     });
 
@@ -202,10 +204,12 @@ describe("Keypad v2 with MathQuill", () => {
         userEvent.click(screen.getByRole("button", {name: "b"}));
         userEvent.click(screen.getByRole("tab", {name: "Operators"}));
         userEvent.click(screen.getByRole("button", {name: "Square"}));
-        userEvent.type(screen.getByRole("textbox"), "=c^2");
+        userEvent.type(screen.getByRole("textbox"), "=c^{2}");
 
         // Assert
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2=c^2");
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "a^{2}+b^{2}=c^{2}",
+        );
     });
 
     it("deletes from the input using the backspace button", () => {
@@ -242,7 +246,9 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Assert
         // make sure the formula was typed correctly
-        expect(mockMathInputCallback).toHaveBeenLastCalledWith("a^2+b^2=c^2");
+        expect(mockMathInputCallback).toHaveBeenLastCalledWith(
+            "a^{2}+b^{2}=c^{2}",
+        );
 
         userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
         // delete: need 14 backspaces in MathQuill to delete `a^2+b^2=c^2`

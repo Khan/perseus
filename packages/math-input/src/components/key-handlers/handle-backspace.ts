@@ -6,7 +6,6 @@ import {
     isInsideLogIndex,
     isInsideEmptyNode,
     selectNode,
-    getCursor,
     maybeFindCommandBeforeParens,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
@@ -52,7 +51,8 @@ function handleBackspaceInRootIndex(
 
         selectNode(grandparent, cursor);
 
-        const rootIsEmpty = grandparent.blocks[1].jQ.text() === "";
+        const rootIsEmpty =
+            (grandparent.blocks[1]._el as HTMLElement).textContent === "";
 
         if (rootIsEmpty) {
             // If there is not content under the root then simply delete
@@ -70,7 +70,7 @@ function handleBackspaceInRootIndex(
 
             // Adjust the cursor to be to the left the sqrt.
             if (reinsertionPoint === MathFieldActionType.MQ_END) {
-                mathField.moveToDirEnd(mathQuillInstance.L);
+                mathField.moveToLeftEnd();
             } else {
                 cursor.insRightOf(reinsertionPoint);
             }
@@ -107,9 +107,8 @@ function handleBackspaceInLogIndex(
 
         cursor.select();
         cursor.endSelection();
-
         const isLogBodyEmpty =
-            grandparent[mathQuillInstance.R].contentjQ.text() === "";
+            grandparent[mathQuillInstance.R]._el.textContent === "";
 
         if (isLogBodyEmpty) {
             // If there's no content inside the log's parens then delete the
@@ -198,7 +197,7 @@ function handleBackspaceInsideParens(
 
     if (grandparent[mathQuillInstance.L].sub) {
         // if there is a subscript
-        if (grandparent[mathQuillInstance.L].sub.jQ.text()) {
+        if (grandparent[mathQuillInstance.L].sub._el.textContent) {
             // and it contains text
             // move the cursor to the right end of the subscript
             cursor.insAtRightEnd(grandparent[mathQuillInstance.L].sub);
@@ -237,7 +236,7 @@ function handleBackspaceAfterLigaturedSymbol(mathField: MathFieldInterface) {
  * See inline comments for precise behavior of different cases.
  */
 function handleBackspace(mathField: MathFieldInterface) {
-    const cursor = getCursor(mathField);
+    const cursor = mathField.cursor();
     if (!cursor.selection) {
         const parent = cursor.parent;
         const grandparent = parent.parent;

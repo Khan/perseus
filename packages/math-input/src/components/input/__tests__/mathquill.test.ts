@@ -35,23 +35,23 @@ describe("MathQuill", () => {
         });
 
         it("should work after an expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.pressKey("FRAC_INCLUSIVE");
-            expect(mathField.getContent()).toEqual("\\frac{35x^2}{ }");
+            expect(mathField.getContent()).toEqual("\\frac{35x^{2}}{ }");
         });
 
         it("should work before an expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.moveToStart();
             mathField.pressKey("FRAC_INCLUSIVE");
-            expect(mathField.getContent()).toEqual("\\frac{ }{ }35x^2");
+            expect(mathField.getContent()).toEqual("\\frac{ }{ }35x^{2}");
         });
 
         it("should work with a selected expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.selectAll();
             mathField.pressKey("FRAC_INCLUSIVE");
-            expect(mathField.getContent()).toEqual("\\frac{35x^2}{ }");
+            expect(mathField.getContent()).toEqual("\\frac{35x^{2}}{ }");
         });
     });
 
@@ -63,30 +63,30 @@ describe("MathQuill", () => {
         });
 
         it("should work after an expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.pressKey("RIGHT_PAREN");
-            expect(mathField.getContent()).toEqual("\\left(35x^2\\right)");
+            expect(mathField.getContent()).toEqual("\\left(35x^{2}\\right)");
         });
 
         it("should work before an expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.moveToStart();
             mathField.pressKey("LEFT_PAREN");
-            expect(mathField.getContent()).toEqual("\\left(35x^2\\right)");
+            expect(mathField.getContent()).toEqual("\\left(35x^{2}\\right)");
         });
 
         it.skip("should work on a selected expression", () => {
             mathField.setContent("35x + 5");
             mathField.selectAll();
             mathField.pressKey("LEFT_PAREN");
-            expect(mathField.getContent()).toEqual("\\left(35x^2\\right)");
+            expect(mathField.getContent()).toEqual("\\left(35x^{2}\\right)");
         });
     });
 
     describe("Squared", () => {
         it("should prefix with empty parens after no content", () => {
             mathField.pressKey("EXP_2");
-            expect(mathField.getContent()).toEqual("\\left(\\right)^2");
+            expect(mathField.getContent()).toEqual("\\left(\\right)^{2}");
 
             // Verify that the cursor is in parens.
             expect(isInsideEmptyParens(mathField.getCursor())).toBeTruthy();
@@ -95,27 +95,27 @@ describe("MathQuill", () => {
         it("should prefix with empty parens after an operator", () => {
             mathField.pressKey("DIVIDE");
             mathField.pressKey("EXP_2");
-            expect(mathField.getContent()).toEqual("\\div\\left(\\right)^2");
+            expect(mathField.getContent()).toEqual("\\div\\left(\\right)^{2}");
         });
 
         it("should work after an expression", () => {
             mathField.setContent("35x");
             mathField.pressKey("EXP_2");
-            expect(mathField.getContent()).toEqual("35x^2");
+            expect(mathField.getContent()).toEqual("35x^{2}");
         });
 
         it.skip("should work on a selected expression", () => {
             mathField.setContent("35x+5");
             mathField.selectAll();
             mathField.pressKey("EXP_2");
-            expect(mathField.getContent()).toEqual("\\left(35x+5\\right)^2");
+            expect(mathField.getContent()).toEqual("\\left(35x+5\\right)^{2}");
         });
     });
 
     describe("Cubed", () => {
         it("should prefix with empty parens after no content", () => {
             mathField.pressKey("EXP_3");
-            expect(mathField.getContent()).toEqual("\\left(\\right)^3");
+            expect(mathField.getContent()).toEqual("\\left(\\right)^{3}");
 
             // Verify that the cursor is in parens.
             expect(isInsideEmptyParens(mathField.getCursor())).toBeTruthy();
@@ -124,20 +124,20 @@ describe("MathQuill", () => {
         it("should prefix with empty parens after an operator", () => {
             mathField.pressKey("EQUAL");
             mathField.pressKey("EXP_3");
-            expect(mathField.getContent()).toEqual("=\\left(\\right)^3");
+            expect(mathField.getContent()).toEqual("=\\left(\\right)^{3}");
         });
 
         it("should work after an expression", () => {
             mathField.setContent("35x");
             mathField.pressKey("EXP_3");
-            expect(mathField.getContent()).toEqual("35x^3");
+            expect(mathField.getContent()).toEqual("35x^{3}");
         });
 
         it.skip("should work on a selected expression", () => {
             mathField.setContent("35x+5");
             mathField.selectAll();
             mathField.pressKey("EXP_3");
-            expect(mathField.getContent()).toEqual("\\left(35x+5\\right)^3");
+            expect(mathField.getContent()).toEqual("\\left(35x+5\\right)^{3}");
         });
     });
 
@@ -150,7 +150,7 @@ describe("MathQuill", () => {
             // writing a unique character to verify cursor position.
             expect(isInsideEmptyParens(mathField.getCursor())).toBeFalsy();
             mathField.pressKey("PLUS");
-            expect(mathField.getContent()).toEqual("\\left(\\right)^+");
+            expect(mathField.getContent()).toEqual("\\left(\\right)^{+}");
         });
 
         it("should prefix with empty parens after an operator", () => {
@@ -181,9 +181,9 @@ describe("MathQuill", () => {
         });
 
         it("should work after an expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.pressKey("SQRT");
-            expect(mathField.getContent()).toEqual("35x^2\\sqrt{ }");
+            expect(mathField.getContent()).toEqual("35x^{2}\\sqrt{ }");
         });
 
         it("should work on a selected expression", () => {
@@ -201,9 +201,9 @@ describe("MathQuill", () => {
         });
 
         it("should work after an expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.pressKey("RADICAL");
-            expect(mathField.getContent()).toEqual("35x^2\\sqrt[]{}");
+            expect(mathField.getContent()).toEqual("35x^{2}\\sqrt[]{}");
         });
 
         it.skip("should work on a selected expression", () => {
@@ -222,9 +222,11 @@ describe("MathQuill", () => {
         });
 
         it("should work after an expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.pressKey("LOG");
-            expect(mathField.getContent()).toEqual("35x^2\\log\\left(\\right)");
+            expect(mathField.getContent()).toEqual(
+                "35x^{2}\\log\\left(\\right)",
+            );
         });
 
         it.skip("should work on a selected expression", () => {
@@ -242,10 +244,10 @@ describe("MathQuill", () => {
         });
 
         it("should work after an expression", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.pressKey("LOG_N");
             expect(mathField.getContent()).toEqual(
-                "35x^2\\log_{ }\\left(\\right)",
+                "35x^{2}\\log_{ }\\left(\\right)",
             );
         });
 
@@ -269,15 +271,15 @@ describe("MathQuill", () => {
         });
 
         it("should convert a fraction when deleting the denominator", () => {
-            mathField.setContent("\\frac{35x^2}{ }");
+            mathField.setContent("\\frac{35x^{2}}{ }");
             mathField.pressKey("LEFT");
             mathField.pressKey("BACKSPACE");
-            expect(mathField.getContent()).toEqual("35x^2");
+            expect(mathField.getContent()).toEqual("35x^{2}");
         });
 
         // TODO(kevinb) math isn't selected
         it("should select a fraction when deleting from outside of it", () => {
-            const expr = "\\frac{35x+5}{x^2}";
+            const expr = "\\frac{35x+5}{x^{2}}";
             mathField.setContent(expr);
             mathField.pressKey("BACKSPACE");
             expect(mathField.isSelected()).toBeTruthy();
@@ -358,9 +360,9 @@ describe("MathQuill", () => {
 
         // TODO(kevinb) fix this behavior so that we delete the exponent too
         it.skip("should not delete squared exponents", () => {
-            mathField.setContent("35x^2");
+            mathField.setContent("35x^{2}");
             mathField.pressKey("BACKSPACE");
-            expect(mathField.getContent()).toEqual("35x^2");
+            expect(mathField.getContent()).toEqual("35x^{2}");
             mathField.pressKey("BACKSPACE");
             expect(mathField.getContent()).toEqual("35x^{ }");
         });
@@ -368,7 +370,7 @@ describe("MathQuill", () => {
         it("should not delete non-square exponents", () => {
             mathField.setContent("35x^5");
             mathField.pressKey("BACKSPACE");
-            expect(mathField.getContent()).toEqual("35x^5");
+            expect(mathField.getContent()).toEqual("35x^{5}");
             mathField.pressKey("BACKSPACE");
             expect(mathField.getContent()).toEqual("35x^{ }");
         });
@@ -592,7 +594,7 @@ describe("MathQuill", () => {
             const cursor = mathField.getCursor();
 
             expect(cursor[MQ.L].ctrlSeq).toEqual("5");
-            expect(mathField.getContent()).toEqual("\\log_5\\left(\\right)");
+            expect(mathField.getContent()).toEqual("\\log_{5}\\left(\\right)");
         });
 
         it("should select full log when deleting from empty index (1)", () => {

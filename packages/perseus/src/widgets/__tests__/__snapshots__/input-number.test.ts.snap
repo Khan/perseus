@@ -181,11 +181,13 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
                 <span
                   class="mq-textarea"
                 >
-                  <span />
+                  <span
+                    aria-label="Math Input:"
+                  />
                 </span>
                 <span
+                  aria-hidden="true"
                   class="mq-root-block mq-empty"
-                  mathquill-block-id="1"
                   style="padding: 10px 11px 8px 11px; font-size: 18pt;"
                 />
               </div>
