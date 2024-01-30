@@ -1,5 +1,9 @@
 /* eslint-disable @babel/no-invalid-this */
-import {point as kpoint, vector as kvector, number as knumber} from "@khanacademy/kmath";
+import {
+    point as kpoint,
+    vector as kvector,
+    number as knumber,
+} from "@khanacademy/kmath";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
@@ -653,7 +657,7 @@ export class Graphie {
             // We round the coordinates to make testing easier, because trig
             // operations return unround numbers.
             // TODO(benchristel): move rounding to scalePoint?
-            const round = (x) => knumber.round(x, 6)
+            const round = (x) => knumber.round(x, 6);
             const startPoint = this.scalePoint([
                 round(center[0] + startVector[0]),
                 round(center[1] + startVector[1]),
