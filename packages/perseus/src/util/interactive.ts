@@ -31,7 +31,7 @@ import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 
 import KhanColors from "./colors";
-import {clockwise, reverseVector, sumVectors} from "./geometry";
+import {clockwise, reverseVector} from "./geometry";
 import GraphUtils, {polar} from "./graphie";
 import KhanMath from "./math";
 
@@ -214,7 +214,7 @@ _.extend(GraphUtils.Graphie.prototype, {
     /**
      * Get mouse coordinates in graph coordinates
      */
-    getMouseCoord: function (event) {
+    getMouseCoord: function (event): Coord {
         return this.unscalePoint(this.getMousePx(event));
     },
 
@@ -260,11 +260,11 @@ _.extend(GraphUtils.Graphie.prototype, {
         const temp: Array<never> = [];
 
         if (Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker) {
-            const v1 = sumVectors(sVertex, scaledPolarDeg(sRadius, startAngle));
-            const v2 = sumVectors(sVertex, scaledPolarDeg(sRadius, endAngle));
+            const v1 = kvector.add(sVertex, scaledPolarDeg(sRadius, startAngle));
+            const v2 = kvector.add(sVertex, scaledPolarDeg(sRadius, endAngle));
 
             sRadius *= Math.SQRT2;
-            const v3 = sumVectors(sVertex, scaledPolarDeg(sRadius, halfAngle));
+            const v3 = kvector.add(sVertex, scaledPolarDeg(sRadius, halfAngle));
 
             _.each([v1, v2], function (v) {
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
@@ -298,7 +298,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             }
 
             const sOffset = scaledPolarDeg(sRadius + 15, halfAngle);
-            const sPosition = sumVectors(sVertex, sOffset);
+            const sPosition = kvector.add(sVertex, sOffset);
             const position = graphie.unscalePoint(sPosition);
 
             // Reuse label if possible
@@ -364,8 +364,8 @@ _.extend(GraphUtils.Graphie.prototype, {
                 );
 
                 const sPath = [
-                    sumVectors(sMidpoint, sOffsetVector, sHeightVector),
-                    sumVectors(
+                    kvector.add(sMidpoint, sOffsetVector, sHeightVector),
+                    kvector.add(
                         sMidpoint,
                         sOffsetVector,
                         reverseVector(sHeightVector),
@@ -405,7 +405,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     sOffsetVector = reverseVector(sOffsetVector);
                 }
 
-                const sEnd = sumVectors(sMidpoint, sOffsetVector);
+                const sEnd = kvector.add(sMidpoint, sOffsetVector);
 
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                 temp.push(graphie.scaledPath([sStart, sEnd], style));
@@ -426,7 +426,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             const sOffset = 20;
             const sOffsetVector = scaledPolarRad(sOffset, perpendicularAngle);
-            const sPosition = sumVectors(sMidpoint, sOffsetVector);
+            const sPosition = kvector.add(sMidpoint, sOffsetVector);
             const position = graphie.unscalePoint(sPosition);
 
             // Reuse label if possible
@@ -491,7 +491,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
         const sRadius = 10 + scaledDistanceFromAngle(360 - angle);
         const sOffsetVector = scaledPolarDeg(sRadius, halfAngle);
-        const sPosition = sumVectors(sVertex, sOffsetVector);
+        const sPosition = kvector.add(sVertex, sOffsetVector);
         const position = graphie.unscalePoint(sPosition);
 
         // Reuse label if possible
@@ -3194,7 +3194,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         return new Ruler(this, options || {});
     },
 
-    sumVectors: sumVectors,
+    addPoints: kvector.add,
 });
 
 function Protractor(graph: any, center: any) {
@@ -3942,13 +3942,13 @@ _.extend(MovableAngle.prototype, {
         points[1].onMove = function (x: number, y: number) {
             const oldVertex = points[1].coord;
             const newVertex: Coord = [x, y];
-            const delta = sumVectors(newVertex, reverseVector(oldVertex));
+            const delta = kvector.add(newVertex, reverseVector(oldVertex));
 
             let valid = true;
             const newPoints: Record<string, any> = {};
             _.each([0, 2], function (i) {
                 const oldPoint = points[i].coord;
-                let newPoint = sumVectors(oldPoint, delta);
+                let newPoint = kvector.add(oldPoint, delta);
 
                 let angle = GraphUtils.findAngle(newVertex, newPoint);
                 angle *= Math.PI / 180;
@@ -3993,7 +3993,7 @@ _.extend(MovableAngle.prototype, {
                         Math.round((angle - snapOffset) / snap) * snap +
                         snapOffset;
                     const distance = GraphUtils.getDistance(newPoint, vertex);
-                    return sumVectors(vertex, polar(distance, angle));
+                    return kvector.add(vertex, polar(distance, angle));
                 }
                 return true;
             };

@@ -1,18 +1,4 @@
-import {clockwise, reverseVector, sumVectors} from "./geometry";
-
-describe("addVectors", () => {
-    it("returns [0, 0] given no vectors", () => {
-        expect(sumVectors()).toEqual([0, 0]);
-    });
-
-    it("sums the components of the vectors", () => {
-        expect(sumVectors([1, 2], [5, 8])).toEqual([6, 10]);
-    });
-
-    it("works with any number of arguments", () => {
-        expect(sumVectors([1, 2], [1, 2], [1, 2], [1, 2])).toEqual([4, 8]);
-    });
-});
+import {clockwise, reverseVector} from "./geometry";
 
 describe("reverseVector", () => {
     it("flips the sign of zero", () => {
