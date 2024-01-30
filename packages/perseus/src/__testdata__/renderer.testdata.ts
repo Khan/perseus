@@ -4,6 +4,7 @@ import type {
     InputNumberWidget,
     PerseusRenderer,
 } from "../perseus-types";
+import type {RenderProps} from "../widgets/radio/widget";
 
 export const dropdownWidget: DropdownWidget = {
     type: "dropdown",
@@ -120,3 +121,154 @@ export const mockedItem: PerseusRenderer = {
         },
     },
 } as PerseusRenderer;
+
+// Note that if this item is used, you _must_ first register the MockWidget
+export const mockedRandomItem: PerseusRenderer = {
+    content: "Mock widgets ==> [[\u2603 radio 1]] [[\u2603 radio 2]]",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {major: 0, minor: 0},
+            static: false,
+            numCorrect: 1,
+            hasNoneOfTheAbove: false,
+            multipleSelect: false,
+            countChoices: false,
+            deselectEnabled: false,
+            type: "radio",
+            options: {
+                static: false,
+                countChoices: false,
+                deselectEnabled: false,
+                displayCount: null,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                randomize: true,
+                choices: [
+                    {
+                        content: "Content 1",
+                        correct: true,
+                    },
+                    {
+                        content: "Content 2",
+                        correct: false,
+                    },
+                    {
+                        content: "Content 3",
+                        correct: false,
+                    },
+                    {
+                        content: "Content 4",
+                        correct: false,
+                    },
+                ],
+            },
+            alignment: "default",
+        },
+        "radio 2": {
+            graded: true,
+            version: {major: 0, minor: 0},
+            static: false,
+            numCorrect: 1,
+            hasNoneOfTheAbove: false,
+            multipleSelect: false,
+            countChoices: false,
+            deselectEnabled: false,
+            type: "radio",
+            options: {
+                static: false,
+                countChoices: false,
+                deselectEnabled: false,
+                displayCount: null,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                randomize: true,
+                choices: [
+                    {
+                        content: "Content 1",
+                        correct: true,
+                    },
+                    {
+                        content: "Content 2",
+                        correct: false,
+                    },
+                    {
+                        content: "Content 3",
+                        correct: false,
+                    },
+                    {
+                        content: "Content 4",
+                        correct: false,
+                    },
+                ],
+            },
+            alignment: "default",
+        },
+    },
+} as PerseusRenderer;
+
+export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
+    "radio 1": {
+        numCorrect: 1,
+        countChoices: false,
+        deselectEnabled: false,
+        hasNoneOfTheAbove: false,
+        multipleSelect: false,
+        choices: [
+            {
+                content: "Content 4",
+                correct: false,
+                originalIndex: 3,
+            },
+            {
+                content: "Content 2",
+                correct: false,
+                originalIndex: 1,
+            },
+            {
+                content: "Content 1",
+                correct: true,
+                originalIndex: 0,
+            },
+
+            {
+                content: "Content 3",
+                correct: false,
+                originalIndex: 2,
+            },
+        ],
+        selectedChoices: [false, false, true, false],
+    },
+    "radio 2": {
+        numCorrect: 1,
+        countChoices: false,
+        deselectEnabled: false,
+        hasNoneOfTheAbove: false,
+        multipleSelect: false,
+        choices: [
+            {
+                content: "Content 4",
+                correct: false,
+                originalIndex: 3,
+            },
+            {
+                content: "Content 2",
+                correct: false,
+                originalIndex: 1,
+            },
+            {
+                content: "Content 1",
+                correct: true,
+                originalIndex: 0,
+            },
+
+            {
+                content: "Content 3",
+                correct: false,
+                originalIndex: 2,
+            },
+        ],
+        selectedChoices: [false, false, true, false],
+    },
+};

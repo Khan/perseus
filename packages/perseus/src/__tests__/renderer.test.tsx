@@ -14,6 +14,8 @@ import {
     question1,
     question2,
     mockedItem,
+    mockedRandomItem,
+    mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {Errors} from "../logging/log";
@@ -29,6 +31,7 @@ import type {
     PerseusImageWidgetOptions,
     PerseusInputNumberWidgetOptions,
 } from "../perseus-types";
+import type {APIOptions} from "../types";
 
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
 // because one of it's "instance" methods is created using `debounce` and Jest
@@ -285,6 +288,20 @@ describe("renderer", () => {
             // Assert
             expect(screen.getByRole("button")).toHaveTextContent(
                 /^less than or equal to$/,
+            );
+        });
+
+        it("should call the onWidgetStartProps callback if provided in apiOptions", () => {
+            // Arrange
+            const onWidgetStartProps = jest.fn();
+            const apiOptions: APIOptions = {onWidgetStartProps};
+
+            // Act
+            renderQuestion(mockedRandomItem, apiOptions);
+
+            // Assert
+            expect(onWidgetStartProps).toHaveBeenCalledWith(
+                mockedShuffledRadioProps,
             );
         });
     });

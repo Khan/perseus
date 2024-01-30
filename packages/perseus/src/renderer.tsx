@@ -1,6 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
@@ -41,6 +42,7 @@ import type {
     FilterCriterion,
     FocusPath,
     PerseusScore,
+    PerseusWidgetMap,
     WidgetProps,
 } from "./types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -485,18 +487,22 @@ class Renderer extends React.Component<Props, State> {
     };
 
     _getAllWidgetsStartProps: (
-        allWidgetInfo: {
-            [key: string]: PerseusWidget;
-        },
+        allWidgetInfo: PerseusWidgetMap,
         props: Props,
-    ) => any = (allWidgetInfo, props) => {
-        // @ts-expect-error - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
-        return mapObject(allWidgetInfo, (widgetInfo) => {
-            return Widgets.getRendererPropsForWidgetInfo(
+    ) => PerseusWidgetMap = (allWidgetInfo, props) => {
+        const {apiOptions, problemNum} = props;
+        const widgetsStartProps: PerseusWidgetMap = {};
+        entries(allWidgetInfo).forEach(([key, widgetInfo]) => {
+            widgetsStartProps[key] = Widgets.getRendererPropsForWidgetInfo(
                 widgetInfo,
-                props.problemNum,
+                problemNum,
             );
         });
+
+        // Call the onWidgetStartProps callback if it exists
+        apiOptions?.onWidgetStartProps?.(widgetsStartProps);
+
+        return widgetsStartProps;
     };
 
     // This is only used in _getWidgetInfo as a fallback if widgetId
