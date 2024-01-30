@@ -123,11 +123,16 @@ export type {
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {
-    InputNumberWidget,
-    MathFormat,
     PerseusAnswerArea,
     PerseusExpressionWidgetOptions,
+    // Utility types
+    Range,
+    Size,
+    MathFormat,
+    InputNumberWidget, // TODO(jeremy): remove?
+    // Widget configuration types
     PerseusImageBackground,
+    PerseusInputNumberWidgetOptions,
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
     PerseusPlotterWidgetOptions,

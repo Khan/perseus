@@ -127,7 +127,7 @@ export type ChangeableProps = {
         values: {
             [key: string]: any;
         },
-        callback?: () => unknown | null | undefined,
+        callback?: (() => unknown) | null | undefined,
         silent?: boolean,
     ) => unknown;
 };
