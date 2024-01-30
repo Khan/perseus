@@ -1470,7 +1470,7 @@ const SVG_SPECIFIC_STYLE_MASK = {
     "stroke-width": null,
 } as const;
 
-const setLabelMargins = function (span: any, size: Array<any>) {
+const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     const $span = $(span);
     const direction = $span.data("labelDirection");
     let [width, height] = size;
