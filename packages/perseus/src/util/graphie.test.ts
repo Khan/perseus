@@ -1260,18 +1260,32 @@ describe("GraphUtils", () => {
 
 describe("normalizeRange", () => {
     it("does nothing to a range specified as [[xMin, xMax], [yMin, yMax]]", () => {
-        expect(normalizeRange([[-1, 2], [-3, 4]])).toEqual([[-1, 2], [-3, 4]])
-    })
+        expect(
+            normalizeRange([
+                [-1, 2],
+                [-3, 4],
+            ]),
+        ).toEqual([
+            [-1, 2],
+            [-3, 4],
+        ]);
+    });
 
     it("treats a single number as the magnitude of min and max for x and y", () => {
-        expect(normalizeRange(7)).toEqual([[-7, 7], [-7, 7]]);
-    })
+        expect(normalizeRange(7)).toEqual([
+            [-7, 7],
+            [-7, 7],
+        ]);
+    });
 
     it("treats a pair of number as the magnitudes for x and y, respectively", () => {
-        expect(normalizeRange([3, 5])).toEqual([[-3, 3], [-5, 5]]);
-    })
+        expect(normalizeRange([3, 5])).toEqual([
+            [-3, 3],
+            [-5, 5],
+        ]);
+    });
 
     it("passes undefined through", () => {
         expect(normalizeRange(undefined)).toBe(undefined);
-    })
-})
+    });
+});

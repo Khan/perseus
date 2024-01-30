@@ -46,11 +46,6 @@ interface RaphaelElement {
     };
 }
 
-interface RaphaelSet {
-    push(...items: RaphaelElement[]): unknown;
-    attr(attributes: Record<string, any>): unknown;
-}
-
 type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
 
 export type StyleParams = {
@@ -221,28 +216,16 @@ export class Graphie {
 
             // allow symmetric ranges to be specified by the absolute values
             if (prop === "range" || prop === "gridRange") {
-                options[prop] = normalizeRange(options[prop])
-                // if (val.constructor === Array) {
-                //     // but don't mandate symmetric ranges
-                //     if (val[0].constructor !== Array) {
-                //         options[prop] = [
-                //             [-val[0], val[0]],
-                //             [-val[1], val[1]],
-                //         ];
-                //     }
-                // } else if (typeof val === "number") {
-                //     options[prop] = [
-                //         [-val, val],
-                //         [-val, val],
-                //     ];
-                // }
+                options[prop] = normalizeRange(options[prop]);
             }
         }
 
-        const range = normalizeRange(options.range || [
-            [-10, 10],
-            [-10, 10],
-        ]);
+        const range = normalizeRange(
+            options.range || [
+                [-10, 10],
+                [-10, 10],
+            ],
+        );
         const gridRange = normalizeRange(options.gridRange || range);
         const scale = options.scale || [20, 20];
         const grid = options.grid != null ? options.grid : true;
@@ -1446,20 +1429,26 @@ type RangeSpecifier = [Interval, Interval] | Coord | number;
 // Overload normalizeRange to specify that it only returns undefined if its
 // argument is undefined.
 export function normalizeRange(range: RangeSpecifier): [Interval, Interval];
-export function normalizeRange(range: RangeSpecifier | undefined): [Interval, Interval] | undefined;
+export function normalizeRange(
+    range: RangeSpecifier | undefined,
+): [Interval, Interval] | undefined;
 
 // normalizeRange converts a RangeSpecifier into a pair of Intervals that give
 // the x and y ranges, respectively
-export function normalizeRange(range: RangeSpecifier | undefined): [Interval, Interval] | undefined {
+export function normalizeRange(
+    range: RangeSpecifier | undefined,
+): [Interval, Interval] | undefined {
     function normalizeInterval(magnitude: number | Interval): Interval {
         if (typeof magnitude === "number") {
             return [-magnitude, magnitude];
         } else {
-            return magnitude
+            return magnitude;
         }
     }
 
-    function getXAndYRanges(range: RangeSpecifier): Coord | [Interval, Interval] {
+    function getXAndYRanges(
+        range: RangeSpecifier,
+    ): Coord | [Interval, Interval] {
         if (Array.isArray(range)) {
             return range;
         } else {
@@ -1472,10 +1461,7 @@ export function normalizeRange(range: RangeSpecifier | undefined): [Interval, In
     }
 
     const [xRange, yRange] = getXAndYRanges(range);
-    return [
-        normalizeInterval(xRange),
-        normalizeInterval(yRange),
-    ];
+    return [normalizeInterval(xRange), normalizeInterval(yRange)];
 }
 
 function toPair(x: number | [number, number]): [number, number] {
