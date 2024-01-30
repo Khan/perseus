@@ -291,16 +291,16 @@ describe("renderer", () => {
             );
         });
 
-        it("should call the getAllWidgetsStartProps callback if provided in apiOptions", () => {
+        it("should call the onWidgetStartProps callback if provided in apiOptions", () => {
             // Arrange
-            const getAllWidgetsStartProps = jest.fn();
-            const apiOptions: APIOptions = {getAllWidgetsStartProps};
+            const onWidgetStartProps = jest.fn();
+            const apiOptions: APIOptions = {onWidgetStartProps};
 
             // Act
             renderQuestion(mockedRandomItem, apiOptions);
 
             // Assert
-            expect(getAllWidgetsStartProps).toHaveBeenCalledWith(
+            expect(onWidgetStartProps).toHaveBeenCalledWith(
                 mockedShuffledRadioProps,
             );
         });

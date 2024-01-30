@@ -223,11 +223,11 @@ export type APIOptions = Readonly<{
     // keystroke caused text typed in the text area to appear in it
     // only after a good few seconds.
     editorChangeDelay?: number;
-    // This is a callback function that returns all the Widget Start Props
+    // This is a callback function that returns all of the Widget props
     // after they have been transformed by the widget's transform function.
     // This is useful for when we need to know how a widget has shuffled its
     // the available choices.
-    getAllWidgetsStartProps?: (widgets: PerseusWidgetMap) => PerseusWidgetMap;
+    onWidgetStartProps?: (widgets: PerseusWidgetMap) => PerseusWidgetMap;
 }>;
 
 type TeXProps = {

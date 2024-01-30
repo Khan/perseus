@@ -499,8 +499,8 @@ class Renderer extends React.Component<Props, State> {
             );
         });
 
-        // Call the getAllWidgetsStartProps callback if it exists
-        apiOptions?.getAllWidgetsStartProps?.(widgetsStartProps);
+        // Call the onWidgetStartProps callback if it exists
+        apiOptions?.onWidgetStartProps?.(widgetsStartProps);
 
         return widgetsStartProps;
     };
