@@ -1,5 +1,9 @@
 /* eslint-disable @babel/no-invalid-this */
-import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
+import {
+    point as kpoint,
+    vector as kvector,
+    number as knumber,
+} from "@khanacademy/kmath";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
@@ -86,6 +90,40 @@ interface RaphaelSet {
 }
 
 type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
+
+type LabelPosition =
+    | "center"
+    | "above"
+    | "below"
+    | "right"
+    | "left"
+    | "above right"
+    | "above left"
+    | "below right"
+    | "below left";
+
+interface LabelMethod {
+    (point: Coord, text: string, position: LabelPosition): any;
+    (
+        point: Coord,
+        text: string,
+        position: LabelPosition,
+        renderTex: boolean,
+    ): any;
+    (
+        point: Coord,
+        text: string,
+        position: LabelPosition,
+        style: Record<string, any>,
+    ): any;
+    (
+        point: Coord,
+        text: string,
+        position: LabelPosition,
+        renderTex: boolean,
+        style: Record<string, any>,
+    ): any;
+}
 
 export class Graphie {
     el: HTMLElement;
@@ -551,7 +589,7 @@ export class Graphie {
         }
     }
 
-    drawingTransform(): DrawingTransform {
+    private drawingTransform(): DrawingTransform {
         if (this.#drawingTransform == null) {
             throw new Error(
                 "Can't get drawingTransform of an uninitialized Graphie",
@@ -560,7 +598,7 @@ export class Graphie {
         return this.#drawingTransform;
     }
 
-    bounds(): GraphBounds {
+    private bounds(): GraphBounds {
         if (this.#bounds == null) {
             throw new Error("Can't get bounds of an uninitialized Graphie");
         }
@@ -580,93 +618,328 @@ export class Graphie {
         $.extend(this.currentStyle, processed);
     }
 
-    grid(
-        xr: Interval,
-        yr: Interval,
-        styleAttributes?: Record<string, any>,
-    ): RaphaelSet {
-        throw new Error("grid called on uninitialized Graphie");
-    }
+    grid(xr: Interval, yr: Interval, style?: Record<string, any>): RaphaelSet {
+        return this.withStyle(style, () => {
+            const step: any = this.currentStyle.step || [1, 1];
+            const set = this.raphael.set();
 
-    // circle is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
-    circle(
-        center: Coord,
-        radius: number,
-        style?: Record<string, any>,
-    ): RaphaelElement {}
+            let x = step[0] * Math.ceil(xr[0] / step[0]);
+            for (; x <= xr[1]; x += step[0]) {
+                set.push(this.line([x, yr[0]], [x, yr[1]]));
+            }
 
-    // rect is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
-    rect(
-        left: number,
-        bottom: number,
-        width: number,
-        height: number,
-        style?: Record<string, any>,
-    ): RaphaelElement {}
+            let y = step[1] * Math.ceil(yr[0] / step[1]);
+            for (; y <= yr[1]; y += step[1]) {
+                set.push(this.line([xr[0], y], [xr[1], y]));
+            }
 
-    // ellipse is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
-    ellipse(
-        center: Coord,
-        radii: Coord,
-        style?: Record<string, any>,
-    ): RaphaelElement {}
-
-    fixedEllipse(
-        center: Coord,
-        radii: Coord,
-        scale: number,
-        padding: number,
-    ): PositionedShape {
-        throw new Error("fixedEllipse called on uninitialized Graphie");
+            return set;
+        });
     }
 
     arc(
         center: Coord,
-        radii: Coord,
+        radius: Coord,
         startAngle: number,
         endAngle: number,
         sector: boolean,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => {
+            startAngle = ((startAngle % 360) + 360) % 360;
+            endAngle = ((endAngle % 360) + 360) % 360;
 
-    // path is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
-    path(points: Coord[], style?: Record<string, any>): RaphaelElement {}
+            const cent = this.scalePoint(center);
+            const radii = this.scaleVector(radius);
+            const startVector = polar(radius, startAngle);
+            const endVector = polar(radius, endAngle);
+
+            // We round the coordinates to make testing easier, because trig
+            // operations return unround numbers.
+            // TODO(benchristel): move rounding to scalePoint?
+            const round = (x) => knumber.round(x, 6);
+            const startPoint = this.scalePoint([
+                round(center[0] + startVector[0]),
+                round(center[1] + startVector[1]),
+            ]);
+            const endPoint = this.scalePoint([
+                round(center[0] + endVector[0]),
+                round(center[1] + endVector[1]),
+            ]);
+
+            const largeAngle =
+                (((endAngle - startAngle) % 360) + 360) % 360 > 180;
+
+            return this.raphael.path(
+                "M" +
+                    startPoint.join(" ") +
+                    "A" +
+                    radii.join(" ") +
+                    " 0 " + // ellipse rotation
+                    (largeAngle ? 1 : 0) +
+                    " 0 " + // sweep flag
+                    endPoint.join(" ") +
+                    (sector ? "L" + cent.join(" ") + "z" : ""),
+            );
+        });
+    }
+
+    circle(center: Coord, radius: number, style?: Record<string, any>) {
+        return this.withStyle(style, () =>
+            this.raphael.ellipse(
+                ...this.scalePoint(center),
+                ...this.scaleVector([radius, radius]),
+            ),
+        );
+    }
+
+    // (x, y) is coordinate of bottom left corner
+    rect(x, y, width, height, style?: Record<string, any>) {
+        return this.withStyle(style, () => {
+            // Raphael needs (x, y) to be coordinate of upper left corner
+            const corner = this.scalePoint([x, y + height]);
+            const dims = this.scaleVector([width, height]);
+            const elem = this.raphael.rect(...corner.concat(dims));
+
+            if (this.isMobile) {
+                elem.node.style.shapeRendering = "crispEdges";
+            }
+
+            return elem;
+        });
+    }
+
+    ellipse(center, radii, style?: Record<string, any>) {
+        return this.withStyle(style, () =>
+            this.raphael.ellipse(
+                ...this.scalePoint(center).concat(this.scaleVector(radii)),
+            ),
+        );
+    }
+
+    fixedEllipse(
+        center: number | Coord,
+        // Different type than Coord, this is radiusX, radiusY
+        radii: number | [number, number],
+        maxScale: number,
+        padding: number,
+        style?: Record<string, any>,
+    ): PositionedShape {
+        return this.withStyle(style, () => {
+            // Scale point and radius
+            const scaledPoint = this.scalePoint(center);
+            const scaledRadii = this.scaleVector(radii);
+
+            const width = 2 * scaledRadii[0] * maxScale + padding;
+            const height = 2 * scaledRadii[1] * maxScale + padding;
+
+            // Calculate absolute left, top
+            const left = scaledPoint[0] - width / 2;
+            const top = scaledPoint[1] - height / 2;
+
+            // Wrap in <div>
+            const wrapper = document.createElement("div");
+            $(wrapper).css({
+                position: "absolute",
+                width: width + "px",
+                height: height + "px",
+                left: left + "px",
+                top: top + "px",
+            });
+            // wrapper.setAttribute("data-graphie-type", "ellipse");
+
+            // Create Raphael canvas
+            const localRaphael = Raphael(wrapper, width, height);
+            const visibleShape = localRaphael.ellipse(
+                width / 2,
+                height / 2,
+                scaledRadii[0],
+                scaledRadii[1],
+            );
+
+            return {
+                wrapper: wrapper,
+                visibleShape: visibleShape,
+            };
+        });
+    }
+
+    private unstyledPath(points: Coord[]): RaphaelElement {
+        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
+        const p = this.raphael.path(this.svgPath(points));
+        p.graphiePath = points;
+        return p;
+    }
+
+    path(points: Coord[], style?: Record<string, any>): RaphaelElement {
+        return this.withStyle(style, () => {
+            return this.unstyledPath(points);
+        });
+    }
 
     // fixedPath is a stub that gets overwritten with a function from
     // drawingTools in createGraphie
     fixedPath(
         points: Coord[],
-        center: Coord,
-        toSvgPath: (scaledPoints: Coord[]) => string,
+        center: Coord | null,
+        createPath: (scaledPoints: Coord[]) => string,
     ): PositionedShape {
-        throw new Error("fixedPath called on uninitialized Graphie");
+        points = _.map(points, this.scalePoint);
+        center = center ? this.scalePoint(center) : null;
+        createPath = createPath || this.svgPath;
+
+        // Compute bounding box
+        const pathLeft = _.min(_.pluck(points, 0));
+        const pathRight = _.max(_.pluck(points, 0));
+        const pathTop = _.min(_.pluck(points, 1));
+        const pathBottom = _.max(_.pluck(points, 1));
+
+        // Apply padding to line
+        const padding: Coord = [4, 4];
+
+        // Calculate and apply additional offset
+        const topLeftOfBoundingBox: Coord = [pathLeft, pathTop];
+
+        // Apply padding and offset to points to convert from
+        // canvas coordinates to pixel coordinates relative to bounding box
+        points = _.map(points, function (point) {
+            return kvector.add(
+                kvector.subtract(point, topLeftOfBoundingBox),
+                kvector.scale(padding, 0.5),
+            );
+        });
+
+        // Calculate <div> dimensions
+        const width = pathRight - pathLeft + padding[0];
+        const height = pathBottom - pathTop + padding[1];
+        const left = topLeftOfBoundingBox[0] - padding[0] / 2;
+        const top = topLeftOfBoundingBox[1] - padding[1] / 2;
+
+        // Create <div>
+        const wrapper = document.createElement("div");
+        $(wrapper).css({
+            position: "absolute",
+            width: width + "px",
+            height: height + "px",
+            left: left + "px",
+            top: top + "px",
+            // If user specified a center, set it
+            // NOTE(kevinb): jQuery doesn't like that `transformOrigin `could be `null`
+            // so we cast to `any` here.
+            transformOrigin: center
+                ? width / 2 +
+                  center[0] +
+                  "px " +
+                  (height / 2 + center[1]) +
+                  "px"
+                : null,
+        } as any);
+
+        // Create Raphael canvas
+        const localRaphael = Raphael(wrapper, width, height);
+
+        // Calculate path
+        const visibleShape = localRaphael.path(createPath(points));
+
+        return {
+            wrapper: wrapper,
+            visibleShape: visibleShape,
+        };
     }
 
-    // scaledPath is a stub that gets overwritten with a function from
-    // drawingTools in createGraphie
-    scaledPath(points: Coord[], style?: Record<string, any>): RaphaelElement {}
+    scaledPath(points: Coord[], style?: Record<string, any>): RaphaelElement {
+        return this.withStyle(style, () => {
+            const p = this.raphael.path(
+                this.svgPath(points, /* alreadyScaled */ true),
+            );
+            p.graphiePath = points;
+            return p;
+        });
+    }
 
-    // line is a stub that gets overwritten with a function from drawingTools
-    // in createGraphie
     line(
         start: Coord,
         end: Coord,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => {
+            const l = this.unstyledPath([start, end]);
+
+            if (this.isMobile) {
+                l.node.style.shapeRendering = "crispEdges";
+            }
+
+            return l;
+        });
+    }
 
     parabola(
         a: number,
         b: number,
         c: number,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () =>
+            this.raphael.path(this.svgParabolaPath(a, b, c)),
+        );
+    }
 
     fixedLine(start: Coord, end: Coord, thickness: number): PositionedShape {
-        throw new Error("fixedLine called on uninitialized Graphie");
+        // Apply padding to line
+        const padding: Coord = [thickness, thickness];
+
+        // Scale points to get values in pixels
+        start = this.scalePoint(start);
+        end = this.scalePoint(end);
+
+        // Calculate and apply additional offset
+        const extraOffset: Coord = [
+            Math.min(start[0], end[0]),
+            Math.min(start[1], end[1]),
+        ];
+
+        // Apply padding and offset to start, end points
+        start = kvector.add(
+            kvector.subtract(start, extraOffset),
+            kvector.scale(padding, 0.5),
+        );
+        end = kvector.add(
+            kvector.subtract(end, extraOffset),
+            kvector.scale(padding, 0.5),
+        );
+
+        // Calculate <div> dimensions
+        const left = extraOffset[0] - padding[0] / 2;
+        const top = extraOffset[1] - padding[1] / 2;
+        const width = Math.abs(start[0] - end[0]) + padding[0];
+        const height = Math.abs(start[1] - end[1]) + padding[1];
+
+        // Create <div>
+        const wrapper = document.createElement("div");
+        $(wrapper).css({
+            position: "absolute",
+            width: width + "px",
+            height: height + "px",
+            left: left + "px",
+            top: top + "px",
+            // Outsiders should feel like the line's 'origin' (i.e., for
+            // rotation) is the starting point
+            transformOrigin: start[0] + "px " + start[1] + "px",
+        });
+
+        // Create Raphael canvas
+        const localRaphael = Raphael(wrapper, width, height);
+
+        // Calculate path
+        const path =
+            "M" + start[0] + " " + start[1] + " " + "L" + end[0] + " " + end[1];
+        const visibleShape = localRaphael.path(path);
+        visibleShape.graphiePath = [start, end];
+
+        return {
+            wrapper: wrapper,
+            visibleShape: visibleShape,
+        };
     }
 
     sinusoid(
@@ -675,12 +948,17 @@ export class Graphie {
         c: number,
         d: number,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () =>
+            // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
+            this.raphael.path(this.svgSinusoidPath(a, b, c, d)),
+        );
+    }
 
-    label(
+    label: LabelMethod = (
         point: Coord,
         text: string,
-        position:
+        direction:
             | "center"
             | "above"
             | "below"
@@ -690,21 +968,159 @@ export class Graphie {
             | "above left"
             | "below right"
             | "below left",
-        renderTex?: boolean,
-        style?: Record<string, any>,
-    ): any {}
+        arg4?: boolean | Record<string, any>,
+        arg5?: Record<string, any>,
+    ): any => {
+        const style = typeof arg4 === "object" ? arg4 : arg5;
+        const latex = typeof arg4 === "boolean" ? arg4 : true;
+        return this.withStyle(style, () => {
+            const $span = $("<span>").addClass("graphie-label");
+
+            const pad = this.currentStyle["label-distance"];
+
+            $span
+                .css(
+                    $.extend(
+                        {},
+                        {
+                            position: "absolute",
+                            padding: (pad != null ? pad : 7) + "px",
+                            color: "black",
+                        },
+                    ),
+                )
+                .data("labelDirection", direction)
+                .appendTo(this.el);
+
+            // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
+            $span.setPosition = (point) => {
+                const scaledPoint = this.scalePoint(point);
+                $span.css({
+                    left: scaledPoint[0],
+                    top: scaledPoint[1],
+                });
+            };
+
+            // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
+            $span.setPosition(point);
+
+            const span = $span[0];
+
+            // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
+            $span.processMath = function (math, force) {
+                processMath(span, math, force, function () {
+                    const width = span.scrollWidth;
+                    const height = span.scrollHeight;
+                    setLabelMargins(span, [width, height]);
+                });
+            };
+
+            // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
+            $span.processText = function (text: any) {
+                $span.html(text);
+                const width = span.scrollWidth;
+                const height = span.scrollHeight;
+                setLabelMargins(span, [width, height]);
+            };
+
+            if (latex) {
+                // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
+                $span.processMath(text, /* force */ false);
+            } else {
+                // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
+                $span.processText(text);
+            }
+
+            return $span;
+        });
+    };
 
     plotParametric(
         fn: (t: number) => Coord,
         range: Interval,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => {
+            // We truncate to 500,000, since anything bigger causes
+            // overflow in the firefox svg renderer.  This is safe
+            // since 500,000 is outside the viewport anyway.  We
+            // write these functions the way we do to handle undefined.
+            const clip = (xy) => {
+                if (Math.abs(xy[1]) > 500000) {
+                    return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
+                }
+                return xy;
+            };
+            const clippedFn = (x) => clip(fn(x));
+
+            if (!this.currentStyle.strokeLinejoin) {
+                this.currentStyle.strokeLinejoin = "round";
+            }
+            if (!this.currentStyle.strokeLinecap) {
+                this.currentStyle.strokeLinecap = "round";
+            }
+
+            const min = range[0];
+            const max = range[1];
+            let step = (max - min) / (this.currentStyle["plot-points"] || 800);
+            if (step === 0) {
+                step = 1;
+            }
+
+            const paths = this.raphael.set();
+            let points = [];
+            let lastY = clippedFn(min)[1];
+
+            for (let t = min; t <= max; t += step) {
+                const point = clippedFn(t);
+                const y = point[1];
+
+                // Find points where it flips
+                if (
+                    // if there is an asymptote here, meaning that the graph
+                    // switches signs and has a large difference
+                    (y > 0 !== lastY > 0 &&
+                        Math.abs(y - lastY) >
+                            2 * this.drawingTransform().pixelsPerUnitY()) ||
+                    // or the function is undefined
+                    isNaN(y)
+                ) {
+                    // split the path at this point, and draw it
+                    paths.push(this.unstyledPath(points));
+                    // restart the path, excluding this point
+                    points = [];
+                } else {
+                    // otherwise, just add the point to the path
+                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                    points.push(point);
+                }
+
+                lastY = y;
+            }
+
+            paths.push(this.unstyledPath(points));
+
+            return paths;
+        });
+    }
 
     plot(
         fn: (x: number) => number,
         range: Interval,
         style?: Record<string, any>,
-    ): RaphaelElement {}
+    ): RaphaelElement {
+        return this.withStyle(style, () => {
+            const min = range[0];
+            const max = range[1];
+            if (!this.currentStyle["plot-points"]) {
+                this.currentStyle["plot-points"] =
+                    2 * (max - min) * this.drawingTransform().pixelsPerUnitX();
+            }
+
+            const parametricFn = (x): Coord => [x, fn(x)];
+            return this.plotParametric(parametricFn, range);
+        });
+    }
 
     svgPath = (points: any, alreadyScaled) => {
         return $.map(points, (point, i) => {
@@ -865,6 +1281,100 @@ export class Graphie {
         return path;
     };
 
+    private withStyle<T>(
+        style: Record<string, any> | undefined,
+        fn: () => T,
+    ): T {
+        const oldStyle = this.currentStyle;
+        this.currentStyle = {
+            ...this.currentStyle,
+            ...this.processAttributes(style),
+        };
+        const result = this.postprocessDrawingResult(fn());
+        this.currentStyle = oldStyle;
+        return result;
+    }
+
+    private postprocessDrawingResult(result: any): any {
+        // Bad heuristic for recognizing Raphael elements and sets
+        const type = result.constructor.prototype;
+        if (type === Raphael.el || type === Raphael.st) {
+            result.attr(this.currentStyle);
+
+            if (this.currentStyle.arrows) {
+                result = this.addArrowheads(result);
+            }
+        } else if (result instanceof $) {
+            // We assume that if it's not a Raphael element/set, it
+            // does not contain SVG.
+            // @ts-expect-error - TS2339 - Property 'css' does not exist on type '{}'.
+            result.css({
+                ...this.currentStyle,
+                ...SVG_SPECIFIC_STYLE_MASK,
+            });
+        }
+
+        return result;
+    }
+
+    private addArrowheads(path: any) {
+        const type = path.constructor.prototype;
+
+        if (type === Raphael.el) {
+            if (
+                path.type === "path" &&
+                typeof path.arrowheadsDrawn === "undefined"
+            ) {
+                const w = path.attr("stroke-width");
+                const s = 0.6 + 0.4 * w;
+                const l = path.getTotalLength();
+                const set = this.raphael.set();
+                const head = this.raphael.path(
+                    this.isMobile
+                        ? "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4"
+                        : "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4",
+                );
+                const end = path.getPointAtLength(l - 0.4);
+                const almostTheEnd = path.getPointAtLength(l - 0.75 * s);
+                const angle =
+                    (Math.atan2(
+                        end.y - almostTheEnd.y,
+                        end.x - almostTheEnd.x,
+                    ) *
+                        180) /
+                    Math.PI;
+                const attrs = path.attr();
+                delete attrs.path;
+
+                let subpath = path.getSubpath(0, l - 0.75 * s);
+                subpath = this.raphael.path(subpath).attr(attrs);
+                subpath.arrowheadsDrawn = true;
+                path.remove();
+
+                // For some unknown reason 0 doesn't work for the rotation
+                // origin so we use a tiny number.
+                head.rotate(angle, this.isMobile ? 1e-5 : 0.75, 0)
+                    .scale(s, s, 0.75, 0)
+                    .translate(almostTheEnd.x, almostTheEnd.y)
+                    .attr(attrs)
+                    .attr({
+                        "stroke-linejoin": "round",
+                        "stroke-linecap": "round",
+                    });
+
+                head.arrowheadsDrawn = true;
+                set.push(subpath);
+                set.push(head);
+                return set;
+            }
+        } else if (type === Raphael.st) {
+            for (let i = 0, l = path.items.length; i < l; i++) {
+                this.addArrowheads(path.items[i]);
+            }
+        }
+        return path;
+    }
+
     scalePoint = (point: number | Coord): Coord => {
         return this.drawingTransform().scalePoint(point);
     };
@@ -881,7 +1391,7 @@ export class Graphie {
         return this.drawingTransform().unscaleVector(point);
     };
 
-    processAttributes(attrs: any) {
+    private processAttributes(attrs: any) {
         const transformers = {
             scale: (scale) => {
                 this.drawingTransform().setScale(scale);
@@ -964,612 +1474,46 @@ const SVG_SPECIFIC_STYLE_MASK = {
     "stroke-width": null,
 } as const;
 
+const setLabelMargins = function (span: HTMLElement, size: Coord): void {
+    const $span = $(span);
+    const direction = $span.data("labelDirection");
+    let [width, height] = size;
+    // This can happen when a span
+    // is invisible but we still want to update the CSS. At worst, we will
+    // be off by a few pixels instead of in a different position entirely.
+    if (width === 0 && height === 0) {
+        [width, height] = [1, 1];
+        Log.log("Label size was 0x0 in graphie.js; using 1x1 instead");
+    }
+    $span.css("visibility", "");
+
+    if (typeof direction === "number") {
+        const x = Math.cos(direction);
+        const y = Math.sin(direction);
+
+        const scale = Math.min(
+            width / 2 / Math.abs(x),
+            height / 2 / Math.abs(y),
+        );
+
+        $span.css({
+            marginLeft: -width / 2 + x * scale,
+            marginTop: -height / 2 - y * scale,
+        });
+    } else {
+        const multipliers = labelDirections[direction || "center"];
+        $span.css({
+            marginLeft: Math.round(width * multipliers[0]),
+            marginTop: Math.round(height * multipliers[1]),
+        });
+    }
+};
+
 GraphUtils.createGraphie = function (el: any): Graphie {
     const thisGraphie = new Graphie(el);
 
-    const setLabelMargins = function (span: any, size: Array<any>) {
-        const $span = $(span);
-        const direction = $span.data("labelDirection");
-        let [width, height] = size;
-        // This can happen when a span
-        // is invisible but we still want to update the CSS. At worst, we will
-        // be off by a few pixels instead of in a different position entirely.
-        if (width === 0 && height === 0) {
-            [width, height] = [1, 1];
-            Log.log("Label size was 0x0 in graphie.js; using 1x1 instead");
-        }
-        $span.css("visibility", "");
-
-        if (typeof direction === "number") {
-            const x = Math.cos(direction);
-            const y = Math.sin(direction);
-
-            const scale = Math.min(
-                width / 2 / Math.abs(x),
-                height / 2 / Math.abs(y),
-            );
-
-            $span.css({
-                marginLeft: -width / 2 + x * scale,
-                marginTop: -height / 2 - y * scale,
-            });
-        } else {
-            const multipliers = labelDirections[direction || "center"];
-            $span.css({
-                marginLeft: Math.round(width * multipliers[0]),
-                marginTop: Math.round(height * multipliers[1]),
-            });
-        }
-    };
-
     // `svgPath` is independent of graphie range, so we export it independently
     GraphUtils.svgPath = thisGraphie.svgPath;
-
-    const addArrowheads = function arrows(path: any) {
-        const type = path.constructor.prototype;
-
-        if (type === Raphael.el) {
-            if (
-                path.type === "path" &&
-                typeof path.arrowheadsDrawn === "undefined"
-            ) {
-                const w = path.attr("stroke-width");
-                const s = 0.6 + 0.4 * w;
-                const l = path.getTotalLength();
-                const set = thisGraphie.raphael.set();
-                const head = thisGraphie.raphael.path(
-                    thisGraphie.isMobile
-                        ? "M-4,4 C-4,4 -0.25,0 -0.25,0 C-0.25,0 -4,-4 -4,-4"
-                        : "M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4",
-                );
-                const end = path.getPointAtLength(l - 0.4);
-                const almostTheEnd = path.getPointAtLength(l - 0.75 * s);
-                const angle =
-                    (Math.atan2(
-                        end.y - almostTheEnd.y,
-                        end.x - almostTheEnd.x,
-                    ) *
-                        180) /
-                    Math.PI;
-                const attrs = path.attr();
-                delete attrs.path;
-
-                let subpath = path.getSubpath(0, l - 0.75 * s);
-                subpath = thisGraphie.raphael.path(subpath).attr(attrs);
-                subpath.arrowheadsDrawn = true;
-                path.remove();
-
-                // For some unknown reason 0 doesn't work for the rotation
-                // origin so we use a tiny number.
-                head.rotate(angle, thisGraphie.isMobile ? 1e-5 : 0.75, 0)
-                    .scale(s, s, 0.75, 0)
-                    .translate(almostTheEnd.x, almostTheEnd.y)
-                    .attr(attrs)
-                    .attr({
-                        "stroke-linejoin": "round",
-                        "stroke-linecap": "round",
-                    });
-
-                head.arrowheadsDrawn = true;
-                set.push(subpath);
-                set.push(head);
-                return set;
-            }
-        } else if (type === Raphael.st) {
-            for (let i = 0, l = path.items.length; i < l; i++) {
-                arrows(path.items[i]);
-            }
-        }
-        return path;
-    };
-
-    function circle(center, radius) {
-        return thisGraphie.raphael.ellipse(
-            ...thisGraphie
-                .scalePoint(center)
-                .concat(thisGraphie.scaleVector([radius, radius])),
-        );
-    }
-
-    // (x, y) is coordinate of bottom left corner
-    function rect(x, y, width, height) {
-        // Raphael needs (x, y) to be coordinate of upper left corner
-        const corner = thisGraphie.scalePoint([x, y + height]);
-        const dims = thisGraphie.scaleVector([width, height]);
-        const elem = thisGraphie.raphael.rect(...corner.concat(dims));
-
-        if (thisGraphie.isMobile) {
-            elem.node.style.shapeRendering = "crispEdges";
-        }
-
-        return elem;
-    }
-
-    function ellipse(center, radii) {
-        return thisGraphie.raphael.ellipse(
-            ...thisGraphie
-                .scalePoint(center)
-                .concat(thisGraphie.scaleVector(radii)),
-        );
-    }
-
-    function fixedEllipse(
-        center: number | Coord,
-        // Different type than Coord, this is radiusX, radiusY
-        radii: number | [number, number],
-        maxScale: number,
-        padding: number,
-    ) {
-        // Scale point and radius
-        const scaledPoint = thisGraphie.scalePoint(center);
-        const scaledRadii = thisGraphie.scaleVector(radii);
-
-        const width = 2 * scaledRadii[0] * maxScale + padding;
-        const height = 2 * scaledRadii[1] * maxScale + padding;
-
-        // Calculate absolute left, top
-        const left = scaledPoint[0] - width / 2;
-        const top = scaledPoint[1] - height / 2;
-
-        // Wrap in <div>
-        const wrapper = document.createElement("div");
-        $(wrapper).css({
-            position: "absolute",
-            width: width + "px",
-            height: height + "px",
-            left: left + "px",
-            top: top + "px",
-        });
-        // wrapper.setAttribute("data-graphie-type", "ellipse");
-
-        // Create Raphael canvas
-        const localRaphael = Raphael(wrapper, width, height);
-        const visibleShape = localRaphael.ellipse(
-            width / 2,
-            height / 2,
-            scaledRadii[0],
-            scaledRadii[1],
-        );
-
-        return {
-            wrapper: wrapper,
-            visibleShape: visibleShape,
-        };
-    }
-
-    function arc(center, radius, startAngle, endAngle, sector) {
-        startAngle = ((startAngle % 360) + 360) % 360;
-        endAngle = ((endAngle % 360) + 360) % 360;
-
-        const cent = thisGraphie.scalePoint(center);
-        const radii = thisGraphie.scaleVector(radius);
-        const startVector = polar(radius, startAngle);
-        const endVector = polar(radius, endAngle);
-
-        const startPoint = thisGraphie.scalePoint([
-            center[0] + startVector[0],
-            center[1] + startVector[1],
-        ]);
-        const endPoint = thisGraphie.scalePoint([
-            (center[0] + endVector[0]).toFixed(6),
-            (center[1] + endVector[1]).toFixed(6),
-        ]);
-
-        const largeAngle = (((endAngle - startAngle) % 360) + 360) % 360 > 180;
-
-        return thisGraphie.raphael.path(
-            "M" +
-                startPoint.join(" ") +
-                "A" +
-                radii.join(" ") +
-                " 0 " + // ellipse rotation
-                (largeAngle ? 1 : 0) +
-                " 0 " + // sweep flag
-                endPoint.join(" ") +
-                (sector ? "L" + cent.join(" ") + "z" : ""),
-        );
-    }
-
-    function path(points) {
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
-        const p = thisGraphie.raphael.path(thisGraphie.svgPath(points));
-        p.graphiePath = points;
-
-        return p;
-    }
-
-    function fixedPath(points, center, createPath) {
-        points = _.map(points, thisGraphie.scalePoint);
-        center = center ? thisGraphie.scalePoint(center) : null;
-        createPath = createPath || thisGraphie.svgPath;
-
-        // Compute bounding box
-        const pathLeft = _.min(_.pluck(points, 0));
-        const pathRight = _.max(_.pluck(points, 0));
-        const pathTop = _.min(_.pluck(points, 1));
-        const pathBottom = _.max(_.pluck(points, 1));
-
-        // Apply padding to line
-        const padding = [4, 4];
-
-        // Calculate and apply additional offset
-        const topLeftOfBoundingBox = [pathLeft, pathTop];
-
-        // Apply padding and offset to points to convert from
-        // canvas coordinates to pixel coordinates relative to bounding box
-        points = _.map(points, function (point) {
-            return kvector.add(
-                kvector.subtract(point, topLeftOfBoundingBox),
-                kvector.scale(padding, 0.5),
-            );
-        });
-
-        // Calculate <div> dimensions
-        const width = pathRight - pathLeft + padding[0];
-        const height = pathBottom - pathTop + padding[1];
-        const left = topLeftOfBoundingBox[0] - padding[0] / 2;
-        const top = topLeftOfBoundingBox[1] - padding[1] / 2;
-
-        // Create <div>
-        const wrapper = document.createElement("div");
-        $(wrapper).css({
-            position: "absolute",
-            width: width + "px",
-            height: height + "px",
-            left: left + "px",
-            top: top + "px",
-            // If user specified a center, set it
-            // NOTE(kevinb): jQuery doesn't like that `transformOrigin `could be `null`
-            // so we cast to `any` here.
-            transformOrigin: center
-                ? width / 2 +
-                  center[0] +
-                  "px " +
-                  (height / 2 + center[1]) +
-                  "px"
-                : null,
-        } as any);
-
-        // Create Raphael canvas
-        const localRaphael = Raphael(wrapper, width, height);
-
-        // Calculate path
-        const visibleShape = localRaphael.path(createPath(points));
-
-        return {
-            wrapper: wrapper,
-            visibleShape: visibleShape,
-        };
-    }
-
-    function scaledPath(points) {
-        const p = thisGraphie.raphael.path(
-            thisGraphie.svgPath(points, /* alreadyScaled */ true),
-        );
-        p.graphiePath = points;
-        return p;
-    }
-
-    function line(start, end) {
-        const l = path([start, end]);
-
-        if (thisGraphie.isMobile) {
-            l.node.style.shapeRendering = "crispEdges";
-        }
-
-        return l;
-    }
-
-    function parabola(a, b, c) {
-        // Plot a parabola of the form: f(x) = (a * x + b) * x + c
-        return thisGraphie.raphael.path(thisGraphie.svgParabolaPath(a, b, c));
-    }
-
-    function fixedLine(start, end, thickness) {
-        // Apply padding to line
-        const padding = [thickness, thickness];
-
-        // Scale points to get values in pixels
-        start = thisGraphie.scalePoint(start);
-        end = thisGraphie.scalePoint(end);
-
-        // Calculate and apply additional offset
-        const extraOffset = [
-            Math.min(start[0], end[0]),
-            Math.min(start[1], end[1]),
-        ];
-
-        // Apply padding and offset to start, end points
-        start = kvector.add(
-            kvector.subtract(start, extraOffset),
-            kvector.scale(padding, 0.5),
-        );
-        end = kvector.add(
-            kvector.subtract(end, extraOffset),
-            kvector.scale(padding, 0.5),
-        );
-
-        // Calculate <div> dimensions
-        const left = extraOffset[0] - padding[0] / 2;
-        const top = extraOffset[1] - padding[1] / 2;
-        const width = Math.abs(start[0] - end[0]) + padding[0];
-        const height = Math.abs(start[1] - end[1]) + padding[1];
-
-        // Create <div>
-        const wrapper = document.createElement("div");
-        $(wrapper).css({
-            position: "absolute",
-            width: width + "px",
-            height: height + "px",
-            left: left + "px",
-            top: top + "px",
-            // Outsiders should feel like the line's 'origin' (i.e., for
-            // rotation) is the starting point
-            transformOrigin: start[0] + "px " + start[1] + "px",
-        });
-
-        // Create Raphael canvas
-        const localRaphael = Raphael(wrapper, width, height);
-
-        // Calculate path
-        const path =
-            "M" + start[0] + " " + start[1] + " " + "L" + end[0] + " " + end[1];
-        const visibleShape = localRaphael.path(path);
-        visibleShape.graphiePath = [start, end];
-
-        return {
-            wrapper: wrapper,
-            visibleShape: visibleShape,
-        };
-    }
-
-    function sinusoid(a, b, c, d) {
-        // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
-        return thisGraphie.raphael.path(
-            thisGraphie.svgSinusoidPath(a, b, c, d),
-        );
-    }
-
-    function grid(xr, yr) {
-        const step: any = thisGraphie.currentStyle.step || [1, 1];
-        const set = thisGraphie.raphael.set();
-
-        let x = step[0] * Math.ceil(xr[0] / step[0]);
-        for (; x <= xr[1]; x += step[0]) {
-            set.push(line([x, yr[0]], [x, yr[1]]));
-        }
-
-        let y = step[1] * Math.ceil(yr[0] / step[1]);
-        for (; y <= yr[1]; y += step[1]) {
-            set.push(line([xr[0], y], [xr[1], y]));
-        }
-
-        return set;
-    }
-
-    function label(point, text, direction, latex) {
-        latex = typeof latex === "undefined" || latex;
-
-        const $span = $("<span>").addClass("graphie-label");
-
-        const pad = thisGraphie.currentStyle["label-distance"];
-
-        $span
-            .css(
-                $.extend(
-                    {},
-                    {
-                        position: "absolute",
-                        padding: (pad != null ? pad : 7) + "px",
-                        color: "black",
-                    },
-                ),
-            )
-            .data("labelDirection", direction)
-            .appendTo(thisGraphie.el);
-
-        // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
-        $span.setPosition = function (point) {
-            const scaledPoint = thisGraphie.scalePoint(point);
-            $span.css({
-                left: scaledPoint[0],
-                top: scaledPoint[1],
-            });
-        };
-
-        // @ts-expect-error - TS2339 - Property 'setPosition' does not exist on type 'JQuery<HTMLElement>'.
-        $span.setPosition(point);
-
-        const span = $span[0];
-
-        // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
-        $span.processMath = function (math, force) {
-            processMath(span, math, force, function () {
-                const width = span.scrollWidth;
-                const height = span.scrollHeight;
-                setLabelMargins(span, [width, height]);
-            });
-        };
-
-        // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
-        $span.processText = function (text: any) {
-            $span.html(text);
-            const width = span.scrollWidth;
-            const height = span.scrollHeight;
-            setLabelMargins(span, [width, height]);
-        };
-
-        if (latex) {
-            // @ts-expect-error - TS2339 - Property 'processMath' does not exist on type 'JQuery<HTMLElement>'.
-            $span.processMath(text, /* force */ false);
-        } else {
-            // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
-            $span.processText(text);
-        }
-
-        return $span;
-    }
-
-    function plotParametric(fn: (t: number) => Coord, range) {
-        // Note: fn2 should only be set if 'shade' is true, as it denotes
-        // the function between which fn should have its area shaded.
-        // In general, plotParametric shouldn't be used to shade the area
-        // between two arbitrary parametrics functions over an interval,
-        // as the method assumes that fn and fn2 are both of the form
-        // fn(t) = (t, fn'(t)) for some initial fn'.
-
-        // We truncate to 500,000, since anything bigger causes
-        // overflow in the firefox svg renderer.  This is safe
-        // since 500,000 is outside the viewport anyway.  We
-        // write these functions the way we do to handle undefined.
-        const clip = (xy) => {
-            if (Math.abs(xy[1]) > 500000) {
-                return [xy[0], Math.min(Math.max(xy[1], -500000), 500000)];
-            }
-            return xy;
-        };
-        const clippedFn = (x) => clip(fn(x));
-
-        if (!thisGraphie.currentStyle.strokeLinejoin) {
-            thisGraphie.currentStyle.strokeLinejoin = "round";
-        }
-        if (!thisGraphie.currentStyle.strokeLinecap) {
-            thisGraphie.currentStyle.strokeLinecap = "round";
-        }
-
-        const min = range[0];
-        const max = range[1];
-        let step =
-            (max - min) / (thisGraphie.currentStyle["plot-points"] || 800);
-        if (step === 0) {
-            step = 1;
-        }
-
-        const paths = thisGraphie.raphael.set();
-        let points = [];
-        let lastY = clippedFn(min)[1];
-
-        for (let t = min; t <= max; t += step) {
-            const point = clippedFn(t);
-            const y = point[1];
-
-            // Find points where it flips
-            if (
-                // if there is an asymptote here, meaning that the graph
-                // switches signs and has a large difference
-                (y > 0 !== lastY > 0 &&
-                    Math.abs(y - lastY) >
-                        2 * thisGraphie.drawingTransform().pixelsPerUnitY()) ||
-                // or the function is undefined
-                isNaN(y)
-            ) {
-                // split the path at this point, and draw it
-                paths.push(path(points));
-                // restart the path, excluding this point
-                points = [];
-            } else {
-                // otherwise, just add the point to the path
-                // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                points.push(point);
-            }
-
-            lastY = y;
-        }
-
-        paths.push(path(points));
-
-        return paths;
-    }
-
-    function plot(fn, range, swapAxes) {
-        const min = range[0];
-        const max = range[1];
-        if (!thisGraphie.currentStyle["plot-points"]) {
-            thisGraphie.currentStyle["plot-points"] =
-                2 *
-                (max - min) *
-                thisGraphie.drawingTransform().pixelsPerUnitX();
-        }
-
-        if (swapAxes) {
-            return plotParametric(function (y) {
-                return [fn(y), y];
-            }, range);
-        }
-        return plotParametric(function (x) {
-            return [x, fn(x)];
-        }, range);
-    }
-
-    const drawingTools = {
-        circle,
-        rect,
-        ellipse,
-        fixedEllipse,
-        arc,
-        path,
-        fixedPath,
-        scaledPath,
-        line,
-        parabola,
-        fixedLine,
-        sinusoid,
-        grid,
-        label,
-        plotParametric,
-        plot,
-    };
-
-    function graphify(drawingFn: any): any {
-        return function (...args) {
-            const last = args[args.length - 1];
-            const oldStyle = thisGraphie.currentStyle;
-            let result;
-
-            // The last argument is probably trying to change the style
-            if (typeof last === "object" && !_.isArray(last)) {
-                thisGraphie.currentStyle = {
-                    ...thisGraphie.currentStyle,
-                    ...thisGraphie.processAttributes(last),
-                };
-
-                const rest = [].slice.call(args, 0, args.length - 1);
-                result = drawingFn(...rest);
-            } else {
-                thisGraphie.currentStyle = $.extend(
-                    {},
-                    thisGraphie.currentStyle,
-                );
-
-                result = drawingFn(...args);
-            }
-
-            // Bad heuristic for recognizing Raphael elements and sets
-            const type = result.constructor.prototype;
-            if (type === Raphael.el || type === Raphael.st) {
-                result.attr(thisGraphie.currentStyle);
-
-                if (thisGraphie.currentStyle.arrows) {
-                    result = addArrowheads(result);
-                }
-            } else if (result instanceof $) {
-                // We assume that if it's not a Raphael element/set, it
-                // does not contain SVG.
-                // @ts-expect-error - TS2339 - Property 'css' does not exist on type '{}'.
-                result.css({
-                    ...thisGraphie.currentStyle,
-                    ...SVG_SPECIFIC_STYLE_MASK,
-                });
-            }
-
-            thisGraphie.currentStyle = oldStyle;
-            return result;
-        };
-    }
-
-    $.each(drawingTools, function (name) {
-        thisGraphie[name] = graphify(drawingTools[name]);
-    });
 
     return thisGraphie;
 };
