@@ -3,8 +3,6 @@
  * A point is an array of two numbers e.g. [0, 0].
  */
 
-import _ from "underscore";
-
 import * as knumber from "./number";
 import * as kvector from "./vector";
 
