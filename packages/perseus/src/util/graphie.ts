@@ -35,54 +35,6 @@ export function polar(r: number | Coord, th: number) {
     return [r[0] * Math.cos(th), r[1] * Math.sin(th)];
 }
 
-const GraphUtils: any = {
-    unscaledSvgPath: function (points) {
-        // If this is an empty closed path, return "" instead of "z", which
-        // would give an error
-        if (points[0] === true) {
-            return "";
-        }
-        return $.map(points, function (point, i) {
-            if (point === true) {
-                return "z";
-            }
-            return (i === 0 ? "M" : "L") + point[0] + " " + point[1];
-        }).join("");
-    },
-
-    getDistance: function (point1, point2) {
-        return kpoint.distanceToPoint(point1, point2);
-    },
-
-    /**
-     * Round the given coordinates to a given snap value
-     * (e.g., nearest 0.2 increment)
-     */
-    snapCoord: function (coord, snap) {
-        return _.map(coord, function (val, i) {
-            return KhanMath.roundToNearest(snap[i], val);
-        });
-    },
-
-    // Find the angle in degrees between two or three points
-    findAngle: function (point1, point2, vertex) {
-        if (vertex === undefined) {
-            const x = point1[0] - point2[0];
-            const y = point1[1] - point2[1];
-            if (!x && !y) {
-                return 0;
-            }
-            return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
-        }
-        return (
-            GraphUtils.findAngle(point1, vertex) -
-            GraphUtils.findAngle(point2, vertex)
-        );
-    },
-
-    graphs: {},
-};
-
 type RaphaelElement = any;
 interface RaphaelSet {
     push(...items: RaphaelElement[]): unknown;
@@ -1447,8 +1399,6 @@ export class Graphie {
     }
 }
 
-GraphUtils.Graphie = Graphie;
-
 const labelDirections = {
     center: [-0.5, -0.5],
     above: [-0.5, -1.0],
@@ -1509,13 +1459,58 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     }
 };
 
-GraphUtils.createGraphie = function (el: any): Graphie {
-    const thisGraphie = new Graphie(el);
+const GraphUtils: any = {
+    Graphie,
 
-    // `svgPath` is independent of graphie range, so we export it independently
-    GraphUtils.svgPath = thisGraphie.svgPath;
+    createGraphie: function (el: any): Graphie {
+        return new Graphie(el);
+    },
 
-    return thisGraphie;
+    unscaledSvgPath: function (points) {
+        // If this is an empty closed path, return "" instead of "z", which
+        // would give an error
+        if (points[0] === true) {
+            return "";
+        }
+        return $.map(points, function (point, i) {
+            if (point === true) {
+                return "z";
+            }
+            return (i === 0 ? "M" : "L") + point[0] + " " + point[1];
+        }).join("");
+    },
+
+    getDistance: function (point1, point2) {
+        return kpoint.distanceToPoint(point1, point2);
+    },
+
+    /**
+     * Round the given coordinates to a given snap value
+     * (e.g., nearest 0.2 increment)
+     */
+    snapCoord: function (coord, snap) {
+        return _.map(coord, function (val, i) {
+            return KhanMath.roundToNearest(snap[i], val);
+        });
+    },
+
+    // Find the angle in degrees between two or three points
+    findAngle: function (point1, point2, vertex) {
+        if (vertex === undefined) {
+            const x = point1[0] - point2[0];
+            const y = point1[1] - point2[1];
+            if (!x && !y) {
+                return 0;
+            }
+            return (180 + (Math.atan2(-y, -x) * 180) / Math.PI + 360) % 360;
+        }
+        return (
+            GraphUtils.findAngle(point1, vertex) -
+            GraphUtils.findAngle(point2, vertex)
+        );
+    },
+
+    graphs: {},
 };
 
 export default GraphUtils;

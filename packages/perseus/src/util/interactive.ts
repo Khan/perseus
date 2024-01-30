@@ -3679,7 +3679,7 @@ function Ruler(graphie: any, options: any) {
     });
 
     const mouseTarget = graphie.mouselayer.path(
-        GraphUtils.svgPath([
+        graphie.svgPath([
             leftBottom,
             [left, top],
             rightTop,
