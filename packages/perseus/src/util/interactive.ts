@@ -260,7 +260,10 @@ _.extend(GraphUtils.Graphie.prototype, {
         const temp: Array<never> = [];
 
         if (Math.abs(angle - 90) < 1e-9 && options.showRightAngleMarker) {
-            const v1 = kvector.add(sVertex, scaledPolarDeg(sRadius, startAngle));
+            const v1 = kvector.add(
+                sVertex,
+                scaledPolarDeg(sRadius, startAngle),
+            );
             const v2 = kvector.add(sVertex, scaledPolarDeg(sRadius, endAngle));
 
             sRadius *= Math.SQRT2;
