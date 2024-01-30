@@ -4,6 +4,7 @@ import {
     vector as kvector,
     number as knumber,
 } from "@khanacademy/kmath";
+import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
@@ -27,7 +28,7 @@ import type {Coord} from "../interactive2/types";
 
 const {processMath} = Tex;
 
-export function polar(r: number | Coord, th: number) {
+export function polar(r: number | Coord, th: number): Coord {
     if (typeof r === "number") {
         r = [r, r];
     }
@@ -35,13 +36,26 @@ export function polar(r: number | Coord, th: number) {
     return [r[0] * Math.cos(th), r[1] * Math.sin(th)];
 }
 
-type RaphaelElement = any;
-interface RaphaelSet {
-    push(...items: RaphaelElement[]): unknown;
-    attr(attributes: Record<string, any>): unknown;
+interface RaphaelElement {
+    type: string;
+    attrs: Record<string, any>;
+    node: {
+        style: {
+            shapeRendering: "crispEdges" | "geometricPrecision";
+        };
+    };
 }
 
 type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
+
+export type StyleParams = {
+    fill?: string;
+    labelDistance?: number;
+    opacity?: number;
+    step?: Coord;
+    stroke?: string;
+    strokeWidth?: number;
+};
 
 type LabelPosition =
     | "center"
@@ -66,14 +80,14 @@ interface LabelMethod {
         point: Coord,
         text: string,
         position: LabelPosition,
-        style: Record<string, any>,
+        style: StyleParams,
     ): any;
     (
         point: Coord,
         text: string,
         position: LabelPosition,
         renderTex: boolean,
-        style: Record<string, any>,
+        style: StyleParams,
     ): any;
 }
 
@@ -110,7 +124,7 @@ export class Graphie {
     init(options: {
         range?: [Interval, Interval];
         scale?: number | Coord;
-        isMobile: boolean;
+        isMobile?: boolean;
     }) {
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
@@ -145,7 +159,7 @@ export class Graphie {
         this.xpixels = w;
         this.ypixels = h;
 
-        this.isMobile = options.isMobile;
+        this.isMobile = options.isMobile ?? false;
 
         return this;
     }
@@ -162,14 +176,37 @@ export class Graphie {
     // - labelStep: [a, b] or number (relative to tick steps)
     // - yLabelFormat: fn to format label string for y-axis
     // - xLabelFormat: fn to format label string for x-axis
-    graphInit(options: any) {
+    graphInit(options: {
+        range?: [Interval, Interval] | Coord;
+        grid?: boolean;
+        gridRange?: [Interval, Interval] | Coord;
+        scale: Coord | number;
+        axes?: true;
+        axisArrows?: "<->" | "->" | true | "";
+        axisOpacity?: number;
+        axisCenter?: Coord;
+        axisLabels?: [string, string] | false;
+        gridOpacity?: number;
+        gridStep?: Coord | number;
+        ticks?: boolean;
+        tickStep?: Coord | number;
+        tickLen?: Coord | number;
+        tickOpacity?: number;
+        labels?: boolean;
+        labelStep?: number;
+        labelOpacity?: number;
+        labelFormat?: (a: number) => string;
+        yLabelFormat?: (y: number) => string;
+        xLabelFormat?: (x: number) => string;
+        unityLabels?: boolean | [boolean, boolean];
+        isMobile?: boolean;
+    }) {
         options = options || {};
 
-        $.each(options, function (prop, val: any) {
+        for (const [prop, val] of entries(options)) {
             // allow options to be specified by a single number for shorthand if
             // the horizontal and vertical components are the same
             if (
-                // @ts-expect-error - TS2339 - Property 'match' does not exist on type 'string | number | symbol'.
                 !prop.match(/.*Opacity$/) &&
                 prop !== "range" &&
                 typeof val === "number"
@@ -179,32 +216,21 @@ export class Graphie {
 
             // allow symmetric ranges to be specified by the absolute values
             if (prop === "range" || prop === "gridRange") {
-                if (val.constructor === Array) {
-                    // but don't mandate symmetric ranges
-                    if (val[0].constructor !== Array) {
-                        options[prop] = [
-                            [-val[0], val[0]],
-                            [-val[1], val[1]],
-                        ];
-                    }
-                } else if (typeof val === "number") {
-                    options[prop] = [
-                        [-val, val],
-                        [-val, val],
-                    ];
-                }
+                options[prop] = normalizeRange(options[prop]);
             }
-        });
+        }
 
-        const range = options.range || [
-            [-10, 10],
-            [-10, 10],
-        ];
-        const gridRange = options.gridRange || options.range;
+        const range = normalizeRange(
+            options.range || [
+                [-10, 10],
+                [-10, 10],
+            ],
+        );
+        const gridRange = normalizeRange(options.gridRange || range);
         const scale = options.scale || [20, 20];
         const grid = options.grid != null ? options.grid : true;
         const gridOpacity = options.gridOpacity || 0.1;
-        const gridStep = options.gridStep || [1, 1];
+        const gridStep = toPair(options.gridStep || [1, 1]);
         const axes = options.axes != null ? options.axes : true;
         const axisArrows = options.axisArrows || "";
         const axisOpacity = options.axisOpacity || 1.0;
@@ -355,7 +381,7 @@ export class Graphie {
                     opacity: options.isMobile ? 1 : tickOpacity,
                     strokeWidth: 1,
                 },
-                function () {
+                () => {
                     // horizontal axis
                     let step = gridStep[0] * tickStep[0];
                     let len = tickLen[0] / scale[1];
@@ -413,7 +439,6 @@ export class Graphie {
                             y += step
                         ) {
                             if (y < stop || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.line(
                                     [-len + axisCenter[0], y],
                                     [
@@ -432,7 +457,6 @@ export class Graphie {
                             y -= step
                         ) {
                             if (y > start || !axisArrows) {
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                 this.line(
                                     [-len + axisCenter[0], y],
                                     [
@@ -570,7 +594,7 @@ export class Graphie {
         $.extend(this.currentStyle, processed);
     }
 
-    grid(xr: Interval, yr: Interval, style?: Record<string, any>): RaphaelSet {
+    grid(xr: Interval, yr: Interval, style?: StyleParams): unknown {
         return this.withStyle(style, () => {
             const step: any = this.currentStyle.step || [1, 1];
             const set = this.raphael.set();
@@ -595,7 +619,7 @@ export class Graphie {
         startAngle: number,
         endAngle: number,
         sector: boolean,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () => {
             startAngle = ((startAngle % 360) + 360) % 360;
@@ -636,7 +660,7 @@ export class Graphie {
         });
     }
 
-    circle(center: Coord, radius: number, style?: Record<string, any>) {
+    circle(center: Coord, radius: number, style?: StyleParams) {
         return this.withStyle(style, () =>
             this.raphael.ellipse(
                 ...this.scalePoint(center),
@@ -646,7 +670,7 @@ export class Graphie {
     }
 
     // (x, y) is coordinate of bottom left corner
-    rect(x, y, width, height, style?: Record<string, any>) {
+    rect(x, y, width, height, style?: StyleParams) {
         return this.withStyle(style, () => {
             // Raphael needs (x, y) to be coordinate of upper left corner
             const corner = this.scalePoint([x, y + height]);
@@ -661,7 +685,7 @@ export class Graphie {
         });
     }
 
-    ellipse(center, radii, style?: Record<string, any>) {
+    ellipse(center, radii, style?: StyleParams) {
         return this.withStyle(style, () =>
             this.raphael.ellipse(
                 ...this.scalePoint(center).concat(this.scaleVector(radii)),
@@ -675,7 +699,7 @@ export class Graphie {
         radii: number | [number, number],
         maxScale: number,
         padding: number,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): PositionedShape {
         return this.withStyle(style, () => {
             // Scale point and radius
@@ -717,13 +741,12 @@ export class Graphie {
     }
 
     private unstyledPath(points: Coord[]): RaphaelElement {
-        // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
         const p = this.raphael.path(this.svgPath(points));
         p.graphiePath = points;
         return p;
     }
 
-    path(points: Coord[], style?: Record<string, any>): RaphaelElement {
+    path(points: Coord[], style?: StyleParams): RaphaelElement {
         return this.withStyle(style, () => {
             return this.unstyledPath(points);
         });
@@ -799,7 +822,7 @@ export class Graphie {
         };
     }
 
-    scaledPath(points: Coord[], style?: Record<string, any>): RaphaelElement {
+    scaledPath(points: Coord[], style?: StyleParams): RaphaelElement {
         return this.withStyle(style, () => {
             const p = this.raphael.path(
                 this.svgPath(points, /* alreadyScaled */ true),
@@ -809,11 +832,7 @@ export class Graphie {
         });
     }
 
-    line(
-        start: Coord,
-        end: Coord,
-        style?: Record<string, any>,
-    ): RaphaelElement {
+    line(start: Coord, end: Coord, style?: StyleParams): RaphaelElement {
         return this.withStyle(style, () => {
             const l = this.unstyledPath([start, end]);
 
@@ -829,7 +848,7 @@ export class Graphie {
         a: number,
         b: number,
         c: number,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () =>
             this.raphael.path(this.svgParabolaPath(a, b, c)),
@@ -899,7 +918,7 @@ export class Graphie {
         b: number,
         c: number,
         d: number,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () =>
             // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
@@ -920,8 +939,8 @@ export class Graphie {
             | "above left"
             | "below right"
             | "below left",
-        arg4?: boolean | Record<string, any>,
-        arg5?: Record<string, any>,
+        arg4?: boolean | StyleParams,
+        arg5?: StyleParams,
     ): any => {
         const style = typeof arg4 === "object" ? arg4 : arg5;
         const latex = typeof arg4 === "boolean" ? arg4 : true;
@@ -990,7 +1009,7 @@ export class Graphie {
     plotParametric(
         fn: (t: number) => Coord,
         range: Interval,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () => {
             // We truncate to 500,000, since anything bigger causes
@@ -1005,13 +1024,6 @@ export class Graphie {
             };
             const clippedFn = (x) => clip(fn(x));
 
-            if (!this.currentStyle.strokeLinejoin) {
-                this.currentStyle.strokeLinejoin = "round";
-            }
-            if (!this.currentStyle.strokeLinecap) {
-                this.currentStyle.strokeLinecap = "round";
-            }
-
             const min = range[0];
             const max = range[1];
             let step = (max - min) / (this.currentStyle["plot-points"] || 800);
@@ -1020,7 +1032,7 @@ export class Graphie {
             }
 
             const paths = this.raphael.set();
-            let points = [];
+            let points: Coord[] = [];
             let lastY = clippedFn(min)[1];
 
             for (let t = min; t <= max; t += step) {
@@ -1043,7 +1055,6 @@ export class Graphie {
                     points = [];
                 } else {
                     // otherwise, just add the point to the path
-                    // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     points.push(point);
                 }
 
@@ -1059,7 +1070,7 @@ export class Graphie {
     plot(
         fn: (x: number) => number,
         range: Interval,
-        style?: Record<string, any>,
+        style?: StyleParams,
     ): RaphaelElement {
         return this.withStyle(style, () => {
             const min = range[0];
@@ -1074,7 +1085,7 @@ export class Graphie {
         });
     }
 
-    svgPath = (points: any, alreadyScaled) => {
+    svgPath = (points: (Coord | true)[], alreadyScaled?: boolean) => {
         return $.map(points, (point, i) => {
             if (point === true) {
                 return "z";
@@ -1096,11 +1107,10 @@ export class Graphie {
 
         // If points are collinear, plot a line instead
         if (a === 0) {
-            const points = [
+            const points: Coord[] = [
                 [this.bounds().xMin, computeParabola(this.bounds().xMin)],
                 [this.bounds().xMax, computeParabola(this.bounds().xMax)],
             ];
-            // @ts-expect-error - TS2554 - Expected 2 arguments, but got 1.
             return this.svgPath(points);
         }
 
@@ -1120,16 +1130,15 @@ export class Graphie {
         const point = [xPoint, computeParabola(xPoint)];
 
         // Calculate SVG 'control' point, defined by spec
-        const control = [vertex[0], vertex[1] - (point[1] - vertex[1])];
+        const control: Coord = [vertex[0], vertex[1] - (point[1] - vertex[1])];
 
         // Calculate mirror points across parabola's axis of symmetry
         const dx = Math.abs(vertex[0] - point[0]);
-        const left = [vertex[0] - dx, point[1]];
-        const right = [vertex[0] + dx, point[1]];
+        const left: Coord = [vertex[0] - dx, point[1]];
+        const right: Coord = [vertex[0] + dx, point[1]];
 
         // Scale and bound
-        // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
-        const points = _.map([left, control, right], this.scalePoint);
+        const points = [left, control, right].map(this.scalePoint);
         const values = _.map(_.flatten(points), KhanMath.bound);
         return (
             "M" +
@@ -1180,9 +1189,10 @@ export class Graphie {
                 computeSine(x1),
             ];
 
+            const points = _.zip(xCoords, yCoords) as Coord[];
+
             // Zip and scale
-            // @ts-expect-error - TS2345 - Argument of type '(point: number | Coord) => Coord' is not assignable to parameter of type 'Iteratee<any[][], any, any[]>'.
-            return _.map(_.zip(xCoords, yCoords), this.scalePoint);
+            return _.map(points, this.scalePoint);
         };
 
         // How many quarter-periods do we need to span the graph?
@@ -1233,10 +1243,7 @@ export class Graphie {
         return path;
     };
 
-    private withStyle<T>(
-        style: Record<string, any> | undefined,
-        fn: () => T,
-    ): T {
+    private withStyle<T>(style: StyleParams | undefined, fn: () => T): T {
         const oldStyle = this.currentStyle;
         this.currentStyle = {
             ...this.currentStyle,
@@ -1386,8 +1393,7 @@ export class Graphie {
             if (typeof transformer === "function") {
                 $.extend(processed, transformer(value));
             } else {
-                const dasherized = key
-                    // @ts-expect-error - TS2339 - Property 'replace' does not exist on type 'string | number | symbol'.
+                const dasherized = String(key)
                     .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
                     .replace(/([a-z\d])([A-Z])/g, "$1-$2")
                     .toLowerCase();
@@ -1410,6 +1416,60 @@ const labelDirections = {
     left: [-1.0, -0.5],
     "above left": [-1.0, -1.0],
 } as const;
+
+// A range for a Graphie can be specified in one of three forms:
+// - A pair of intervals, [[xMin, xMax], [yMin, yMax]]. This is the
+//   "normalized" form.
+// - A pair of magnitudes for the x and y ranges, respectively. E.g. [5, 10]
+//   is equivalent to [[-5, 5], [-10, 10]].
+// - A single magnitude to be used for both x and y. E.g. 10 is equivalent to
+//   [[-10, 10], [-10, 10]]
+type RangeSpecifier = [Interval, Interval] | Coord | number;
+
+// Overload normalizeRange to specify that it only returns undefined if its
+// argument is undefined.
+export function normalizeRange(range: RangeSpecifier): [Interval, Interval];
+export function normalizeRange(
+    range: RangeSpecifier | undefined,
+): [Interval, Interval] | undefined;
+
+// normalizeRange converts a RangeSpecifier into a pair of Intervals that give
+// the x and y ranges, respectively
+export function normalizeRange(
+    range: RangeSpecifier | undefined,
+): [Interval, Interval] | undefined {
+    function normalizeInterval(magnitude: number | Interval): Interval {
+        if (typeof magnitude === "number") {
+            return [-magnitude, magnitude];
+        } else {
+            return magnitude;
+        }
+    }
+
+    function getXAndYRanges(
+        range: RangeSpecifier,
+    ): Coord | [Interval, Interval] {
+        if (Array.isArray(range)) {
+            return range;
+        } else {
+            return [range, range];
+        }
+    }
+
+    if (range == null) {
+        return range;
+    }
+
+    const [xRange, yRange] = getXAndYRanges(range);
+    return [normalizeInterval(xRange), normalizeInterval(yRange)];
+}
+
+function toPair(x: number | [number, number]): [number, number] {
+    if (Array.isArray(x)) {
+        return x;
+    }
+    return [x, x];
+}
 
 /**
  * Safari applies some SVG-specific styles to things that are not SVGs, so we
