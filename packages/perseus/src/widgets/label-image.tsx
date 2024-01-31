@@ -600,6 +600,7 @@ export class LabelImage extends React.Component<
                         disabled={disabled}
                         opener={({opened}) => (
                             <Clickable
+                                role="button"
                                 aria-expanded={opened}
                                 key={`marker-${marker.x}.${marker.y}`}
                             >
