@@ -1,5 +1,11 @@
 # @khanacademy/kmath
 
+## 0.1.9
+
+### Patch Changes
+
+-   [#949](https://github.com/Khan/perseus/pull/949) [`59ce1e09`](https://github.com/Khan/perseus/commit/59ce1e0990cecd1123d7b9a671b032fcd03ce1b1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: use built-in JS functions instead of underscore
+
 ## 0.1.8
 
 ### Patch Changes
