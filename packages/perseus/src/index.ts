@@ -83,7 +83,7 @@ export {
     getAnswersFromWidgets,
     injectWidgets,
 } from "./util/extract-perseus-data";
-export {default as parsePerseusJSON} from "./util/parse-perseus-json";
+export {parsePerseusItem} from "./util/parse-perseus-json";
 
 /**
  * Mixins
