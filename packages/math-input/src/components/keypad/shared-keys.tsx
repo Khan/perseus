@@ -37,6 +37,12 @@ export default function SharedKeys(props: Props) {
     return (
         <>
             <KeypadButton
+                keyConfig={Keys.FRAC}
+                onClickKey={onClickKey}
+                coord={fractionCoord}
+                secondary
+            />
+            <KeypadButton
                 keyConfig={Keys.PLUS}
                 onClickKey={onClickKey}
                 coord={[4, 0]}
@@ -46,12 +52,6 @@ export default function SharedKeys(props: Props) {
                 keyConfig={Keys.MINUS}
                 onClickKey={onClickKey}
                 coord={[5, 0]}
-                secondary
-            />
-            <KeypadButton
-                keyConfig={Keys.FRAC}
-                onClickKey={onClickKey}
-                coord={fractionCoord}
                 secondary
             />
 
