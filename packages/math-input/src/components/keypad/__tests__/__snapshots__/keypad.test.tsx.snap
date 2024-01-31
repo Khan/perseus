@@ -594,6 +594,40 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
+            class="default_xu2jcg-o_O-inlineStyles_771h91"
+            data-test-id="FRAC"
+          >
+            <button
+              aria-disabled="false"
+              aria-label="Fraction, excluding the current expression"
+              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              type="button"
+            >
+              <div
+                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+              >
+                <div
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
+                >
+                  <svg
+                    fill="none"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    width="40"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M16 10C16 9.44772 16.4477 9 17 9H23C23.5523 9 24 9.44772 24 10V16C24 16.5523 23.5523 17 23 17H17C16.4477 17 16 16.5523 16 16V10ZM18 11H22V15H18V11ZM14 20C14 19.4477 14.4477 19 15 19H25C25.5523 19 26 19.4477 26 20C26 20.5523 25.5523 21 25 21H15C14.4477 21 14 20.5523 14 20ZM17 23C16.4477 23 16 23.4477 16 24V30C16 30.5523 16.4477 31 17 31H23C23.5523 31 24 30.5523 24 30V24C24 23.4477 23.5523 23 23 23H17ZM22 25H18V29H22V25Z"
+                      fill="#21242C"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div
             class="default_xu2jcg-o_O-inlineStyles_wb5o9j"
             data-test-id="PLUS"
           >
@@ -659,40 +693,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                     <path
                       clip-rule="evenodd"
                       d="M12 20c0-.5523.4477-1 1-1h14c.5523 0 1 .4477 1 1s-.4477 1-1 1H13c-.5523 0-1-.4477-1-1z"
-                      fill="#21242C"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </button>
-          </div>
-          <div
-            class="default_xu2jcg-o_O-inlineStyles_771h91"
-            data-test-id="FRAC"
-          >
-            <button
-              aria-disabled="false"
-              aria-label="Fraction, excluding the current expression"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
-              type="button"
-            >
-              <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
-              >
-                <div
-                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
-                >
-                  <svg
-                    fill="none"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    width="40"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M16 10C16 9.44772 16.4477 9 17 9H23C23.5523 9 24 9.44772 24 10V16C24 16.5523 23.5523 17 23 17H17C16.4477 17 16 16.5523 16 16V10ZM18 11H22V15H18V11ZM14 20C14 19.4477 14.4477 19 15 19H25C25.5523 19 26 19.4477 26 20C26 20.5523 25.5523 21 25 21H15C14.4477 21 14 20.5523 14 20ZM17 23C16.4477 23 16 23.4477 16 24V30C16 30.5523 16.4477 31 17 31H23C23.5523 31 24 30.5523 24 30V24C24 23.4477 23.5523 23 23 23H17ZM22 25H18V29H22V25Z"
                       fill="#21242C"
                       fill-rule="evenodd"
                     />
@@ -1647,6 +1647,40 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
+            class="default_xu2jcg-o_O-inlineStyles_771h91"
+            data-test-id="FRAC"
+          >
+            <button
+              aria-disabled="false"
+              aria-label="Fraction, excluding the current expression"
+              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              type="button"
+            >
+              <div
+                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+              >
+                <div
+                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
+                >
+                  <svg
+                    fill="none"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    width="40"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M16 10C16 9.44772 16.4477 9 17 9H23C23.5523 9 24 9.44772 24 10V16C24 16.5523 23.5523 17 23 17H17C16.4477 17 16 16.5523 16 16V10ZM18 11H22V15H18V11ZM14 20C14 19.4477 14.4477 19 15 19H25C25.5523 19 26 19.4477 26 20C26 20.5523 25.5523 21 25 21H15C14.4477 21 14 20.5523 14 20ZM17 23C16.4477 23 16 23.4477 16 24V30C16 30.5523 16.4477 31 17 31H23C23.5523 31 24 30.5523 24 30V24C24 23.4477 23.5523 23 23 23H17ZM22 25H18V29H22V25Z"
+                      fill="#21242C"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div
             class="default_xu2jcg-o_O-inlineStyles_wb5o9j"
             data-test-id="PLUS"
           >
@@ -1712,40 +1746,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                     <path
                       clip-rule="evenodd"
                       d="M12 20c0-.5523.4477-1 1-1h14c.5523 0 1 .4477 1 1s-.4477 1-1 1H13c-.5523 0-1-.4477-1-1z"
-                      fill="#21242C"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </button>
-          </div>
-          <div
-            class="default_xu2jcg-o_O-inlineStyles_771h91"
-            data-test-id="FRAC"
-          >
-            <button
-              aria-disabled="false"
-              aria-label="Fraction, excluding the current expression"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
-              type="button"
-            >
-              <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
-              >
-                <div
-                  class="default_xu2jcg-o_O-base_7gd6lb-o_O-inlineStyles_s65xgl"
-                >
-                  <svg
-                    fill="none"
-                    height="40"
-                    viewBox="0 0 40 40"
-                    width="40"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M16 10C16 9.44772 16.4477 9 17 9H23C23.5523 9 24 9.44772 24 10V16C24 16.5523 23.5523 17 23 17H17C16.4477 17 16 16.5523 16 16V10ZM18 11H22V15H18V11ZM14 20C14 19.4477 14.4477 19 15 19H25C25.5523 19 26 19.4477 26 20C26 20.5523 25.5523 21 25 21H15C14.4477 21 14 20.5523 14 20ZM17 23C16.4477 23 16 23.4477 16 24V30C16 30.5523 16.4477 31 17 31H23C23.5523 31 24 30.5523 24 30V24C24 23.4477 23.5523 23 23 23H17ZM22 25H18V29H22V25Z"
                       fill="#21242C"
                       fill-rule="evenodd"
                     />

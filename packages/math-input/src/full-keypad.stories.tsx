@@ -126,3 +126,17 @@ Everything.args = {
     showDismiss: true,
     extraKeys: ["a", "b", "c"],
 };
+
+export const EverythingMinusNavigationPad = Template.bind({});
+EverythingMinusNavigationPad.args = {
+    advancedRelations: true,
+    basicRelations: true,
+    divisionKey: true,
+    logarithms: true,
+    convertDotToTimes: false,
+    preAlgebra: true,
+    trigonometry: true,
+    expandedView: false,
+    showDismiss: true,
+    extraKeys: ["a", "b", "c"],
+};
