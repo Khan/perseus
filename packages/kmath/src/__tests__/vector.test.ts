@@ -26,6 +26,15 @@ describe("kvector", function () {
         ]);
     });
 
+    it("vector.map should transform a 2D vector", function () {
+        const double = (x) => x * 2;
+        expect(vector.map([3, 4], double)).toEqual([6, 8]);
+    });
+
+    it("vector.map should pass the index of each element to the callback", function () {
+        expect(vector.map([3, 4], (_, i) => i)).toEqual([0, 1]);
+    });
+
     it("vector.add should add two 2D vectors", function () {
         const result = vector.add([1, 2], [3, 4]);
         expect(result).toStrictEqual([4, 6]);

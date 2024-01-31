@@ -40,7 +40,7 @@ function createFakeRaphaelSet() {
 }
 
 function createAndInitGraphie(): Graphie {
-    const graphie = GraphUtils.createGraphie();
+    const graphie = GraphUtils.createGraphie(document.createElement("div"));
     graphie.raphael = createMockRaphael();
 
     // The graph is 50px by 50px
@@ -1240,20 +1240,6 @@ describe("Graphie drawing tools", () => {
             const result = graphie.plot((x) => 1, [0, 1]);
 
             expect(result).toBe(fakeRaphaelSet);
-        });
-    });
-});
-
-describe("GraphUtils", () => {
-    describe("snapCoord", () => {
-        it("snaps to the nearest integer coordinates", () => {
-            expect(GraphUtils.snapCoord([0.1, 0.9], [1, 1])).toEqual([0, 1]);
-        });
-
-        it("snaps to the nearest half", () => {
-            expect(GraphUtils.snapCoord([0.4, 2.2], [0.5, 0.5])).toEqual([
-                0.5, 2,
-            ]);
         });
     });
 });

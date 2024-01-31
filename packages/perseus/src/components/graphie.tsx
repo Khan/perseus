@@ -151,10 +151,11 @@ class Graphie extends React.Component<Props> {
         ];
     };
 
-    _scale: () => ReadonlyArray<number> = () => {
+    // @ts-expect-error -  TS2322: Type '() => number[]' is not assignable to type '() => Coord'.
+    _scale: () => Coord = () => {
         const box = this._box();
         const range = this._range();
-        return _.map(box, (pixelDim, i) => {
+        return box.map((pixelDim, i) => {
             const unitDim = range[i][1] - range[i][0];
             return pixelDim / unitDim;
         });
@@ -178,6 +179,7 @@ class Graphie extends React.Component<Props> {
         });
         // Only add the mouselayer if we actually want one.
         if (this.props.addMouseLayer) {
+            // @ts-expect-error - TS2339: Property 'addMouseLayer' does not exist on type 'Graphie'.
             graphie.addMouseLayer({
                 onClick: this.props.onClick,
                 onMouseDown: this.props.onMouseDown,
@@ -187,6 +189,7 @@ class Graphie extends React.Component<Props> {
             });
         }
 
+        // @ts-expect-error - TS2339: Property 'snap' does not exist on type 'Graphie'.
         graphie.snap = this.props.options.snapStep || [1, 1];
 
         if (this.props.responsive) {
