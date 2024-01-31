@@ -42,8 +42,6 @@ import type {
 } from "./types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-import "./styles/perseus-renderer.less";
-
 const {mapObject, mapObjectFromArray} = Objective;
 
 const rContainsNonWhitespace = /\S/;

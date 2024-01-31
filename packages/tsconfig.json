@@ -1,0 +1,57 @@
+{
+  "exclude": [
+    "dist",
+    "**/test/**",
+    "**/testing/**",
+    "**/*.test.*",
+    "**/__tests__/**",
+    "**/*.testdata.*",
+    "**/__testdata__/**",
+    "**/*.stories.*",
+    "**/__stories__/**",
+    "**/*.cypress.*"
+  ],
+  "extends": "../tsconfig-common.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist",
+    "paths": {
+      "hubble": [
+        "../vendor/hubble/hubble.js"
+      ],
+      "jsdiff": [
+        "../vendor/jsdiff/jsdiff.js"
+      ],
+      "raphael": [
+        "../vendor/raphael/raphael.js"
+      ],
+      "@khanacademy/kas": [
+        "./kas/src"
+      ],
+      "@khanacademy/kmath": [
+        "./kmath/src"
+      ],
+      "@khanacademy/math-input": [
+        "./math-input/src"
+      ],
+      "@khanacademy/perseus": [
+        "./perseus/src"
+      ],
+      "@khanacademy/perseus-core": [
+        "./perseus-core/src"
+      ],
+      "@khanacademy/perseus-linter": [
+        "./perseus-linter/src"
+      ],
+      "@khanacademy/perseus-error": [
+        "./perseus-error/src"
+      ],
+      "@khanacademy/pure-markdown": [
+        "./pure-markdown/src"
+      ],
+      "@khanacademy/simple-markdown": [
+        "./simple-markdown/src"
+      ],
+    },
+  },
+}
