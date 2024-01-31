@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 4.1.0
+
+### Minor Changes
+
+-   [#895](https://github.com/Khan/perseus/pull/895) [`15b4bc02`](https://github.com/Khan/perseus/commit/15b4bc02d65fd1900e01ce7dd35863c1be579d73) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Convert ImageEditor compoment to modern React class component
+
+*   [#937](https://github.com/Khan/perseus/pull/937) [`ef898f77`](https://github.com/Khan/perseus/commit/ef898f77f45f3494f5012d2db52a3461aad93c69) Thanks [@nishasy](https://github.com/nishasy)! - bumped mathquill version + minor type updates
+
+### Patch Changes
+
+-   Updated dependencies [[`15b4bc02`](https://github.com/Khan/perseus/commit/15b4bc02d65fd1900e01ce7dd35863c1be579d73), [`0b737502`](https://github.com/Khan/perseus/commit/0b7375023826ef5ee46eb5ae00136b2356e10be4), [`ef898f77`](https://github.com/Khan/perseus/commit/ef898f77f45f3494f5012d2db52a3461aad93c69), [`319e330e`](https://github.com/Khan/perseus/commit/319e330ed77d2145266a9b231693ac65320032a2), [`3bfd44e3`](https://github.com/Khan/perseus/commit/3bfd44e37643cdd13392fbaabb9fb4370378d2b3), [`59ce1e09`](https://github.com/Khan/perseus/commit/59ce1e0990cecd1123d7b9a671b032fcd03ce1b1), [`ef898f77`](https://github.com/Khan/perseus/commit/ef898f77f45f3494f5012d2db52a3461aad93c69), [`f16e4184`](https://github.com/Khan/perseus/commit/f16e4184a24dcdaafc0cb4ebde5651f5bb135df9), [`247f8b1b`](https://github.com/Khan/perseus/commit/247f8b1be0647c39a5cabd9ce72a216d750a707b), [`62e04cfa`](https://github.com/Khan/perseus/commit/62e04cfa3139c6417442cbb96f8012d098a7c279), [`583becef`](https://github.com/Khan/perseus/commit/583becefbf690e96df709bcb7f8150cf686deadf)]:
+    -   @khanacademy/perseus@19.1.0
+    -   @khanacademy/math-input@17.0.0
+    -   @khanacademy/kmath@0.1.9
+
 ## 4.0.0
 
 ### Major Changes

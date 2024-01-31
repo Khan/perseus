@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.0.0
+
+### Major Changes
+
+-   [#937](https://github.com/Khan/perseus/pull/937) [`ef898f77`](https://github.com/Khan/perseus/commit/ef898f77f45f3494f5012d2db52a3461aad93c69) Thanks [@nishasy](https://github.com/nishasy)! - Upgraded MathQuill API version + type updates
+
 ## 16.5.1
 
 ### Patch Changes
