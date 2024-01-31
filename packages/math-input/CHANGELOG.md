@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.0.1
+
+### Patch Changes
+
+-   [#950](https://github.com/Khan/perseus/pull/950) [`8c8af142`](https://github.com/Khan/perseus/commit/8c8af1425a5cd257ca894b20bdb481f7148ffa7d) Thanks [@nishasy](https://github.com/nishasy)! - Change the focus order so the FRAC key is before the PLUS key
+
 ## 17.0.0
 
 ### Major Changes
