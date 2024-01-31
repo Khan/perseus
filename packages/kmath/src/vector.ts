@@ -3,8 +3,6 @@
  * A vector is an array of numbers e.g. [0, 3, 4].
  */
 
-import _ from "underscore";
-
 import * as knumber from "./number";
 
 type Vector = ReadonlyArray<number>;
@@ -17,6 +15,17 @@ function arrayProduct(array: ReadonlyArray<number>): number {
     return array.reduce((memo, arg) => memo * arg, 1);
 }
 
+export function zip<T>(xs: ReadonlyArray<T>, ys: ReadonlyArray<T>): [T, T][];
+export function zip<T>(...arrays: ReadonlyArray<T>[]): T[][];
+export function zip<T>(...arrays: ReadonlyArray<T>[]): T[][] {
+    const n = Math.min(...arrays.map((a) => a.length));
+    const results: T[][] = [];
+    for (let i = 0; i < n; i++) {
+        results.push(arrays.map((a) => a[i]));
+    }
+    return results;
+}
+
 /**
  * Checks if the given vector contains only numbers and, optionally, is of the
  * right dimension (length).
@@ -26,7 +35,7 @@ function arrayProduct(array: ReadonlyArray<number>): number {
  * is([1, 2, 3], 1) -> false
  */
 export function is<T>(vec: ReadonlyArray<T>, dimension?: number): boolean {
-    if (!_.isArray(vec)) {
+    if (!Array.isArray(vec)) {
         return false;
     }
     if (dimension !== undefined && vec.length !== dimension) {
@@ -46,7 +55,7 @@ export function length(v: Vector): number {
 }
 // Dot product of two vectors
 export function dot(a: Vector, b: Vector): number {
-    const zipped = _.zip(a, b);
+    const zipped = zip(a, b);
     const multiplied = zipped.map(arrayProduct);
     return arraySum(multiplied);
 }
@@ -56,14 +65,14 @@ export function dot(a: Vector, b: Vector): number {
  * add([1, 2], [3, 4]) -> [4, 6]
  */
 export function add<V extends Vector>(...vecs: ReadonlyArray<V>): V {
-    const zipped = _.zip(...vecs);
+    const zipped = zip(...vecs);
     // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return zipped.map(arraySum);
 }
 
 export function subtract<V extends Vector>(v1: V, v2: V): V {
     // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
-    return _.zip(v1, v2).map((dim) => dim[0] - dim[1]);
+    return zip(v1, v2).map((dim) => dim[0] - dim[1]);
 }
 
 export function negate<V extends Vector>(v: V): V {
@@ -82,12 +91,9 @@ export function scale<V extends Vector>(v1: V, scalar: number): V {
 }
 
 export function equal(v1: Vector, v2: Vector, tolerance?: number): boolean {
-    // _.zip will nicely deal with the lengths, going through
-    // the length of the longest vector. knumber.equal then
-    // returns false for any number compared to the undefined
-    // passed in if one of the vectors is shorter.
-    return _.zip(v1, v2).every((pair) =>
-        knumber.equal(pair[0], pair[1], tolerance),
+    return (
+        v1.length === v2.length &&
+        zip(v1, v2).every((pair) => knumber.equal(pair[0], pair[1], tolerance))
     );
 }
 

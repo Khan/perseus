@@ -8,7 +8,6 @@ import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
-import _ from "underscore";
 
 // Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
 // release
@@ -266,7 +265,7 @@ export class Graphie {
             ],
         ] as [Interval, Interval];
 
-        if (!_.isArray(unityLabels)) {
+        if (!Array.isArray(unityLabels)) {
             unityLabels = [unityLabels, unityLabels];
         }
 
@@ -586,12 +585,12 @@ export class Graphie {
 
         if (typeof fn === "function") {
             const oldStyle = this.currentStyle;
-            this.currentStyle = $.extend({}, this.currentStyle, processed);
+            this.currentStyle = {...this.currentStyle, ...processed};
             const result = fn.call(this);
             this.currentStyle = oldStyle;
             return result;
         }
-        $.extend(this.currentStyle, processed);
+        Object.assign(this.currentStyle, processed);
     }
 
     grid(xr: Interval, yr: Interval, style?: StyleParams): unknown {
@@ -759,15 +758,17 @@ export class Graphie {
         center: Coord | null,
         createPath: (scaledPoints: Coord[]) => string,
     ): PositionedShape {
-        points = _.map(points, this.scalePoint);
+        points = points.map(this.scalePoint);
         center = center ? this.scalePoint(center) : null;
         createPath = createPath || this.svgPath;
 
         // Compute bounding box
-        const pathLeft = _.min(_.pluck(points, 0));
-        const pathRight = _.max(_.pluck(points, 0));
-        const pathTop = _.min(_.pluck(points, 1));
-        const pathBottom = _.max(_.pluck(points, 1));
+        const xs = points.map((p) => p[0]);
+        const ys = points.map((p) => p[1]);
+        const pathLeft = Math.min(...xs);
+        const pathRight = Math.max(...xs);
+        const pathTop = Math.min(...ys);
+        const pathBottom = Math.max(...ys);
 
         // Apply padding to line
         const padding: Coord = [4, 4];
@@ -777,7 +778,7 @@ export class Graphie {
 
         // Apply padding and offset to points to convert from
         // canvas coordinates to pixel coordinates relative to bounding box
-        points = _.map(points, function (point) {
+        points = points.map(function (point) {
             return kvector.add(
                 kvector.subtract(point, topLeftOfBoundingBox),
                 kvector.scale(padding, 0.5),
@@ -950,16 +951,11 @@ export class Graphie {
             const pad = this.currentStyle["label-distance"];
 
             $span
-                .css(
-                    $.extend(
-                        {},
-                        {
-                            position: "absolute",
-                            padding: (pad != null ? pad : 7) + "px",
-                            color: "black",
-                        },
-                    ),
-                )
+                .css({
+                    position: "absolute",
+                    padding: (pad != null ? pad : 7) + "px",
+                    color: "black",
+                })
                 .data("labelDirection", direction)
                 .appendTo(this.el);
 
@@ -1086,18 +1082,20 @@ export class Graphie {
     }
 
     svgPath = (points: (Coord | true)[], alreadyScaled?: boolean) => {
-        return $.map(points, (point, i) => {
-            if (point === true) {
-                return "z";
-            }
-            const scaled = alreadyScaled ? point : this.scalePoint(point);
-            return (
-                (i === 0 ? "M" : "L") +
-                KhanMath.bound(scaled[0]) +
-                " " +
-                KhanMath.bound(scaled[1])
-            );
-        }).join("");
+        return points
+            .map((point, i) => {
+                if (point === true) {
+                    return "z";
+                }
+                const scaled = alreadyScaled ? point : this.scalePoint(point);
+                return (
+                    (i === 0 ? "M" : "L") +
+                    KhanMath.bound(scaled[0]) +
+                    " " +
+                    KhanMath.bound(scaled[1])
+                );
+            })
+            .join("");
     };
 
     svgParabolaPath = (a: any, b: any, c: any) => {
@@ -1139,7 +1137,7 @@ export class Graphie {
 
         // Scale and bound
         const points = [left, control, right].map(this.scalePoint);
-        const values = _.map(_.flatten(points), KhanMath.bound);
+        const values = points.flat().map(KhanMath.bound);
         return (
             "M" +
             values[0] +
@@ -1156,7 +1154,7 @@ export class Graphie {
         );
     };
 
-    svgSinusoidPath = (a, b, c: any, d: any) => {
+    svgSinusoidPath = (a: number, b: number, c: number, d: number) => {
         // Plot a sinusoid of the form: f(x) = a * sin(b * x - c) + d
         const quarterPeriod = Math.abs(Math.PI / (2 * b));
 
@@ -1189,10 +1187,8 @@ export class Graphie {
                 computeSine(x1),
             ];
 
-            const points = _.zip(xCoords, yCoords) as Coord[];
-
-            // Zip and scale
-            return _.map(points, this.scalePoint);
+            const points = kvector.zip(xCoords, yCoords);
+            return points.map(this.scalePoint);
         };
 
         // How many quarter-periods do we need to span the graph?
@@ -1387,11 +1383,11 @@ export class Graphie {
         } as const;
 
         const processed: Record<string, any> = {};
-        $.each(attrs || {}, function (key, value) {
+        Object.entries(attrs || {}).forEach(function ([key, value]) {
             const transformer = transformers[key];
 
             if (typeof transformer === "function") {
-                $.extend(processed, transformer(value));
+                Object.assign(processed, transformer(value));
             } else {
                 const dasherized = String(key)
                     .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
@@ -1478,7 +1474,7 @@ function toPair(x: number | [number, number]): [number, number] {
  * To see this behavior in action, open https://codepen.io/anon/pen/zENEoa in
  * Safari.
  *
- * Usage `$.extend({}, someStyles, SVG_SPECIFIC_STYLE_MASK)`
+ * Usage `{...someStyles, ...SVG_SPECIFIC_STYLE_MASK}`
  */
 const SVG_SPECIFIC_STYLE_MASK = {
     "stroke-width": null,
@@ -1532,12 +1528,14 @@ const GraphUtils: any = {
         if (points[0] === true) {
             return "";
         }
-        return $.map(points, function (point, i) {
-            if (point === true) {
-                return "z";
-            }
-            return (i === 0 ? "M" : "L") + point[0] + " " + point[1];
-        }).join("");
+        return points
+            .map(function (point, i) {
+                if (point === true) {
+                    return "z";
+                }
+                return (i === 0 ? "M" : "L") + point[0] + " " + point[1];
+            })
+            .join("");
     },
 
     getDistance: function (point1, point2) {
@@ -1549,7 +1547,7 @@ const GraphUtils: any = {
      * (e.g., nearest 0.2 increment)
      */
     snapCoord: function (coord, snap) {
-        return _.map(coord, function (val, i) {
+        return coord.map(function (val, i) {
             return KhanMath.roundToNearest(snap[i], val);
         });
     },

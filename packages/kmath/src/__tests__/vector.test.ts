@@ -1,6 +1,31 @@
 import * as vector from "../vector";
 
 describe("kvector", function () {
+    it("vector.zip should return empty given empty", function () {
+        expect(vector.zip([], [])).toEqual([]);
+    });
+
+    it("vector.zip should create vectors from x and y coords", function () {
+        expect(vector.zip([1, 2], [3, 4])).toEqual([
+            [1, 3],
+            [2, 4],
+        ]);
+    });
+
+    it("vector.zip should ignore extra xs", function () {
+        expect(vector.zip([1, 2, 9], [3, 4])).toEqual([
+            [1, 3],
+            [2, 4],
+        ]);
+    });
+
+    it("vector.zip should ignore extra ys", function () {
+        expect(vector.zip([1, 2], [3, 4, 9])).toEqual([
+            [1, 3],
+            [2, 4],
+        ]);
+    });
+
     it("vector.add should add two 2D vectors", function () {
         const result = vector.add([1, 2], [3, 4]);
         expect(result).toStrictEqual([4, 6]);
