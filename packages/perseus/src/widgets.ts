@@ -54,12 +54,12 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
 export const replaceWidget = (name: string, replacementName: string) => {
     const substituteWidget = widgets[replacementName];
 
+    // If the replacement widget isn't found, we need to throw. Otherwise after
+    // removing the deprecated widget, we'll have data asking for a widget type
+    // that doesn't exist at all.
     if (!substituteWidget) {
-        if (Log) {
-            const errorMsg = `Failed to replace ${name} with ${replacementName}`;
-            Log.error(errorMsg, Errors.Internal);
-        }
-        return;
+        const errorMsg = `Failed to replace ${name} with ${replacementName}`;
+        throw new PerseusError(errorMsg, Errors.Internal);
     }
 
     registerWidget(name, substituteWidget);

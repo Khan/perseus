@@ -85,20 +85,7 @@ describe("replaceWidget", () => {
         expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
     });
 
-    it("Does nothing when the replacement isn't available", () => {
-        Widgets.replaceWidget("radio", "dog-cat");
-        expect(Widgets.getWidget("radio")?.name).toBe("Radio");
-    });
-
-    it("Logs a message when the replacement isn't available", () => {
-        const errorSpy = jest.spyOn(testDependencies.Log, "error");
-
-        Widgets.replaceWidget("radio", "dog-cat");
-
-        expect(errorSpy).toHaveBeenCalledWith(
-            expect.stringContaining("dog-cat"),
-            "Internal",
-            undefined,
-        );
+    it("Throws when the replacement isn't available", () => {
+        expect(() => Widgets.replaceWidget("radio", "dog-cat")).toThrow();
     });
 });
