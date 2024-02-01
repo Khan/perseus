@@ -59,6 +59,142 @@ export interface State {
     onClick: ((position: Coord, start: Coord) => void)[];
 }
 
+export class MovableClassRenameMe<Options extends Record<string, any>> {
+    graphie: Graphie
+    state: State
+    prevState: State | undefined
+
+    constructor(graphie: Graphie, options: Options) {
+        this.graphie = graphie
+        this.state = {
+            id: _.uniqueId("movable"),
+        }
+        this.modify({...DEFAULT_STATE, ...options});
+    }
+
+    modify(options: Options) {
+        this.update({...this._createDefaultState(), ...options});
+    }
+
+    _createDefaultState() {
+        return {
+            id: this.state.id,
+            add: [],
+            modify: [],
+            draw: [],
+            remove: [],
+            onMoveStart: [],
+            onMove: [],
+            onMoveEnd: [],
+            onClick: [],
+
+            // We only update props here, because we want things on state to
+            // be persistent, and updated appropriately in modify()
+            ...DEFAULT_PROPS,
+        };
+    }
+
+    update(options: Options) {
+        const self = this;
+        const graphie = self.graphie;
+
+        const prevState = self.cloneState();
+        const state = Object.assign(
+            self.state,
+            normalizeOptions(options),
+        );
+
+        // the invisible shape in front of the point that gets mouse events
+        if (state.mouseTarget && !prevState.mouseTarget) {
+            let $mouseTarget;
+            if (state.mouseTarget.getMouseTarget) {
+                $mouseTarget = $(state.mouseTarget.getMouseTarget());
+            } else {
+                $mouseTarget = $(state.mouseTarget[0]);
+            }
+
+            const isMouse = !("ontouchstart" in window);
+
+            if (isMouse) {
+                $mouseTarget.on("vmouseover", function () {
+                    state.isMouseOver = true;
+                    if (!graphie.isDragging) {
+                        state.isHovering = true;
+                    }
+                    if (self.state.added) {
+                        // Avoid drawing if the point has been removed
+                        self.draw();
+                    }
+                });
+
+                $mouseTarget.on("vmouseout", function () {
+                    state.isMouseOver = false;
+                    if (!state.isDragging) {
+                        state.isHovering = false;
+                    }
+                    if (self.state.added) {
+                        // Avoid drawing if the point has been removed
+                        self.draw();
+                    }
+                });
+            }
+
+            // Prevent the page from scrolling when we grab and drag the
+            // movable object on a mobile device.
+            $mouseTarget[0].addEventListener(
+                "touchstart",
+                function (event) {
+                    event.preventDefault();
+                },
+                {passive: false},
+            );
+
+            $mouseTarget.on("vmousedown", function (e) {
+                if (e.which !== 0 && e.which !== 1) {
+                    return;
+                }
+                e.preventDefault();
+
+                const mouseCoord = graphie.getMouseCoord(e);
+                self.grab(mouseCoord);
+            });
+        }
+
+        if (state.mouseTarget && state.cursor !== undefined) {
+            let $mouseTarget;
+            if (state.mouseTarget.getMouseTarget) {
+                $mouseTarget = $(state.mouseTarget.getMouseTarget());
+            } else {
+                $mouseTarget = $(state.mouseTarget[0]);
+            }
+
+            // "" removes the css cursor if state.cursor is null
+            $mouseTarget.css("cursor", state.cursor || "");
+        }
+
+        // Trigger an add event if this hasn't been added before
+        if (!state.added) {
+            self._fireEvent(state.modify, self.cloneState(), {});
+            state.added = true;
+
+            // Update the state for `added` and in case the add event
+            // changed it
+            self.prevState = self.cloneState();
+        }
+
+        // Trigger a modify event
+        self._fireEvent(state.modify, self.cloneState(), self.prevState);
+    }
+
+    cloneState(): State {
+        return {...this.state}
+    }
+
+    _fireEvent(listeners, currentValue: State, previousValue: State | undefined) {
+        _.invoke(listeners, "call", this, currentValue, previousValue);
+    }
+}
+
 const Movable = function (graphie: Graphie, options: any): void {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {

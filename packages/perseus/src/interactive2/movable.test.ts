@@ -1,8 +1,13 @@
-import Movable from "./movable";
+import Movable, {MovableClassRenameMe} from "./movable";
 
 describe("Movable", () => {
-    it("has methods", () => {
-        const dummyGraphie = {}
+    const constructors = [
+        ["the old implementation", Movable],
+        ["the class-based implementation", MovableClassRenameMe],
+    ]
+
+    it.each(constructors)("%s has methods", (_: string, Movable: any) => {
+        const dummyGraphie: any = {}
         const movable = new Movable(dummyGraphie, {})
         const keys: string[] = [];
         for (let key in movable) {
