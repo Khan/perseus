@@ -60,9 +60,15 @@ type DefaultProps = {
     addMouseLayer: Props["addMouseLayer"];
 };
 
+interface Movable {
+    remove(): void
+}
+
 class Graphie extends React.Component<Props> {
     graphieDivRef = React.createRef<HTMLDivElement>();
     _graphie: GraphieDrawingContext = new GraphieDrawingContext(document.createElement("div"))
+    _movables: Record<string, Movable> = {}
+    movables: Record<string, Movable> = {}
 
     static defaultProps: DefaultProps = {
         range: [
@@ -216,9 +222,7 @@ class Graphie extends React.Component<Props> {
 
     _removeMovables: () => void = () => {
         // _.invoke works even when this._movables is undefined
-        // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         _.invoke(this._movables, "remove");
-        // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         this._movables = {};
     };
 
@@ -337,7 +341,6 @@ class Graphie extends React.Component<Props> {
             }
 
             if (ref) {
-                // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'Graphie'.
                 this.movables[ref] = newMovables[key];
             }
 
@@ -349,12 +352,9 @@ class Graphie extends React.Component<Props> {
     _updateMovables: () => void = () => {
         const graphie = this._graphie;
 
-        // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         const oldMovables = this._movables;
         const newMovables: Record<string, any> = {};
-        // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         this._movables = newMovables;
-        // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'Graphie'.
         this.movables = {};
 
         // @ts-expect-error - TS2345 - Argument of type 'ReactNode' is not assignable to parameter of type 'readonly any[]'.
