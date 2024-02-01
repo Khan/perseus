@@ -85,8 +85,7 @@ describe("replaceWidget", () => {
         expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
     });
 
-    it("Does nothing when the replacement isn't available", () => {
-        Widgets.replaceWidget("radio", "dog-cat");
-        expect(Widgets.getWidget("radio")?.name).toBe("Radio");
+    it("Throws when the replacement isn't available", () => {
+        expect(() => Widgets.replaceWidget("radio", "dog-cat")).toThrow();
     });
 });

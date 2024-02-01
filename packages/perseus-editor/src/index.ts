@@ -25,6 +25,6 @@ Widgets.registerEditors(AllEditors);
 Widgets.registerWidgets(AllWidgets);
 
 Widgets.replaceEditor("transformer", "deprecated-standin");
-Widgets.replaceWidget("transformer", "deprecatd-standin");
+Widgets.replaceWidget("transformer", "deprecated-standin");
 
 export {AllEditors, AllWidgets};
