@@ -7,7 +7,7 @@ import InteractiveUtil from "../interactive2/interactive-util";
 import {Errors, Log} from "../logging/log";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
-import {Graphie as GraphieDrawingContext} from "../util/graphie"
+import {Graphie as GraphieDrawingContext} from "../util/graphie";
 
 import GraphieClasses from "./graphie-classes";
 import Movables from "./graphie-movables";
@@ -61,14 +61,16 @@ type DefaultProps = {
 };
 
 interface Movable {
-    remove(): void
+    remove(): void;
 }
 
 class Graphie extends React.Component<Props> {
     graphieDivRef = React.createRef<HTMLDivElement>();
-    _graphie: GraphieDrawingContext = new GraphieDrawingContext(document.createElement("div"))
-    _movables: Record<string, Movable> = {}
-    movables: Record<string, Movable> = {}
+    _graphie: GraphieDrawingContext = new GraphieDrawingContext(
+        document.createElement("div"),
+    );
+    _movables: Record<string, Movable> = {};
+    movables: Record<string, Movable> = {};
 
     static defaultProps: DefaultProps = {
         range: [
@@ -173,9 +175,9 @@ class Graphie extends React.Component<Props> {
 
         const graphieDiv = ReactDOM.findDOMNode(this.graphieDivRef.current);
         if (graphieDiv == null || graphieDiv instanceof Text) {
-            throw new Error("No graphie container div found")
+            throw new Error("No graphie container div found");
         }
-        graphieDiv.innerHTML = ""
+        graphieDiv.innerHTML = "";
         const graphie = (this._graphie = createGraphie(graphieDiv));
 
         // This has to be called before addMouseLayer. You can re-init
