@@ -54,9 +54,11 @@ export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
 export const replaceWidget = (name: string, replacementName: string) => {
     const substituteWidget = widgets[replacementName];
 
-    if (!substituteWidget && Log) {
-        const errorMsg = `Failed to replace ${name} with ${replacementName}`;
-        Log.error(errorMsg, Errors.Internal);
+    if (!substituteWidget) {
+        if (Log) {
+            const errorMsg = `Failed to replace ${name} with ${replacementName}`;
+            Log.error(errorMsg, Errors.Internal);
+        }
         return;
     }
 
