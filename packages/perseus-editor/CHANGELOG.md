@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 4.1.2
+
+### Patch Changes
+
+-   [#956](https://github.com/Khan/perseus/pull/956) [`14e107f5`](https://github.com/Khan/perseus/commit/14e107f57c10fb3a442e55506810eb309caced24) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Bump Perseus to version that correctly replaces transformer widget with deprecated-standin
+
+-   Updated dependencies [[`43820ff9`](https://github.com/Khan/perseus/commit/43820ff9ce391682b951279a4c6fb9e3db966eb9), [`14e107f5`](https://github.com/Khan/perseus/commit/14e107f57c10fb3a442e55506810eb309caced24)]:
+    -   @khanacademy/kmath@0.1.10
+    -   @khanacademy/perseus@19.1.2
+
 ## 4.1.1
 
 ### Patch Changes
