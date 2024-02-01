@@ -44,7 +44,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
                   class="mq-textarea"
                 >
                   <span
-                    aria-label="Math Input:"
+                    aria-label="Math input box:"
                   />
                 </span>
                 <span
