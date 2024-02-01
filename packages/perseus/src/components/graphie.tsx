@@ -7,6 +7,7 @@ import InteractiveUtil from "../interactive2/interactive-util";
 import {Errors, Log} from "../logging/log";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
+import {Graphie as GraphieDrawingContext} from "../util/graphie"
 
 import GraphieClasses from "./graphie-classes";
 import Movables from "./graphie-movables";
@@ -61,6 +62,7 @@ type DefaultProps = {
 
 class Graphie extends React.Component<Props> {
     graphieDivRef = React.createRef<HTMLDivElement>();
+    _graphie: GraphieDrawingContext = new GraphieDrawingContext(document.createElement("div"))
 
     static defaultProps: DefaultProps = {
         range: [
@@ -120,7 +122,6 @@ class Graphie extends React.Component<Props> {
      * Use it for good and not evil.
      */
     getGraphie: () => any = () => {
-        // @ts-expect-error - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
         return this._graphie;
     };
 
@@ -165,9 +166,10 @@ class Graphie extends React.Component<Props> {
         this._removeMovables();
 
         const graphieDiv = ReactDOM.findDOMNode(this.graphieDivRef.current);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
-        $(graphieDiv).empty();
-        // @ts-expect-error - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
+        if (graphieDiv == null || graphieDiv instanceof Text) {
+            throw new Error("No graphie container div found")
+        }
+        graphieDiv.innerHTML = ""
         const graphie = (this._graphie = createGraphie(graphieDiv));
 
         // This has to be called before addMouseLayer. You can re-init
@@ -196,7 +198,6 @@ class Graphie extends React.Component<Props> {
             // Overwrite fixed styles set in init()
             // TODO(alex): Either make this component always responsive by
             // itself, or always wrap it in other components so that it is.
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2554 - Expected 2 arguments, but got 1.
             $(graphieDiv).css({width: "100%", height: "100%"});
             graphie.raphael.setSize("100%", "100%");
         }
@@ -346,7 +347,6 @@ class Graphie extends React.Component<Props> {
 
     // Sort of like react diffing, but for movables
     _updateMovables: () => void = () => {
-        // @ts-expect-error - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
         const graphie = this._graphie;
 
         // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.

@@ -91,7 +91,7 @@ interface LabelMethod {
 }
 
 export class Graphie {
-    el: HTMLElement;
+    el: Element;
     #bounds?: GraphBounds;
     #drawingTransform?: DrawingTransform;
     raphael?: any;
@@ -111,7 +111,7 @@ export class Graphie {
     xpixels?: number;
     ypixels?: number;
 
-    constructor(el: HTMLElement) {
+    constructor(el: Element) {
         this.el = el;
         $(el).css("position", "relative");
         this.raphael = Raphael(el);
@@ -1518,7 +1518,7 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
 const GraphUtils = {
     Graphie,
 
-    createGraphie: function (el: HTMLElement): Graphie {
+    createGraphie: function (el: Element): Graphie {
         return new Graphie(el);
     },
 
