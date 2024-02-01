@@ -52,6 +52,18 @@ function computeCanUse3dTransform(): boolean {
     return !!el.style[prefix];
 }
 
+const FUNCTION_ARRAY_OPTIONS = [
+    "add",
+    "modify",
+    "draw",
+    "remove",
+    "constraints",
+    "onMoveStart",
+    "onMove",
+    "onMoveEnd",
+    "onClick",
+];
+
 const InteractiveUtil = {
     assert: function (isTrue: boolean, message?: string) {
         if (!isTrue) {
@@ -106,24 +118,16 @@ const InteractiveUtil = {
     /**
      * Convert all function-or-array arguments to arrays of functions
      */
-    normalizeOptions: function (
-        arrayOptionNames: ReadonlyArray<string>,
-        options: Record<any, any>,
-    ): Record<any, any> {
-        // TODO(jack): Having to clone here is annoying; this
-        // function should really just modify this.state in place
-        // (and maybe be a function on MovableHelperMethods to get access
-        // to this.state), which would also be nicer because we could
-        // normalizeOptions once in this.modify
-        const result = _.clone(options);
-        _.each(arrayOptionNames, function (eventName) {
-            const funcOrArray = options[eventName];
+    normalizeOptions: function (options: Record<any, any>): Record<any, any> {
+        const result = {...options};
+        _.each(FUNCTION_ARRAY_OPTIONS, function (eventName) {
             // Only propagate values which were set; not present values
             // shouldn't be added to options because we'd like them to
             // fall through to defaults
-            if (funcOrArray !== undefined) {
-                const funcArray = InteractiveUtil.arrayify(funcOrArray);
-                result[eventName] = funcArray;
+            if (options[eventName] !== undefined) {
+                result[eventName] = InteractiveUtil.arrayify(
+                    options[eventName],
+                );
             }
         });
         return result;

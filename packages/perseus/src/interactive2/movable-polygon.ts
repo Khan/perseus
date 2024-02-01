@@ -15,10 +15,6 @@ import objective_ from "./objective_";
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 
-// State parameters that should be converted into an array of
-// functions
-const FUNCTION_ARRAY_OPTIONS = _.keys(MovablePolygonOptions);
-
 // Default "props" and "state". Both are added to this.state and
 // receive magic getter methods (this.points() etc).
 // However, properties in DEFAULT_PROPS are updated on `modify()`,
@@ -89,7 +85,6 @@ _.extend(MovablePolygon.prototype, {
                 id: this.state.id,
             },
             normalizeOptions(
-                FUNCTION_ARRAY_OPTIONS,
                 // Defaults are copied from MovablePolygonOptions.*.standard
                 // These defaults are set here instead of DEFAULT_PROPS/STATE
                 // because they:
@@ -124,10 +119,7 @@ _.extend(MovablePolygon.prototype, {
     update: function (options) {
         const self = this;
         const graphie = self.graphie;
-        const state = _.extend(
-            self.state,
-            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options),
-        );
+        const state = _.extend(self.state, normalizeOptions(options));
 
         // Default things inside the state.normalStyle object, because
         // _.extend is not deep.

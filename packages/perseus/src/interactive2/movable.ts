@@ -22,19 +22,6 @@ const normalizeOptions = InteractiveUtil.normalizeOptions;
 
 const assert = InteractiveUtil.assert;
 
-// state parameters that should be converted into an array of
-// functions
-const FUNCTION_ARRAY_OPTIONS = [
-    "add",
-    "modify",
-    "draw",
-    "remove",
-    "onMoveStart",
-    "onMove",
-    "onMoveEnd",
-    "onClick",
-];
-
 // Default "props" and "state". Both are added to this.state and
 // receive magic getter methods (this.isHovering() etc).
 // However, properties in DEFAULT_PROPS are updated on `modify()`,
@@ -162,10 +149,7 @@ _.extend(Movable.prototype, {
         const graphie = self.graphie;
 
         const prevState = self.cloneState();
-        const state = _.extend(
-            self.state,
-            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options),
-        );
+        const state = _.extend(self.state, normalizeOptions(options));
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
