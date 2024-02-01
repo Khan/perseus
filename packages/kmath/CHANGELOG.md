@@ -1,5 +1,11 @@
 # @khanacademy/kmath
 
+## 0.1.10
+
+### Patch Changes
+
+-   [#954](https://github.com/Khan/perseus/pull/954) [`43820ff9`](https://github.com/Khan/perseus/commit/43820ff9ce391682b951279a4c6fb9e3db966eb9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Fix @ts-expect-errors related to Graphie
+
 ## 0.1.9
 
 ### Patch Changes

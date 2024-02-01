@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 19.1.2
+
+### Patch Changes
+
+-   [#954](https://github.com/Khan/perseus/pull/954) [`43820ff9`](https://github.com/Khan/perseus/commit/43820ff9ce391682b951279a4c6fb9e3db966eb9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Fix @ts-expect-errors related to Graphie
+
+*   [#956](https://github.com/Khan/perseus/pull/956) [`14e107f5`](https://github.com/Khan/perseus/commit/14e107f57c10fb3a442e55506810eb309caced24) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix bug when replacing transformer widget with deprecated-standin
+
+*   Updated dependencies [[`43820ff9`](https://github.com/Khan/perseus/commit/43820ff9ce391682b951279a4c6fb9e3db966eb9)]:
+    -   @khanacademy/kmath@0.1.10
+
 ## 19.1.1
 
 ### Patch Changes
