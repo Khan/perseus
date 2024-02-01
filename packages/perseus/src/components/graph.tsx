@@ -1,5 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
+import {vector as kvector} from "@khanacademy/kmath";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -14,6 +15,7 @@ import SvgImage from "./svg-image";
 
 import type {Coord} from "../interactive2/types";
 import type {PerseusImageBackground} from "../perseus-types";
+import type {GridDimensions} from "../util";
 
 const defaultBackgroundImage = {
     url: null,
@@ -43,12 +45,12 @@ function numSteps(range: any, step: any) {
 }
 
 type Props = {
-    box: Readonly<[number, number]>;
+    box: [number, number];
     labels: ReadonlyArray<string>;
-    range: Readonly<[Coord, Coord]>;
-    step: Readonly<[number, number]>;
-    gridStep: Readonly<[number, number]>;
-    snapStep: Readonly<[number, number]>;
+    range: [Coord, Coord];
+    step: [number, number];
+    gridStep: [number, number];
+    snapStep: [number, number];
     markings: string;
     backgroundImage: PerseusImageBackground;
     showProtractor: boolean;
@@ -201,23 +203,26 @@ class Graph extends React.Component<Props> {
             Util.unescapeMathMode(label),
         );
         const range = this.props.range;
+        // @ts-expect-error - TS2345: Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
         const graphie = (this._graphie = GraphUtils.createGraphie(graphieDiv));
 
-        const gridConfig = this._getGridConfig();
+        const gridConfig: [GridDimensions, GridDimensions] =
+            this._getGridConfig();
+        // @ts-expect-error - TS2339: Property 'snap' does not exist on type 'Graphie'.
         graphie.snap = this.props.snapStep;
 
         if (this.props.markings === "graph") {
             graphie.graphInit({
                 range: range,
-                scale: _.pluck(gridConfig, "scale"),
+                scale: kvector.map(gridConfig, (g) => g.scale),
                 axisArrows: "<->",
                 labelFormat: function (s) {
                     return "\\small{" + s + "}";
                 },
                 gridStep: this.props.gridStep,
-                tickStep: _.pluck(gridConfig, "tickStep"),
+                tickStep: kvector.map(gridConfig, (g) => g.tickStep),
                 labelStep: 1,
-                unityLabels: _.pluck(gridConfig, "unityLabel"),
+                unityLabels: kvector.map(gridConfig, (g) => g.unityLabel),
                 isMobile: this.props.isMobile,
             });
             graphie.label(
@@ -233,7 +238,7 @@ class Graph extends React.Component<Props> {
         } else if (this.props.markings === "grid") {
             graphie.graphInit({
                 range: range,
-                scale: _.pluck(gridConfig, "scale"),
+                scale: kvector.map(gridConfig, (g) => g.scale),
                 gridStep: this.props.gridStep,
                 axes: false,
                 ticks: false,
@@ -243,7 +248,7 @@ class Graph extends React.Component<Props> {
         } else if (this.props.markings === "none") {
             graphie.init({
                 range: range,
-                scale: _.pluck(gridConfig, "scale"),
+                scale: kvector.map(gridConfig, (g) => g.scale),
                 isMobile: this.props.isMobile,
             });
         }
@@ -303,6 +308,7 @@ class Graph extends React.Component<Props> {
             : null;
         /* eslint-enable indent */
 
+        // @ts-expect-error - Property 'addMouseLayer' does not exist on type 'Graphie'.
         graphie.addMouseLayer({
             onClick: this.props.onClick,
             onMouseDown: onMouseDown,
@@ -329,16 +335,15 @@ class Graph extends React.Component<Props> {
         }
     };
 
-    _getGridConfig: () => any = () => {
-        const self = this;
-        return _.map(self.props.step, function (step, i) {
-            return Util.gridDimensionConfig(
+    _getGridConfig: () => [GridDimensions, GridDimensions] = () => {
+        return kvector.map(this.props.step, (step, i) =>
+            Util.gridDimensionConfig(
                 step,
-                self.props.range[i],
-                self.props.box[i],
-                self.props.gridStep[i],
-            );
-        });
+                this.props.range[i],
+                this.props.box[i],
+                this.props.gridStep[i],
+            ),
+        );
     };
 
     _updateProtractor: () => void = () => {

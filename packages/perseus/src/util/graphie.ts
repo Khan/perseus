@@ -91,7 +91,7 @@ interface LabelMethod {
 }
 
 export class Graphie {
-    el: HTMLElement;
+    el: Element;
     #bounds?: GraphBounds;
     #drawingTransform?: DrawingTransform;
     raphael?: any;
@@ -111,7 +111,7 @@ export class Graphie {
     xpixels?: number;
     ypixels?: number;
 
-    constructor(el: HTMLElement) {
+    constructor(el: Element) {
         this.el = el;
         $(el).css("position", "relative");
         this.raphael = Raphael(el);
@@ -180,7 +180,7 @@ export class Graphie {
         grid?: boolean;
         gridRange?: [Interval, Interval] | Coord;
         scale: Coord | number;
-        axes?: true;
+        axes?: boolean;
         axisArrows?: "<->" | "->" | true | "";
         axisOpacity?: number;
         axisCenter?: Coord;
@@ -269,8 +269,8 @@ export class Graphie {
             unityLabels = [unityLabels, unityLabels];
         }
 
-        const minusIgnorer = function (lf: any) {
-            return function (a) {
+        const minusIgnorer = function (lf: (a: number) => string) {
+            return function (a: number) {
                 return (lf(a) + "").replace(/-(\d)/g, "\\llap{-}$1");
             };
         };
@@ -580,7 +580,7 @@ export class Graphie {
         return this.#bounds;
     }
 
-    style(attrs: any, fn: any) {
+    style<T>(attrs: any, fn?: (this: Graphie) => T): T | undefined {
         const processed = this.processAttributes(attrs);
 
         if (typeof fn === "function") {
@@ -983,7 +983,7 @@ export class Graphie {
             };
 
             // @ts-expect-error - TS2339 - Property 'processText' does not exist on type 'JQuery<HTMLElement>'.
-            $span.processText = function (text: any) {
+            $span.processText = function (text: string) {
                 $span.html(text);
                 const width = span.scrollWidth;
                 const height = span.scrollHeight;
@@ -1098,7 +1098,7 @@ export class Graphie {
             .join("");
     };
 
-    svgParabolaPath = (a: any, b: any, c: any) => {
+    svgParabolaPath = (a: number, b: number, c: number) => {
         const computeParabola = function (x) {
             return (a * x + b) * x + c;
         };
@@ -1346,7 +1346,7 @@ export class Graphie {
         return this.drawingTransform().unscaleVector(point);
     };
 
-    private processAttributes(attrs: any) {
+    private processAttributes(attrs: Record<string, any> | undefined) {
         const transformers = {
             scale: (scale) => {
                 this.drawingTransform().setScale(scale);
@@ -1515,14 +1515,14 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
     }
 };
 
-const GraphUtils: any = {
+const GraphUtils = {
     Graphie,
 
-    createGraphie: function (el: any): Graphie {
+    createGraphie: function (el: Element): Graphie {
         return new Graphie(el);
     },
 
-    unscaledSvgPath: function (points) {
+    unscaledSvgPath: function (points: (Coord | true)[]): string {
         // If this is an empty closed path, return "" instead of "z", which
         // would give an error
         if (points[0] === true) {
@@ -1538,22 +1538,12 @@ const GraphUtils: any = {
             .join("");
     },
 
-    getDistance: function (point1, point2) {
+    getDistance: function (point1: Coord, point2: Coord): number {
         return kpoint.distanceToPoint(point1, point2);
     },
 
-    /**
-     * Round the given coordinates to a given snap value
-     * (e.g., nearest 0.2 increment)
-     */
-    snapCoord: function (coord, snap) {
-        return coord.map(function (val, i) {
-            return KhanMath.roundToNearest(snap[i], val);
-        });
-    },
-
     // Find the angle in degrees between two or three points
-    findAngle: function (point1, point2, vertex) {
+    findAngle: function (point1: Coord, point2: Coord, vertex?: Coord) {
         if (vertex === undefined) {
             const x = point1[0] - point2[0];
             const y = point1[1] - point2[1];

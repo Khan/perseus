@@ -7,6 +7,7 @@ import InteractiveUtil from "../interactive2/interactive-util";
 import {Errors, Log} from "../logging/log";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
+import {Graphie as GraphieDrawingContext} from "../util/graphie";
 
 import GraphieClasses from "./graphie-classes";
 import Movables from "./graphie-movables";
@@ -59,8 +60,17 @@ type DefaultProps = {
     addMouseLayer: Props["addMouseLayer"];
 };
 
+interface Movable {
+    remove(): void;
+}
+
 class Graphie extends React.Component<Props> {
     graphieDivRef = React.createRef<HTMLDivElement>();
+    _graphie: GraphieDrawingContext = new GraphieDrawingContext(
+        document.createElement("div"),
+    );
+    _movables: Record<string, Movable> = {};
+    movables: Record<string, Movable> = {};
 
     static defaultProps: DefaultProps = {
         range: [
@@ -120,7 +130,6 @@ class Graphie extends React.Component<Props> {
      * Use it for good and not evil.
      */
     getGraphie: () => any = () => {
-        // @ts-expect-error - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
         return this._graphie;
     };
 
@@ -151,10 +160,11 @@ class Graphie extends React.Component<Props> {
         ];
     };
 
-    _scale: () => ReadonlyArray<number> = () => {
+    // @ts-expect-error -  TS2322: Type '() => number[]' is not assignable to type '() => Coord'.
+    _scale: () => Coord = () => {
         const box = this._box();
         const range = this._range();
-        return _.map(box, (pixelDim, i) => {
+        return box.map((pixelDim, i) => {
             const unitDim = range[i][1] - range[i][0];
             return pixelDim / unitDim;
         });
@@ -164,9 +174,10 @@ class Graphie extends React.Component<Props> {
         this._removeMovables();
 
         const graphieDiv = ReactDOM.findDOMNode(this.graphieDivRef.current);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
-        $(graphieDiv).empty();
-        // @ts-expect-error - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
+        if (graphieDiv == null || graphieDiv instanceof Text) {
+            throw new Error("No graphie container div found");
+        }
+        graphieDiv.innerHTML = "";
         const graphie = (this._graphie = createGraphie(graphieDiv));
 
         // This has to be called before addMouseLayer. You can re-init
@@ -178,6 +189,7 @@ class Graphie extends React.Component<Props> {
         });
         // Only add the mouselayer if we actually want one.
         if (this.props.addMouseLayer) {
+            // @ts-expect-error - TS2339: Property 'addMouseLayer' does not exist on type 'Graphie'.
             graphie.addMouseLayer({
                 onClick: this.props.onClick,
                 onMouseDown: this.props.onMouseDown,
@@ -187,13 +199,13 @@ class Graphie extends React.Component<Props> {
             });
         }
 
+        // @ts-expect-error - TS2339: Property 'snap' does not exist on type 'Graphie'.
         graphie.snap = this.props.options.snapStep || [1, 1];
 
         if (this.props.responsive) {
             // Overwrite fixed styles set in init()
             // TODO(alex): Either make this component always responsive by
             // itself, or always wrap it in other components so that it is.
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2554 - Expected 2 arguments, but got 1.
             $(graphieDiv).css({width: "100%", height: "100%"});
             graphie.raphael.setSize("100%", "100%");
         }
@@ -212,9 +224,7 @@ class Graphie extends React.Component<Props> {
 
     _removeMovables: () => void = () => {
         // _.invoke works even when this._movables is undefined
-        // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         _.invoke(this._movables, "remove");
-        // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         this._movables = {};
     };
 
@@ -333,7 +343,6 @@ class Graphie extends React.Component<Props> {
             }
 
             if (ref) {
-                // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'Graphie'.
                 this.movables[ref] = newMovables[key];
             }
 
@@ -343,15 +352,11 @@ class Graphie extends React.Component<Props> {
 
     // Sort of like react diffing, but for movables
     _updateMovables: () => void = () => {
-        // @ts-expect-error - TS2339 - Property '_graphie' does not exist on type 'Graphie'.
         const graphie = this._graphie;
 
-        // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         const oldMovables = this._movables;
         const newMovables: Record<string, any> = {};
-        // @ts-expect-error - TS2339 - Property '_movables' does not exist on type 'Graphie'.
         this._movables = newMovables;
-        // @ts-expect-error - TS2339 - Property 'movables' does not exist on type 'Graphie'.
         this.movables = {};
 
         // @ts-expect-error - TS2345 - Argument of type 'ReactNode' is not assignable to parameter of type 'readonly any[]'.

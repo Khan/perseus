@@ -3982,8 +3982,8 @@ _.extend(MovableAngle.prototype, {
 
         // Drag ray control points to move each ray individually
         _.each([0, 2], function (i) {
-            points[i].onMove = function (x: any, y) {
-                const newPoint = [x, y];
+            points[i].onMove = function (x: number, y: number) {
+                const newPoint: Coord = [x, y];
                 const vertex = points[1].coord;
 
                 // @ts-expect-error - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never[]'.

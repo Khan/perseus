@@ -11,6 +11,8 @@ import {ApiOptions} from "../perseus-api";
 import GraphUtils from "../util/graph-utils";
 
 import type {WidgetExports} from "../types";
+import type {Interval} from "../util/interval";
+import type {Coord} from "@khanacademy/perseus";
 
 const defaultImage = {
     url: null,
@@ -121,10 +123,11 @@ const Measurer: any = createReactClass({
         const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
+        // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
         const graphie = (this.graphie = GraphUtils.createGraphie(graphieDiv));
 
-        const scale = [40, 40];
-        const range = [
+        const scale: Coord = [40, 40];
+        const range: [Interval, Interval] = [
             [0, this.props.box[0] / scale[0]],
             [0, this.props.box[1] / scale[1]],
         ];
@@ -132,6 +135,7 @@ const Measurer: any = createReactClass({
             range: range,
             scale: scale,
         });
+        // @ts-expect-error - Property 'addMouseLayer' does not exist on type 'Graphie'.
         graphie.addMouseLayer({
             allowScratchpad: true,
             setDrawingAreaAvailable:
@@ -143,6 +147,7 @@ const Measurer: any = createReactClass({
         }
 
         if (this.props.showProtractor) {
+            // @ts-expect-error - Property 'protractor' does not exist on type 'Graphie'.
             this.protractor = graphie.protractor([
                 this.props.protractorX,
                 this.props.protractorY,
@@ -154,6 +159,7 @@ const Measurer: any = createReactClass({
         }
 
         if (this.props.showRuler) {
+            // @ts-expect-error - Property 'ruler' does not exist on type 'Graphie'.
             this.ruler = graphie.ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,

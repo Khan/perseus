@@ -145,6 +145,7 @@ export class Plotter extends React.Component<Props, State> {
         const graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
         // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
+        // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
         const graphie = GraphUtils.createGraphie(graphieDiv);
 
         // TODO(jakesandlund): It's not the react way to hang
@@ -278,6 +279,7 @@ export class Plotter extends React.Component<Props, State> {
             scale: c.scale,
             isMobile: this.props.apiOptions.isMobile,
         });
+        // @ts-expect-error - Property 'addMouseLayer' does not exist on type 'Graphie'.
         graphie.addMouseLayer({
             allowScratchpad: true,
             setDrawingAreaAvailable:

@@ -26,6 +26,10 @@ export function zip<T>(...arrays: ReadonlyArray<T>[]): T[][] {
     return results;
 }
 
+export function map<T, U>(pair: [T, T], f: (a: T, i: number) => U): [U, U] {
+    return [f(pair[0], 0), f(pair[1], 1)];
+}
+
 /**
  * Checks if the given vector contains only numbers and, optionally, is of the
  * right dimension (length).
