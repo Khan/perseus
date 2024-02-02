@@ -120,7 +120,7 @@ const InteractiveUtil = {
      */
     normalizeOptions: function (options: Record<any, any>): Record<any, any> {
         const result = {...options};
-        _.each(FUNCTION_ARRAY_OPTIONS, function (eventName) {
+        FUNCTION_ARRAY_OPTIONS.forEach(function (eventName) {
             // Only propagate values which were set; not present values
             // shouldn't be added to options because we'd like them to
             // fall through to defaults
