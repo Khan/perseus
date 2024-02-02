@@ -33,7 +33,7 @@ describe("Movable", () => {
         expect(typeof movable.mouseTarget).toBe("function");
     });
 
-    it("cloneState()", () => {
+    test("cloneState()", () => {
         const movable = new Movable(
             new Graphie(document.createElement("div")),
             {},
@@ -60,7 +60,7 @@ describe("Movable", () => {
         );
     });
 
-    it("cloneState() should copy state", () => {
+    test("cloneState() should copy state", () => {
         const movable = new Movable(
             new Graphie(document.createElement("div")),
             {},
@@ -69,7 +69,7 @@ describe("Movable", () => {
         expect(movable.cloneState()).not.toBe(movable.state);
     });
 
-    it("modify() resets movable to initial state", () => {
+    test("modify() resets movable to initial state", () => {
         const movable = new Movable(
             new Graphie(document.createElement("div")),
             {},
@@ -80,10 +80,10 @@ describe("Movable", () => {
 
         movable.modify();
 
-        expect(movable.cloneState()).toStrictEqual(state);
+        expect(movable.cloneState()).toEqual(state);
     });
 
-    it("modify() retains original ID", () => {
+    test("modify() retains original ID", () => {
         const movable = new Movable(
             new Graphie(document.createElement("div")),
             {},
@@ -92,10 +92,10 @@ describe("Movable", () => {
 
         movable.modify({added: true});
 
-        expect(movable.state.id).toStrictEqual(id);
+        expect(movable.state.id).toBe(id);
     });
 
-    it("grab() fires onMoveStart", () => {
+    test("grab() fires onMoveStart", () => {
         const graphie = new Graphie(document.createElement("div"));
         graphie.init({
             range: [
@@ -111,7 +111,7 @@ describe("Movable", () => {
         expect(onMoveStart).toHaveBeenCalledWith([0, 0], [0, 0]);
     });
 
-    it("grab() fires onMove when mouse moves", () => {
+    test("grab() fires onMove when mouse moves", () => {
         const graphie = new Graphie(document.createElement("div"));
         graphie.init({
             range: [
@@ -129,7 +129,7 @@ describe("Movable", () => {
         expect(onMove).toHaveBeenCalledWith([2, 2], [0, 0]);
     });
 
-    it("grab() fires onMoveEnd when mouse up", () => {
+    test("grab() fires onMoveEnd when mouse up", () => {
         const graphie = new Graphie(document.createElement("div"));
         graphie.init({
             range: [
@@ -146,7 +146,7 @@ describe("Movable", () => {
         expect(onMoveEnd).toHaveBeenCalledWith([0, 0], [0, 0]);
     });
 
-    it("grab() fires onClick if still hovering when mouse up", () => {
+    test("grab() fires onClick if still hovering when mouse up", () => {
         const graphie = new Graphie(document.createElement("div"));
         graphie.init({
             range: [
