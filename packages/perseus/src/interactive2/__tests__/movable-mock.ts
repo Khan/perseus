@@ -4,10 +4,11 @@
 
 import _ from "underscore";
 
+import {Graphie} from "../../util/graphie";
 import Movable from "../movable";
 
 const createMock = function (): any {
-    const movable = new Movable(null, {
+    const movable = new Movable(new Graphie(document.createElement("div")), {
         mouseTarget: null,
     });
     movable.modify = function (options: any) {

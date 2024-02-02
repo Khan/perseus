@@ -15,6 +15,9 @@ import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util";
 
+import type {Coord} from "./types";
+import type {Graphie} from "../util/graphie";
+
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 
 const assert = InteractiveUtil.assert;
@@ -49,10 +52,10 @@ const DEFAULT_STATE = {
     mouseTarget: null,
 } as const;
 
-const Movable = function (graphie: any, options: any): void {
+const Movable = function (graphie: Graphie, options: any): void {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {
-        graphie: graphie,
+        graphie,
         state: {
             // Set here because this must be unique for each instance
             id: _.uniqueId("movable"),
@@ -108,7 +111,7 @@ _.extend(Movable.prototype, {
     /**
      * Simulates a mouse grab event on the movable object.
      */
-    grab: function (coord) {
+    grab: function (coord: Coord) {
         assert(kpoint.is(coord));
         const self = this;
         const graphie = self.graphie;

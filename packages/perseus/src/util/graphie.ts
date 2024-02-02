@@ -121,13 +121,15 @@ export class Graphie {
     }
 
     init(options: {
-        range?: [Interval, Interval];
+        range: [Interval, Interval];
         scale?: number | Coord;
         isMobile?: boolean;
     }) {
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
 
+        // TODO(jeremy): This can be removed once we're confident that callers
+        // obey the Typescript types.
         if (options.range == null) {
             throw new PerseusError(
                 "range should be specified in graph init",
