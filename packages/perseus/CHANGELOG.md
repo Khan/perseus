@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 19.1.3
+
+### Patch Changes
+
+-   [#957](https://github.com/Khan/perseus/pull/957) [`19114138`](https://github.com/Khan/perseus/commit/1911413844b59ef87d5b2329f6120e4568be9ae3) Thanks [@nedredmond](https://github.com/nedredmond)! - Updated tests
+
+*   [#952](https://github.com/Khan/perseus/pull/952) [`6bebefcb`](https://github.com/Khan/perseus/commit/6bebefcb4ce54c3ed0d57707c34d4399f763368f) Thanks [@nedredmond](https://github.com/nedredmond)! - Screenreader reads Label Image Widget answer pills
+
+-   [#961](https://github.com/Khan/perseus/pull/961) [`03e1461f`](https://github.com/Khan/perseus/commit/03e1461fe16d5dd31fd1f6d11669126dce96f088) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ensure the deprecated-standin widget replaces the transformer widget which is now removed
+
+-   Updated dependencies [[`19114138`](https://github.com/Khan/perseus/commit/1911413844b59ef87d5b2329f6120e4568be9ae3)]:
+    -   @khanacademy/math-input@17.0.2
+
 ## 19.1.2
 
 ### Patch Changes
