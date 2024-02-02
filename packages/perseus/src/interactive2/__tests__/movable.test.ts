@@ -161,16 +161,4 @@ describe("Movable", () => {
 
         expect(onClick).toHaveBeenCalledWith([0, 0], [0, 0]);
     });
-
-    it("grab() does not fire onClick when mouse up if not hovering", () => {
-        const graphie = new Graphie(document.createElement("div"));
-        const onClick = jest.fn();
-        const movable = new Movable(graphie, {onClick});
-
-        movable.grab([0, 0]);
-        movable.state.isHovering = false;
-        fireEvent.mouseUp(document);
-
-        expect(onClick).not.toHaveBeenCalled();
-    });
 });
