@@ -164,12 +164,6 @@ describe("Movable", () => {
 
     it("grab() does not fire onClick when mouse up if not hovering", () => {
         const graphie = new Graphie(document.createElement("div"));
-        graphie.init({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-        });
         const onClick = jest.fn();
         const movable = new Movable(graphie, {onClick});
 
