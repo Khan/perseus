@@ -2,8 +2,6 @@
  * A single entry-point for all of the external-facing functionality.
  */
 
-import "../less/main.less";
-
 export {libVersion} from "./version";
 
 // MathInput input field (MathQuill wrapper)

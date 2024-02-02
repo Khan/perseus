@@ -1,0 +1,21 @@
+{
+  "name": "@junyiacademy/perseus-core",
+  "version": "1.0.15",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": "^20.10.0",
+    "npm": "^10.2.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build:publish": "webpack --config webpack.config.js --progress"
+  },
+  "peerDependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
