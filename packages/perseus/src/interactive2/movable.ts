@@ -17,6 +17,7 @@ import InteractiveUtil from "./interactive-util";
 
 import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
+import {Errors, PerseusError} from "@khanacademy/perseus-error";
 
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -45,18 +46,18 @@ export interface State {
     isMouseOver?: boolean;
     isDragging?: boolean;
     // TODO(benchristel): improve types
-    mouseTarget?: unknown | null;
+    mouseTarget?: {getMouseTarget(): Element} | null,
     // TODO(benchristel): improve types
-    cursor: unknown | null;
-    id: string;
-    add: (() => void)[];
-    modify: (() => void)[];
-    draw: (() => void)[];
-    remove: (() => void)[];
-    onMoveStart: ((position: Coord) => void)[];
-    onMove: ((end: Coord, start: Coord) => void)[];
-    onMoveEnd: ((end: Coord, start: Coord) => void)[];
-    onClick: ((position: Coord, start: Coord) => void)[];
+    cursor?: unknown | null,
+    id: string,
+    add?: (() => void)[],
+    modify?: (() => void)[],
+    draw?: (() => void)[],
+    remove?: (() => void)[],
+    onMoveStart?: ((position: Coord) => void)[],
+    onMove?: ((end: Coord, start: Coord) => void)[],
+    onMoveEnd?: ((end: Coord, start: Coord) => void)[],
+    onClick?: ((position: Coord, start: Coord) => void)[],
 }
 
 export class MovableClassRenameMe<Options extends Record<string, any>> {
@@ -193,6 +194,177 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
     _fireEvent(listeners, currentValue: State, previousValue: State | undefined) {
         _.invoke(listeners, "call", this, currentValue, previousValue);
     }
+
+    draw() {
+        // TODO(benchristel): implement
+    }
+
+    grab(mousePosition: Coord) {
+        // TODO(benchristel): implement
+    }
+
+    _applyConstraints(current, previous, extraOptions) {
+            let skipRemaining = false;
+
+            return _.reduce(
+                this.state.constraints,
+                (memo, constraint) => {
+                    // A move that has been cancelled won't be propagated to later
+                    // constraints calls
+                    if (memo === false) {
+                        return false;
+                    }
+
+                    if (skipRemaining) {
+                        return memo;
+                    }
+
+                    const result = constraint.call(this, memo, previous, {
+                        onSkipRemaining: () => {
+                            skipRemaining = true;
+                        },
+                        ...extraOptions,
+                    });
+
+                    if (result === false) {
+                        // Returning false cancels the move
+                        return false;
+                    }
+                    if (kpoint.is(result, 2)) {
+                        // Returning a coord from constraints overrides the move
+                        return result;
+                    }
+                    if (result === true || result == null) {
+                        // Returning true or undefined allow the move to occur
+                        return memo;
+                    }
+                    // Anything else is an error
+                    throw new PerseusError(
+                        "Constraint returned invalid result: " + result,
+                        Errors.Internal,
+                    );
+                },
+                current,
+                this,
+            );
+        }
+
+    // Change z-order to back
+    toBack() {
+        if (this.state.mouseTarget) {
+            this.state.mouseTarget.toBack();
+        }
+    }
+
+    // Change z-order to front
+    toFront() {
+        if (this.state.mouseTarget) {
+            this.state.mouseTarget.toFront();
+        }
+    }
+
+    /**
+     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
+     * etc. If a listener is already bound to the given eventName and id, then
+     * it is overwritten by func.
+     *
+     * eventName: the string name of the event to listen to. one of:
+     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
+     *
+     * id: a string id that can be used to remove this event at a later time
+     *   note: adding multiple listeners with the same id is undefined behavior
+     *
+     * func: the function to call when the event happens, which is called
+     *   with the event's standard parameters [usually (coord, prevCoord) or
+     *   (state, prevState)]
+     */
+    listen(eventName, id, func) {
+        this._listenerMap = this._listenerMap || {};
+
+        // If there's an existing handler, replace it by using its index in
+        // `this.state[eventName]`; otherwise, add this handler to the end
+        const key = getKey(eventName, id);
+        const index = (this._listenerMap[key] =
+            this._listenerMap[key] || this.state[eventName].length);
+        this.state[eventName][index] = func;
+    }
+
+    /**
+     * Remove a previously added listener, by the id specified in the
+     * corresponding listen() call
+     *
+     * If the given id has not been registered already, this is a no-op
+     */
+    unlisten(eventName, id) {
+        this._listenerMap = this._listenerMap || {};
+
+        const key = getKey(eventName, id);
+        const index = this._listenerMap[key];
+        if (index !== undefined) {
+            // Remove handler from list of event handlers and listenerMap
+            this.state[eventName].splice(index, 1);
+            delete this._listenerMap[key];
+
+            // Re-index existing events: if they occur after `index`, decrement
+            const keys = _.keys(this._listenerMap);
+            _.each(
+                keys,
+                function (key) {
+                    if (
+                        getEventName(key) === eventName &&
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        this._listenerMap[key] > index
+                    ) {
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        this._listenerMap[key]--;
+                    }
+                },
+                this,
+            );
+        }
+    }
+
+    remove() {
+        this.state.added = false;
+        this._fireEvent(this.state.remove);
+        if (this.state.mouseTarget) {
+            $(this.state.mouseTarget).off();
+            this.state.mouseTarget.remove();
+            this.state.mouseTarget = null;
+        }
+    }
+
+    cursor() {
+        return this.state.cursor;
+    }
+
+    added() {
+        return this.state.added;
+    }
+
+    isHovering() {
+        return this.state.isHovering;
+    }
+
+    isMouseOver() {
+        return this.state.isMouseOver;
+    }
+
+    isDragging() {
+        return this.state.isDragging;
+    }
+
+    mouseTarget() {
+        return this.state.mouseTarget;
+    }
+}
+
+function getKey(eventName: any, id: any) {
+    return eventName + ":" + id;
+}
+
+function getEventName(key) {
+    return key.split(":")[0];
 }
 
 const Movable = function (graphie: Graphie, options: any): void {

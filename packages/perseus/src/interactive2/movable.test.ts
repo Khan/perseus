@@ -6,36 +6,102 @@ describe("Movable", () => {
         ["the class-based implementation", MovableClassRenameMe],
     ]
 
-    it.each(constructors)("%s has methods", (_: string, Movable: any) => {
-        const dummyGraphie: any = {}
-        const movable = new Movable(dummyGraphie, {})
-        const keys: string[] = [];
-        for (let key in movable) {
-            keys.push(key);
-        }
-        expect(new Set(keys)).toEqual(new Set([
-            "graphie",
-            "state",
-            "prevState",
+    describe.each(constructors)("%s", (_: string, Movable: any) => {
+        const properties = [
+             "graphie",
+             "state",
+             "prevState",
+             "cursor",
+             "added",
+             "isHovering",
+             "isMouseOver",
+             "isDragging",
+             "mouseTarget",
+             "_fireEvent",
+             "_applyConstraints",
+             "draw",
+             "listen",
+             "unlisten",
+             "cloneState",
+             "_createDefaultState",
+             "modify",
+             "grab",
+             "update",
+             "remove",
+             "toBack",
+             "toFront",
+        ]
+
+        it.each(properties)("has a %s property", (property) => {
+            const dummyGraphie: any = {}
+            const movable = new Movable(dummyGraphie, {})
+            expect(movable[property]).toBeDefined()
+        })
+
+        const getters = [
             "cursor",
             "added",
             "isHovering",
             "isMouseOver",
             "isDragging",
             "mouseTarget",
-            "_fireEvent",
-            "_applyConstraints",
-            "draw",
-            "listen",
-            "unlisten",
-            "cloneState",
-            "_createDefaultState",
-            "modify",
-            "grab",
-            "update",
-            "remove",
-            "toBack",
-            "toFront",
-        ]))
-    })
+        ]
+
+        it.each(getters)("returns the corresponding state property from %s()", (getter) => {
+            const dummyGraphie: any = {}
+            const movable = new Movable(dummyGraphie, {})
+            expect(movable[getter]()).toBe(movable.state[getter]);
+        })
+
+        it("sets default state when constructed", () => {
+            const dummyGraphie: any = {}
+            const movable = new Movable(dummyGraphie, {})
+            expect(movable.state).toEqual({
+                id: expect.any(String),
+                add: [],
+                added: true,
+                cursor: null,
+                draw: [],
+                isDragging: false,
+                isHovering: false,
+                isMouseOver: false,
+                modify: [],
+                mouseTarget: null,
+                onClick: [],
+                onMove: [],
+                onMoveEnd: [],
+                onMoveStart: [],
+                remove: []
+            })
+        })
+
+        it("calls the modify listener when constructed", () => {
+            const dummyGraphie: any = {}
+            const modifySpy = jest.fn().mockName("modify");
+
+            new Movable(dummyGraphie, {modify: modifySpy})
+
+            const baseExpectedState = {
+                "add": [],
+                "added": false,
+                "cursor": null,
+                "draw": [],
+                "id": expect.any(String),
+                "isDragging": false,
+                "isHovering": false,
+                "isMouseOver": false,
+                "modify": [modifySpy],
+                "mouseTarget": null,
+                "onClick": [],
+                "onMove": [],
+                "onMoveEnd": [],
+                "onMoveStart": [],
+                "remove": [],
+            }
+            expect(modifySpy.mock.calls).toEqual([
+                [baseExpectedState, {}],
+                [{...baseExpectedState, added: true}, {...baseExpectedState, added: true}],
+            ]);
+        })
+    });
 })
