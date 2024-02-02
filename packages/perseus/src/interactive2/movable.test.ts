@@ -242,5 +242,33 @@ describe("Movable", () => {
 
             expect(onClick).toHaveBeenCalledWith([0, 0], [0, 0]);
         });
+
+        test("draw() fires a draw event", () => {
+            const dummyGraphie: any = {};
+            const drawSpy = jest.fn();
+            const movable = new Movable(dummyGraphie, {draw: drawSpy});
+
+            movable.draw();
+
+            const expectedState = {
+                add: [],
+                added: true,
+                cursor: null,
+                draw: [drawSpy],
+                id: expect.any(String),
+                isDragging: false,
+                isHovering: false,
+                isMouseOver: false,
+                modify: [],
+                mouseTarget: null,
+                onClick: [],
+                onMove: [],
+                onMoveEnd: [],
+                onMoveStart: [],
+                remove: [],
+            };
+
+            expect(drawSpy).toHaveBeenCalledWith(expectedState, expectedState);
+        });
     });
 });

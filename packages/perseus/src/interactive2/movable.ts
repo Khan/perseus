@@ -205,8 +205,14 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
         _.invoke(listeners, "call", this, currentValue, previousValue);
     }
 
+    /**
+     * Call all draw functions, and update our prevState for the next
+     * draw function
+     */
     draw() {
-        // TODO(benchristel): implement
+        const currState = this.cloneState();
+        this._fireEvent(this.state.draw, currState, this.prevState);
+        this.prevState = currState;
     }
 
     /**
