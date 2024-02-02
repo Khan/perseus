@@ -40,23 +40,23 @@ const DEFAULT_STATE = {
 } as const;
 
 export interface State {
-    added?: boolean,
-    isHovering?: boolean,
-    isMouseOver?: boolean,
-    isDragging?: boolean,
+    added?: boolean;
+    isHovering?: boolean;
+    isMouseOver?: boolean;
+    isDragging?: boolean;
     // TODO(benchristel): improve types
-    mouseTarget?: unknown | null,
+    mouseTarget?: unknown | null;
     // TODO(benchristel): improve types
-    cursor: unknown | null,
-    id: string,
-    add: (() => void)[],
-    modify: (() => void)[],
-    draw: (() => void)[],
-    remove: (() => void)[],
-    onMoveStart: ((position: Coord) => void)[],
-    onMove: ((end: Coord, start: Coord) => void)[],
-    onMoveEnd: ((end: Coord, start: Coord) => void)[],
-    onClick: ((position: Coord, start: Coord) => void)[],
+    cursor: unknown | null;
+    id: string;
+    add: (() => void)[];
+    modify: (() => void)[];
+    draw: (() => void)[];
+    remove: (() => void)[];
+    onMoveStart: ((position: Coord) => void)[];
+    onMove: ((end: Coord, start: Coord) => void)[];
+    onMoveEnd: ((end: Coord, start: Coord) => void)[];
+    onClick: ((position: Coord, start: Coord) => void)[];
 }
 
 const Movable = function (graphie: Graphie, options: any): void {

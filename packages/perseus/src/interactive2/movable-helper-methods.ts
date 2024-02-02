@@ -12,7 +12,6 @@ import _ from "underscore";
 
 import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
-import {State as MovableState} from "./movable"
 
 /* Local helper methods. */
 
@@ -28,9 +27,12 @@ const MovableHelperMethods: any = {
     /**
      * Fire an onSomething type event to all functions in listeners
      */
-    _fireEvent: function<F extends (...args: any[]) => any>(listeners: F[], ...args: Parameters<F>) {
+    _fireEvent: function <F extends (...args: any[]) => any>(
+        listeners: F[],
+        ...args: Parameters<F>
+    ) {
         for (const listener of listeners) {
-            listener.call(this, ...args)
+            listener.call(this, ...args);
         }
     },
 
