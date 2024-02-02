@@ -61,10 +61,10 @@ type DefaultProps = {
 };
 
 interface Movable {
-    remove(): void
-    props: unknown
-    modify(graphie: GraphieDrawingContext): "reordered" | undefined
-    toFront(): void
+    remove(): void;
+    props: unknown;
+    modify(graphie: GraphieDrawingContext): "reordered" | undefined;
+    toFront(): void;
 }
 
 class Graphie extends React.Component<Props> {
@@ -235,10 +235,10 @@ class Graphie extends React.Component<Props> {
     _renderMovables: (
         children: ReadonlyArray<any>,
         arg2: {
-            nextKey: number,
-            graphie: GraphieDrawingContext,
-            oldMovables: Record<string, Movable>,
-            newMovables: Record<string, Movable>,
+            nextKey: number;
+            graphie: GraphieDrawingContext;
+            oldMovables: Record<string, Movable>;
+            newMovables: Record<string, Movable>;
         },
     ) => React.ReactElement = (children, options) => {
         // Each leaf of `children` is a movable descriptor created by a call to

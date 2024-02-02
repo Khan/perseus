@@ -13,11 +13,13 @@ import {point as kpoint} from "@khanacademy/kmath";
 import $ from "jquery";
 import _ from "underscore";
 
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
+
 import InteractiveUtil from "./interactive-util";
 
 import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
-import {Errors, PerseusError} from "@khanacademy/perseus-error";
 
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -47,36 +49,36 @@ export interface State {
     isDragging?: boolean;
     // TODO(benchristel): improve types
     mouseTarget?: {
-        toFront(): void
-        toBack(): void
-        remove(): void
-        getMouseTarget(): Element
-    } | null,
+        toFront(): void;
+        toBack(): void;
+        remove(): void;
+        getMouseTarget(): Element;
+    } | null;
     // TODO(benchristel): improve types
-    cursor?: unknown | null,
-    id: string,
-    add?: (() => void)[],
-    modify?: (() => void)[],
-    draw?: (() => void)[],
-    remove?: (() => void)[],
-    onMoveStart?: ((position: Coord) => void)[],
-    onMove?: ((end: Coord, start: Coord) => void)[],
-    onMoveEnd?: ((end: Coord, start: Coord) => void)[],
-    onClick?: ((position: Coord, start: Coord) => void)[],
-    constraints?: (() => Coord | boolean | undefined)[],
+    cursor?: unknown | null;
+    id: string;
+    add?: (() => void)[];
+    modify?: (() => void)[];
+    draw?: (() => void)[];
+    remove?: (() => void)[];
+    onMoveStart?: ((position: Coord) => void)[];
+    onMove?: ((end: Coord, start: Coord) => void)[];
+    onMoveEnd?: ((end: Coord, start: Coord) => void)[];
+    onClick?: ((position: Coord, start: Coord) => void)[];
+    constraints?: (() => Coord | boolean | undefined)[];
 }
 
 export class MovableClassRenameMe<Options extends Record<string, any>> {
-    graphie: Graphie
-    state: State
-    prevState: State | undefined
-    _listenerMap: Record<string, () => unknown> = {}
+    graphie: Graphie;
+    state: State;
+    prevState: State | undefined;
+    _listenerMap: Record<string, () => unknown> = {};
 
     constructor(graphie: Graphie, options: Options) {
-        this.graphie = graphie
+        this.graphie = graphie;
         this.state = {
             id: _.uniqueId("movable"),
-        }
+        };
         this.modify({...DEFAULT_STATE, ...options});
     }
 
@@ -107,10 +109,7 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
         const graphie = self.graphie;
 
         const prevState = self.cloneState();
-        const state = Object.assign(
-            self.state,
-            normalizeOptions(options),
-        );
+        const state = Object.assign(self.state, normalizeOptions(options));
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
@@ -195,10 +194,14 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
     }
 
     cloneState(): State {
-        return {...this.state}
+        return {...this.state};
     }
 
-    _fireEvent(listeners, currentValue: State, previousValue: State | undefined) {
+    _fireEvent(
+        listeners,
+        currentValue: State,
+        previousValue: State | undefined,
+    ) {
         _.invoke(listeners, "call", this, currentValue, previousValue);
     }
 
@@ -211,50 +214,50 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
     }
 
     _applyConstraints(current, previous, extraOptions) {
-            let skipRemaining = false;
+        let skipRemaining = false;
 
-            return _.reduce(
-                this.state.constraints,
-                (memo, constraint) => {
-                    // A move that has been cancelled won't be propagated to later
-                    // constraints calls
-                    if (memo === false) {
-                        return false;
-                    }
+        return _.reduce(
+            this.state.constraints,
+            (memo, constraint) => {
+                // A move that has been cancelled won't be propagated to later
+                // constraints calls
+                if (memo === false) {
+                    return false;
+                }
 
-                    if (skipRemaining) {
-                        return memo;
-                    }
+                if (skipRemaining) {
+                    return memo;
+                }
 
-                    const result = constraint.call(this, memo, previous, {
-                        onSkipRemaining: () => {
-                            skipRemaining = true;
-                        },
-                        ...extraOptions,
-                    });
+                const result = constraint.call(this, memo, previous, {
+                    onSkipRemaining: () => {
+                        skipRemaining = true;
+                    },
+                    ...extraOptions,
+                });
 
-                    if (result === false) {
-                        // Returning false cancels the move
-                        return false;
-                    }
-                    if (kpoint.is(result, 2)) {
-                        // Returning a coord from constraints overrides the move
-                        return result;
-                    }
-                    if (result === true || result == null) {
-                        // Returning true or undefined allow the move to occur
-                        return memo;
-                    }
-                    // Anything else is an error
-                    throw new PerseusError(
-                        "Constraint returned invalid result: " + result,
-                        Errors.Internal,
-                    );
-                },
-                current,
-                this,
-            );
-        }
+                if (result === false) {
+                    // Returning false cancels the move
+                    return false;
+                }
+                if (kpoint.is(result, 2)) {
+                    // Returning a coord from constraints overrides the move
+                    return result;
+                }
+                if (result === true || result == null) {
+                    // Returning true or undefined allow the move to occur
+                    return memo;
+                }
+                // Anything else is an error
+                throw new PerseusError(
+                    "Constraint returned invalid result: " + result,
+                    Errors.Internal,
+                );
+            },
+            current,
+            this,
+        );
+    }
 
     // Change z-order to back
     toBack() {
@@ -314,20 +317,15 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
 
             // Re-index existing events: if they occur after `index`, decrement
             const keys = _.keys(this._listenerMap);
-            _.each(
-                keys,
-                function (key) {
-                    if (
-                        getEventName(key) === eventName &&
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this._listenerMap[key] > index
-                    ) {
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this._listenerMap[key]--;
-                    }
-                },
-                this,
-            );
+            keys.forEach((key) => {
+                if (
+                    getEventName(key) === eventName &&
+                    this._listenerMap[key] > index
+                ) {
+                    // @ts-expect-error - TS2356: An arithmetic operand must be of type 'any', 'number', 'bigint' or an enum type.
+                    this._listenerMap[key]--;
+                }
+            });
         }
     }
 

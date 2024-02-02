@@ -12,7 +12,6 @@ import _ from "underscore";
 
 import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
-import {State as MovableState} from "./movable"
 
 /* Local helper methods. */
 
