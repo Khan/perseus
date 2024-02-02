@@ -69,10 +69,6 @@ const normalizeOptions = InteractiveUtil.normalizeOptions;
 
 const {processMath} = Tex;
 
-// State parameters that should be converted into an array of
-// functions
-const FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
-
 // Default "props" and "state". Both are added to this.state and
 // receive magic getter methods (this.coord() etc).
 // However, properties in DEFAULT_PROPS are updated on `modify()`,
@@ -134,7 +130,6 @@ _.extend(MovablePoint.prototype, {
                 id: this.state.id,
             },
             normalizeOptions(
-                FUNCTION_ARRAY_OPTIONS,
                 // Defaults are copied from MovablePointOptions.*.standard
                 // These defaults are set here instead of DEFAULT_PROPS/STATE
                 // because they:
@@ -216,10 +211,7 @@ _.extend(MovablePoint.prototype, {
     update: function (options) {
         const self = this;
         const graphie = self.graphie;
-        const state = _.extend(
-            self.state,
-            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options),
-        );
+        const state = _.extend(self.state, normalizeOptions(options));
 
         assert(kpoint.is(state.coord));
 

@@ -14,16 +14,6 @@ import WrappedLine from "./wrapped-line";
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 
-const FUNCTION_ARRAY_OPTIONS = [
-    "add",
-    "draw",
-    "remove",
-    "onMoveStart",
-    "constraints",
-    "onMove",
-    "onMoveEnd",
-];
-
 // Default "props" and "state". Both are added to this.state and
 // receive magic getter methods (this.cursor() etc).
 // However, properties in DEFAULT_PROPS are updated on `modify()`,
@@ -87,7 +77,6 @@ _.extend(MovableLine.prototype, {
                 id: this.state.id,
             },
             normalizeOptions(
-                FUNCTION_ARRAY_OPTIONS,
                 // Defaults are copied from MovableLineOptions.*.standard
                 // These defaults are set here instead of DEFAULT_PROPS/STATE
                 // because they:
@@ -121,7 +110,7 @@ _.extend(MovableLine.prototype, {
         const graphie = this.graphie;
         const state = (self.state = _.extend(
             self.state,
-            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options),
+            normalizeOptions(options),
         ));
 
         // Default things inside the state.normalStyle object, because

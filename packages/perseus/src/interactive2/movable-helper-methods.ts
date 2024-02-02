@@ -27,8 +27,13 @@ const MovableHelperMethods: any = {
     /**
      * Fire an onSomething type event to all functions in listeners
      */
-    _fireEvent: function (listeners, currentValue, previousValue) {
-        _.invoke(listeners, "call", this, currentValue, previousValue);
+    _fireEvent: function <F extends (...args: any[]) => any>(
+        listeners: F[],
+        ...args: Parameters<F>
+    ) {
+        for (const listener of listeners) {
+            listener.call(this, ...args);
+        }
     },
 
     /**

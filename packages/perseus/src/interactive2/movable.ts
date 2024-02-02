@@ -22,19 +22,6 @@ const normalizeOptions = InteractiveUtil.normalizeOptions;
 
 const assert = InteractiveUtil.assert;
 
-// state parameters that should be converted into an array of
-// functions
-const FUNCTION_ARRAY_OPTIONS = [
-    "add",
-    "modify",
-    "draw",
-    "remove",
-    "onMoveStart",
-    "onMove",
-    "onMoveEnd",
-    "onClick",
-];
-
 // Default "props" and "state". Both are added to this.state and
 // receive magic getter methods (this.isHovering() etc).
 // However, properties in DEFAULT_PROPS are updated on `modify()`,
@@ -51,6 +38,26 @@ const DEFAULT_STATE = {
     isDragging: false,
     mouseTarget: null,
 } as const;
+
+export interface State {
+    added?: boolean;
+    isHovering?: boolean;
+    isMouseOver?: boolean;
+    isDragging?: boolean;
+    // TODO(benchristel): improve types
+    mouseTarget?: unknown | null;
+    // TODO(benchristel): improve types
+    cursor: unknown | null;
+    id: string;
+    add: (() => void)[];
+    modify: (() => void)[];
+    draw: (() => void)[];
+    remove: (() => void)[];
+    onMoveStart: ((position: Coord) => void)[];
+    onMove: ((end: Coord, start: Coord) => void)[];
+    onMoveEnd: ((end: Coord, start: Coord) => void)[];
+    onClick: ((position: Coord, start: Coord) => void)[];
+}
 
 const Movable = function (graphie: Graphie, options: any): void {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -74,28 +81,26 @@ InteractiveUtil.createGettersFor(
 InteractiveUtil.addMovableHelperMethodsTo(Movable);
 
 _.extend(Movable.prototype, {
-    cloneState: function () {
-        return _.clone(this.state);
+    cloneState: function (): State {
+        return {...this.state};
     },
 
-    _createDefaultState: function () {
-        return _.extend(
-            {
-                id: this.state.id,
-                add: [],
-                modify: [],
-                draw: [],
-                remove: [],
-                onMoveStart: [],
-                onMove: [],
-                onMoveEnd: [],
-                onClick: [],
+    _createDefaultState: function (): State {
+        return {
+            id: this.state.id,
+            add: [],
+            modify: [],
+            draw: [],
+            remove: [],
+            onMoveStart: [],
+            onMove: [],
+            onMoveEnd: [],
+            onClick: [],
 
-                // We only update props here, because we want things on state to
-                // be persistent, and updated appropriately in modify()
-            },
-            DEFAULT_PROPS,
-        );
+            // We only update props here, because we want things on state to
+            // be persistent, and updated appropriately in modify()
+            ...DEFAULT_PROPS,
+        };
     },
 
     /**
@@ -104,8 +109,8 @@ _.extend(Movable.prototype, {
      *
      * Analogous to React.js's replaceProps
      */
-    modify: function (options) {
-        this.update(_.extend({}, this._createDefaultState(), options));
+    modify: function (options: Partial<State>) {
+        this.update({...this._createDefaultState(), ...options});
     },
 
     /**
@@ -115,7 +120,7 @@ _.extend(Movable.prototype, {
         assert(kpoint.is(coord));
         const self = this;
         const graphie = self.graphie;
-        const state = self.state;
+        const state: State = self.state;
 
         state.isHovering = true;
         state.isDragging = true;
@@ -157,15 +162,12 @@ _.extend(Movable.prototype, {
      *
      * Analogous to React.js's setProps
      */
-    update: function (options) {
+    update: function (options: State) {
         const self = this;
         const graphie = self.graphie;
 
         const prevState = self.cloneState();
-        const state = _.extend(
-            self.state,
-            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options),
-        );
+        const state = _.extend(self.state, normalizeOptions(options));
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
