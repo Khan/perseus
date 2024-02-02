@@ -598,16 +598,11 @@ export class LabelImage extends React.Component<
                         }
                         // cannot change answer choices once question is answered
                         disabled={disabled}
-                        opener={({opened, text}) => (
+                        opener={({opened}) => (
                             <Clickable
                                 role="button"
+                                aria-expanded={opened}
                                 key={`marker-${marker.x}.${marker.y}`}
-                                aria-label={
-                                    // already translated in: /widgets/graded-group.tsx
-                                    showCorrectness === "correct"
-                                        ? i18n._("Correct!")
-                                        : marker.label
-                                }
                             >
                                 {({hovered, focused, pressed}) => (
                                     <Marker

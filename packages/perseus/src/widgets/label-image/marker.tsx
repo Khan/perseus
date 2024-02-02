@@ -7,6 +7,7 @@
 
 import Color from "@khanacademy/wonder-blocks-color";
 import {View, type StyleType} from "@khanacademy/wonder-blocks-core";
+import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -127,6 +128,7 @@ export default class Marker extends React.Component<Props> {
             answerStyles,
             hovered,
             focused,
+            label,
         } = this.props;
 
         // We cannot make dropdown openers untabbable, so we isolate tabbing
@@ -141,6 +143,8 @@ export default class Marker extends React.Component<Props> {
                         styles.marker,
                         active && !markerDisabled && styles.markerActive,
                     ]}
+                    // already translated in: /widgets/graded-group.tsx
+                    aria-label={markerDisabled ? i18n._("Correct!") : label}
                 >
                     {this.renderIcon()}
                 </View>
