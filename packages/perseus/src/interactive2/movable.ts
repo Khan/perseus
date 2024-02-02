@@ -58,10 +58,15 @@ export interface State {
     cursor?: unknown | null;
     id: string;
     add?: (() => void)[];
-    modify?: (() => void)[];
-    draw?: (() => void)[];
+    // TODO(benchristel): I don't see any evidence that implementers of
+    // modify do anything with the second argument. Remove it?
+    modify?: ((state: State, prevState?: State) => void)[];
+    draw?: ((state: State, prevState?: State) => void)[];
     remove?: (() => void)[];
-    onMoveStart?: ((position: Coord) => void)[];
+    // TODO(benchristel): callers pass the position twice to onMoveStart.
+    // But I don't see any implementers expecting two arguments. Remove the
+    // second argument.
+    onMoveStart?: ((position: Coord, positionAgain: Coord) => void)[];
     onMove?: ((end: Coord, start: Coord) => void)[];
     onMoveEnd?: ((end: Coord, start: Coord) => void)[];
     onClick?: ((position: Coord, start: Coord) => void)[];
