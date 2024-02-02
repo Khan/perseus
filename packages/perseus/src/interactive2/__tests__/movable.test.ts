@@ -69,7 +69,7 @@ describe("Movable", () => {
         expect(movable.cloneState()).not.toBe(movable.state);
     });
 
-    test("modify() resets movable to initial state", () => {
+    test("modify() resets movable to initial state when no params given", () => {
         const movable = new Movable(
             new Graphie(document.createElement("div")),
             {},
@@ -78,6 +78,10 @@ describe("Movable", () => {
         const state = movable.cloneState();
         movable.state.added = false;
 
+        // It seems that all usages of this function in our production code
+        // pass the original state + mutations to modify(). However, it _does_
+        // work to pass no arguments so we'll keep this Characterization test
+        // here for now.
         movable.modify();
 
         expect(movable.cloneState()).toEqual(state);
