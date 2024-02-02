@@ -46,7 +46,12 @@ export interface State {
     isMouseOver?: boolean;
     isDragging?: boolean;
     // TODO(benchristel): improve types
-    mouseTarget?: {getMouseTarget(): Element} | null,
+    mouseTarget?: {
+        toFront(): void
+        toBack(): void
+        remove(): void
+        getMouseTarget(): Element
+    } | null,
     // TODO(benchristel): improve types
     cursor?: unknown | null,
     id: string,
@@ -58,12 +63,14 @@ export interface State {
     onMove?: ((end: Coord, start: Coord) => void)[],
     onMoveEnd?: ((end: Coord, start: Coord) => void)[],
     onClick?: ((position: Coord, start: Coord) => void)[],
+    constraints?: (() => Coord | boolean | undefined)[],
 }
 
 export class MovableClassRenameMe<Options extends Record<string, any>> {
     graphie: Graphie
     state: State
     prevState: State | undefined
+    _listenerMap: Record<string, () => unknown> = {}
 
     constructor(graphie: Graphie, options: Options) {
         this.graphie = graphie
@@ -278,7 +285,7 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
      *   with the event's standard parameters [usually (coord, prevCoord) or
      *   (state, prevState)]
      */
-    listen(eventName, id, func) {
+    listen(eventName: string, id: string, func: () => unknown) {
         this._listenerMap = this._listenerMap || {};
 
         // If there's an existing handler, replace it by using its index in
@@ -295,7 +302,7 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
      *
      * If the given id has not been registered already, this is a no-op
      */
-    unlisten(eventName, id) {
+    unlisten(eventName: string, id: string) {
         this._listenerMap = this._listenerMap || {};
 
         const key = getKey(eventName, id);
