@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.0.2
+
+### Patch Changes
+
+-   [#957](https://github.com/Khan/perseus/pull/957) [`19114138`](https://github.com/Khan/perseus/commit/1911413844b59ef87d5b2329f6120e4568be9ae3) Thanks [@nedredmond](https://github.com/nedredmond)! - MathQuill provided a translated label
+
 ## 17.0.1
 
 ### Patch Changes
