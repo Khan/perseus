@@ -170,7 +170,10 @@ export const upgradeWidgetInfoToLatestVersion = (
     oldWidgetInfo: PerseusWidget,
 ): PerseusWidget => {
     const type = oldWidgetInfo.type;
-    // TODO(LP-10707): Remove unnecessary type checking (`type` is a string)
+    // NOTE(jeremy): This looks like it could be replaced by fixing types so
+    // that `type` is non-optional. But we're seeing this in Sentry today so I
+    // suspect we have legacy data (potentially unpublished) and we should
+    // figure that out before depending solely on types.
     if (!_.isString(type)) {
         throw new PerseusError(
             "widget type must be a string, but was: " + type,

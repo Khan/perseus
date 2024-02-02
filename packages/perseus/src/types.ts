@@ -411,9 +411,13 @@ export type WidgetExports<
 > = Readonly<{
     name: string;
     displayName: string;
+
+    // Widgets should provide _one_ of these two properties only!
     // TODO: figure out how to ensure that the component returned supports
     // the `validate` method.
     getWidget?: () => T;
+    widget: T;
+
     accessible?: boolean | ((props: any) => boolean);
     /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
@@ -449,8 +453,6 @@ export type WidgetExports<
     propUpgrades?: {
         [key: string]: (arg1: any) => any;
     }; // OldProps => NewProps,
-
-    widget: T;
 }>;
 
 export type PerseusWidgetMap = {
