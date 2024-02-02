@@ -134,7 +134,7 @@ describe("Movable", () => {
     });
 
     test("grab() fires onMoveEnd when mouse up", () => {
-        const dummyGraphie: any = {}
+        const dummyGraphie: any = {};
         const onMoveEnd = jest.fn();
         const movable = new Movable(dummyGraphie, {onMoveEnd});
 
@@ -145,7 +145,7 @@ describe("Movable", () => {
     });
 
     test("grab() fires onClick if still hovering when mouse up", () => {
-        const dummyGraphie: any = {}
+        const dummyGraphie: any = {};
         const onClick = jest.fn();
         const movable = new Movable(dummyGraphie, {onClick});
 
