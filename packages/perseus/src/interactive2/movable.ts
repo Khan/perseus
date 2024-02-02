@@ -209,8 +209,47 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
         // TODO(benchristel): implement
     }
 
-    grab(mousePosition: Coord) {
-        // TODO(benchristel): implement
+    /**
+     * Simulates a mouse grab event on the movable object.
+     */
+    grab(coord: Coord) {
+        assert(kpoint.is(coord));
+        const self = this;
+        const graphie = self.graphie;
+        const state: State = self.state;
+
+        state.isHovering = true;
+        state.isDragging = true;
+        graphie.isDragging = true;
+
+        const startMouseCoord = coord;
+        let prevMouseCoord = startMouseCoord;
+        self._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
+
+        const moveHandler = function (e: any) {
+            e.preventDefault();
+
+            const mouseCoord = graphie.getMouseCoord(e);
+            self._fireEvent(state.onMove, mouseCoord, prevMouseCoord);
+            self.draw();
+            prevMouseCoord = mouseCoord;
+        };
+
+        const upHandler = function (e: any) {
+            $(document).unbind("vmousemove", moveHandler);
+            $(document).unbind("vmouseup", upHandler);
+            if (state.isHovering) {
+                self._fireEvent(state.onClick, prevMouseCoord, startMouseCoord);
+            }
+            state.isHovering = self.state.isMouseOver;
+            state.isDragging = false;
+            graphie.isDragging = false;
+            self._fireEvent(state.onMoveEnd, prevMouseCoord, startMouseCoord);
+            self.draw();
+        };
+
+        $(document).bind("vmousemove", moveHandler);
+        $(document).bind("vmouseup", upHandler);
     }
 
     _applyConstraints(current, previous, extraOptions) {
