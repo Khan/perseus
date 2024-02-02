@@ -118,12 +118,13 @@ describe("Movable", () => {
                 [-10, 10],
                 [-10, 10],
             ],
+            scale: [10, 10],
         });
         const onMove = jest.fn();
         const movable = new Movable(graphie, {onMove});
 
         movable.grab([0, 0]);
-        fireEvent.mouseMove(document, {clientX: 480, clientY: 320});
+        fireEvent.mouseMove(document, {clientX: 120, clientY: 80});
 
         expect(onMove).toHaveBeenCalledWith([2, 2], [0, 0]);
     });
