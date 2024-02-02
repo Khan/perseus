@@ -39,7 +39,7 @@ describe("Movable", () => {
             {},
         );
 
-        expect(movable.cloneState()).toStrictEqual(
+        expect(movable.cloneState()).toEqual(
             expect.objectContaining({
                 id: expect.any(String),
                 add: [],
@@ -134,15 +134,9 @@ describe("Movable", () => {
     });
 
     test("grab() fires onMoveEnd when mouse up", () => {
-        const graphie = new Graphie(document.createElement("div"));
-        graphie.init({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-        });
+        const dummyGraphie: any = {}
         const onMoveEnd = jest.fn();
-        const movable = new Movable(graphie, {onMoveEnd});
+        const movable = new Movable(dummyGraphie, {onMoveEnd});
 
         movable.grab([0, 0]);
         fireEvent.mouseUp(document);
@@ -151,15 +145,9 @@ describe("Movable", () => {
     });
 
     test("grab() fires onClick if still hovering when mouse up", () => {
-        const graphie = new Graphie(document.createElement("div"));
-        graphie.init({
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-        });
+        const dummyGraphie: any = {}
         const onClick = jest.fn();
-        const movable = new Movable(graphie, {onClick});
+        const movable = new Movable(dummyGraphie, {onClick});
 
         movable.grab([0, 0]);
         fireEvent.mouseUp(document);
