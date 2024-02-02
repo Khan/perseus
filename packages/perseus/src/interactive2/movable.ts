@@ -197,12 +197,19 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
         return {...this.state};
     }
 
-    _fireEvent(
-        listeners,
-        currentValue: State,
-        previousValue: State | undefined,
+    /**
+     * Fire an onSomething type event to all functions in listeners
+     */
+    _fireEvent<F extends (...args: any[]) => any>(
+        listeners: F[] | undefined,
+        ...args: Parameters<F>
     ) {
-        _.invoke(listeners, "call", this, currentValue, previousValue);
+        if (listeners == null) {
+            return
+        }
+        for (const listener of listeners) {
+            listener.call(this, ...args);
+        }
     }
 
     /**
