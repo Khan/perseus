@@ -2,10 +2,10 @@ import {createMathField} from "../../input/mathquill-instance";
 import handleJumpOut from "../handle-jump-out";
 
 describe("handleJumpOut", () => {
-    it("jumps out of parenthesis", () => {
+    it("jumps out of parenthesis", async () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount);
+        const mathField = await createMathField(mount);
 
         // Act
         mathField.typedText("(4");
@@ -16,10 +16,10 @@ describe("handleJumpOut", () => {
         expect(mathField.latex()).toBe("\\left(4\\right)6");
     });
 
-    it("jumps into numerator", () => {
+    it("jumps into numerator", async () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount);
+        const mathField = await createMathField(mount);
 
         // Act
         mathField.typedText("4");
@@ -32,10 +32,10 @@ describe("handleJumpOut", () => {
         expect(mathField.latex()).toBe("4\\frac{6}{ }");
     });
 
-    it("jumps out of numerator", () => {
+    it("jumps out of numerator", async () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount);
+        const mathField = await createMathField(mount);
 
         // Act
         mathField.cmd("frac");
@@ -47,10 +47,10 @@ describe("handleJumpOut", () => {
         expect(mathField.latex()).toBe("\\frac{4}{6}");
     });
 
-    it("jumps out of denominator", () => {
+    it("jumps out of denominator", async () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount);
+        const mathField = await createMathField(mount);
 
         // Act
         mathField.cmd("frac");
@@ -64,10 +64,10 @@ describe("handleJumpOut", () => {
         expect(mathField.latex()).toBe("\\frac{4}{6}2");
     });
 
-    it("jumps out of superscript", () => {
+    it("jumps out of superscript", async () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount);
+        const mathField = await createMathField(mount);
 
         // Act
         mathField.typedText("4^22");
@@ -78,10 +78,10 @@ describe("handleJumpOut", () => {
         expect(mathField.latex()).toBe("4^{22}6");
     });
 
-    it("jumps out of subscript", () => {
+    it("jumps out of subscript", async () => {
         // Arrange
         const mount = document.createElement("div");
-        const mathField = createMathField(mount);
+        const mathField = await createMathField(mount);
 
         // Act
         mathField.typedText("4_22");

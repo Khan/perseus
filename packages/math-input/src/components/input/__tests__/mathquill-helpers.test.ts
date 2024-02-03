@@ -4,10 +4,10 @@ import {createMathField} from "../mathquill-instance";
 
 describe("MathQuill Helpers", () => {
     describe("getCursorContext", () => {
-        it("returns NONE for empty MathField", () => {
+        it("returns NONE for empty MathField", async () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = await createMathField(mount);
 
             // Act
             const context = getCursorContext(mathField);
@@ -16,10 +16,10 @@ describe("MathQuill Helpers", () => {
             expect(context).toBe(CursorContext.NONE);
         });
 
-        it("returns BEFORE_FRACTION when before a fraction", () => {
+        it("returns BEFORE_FRACTION when before a fraction", async () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = await createMathField(mount);
             // create fraction and move cursor before it
             mathField.cmd("\\frac");
             mathField.keystroke("Left");
@@ -31,10 +31,10 @@ describe("MathQuill Helpers", () => {
             expect(context).toBe(CursorContext.BEFORE_FRACTION);
         });
 
-        it("returns IN_PARENS when in parenthesis", () => {
+        it("returns IN_PARENS when in parenthesis", async () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = await createMathField(mount);
             // MQ puts you inside parens when you start a paren
             mathField.typedText("(");
 
@@ -45,10 +45,10 @@ describe("MathQuill Helpers", () => {
             expect(context).toBe(CursorContext.IN_PARENS);
         });
 
-        it("returns IN_NUMERATOR when in numerator", () => {
+        it("returns IN_NUMERATOR when in numerator", async () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = await createMathField(mount);
             // MQ puts you in the numerator when making a fraction
             mathField.cmd("\\frac");
 
@@ -59,10 +59,10 @@ describe("MathQuill Helpers", () => {
             expect(context).toBe(CursorContext.IN_NUMERATOR);
         });
 
-        it("returns IN_DENOMINATOR when in denominator", () => {
+        it("returns IN_DENOMINATOR when in denominator", async () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = await createMathField(mount);
             // create fraction and move cursor to denominator
             mathField.cmd("\\frac");
             mathField.keystroke("Down");
@@ -74,10 +74,10 @@ describe("MathQuill Helpers", () => {
             expect(context).toBe(CursorContext.IN_DENOMINATOR);
         });
 
-        it("returns IN_SUB_SCRIPT when in subscript", () => {
+        it("returns IN_SUB_SCRIPT when in subscript", async () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = await createMathField(mount);
             // "_" triggers a subscript
             mathField.typedText("6_");
 
@@ -88,10 +88,10 @@ describe("MathQuill Helpers", () => {
             expect(context).toBe(CursorContext.IN_SUB_SCRIPT);
         });
 
-        it("returns IN_SUPER_SCRIPT when in superscript", () => {
+        it("returns IN_SUPER_SCRIPT when in superscript", async () => {
             // Arrange
             const mount = document.createElement("div");
-            const mathField = createMathField(mount);
+            const mathField = await createMathField(mount);
             // "^" triggers a superscript
             mathField.typedText("6^");
 

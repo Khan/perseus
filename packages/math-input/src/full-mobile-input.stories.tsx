@@ -32,7 +32,7 @@ const Basic = ({keypadElement, setKeypadElement}) => {
     // Whether to use v1 or v2 keypad
     const [v2Keypad, setV2Keypad] = React.useState<boolean>(true);
 
-    const input = React.useRef<KeypadInput>(null);
+    const input = React.useRef(null);
 
     const timesLabel = times ? "CDOT" : "TIMES";
 

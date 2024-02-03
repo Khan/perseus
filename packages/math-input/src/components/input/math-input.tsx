@@ -16,8 +16,10 @@ import {
 } from "./cursor-styles";
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
+import {createMathField} from "./mathquill-instance";
 import {scrollIntoView} from "./scroll-into-view";
 
+import type {MathFieldInterface} from "./mathquill-types";
 import type {Cursor, KeypadAPI} from "../../types";
 
 const constrainingFrictionFactor = 0.8;
@@ -27,13 +29,13 @@ type Props = {
     onBlur: () => void;
     onChange: (value: string, callback: any) => void;
     onFocus: () => void;
-    style: any;
-    value: string;
+    style?: any;
+    value?: string;
 };
 
-type DefaultProps = {
-    style: Props["style"];
-    value: Props["value"];
+type InnerProps = {
+    innerRef?: React.LegacyRef<HTMLDivElement> | undefined;
+    mathFieldInterface?: MathFieldInterface | null;
 };
 
 type HandleState = {
@@ -49,7 +51,7 @@ type State = {
 };
 
 // eslint-disable-next-line react/no-unsafe
-class MathInput extends React.Component<Props, State> {
+class MathInput extends React.Component<Props & InnerProps, State> {
     didTouchOutside: boolean | null | undefined;
     didScroll: boolean | null | undefined;
     mathField: any;
@@ -62,17 +64,11 @@ class MathInput extends React.Component<Props, State> {
     dragListener: any;
     inputRef: HTMLDivElement | null | undefined;
     _isMounted: boolean | null | undefined;
-    _mathContainer: any;
     // @ts-expect-error - TS2564 - Property '_container' has no initializer and is not definitely assigned in the constructor.
     _container: HTMLDivElement;
     _root: any;
     // @ts-expect-error - TS2564 - Property '_containerBounds' has no initializer and is not definitely assigned in the constructor.
     _containerBounds: ClientRect;
-
-    static defaultProps: DefaultProps = {
-        style: {},
-        value: "",
-    };
 
     state: State = {
         focused: false,
@@ -87,17 +83,19 @@ class MathInput extends React.Component<Props, State> {
     componentDidMount() {
         this._isMounted = true;
 
-        this.mathField = new MathWrapper(this._mathContainer, {
-            onCursorMove: (cursor: Cursor) => {
-                // TODO(charlie): It's not great that there is so much coupling
-                // between this keypad and the input behavior. We should wrap
-                // this `MathInput` component in an intermediary component
-                // that translates accesses on the keypad into vanilla props,
-                // to make this input keypad-agnostic.
-                this.props.keypadElement &&
-                    this.props.keypadElement.setCursor(cursor);
-            },
-        });
+        if (this.props.mathFieldInterface) {
+            this.mathField = new MathWrapper(this.props.mathFieldInterface, {
+                onCursorMove: (cursor: Cursor) => {
+                    // TODO(charlie): It's not great that there is so much coupling
+                    // between this keypad and the input behavior. We should wrap
+                    // this `MathInput` component in an intermediary component
+                    // that translates accesses on the keypad into vanilla props,
+                    // to make this input keypad-agnostic.
+                    this.props.keypadElement &&
+                        this.props.keypadElement.setCursor(cursor);
+                },
+            });
+        }
 
         this.mathField.setContent(this.props.value);
 
@@ -962,13 +960,7 @@ class MathInput extends React.Component<Props, State> {
                             {/* NOTE(charlie): This element must be styled with inline
                     styles rather than with Aphrodite classes, as MathQuill
                     modifies the class names on the DOM node. */}
-                            <div
-                                ref={(node) => {
-                                    this._mathContainer =
-                                        ReactDOM.findDOMNode(node);
-                                }}
-                                style={innerStyle}
-                            />
+                            <div ref={this.props.innerRef} style={innerStyle} />
                         </div>
                         {focused && handle.visible && (
                             <CursorHandle
@@ -1033,4 +1025,37 @@ const inlineStyles = {
     },
 } as const;
 
-export default MathInput;
+const MathInputWithMathField = React.forwardRef<MathInput, Props>(
+    ({style = {}, value = "", ...rest}, ref) => {
+        const inputRef = React.createRef<HTMLDivElement>();
+        const [mathField, setMathField] =
+            React.useState<MathFieldInterface | null>(null);
+
+        React.useEffect(() => {
+            if (inputRef.current && !mathField) {
+                void createMathField(inputRef.current, () => ({
+                    // use a span instead of a textarea so that we don't bring up the
+                    // native keyboard on mobile when selecting the input
+                    substituteTextarea: function () {
+                        return document.createElement("span");
+                    },
+                })).then((mathFieldLoaded) => {
+                    setMathField(mathFieldLoaded);
+                });
+            }
+        }, [mathField, inputRef]);
+
+        return (
+            <MathInput
+                {...rest}
+                style={style}
+                value={value}
+                mathFieldInterface={mathField}
+                innerRef={inputRef}
+                ref={ref}
+            />
+        );
+    },
+);
+
+export default MathInputWithMathField;

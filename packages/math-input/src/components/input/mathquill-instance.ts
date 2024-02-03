@@ -1,3 +1,4 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import MathQuill from "mathquill";
 
@@ -90,15 +91,18 @@ const createBaseConfig = (): MathFieldConfig => ({
  * This allows callers to do minimal configuration as only configs
  * that vary from the default need to be provided.
  */
-export function createMathField(
+export async function createMathField(
     container: HTMLDivElement | HTMLSpanElement,
     configCallback?: (baseConfig: MathFieldConfig) => MathFieldConfig,
-): MathFieldInterface {
+): Promise<MathFieldInterface> {
     const baseConfig = createBaseConfig();
     const config = configCallback ? configCallback(baseConfig) : baseConfig;
 
+    const engine = await SpeechRuleEngine.setup();
+
     const mathField = mathQuillInstance
         .MathField(container, config)
+        .setMathSpeakCallback(engine.texToSpeech)
         // translated in ./math-input.tsx
         .setAriaLabel(i18n._("Math input box")) as MathFieldInterface;
 

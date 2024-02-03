@@ -26,36 +26,35 @@ export default function MathquillInput(props: Props) {
         // make a new Mathquill input
         if (mathFieldWrapperRef.current && !mathFieldInstance.current) {
             // Initialize MathQuill.MathField instance
-            mathFieldInstance.current = createMathField(
-                mathFieldWrapperRef.current,
-                (baseConfig) => ({
-                    ...baseConfig,
-                    handlers: {
-                        edit: (mathField) => {
-                            // This handler is guaranteed to be called on change, but
-                            // unlike React it sometimes generates false positives.
-                            // One of these is on initialization (with an empty string
-                            // value), so we have to guard against that below.
-                            let value = mathField.latex();
+            void createMathField(mathFieldWrapperRef.current, (baseConfig) => ({
+                ...baseConfig,
+                handlers: {
+                    edit: (mathField) => {
+                        // This handler is guaranteed to be called on change, but
+                        // unlike React it sometimes generates false positives.
+                        // One of these is on initialization (with an empty string
+                        // value), so we have to guard against that below.
+                        let value = mathField.latex();
 
-                            // Provide a MathQuill-compatible way to generate the
-                            // not-equals sign without pasting unicode or typing TeX
-                            value = value.replace(/<>/g, "\\ne");
+                        // Provide a MathQuill-compatible way to generate the
+                        // not-equals sign without pasting unicode or typing TeX
+                        value = value.replace(/<>/g, "\\ne");
 
-                            if (props.value !== value) {
-                                props.onChange(value);
-                            }
-                        },
-                        upOutOf: (mathField: MathFieldInterface) => {
-                            // This handler is called when the user presses the up
-                            // arrow key, but there is nowhere in the expression to go
-                            // up to (no numerator or exponent). For ease of use,
-                            // interpret this as an attempt to create an exponent.
-                            mathField.typedText("^");
-                        },
+                        if (props.value !== value) {
+                            props.onChange(value);
+                        }
                     },
-                }),
-            );
+                    upOutOf: (mathField: MathFieldInterface) => {
+                        // This handler is called when the user presses the up
+                        // arrow key, but there is nowhere in the expression to go
+                        // up to (no numerator or exponent). For ease of use,
+                        // interpret this as an attempt to create an exponent.
+                        mathField.typedText("^");
+                    },
+                },
+            })).then((mathField) => {
+                mathFieldInstance.current = mathField;
+            });
         }
     });
 

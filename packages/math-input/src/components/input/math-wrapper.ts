@@ -14,13 +14,14 @@
 // All of the code below is super fragile.  Please be especially careful
 // when upgrading MathQuill.
 
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import $ from "jquery";
 
 import handleBackspace from "../key-handlers/handle-backspace";
 import keyTranslator from "../key-handlers/key-translator";
 
 import {getCursorContext, maybeFindCommand} from "./mathquill-helpers";
-import {createMathField, mathQuillInstance} from "./mathquill-instance";
+import {mathQuillInstance} from "./mathquill-instance";
 
 import type {
     MathFieldInterface,
@@ -48,17 +49,13 @@ class MathWrapper {
     mathField: MathFieldInterface; // MathQuill MathField input
     callbacks: any;
 
-    constructor(element, callbacks = {}) {
-        this.mathField = createMathField(element, () => {
-            return {
-                // use a span instead of a textarea so that we don't bring up the
-                // native keyboard on mobile when selecting the input
-                substituteTextarea: function () {
-                    return document.createElement("span");
-                },
-            };
-        });
+    constructor(mathField: MathFieldInterface, callbacks = {}) {
+        this.mathField = mathField;
         this.callbacks = callbacks;
+
+        void SpeechRuleEngine.setup().then((engine) => {
+            this.mathField.setMathSpeakCallback(engine.texToSpeech);
+        });
     }
 
     focus() {

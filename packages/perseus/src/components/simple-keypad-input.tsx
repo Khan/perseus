@@ -18,6 +18,14 @@ import * as React from "react";
 
 export default class SimpleKeypadInput extends React.Component<any> {
     _isMounted = false;
+    inputRef: React.RefObject<React.ComponentRef<typeof KeypadInput>> | null =
+        null;
+
+    constructor(props: any) {
+        super(props);
+        this.inputRef =
+            React.createRef<React.ComponentRef<typeof KeypadInput>>();
+    }
 
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
@@ -30,13 +38,11 @@ export default class SimpleKeypadInput extends React.Component<any> {
     }
 
     focus() {
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus(); // eslint-disable-line react/no-string-refs
+        this.inputRef?.current?.focus();
     }
 
     blur() {
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs.input.blur(); // eslint-disable-line react/no-string-refs
+        this.inputRef?.current?.blur();
     }
 
     getValue(): string | number {
@@ -52,10 +58,8 @@ export default class SimpleKeypadInput extends React.Component<any> {
         const {keypadElement, onFocus, value, ...rest} = _this.props;
 
         return (
-            // @ts-expect-error - TS2769 - No overload matches this call.
             <KeypadInput
-                // eslint-disable-next-line react/no-string-refs
-                ref="input"
+                ref={this.inputRef}
                 keypadElement={keypadElement}
                 onFocus={() => {
                     if (keypadElement) {
@@ -73,6 +77,8 @@ export default class SimpleKeypadInput extends React.Component<any> {
                         onFocus && onFocus();
                     }
                 }}
+                onBlur={this.props.onBlur}
+                onChange={this.props.onChange}
                 value={value == null ? "" : "" + value}
                 {...rest}
             />

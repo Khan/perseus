@@ -107,6 +107,9 @@ type OnInputErrorFunctionType = (
 export class Expression extends React.Component<Props, ExpressionState> {
     _isMounted = false;
 
+    keypadInputRef: React.RefObject<React.ComponentRef<typeof KeypadInput>>;
+    mathInputRef: React.RefObject<React.ComponentRef<typeof MathInput>>;
+
     //#region Previously a class extension
     /* Content creators input a list of answers which are matched from top to
      * bottom. The intent is that they can include spcific solutions which should
@@ -285,6 +288,14 @@ export class Expression extends React.Component<Props, ExpressionState> {
     }
     //#endregion
 
+    constructor(props: Props) {
+        super(props);
+        this.keypadInputRef =
+            React.createRef<React.ComponentRef<typeof KeypadInput>>();
+        this.mathInputRef =
+            React.createRef<React.ComponentRef<typeof MathInput>>();
+    }
+
     static defaultProps: DefaultProps = {
         value: "",
         times: false,
@@ -427,9 +438,12 @@ export class Expression extends React.Component<Props, ExpressionState> {
 
     focus: () => boolean = () => {
         if (this.props.apiOptions.customKeypad) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs.input.focus();
+            if (this.keypadInputRef.current) {
+                this.keypadInputRef.current.focus();
+            }
+            if (this.mathInputRef.current) {
+                this.mathInputRef.current.focus();
+            }
         } else {
             // The buttons are often on top of text you're trying to read, so
             // don't focus the editor automatically.
@@ -439,22 +453,32 @@ export class Expression extends React.Component<Props, ExpressionState> {
     };
 
     focusInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs.input.focus();
+        if (this.keypadInputRef.current) {
+            this.keypadInputRef.current.focus();
+        }
+        if (this.mathInputRef.current) {
+            this.mathInputRef.current.focus();
+        }
     };
 
     blurInputPath: (inputPath: InputPath) => void = (inputPath: InputPath) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs.input.blur();
+        if (this.keypadInputRef.current) {
+            this.keypadInputRef.current.blur();
+        }
+        if (this.mathInputRef.current) {
+            this.mathInputRef.current.blur();
+        }
     };
 
     // HACK(joel)
     insert(keyPressed: Key) {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
-        this.refs.input.insert(keyPressed);
+        // KeypadInput doesn't have this method
+        // if (this.keypadInputRef.current) {
+        //     this.keypadInputRef.current.insert(keyPressed);
+        // }
+        if (this.mathInputRef.current) {
+            this.mathInputRef.current.insert(keyPressed);
+        }
     }
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<any>> = () => {
@@ -491,8 +515,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
         if (this.props.apiOptions.customKeypad) {
             return (
                 <KeypadInput
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="input"
+                    ref={this.keypadInputRef}
                     value={this.props.value}
                     keypadElement={this.props.keypadElement}
                     onChange={this.changeAndTrack}
@@ -550,8 +573,7 @@ export class Expression extends React.Component<Props, ExpressionState> {
                     content={ERROR_MESSAGE}
                 >
                     <MathInput
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
+                        ref={this.mathInputRef}
                         className={ApiClassNames.INTERACTIVE}
                         value={this.props.value}
                         onChange={this.changeAndTrack}

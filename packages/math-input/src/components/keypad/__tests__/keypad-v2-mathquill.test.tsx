@@ -28,20 +28,18 @@ function V2KeypadWithMathquill(props: Props) {
 
     React.useEffect(() => {
         if (!mathField && mathFieldWrapperRef.current) {
-            const mathFieldInstance = createMathField(
-                mathFieldWrapperRef.current,
-                (baseConfig) => {
-                    return {
-                        ...baseConfig,
-                        handlers: {
-                            edit: (mathField) => {
-                                onChangeMathInput(mathField.latex());
-                            },
+            void createMathField(mathFieldWrapperRef.current, (baseConfig) => {
+                return {
+                    ...baseConfig,
+                    handlers: {
+                        edit: (mathField) => {
+                            onChangeMathInput(mathField.latex());
                         },
-                    };
-                },
-            );
-            setMathField(mathFieldInstance);
+                    },
+                };
+            }).then((mathFieldInstance) => {
+                setMathField(mathFieldInstance);
+            });
         }
     }, [mathField, onChangeMathInput]);
 
