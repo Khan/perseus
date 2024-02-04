@@ -1,4 +1,5 @@
 import {CursorContext} from "../cursor-contexts";
+import {createMathField} from "../mathquill-instance";
 
 import TestMathWrapper from "./test-math-wrapper";
 
@@ -6,11 +7,13 @@ describe("Cursor context", () => {
     let mathField;
     let span;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         span = document.createElement("span");
         document.body.appendChild(span);
 
-        mathField = new TestMathWrapper(span);
+        const mathFieldInterface = await createMathField(span);
+
+        mathField = new TestMathWrapper(mathFieldInterface);
     });
 
     afterEach(() => {

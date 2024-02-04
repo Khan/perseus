@@ -1,3 +1,5 @@
+import {createMathField} from "../mathquill-instance";
+
 import TestMathWrapper from "./test-math-wrapper";
 
 const MQ = {L: "-1", R: "1"};
@@ -15,11 +17,13 @@ describe("MathQuill", () => {
     let mathField;
     let span;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         span = document.createElement("span");
         document.body.appendChild(span);
 
-        mathField = new TestMathWrapper(span);
+        const mathQuillInterface = await createMathField(span);
+
+        mathField = new TestMathWrapper(mathQuillInterface);
     });
 
     afterEach(() => {
