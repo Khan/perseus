@@ -128,12 +128,13 @@ const constraints = {
 
     snap: function (snap?: number | null): Constraint {
         return function (coord: Coord) {
-            if (snap == null) {
+            if (snap === null) {
                 // TODO(benchristel), NOTE(kevinb): this should probably return
                 // the original point
                 return true;
             }
-            return kpoint.roundTo(coord, snap);
+            // @ts-expect-error - TS2339: Property 'snap' does not exist on type 'Graphie'.
+            return kpoint.roundTo(coord, snap || this.graphie.snap);
         };
     },
 
