@@ -26,8 +26,7 @@ const normalizeOptions = InteractiveUtil.normalizeOptions;
 
 const assert = InteractiveUtil.assert;
 
-// Default "props" and "state". Both are added to this.state and
-// receive magic getter methods (this.isHovering() etc).
+// Default "props" and "state". Both are added to this.state.
 // However, properties in DEFAULT_PROPS are updated on `modify()`,
 // while those in DEFAULT_STATE persist and are not updated.
 // Things that the user might want to change should be on "props",
