@@ -240,9 +240,8 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
      */
     grab(coord: Coord) {
         assert(kpoint.is(coord));
-        const self = this;
-        const graphie = self.graphie;
-        const state: State = self.state;
+        const graphie = this.graphie;
+        const state: State = this.state;
 
         state.isHovering = true;
         state.isDragging = true;
@@ -250,28 +249,28 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
 
         const startMouseCoord = coord;
         let prevMouseCoord = startMouseCoord;
-        self._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
+        this._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
 
-        const moveHandler = function (e: any) {
+        const moveHandler = (e: any) => {
             e.preventDefault();
 
             const mouseCoord = graphie.getMouseCoord(e);
-            self._fireEvent(state.onMove, mouseCoord, prevMouseCoord);
-            self.draw();
+            this._fireEvent(state.onMove, mouseCoord, prevMouseCoord);
+            this.draw();
             prevMouseCoord = mouseCoord;
         };
 
-        const upHandler = function (e: any) {
+        const upHandler = (e: any) => {
             $(document).unbind("vmousemove", moveHandler);
             $(document).unbind("vmouseup", upHandler);
             if (state.isHovering) {
-                self._fireEvent(state.onClick, prevMouseCoord, startMouseCoord);
+                this._fireEvent(state.onClick, prevMouseCoord, startMouseCoord);
             }
-            state.isHovering = self.state.isMouseOver;
+            state.isHovering = this.state.isMouseOver;
             state.isDragging = false;
             graphie.isDragging = false;
-            self._fireEvent(state.onMoveEnd, prevMouseCoord, startMouseCoord);
-            self.draw();
+            this._fireEvent(state.onMoveEnd, prevMouseCoord, startMouseCoord);
+            this.draw();
         };
 
         $(document).bind("vmousemove", moveHandler);
@@ -281,8 +280,7 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
     _applyConstraints(current: Coord, previous: Coord, extraOptions) {
         let skipRemaining = false;
 
-        return _.reduce(
-            this.state.constraints ?? [],
+        return (this.state.constraints ?? []).reduce(
             (memo: Coord | false, constraint) => {
                 // A move that has been cancelled won't be propagated to later
                 // constraints calls
@@ -320,7 +318,6 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
                 );
             },
             current,
-            this,
         );
     }
 
