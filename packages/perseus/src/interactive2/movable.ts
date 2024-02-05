@@ -70,7 +70,13 @@ export interface State {
     onMove?: ((end: Coord, start: Coord) => void)[];
     onMoveEnd?: ((end: Coord, start: Coord) => void)[];
     onClick?: ((position: Coord, start: Coord) => void)[];
-    constraints?: (() => Coord | boolean | undefined)[];
+    constraints?: ((
+        current: Coord | boolean,
+        previous: Coord,
+        // TODO(benchristel): these callbacks feel overcomplicated. Can we
+        // get rid of them?
+        options: {onSkipRemaining(): void; onOutOfBounds(): void},
+    ) => Coord | boolean | undefined)[];
 }
 
 export class MovableClassRenameMe<Options extends Record<string, any>> {
@@ -186,6 +192,9 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
 
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
+            // TODO(benchristel): No one seems to handle the modify event. Can
+            // we delete this?
+            // @ts-expect-error - TS2345: Argument of type '{}' is not assignable to parameter of type 'State'.
             self._fireEvent(state.modify, self.cloneState(), {});
             state.added = true;
 
@@ -210,7 +219,7 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
         ...args: Parameters<F>
     ) {
         if (listeners == null) {
-            return
+            return;
         }
         for (const listener of listeners) {
             listener.call(this, ...args);
@@ -270,12 +279,12 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
         $(document).bind("vmouseup", upHandler);
     }
 
-    _applyConstraints(current, previous, extraOptions) {
+    _applyConstraints(current: Coord, previous: Coord, extraOptions) {
         let skipRemaining = false;
 
         return _.reduce(
-            this.state.constraints,
-            (memo, constraint) => {
+            this.state.constraints ?? [],
+            (memo: Coord | false, constraint) => {
                 // A move that has been cancelled won't be propagated to later
                 // constraints calls
                 if (memo === false) {

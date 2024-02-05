@@ -38,7 +38,7 @@ export function map<T, U>(pair: [T, T], f: (a: T, i: number) => U): [U, U] {
  * is([1, "Hello", 3]) -> false
  * is([1, 2, 3], 1) -> false
  */
-export function is<T>(vec: ReadonlyArray<T>, dimension?: number): boolean {
+export function is(vec: unknown, dimension?: number): boolean {
     if (!Array.isArray(vec)) {
         return false;
     }
