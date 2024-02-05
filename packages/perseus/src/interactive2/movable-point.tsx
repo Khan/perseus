@@ -94,6 +94,8 @@ const DEFAULT_STATE = {
     touchOffset: null,
 } as const;
 
+// TODO(benchristel): this is a memory leak. We add items to
+// tooltipResetFunctions, but never remove them.
 const tooltipResetFunctions: Array<() => void> = [];
 
 const MovablePoint = function (graphie: any, movable: any, options: any) {
