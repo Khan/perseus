@@ -258,6 +258,11 @@ describe("comparing", () => {
         // This is incorrect, but accurately captures the current behavior
         // See comment in `Expr.compare()` for more details
         expect("(-2)^(n+0.1)").toEqualExpr("(-2)^(n+1.1)");
+
+        expect("cos(x)^2").toEqualExpr("cos (x^2)");
+        expect("cos(x)^2").toEqualExpr("cos x^2");
+        expect("cos(x)^2").toEqualExpr("cos^2(x)");
+        expect("cos(x)^2").toEqualExpr("(cos(x))^2");
     });
 
     test("simplify can't yet handle these", () => {
