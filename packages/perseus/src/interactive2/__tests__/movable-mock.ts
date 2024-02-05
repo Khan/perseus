@@ -7,37 +7,49 @@ import _ from "underscore";
 import {Graphie} from "../../util/graphie";
 import Movable from "../movable";
 
+import type {Coord} from "@khanacademy/perseus";
+
 const createMock = function (): any {
-    const movable = new Movable(new Graphie(document.createElement("div")), {
-        mouseTarget: null,
-    });
-    movable.modify = function (options: any) {
-        Movable.prototype.modify.call(movable, _.omit(options, "mouseTarget"));
-    };
-    _.each(
-        ["onMoveStart", "onMove", "onMoveEnd", "onClick"],
-        function (eventName) {
-            movable[eventName] = function (coord: any, prevCoord) {
-                this._fireEvent(this.state[eventName], coord, prevCoord);
-            };
-        },
-    );
-    movable.move = function (...args) {
-        const startPoint = _.first(args);
-        // TODO(jack): Move these into onMoveStart, onMove, and onMoveEnd
-        movable.state.isMouseOver = true;
-        movable.state.isHovering = true;
-        movable.onMoveStart(startPoint, startPoint);
-        _.each(_.rest(args), function (point, i) {
-            movable.state.isDragging = true;
-            movable.onMove(point, args[i]);
-        });
-        movable.onMoveEnd(_.last(args), startPoint);
-        movable.state.dragging = false;
-        movable.state.isMouseOver = false;
-        movable.state.isHovering = false;
-    };
-    return movable;
+    return new MovableMock(new Graphie(document.createElement("div")), {});
 };
+
+class MovableMock extends Movable<Record<string, never>> {
+    modify(options: any) {
+        // TODO(benchristel): what is mouseTarget? It seems to be unused.
+        super.modify(_.omit(options, "mouseTarget"));
+    }
+
+    move(...args) {
+        const [startPoint, ...rest] = args;
+        // TODO(jack): Move these into onMoveStart, onMove, and onMoveEnd
+        this.state.isMouseOver = true;
+        this.state.isHovering = true;
+        this.onMoveStart(startPoint, startPoint);
+        rest.forEach((point, i) => {
+            this.state.isDragging = true;
+            this.onMove(point, args[i]);
+        });
+        this.onMoveEnd(_.last(args), startPoint);
+        this.state.isDragging = false;
+        this.state.isMouseOver = false;
+        this.state.isHovering = false;
+    }
+
+    onMoveStart(coord: Coord, prevCoord: Coord) {
+        this._fireEvent(this.state.onMoveStart, coord, prevCoord);
+    }
+
+    onMove(coord: Coord, prevCoord: Coord) {
+        this._fireEvent(this.state.onMove, coord, prevCoord);
+    }
+
+    onMoveEnd(coord: Coord, prevCoord: Coord) {
+        this._fireEvent(this.state.onMoveEnd, coord, prevCoord);
+    }
+
+    onClick(coord: Coord, prevCoord: Coord) {
+        this._fireEvent(this.state.onClick, coord, prevCoord);
+    }
+}
 
 export default createMock;
