@@ -20,6 +20,7 @@ import InteractiveUtil from "./interactive-util";
 
 import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
+import {Constraint, ConstraintCallbacks} from "./types";
 
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -69,13 +70,7 @@ export interface State {
     onMove?: ((end: Coord, start: Coord) => void)[];
     onMoveEnd?: ((end: Coord, start: Coord) => void)[];
     onClick?: ((position: Coord, start: Coord) => void)[];
-    constraints?: ((
-        current: Coord | boolean,
-        previous: Coord,
-        // TODO(benchristel): these callbacks feel overcomplicated. Can we
-        // get rid of them?
-        options: {onSkipRemaining(): void; onOutOfBounds(): void},
-    ) => Coord | boolean | undefined)[];
+    constraints?: Constraint[];
 }
 
 export class Movable<Options extends Record<string, any>> {
@@ -277,7 +272,7 @@ export class Movable<Options extends Record<string, any>> {
         $(document).bind("vmouseup", upHandler);
     }
 
-    _applyConstraints(current: Coord, previous: Coord, extraOptions) {
+    _applyConstraints(current: Coord, previous: Coord, extraOptions?: ConstraintCallbacks) {
         let skipRemaining = false;
 
         return (this.state.constraints ?? []).reduce(
@@ -425,11 +420,11 @@ export class Movable<Options extends Record<string, any>> {
     }
 }
 
-function getKey(eventName: any, id: any) {
+function getKey(eventName: string, id: string): string {
     return eventName + ":" + id;
 }
 
-function getEventName(key) {
+function getEventName(key: string): string {
     return key.split(":")[0];
 }
 
