@@ -219,7 +219,10 @@ export function round<V extends Vector>(vec: V, precision: V | number): V {
 }
 
 // Round each number to the nearest increment
-export function roundTo(coord: [number, number], increment: [number, number] | number): [number, number];
+export function roundTo(
+    coord: [number, number],
+    increment: [number, number] | number,
+): [number, number];
 export function roundTo<V extends Vector>(vec: V, increment: V | number): V;
 export function roundTo<V extends Vector>(vec: V, increment: V | number): V {
     // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.

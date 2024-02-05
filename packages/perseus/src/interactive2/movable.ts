@@ -18,9 +18,8 @@ import {PerseusError} from "../perseus-error";
 
 import InteractiveUtil from "./interactive-util";
 
-import type {Coord} from "./types";
+import type {Constraint, ConstraintCallbacks, Coord} from "./types";
 import type {Graphie} from "../util/graphie";
-import {Constraint, ConstraintCallbacks} from "./types";
 
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -245,7 +244,13 @@ export class Movable<Options extends Record<string, any>> {
         let prevMouseCoord = startMouseCoord;
         this._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
 
-        const moveHandler = (e: Readonly<{pageX?: number, pageY?: number, preventDefault():void}>) => {
+        const moveHandler = (
+            e: Readonly<{
+                pageX?: number;
+                pageY?: number;
+                preventDefault(): void;
+            }>,
+        ) => {
             e.preventDefault();
 
             const mouseCoord = graphie.getMouseCoord(e);
@@ -271,7 +276,11 @@ export class Movable<Options extends Record<string, any>> {
         $(document).bind("vmouseup", upHandler);
     }
 
-    _applyConstraints(current: Coord, previous: Coord, extraOptions?: ConstraintCallbacks) {
+    _applyConstraints(
+        current: Coord,
+        previous: Coord,
+        extraOptions?: ConstraintCallbacks,
+    ) {
         let skipRemaining = false;
 
         return (this.state.constraints ?? []).reduce(

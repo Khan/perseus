@@ -105,7 +105,7 @@ const createClass = function (spec: any): any {
  * Commonly used elements should use the fully-fledged createClass
  * and implement an efficient modify() operation.
  */
-const createSimpleClass = function (addFunction: any) {
+const createSimpleClass = function (addFunction: any): any {
     return createClass({
         displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
         movableProps: ["children"],

@@ -8,7 +8,7 @@ import _ from "underscore";
 import WrappedEllipse from "./wrapped-ellipse";
 
 import type {Constraint, ConstraintCallbacks, Coord} from "./types";
-import {Interval} from "../util/interval";
+import type {Interval} from "../util/interval";
 
 const add = {
     constrain: function () {
@@ -154,7 +154,11 @@ const constraints = {
             }
         })();
 
-        return function (coord: Coord, prev: Coord, options: ConstraintCallbacks) {
+        return function (
+            coord: Coord,
+            prev: Coord,
+            options: ConstraintCallbacks,
+        ) {
             const graphie = this.graphie;
             range = range || graphie.range;
 

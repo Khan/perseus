@@ -14,4 +14,4 @@ export type Constraint = (
 export type ConstraintCallbacks = {
     onSkipRemaining(): void;
     onOutOfBounds?: () => void;
-}
+};

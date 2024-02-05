@@ -198,7 +198,7 @@ _.extend(GraphUtils.Graphie.prototype, {
     /**
      * Get mouse coordinates in pixels
      */
-    getMousePx: function (event: Readonly<{pageX?: number, pageY?: number}>) {
+    getMousePx: function (event: Readonly<{pageX?: number; pageY?: number}>) {
         const graphie = this;
 
         const mouseX =
@@ -214,7 +214,9 @@ _.extend(GraphUtils.Graphie.prototype, {
     /**
      * Get mouse coordinates in graph coordinates
      */
-    getMouseCoord: function (event: Readonly<{pageX?: number, pageY?: number}>): Coord {
+    getMouseCoord: function (
+        event: Readonly<{pageX?: number; pageY?: number}>,
+    ): Coord {
         return this.unscalePoint(this.getMousePx(event));
     },
 
