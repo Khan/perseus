@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 19.1.4
+
+### Patch Changes
+
+-   [#958](https://github.com/Khan/perseus/pull/958) [`729b419a`](https://github.com/Khan/perseus/commit/729b419a5c31eaa6ac4da996a0683a2fdffc5997) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add tests for normalizeOptions function (used by Movable)
+
+*   [#960](https://github.com/Khan/perseus/pull/960) [`ce0227c1`](https://github.com/Khan/perseus/commit/ce0227c1d7b432b6a9484c32542ddf23d27b1e95) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add tests for Movable pseudo-class
+
+*   Updated dependencies [[`a4a4dc44`](https://github.com/Khan/perseus/commit/a4a4dc447037eaea83423dc21a15076435c4b638)]:
+    -   @khanacademy/math-input@17.0.3
+
 ## 19.1.3
 
 ### Patch Changes
