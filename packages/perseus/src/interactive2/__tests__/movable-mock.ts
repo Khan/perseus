@@ -5,7 +5,7 @@
 import _ from "underscore";
 
 import {Graphie} from "../../util/graphie";
-import Movable from "../movable";
+import {Movable} from "../movable";
 
 import type {Coord} from "@khanacademy/perseus";
 
