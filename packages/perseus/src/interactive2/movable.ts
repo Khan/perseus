@@ -47,15 +47,14 @@ export interface State {
     isHovering?: boolean;
     isMouseOver?: boolean;
     isDragging?: boolean;
-    // TODO(benchristel): improve types
     mouseTarget?: {
         toFront(): void;
         toBack(): void;
         remove(): void;
         getMouseTarget(): Element;
     } | null;
-    // TODO(benchristel): improve types
-    cursor?: unknown | null;
+    // TODO(benchristel): I don't think cursor is used
+    cursor?: null;
     id: string;
     add?: (() => void)[];
     // TODO(benchristel): I don't see any evidence that implementers of
