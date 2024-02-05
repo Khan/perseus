@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.0.3
+
+### Patch Changes
+
+-   [#963](https://github.com/Khan/perseus/pull/963) [`a4a4dc44`](https://github.com/Khan/perseus/commit/a4a4dc447037eaea83423dc21a15076435c4b638) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused dependency: performance-now
+
 ## 17.0.2
 
 ### Patch Changes
