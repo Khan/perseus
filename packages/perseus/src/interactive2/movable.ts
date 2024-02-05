@@ -655,4 +655,4 @@ _.extend(Movable.prototype, {
     },
 });
 
-export default Movable;
+export default MovableClassRenameMe;
