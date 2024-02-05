@@ -1408,7 +1408,7 @@ export class Graphie {
     }
 
     // This is a stub that's overridden in interactive.ts
-    getMouseCoord(event: MouseEvent): Coord {
+    getMouseCoord(event: Readonly<{pageX?: number, pageY?: number}>): Coord {
         throw new Error("getMouseCoord is a stub, and is not implemented");
     }
 }

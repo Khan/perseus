@@ -251,7 +251,7 @@ export class Movable<Options extends Record<string, any>> {
         let prevMouseCoord = startMouseCoord;
         this._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
 
-        const moveHandler = (e: any) => {
+        const moveHandler = (e: Readonly<{pageX?: number, pageY?: number, preventDefault():void}>) => {
             e.preventDefault();
 
             const mouseCoord = graphie.getMouseCoord(e);
@@ -260,7 +260,7 @@ export class Movable<Options extends Record<string, any>> {
             prevMouseCoord = mouseCoord;
         };
 
-        const upHandler = (e: any) => {
+        const upHandler = () => {
             $(document).unbind("vmousemove", moveHandler);
             $(document).unbind("vmouseup", upHandler);
             if (state.isHovering) {
