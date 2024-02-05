@@ -116,11 +116,10 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
     }
 
     update(options: Options) {
-        const self = this;
-        const graphie = self.graphie;
+        const graphie = this.graphie;
 
-        const prevState = self.cloneState();
-        const state = Object.assign(self.state, normalizeOptions(options));
+        const prevState = this.cloneState();
+        const state = Object.assign(this.state, normalizeOptions(options));
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
@@ -134,25 +133,25 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
             const isMouse = !("ontouchstart" in window);
 
             if (isMouse) {
-                $mouseTarget.on("vmouseover", function () {
+                $mouseTarget.on("vmouseover", () => {
                     state.isMouseOver = true;
                     if (!graphie.isDragging) {
                         state.isHovering = true;
                     }
-                    if (self.state.added) {
+                    if (this.state.added) {
                         // Avoid drawing if the point has been removed
-                        self.draw();
+                        this.draw();
                     }
                 });
 
-                $mouseTarget.on("vmouseout", function () {
+                $mouseTarget.on("vmouseout", () => {
                     state.isMouseOver = false;
                     if (!state.isDragging) {
                         state.isHovering = false;
                     }
-                    if (self.state.added) {
+                    if (this.state.added) {
                         // Avoid drawing if the point has been removed
-                        self.draw();
+                        this.draw();
                     }
                 });
             }
@@ -167,14 +166,14 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
                 {passive: false},
             );
 
-            $mouseTarget.on("vmousedown", function (e) {
+            $mouseTarget.on("vmousedown", (e) => {
                 if (e.which !== 0 && e.which !== 1) {
                     return;
                 }
                 e.preventDefault();
 
                 const mouseCoord = graphie.getMouseCoord(e);
-                self.grab(mouseCoord);
+                this.grab(mouseCoord);
             });
         }
 
@@ -195,16 +194,16 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
             // TODO(benchristel): No one seems to handle the modify event. Can
             // we delete this?
             // @ts-expect-error - TS2345: Argument of type '{}' is not assignable to parameter of type 'State'.
-            self._fireEvent(state.modify, self.cloneState(), {});
+            this._fireEvent(state.modify, this.cloneState(), {});
             state.added = true;
 
             // Update the state for `added` and in case the add event
             // changed it
-            self.prevState = self.cloneState();
+            this.prevState = this.cloneState();
         }
 
         // Trigger a modify event
-        self._fireEvent(state.modify, self.cloneState(), self.prevState);
+        this._fireEvent(state.modify, this.cloneState(), this.prevState);
     }
 
     cloneState(): State {
