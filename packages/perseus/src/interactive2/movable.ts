@@ -83,7 +83,8 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
     graphie: Graphie;
     state: State;
     prevState: State | undefined;
-    _listenerMap: Record<string, () => unknown> = {};
+    // TODO(benchristel): delete _listenerMap; it's unused
+    _listenerMap: Record<string, number> = {};
 
     constructor(graphie: Graphie, options: Options) {
         this.graphie = graphie;
@@ -384,7 +385,6 @@ export class MovableClassRenameMe<Options extends Record<string, any>> {
                     getEventName(key) === eventName &&
                     this._listenerMap[key] > index
                 ) {
-                    // @ts-expect-error - TS2356: An arithmetic operand must be of type 'any', 'number', 'bigint' or an enum type.
                     this._listenerMap[key]--;
                 }
             });
