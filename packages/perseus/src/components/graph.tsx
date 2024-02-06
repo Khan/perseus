@@ -63,7 +63,6 @@ type Props = {
     onGraphieUpdated?: (graphie: any) => void;
     onClick?: (Coord) => void;
     onMouseDown?: (Coord) => void;
-    onMouseUp?: (Coord) => void;
     onMouseMove?: (Coord) => void;
     setDrawingAreaAvailable?: (boolean) => void;
 };
@@ -291,30 +290,28 @@ class Graph extends React.Component<Props> {
                       // eslint-disable-next-line @babel/no-invalid-this
                       this.props.onMouseDown(coord);
                   }, this)
-                : null;
+                : undefined;
 
         const onMouseOver = $instructionsWrapper
             ? function () {
                   $instructionsWrapper &&
                       $instructionsWrapper.css("opacity", invisible);
               }
-            : null;
+            : undefined;
 
         const onMouseOut = $instructionsWrapper
             ? function () {
                   $instructionsWrapper &&
                       $instructionsWrapper.css("opacity", visible);
               }
-            : null;
+            : undefined;
         /* eslint-enable indent */
 
-        // @ts-expect-error - Property 'addMouseLayer' does not exist on type 'Graphie'.
         graphie.addMouseLayer({
             onClick: this.props.onClick,
             onMouseDown: onMouseDown,
             onMouseOver: onMouseOver,
             onMouseOut: onMouseOut,
-            onMouseUp: this.props.onMouseUp,
             onMouseMove: this.props.onMouseMove,
             allowScratchpad: true,
             setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,

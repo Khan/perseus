@@ -279,7 +279,6 @@ export class Plotter extends React.Component<Props, State> {
             scale: c.scale,
             isMobile: this.props.apiOptions.isMobile,
         });
-        // @ts-expect-error - Property 'addMouseLayer' does not exist on type 'Graphie'.
         graphie.addMouseLayer({
             allowScratchpad: true,
             setDrawingAreaAvailable:

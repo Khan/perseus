@@ -24,6 +24,7 @@ import Tex from "./tex";
 
 import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
+import {MouseHandler} from "./interactive";
 
 const {processMath} = Tex;
 
@@ -1411,6 +1412,17 @@ export class Graphie {
     getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
         throw new Error("getMouseCoord is a stub, and is not implemented");
     }
+
+    // This is a stub that's overridden in interactive.ts
+    addMouseLayer(options: {
+        onClick?: MouseHandler;
+        onMouseMove?: MouseHandler;
+        onMouseDown?: MouseHandler;
+        onMouseOver?: MouseHandler;
+        onMouseOut?: MouseHandler;
+        allowScratchpad?: boolean;
+        setDrawingAreaAvailable?: (available: boolean) => void;
+    }): void {}
 }
 
 const labelDirections = {

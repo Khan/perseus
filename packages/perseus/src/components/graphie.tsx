@@ -50,7 +50,6 @@ type Props = {
     onClick?: (at: Coord) => void;
     onMouseDown?: (at: Coord) => void;
     onMouseMove?: (at: Coord) => void;
-    onMouseUp?: (at: Coord) => void;
 };
 
 type DefaultProps = {
@@ -192,11 +191,9 @@ class Graphie extends React.Component<Props> {
         });
         // Only add the mouselayer if we actually want one.
         if (this.props.addMouseLayer) {
-            // @ts-expect-error - TS2339: Property 'addMouseLayer' does not exist on type 'Graphie'.
             graphie.addMouseLayer({
                 onClick: this.props.onClick,
                 onMouseDown: this.props.onMouseDown,
-                onMouseUp: this.props.onMouseUp,
                 onMouseMove: this.props.onMouseMove,
                 setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,
             });
