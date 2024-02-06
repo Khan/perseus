@@ -38,7 +38,9 @@ export function map<T, U>(pair: [T, T], f: (a: T, i: number) => U): [U, U] {
  * is([1, "Hello", 3]) -> false
  * is([1, 2, 3], 1) -> false
  */
-export function is<T>(vec: ReadonlyArray<T>, dimension?: number): boolean {
+export function is(vec: unknown, dimension: 2): vec is [number, number];
+export function is(vec: unknown, dimension?: number): vec is Vector;
+export function is(vec: unknown, dimension?: number) {
     if (!Array.isArray(vec)) {
         return false;
     }
@@ -219,6 +221,11 @@ export function round<V extends Vector>(vec: V, precision: V | number): V {
 }
 
 // Round each number to the nearest increment
+export function roundTo(
+    coord: [number, number],
+    increment: [number, number] | number,
+): [number, number];
+export function roundTo<V extends Vector>(vec: V, increment: V | number): V;
 export function roundTo<V extends Vector>(vec: V, increment: V | number): V {
     // @ts-expect-error - TS2322 - Type 'number[]' is not assignable to type 'V'.
     return vec.map((elem, i) =>

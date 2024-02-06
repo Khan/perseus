@@ -62,6 +62,9 @@ type DefaultProps = {
 
 interface Movable {
     remove(): void;
+    props: unknown;
+    modify(graphie: GraphieDrawingContext): "reordered" | undefined;
+    toFront(): void;
 }
 
 class Graphie extends React.Component<Props> {
@@ -231,7 +234,12 @@ class Graphie extends React.Component<Props> {
     // @ts-expect-error - TS2322 - Type '(children: readonly any[], options: any) => ReactElement<any, string | JSXElementConstructor<any>> | readonly ReactElement<any, string | JSXElementConstructor<any>>[]' is not assignable to type '(children: readonly any[], arg2: any) => ReactElement<any, string | JSXElementConstructor<any>>'.
     _renderMovables: (
         children: ReadonlyArray<any>,
-        arg2: any,
+        arg2: {
+            nextKey: number;
+            graphie: GraphieDrawingContext;
+            oldMovables: Record<string, Movable>;
+            newMovables: Record<string, Movable>;
+        },
     ) => React.ReactElement = (children, options) => {
         // Each leaf of `children` is a movable descriptor created by a call to
         // some `GraphieMovable`, such as `MovablePoint`.

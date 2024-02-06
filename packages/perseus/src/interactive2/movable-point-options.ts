@@ -7,7 +7,8 @@ import _ from "underscore";
 
 import WrappedEllipse from "./wrapped-ellipse";
 
-import type {Coord} from "./types";
+import type {Constraint, ConstraintCallbacks, Coord} from "./types";
+import type {Interval} from "../util/interval";
 
 const add = {
     constrain: function () {
@@ -119,51 +120,62 @@ const remove = {
 remove.standard = remove.basic;
 
 const constraints = {
-    fixed: function (): () => boolean {
+    fixed: function (): Constraint {
         return function () {
             return false;
         };
     },
 
-    snap: function (snap: any): (arg1: Coord) => unknown {
-        return function (coord: Coord): unknown {
+    snap: function (snap?: number | null): Constraint {
+        return function (coord: Coord) {
             if (snap === null) {
-                // NOTE(kevinb): this should probably return the original point
+                // TODO(benchristel), NOTE(kevinb): this should probably return
+                // the original point
                 return true;
             }
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-            snap = snap || this.graphie.snap;
-            return kpoint.roundTo(coord, snap);
+            // @ts-expect-error - TS2339: Property 'snap' does not exist on type 'Graphie'.
+            return kpoint.roundTo(coord, snap || this.graphie.snap);
         };
     },
 
     bound: function (
-        range: any,
-        snap: any,
-        paddingPx: number,
-    ): (arg1: Coord, arg2: Coord, arg3: any) => Coord {
-        if (paddingPx === undefined) {
-            if (range === undefined) {
-                paddingPx = 10;
+        range?: [Interval, Interval],
+        snap?: Coord | number,
+        optionalPaddingPx?: number,
+    ): Constraint {
+        const paddingPx = (() => {
+            if (optionalPaddingPx === undefined) {
+                if (range === undefined) {
+                    return 10;
+                } else {
+                    return 0;
+                }
             } else {
-                paddingPx = 0;
+                return optionalPaddingPx;
             }
-        }
-        return function (coord: Coord, prev, options: any) {
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        })();
+
+        return function (
+            coord: Coord,
+            prev: Coord,
+            options: ConstraintCallbacks,
+        ) {
             const graphie = this.graphie;
             range = range || graphie.range;
 
             if (snap === undefined) {
+                // @ts-expect-error - Property 'snap' does not exist on type 'Graphie'.
                 snap = graphie.snap;
             }
 
             let lower = graphie.unscalePoint([
                 paddingPx,
+                // @ts-expect-error - 'graphie.ypixels' is possibly 'undefined'.
                 graphie.ypixels - paddingPx,
             ]);
 
             let upper = graphie.unscalePoint([
+                // @ts-expect-error - 'graphie.ypixels' is possibly 'undefined'.
                 graphie.xpixels - paddingPx,
                 paddingPx,
             ]);

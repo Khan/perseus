@@ -13,17 +13,19 @@ import {point as kpoint} from "@khanacademy/kmath";
 import $ from "jquery";
 import _ from "underscore";
 
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
+
 import InteractiveUtil from "./interactive-util";
 
-import type {Coord} from "./types";
+import type {Constraint, ConstraintCallbacks, Coord} from "./types";
 import type {Graphie} from "../util/graphie";
 
 const normalizeOptions = InteractiveUtil.normalizeOptions;
 
 const assert = InteractiveUtil.assert;
 
-// Default "props" and "state". Both are added to this.state and
-// receive magic getter methods (this.isHovering() etc).
+// Default "props" and "state". Both are added to this.state.
 // However, properties in DEFAULT_PROPS are updated on `modify()`,
 // while those in DEFAULT_STATE persist and are not updated.
 // Things that the user might want to change should be on "props",
@@ -44,48 +46,51 @@ export interface State {
     isHovering?: boolean;
     isMouseOver?: boolean;
     isDragging?: boolean;
-    // TODO(benchristel): improve types
-    mouseTarget?: unknown | null;
-    // TODO(benchristel): improve types
-    cursor: unknown | null;
+    mouseTarget?: {
+        toFront(): void;
+        toBack(): void;
+        remove(): void;
+        getMouseTarget(): Element;
+    } | null;
+    // TODO(benchristel): I don't think cursor is used
+    cursor?: null;
     id: string;
-    add: (() => void)[];
-    modify: (() => void)[];
-    draw: (() => void)[];
-    remove: (() => void)[];
-    onMoveStart: ((position: Coord) => void)[];
-    onMove: ((end: Coord, start: Coord) => void)[];
-    onMoveEnd: ((end: Coord, start: Coord) => void)[];
-    onClick: ((position: Coord, start: Coord) => void)[];
+    add?: (() => void)[];
+    // TODO(benchristel): I don't see any evidence that implementers of
+    // modify do anything with the second argument. Remove it?
+    modify?: ((state: State, prevState?: State) => void)[];
+    draw?: ((state: State, prevState?: State) => void)[];
+    remove?: (() => void)[];
+    // TODO(benchristel): callers pass the position twice to onMoveStart.
+    // But I don't see any implementers expecting two arguments. Remove the
+    // second argument.
+    onMoveStart?: ((position: Coord, positionAgain: Coord) => void)[];
+    onMove?: ((end: Coord, start: Coord) => void)[];
+    onMoveEnd?: ((end: Coord, start: Coord) => void)[];
+    onClick?: ((position: Coord, start: Coord) => void)[];
+    constraints?: Constraint[];
 }
 
-const Movable = function (graphie: Graphie, options: any): void {
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    _.extend(this, {
-        graphie,
-        state: {
-            // Set here because this must be unique for each instance
+export class Movable<Options extends Record<string, any>> {
+    graphie: Graphie;
+    state: State;
+    prevState: State | undefined;
+    // TODO(benchristel): delete _listenerMap; it's unused
+    _listenerMap: Record<string, number> = {};
+
+    constructor(graphie: Graphie, options: Options) {
+        this.graphie = graphie;
+        this.state = {
             id: _.uniqueId("movable"),
-        },
-    });
+        };
+        this.modify({...DEFAULT_STATE, ...options});
+    }
 
-    // We only set DEFAULT_STATE once, here
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.modify(_.extend({}, DEFAULT_STATE, options));
-};
+    modify(options: Options) {
+        this.update({...this._createDefaultState(), ...options});
+    }
 
-InteractiveUtil.createGettersFor(
-    Movable,
-    _.extend({}, DEFAULT_PROPS, DEFAULT_STATE),
-);
-InteractiveUtil.addMovableHelperMethodsTo(Movable);
-
-_.extend(Movable.prototype, {
-    cloneState: function (): State {
-        return {...this.state};
-    },
-
-    _createDefaultState: function (): State {
+    _createDefaultState() {
         return {
             id: this.state.id,
             add: [],
@@ -101,73 +106,13 @@ _.extend(Movable.prototype, {
             // be persistent, and updated appropriately in modify()
             ...DEFAULT_PROPS,
         };
-    },
+    }
 
-    /**
-     * Resets the object to its state as if it were constructed with
-     * `options` originally. The only state maintained is `state.id`
-     *
-     * Analogous to React.js's replaceProps
-     */
-    modify: function (options: Partial<State>) {
-        this.update({...this._createDefaultState(), ...options});
-    },
+    update(options: Options) {
+        const graphie = this.graphie;
 
-    /**
-     * Simulates a mouse grab event on the movable object.
-     */
-    grab: function (coord: Coord) {
-        assert(kpoint.is(coord));
-        const self = this;
-        const graphie = self.graphie;
-        const state: State = self.state;
-
-        state.isHovering = true;
-        state.isDragging = true;
-        graphie.isDragging = true;
-
-        const startMouseCoord = coord;
-        let prevMouseCoord = startMouseCoord;
-        self._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
-
-        const moveHandler = function (e: any) {
-            e.preventDefault();
-
-            const mouseCoord = graphie.getMouseCoord(e);
-            self._fireEvent(state.onMove, mouseCoord, prevMouseCoord);
-            self.draw();
-            prevMouseCoord = mouseCoord;
-        };
-
-        const upHandler = function (e: any) {
-            $(document).unbind("vmousemove", moveHandler);
-            $(document).unbind("vmouseup", upHandler);
-            if (state.isHovering) {
-                self._fireEvent(state.onClick, prevMouseCoord, startMouseCoord);
-            }
-            state.isHovering = self.state.isMouseOver;
-            state.isDragging = false;
-            graphie.isDragging = false;
-            self._fireEvent(state.onMoveEnd, prevMouseCoord, startMouseCoord);
-            self.draw();
-        };
-
-        $(document).bind("vmousemove", moveHandler);
-        $(document).bind("vmouseup", upHandler);
-    },
-
-    /**
-     * Adjusts constructor parameters without changing previous settings
-     * for any option not specified
-     *
-     * Analogous to React.js's setProps
-     */
-    update: function (options: State) {
-        const self = this;
-        const graphie = self.graphie;
-
-        const prevState = self.cloneState();
-        const state = _.extend(self.state, normalizeOptions(options));
+        const prevState = this.cloneState();
+        const state = Object.assign(this.state, normalizeOptions(options));
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
@@ -181,25 +126,25 @@ _.extend(Movable.prototype, {
             const isMouse = !("ontouchstart" in window);
 
             if (isMouse) {
-                $mouseTarget.on("vmouseover", function () {
+                $mouseTarget.on("vmouseover", () => {
                     state.isMouseOver = true;
                     if (!graphie.isDragging) {
                         state.isHovering = true;
                     }
-                    if (self.state.added) {
+                    if (this.state.added) {
                         // Avoid drawing if the point has been removed
-                        self.draw();
+                        this.draw();
                     }
                 });
 
-                $mouseTarget.on("vmouseout", function () {
+                $mouseTarget.on("vmouseout", () => {
                     state.isMouseOver = false;
                     if (!state.isDragging) {
                         state.isHovering = false;
                     }
-                    if (self.state.added) {
+                    if (this.state.added) {
                         // Avoid drawing if the point has been removed
-                        self.draw();
+                        this.draw();
                     }
                 });
             }
@@ -214,14 +159,14 @@ _.extend(Movable.prototype, {
                 {passive: false},
             );
 
-            $mouseTarget.on("vmousedown", function (e) {
+            $mouseTarget.on("vmousedown", (e) => {
                 if (e.which !== 0 && e.which !== 1) {
                     return;
                 }
                 e.preventDefault();
 
                 const mouseCoord = graphie.getMouseCoord(e);
-                self.grab(mouseCoord);
+                this.grab(mouseCoord);
             });
         }
 
@@ -239,19 +184,216 @@ _.extend(Movable.prototype, {
 
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
-            self._fireEvent(state.modify, self.cloneState(), {});
+            // TODO(benchristel): No one seems to handle the modify event. Can
+            // we delete this?
+            // @ts-expect-error - TS2345: Argument of type '{}' is not assignable to parameter of type 'State'.
+            this._fireEvent(state.modify, this.cloneState(), {});
             state.added = true;
 
             // Update the state for `added` and in case the add event
             // changed it
-            self.prevState = self.cloneState();
+            this.prevState = this.cloneState();
         }
 
         // Trigger a modify event
-        self._fireEvent(state.modify, self.cloneState(), self.prevState);
-    },
+        this._fireEvent(state.modify, this.cloneState(), this.prevState);
+    }
 
-    remove: function () {
+    cloneState(): State {
+        return {...this.state};
+    }
+
+    /**
+     * Fire an onSomething type event to all functions in listeners
+     */
+    _fireEvent<F extends (...args: any[]) => any>(
+        listeners: F[] | undefined,
+        ...args: Parameters<F>
+    ) {
+        if (listeners == null) {
+            return;
+        }
+        for (const listener of listeners) {
+            listener.call(this, ...args);
+        }
+    }
+
+    /**
+     * Call all draw functions, and update our prevState for the next
+     * draw function
+     */
+    draw() {
+        const currState = this.cloneState();
+        this._fireEvent(this.state.draw, currState, this.prevState);
+        this.prevState = currState;
+    }
+
+    /**
+     * Simulates a mouse grab event on the movable object.
+     */
+    grab(coord: Coord) {
+        assert(kpoint.is(coord));
+        const graphie = this.graphie;
+        const state: State = this.state;
+
+        state.isHovering = true;
+        state.isDragging = true;
+        graphie.isDragging = true;
+
+        const startMouseCoord = coord;
+        let prevMouseCoord = startMouseCoord;
+        this._fireEvent(state.onMoveStart, startMouseCoord, startMouseCoord);
+
+        const moveHandler = (
+            e: Readonly<{
+                pageX?: number;
+                pageY?: number;
+                preventDefault(): void;
+            }>,
+        ) => {
+            e.preventDefault();
+
+            const mouseCoord = graphie.getMouseCoord(e);
+            this._fireEvent(state.onMove, mouseCoord, prevMouseCoord);
+            this.draw();
+            prevMouseCoord = mouseCoord;
+        };
+
+        const upHandler = () => {
+            $(document).unbind("vmousemove", moveHandler);
+            $(document).unbind("vmouseup", upHandler);
+            if (state.isHovering) {
+                this._fireEvent(state.onClick, prevMouseCoord, startMouseCoord);
+            }
+            state.isHovering = this.state.isMouseOver;
+            state.isDragging = false;
+            graphie.isDragging = false;
+            this._fireEvent(state.onMoveEnd, prevMouseCoord, startMouseCoord);
+            this.draw();
+        };
+
+        $(document).bind("vmousemove", moveHandler);
+        $(document).bind("vmouseup", upHandler);
+    }
+
+    _applyConstraints(
+        current: Coord,
+        previous: Coord,
+        extraOptions?: ConstraintCallbacks,
+    ) {
+        let skipRemaining = false;
+
+        return (this.state.constraints ?? []).reduce(
+            (memo: Coord | false, constraint) => {
+                // A move that has been cancelled won't be propagated to later
+                // constraints calls
+                if (memo === false) {
+                    return false;
+                }
+
+                if (skipRemaining) {
+                    return memo;
+                }
+
+                const result = constraint.call(this, memo, previous, {
+                    onSkipRemaining: () => {
+                        skipRemaining = true;
+                    },
+                    ...extraOptions,
+                });
+
+                if (result === false) {
+                    // Returning false cancels the move
+                    return false;
+                }
+                if (kpoint.is(result, 2)) {
+                    // Returning a coord from constraints overrides the move
+                    return result;
+                }
+                if (result === true || result == null) {
+                    // Returning true or undefined allow the move to occur
+                    return memo;
+                }
+                // Anything else is an error
+                throw new PerseusError(
+                    "Constraint returned invalid result: " + result,
+                    Errors.Internal,
+                );
+            },
+            current,
+        );
+    }
+
+    // Change z-order to back
+    toBack() {
+        if (this.state.mouseTarget) {
+            this.state.mouseTarget.toBack();
+        }
+    }
+
+    // Change z-order to front
+    toFront() {
+        if (this.state.mouseTarget) {
+            this.state.mouseTarget.toFront();
+        }
+    }
+
+    /**
+     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
+     * etc. If a listener is already bound to the given eventName and id, then
+     * it is overwritten by func.
+     *
+     * eventName: the string name of the event to listen to. one of:
+     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
+     *
+     * id: a string id that can be used to remove this event at a later time
+     *   note: adding multiple listeners with the same id is undefined behavior
+     *
+     * func: the function to call when the event happens, which is called
+     *   with the event's standard parameters [usually (coord, prevCoord) or
+     *   (state, prevState)]
+     */
+    listen(eventName: string, id: string, func: () => unknown) {
+        this._listenerMap = this._listenerMap || {};
+
+        // If there's an existing handler, replace it by using its index in
+        // `this.state[eventName]`; otherwise, add this handler to the end
+        const key = getKey(eventName, id);
+        const index = (this._listenerMap[key] =
+            this._listenerMap[key] || this.state[eventName].length);
+        this.state[eventName][index] = func;
+    }
+
+    /**
+     * Remove a previously added listener, by the id specified in the
+     * corresponding listen() call
+     *
+     * If the given id has not been registered already, this is a no-op
+     */
+    unlisten(eventName: string, id: string) {
+        this._listenerMap = this._listenerMap || {};
+
+        const key = getKey(eventName, id);
+        const index = this._listenerMap[key];
+        if (index !== undefined) {
+            // Remove handler from list of event handlers and listenerMap
+            this.state[eventName].splice(index, 1);
+            delete this._listenerMap[key];
+
+            // Re-index existing events: if they occur after `index`, decrement
+            const keys = _.keys(this._listenerMap);
+            keys.forEach((key) => {
+                if (
+                    getEventName(key) === eventName &&
+                    this._listenerMap[key] > index
+                ) {
+                    this._listenerMap[key]--;
+                }
+            });
+        }
+    }
+
+    remove() {
         this.state.added = false;
         this._fireEvent(this.state.remove);
         if (this.state.mouseTarget) {
@@ -259,21 +401,37 @@ _.extend(Movable.prototype, {
             this.state.mouseTarget.remove();
             this.state.mouseTarget = null;
         }
-    },
+    }
 
-    // Change z-order to back
-    toBack: function () {
-        if (this.state.mouseTarget) {
-            this.state.mouseTarget.toBack();
-        }
-    },
+    cursor() {
+        return this.state.cursor;
+    }
 
-    // Change z-order to front
-    toFront: function () {
-        if (this.state.mouseTarget) {
-            this.state.mouseTarget.toFront();
-        }
-    },
-});
+    added() {
+        return this.state.added;
+    }
 
-export default Movable;
+    isHovering() {
+        return this.state.isHovering;
+    }
+
+    isMouseOver() {
+        return this.state.isMouseOver;
+    }
+
+    isDragging() {
+        return this.state.isDragging;
+    }
+
+    mouseTarget() {
+        return this.state.mouseTarget;
+    }
+}
+
+function getKey(eventName: string, id: string): string {
+    return eventName + ":" + id;
+}
+
+function getEventName(key: string): string {
+    return key.split(":")[0];
+}

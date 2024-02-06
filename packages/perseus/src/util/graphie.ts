@@ -111,6 +111,11 @@ export class Graphie {
     xpixels?: number;
     ypixels?: number;
 
+    // set by Movables
+    // TODO(benchristel): consider putting this state on the Movable instead of
+    // on the Graphie
+    isDragging?: boolean;
+
     constructor(el: Element) {
         this.el = el;
         $(el).css("position", "relative");
@@ -1400,6 +1405,11 @@ export class Graphie {
         });
 
         return processed;
+    }
+
+    // This is a stub that's overridden in interactive.ts
+    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
+        throw new Error("getMouseCoord is a stub, and is not implemented");
     }
 }
 
