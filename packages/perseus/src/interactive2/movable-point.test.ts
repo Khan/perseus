@@ -62,7 +62,6 @@ describe("MovablePoint", () => {
         });
         graphie.addMouseLayer({});
         const movable = new Movable(graphie, {});
-        // @ts-expect-error
         const movablePoint = new MovablePoint(graphie, movable, {});
 
         // Act/Assert
@@ -96,7 +95,6 @@ describe("MovablePoint", () => {
         });
         graphie.addMouseLayer({});
         const movable = new Movable(graphie, {});
-        // @ts-expect-error
         const movablePoint = new MovablePoint(graphie, movable, {});
 
         expect(movablePoint.state).toEqual({
@@ -146,7 +144,6 @@ describe("MovablePoint", () => {
         });
         graphie.addMouseLayer({});
         const movable = new Movable(graphie, {});
-        // @ts-expect-error
         const movablePoint = new MovablePoint(graphie, movable, {});
 
         expect(movablePoint.prevState).toEqual({

@@ -5,12 +5,13 @@ import _ from "underscore";
 import {MovablePoint} from "../movable-point";
 
 import _createMockMovable from "./movable-mock";
+import {Graphie} from "../../util/graphie";
 
 // Create a testable MovablePoint with a mocked out Movable
 const createPoint = function (options) {
     const movable = _createMockMovable();
     const point = new MovablePoint(
-        null,
+        new Graphie(document.createElement("div")),
         movable,
         _.extend(options, {
             static: true,
