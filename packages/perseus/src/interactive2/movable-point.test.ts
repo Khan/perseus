@@ -1,6 +1,7 @@
-import {MovablePoint} from "./movable-point";
-import {Movable} from "./movable";
 import {Graphie} from "../util/graphie";
+
+import {Movable} from "./movable";
+import {MovablePoint} from "./movable-point";
 import WrappedEllipse from "./wrapped-ellipse";
 
 // Yay for side-effect imports!
@@ -54,16 +55,19 @@ describe("MovablePoint", () => {
         // Arrange
         const graphie = new Graphie(document.createElement("div"));
         graphie.init({
-            range: [[-10, 10], [-10, 10]],
-        })
-        graphie.addMouseLayer({})
-        const movable = new Movable(graphie, {})
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        });
+        graphie.addMouseLayer({});
+        const movable = new Movable(graphie, {});
         // @ts-expect-error
-        const movablePoint = new MovablePoint(graphie, movable, {})
+        const movablePoint = new MovablePoint(graphie, movable, {});
 
         // Act/Assert
-        expect(movablePoint[property]).toBeDefined()
-    })
+        expect(movablePoint[property]).toBeDefined();
+    });
 
     const staticProperties = [
         "add",
@@ -75,22 +79,25 @@ describe("MovablePoint", () => {
         "onMove",
         "onMoveEnd",
         "onClick",
-    ]
+    ];
 
     it.each(staticProperties)("has a %s static property", (property) => {
         expect(MovablePoint[property]).toBeDefined();
-    })
+    });
 
     it("sets its initial state on construction", () => {
         // Arrange
         const graphie = new Graphie(document.createElement("div"));
         graphie.init({
-            range: [[-10, 10], [-10, 10]],
-        })
-        graphie.addMouseLayer({})
-        const movable = new Movable(graphie, {})
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        });
+        graphie.addMouseLayer({});
+        const movable = new Movable(graphie, {});
         // @ts-expect-error
-        const movablePoint = new MovablePoint(graphie, movable, {})
+        const movablePoint = new MovablePoint(graphie, movable, {});
 
         expect(movablePoint.state).toEqual({
             add: [expect.any(Function)],
@@ -98,10 +105,7 @@ describe("MovablePoint", () => {
             constraints: [],
             coord: [0, 0],
             cursor: "move",
-            draw: [
-                expect.any(Function),
-                expect.any(Function),
-            ],
+            draw: [expect.any(Function), expect.any(Function)],
             hasMoved: false,
             id: expect.any(String),
             modify: [expect.any(Function)],
@@ -128,19 +132,22 @@ describe("MovablePoint", () => {
                 fill: "#71B307",
                 stroke: "#71B307",
             },
-        })
-    })
+        });
+    });
 
     it("sets its initial prevState on construction", () => {
         // Arrange
         const graphie = new Graphie(document.createElement("div"));
         graphie.init({
-            range: [[-10, 10], [-10, 10]],
-        })
-        graphie.addMouseLayer({})
-        const movable = new Movable(graphie, {})
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+        });
+        graphie.addMouseLayer({});
+        const movable = new Movable(graphie, {});
         // @ts-expect-error
-        const movablePoint = new MovablePoint(graphie, movable, {})
+        const movablePoint = new MovablePoint(graphie, movable, {});
 
         expect(movablePoint.prevState).toEqual({
             add: [expect.any(Function)],
@@ -148,10 +155,7 @@ describe("MovablePoint", () => {
             constraints: [],
             coord: [0, 0],
             cursor: "move",
-            draw: [
-                expect.any(Function),
-                expect.any(Function),
-            ],
+            draw: [expect.any(Function), expect.any(Function)],
             hasMoved: false,
             id: expect.any(String),
             isDragging: false,
@@ -181,6 +185,6 @@ describe("MovablePoint", () => {
                 fill: "#71B307",
                 stroke: "#71B307",
             },
-        })
-    })
-})
+        });
+    });
+});

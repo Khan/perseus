@@ -55,6 +55,8 @@ import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 import KhanColors from "../util/colors";
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
@@ -63,12 +65,11 @@ import InteractiveUtil from "./interactive-util";
 import MovablePointOptions from "./movable-point-options";
 import objective_ from "./objective_";
 import WrappedEllipse from "./wrapped-ellipse";
-import {Graphie} from "../util/graphie";
-import {Movable} from "./movable";
-import {PerseusError} from "../perseus-error";
-import {Errors} from "../logging/log";
-import {Coord} from "@khanacademy/perseus";
-import {Constraint, ConstraintCallbacks} from "./types";
+
+import type {Movable} from "./movable";
+import type {Constraint, ConstraintCallbacks} from "./types";
+import type {Graphie} from "../util/graphie";
+import type {Coord} from "@khanacademy/perseus";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -101,55 +102,59 @@ const DEFAULT_STATE = {
 } as const;
 
 type State = {
-    add: unknown[],
-    added: boolean,
-    constraints: Constraint[],
-    coord: Coord,
-    cursor: "move",
-    draw: ((state: State, prevState: State) => void)[],
-    hasMoved: boolean,
-    id: string,
-    modify: unknown[],
-    onClick: unknown[],
-    onMove: ((coord: Coord, prevCoord: Coord) => void)[],
-    onMoveEnd: unknown[],
-    onMoveStart: unknown[],
-    onRemove?: () => void,
-    outOfBounds: boolean,
-    pointSize: number,
-    remove: (() => void)[],
-    shadow: boolean,
-    static: boolean,
-    tooltip: boolean,
-    touchOffset: null | Coord,
-    mouseTarget: unknown,
+    add: unknown[];
+    added: boolean;
+    constraints: Constraint[];
+    coord: Coord;
+    cursor: "move";
+    draw: ((state: State, prevState: State) => void)[];
+    hasMoved: boolean;
+    id: string;
+    modify: unknown[];
+    onClick: unknown[];
+    onMove: ((coord: Coord, prevCoord: Coord) => void)[];
+    onMoveEnd: unknown[];
+    onMoveStart: unknown[];
+    onRemove?: () => void;
+    outOfBounds: boolean;
+    pointSize: number;
+    remove: (() => void)[];
+    shadow: boolean;
+    static: boolean;
+    tooltip: boolean;
+    touchOffset: null | Coord;
+    mouseTarget: unknown;
     // TODO(benchristel): Change the type of visibleShape to WrappedEllipse,
     // once WrappedEllipse is converted to an ES6 class
-    visibleShape: {wrapper: HTMLElement, toBack(): void, toFront(): void},
-    normalStyle: Record<string, any>,
-    highlightStyle: Record<string, any>,
-}
+    visibleShape: {wrapper: HTMLElement; toBack(): void; toFront(): void};
+    normalStyle: Record<string, any>;
+    highlightStyle: Record<string, any>;
+};
 // TODO(benchristel): this is a memory leak. We add items to
 // tooltipResetFunctions, but never remove them.
 const tooltipResetFunctions: Array<() => void> = [];
 
 export class MovablePoint {
-    graphie: Graphie
-    movable: Movable<Record<string, never>>
-    state: State
+    graphie: Graphie;
+    movable: Movable<Record<string, never>>;
+    state: State;
     // @ts-expect-error - TS2564: Property 'prevState' has no initializer and is not definitely assigned in the constructor.
-    prevState: State
-    _tooltip?: HTMLElement
+    prevState: State;
+    _tooltip?: HTMLElement;
     _listenerMap: Record<string, number> = {};
 
-    constructor(graphie: Graphie, movable: Movable<Record<string, never>>, options: Partial<State>) {
+    constructor(
+        graphie: Graphie,
+        movable: Movable<Record<string, never>>,
+        options: Partial<State>,
+    ) {
         this.graphie = graphie;
         this.movable = movable;
         // @ts-expect-error - TS2740: Type '{ id: string; }' is missing the following properties from type 'State': add, added, constraints, coord, and 19 more.
         this.state = {
             id: _.uniqueId("movablePoint"),
-        }
-        this.modify({...DEFAULT_STATE, ...options})
+        };
+        this.modify({...DEFAULT_STATE, ...options});
     }
 
     modify(options) {
@@ -171,7 +176,7 @@ export class MovablePoint {
                 // be persistent, and updated appropriately in modify()
             ),
             ...DEFAULT_PROPS,
-        }
+        };
     }
 
     cloneState() {
@@ -235,16 +240,16 @@ export class MovablePoint {
             this._showTooltip((container) => {
                 reactRender(
                     <span style={{fontSize: "2em"}}>
-                    <InlineIcon
-                        {...iconTrash}
-                        style={{
-                            position: "static",
-                            color: KhanColors.INTERACTIVE,
-                            marginLeft: 9,
-                            marginRight: 9,
-                        }}
-                    />
-                </span>,
+                        <InlineIcon
+                            {...iconTrash}
+                            style={{
+                                position: "static",
+                                color: KhanColors.INTERACTIVE,
+                                marginLeft: 9,
+                                marginRight: 9,
+                            }}
+                        />
+                    </span>,
                     container,
                 );
             });
@@ -420,7 +425,7 @@ export class MovablePoint {
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
             // @ts-expect-error - type {} is missing properties from State
-            self.prevState = {}
+            self.prevState = {};
             self._fireEvent(state.add, self.cloneState(), self.prevState);
             state.added = true;
 
@@ -435,11 +440,7 @@ export class MovablePoint {
 
     draw() {
         const currState = this.cloneState();
-        this._fireEvent(
-            this.state.draw,
-            currState,
-            this.prevState,
-        );
+        this._fireEvent(this.state.draw, currState, this.prevState);
         this.prevState = currState;
     }
 
@@ -565,7 +566,7 @@ export class MovablePoint {
     }
 
     coord(): Coord {
-        return this.state.coord
+        return this.state.coord;
     }
 
     setCoord(coord: Coord) {
@@ -706,55 +707,55 @@ export class MovablePoint {
     }
 
     pointSize(): number {
-        return this.state.pointSize
+        return this.state.pointSize;
     }
 
     static() {
-        return this.state.static
+        return this.state.static;
     }
 
     cursor() {
-        return this.state.cursor
+        return this.state.cursor;
     }
 
     normalStyle() {
-        return this.state.normalStyle
+        return this.state.normalStyle;
     }
 
     highlightStyle() {
-        return this.state.highlightStyle
+        return this.state.highlightStyle;
     }
 
     shadow() {
-        return this.state.shadow
+        return this.state.shadow;
     }
 
     tooltip() {
-        return this.state.tooltip
+        return this.state.tooltip;
     }
 
     added() {
-        return this.state.added
+        return this.state.added;
     }
 
     hasMoved() {
-        return this.state.hasMoved
+        return this.state.hasMoved;
     }
 
     visibleShape() {
-        return this.state.visibleShape
+        return this.state.visibleShape;
     }
 
     outOfBounds() {
-        return this.state.outOfBounds
+        return this.state.outOfBounds;
     }
 
     mouseTarget() {
-        return this.state.mouseTarget
+        return this.state.mouseTarget;
     }
 
     touchOffset() {
-        return this.state.touchOffset
+        return this.state.touchOffset;
     }
 
     /**
@@ -784,15 +785,15 @@ export class MovablePoint {
         this.movable.toFront();
     }
 
-    static add = MovablePointOptions.add
-    static modify = MovablePointOptions.modify
-    static draw = MovablePointOptions.draw
-    static remove = MovablePointOptions.remove
-    static onMoveStart = MovablePointOptions.onMoveStart
-    static constraints = MovablePointOptions.constraints
-    static onMove = MovablePointOptions.onMove
-    static onMoveEnd = MovablePointOptions.onMoveEnd
-    static onClick = MovablePointOptions.onClick
+    static add = MovablePointOptions.add;
+    static modify = MovablePointOptions.modify;
+    static draw = MovablePointOptions.draw;
+    static remove = MovablePointOptions.remove;
+    static onMoveStart = MovablePointOptions.onMoveStart;
+    static constraints = MovablePointOptions.constraints;
+    static onMove = MovablePointOptions.onMove;
+    static onMoveEnd = MovablePointOptions.onMoveEnd;
+    static onClick = MovablePointOptions.onClick;
 }
 
 function getKey(eventName: string, id: string): string {

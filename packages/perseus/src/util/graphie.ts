@@ -22,9 +22,9 @@ import {GraphBounds} from "./graph-bounds";
 import KhanMath from "./math";
 import Tex from "./tex";
 
+import type {MouseHandler} from "./interactive";
 import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
-import {MouseHandler} from "./interactive";
 
 const {processMath} = Tex;
 
