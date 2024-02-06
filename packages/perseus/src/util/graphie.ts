@@ -1346,11 +1346,11 @@ export class Graphie {
         return this.drawingTransform().scaleVector(point);
     };
 
-    unscalePoint = (point: Coord) => {
+    unscalePoint = (point: number | Coord) => {
         return this.drawingTransform().unscalePoint(point);
     };
 
-    unscaleVector = (point: Coord) => {
+    unscaleVector = (point: number | Coord) => {
         return this.drawingTransform().unscaleVector(point);
     };
 
