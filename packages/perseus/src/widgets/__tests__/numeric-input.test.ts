@@ -1,3 +1,4 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -393,6 +394,11 @@ describe("Numeric input widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
     });
 
     it("can handle multiple correct answers (Part one)", () => {
@@ -461,12 +467,13 @@ describe("Numeric input widget", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("styles differently on mobile", () => {
+    it("styles differently on mobile", async () => {
         const {container} = renderQuestion(multipleAnswersWithDecimals, {
             // I wish this was more clear but this is how mobile
             // rendering is triggered
             customKeypad: true,
         });
+        await screen.findByRole("textbox");
 
         expect(container).toMatchSnapshot("mobile render");
     });

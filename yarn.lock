@@ -2239,13 +2239,6 @@
     "@typescript-eslint/utils" "^5.60.1"
     checksync "^5.0.0"
 
-"@khanacademy/mathjax-renderer@git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.0":
-  version "1.6.0"
-  resolved "git+ssh://git@github.com:Khan/mathjax-renderer.git#8b2aaa4a0ac585e8c8b620bc960ff7691ee725a3"
-  dependencies:
-    mathjax-full "3.2.2"
-    mu-lambda "^0.0.3"
-
 "@khanacademy/mathjax-renderer@git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.1":
   version "1.6.1"
   resolved "git+ssh://git@github.com:Khan/mathjax-renderer.git#b7027ab2b08b34fc8b8acff9613b7bbe8731b679"

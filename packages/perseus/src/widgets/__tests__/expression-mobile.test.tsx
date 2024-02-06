@@ -5,6 +5,7 @@ import {
     MobileKeypad,
     mathQuillInstance,
 } from "@khanacademy/math-input";
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     fireEvent,
@@ -86,6 +87,11 @@ describe("expression mobile", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
     });
 
     afterEach(() => {
@@ -109,6 +115,9 @@ describe("expression mobile", () => {
     it("shows the keypad after input interaction", async () => {
         render(<ConnectedRenderer />);
 
+        // allow async render
+        await screen.findByRole("textbox");
+
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
@@ -123,6 +132,9 @@ describe("expression mobile", () => {
 
     it("shows keypad after focused input interaction", async () => {
         render(<ConnectedRenderer />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
@@ -153,6 +165,9 @@ describe("expression mobile", () => {
     it("is possible to use the keypad", async () => {
         render(<ConnectedRenderer />);
 
+        // allow async render
+        await screen.findByRole("textbox");
+
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
@@ -178,6 +193,9 @@ describe("expression mobile", () => {
 
     it("is possible to type many numbers", async () => {
         render(<ConnectedRenderer />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
@@ -211,6 +229,9 @@ describe("expression mobile", () => {
     it("can handle symbols", async () => {
         render(<ConnectedRenderer />);
 
+        // allow async render
+        await screen.findByRole("textbox");
+
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
@@ -242,6 +263,9 @@ describe("expression mobile", () => {
 
     it("can do arithmetic", async () => {
         render(<ConnectedRenderer />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
@@ -275,6 +299,9 @@ describe("expression mobile", () => {
     it("can navigate to operators page", async () => {
         render(<ConnectedRenderer />);
 
+        // allow async render
+        await screen.findByRole("textbox");
+
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
@@ -292,6 +319,9 @@ describe("expression mobile", () => {
 
     it("can navigate to geometry page", async () => {
         render(<ConnectedRenderer />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
@@ -311,6 +341,9 @@ describe("expression mobile", () => {
     it("can navigate to extras page", async () => {
         render(<ConnectedRenderer />);
 
+        // allow async render
+        await screen.findByRole("textbox");
+
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
@@ -328,6 +361,9 @@ describe("expression mobile", () => {
 
     it("can write a full equation", async () => {
         render(<ConnectedRenderer />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",

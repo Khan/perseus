@@ -2,6 +2,7 @@
  * Disclaimer: Definitely not thorough enough
  */
 import {describe, beforeEach, it} from "@jest/globals";
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import _ from "underscore";
@@ -295,14 +296,20 @@ describe("rendering", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
     });
 
-    it("supports mobile rendering", () => {
+    it("supports mobile rendering", async () => {
         const {container} = renderQuestion(question, {
             // Setting this triggers mobile rendering
             // it would be nice if this was more clear in the code
             customKeypad: true,
         });
+        await screen.findByRole("textbox");
 
         expect(container).toMatchSnapshot("mobile render");
     });

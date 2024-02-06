@@ -3,6 +3,7 @@ import {
     KeypadContext,
     MobileKeypad,
 } from "@khanacademy/math-input";
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render, fireEvent, waitFor} from "@testing-library/react";
 import * as React from "react";
@@ -82,6 +83,12 @@ describe("article renderer", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
     });
 
     afterEach(() => {
@@ -101,7 +108,9 @@ describe("article renderer", () => {
         });
 
         // Assert
-        expect(screen.getByRole("textbox")).toBeInTheDocument();
+        waitFor(() => {
+            expect(screen.getByRole("textbox")).toBeInTheDocument();
+        });
     });
 
     it("should call the onFocusChanged callback when an input is focused", async () => {
@@ -115,6 +124,9 @@ describe("article renderer", () => {
             isMobile: true,
             customKeypad: true,
         });
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",

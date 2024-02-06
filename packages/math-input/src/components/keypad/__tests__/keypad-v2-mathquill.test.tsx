@@ -1,3 +1,4 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import Color from "@khanacademy/wonder-blocks-color";
 import {Popover} from "@khanacademy/wonder-blocks-popover";
 import {render, screen} from "@testing-library/react";
@@ -28,18 +29,18 @@ function V2KeypadWithMathquill(props: Props) {
 
     React.useEffect(() => {
         if (!mathField && mathFieldWrapperRef.current) {
-            void createMathField(mathFieldWrapperRef.current, (baseConfig) => {
-                return {
+            const init = async (ref: HTMLSpanElement) =>
+                createMathField(ref, (baseConfig) => ({
                     ...baseConfig,
                     handlers: {
-                        edit: (mathField) => {
-                            onChangeMathInput(mathField.latex());
+                        edit: (mq) => {
+                            onChangeMathInput(mq.latex());
                         },
                     },
-                };
-            }).then((mathFieldInstance) => {
-                setMathField(mathFieldInstance);
-            });
+                })).then((mathFieldInstance) => {
+                    setMathField(mathFieldInstance);
+                });
+            init(mathFieldWrapperRef.current);
         }
     }, [mathField, onChangeMathInput]);
 
@@ -105,7 +106,14 @@ function V2KeypadWithMathquill(props: Props) {
 }
 
 describe("Keypad v2 with MathQuill", () => {
-    it("can write the Pythagorean theorem (simple)", () => {
+    beforeEach(() => {
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
+    });
+    it("can write the Pythagorean theorem (simple)", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -113,6 +121,8 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
+        // allow async render
+        await screen.findByRole("textbox");
 
         // a^2
         userEvent.click(screen.getByRole("tab", {name: "Extras"}));
@@ -143,7 +153,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it("can write the Pythagorean theorem (complex)", () => {
+    it("can write the Pythagorean theorem (complex)", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -151,6 +161,8 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
+        // allow async render
+        await screen.findByRole("textbox");
 
         // c = /Square root
         userEvent.click(screen.getByRole("tab", {name: "Extras"}));
@@ -181,7 +193,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it("writes the Pythagorean theorem using typing/clicking together", () => {
+    it("writes the Pythagorean theorem using typing/clicking together", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -189,9 +201,10 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
+        const input = await screen.findByRole("textbox");
 
         // Argument is empty because mathquill generates textarea w/o label
-        userEvent.type(screen.getByRole("textbox"), "a");
+        userEvent.type(input, "a");
         userEvent.click(screen.getByRole("tab", {name: "Operators"}));
         userEvent.click(screen.getByRole("button", {name: "Square"}));
 
@@ -210,7 +223,7 @@ describe("Keypad v2 with MathQuill", () => {
         );
     });
 
-    it("deletes from the input using the backspace button", () => {
+    it("deletes from the input using the backspace button", async () => {
         // Arrange
         const mockMathInputCallback = jest.fn();
         render(
@@ -218,6 +231,8 @@ describe("Keypad v2 with MathQuill", () => {
         );
 
         // Act
+        // allow async render
+        await screen.findByRole("textbox");
 
         // a^2
         userEvent.click(screen.getByRole("tab", {name: "Extras"}));

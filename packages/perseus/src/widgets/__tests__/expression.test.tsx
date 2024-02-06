@@ -1,4 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
@@ -21,13 +22,14 @@ import {renderQuestion} from "./renderQuestion";
 import type {PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
-const assertComplete = (
+const assertComplete = async (
     itemData: PerseusItem,
     input: string,
     isCorrect: boolean,
 ) => {
     const {renderer} = renderQuestion(itemData.question);
-    userEvent.type(screen.getByRole("textbox"), input);
+    const textbox = await screen.findByRole("textbox");
+    userEvent.type(textbox, input);
     const [_, score] = renderer.guessAndScore();
 
     expect(score).toMatchObject({
@@ -36,8 +38,8 @@ const assertComplete = (
     });
 };
 
-const assertCorrect = (itemData: PerseusItem, input: string) => {
-    assertComplete(itemData, input, true);
+const assertCorrect = async (itemData: PerseusItem, input: string) => {
+    await assertComplete(itemData, input, true);
 
     expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
@@ -48,8 +50,8 @@ const assertCorrect = (itemData: PerseusItem, input: string) => {
     });
 };
 
-const assertIncorrect = (itemData: PerseusItem, input: string) => {
-    assertComplete(itemData, input, false);
+const assertIncorrect = async (itemData: PerseusItem, input: string) => {
+    await assertComplete(itemData, input, false);
 
     expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
@@ -61,12 +63,10 @@ const assertIncorrect = (itemData: PerseusItem, input: string) => {
 };
 
 // TODO: actually Assert that message is being set on the score object.
-const assertInvalid = (
-    itemData: PerseusItem,
-    input: string,
-    message?: string,
-) => {
+const assertInvalid = async (itemData: PerseusItem, input: string) => {
     const {renderer} = renderQuestion(itemData.question);
+    // allow async render
+    await screen.findByRole("textbox");
     if (input.length) {
         userEvent.type(screen.getByRole("textbox"), input);
     }
@@ -83,21 +83,26 @@ describe("Expression Widget", function () {
         jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
             testDependenciesV2,
         );
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
     });
 
     describe("grading", function () {
-        it("should not grade a thing that doesn't parse", () => {
-            assertInvalid(expressionItem2, "+++");
+        it("should not grade a thing that doesn't parse", async () => {
+            await assertInvalid(expressionItem2, "+++");
         });
 
-        it("should not grade a thing that is empty", () => {
-            assertInvalid(expressionItem2, "");
+        it("should not grade a thing that is empty", async () => {
+            await assertInvalid(expressionItem2, "");
         });
     });
 
     describe("fallthrough", function () {
-        it("should grade answers which don't match anything as wrong", function () {
-            assertIncorrect(expressionItem2, "500");
+        it("should grade answers which don't match anything as wrong", async function () {
+            await assertIncorrect(expressionItem2, "500");
         });
     });
 
@@ -105,8 +110,8 @@ describe("Expression Widget", function () {
         it.each(["123-X", "X-123"])(
             "should not grade answers that are correct except for the " +
                 "variable case",
-            function (input) {
-                assertInvalid(expressionItem2, input);
+            async function (input) {
+                await assertInvalid(expressionItem2, input);
             },
         );
 
@@ -115,15 +120,15 @@ describe("Expression Widget", function () {
         it(
             "should not grade answers that have the wrong variable case, " +
                 "even if the answer has got other errors",
-            function () {
-                assertInvalid(expressionItem2, "123+X");
+            async function () {
+                await assertInvalid(expressionItem2, "123+X");
             },
         );
 
         it.each(["123-y", "123-Y"])(
             "should not not grade answers that use the wrong variable",
-            function (input) {
-                assertInvalid(expressionItem2, input);
+            async function (input) {
+                await assertInvalid(expressionItem2, input);
             },
         );
     });
@@ -131,8 +136,8 @@ describe("Expression Widget", function () {
     describe("multiple answers", function () {
         it.each(["x-123", "123-x"])(
             "should recognize either of two possibilities",
-            (input) => {
-                assertCorrect(expressionItem2, input);
+            async (input) => {
+                await assertCorrect(expressionItem2, input);
             },
         );
 
@@ -148,23 +153,23 @@ describe("Expression Widget", function () {
          *     value: z+1
          */
 
-        it("should match from top to bottom", function () {
-            assertInvalid(expressionItem3, "x+1");
+        it("should match from top to bottom", async function () {
+            await assertInvalid(expressionItem3, "x+1");
         });
 
-        it("should match from top to bottom (2)", function () {
-            assertIncorrect(expressionItem3, "y+1");
+        it("should match from top to bottom (2)", async function () {
+            await assertIncorrect(expressionItem3, "y+1");
         });
 
-        it("should match from top to bottom (3)", function () {
-            assertCorrect(expressionItem3, "z+1");
+        it("should match from top to bottom (3)", async function () {
+            await assertCorrect(expressionItem3, "z+1");
         });
 
         it.each([["X+1"], ["Y+1"], ["Z+1"]])(
             "should give casing or variable name error only relative to the " +
                 "correct answer",
-            (input) => {
-                assertInvalid(expressionItem3, input);
+            async (input) => {
+                await assertInvalid(expressionItem3, input);
             },
         );
     });
@@ -184,29 +189,29 @@ describe("Expression Widget", function () {
     });
 
     describe("when the question uses the sin function", () => {
-        it("allows parens", () => {
+        it("allows parens", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            assertCorrect(item, "sin(x)");
+            await assertCorrect(item, "sin(x)");
         });
 
-        it("allows no parens", () => {
+        it("allows no parens", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            assertCorrect(item, "sin x");
+            await assertCorrect(item, "sin x");
         });
 
-        it("grades a wrong answer as incorrect", () => {
+        it("grades a wrong answer as incorrect", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            assertIncorrect(item, "2");
+            await assertIncorrect(item, "2");
         });
 
-        it("treats sen as equivalent to sin", () => {
+        it("treats sen as equivalent to sin", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            assertCorrect(item, "sen x");
+            await assertCorrect(item, "sen x");
         });
 
-        it("treats multiple usages of sen as equivalent to sin", () => {
+        it("treats multiple usages of sen as equivalent to sin", async () => {
             const item = expressionItemWithAnswer("sin(sin(x))");
-            assertCorrect(item, "sen(sen(x))");
+            await assertCorrect(item, "sen(sen(x))");
         });
     });
 
@@ -339,26 +344,33 @@ describe("focus state", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
     });
 
-    it("supports directly focusing", () => {
+    it("supports directly focusing", async () => {
         //  Arrange
         renderQuestion(expressionItem2.question);
 
         // Act
-        const expressionInput = screen.getByRole("textbox");
+        const expressionInput = // allow async render
+            await screen.findByRole("textbox");
         expressionInput.focus();
 
         // Assert
         expect(expressionInput).toHaveFocus();
     });
 
-    it("supports directly blurring", () => {
+    it("supports directly blurring", async () => {
         //  Arrange
         renderQuestion(expressionItem2.question);
 
         // Act
-        const expressionInput = screen.getByRole("textbox");
+        const expressionInput = // allow async render
+            await screen.findByRole("textbox");
         expressionInput.focus();
         expressionInput.blur();
 
@@ -366,16 +378,16 @@ describe("focus state", () => {
         expect(expressionInput).not.toHaveFocus();
     });
 
-    it("can be focused via a function", () => {
+    it("can be focused via a function", async () => {
         // arrange
         const {renderer} = renderQuestion(expressionItem2.question);
+        const expressionInput = await screen.findByRole("textbox");
         const expression = renderer.findWidgets("expression 1")[0];
 
         // act
         expression.focusInputPath();
 
         // Assert
-        const expressionInput = screen.getByRole("textbox");
         expect(expressionInput).toHaveFocus();
     });
 });
@@ -396,7 +408,8 @@ describe("rendering", () => {
         });
 
         // Assert
-        const mobileInput = await screen.findByRole("textbox");
+        const mobileInput = // allow async render
+            await screen.findByRole("textbox");
         expect(mobileInput).toBeVisible();
     });
 });
@@ -405,6 +418,11 @@ describe("interaction", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
+        );
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
         );
     });
 
@@ -424,9 +442,11 @@ describe("interaction", () => {
         expect(score.earned).toBe(score.total);
     });
 
-    it("has a developer facility for inserting", () => {
+    it("has a developer facility for inserting", async () => {
         // arrange
         const {renderer} = renderQuestion(expressionItem2.question);
+        // allow async render
+        await screen.findByRole("textbox");
         const expression = renderer.findWidgets("expression 1")[0];
         expression.insert("x+1");
 
@@ -446,11 +466,18 @@ describe("error tooltip", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
     });
 
     it("shows error text in tooltip", async () => {
         // Arrange
         const {renderer} = renderQuestion(expressionItem2.question);
+        // allow async render
+        await screen.findByRole("textbox");
         const expression = renderer.findWidgets("expression 1")[0];
 
         // Act
@@ -468,6 +495,8 @@ describe("error tooltip", () => {
     it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {
         // Arrange
         const {renderer} = renderQuestion(expressionItem2.question);
+        // allow async render
+        await screen.findByRole("textbox");
         const expression = renderer.findWidgets("expression 1")[0];
 
         // Act

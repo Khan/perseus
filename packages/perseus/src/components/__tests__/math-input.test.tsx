@@ -1,3 +1,4 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
@@ -21,9 +22,14 @@ describe("Perseus' MathInput", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
     });
 
-    it("renders", () => {
+    it("renders", async () => {
         // Assemble
         render(
             <MathInput
@@ -35,10 +41,12 @@ describe("Perseus' MathInput", () => {
         );
 
         // Assert
+        // allow async render
+        await screen.findByRole("textbox");
         expect(screen.getByLabelText("test")).toBeInTheDocument();
     });
 
-    it("is possible to type in the input", () => {
+    it("is possible to type in the input", async () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
@@ -50,13 +58,15 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
+        // allow async render
+        await screen.findByRole("textbox");
         userEvent.type(screen.getByRole("textbox"), "12345");
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("12345");
     });
 
-    it("is possible to use buttons", () => {
+    it("is possible to use buttons", async () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
@@ -68,6 +78,8 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
+        // allow async render
+        await screen.findByRole("textbox");
         screen.getByRole("switch").click();
         userEvent.click(screen.getByRole("button", {name: "1"}));
         userEvent.click(screen.getByRole("button", {name: "Plus"}));
@@ -79,7 +91,7 @@ describe("Perseus' MathInput", () => {
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2-3");
     });
 
-    it("is possible to use buttons with legacy props", () => {
+    it("is possible to use buttons with legacy props", async () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
@@ -91,6 +103,8 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
+        // allow async render
+        await screen.findByRole("textbox");
         // focusing the input triggers the popover
         screen.getByRole("switch").click();
         userEvent.click(screen.getByRole("button", {name: "1"}));
@@ -103,7 +117,7 @@ describe("Perseus' MathInput", () => {
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2\\div3");
     });
 
-    it("returns focus to input after button click", () => {
+    it("returns focus to input after button click", async () => {
         // Assemble
         render(
             <MathInput
@@ -114,6 +128,8 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
+        // allow async render
+        await screen.findByRole("textbox");
         // focusing the input triggers the popover
         screen.getByRole("switch").click();
         userEvent.click(screen.getByRole("button", {name: "1"}));
@@ -122,7 +138,7 @@ describe("Perseus' MathInput", () => {
         expect(screen.getByRole("textbox")).toHaveFocus();
     });
 
-    it("does not return focus to input after button press via keyboard", () => {
+    it("does not return focus to input after button press via keyboard", async () => {
         // Assemble
         render(
             <MathInput
@@ -133,6 +149,8 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
+        // allow async render
+        await screen.findByRole("textbox");
         // focusing the input triggers the popover
         screen.getByRole("switch").click();
         userEvent.tab(); // to "123" tab

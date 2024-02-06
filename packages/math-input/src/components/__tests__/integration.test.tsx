@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom";
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {
     screen,
     render,
@@ -81,6 +82,14 @@ function ConnectedMathInput({keypadConfiguration = defaultConfiguration}) {
 }
 
 describe("math input integration", () => {
+    beforeEach(() => {
+        jest.spyOn(SpeechRuleEngine, "setup").mockResolvedValue(
+            Promise.resolve({
+                texToSpeech: () => "",
+            }),
+        );
+    });
+
     it("renders", () => {
         render(<ConnectedMathInput />);
 
@@ -102,6 +111,9 @@ describe("math input integration", () => {
     it("shows the keypad after input touch-interaction", async () => {
         render(<ConnectedMathInput />);
 
+        // allow async render
+        await screen.findByRole("textbox");
+
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
@@ -118,6 +130,9 @@ describe("math input integration", () => {
     it("shows the keypad after input click-interaction", async () => {
         render(<ConnectedMathInput />);
 
+        // allow async render
+        await screen.findByRole("textbox");
+
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
@@ -133,6 +148,9 @@ describe("math input integration", () => {
 
     it("updates input when using keypad", async () => {
         render(<ConnectedMathInput />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
@@ -158,6 +176,9 @@ describe("math input integration", () => {
 
     it("updates input when pressing many numbers", async () => {
         render(<ConnectedMathInput />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
@@ -188,6 +209,9 @@ describe("math input integration", () => {
 
     it("can handle symbols", async () => {
         render(<ConnectedMathInput />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
@@ -222,6 +246,9 @@ describe("math input integration", () => {
         render(
             <ConnectedMathInput keypadConfiguration={keypadConfiguration} />,
         );
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
@@ -261,6 +288,9 @@ describe("math input integration", () => {
 
     it("handles fractions correctly in fraction", async () => {
         render(<ConnectedMathInput />);
+
+        // allow async render
+        await screen.findByRole("textbox");
 
         const input = screen.getByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
