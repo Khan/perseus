@@ -102,7 +102,7 @@ export async function createMathField(
 
     const mathField = mathQuillInstance
         .MathField(container, config)
-        .setMathSpeakCallback(engine.texToSpeech)
+        .setMathspeakOverride(engine.texToSpeech)
         // translated in ./math-input.tsx
         .setAriaLabel(i18n._("Math input box")) as MathFieldInterface;
 

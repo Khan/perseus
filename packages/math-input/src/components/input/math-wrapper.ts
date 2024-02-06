@@ -54,7 +54,7 @@ class MathWrapper {
         this.callbacks = callbacks;
 
         void SpeechRuleEngine.setup().then((engine) => {
-            this.mathField.setMathSpeakCallback(engine.texToSpeech);
+            this.mathField.setMathspeakOverride(engine.texToSpeech);
         });
     }
 
