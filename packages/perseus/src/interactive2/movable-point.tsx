@@ -633,13 +633,11 @@ export class MovablePoint {
             const keys = _.keys(this._listenerMap);
             _.each(
                 keys,
-                function (key) {
+                (key) => {
                     if (
                         getEventName(key) === eventName &&
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this._listenerMap[key] > index
                     ) {
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         this._listenerMap[key]--;
                     }
                 },

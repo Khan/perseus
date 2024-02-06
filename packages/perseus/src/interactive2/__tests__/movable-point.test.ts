@@ -2,10 +2,10 @@
 import _ from "underscore";
 
 // Interactive2 requires
+import {Graphie} from "../../util/graphie";
 import {MovablePoint} from "../movable-point";
 
 import _createMockMovable from "./movable-mock";
-import {Graphie} from "../../util/graphie";
 
 // Create a testable MovablePoint with a mocked out Movable
 const createPoint = function (options) {

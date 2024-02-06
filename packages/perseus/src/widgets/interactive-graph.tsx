@@ -1264,8 +1264,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
                 snapToGrid
-                    ?
-                      Interactive2.MovablePoint.constraints.snap()
+                    ? Interactive2.MovablePoint.constraints.snap()
                     : null,
                 graphConstraint,
             ],
