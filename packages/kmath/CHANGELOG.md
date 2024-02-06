@@ -1,5 +1,11 @@
 # @khanacademy/kmath
 
+## 0.1.11
+
+### Patch Changes
+
+-   [#964](https://github.com/Khan/perseus/pull/964) [`d8fbc251`](https://github.com/Khan/perseus/commit/d8fbc25170bd671ad984893553f79f44e3a0d048) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor Movable to be an ES6 class
+
 ## 0.1.10
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.0.4
+
+### Patch Changes
+
+-   [#966](https://github.com/Khan/perseus/pull/966) [`ba44dd40`](https://github.com/Khan/perseus/commit/ba44dd405272b066615099c8bd30033715305939) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix wrong SVG, make lower t use lower t SVG
+
 ## 17.0.3
 
 ### Patch Changes

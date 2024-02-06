@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 19.1.5
+
+### Patch Changes
+
+-   [#964](https://github.com/Khan/perseus/pull/964) [`d8fbc251`](https://github.com/Khan/perseus/commit/d8fbc25170bd671ad984893553f79f44e3a0d048) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor Movable to be an ES6 class
+
+-   Updated dependencies [[`d8fbc251`](https://github.com/Khan/perseus/commit/d8fbc25170bd671ad984893553f79f44e3a0d048), [`ba44dd40`](https://github.com/Khan/perseus/commit/ba44dd405272b066615099c8bd30033715305939)]:
+    -   @khanacademy/kmath@0.1.11
+    -   @khanacademy/math-input@17.0.4
+
 ## 19.1.4
 
 ### Patch Changes
