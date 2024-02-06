@@ -1,18 +1,13 @@
-import MovablePoint, {MovablePointClassRenameMe} from "./movable-point";
+import {MovablePoint} from "./movable-point";
 import {Movable} from "./movable";
 import {Graphie} from "../util/graphie";
+import WrappedEllipse from "./wrapped-ellipse";
 
 // Yay for side-effect imports!
 // eslint-disable-next-line import/no-unassigned-import
 import "../util/interactive";
-import WrappedEllipse from "./wrapped-ellipse";
 
-const constructors = [
-    ["MovablePoint", MovablePoint],
-    ["MovablePointClassRenameMe", MovablePointClassRenameMe],
-] as const;
-
-describe.each(constructors)("%s", (_, MovablePoint) => {
+describe("MovablePoint", () => {
     const properties = [
         "graphie",
         "movable",
