@@ -783,6 +783,16 @@ export class MovablePointClassRenameMe {
         }
         this.movable.toFront();
     }
+
+    static add = MovablePointOptions.add
+    static modify = MovablePointOptions.modify
+    static draw = MovablePointOptions.draw
+    static remove = MovablePointOptions.remove
+    static onMoveStart = MovablePointOptions.onMoveStart
+    static constraints = MovablePointOptions.constraints
+    static onMove = MovablePointOptions.onMove
+    static onMoveEnd = MovablePointOptions.onMoveEnd
+    static onClick = MovablePointOptions.onClick
 }
 
 const MovablePoint = function (graphie: any, movable: any, options: any) {

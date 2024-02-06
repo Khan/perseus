@@ -70,6 +70,22 @@ describe.each(constructors)("%s", (_, MovablePoint) => {
         expect(movablePoint[property]).toBeDefined()
     })
 
+    const staticProperties = [
+        "add",
+        "modify",
+        "draw",
+        "remove",
+        "onMoveStart",
+        "constraints",
+        "onMove",
+        "onMoveEnd",
+        "onClick",
+    ]
+
+    it.each(staticProperties)("has a %s static property", (property) => {
+        expect(MovablePoint[property]).toBeDefined();
+    })
+
     it("sets its initial state on construction", () => {
         // Arrange
         const graphie = new Graphie(document.createElement("div"));
