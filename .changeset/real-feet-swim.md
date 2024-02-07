@@ -11,4 +11,4 @@
 "@khanacademy/simple-markdown": patch
 ---
 
-Include 'types' key in package.json and move types to 'types' package subdirectory
+Include 'types' key in package.json
