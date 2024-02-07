@@ -1,7 +1,7 @@
 {
     "extends": "../tsconfig-shared.json",
     "compilerOptions": {
-        "outDir": "./dist",
+        "outDir": "./dist/types",
         "rootDir": "src",
         "paths": {
             "hubble": ["../../vendor/hubble/hubble.js"],
