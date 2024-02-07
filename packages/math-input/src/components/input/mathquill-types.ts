@@ -10,7 +10,10 @@ export type MathFieldConfig = MathQuill.v3.Config;
  * the ones listed here.
  * https://docs.mathquill.com/en/latest/Api_Methods/
  */
-export type MathFieldInterface = MathQuill.v3.EditableMathQuill;
+export type MathFieldInterface = MathQuill.v3.EditableMathQuill & {
+    cursor: () => MathQuill.Cursor;
+    controller: () => MathQuill.Controller;
+};
 
 export enum MathFieldActionType {
     WRITE = "write",
@@ -30,3 +33,60 @@ export type MathFieldUpdaterCallback = (
     mathField: MathFieldInterface,
     key: Key,
 ) => void;
+
+/**
+ * The MathQuill API (see mathuill.d.ts) does not include types
+ * for cursor() and controller(), and adding these types there
+ * in the MathQuill repo causes unexpected conflicts with other types.
+ *
+ * We don't want to use the cursor and controller default type `any`
+ * so we declare the types here.
+ *
+ * Note: This is different from the MathFieldCursor defined above.
+ */
+declare module "MathQuill" {
+    interface MQNode {
+        id: number;
+        parent: NodeBase;
+    }
+
+    interface MQSelection {
+        id: number;
+        getEnd(dir: number): number;
+    }
+
+    interface NodeBase extends MQNode {
+        ctrlSeq: string | undefined;
+        blocks: MQNode;
+    }
+
+    interface Cursor {
+        parent: MQNode;
+        selection: MQSelection | undefined;
+
+        show(): Cursor;
+        hide(): Cursor;
+        insAtRightEnd(root: ControllerRoot): Cursor;
+        insRightOf(el: MQNode): Cursor;
+        insLeftOf(el: MQNode): Cursor;
+        startSelection(): void;
+    }
+
+    interface Controller {
+        parent: string;
+        root: ControllerRoot;
+        cursor: Cursor;
+
+        backspace(): Controller;
+        seek(
+            targetElm: HTMLElement,
+            clientX: number,
+            _clientY: number,
+        ): Controller;
+    }
+
+    interface ControllerRoot {
+        controller: Controller;
+        cursor?: Cursor;
+    }
+}
