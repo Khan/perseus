@@ -22,13 +22,6 @@ export enum MathFieldActionType {
     MQ_END = 0,
 }
 
-/**
- * The MathQuill MathField Cursor
- * it's not part of the public API for MathQuill,
- * we reach into the internals to get it
- */
-export type MathFieldCursor = any;
-
 export type MathFieldUpdaterCallback = (
     mathField: MathFieldInterface,
     key: Key,
@@ -41,11 +34,9 @@ export type MathFieldUpdaterCallback = (
  *
  * We don't want to use the cursor and controller default type `any`
  * so we declare the types here.
- *
- * Note: This is different from the MathFieldCursor defined above.
  */
 declare module "mathquill" {
-    interface MQNode {
+    interface MQNode extends ControllerRoot {
         id: number;
         parent: NodeBase;
     }
@@ -58,12 +49,14 @@ declare module "mathquill" {
     interface NodeBase extends MQNode {
         ctrlSeq: string | undefined;
         blocks: MQNode;
+        latex(): string;
     }
 
     interface Cursor {
         parent: MQNode;
         selection: MQSelection | undefined;
-
+        select(): void;
+        endSelection(): void;
         show(): Cursor;
         hide(): Cursor;
         insAtRightEnd(root: ControllerRoot): Cursor;

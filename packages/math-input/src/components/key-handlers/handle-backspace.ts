@@ -11,14 +11,12 @@ import {
 import {mathQuillInstance} from "../input/mathquill-instance";
 import {MathFieldActionType} from "../input/mathquill-types";
 
-import type {
-    MathFieldInterface,
-    MathFieldCursor,
-} from "../input/mathquill-types";
+import type {MathFieldInterface} from "../input/mathquill-types";
+import type MathQuill from "mathquill";
 
 function handleBackspaceInNthRoot(
     mathField: MathFieldInterface,
-    cursor: MathFieldCursor,
+    cursor: MathQuill.Cursor,
 ) {
     const isAtLeftEnd =
         cursor[mathQuillInstance.L] === MathFieldActionType.MQ_END;
@@ -38,7 +36,7 @@ function handleBackspaceInNthRoot(
 
 function handleBackspaceInRootIndex(
     mathField: MathFieldInterface,
-    cursor: MathFieldCursor,
+    cursor: MathQuill.Cursor,
 ) {
     if (isInsideEmptyNode(cursor)) {
         // When deleting the index in a nthroot, we change from the nthroot
@@ -90,7 +88,7 @@ function handleBackspaceInRootIndex(
 
 function handleBackspaceInLogIndex(
     mathField: MathFieldInterface,
-    cursor: MathFieldCursor,
+    cursor: MathQuill.Cursor,
 ) {
     if (isInsideEmptyNode(cursor)) {
         const grandparent = cursor.parent.parent;
@@ -120,7 +118,7 @@ function handleBackspaceInLogIndex(
     }
 }
 
-function handleBackspaceOutsideParens(cursor: MathFieldCursor) {
+function handleBackspaceOutsideParens(cursor: MathQuill.Cursor) {
     // In this case the node with '\\left(' for its ctrlSeq
     // is the parent of the expression contained within the
     // parentheses.
@@ -155,7 +153,7 @@ function handleBackspaceOutsideParens(cursor: MathFieldCursor) {
 
 function handleBackspaceInsideParens(
     mathField: MathFieldInterface,
-    cursor: MathFieldCursor,
+    cursor: MathQuill.Cursor,
 ) {
     // Handle situations when the cursor is inside parens or a
     // command that uses parens, e.g. \log() or \tan()
