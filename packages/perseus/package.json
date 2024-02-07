@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "19.1.5",
+    "version": "19.1.6",
     "publishConfig": {
         "access": "public"
     },
@@ -18,17 +18,20 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.3.7",
-        "@khanacademy/kmath": "^0.1.11",
-        "@khanacademy/math-input": "^17.0.4",
-        "@khanacademy/perseus-core": "1.4.1",
-        "@khanacademy/perseus-linter": "^0.3.10",
-        "@khanacademy/pure-markdown": "^0.2.13",
-        "@khanacademy/simple-markdown": "^0.11.2",
+        "@khanacademy/kas": "^0.3.8",
+        "@khanacademy/kmath": "^0.1.12",
+        "@khanacademy/math-input": "^17.0.5",
+        "@khanacademy/perseus-core": "1.4.2",
+        "@khanacademy/perseus-linter": "^0.3.11",
+        "@khanacademy/pure-markdown": "^0.2.14",
+        "@khanacademy/simple-markdown": "^0.11.3",
         "@khanacademy/wonder-blocks-banner": "^3.0.33"
     },
     "devDependencies": {

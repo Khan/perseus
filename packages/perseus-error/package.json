@@ -3,7 +3,7 @@
     "description": "Custom PerseusError class",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.2.9",
+    "version": "0.2.10",
     "publishConfig": {
         "access": "public"
     },
@@ -18,11 +18,14 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "1.4.1"
+        "@khanacademy/perseus-core": "1.4.2"
     },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "^1.5.1"

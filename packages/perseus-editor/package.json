@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "4.1.5",
+    "version": "4.1.6",
     "publishConfig": {
         "access": "public"
     },
@@ -18,15 +18,18 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/kas": "^0.3.7",
-        "@khanacademy/kmath": "^0.1.11",
-        "@khanacademy/math-input": "^17.0.4",
-        "@khanacademy/perseus": "^19.1.5",
-        "@khanacademy/perseus-core": "1.4.1"
+        "@khanacademy/kas": "^0.3.8",
+        "@khanacademy/kmath": "^0.1.12",
+        "@khanacademy/math-input": "^17.0.5",
+        "@khanacademy/perseus": "^19.1.6",
+        "@khanacademy/perseus-core": "1.4.2"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-button": "^6.2.5",
