@@ -44,7 +44,7 @@ export type MathFieldUpdaterCallback = (
  *
  * Note: This is different from the MathFieldCursor defined above.
  */
-declare module "MathQuill" {
+declare module "mathquill" {
     interface MQNode {
         id: number;
         parent: NodeBase;
