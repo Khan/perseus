@@ -1,7 +1,7 @@
 {
     "extends": "../tsconfig-shared.json",
     "compilerOptions": {
-        "outDir": "./dist/types",
+        "outDir": "./dist",
         "rootDir": "src",
         "paths": {
             // NOTE(kevinb): We have to repeat this here because TS doesn't do

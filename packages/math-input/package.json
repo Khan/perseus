@@ -18,7 +18,7 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
-    "types": "dist/types/index.d.ts",
+    "types": "dist/index.d.ts",
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "1.4.2",
