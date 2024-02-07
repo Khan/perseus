@@ -1,5 +1,14 @@
 # @khanacademy/kmath
 
+## 0.1.12
+
+### Patch Changes
+
+-   [#971](https://github.com/Khan/perseus/pull/971) [`90ff7a48`](https://github.com/Khan/perseus/commit/90ff7a483b01552a556c7852427e98153cc20417) Thanks [@benchristel](https://github.com/benchristel)! - Remove source files from the distributed NPM package
+
+-   Updated dependencies [[`90ff7a48`](https://github.com/Khan/perseus/commit/90ff7a483b01552a556c7852427e98153cc20417)]:
+    -   @khanacademy/perseus-core@1.4.2
+
 ## 0.1.11
 
 ### Patch Changes

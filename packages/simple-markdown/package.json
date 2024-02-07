@@ -3,7 +3,7 @@
     "description": "Javascript markdown parsing, made simple",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.11.2",
+    "version": "0.11.3",
     "publishConfig": {
         "access": "public"
     },
@@ -18,12 +18,14 @@
     "module": "dist/es/index.js",
     "main": "dist/index.js",
     "source": "src/index.ts",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "test": "bash -c 'yarn --silent --cwd \"../..\" test ${@:0} $($([[ ${@: -1} = -* ]] || [[ ${@: -1} = bash ]]) && echo $PWD)'"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "1.4.1",
+        "@khanacademy/perseus-core": "1.4.2",
         "@types/react": ">=16.0.0"
     },
     "devDependencies": {
