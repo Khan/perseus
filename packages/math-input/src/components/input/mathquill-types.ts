@@ -11,8 +11,8 @@ export type MathFieldConfig = MathQuill.v3.Config;
  * https://docs.mathquill.com/en/latest/Api_Methods/
  */
 export type MathFieldInterface = MathQuill.v3.EditableMathQuill & {
-    cursor: () => MathQuill.Cursor;
-    controller: () => MathQuill.Controller;
+    cursor: () => Cursor;
+    controller: () => Controller;
 };
 
 export enum MathFieldActionType {
@@ -44,49 +44,44 @@ export type MathFieldUpdaterCallback = (
  *
  * Note: This is different from the MathFieldCursor defined above.
  */
-declare module "MathQuill" {
-    interface MQNode {
-        id: number;
-        parent: NodeBase;
-    }
 
-    interface MQSelection {
-        id: number;
-        getEnd(dir: number): number;
-    }
+interface MQNode {
+    id: number;
+    parent: NodeBase;
+}
 
-    interface NodeBase extends MQNode {
-        ctrlSeq: string | undefined;
-        blocks: MQNode;
-    }
+interface MQSelection {
+    id: number;
+    getEnd(dir: number): number;
+}
 
-    interface Cursor {
-        parent: MQNode;
-        selection: MQSelection | undefined;
+interface NodeBase extends MQNode {
+    ctrlSeq: string | undefined;
+    blocks: MQNode;
+}
 
-        show(): Cursor;
-        hide(): Cursor;
-        insAtRightEnd(root: ControllerRoot): Cursor;
-        insRightOf(el: MQNode): Cursor;
-        insLeftOf(el: MQNode): Cursor;
-        startSelection(): void;
-    }
+interface Cursor {
+    parent: MQNode;
+    selection: MQSelection | undefined;
 
-    interface Controller {
-        parent: string;
-        root: ControllerRoot;
-        cursor: Cursor;
+    show(): Cursor;
+    hide(): Cursor;
+    insAtRightEnd(root: ControllerRoot): Cursor;
+    insRightOf(el: MQNode): Cursor;
+    insLeftOf(el: MQNode): Cursor;
+    startSelection(): void;
+}
 
-        backspace(): Controller;
-        seek(
-            targetElm: HTMLElement,
-            clientX: number,
-            _clientY: number,
-        ): Controller;
-    }
+interface Controller {
+    parent: string;
+    root: ControllerRoot;
+    cursor: Cursor;
 
-    interface ControllerRoot {
-        controller: Controller;
-        cursor?: Cursor;
-    }
+    backspace(): Controller;
+    seek(targetElm: HTMLElement, clientX: number, _clientY: number): Controller;
+}
+
+interface ControllerRoot {
+    controller: Controller;
+    cursor?: Cursor;
 }
