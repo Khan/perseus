@@ -1,3 +1,4 @@
+import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import MathQuill from "mathquill";
 
@@ -101,6 +102,10 @@ export function createMathField(
         .MathField(container, config)
         // translated in ./math-input.tsx
         .setAriaLabel(i18n._("Math input box")) as MathFieldInterface;
+
+    SpeechRuleEngine.setup().then((SRE) => {
+        mathField.setMathspeakOverride(SRE.texToSpeech);
+    });
 
     return mathField;
 }

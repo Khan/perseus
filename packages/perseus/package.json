@@ -35,7 +35,7 @@
         "@khanacademy/wonder-blocks-banner": "^3.0.33"
     },
     "devDependencies": {
-        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.5.1",
+        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-button": "^6.2.5",
         "@khanacademy/wonder-blocks-clickable": "^4.0.12",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
