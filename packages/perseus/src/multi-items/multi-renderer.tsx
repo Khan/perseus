@@ -38,7 +38,6 @@
  */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import {StyleSheet, css} from "aphrodite"; // eslint-disable-line import/no-extraneous-dependencies
-import lens from "hubble"; // eslint-disable-line import/no-extraneous-dependencies
 import * as React from "react";
 
 import {DependenciesContext} from "../dependencies";
@@ -62,6 +61,7 @@ import type {
     PerseusScore,
 } from "../types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {lens} from "@khanacademy/perseus-core/src/utils/hubble";
 
 type Hint = any; // TODO(mdr)
 type Score = any; // TODO(mdr)
