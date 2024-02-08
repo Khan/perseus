@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 19.1.7
+
+### Patch Changes
+
+-   [#974](https://github.com/Khan/perseus/pull/974) [`ca0af2eb`](https://github.com/Khan/perseus/commit/ca0af2eb613ece0be8c59798d0e886577c9590c7) Thanks [@nishasy](https://github.com/nishasy)! - Stop keypad from closing when math input field is clicked
+
+*   [#969](https://github.com/Khan/perseus/pull/969) [`3f718367`](https://github.com/Khan/perseus/commit/3f718367f82ecb8819b91220831e34becdbab8c9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor MovablePoint to be an ES6 class
+
+*   Updated dependencies [[`cdf7c0aa`](https://github.com/Khan/perseus/commit/cdf7c0aa0f095b8afba429f2da5328cc11cdb7a3)]:
+    -   @khanacademy/math-input@17.0.6
+
 ## 19.1.6
 
 ### Patch Changes
