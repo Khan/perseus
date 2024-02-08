@@ -8,10 +8,6 @@ import GraphUtils, {normalizeRange} from "./graphie";
 
 import type {Graphie} from "./graphie";
 
-// Yay for side-effect imports!
-// eslint-disable-next-line import/no-unassigned-import
-import "./interactive";
-
 function createMockRaphaelElement(name = "mockRaphaelElement") {
     return {
         constructor: {prototype: Raphael.el},
