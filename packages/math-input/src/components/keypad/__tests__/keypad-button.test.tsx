@@ -26,7 +26,7 @@ describe("<KeypadButton />", () => {
     it("handles onClickKey callback with click", () => {
         // Arrange
         // persist event to prevent React from releasing/nullifying before assertion
-        const mockClickKeyCallback = jest.fn((_, event) => event.persist());
+        const mockClickKeyCallback = jest.fn((_, _1, event) => event.persist());
         render(
             <KeypadButton
                 onClickKey={mockClickKeyCallback}
@@ -41,6 +41,7 @@ describe("<KeypadButton />", () => {
         // Assert
         expect(mockClickKeyCallback).toHaveBeenCalledWith(
             "LEFT_PAREN",
+            "Left parenthesis",
             expect.objectContaining({
                 type: "click",
                 detail: 1,
@@ -51,7 +52,7 @@ describe("<KeypadButton />", () => {
     it("handles onClickKey callback with keyboard press", () => {
         // Arrange
         // persist event to prevent React from releasing/nullifying before assertion
-        const mockClickKeyCallback = jest.fn((_, event) => event.persist());
+        const mockClickKeyCallback = jest.fn((_, _1, event) => event.persist());
         render(
             <KeypadButton
                 onClickKey={mockClickKeyCallback}
@@ -67,6 +68,7 @@ describe("<KeypadButton />", () => {
         // Assert
         expect(mockClickKeyCallback).toHaveBeenCalledWith(
             "RIGHT_PAREN",
+            "Right parenthesis",
             // In the browser, "enter" and "space" trigger a click event with detail 0.
             //   However, there is a bug in this version (13.5) of RTL that prevents
             //   "keypress" from being fired, which handles the click event.
