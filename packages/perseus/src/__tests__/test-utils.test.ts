@@ -27,7 +27,7 @@ describe("generateTestPerseusItem", () => {
         );
     });
 
-    it("should hints when given custom info containing hints", () => {
+    it("should add hints when given custom info containing hints", () => {
         expect(generateTestPerseusItem(hintsCustomInfo)).toEqual(expected3);
     });
 });
