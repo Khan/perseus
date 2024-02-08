@@ -22,6 +22,7 @@ import {GraphBounds} from "./graph-bounds";
 import KhanMath from "./math";
 import Tex from "./tex";
 
+import type {MouseHandler} from "./interactive";
 import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
 
@@ -1345,11 +1346,11 @@ export class Graphie {
         return this.drawingTransform().scaleVector(point);
     };
 
-    unscalePoint = (point: Coord) => {
+    unscalePoint = (point: number | Coord) => {
         return this.drawingTransform().unscalePoint(point);
     };
 
-    unscaleVector = (point: Coord) => {
+    unscaleVector = (point: number | Coord) => {
         return this.drawingTransform().unscaleVector(point);
     };
 
@@ -1411,6 +1412,17 @@ export class Graphie {
     getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
         throw new Error("getMouseCoord is a stub, and is not implemented");
     }
+
+    // This is a stub that's overridden in interactive.ts
+    addMouseLayer(options: {
+        onClick?: MouseHandler;
+        onMouseMove?: MouseHandler;
+        onMouseDown?: MouseHandler;
+        onMouseOver?: MouseHandler;
+        onMouseOut?: MouseHandler;
+        allowScratchpad?: boolean;
+        setDrawingAreaAvailable?: (available: boolean) => void;
+    }): void {}
 }
 
 const labelDirections = {

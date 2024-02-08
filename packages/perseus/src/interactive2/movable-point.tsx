@@ -55,6 +55,8 @@ import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
+import {Errors} from "../logging/log";
+import {PerseusError} from "../perseus-error";
 import KhanColors from "../util/colors";
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
@@ -63,6 +65,11 @@ import InteractiveUtil from "./interactive-util";
 import MovablePointOptions from "./movable-point-options";
 import objective_ from "./objective_";
 import WrappedEllipse from "./wrapped-ellipse";
+
+import type {Movable} from "./movable";
+import type {Constraint, ConstraintCallbacks} from "./types";
+import type {Graphie} from "../util/graphie";
+import type {Coord} from "@khanacademy/perseus";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -94,42 +101,70 @@ const DEFAULT_STATE = {
     touchOffset: null,
 } as const;
 
+type State = {
+    add: unknown[];
+    added: boolean;
+    constraints: Constraint[];
+    coord: Coord;
+    cursor: "move";
+    draw: ((state: State, prevState: State) => void)[];
+    hasMoved: boolean;
+    id: string;
+    modify: unknown[];
+    onClick: unknown[];
+    onMove: ((coord: Coord, prevCoord: Coord) => void)[];
+    onMoveEnd: unknown[];
+    onMoveStart: unknown[];
+    onRemove?: () => void;
+    outOfBounds: boolean;
+    pointSize: number;
+    remove: (() => void)[];
+    shadow: boolean;
+    static: boolean;
+    tooltip: boolean;
+    touchOffset: null | Coord;
+    mouseTarget: unknown;
+    // TODO(benchristel): Change the type of visibleShape to WrappedEllipse,
+    // once WrappedEllipse is converted to an ES6 class
+    visibleShape: {wrapper: HTMLElement; toBack(): void; toFront(): void};
+    normalStyle: Record<string, any>;
+    highlightStyle: Record<string, any>;
+};
+// TODO(benchristel): this is a memory leak. We add items to
+// tooltipResetFunctions, but never remove them.
 const tooltipResetFunctions: Array<() => void> = [];
 
-const MovablePoint = function (graphie: any, movable: any, options: any) {
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    _.extend(this, {
-        graphie,
-        movable,
-        state: {
-            // Set here because this must be unique for each instance
+export class MovablePoint {
+    graphie: Graphie;
+    movable: Movable<Record<string, never>>;
+    state: State;
+    // @ts-expect-error - TS2564: Property 'prevState' has no initializer and is not definitely assigned in the constructor.
+    prevState: State;
+    _tooltip?: HTMLElement;
+    _listenerMap: Record<string, number> = {};
+
+    constructor(
+        graphie: Graphie,
+        movable: Movable<Record<string, never>>,
+        options: Partial<State>,
+    ) {
+        this.graphie = graphie;
+        this.movable = movable;
+        // @ts-expect-error - TS2740: Type '{ id: string; }' is missing the following properties from type 'State': add, added, constraints, coord, and 19 more.
+        this.state = {
             id: _.uniqueId("movablePoint"),
-        },
-    });
+        };
+        this.modify({...DEFAULT_STATE, ...options});
+    }
 
-    // We only set DEFAULT_STATE once, here
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.modify(_.extend({}, DEFAULT_STATE, options));
-};
+    modify(options) {
+        this.update(_.extend(this._createDefaultState(), options));
+    }
 
-_.extend(MovablePoint, MovablePointOptions);
-InteractiveUtil.createGettersFor(
-    MovablePoint,
-    _.extend({}, DEFAULT_PROPS, DEFAULT_STATE),
-);
-InteractiveUtil.addMovableHelperMethodsTo(MovablePoint);
-
-_.extend(MovablePoint.prototype, {
-    cloneState: function () {
-        return _.extend(this.movable.cloneState(), this.state);
-    },
-
-    _createDefaultState: function () {
-        return _.extend(
-            {
-                id: this.state.id,
-            },
-            normalizeOptions(
+    _createDefaultState() {
+        return {
+            id: this.state.id,
+            ...normalizeOptions(
                 // Defaults are copied from MovablePointOptions.*.standard
                 // These defaults are set here instead of DEFAULT_PROPS/STATE
                 // because they:
@@ -137,78 +172,18 @@ _.extend(MovablePoint.prototype, {
                 //    - they don't need getters created for them
                 // TODO(jack): Consider "default" once we es3ify perseus
                 objective_.pluck(MovablePointOptions, "standard"),
-
                 // We only update props here, because we want things on state to
                 // be persistent, and updated appropriately in modify()
             ),
-            DEFAULT_PROPS,
-        );
-    },
+            ...DEFAULT_PROPS,
+        };
+    }
 
-    /**
-     * Resets the object to its state as if it were constructed with
-     * `options` originally. state not on DEFAULT_PROPS is maintained.
-     *
-     * Analogous to React.js's replaceProps
-     */
-    modify: function (options) {
-        this.update(_.extend(this._createDefaultState(), options));
-    },
+    cloneState() {
+        return {...this.movable.cloneState(), ...this.state};
+    }
 
-    /**
-     * Displays a tooltip above the point, replacing any previous contents. If
-     * there is no tooltip initialized, adds the tooltip.
-     *
-     * If the type of contents is string, the contents will be rendered with
-     * KaTeX. Otherwise, the content will be assumed to be a DOM node and will
-     * be appended inside the tooltip.
-     */
-    _showTooltip: function (contents) {
-        if (!this._tooltip) {
-            this._tooltip = document.createElement("div");
-            this._tooltip.className = "tooltip-content";
-            this.state.visibleShape.wrapper.className = "tooltip";
-            this.state.visibleShape.wrapper.appendChild(this._tooltip);
-
-            // Only one tooltip should be displayed at a time, so store a list
-            // of all the tooltips initialized.
-            tooltipResetFunctions.push(() => {
-                if (this.state.added) {
-                    this._hideTooltip();
-                }
-            });
-        }
-
-        if (this._tooltip.firstChild) {
-            this._tooltip.removeChild(this._tooltip.firstChild);
-        }
-
-        this.state.visibleShape.wrapper.className = "tooltip visible";
-        this._tooltip.appendChild(document.createElement("span"));
-
-        if (typeof contents === "string") {
-            processMath(this._tooltip.firstChild, contents, false);
-        } else if (typeof contents === "function") {
-            contents(this._tooltip.firstChild);
-        } else {
-            this._tooltip.firstChild.appendChild(contents);
-        }
-    },
-
-    _hideTooltip: function () {
-        if (this._tooltip) {
-            // Without the visible class, tooltips have display: none set
-            this.state.visibleShape.wrapper.className = "tooltip";
-        }
-    },
-
-    /**
-     * Adjusts constructor parameters without changing previous settings
-     * for any option not specified
-     *
-     * Analogous to React.js's setProps
-     */
-    update: function (options) {
+    update(options: Partial<State>) {
         const self = this;
         const graphie = self.graphie;
         const state = _.extend(self.state, normalizeOptions(options));
@@ -409,6 +384,7 @@ _.extend(MovablePoint.prototype, {
 
                         content.style.filter = "none";
 
+                        // @ts-expect-error - this._tooltip.firstChild is possibly null
                         this._tooltip.firstChild.addEventListener(
                             "touchstart",
                             (e) => {
@@ -419,6 +395,7 @@ _.extend(MovablePoint.prototype, {
                             true,
                         );
 
+                        // @ts-expect-error - this._tooltip.firstChild is possibly null
                         this._tooltip.firstChild.addEventListener(
                             "touchend",
                             (e) => {
@@ -447,6 +424,7 @@ _.extend(MovablePoint.prototype, {
 
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
+            // @ts-expect-error - type {} is missing properties from State
             self.prevState = {};
             self._fireEvent(state.add, self.cloneState(), self.prevState);
             state.added = true;
@@ -458,43 +436,226 @@ _.extend(MovablePoint.prototype, {
 
         // Trigger a modify event
         self._fireEvent(state.modify, self.cloneState(), self.prevState);
-    },
+    }
 
-    remove: function () {
-        this.state.added = false;
-        this._fireEvent(this.state.remove);
-        if (this.movable) {
-            this.movable.remove();
-        }
-        // TODO(jack): This should really be moved off of
-        // movablePoint.state and only kept on movable.state
-        this.state.mouseTarget = null;
-    },
+    draw() {
+        const currState = this.cloneState();
+        this._fireEvent(this.state.draw, currState, this.prevState);
+        this.prevState = currState;
+    }
 
-    constrain: function () {
+    constrain() {
         const result = this._applyConstraints(this.coord(), this.coord());
         if (kpoint.is(result)) {
             this.setCoord(result);
         }
         return result !== false;
-    },
+    }
 
-    setCoord: function (coord) {
+    /**
+     * Fire an onSomething type event to all functions in listeners
+     */
+    _fireEvent<F extends (...args: any[]) => any>(
+        listeners: F[],
+        ...args: Parameters<F>
+    ) {
+        for (const listener of listeners) {
+            listener.call(this, ...args);
+        }
+    }
+
+    /**
+     * Combine the array of constraints functions
+     * Returns either an [x, y] coordinate or false
+     */
+    _applyConstraints(
+        current: Coord,
+        previous: Coord,
+        extraOptions?: ConstraintCallbacks,
+    ): Coord | false {
+        let skipRemaining = false;
+
+        return this.state.constraints.reduce(
+            (memo: Coord | false, constraint) => {
+                // A move that has been cancelled won't be propagated to later
+                // constraints calls
+                if (memo === false) {
+                    return false;
+                }
+
+                if (skipRemaining) {
+                    return memo;
+                }
+
+                const result = constraint.call(this, memo, previous, {
+                    onSkipRemaining: () => {
+                        skipRemaining = true;
+                    },
+                    ...extraOptions,
+                });
+
+                if (result === false) {
+                    // Returning false cancels the move
+                    return false;
+                }
+                if (kpoint.is(result, 2)) {
+                    // Returning a coord from constraints overrides the move
+                    return result;
+                }
+                if (result === true || result == null) {
+                    // Returning true or undefined allow the move to occur
+                    return memo;
+                }
+                // Anything else is an error
+                throw new PerseusError(
+                    "Constraint returned invalid result: " + result,
+                    Errors.Internal,
+                );
+            },
+            current,
+        );
+    }
+
+    /**
+     * Displays a tooltip above the point, replacing any previous contents. If
+     * there is no tooltip initialized, adds the tooltip.
+     *
+     * If the type of contents is string, the contents will be rendered with
+     * KaTeX. Otherwise, the content will be assumed to be a DOM node and will
+     * be appended inside the tooltip.
+     */
+    _showTooltip(contents) {
+        if (!this._tooltip) {
+            this._tooltip = document.createElement("div");
+            this._tooltip.className = "tooltip-content";
+            this.state.visibleShape.wrapper.className = "tooltip";
+            this.state.visibleShape.wrapper.appendChild(this._tooltip);
+
+            // Only one tooltip should be displayed at a time, so store a list
+            // of all the tooltips initialized.
+            tooltipResetFunctions.push(() => {
+                if (this.state.added) {
+                    this._hideTooltip();
+                }
+            });
+        }
+
+        if (this._tooltip.firstChild) {
+            this._tooltip.removeChild(this._tooltip.firstChild);
+        }
+
+        this.state.visibleShape.wrapper.className = "tooltip visible";
+        this._tooltip.appendChild(document.createElement("span"));
+
+        if (typeof contents === "string") {
+            // @ts-expect-error - this._tooltip.firstChild is possibly 'null'.
+            processMath(this._tooltip.firstChild, contents, false);
+        } else if (typeof contents === "function") {
+            contents(this._tooltip.firstChild);
+        } else {
+            // @ts-expect-error - this._tooltip.firstChild is possibly 'null'.
+            this._tooltip.firstChild.appendChild(contents);
+        }
+    }
+
+    _hideTooltip() {
+        if (this._tooltip) {
+            // Without the visible class, tooltips have display: none set
+            this.state.visibleShape.wrapper.className = "tooltip";
+        }
+    }
+
+    coord(): Coord {
+        return this.state.coord;
+    }
+
+    setCoord(coord: Coord) {
         assert(kpoint.is(coord, 2));
         this.state.coord = _.clone(coord);
         this.draw();
-    },
+    }
 
-    setCoordConstrained: function (coord) {
+    setCoordConstrained(coord) {
         assert(kpoint.is(coord, 2));
         const result = this._applyConstraints(coord, this.coord());
         if (result !== false) {
             this.state.coord = _.clone(result);
             this.draw();
         }
-    },
+    }
 
-    moveTo: function (coord) {
+    /**
+     * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
+     * etc. If a listener is already bound to the given eventName and id, then
+     * it is overwritten by func.
+     *
+     * eventName: the string name of the event to listen to. one of:
+     *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
+     *
+     * id: a string id that can be used to remove this event at a later time
+     *   note: adding multiple listeners with the same id is undefined behavior
+     *
+     * func: the function to call when the event happens, which is called
+     *   with the event's standard parameters [usually (coord, prevCoord) or
+     *   (state, prevState)]
+     */
+    // TODO(benchristel): listen() is duplicated in movable.ts
+    listen(eventName: string, id: string, func: () => unknown) {
+        this._listenerMap = this._listenerMap || {};
+
+        // If there's an existing handler, replace it by using its index in
+        // `this.state[eventName]`; otherwise, add this handler to the end
+        const key = getKey(eventName, id);
+        const index = (this._listenerMap[key] =
+            this._listenerMap[key] || this.state[eventName].length);
+        this.state[eventName][index] = func;
+    }
+
+    /**
+     * Remove a previously added listener, by the id specified in the
+     * corresponding listen() call
+     *
+     * If the given id has not been registered already, this is a no-op
+     */
+    // TODO(benchristel): I don't think unlisten is used. Delete it?
+    // TODO(benchristel): unlisten is duplicated in movable.ts
+    unlisten(eventName, id) {
+        this._listenerMap = this._listenerMap || {};
+
+        const key = getKey(eventName, id);
+        const index = this._listenerMap[key];
+        if (index !== undefined) {
+            // Remove handler from list of event handlers and listenerMap
+            this.state[eventName].splice(index, 1);
+            delete this._listenerMap[key];
+
+            // Re-index existing events: if they occur after `index`, decrement
+            const keys = _.keys(this._listenerMap);
+            _.each(
+                keys,
+                (key) => {
+                    if (
+                        getEventName(key) === eventName &&
+                        this._listenerMap[key] > index
+                    ) {
+                        this._listenerMap[key]--;
+                    }
+                },
+                this,
+            );
+        }
+    }
+
+    grab(coord: Coord) {
+        // Provide an explicit touchOffset override, so that we track the user's
+        // finger when a point has been grabbed.
+        this.state.touchOffset = [0, 0];
+
+        this.movable.grab(coord);
+        this.moveTo(coord);
+    }
+
+    moveTo(coord: Coord) {
         // The caller has the option of adding an onMove() method to the
         // movablePoint object we return as a sort of event handler
         // By returning false from onMove(), the move can be vetoed,
@@ -512,8 +673,9 @@ _.extend(MovablePoint.prototype, {
                       onOutOfBounds: () => {
                           this.state.outOfBounds = true;
                       },
+                      onSkipRemaining: () => {},
                   }
-                : {},
+                : {onSkipRemaining: () => {}},
         );
 
         if (result === false) {
@@ -529,57 +691,115 @@ _.extend(MovablePoint.prototype, {
             this._fireEvent(state.onMove, state.coord, prevCoord);
             this.draw();
         }
-    },
+    }
 
-    // Clone these for use with raphael, which modifies the input
-    // style parameters
-    normalStyle: function () {
-        return _.clone(this.state.normalStyle);
-    },
-
-    highlightStyle: function () {
-        return _.clone(this.state.highlightStyle);
-    },
-
-    // Change z-order to back
-    toBack: function () {
-        this.movable.toBack();
-        if (this.state.visibleShape) {
-            this.state.visibleShape.toBack();
+    remove() {
+        this.state.added = false;
+        this._fireEvent(this.state.remove);
+        if (this.movable) {
+            this.movable.remove();
         }
-    },
+        // TODO(jack): This should really be moved off of
+        // movablePoint.state and only kept on movable.state
+        this.state.mouseTarget = null;
+    }
 
-    // Change z-order to front
-    toFront: function () {
-        if (this.state.visibleShape) {
-            this.state.visibleShape.toFront();
-        }
-        this.movable.toFront();
-    },
+    pointSize(): number {
+        return this.state.pointSize;
+    }
+
+    static() {
+        return this.state.static;
+    }
+
+    cursor() {
+        return this.state.cursor;
+    }
+
+    normalStyle() {
+        return this.state.normalStyle;
+    }
+
+    highlightStyle() {
+        return this.state.highlightStyle;
+    }
+
+    shadow() {
+        return this.state.shadow;
+    }
+
+    tooltip() {
+        return this.state.tooltip;
+    }
+
+    added() {
+        return this.state.added;
+    }
+
+    hasMoved() {
+        return this.state.hasMoved;
+    }
+
+    visibleShape() {
+        return this.state.visibleShape;
+    }
+
+    outOfBounds() {
+        return this.state.outOfBounds;
+    }
+
+    mouseTarget() {
+        return this.state.mouseTarget;
+    }
+
+    touchOffset() {
+        return this.state.touchOffset;
+    }
 
     /**
      * Forwarding methods to this.movable:
      */
-    isHovering: function () {
+    isHovering() {
         return this.movable.isHovering();
-    },
+    }
 
-    isDragging: function () {
+    isDragging() {
         return this.movable.isDragging();
-    },
+    }
 
-    mouseTarget: function () {
-        return this.movable.mouseTarget();
-    },
+    // Change z-order to back
+    toBack() {
+        this.movable.toBack();
+        if (this.state.visibleShape) {
+            this.state.visibleShape.toBack();
+        }
+    }
 
-    grab: function (coord) {
-        // Provide an explicit touchOffset override, so that we track the user's
-        // finger when a point has been grabbed.
-        this.state.touchOffset = [0, 0];
+    // Change z-order to front
+    toFront() {
+        if (this.state.visibleShape) {
+            this.state.visibleShape.toFront();
+        }
+        this.movable.toFront();
+    }
 
-        this.movable.grab(coord);
-        this.moveTo(coord);
-    },
-});
+    static add = MovablePointOptions.add;
+    static modify = MovablePointOptions.modify;
+    static draw = MovablePointOptions.draw;
+    static remove = MovablePointOptions.remove;
+    static onMoveStart = MovablePointOptions.onMoveStart;
+    static constraints = MovablePointOptions.constraints;
+    static onMove = MovablePointOptions.onMove;
+    static onMoveEnd = MovablePointOptions.onMoveEnd;
+    static onClick = MovablePointOptions.onClick;
+}
+
+function getKey(eventName: string, id: string): string {
+    return eventName + ":" + id;
+}
+
+function getEventName(key: string): string {
+    return key.split(":")[0];
+}
 
 export default MovablePoint;

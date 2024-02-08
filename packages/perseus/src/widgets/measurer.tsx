@@ -135,7 +135,6 @@ const Measurer: any = createReactClass({
             range: range,
             scale: scale,
         });
-        // @ts-expect-error - Property 'addMouseLayer' does not exist on type 'Graphie'.
         graphie.addMouseLayer({
             allowScratchpad: true,
             setDrawingAreaAvailable:
