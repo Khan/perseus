@@ -27,7 +27,7 @@ const genericPerseusItemData: PerseusItem = {
 } as const;
 
 /**
- * Generate a Perseus item object for testing.
+ * Generate a Perseus item object for testing purposes.
  *
  * In order to better type Perseus objects used in testing, this function
  * uses a basic Perseus object and updates it with custom values as needed.
