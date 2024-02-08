@@ -6,14 +6,12 @@ import {mathQuillInstance} from "../input/mathquill-instance";
 import {MathFieldActionType} from "../input/mathquill-types";
 
 import type Key from "../../data/keys";
-import type {
-    MathFieldInterface,
-    MathFieldCursor,
-} from "../input/mathquill-types";
+import type {MathFieldInterface} from "../input/mathquill-types";
+import type MathQuill from "mathquill";
 
 function handleLeftArrow(
     mathField: MathFieldInterface,
-    cursor: MathFieldCursor,
+    cursor: MathQuill.Cursor,
 ) {
     // If we're inside a function, and just after the left parentheses, we
     // need to skip the entire function name, rather than move the cursor
@@ -43,7 +41,7 @@ function handleLeftArrow(
 
 function handleRightArrow(
     mathField: MathFieldInterface,
-    cursor: MathFieldCursor,
+    cursor: MathQuill.Cursor,
 ) {
     const command = maybeFindCommand(cursor[mathQuillInstance.R]);
     if (command) {

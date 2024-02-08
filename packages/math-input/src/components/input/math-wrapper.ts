@@ -14,8 +14,6 @@
 // All of the code below is super fragile.  Please be especially careful
 // when upgrading MathQuill.
 
-import $ from "jquery";
-
 import handleBackspace from "../key-handlers/handle-backspace";
 import keyTranslator from "../key-handlers/key-translator";
 
@@ -135,7 +133,7 @@ class MathWrapper {
 
                 const pageX = x - document.body.scrollLeft;
                 const pageY = y - document.body.scrollTop;
-                controller.seek($(el), pageX, pageY).cursor.startSelection();
+                controller.seek(el, pageX, pageY).cursor.startSelection();
 
                 // Unless that would leave us mid-command, in which case, we
                 // need to adjust and place the cursor inside the parens
