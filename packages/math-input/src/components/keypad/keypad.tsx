@@ -144,7 +144,14 @@ export default function Keypad(props: Props) {
                         setSelectedPage(newSelectedPage);
                     }}
                     onClickClose={
-                        showDismiss ? () => onClickKey("DISMISS") : undefined
+                        showDismiss
+                            ? // Using "" for the label value because the
+                              // aria-label for dismiss is already localized
+                              // in the tabbar item. (Currently only used in
+                              // the mobile keypad, which is exclusivly using
+                              // the first parameter here.)
+                              () => onClickKey("DISMISS", "")
+                            : undefined
                     }
                 />
 

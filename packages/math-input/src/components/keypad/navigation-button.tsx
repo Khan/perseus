@@ -47,7 +47,9 @@ export default function NavigationButton({
             }}
         >
             <Clickable
-                onClick={(e) => onClickKey(keyConfig.id, e)}
+                onClick={(e) =>
+                    onClickKey(keyConfig.id, keyConfig.ariaLabel, e)
+                }
                 style={styles.clickable}
                 aria-label={keyConfig.ariaLabel}
             >

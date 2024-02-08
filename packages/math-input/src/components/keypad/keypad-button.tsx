@@ -43,7 +43,17 @@ export const KeypadButton = ({
             testId={keyConfig.id}
         >
             <Clickable
-                onClick={(e) => onClickKey(keyConfig.id, e)}
+                onClick={(e) =>
+                    onClickKey(keyConfig.id, keyConfig.ariaLabel, e)
+                }
+                onMouseDown={(e) =>
+                    // Prevent the default behavior of forcing the focus to the
+                    // button when it is clicked. This way, the focus can
+                    // remain on the input field-- for mouse only. The focus
+                    // should still shift for keyboard nav.
+                    // (The focus shift happens on mouse down, not on click.)
+                    e.preventDefault()
+                }
                 style={styles.clickable}
                 aria-label={keyConfig.ariaLabel}
             >

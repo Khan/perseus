@@ -27,7 +27,7 @@
         "mathquill": "git+https://git@github.com/Khan/mathquill.git#774bb82942c268bd56cd1024dc18b01ac4d90029"
     },
     "devDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^4.0.12",
+        "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
@@ -47,7 +47,7 @@
         "react-transition-group": "^4.4.1"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-clickable": "^4.0.12",
+        "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
