@@ -3,7 +3,11 @@ import * as React from "react";
 import AssetContext from "../asset-context";
 import {ItemExtras} from "../perseus-types";
 
-import type {PerseusAnswerArea, PerseusItem} from "../perseus-types";
+import type {
+    PerseusAnswerArea,
+    PerseusItem,
+    PerseusWidgetOptions,
+} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
 export const mockedAssetItem: PerseusItem = {
@@ -16,7 +20,7 @@ export const mockedAssetItem: PerseusItem = {
                 alignment: "default",
                 static: false,
                 graded: true,
-                options: Object.freeze({}),
+                options: Object.freeze({}) as PerseusWidgetOptions,
                 version: {major: 1, minor: 0},
             },
         },

@@ -142,6 +142,9 @@ export type {
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
+    PerseusExampleWidgetOptions,
+    PerseusExampleGraphieWidgetOptions,
+    PerseusSimpleMarkdownTesterWidgetOptions,
     PerseusRenderer,
     PerseusWidget,
 } from "./perseus-types";

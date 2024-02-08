@@ -605,7 +605,8 @@ class Renderer extends React.Component<Props, State> {
 
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
-        let reviewModeRubric = null;
+        // STOPSHIP: This is a temporary any to minimize cascading errors
+        let reviewModeRubric: any = null;
         const widgetInfo = this.state.widgetInfo[id];
         if (this.props.reviewMode && widgetInfo) {
             reviewModeRubric = widgetInfo.options;

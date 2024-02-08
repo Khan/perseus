@@ -4,6 +4,7 @@ import * as React from "react";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import ExpressionEditor from "../expression-editor";
 
+import type {ExpressionWidget} from "../../../../perseus/src/perseus-types";
 import type {
     PerseusRenderer,
     APIOptions,

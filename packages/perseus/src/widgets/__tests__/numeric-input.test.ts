@@ -21,6 +21,7 @@ import {
 
 import {renderQuestion} from "./renderQuestion";
 
+import type {PerseusNumericInputWidgetOptions} from "../../perseus-types";
 import type {Rubric} from "../numeric-input";
 
 describe("numeric-input widget", () => {
@@ -90,7 +91,8 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
 
     it("can get one correct answer from a rubric with multiple answers", () => {
         const widget = multipleAnswersWithDecimals.widgets["numeric-input 1"];
-        const widgetOptions = widget && widget.options;
+        const widgetOptions =
+            widget && (widget.options as PerseusNumericInputWidgetOptions);
         const answers: ReadonlyArray<any> =
             (widgetOptions && widgetOptions.answers) || [];
 
@@ -106,7 +108,8 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
 
     it("can get one correct answer from a rubric with one answer", () => {
         const widget = question1.widgets["numeric-input 1"];
-        const widgetOptions = widget && widget.options;
+        const widgetOptions =
+            widget && (widget.options as PerseusNumericInputWidgetOptions);
         const answers: ReadonlyArray<any> =
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer = NumericInput.getOneCorrectAnswerFromRubric({

@@ -57,3 +57,12 @@ export const ShowTickControllerMobile = (
         </TestKeypadContextWrapper>
     );
 };
+
+export const Question2 = (args: StoryArgs): React.ReactElement => {
+    return (
+        <RendererWithDebugUI
+            apiOptions={{isMobile: true, customKeypad: true}}
+            question={question2}
+        />
+    );
+};

@@ -7,7 +7,35 @@ import _ from "underscore";
 import * as Changeable from "../mixins/changeable";
 import WidgetJsonifyDeprecated from "../mixins/widget-jsonify-deprecated";
 
+import type {PerseusLightsPuzzleWidgetOptions} from "../perseus-types";
 import type {WidgetExports} from "../types";
+
+// Types
+type LightsPuzzleProps = Changeable.ChangeableProps & {
+    cells: PerseusLightsPuzzleWidgetOptions["cells"];
+    startCells: PerseusLightsPuzzleWidgetOptions["startCells"];
+    flipPattern: PerseusLightsPuzzleWidgetOptions["flipPattern"];
+    moveCount: PerseusLightsPuzzleWidgetOptions["moveCount"];
+};
+
+type TileGridProps = Changeable.ChangeableProps & {
+    cells: LightsPuzzleProps["cells"];
+    size: number;
+};
+
+type TileProps = Changeable.ChangeableProps & {
+    value: boolean;
+    size: number;
+};
+
+type DefaultProps = {
+    cells: LightsPuzzleProps["cells"];
+    startCells: LightsPuzzleProps["startCells"];
+    flipPattern: LightsPuzzleProps["flipPattern"];
+    moveCount: LightsPuzzleProps["moveCount"];
+};
+
+// Constants
 
 const MAX_SIZE = 8;
 
@@ -88,7 +116,7 @@ const clampToInt = function (value: number, min: any, max) {
 };
 
 // A single glowy cell
-class Tile extends React.Component<any> {
+class Tile extends React.Component<TileProps> {
     static propTypes = {
         value: PropTypes.bool.isRequired,
         size: PropTypes.number.isRequired,
@@ -105,17 +133,12 @@ class Tile extends React.Component<any> {
     }
 
     _flip = () => {
-        this.props.onChange(!this.props.value);
+        this.props.onChange({value: !this.props.value});
     };
 }
 
 // A grid of glowy cells
-class TileGrid extends React.Component<any> {
-    static propTypes = {
-        cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)).isRequired,
-        size: PropTypes.number.isRequired,
-    };
-
+class TileGrid extends React.Component<TileGridProps> {
     render(): React.ReactNode {
         return (
             <div style={TABLE_STYLE} className="no-select">
@@ -130,8 +153,7 @@ class TileGrid extends React.Component<any> {
                                             size={this.props.size}
                                             onChange={_.partial(
                                                 this.props.onChange,
-                                                y,
-                                                x,
+                                                {value: {y, x}},
                                             )}
                                         />
                                     </div>
@@ -170,21 +192,13 @@ const flipTilesPattern = (oldCells: any, tileY: any, tileX, pattern: any) => {
 };
 
 // The lights puzzle widget
-class LightsPuzzle extends React.Component<any> {
+class LightsPuzzle extends React.Component<LightsPuzzleProps> {
     _currPattern: any;
     _nextPattern: any;
     // @ts-expect-error - TS2564 - Property '_patternIndex' has no initializer and is not definitely assigned in the constructor.
     _patternIndex: number;
 
-    static propTypes = {
-        ...Changeable.propTypes,
-        cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
-        startCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
-        flipPattern: PropTypes.string.isRequired,
-        moveCount: PropTypes.number.isRequired,
-    };
-
-    static defaultProps: any = {
+    static defaultProps: DefaultProps = {
         cells: [
             [false, false, false],
             [false, false, false],
@@ -272,7 +286,7 @@ class LightsPuzzle extends React.Component<any> {
         this._patternIndex++;
     };
 
-    _flipTile: (arg1: any, arg2: any) => void = (tileY, tileX) => {
+    _flipTile: (arg1: any) => void = ({tileY, tileX}) => {
         const newCells = flipTilesPattern(
             this.props.cells,
             tileY,

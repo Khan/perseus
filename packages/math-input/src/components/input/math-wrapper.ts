@@ -119,7 +119,6 @@ class MathWrapper {
      */
     setCursorPosition(x: number, y: number, hitNode: HTMLElement) {
         const el = hitNode || document.elementFromPoint(x, y);
-
         if (el) {
             const cursor = this.getCursor();
 
