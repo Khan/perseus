@@ -6,7 +6,7 @@ import {
 } from "@khanacademy/kmath";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
-import Raphael from "./raphael";
+import Raphael from "raphael";
 
 // Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
 // release

@@ -26,7 +26,6 @@
         "@khanacademy/wonder-blocks-banner": "^3.0.33"
     },
     "devDependencies": {
-        "raphael": "^2.3.0",
         "vite": "^5.1.0"
     }
 }
