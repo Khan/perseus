@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import $ from "jquery";
 import Raphael from "raphael";
 
 import {testDependencies} from "../../../../testing/test-dependencies";
@@ -1319,6 +1320,40 @@ describe("Graphie drawing tools", () => {
 
             expect(onSetDrawingAreaAvailable).toHaveBeenCalledWith(false);
         });
+    });
+
+    describe("getMousePx", () => {
+        it.each([
+            [{left: 0, top: 0}, {pageX: 10, pageY: 10}, [10, 10]],
+            [{top: 10, left: 20}, {pageX: 40, pageY: 40}, [20, 30]],
+        ])(
+            "should return the mouse position in pixel coordinates relative to graph",
+            (offset, mouseEvent, expectedMousePx) => {
+                const graphie = createAndInitGraphie();
+                jest.spyOn($.fn, "offset").mockReturnValue(offset);
+
+                const mousePx = graphie.getMousePx(mouseEvent);
+
+                expect(mousePx).toEqual(expectedMousePx);
+            },
+        );
+    });
+
+    describe("getMouseCoord", () => {
+        it.each([
+            [{left: 0, top: 0}, {pageX: 10, pageY: 10}, [2, 8]],
+            [{top: 10, left: 20}, {pageX: 40, pageY: 40}, [4, 4]],
+        ])(
+            "should return mosue position in graph coordinates relative to the graph",
+            (offset, mouseEvent, expectedMousePx) => {
+                const graphie = createAndInitGraphie();
+                jest.spyOn($.fn, "offset").mockReturnValue(offset);
+
+                const mousePx = graphie.getMouseCoord(mouseEvent);
+
+                expect(mousePx).toEqual(expectedMousePx);
+            },
+        );
     });
 });
 

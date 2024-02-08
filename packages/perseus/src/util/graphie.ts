@@ -1416,11 +1416,6 @@ export class Graphie {
     }
 
     // This is a stub that's overridden in interactive.ts
-    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
-        throw new Error("getMouseCoord is a stub, and is not implemented");
-    }
-
-    // This is a stub that's overridden in interactive.ts
     addMouseLayer(options: {
         onClick?: MouseHandler;
         onMouseMove?: MouseHandler;
@@ -1444,6 +1439,16 @@ export class Graphie {
         throw new Error(
             "addToVisibleLayerWrapper is not ready. Call addMouseLayer() first.",
         );
+    }
+
+    // This is a stub that's overridden in interactive.ts
+    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
+        throw new Error("getMouseCoord is a stub, and is not implemented");
+    }
+
+    // This is a stub that's overridden in interactive.ts
+    getMousePx(event: Readonly<{pageX?: number; pageY?: number}>) {
+        throw new Error("getMousePx is a stub, and is not implemented");
     }
 }
 
