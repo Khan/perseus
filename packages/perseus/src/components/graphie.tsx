@@ -192,7 +192,6 @@ class Graphie extends React.Component<Props> {
         });
         // Only add the mouselayer if we actually want one.
         if (this.props.addMouseLayer) {
-            // @ts-expect-error - TS2339: Property 'addMouseLayer' does not exist on type 'Graphie'.
             graphie.addMouseLayer({
                 onClick: this.props.onClick,
                 onMouseDown: this.props.onMouseDown,

@@ -8,6 +8,10 @@ import GraphUtils, {normalizeRange} from "./graphie";
 
 import type {Graphie} from "./graphie";
 
+// Yay for side-effect imports!
+// eslint-disable-next-line import/no-unassigned-import
+import "./interactive";
+
 function createMockRaphaelElement(name = "mockRaphaelElement") {
     return {
         constructor: {prototype: Raphael.el},
@@ -1240,6 +1244,84 @@ describe("Graphie drawing tools", () => {
             const result = graphie.plot((x) => 1, [0, 1]);
 
             expect(result).toBe(fakeRaphaelSet);
+        });
+    });
+
+    describe("addMouseLayer", () => {
+        it("should attach new mouse layer (Raphael canvas) to graph", () => {
+            const graphie = createAndInitGraphie();
+
+            graphie.addMouseLayer({});
+
+            expect(graphie.mouselayer).toBeDefined();
+        });
+
+        it("should add a new mouse layer (div) into graph's DOM element", () => {
+            const graphie = createAndInitGraphie();
+
+            graphie.addMouseLayer({});
+
+            expect(graphie._mouselayerWrapper).toBeDefined();
+            expect(graphie._mouselayerWrapper?.parentNode).toBe(graphie.el);
+        });
+
+        it("should add addToMouseLayerWrapper() implementation", () => {
+            const graphie = createAndInitGraphie();
+            graphie.addMouseLayer({});
+
+            graphie.addToMouseLayerWrapper(document.createElement("span"));
+
+            expect(graphie._mouselayerWrapper?.children.length).toBe(1);
+        });
+
+        it("should add a new visible layer (div) into graph's DOM element", () => {
+            const graphie = createAndInitGraphie();
+
+            graphie.addMouseLayer({});
+
+            expect(graphie._visiblelayerWrapper).toBeDefined();
+            expect(graphie._visiblelayerWrapper?.parentNode).toBe(graphie.el);
+        });
+
+        it("should add addToVisibleLayerWrapper() implementation", () => {
+            const graphie = createAndInitGraphie();
+            graphie.addMouseLayer({});
+
+            graphie.addToVisibleLayerWrapper(document.createElement("span"));
+
+            expect(graphie._visiblelayerWrapper?.children.length).toBe(1);
+        });
+
+        it.each([
+            "onClick",
+            "onMouseDown",
+            "onMouseMove",
+            "onMouseOver",
+            "onMouseOut",
+        ])(
+            "should add click target that covers the entire graph when %s handler provided",
+            async (eventName) => {
+                const graphie = createAndInitGraphie();
+                const handler = jest.fn();
+
+                graphie.addMouseLayer({[eventName]: handler});
+
+                // eslint-disable-next-line testing-library/no-node-access
+                const target = graphie.el.querySelector("rect");
+                expect(target?.getAttribute("width")).toBe("50");
+                expect(target?.getAttribute("height")).toBe("50");
+            },
+        );
+
+        it("should  disable drawing area if allowScratchpad is false", async () => {
+            const graphie = createAndInitGraphie();
+            const onSetDrawingAreaAvailable = jest.fn();
+            graphie.addMouseLayer({
+                setDrawingAreaAvailable: onSetDrawingAreaAvailable,
+                allowScratchpad: false,
+            });
+
+            expect(onSetDrawingAreaAvailable).toHaveBeenCalledWith(false);
         });
     });
 });

@@ -308,7 +308,6 @@ class Graph extends React.Component<Props> {
             : null;
         /* eslint-enable indent */
 
-        // @ts-expect-error - Property 'addMouseLayer' does not exist on type 'Graphie'.
         graphie.addMouseLayer({
             onClick: this.props.onClick,
             onMouseDown: onMouseDown,

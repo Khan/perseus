@@ -86,6 +86,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         onMouseDown?: MouseHandler;
         onMouseOver?: MouseHandler;
         onMouseOut?: MouseHandler;
+        onMouseUp?: MouseHandler;
         allowScratchpad?: boolean;
         setDrawingAreaAvailable?: (available: boolean) => void;
     }) {
@@ -99,11 +100,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         );
 
         const mouselayerZIndex = 2;
-        graph.mouselayer = Raphael(
-            graph.raphael.canvas.parentNode,
-            graph.xpixels,
-            graph.ypixels,
-        );
+        graph.mouselayer = Raphael(this.el, graph.xpixels, graph.ypixels);
         $(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);
         if (
             options.onClick ||
@@ -182,7 +179,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             top: 0,
         });
 
-        const el = graph.raphael.canvas.parentNode;
+        const el = this.el;
         el.appendChild(graph._visiblelayerWrapper);
         el.appendChild(graph._mouselayerWrapper);
 

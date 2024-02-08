@@ -22,6 +22,7 @@ import {GraphBounds} from "./graph-bounds";
 import KhanMath from "./math";
 import Tex from "./tex";
 
+import type {MouseHandler} from "./interactive";
 import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
 
@@ -94,7 +95,14 @@ export class Graphie {
     el: Element;
     #bounds?: GraphBounds;
     #drawingTransform?: DrawingTransform;
+
+    // The primary drawing layer
     raphael?: any;
+    // The layer that all visuals with mouse handlers are drawn into
+    mouselayer?: any;
+    _mouselayerWrapper?: HTMLDivElement;
+    _visiblelayerWrapper?: HTMLDivElement;
+
     isMobile = false;
     // Set up some reasonable defaults
     currentStyle: any = {
@@ -1410,6 +1418,32 @@ export class Graphie {
     // This is a stub that's overridden in interactive.ts
     getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
         throw new Error("getMouseCoord is a stub, and is not implemented");
+    }
+
+    // This is a stub that's overridden in interactive.ts
+    addMouseLayer(options: {
+        onClick?: MouseHandler;
+        onMouseMove?: MouseHandler;
+        onMouseDown?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseOver?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseOut?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseUp?: MouseHandler | null; // TODO: just use undefined instead of null!
+        allowScratchpad?: boolean;
+        setDrawingAreaAvailable?: (available: boolean) => void;
+    }) {
+        throw new Error("addMouseLayer is a stub, and is not implemented");
+    }
+
+    addToMouseLayerWrapper(el: HTMLElement) {
+        throw new Error(
+            "addToMouseLayerWrapper is not ready. Call addMouseLayer() first.",
+        );
+    }
+
+    addToVisibleLayerWrapper(el: HTMLElement) {
+        throw new Error(
+            "addToVisibleLayerWrapper is not ready. Call addMouseLayer() first.",
+        );
     }
 }
 
