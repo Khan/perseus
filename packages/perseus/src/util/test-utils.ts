@@ -35,7 +35,7 @@ const genericPerseusItemData: PerseusItem = {
  * @param {Partial<PerseusItem>} customFields
  * @returns PerseusItem
  */
-export default function generateTestPerseusItem(
+export function generateTestPerseusItem(
     customFields: Partial<PerseusItem> = {},
 ): PerseusItem {
     return {...genericPerseusItemData, ...customFields};
