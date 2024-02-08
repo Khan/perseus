@@ -54,7 +54,7 @@
         "underscore": "^1.4.4"
     },
     "peerDependencies": {
-        "@khanacademy/wonder-blocks-button": "^6.2.5",
+        "@khanacademy/wonder-blocks-button": "^6.2.8",
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
