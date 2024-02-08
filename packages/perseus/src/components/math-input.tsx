@@ -75,11 +75,10 @@ type State = {
     keypadOpen: boolean;
     cursorContext: typeof CursorContext[keyof typeof CursorContext];
     openedWithEventType?: string;
-    // [count, label]
-    // count is just used to trigger a re-render when the label changes,
-    // even if the label is the same as the previous value.
-    // label is the last character typed.
-    lastChar: Array<number | string>;
+    // count is just used to trigger a re-render
+    count: number;
+    // used in a role="alert" element to provide feedback as the user types
+    lastCharacterTyped: string;
 };
 
 const customKeyTranslator = {
@@ -112,8 +111,8 @@ class MathInput extends React.Component<Props, State> {
         focused: false,
         keypadOpen: this.props.buttonsVisible === "always" ? true : false,
         cursorContext: CursorContext.NONE,
-        // [count, label]
-        lastChar: [0, ""],
+        count: 0,
+        lastCharacterTyped: "",
     };
 
     componentDidMount() {
@@ -254,9 +253,10 @@ class MathInput extends React.Component<Props, State> {
         this.setState({
             // Incremenet the count to trigger a re-render even if the
             // same number was pressed again.
+            count: this.state.count + 1,
             // Update the label to the last character typed to be
             // read by screen readers.
-            lastChar: [Number(this.state.lastChar[0]) + 1, label],
+            lastCharacterTyped: label,
         });
 
         if (mathField) {
@@ -327,12 +327,12 @@ class MathInput extends React.Component<Props, State> {
                         onFocus={() => this.focus()}
                         onBlur={() => this.blur()}
                     />
-                    <span className="perseus-sr-only" role="alert">
-                        {
-                            // lastChar[1] is the aria-label for the
-                            // last character typed
-                            this.state.lastChar[1]
-                        }
+                    <span
+                        className="perseus-sr-only"
+                        role="alert"
+                        key={this.state.count}
+                    >
+                        {this.state.lastCharacterTyped}
                     </span>
                     <Popover
                         opened={this.state.keypadOpen}
