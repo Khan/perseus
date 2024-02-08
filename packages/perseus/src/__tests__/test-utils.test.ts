@@ -4,12 +4,12 @@ import {generateTestPerseusItem} from "../util/test-utils";
 
 import {
     basicObject,
-    expected1,
-    questionCustomInfo,
-    expected2,
-    answerAreaCustomInfo,
-    hintsCustomInfo,
-    expected3,
+    customQuestionInfo,
+    expectedQuestionInfoAdded,
+    customAnswerAreaInfo,
+    expectedAnswerAreaInfoAdded,
+    customHintsInfo,
+    expectedHintsInfoAdded,
 } from "./test-items/test-utils-items";
 
 describe("generateTestPerseusItem", () => {
@@ -18,16 +18,20 @@ describe("generateTestPerseusItem", () => {
     });
 
     it("should replace question parts when given question custom info", () => {
-        expect(generateTestPerseusItem(questionCustomInfo)).toEqual(expected1);
+        expect(generateTestPerseusItem(customQuestionInfo)).toEqual(
+            expectedQuestionInfoAdded,
+        );
     });
 
     it("should replace answer area parts when given answer area custom info", () => {
-        expect(generateTestPerseusItem(answerAreaCustomInfo)).toEqual(
-            expected2,
+        expect(generateTestPerseusItem(customAnswerAreaInfo)).toEqual(
+            expectedAnswerAreaInfoAdded,
         );
     });
 
     it("should add hints when given custom info containing hints", () => {
-        expect(generateTestPerseusItem(hintsCustomInfo)).toEqual(expected3);
+        expect(generateTestPerseusItem(customHintsInfo)).toEqual(
+            expectedHintsInfoAdded,
+        );
     });
 });

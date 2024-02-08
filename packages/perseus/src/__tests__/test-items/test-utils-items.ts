@@ -26,7 +26,7 @@ export const basicObject: PerseusItem = {
     answer: null,
 };
 
-export const questionCustomInfo: Partial<PerseusItem> = {
+export const customQuestionInfo: Partial<PerseusItem> = {
     question: {
         content: "Test content string",
         images: {"Test image string": {width: 200, height: 200}},
@@ -47,7 +47,7 @@ export const questionCustomInfo: Partial<PerseusItem> = {
     },
 };
 
-export const expected1: PerseusItem = {
+export const expectedQuestionInfoAdded: PerseusItem = {
     question: {
         content: "Test content string",
         images: {"Test image string": {width: 200, height: 200}},
@@ -86,7 +86,7 @@ export const expected1: PerseusItem = {
     answer: null,
 };
 
-export const answerAreaCustomInfo: Partial<PerseusItem> = {
+export const customAnswerAreaInfo: Partial<PerseusItem> = {
     answerArea: {
         calculator: true,
         chi2Table: true,
@@ -100,7 +100,7 @@ export const answerAreaCustomInfo: Partial<PerseusItem> = {
     },
 };
 
-export const expected2: PerseusItem = {
+export const expectedAnswerAreaInfoAdded: PerseusItem = {
     question: {
         content: "",
         images: {},
@@ -126,7 +126,7 @@ export const expected2: PerseusItem = {
     answer: null,
 };
 
-export const hintsCustomInfo: Partial<PerseusItem> = {
+export const customHintsInfo: Partial<PerseusItem> = {
     hints: [
         {
             content: "Test content string",
@@ -161,7 +161,7 @@ export const hintsCustomInfo: Partial<PerseusItem> = {
     ],
 };
 
-export const expected3: PerseusItem = {
+export const expectedHintsInfoAdded: PerseusItem = {
     question: {
         content: "",
         images: {},
