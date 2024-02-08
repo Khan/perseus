@@ -10,7 +10,10 @@ export type MathFieldConfig = MathQuill.v3.Config;
  * the ones listed here.
  * https://docs.mathquill.com/en/latest/Api_Methods/
  */
-export type MathFieldInterface = MathQuill.v3.EditableMathQuill;
+export type MathFieldInterface = MathQuill.v3.EditableMathQuill & {
+    cursor(): any;
+    controller(): any;
+};
 
 export enum MathFieldActionType {
     WRITE = "write",

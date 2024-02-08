@@ -24,10 +24,10 @@
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "1.4.2",
-        "mathquill": "git+https://git@github.com/Khan/mathquill.git#774bb82942c268bd56cd1024dc18b01ac4d90029"
+        "mathquill": "git+https://git@github.com/Khan/mathquill.git#9c8ebec00c735c9f32270774f52208bf99aa164a"
     },
     "devDependencies": {
-        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.1",
+        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-clickable": "^4.0.12",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
@@ -48,7 +48,7 @@
         "react-transition-group": "^4.4.1"
     },
     "peerDependencies": {
-        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.1",
+        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-clickable": "^4.0.12",
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
