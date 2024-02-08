@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.0.6
+
+### Patch Changes
+
+-   [#970](https://github.com/Khan/perseus/pull/970) [`cdf7c0aa`](https://github.com/Khan/perseus/commit/cdf7c0aa0f095b8afba429f2da5328cc11cdb7a3) Thanks [@nishasy](https://github.com/nishasy)! - Add types for MathQuill cursor and controller
+
 ## 17.0.5
 
 ### Patch Changes
