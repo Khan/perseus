@@ -1309,7 +1309,7 @@ describe("Graphie drawing tools", () => {
             },
         );
 
-        it("should  disable drawing area if allowScratchpad is false", async () => {
+        it("should disable drawing area if allowScratchpad is false", async () => {
             const graphie = createAndInitGraphie();
             const onSetDrawingAreaAvailable = jest.fn();
             graphie.addMouseLayer({
