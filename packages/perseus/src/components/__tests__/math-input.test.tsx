@@ -144,4 +144,22 @@ describe("Perseus' MathInput", () => {
         // Assert
         expect(screen.getByRole("textbox")).not.toHaveFocus();
     });
+
+    it("does not focus on the keypad button when it is clicked with the mouse", () => {
+        // Assemble
+        render(
+            <MathInput
+                onChange={() => {}}
+                buttonsVisible="always"
+                analytics={{onAnalyticsEvent: () => Promise.resolve()}}
+            />,
+        );
+
+        // Act
+        userEvent.click(screen.getByLabelText("1"));
+
+        // Assert
+        expect(screen.getByRole("button", {name: "1"})).not.toHaveFocus();
+        expect(screen.getByRole("textbox")).toHaveFocus();
+    });
 });

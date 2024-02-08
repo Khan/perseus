@@ -31,7 +31,7 @@
         "@khanacademy/wonder-blocks-color": "^3.0.0",
         "@khanacademy/wonder-blocks-core": "^6.3.1",
         "@khanacademy/wonder-blocks-i18n": "^2.0.2",
-        "@khanacademy/wonder-blocks-popover": "^3.1.0",
+        "@khanacademy/wonder-blocks-popover": "^3.1.3",
         "@khanacademy/wonder-blocks-timing": "^4.0.2",
         "@khanacademy/wonder-stuff-core": "^1.5.1",
         "@phosphor-icons/core": "^2.0.2",
