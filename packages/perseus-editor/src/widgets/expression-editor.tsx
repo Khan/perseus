@@ -8,6 +8,8 @@ import {
     PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import lens from "hubble";
 import * as React from "react";
 import _ from "underscore";
 
@@ -112,17 +114,18 @@ class ExpressionEditor extends React.Component<Props> {
                     widgetId: this.props.widgetId + "-" + ans.key,
                 } as const;
 
-                return {
-                    ...ans,
-                    draggable: true,
-                    onChange: (props) =>
-                        this.updateForm(
-                            Number.parseInt(ans.key ?? ""),
-                            props,
-                        ),
-                    onDelete: () => this.handleRemoveForm(key),
-                    expressionProps: expressionProps,
-                }
+                return lens(ans)
+                    .merge([], {
+                        draggable: true,
+                        onChange: (props) =>
+                            this.updateForm(
+                                Number.parseInt(ans.key ?? ""),
+                                props,
+                            ),
+                        onDelete: () => this.handleRemoveForm(key),
+                        expressionProps: expressionProps,
+                    })
+                    .freeze();
             })
             .map((obj) => <AnswerOption key={obj.key} {...obj} />);
 
@@ -256,15 +259,10 @@ class ExpressionEditor extends React.Component<Props> {
             return _(form).pick(formSerializables);
         });
 
-        return _({
-            ...this.props,
-            answerForms,
-        }).pick(serializables)
-        //
-        // return lens(this.props)
-        //     .set(["answerForms"], answerForms)
-        //     .mod([], (props) => _(props).pick(serializables))
-        //     .freeze();
+        return lens(this.props)
+            .set(["answerForms"], answerForms)
+            .mod([], (props) => _(props).pick(serializables))
+            .freeze();
     };
 
     getSaveWarnings: () => any = () => {
@@ -340,12 +338,9 @@ class ExpressionEditor extends React.Component<Props> {
     // called when the options (including the expression itself) to an answer
     // form change
     updateForm: (i: number, props: any) => void = (i, props) => {
-        const answerForms = this.props.answerForms.map((form, k) => {
-            return k === i ? {...form, ...props} : form
-        })
-        // const answerForms = lens(this.props.answerForms)
-        //     .merge([i], props)
-        //     .freeze();
+        const answerForms = lens(this.props.answerForms)
+            .merge([i], props)
+            .freeze();
 
         this.change({answerForms});
     };

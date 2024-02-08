@@ -4,6 +4,8 @@
 // value?
 import * as KAS from "@khanacademy/kas";
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import lens from "hubble";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -366,11 +368,7 @@ export default {
     displayName: "Unit input",
     defaultAlignment: "inline-block",
     widget: OldUnitInput,
-    transform: (x: any): any => {
-        // remove value from the object's properties
-        const {value: _, ...rest} = x
-        return rest;
-    },
+    transform: (x: any): any => lens(x).del(["value"]).freeze(),
     version: {major: 0, minor: 1},
     hidden: true,
 } as WidgetExports<typeof OldUnitInput>;
