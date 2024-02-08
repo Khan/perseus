@@ -24,7 +24,7 @@
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "1.4.2",
-        "mathquill": "git+https://git@github.com/Khan/mathquill.git#774bb82942c268bd56cd1024dc18b01ac4d90029"
+        "mathquill": "git+https://git@github.com/Khan/mathquill.git#b936eba46aa77fe4c6dcb4e6a1f0efeb051d302f"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-clickable": "^4.1.0",
