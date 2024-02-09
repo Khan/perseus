@@ -76,17 +76,14 @@ class WidgetEditor extends React.Component<
         cb: () => unknown,
         silent: boolean,
     ) => {
-        if (!this.widget.current) {
-            return;
-        }
-        const newWidgetInfo = Object.assign(
-            {},
-            this.state.widgetInfo,
-        ) as PerseusWidget;
-        newWidgetInfo.options = Object.assign(
-            this.widget.current.serialize(),
-            newProps,
-        );
+        const newWidgetInfo = {
+            ...this.state.widgetInfo,
+            options: {
+                ...this.state.widgetInfo.options,
+                ...(this.widget.current?.serialize() ?? {}),
+                ...newProps,
+            },
+        };
         this.props.onChange(newWidgetInfo, cb, silent);
     };
 
