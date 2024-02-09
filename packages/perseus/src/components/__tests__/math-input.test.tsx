@@ -21,7 +21,6 @@ describe("Perseus' MathInput", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        jest.useFakeTimers();
     });
 
     it("renders", () => {
@@ -34,7 +33,6 @@ describe("Perseus' MathInput", () => {
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(screen.getByLabelText("test")).toBeInTheDocument();
@@ -50,11 +48,9 @@ describe("Perseus' MathInput", () => {
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
-        jest.runOnlyPendingTimers();
 
         // Act
         userEvent.type(screen.getByRole("textbox"), "12345");
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("12345");
@@ -70,7 +66,6 @@ describe("Perseus' MathInput", () => {
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
-        jest.runOnlyPendingTimers();
 
         // Act
         screen.getByRole("switch").click();
@@ -79,7 +74,6 @@ describe("Perseus' MathInput", () => {
         userEvent.click(screen.getByRole("button", {name: "2"}));
         userEvent.click(screen.getByRole("button", {name: "Minus"}));
         userEvent.click(screen.getByRole("button", {name: "3"}));
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2-3");
@@ -95,7 +89,6 @@ describe("Perseus' MathInput", () => {
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
-        jest.runOnlyPendingTimers();
 
         // Act
         // focusing the input triggers the popover
@@ -105,7 +98,6 @@ describe("Perseus' MathInput", () => {
         userEvent.click(screen.getByRole("button", {name: "2"}));
         userEvent.click(screen.getByRole("button", {name: "Divide"}));
         userEvent.click(screen.getByRole("button", {name: "3"}));
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2\\div3");
@@ -120,7 +112,6 @@ describe("Perseus' MathInput", () => {
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
-        jest.runOnlyPendingTimers();
 
         // Act
         // focusing the input triggers the popover
@@ -140,7 +131,6 @@ describe("Perseus' MathInput", () => {
                 analytics={{onAnalyticsEvent: () => Promise.resolve()}}
             />,
         );
-        jest.runOnlyPendingTimers();
 
         // Act
         // focusing the input triggers the popover
@@ -150,7 +140,6 @@ describe("Perseus' MathInput", () => {
         userEvent.tab(); // to whole keypad
         userEvent.tab(); // to "1" button
         userEvent.keyboard("{enter}");
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(screen.getByRole("textbox")).not.toHaveFocus();
