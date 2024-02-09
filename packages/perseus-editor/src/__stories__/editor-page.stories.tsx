@@ -26,9 +26,38 @@ export const Demo = (): React.ReactElement => {
     const [answerArea, setAnswerArea] = React.useState<
         PerseusAnswerArea | undefined | null
     >();
-    const [question, setQuestion] = React.useState<
-        PerseusRenderer | undefined
-    >();
+    const [question, setQuestion] = React.useState<PerseusRenderer | undefined>(
+        {
+            content: "[[☃ expression 1]]",
+            images: {},
+            widgets: {
+                "expression 1": {
+                    type: "expression",
+                    alignment: "default",
+                    static: false,
+                    graded: true,
+                    options: {
+                        answerForms: [
+                            {
+                                value: "++++",
+                                form: true,
+                                simplify: false,
+                                considered: "correct",
+                                key: "0",
+                            },
+                        ],
+                        buttonSets: ["basic", "prealgebra"],
+                        functions: ["f", "g", "h"],
+                        times: true,
+                    },
+                    version: {
+                        major: 1,
+                        minor: 0,
+                    },
+                },
+            },
+        },
+    );
     const [hints, setHints] = React.useState<ReadonlyArray<Hint> | undefined>();
 
     return (
