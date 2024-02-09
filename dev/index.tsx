@@ -2,22 +2,25 @@
 import {
     useUniqueIdWithMock,
     RenderStateRoot,
-    View
+    View,
 } from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Spacing from "@khanacademy/wonder-blocks-spacing";
+import Switch from "@khanacademy/wonder-blocks-switch";
+import {color} from "@khanacademy/wonder-blocks-tokens";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useState} from "react";
 import {render} from "react-dom";
 
-import {APIOptions, PerseusRenderer, Renderer} from "../packages/perseus/src";
+import {Renderer} from "../packages/perseus/src";
 import {setDependencies} from "../packages/perseus/src/dependencies";
 import * as data from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import {storybookTestDependencies} from "../testing/test-dependencies";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+
+import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
+
 import "../packages/perseus/src/styles/perseus-renderer.less";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
-import {css, StyleSheet} from "aphrodite";
 
 const questions = [
     data.angleQuestion,
