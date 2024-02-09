@@ -60,5 +60,7 @@ export function convertDotToTimesByLocale(convertDotToTimes: boolean): boolean {
     return convertDotToTimes;
 }
 
-// Use this to avoid running code that should not run in Jest.
-export const inJest = !!process?.env?.JEST_WORKER_ID;
+/**
+ * Use this to avoid running code that should not run in Jest.
+ **/
+export const inJest = process !== undefined && !!process?.env?.JEST_WORKER_ID;
