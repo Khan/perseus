@@ -1,6 +1,6 @@
 import * as wbi18n from "@khanacademy/wonder-blocks-i18n";
 
-import {convertDotToTimesByLocale, inJest} from "./utils";
+import {convertDotToTimesByLocale} from "./utils";
 
 describe("utils", () => {
     describe("multiplicationSymbol", () => {
@@ -28,19 +28,6 @@ describe("utils", () => {
             const result = convertDotToTimesByLocale(false);
 
             expect(result).toBe(true);
-        });
-    });
-
-    describe("inJest", () => {
-        it("returns true", () => {
-            expect(inJest).toBe(true);
-        });
-        it("prevents code from running in Jest", () => {
-            let value = 0;
-            if (!inJest) {
-                value = 1;
-            }
-            expect(value).toBe(0);
         });
     });
 });
