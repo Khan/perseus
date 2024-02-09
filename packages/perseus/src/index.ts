@@ -1,7 +1,7 @@
 /**
  * Main entry point
  */
-
+// STOPSHIP: Undo this comment
 export {default as init} from "./init";
 
 export {ApiOptions, ClassNames} from "./perseus-api";
