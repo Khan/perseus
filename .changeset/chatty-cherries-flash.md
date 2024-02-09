@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus": patch
+"@khanacademy/perseus-editor": patch
 ---
 
-Added a debounce to MathQuill edit handler to fix race condition on render.
+Prevent call on editor methods when editor has not been initialized.
