@@ -1,5 +1,3 @@
-import {describe, it, expect} from "@jest/globals";
-
 import {generateTestPerseusItem} from "./test-utils";
 import {
     basicObject,
