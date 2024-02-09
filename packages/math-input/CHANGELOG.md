@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.0.7
+
+### Patch Changes
+
+-   [#982](https://github.com/Khan/perseus/pull/982) [`279c3730`](https://github.com/Khan/perseus/commit/279c3730fba6a9854b1434ba7499f5c5cfd2151a) Thanks [@nedredmond](https://github.com/nedredmond)! - Inject localized MathSpeak into MathQuill
+
 ## 17.0.6
 
 ### Patch Changes
