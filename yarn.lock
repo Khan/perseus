@@ -2239,9 +2239,9 @@
     "@typescript-eslint/utils" "^5.60.1"
     checksync "^5.0.0"
 
-"@khanacademy/mathjax-renderer@git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.5.1":
-  version "1.5.1"
-  resolved "git+ssh://git@github.com:Khan/mathjax-renderer.git#17e5f540f20a717779824a42912ad8284ce04db2"
+"@khanacademy/mathjax-renderer@git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2":
+  version "1.6.2"
+  resolved "git+ssh://git@github.com:Khan/mathjax-renderer.git#8bc76941309e4083a5207447c97eaf17fda15e65"
   dependencies:
     mathjax-full "3.2.2"
     mu-lambda "^0.0.3"
@@ -12007,9 +12007,9 @@ mathjax-full@3.2.2:
     mj-context-menu "^0.6.1"
     speech-rule-engine "^4.0.6"
 
-"mathquill@git+https://git@github.com/Khan/mathquill.git#b936eba46aa77fe4c6dcb4e6a1f0efeb051d302f":
+"mathquill@git+https://git@github.com/Khan/mathquill.git#9c8ebec00c735c9f32270774f52208bf99aa164a":
   version "0.10.1"
-  resolved "git+https://git@github.com/Khan/mathquill.git#b936eba46aa77fe4c6dcb4e6a1f0efeb051d302f"
+  resolved "git+https://git@github.com/Khan/mathquill.git#9c8ebec00c735c9f32270774f52208bf99aa164a"
 
 mdast-util-definitions@^4.0.0:
   version "4.0.0"
