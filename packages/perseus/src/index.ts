@@ -84,7 +84,10 @@ export {
     injectWidgets,
 } from "./util/extract-perseus-data";
 export {parsePerseusItem} from "./util/parse-perseus-json";
-export {generateTestPerseusItem} from "./util/test-utils";
+export {
+    generateTestPerseusItem,
+    genericPerseusItemData,
+} from "./util/test-utils";
 
 /**
  * Mixins
