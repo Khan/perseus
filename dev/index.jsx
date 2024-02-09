@@ -1,13 +1,11 @@
 import * as React from "react"
 import {render} from "react-dom"
-import {Renderer} from "@khanacademy/perseus/src";
+import {Renderer} from "../packages/perseus/src";
 import {
     angleQuestion
-} from "@khanacademy/perseus/src/widgets/__testdata__/interactive-graph.testdata";
+} from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import {storybookTestDependencies} from "../testing/test-dependencies";
-import {setDependencies} from "@khanacademy/perseus/src/dependencies";
-import "@khanacademy/perseus/src/styles/perseus-renderer.less"
-// import "@khanacademy/perseus/src/styles/widgets/grapher.less"
+import {setDependencies} from "../packages/perseus/src/dependencies";
 
 setDependencies(storybookTestDependencies);
 
@@ -24,6 +22,5 @@ function QuestionRenderer(props) {
         widgets={question.widgets}
         problemNum={0}
         apiOptions={apiOptions}
-        // reviewMode={reviewMode}
     />
 }
