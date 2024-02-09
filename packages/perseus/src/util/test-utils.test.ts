@@ -1,6 +1,6 @@
 import {describe, it, expect} from "@jest/globals";
 
-import {generateTestPerseusItem} from "../util/test-utils";
+import {generateTestPerseusItem} from "./test-utils";
 
 import {
     basicObject,
@@ -10,7 +10,7 @@ import {
     expectedAnswerAreaInfoAdded,
     customHintsInfo,
     expectedHintsInfoAdded,
-} from "./test-items/test-utils-items";
+} from "./test-utils.testdata";
 
 describe("generateTestPerseusItem", () => {
     it("should provide a basic Perseus item object with no inputs", () => {
