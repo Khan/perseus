@@ -15,7 +15,9 @@ import {render} from "react-dom";
 
 import {Renderer} from "../packages/perseus/src";
 import {setDependencies} from "../packages/perseus/src/dependencies";
-import * as data from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
+import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
+import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
+import * as numberLine from "../packages/perseus/src/widgets/__testdata__/number-line.testdata";
 import {storybookTestDependencies} from "../testing/test-dependencies";
 
 import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
@@ -23,15 +25,23 @@ import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
 const questions = [
-    data.angleQuestion,
-    data.linearSystemQuestion,
-    data.circleQuestion,
-    data.linearQuestion,
-    data.polygonQuestion,
-    data.pointQuestion,
-    data.rayQuestion,
-    data.segmentQuestion,
-    data.sinusoidQuestion,
+    interactiveGraph.angleQuestion,
+    interactiveGraph.linearSystemQuestion,
+    interactiveGraph.circleQuestion,
+    interactiveGraph.linearQuestion,
+    interactiveGraph.polygonQuestion,
+    interactiveGraph.pointQuestion,
+    interactiveGraph.rayQuestion,
+    interactiveGraph.segmentQuestion,
+    interactiveGraph.sinusoidQuestion,
+    grapher.absoluteValueQuestion,
+    grapher.exponentialQuestion,
+    grapher.linearQuestion,
+    grapher.logarithmQuestion,
+    grapher.multipleAvailableTypesQuestion,
+    grapher.quadraticQuestion,
+    grapher.sinusoidQuestion,
+    numberLine.question1,
 ];
 
 const styles = StyleSheet.create({
