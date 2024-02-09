@@ -1,6 +1,6 @@
 import type {PerseusItem} from "../perseus-types";
 
-const genericPerseusItemData: PerseusItem = {
+export const genericPerseusItemData: PerseusItem = {
     question: {
         content: "",
         images: {},
