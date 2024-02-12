@@ -1427,10 +1427,10 @@ export class Graphie {
     addMouseLayer(options: {
         onClick?: MouseHandler;
         onMouseMove?: MouseHandler;
-        onMouseDown?: MouseHandler;
-        onMouseOver?: MouseHandler;
-        onMouseOut?: MouseHandler;
-        onMouseUp?: MouseHandler;
+        onMouseDown?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseOver?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseOut?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseUp?: MouseHandler | null; // TODO: just use undefined instead of null!
         allowScratchpad?: boolean;
         setDrawingAreaAvailable?: (available: boolean) => void;
     }) {
