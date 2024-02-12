@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import $ from "jquery";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
 
 import {testDependencies} from "../../../../testing/test-dependencies";
