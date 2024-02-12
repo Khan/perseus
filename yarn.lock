@@ -2615,6 +2615,14 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-timing/-/wonder-blocks-timing-4.0.2.tgz#84fa99a905f0558a70e493af44a3a6885ddb844c"
   integrity sha512-LIj31jodAXOi7Yj+QJyRLTCiO4/cPDCR8DSqZbNuA/vliRuePfOjX3ci4BMhnuSyEIu1bTorvcEeASTe/M52hw==
 
+"@khanacademy/wonder-blocks-tokens@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-1.0.0.tgz#cd43f44eafea257a24a55650a72352c1e78d2055"
+  integrity sha512-xC/0bWocU26Hj3e8OfpG/lFEUhJNZDGaXLgpYtGTg3+EwvGXWb8JwxidOEzV0m2yxoWJAFwrsUSFMh1HULNPRQ==
+  dependencies:
+    "@khanacademy/wonder-blocks-color" "^3.0.0"
+    "@khanacademy/wonder-blocks-spacing" "^4.0.1"
+
 "@khanacademy/wonder-blocks-tooltip@^2.1.25":
   version "2.1.25"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tooltip/-/wonder-blocks-tooltip-2.1.25.tgz#71cf7c57540458cc50514e29d805a2bf263b6e5e"
