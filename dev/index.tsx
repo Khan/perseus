@@ -15,8 +15,8 @@ import {render} from "react-dom";
 
 import {Renderer} from "../packages/perseus/src";
 import {setDependencies} from "../packages/perseus/src/dependencies";
-import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
+import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
 import * as numberLine from "../packages/perseus/src/widgets/__testdata__/number-line.testdata";
 import {storybookTestDependencies} from "../testing/test-dependencies";
 
