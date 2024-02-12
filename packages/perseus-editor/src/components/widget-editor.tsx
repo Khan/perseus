@@ -10,6 +10,7 @@ import _ from "underscore";
 
 import SectionControlButton from "./section-control-button";
 
+import type Editor from "../editor";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus";
 
 const {InlineIcon} = components;
@@ -49,12 +50,15 @@ class WidgetEditor extends React.Component<
     WidgetEditorProps,
     WidgetEditorState
 > {
+    widget: React.RefObject<Editor>;
+
     constructor(props: WidgetEditorProps) {
         super(props);
         this.state = {
             showWidget: false,
             widgetInfo: _upgradeWidgetInfo(props),
         };
+        this.widget = React.createRef();
     }
 
     // eslint-disable-next-line react/no-unsafe
@@ -72,16 +76,14 @@ class WidgetEditor extends React.Component<
         cb: () => unknown,
         silent: boolean,
     ) => {
-        const newWidgetInfo = Object.assign(
-            {},
-            this.state.widgetInfo,
-        ) as PerseusWidget;
-        newWidgetInfo.options = Object.assign(
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            this.refs.widget.serialize(),
-            newProps,
-        );
+        const newWidgetInfo = {
+            ...this.state.widgetInfo,
+            options: {
+                ...this.state.widgetInfo.options,
+                ...(this.widget.current?.serialize() ?? {}),
+                ...newProps,
+            },
+        };
         this.props.onChange(newWidgetInfo, cb, silent);
     };
 
@@ -104,9 +106,7 @@ class WidgetEditor extends React.Component<
     };
 
     getSaveWarnings = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
-        const issuesFunc = this.refs.widget.getSaveWarnings;
+        const issuesFunc = this.widget.current?.getSaveWarnings;
         return issuesFunc ? issuesFunc() : [];
     };
 
@@ -122,7 +122,7 @@ class WidgetEditor extends React.Component<
             graded: widgetInfo.graded,
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            options: this.refs.widget.serialize(),
+            options: this.widget.current.serialize(),
             version: widgetInfo.version,
         };
     };
@@ -205,8 +205,7 @@ class WidgetEditor extends React.Component<
                 >
                     {Ed && (
                         <Ed
-                            // eslint-disable-next-line react/no-string-refs
-                            ref="widget"
+                            ref={this.widget}
                             onChange={this._handleWidgetChange}
                             static={widgetInfo.static}
                             apiOptions={this.props.apiOptions}

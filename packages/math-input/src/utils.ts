@@ -59,3 +59,10 @@ export function convertDotToTimesByLocale(convertDotToTimes: boolean): boolean {
 
     return convertDotToTimes;
 }
+
+/**
+ * Use this to avoid running code that should not run in Jest.
+ **/
+export const inJest =
+    typeof process !== "undefined" && !!process?.env?.JEST_WORKER_ID;
+// Explicitly checking for undefined because Cypress throws an error

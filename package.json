@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "dev",
     "packages/*",
     "config/build"
   ],
@@ -133,6 +134,7 @@
     "clean": "rm -rf packages/*/dist && rm -rf packages/*/node_modules && rm -rf .nyc_output && rm -f packages/*/*.tsbuildinfo",
     "coverage": "cross-env NODE_OPTIONS=--max_old_space_size=8192 yarn run jest --coverage",
     "coverage:types": "cross-env NODE_OPTIONS=--max_old_space_size=8192 typescript-coverage-report",
+    "dev": "yarn --cwd dev dev",
     "extract-strings": "utils/extract-strings.ts",
     "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx",
     "lint:timing": "cross-env TIMING=1 yarn lint",
