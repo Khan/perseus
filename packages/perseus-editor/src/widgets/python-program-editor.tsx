@@ -42,10 +42,17 @@ class PythonProgramEditor extends React.Component<Props> {
     }
 
     getSaveWarnings: () => ReadonlyArray<string> = () => {
+        let errors: Array<string> = [];
+
         if (this.props.programID === "") {
-            return ["The program ID is missing."];
+            errors.push("The program ID is required.");
         }
-        return [];
+
+        if (!Number.isInteger(this.props.height) || this.props.height < 1) {
+            errors.push("The height must be a positive integer.");
+        }
+
+        return errors;
     };
 
     render(): React.ReactNode {
