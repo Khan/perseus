@@ -1325,16 +1325,16 @@ describe("Graphie drawing tools", () => {
     describe("getMousePx", () => {
         it.each([
             [{left: 0, top: 0}, {pageX: 10, pageY: 10}, [10, 10]],
-            [{top: 10, left: 20}, {pageX: 40, pageY: 40}, [20, 30]],
+            [{left: 20, top: 10}, {pageX: 40, pageY: 40}, [20, 30]],
         ])(
             "should return the mouse position in pixel coordinates relative to graph",
-            (offset, mouseEvent, expectedMousePx) => {
+            (graphPosition, mouseEvent, expectedPixelCoord) => {
                 const graphie = createAndInitGraphie();
-                jest.spyOn($.fn, "offset").mockReturnValue(offset);
+                jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
 
                 const mousePx = graphie.getMousePx(mouseEvent);
 
-                expect(mousePx).toEqual(expectedMousePx);
+                expect(mousePx).toEqual(expectedPixelCoord);
             },
         );
     });
@@ -1342,16 +1342,26 @@ describe("Graphie drawing tools", () => {
     describe("getMouseCoord", () => {
         it.each([
             [{left: 0, top: 0}, {pageX: 10, pageY: 10}, [2, 8]],
-            [{top: 10, left: 20}, {pageX: 40, pageY: 40}, [4, 4]],
+            [{left: 20, top: 10}, {pageX: 30, pageY: 20}, [2, 8]],
         ])(
-            "should return mosue position in graph coordinates relative to the graph",
-            (offset, mouseEvent, expectedMousePx) => {
-                const graphie = createAndInitGraphie();
-                jest.spyOn($.fn, "offset").mockReturnValue(offset);
+            "should return mouse position in graph coordinates relative to the graph",
+            (graphPosition, mouseEvent, expectedGraphCoord) => {
+                const graphie = GraphUtils.createGraphie(
+                    document.createElement("div"),
+                );
+                // The graph is 50px by 50px.
+                graphie.init({
+                    range: [
+                        [0, 10],
+                        [0, 10],
+                    ],
+                    scale: 5,
+                });
+                jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
 
                 const mousePx = graphie.getMouseCoord(mouseEvent);
 
-                expect(mousePx).toEqual(expectedMousePx);
+                expect(mousePx).toEqual(expectedGraphCoord);
             },
         );
     });
