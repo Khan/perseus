@@ -196,7 +196,6 @@ _.extend(GraphUtils.Graphie.prototype, {
      * Get mouse coordinates in pixels
      */
     getMousePx: function (event: Readonly<{pageX?: number; pageY?: number}>) {
-        $(this.el).offset(); // ?
         // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
         const mouseX = event.pageX - $(this.el).offset().left;
 
