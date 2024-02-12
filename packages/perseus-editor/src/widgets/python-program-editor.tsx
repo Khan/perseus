@@ -18,7 +18,10 @@ type DefaultProps = {
     height: Props["height"];
 };
 
-export function validateOptions(height: Props["height"], programID: Props["programID"]): ReadonlyArray<string> {
+export function validateOptions(
+    height: Props["height"],
+    programID: Props["programID"],
+): ReadonlyArray<string> {
     const errors: Array<string> = [];
 
     if (programID === "") {
