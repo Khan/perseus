@@ -1281,8 +1281,8 @@ export type PerseusCSProgramSetting = {
 export type PerseusPythonProgramWidgetOptions = {
     // The ID of the Python program to embed
     programID: string;
-    // The height of the widget
-    height: number | string;
+    // The height of the widget in pixels
+    height: number;
 };
 
 export type PerseusIFrameWidgetOptions = {

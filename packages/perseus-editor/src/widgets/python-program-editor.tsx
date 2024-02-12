@@ -42,7 +42,7 @@ class PythonProgramEditor extends React.Component<Props> {
     }
 
     getSaveWarnings: () => ReadonlyArray<string> = () => {
-        let errors: Array<string> = [];
+        const errors: Array<string> = [];
 
         if (this.props.programID === "") {
             errors.push("The program ID is required.");
