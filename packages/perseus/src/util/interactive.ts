@@ -196,11 +196,17 @@ _.extend(GraphUtils.Graphie.prototype, {
      * Get mouse coordinates in pixels
      */
     getMousePx: function (event: Readonly<{pageX?: number; pageY?: number}>) {
-        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-        const mouseX = event.pageX - $(this.el).offset().left;
+        const mouseX =
+            // @ts-expect-error - TS18048 - 'event.pageX' is possibly 'undefined'.
+            event.pageX -
+            // @ts-expect-error - TS2532 - Object (result of .offset()) is possibly 'undefined'.
+            $(this.el).offset().left;
 
-        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-        const mouseY = event.pageY - $(this.el).offset().top;
+        const mouseY =
+            // @ts-expect-error - TS18048 - 'event.pageY' is possibly 'undefined'.
+            event.pageY -
+            // @ts-expect-error - TS2532 - Object (result of .offset()) is possibly 'undefined'.
+            $(this.el).offset().top;
 
         return [mouseX, mouseY];
     },
