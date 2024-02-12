@@ -18,6 +18,20 @@ type DefaultProps = {
     height: Props["height"];
 };
 
+export function validateOptions(height: Props["height"], programID: Props["programID"]): ReadonlyArray<string> {
+    const errors: Array<string> = [];
+
+    if (programID === "") {
+        errors.push("The program ID is required.");
+    }
+
+    if (!Number.isInteger(height) || height < 1) {
+        errors.push("The height must be a positive integer.");
+    }
+
+    return errors;
+}
+
 /**
  * This is the main editor for this widget, to specify all the options.
  */
@@ -42,17 +56,7 @@ class PythonProgramEditor extends React.Component<Props> {
     }
 
     getSaveWarnings: () => ReadonlyArray<string> = () => {
-        const errors: Array<string> = [];
-
-        if (this.props.programID === "") {
-            errors.push("The program ID is required.");
-        }
-
-        if (!Number.isInteger(this.props.height) || this.props.height < 1) {
-            errors.push("The height must be a positive integer.");
-        }
-
-        return errors;
+        return validateOptions(this.props.height, this.props.programID);
     };
 
     render(): React.ReactNode {

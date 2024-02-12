@@ -7,6 +7,7 @@ import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import PythonProgramEditor from "../python-program-editor";
+import {validateOptions} from "../python-program-editor";
 
 describe("python-program-editor", () => {
     beforeEach(() => {
@@ -53,5 +54,21 @@ describe("python-program-editor", () => {
             expect.objectContaining({programID: "", height: 4001}),
             undefined,
         );
+    });
+
+    it("should accept valid props", async () => {
+        expect(validateOptions(100, "54321")).toEqual([]);
+    });
+
+    it("should require a program ID", async () => {
+        expect(validateOptions(100, "")).toEqual(["The program ID is required."]);
+    });
+
+    it("should require a positive height", async () => {
+        expect(validateOptions(-1, "54321")).toEqual(["The height must be a positive integer."]);
+    });
+
+    it("should require an integer for the height", async () => {
+        expect(validateOptions(0.5, "54321")).toEqual(["The height must be a positive integer."]);
     });
 });
