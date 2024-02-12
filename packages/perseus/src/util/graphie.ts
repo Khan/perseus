@@ -95,7 +95,14 @@ export class Graphie {
     el: Element;
     #bounds?: GraphBounds;
     #drawingTransform?: DrawingTransform;
+
+    // The primary drawing layer
     raphael?: any;
+    // The layer that all visuals with mouse handlers are drawn into
+    mouselayer?: any;
+    _mouselayerWrapper?: HTMLDivElement;
+    _visiblelayerWrapper?: HTMLDivElement;
+
     isMobile = false;
     // Set up some reasonable defaults
     currentStyle: any = {
@@ -1417,12 +1424,27 @@ export class Graphie {
     addMouseLayer(options: {
         onClick?: MouseHandler;
         onMouseMove?: MouseHandler;
-        onMouseDown?: MouseHandler;
-        onMouseOver?: MouseHandler;
-        onMouseOut?: MouseHandler;
+        onMouseDown?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseOver?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseOut?: MouseHandler | null; // TODO: just use undefined instead of null!
+        onMouseUp?: MouseHandler | null; // TODO: just use undefined instead of null!
         allowScratchpad?: boolean;
         setDrawingAreaAvailable?: (available: boolean) => void;
-    }): void {}
+    }): void {
+        throw new Error("addMouseLayer is a stub, and is not implemented");
+    }
+
+    addToMouseLayerWrapper(el: HTMLElement) {
+        throw new Error(
+            "addToMouseLayerWrapper is not ready. Call addMouseLayer() first.",
+        );
+    }
+
+    addToVisibleLayerWrapper(el: HTMLElement) {
+        throw new Error(
+            "addToVisibleLayerWrapper is not ready. Call addMouseLayer() first.",
+        );
+    }
 }
 
 const labelDirections = {
