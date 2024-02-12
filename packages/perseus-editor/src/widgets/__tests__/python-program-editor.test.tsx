@@ -33,7 +33,7 @@ describe("python-program-editor", () => {
         userEvent.type(input, "1");
 
         expect(onChangeMock).toBeCalledWith(
-            expect.objectContaining({programID: 1, height: 400}),
+            expect.objectContaining({programID: "1", height: 400}),
             undefined,
         );
     });
