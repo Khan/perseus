@@ -969,6 +969,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     radii,
                     options,
                 );
+                movablePoint.mouseTarget.wrapper.setAttribute("tabindex", "0")
                 movablePoint.mouseTarget.attr({fill: "#000", opacity: 0.0});
             }
 

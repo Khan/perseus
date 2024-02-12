@@ -60,6 +60,7 @@ const draw = {
                 radii,
                 options,
             );
+            this.state.visibleShape.wrapper.setAttribute("tabindex", "0")
 
             // @ts-expect-error - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. | TS2339 - Property 'normalStyle' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
