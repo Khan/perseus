@@ -1283,14 +1283,7 @@ export type PerseusPythonProgramWidgetOptions = {
     programID: string;
     // The height of the widget
     height: number | string;
-}
-
-// export type PerseusPythonIFrameWidgetOptions = {
-//     // A Python Program ID
-//     url: string;
-//     // The height of the widget
-//     height: number | string;
-// }
+};
 
 export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID

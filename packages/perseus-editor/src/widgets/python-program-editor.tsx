@@ -1,40 +1,32 @@
-/* eslint-disable no-useless-escape */
 /**
  * This editor is for embedding Khan Academy Python programs.
  */
-
-import {
-    components,
-    Changeable,
-    EditorJsonify,
-} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
+import {components, Changeable} from "@khanacademy/perseus";
 import * as React from "react";
-import _ from "underscore";
 
-import BlurInput from "../components/blur-input";
+const {NumberInput, TextInput} = components;
 
-const {NumberInput} = components;
+import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus";
 
-const DEFAULT_HEIGHT = 400;
+type Props = Changeable.ChangeableProps & {
+    programID: string;
+    height: number;
+};
 
-type Props = any;
+type DefaultProps = {
+    programID: Props["programID"];
+    height: Props["height"];
+};
 
 /**
  * This is the main editor for this widget, to specify all the options.
  */
 class PythonProgramEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        programID: PropTypes.number,
-        height: PropTypes.number,
-    };
-
     static widgetName = "python-program" as const;
 
-    static defaultProps: any = {
-        programID: null,
-        height: DEFAULT_HEIGHT,
+    static defaultProps: DefaultProps = {
+        programID: "",
+        height: 400,
     };
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
@@ -42,16 +34,18 @@ class PythonProgramEditor extends React.Component<Props> {
         return Changeable.change.apply(this, args);
     };
 
-    _handleHeightChange: (arg1: string) => void = (height) => {
-        this.change({height});
-    };
+    serialize(): PerseusPythonProgramWidgetOptions {
+        return {
+            programID: this.props.programID,
+            height: this.props.height,
+        };
+    }
 
-    _handleProgramIDChange: (arg1: string) => void = (programID) => {
-        this.change({programID});
-    };
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
+    getSaveWarnings: () => ReadonlyArray<string> = () => {
+        if (this.props.programID === "") {
+            return ["The program ID is missing."];
+        }
+        return [];
     };
 
     render(): React.ReactNode {
@@ -59,9 +53,8 @@ class PythonProgramEditor extends React.Component<Props> {
             <div>
                 <label>
                     User Program ID:{" "}
-                    <NumberInput
+                    <TextInput
                         value={this.props.programID}
-                        //onChange={this._handleProgramIDChange}
                         onChange={this.change("programID")}
                         placeholder="123"
                     />
@@ -71,7 +64,6 @@ class PythonProgramEditor extends React.Component<Props> {
                     Height:{" "}
                     <NumberInput
                         value={this.props.height}
-                        // onChange={this._handleHeightChange}
                         onChange={this.change("height")}
                         placeholder="400"
                     />

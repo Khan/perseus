@@ -1,4 +1,4 @@
-import {Dependencies, ApiOptions} from "@khanacademy/perseus";
+import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
@@ -16,16 +16,9 @@ describe("python-program-editor", () => {
     });
 
     it("should render", async () => {
-        render(
-            <PythonProgramEditor
-                onChange={() => undefined}
-                apiOptions={ApiOptions.defaults}
-            />,
-        );
+        render(<PythonProgramEditor onChange={() => undefined} />);
 
-        expect(
-            await screen.findByText(/user program id/i),
-        ).toBeInTheDocument();
+        expect(await screen.findByText(/user program id/i)).toBeInTheDocument();
     });
 
     it("should be possible to update the User Program ID", async () => {
@@ -40,7 +33,8 @@ describe("python-program-editor", () => {
         userEvent.type(input, "1");
 
         expect(onChangeMock).toBeCalledWith(
-            expect.objectContaining({programID: 1, height: 400}), undefined
+            expect.objectContaining({programID: 1, height: 400}),
+            undefined,
         );
     });
 
@@ -56,7 +50,8 @@ describe("python-program-editor", () => {
         userEvent.type(input, "1");
 
         expect(onChangeMock).toBeCalledWith(
-            expect.objectContaining({programID: null, height: 4001}), undefined
+            expect.objectContaining({programID: "", height: 4001}),
+            undefined,
         );
     });
 });

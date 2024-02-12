@@ -1,18 +1,10 @@
 import "@testing-library/jest-dom";
 
-import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../dependencies";
 import {question1} from "../__testdata__/python-program.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
 describe("python-program widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should snapshot", () => {
         // Arrange
         const apiOptions = {
