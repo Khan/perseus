@@ -286,7 +286,12 @@ class MathInput extends React.Component<Props, State> {
                         display: "flex",
                         padding: 1,
                     }}
-                    onClick={() => {
+                    onClick={(e) => {
+                        // Prevent the click into the input from registering
+                        // so that the keypad popover doesn't close when
+                        // switching focus to the input.
+                        e.stopPropagation();
+
                         const mathField = this.mathField();
                         if (!mathField) {
                             return;

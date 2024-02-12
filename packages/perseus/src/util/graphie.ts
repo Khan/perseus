@@ -1353,11 +1353,11 @@ export class Graphie {
         return this.drawingTransform().scaleVector(point);
     };
 
-    unscalePoint = (point: Coord) => {
+    unscalePoint = (point: number | Coord) => {
         return this.drawingTransform().unscalePoint(point);
     };
 
-    unscaleVector = (point: Coord) => {
+    unscaleVector = (point: number | Coord) => {
         return this.drawingTransform().unscaleVector(point);
     };
 
@@ -1430,7 +1430,7 @@ export class Graphie {
         onMouseUp?: MouseHandler | null; // TODO: just use undefined instead of null!
         allowScratchpad?: boolean;
         setDrawingAreaAvailable?: (available: boolean) => void;
-    }) {
+    }): void {
         throw new Error("addMouseLayer is a stub, and is not implemented");
     }
 

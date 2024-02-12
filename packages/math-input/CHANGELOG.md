@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 17.0.7
+
+### Patch Changes
+
+-   [#982](https://github.com/Khan/perseus/pull/982) [`279c3730`](https://github.com/Khan/perseus/commit/279c3730fba6a9854b1434ba7499f5c5cfd2151a) Thanks [@nedredmond](https://github.com/nedredmond)! - Inject localized MathSpeak into MathQuill
+
+## 17.0.6
+
+### Patch Changes
+
+-   [#970](https://github.com/Khan/perseus/pull/970) [`cdf7c0aa`](https://github.com/Khan/perseus/commit/cdf7c0aa0f095b8afba429f2da5328cc11cdb7a3) Thanks [@nishasy](https://github.com/nishasy)! - Add types for MathQuill cursor and controller
+
 ## 17.0.5
 
 ### Patch Changes

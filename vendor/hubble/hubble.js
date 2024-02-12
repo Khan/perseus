@@ -1,82 +1,3 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-    if(typeof exports === 'object' && typeof module === 'object')
-        module.exports = factory();
-    else if(typeof define === 'function' && define.amd)
-        define([], factory);
-    else if(typeof exports === 'object')
-        exports["hubble"] = factory();
-    else
-        root["hubble"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/    // The module cache
-/******/    var installedModules = {};
-/******/
-/******/    // The require function
-/******/    function __webpack_require__(moduleId) {
-/******/
-/******/        // Check if module is in cache
-/******/        if(installedModules[moduleId]) {
-/******/            return installedModules[moduleId].exports;
-/******/        }
-/******/        // Create a new module (and put it into the cache)
-/******/        var module = installedModules[moduleId] = {
-/******/            i: moduleId,
-/******/            l: false,
-/******/            exports: {}
-/******/        };
-/******/
-/******/        // Execute the module function
-/******/        modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/        // Flag the module as loaded
-/******/        module.l = true;
-/******/
-/******/        // Return the exports of the module
-/******/        return module.exports;
-/******/    }
-/******/
-/******/
-/******/    // expose the modules object (__webpack_modules__)
-/******/    __webpack_require__.m = modules;
-/******/
-/******/    // expose the module cache
-/******/    __webpack_require__.c = installedModules;
-/******/
-/******/    // define getter function for harmony exports
-/******/    __webpack_require__.d = function(exports, name, getter) {
-/******/        if(!__webpack_require__.o(exports, name)) {
-/******/            Object.defineProperty(exports, name, {
-/******/                configurable: false,
-/******/                enumerable: true,
-/******/                get: getter
-/******/            });
-/******/        }
-/******/    };
-/******/
-/******/    // getDefaultExport function for compatibility with non-harmony modules
-/******/    __webpack_require__.n = function(module) {
-/******/        var getter = module && module.__esModule ?
-/******/            function getDefault() { return module['default']; } :
-/******/            function getModuleExports() { return module; };
-/******/        __webpack_require__.d(getter, 'a', getter);
-/******/        return getter;
-/******/    };
-/******/
-/******/    // Object.prototype.hasOwnProperty.call
-/******/    __webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/    // __webpack_public_path__
-/******/    __webpack_require__.p = "";
-/******/
-/******/    // Load entry module and return exports
-/******/    return __webpack_require__(__webpack_require__.s = 1);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
-
 var isObject = function(obj) {
     return obj === Object(obj);;
 }
@@ -104,26 +25,10 @@ var clone = function(obj) {
     return Array.isArray(obj) ? obj.slice() : merge(obj);
 };
 
-module.exports = { isObject: isObject, merge: merge, clone: clone };
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* TODO batch *all* mutations
  * idea: freeze / thaw implementations for all types
  * lens constructor thaws, freeze delegates to type's freeze
  */
-
-var util = __webpack_require__(0);
-    var clone = util.clone;
-    var isObject = util.isObject;
-    var merge = util.merge;
-
-var arr = __webpack_require__(2);
-var obj = __webpack_require__(3);
-var str = __webpack_require__(4);
 
 // equivalents, without requiring it
 // find the implementation to use for a given object
@@ -250,33 +155,30 @@ lens.prototype.set = function(lensArr, set) {
     return this.mod(lensArr, function() { return set; });
 };
 
-module.exports = lens;
+// ARRAY FUNCTIONS
 
+const arr = {
+    get: function(arr, monocle) {
+        return arr[monocle];
+    },
 
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
+    set: function(arr, monocle, val) {
+        var newArr = arr.splice();
+        newArr[monocle] = val;
+        return newArr;
+    },
 
-var get = function(arr, monocle) {
-    return arr[monocle];
-};
+    mod: function(arr, monocle, f) {
+        var newArr = arr.slice();
+        newArr[monocle] = f(arr[monocle]);
+        return newArr;
+    },
 
-var set = function(arr, monocle, val) {
-    var newArr = arr.splice();
-    newArr[monocle] = val;
-    return newArr;
-};
-
-var mod = function(arr, monocle, f) {
-    var newArr = arr.slice();
-    newArr[monocle] = f(arr[monocle]);
-    return newArr;
-};
-
-var del = function(arr, monocle) {
-    var newArr = arr.slice();
-    newArr.splice(monocle, 1);
-    return newArr;
+    del: function(arr, monocle) {
+        var newArr = arr.slice();
+        newArr.splice(monocle, 1);
+        return newArr;
+    },
 };
 
 /*
@@ -300,69 +202,56 @@ lens.prototype.insertAfter = function(lensArr, toInsert) {
 };
 */
 
-module.exports = { get: get, set: set, mod: mod, del: del };
+// OBJECT FUNCTIONS
 
+const obj = {
+    get: function(obj, monocle) {
+        return obj[monocle];
+    },
 
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+    set: function(obj, monocle, val) {
+        var newObj = clone(obj);
+        newObj[monocle] = val;
+        return newObj;
+    },
 
-var clone = __webpack_require__(0).clone;
+    mod: function(obj, monocle, f) {
+        var newObj = clone(obj);
+        newObj[monocle] = f(obj[monocle]);
+        return newObj;
+    },
 
-var get = function(obj, monocle) {
-    return obj[monocle];
+    del: function(obj, monocle) {
+        var newObj = clone(obj);
+        delete newObj[monocle];
+        return newObj;
+    },
 };
 
-var set = function(obj, monocle, val) {
-    var newObj = clone(obj);
-    newObj[monocle] = val;
-    return newObj;
+// STRING FUNCTIONS
+
+const str = {
+    get: function(arr, monocle) {
+        return arr[monocle];
+    },
+
+    set: function(arr, monocle, val) {
+        var newArr = arr.splice();
+        newArr[monocle] = val;
+        return newArr;
+    },
+
+    mod: function(arr, monocle, f) {
+        var newArr = arr.splice();
+        newArr[monocle] = f(arr[monocle]);
+        return newArr;
+    },
+
+    del: function(arr, monocle) {
+        var newArr = arr.slice();
+        newArr.splice(monocle);
+        return newArr;
+    },
 };
 
-var mod = function(obj, monocle, f) {
-    var newObj = clone(obj);
-    newObj[monocle] = f(obj[monocle]);
-    return newObj;
-};
-
-var del = function(obj, monocle) {
-    var newObj = clone(obj);
-    delete newObj[monocle];
-    return newObj;
-};
-
-module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-var get = function(arr, monocle) {
-    return arr[monocle];
-};
-
-var set = function(arr, monocle, val) {
-    var newArr = arr.splice();
-    newArr[monocle] = val;
-    return newArr;
-};
-
-var mod = function(arr, monocle, f) {
-    var newArr = arr.splice();
-    newArr[monocle] = f(arr[monocle]);
-    return newArr;
-};
-
-var del = function(arr, monocle) {
-    var newArr = arr.slice();
-    newArr.splice(monocle);
-    return newArr;
-};
-
-module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ })
-/******/ ]);
-});
+export default lens

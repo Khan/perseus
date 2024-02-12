@@ -50,7 +50,6 @@ type Props = {
     onClick?: (at: Coord) => void;
     onMouseDown?: (at: Coord) => void;
     onMouseMove?: (at: Coord) => void;
-    onMouseUp?: (at: Coord) => void;
 };
 
 type DefaultProps = {
@@ -195,7 +194,6 @@ class Graphie extends React.Component<Props> {
             graphie.addMouseLayer({
                 onClick: this.props.onClick,
                 onMouseDown: this.props.onMouseDown,
-                onMouseUp: this.props.onMouseUp,
                 onMouseMove: this.props.onMouseMove,
                 setDrawingAreaAvailable: this.props.setDrawingAreaAvailable,
             });
