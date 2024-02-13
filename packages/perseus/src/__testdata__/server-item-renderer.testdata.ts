@@ -38,6 +38,49 @@ export const itemWithInput: PerseusItem = {
     answer: null,
 };
 
+export const itemWithMultipleInputs: PerseusItem = {
+    question: {
+        content:
+            "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 input-number 2]]",
+        images: {},
+        widgets: {
+            "input-number 1": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "1",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
+            "input-number 2": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "2",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    _multi: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
 export const labelImageItem: PerseusItem = {
     answerArea: Object.fromEntries(
         ItemExtras.map((extra) => [extra, false]),

@@ -48,6 +48,9 @@ const WrappedKeypadContext = ({
                                 isMobile: isMobile,
                                 customKeypad: customKeypad,
                                 onFocusChange: action("onFocusChange"),
+                                interactionCallback: (response) => {
+                                    console.log(response);
+                                },
                             }}
                         />
                     );

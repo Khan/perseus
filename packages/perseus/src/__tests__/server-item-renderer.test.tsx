@@ -11,6 +11,7 @@ import {
 import {
     itemWithInput,
     itemWithLintingError,
+    itemWithMultipleInputs,
     mockedItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
@@ -134,19 +135,24 @@ describe("server item renderer", () => {
         expect(score.empty).toBe(false);
     });
 
-    it("calls onInteraction callback", () => {
+    it("calls onInteraction callback with the current user data", () => {
         // Arrange
         const interactionCallback = jest.fn();
-        renderQuestion(itemWithInput, {
+        renderQuestion(itemWithMultipleInputs, {
             interactionCallback,
         });
 
         // Act
-        userEvent.type(screen.getByRole("textbox"), "-42");
+        const inputs = screen.getAllByRole("textbox");
+        userEvent.type(inputs[0], "1");
+        userEvent.type(inputs[1], "2");
         jest.runOnlyPendingTimers(); // Renderer uses setTimeout setting widget props
 
         // Assert
-        expect(interactionCallback).toHaveBeenCalled();
+        expect(interactionCallback).toHaveBeenCalledWith({
+            "input-number 1": {currentValue: "1"},
+            "input-number 2": {currentValue: "2"},
+        });
     });
 
     it("should set the input value for a widget", () => {

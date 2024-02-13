@@ -6,6 +6,7 @@ import {
     itemWithInput,
     itemWithLintingError,
     labelImageItem,
+    itemWithMultipleInputs,
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
 
@@ -21,6 +22,21 @@ export default {
 
 export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={itemWithInput} />;
+};
+
+export const InputNumberWithInteractionCallback = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={itemWithMultipleInputs}
+            apiOptions={{
+                interactionCallback: (data) => {
+                    console.log(data);
+                },
+            }}
+        />
+    );
 };
 
 export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
