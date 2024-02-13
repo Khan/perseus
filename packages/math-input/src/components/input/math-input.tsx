@@ -857,7 +857,7 @@ class MathInput extends React.Component<Props, State> {
             const value = this.mathField.getContent();
             if (this.props.value !== value) {
                 this.mathField.setContent(this.props.value);
-                this.props.onChange(value, false);
+                this.props.onChange(value, () => {});
                 this._hideCursorHandle();
             }
         }
