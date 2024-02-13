@@ -3,11 +3,13 @@ import fs from "node:fs";
 import {defineConfig} from "vite";
 import glob from "fast-glob";
 
-const aliases = {};
+// Create aliases for each package in the Perseus monorepo, so Vite knows
+// where to look when a file imports e.g. @khanacademy/perseus.
+const packageAliases = {};
 glob.sync(resolve("../packages/*/package.json")).forEach(
     (packageJsonPath) => {
         const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-        aliases[pkg.name] = join(
+        packageAliases[pkg.name] = join(
             dirname(packageJsonPath),
             pkg.source,
         );
@@ -19,7 +21,7 @@ export default defineConfig({
         alias: {
             hubble: resolve("../vendor/hubble/hubble.js"),
             raphael: resolve("../vendor/raphael/raphael.js"),
-            ...aliases,
+            ...packageAliases,
         },
     },
     css: {
