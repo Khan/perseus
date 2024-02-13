@@ -1,10 +1,10 @@
 import $ from "jquery";
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 import {getDependencies} from "../dependencies";
 
 import KhanMath from "./math";
-import reactRender from "./react-render";
 
 function findChildOrAdd(elem: any, className: string) {
     const $child = $(elem).find("." + className);
@@ -15,8 +15,8 @@ function findChildOrAdd(elem: any, className: string) {
 }
 
 export default {
-    // Process a node and add math inside of it. This attempts to use KaTeX to
-    // format the math, and if that fails it falls back to MathJax.
+    // Process a node and add math inside of it. This uses MathJax to format
+    // the math.
     //
     // elem: The element which the math should be added to.
     //
@@ -61,7 +61,7 @@ export default {
             const {TeX} = await getDependencies();
             // We use createElement instead of JSX here because we can't name this file tex.tsx;
             // that name is already taken.
-            reactRender(
+            ReactDOM.createPortal(
                 React.createElement(TeX, {
                     children: text,
                     onRender: callback,

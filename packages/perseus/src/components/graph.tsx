@@ -334,12 +334,12 @@ class Graph extends React.Component<Props> {
                         break;
                     case "path":
                         if (lockedShape.isClosed) {
-                            graphie.path([...lockedShape.coords, true], lockedShape.style);
-                        } else {
                             graphie.path(
-                                lockedShape.coords,
+                                [...lockedShape.coords, true],
                                 lockedShape.style,
                             );
+                        } else {
+                            graphie.path(lockedShape.coords, lockedShape.style);
                         }
                         break;
                 }
