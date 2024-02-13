@@ -1540,15 +1540,32 @@ export class Graphie {
             "addToVisibleLayerWrapper is not ready. Call addMouseLayer() first.",
         );
     }
+    /**
+     * Get mouse coordinates in pixels
+     */
+    getMousePx(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
+        const offset = $(this.el).offset();
 
-    // This is a stub that's overridden in interactive.ts
-    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
-        throw new Error("getMouseCoord is a stub, and is not implemented");
+        const mouseX =
+            // @ts-expect-error - TS18048 - 'event.pageX' is possibly 'undefined'.
+            event.pageX -
+            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
+            offset.left;
+
+        const mouseY =
+            // @ts-expect-error - TS18048 - 'event.pageY' is possibly 'undefined'.
+            event.pageY -
+            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
+            offset.top;
+
+        return [mouseX, mouseY];
     }
 
-    // This is a stub that's overridden in interactive.ts
-    getMousePx(event: Readonly<{pageX?: number; pageY?: number}>) {
-        throw new Error("getMousePx is a stub, and is not implemented");
+    /**
+     * Get mouse coordinates in graph coordinates
+     */
+    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
+        return this.unscalePoint(this.getMousePx(event));
     }
 }
 
