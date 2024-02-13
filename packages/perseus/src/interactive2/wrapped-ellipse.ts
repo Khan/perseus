@@ -28,8 +28,14 @@ const WrappedEllipse = function (
         options.maxScale,
         options.padding,
     );
+
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    _.extend(this, fixedEllipse, {
+    this.wrapper = fixedEllipse.wrapper;
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    this.visibleShape = fixedEllipse.visibleShape;
+
+    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    _.extend(this, {
         graphie: graphie,
         initialPoint: center,
     });
