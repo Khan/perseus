@@ -28,6 +28,7 @@ import Passage from "./widgets/passage";
 import PassageRef from "./widgets/passage-ref";
 import PassageRefTarget from "./widgets/passage-ref-target";
 import Plotter from "./widgets/plotter";
+import PythonProgram from "./widgets/python-program";
 import ReactionDiagram from "./widgets/reaction-diagram";
 import Sequence from "./widgets/sequence";
 import Simulator from "./widgets/simulator";
@@ -64,6 +65,7 @@ export default [
     PassageRef,
     PassageRefTarget,
     Plotter,
+    PythonProgram,
     ReactionDiagram,
     Sequence,
     Simulator,

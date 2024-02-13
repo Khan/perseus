@@ -155,6 +155,8 @@ export type PassageWidget = Widget<'passage', PerseusPassageWidgetOptions>;
 // prettier-ignore
 export type PlotterWidget = Widget<'plotter', PerseusPlotterWidgetOptions>;
 // prettier-ignore
+export type PythonProgramWidget = Widget<'python-program', PerseusPythonProgramWidgetOptions>;
+// prettier-ignore
 export type RadioWidget = Widget<'radio', PerseusRadioWidgetOptions>;
 // prettier-ignore
 export type SequenceWidget = Widget<'sequence', PerseusSequenceWidgetOptions>;
@@ -217,6 +219,7 @@ export type PerseusWidget =
     | PassageRefWidget
     | PassageWidget
     | PlotterWidget
+    | PythonProgramWidget
     | RadioWidget
     | ReactionDiagramWidget
     | RefTargetWidget
@@ -1273,6 +1276,13 @@ export type PerseusCSProgramSetting = {
     name: string;
     // The value of the setting
     value: string;
+};
+
+export type PerseusPythonProgramWidgetOptions = {
+    // The ID of the Python program to embed
+    programID: string;
+    // The height of the widget in pixels
+    height: number;
 };
 
 export type PerseusIFrameWidgetOptions = {
