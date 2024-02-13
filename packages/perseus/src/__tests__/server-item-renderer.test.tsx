@@ -11,7 +11,7 @@ import {
 import {
     itemWithInput,
     itemWithLintingError,
-    itemWithMultipleInputs,
+    itemWithMultipleInputNumbers,
     mockedItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
@@ -138,7 +138,7 @@ describe("server item renderer", () => {
     it("calls onInteraction callback with the current user data", () => {
         // Arrange
         const interactionCallback = jest.fn();
-        renderQuestion(itemWithMultipleInputs, {
+        renderQuestion(itemWithMultipleInputNumbers, {
             interactionCallback,
         });
 
