@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 19.1.9
+
+### Patch Changes
+
+-   [#986](https://github.com/Khan/perseus/pull/986) [`585a3fe9`](https://github.com/Khan/perseus/commit/585a3fe9aaa26ee550d36768c36e626f626a3417) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Wrap some radio widget strings that a learner would see in `i18n._()` calls so they can be localized.
+
+*   [#987](https://github.com/Khan/perseus/pull/987) [`e4ca3c53`](https://github.com/Khan/perseus/commit/e4ca3c5384e9a16e79e4fb2704c0a6dd3c4ebf54) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move Graphie's addMouseLayer function directly onto class (avoid metaprogramming)
+
+-   [#979](https://github.com/Khan/perseus/pull/979) [`9f2eafe4`](https://github.com/Khan/perseus/commit/9f2eafe4c4649fd1ee1a83611b53908eb9cf3468) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve types for Graphie's getMousePx and getMouseCoord functions
+
+*   [#975](https://github.com/Khan/perseus/pull/975) [`36a5ebe1`](https://github.com/Khan/perseus/commit/36a5ebe1ef373058090841fc734778c06e318397) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add tests to cover Graphie's addMouseLayer() function - includes some related type improvements.
+
 ## 19.1.8
 
 ### Patch Changes
