@@ -1454,7 +1454,7 @@ export class Graphie {
                 });
             let isClickingCanvas = false;
 
-            $(this.mouselayer.canvas).on("vmousedown", function (e) {
+            $(this.mouselayer.canvas).on("vmousedown", (e) => {
                 if (e.target === canvasClickTarget[0]) {
                     if (localOptions.onMouseDown) {
                         localOptions.onMouseDown(this.getMouseCoord(e));
