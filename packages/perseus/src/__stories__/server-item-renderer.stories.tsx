@@ -6,7 +6,8 @@ import {
     itemWithInput,
     itemWithLintingError,
     labelImageItem,
-    itemWithMultipleInputs,
+    itemWithMultipleInputNumbers,
+    itemWithMultipleWidgetTypes,
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
 
@@ -24,21 +25,6 @@ export const InputNumberItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={itemWithInput} />;
 };
 
-export const InputNumberWithInteractionCallback = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={itemWithMultipleInputs}
-            apiOptions={{
-                interactionCallback: (data) => {
-                    console.log(data);
-                },
-            }}
-        />
-    );
-};
-
 export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
     return <ServerItemRendererWithDebugUI item={labelImageItem} />;
 };
@@ -54,6 +40,40 @@ export const WithLintingError = (args: StoryArgs): React.ReactElement => {
                 highlightLint: true,
                 paths: [],
                 stack: [],
+            }}
+        />
+    );
+};
+
+export const InputNumberWithInteractionCallback = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={itemWithMultipleInputNumbers}
+            apiOptions={{
+                interactionCallback: (data) => {
+                    // We are logging the interaction callback data to the console
+                    // eslint-disable-next-line no-console
+                    console.log(data);
+                },
+            }}
+        />
+    );
+};
+
+export const MultiWidgetWithInteractionCallback = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={itemWithMultipleWidgetTypes}
+            apiOptions={{
+                interactionCallback: (data) => {
+                    // We are logging the interaction callback data to the console
+                    // eslint-disable-next-line no-console
+                    console.log(data);
+                },
             }}
         />
     );
