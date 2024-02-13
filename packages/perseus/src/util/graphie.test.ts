@@ -1325,11 +1325,19 @@ describe("Graphie drawing tools", () => {
 
     describe("getMousePx", () => {
         it.each([
-            [{left: 0, top: 0}, {pageX: 10, pageY: 10}, [10, 10]],
-            [{left: 20, top: 10}, {pageX: 40, pageY: 40}, [20, 30]],
+            {
+                graphPosition: {left: 0, top: 0},
+                mouseEvent: {pageX: 10, pageY: 10},
+                expectedPixelCoord: [10, 10],
+            },
+            {
+                graphPosition: {left: 20, top: 10},
+                mouseEvent: {pageX: 40, pageY: 40},
+                expectedPixelCoord: [20, 30],
+            },
         ])(
-            "should return the mouse position in pixel coordinates relative to graph",
-            (graphPosition, mouseEvent, expectedPixelCoord) => {
+            "should return pixel coordinates $expectedPixelCoord for the mouse event $mouseEvent (graph at $graphPosition)",
+            ({graphPosition, mouseEvent, expectedPixelCoord}) => {
                 const graphie = createAndInitGraphie();
                 jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
 
@@ -1342,11 +1350,19 @@ describe("Graphie drawing tools", () => {
 
     describe("getMouseCoord", () => {
         it.each([
-            [{left: 0, top: 0}, {pageX: 10, pageY: 10}, [2, 8]],
-            [{left: 20, top: 10}, {pageX: 30, pageY: 20}, [2, 8]],
+            {
+                graphPosition: {left: 0, top: 0},
+                mouseEvent: {pageX: 10, pageY: 10},
+                expectedGraphCoord: [2, 8],
+            },
+            {
+                graphPosition: {left: 20, top: 10},
+                mouseEvent: {pageX: 30, pageY: 20},
+                expectedGraphCoord: [2, 8],
+            },
         ])(
-            "should return mouse position in graph coordinates relative to the graph",
-            (graphPosition, mouseEvent, expectedGraphCoord) => {
+            "should return graph coordinates $expectedGraphCoord for the mouse event $mouseEvent (graph at $graphPosition)",
+            ({graphPosition, mouseEvent, expectedGraphCoord}) => {
                 const graphie = GraphUtils.createGraphie(
                     document.createElement("div"),
                 );
