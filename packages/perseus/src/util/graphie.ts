@@ -1415,7 +1415,10 @@ export class Graphie {
         return processed;
     }
 
-    // This is a stub that's overridden in interactive.ts
+    // Graphie puts text spans on top of the SVG, which looks good, but gets
+    // in the way of mouse events. This adds another SVG element on top
+    // of everything else where we can add invisible shapes with mouse
+    // handlers wherever we want.
     addMouseLayer(options: {
         onClick?: MouseHandler;
         onMouseMove?: MouseHandler;
@@ -1426,7 +1429,104 @@ export class Graphie {
         allowScratchpad?: boolean;
         setDrawingAreaAvailable?: (available: boolean) => void;
     }): void {
-        throw new Error("addMouseLayer is a stub, and is not implemented");
+        const localOptions = {
+            allowScratchpad: false,
+            setDrawingAreaAvailable: function () {},
+
+            ...options,
+        };
+
+        const mouselayerZIndex = 2;
+        this.mouselayer = Raphael(this.el, this.xpixels, this.ypixels);
+        $(this.mouselayer.canvas).css("z-index", mouselayerZIndex);
+        if (
+            localOptions.onClick ||
+            localOptions.onMouseDown ||
+            localOptions.onMouseMove ||
+            localOptions.onMouseOver ||
+            localOptions.onMouseOut
+        ) {
+            const canvasClickTarget = this.mouselayer
+                .rect(0, 0, this.xpixels, this.ypixels)
+                .attr({
+                    fill: "#000",
+                    opacity: 0,
+                });
+            let isClickingCanvas = false;
+
+            $(this.mouselayer.canvas).on("vmousedown", (e) => {
+                if (e.target === canvasClickTarget[0]) {
+                    if (localOptions.onMouseDown) {
+                        localOptions.onMouseDown(this.getMouseCoord(e));
+                    }
+                    isClickingCanvas = true;
+
+                    if (localOptions.onMouseMove) {
+                        const handler = localOptions.onMouseMove;
+                        $(document).bind("vmousemove.mouseLayer", (e) => {
+                            if (isClickingCanvas) {
+                                e.preventDefault();
+                                handler(this.getMouseCoord(e));
+                            }
+                        });
+                    }
+
+                    $(document).bind("vmouseup.mouseLayer", (e) => {
+                        $(document).unbind(".mouseLayer");
+
+                        // Only register clicks that started on the canvas,
+                        // and not on another mouseLayer target
+                        if (isClickingCanvas && localOptions.onClick) {
+                            localOptions.onClick(this.getMouseCoord(e));
+                        }
+                        isClickingCanvas = false;
+                    });
+                }
+            });
+            if (localOptions.onMouseOver) {
+                const handler = localOptions.onMouseOver;
+                $(this.mouselayer.canvas).on("vmouseover", (e) => {
+                    handler(this.getMouseCoord(e));
+                });
+            }
+            if (localOptions.onMouseOut) {
+                const handler = localOptions.onMouseOut;
+                $(this.mouselayer.canvas).on("vmouseout", (e) => {
+                    handler(this.getMouseCoord(e));
+                });
+            }
+        }
+        if (!localOptions.allowScratchpad) {
+            localOptions.setDrawingAreaAvailable?.(false);
+        }
+
+        // Add mouse and visible wrapper layers for DOM-node-wrapped movables
+        this._mouselayerWrapper = document.createElement("div");
+        $(this._mouselayerWrapper).css({
+            position: "absolute",
+            left: 0,
+            top: 0,
+            zIndex: mouselayerZIndex,
+        });
+
+        this._visiblelayerWrapper = document.createElement("div");
+        $(this._visiblelayerWrapper).css({
+            position: "absolute",
+            left: 0,
+            top: 0,
+        });
+
+        const el = this.el;
+        el.appendChild(this._visiblelayerWrapper);
+        el.appendChild(this._mouselayerWrapper);
+
+        // Add functions for adding to wrappers
+        this.addToMouseLayerWrapper = (el: any) => {
+            this._mouselayerWrapper?.appendChild(el);
+        };
+        this.addToVisibleLayerWrapper = (el: any) => {
+            this._visiblelayerWrapper?.appendChild(el);
+        };
     }
 
     addToMouseLayerWrapper(el: HTMLElement) {
@@ -1440,15 +1540,32 @@ export class Graphie {
             "addToVisibleLayerWrapper is not ready. Call addMouseLayer() first.",
         );
     }
+    /**
+     * Get mouse coordinates in pixels
+     */
+    getMousePx(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
+        const offset = $(this.el).offset();
 
-    // This is a stub that's overridden in interactive.ts
-    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
-        throw new Error("getMouseCoord is a stub, and is not implemented");
+        const mouseX =
+            // @ts-expect-error - TS18048 - 'event.pageX' is possibly 'undefined'.
+            event.pageX -
+            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
+            offset.left;
+
+        const mouseY =
+            // @ts-expect-error - TS18048 - 'event.pageY' is possibly 'undefined'.
+            event.pageY -
+            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
+            offset.top;
+
+        return [mouseX, mouseY];
     }
 
-    // This is a stub that's overridden in interactive.ts
-    getMousePx(event: Readonly<{pageX?: number; pageY?: number}>) {
-        throw new Error("getMousePx is a stub, and is not implemented");
+    /**
+     * Get mouse coordinates in graph coordinates
+     */
+    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
+        return this.unscalePoint(this.getMousePx(event));
     }
 }
 
