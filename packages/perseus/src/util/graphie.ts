@@ -1415,11 +1415,6 @@ export class Graphie {
         return processed;
     }
 
-    // This is a stub that's overridden in interactive.ts
-    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
-        throw new Error("getMouseCoord is a stub, and is not implemented");
-    }
-
     // Graphie puts text spans on top of the SVG, which looks good, but gets
     // in the way of mouse events. This adds another SVG element on top
     // of everything else where we can add invisible shapes with mouse
@@ -1544,6 +1539,16 @@ export class Graphie {
         throw new Error(
             "addToVisibleLayerWrapper is not ready. Call addMouseLayer() first.",
         );
+    }
+
+    // This is a stub that's overridden in interactive.ts
+    getMouseCoord(event: Readonly<{pageX?: number; pageY?: number}>): Coord {
+        throw new Error("getMouseCoord is a stub, and is not implemented");
+    }
+
+    // This is a stub that's overridden in interactive.ts
+    getMousePx(event: Readonly<{pageX?: number; pageY?: number}>) {
+        throw new Error("getMousePx is a stub, and is not implemented");
     }
 }
 

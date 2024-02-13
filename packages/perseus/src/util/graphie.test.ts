@@ -1,4 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import $ from "jquery";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
 
 import {testDependencies} from "../../../../testing/test-dependencies";
@@ -1319,6 +1321,66 @@ describe("Graphie drawing tools", () => {
 
             expect(onSetDrawingAreaAvailable).toHaveBeenCalledWith(false);
         });
+    });
+
+    describe("getMousePx", () => {
+        it.each([
+            {
+                graphPosition: {left: 0, top: 0},
+                mouseEvent: {pageX: 10, pageY: 10},
+                expectedPixelCoord: [10, 10],
+            },
+            {
+                graphPosition: {left: 20, top: 10},
+                mouseEvent: {pageX: 40, pageY: 40},
+                expectedPixelCoord: [20, 30],
+            },
+        ])(
+            "should return pixel coordinates $expectedPixelCoord for the mouse event $mouseEvent (graph at $graphPosition)",
+            ({graphPosition, mouseEvent, expectedPixelCoord}) => {
+                const graphie = createAndInitGraphie();
+                jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
+
+                const mousePx = graphie.getMousePx(mouseEvent);
+
+                expect(mousePx).toEqual(expectedPixelCoord);
+            },
+        );
+    });
+
+    describe("getMouseCoord", () => {
+        it.each([
+            {
+                graphPosition: {left: 0, top: 0},
+                mouseEvent: {pageX: 10, pageY: 10},
+                expectedGraphCoord: [2, 8],
+            },
+            {
+                graphPosition: {left: 20, top: 10},
+                mouseEvent: {pageX: 30, pageY: 20},
+                expectedGraphCoord: [2, 8],
+            },
+        ])(
+            "should return graph coordinates $expectedGraphCoord for the mouse event $mouseEvent (graph at $graphPosition)",
+            ({graphPosition, mouseEvent, expectedGraphCoord}) => {
+                const graphie = GraphUtils.createGraphie(
+                    document.createElement("div"),
+                );
+                // The graph is 50px by 50px.
+                graphie.init({
+                    range: [
+                        [0, 10],
+                        [0, 10],
+                    ],
+                    scale: 5,
+                });
+                jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
+
+                const mousePx = graphie.getMouseCoord(mouseEvent);
+
+                expect(mousePx).toEqual(expectedGraphCoord);
+            },
+        );
     });
 });
 

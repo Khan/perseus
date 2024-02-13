@@ -78,14 +78,19 @@ _.extend(GraphUtils.Graphie.prototype, {
      * Get mouse coordinates in pixels
      */
     getMousePx: function (event: Readonly<{pageX?: number; pageY?: number}>) {
-        const graphie = this;
+        const offset = $(this.el).offset();
 
         const mouseX =
+            // @ts-expect-error - TS18048 - 'event.pageX' is possibly 'undefined'.
+            event.pageX -
             // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-            event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
+            offset.left;
+
         const mouseY =
+            // @ts-expect-error - TS18048 - 'event.pageY' is possibly 'undefined'.
+            event.pageY -
             // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-            event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
+            offset.top;
 
         return [mouseX, mouseY];
     },
