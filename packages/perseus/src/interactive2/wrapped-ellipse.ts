@@ -6,7 +6,6 @@ import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
 import type {VisibleShape} from "./wrapped-drawing";
-import type {Graphie} from "../util/graphie";
 
 const DEFAULT_OPTIONS = {
     maxScale: 1,
