@@ -1,0 +1,93 @@
+import {vector as kvector} from "@khanacademy/kmath";
+import WrappedPath from "./wrapped-path";
+import {Coord} from "@khanacademy/perseus";
+import {Graphie} from "../util/graphie";
+import _ from "underscore";
+import KhanMath from "../util/math";
+import {getClipPoint} from "./get-clip-point";
+
+export class Arrowhead extends WrappedPath {
+    private static scale: number = 1.4;
+    center: Coord
+
+    constructor(graphie: Graphie, style: any) {
+        // Points that define the arrowhead
+        const center: Coord = [0.75, 0];
+        let points: Coord[] = [
+            [-3, 4],
+            [-2.75, 2.5],
+            [0, 0.25],
+            center,
+            [0, -0.25],
+            [-2.75, -2.5],
+            [-3, -4],
+        ];
+
+        // Scale points by `Arrowhead.scale` around `center`
+        points = _.map(points, function (point) {
+            const pv = kvector.subtract(point, center);
+            const pvScaled = kvector.scale(pv, Arrowhead.scale);
+            return kvector.add(center, pvScaled);
+        });
+
+        // We can't just pass in a path to `graph.fixedPath` as we need to modify
+        // the points in some way, so instead we provide a function for creating
+        // the path once the points have been transformed
+        const createCubicPath = function (points) {
+            let path = "M" + points[0][0] + " " + points[0][1];
+            for (let i = 1; i < points.length; i += 3) {
+                path +=
+                    "C" +
+                    points[i][0] +
+                    " " +
+                    points[i][1] +
+                    " " +
+                    points[i + 1][0] +
+                    " " +
+                    points[i + 1][1] +
+                    " " +
+                    points[i + 2][0] +
+                    " " +
+                    points[i + 2][1];
+            }
+            return path;
+        };
+
+        const unscaledPoints = _.map(points, graphie.unscalePoint);
+
+        super(graphie, unscaledPoints, {
+            center: graphie.unscalePoint(center),
+            createPath: createCubicPath,
+        })
+
+        this.center = center;
+        this.attr(
+            _.extend(
+                {
+                    "stroke-linejoin": "round",
+                    "stroke-linecap": "round",
+                    "stroke-dasharray": "",
+                },
+                style,
+            ),
+        );
+    }
+
+    toCoordAtAngle(coord: Coord, angle: number) {
+        const clipPoint = this.graphie.scalePoint(getClipPoint(this.graphie, coord, angle));
+        this.transform(
+            "translateX(" +
+            (clipPoint[0] + Arrowhead.scale * this.center[0]) +
+            "px) " +
+            "translateY(" +
+            (clipPoint[1] + Arrowhead.scale * this.center[1]) +
+            "px) " +
+            "translateZ(0) " +
+            "rotate(" +
+            (360 - KhanMath.bound(angle)) +
+            "deg)",
+        );
+    };
+}
+
+

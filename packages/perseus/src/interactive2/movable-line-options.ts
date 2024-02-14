@@ -5,13 +5,11 @@
 import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
-import KhanMath from "../util/math";
-
 import WrappedLine from "./wrapped-line";
-import WrappedPath from "./wrapped-path";
 
 import type {Coord} from "./types";
-import {Graphie} from "../util/graphie";
+import {getClipPoint} from "./get-clip-point";
+import {Arrowhead} from "./arrowhead";
 
 /**
  * Helper functions
@@ -21,116 +19,6 @@ const getScaledAngle = function (line: any) {
     const scaledZ = line.graphie.scalePoint(line.coord(1));
     return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
 };
-
-// Given `coord` and `angle`, find the point where a line extended
-// from `coord` in the direction of `angle` would be clipped by the
-// edge of the graphie canvas. Then draw an arrowhead at that point
-// pointing in the direction of `angle`.
-const getClipPoint = function (graph, coord: Coord, angle: number) {
-    // Actually put the arrowheads 4px from the edge so they have
-    // a bit of room
-    const xExtent = graph.range[0][1] - graph.range[0][0];
-    const yExtent = graph.range[1][1] - graph.range[1][0];
-
-    // shoot a point off into the distance ...
-    const distance = xExtent + yExtent;
-    // we need to scale the point according to the scale of the axes
-    const angleVec = graph.unscaleVector(kvector.cartFromPolarDeg(1, angle));
-    const distVec = kvector.scale(kvector.normalize(angleVec), distance);
-    const farCoord = kvector.add(coord, distVec);
-    const scaledAngle = kvector.polarDegFromCart(angleVec)[1];
-    // ... and then bring it back
-    const clipPoint = graph.constrainToBoundsOnAngle(
-        farCoord,
-        4,
-        (scaledAngle * Math.PI) / 180,
-    );
-    return clipPoint;
-};
-
-class Arrowhead extends WrappedPath {
-    private static scale: number = 1.4;
-    center: Coord
-
-    constructor(graphie: Graphie, style: any) {
-        // Points that define the arrowhead
-        const center: Coord = [0.75, 0];
-        let points: Coord[] = [
-            [-3, 4],
-            [-2.75, 2.5],
-            [0, 0.25],
-            center,
-            [0, -0.25],
-            [-2.75, -2.5],
-            [-3, -4],
-        ];
-
-        // Scale points by `Arrowhead.scale` around (0.75, 0)
-        points = _.map(points, function (point) {
-            const pv = kvector.subtract(point, center);
-            const pvScaled = kvector.scale(pv, Arrowhead.scale);
-            return kvector.add(center, pvScaled);
-        });
-
-        // We can't just pass in a path to `graph.fixedPath` as we need to modify
-        // the points in some way, so instead we provide a function for creating
-        // the path once the points have been transformed
-        const createCubicPath = function (points) {
-            let path = "M" + points[0][0] + " " + points[0][1];
-            for (let i = 1; i < points.length; i += 3) {
-                path +=
-                    "C" +
-                    points[i][0] +
-                    " " +
-                    points[i][1] +
-                    " " +
-                    points[i + 1][0] +
-                    " " +
-                    points[i + 1][1] +
-                    " " +
-                    points[i + 2][0] +
-                    " " +
-                    points[i + 2][1];
-            }
-            return path;
-        };
-
-        const unscaledPoints = _.map(points, graphie.unscalePoint);
-
-        super(graphie, unscaledPoints, {
-            center: graphie.unscalePoint(center),
-            createPath: createCubicPath,
-        })
-
-        this.center = center;
-        this.attr(
-            _.extend(
-                {
-                    "stroke-linejoin": "round",
-                    "stroke-linecap": "round",
-                    "stroke-dasharray": "",
-                },
-                style,
-            ),
-        );
-    }
-
-    toCoordAtAngle(coord: Coord, angle: number) {
-        const clipPoint = this.graphie.scalePoint(getClipPoint(this.graphie, coord, angle));
-        this.transform(
-            "translateX(" +
-            (clipPoint[0] + Arrowhead.scale * this.center[0]) +
-            "px) " +
-            "translateY(" +
-            (clipPoint[1] + Arrowhead.scale * this.center[1]) +
-            "px) " +
-            "translateZ(0) " +
-            "rotate(" +
-            (360 - KhanMath.bound(angle)) +
-            "deg)",
-        );
-    };
-}
 
 /**
  * MovableLine option functions
