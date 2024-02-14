@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import {WrappedDefaultsOld} from "./wrapped-defaults";
+import WrappedDefaults from "./wrapped-defaults";
 
 import type {Coord} from "./types";
 
@@ -10,42 +10,43 @@ const DEFAULT_OPTIONS = {
     mouselayer: false,
 } as const;
 
-const WrappedPath = function (
-    graphie: any,
-    points: ReadonlyArray<Coord>,
-    options: any,
-) {
-    options = _.extend({}, DEFAULT_OPTIONS, options);
+class WrappedPath extends WrappedDefaults {
+    wrapper: HTMLDivElement;
+    visibleShape: {
+        /*
+         * These functions, when called on the wrapped object, simply pass the
+         * arguments to the underlying Raphael object.
+         */
+        attr: (...args: any[]) => void;
+        animate: (...args: any[]) => void;
+        remove: () => void;
+        hide: () => void;
+        show: () => void;
+    };
+    constructor(
+        graphie: any,
+        points: ReadonlyArray<Coord>,
+        options: any,
+    ) {
+        let initialPoint = graphie.scalePoint(_.head(points));
+        super(graphie, initialPoint)
+        options = _.extend({}, DEFAULT_OPTIONS, options);
 
-    // Add `wrapper` and `visibleShape`
-    _.extend(
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this,
-        graphie.fixedPath(points, options.center, options.createPath),
-    );
+        let fixedPath = graphie.fixedPath(points, options.center, options.createPath);
+        this.wrapper = fixedPath.wrapper
+        this.visibleShape = fixedPath.visibleShape
 
-    // Add remaining properties
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    _.extend(this, {
-        graphie: graphie,
-        initialPoint: graphie.scalePoint(_.head(points)),
-    });
+        // Add to appropriate graphie layer
+        if (options.mouselayer) {
+            // Disable browser handling of all panning and zooming gestures on the
+            // movable wrapper so that when moved the browser does not scroll page
+            this.wrapper.style.touchAction = "none";
 
-    // Add to appropriate graphie layer
-    if (options.mouselayer) {
-        // Disable browser handling of all panning and zooming gestures on the
-        // movable wrapper so that when moved the browser does not scroll page
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this.wrapper.style.touchAction = "none";
-
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this.graphie.addToMouseLayerWrapper(this.wrapper);
-    } else {
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this.graphie.addToVisibleLayerWrapper(this.wrapper);
+            this.graphie.addToMouseLayerWrapper(this.wrapper);
+        } else {
+            this.graphie.addToVisibleLayerWrapper(this.wrapper);
+        }
     }
-};
-
-_.extend(WrappedPath.prototype, WrappedDefaultsOld);
+}
 
 export default WrappedPath;
