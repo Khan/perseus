@@ -6,6 +6,11 @@ import type {Coord} from "./interactive2/types";
 export type Range = [number, number];
 export type Size = [number, number];
 
+type StyleParams = {
+    fill?: string;
+    stroke?: string;
+};
+
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
 
@@ -552,6 +557,17 @@ export type PerseusInteractiveGraphWidgetOptions = {
     graph: PerseusGraphType;
     // The correct kind of graph, if being used to select function type
     correct: PerseusGraphType;
+    // Shapes (points, chords, etc) displayed on the graph that cannot
+    // be moved by the user.
+    lockedShapes?: ReadonlyArray<LockedShape>;
+};
+
+export type LockedShape = LockedPoint;
+
+export type LockedPoint = {
+    type: "point";
+    coord: Coord;
+    style?: StyleParams;
 };
 
 export type PerseusGraphType =
