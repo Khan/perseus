@@ -2,7 +2,7 @@ import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util";
-import WrappedDefaults, { VisibleShape } from "./wrapped-defaults";
+import WrappedShape, { VisibleShape } from "./wrapped-shape";
 
 import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
@@ -14,7 +14,7 @@ const DEFAULT_OPTIONS = {
     disableMouseEventsOnWrapper: false,
 } as const;
 
-class WrappedEllipse extends WrappedDefaults {
+class WrappedEllipse extends WrappedShape {
     graphie: Graphie;
     initialPoint: Coord;
     wrapper: HTMLDivElement;

@@ -4,7 +4,7 @@ import _ from "underscore";
 import KhanMath from "../util/math";
 
 import InteractiveUtil from "./interactive-util";
-import WrappedDefaults, { VisibleShape } from "./wrapped-defaults";
+import WrappedShape, { VisibleShape } from "./wrapped-shape";
 
 import type {Coord} from "./types";
 
@@ -13,7 +13,7 @@ const DEFAULT_OPTIONS = {
     mouselayer: false,
 } as const;
 
-class WrappedLine extends WrappedDefaults {
+class WrappedLine extends WrappedShape {
     initialLength: number;
     wrapper: HTMLDivElement;
     visibleShape: VisibleShape;

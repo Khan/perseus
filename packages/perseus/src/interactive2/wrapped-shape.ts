@@ -23,7 +23,7 @@ export interface VisibleShape {
     show: () => void;
 }
 
-export default abstract class WrappedDefaults {
+export default abstract class WrappedShape {
     graphie: Graphie;
     abstract wrapper: HTMLDivElement;
     abstract visibleShape: VisibleShape;

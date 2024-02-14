@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import WrappedDefaults, { VisibleShape } from "./wrapped-defaults";
+import WrappedShape, { VisibleShape } from "./wrapped-shape";
 
 import type {Coord} from "./types";
 
@@ -10,7 +10,7 @@ const DEFAULT_OPTIONS = {
     mouselayer: false,
 } as const;
 
-class WrappedPath extends WrappedDefaults {
+class WrappedPath extends WrappedShape {
     wrapper: HTMLDivElement;
     visibleShape: VisibleShape;
 
