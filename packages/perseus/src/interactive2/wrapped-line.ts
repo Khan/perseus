@@ -4,16 +4,17 @@ import _ from "underscore";
 import KhanMath from "../util/math";
 
 import InteractiveUtil from "./interactive-util";
-import WrappedShape, { VisibleShape } from "./wrapped-shape";
+import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
+import type {VisibleShape} from "./wrapped-drawing";
 
 const DEFAULT_OPTIONS = {
     thickness: 2,
     mouselayer: false,
 } as const;
 
-class WrappedLine extends WrappedShape {
+class WrappedLine extends WrappedDrawing {
     initialLength: number;
     wrapper: HTMLDivElement;
     visibleShape: VisibleShape;

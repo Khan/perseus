@@ -1,8 +1,9 @@
 import _ from "underscore";
 
-import WrappedShape, { VisibleShape } from "./wrapped-shape";
+import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
+import type {VisibleShape} from "./wrapped-drawing";
 
 const DEFAULT_OPTIONS = {
     center: null, // gets ignored in `graphie.fixedPath` if `null`
@@ -10,7 +11,7 @@ const DEFAULT_OPTIONS = {
     mouselayer: false,
 } as const;
 
-class WrappedPath extends WrappedShape {
+class WrappedPath extends WrappedDrawing {
     wrapper: HTMLDivElement;
     visibleShape: VisibleShape;
 
