@@ -334,7 +334,9 @@ class Graph extends React.Component<Props> {
                         break;
                     default:
                         // Ensure that we've handled all locked shape types
-                        // at development time.
+                        // at development time. Remove this after all the
+                        // locked shape types are implemented.
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                         const exhaustiveCheck: never = lockedShape.type;
                         throw new Error(
                             `Unknown locked shape type: ${lockedShape.type}`,
