@@ -23,18 +23,18 @@ class WrappedPath extends WrappedDefaults {
         hide: () => void;
         show: () => void;
     };
-    constructor(
-        graphie: any,
-        points: ReadonlyArray<Coord>,
-        options: any,
-    ) {
-        let initialPoint = graphie.scalePoint(_.head(points));
-        super(graphie, initialPoint)
+    constructor(graphie: any, points: ReadonlyArray<Coord>, options: any) {
+        const initialPoint = graphie.scalePoint(_.head(points));
+        super(graphie, initialPoint);
         options = _.extend({}, DEFAULT_OPTIONS, options);
 
-        let fixedPath = graphie.fixedPath(points, options.center, options.createPath);
-        this.wrapper = fixedPath.wrapper
-        this.visibleShape = fixedPath.visibleShape
+        const fixedPath = graphie.fixedPath(
+            points,
+            options.center,
+            options.createPath,
+        );
+        this.wrapper = fixedPath.wrapper;
+        this.visibleShape = fixedPath.visibleShape;
 
         // Add to appropriate graphie layer
         if (options.mouselayer) {
