@@ -23,6 +23,7 @@ class WrappedPath extends WrappedDefaults {
         hide: () => void;
         show: () => void;
     };
+
     constructor(graphie: any, points: ReadonlyArray<Coord>, options: any) {
         const initialPoint = graphie.scalePoint(_.head(points));
         super(graphie, initialPoint);

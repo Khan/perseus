@@ -5,10 +5,8 @@
 
 import {vector as kvector} from "@khanacademy/kmath";
 import $ from "jquery";
-import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util";
-import objective_ from "./objective_";
 
 import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
