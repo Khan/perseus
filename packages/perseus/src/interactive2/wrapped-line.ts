@@ -4,7 +4,7 @@ import _ from "underscore";
 import KhanMath from "../util/math";
 
 import InteractiveUtil from "./interactive-util";
-import WrappedDefaults from "./wrapped-defaults";
+import WrappedDefaults, { VisibleShape } from "./wrapped-defaults";
 
 import type {Coord} from "./types";
 
@@ -16,17 +16,7 @@ const DEFAULT_OPTIONS = {
 class WrappedLine extends WrappedDefaults {
     initialLength: number;
     wrapper: HTMLDivElement;
-    visibleShape: {
-        /*
-         * These functions, when called on the wrapped object, simply pass the
-         * arguments to the underlying Raphael object.
-         */
-        attr: (...args: any[]) => void;
-        animate: (...args: any[]) => void;
-        remove: () => void;
-        hide: () => void;
-        show: () => void;
-    };
+    visibleShape: VisibleShape;
 
     constructor(graphie: any, start: Coord, end: Coord, options: any) {
         // Always make the line as large as possible and horizontal; this

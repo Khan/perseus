@@ -11,20 +11,22 @@ import InteractiveUtil from "./interactive-util";
 import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
 
+/*
+ * attr() and animate() simply pass the
+ * arguments to the underlying Raphael object.
+ */
+export interface VisibleShape {
+    attr: (...args: any[]) => void;
+    animate: (...args: any[]) => void;
+    remove: () => void;
+    hide: () => void;
+    show: () => void;
+}
+
 export default abstract class WrappedDefaults {
     graphie: Graphie;
     abstract wrapper: HTMLDivElement;
-    abstract visibleShape: {
-        /*
-         * These functions, when called on the wrapped object, simply pass the
-         * arguments to the underlying Raphael object.
-         */
-        attr: (...args: any[]) => void;
-        animate: (...args: any[]) => void;
-        remove: () => void;
-        hide: () => void;
-        show: () => void;
-    };
+    abstract visibleShape: VisibleShape;
     initialPoint: Coord;
 
     constructor(graphie: Graphie, initialPoint: Coord) {

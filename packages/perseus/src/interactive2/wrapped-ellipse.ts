@@ -2,7 +2,7 @@ import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util";
-import WrappedDefaults from "./wrapped-defaults";
+import WrappedDefaults, { VisibleShape } from "./wrapped-defaults";
 
 import type {Coord} from "./types";
 import type {Graphie} from "../util/graphie";
@@ -18,17 +18,7 @@ class WrappedEllipse extends WrappedDefaults {
     graphie: Graphie;
     initialPoint: Coord;
     wrapper: HTMLDivElement;
-    visibleShape: {
-        /*
-         * These functions, when called on the wrapped object, simply pass the
-         * arguments to the underlying Raphael object.
-         */
-        attr: (...args: any[]) => void;
-        animate: (...args: any[]) => void;
-        remove: () => void;
-        hide: () => void;
-        show: () => void;
-    };
+    visibleShape: VisibleShape;
 
     constructor(
         graphie: any,

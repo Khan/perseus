@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import WrappedDefaults from "./wrapped-defaults";
+import WrappedDefaults, { VisibleShape } from "./wrapped-defaults";
 
 import type {Coord} from "./types";
 
@@ -12,17 +12,7 @@ const DEFAULT_OPTIONS = {
 
 class WrappedPath extends WrappedDefaults {
     wrapper: HTMLDivElement;
-    visibleShape: {
-        /*
-         * These functions, when called on the wrapped object, simply pass the
-         * arguments to the underlying Raphael object.
-         */
-        attr: (...args: any[]) => void;
-        animate: (...args: any[]) => void;
-        remove: () => void;
-        hide: () => void;
-        show: () => void;
-    };
+    visibleShape: VisibleShape;
 
     constructor(graphie: any, points: ReadonlyArray<Coord>, options: any) {
         const initialPoint = graphie.scalePoint(_.head(points));
