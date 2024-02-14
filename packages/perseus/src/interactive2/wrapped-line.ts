@@ -4,7 +4,7 @@ import _ from "underscore";
 import KhanMath from "../util/math";
 
 import InteractiveUtil from "./interactive-util";
-import WrappedDefaults from "./wrapped-defaults";
+import {WrappedDefaultsOld} from "./wrapped-defaults";
 
 import type {Coord} from "./types";
 
@@ -75,7 +75,7 @@ const WrappedLine = function (
     this.moveTo(start, end);
 };
 
-_.extend(WrappedLine.prototype, WrappedDefaults, {
+_.extend(WrappedLine.prototype, WrappedDefaultsOld, {
     getMouseTarget: function () {
         return this.wrapper;
     },

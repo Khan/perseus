@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import WrappedDefaults from "./wrapped-defaults";
+import {WrappedDefaultsOld} from "./wrapped-defaults";
 
 import type {Coord} from "./types";
 
@@ -46,6 +46,6 @@ const WrappedPath = function (
     }
 };
 
-_.extend(WrappedPath.prototype, WrappedDefaults);
+_.extend(WrappedPath.prototype, WrappedDefaultsOld);
 
 export default WrappedPath;

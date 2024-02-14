@@ -5,7 +5,7 @@ import InteractiveUtil from "./interactive-util";
 import WrappedDefaults from "./wrapped-defaults";
 
 import type {Coord} from "./types";
-import {Graphie} from "../util/graphie";
+import type {Graphie} from "../util/graphie";
 
 const DEFAULT_OPTIONS = {
     maxScale: 1,
@@ -14,9 +14,21 @@ const DEFAULT_OPTIONS = {
     disableMouseEventsOnWrapper: false,
 } as const;
 
-class WrappedEllipse {
-    graphie: Graphie
-    initialPoint: Coord
+class WrappedEllipse extends WrappedDefaults {
+    graphie: Graphie;
+    initialPoint: Coord;
+    wrapper: HTMLDivElement;
+    visibleShape: {
+        /*
+         * These functions, when called on the wrapped object, simply pass the
+         * arguments to the underlying Raphael object.
+         */
+        attr: (...args: any[]) => void;
+        animate: (...args: any[]) => void;
+        remove: () => void;
+        hide: () => void;
+        show: () => void;
+    };
 
     constructor(
         graphie: any,
@@ -24,6 +36,7 @@ class WrappedEllipse {
         radii: [number, number],
         options: any,
     ) {
+        super(graphie, center);
         options = _.extend({}, DEFAULT_OPTIONS, options);
 
         // Add `wrapper`, `visibleShape`, and remaining properties.
@@ -33,12 +46,12 @@ class WrappedEllipse {
             options.maxScale,
             options.padding,
         );
+        this.visibleShape = fixedEllipse.visibleShape;
+        this.wrapper = fixedEllipse.wrapper;
         this.graphie = graphie;
         this.initialPoint = center;
-        _.extend(this, fixedEllipse);
 
         if (options.interactiveKindForTesting) {
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.wrapper.setAttribute(
                 "data-interactive-kind-for-testing",
                 options.interactiveKindForTesting,
@@ -49,23 +62,18 @@ class WrappedEllipse {
         if (options.mouselayer) {
             // Disable browser handling of all panning and zooming gestures on the
             // movable wrapper so that when moved the browser does not scroll page
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.wrapper.style.touchAction = "none";
 
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.graphie.addToMouseLayerWrapper(this.wrapper);
         } else {
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.graphie.addToVisibleLayerWrapper(this.wrapper);
         }
 
         if (options.shadow) {
             const filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             const wrapper = this.wrapper;
             wrapper.style.filter = filter;
 
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.moveTo = function (point: any) {
                 const delta = kvector.subtract(
                     this.graphie.scalePoint(point),
@@ -80,20 +88,16 @@ class WrappedEllipse {
                     Math.round(delta[1]) +
                     "px)" +
                     (do3dTransform ? " translateZ(0)" : "");
-                // @ts-expect-error // FIXME
                 this.transform(transform);
             };
         }
 
         if (options.disableMouseEventsOnWrapper) {
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.wrapper.style.pointerEvents = "none";
             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.visibleShape.node.style.pointerEvents = "auto";
         }
     }
 }
-
-_.extend(WrappedEllipse.prototype, WrappedDefaults);
 
 export default WrappedEllipse;
