@@ -16,7 +16,6 @@ const DEFAULT_OPTIONS = {
 } as const;
 
 class WrappedEllipse extends WrappedDrawing {
-    graphie: Graphie;
     initialPoint: Coord;
     wrapper: HTMLDivElement;
     visibleShape: VisibleShape;
