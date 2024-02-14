@@ -82,7 +82,7 @@ export const ItemExtras = [
     // The user might benefit from using a statistics Z Table like https://www.ztable.net/
     "zTable",
 ] as const;
-export type PerseusAnswerArea = Record<typeof ItemExtras[number], boolean>;
+export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
 type Widget<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
@@ -362,7 +362,7 @@ export type PerseusExpressionAnswerForm = {
     // The answer expression must be fully expanded and simplified
     simplify: boolean;
     // Whether the form is considered "correct", "wrong", or "ungraded"
-    considered: typeof PerseusExpressionAnswerFormConsidered[number];
+    considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
     // A key to identify the answer form in a list
     // NOTE: perseus-format.js says this is required even though it isn't necessary.
     key?: string;
@@ -871,7 +871,7 @@ export const plotterPlotTypes = [
     "histogram",
     "dotplot",
 ] as const;
-export type PlotType = typeof plotterPlotTypes[number];
+export type PlotType = (typeof plotterPlotTypes)[number];
 
 export type PerseusPlotterWidgetOptions = {
     // Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"]
