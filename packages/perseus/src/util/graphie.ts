@@ -1522,6 +1522,7 @@ export class Graphie {
 
         // Add functions for adding to wrappers
         this.addToMouseLayerWrapper = (el: any) => {
+            // Option 1: create React root wrapping el in ClickableBehavior
             this._mouselayerWrapper?.appendChild(el);
         };
         this.addToVisibleLayerWrapper = (el: any) => {
