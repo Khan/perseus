@@ -34,29 +34,6 @@ export class Arrowhead extends WrappedPath {
             return kvector.add(center, pvScaled);
         });
 
-        // We can't just pass in a path to `graph.fixedPath` as we need to modify
-        // the points in some way, so instead we provide a function for creating
-        // the path once the points have been transformed
-        const createCubicPath = function (points) {
-            let path = "M" + points[0][0] + " " + points[0][1];
-            for (let i = 1; i < points.length; i += 3) {
-                path +=
-                    "C" +
-                    points[i][0] +
-                    " " +
-                    points[i][1] +
-                    " " +
-                    points[i + 1][0] +
-                    " " +
-                    points[i + 1][1] +
-                    " " +
-                    points[i + 2][0] +
-                    " " +
-                    points[i + 2][1];
-            }
-            return path;
-        };
-
         const unscaledPoints = points.map(graphie.unscalePoint);
 
         super(graphie, unscaledPoints, {
@@ -95,3 +72,26 @@ export class Arrowhead extends WrappedPath {
         );
     }
 }
+
+// We can't just pass in a path to `graph.fixedPath` as we need to modify
+// the points in some way, so instead we provide a function for creating
+// the path once the points have been transformed
+const createCubicPath = function (points: Coord[]): string {
+    let path = "M" + points[0][0] + " " + points[0][1];
+    for (let i = 1; i < points.length; i += 3) {
+        path +=
+            "C" +
+            points[i][0] +
+            " " +
+            points[i][1] +
+            " " +
+            points[i + 1][0] +
+            " " +
+            points[i + 1][1] +
+            " " +
+            points[i + 2][0] +
+            " " +
+            points[i + 2][1];
+    }
+    return path;
+};
