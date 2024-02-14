@@ -4,7 +4,7 @@ import _ from "underscore";
 import KhanMath from "../util/math";
 
 import InteractiveUtil from "./interactive-util";
-import {WrappedDefaultsOld} from "./wrapped-defaults";
+import WrappedDefaults from "./wrapped-defaults";
 
 import type {Coord} from "./types";
 
@@ -13,74 +13,79 @@ const DEFAULT_OPTIONS = {
     mouselayer: false,
 } as const;
 
-const WrappedLine = function (
-    graphie: any,
-    start: Coord,
-    end: Coord,
-    options: any,
-) {
-    options = _.extend({}, DEFAULT_OPTIONS, options);
+class WrappedLine extends WrappedDefaults {
+    initialLength: number;
+    wrapper: HTMLDivElement;
+    visibleShape: {
+        /*
+         * These functions, when called on the wrapped object, simply pass the
+         * arguments to the underlying Raphael object.
+         */
+        attr: (...args: any[]) => void;
+        animate: (...args: any[]) => void;
+        remove: () => void;
+        hide: () => void;
+        show: () => void;
+    };
 
-    // Always make the line as large as possible and horizontal; this
-    // simplifies a lot of the transforms, e.g., we can rotate by exactly the
-    // angle of the argument points in `moveTo`.
-    const initialStart = [graphie.range[0][0], 0];
-    const initialEnd = [graphie.range[0][1], 0];
+    constructor(graphie: any, start: Coord, end: Coord, options: any) {
+        // Always make the line as large as possible and horizontal; this
+        // simplifies a lot of the transforms, e.g., we can rotate by exactly the
+        // angle of the argument points in `moveTo`.
+        const initialStart = [graphie.range[0][0], 0];
+        const initialEnd = [graphie.range[0][1], 0];
+        const initialPoint = graphie.scalePoint(initialStart);
+        super(graphie, initialPoint);
+        options = _.extend({}, DEFAULT_OPTIONS, options);
 
-    // Add `wrapper` and `visibleShape`
-    _.extend(
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this,
-        graphie.fixedLine(initialStart, initialEnd, options.thickness),
-    );
-
-    if (options.interactiveKindForTesting) {
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this.wrapper.setAttribute(
-            "data-interactive-kind-for-testing",
-            options.interactiveKindForTesting,
+        const fixedLine = graphie.fixedLine(
+            initialStart,
+            initialEnd,
+            options.thickness,
         );
-    }
+        this.wrapper = fixedLine.wrapper;
+        this.visibleShape = fixedLine.visibleShape;
 
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.visibleShape.attr(options.normalStyle);
+        if (options.interactiveKindForTesting) {
+            this.wrapper.setAttribute(
+                "data-interactive-kind-for-testing",
+                options.interactiveKindForTesting,
+            );
+        }
 
-    // Save properties for computing transformations
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    _.extend(this, {
-        graphie: graphie,
-        initialPoint: graphie.scalePoint(initialStart),
-        initialLength: kpoint.distanceToPoint(
+        this.visibleShape.attr(options.normalStyle);
+
+        // Save properties for computing transformations
+        this.initialPoint = initialPoint;
+        this.initialLength = kpoint.distanceToPoint(
             graphie.scalePoint(initialStart),
             graphie.scalePoint(initialEnd),
-        ),
-    });
+        );
 
-    // Add to appropriate graphie layer
-    if (options.mouselayer) {
-        // Disable browser handling of all panning and zooming gestures on the
-        // movable wrapper so that when moved the browser does not scroll page
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this.wrapper.style.touchAction = "none";
+        // Add to appropriate graphie layer
+        if (options.mouselayer) {
+            // Disable browser handling of all panning and zooming gestures on the
+            // movable wrapper so that when moved the browser does not scroll page
+            this.wrapper.style.touchAction = "none";
 
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this.graphie.addToMouseLayerWrapper(this.wrapper);
-    } else {
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this.graphie.addToVisibleLayerWrapper(this.wrapper);
+            this.graphie.addToMouseLayerWrapper(this.wrapper);
+        } else {
+            this.graphie.addToVisibleLayerWrapper(this.wrapper);
+        }
+
+        // Move line to initial points
+        this.moveTo(start, end);
     }
 
-    // Move to argument points
-    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.moveTo(start, end);
-};
-
-_.extend(WrappedLine.prototype, WrappedDefaultsOld, {
-    getMouseTarget: function () {
+    getMouseTarget() {
         return this.wrapper;
-    },
+    }
 
-    moveTo: function (start, end) {
+    // TODO(benchristel): we need to suppress a type error here because moveTo
+    // takes 2 parameters here, but only 1 parameter in the superclass's
+    // definition. Rename this method after confirming it's safe to do so
+    // @ts-expect-error - TS2416: Property 'moveTo' in type 'WrappedLine' is not assignable to the same property in base type 'WrappedDefaults'.
+    moveTo(start, end) {
         const scaledStart = this.graphie.scalePoint(start);
         const scaledEnd = this.graphie.scalePoint(end);
 
@@ -110,7 +115,7 @@ _.extend(WrappedLine.prototype, WrappedDefaultsOld, {
             scale +
             ") scaleY(1)";
         this.transform(transformation);
-    },
-});
+    }
+}
 
 export default WrappedLine;
