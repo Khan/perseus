@@ -1,5 +1,12 @@
 # @khanacademy/perseus-linter
 
+## 0.3.12
+
+### Patch Changes
+
+-   Updated dependencies [[`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639)]:
+    -   @khanacademy/perseus-error@0.2.11
+
 ## 0.3.11
 
 ### Patch Changes
