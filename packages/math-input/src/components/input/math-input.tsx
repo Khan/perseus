@@ -626,9 +626,15 @@ class MathInput extends React.Component<Props, State> {
             this.focus();
         }
 
+<<<<<<< HEAD
         // If the user clicked on the input using a mouse or tap gesture,
         // we want to set the focus to the inputRef so that the keyUp
         // event will be triggered when the user types on the keyboard.
+=======
+        // If the user clicked on the input using a mouse, we want to
+        // set the focus to the inputRef so that the keyUp event will
+        // be triggered when the user types on the keyboard.
+>>>>>>> 92f3bd38 (Fix for the issue where keyboard events were not firing when the user uses a mouse to click into the input.)
         // This is necessary to support Chromebooks as they use mobile user
         // agents, do not simulate touch events, and have physical keyboards.
         this.inputRef?.focus();
@@ -668,9 +674,15 @@ class MathInput extends React.Component<Props, State> {
             this.focus();
         }
 
+<<<<<<< HEAD
         // If the user clicked on the input using a mouse or tap gesture,
         // we want to set the focus to the inputRef so that the keyUp
         // event will be triggered when the user types on the keyboard.
+=======
+        // If the user clicked on the input using a mouse, we want to
+        // set the focus to the inputRef so that the keyUp event will
+        // be triggered when the user types on the keyboard.
+>>>>>>> 92f3bd38 (Fix for the issue where keyboard events were not firing when the user uses a mouse to click into the input.)
         // This is necessary to support Chromebooks as they use mobile user
         // agents, do not simulate touch events, and have physical keyboards.
         this.inputRef?.focus();
