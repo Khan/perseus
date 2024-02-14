@@ -16,7 +16,8 @@ export class Arrowhead extends WrappedPath {
     constructor(graphie: Graphie, style: any) {
         // Points that define the arrowhead
         const center: Coord = [0.75, 0];
-        let points: Coord[] = [
+
+        const points = [
             [-3, 4],
             [-2.75, 2.5],
             [0, 0.25],
@@ -24,10 +25,8 @@ export class Arrowhead extends WrappedPath {
             [0, -0.25],
             [-2.75, -2.5],
             [-3, -4],
-        ];
-
-        // Scale points by `Arrowhead.scale` around `center`
-        points = _.map(points, function (point) {
+        ].map((point) => {
+            // Scale points by `Arrowhead.scale` around `center`
             const pv = kvector.subtract(point, center);
             const pvScaled = kvector.scale(pv, Arrowhead.scale);
             return kvector.add(center, pvScaled);
