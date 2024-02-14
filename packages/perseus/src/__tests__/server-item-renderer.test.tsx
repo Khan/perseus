@@ -11,7 +11,7 @@ import {
 import {
     itemWithInput,
     itemWithLintingError,
-    itemWithMultipleInputNumbers,
+    itemWithNumericAndNumberInputs,
     mockedItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
@@ -138,7 +138,7 @@ describe("server item renderer", () => {
     it("calls onInteraction callback with the current user data", () => {
         // Arrange
         const interactionCallback = jest.fn();
-        renderQuestion(itemWithMultipleInputNumbers, {
+        renderQuestion(itemWithNumericAndNumberInputs, {
             interactionCallback,
         });
 
@@ -151,7 +151,7 @@ describe("server item renderer", () => {
         // Assert
         expect(interactionCallback).toHaveBeenCalledWith({
             "input-number 1": {currentValue: "1"},
-            "input-number 2": {currentValue: "2"},
+            "numeric-input 1": {currentValue: "2"},
         });
     });
 

@@ -7,7 +7,7 @@ import {
     itemWithLintingError,
     labelImageItem,
     itemWithMultipleInputNumbers,
-    itemWithMultipleWidgetTypes,
+    itemWithRadioAndExpressionWidgets,
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
 
@@ -67,7 +67,7 @@ export const MultiWidgetWithInteractionCallback = (
 ): React.ReactElement => {
     return (
         <ServerItemRendererWithDebugUI
-            item={itemWithMultipleWidgetTypes}
+            item={itemWithRadioAndExpressionWidgets}
             apiOptions={{
                 interactionCallback: (data) => {
                     // We are logging the interaction callback data to the console

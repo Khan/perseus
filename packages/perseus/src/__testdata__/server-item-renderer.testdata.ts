@@ -7,6 +7,7 @@ import {
     type PerseusAnswerArea,
     type ExpressionWidget,
     type RadioWidget,
+    type NumericInputWidget,
 } from "../perseus-types";
 
 export const itemWithInput: PerseusItem = {
@@ -83,7 +84,60 @@ export const itemWithMultipleInputNumbers: PerseusItem = {
     answer: null,
 };
 
-export const itemWithMultipleWidgetTypes: PerseusItem = {
+export const itemWithNumericAndNumberInputs: PerseusItem = {
+    question: {
+        content:
+            "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 1]]",
+        images: {},
+        widgets: {
+            "input-number 1": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "1",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
+            "numeric-input 1": {
+                graded: true,
+                static: false,
+                type: "numeric-input",
+                options: {
+                    coefficient: false,
+                    static: false,
+                    answers: [
+                        {
+                            status: "correct",
+                            maxError: null,
+                            strict: false,
+                            value: 1252,
+                            simplify: "required",
+                            message: "",
+                        },
+                    ],
+                    labelText: "",
+                    size: "normal",
+                },
+                alignment: "default",
+            } as NumericInputWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    _multi: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+export const itemWithRadioAndExpressionWidgets: PerseusItem = {
     question: {
         content:
             "Here's a radio widget: [[\u2603 radio 1]] \n\n Here's an expression widget: [[\u2603 expression 1]]",
