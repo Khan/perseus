@@ -21,10 +21,9 @@ import _ from "underscore";
 // (this should have no impact in the browser)
 // eslint-disable-next-line import/no-unassigned-import
 import "../jquery.mobile.vmouse";
-import InteractiveUtil from "../interactive2/interactive-util";
+import {Arrowhead} from "../interactive2/arrowhead";
 import WrappedEllipse from "../interactive2/wrapped-ellipse";
 import WrappedLine from "../interactive2/wrapped-line";
-import WrappedPath from "../interactive2/wrapped-path";
 import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 
@@ -36,8 +35,6 @@ import KhanMath from "./math";
 import type {Coord} from "../interactive2/types";
 
 export type MouseHandler = (position: Coord) => void;
-
-const {getCanUse3dTransform} = InteractiveUtil;
 
 function scaledDistanceFromAngle(angle: number) {
     const a = 3.51470560176242 * 20;
@@ -1187,102 +1184,15 @@ _.extend(GraphUtils.Graphie.prototype, {
                 element.moveTo(start, end);
             });
 
-            const createArrow = function (graph: any, style) {
-                const center = [0.75, 0];
-                let points = [
-                    [-3, 4],
-                    [-2.75, 2.5],
-                    [0, 0.25],
-                    center,
-                    [0, -0.25],
-                    [-2.75, -2.5],
-                    [-3, -4],
-                ];
-
-                const scale = 1.4;
-                points = _.map(points, function (point) {
-                    const pv = kvector.subtract(point, center);
-                    const pvScaled = kvector.scale(pv, scale);
-                    return kvector.add(center, pvScaled);
-                });
-
-                const createCubicPath = function (points: any) {
-                    let path = "M" + points[0][0] + " " + points[0][1];
-                    for (let i = 1; i < points.length; i += 3) {
-                        path +=
-                            "C" +
-                            points[i][0] +
-                            " " +
-                            points[i][1] +
-                            " " +
-                            points[i + 1][0] +
-                            " " +
-                            points[i + 1][1] +
-                            " " +
-                            points[i + 2][0] +
-                            " " +
-                            points[i + 2][1];
-                    }
-                    return path;
-                };
-
-                const unscaledPoints = _.map(points, graph.unscalePoint);
-                const options = {
-                    center: graph.unscalePoint(center),
-                    createPath: createCubicPath,
-                } as const;
-                const arrowHead = new WrappedPath(
-                    graph,
-                    unscaledPoints,
-                    options,
-                );
-                arrowHead.attr(
-                    _.extend(
-                        {
-                            "stroke-linejoin": "round",
-                            "stroke-linecap": "round",
-                            "stroke-dasharray": "",
-                        },
-                        style,
-                    ),
-                );
-
-                // Add custom function for transforming arrowheads that
-                // accounts for center, scaling, etc.
-                arrowHead.toCoordAtAngle = function (
-                    coord: Coord,
-                    angle: number,
-                ): void {
-                    const clipPoint = graph.scalePoint(
-                        getClipPoint(graph, coord, angle),
-                    );
-                    const do3dTransform = getCanUse3dTransform();
-                    arrowHead.transform(
-                        "translateX(" +
-                            (clipPoint[0] + scale * center[0]) +
-                            "px) " +
-                            "translateY(" +
-                            (clipPoint[1] + scale * center[1]) +
-                            "px) " +
-                            (do3dTransform ? "translateZ(0) " : "") +
-                            "rotate(" +
-                            (360 - KhanMath.bound(angle)) +
-                            "deg)",
-                    );
-                };
-
-                return arrowHead;
-            };
-
             // Add arrows
             if (this._arrows == null) {
                 this._arrows = [];
 
                 if (this.extendLine) {
-                    this._arrows.push(createArrow(graph, this.normalStyle));
-                    this._arrows.push(createArrow(graph, this.normalStyle));
+                    this._arrows.push(new Arrowhead(graph, this.normalStyle));
+                    this._arrows.push(new Arrowhead(graph, this.normalStyle));
                 } else if (this.extendRay) {
-                    this._arrows.push(createArrow(graph, this.normalStyle));
+                    this._arrows.push(new Arrowhead(graph, this.normalStyle));
                 }
             }
 

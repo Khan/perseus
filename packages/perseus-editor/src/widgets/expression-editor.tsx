@@ -423,7 +423,7 @@ const findNextIn = function (arr: ReadonlyArray<string>, val: any) {
 };
 
 type AnswerOptionProps = {
-    considered: typeof PerseusExpressionAnswerFormConsidered[number];
+    considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
     expressionProps: any;
 
     // Must the answer have the same form as this answer.

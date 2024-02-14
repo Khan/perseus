@@ -38,7 +38,7 @@ describe("keypad", () => {
                     <Keypad
                         onClickKey={() => {}}
                         cursorContext={
-                            context as typeof CursorContext[keyof typeof CursorContext]
+                            context as (typeof CursorContext)[keyof typeof CursorContext]
                         }
                         onAnalyticsEvent={async () => {
                             /* TODO: verify correct analytics event sent */
