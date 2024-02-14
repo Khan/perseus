@@ -4,8 +4,7 @@ import type {Coord} from "@khanacademy/perseus";
 
 // Given `coord` and `angle`, find the point where a line extended
 // from `coord` in the direction of `angle` would be clipped by the
-// edge of the graphie canvas. Then draw an arrowhead at that point
-// pointing in the direction of `angle`.
+// edge of the graphie canvas.
 export const getClipPoint = function (graph, coord: Coord, angle: number) {
     // Actually put the arrowheads 4px from the edge so they have
     // a bit of room
