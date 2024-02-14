@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
-import {Coord} from "@khanacademy/perseus";
+
+import type {Coord} from "@khanacademy/perseus";
 
 // Given `coord` and `angle`, find the point where a line extended
 // from `coord` in the direction of `angle` would be clipped by the

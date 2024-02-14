@@ -1,14 +1,17 @@
 import {vector as kvector} from "@khanacademy/kmath";
-import WrappedPath from "./wrapped-path";
-import {Coord} from "@khanacademy/perseus";
-import {Graphie} from "../util/graphie";
 import _ from "underscore";
+
 import KhanMath from "../util/math";
+
 import {getClipPoint} from "./get-clip-point";
+import WrappedPath from "./wrapped-path";
+
+import type {Graphie} from "../util/graphie";
+import type {Coord} from "@khanacademy/perseus";
 
 export class Arrowhead extends WrappedPath {
-    private static scale: number = 1.4;
-    center: Coord
+    private static scale = 1.4;
+    center: Coord;
 
     constructor(graphie: Graphie, style: any) {
         // Points that define the arrowhead
@@ -58,7 +61,7 @@ export class Arrowhead extends WrappedPath {
         super(graphie, unscaledPoints, {
             center: graphie.unscalePoint(center),
             createPath: createCubicPath,
-        })
+        });
 
         this.center = center;
         this.attr(
@@ -74,20 +77,20 @@ export class Arrowhead extends WrappedPath {
     }
 
     toCoordAtAngle(coord: Coord, angle: number) {
-        const clipPoint = this.graphie.scalePoint(getClipPoint(this.graphie, coord, angle));
+        const clipPoint = this.graphie.scalePoint(
+            getClipPoint(this.graphie, coord, angle),
+        );
         this.transform(
             "translateX(" +
-            (clipPoint[0] + Arrowhead.scale * this.center[0]) +
-            "px) " +
-            "translateY(" +
-            (clipPoint[1] + Arrowhead.scale * this.center[1]) +
-            "px) " +
-            "translateZ(0) " +
-            "rotate(" +
-            (360 - KhanMath.bound(angle)) +
-            "deg)",
+                (clipPoint[0] + Arrowhead.scale * this.center[0]) +
+                "px) " +
+                "translateY(" +
+                (clipPoint[1] + Arrowhead.scale * this.center[1]) +
+                "px) " +
+                "translateZ(0) " +
+                "rotate(" +
+                (360 - KhanMath.bound(angle)) +
+                "deg)",
         );
-    };
+    }
 }
-
-

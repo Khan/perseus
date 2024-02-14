@@ -21,10 +21,9 @@ import _ from "underscore";
 // (this should have no impact in the browser)
 // eslint-disable-next-line import/no-unassigned-import
 import "../jquery.mobile.vmouse";
-import InteractiveUtil from "../interactive2/interactive-util";
+import {Arrowhead} from "../interactive2/arrowhead";
 import WrappedEllipse from "../interactive2/wrapped-ellipse";
 import WrappedLine from "../interactive2/wrapped-line";
-import WrappedPath from "../interactive2/wrapped-path";
 import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 
@@ -34,11 +33,8 @@ import GraphUtils, {polar} from "./graphie";
 import KhanMath from "./math";
 
 import type {Coord} from "../interactive2/types";
-import {Arrowhead} from "../interactive2/arrowhead";
 
 export type MouseHandler = (position: Coord) => void;
-
-const {getCanUse3dTransform} = InteractiveUtil;
 
 function scaledDistanceFromAngle(angle: number) {
     const a = 3.51470560176242 * 20;
