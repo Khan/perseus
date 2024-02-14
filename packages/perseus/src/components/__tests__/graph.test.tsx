@@ -27,6 +27,7 @@ describe("graph", () => {
                         [0, 10],
                         [0, 10],
                     ]}
+                    markings="none"
                     lockedShapes={[
                         {
                             type: "point" as const,
@@ -47,8 +48,8 @@ describe("graph", () => {
             expect(points[0].getAttribute("cx")).toBe("50");
             expect(points[0].getAttribute("cy")).toBe("50");
 
-            expect(points[1].getAttribute("cx")).toBe("50");
-            expect(points[1].getAttribute("cy")).toBe("50");
+            expect(points[1].getAttribute("cx")).toBe("10");
+            expect(points[1].getAttribute("cy")).toBe("10");
         });
     });
 });
