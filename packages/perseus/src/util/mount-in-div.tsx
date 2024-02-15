@@ -2,8 +2,8 @@ import * as React from "react";
 import {useLayoutEffect, useRef} from "react";
 
 type Props = {
-    element: HTMLElement
-}
+    element: HTMLElement;
+};
 
 export function MountInDiv(props: Props): React.ReactElement {
     const {element} = props;

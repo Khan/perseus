@@ -1,9 +1,9 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import * as React from "react";
-import {useLayoutEffect, useRef} from "react";
 import _ from "underscore";
 
+import {MountInDiv} from "../util/mount-in-div";
 import reactRender from "../util/react-render";
 
 import InteractiveUtil from "./interactive-util";
@@ -11,7 +11,6 @@ import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
 import type {VisibleShape} from "./wrapped-drawing";
-import {MountInDiv} from "../util/mount-in-div";
 
 const DEFAULT_OPTIONS = {
     maxScale: 1,
