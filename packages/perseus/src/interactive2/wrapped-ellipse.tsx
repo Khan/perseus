@@ -11,19 +11,7 @@ import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
 import type {VisibleShape} from "./wrapped-drawing";
-
-function MountInDiv(props): React.ReactElement {
-    const {element, style, onClick} = props;
-    const containerRef = useRef<HTMLDivElement>(null);
-    useLayoutEffect(() => {
-        if (containerRef.current != null) {
-            // labelFn(containerRef.current);
-            containerRef.current.innerHTML = "";
-            containerRef.current.appendChild(element);
-        }
-    }, [containerRef, element]);
-    return <div ref={containerRef} style={style} onClick={onClick} />;
-}
+import {MountInDiv} from "../util/mount-in-div";
 
 const DEFAULT_OPTIONS = {
     maxScale: 1,
