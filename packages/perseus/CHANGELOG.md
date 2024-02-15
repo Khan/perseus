@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 19.2.1
+
+### Patch Changes
+
+-   [#1001](https://github.com/Khan/perseus/pull/1001) [`f30c6639`](https://github.com/Khan/perseus/commit/f30c663941a21189f3520b7e38beda0e38320ed3) Thanks [@nishasy](https://github.com/nishasy)! - Expression widget is marked as `accessible` internally. This will stop disabling the "requires screen or mouse" checkbox in the exercise editor for exercises that use expression widget.
+
 ## 19.2.0
 
 ### Minor Changes
