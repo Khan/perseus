@@ -1,4 +1,4 @@
-import {KeypadContext, MobileKeypad} from "@khanacademy/math-input";
+import {KeypadContext} from "@khanacademy/math-input";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
@@ -7,7 +7,7 @@ import {question1, question2} from "../__testdata__/number-line.testdata";
 
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
-import type {PerseusAnswerArea, PerseusItem} from "../../perseus-types";
+import type {PerseusItem} from "../../perseus-types";
 
 export default {
     title: "Perseus/Widgets/Number Line",
