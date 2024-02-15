@@ -6,7 +6,7 @@ export const mathQuillStrings = {
     mathInputBox: i18n._("Math input box"),
     ariaStaticStringsMap: {
         before: (obj) => i18n._("before %(obj)s", {obj}),
-        after: (obj) => i18n._("after %(obj})s", {obj}),
+        after: (obj) => i18n._("after %(obj)s", {obj}),
         "beginning of": (obj) => i18n._("beginning of %(obj)s", {obj}),
         "end of": (obj) => i18n._("end of %(obj)s", {obj}),
         Baseline: i18n._("Baseline"),
