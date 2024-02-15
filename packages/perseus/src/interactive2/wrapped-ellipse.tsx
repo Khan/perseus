@@ -1,18 +1,19 @@
-import * as React from "react";
 import {vector as kvector} from "@khanacademy/kmath";
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import * as React from "react";
+import {useLayoutEffect, useRef} from "react";
 import _ from "underscore";
+
+import reactRender from "../util/react-render";
 
 import InteractiveUtil from "./interactive-util";
 import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
 import type {VisibleShape} from "./wrapped-drawing";
-import reactRender from "../util/react-render";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-import { useLayoutEffect, useRef } from "react";
 
 function MountInDiv(props): React.ReactElement {
-    const {element, style, onClick, labelFn} = props;
+    const {element, style, onClick} = props;
     const containerRef = useRef<HTMLElement>(null);
     useLayoutEffect(() => {
         if (containerRef.current != null) {
@@ -72,8 +73,13 @@ class WrappedEllipse extends WrappedDrawing {
 
             // Option 2: instead of addToMouseLayerWrapper(this.wrapper)
             // we could do addToMouseLayerWrapper(reactRoot)
-            const reactRoot = document.createElement("div")
-            reactRender(<Clickable>{() => <MountInDiv element={this.wrapper} />}</Clickable>, reactRoot);
+            const reactRoot = document.createElement("div");
+            reactRender(
+                <Clickable>
+                    {() => <MountInDiv element={this.wrapper} />}
+                </Clickable>,
+                reactRoot,
+            );
             this.graphie.addToMouseLayerWrapper(reactRoot);
         } else {
             this.graphie.addToVisibleLayerWrapper(this.wrapper);
