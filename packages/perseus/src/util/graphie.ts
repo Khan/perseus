@@ -46,7 +46,11 @@ interface RaphaelElement {
     };
 }
 
-type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
+type PositionedShape = {
+    wrapper: HTMLDivElement;
+    raphaelContainer: HTMLDivElement;
+    visibleShape: RaphaelElement;
+};
 
 export type StyleParams = {
     fill?: string;
@@ -736,10 +740,12 @@ export class Graphie {
                 left: left + "px",
                 top: top + "px",
             });
-            // wrapper.setAttribute("data-graphie-type", "ellipse");
+
+            const raphaelContainer = document.createElement("div");
+            wrapper.appendChild(raphaelContainer);
 
             // Create Raphael canvas
-            const localRaphael = Raphael(wrapper, width, height);
+            const localRaphael = Raphael(raphaelContainer, width, height);
             const visibleShape = localRaphael.ellipse(
                 width / 2,
                 height / 2,
@@ -748,8 +754,9 @@ export class Graphie {
             );
 
             return {
-                wrapper: wrapper,
-                visibleShape: visibleShape,
+                wrapper,
+                raphaelContainer,
+                visibleShape,
             };
         });
     }
@@ -834,6 +841,7 @@ export class Graphie {
 
         return {
             wrapper: wrapper,
+            raphaelContainer: wrapper,
             visibleShape: visibleShape,
         };
     }
@@ -925,6 +933,7 @@ export class Graphie {
 
         return {
             wrapper: wrapper,
+            raphaelContainer: wrapper,
             visibleShape: visibleShape,
         };
     }
@@ -1522,7 +1531,6 @@ export class Graphie {
 
         // Add functions for adding to wrappers
         this.addToMouseLayerWrapper = (el: any) => {
-            // Option 1: create React root wrapping el in ClickableBehavior
             this._mouselayerWrapper?.appendChild(el);
         };
         this.addToVisibleLayerWrapper = (el: any) => {

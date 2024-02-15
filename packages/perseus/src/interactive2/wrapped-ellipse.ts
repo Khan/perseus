@@ -1,29 +1,11 @@
 import {vector as kvector} from "@khanacademy/kmath";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-import * as React from "react";
-import {useLayoutEffect, useRef} from "react";
 import _ from "underscore";
-
-import reactRender from "../util/react-render";
 
 import InteractiveUtil from "./interactive-util";
 import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
 import type {VisibleShape} from "./wrapped-drawing";
-
-function MountInDiv(props): React.ReactElement {
-    const {element, style, onClick} = props;
-    const containerRef = useRef<HTMLDivElement>(null);
-    useLayoutEffect(() => {
-        if (containerRef.current != null) {
-            // labelFn(containerRef.current);
-            containerRef.current.innerHTML = "";
-            containerRef.current.appendChild(element);
-        }
-    }, [containerRef, element]);
-    return <div ref={containerRef} style={style} onClick={onClick} />;
-}
 
 const DEFAULT_OPTIONS = {
     maxScale: 1,
@@ -71,21 +53,6 @@ class WrappedEllipse extends WrappedDrawing {
             // movable wrapper so that when moved the browser does not scroll page
             this.wrapper.style.touchAction = "none";
 
-            // Option 2: instead of addToMouseLayerWrapper(this.wrapper)
-            // we could do addToMouseLayerWrapper(reactRoot)
-            reactRender(
-                <Clickable
-                    style={{
-                        width: this.wrapper.style.width,
-                        height: this.wrapper.style.height,
-                    }}
-                >
-                    {() => (
-                        <MountInDiv element={fixedEllipse.raphaelContainer} />
-                    )}
-                </Clickable>,
-                this.wrapper,
-            );
             this.graphie.addToMouseLayerWrapper(this.wrapper);
         } else {
             this.graphie.addToVisibleLayerWrapper(this.wrapper);
