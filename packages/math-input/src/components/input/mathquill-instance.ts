@@ -1,8 +1,8 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
-import * as i18n from "@khanacademy/wonder-blocks-i18n";
 import MathQuill from "mathquill";
 
 import {inJest} from "../../utils";
+
 import {mathQuillStrings} from "./strings";
 
 import type {
