@@ -37,21 +37,22 @@ const ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
 // Map of international operator names to their English equivalents
 const englishOperators = {
-    "arctg": "arctan",
-    "cosec": "csc",
-    "cossec": "csc",
-    "cotg": "cot",
-    "ctg": "cot",
-    "sen": "sin",
-    "tg": "tan",
-}
+    arctg: "arctan",
+    cosec: "csc",
+    cossec: "csc",
+    cotg: "cot",
+    ctg: "cot",
+    sen: "sin",
+    tg: "tan",
+};
 
 const anglicizeOperators = (tex: string): string => {
     // sen is used instead of sin in some languages, e.g. Portuguese.
     // To ensure that answers in various languages are graded correctly, we
     // convert operators to their Englishy forms.
-    return tex.replace(/\\operatorname{([a-z]+)}/g, (_, op) =>
-        `\\${englishOperators[op] ?? op} `,
+    return tex.replace(
+        /\\operatorname{([a-z]+)}/g,
+        (_, op) => `\\${englishOperators[op] ?? op} `,
     );
 };
 

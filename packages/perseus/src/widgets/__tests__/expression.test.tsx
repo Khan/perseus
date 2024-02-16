@@ -287,7 +287,7 @@ describe("Expression Widget", function () {
             const item = expressionItemWithAnswer("tan(x)");
             assertCorrect(item, "tg x");
         });
-    })
+    });
 });
 
 describe("getOneCorrectAnswerFromRubric", () => {
