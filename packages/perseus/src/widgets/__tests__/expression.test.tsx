@@ -198,16 +198,6 @@ describe("Expression Widget", function () {
             const item = expressionItemWithAnswer("sin(x)");
             assertIncorrect(item, "2");
         });
-
-        it("treats sen as equivalent to sin", () => {
-            const item = expressionItemWithAnswer("sin(x)");
-            assertCorrect(item, "sen x");
-        });
-
-        it("treats multiple usages of sen as equivalent to sin", () => {
-            const item = expressionItemWithAnswer("sin(sin(x))");
-            assertCorrect(item, "sen(sen(x))");
-        });
     });
 
     describe("analytics", () => {
@@ -256,6 +246,33 @@ describe("Expression Widget", function () {
             assertKeypadVersion(Object.freeze({}), "MATH_INPUT_KEYPAD_V2");
         });
     });
+
+    describe("international trig operators", () => {
+        it("treats sen as equivalent to sin", () => {
+            const item = expressionItemWithAnswer("sin(x)");
+            assertCorrect(item, "sen x");
+        });
+
+        it("works when multiple operators are present", () => {
+            const item = expressionItemWithAnswer("sin(sin(x))");
+            assertCorrect(item, "sen(sen(x))");
+        });
+
+        it("treats arctg as equivalent to arctan", () => {
+            const item = expressionItemWithAnswer("arctan(x)");
+            assertCorrect(item, "arctg x");
+        });
+
+        it("treats arctg as equivalent to arctan", () => {
+            const item = expressionItemWithAnswer("arctan(x)");
+            assertCorrect(item, "arctg x");
+        });
+
+        it("treats cosec as equivalent to csc", () => {
+            const item = expressionItemWithAnswer("csc(x)");
+            assertCorrect(item, "cosec x");
+        });
+    })
 });
 
 describe("getOneCorrectAnswerFromRubric", () => {

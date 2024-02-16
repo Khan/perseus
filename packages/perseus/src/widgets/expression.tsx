@@ -35,11 +35,20 @@ type InputPath = ReadonlyArray<string>;
 const ERROR_TITLE = i18n._("Oops!");
 const ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
+// Map of international operator names to their English equivalents
+const englishOperators = {
+    "arctg": "arctan",
+    "cosec": "csc",
+    "sen": "sin",
+}
+
 const anglicizeOperators = (tex: string): string => {
     // sen is used instead of sin in some languages, e.g. Portuguese.
     // To ensure that answers in various languages are graded correctly, we
     // convert operators to their Englishy forms.
-    return tex.replace(/\\operatorname{sen}/g, "\\sin ");
+    return tex.replace(/\\operatorname{([a-z]+)}/g, (_, op) =>
+        `\\${englishOperators[op] ?? op} `,
+    );
 };
 
 const normalizeTex = (tex: string): string => {
