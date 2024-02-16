@@ -19,7 +19,7 @@ describe("graph", () => {
     });
 
     describe("locked shapes", () => {
-        it("should render a locked points", () => {
+        it("should render locked points", () => {
             const {container} = render(
                 <Graph
                     box={[100, 100]}
