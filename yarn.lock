@@ -12229,9 +12229,9 @@ mathjax-full@3.2.2:
     mj-context-menu "^0.6.1"
     speech-rule-engine "^4.0.6"
 
-"mathquill@git+https://git@github.com/Khan/mathquill.git#1aa33b2756679d8a1cc1a242a60c03569406f338":
+"mathquill@git+https://git@github.com/Khan/mathquill.git#2060bab7813edde638c0af25920caa6ed73c2b13":
   version "0.10.1"
-  resolved "git+https://git@github.com/Khan/mathquill.git#1aa33b2756679d8a1cc1a242a60c03569406f338"
+  resolved "git+https://git@github.com/Khan/mathquill.git#2060bab7813edde638c0af25920caa6ed73c2b13"
 
 mdast-util-definitions@^4.0.0:
   version "4.0.0"
