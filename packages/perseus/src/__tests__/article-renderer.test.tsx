@@ -104,6 +104,26 @@ describe("article renderer", () => {
         expect(screen.getByRole("textbox")).toBeInTheDocument();
     });
 
+    it("should render the content in JIPT context", () => {
+        // Arrange
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            JIPT: {
+                useJIPT: true,
+            },
+        });
+
+        // Act
+        RenderArticle({
+            ...ApiOptions.defaults,
+            isMobile: false,
+            customKeypad: false,
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
     it("should call the onFocusChanged callback when an input is focused", async () => {
         // Arrange
         const answerableCallback = jest.fn();
