@@ -17,9 +17,9 @@ import {
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
+import {mathQuillStrings} from "./strings";
 
 import type {Cursor, KeypadAPI} from "../../types";
-import {mathQuillStrings} from "./strings";
 
 const constrainingFrictionFactor = 0.8;
 
