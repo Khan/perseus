@@ -17,7 +17,7 @@ export const containerSizeClass = {
 } as const;
 
 export type SizeClass =
-    typeof containerSizeClass[keyof typeof containerSizeClass];
+    (typeof containerSizeClass)[keyof typeof containerSizeClass];
 
 export const getClassFromWidth = (width: number): SizeClass => {
     if (!width) {

@@ -1,5 +1,18 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.1.1
+
+### Patch Changes
+
+-   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor wrapped Raphael SVGs to be ES6 classes
+
+*   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Update formatting for Prettier 2.8.8
+
+*   Updated dependencies [[`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639)]:
+    -   @khanacademy/math-input@17.0.8
+    -   @khanacademy/perseus-linter@0.3.12
+    -   @khanacademy/pure-markdown@0.2.15
+
 ## 1.1.0
 
 ### Minor Changes

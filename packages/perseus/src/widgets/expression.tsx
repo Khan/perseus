@@ -687,6 +687,7 @@ ExpressionWithDependencies.getOneCorrectAnswerFromRubric =
 export default {
     name: "expression",
     displayName: "Expression / Equation",
+    accessible: true,
     defaultAlignment: "inline-block",
     widget: ExpressionWithDependencies,
     transform: (widgetOptions: PerseusExpressionWidgetOptions): RenderProps => {

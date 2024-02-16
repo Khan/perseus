@@ -23,7 +23,7 @@ const STARTING = "starting";
 const CORRECT = "correct";
 
 const editingStates = [STARTING, CORRECT];
-type EditingState = typeof editingStates[number];
+type EditingState = (typeof editingStates)[number];
 
 // Return a copy of array with length n, padded with given value
 function padArray(array: any, n, value: any) {
