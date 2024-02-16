@@ -19,7 +19,7 @@ import {
 const GRAPHIE =
     ".perseus-widget-grapher > .graphie-container > .graphie-container > .graphie";
 const POINTS =
-    "[data-interactive-kind-for-testing=movable-point] > svg > ellipse";
+    "[data-interactive-kind-for-testing=movable-point] svg > ellipse";
 const LINES = "[data-interactive-kind-for-testing=movable-line] > svg > path";
 
 describe("Grapher widget", () => {

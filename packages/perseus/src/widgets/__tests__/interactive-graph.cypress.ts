@@ -22,7 +22,7 @@ import {
 const GRAPHIE =
     ".perseus-widget-interactive-graph > .graphie-container > .graphie";
 const POINTS =
-    "[data-interactive-kind-for-testing=movable-point] > svg > ellipse";
+    "[data-interactive-kind-for-testing=movable-point] svg > ellipse";
 const CIRCLES = "svg > circle";
 
 describe("Interactive graph", () => {
