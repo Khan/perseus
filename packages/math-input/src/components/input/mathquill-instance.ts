@@ -30,10 +30,13 @@ const createBaseConfig = (): MathFieldConfig => ({
         "arg",
         "cos",
         "cosec",
+        "cossec",
         "cosh",
         "cot",
+        "cotg",
         "coth",
         "csc",
+        "ctg",
         "deg",
         "det",
         "dim",
@@ -60,6 +63,7 @@ const createBaseConfig = (): MathFieldConfig => ({
         "sup",
         "tan",
         "tanh",
+        "tg",
     ].join(" "),
 
     // Pop the cursor out of super/subscripts on arithmetic operators

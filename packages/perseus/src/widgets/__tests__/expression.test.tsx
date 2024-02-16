@@ -263,14 +263,29 @@ describe("Expression Widget", function () {
             assertCorrect(item, "arctg x");
         });
 
-        it("treats arctg as equivalent to arctan", () => {
-            const item = expressionItemWithAnswer("arctan(x)");
-            assertCorrect(item, "arctg x");
-        });
-
         it("treats cosec as equivalent to csc", () => {
             const item = expressionItemWithAnswer("csc(x)");
             assertCorrect(item, "cosec x");
+        });
+
+        it("treats cossec as equivalent to csc", () => {
+            const item = expressionItemWithAnswer("csc(x)");
+            assertCorrect(item, "cossec x");
+        });
+
+        it("treats cotg as equivalent to cot", () => {
+            const item = expressionItemWithAnswer("cot(x)");
+            assertCorrect(item, "cotg x");
+        });
+
+        it("treats ctg as equivalent to cot", () => {
+            const item = expressionItemWithAnswer("cot(x)");
+            assertCorrect(item, "ctg x");
+        });
+
+        it("treats tg as equivalent to tan", () => {
+            const item = expressionItemWithAnswer("tan(x)");
+            assertCorrect(item, "tg x");
         });
     })
 });

@@ -39,7 +39,11 @@ const ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 const englishOperators = {
     "arctg": "arctan",
     "cosec": "csc",
+    "cossec": "csc",
+    "cotg": "cot",
+    "ctg": "cot",
     "sen": "sin",
+    "tg": "tan",
 }
 
 const anglicizeOperators = (tex: string): string => {
