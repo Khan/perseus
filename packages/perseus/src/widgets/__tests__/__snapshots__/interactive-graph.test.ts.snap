@@ -135,95 +135,101 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 358.42857142857144px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 44.142857142857146px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -233,94 +239,124 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 347.42857142857144px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 33.142857142857146px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
                 <span
@@ -529,95 +565,101 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 37px; top: 362px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 212px; top: 287px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 112px; top: 287px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -627,94 +669,124 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 26px; top: 351px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 201px; top: 276px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 101px; top: 276px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
                 <span
@@ -956,95 +1028,101 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 187px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 62px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 137px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -1054,94 +1132,124 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 176px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 51px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 126px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1374,126 +1482,134 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 103.66666666666667px; top: 253.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 253.66666666666669px; top: 3.666666666666668px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 253.66666666666669px; top: 253.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 203.66666666666669px; top: 203.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -1503,125 +1619,165 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 92.66666666666667px; top: 242.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 242.66666666666669px; top: -7.333333333333332px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 242.66666666666669px; top: 242.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 192.66666666666669px; top: 192.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
                 <span
@@ -1827,95 +1983,101 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 244.14285714285717px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 187px; top: 101.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -1925,94 +2087,124 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 233.14285714285717px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 176px; top: 90.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
                 <span
@@ -2221,95 +2413,101 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 262px; top: 237px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 187px; top: 112px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                   <div
                     style="position: absolute; width: 26px; height: 26px; left: 112px; top: 237px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="26"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="26"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc
+                    <div>
+                      <svg
+                        height="26"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        version="1.1"
+                        width="26"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="NaN"
-                        cy="NaN"
-                        fill="#71b307"
-                        r="NaN"
-                        rx="4"
-                        ry="4"
-                        stroke="#71b307"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                        transform=""
-                      />
-                    </svg>
+                        <desc
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        >
+                          Created with Raphaël
+                        </desc>
+                        <defs
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                        />
+                        <ellipse
+                          cx="NaN"
+                          cy="NaN"
+                          fill="#71b307"
+                          r="NaN"
+                          rx="4"
+                          ry="4"
+                          stroke="#71b307"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          transform=""
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -2319,94 +2517,124 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 251px; top: 226px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 176px; top: 101px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
                     style="position: absolute; width: 48px; height: 48px; left: 101px; top: 226px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
-                    <svg
-                      height="48"
-                      style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      version="1.1"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-disabled="false"
+                      class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_hrm60m"
+                      type="button"
                     >
-                      <desc
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      >
-                        Created with Raphaël
-                      </desc>
-                      <defs
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                      />
-                      <ellipse
-                        cx="24"
-                        cy="24"
-                        fill="#000000"
-                        opacity="0"
-                        rx="24"
-                        ry="24"
-                        stroke="#000"
-                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
-                      />
-                    </svg>
+                      <div>
+                        <div>
+                          <svg
+                            height="48"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            version="1.1"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <desc
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            >
+                              Created with Raphaël
+                            </desc>
+                            <defs
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                            />
+                            <ellipse
+                              cx="24"
+                              cy="24"
+                              fill="#000000"
+                              opacity="0"
+                              rx="24"
+                              ry="24"
+                              stroke="#000"
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0; cursor: move;"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
                 <span
