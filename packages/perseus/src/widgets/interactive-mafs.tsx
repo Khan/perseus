@@ -4,31 +4,40 @@ import {Mafs, Coordinates, Plot, useMovablePoint} from "mafs";
 import * as React from "react";
 import _ from "underscore";
 
+import AssetContext from "../asset-context";
+import {SvgImage} from "../components";
+import {interactiveSizes} from "../styles/constants";
+import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
+
 import type {Coord} from "../interactive2/types";
 import type {
     PerseusGraphType,
     PerseusGraphTypeSinusoid,
+    PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
 import "mafs/core.css";
 import "mafs/font.css";
 import type {SineCoefficient} from "../util/geometry";
+import type {SizeClass} from "../util/sizing-utils";
 
 type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
 type Rubric = PerseusInteractiveGraphWidgetOptions;
 type Props = WidgetProps<RenderProps, Rubric>;
 
-export const InteractiveMafs = ({graph, ...rest}: Props) => {
+export const InteractiveMafs = ({graph, ...props}: Props) => {
     console.log({graph});
-    console.log({rest});
+    console.log({props});
 
     const renderGraph = (graph: PerseusGraphType) => {
         switch (graph.type) {
             case "sinusoid":
-                return <Sinusoid {...rest} graph={graph} />;
+                return <Sinusoid {...props} graph={graph} />;
         }
     };
+
+    const backgroundImage = maybeAddBackgroundImage(props);
 
     return (
         <View
@@ -37,25 +46,54 @@ export const InteractiveMafs = ({graph, ...rest}: Props) => {
             }}
         >
             <Mafs
-                viewBox={{x: rest.range[0], y: rest.range[1], padding: 0}}
+                viewBox={{x: props.range[0], y: props.range[1], padding: 0}}
                 pan={false}
                 zoom={false}
                 width={400}
                 height={400}
             >
-                <Coordinates.Cartesian
-                    xAxis={{
-                        lines: rest.step[0],
-                        labels: (n) => (renderLabel(n, rest.range[0]) ? n : ""),
-                    }}
-                    yAxis={{
-                        lines: rest.step[1],
-                        labels: (n) => (renderLabel(n, rest.range[1]) ? n : ""),
-                    }}
-                />
+                {backgroundImage ?? (
+                    <Coordinates.Cartesian
+                        xAxis={{
+                            lines: props.step[0],
+                            labels: (n) =>
+                                renderLabel(n, props.range[0]) ? n : "",
+                        }}
+                        yAxis={{
+                            lines: props.step[1],
+                            labels: (n) =>
+                                renderLabel(n, props.range[1]) ? n : "",
+                        }}
+                    />
+                )}
                 {renderGraph(graph)}
             </Mafs>
         </View>
+    );
+};
+
+const maybeAddBackgroundImage = (props: {
+    backgroundImage?: PerseusImageBackground;
+    containerSizeClass: SizeClass;
+}) => {
+    const url = props.backgroundImage?.url;
+    if (!url || !url.startsWith("http")) {
+        return null;
+    }
+    const box = getInteractiveBoxFromSizeClass(props.containerSizeClass);
+    const scale = box[0] / interactiveSizes.defaultBoxSize;
+    return (
+        <image
+            href={url}
+            width={props.backgroundImage?.width}
+            height={props.backgroundImage?.height}
+            scale={scale}
+            x={-200}
+            y={-225}
+            style={{
+                filter: "invert(1)",
+            }}
+        />
     );
 };
 
