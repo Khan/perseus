@@ -1649,10 +1649,10 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@cypress/code-coverage@^3.12.11":
-  version "3.12.11"
-  resolved "https://registry.yarnpkg.com/@cypress/code-coverage/-/code-coverage-3.12.11.tgz#f06ac081664c82b0bab0a16d82dd99d1a0b3edf7"
-  integrity sha512-R/gfUO8CEPT3Mp1ni4kV66fkkUaIS1seLWD8CqAxuqY8qATcN53/2RvpGsoBYuuvNMVuBZdeeC5XjKaVelzBfQ==
+"@cypress/code-coverage@^3.12.23":
+  version "3.12.23"
+  resolved "https://registry.yarnpkg.com/@cypress/code-coverage/-/code-coverage-3.12.23.tgz#80e8020e800f11ae9be2f38c3401aebd45a1f136"
+  integrity sha512-zdqLkiQOLll1tCw9TSHvhIobVTG6tsRUTN9HwDf3WvV1T+kPwmL5DU+1TkoWOEYyUyo04ZHd3PKDjUkQWxfg5A==
   dependencies:
     "@cypress/webpack-preprocessor" "^6.0.0"
     chalk "4.1.2"
@@ -1660,7 +1660,7 @@
     debug "4.3.4"
     execa "4.1.0"
     globby "11.1.0"
-    istanbul-lib-coverage "3.0.0"
+    istanbul-lib-coverage "^3.0.0"
     js-yaml "4.1.0"
     nyc "15.1.0"
 
@@ -4458,7 +4458,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.48.tgz#55f70bd432b6515828c0298689776861b90ca4fa"
   integrity sha512-4kxzqkrpwYtn6okJUcb2lfUu9ilnb3yhUOH6qX3nug8D2DupZ2drIkff2yJzYcNJVl3begnlcaBJ7tqiTTzjnQ==
 
-"@types/node@^18.0.0", "@types/node@^18.17.5":
+"@types/node@^18.0.0":
   version "18.18.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.8.tgz#2b285361f2357c8c8578ec86b5d097c7f464cfd6"
   integrity sha512-OLGBaaK5V3VRBS1bAkMVP2/W9B+H8meUfl866OrMNQqt7wDgdpWPp5o6gmIc9pB+lIQHSq4ZL8ypeH1vPxcPaQ==
@@ -6754,19 +6754,18 @@ cypress-jest-adapter@^0.1.1:
     jest-jquery-matchers "^2.1.0"
     jquery "^3.4.0"
 
-cypress-wait-until@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/cypress-wait-until/-/cypress-wait-until-2.0.1.tgz#69c575c7207d83e4ae023e2aaecf2b66148c9fc0"
-  integrity sha512-+IyVnYNiaX1+C+V/LazrJWAi/CqiwfNoRSrFviECQEyolW1gDRy765PZosL2alSSGK8V10Y7BGfOQyZUDgmnjQ==
+cypress-wait-until@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/cypress-wait-until/-/cypress-wait-until-3.0.1.tgz#6a697a600f4fb8cd2897489a15fda77c9857abec"
+  integrity sha512-kpoa8yL6Bi/JNsThGBbrrm7g4SNzYyBUv9M5pF6/NTVm/ClY0HnJzeuWnHiAUZKIZ5l86Oedb12wQyjx7/CWPg==
 
-cypress@^13.6.0:
-  version "13.6.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-13.6.0.tgz#b98b7b837679012ed09c7ecee5565bf7b31d4982"
-  integrity sha512-quIsnFmtj4dBUEJYU4OH0H12bABJpSujvWexC24Ju1gTlKMJbeT6tTO0vh7WNfiBPPjoIXLN+OUqVtiKFs6SGw==
+cypress@^13.6.4:
+  version "13.6.4"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-13.6.4.tgz#42c88d3ee0342f1681abfacabf9c1f082676bc53"
+  integrity sha512-pYJjCfDYB+hoOoZuhysbbYhEmNW7DEDsqn+ToCLwuVowxUXppIWRr7qk4TVRIU471ksfzyZcH+mkoF0CQUKnpw==
   dependencies:
     "@cypress/request" "^3.0.0"
     "@cypress/xvfb" "^1.2.4"
-    "@types/node" "^18.17.5"
     "@types/sinonjs__fake-timers" "8.1.1"
     "@types/sizzle" "^2.3.2"
     arch "^2.2.0"
@@ -9938,11 +9937,6 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
-
-istanbul-lib-coverage@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
 
 istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.0-alpha.1, istanbul-lib-coverage@^3.2.0:
   version "3.2.0"
