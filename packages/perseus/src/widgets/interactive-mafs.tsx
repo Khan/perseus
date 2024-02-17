@@ -1,4 +1,5 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Mafs, Coordinates, Plot, useMovablePoint} from "mafs";
 import * as React from "react";
 import _ from "underscore";
@@ -30,24 +31,36 @@ export const InteractiveMafs = ({graph, ...rest}: Props) => {
     };
 
     return (
-        <Mafs
-            viewBox={{x: rest.range[0], y: rest.range[1]}}
-            pan={false}
-            zoom={false}
-            width={400}
-            height={400}
+        <View
+            style={{
+                filter: "invert(1)",
+            }}
         >
-            <Coordinates.Cartesian
-                xAxis={{
-                    lines: rest.step[0],
-                    // labels: (n) => (n % props.step[0] === 0 ? n : ""),
-                }}
-                yAxis={{lines: rest.step[1]}}
-            />
-            {renderGraph(graph)}
-        </Mafs>
+            <Mafs
+                viewBox={{x: rest.range[0], y: rest.range[1], padding: 0}}
+                pan={false}
+                zoom={false}
+                width={400}
+                height={400}
+            >
+                <Coordinates.Cartesian
+                    xAxis={{
+                        lines: rest.step[0],
+                        labels: (n) => (renderLabel(n, rest.range[0]) ? n : ""),
+                    }}
+                    yAxis={{
+                        lines: rest.step[1],
+                        labels: (n) => (renderLabel(n, rest.range[1]) ? n : ""),
+                    }}
+                />
+                {renderGraph(graph)}
+            </Mafs>
+        </View>
     );
 };
+
+const renderLabel = (n: number, [min, max]: [number, number]) =>
+    n !== -1 && n !== min && n !== max;
 
 type SinusoidProps = Omit<RenderProps, "graph"> & {
     graph: PerseusGraphTypeSinusoid;
