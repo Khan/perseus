@@ -108,11 +108,13 @@ function DevUI() {
             <main className={css(styles.main)}>
                 <View style={styles.cards}>
                     {questions.map((question, i) => (
-                        <QuestionRenderer
-                            key={i}
-                            question={question}
-                            apiOptions={{isMobile}}
-                        />
+                        <>
+                            <QuestionRenderer
+                                key={i}
+                                question={question}
+                                apiOptions={{isMobile}}
+                            />
+                        </>
                     ))}
                 </View>
             </main>

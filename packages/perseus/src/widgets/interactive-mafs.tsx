@@ -1,0 +1,126 @@
+/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
+import {Mafs, Coordinates, Plot, useMovablePoint} from "mafs";
+import * as React from "react";
+import _ from "underscore";
+
+import type {Coord} from "../interactive2/types";
+import type {
+    PerseusGraphType,
+    PerseusGraphTypeSinusoid,
+    PerseusInteractiveGraphWidgetOptions,
+} from "../perseus-types";
+import type {WidgetExports, WidgetProps} from "../types";
+import "mafs/core.css";
+import "mafs/font.css";
+import type {SineCoefficient} from "../util/geometry";
+
+type RenderProps = PerseusInteractiveGraphWidgetOptions; // There's no transform function in exports
+type Rubric = PerseusInteractiveGraphWidgetOptions;
+type Props = WidgetProps<RenderProps, Rubric>;
+
+export const InteractiveMafs = ({graph, ...rest}: Props) => {
+    console.log({graph});
+    console.log({rest});
+
+    const renderGraph = (graph: PerseusGraphType) => {
+        switch (graph.type) {
+            case "sinusoid":
+                return <Sinusoid {...rest} graph={graph} />;
+        }
+    };
+
+    return (
+        <Mafs
+            viewBox={{x: rest.range[0], y: rest.range[1]}}
+            pan={false}
+            zoom={false}
+            width={400}
+            height={400}
+        >
+            <Coordinates.Cartesian
+                xAxis={{
+                    lines: rest.step[0],
+                    // labels: (n) => (n % props.step[0] === 0 ? n : ""),
+                }}
+                yAxis={{lines: rest.step[1]}}
+            />
+            {renderGraph(graph)}
+        </Mafs>
+    );
+};
+
+type SinusoidProps = Omit<RenderProps, "graph"> & {
+    graph: PerseusGraphTypeSinusoid;
+};
+
+const Sinusoid = (props: SinusoidProps) => {
+    const coords = normalizePoints(
+        props.range,
+        props.step,
+        props.graph.coords ?? [
+            [0.5, 0.5],
+            [0.65, 0.6],
+        ],
+    );
+
+    const [snapX, snapY] = props.snapStep;
+    const p1 = useMovablePoint(coords[0], {
+        constrain: ([x, y]) => [snap(x, snapX), snap(y, snapY)],
+    });
+    const p2 = useMovablePoint(coords[1], {
+        constrain: ([x, y]) => [snap(x, snapX), snap(y, snapY)],
+    });
+
+    const coeffs = (coords: ReadonlyArray<Coord>): SineCoefficient => {
+        // It's assumed that p1 is the root and p2 is the first peak
+        // Resulting coefficients are canonical for this sine curve
+        const amplitude = p2.y - p1.y;
+        const angularFrequency = Math.PI / (2 * (p2.x - p1.x));
+        const phase = p1.x * angularFrequency;
+        const verticalOffset = p1.y;
+
+        return [amplitude, angularFrequency, phase, verticalOffset];
+    };
+
+    const [a, b, c, d] = coeffs(coords);
+
+    return (
+        <>
+            <Plot.OfX y={(x) => a * Math.sin(b * x - c) + d} />
+            {p1.element}
+            {p2.element}
+        </>
+    );
+};
+
+const snap = (val: number, step: number) => {
+    const inverse = 1 / step;
+    return Math.round(val * inverse) / inverse;
+};
+
+const normalizePoints = (
+    range: PerseusInteractiveGraphWidgetOptions["range"],
+    step: PerseusInteractiveGraphWidgetOptions["step"],
+    coordsList: ReadonlyArray<Coord>,
+    noSnap?: boolean,
+): ReadonlyArray<Coord> => {
+    // @ts-expect-error - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
+    return coordsList.map((coords) =>
+        coords.map((coord, i) => {
+            const xRange = range[i];
+            if (noSnap) {
+                return xRange[0] + (xRange[1] - xRange[0]) * coord;
+            }
+            const xStep = step[i];
+            const nSteps = Math.floor((xRange[1] - xRange[0]) / xStep);
+            const tick = Math.round(coord * nSteps);
+            return xRange[0] + xStep * tick;
+        }),
+    );
+};
+
+export default {
+    name: "interactive-mafs",
+    displayName: "Interactive maf",
+    widget: InteractiveMafs,
+} as WidgetExports<typeof InteractiveMafs>;

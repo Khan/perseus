@@ -32,6 +32,8 @@ import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
+import {InteractiveMafs} from "./interactive-mafs";
+
 import type {Coord} from "../interactive2/types";
 import type {
     PerseusGraphType,
@@ -1712,46 +1714,49 @@ class InteractiveGraph extends React.Component<Props, State> {
         const isMobile = this.props.apiOptions.isMobile;
 
         return (
-            <div
-                className={
-                    "perseus-widget " + "perseus-widget-interactive-graph"
-                }
-                style={{
-                    width: box[0],
-                    height: box[1],
-                }}
-            >
-                <Graph
-                    instructions={instructions}
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="graph"
-                    box={box}
-                    labels={this.props.labels}
-                    range={this.props.range}
-                    step={
-                        isMobile
-                            ? Util.constrainedTickStepsFromTickSteps(
-                                  this.props.step,
-                                  this.props.range,
-                              )
-                            : this.props.step
+            <>
+                <div
+                    className={
+                        "perseus-widget " + "perseus-widget-interactive-graph"
                     }
-                    gridStep={gridStep}
-                    snapStep={snapStep}
-                    markings={this.props.markings}
-                    backgroundImage={this.props.backgroundImage}
-                    showProtractor={this.props.showProtractor}
-                    showRuler={this.props.showRuler}
-                    rulerLabel={this.props.rulerLabel}
-                    rulerTicks={this.props.rulerTicks}
-                    onMouseDown={onMouseDown}
-                    onGraphieUpdated={this.setGraphie}
-                    setDrawingAreaAvailable={
-                        this.props.apiOptions.setDrawingAreaAvailable
-                    }
-                    isMobile={isMobile}
-                />
-            </div>
+                    style={{
+                        width: box[0],
+                        height: box[1],
+                    }}
+                >
+                    <Graph
+                        instructions={instructions}
+                        // eslint-disable-next-line react/no-string-refs
+                        ref="graph"
+                        box={box}
+                        labels={this.props.labels}
+                        range={this.props.range}
+                        step={
+                            isMobile
+                                ? Util.constrainedTickStepsFromTickSteps(
+                                      this.props.step,
+                                      this.props.range,
+                                  )
+                                : this.props.step
+                        }
+                        gridStep={gridStep}
+                        snapStep={snapStep}
+                        markings={this.props.markings}
+                        backgroundImage={this.props.backgroundImage}
+                        showProtractor={this.props.showProtractor}
+                        showRuler={this.props.showRuler}
+                        rulerLabel={this.props.rulerLabel}
+                        rulerTicks={this.props.rulerTicks}
+                        onMouseDown={onMouseDown}
+                        onGraphieUpdated={this.setGraphie}
+                        setDrawingAreaAvailable={
+                            this.props.apiOptions.setDrawingAreaAvailable
+                        }
+                        isMobile={isMobile}
+                    />
+                </div>
+                <InteractiveMafs {...this.props} />
+            </>
         );
     }
 

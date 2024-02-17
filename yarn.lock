@@ -5190,6 +5190,18 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@use-gesture/core@10.3.0":
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/@use-gesture/core/-/core-10.3.0.tgz#9afd3777a45b2a08990a5dcfcf8d9ddd55b00db9"
+  integrity sha512-rh+6MND31zfHcy9VU3dOZCqGY511lvGcfyJenN4cWZe0u1BH6brBpBddLVXhF2r4BMqWbvxfsbL7D287thJU2A==
+
+"@use-gesture/react@^10.2.27":
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/@use-gesture/react/-/react-10.3.0.tgz#180534c821fd635c2853cbcfa813f92c94f27e3f"
+  integrity sha512-3zc+Ve99z4usVP6l9knYVbVnZgfqhKah7sIG+PS2w+vpig2v2OLct05vs+ZXMzwxdNCMka8B+8WlOo0z6Pn6DA==
+  dependencies:
+    "@use-gesture/core" "10.3.0"
+
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.6.tgz#db046555d3c413f8966ca50a95176a0e2c642e24"
@@ -6950,6 +6962,11 @@ compression@^1.7.4:
     on-headers "~1.0.2"
     safe-buffer "5.1.2"
     vary "~1.1.2"
+
+computer-modern@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/computer-modern/-/computer-modern-0.1.2.tgz#e6f96b611d1c60bca96f3f91e76e23176a4db14e"
+  integrity sha512-qvW7/uUkNFjJT6DaM4NaLXrYSnkFdES8iJajX3xD2S7KRFYxxppFsEUM0+R7SLypEN/t/3TQ4zFBvj5i/MBL9A==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -11789,6 +11806,13 @@ katex@^0.11.1:
   dependencies:
     commander "^2.19.0"
 
+katex@^0.16:
+  version "0.16.9"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.9.tgz#bc62d8f7abfea6e181250f85a56e4ef292dcb1fa"
+  integrity sha512-fsSYjWS0EEOwvy81j3vRA8TEAhQhKiqO+FQaKWp0m39qwOzHVBgAUBIXWj1pB+O2W3fIpNa6Y9KSKCVbfPhyAQ==
+  dependencies:
+    commander "^8.3.0"
+
 keyboard-key@^1.0.4:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/keyboard-key/-/keyboard-key-1.1.0.tgz#6f2e8e37fa11475bb1f1d65d5174f1b35653f5b7"
@@ -12128,6 +12152,17 @@ lz-string@^1.4.4:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.4.4.tgz#c0d8eaf36059f705796e1e344811cf4c498d3a26"
   integrity sha1-wNjq82BZ9wV5bh40SBHPTEmNOiY=
+
+mafs@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/mafs/-/mafs-0.18.0.tgz#47903b63282502798903a9180677b58bfbddadea"
+  integrity sha512-cOYBzS6YuK7yglSE2vLsaSKwb/fTyw/aKkpti+Zy4nD6Ru61JmxBG1NcjWJfxNu36xy/qyO3qM8MiPWRB2IVMw==
+  dependencies:
+    "@use-gesture/react" "^10.2.27"
+    computer-modern "^0.1.2"
+    katex "^0.16"
+    tiny-invariant "^1.3.1"
+    use-resize-observer "^9"
 
 magic-string@^0.25.7:
   version "0.25.9"
@@ -16717,7 +16752,7 @@ use-latest@^1.0.0:
   dependencies:
     use-isomorphic-layout-effect "^1.1.1"
 
-use-resize-observer@^9.1.0:
+use-resize-observer@^9, use-resize-observer@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/use-resize-observer/-/use-resize-observer-9.1.0.tgz#14735235cf3268569c1ea468f8a90c5789fc5c6c"
   integrity sha512-R25VqO9Wb3asSD4eqtcxk8sJalvIOYBqS8MNZlpDSQ4l4xMQxC/J7Id9HoTqPq8FwULIn0PVW+OAqF2dyYbjow==
