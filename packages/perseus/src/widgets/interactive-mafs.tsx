@@ -7,7 +7,6 @@ import {
     useMovablePoint,
     Line,
     Circle,
-    vec,
     MovablePoint,
 } from "mafs";
 import * as React from "react";
@@ -30,6 +29,7 @@ import "mafs/core.css";
 import "mafs/font.css";
 import type {SineCoefficient} from "../util/geometry";
 import type {SizeClass} from "../util/sizing-utils";
+import type {vec} from "mafs";
 
 type RenderProps = PerseusInteractiveGraphWidgetOptions;
 type Rubric = PerseusInteractiveGraphWidgetOptions;
@@ -305,10 +305,6 @@ type CircleProps = Omit<RenderProps, "graph"> & {
     graph: PerseusGraphTypeCircle;
 };
 
-const radiusCoords = ([x, y]: Coord, r: number): Coord => {
-    return [x + r, y];
-};
-
 const CircleGraph = (props: CircleProps) => {
     const [r, setR] = React.useState(
         props.graph.radius || Math.min(...props.step),
@@ -316,12 +312,6 @@ const CircleGraph = (props: CircleProps) => {
     const center = useMovablePoint(props.graph.center ?? [0, 0], {
         constrain: (coord) => constrain(coord, props.snapStep, props.range),
     });
-    // const radiusHandle = useMovablePoint(
-    //     radiusCoords(center.point, props.step, props.graph.radius),
-    //     {
-    //         constrain: (coord) => constrain(coord, props.snapStep, props.range),
-    //     },
-    // );
 
     const radiusHandle = [
         center.point[0] + r,
