@@ -115,6 +115,22 @@ describe("math input integration", () => {
         expect(screen.getByRole("button", {name: "1"})).toBeVisible();
     });
 
+    it("shows the keypad after input is focused via tab", async () => {
+        render(<ConnectedMathInput />);
+
+        const input = screen.getByLabelText(
+            "Math input box Tap with one or two fingers to open keyboard",
+        );
+
+        userEvent.tab();
+
+        await waitFor(() => {
+            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        });
+
+        expect(screen.getByRole("button", {name: "1"})).toBeVisible();
+    });
+
     it("shows the keypad after input click-interaction", async () => {
         render(<ConnectedMathInput />);
 
