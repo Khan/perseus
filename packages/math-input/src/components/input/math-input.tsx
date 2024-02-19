@@ -187,6 +187,8 @@ class MathInput extends React.Component<Props, State> {
                 this.blur();
                 this.mathField.blur();
                 this.props.onBlur && this.props.onBlur();
+                this.mathField.blur();
+                this.props.onBlur && this.props.onBlur();
             }
 
             this.didTouchOutside = false;
@@ -331,7 +333,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    blur: () => void = () => {
+    blur: (e?: React.SyntheticEvent) => void = (e) => {
         this.mathField.blur();
 
         this.setState((prevState) => {

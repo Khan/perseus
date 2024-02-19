@@ -122,6 +122,7 @@ describe("math input integration", () => {
     });
 
     it("shows the keypad after input is focused via tab", async () => {
+<<<<<<< HEAD
         // Arrange
         render(<ConnectedMathInput />);
 
@@ -133,6 +134,16 @@ describe("math input integration", () => {
         userEvent.tab();
 
         // Assert
+=======
+        render(<ConnectedMathInput />);
+
+        const input = screen.getByLabelText(
+            "Math input box Tap with one or two fingers to open keyboard",
+        );
+
+        userEvent.tab();
+
+>>>>>>> 487cf019 (Tab focus fix after discussion with A11Y/Design)
         await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
