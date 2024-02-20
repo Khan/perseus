@@ -1,4 +1,4 @@
-import {Line, MovablePoint} from "mafs";
+import {Line, MovablePoint, Text, vec, Debug, useTransformContext} from "mafs";
 import * as React from "react";
 
 import {constrain, normalizeCoords, normalizePoints} from "./utils";
@@ -60,26 +60,55 @@ export const PolygonGraph = (props: PolygonProps) => {
 
     return (
         <>
-            {coords.map((coord, i) => (
-                <>
-                    <MovablePoint
-                        key={i}
-                        point={coord}
-                        constrain={(coord) =>
-                            constrain(coord, props.step, props.range)
-                        }
-                        onMove={(newCoord) => {
-                            const newCoords = [...coords];
-                            newCoords[i] = newCoord;
-                            setCoords(newCoords);
-                        }}
-                    />
-                    <Line.Segment
-                        point1={coord}
-                        point2={coords[(i + 1) % coords.length]}
-                    />
-                </>
-            ))}
+            {coords.map((coord, i) => {
+                const point1 = coord;
+                const point2 = coords[(i + 1) % coords.length];
+
+                const midPoint = [
+                    (point1[0] + point2[0]) / 2,
+                    (point1[1] + point2[1]) / 2,
+                ];
+
+                const dist = vec.dist(point1, point2);
+                const distFixed = dist.toFixed(1);
+                const label = Number.isInteger(dist)
+                    ? distFixed
+                    : "≈" + distFixed;
+
+                return (
+                    <>
+                        <MovablePoint
+                            key={i}
+                            point={point1}
+                            constrain={([x, y]) =>
+                                constrain([x, y], props.step, props.range)
+                            }
+                            onMove={(newCoord) => {
+                                const newCoords = [...coords];
+                                newCoords[i] = newCoord;
+                                setCoords(newCoords);
+                            }}
+                        />
+                        <Line.Segment point1={point1} point2={point2} />
+                        <Text x={midPoint[0]} y={midPoint[1]}>
+                            {label}
+                        </Text>
+                        {/* <Debug.TransformWidget>
+                            {/* <LabelContainer /> */}
+                        {/* </Debug.TransformWidget> */}
+                    </>
+                );
+            })}
         </>
     );
 };
+
+// const LabelContainer = () => {
+//     const {userTransform, viewTransform} = useTransformContext();
+
+//     return
+//         <>
+// <g></g>
+//         <>
+//     ;
+// };

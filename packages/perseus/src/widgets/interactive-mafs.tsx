@@ -4,6 +4,8 @@ import {Mafs} from "mafs";
 import * as React from "react";
 import _ from "underscore";
 
+import AssetContext from "../asset-context";
+
 import {
     CircleGraph,
     PolygonGraph,
@@ -19,6 +21,9 @@ import type {
 import type {WidgetExports, WidgetProps} from "../types";
 import "mafs/core.css";
 import "mafs/font.css";
+import {SvgImage} from "../components";
+import {interactiveSizes} from "../styles/constants";
+import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
@@ -43,6 +48,30 @@ export const InteractiveMafs = ({graph, ...props}: InteractiveGraphProps) => {
                 return <PolygonGraph {...props} graph={graph} />;
         }
     };
+
+    let image;
+    const imageData = props.backgroundImage;
+    if (imageData.url) {
+        const box = getInteractiveBoxFromSizeClass(props.containerSizeClass);
+        const scale = box[0] / interactiveSizes.defaultBoxSize;
+        image = (
+            <AssetContext.Consumer>
+                {({setAssetStatus}) => (
+                    <SvgImage
+                        src={imageData.url}
+                        width={imageData.width}
+                        height={imageData.height}
+                        scale={scale}
+                        responsive={false}
+                        setAssetStatus={setAssetStatus}
+                        alt=""
+                    />
+                )}
+            </AssetContext.Consumer>
+        );
+    } else {
+        image = null;
+    }
 
     return (
         <View

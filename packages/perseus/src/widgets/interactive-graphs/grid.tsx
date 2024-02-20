@@ -59,7 +59,7 @@ export const Grid = (props: {
     const [backgroundImage, renderCoords] = maybeAddBackgroundImage(props);
     return (
         <>
-            {backgroundImage}
+            {/* {backgroundImage} */}
             {renderCoords && (
                 <Coordinates.Cartesian
                     xAxis={{
