@@ -1750,7 +1750,7 @@ class InteractiveGraph extends React.Component<Props, State> {
                         this.props.apiOptions.setDrawingAreaAvailable
                     }
                     isMobile={isMobile}
-                    lockedShapes={this.props.lockedShapes}
+                    lockedFigures={this.props.lockedFigures}
                 />
             </div>
         );

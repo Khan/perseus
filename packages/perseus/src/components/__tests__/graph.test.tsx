@@ -28,7 +28,7 @@ describe("graph", () => {
                         [0, 10],
                     ]}
                     markings="none"
-                    lockedShapes={[
+                    lockedFigures={[
                         {
                             type: "point" as const,
                             coord: [5, 5],

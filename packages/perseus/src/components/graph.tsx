@@ -14,7 +14,7 @@ import GraphUtils from "../util/graph-utils";
 import SvgImage from "./svg-image";
 
 import type {Coord} from "../interactive2/types";
-import type {PerseusImageBackground, LockedShape} from "../perseus-types";
+import type {PerseusImageBackground, LockedFigure} from "../perseus-types";
 import type {GridDimensions} from "../util";
 
 const defaultBackgroundImage = {
@@ -59,7 +59,7 @@ type Props = {
     rulerTicks: number;
     instructions?: string;
     isMobile: boolean;
-    lockedShapes?: ReadonlyArray<LockedShape>;
+    lockedFigures?: ReadonlyArray<LockedFigure>;
 
     onGraphieUpdated?: (graphie: any) => void;
     onClick?: (Coord) => void;
@@ -319,17 +319,17 @@ class Graph extends React.Component<Props> {
         });
 
         // Maybe move this out later
-        if (this.props.lockedShapes) {
-            for (const lockedShape of this.props.lockedShapes) {
-                switch (lockedShape.type) {
+        if (this.props.lockedFigures) {
+            for (const lockedFigure of this.props.lockedFigures) {
+                switch (lockedFigure.type) {
                     case "point":
                         graphie.circle(
                             // center
-                            lockedShape.coord,
+                            lockedFigure.coord,
                             // radius
                             0.2,
                             // style
-                            lockedShape.style,
+                            lockedFigure.style,
                         );
                         break;
                     default:
@@ -340,9 +340,9 @@ class Graph extends React.Component<Props> {
                          * switch case here.
                          */
                         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                        const exhaustiveCheck: never = lockedShape.type;
+                        const exhaustiveCheck: never = lockedFigure.type;
                         throw new Error(
-                            `Unknown locked shape type: ${lockedShape.type}`,
+                            `Unknown locked shape type: ${lockedFigure.type}`,
                         );
                 }
             }

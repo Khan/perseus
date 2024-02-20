@@ -172,7 +172,7 @@ export const linearQuestionWithLockedPoints: PerseusRenderer = {
                 },
                 gridStep: [1, 1],
                 labels: ["x", "y"],
-                lockedShapes: [
+                lockedFigures: [
                     /* First triangle */
                     {
                         type: "point",

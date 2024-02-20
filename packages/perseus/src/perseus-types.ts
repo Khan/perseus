@@ -562,10 +562,10 @@ export type PerseusInteractiveGraphWidgetOptions = {
     correct: PerseusGraphType;
     // Shapes (points, chords, etc) displayed on the graph that cannot
     // be moved by the user.
-    lockedShapes?: ReadonlyArray<LockedShape>;
+    lockedFigures?: ReadonlyArray<LockedFigure>;
 };
 
-export type LockedShape = LockedPoint;
+export type LockedFigure = LockedPoint;
 
 export type LockedPoint = {
     type: "point";
