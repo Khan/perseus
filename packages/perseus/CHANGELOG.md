@@ -1,5 +1,62 @@
 # @khanacademy/perseus
 
+## 19.3.0
+
+### Minor Changes
+
+-   [#992](https://github.com/Khan/perseus/pull/992) [`955ae480`](https://github.com/Khan/perseus/commit/955ae480a822d875784fb2de65240fe1acd283a5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update of interactionCallback to return current user input data
+
+*   [#1006](https://github.com/Khan/perseus/pull/1006) [`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89) Thanks [@benchristel](https://github.com/benchristel)! - Allow learners to type trig operators in any language in the Expression widget
+
+### Patch Changes
+
+-   Updated dependencies [[`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89)]:
+    -   @khanacademy/math-input@17.1.0
+
+## 19.2.1
+
+### Patch Changes
+
+-   [#1001](https://github.com/Khan/perseus/pull/1001) [`f30c6639`](https://github.com/Khan/perseus/commit/f30c663941a21189f3520b7e38beda0e38320ed3) Thanks [@nishasy](https://github.com/nishasy)! - Expression widget is marked as `accessible` internally. This will stop disabling the "requires screen or mouse" checkbox in the exercise editor for exercises that use expression widget.
+
+## 19.2.0
+
+### Minor Changes
+
+-   [#989](https://github.com/Khan/perseus/pull/989) [`97b5bbfb`](https://github.com/Khan/perseus/commit/97b5bbfbea591d3b6d814ed4717135138fb30dec) Thanks [@aag](https://github.com/aag)! - Add a new python-program widget and its editor
+
+### Patch Changes
+
+-   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor wrapped Raphael SVGs to be ES6 classes
+
+*   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Update formatting for Prettier 2.8.8
+
+*   Updated dependencies [[`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639)]:
+    -   @khanacademy/math-input@17.0.8
+    -   @khanacademy/perseus-linter@0.3.12
+    -   @khanacademy/pure-markdown@0.2.15
+
+## 19.1.9
+
+### Patch Changes
+
+-   [#986](https://github.com/Khan/perseus/pull/986) [`585a3fe9`](https://github.com/Khan/perseus/commit/585a3fe9aaa26ee550d36768c36e626f626a3417) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Wrap some radio widget strings that a learner would see in `i18n._()` calls so they can be localized.
+
+*   [#987](https://github.com/Khan/perseus/pull/987) [`e4ca3c53`](https://github.com/Khan/perseus/commit/e4ca3c5384e9a16e79e4fb2704c0a6dd3c4ebf54) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Move Graphie's addMouseLayer function directly onto class (avoid metaprogramming)
+
+-   [#979](https://github.com/Khan/perseus/pull/979) [`9f2eafe4`](https://github.com/Khan/perseus/commit/9f2eafe4c4649fd1ee1a83611b53908eb9cf3468) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Improve types for Graphie's getMousePx and getMouseCoord functions
+
+*   [#975](https://github.com/Khan/perseus/pull/975) [`36a5ebe1`](https://github.com/Khan/perseus/commit/36a5ebe1ef373058090841fc734778c06e318397) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add tests to cover Graphie's addMouseLayer() function - includes some related type improvements.
+
+## 19.1.8
+
+### Patch Changes
+
+-   [#982](https://github.com/Khan/perseus/pull/982) [`279c3730`](https://github.com/Khan/perseus/commit/279c3730fba6a9854b1434ba7499f5c5cfd2151a) Thanks [@nedredmond](https://github.com/nedredmond)! - Inject localized MathSpeak into MathQuill
+
+-   Updated dependencies [[`279c3730`](https://github.com/Khan/perseus/commit/279c3730fba6a9854b1434ba7499f5c5cfd2151a)]:
+    -   @khanacademy/math-input@17.0.7
+
 ## 19.1.7
 
 ### Patch Changes

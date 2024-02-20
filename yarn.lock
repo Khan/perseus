@@ -2615,6 +2615,14 @@
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-timing/-/wonder-blocks-timing-4.0.2.tgz#84fa99a905f0558a70e493af44a3a6885ddb844c"
   integrity sha512-LIj31jodAXOi7Yj+QJyRLTCiO4/cPDCR8DSqZbNuA/vliRuePfOjX3ci4BMhnuSyEIu1bTorvcEeASTe/M52hw==
 
+"@khanacademy/wonder-blocks-tokens@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tokens/-/wonder-blocks-tokens-1.0.0.tgz#cd43f44eafea257a24a55650a72352c1e78d2055"
+  integrity sha512-xC/0bWocU26Hj3e8OfpG/lFEUhJNZDGaXLgpYtGTg3+EwvGXWb8JwxidOEzV0m2yxoWJAFwrsUSFMh1HULNPRQ==
+  dependencies:
+    "@khanacademy/wonder-blocks-color" "^3.0.0"
+    "@khanacademy/wonder-blocks-spacing" "^4.0.1"
+
 "@khanacademy/wonder-blocks-tooltip@^2.1.25":
   version "2.1.25"
   resolved "https://registry.yarnpkg.com/@khanacademy/wonder-blocks-tooltip/-/wonder-blocks-tooltip-2.1.25.tgz#71cf7c57540458cc50514e29d805a2bf263b6e5e"
@@ -13898,12 +13906,7 @@ prettier@^1.19.1:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
 
-prettier@^2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.6.2.tgz#e26d71a18a74c3d0f0597f55f01fb6c06c206032"
-  integrity sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==
-
-prettier@^2.8.0:
+prettier@^2.8.0, prettier@^2.8.1:
   version "2.8.8"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.8.tgz#e8c5d7e98a4305ffe3de2e1fc4aca1a71c28b1da"
   integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==

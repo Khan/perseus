@@ -6,6 +6,8 @@ import {
     itemWithInput,
     itemWithLintingError,
     labelImageItem,
+    itemWithMultipleInputNumbers,
+    itemWithRadioAndExpressionWidgets,
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
 
@@ -38,6 +40,40 @@ export const WithLintingError = (args: StoryArgs): React.ReactElement => {
                 highlightLint: true,
                 paths: [],
                 stack: [],
+            }}
+        />
+    );
+};
+
+export const InputNumberWithInteractionCallback = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={itemWithMultipleInputNumbers}
+            apiOptions={{
+                interactionCallback: (data) => {
+                    // We are logging the interaction callback data to the console
+                    // eslint-disable-next-line no-console
+                    console.log(data);
+                },
+            }}
+        />
+    );
+};
+
+export const MultiWidgetWithInteractionCallback = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={itemWithRadioAndExpressionWidgets}
+            apiOptions={{
+                interactionCallback: (data) => {
+                    // We are logging the interaction callback data to the console
+                    // eslint-disable-next-line no-console
+                    console.log(data);
+                },
             }}
         />
     );
