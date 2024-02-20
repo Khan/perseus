@@ -156,7 +156,9 @@ class Explanation extends React.Component<Props, State> {
                                     pressed && styles.pressed,
                                 ]}
                             >
-                                <Body>{`[${linkAnchor}]`}</Body>
+                                <Body className={css(styles.explanationLink)}>
+                                    {`[${linkAnchor}]`}
+                                </Body>
                             </View>
                         )}
                     </Clickable>
