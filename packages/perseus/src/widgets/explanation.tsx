@@ -166,24 +166,24 @@ class Explanation extends React.Component<Props, State> {
         return (
             <div className={css(styles.container)}>
                 {linkContainer}
-                {this.state.expanded && (
-                    <div
-                        className={css(
-                            styles.content,
-                            isMobile && styles.contentMobile,
-                            this.state.expanded && expandedStyle,
-                        )}
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="content"
-                    >
-                        <Renderer
-                            apiOptions={this.props.apiOptions}
-                            content={this.props.explanation}
-                            widgets={this.props.widgets}
-                            linterContext={this.props.linterContext}
-                        />
-                    </div>
-                )}
+                {/*{this.state.expanded && (*/}
+                <div
+                    className={css(
+                        styles.content,
+                        isMobile && styles.contentMobile,
+                        this.state.expanded && expandedStyle,
+                    )}
+                    // eslint-disable-next-line react/no-string-refs
+                    ref="content"
+                >
+                    <Renderer
+                        apiOptions={this.props.apiOptions}
+                        content={this.props.explanation}
+                        widgets={this.props.widgets}
+                        linterContext={this.props.linterContext}
+                    />
+                </div>
+                {/*)}*/}
             </div>
         );
     }
@@ -255,16 +255,32 @@ const styles = StyleSheet.create({
     },
 
     content: {
+        borderLeft: "0px solid #ccc",
+        display: "inline-grid",
+        gridTemplateColumns: "0fr",
+        gridTemplateRows: "0fr",
+        marginBottom: 0,
+        marginTop: 0,
+        minWidth: "0",
+        paddingBottom: 0,
         position: "relative",
-        transition: "margin-top 0.1s",
+        transition:
+            "all 0.25s step-end, grid-template-rows 0.25s, margin-top 0.25s, margin-bottom 0.25s, padding-bottom 0.25s",
+        ":first-child": {
+            overflow: "hidden",
+        },
     },
 
     contentExpanded: {
-        borderLeft: "5px solid #ccc",
+        borderLeftWidth: "5px",
+        gridTemplateColumns: "1fr",
+        gridTemplateRows: "1fr",
         marginLeft: -leftBorderSpacing,
+        minWidth: "100%",
         paddingLeft: leftBorderSpacing,
-
         paddingBottom: verticalContentPadding,
+        transition:
+            "grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s",
 
         // Note: we still use arrow height as the vertical margin, even on
         // desktop when there is no arrow, but it's good enough.
