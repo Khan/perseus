@@ -376,13 +376,6 @@ export class NumericInput extends React.Component<Props, State> {
 
     _handleFocus: () => void = () => {
         this.props.onFocus([]);
-        // HACK(kevinb): We want to dismiss the feedback popover that webapp
-        // displays as soon as a user clicks in in the input field so we call
-        // interactionCallback directly.
-        const {interactionCallback} = this.props.apiOptions;
-        if (interactionCallback) {
-            interactionCallback();
-        }
     };
 
     _handleBlur: () => void = () => {

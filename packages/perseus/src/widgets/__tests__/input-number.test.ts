@@ -337,18 +337,4 @@ describe("focus state", () => {
         // Assert
         expect(gotFocus).toBeTrue();
     });
-
-    it("calls the interaction callback on focus", () => {
-        const testCallback = jest.fn();
-
-        const {renderer} = renderQuestion(question, {
-            interactionCallback: testCallback,
-        });
-
-        // Act
-        renderer.focus();
-
-        // Assert
-        expect(testCallback).toHaveBeenCalled();
-    });
 });
