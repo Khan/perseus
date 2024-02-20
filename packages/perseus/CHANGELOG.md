@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 19.3.1
+
+### Patch Changes
+
+-   [#997](https://github.com/Khan/perseus/pull/997) [`6ef53d21`](https://github.com/Khan/perseus/commit/6ef53d213fae13977effbd28c784aa6cd91c6e7f) Thanks [@nishasy](https://github.com/nishasy)! - Add a type for LockedPoint
+
 ## 19.3.0
 
 ### Minor Changes
