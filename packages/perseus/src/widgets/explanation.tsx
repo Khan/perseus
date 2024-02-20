@@ -1,5 +1,8 @@
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Body} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -139,22 +142,24 @@ class Explanation extends React.Component<Props, State> {
                 // NOTE: For exercises, the baseElements `Link` is an
                 // anchor tag, see: `perseus-api.jsx`.
                 linkContainer = (
-                    <div
+                    <Clickable
                         className={css(
                             styles.linkContainer,
                             styles.exerciseLink,
                         )}
+                        onClick={onClick}
                     >
-                        <Link
-                            className={css(styles.explanationLink)}
-                            href={href}
-                            onClick={onClick}
-                            role="button"
-                            aria-expanded={this.state.expanded}
-                        >
-                            {`[${linkAnchor}]`}
-                        </Link>
-                    </div>
+                        {({hovered, pressed}) => (
+                            <View
+                                style={[
+                                    hovered && styles.hovered,
+                                    pressed && styles.pressed,
+                                ]}
+                            >
+                                <Body>{`[${linkAnchor}]`}</Body>
+                            </View>
+                        )}
+                    </Clickable>
                 );
             }
         }
