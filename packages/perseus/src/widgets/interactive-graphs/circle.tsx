@@ -1,15 +1,14 @@
 import {useMovablePoint, Circle, MovablePoint} from "mafs";
 import * as React from "react";
 
+import {Grid} from "./grid";
 import {constrain, snap} from "./utils";
 
-import type {
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusGraphTypeCircle,
-} from "../../perseus-types";
+import type {PerseusGraphTypeCircle} from "../../perseus-types";
+import type {InteractiveGraphProps} from "../interactive-mafs";
 import type {vec} from "mafs";
 
-type CircleProps = Omit<PerseusInteractiveGraphWidgetOptions, "graph"> & {
+type CircleProps = Omit<InteractiveGraphProps, "graph"> & {
     graph: PerseusGraphTypeCircle;
 };
 
@@ -28,7 +27,8 @@ export const CircleGraph = (props: CircleProps) => {
 
     return (
         <>
-            <Circle center={center.point} radius={r} />
+            <Grid {...props} />
+            <Circle center={center.point} radius={r} fillOpacity={0} />
             {center.element}
             {/* {radiusHandle.element} */}
             <MovablePoint

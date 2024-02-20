@@ -1,14 +1,13 @@
 import {useMovablePoint, Line, Vector} from "mafs";
 import * as React from "react";
 
+import {Grid} from "./grid";
 import {constrain, getLineCoords} from "./utils";
 
-import type {
-    PerseusGraphTypeRay,
-    PerseusInteractiveGraphWidgetOptions,
-} from "../../perseus-types";
+import type {PerseusGraphTypeRay} from "../../perseus-types";
+import type {InteractiveGraphProps} from "../interactive-mafs";
 
-type RayProps = Omit<PerseusInteractiveGraphWidgetOptions, "graph"> & {
+type RayProps = Omit<InteractiveGraphProps, "graph"> & {
     graph: PerseusGraphTypeRay;
 };
 
@@ -26,6 +25,7 @@ export const RayGraph = (props: RayProps) => {
 
     return (
         <>
+            <Grid {...props} />
             <Vector tail={pointB.point} tip={rayTip} />
             <Line.Segment point1={pointA.point} point2={pointB.point} />
             {pointA.element}
@@ -34,6 +34,10 @@ export const RayGraph = (props: RayProps) => {
     );
 };
 
+// there's probably a better way to figure this out, but I need to re-learn vector math
+/**
+ * Given two points, find the tip of the ray that extends through the points to the edge of the range.
+ */
 const getRayTip = (
     pointA: [number, number],
     pointB: [number, number],
@@ -44,7 +48,6 @@ const getRayTip = (
     const [aX, aY] = pointA;
     const [bX, bY] = pointB;
 
-    // vector continues in straight line until hits the edge of the graph
     const yDiff = bY - aY;
     const xDiff = bX - aX;
     const slope = yDiff / xDiff;

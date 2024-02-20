@@ -1,15 +1,14 @@
 import {useMovablePoint, Line} from "mafs";
 import * as React from "react";
 
+import {Grid} from "./grid";
 import {constrain, normalizeCoords, normalizePoints} from "./utils";
 
 import type {Coord} from "../../interactive2/types";
-import type {
-    PerseusGraphTypeSegment,
-    PerseusInteractiveGraphWidgetOptions,
-} from "../../perseus-types";
+import type {PerseusGraphTypeSegment} from "../../perseus-types";
+import type {InteractiveGraphProps} from "../interactive-mafs";
 
-type SegmentProps = Omit<PerseusInteractiveGraphWidgetOptions, "graph"> & {
+type SegmentProps = Omit<InteractiveGraphProps, "graph"> & {
     graph: PerseusGraphTypeSegment;
 };
 
@@ -53,6 +52,7 @@ export const SegmentsGraph = (props: SegmentProps) => {
     const segments = getSegmentCoords(props);
     return (
         <>
+            <Grid {...props} />
             {segments.map((segment, i) => (
                 <Segment
                     key={i}

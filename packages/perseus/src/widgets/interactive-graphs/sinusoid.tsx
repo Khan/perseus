@@ -1,15 +1,14 @@
 import {useMovablePoint, Plot} from "mafs";
 import * as React from "react";
 
+import {Grid} from "./grid";
 import {normalizePoints, constrain} from "./utils";
 
-import type {
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusGraphTypeSinusoid,
-} from "../../perseus-types";
+import type {PerseusGraphTypeSinusoid} from "../../perseus-types";
 import type {SineCoefficient} from "../../util/geometry";
+import type {InteractiveGraphProps} from "../interactive-mafs";
 
-type SinusoidProps = Omit<PerseusInteractiveGraphWidgetOptions, "graph"> & {
+type SinusoidProps = Omit<InteractiveGraphProps, "graph"> & {
     graph: PerseusGraphTypeSinusoid;
 };
 
@@ -45,6 +44,7 @@ export const SinusoidGraph = (props: SinusoidProps) => {
 
     return (
         <>
+            <Grid {...props} />
             <Plot.OfX y={(x) => a * Math.sin(b * x - c) + d} />
             {p1.element}
             {p2.element}

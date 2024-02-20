@@ -1,67 +1,31 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Mafs, Coordinates} from "mafs";
+import {Mafs} from "mafs";
 import * as React from "react";
 import _ from "underscore";
 
-import {interactiveSizes} from "../styles/constants";
-import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
-
-import {CircleGraph, RayGraph, SegmentsGraph, SinusoidGraph} from "./graphs";
+import {
+    CircleGraph,
+    PolygonGraph,
+    RayGraph,
+    SegmentsGraph,
+    SinusoidGraph,
+} from "./interactive-graphs";
 
 import type {
     PerseusGraphType,
-    PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
 import "mafs/core.css";
 import "mafs/font.css";
-import type {SizeClass} from "../util/sizing-utils";
 
-type RenderProps = PerseusInteractiveGraphWidgetOptions;
-type Rubric = PerseusInteractiveGraphWidgetOptions;
-type Props = WidgetProps<RenderProps, Rubric>;
+export type InteractiveGraphProps = WidgetProps<
+    PerseusInteractiveGraphWidgetOptions,
+    PerseusInteractiveGraphWidgetOptions
+>;
 
-const maybeAddBackgroundImage = (props: {
-    backgroundImage?: PerseusImageBackground;
-    containerSizeClass: SizeClass;
-}): [JSX.Element | null, boolean] => {
-    let renderCoords = true;
-    let url = props.backgroundImage?.url;
-    if (!url) {
-        return [null, renderCoords];
-    }
-
-    // replace protocol with https
-    if (url.startsWith("web+graphie")) {
-        url = url.replace(/web\+graphie/, "https") + ".svg";
-    } else {
-        renderCoords = false;
-    }
-
-    const box = getInteractiveBoxFromSizeClass(props.containerSizeClass);
-    const scale = box[0] / interactiveSizes.defaultBoxSize;
-    return [
-        <image
-            href={url}
-            width={props.backgroundImage?.width}
-            height={props.backgroundImage?.height}
-            scale={scale}
-            x={-200}
-            y={-225}
-            style={{
-                filter: "invert(1)",
-            }}
-        />,
-        renderCoords,
-    ];
-};
-
-const renderLabel = (n: number, [min, max]: [number, number]) =>
-    n !== -1 && n !== min && n !== max;
-
-export const InteractiveMafs = ({graph, ...props}: Props) => {
+export const InteractiveMafs = ({graph, ...props}: InteractiveGraphProps) => {
     console.log(graph.type, {graph});
     console.log({props});
 
@@ -75,10 +39,10 @@ export const InteractiveMafs = ({graph, ...props}: Props) => {
                 return <CircleGraph {...props} graph={graph} />;
             case "ray":
                 return <RayGraph {...props} graph={graph} />;
+            case "polygon":
+                return <PolygonGraph {...props} graph={graph} />;
         }
     };
-
-    const [backgroundImage, renderCoords] = maybeAddBackgroundImage(props);
 
     return (
         <View
@@ -94,21 +58,6 @@ export const InteractiveMafs = ({graph, ...props}: Props) => {
                 width={400}
                 height={400}
             >
-                {backgroundImage}
-                {renderCoords && (
-                    <Coordinates.Cartesian
-                        xAxis={{
-                            lines: props.step[0],
-                            labels: (n) =>
-                                renderLabel(n, props.range[0]) ? n : "",
-                        }}
-                        yAxis={{
-                            lines: props.step[1],
-                            labels: (n) =>
-                                renderLabel(n, props.range[1]) ? n : "",
-                        }}
-                    />
-                )}
                 {renderGraph(graph)}
             </Mafs>
         </View>
