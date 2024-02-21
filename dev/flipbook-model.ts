@@ -2,6 +2,7 @@
 // ---------------------------------------------------------------------------
 
 import type {PerseusRenderer} from "@khanacademy/perseus";
+import {cache} from "./cache";
 
 export type FlipbookModel = {
     questions: string;
@@ -17,7 +18,9 @@ export type Action =
     | {type: "set-questions"; questions: string};
 
 export const next: Action = {type: "next"};
+
 export const previous: Action = {type: "previous"};
+
 export function setQuestions(questions: string): Action {
     return {type: "set-questions", questions};
 }
@@ -96,16 +99,4 @@ function parseQuestion(json): PerseusRenderer {
             images: {},
         };
     }
-}
-
-function cache<A, O>(f: (arg: A) => O): (arg: A) => O {
-    let argForCache;
-    let cache;
-    return (arg) => {
-        if (cache == null || arg !== argForCache) {
-            argForCache = arg;
-            cache = {value: f(arg)};
-        }
-        return cache.value;
-    };
 }
