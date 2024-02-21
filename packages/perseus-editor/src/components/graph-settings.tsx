@@ -14,7 +14,6 @@ import _ from "underscore";
 import type {PerseusImageBackground} from "@khanacademy/perseus";
 
 const {ButtonGroup, InfoTip, PropCheckBox, RangeInput} = components;
-const {getDependencies} = Dependencies;
 
 const defaultBackgroundImage = {
     url: null,
@@ -470,7 +469,7 @@ class GraphSettings extends React.Component<Props, State> {
             ),
         ];
 
-        const {TeX} = getDependencies();
+        const {TeX} = Dependencies.getDependencies();
 
         return (
             <div>

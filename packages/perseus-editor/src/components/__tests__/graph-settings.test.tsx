@@ -1,18 +1,17 @@
+import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
-import * as Dependencies from "../../../../perseus/src/dependencies";
 import GraphSettings from "../graph-settings";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 
 describe("GraphSettings", () => {
     beforeEach(() => {
-        Dependencies.setDependencies(testDependencies);
-        // jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-        //     testDependencies,
-        // );
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
     });
 
     test("displays canvas settings", () => {
