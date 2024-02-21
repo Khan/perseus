@@ -4,13 +4,11 @@ import * as React from "react";
 import {Grid} from "./grid";
 import {normalizePoints, constrain} from "./utils";
 
+import type {MafsGraphProps} from "./types";
 import type {PerseusGraphTypeSinusoid} from "../../perseus-types";
 import type {SineCoefficient} from "../../util/geometry";
-import type {InteractiveGraphProps} from "../interactive-mafs";
 
-type SinusoidProps = Omit<InteractiveGraphProps, "graph"> & {
-    graph: PerseusGraphTypeSinusoid;
-};
+type SinusoidProps = MafsGraphProps<PerseusGraphTypeSinusoid>;
 
 export const SinusoidGraph = (props: SinusoidProps) => {
     const coords = normalizePoints(
@@ -44,7 +42,7 @@ export const SinusoidGraph = (props: SinusoidProps) => {
 
     return (
         <>
-            <Grid {...props} />
+            {!props.usesLegacyBackgoundImage && <Grid {...props} />}
             <Plot.OfX y={(x) => a * Math.sin(b * x - c) + d} />
             {p1.element}
             {p2.element}

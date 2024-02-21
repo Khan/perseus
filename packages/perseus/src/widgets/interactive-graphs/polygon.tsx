@@ -1,15 +1,13 @@
-import {Line, MovablePoint, Text, vec, Debug, useTransformContext} from "mafs";
+import {Line, MovablePoint, Text, vec} from "mafs";
 import * as React from "react";
 
 import {constrain, normalizeCoords, normalizePoints} from "./utils";
 
+import type {MafsGraphProps} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {PerseusGraphTypePolygon} from "../../perseus-types";
-import type {InteractiveGraphProps} from "../interactive-mafs";
 
-type PolygonProps = Omit<InteractiveGraphProps, "graph"> & {
-    graph: PerseusGraphTypePolygon;
-};
+type PolygonProps = MafsGraphProps<PerseusGraphTypePolygon>;
 
 const getPolygonCoords = ({
     graph,

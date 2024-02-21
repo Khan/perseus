@@ -4,12 +4,10 @@ import * as React from "react";
 import {Grid} from "./grid";
 import {constrain, getLineCoords} from "./utils";
 
+import type {MafsGraphProps} from "./types";
 import type {PerseusGraphTypeRay} from "../../perseus-types";
-import type {InteractiveGraphProps} from "../interactive-mafs";
 
-type RayProps = Omit<InteractiveGraphProps, "graph"> & {
-    graph: PerseusGraphTypeRay;
-};
+type RayProps = MafsGraphProps<PerseusGraphTypeRay>;
 
 export const RayGraph = (props: RayProps) => {
     const [a, b] = getLineCoords(props.graph, props.range, props.step);
@@ -25,7 +23,7 @@ export const RayGraph = (props: RayProps) => {
 
     return (
         <>
-            <Grid {...props} />
+            {!props.usesLegacyBackgoundImage && <Grid {...props} />}
             <Vector tail={pointB.point} tip={rayTip} />
             <Line.Segment point1={pointA.point} point2={pointB.point} />
             {pointA.element}
