@@ -47,7 +47,7 @@ export const Errors = Object.freeze({
 /**
  * @type {ErrorKind} The kind of error being reported
  */
-export type ErrorKind = typeof Errors[keyof typeof Errors];
+export type ErrorKind = (typeof Errors)[keyof typeof Errors];
 
 export type LogErrorOptions = {
     // The cause of the error.

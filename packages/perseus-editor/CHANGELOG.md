@@ -1,5 +1,66 @@
 # @khanacademy/perseus-editor
 
+## 4.2.3
+
+### Patch Changes
+
+-   Updated dependencies [[`6ef53d21`](https://github.com/Khan/perseus/commit/6ef53d213fae13977effbd28c784aa6cd91c6e7f)]:
+    -   @khanacademy/perseus@19.3.1
+
+## 4.2.2
+
+### Patch Changes
+
+-   Updated dependencies [[`955ae480`](https://github.com/Khan/perseus/commit/955ae480a822d875784fb2de65240fe1acd283a5), [`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89)]:
+    -   @khanacademy/perseus@19.3.0
+    -   @khanacademy/math-input@17.1.0
+
+## 4.2.1
+
+### Patch Changes
+
+-   Updated dependencies [[`f30c6639`](https://github.com/Khan/perseus/commit/f30c663941a21189f3520b7e38beda0e38320ed3)]:
+    -   @khanacademy/perseus@19.2.1
+
+## 4.2.0
+
+### Minor Changes
+
+-   [#989](https://github.com/Khan/perseus/pull/989) [`97b5bbfb`](https://github.com/Khan/perseus/commit/97b5bbfbea591d3b6d814ed4717135138fb30dec) Thanks [@aag](https://github.com/aag)! - Add a new python-program widget and its editor
+
+### Patch Changes
+
+-   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Update formatting for Prettier 2.8.8
+
+-   Updated dependencies [[`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639), [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639), [`97b5bbfb`](https://github.com/Khan/perseus/commit/97b5bbfbea591d3b6d814ed4717135138fb30dec)]:
+    -   @khanacademy/perseus@19.2.0
+    -   @khanacademy/math-input@17.0.8
+
+## 4.1.9
+
+### Patch Changes
+
+-   Updated dependencies [[`585a3fe9`](https://github.com/Khan/perseus/commit/585a3fe9aaa26ee550d36768c36e626f626a3417), [`e4ca3c53`](https://github.com/Khan/perseus/commit/e4ca3c5384e9a16e79e4fb2704c0a6dd3c4ebf54), [`9f2eafe4`](https://github.com/Khan/perseus/commit/9f2eafe4c4649fd1ee1a83611b53908eb9cf3468), [`36a5ebe1`](https://github.com/Khan/perseus/commit/36a5ebe1ef373058090841fc734778c06e318397)]:
+    -   @khanacademy/perseus@19.1.9
+
+## 4.1.8
+
+### Patch Changes
+
+-   [#985](https://github.com/Khan/perseus/pull/985) [`260bf9b8`](https://github.com/Khan/perseus/commit/260bf9b8af039270a513e15b0fe6034afcf522b6) Thanks [@nedredmond](https://github.com/nedredmond)! - Prevent call on editor methods when editor has not been initialized.
+
+-   Updated dependencies [[`279c3730`](https://github.com/Khan/perseus/commit/279c3730fba6a9854b1434ba7499f5c5cfd2151a)]:
+    -   @khanacademy/math-input@17.0.7
+    -   @khanacademy/perseus@19.1.8
+
+## 4.1.7
+
+### Patch Changes
+
+-   Updated dependencies [[`ca0af2eb`](https://github.com/Khan/perseus/commit/ca0af2eb613ece0be8c59798d0e886577c9590c7), [`cdf7c0aa`](https://github.com/Khan/perseus/commit/cdf7c0aa0f095b8afba429f2da5328cc11cdb7a3), [`3f718367`](https://github.com/Khan/perseus/commit/3f718367f82ecb8819b91220831e34becdbab8c9)]:
+    -   @khanacademy/perseus@19.1.7
+    -   @khanacademy/math-input@17.0.6
+
 ## 4.1.6
 
 ### Patch Changes

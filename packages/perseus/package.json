@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "19.1.6",
+    "version": "19.3.1",
     "publishConfig": {
         "access": "public"
     },
@@ -27,15 +27,15 @@
     "dependencies": {
         "@khanacademy/kas": "^0.3.8",
         "@khanacademy/kmath": "^0.1.12",
-        "@khanacademy/math-input": "^17.0.5",
+        "@khanacademy/math-input": "^17.1.0",
         "@khanacademy/perseus-core": "1.4.2",
-        "@khanacademy/perseus-linter": "^0.3.11",
-        "@khanacademy/pure-markdown": "^0.2.14",
+        "@khanacademy/perseus-linter": "^0.3.12",
+        "@khanacademy/pure-markdown": "^0.2.15",
         "@khanacademy/simple-markdown": "^0.11.3",
         "@khanacademy/wonder-blocks-banner": "^3.0.33"
     },
     "devDependencies": {
-        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.5.1",
+        "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",
         "@khanacademy/wonder-blocks-button": "^6.2.5",
         "@khanacademy/wonder-blocks-clickable": "^4.0.12",
         "@khanacademy/wonder-blocks-color": "^3.0.0",

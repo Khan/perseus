@@ -140,6 +140,7 @@ export type {
     PerseusInteractiveGraphWidgetOptions,
     PerseusItem,
     PerseusPlotterWidgetOptions,
+    PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
     PerseusRenderer,
     PerseusWidget,

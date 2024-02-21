@@ -6,6 +6,11 @@ import type {Coord} from "./interactive2/types";
 export type Range = [number, number];
 export type Size = [number, number];
 
+type StyleParams = {
+    fill?: string;
+    stroke?: string;
+};
+
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
 
@@ -82,7 +87,7 @@ export const ItemExtras = [
     // The user might benefit from using a statistics Z Table like https://www.ztable.net/
     "zTable",
 ] as const;
-export type PerseusAnswerArea = Record<typeof ItemExtras[number], boolean>;
+export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
 type Widget<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
@@ -155,6 +160,8 @@ export type PassageWidget = Widget<'passage', PerseusPassageWidgetOptions>;
 // prettier-ignore
 export type PlotterWidget = Widget<'plotter', PerseusPlotterWidgetOptions>;
 // prettier-ignore
+export type PythonProgramWidget = Widget<'python-program', PerseusPythonProgramWidgetOptions>;
+// prettier-ignore
 export type RadioWidget = Widget<'radio', PerseusRadioWidgetOptions>;
 // prettier-ignore
 export type SequenceWidget = Widget<'sequence', PerseusSequenceWidgetOptions>;
@@ -217,6 +224,7 @@ export type PerseusWidget =
     | PassageRefWidget
     | PassageWidget
     | PlotterWidget
+    | PythonProgramWidget
     | RadioWidget
     | ReactionDiagramWidget
     | RefTargetWidget
@@ -359,7 +367,7 @@ export type PerseusExpressionAnswerForm = {
     // The answer expression must be fully expanded and simplified
     simplify: boolean;
     // Whether the form is considered "correct", "wrong", or "ungraded"
-    considered: typeof PerseusExpressionAnswerFormConsidered[number];
+    considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
     // A key to identify the answer form in a list
     // NOTE: perseus-format.js says this is required even though it isn't necessary.
     key?: string;
@@ -552,6 +560,17 @@ export type PerseusInteractiveGraphWidgetOptions = {
     graph: PerseusGraphType;
     // The correct kind of graph, if being used to select function type
     correct: PerseusGraphType;
+    // Shapes (points, chords, etc) displayed on the graph that cannot
+    // be moved by the user.
+    lockedFigures?: ReadonlyArray<LockedFigure>;
+};
+
+export type LockedFigure = LockedPoint;
+
+export type LockedPoint = {
+    type: "point";
+    coord: Coord;
+    style?: StyleParams;
 };
 
 export type PerseusGraphType =
@@ -868,7 +887,7 @@ export const plotterPlotTypes = [
     "histogram",
     "dotplot",
 ] as const;
-export type PlotType = typeof plotterPlotTypes[number];
+export type PlotType = (typeof plotterPlotTypes)[number];
 
 export type PerseusPlotterWidgetOptions = {
     // Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"]
@@ -1273,6 +1292,13 @@ export type PerseusCSProgramSetting = {
     name: string;
     // The value of the setting
     value: string;
+};
+
+export type PerseusPythonProgramWidgetOptions = {
+    // The ID of the Python program to embed
+    programID: string;
+    // The height of the widget in pixels
+    height: number;
 };
 
 export type PerseusIFrameWidgetOptions = {

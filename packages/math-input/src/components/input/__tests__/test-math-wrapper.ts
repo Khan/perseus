@@ -21,7 +21,9 @@ export default class TestMathWrapper extends MathWrapper {
         const selection = this.getSelection();
 
         if (selection) {
-            return selection.ends[-1][-1] === 0 && selection.ends[1][1] === 0;
+            return (
+                selection.getEnd(-1)[-1] === 0 && selection.getEnd(1)[1] === 0
+            );
         }
 
         return false;

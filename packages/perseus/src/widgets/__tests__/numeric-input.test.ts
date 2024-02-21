@@ -485,20 +485,6 @@ describe("Numeric input widget", () => {
         );
     });
 
-    it("calls the interaction callback on focus", () => {
-        const testCallback = jest.fn();
-
-        const {renderer} = renderQuestion(question1, {
-            interactionCallback: testCallback,
-        });
-
-        // Act
-        renderer.focus();
-
-        // Assert
-        expect(testCallback).toHaveBeenCalled();
-    });
-
     it("can be blurred", () => {
         const {renderer} = renderQuestion(question1);
 

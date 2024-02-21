@@ -22,7 +22,7 @@ import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 export type Props = {
     extraKeys: ReadonlyArray<Key>;
-    cursorContext?: typeof CursorContext[keyof typeof CursorContext];
+    cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     showDismiss?: boolean;
     expandedView?: boolean;
 

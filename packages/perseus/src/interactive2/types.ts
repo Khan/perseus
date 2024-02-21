@@ -1,9 +1,9 @@
-import type {Movable} from "./movable";
+import type {Graphie} from "../util/graphie";
 
 export type Coord = [number, number]; // x, y
 export type Line = [Coord, Coord]; // start, end
 export type Constraint = (
-    this: Movable<any>,
+    this: {graphie: Graphie},
     current: Coord | boolean,
     previous: Coord,
     options: ConstraintCallbacks,

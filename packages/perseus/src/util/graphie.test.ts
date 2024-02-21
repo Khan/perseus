@@ -1,4 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import $ from "jquery";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
 
 import {testDependencies} from "../../../../testing/test-dependencies";
@@ -1241,6 +1243,144 @@ describe("Graphie drawing tools", () => {
 
             expect(result).toBe(fakeRaphaelSet);
         });
+    });
+
+    describe("addMouseLayer", () => {
+        it("should attach new mouse layer (Raphael canvas) to graph", () => {
+            const graphie = createAndInitGraphie();
+
+            graphie.addMouseLayer({});
+
+            expect(graphie.mouselayer).toBeDefined();
+        });
+
+        it("should add a new mouse layer (div) into graph's DOM element", () => {
+            const graphie = createAndInitGraphie();
+
+            graphie.addMouseLayer({});
+
+            expect(graphie._mouselayerWrapper).toBeDefined();
+            expect(graphie._mouselayerWrapper?.parentNode).toBe(graphie.el);
+        });
+
+        it("should add addToMouseLayerWrapper() implementation", () => {
+            const graphie = createAndInitGraphie();
+            graphie.addMouseLayer({});
+
+            graphie.addToMouseLayerWrapper(document.createElement("span"));
+
+            expect(graphie._mouselayerWrapper?.children.length).toBe(1);
+        });
+
+        it("should add a new visible layer (div) into graph's DOM element", () => {
+            const graphie = createAndInitGraphie();
+
+            graphie.addMouseLayer({});
+
+            expect(graphie._visiblelayerWrapper).toBeDefined();
+            expect(graphie._visiblelayerWrapper?.parentNode).toBe(graphie.el);
+        });
+
+        it("should add addToVisibleLayerWrapper() implementation", () => {
+            const graphie = createAndInitGraphie();
+            graphie.addMouseLayer({});
+
+            graphie.addToVisibleLayerWrapper(document.createElement("span"));
+
+            expect(graphie._visiblelayerWrapper?.children.length).toBe(1);
+        });
+
+        it.each([
+            "onClick",
+            "onMouseDown",
+            "onMouseMove",
+            "onMouseOver",
+            "onMouseOut",
+        ])(
+            "should add click target that covers the entire graph when %s handler provided",
+            async (eventName) => {
+                const graphie = createAndInitGraphie();
+                const handler = jest.fn();
+
+                graphie.addMouseLayer({[eventName]: handler});
+
+                // eslint-disable-next-line testing-library/no-node-access
+                const target = graphie.el.querySelector("rect");
+                expect(target?.getAttribute("width")).toBe("50");
+                expect(target?.getAttribute("height")).toBe("50");
+            },
+        );
+
+        it("should disable drawing area if allowScratchpad is false", async () => {
+            const graphie = createAndInitGraphie();
+            const onSetDrawingAreaAvailable = jest.fn();
+            graphie.addMouseLayer({
+                setDrawingAreaAvailable: onSetDrawingAreaAvailable,
+                allowScratchpad: false,
+            });
+
+            expect(onSetDrawingAreaAvailable).toHaveBeenCalledWith(false);
+        });
+    });
+
+    describe("getMousePx", () => {
+        it.each([
+            {
+                graphPosition: {left: 0, top: 0},
+                mouseEvent: {pageX: 10, pageY: 10},
+                expectedPixelCoord: [10, 10],
+            },
+            {
+                graphPosition: {left: 20, top: 10},
+                mouseEvent: {pageX: 40, pageY: 40},
+                expectedPixelCoord: [20, 30],
+            },
+        ])(
+            "should return pixel coordinates $expectedPixelCoord for the mouse event $mouseEvent (graph at $graphPosition)",
+            ({graphPosition, mouseEvent, expectedPixelCoord}) => {
+                const graphie = createAndInitGraphie();
+                jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
+
+                const mousePx = graphie.getMousePx(mouseEvent);
+
+                expect(mousePx).toEqual(expectedPixelCoord);
+            },
+        );
+    });
+
+    describe("getMouseCoord", () => {
+        it.each([
+            {
+                graphPosition: {left: 0, top: 0},
+                mouseEvent: {pageX: 10, pageY: 10},
+                expectedGraphCoord: [2, 8],
+            },
+            {
+                graphPosition: {left: 20, top: 10},
+                mouseEvent: {pageX: 30, pageY: 20},
+                expectedGraphCoord: [2, 8],
+            },
+        ])(
+            "should return graph coordinates $expectedGraphCoord for the mouse event $mouseEvent (graph at $graphPosition)",
+            ({graphPosition, mouseEvent, expectedGraphCoord}) => {
+                const graphie = GraphUtils.createGraphie(
+                    document.createElement("div"),
+                );
+                // The graph is 50px by 50px.
+                graphie.init({
+                    range: [
+                        [0, 10],
+                        [0, 10],
+                    ],
+                    scale: 5,
+                });
+                jest.spyOn($.fn, "offset").mockReturnValue(graphPosition);
+
+                const mousePx = graphie.getMouseCoord(mouseEvent);
+
+                expect(mousePx).toEqual(expectedGraphCoord);
+            },
+        );
     });
 });
 

@@ -119,9 +119,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     coord={coord}
                     static={this.props.static}
                     constraints={[
-                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.bound(),
-                        // @ts-expect-error - TS2339 - Property 'constraints' does not exist on type '(graphie: any, movable: any, options: any) => void'.
                         Interactive2.MovablePoint.constraints.snap(),
                         (coord: any) => {
                             // Always enforce that this is a function

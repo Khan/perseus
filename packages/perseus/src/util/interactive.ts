@@ -14,8 +14,6 @@ import {
     line as kline,
 } from "@khanacademy/kmath";
 import $ from "jquery";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Raphael from "raphael";
 import _ from "underscore";
 
 // NOTE(jeresig): We include a special copy of jQuery vmouse so
@@ -23,10 +21,9 @@ import _ from "underscore";
 // (this should have no impact in the browser)
 // eslint-disable-next-line import/no-unassigned-import
 import "../jquery.mobile.vmouse";
-import InteractiveUtil from "../interactive2/interactive-util";
+import {Arrowhead} from "../interactive2/arrowhead";
 import WrappedEllipse from "../interactive2/wrapped-ellipse";
 import WrappedLine from "../interactive2/wrapped-line";
-import WrappedPath from "../interactive2/wrapped-path";
 import {Errors} from "../logging/log";
 import {PerseusError} from "../perseus-error";
 
@@ -38,8 +35,6 @@ import KhanMath from "./math";
 import type {Coord} from "../interactive2/types";
 
 export type MouseHandler = (position: Coord) => void;
-
-const {getCanUse3dTransform} = InteractiveUtil;
 
 function scaledDistanceFromAngle(angle: number) {
     const a = 3.51470560176242 * 20;
@@ -76,150 +71,6 @@ const InteractiveUtils: any = {
 };
 
 _.extend(GraphUtils.Graphie.prototype, {
-    // graphie puts text spans on top of the SVG, which looks good, but gets
-    // in the way of mouse events. This adds another SVG element on top
-    // of everything else where we can add invisible shapes with mouse
-    // handlers wherever we want.
-    addMouseLayer: function (options: {
-        onClick?: MouseHandler;
-        onMouseMove?: MouseHandler;
-        onMouseDown?: MouseHandler;
-        onMouseOver?: MouseHandler;
-        onMouseOut?: MouseHandler;
-        allowScratchpad?: boolean;
-        setDrawingAreaAvailable?: (available: boolean) => void;
-    }) {
-        const graph = this;
-        options = _.extend(
-            {
-                allowScratchpad: false,
-                setDrawingAreaAvailable: function () {},
-            },
-            options,
-        );
-
-        const mouselayerZIndex = 2;
-        graph.mouselayer = Raphael(
-            graph.raphael.canvas.parentNode,
-            graph.xpixels,
-            graph.ypixels,
-        );
-        $(graph.mouselayer.canvas).css("z-index", mouselayerZIndex);
-        if (
-            options.onClick ||
-            options.onMouseDown ||
-            options.onMouseMove ||
-            options.onMouseOver ||
-            options.onMouseOut
-        ) {
-            const canvasClickTarget = graph.mouselayer
-                .rect(0, 0, graph.xpixels, graph.ypixels)
-                .attr({
-                    fill: "#000",
-                    opacity: 0,
-                });
-            let isClickingCanvas = false;
-
-            $(graph.mouselayer.canvas).on("vmousedown", function (e) {
-                if (e.target === canvasClickTarget[0]) {
-                    if (options.onMouseDown) {
-                        options.onMouseDown(graph.getMouseCoord(e));
-                    }
-                    isClickingCanvas = true;
-
-                    if (options.onMouseMove) {
-                        const handler = options.onMouseMove;
-                        $(document).bind("vmousemove.mouseLayer", function (e) {
-                            if (isClickingCanvas) {
-                                e.preventDefault();
-                                handler(graph.getMouseCoord(e));
-                            }
-                        });
-                    }
-
-                    $(document).bind("vmouseup.mouseLayer", function (e) {
-                        $(document).unbind(".mouseLayer");
-
-                        // Only register clicks that started on the canvas,
-                        // and not on another mouseLayer target
-                        if (isClickingCanvas && options.onClick) {
-                            options.onClick(graph.getMouseCoord(e));
-                        }
-                        isClickingCanvas = false;
-                    });
-                }
-            });
-            if (options.onMouseOver) {
-                const handler = options.onMouseOver;
-                $(graph.mouselayer.canvas).on("vmouseover", function (e) {
-                    handler(graph.getMouseCoord(e));
-                });
-            }
-            if (options.onMouseOut) {
-                const handler = options.onMouseOut;
-                $(graph.mouselayer.canvas).on("vmouseout", function (e) {
-                    handler(graph.getMouseCoord(e));
-                });
-            }
-        }
-        if (!options.allowScratchpad) {
-            options.setDrawingAreaAvailable?.(false);
-        }
-
-        // Add mouse and visible wrapper layers for DOM-node-wrapped movables
-        graph._mouselayerWrapper = document.createElement("div");
-        $(graph._mouselayerWrapper).css({
-            position: "absolute",
-            left: 0,
-            top: 0,
-            zIndex: mouselayerZIndex,
-        });
-
-        graph._visiblelayerWrapper = document.createElement("div");
-        $(graph._visiblelayerWrapper).css({
-            position: "absolute",
-            left: 0,
-            top: 0,
-        });
-
-        const el = graph.raphael.canvas.parentNode;
-        el.appendChild(graph._visiblelayerWrapper);
-        el.appendChild(graph._mouselayerWrapper);
-
-        // Add functions for adding to wrappers
-        graph.addToMouseLayerWrapper = function (el: any) {
-            this._mouselayerWrapper.appendChild(el);
-        };
-        graph.addToVisibleLayerWrapper = function (el: any) {
-            this._visiblelayerWrapper.appendChild(el);
-        };
-    },
-
-    /**
-     * Get mouse coordinates in pixels
-     */
-    getMousePx: function (event: Readonly<{pageX?: number; pageY?: number}>) {
-        const graphie = this;
-
-        const mouseX =
-            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-            event.pageX - $(graphie.raphael.canvas.parentNode).offset().left;
-        const mouseY =
-            // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-            event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
-
-        return [mouseX, mouseY];
-    },
-
-    /**
-     * Get mouse coordinates in graph coordinates
-     */
-    getMouseCoord: function (
-        event: Readonly<{pageX?: number; pageY?: number}>,
-    ): Coord {
-        return this.unscalePoint(this.getMousePx(event));
-    },
-
     /**
      * Unlike all other Graphie-related code, the following three functions use
      * a lot of scaled coordinates (so that labels appear the same size
@@ -1333,102 +1184,15 @@ _.extend(GraphUtils.Graphie.prototype, {
                 element.moveTo(start, end);
             });
 
-            const createArrow = function (graph: any, style) {
-                const center = [0.75, 0];
-                let points = [
-                    [-3, 4],
-                    [-2.75, 2.5],
-                    [0, 0.25],
-                    center,
-                    [0, -0.25],
-                    [-2.75, -2.5],
-                    [-3, -4],
-                ];
-
-                const scale = 1.4;
-                points = _.map(points, function (point) {
-                    const pv = kvector.subtract(point, center);
-                    const pvScaled = kvector.scale(pv, scale);
-                    return kvector.add(center, pvScaled);
-                });
-
-                const createCubicPath = function (points: any) {
-                    let path = "M" + points[0][0] + " " + points[0][1];
-                    for (let i = 1; i < points.length; i += 3) {
-                        path +=
-                            "C" +
-                            points[i][0] +
-                            " " +
-                            points[i][1] +
-                            " " +
-                            points[i + 1][0] +
-                            " " +
-                            points[i + 1][1] +
-                            " " +
-                            points[i + 2][0] +
-                            " " +
-                            points[i + 2][1];
-                    }
-                    return path;
-                };
-
-                const unscaledPoints = _.map(points, graph.unscalePoint);
-                const options = {
-                    center: graph.unscalePoint(center),
-                    createPath: createCubicPath,
-                } as const;
-                const arrowHead = new WrappedPath(
-                    graph,
-                    unscaledPoints,
-                    options,
-                );
-                arrowHead.attr(
-                    _.extend(
-                        {
-                            "stroke-linejoin": "round",
-                            "stroke-linecap": "round",
-                            "stroke-dasharray": "",
-                        },
-                        style,
-                    ),
-                );
-
-                // Add custom function for transforming arrowheads that
-                // accounts for center, scaling, etc.
-                arrowHead.toCoordAtAngle = function (
-                    coord: Coord,
-                    angle: number,
-                ): void {
-                    const clipPoint = graph.scalePoint(
-                        getClipPoint(graph, coord, angle),
-                    );
-                    const do3dTransform = getCanUse3dTransform();
-                    arrowHead.transform(
-                        "translateX(" +
-                            (clipPoint[0] + scale * center[0]) +
-                            "px) " +
-                            "translateY(" +
-                            (clipPoint[1] + scale * center[1]) +
-                            "px) " +
-                            (do3dTransform ? "translateZ(0) " : "") +
-                            "rotate(" +
-                            (360 - KhanMath.bound(angle)) +
-                            "deg)",
-                    );
-                };
-
-                return arrowHead;
-            };
-
             // Add arrows
             if (this._arrows == null) {
                 this._arrows = [];
 
                 if (this.extendLine) {
-                    this._arrows.push(createArrow(graph, this.normalStyle));
-                    this._arrows.push(createArrow(graph, this.normalStyle));
+                    this._arrows.push(new Arrowhead(graph, this.normalStyle));
+                    this._arrows.push(new Arrowhead(graph, this.normalStyle));
                 } else if (this.extendRay) {
-                    this._arrows.push(createArrow(graph, this.normalStyle));
+                    this._arrows.push(new Arrowhead(graph, this.normalStyle));
                 }
             }
 

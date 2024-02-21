@@ -1,5 +1,29 @@
 # @khanacademy/math-input
 
+## 17.1.0
+
+### Minor Changes
+
+-   [#1006](https://github.com/Khan/perseus/pull/1006) [`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89) Thanks [@benchristel](https://github.com/benchristel)! - Allow learners to type trig operators in any language in the Expression widget
+
+## 17.0.8
+
+### Patch Changes
+
+-   [#995](https://github.com/Khan/perseus/pull/995) [`a4ead994`](https://github.com/Khan/perseus/commit/a4ead9940cddc09434b823039ff51b85ecd9e639) Thanks [@benchristel](https://github.com/benchristel)! - Update formatting for Prettier 2.8.8
+
+## 17.0.7
+
+### Patch Changes
+
+-   [#982](https://github.com/Khan/perseus/pull/982) [`279c3730`](https://github.com/Khan/perseus/commit/279c3730fba6a9854b1434ba7499f5c5cfd2151a) Thanks [@nedredmond](https://github.com/nedredmond)! - Inject localized MathSpeak into MathQuill
+
+## 17.0.6
+
+### Patch Changes
+
+-   [#970](https://github.com/Khan/perseus/pull/970) [`cdf7c0aa`](https://github.com/Khan/perseus/commit/cdf7c0aa0f095b8afba429f2da5328cc11cdb7a3) Thanks [@nishasy](https://github.com/nishasy)! - Add types for MathQuill cursor and controller
+
 ## 17.0.5
 
 ### Patch Changes

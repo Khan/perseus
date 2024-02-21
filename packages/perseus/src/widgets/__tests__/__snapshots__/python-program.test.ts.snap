@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`python-program widget should snapshot on mobile: first mobile render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="default_xu2jcg-o_O-container_1s1lg5o"
+          >
+            <iframe
+              allowfullscreen=""
+              sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation"
+              src="http://localhost:8081/python-program/5207287069147136/embedded"
+              style="height: 400px; width: 100%;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`python-program widget should snapshot: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="default_xu2jcg-o_O-container_1s1lg5o"
+          >
+            <iframe
+              allowfullscreen=""
+              sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation"
+              src="http://localhost:8081/python-program/5207287069147136/embedded"
+              style="height: 400px; width: 100%;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
