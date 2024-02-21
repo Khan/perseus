@@ -29,20 +29,75 @@ function numSteps(range: any, step: any) {
 type EditableSetting = "canvas" | "graph" | "snap" | "image" | "measure";
 
 type Props = {
+    /**
+     * What kinds of settings to include in this editor.
+     * Includes all except for "canvas" by default.
+     * - Including "canvas" will add canvas size settings.
+     * - Including "graph" will add graph settings (axes, grid, markings, etc.).
+     * - Including "snap" will add the snap step setting.
+     * - Including "image" will add the background image option.
+     * - Including "measure" will add the ruler and protractor options.
+     */
     editableSettings: ReadonlyArray<EditableSetting>;
+    /**
+     * The size of the graph canvas in pixels. Used to calculate the scale.
+     * Defaults to [288, 288].
+     */
     box: [number, number];
+    /**
+     * The labels for the x and y axes.
+     */
     labels: ReadonlyArray<string>;
+    /**
+     * The range of the graph in the x and y directions. Defaults to
+     * [[-10, 10], [-10, 10]].
+     */
     range: [[number, number], [number, number]];
+    /**
+     * The step between ticks on the graph.
+     */
     step: [number, number];
+    /**
+     * The step between grid lines on the graph.
+     */
     gridStep: [number, number];
+    /**
+     * The step between snap points on the graph.
+     */
     snapStep: [number, number];
+    /**
+     * Whether the graph settings are valid. If not, this will be a string
+     * explaining why the settings are invalid.
+     */
     valid: boolean | string;
+    /**
+     * The background image to display on the graph and its properties.
+     */
     backgroundImage: PerseusImageBackground;
+    /**
+     * The type of markings to display on the graph. One of "graph", "grid",
+     * or "none".
+     */
     markings: "graph" | "grid" | "none";
+    /**
+     * Whether to show a protractor on the graph. Defaults to false.
+     */
     showProtractor: boolean;
+    /**
+     * Whether to show a ruler on the graph.
+     */
     showRuler: boolean;
+    /**
+     * Whether to show tooltips on the graph.
+     */
     showTooltips: boolean;
+    /**
+     * The label to display on the ruler, if any.
+     */
     rulerLabel: string;
+    /**
+     * The number of ticks to display on the ruler.
+     */
     rulerTicks: number;
 
     onChange: (arg1: Partial<Props>) => void;
@@ -56,7 +111,12 @@ type State = {
     rangeTextbox: [[number, number], [number, number]];
     backgroundImage: PerseusImageBackground;
 };
-
+/**
+ * GraphSettings is a component that allows the user to specify properties
+ * of a displayed graph.
+ *
+ * Used in graph-related widget editors.
+ */
 class GraphSettings extends React.Component<Props, State> {
     _isMounted = false;
 
