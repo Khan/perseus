@@ -306,10 +306,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 29.999999999999993px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -318,10 +315,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 58.49999999999999px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -330,10 +324,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 86.99999999999999px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -342,10 +333,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 115.49999999999999px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -354,10 +342,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 144px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -366,10 +351,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 172.5px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -378,10 +360,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 201px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -390,10 +369,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 229.5px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -402,10 +378,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: black; left: 258px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -414,10 +387,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: rgb(17, 172, 205); left: 29.999999999999993px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -426,10 +396,7 @@ exports[`number-line widget should snapshot on mobile: first mobile render 1`] =
                   style="position: absolute; padding: 7px; color: rgb(17, 172, 205); left: 258px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
               </div>
@@ -743,10 +710,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 29.999999999999982px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -755,10 +719,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 79.99999999999999px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -767,10 +728,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 129.99999999999997px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -779,10 +737,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 179.99999999999997px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -791,10 +746,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 229.99999999999997px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -803,10 +755,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 280px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -815,10 +764,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 330px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -827,10 +773,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 380px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -839,10 +782,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 430px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -851,10 +791,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 29.999999999999982px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
                 <span
@@ -863,10 +800,7 @@ exports[`number-line widget should snapshot: first render 1`] = `
                   style="position: absolute; padding: 7px; color: black; left: 430px; top: 61.2px; fill: none;"
                 >
                   <span
-                    class="katex-holder"
-                  />
-                  <span
-                    class="mathjax-holder"
+                    class="tex-holder"
                   />
                 </span>
               </div>

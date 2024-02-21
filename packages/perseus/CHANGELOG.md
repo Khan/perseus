@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 17.8.0
+
+### Minor Changes
+
+-   [#917](https://github.com/Khan/perseus/pull/917) [`a5479339`](https://github.com/Khan/perseus/commit/a547933946b8be33b388fa4654d87289734848f0) Thanks [@Myranae](https://github.com/Myranae)! - Update Perseus' Storybook to use MathJax instead of KaTeX
+
 ## 17.7.0
 
 ### Minor Changes

@@ -334,6 +334,11 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     };
 
     handleHintRemove: (i: number) => void = (i: number) => {
+        // eslint-disable-next-line no-alert
+        if (!confirm("Are you sure you want to delete this hint?")) {
+            return;
+        }
+
         const hints = _(this.props.hints).clone();
         // @ts-expect-error - TS2339 - Property 'splice' does not exist on type 'Hint'.
         hints.splice(i, 1);

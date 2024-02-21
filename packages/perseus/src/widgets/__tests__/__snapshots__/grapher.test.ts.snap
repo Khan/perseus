@@ -932,10 +932,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 220px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -944,10 +941,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 240px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -956,10 +950,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 260px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -968,10 +959,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 280px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -980,10 +968,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 300px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -992,10 +977,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 320px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1004,10 +986,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 340px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1016,10 +995,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 360px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1028,10 +1004,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 380px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1040,10 +1013,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 160px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1052,10 +1022,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 140px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1064,10 +1031,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 120px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1076,10 +1040,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 100px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1088,10 +1049,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 80px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1100,10 +1058,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 60px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1112,10 +1067,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 40px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1124,10 +1076,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 20px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1136,10 +1085,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 180px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1148,10 +1094,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 160px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1160,10 +1103,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 140px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1172,10 +1112,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 120px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1184,10 +1121,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 100px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1196,10 +1130,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 80px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1208,10 +1139,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 60px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1220,10 +1148,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 40px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1232,10 +1157,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 20px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1244,10 +1166,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 240px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1256,10 +1175,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 260px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1268,10 +1184,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 280px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1280,10 +1193,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 300px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1292,10 +1202,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 320px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1304,10 +1211,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 340px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1316,10 +1220,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 360px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1328,10 +1229,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 380px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1340,10 +1238,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 0px; fill: none;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -1352,10 +1247,7 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
                       style="position: absolute; padding: 7px; color: black; left: 400px; top: 200px; fill: none;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                   </div>
@@ -2386,10 +2278,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 220px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2398,10 +2287,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 240px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2410,10 +2296,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 260px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2422,10 +2305,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 280px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2434,10 +2314,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 300px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2446,10 +2323,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 320px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2458,10 +2332,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 340px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2470,10 +2341,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 360px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2482,10 +2350,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 380px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2494,10 +2359,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 160px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2506,10 +2368,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 140px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2518,10 +2377,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 120px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2530,10 +2386,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 100px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2542,10 +2395,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 80px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2554,10 +2404,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 60px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2566,10 +2413,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 40px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2578,10 +2422,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 20px; top: 200px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2590,10 +2431,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 180px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2602,10 +2440,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 160px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2614,10 +2449,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 140px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2626,10 +2458,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 120px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2638,10 +2467,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 100px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2650,10 +2476,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 80px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2662,10 +2485,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 60px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2674,10 +2494,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 40px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2686,10 +2503,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 20px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2698,10 +2512,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 240px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2710,10 +2521,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 260px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2722,10 +2530,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 280px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2734,10 +2539,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 300px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2746,10 +2548,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 320px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2758,10 +2557,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 340px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2770,10 +2566,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 360px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2782,10 +2575,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 380px; fill: none; stroke: #000000; opacity: 1;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2794,10 +2584,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 200px; top: 0px; fill: none;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                     <span
@@ -2806,10 +2593,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; padding: 7px; color: black; left: 400px; top: 200px; fill: none;"
                     >
                       <span
-                        class="katex-holder"
-                      />
-                      <span
-                        class="mathjax-holder"
+                        class="tex-holder"
                       />
                     </span>
                   </div>

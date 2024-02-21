@@ -285,6 +285,11 @@ class Editor extends React.Component<Props, State> {
     };
 
     _handleWidgetEditorRemove: (id: string) => void = (id: string) => {
+        // eslint-disable-next-line no-alert
+        if (!confirm("Are you sure you want to delete this item?")) {
+            return;
+        }
+
         const textarea = this.textarea.current;
         const re = new RegExp(widgetRegExp.replace("{id}", id), "gm");
         this.props.onChange({content: textarea?.value.replace(re, "")});
@@ -905,6 +910,8 @@ class Editor extends React.Component<Props, State> {
             underlayPieces = [];
 
             for (let i = 0; i < pieces.length; i++) {
+                // We split on widgets so every even-numbered indexed piece is
+                // text and odd-numbered indexes are the widget references.
                 if (i % 2 === 0) {
                     // Normal text
                     underlayPieces.push(pieces[i]);
