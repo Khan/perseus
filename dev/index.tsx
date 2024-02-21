@@ -25,23 +25,25 @@ import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
 const questions = [
-    interactiveGraph.pointQuestion,
-    interactiveGraph.angleQuestion,
-    interactiveGraph.linearSystemQuestion,
-    interactiveGraph.circleQuestion,
-    interactiveGraph.linearQuestion,
-    interactiveGraph.polygonQuestion,
-    interactiveGraph.rayQuestion,
-    interactiveGraph.segmentQuestion,
-    interactiveGraph.sinusoidQuestion,
-    grapher.absoluteValueQuestion,
-    grapher.exponentialQuestion,
-    grapher.linearQuestion,
-    grapher.logarithmQuestion,
-    grapher.multipleAvailableTypesQuestion,
-    grapher.quadraticQuestion,
-    grapher.sinusoidQuestion,
-    numberLine.question1,
+    JSON.parse(String.raw`{"content":"**Plot the point $(1,6)$.**\n\n[[☃ interactive-graph 1]]","images":{},"widgets":{"interactive-graph 1":{"alignment":"default","graded":true,"options":{"backgroundImage":{"bottom":0,"left":0,"scale":1,"url":""},"correct":{"coords":[[1,6]],"numPoints":1,"type":"point"},"graph":{"numPoints":1,"type":"point"},"gridStep":[1,1],"labels":["x","y"],"markings":"graph","range":[[-1,10],[-1,10]],"rulerLabel":"","rulerTicks":10,"showProtractor":false,"showRuler":false,"showTooltips":false,"snapStep":[1,1],"step":[1,1]},"static":false,"type":"interactive-graph","version":{"major":0,"minor":0}}}}`),
+    JSON.parse(String.raw`{"content":"**Plot the point $(8,1)$.**\n\n[[☃ interactive-graph 1]]","images":{},"widgets":{"interactive-graph 1":{"alignment":"default","graded":true,"options":{"backgroundImage":{"bottom":0,"left":0,"scale":1,"url":""},"correct":{"coords":[[8,1]],"numPoints":1,"type":"point"},"graph":{"numPoints":1,"type":"point"},"gridStep":[1,1],"labels":["x","y"],"markings":"graph","range":[[-1,10],[-1,10]],"rulerLabel":"","rulerTicks":10,"showProtractor":false,"showRuler":false,"showTooltips":false,"snapStep":[1,1],"step":[1,1]},"static":false,"type":"interactive-graph","version":{"major":0,"minor":0}}}}`)
+    // interactiveGraph.pointQuestion,
+    // interactiveGraph.angleQuestion,
+    // interactiveGraph.linearSystemQuestion,
+    // interactiveGraph.circleQuestion,
+    // interactiveGraph.linearQuestion,
+    // interactiveGraph.polygonQuestion,
+    // interactiveGraph.rayQuestion,
+    // interactiveGraph.segmentQuestion,
+    // interactiveGraph.sinusoidQuestion,
+    // grapher.absoluteValueQuestion,
+    // grapher.exponentialQuestion,
+    // grapher.linearQuestion,
+    // grapher.logarithmQuestion,
+    // grapher.multipleAvailableTypesQuestion,
+    // grapher.quadraticQuestion,
+    // grapher.sinusoidQuestion,
+    // numberLine.question1,
 ];
 
 const styles = StyleSheet.create({
