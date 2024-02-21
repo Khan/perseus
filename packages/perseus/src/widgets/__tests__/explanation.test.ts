@@ -120,7 +120,7 @@ describe("Explanation", function () {
         renderQuestion(question1);
 
         // Act
-        const expandLink = screen.getByRole("button", {expanded: false});
+        const expandLink = screen.getByTestId("expand-button");
         userEvent.click(expandLink);
 
         // Assert
@@ -133,9 +133,9 @@ describe("Explanation", function () {
         renderQuestion(question1);
 
         // Act
-        const expandLink = screen.getByRole("button", {expanded: false});
+        const expandLink = screen.getByTestId("expand-button");
         userEvent.click(expandLink); // expand and then
-        const collapseLink = screen.getByRole("button", {expanded: true});
+        const collapseLink = screen.getByTestId("expand-button");
         userEvent.click(collapseLink); // collapse
 
         // Assert
