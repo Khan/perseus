@@ -1,8 +1,9 @@
 // State type
 // ---------------------------------------------------------------------------
 
-import type {PerseusRenderer} from "@khanacademy/perseus";
 import {cache} from "./cache";
+
+import type {PerseusRenderer} from "@khanacademy/perseus";
 
 export type FlipbookModel = {
     questions: string;
@@ -79,16 +80,21 @@ function clampIndex(index: number, array: unknown[]): number {
 
 export const selectQuestions = cache(
     (state: FlipbookModel): PerseusRenderer[] => {
-        return state.questions.split("\n").map(s => s.trim()).filter(Boolean).map(parseQuestion).filter(Boolean);
+        return state.questions
+            .split("\n")
+            .map((s) => s.trim())
+            .filter(Boolean)
+            .map(parseQuestion)
+            .filter(Boolean);
     },
 );
 
 export const currentQuestion = cache(
     (state: FlipbookModel): PerseusRenderer | null => {
-        const questions = selectQuestions(state)
-        return questions[clampIndex(state.requestedIndex, questions)] ?? null
-    }
-)
+        const questions = selectQuestions(state);
+        return questions[clampIndex(state.requestedIndex, questions)] ?? null;
+    },
+);
 
 // General-purpose
 // ---------------------------------------------------------------------------

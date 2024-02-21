@@ -89,17 +89,20 @@ describe("flipbookModelReducer", () => {
 
 describe("currentQuestion", () => {
     it("returns null when there are no questions", () => {
-        let model = {questions: "", requestedIndex: 0};
+        const model = {questions: "", requestedIndex: 0};
         expect(currentQuestion(model)).toBe(null);
-    })
+    });
 
     it("returns the requested question if it exists", () => {
-        let model = {questions: "{}", requestedIndex: 0};
-        expect(currentQuestion(model)).toEqual({})
-    })
+        const model = {questions: "{}", requestedIndex: 0};
+        expect(currentQuestion(model)).toEqual({});
+    });
 
     it("clamps a too-high index to point to the last question", () => {
-        let model = {questions: `{"first": 0}\n{"last": 1}`, requestedIndex: 9};
-        expect(currentQuestion(model)).toEqual({last: 1})
-    })
-})
+        const model = {
+            questions: `{"first": 0}\n{"last": 1}`,
+            requestedIndex: 9,
+        };
+        expect(currentQuestion(model)).toEqual({last: 1});
+    });
+});
