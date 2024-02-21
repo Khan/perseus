@@ -44,7 +44,6 @@
     "@storybook/addon-actions": "^7.6.17",
     "@storybook/addon-controls": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",
-    "@storybook/addon-knobs": "^7.0.2",
     "@storybook/addon-links": "^7.6.17",
     "@storybook/addon-viewport": "^7.6.17",
     "@storybook/react": "^7.6.17",
