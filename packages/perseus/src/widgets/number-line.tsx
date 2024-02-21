@@ -404,7 +404,7 @@ class NumberLine extends React.Component<Props, State> {
         return (
             <Graphie
                 // eslint-disable-next-line react/no-string-refs
-                ref="graphie"
+                // ref="graphie"
                 // HACK(emily): We key this graphie on the label style because
                 // when the label style changes we want to resize the graphie,
                 // which isn't doable without throwing away the graphie and

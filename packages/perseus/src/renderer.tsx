@@ -42,8 +42,6 @@ import type {
 } from "./types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-import "./styles/perseus-renderer.less";
-
 const {mapObject, mapObjectFromArray} = Objective;
 
 const rContainsNonWhitespace = /\S/;
@@ -922,11 +920,12 @@ class Renderer extends React.Component<Props, State> {
         state: State,
     ): boolean => {
         // TODO(aria): Pass this in via webapp as an apiOption
-        return (
+        /* return (
             getDependencies().JIPT.useJIPT &&
             state.jiptContent == null &&
             props.content.indexOf("crwdns") !== -1
-        );
+        );*/
+        return false;
     };
 
     replaceJiptContent: (content: string, paragraphIndex: number) => void = (
@@ -1400,6 +1399,7 @@ class Renderer extends React.Component<Props, State> {
     };
 
     handleRender: (prevProps: Props) => void = (prevProps: Props) => {
+        /*
         const onRender = this.props.onRender;
         const oldOnRender = prevProps.onRender;
 
@@ -1420,6 +1420,7 @@ class Renderer extends React.Component<Props, State> {
 
         // ...as well as right now (non-image, non-TeX or image from cache)
         onRender();
+        */
     };
 
     // Sets the current focus path
