@@ -758,7 +758,7 @@ const defaultGraph: {
     range: [Coord, Coord];
     step: [number, number];
     backgroundImage: any;
-    markings: string;
+    markings: "graph" | "grid" | "none";
     rulerLabel: string;
     rulerTicks: number;
     valid: boolean;
