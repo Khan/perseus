@@ -7,12 +7,11 @@ import {
     KhanMath,
     Util,
 } from "@khanacademy/perseus";
-import createReactClass from "create-react-class";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-import type {PerseusImageBackground} from "../../../perseus/src/perseus-types";
+
+import type {PerseusImageBackground} from "@khanacademy/perseus";
 
 const {ButtonGroup, InfoTip, PropCheckBox, RangeInput} = components;
 const {getDependencies} = Dependencies;
@@ -47,7 +46,7 @@ type Props = {
     rulerTicks: number;
 
     onChange: (arg1: Partial<Props>) => void;
-}
+};
 
 type State = {
     labelsTextbox: ReadonlyArray<string>;
@@ -56,7 +55,7 @@ type State = {
     stepTextbox: [number, number];
     rangeTextbox: [[number, number], [number, number]];
     backgroundImage: PerseusImageBackground;
-}
+};
 
 class GraphSettings extends React.Component<Props, State> {
     _isMounted = false;
@@ -68,29 +67,28 @@ class GraphSettings extends React.Component<Props, State> {
     }
 
     static defaultProps = {
-            editableSettings: ["graph", "snap", "image", "measure"],
-            box: [
-                interactiveSizes.defaultBoxSizeSmall,
-                interactiveSizes.defaultBoxSizeSmall,
-            ],
-            labels: ["x", "y"],
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            step: [1, 1],
-            gridStep: [1, 1],
-            snapStep: [1, 1],
-            valid: true,
-            backgroundImage: defaultBackgroundImage,
-            markings: "graph",
-            showProtractor: false,
-            showRuler: false,
-            showTooltips: false,
-            rulerLabel: "",
-            rulerTicks: 10,
-        };
-
+        editableSettings: ["graph", "snap", "image", "measure"],
+        box: [
+            interactiveSizes.defaultBoxSizeSmall,
+            interactiveSizes.defaultBoxSizeSmall,
+        ],
+        labels: ["x", "y"],
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+        step: [1, 1],
+        gridStep: [1, 1],
+        snapStep: [1, 1],
+        valid: true,
+        backgroundImage: defaultBackgroundImage,
+        markings: "graph",
+        showProtractor: false,
+        showRuler: false,
+        showTooltips: false,
+        rulerLabel: "",
+        rulerTicks: 10,
+    };
 
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
@@ -323,7 +321,7 @@ class GraphSettings extends React.Component<Props, State> {
 
             const gridStepValue = Util.gridStepFromTickStep(step[i], scale);
             if (gridStepValue) {
-                gridStep[i] = gridStepValue
+                gridStep[i] = gridStepValue;
             }
 
             snapStep[i] = gridStep[i] / 2;
@@ -639,6 +637,6 @@ class GraphSettings extends React.Component<Props, State> {
             </div>
         );
     }
-};
+}
 
 export default GraphSettings;

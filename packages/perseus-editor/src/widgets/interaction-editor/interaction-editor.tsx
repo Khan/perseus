@@ -167,7 +167,7 @@ class InteractionEditor extends React.Component<Props, State> {
             const nextLetter = String.fromCharCode(
                 _.max([
                     _.max(
-                        _.map(this.state.usedFunctionNames, function(c) {
+                        _.map(this.state.usedFunctionNames, function (c) {
                             return c.charCodeAt(0);
                         }),
                     ),
@@ -241,7 +241,7 @@ class InteractionEditor extends React.Component<Props, State> {
                 </ElementContainer>
                 {_.map(
                     this.props.elements,
-                    function(element, n) {
+                    function (element, n) {
                         if (element.type === "movable-point") {
                             return (
                                 <ElementContainer
