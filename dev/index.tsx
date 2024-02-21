@@ -1,86 +1,23 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
-import {
-    useUniqueIdWithMock,
-    RenderStateRoot,
-    View,
-} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
-import {useState} from "react";
+import {useReducer} from "react";
 import {render} from "react-dom";
 
 import {Renderer} from "../packages/perseus/src";
 import {setDependencies} from "../packages/perseus/src/dependencies";
-import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
-import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
-import * as numberLine from "../packages/perseus/src/widgets/__testdata__/number-line.testdata";
 import {storybookTestDependencies} from "../testing/test-dependencies";
+
+import {
+    flipbookModelReducer,
+    selectQuestions,
+    setQuestions,
+} from "./flipbook-model";
 
 import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
-
-const questions = [
-    JSON.parse(String.raw`{"content":"**Plot the point $(1,6)$.**\n\n[[☃ interactive-graph 1]]","images":{},"widgets":{"interactive-graph 1":{"alignment":"default","graded":true,"options":{"backgroundImage":{"bottom":0,"left":0,"scale":1,"url":""},"correct":{"coords":[[1,6]],"numPoints":1,"type":"point"},"graph":{"numPoints":1,"type":"point"},"gridStep":[1,1],"labels":["x","y"],"markings":"graph","range":[[-1,10],[-1,10]],"rulerLabel":"","rulerTicks":10,"showProtractor":false,"showRuler":false,"showTooltips":false,"snapStep":[1,1],"step":[1,1]},"static":false,"type":"interactive-graph","version":{"major":0,"minor":0}}}}`),
-    JSON.parse(String.raw`{"content":"**Plot the point $(8,1)$.**\n\n[[☃ interactive-graph 1]]","images":{},"widgets":{"interactive-graph 1":{"alignment":"default","graded":true,"options":{"backgroundImage":{"bottom":0,"left":0,"scale":1,"url":""},"correct":{"coords":[[8,1]],"numPoints":1,"type":"point"},"graph":{"numPoints":1,"type":"point"},"gridStep":[1,1],"labels":["x","y"],"markings":"graph","range":[[-1,10],[-1,10]],"rulerLabel":"","rulerTicks":10,"showProtractor":false,"showRuler":false,"showTooltips":false,"snapStep":[1,1],"step":[1,1]},"static":false,"type":"interactive-graph","version":{"major":0,"minor":0}}}}`)
-    // interactiveGraph.pointQuestion,
-    // interactiveGraph.angleQuestion,
-    // interactiveGraph.linearSystemQuestion,
-    // interactiveGraph.circleQuestion,
-    // interactiveGraph.linearQuestion,
-    // interactiveGraph.polygonQuestion,
-    // interactiveGraph.rayQuestion,
-    // interactiveGraph.segmentQuestion,
-    // interactiveGraph.sinusoidQuestion,
-    // grapher.absoluteValueQuestion,
-    // grapher.exponentialQuestion,
-    // grapher.linearQuestion,
-    // grapher.logarithmQuestion,
-    // grapher.multipleAvailableTypesQuestion,
-    // grapher.quadraticQuestion,
-    // grapher.sinusoidQuestion,
-    // numberLine.question1,
-];
-
-const styles = StyleSheet.create({
-    page: {
-        height: "100vh",
-        overflowY: "hidden",
-    },
-
-    header: {
-        display: "flex",
-        alignItems: "center",
-        boxShadow: "0 0 10px #0002",
-        borderBlockEnd: `1px solid ${color.offBlack32}`,
-        background: color.offBlack8,
-        padding: Spacing.small_12,
-    },
-
-    main: {
-        flexGrow: 1,
-        overflowY: "scroll",
-        paddingBlock: Spacing.xLarge_32,
-    },
-
-    cards: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
-    },
-
-    card: {
-        float: "left",
-        margin: 16,
-        width: 460,
-        borderRadius: 7,
-        border: "1px solid #ccc",
-    },
-});
 
 setDependencies(storybookTestDependencies);
 
@@ -92,33 +29,26 @@ render(
 );
 
 function DevUI() {
-    const ids = useUniqueIdWithMock();
+    const [state, dispatch] = useReducer(flipbookModelReducer, {
+        questions: "",
+        requestedIndex: 0,
+    });
 
-    const [isMobile, setIsMobile] = useState(false);
+    const questions = selectQuestions(state);
 
     return (
-        <View className={css(styles.page)}>
-            <header className={css(styles.header)}>
-                <Switch
-                    id={ids.get("mobile")}
-                    checked={isMobile}
-                    onChange={setIsMobile}
-                />
-                <Strut size={Spacing.xSmall_8} />
-                <label htmlFor={ids.get("mobile")}>Mobile</label>
-            </header>
-            <main className={css(styles.main)}>
-                <View style={styles.cards}>
-                    {questions.map((question, i) => (
-                        <QuestionRenderer
-                            key={i}
-                            question={question}
-                            apiOptions={{isMobile}}
-                        />
-                    ))}
-                </View>
-            </main>
-        </View>
+        <>
+            <textarea
+                wrap={"off"}
+                rows={5}
+                cols={80}
+                value={state.questions}
+                onChange={(e) => dispatch(setQuestions(e.target.value))}
+            />
+            {questions.length > 0 && (
+                <QuestionRenderer question={questions[0]} />
+            )}
+        </>
     );
 }
 
@@ -129,16 +59,24 @@ type QuestionRendererProps = {
 
 function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
     return (
-        <div className={css(styles.card)}>
-            <div style={{padding: 28}} className="framework-perseus">
-                <Renderer
-                    content={question.content}
-                    images={question.images}
-                    widgets={question.widgets}
-                    problemNum={0}
-                    apiOptions={apiOptions}
-                />
-            </div>
+        <div
+            style={{padding: 28, display: "flex", gap: Spacing.small_12}}
+            className="framework-perseus"
+        >
+            <Renderer
+                content={question.content}
+                images={question.images}
+                widgets={question.widgets}
+                problemNum={0}
+                apiOptions={apiOptions}
+            />
+            <Renderer
+                content={question.content}
+                images={question.images}
+                widgets={question.widgets}
+                problemNum={0}
+                apiOptions={apiOptions}
+            />
         </div>
     );
 }
