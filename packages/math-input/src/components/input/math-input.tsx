@@ -330,7 +330,7 @@ class MathInput extends React.Component<Props, State> {
         }
     };
 
-    blur: (e?: React.SyntheticEvent) => void = (e) => {
+    blur: () => void = () => {
         this.mathField.blur();
 
         this.setState((prevState) => {
