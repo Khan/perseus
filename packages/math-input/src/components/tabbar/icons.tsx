@@ -4,7 +4,7 @@ import type {KeypadPageType} from "../../types";
 
 type Props = {
     tintColor: string;
-    type: KeypadPageType;
+    type: Exclude<KeypadPageType, "Fractions">;
 };
 
 const IconAsset = function ({tintColor, type}: Props): React.ReactElement {
@@ -112,9 +112,11 @@ const IconAsset = function ({tintColor, type}: Props): React.ReactElement {
                 </svg>
             );
         }
+
         default: {
-            // type as never;
-            throw new Error("Invalid icon type");
+            // Ensure we handle all icon types
+            const _: never = type;
+            throw new Error(`Invalid icon type: ${type}`);
         }
     }
 };

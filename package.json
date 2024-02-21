@@ -42,6 +42,7 @@
     "@sheerun/mutationobserver-shim": "^0.3.3",
     "@storybook/addon-a11y": "^7.6.17",
     "@storybook/addon-actions": "^7.6.17",
+    "@storybook/addon-controls": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-knobs": "^7.0.2",
     "@storybook/addon-links": "^7.6.17",
