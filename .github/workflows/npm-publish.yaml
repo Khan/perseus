@@ -3,7 +3,7 @@ name: 🔧 Publish to npm
 on: workflow_dispatch
 
 jobs:
-    build:
+    build-and-publish:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -19,18 +19,6 @@ jobs:
             - name: Build perseus-core
               run: npm run build:publish
               working-directory: ./packages
-    publish:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: Use Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "20.10.0"
-                  cache: "yarn"
-                  registry-url: https://registry.npmjs.org
-                  scope: "@junyiacademy"
             - name: Publish to npm
               run: npm publish
               working-directory: ./packages
