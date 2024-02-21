@@ -60,10 +60,21 @@ type State = {
 class GraphSettings extends React.Component<Props, State> {
     _isMounted = false;
 
+    static stateFromProps(props) {
+        return {
+            labelsTextbox: props.labels,
+            gridStepTextbox: props.gridStep,
+            snapStepTextbox: props.snapStep,
+            stepTextbox: props.step,
+            rangeTextbox: props.range,
+            backgroundImage: _.clone(props.backgroundImage),
+        };
+    }
+
     constructor(props: Props) {
         super(props);
 
-        this.state = this.stateFromProps(props);
+        this.state = GraphSettings.stateFromProps(props);
     }
 
     static defaultProps = {
@@ -109,23 +120,12 @@ class GraphSettings extends React.Component<Props, State> {
             !_.isEqual(this.props.range, nextProps.range) ||
             !_.isEqual(this.props.backgroundImage, nextProps.backgroundImage)
         ) {
-            this.setState(this.stateFromProps(nextProps));
+            this.setState(GraphSettings.stateFromProps(nextProps));
         }
     }
 
     componentWillUnmount() {
         this._isMounted = false;
-    }
-
-    stateFromProps(props) {
-        return {
-            labelsTextbox: props.labels,
-            gridStepTextbox: props.gridStep,
-            snapStepTextbox: props.snapStep,
-            stepTextbox: props.step,
-            rangeTextbox: props.range,
-            backgroundImage: _.clone(props.backgroundImage),
-        };
     }
 
     change(...args) {
