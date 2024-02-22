@@ -22,4 +22,4 @@ jobs:
             github.event.label.name == ':wrench: publish-npm'
         uses: ./.github/workflows/npm-publish.yaml
         secrets:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
