@@ -46,7 +46,6 @@ type HandleState = {
 type State = {
     focused: boolean;
     handle: HandleState;
-    showFocusStyle: boolean;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -77,7 +76,6 @@ class MathInput extends React.Component<Props, State> {
 
     state: State = {
         focused: false,
-        showFocusStyle: false,
         handle: {
             animateIntoPosition: false,
             visible: false,
@@ -363,7 +361,7 @@ class MathInput extends React.Component<Props, State> {
         this.mathField.focus();
         this.props?.onFocus();
 
-        this.setState({focused: true, showFocusStyle: true}, () => {
+        this.setState({focused: true}, () => {
             // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
             // occur. Otherwise, the keypad is measured incorrectly. Ideally,
             // we'd use requestAnimationFrame here, but it's unsupported on
@@ -919,13 +917,13 @@ class MathInput extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const {showFocusStyle, handle} = this.state;
+        const {focused, handle} = this.state;
         const {style} = this.props;
 
         const innerStyle = {
             ...inlineStyles.innerContainer,
             borderWidth: this.getBorderWidthPx(),
-            ...(showFocusStyle
+            ...(focused
                 ? {
                       borderColor: Color.blue,
                   }
@@ -987,7 +985,7 @@ class MathInput extends React.Component<Props, State> {
                                 style={innerStyle}
                             />
                         </div>
-                        {showFocusStyle && handle.visible && (
+                        {focused && handle.visible && (
                             <CursorHandle
                                 {...handle}
                                 onTouchStart={this.onCursorHandleTouchStart}
