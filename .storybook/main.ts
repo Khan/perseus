@@ -1,3 +1,4 @@
+import turbosnap from "vite-plugin-turbosnap";
 import viteConfig from "../dev/vite.config";
 import {mergeConfig} from "vite";
 
@@ -37,11 +38,20 @@ const config: StorybookConfig = {
         </style>
     `,
 
-    viteFinal: async (config) => {
+    viteFinal: async (config, {configType}) => {
         return mergeConfig(config, {
             ...viteConfig,
             // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
             assetsInclude: ["/sb-preview/runtime.js"],
+            plugins:
+                configType === "PRODUCTION"
+                    ? [
+                          turbosnap({
+                              // This should be the base path of your storybook.  In monorepos, you may only need process.cwd().
+                              rootDir: config.root ?? process.cwd(),
+                          }),
+                      ]
+                    : [],
         });
     },
 

@@ -392,7 +392,7 @@ jobs:
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
             - name: Publish to Chromatic
-              uses: chromaui/action@v1
+              uses: chromaui/action@latest
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
