@@ -115,28 +115,77 @@ describe("Explanation", function () {
         expect(container).toMatchSnapshot("expanded");
     });
 
-    it("can be expanded", function () {
+    it("can be expanded and collapsed with a mouse click", function () {
         // Arrange
         renderQuestion(question1);
 
-        // Act
-        const expandLink = screen.getByTestId("expand-button");
-        userEvent.click(expandLink);
+        // Act - expand with a click
+        const expandButton = screen.getByRole("button", {
+            name: "[Explanation]",
+        });
+        userEvent.click(expandButton);
 
         // Assert
         // get asserts if it doesn't find a single matching element
         expect(screen.getByText("This is an explanation")).toBeVisible();
+
+        // Act - collapse with a click
+        const collapseButton = screen.getByRole("button", {
+            name: "[Hide explanation!]",
+        });
+        userEvent.click(collapseButton); // collapse
+
+        // Assert
+        expect(screen.queryByText("This is an explanation")).toBeNull();
     });
 
-    it("can be collapsed", function () {
+    it("can be expanded and collapsed with the keyboard - Enter key", function () {
         // Arrange
         renderQuestion(question1);
 
-        // Act
-        const expandLink = screen.getByTestId("expand-button");
-        userEvent.click(expandLink); // expand and then
-        const collapseLink = screen.getByTestId("expand-button");
-        userEvent.click(collapseLink); // collapse
+        // Act - expand with a click
+        const expandButton = screen.getByRole("button", {
+            name: "[Explanation]",
+        });
+        expandButton.focus();
+        userEvent.keyboard("{Enter}");
+
+        // Assert
+        // get asserts if it doesn't find a single matching element
+        expect(screen.getByText("This is an explanation")).toBeVisible();
+
+        // Act - collapse with a click
+        const collapseButton = screen.getByRole("button", {
+            name: "[Hide explanation!]",
+        });
+        collapseButton.focus();
+        userEvent.keyboard("{Enter}");
+
+        // Assert
+        expect(screen.queryByText("This is an explanation")).toBeNull();
+    });
+
+    it("can be expanded and collapsed with the keyboard - Space bar", function () {
+        // Arrange
+        renderQuestion(question1);
+
+        // Act - expand with a click
+        const expandButton = screen.getByRole("button", {
+            name: "[Explanation]",
+        });
+        expandButton.focus();
+        userEvent.keyboard(" ");
+
+        // Assert
+        // get asserts if it doesn't find a single matching element
+        expect(screen.getByText("This is an explanation")).toBeVisible();
+
+        // Act - collapse with a click
+        const collapseButton = screen.getByRole("button", {
+            name: "[Hide explanation!]",
+        });
+        collapseButton.focus();
+        userEvent.keyboard(" ");
 
         // Assert
         expect(screen.queryByText("This is an explanation")).toBeNull();
