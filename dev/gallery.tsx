@@ -88,6 +88,10 @@ export function Gallery() {
                 />
                 <Strut size={Spacing.xSmall_8} />
                 <label htmlFor={ids.get("mobile")}>Mobile</label>
+                <Strut size={Spacing.medium_16} />
+                <nav>
+                    <a href="#flipbook">Flipbook</a>
+                </nav>
             </header>
             <main className={css(styles.main)}>
                 <View style={styles.cards}>
