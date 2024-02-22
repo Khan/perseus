@@ -1,13 +1,11 @@
 {
+    // https://docs.cypress.io/guides/tooling/typescript-support#Configure-tsconfigjson
     "compilerOptions": {
-      "noEmit": true,
-      "esModuleInterop": true,
-      // be explicit about types included
-      // to avoid clashing with Jest types
-      "types": ["cypress", "node"]
+        "noEmit": true,
+        "esModuleInterop": true,
+        // be explicit about types included
+        // to avoid clashing with Jest types
+        "types": ["cypress", "node"]
     },
-    "include": [
-      "**/*.ts",
-      "**/*.tsx"
-    ]
-  }
+    "include": ["**/*.ts", "**/*.tsx"]
+}
