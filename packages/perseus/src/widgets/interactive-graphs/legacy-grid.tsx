@@ -9,13 +9,14 @@ import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import type {PerseusImageBackground} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
 
-export const LegacyGrid = (props: {
-    backgroundImage?: PerseusImageBackground;
-    containerSizeClass: SizeClass;
-}) => {
-    const {url, width, height} = props.backgroundImage ?? {};
+// This needs to be a function instead of a component so that it can return null
+export const getLegacyGrid = (
+    containerSizeClass: SizeClass,
+    backgroundImage?: PerseusImageBackground,
+) => {
+    const {url, width, height} = backgroundImage ?? {};
     if (url && typeof url === "string") {
-        const box = getInteractiveBoxFromSizeClass(props.containerSizeClass);
+        const box = getInteractiveBoxFromSizeClass(containerSizeClass);
         const scale = box[0] / interactiveSizes.defaultBoxSize;
         return (
             <View

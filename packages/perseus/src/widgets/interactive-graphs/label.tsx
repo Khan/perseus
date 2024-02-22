@@ -41,7 +41,7 @@ const MountInG = (props: {svg: SVGElement}) => {
         <g
             ref={ref}
             style={{
-                scale: "0.05 -0.05",
+                scale: "0.075 -0.075",
             }}
         />
     );

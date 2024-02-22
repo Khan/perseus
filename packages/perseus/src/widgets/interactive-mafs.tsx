@@ -12,12 +12,9 @@ import {
     SinusoidGraph,
 } from "./interactive-graphs";
 import {StaticLabel} from "./interactive-graphs/label";
-import {LegacyGrid} from "./interactive-graphs/legacy-grid";
+import {getLegacyGrid} from "./interactive-graphs/legacy-grid";
 
-import type {
-    PerseusGraphType,
-    PerseusInteractiveGraphWidgetOptions,
-} from "../perseus-types";
+import type {PerseusInteractiveGraphWidgetOptions} from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
 
 import "mafs/core.css";
@@ -29,63 +26,61 @@ export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions
 >;
 
-export const InteractiveMafs = ({graph, ...props}: InteractiveGraphProps) => {
-    console.log(graph.type, {graph});
-    console.log({props});
+const renderGraph = (
+    {graph, ...props}: InteractiveGraphProps,
+    usesLegacyBackgoundImage: boolean,
+) => {
+    switch (graph.type) {
+        case "sinusoid":
+            return (
+                <SinusoidGraph
+                    {...props}
+                    graph={graph}
+                    usesLegacyBackgoundImage={usesLegacyBackgoundImage}
+                />
+            );
+        case "segment":
+            return (
+                <SegmentsGraph
+                    {...props}
+                    graph={graph}
+                    usesLegacyBackgoundImage={usesLegacyBackgoundImage}
+                />
+            );
+        case "circle":
+            return (
+                <CircleGraph
+                    {...props}
+                    graph={graph}
+                    usesLegacyBackgoundImage={usesLegacyBackgoundImage}
+                />
+            );
+        case "ray":
+            return (
+                <RayGraph
+                    {...props}
+                    graph={graph}
+                    usesLegacyBackgoundImage={usesLegacyBackgoundImage}
+                />
+            );
+        case "polygon":
+            return (
+                <PolygonGraph
+                    {...props}
+                    graph={graph}
+                    usesLegacyBackgoundImage={usesLegacyBackgoundImage}
+                />
+            );
+    }
+};
 
-    const renderGraph = (
-        graph: PerseusGraphType,
-        usesLegacyBackgoundImage: boolean,
-    ) => {
-        switch (graph.type) {
-            case "sinusoid":
-                return (
-                    <SinusoidGraph
-                        {...props}
-                        graph={graph}
-                        usesLegacyBackgoundImage={usesLegacyBackgoundImage}
-                    />
-                );
-            case "segment":
-                return (
-                    <SegmentsGraph
-                        {...props}
-                        graph={graph}
-                        usesLegacyBackgoundImage={usesLegacyBackgoundImage}
-                    />
-                );
-            case "circle":
-                return (
-                    <CircleGraph
-                        {...props}
-                        graph={graph}
-                        usesLegacyBackgoundImage={usesLegacyBackgoundImage}
-                    />
-                );
-            case "ray":
-                return (
-                    <RayGraph
-                        {...props}
-                        graph={graph}
-                        usesLegacyBackgoundImage={usesLegacyBackgoundImage}
-                    />
-                );
-            case "polygon":
-                return (
-                    <PolygonGraph
-                        {...props}
-                        graph={graph}
-                        usesLegacyBackgoundImage={usesLegacyBackgoundImage}
-                    />
-                );
-        }
-    };
+export const InteractiveMafs = (props: InteractiveGraphProps) => {
+    // console.log(graph.type, {graph});
+    // console.log({props});
 
-    const legacyBackgroundImage = (
-        <LegacyGrid
-            backgroundImage={props.backgroundImage}
-            containerSizeClass={props.containerSizeClass}
-        />
+    const legacyGrid = getLegacyGrid(
+        props.containerSizeClass,
+        props.backgroundImage,
     );
 
     return (
@@ -96,7 +91,7 @@ export const InteractiveMafs = ({graph, ...props}: InteractiveGraphProps) => {
                 position: "relative",
             }}
         >
-            {legacyBackgroundImage}
+            {legacyGrid}
             <View
                 style={{
                     position: "absolute",
@@ -108,15 +103,15 @@ export const InteractiveMafs = ({graph, ...props}: InteractiveGraphProps) => {
             >
                 <Mafs
                     viewBox={{x: props.range[0], y: props.range[1], padding: 0}}
-                    // pan={false}
-                    // zoom={false}
+                    pan={false}
+                    zoom={false}
                     width={400}
                     height={400}
                 >
-                    {renderGraph(graph, !!legacyBackgroundImage)}
+                    {renderGraph(props, !!legacyGrid)}
                     <StaticLabel
                         tex={String.raw`-b \pm \sqrt{b^2 - 4ac} \over 2a`}
-                        coords={[-5, -5]}
+                        coords={[2, 5]}
                     />
                 </Mafs>
             </View>
