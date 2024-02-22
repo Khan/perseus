@@ -27,7 +27,7 @@ exports[`Explanation should snapshot for article when expanded: expanded 1`] = `
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-linkContainer_36rlri-o_O-explanationLink_7n4oib-o_O-articleLink_17wlykh"
+                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-articleLink_17wlykh"
               >
                 [Hide explanation!]
               </div>
@@ -197,7 +197,7 @@ exports[`Explanation should snapshot for article: initial render 1`] = `
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-linkContainer_36rlri-o_O-explanationLink_7n4oib-o_O-articleLink_17wlykh"
+                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-articleLink_17wlykh"
               >
                 [Explanation]
               </div>
@@ -349,7 +349,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-linkContainer_36rlri-o_O-explanationLink_7n4oib-o_O-exerciseLink_574wt1"
+                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-exerciseLink_574wt1"
               >
                 [Hide explanation!]
               </div>
@@ -409,7 +409,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-linkContainer_36rlri-o_O-explanationLink_7n4oib-o_O-exerciseLink_574wt1"
+                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-exerciseLink_574wt1"
               >
                 [Explanation]
               </div>

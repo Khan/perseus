@@ -111,10 +111,9 @@ class Explanation extends React.Component<Props, State> {
                 </div>
             );
         } else {
-            const viewStyling = [styles.linkContainer, styles.explanationLink];
-            viewStyling.push(
-                isArticle ? styles.articleLink : styles.exerciseLink,
-            );
+            const viewStyling = isArticle
+                ? [styles.explanationLink, styles.articleLink]
+                : [styles.explanationLink, styles.exerciseLink];
             promptContainer = (
                 <Clickable
                     onClick={onClick}
