@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "noEmit": true,
+      "esModuleInterop": true,
+      // be explicit about types included
+      // to avoid clashing with Jest types
+      "types": ["cypress", "node"]
+    },
+    "include": [
+      "**/*.ts",
+      "**/*.tsx"
+    ]
+  }
