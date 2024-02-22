@@ -87,7 +87,7 @@ describe("flipbookModelReducer", () => {
     });
 });
 
-describe("currentQuestion", () => {
+describe("selectCurrentQuestion", () => {
     it("returns null when there are no questions", () => {
         const model = {questions: "", requestedIndex: 0};
         expect(selectCurrentQuestion(model)).toBe(null);
