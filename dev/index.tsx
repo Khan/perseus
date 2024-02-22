@@ -1,5 +1,5 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import * as React from "react";
 import {useReducer} from "react";
@@ -20,6 +20,8 @@ import {
 import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Button from "@khanacademy/wonder-blocks-button";
 
 setDependencies(storybookTestDependencies);
 
@@ -39,18 +41,22 @@ function DevUI() {
     const question = selectCurrentQuestion(state);
 
     return (
-        <>
+        <View style={{padding: Spacing.medium_16}}>
             <textarea
                 wrap={"off"}
-                rows={5}
-                cols={80}
+                rows={10}
+                style={{width: "100%"}}
                 value={state.questions}
                 onChange={(e) => dispatch(setQuestions(e.target.value))}
             />
-            <button onClick={() => dispatch(previous)}>Previous</button>
-            <button onClick={() => dispatch(next)}>Next</button>
+            <Strut size={Spacing.small_12}/>
+            <View style={{flexDirection: "row"}}>
+                <Button kind="secondary" onClick={() => dispatch(previous)}>Previous</Button>
+                <Strut size={Spacing.xxSmall_6}/>
+                <Button kind="secondary" onClick={() => dispatch(next)}>Next</Button>
+            </View>
             {question != null && <QuestionRenderer question={question} />}
-        </>
+        </View>
     );
 }
 
@@ -62,7 +68,7 @@ type QuestionRendererProps = {
 function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
     return (
         <div
-            style={{padding: 28, display: "flex", gap: Spacing.small_12}}
+            style={{padding: Spacing.xLarge_32, display: "flex", gap: Spacing.small_12}}
             className="framework-perseus"
         >
             <Renderer
