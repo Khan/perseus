@@ -1,5 +1,5 @@
 import {
-    currentQuestion,
+    selectCurrentQuestion,
     flipbookModelReducer,
     next,
     previous,
@@ -90,12 +90,12 @@ describe("flipbookModelReducer", () => {
 describe("currentQuestion", () => {
     it("returns null when there are no questions", () => {
         const model = {questions: "", requestedIndex: 0};
-        expect(currentQuestion(model)).toBe(null);
+        expect(selectCurrentQuestion(model)).toBe(null);
     });
 
     it("returns the requested question if it exists", () => {
         const model = {questions: "{}", requestedIndex: 0};
-        expect(currentQuestion(model)).toEqual({});
+        expect(selectCurrentQuestion(model)).toEqual({});
     });
 
     it("clamps a too-high index to point to the last question", () => {
@@ -103,6 +103,6 @@ describe("currentQuestion", () => {
             questions: `{"first": 0}\n{"last": 1}`,
             requestedIndex: 9,
         };
-        expect(currentQuestion(model)).toEqual({last: 1});
+        expect(selectCurrentQuestion(model)).toEqual({last: 1});
     });
 });

@@ -89,7 +89,7 @@ export const selectQuestions = cache(
     },
 );
 
-export const currentQuestion = cache(
+export const selectCurrentQuestion = cache(
     (state: FlipbookModel): PerseusRenderer | null => {
         const questions = selectQuestions(state);
         return questions[clampIndex(state.requestedIndex, questions)] ?? null;

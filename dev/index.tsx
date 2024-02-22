@@ -10,7 +10,7 @@ import {setDependencies} from "../packages/perseus/src/dependencies";
 import {storybookTestDependencies} from "../testing/test-dependencies";
 
 import {
-    flipbookModelReducer,
+    flipbookModelReducer, next, previous, selectCurrentQuestion,
     selectQuestions,
     setQuestions,
 } from "./flipbook-model";
@@ -34,7 +34,7 @@ function DevUI() {
         requestedIndex: 0,
     });
 
-    const questions = selectQuestions(state);
+    const question = selectCurrentQuestion(state)
 
     return (
         <>
@@ -45,8 +45,10 @@ function DevUI() {
                 value={state.questions}
                 onChange={(e) => dispatch(setQuestions(e.target.value))}
             />
-            {questions.length > 0 && (
-                <QuestionRenderer question={questions[0]} />
+            <button onClick={() => dispatch(previous)}>Previous</button>
+            <button onClick={() => dispatch(next)}>Next</button>
+            {question != null && (
+                <QuestionRenderer question={question} />
             )}
         </>
     );
