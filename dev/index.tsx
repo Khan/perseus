@@ -1,90 +1,46 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
-import {RenderStateRoot, View} from "@khanacademy/wonder-blocks-core";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {useReducer} from "react";
+import {useEffect, useReducer} from "react";
 import {render} from "react-dom";
 
-import {Renderer} from "../packages/perseus/src";
 import {setDependencies} from "../packages/perseus/src/dependencies";
 import {storybookTestDependencies} from "../testing/test-dependencies";
 
-import {
-    flipbookModelReducer,
-    next,
-    previous,
-    selectCurrentQuestion,
-    setQuestions,
-} from "./flipbook-model";
-
-import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
-
-import "../packages/perseus/src/styles/perseus-renderer.less";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Button from "@khanacademy/wonder-blocks-button";
+import {Flipbook} from "./flipbook";
+import {Gallery} from "./gallery";
 
 setDependencies(storybookTestDependencies);
 
 render(
     <RenderStateRoot>
-        <DevUI />
+        <Router />
     </RenderStateRoot>,
     document.getElementById("app-root"),
 );
 
-function DevUI() {
-    const [state, dispatch] = useReducer(flipbookModelReducer, {
-        questions: "",
-        requestedIndex: 0,
-    });
+function Router() {
+    const hash = useUrlHash();
 
-    const question = selectCurrentQuestion(state);
-
-    return (
-        <View style={{padding: Spacing.medium_16}}>
-            <textarea
-                wrap={"off"}
-                rows={10}
-                style={{width: "100%"}}
-                value={state.questions}
-                onChange={(e) => dispatch(setQuestions(e.target.value))}
-            />
-            <Strut size={Spacing.small_12}/>
-            <View style={{flexDirection: "row"}}>
-                <Button kind="secondary" onClick={() => dispatch(previous)}>Previous</Button>
-                <Strut size={Spacing.xxSmall_6}/>
-                <Button kind="secondary" onClick={() => dispatch(next)}>Next</Button>
-            </View>
-            {question != null && <QuestionRenderer question={question} />}
-        </View>
-    );
+    switch (hash) {
+        case "#flipbook":
+            return <Flipbook />;
+        default:
+            return <Gallery />;
+    }
 }
 
-type QuestionRendererProps = {
-    question: PerseusRenderer;
-    apiOptions?: APIOptions;
-};
+function useUrlHash() {
+    const rerender = useRerender();
 
-function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
-    return (
-        <div
-            style={{padding: Spacing.xLarge_32, display: "flex", gap: Spacing.small_12}}
-            className="framework-perseus"
-        >
-            <Renderer
-                content={question.content}
-                images={question.images}
-                widgets={question.widgets}
-                problemNum={0}
-                apiOptions={apiOptions}
-            />
-            <Renderer
-                content={question.content}
-                images={question.images}
-                widgets={question.widgets}
-                problemNum={0}
-                apiOptions={apiOptions}
-            />
-        </div>
-    );
+    useEffect(() => {
+        window.addEventListener("hashchange", rerender);
+        return () => window.removeEventListener("hashchange", rerender);
+    }, [rerender]);
+
+    return window.location.hash;
+}
+
+function useRerender(): () => void {
+    return useReducer((n) => n + 1, 0)[1];
 }
