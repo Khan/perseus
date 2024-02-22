@@ -3,7 +3,7 @@ import {
     flipbookModelReducer,
     next,
     previous,
-    setQuestions,
+    setQuestions, selectQuestions,
 } from "./flipbook-model";
 
 import type {FlipbookModel} from "./flipbook-model";
@@ -106,3 +106,31 @@ describe("selectCurrentQuestion", () => {
         expect(selectCurrentQuestion(model)).toEqual({last: 1});
     });
 });
+
+describe("selectQuestions", () => {
+    it("returns an empty array given empty string", () => {
+        const model = {questions: "", requestedIndex: 0}
+        expect(selectQuestions(model)).toEqual([])
+    })
+
+    it("filters out blank lines", () => {
+        const model = {questions: "\n  \n", requestedIndex: 0}
+        expect(selectQuestions(model)).toEqual([])
+    })
+
+    it("parses JSON", () => {
+        const model = {questions: `{"foo": "bar"}`, requestedIndex: 0}
+        expect(selectQuestions(model)).toEqual([{foo: "bar"}])
+    })
+
+    it("parses multiple newline-separated JSON documents", () => {
+        const model = {questions: `{"foo": 1}\n{"bar": 2}`, requestedIndex: 0}
+        expect(selectQuestions(model)).toEqual([{foo: 1}, {bar: 2}])
+    })
+
+    it("replaces malformed JSON with a placeholder", () => {
+        const model = {questions: `{"foo": 1}\n{`, requestedIndex: 0}
+        const placeholder = {content: "**Could not parse the JSON for this question.**\n\n```\n{\n```", images: {}, widgets: {}}
+        expect(selectQuestions(model)).toEqual([{foo: 1}, placeholder])
+    })
+})

@@ -84,8 +84,7 @@ export const selectQuestions = cache(
             .split("\n")
             .map((s) => s.trim())
             .filter(Boolean)
-            .map(parseQuestion)
-            .filter(Boolean);
+            .map(parseQuestion);
     },
 );
 

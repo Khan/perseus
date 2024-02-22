@@ -11,7 +11,6 @@ import {storybookTestDependencies} from "../testing/test-dependencies";
 
 import {
     flipbookModelReducer, next, previous, selectCurrentQuestion,
-    selectQuestions,
     setQuestions,
 } from "./flipbook-model";
 
