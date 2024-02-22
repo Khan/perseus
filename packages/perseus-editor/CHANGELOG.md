@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 4.2.4
+
+### Patch Changes
+
+-   [#1009](https://github.com/Khan/perseus/pull/1009) [`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878) Thanks [@nishasy](https://github.com/nishasy)! - Update GraphSettings to React class. Update `markings` type to be "graph" | "grid" | "none" instead of string.
+
+-   Updated dependencies [[`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878), [`7d4d098d`](https://github.com/Khan/perseus/commit/7d4d098dbdbc3f41e89d7e118c8cd83fbcaeb928)]:
+    -   @khanacademy/perseus@19.4.0
+
 ## 4.2.3
 
 ### Patch Changes

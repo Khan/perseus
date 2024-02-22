@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 19.4.0
+
+### Minor Changes
+
+-   [#980](https://github.com/Khan/perseus/pull/980) [`7d4d098d`](https://github.com/Khan/perseus/commit/7d4d098dbdbc3f41e89d7e118c8cd83fbcaeb928) Thanks [@Myranae](https://github.com/Myranae)! - Create a helper function for generating correctly typed Perseus test items
+
+### Patch Changes
+
+-   [#1009](https://github.com/Khan/perseus/pull/1009) [`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878) Thanks [@nishasy](https://github.com/nishasy)! - Update GraphSettings to React class. Update `markings` type to be "graph" | "grid" | "none" instead of string.
+
 ## 19.3.1
 
 ### Patch Changes
