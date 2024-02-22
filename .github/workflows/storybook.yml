@@ -1,10 +1,10 @@
 name: Publish Storybook to Chromatic
 
 on:
-  workflow_dispatch:
-  pull_request:
-  push:
-    branches: [main]
+    workflow_dispatch:
+    pull_request:
+    push:
+        branches: [main]
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
