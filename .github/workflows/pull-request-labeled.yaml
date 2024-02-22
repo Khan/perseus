@@ -3,7 +3,7 @@ name: 🔧 PR labeled
 run-name: |
     🔧 Deploy ${{ github.head_ref }} (${{
       github.event.label.name == ':wrench: publish-npm' && 'publish-npm'||
-      'ignored'
+      github.event.label.name
     }}) by @${{ github.actor }}
 
 on:
@@ -20,6 +20,6 @@ jobs:
     publish-to-npm:
         if: |
             github.event.label.name == ':wrench: publish-npm'
-        uses: ./.github/workflows/npm-publish.yml
+        uses: ./.github/workflows/npm-publish.yaml
         secrets:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
