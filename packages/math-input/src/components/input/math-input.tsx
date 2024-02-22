@@ -184,8 +184,6 @@ class MathInput extends React.Component<Props, State> {
             // multi-touch.
             if (this.state.focused && this.didTouchOutside && !this.didScroll) {
                 this.blur();
-                this.mathField.blur();
-                this.props.onBlur && this.props.onBlur();
             }
 
             this.didTouchOutside = false;
@@ -215,7 +213,6 @@ class MathInput extends React.Component<Props, State> {
                         // in which case we don't want to dismiss the keypad on check.
                         if (!isWithinKeypadBounds(x, y)) {
                             this.blur();
-                            this.props.onBlur && this.props.onBlur();
                         }
                     }
                 }
@@ -332,21 +329,11 @@ class MathInput extends React.Component<Props, State> {
 
     blur: () => void = () => {
         this.mathField.blur();
-
-        this.setState((prevState) => {
-            return {
-                showFocusStyle: false,
-                handle: {
-                    visible: false,
-                },
-                focused: prevState.focused,
-            };
-        });
+        this.props.onBlur && this.props.onBlur();
+        this.setState({focused: false, handle: {visible: false}});
     };
 
-    focus: (setKeypadActive: (keypadActive: boolean) => void) => void = (
-        setKeypadActive,
-    ) => {
+    focus: () => void = () => {
         // Pass this component's handleKey method to the keypad so it can call
         // it whenever it needs to trigger a keypress action.
         this.props.keypadElement?.setKeyHandler((key) => {
@@ -374,9 +361,7 @@ class MathInput extends React.Component<Props, State> {
         });
 
         this.mathField.focus();
-
         this.props?.onFocus();
-        setKeypadActive(true);
 
         this.setState({focused: true, showFocusStyle: true}, () => {
             // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
@@ -639,7 +624,7 @@ class MathInput extends React.Component<Props, State> {
 
         // Trigger a focus event, if we're not already focused.
         if (!this.state.focused) {
-            this.focus(setKeypadActive);
+            this.focus();
         }
 
         // If the user clicked on the input using a mouse or tap gesture,
@@ -681,7 +666,7 @@ class MathInput extends React.Component<Props, State> {
 
         // Trigger a focus event, if we're not already focused.
         if (!this.state.focused) {
-            this.focus(setKeypadActive);
+            this.focus();
         }
 
         // If the user clicked on the input using a mouse or tap gesture,
@@ -989,10 +974,6 @@ class MathInput extends React.Component<Props, State> {
                             ref={(node) => {
                                 this.inputRef = node;
                             }}
-                            onFocus={() => {
-                                this.focus(setKeypadActive);
-                            }}
-                            onBlur={this.blur}
                             onKeyUp={this.handleKeyUp}
                         >
                             {/* NOTE(charlie): This element must be styled with inline
