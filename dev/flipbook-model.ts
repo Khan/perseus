@@ -95,9 +95,6 @@ export const selectCurrentQuestion = cache(
     },
 );
 
-// General-purpose
-// ---------------------------------------------------------------------------
-
 function parseQuestion(json): PerseusRenderer {
     try {
         return JSON.parse(json);
