@@ -3,7 +3,7 @@ name: 🔧 PR labeled
 run-name: |
     🔧 Deploy ${{ github.head_ref }} (${{
       github.event.label.name == ':wrench: publish-npm' && 'publish-npm'||
-      'ignored'
+      ${{ github.event.label.name }}
     }}) by @${{ github.actor }}
 
 on:
