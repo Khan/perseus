@@ -1,9 +1,13 @@
 name: 🔧 Publish to npm
 
-on: workflow_dispatch
+on:
+    workflow_call:
+        secrets:
+            NPM_TOKEN:
+                required: true
 
 jobs:
-    build-and-publish:
+    publish-to-npm:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4

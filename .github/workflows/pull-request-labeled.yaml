@@ -1,0 +1,25 @@
+name: 🔧 PR labeled
+
+run-name: |
+    🔧 Deploy ${{ github.head_ref }} (${{
+      github.event.label.name == ':wrench: publish-npm' && 'publish-npm'||
+      'ignored'
+    }}) by @${{ github.actor }}
+
+on:
+    pull_request:
+        types:
+            - labeled
+
+concurrency:
+    group: ${{ github.workflow }}-${{ format('{0}-{1}', github.head_ref, github.event.label.name) }}
+    cancel-in-progress: true
+
+jobs:
+    # NOTE: The following job will be triggered manually by adding the specified label `:wrench: publish-npm` in Pull-Request.
+    publish-to-npm:
+        if: |
+            github.event.label.name == ':wrench: publish-npm'
+        uses: ./.github/workflows/npm-publish.yml
+        secrets:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
