@@ -4,11 +4,6 @@ import {Mafs} from "mafs";
 import * as React from "react";
 import _ from "underscore";
 
-import AssetContext from "../asset-context";
-import {SvgImage} from "../components";
-import {interactiveSizes} from "../styles/constants";
-import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
-
 import {
     CircleGraph,
     PolygonGraph,
@@ -16,12 +11,15 @@ import {
     SegmentsGraph,
     SinusoidGraph,
 } from "./interactive-graphs";
+import {StaticLabel} from "./interactive-graphs/label";
+import {LegacyGrid} from "./interactive-graphs/legacy-grid";
 
 import type {
     PerseusGraphType,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
 import type {WidgetExports, WidgetProps} from "../types";
+
 import "mafs/core.css";
 import "mafs/font.css";
 import "./interactive-graphs/styles.css";
@@ -83,37 +81,12 @@ export const InteractiveMafs = ({graph, ...props}: InteractiveGraphProps) => {
         }
     };
 
-    let image;
-    const {url, width, height} = props.backgroundImage ?? {};
-    if (url && typeof url === "string") {
-        const box = getInteractiveBoxFromSizeClass(props.containerSizeClass);
-        const scale = box[0] / interactiveSizes.defaultBoxSize;
-        image = (
-            <View
-                style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                }}
-            >
-                <AssetContext.Consumer>
-                    {({setAssetStatus}) => (
-                        <SvgImage
-                            src={url}
-                            width={width}
-                            height={height}
-                            scale={scale}
-                            responsive={false}
-                            setAssetStatus={setAssetStatus}
-                            alt=""
-                        />
-                    )}
-                </AssetContext.Consumer>
-            </View>
-        );
-    } else {
-        image = null;
-    }
+    const legacyBackgroundImage = (
+        <LegacyGrid
+            backgroundImage={props.backgroundImage}
+            containerSizeClass={props.containerSizeClass}
+        />
+    );
 
     return (
         <View
@@ -123,7 +96,7 @@ export const InteractiveMafs = ({graph, ...props}: InteractiveGraphProps) => {
                 position: "relative",
             }}
         >
-            {image}
+            {legacyBackgroundImage}
             <View
                 style={{
                     position: "absolute",
@@ -135,12 +108,16 @@ export const InteractiveMafs = ({graph, ...props}: InteractiveGraphProps) => {
             >
                 <Mafs
                     viewBox={{x: props.range[0], y: props.range[1], padding: 0}}
-                    pan={false}
-                    zoom={false}
+                    // pan={false}
+                    // zoom={false}
                     width={400}
                     height={400}
                 >
-                    {renderGraph(graph, !!image)}
+                    {renderGraph(graph, !!legacyBackgroundImage)}
+                    <StaticLabel
+                        tex={String.raw`-b \pm \sqrt{b^2 - 4ac} \over 2a`}
+                        coords={[-5, -5]}
+                    />
                 </Mafs>
             </View>
         </View>
