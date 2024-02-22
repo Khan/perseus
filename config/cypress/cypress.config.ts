@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import {mergeConfig} from "vite";
+import istanbul from "vite-plugin-istanbul";
 
 import {defineConfig} from "cypress";
 import viteConfig from "../../dev/vite.config";
@@ -44,10 +45,10 @@ export default defineConfig({
             bundler: "vite",
             framework: "react",
             viteConfig: async (config) => {
-                console.log(config);
-
-                return mergeConfig(config, {
-                    ...viteConfig,
+                return mergeConfig(mergeConfig(config, viteConfig), {
+                    // The istanbul plugin only enables itself if the
+                    // CYPRESS_COVERAGE Cypress env is set!
+                    plugins: [istanbul()],
                 });
             },
         },
