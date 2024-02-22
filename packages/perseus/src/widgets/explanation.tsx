@@ -116,7 +116,10 @@ class Explanation extends React.Component<Props, State> {
                 isArticle ? styles.articleLink : styles.exerciseLink,
             );
             promptContainer = (
-                <Clickable onClick={onClick}>
+                <Clickable
+                    onClick={onClick}
+                    aria-expanded={this.state.expanded}
+                >
                     {() => <View style={viewStyling}>{`[${promptText}]`}</View>}
                 </Clickable>
             );

@@ -22,6 +22,7 @@ exports[`Explanation should snapshot for article when expanded: expanded 1`] = `
           >
             <button
               aria-disabled="false"
+              aria-expanded="true"
               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
               type="button"
             >
@@ -191,6 +192,7 @@ exports[`Explanation should snapshot for article: initial render 1`] = `
           >
             <button
               aria-disabled="false"
+              aria-expanded="false"
               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
               type="button"
             >
@@ -342,6 +344,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
           >
             <button
               aria-disabled="false"
+              aria-expanded="true"
               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
               type="button"
             >
@@ -401,6 +404,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
           >
             <button
               aria-disabled="false"
+              aria-expanded="false"
               class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
               type="button"
             >
