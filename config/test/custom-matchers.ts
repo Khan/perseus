@@ -2,6 +2,21 @@
 
 import type {PerseusScore} from "../../packages/perseus/src/types";
 
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace jest {
+        interface Matchers<R> {
+            toHaveBeenAnsweredCorrectly(renderer: PerseusRenderer): R;
+            toHaveInvalidInput(
+                renderer: PerseusRenderer,
+                message: string | null,
+            ): R;
+            toHaveBeenAnsweredIncorrectly(renderer: PerseusRenderer): R;
+            toBeHighlighted(el: HTMLElement): R;
+        }
+    }
+}
+
 type PerseusRenderer = {
     guessAndScore: () => [Array<any>, PerseusScore];
 };

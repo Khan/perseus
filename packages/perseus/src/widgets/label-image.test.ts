@@ -11,8 +11,6 @@ import {textQuestion} from "./__testdata__/label-image.testdata";
 import {renderQuestion} from "./__tests__/renderQuestion";
 import {LabelImage} from "./label-image";
 
-import "@testing-library/jest-dom";
-
 const emptyMarker = {
     label: "",
     answers: [],

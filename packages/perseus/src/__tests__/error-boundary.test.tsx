@@ -5,8 +5,6 @@ import {testDependencies} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 import ErrorBoundary from "../error-boundary";
 
-import "@testing-library/jest-dom";
-
 const ProblematicComponent = () => {
     throw new Error("I can haz error");
 };

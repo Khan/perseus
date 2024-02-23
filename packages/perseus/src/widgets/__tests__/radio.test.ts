@@ -2,7 +2,6 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {act, screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import _ from "underscore";
-import "@testing-library/jest-dom"; // Imports custom mathers
 
 import {getMockUniqueId} from "../../../../../testing/mock-unique-id";
 import {clone} from "../../../../../testing/object-utils";

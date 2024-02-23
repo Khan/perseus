@@ -4,8 +4,6 @@ import * as React from "react";
 
 import BlurInput from "../blur-input";
 
-import "@testing-library/jest-dom"; // Imports custom matchers
-
 describe("BlurInput", () => {
     it("should render", () => {
         render(<BlurInput value="Hello world!" onChange={() => {}} />);
