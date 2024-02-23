@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 4.2.6
+
+### Patch Changes
+
+-   [#1020](https://github.com/Khan/perseus/pull/1020) [`30405816`](https://github.com/Khan/perseus/commit/3040581645a67f518920fdf6d94b4f78f2233f0c) Thanks [@nishasy](https://github.com/nishasy)! - Undo update to GraphSettings making it a class function
+
+-   Updated dependencies [[`30405816`](https://github.com/Khan/perseus/commit/3040581645a67f518920fdf6d94b4f78f2233f0c)]:
+    -   @khanacademy/perseus@19.5.1
+
 ## 4.2.5
 
 ### Patch Changes
