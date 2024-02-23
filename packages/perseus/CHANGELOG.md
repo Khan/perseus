@@ -1,5 +1,24 @@
 # @khanacademy/perseus
 
+## 19.3.0
+
+### Minor Changes
+
+-   [#992](https://github.com/Khan/perseus/pull/992) [`955ae480`](https://github.com/Khan/perseus/commit/955ae480a822d875784fb2de65240fe1acd283a5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update of interactionCallback to return current user input data
+
+*   [#1006](https://github.com/Khan/perseus/pull/1006) [`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89) Thanks [@benchristel](https://github.com/benchristel)! - Allow learners to type trig operators in any language in the Expression widget
+
+### Patch Changes
+
+-   Updated dependencies [[`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89)]:
+    -   @khanacademy/math-input@17.1.0
+
+## 19.2.1
+
+### Patch Changes
+
+-   [#1001](https://github.com/Khan/perseus/pull/1001) [`f30c6639`](https://github.com/Khan/perseus/commit/f30c663941a21189f3520b7e38beda0e38320ed3) Thanks [@nishasy](https://github.com/nishasy)! - Expression widget is marked as `accessible` internally. This will stop disabling the "requires screen or mouse" checkbox in the exercise editor for exercises that use expression widget.
+
 ## 19.2.0
 
 ### Minor Changes

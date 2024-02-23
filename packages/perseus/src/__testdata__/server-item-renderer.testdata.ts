@@ -5,6 +5,9 @@ import {
     type PerseusItem,
     type PerseusRenderer,
     type PerseusAnswerArea,
+    type ExpressionWidget,
+    type RadioWidget,
+    type NumericInputWidget,
 } from "../perseus-types";
 
 export const itemWithInput: PerseusItem = {
@@ -25,6 +28,190 @@ export const itemWithInput: PerseusItem = {
                     maxError: 0.1,
                 },
             } as InputNumberWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    _multi: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+export const itemWithMultipleInputNumbers: PerseusItem = {
+    question: {
+        content:
+            "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 input-number 2]]",
+        images: {},
+        widgets: {
+            "input-number 1": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "1",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
+            "input-number 2": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "2",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    _multi: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+export const itemWithNumericAndNumberInputs: PerseusItem = {
+    question: {
+        content:
+            "Enter the number $$1$$ in box one: [[\u2603 input-number 1]] \n\n Enter the number $$2$$ in box two: [[\u2603 numeric-input 1]]",
+        images: {},
+        widgets: {
+            "input-number 1": {
+                type: "input-number",
+                graded: true,
+                options: {
+                    answerType: "number",
+                    value: "1",
+                    simplify: "required",
+                    size: "normal",
+                    inexact: false,
+                    maxError: 0.1,
+                },
+            } as InputNumberWidget,
+            "numeric-input 1": {
+                graded: true,
+                static: false,
+                type: "numeric-input",
+                options: {
+                    coefficient: false,
+                    static: false,
+                    answers: [
+                        {
+                            status: "correct",
+                            maxError: null,
+                            strict: false,
+                            value: 1252,
+                            simplify: "required",
+                            message: "",
+                        },
+                    ],
+                    labelText: "",
+                    size: "normal",
+                },
+                alignment: "default",
+            } as NumericInputWidget,
+        },
+    },
+    hints: [
+        {content: "Hint #1", images: {}, widgets: {}},
+        {content: "Hint #2", images: {}, widgets: {}},
+        {content: "Hint #3", images: {}, widgets: {}},
+    ],
+    answerArea: null,
+    _multi: null,
+    itemDataVersion: {major: 0, minor: 0},
+    answer: null,
+};
+
+export const itemWithRadioAndExpressionWidgets: PerseusItem = {
+    question: {
+        content:
+            "Here's a radio widget: [[\u2603 radio 1]] \n\n Here's an expression widget: [[\u2603 expression 1]]",
+        images: {},
+        widgets: {
+            "radio 1": {
+                graded: true,
+                version: {major: 0, minor: 0},
+                static: false,
+                numCorrect: 1,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                countChoices: false,
+                deselectEnabled: false,
+                type: "radio",
+                options: {
+                    static: false,
+                    countChoices: false,
+                    deselectEnabled: false,
+                    displayCount: null,
+                    hasNoneOfTheAbove: false,
+                    multipleSelect: false,
+                    randomize: true,
+                    choices: [
+                        {
+                            content: "Content 1",
+                            correct: true,
+                        },
+                        {
+                            content: "Content 2",
+                            correct: false,
+                        },
+                        {
+                            content: "Content 3",
+                            correct: false,
+                        },
+                        {
+                            content: "Content 4",
+                            correct: false,
+                        },
+                    ],
+                },
+                alignment: "default",
+            } as RadioWidget,
+            "expression 1": {
+                type: "expression",
+                graded: true,
+                version: {
+                    major: 1,
+                    minor: 0,
+                },
+                static: false,
+                options: {
+                    answerForms: [
+                        {
+                            considered: "correct",
+                            form: true,
+                            simplify: false,
+                            value: "x^2",
+                        },
+                        {
+                            considered: "wrong",
+                            form: true,
+                            simplify: false,
+                            value: "x^3",
+                        },
+                    ],
+                    times: true,
+                    buttonSets: ["basic"],
+                    functions: ["f", "g", "h"],
+                    buttonsVisible: "always",
+                    alignment: "default",
+                },
+            } as ExpressionWidget,
         },
     },
     hints: [
