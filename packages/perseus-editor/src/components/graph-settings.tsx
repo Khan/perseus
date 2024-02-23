@@ -128,21 +128,21 @@ class GraphSettings extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    change(...args) {
+    change = (...args) => {
         return Changeable.change.apply(this, args);
-    }
+    };
 
     // TODO(aria): Make either a wrapper for standard events to work
     // with this.change, or make these use some TextInput/NumberInput box
-    changeRulerLabel(e) {
+    changeRulerLabel = (e) => {
         this.change({rulerLabel: e.target.value});
-    }
+    };
 
-    changeRulerTicks(e) {
+    changeRulerTicks = (e) => {
         this.change({rulerTicks: +e.target.value});
-    }
+    };
 
-    changeBackgroundUrl(e) {
+    changeBackgroundUrl = (e) => {
         // Only continue on blur or "enter"
         if (e.type === "keypress" && e.key !== "Enter") {
             return;
@@ -172,15 +172,15 @@ class GraphSettings extends React.Component<Props, State> {
         } else {
             setUrl(null, 0, 0);
         }
-    }
+    };
 
-    renderLabelChoices(choices) {
+    renderLabelChoices = (choices) => {
         return _.map(choices, function (nameAndValue) {
             return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
         });
-    }
+    };
 
-    validRange(range) {
+    validRange = (range) => {
         const numbers = _.every(range, function (num) {
             return _.isFinite(num);
         });
@@ -191,9 +191,9 @@ class GraphSettings extends React.Component<Props, State> {
             return "Range must have a higher number on the right";
         }
         return true;
-    }
+    };
 
-    validateStepValue(settings) {
+    validateStepValue = (settings) => {
         const {step, range, name, minTicks, maxTicks} = settings;
 
         if (!_.isFinite(step)) {
@@ -217,9 +217,9 @@ class GraphSettings extends React.Component<Props, State> {
             );
         }
         return true;
-    }
+    };
 
-    validSnapStep(step, range) {
+    validSnapStep = (step, range) => {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -227,9 +227,9 @@ class GraphSettings extends React.Component<Props, State> {
             minTicks: 5,
             maxTicks: 60,
         });
-    }
+    };
 
-    validGridStep(step, range) {
+    validGridStep = (step, range) => {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -237,9 +237,9 @@ class GraphSettings extends React.Component<Props, State> {
             minTicks: 3,
             maxTicks: 60,
         });
-    }
+    };
 
-    validStep(step, range) {
+    validStep = (step, range) => {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -247,9 +247,9 @@ class GraphSettings extends React.Component<Props, State> {
             minTicks: 3,
             maxTicks: 20,
         });
-    }
+    };
 
-    validBackgroundImageSize(image) {
+    validBackgroundImageSize = (image) => {
         // Ignore empty images
         if (!image.url) {
             return true;
@@ -261,9 +261,9 @@ class GraphSettings extends React.Component<Props, State> {
             return "Image must be smaller than 450px x 450px.";
         }
         return true;
-    }
+    };
 
-    validateGraphSettings(range, step, gridStep, snapStep, image) {
+    validateGraphSettings = (range, step, gridStep, snapStep, image) => {
         const self = this;
         let msg;
         const goodRange = _.every(range, function (range) {
@@ -300,16 +300,16 @@ class GraphSettings extends React.Component<Props, State> {
             return msg;
         }
         return true;
-    }
+    };
 
-    changeLabel(i, e) {
+    changeLabel = (i, e) => {
         const val = e.target.value;
         const labels = this.state.labelsTextbox.slice();
         labels[i] = val;
         this.setState({labelsTextbox: labels}, this.changeGraph);
-    }
+    };
 
-    changeRange(i, values) {
+    changeRange = (i, values) => {
         const ranges = this.state.rangeTextbox.slice();
         ranges[i] = values;
         const step = this.state.stepTextbox.slice();
@@ -335,17 +335,17 @@ class GraphSettings extends React.Component<Props, State> {
             },
             this.changeGraph,
         );
-    }
+    };
 
-    changeStep(step) {
+    changeStep = (step) => {
         this.setState({stepTextbox: step}, this.changeGraph);
-    }
+    };
 
-    changeSnapStep(snapStep) {
+    changeSnapStep = (snapStep) => {
         this.setState({snapStepTextbox: snapStep}, this.changeGraph);
-    }
+    };
 
-    changeGridStep(gridStep) {
+    changeGridStep = (gridStep) => {
         this.setState(
             {
                 gridStepTextbox: gridStep,
@@ -355,9 +355,9 @@ class GraphSettings extends React.Component<Props, State> {
             },
             this.changeGraph,
         );
-    }
+    };
 
-    changeGraph() {
+    changeGraph = () => {
         const labels = this.state.labelsTextbox;
         const range = _.map(this.state.rangeTextbox, function (range) {
             return _.map(range, Number);
@@ -396,7 +396,7 @@ class GraphSettings extends React.Component<Props, State> {
                 valid: validationResult, // a string message, not false
             });
         }
-    }
+    };
 
     render() {
         const scale = [
