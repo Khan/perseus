@@ -73,23 +73,73 @@ const FieldLabel = (props: {children: string}) => {
 type Props = {
     apiOptions: APIOptionsWithDefaults;
 
+    /**
+     * The labels for the x and y axes.
+     */
     labels: ReadonlyArray<string>;
+    /**
+     * The range of the graph in the x and y directions.
+     */
     range: [Range, Range]; // x, y
+    /**
+     * How far apart the tick marks on the axes are in the x and y
+     * directions.
+     */
     step: [number, number]; // x, y
+    /**
+     * How far apart the grid lines are in the x and y directions.
+     */
     gridStep: [number, number]; // x, y
+    /**
+     * How far apart the snap-to points are in the x and y directions.
+     */
     snapStep: [number, number]; // x, y
+    /**
+     * The size of the graph in pixels.
+     */
     box: [number, number]; // x, y
 
-    valid: boolean;
+    /**
+     * An error message to display in the graph area, or true if the
+     * graph is valid.
+     */
+    valid: string | boolean;
+    /**
+     * The background image to display in the graph area and its properties.
+     */
     backgroundImage: PerseusImageBackground;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
     markings: string; // TODO(jeremy)
+    /**
+     * Whether to show the protractor on the graph.
+     */
     showProtractor: boolean;
+    /**
+     * Whether to show the ruler on the graph.
+     */
     showRuler: boolean;
+    /**
+     * Whether to show tooltips on the graph.
+     */
     showTooltips: boolean;
+    /**
+     * The label to display on the ruler, if any.
+     */
     rulerLabel: string;
+    /**
+     * The number of ticks to display on the ruler.
+     */
     rulerTicks: number;
     correct: any; // TODO(jeremy)
 
+    /**
+     * The graph to display in the graph area.
+     */
     graph: InteractiveGraphProps["graph"];
     onChange: (props: Partial<Props>) => void;
 };
