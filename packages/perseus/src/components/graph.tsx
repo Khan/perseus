@@ -51,7 +51,7 @@ type Props = {
     step: [number, number];
     gridStep: [number, number];
     snapStep: [number, number];
-    markings: "graph" | "grid" | "none";
+    markings: string;
     backgroundImage: PerseusImageBackground;
     showProtractor: boolean;
     showRuler: boolean;

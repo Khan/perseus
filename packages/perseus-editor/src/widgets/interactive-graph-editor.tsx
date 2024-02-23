@@ -82,7 +82,7 @@ type Props = {
 
     valid: boolean;
     backgroundImage: PerseusImageBackground;
-    markings: "graph" | "grid" | "none";
+    markings: string; // TODO(jeremy)
     showProtractor: boolean;
     showRuler: boolean;
     showTooltips: boolean;

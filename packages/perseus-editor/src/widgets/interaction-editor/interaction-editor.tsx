@@ -45,7 +45,7 @@ type Graph = {
     range: ReadonlyArray<ReadonlyArray<number>>;
     tickStep: ReadonlyArray<number>;
     gridStep: ReadonlyArray<number>;
-    markings: "graph" | "grid" | "none";
+    markings: string;
     valid?: boolean;
 };
 
@@ -222,16 +222,11 @@ class InteractionEditor extends React.Component<Props, State> {
                 <ElementContainer title="Grid settings">
                     <GraphSettings
                         editableSettings={["canvas", "graph"]}
-                        box={this.props.graph.box as [number, number]}
+                        box={this.props.graph.box}
                         labels={this.props.graph.labels}
-                        range={
-                            this.props.graph.range as [
-                                [number, number],
-                                [number, number],
-                            ]
-                        }
-                        step={this.props.graph.tickStep as [number, number]}
-                        gridStep={this.props.graph.gridStep as [number, number]}
+                        range={this.props.graph.range}
+                        step={this.props.graph.tickStep}
+                        gridStep={this.props.graph.gridStep}
                         markings={this.props.graph.markings}
                         onChange={this._updateGraphProps}
                     />
