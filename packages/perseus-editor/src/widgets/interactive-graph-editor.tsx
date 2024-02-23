@@ -159,6 +159,12 @@ type DefaultProps = {
     correct: Props["correct"];
 };
 
+/**
+ * An editor for the InteractiveGraph widget, which allows the user to
+ * specify the graph's properties and the correct answer.
+ *
+ * Used in the exercise editor.
+ */
 class InteractiveGraphEditor extends React.Component<Props> {
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
