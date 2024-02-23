@@ -7,11 +7,11 @@ import {
     KhanMath,
     Util,
 } from "@khanacademy/perseus";
+import createReactClass from "create-react-class";
+import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
-import type {PerseusImageBackground} from "@khanacademy/perseus";
 
 const {ButtonGroup, InfoTip, PropCheckBox, RangeInput} = components;
 const {getDependencies} = Dependencies;
@@ -26,90 +26,69 @@ function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
-type EditableSetting = "canvas" | "graph" | "snap" | "image" | "measure";
+const GraphSettings = createReactClass({
+    displayName: "GraphSettings",
 
-type Props = {
-    editableSettings: ReadonlyArray<EditableSetting>;
-    box: [number, number];
-    labels: ReadonlyArray<string>;
-    range: [[number, number], [number, number]];
-    step: [number, number];
-    gridStep: [number, number];
-    snapStep: [number, number];
-    valid: boolean | string;
-    backgroundImage: PerseusImageBackground;
-    markings: "graph" | "grid" | "none";
-    showProtractor: boolean;
-    showRuler: boolean;
-    showTooltips: boolean;
-    rulerLabel: string;
-    rulerTicks: number;
+    propTypes: {
+        ...Changeable.propTypes,
+        editableSettings: PropTypes.arrayOf(
+            PropTypes.oneOf(["canvas", "graph", "snap", "image", "measure"]),
+        ),
+        box: PropTypes.arrayOf(PropTypes.number),
+        labels: PropTypes.arrayOf(PropTypes.string),
+        range: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+        step: PropTypes.arrayOf(PropTypes.number),
+        gridStep: PropTypes.arrayOf(PropTypes.number),
+        snapStep: PropTypes.arrayOf(PropTypes.number),
+        valid: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+        backgroundImage: PropTypes.object,
+        markings: PropTypes.oneOf(["graph", "grid", "none"]),
+        showProtractor: PropTypes.bool,
+        showRuler: PropTypes.bool,
+        showTooltips: PropTypes.bool,
+        rulerLabel: PropTypes.string,
+        rulerTicks: PropTypes.number,
+    },
 
-    onChange: (arg1: Partial<Props>) => void;
-};
-
-type State = {
-    labelsTextbox: ReadonlyArray<string>;
-    gridStepTextbox: [number, number];
-    snapStepTextbox: [number, number];
-    stepTextbox: [number, number];
-    rangeTextbox: [[number, number], [number, number]];
-    backgroundImage: PerseusImageBackground;
-};
-
-class GraphSettings extends React.Component<Props, State> {
-    _isMounted = false;
-
-    static stateFromProps(props) {
+    getDefaultProps: function () {
         return {
-            labelsTextbox: props.labels,
-            gridStepTextbox: props.gridStep,
-            snapStepTextbox: props.snapStep,
-            stepTextbox: props.step,
-            rangeTextbox: props.range,
-            backgroundImage: _.clone(props.backgroundImage),
+            editableSettings: ["graph", "snap", "image", "measure"],
+            box: [
+                interactiveSizes.defaultBoxSizeSmall,
+                interactiveSizes.defaultBoxSizeSmall,
+            ],
+            labels: ["x", "y"],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            step: [1, 1],
+            gridStep: [1, 1],
+            snapStep: [1, 1],
+            valid: true,
+            backgroundImage: defaultBackgroundImage,
+            markings: "graph",
+            showProtractor: false,
+            showRuler: false,
+            showTooltips: false,
+            rulerLabel: "",
+            rulerTicks: 10,
         };
-    }
+    },
 
-    constructor(props: Props) {
-        super(props);
+    getInitialState: function () {
+        return this.stateFromProps(this.props);
+    },
 
-        this.state = GraphSettings.stateFromProps(props);
-    }
-
-    static defaultProps = {
-        editableSettings: ["graph", "snap", "image", "measure"],
-        box: [
-            interactiveSizes.defaultBoxSizeSmall,
-            interactiveSizes.defaultBoxSizeSmall,
-        ],
-        labels: ["x", "y"],
-        range: [
-            [-10, 10],
-            [-10, 10],
-        ],
-        step: [1, 1],
-        gridStep: [1, 1],
-        snapStep: [1, 1],
-        valid: true,
-        backgroundImage: defaultBackgroundImage,
-        markings: "graph",
-        showProtractor: false,
-        showRuler: false,
-        showTooltips: false,
-        rulerLabel: "",
-        rulerTicks: 10,
-    };
-
-    componentDidMount() {
+    componentDidMount: function () {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
 
         this.changeGraph = _.debounce(this.changeGraph, 300);
-    }
+    },
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps: function (nextProps) {
         // Make sure that state updates when switching
         // between different items in a multi-item editor.
         if (
@@ -120,29 +99,40 @@ class GraphSettings extends React.Component<Props, State> {
             !_.isEqual(this.props.range, nextProps.range) ||
             !_.isEqual(this.props.backgroundImage, nextProps.backgroundImage)
         ) {
-            this.setState(GraphSettings.stateFromProps(nextProps));
+            this.setState(this.stateFromProps(nextProps));
         }
-    }
+    },
 
-    componentWillUnmount() {
+    componentWillUnmount: function () {
         this._isMounted = false;
-    }
+    },
+
+    stateFromProps: function (props) {
+        return {
+            labelsTextbox: props.labels,
+            gridStepTextbox: props.gridStep,
+            snapStepTextbox: props.snapStep,
+            stepTextbox: props.step,
+            rangeTextbox: props.range,
+            backgroundImage: _.clone(props.backgroundImage),
+        };
+    },
 
     change(...args) {
         return Changeable.change.apply(this, args);
-    }
+    },
 
     // TODO(aria): Make either a wrapper for standard events to work
     // with this.change, or make these use some TextInput/NumberInput box
-    changeRulerLabel(e) {
+    changeRulerLabel: function (e) {
         this.change({rulerLabel: e.target.value});
-    }
+    },
 
-    changeRulerTicks(e) {
+    changeRulerTicks: function (e) {
         this.change({rulerTicks: +e.target.value});
-    }
+    },
 
-    changeBackgroundUrl(e) {
+    changeBackgroundUrl: function (e) {
         // Only continue on blur or "enter"
         if (e.type === "keypress" && e.key !== "Enter") {
             return;
@@ -172,15 +162,15 @@ class GraphSettings extends React.Component<Props, State> {
         } else {
             setUrl(null, 0, 0);
         }
-    }
+    },
 
-    renderLabelChoices(choices) {
+    renderLabelChoices: function (choices) {
         return _.map(choices, function (nameAndValue) {
             return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
         });
-    }
+    },
 
-    validRange(range) {
+    validRange: function (range) {
         const numbers = _.every(range, function (num) {
             return _.isFinite(num);
         });
@@ -191,9 +181,9 @@ class GraphSettings extends React.Component<Props, State> {
             return "Range must have a higher number on the right";
         }
         return true;
-    }
+    },
 
-    validateStepValue(settings) {
+    validateStepValue: function (settings) {
         const {step, range, name, minTicks, maxTicks} = settings;
 
         if (!_.isFinite(step)) {
@@ -217,9 +207,9 @@ class GraphSettings extends React.Component<Props, State> {
             );
         }
         return true;
-    }
+    },
 
-    validSnapStep(step, range) {
+    validSnapStep: function (step, range) {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -227,9 +217,9 @@ class GraphSettings extends React.Component<Props, State> {
             minTicks: 5,
             maxTicks: 60,
         });
-    }
+    },
 
-    validGridStep(step, range) {
+    validGridStep: function (step, range) {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -237,9 +227,9 @@ class GraphSettings extends React.Component<Props, State> {
             minTicks: 3,
             maxTicks: 60,
         });
-    }
+    },
 
-    validStep(step, range) {
+    validStep: function (step, range) {
         return this.validateStepValue({
             step: step,
             range: range,
@@ -247,9 +237,9 @@ class GraphSettings extends React.Component<Props, State> {
             minTicks: 3,
             maxTicks: 20,
         });
-    }
+    },
 
-    validBackgroundImageSize(image) {
+    validBackgroundImageSize: function (image) {
         // Ignore empty images
         if (!image.url) {
             return true;
@@ -261,9 +251,9 @@ class GraphSettings extends React.Component<Props, State> {
             return "Image must be smaller than 450px x 450px.";
         }
         return true;
-    }
+    },
 
-    validateGraphSettings(range, step, gridStep, snapStep, image) {
+    validateGraphSettings: function (range, step, gridStep, snapStep, image) {
         const self = this;
         let msg;
         const goodRange = _.every(range, function (range) {
@@ -300,16 +290,16 @@ class GraphSettings extends React.Component<Props, State> {
             return msg;
         }
         return true;
-    }
+    },
 
-    changeLabel(i, e) {
+    changeLabel: function (i, e) {
         const val = e.target.value;
         const labels = this.state.labelsTextbox.slice();
         labels[i] = val;
         this.setState({labelsTextbox: labels}, this.changeGraph);
-    }
+    },
 
-    changeRange(i, values) {
+    changeRange: function (i, values) {
         const ranges = this.state.rangeTextbox.slice();
         ranges[i] = values;
         const step = this.state.stepTextbox.slice();
@@ -318,46 +308,41 @@ class GraphSettings extends React.Component<Props, State> {
         const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
         if (this.validRange(ranges[i]) === true) {
             step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
-
-            const gridStepValue = Util.gridStepFromTickStep(step[i], scale);
-            if (gridStepValue) {
-                gridStep[i] = gridStepValue;
-            }
-
+            gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
             snapStep[i] = gridStep[i] / 2;
         }
         this.setState(
             {
-                stepTextbox: step as [number, number],
-                gridStepTextbox: gridStep as [number, number],
-                snapStepTextbox: snapStep as [number, number],
-                rangeTextbox: ranges as [[number, number], [number, number]],
+                stepTextbox: step,
+                gridStepTextbox: gridStep,
+                snapStepTextbox: snapStep,
+                rangeTextbox: ranges,
             },
             this.changeGraph,
         );
-    }
+    },
 
-    changeStep(step) {
+    changeStep: function (step) {
         this.setState({stepTextbox: step}, this.changeGraph);
-    }
+    },
 
-    changeSnapStep(snapStep) {
+    changeSnapStep: function (snapStep) {
         this.setState({snapStepTextbox: snapStep}, this.changeGraph);
-    }
+    },
 
-    changeGridStep(gridStep) {
+    changeGridStep: function (gridStep) {
         this.setState(
             {
                 gridStepTextbox: gridStep,
                 snapStepTextbox: _.map(gridStep, function (step) {
                     return step / 2;
-                }) as [number, number],
+                }),
             },
             this.changeGraph,
         );
-    }
+    },
 
-    changeGraph() {
+    changeGraph: function () {
         const labels = this.state.labelsTextbox;
         const range = _.map(this.state.rangeTextbox, function (range) {
             return _.map(range, Number);
@@ -396,9 +381,9 @@ class GraphSettings extends React.Component<Props, State> {
                 valid: validationResult, // a string message, not false
             });
         }
-    }
+    },
 
-    render() {
+    render: function () {
         const scale = [
             KhanMath.roundTo(
                 2,
@@ -636,7 +621,7 @@ class GraphSettings extends React.Component<Props, State> {
                 )}
             </div>
         );
-    }
-}
+    },
+});
 
 export default GraphSettings;

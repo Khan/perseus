@@ -538,7 +538,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
     // What to show on the graph.  "graph", "grid", or "none"
-    markings: "graph" | "grid" | "none";
+    markings: string;
     // How to label the X and Y axis.  default: ["x", "y"]
     labels: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
@@ -1057,7 +1057,7 @@ export type PerseusInteractionGraph = {
     // The steps in the grid. default [1, 1]
     gridStep: [number, number];
     // What to show on the graph.  "graph", "grid", or "none"
-    markings: "graph" | "grid" | "none";
+    markings: string;
     // The snap steps. default [0.5, 0.5]
     snapStep?: [number, number];
     // Whether the grid is valid or not.  Do the numbers all make sense?
