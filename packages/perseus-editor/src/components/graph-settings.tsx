@@ -14,7 +14,6 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 const {ButtonGroup, InfoTip, PropCheckBox, RangeInput} = components;
-const {getDependencies} = Dependencies;
 
 const defaultBackgroundImage = {
     url: null,
@@ -395,15 +394,18 @@ const GraphSettings = createReactClass({
             ),
         ];
 
-        const {TeX} = getDependencies();
+        const {TeX} = Dependencies.getDependencies();
 
         return (
             <div>
                 {_.contains(this.props.editableSettings, "canvas") && (
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
-                            Canvas size (x,y pixels)
+                            <label htmlFor="canvas-size">
+                                Canvas size (x,y pixels)
+                            </label>
                             <RangeInput
+                                id="canvas-size"
                                 value={this.props.box}
                                 onChange={(box) => {
                                     this.change({box: box});
@@ -421,9 +423,9 @@ const GraphSettings = createReactClass({
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
-                                {" "}
-                                x Label
+                                <label htmlFor="labels-x">x Label</label>
                                 <input
+                                    id="labels-x"
                                     type="text"
                                     className="graph-settings-axis-label"
                                     // eslint-disable-next-line react/no-string-refs
@@ -433,8 +435,9 @@ const GraphSettings = createReactClass({
                                 />
                             </div>
                             <div className="perseus-widget-right-col">
-                                y Label
+                                <label htmlFor="labels-y">y Label</label>
                                 <input
+                                    id="labels-y"
                                     type="text"
                                     className="graph-settings-axis-label"
                                     // eslint-disable-next-line react/no-string-refs
@@ -447,8 +450,9 @@ const GraphSettings = createReactClass({
 
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
-                                x Range
+                                <label htmlFor="range-x">x Range</label>
                                 <RangeInput
+                                    id="range-x"
                                     value={this.state.rangeTextbox[0]}
                                     onChange={(vals) =>
                                         this.changeRange(0, vals)
@@ -456,8 +460,9 @@ const GraphSettings = createReactClass({
                                 />
                             </div>
                             <div className="perseus-widget-right-col">
-                                y Range
+                                <label htmlFor="range-y">y Range</label>
                                 <RangeInput
+                                    id="range-y"
                                     value={this.state.rangeTextbox[1]}
                                     onChange={(vals) =>
                                         this.changeRange(1, vals)
@@ -467,15 +472,17 @@ const GraphSettings = createReactClass({
                         </div>
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
-                                Tick Step
+                                <label htmlFor="tick-step">Tick Step</label>
                                 <RangeInput
+                                    id="tick-step"
                                     value={this.state.stepTextbox}
                                     onChange={this.changeStep}
                                 />
                             </div>
                             <div className="perseus-widget-right-col">
-                                Grid Step
+                                <label htmlFor="grid-step">Grid Step</label>
                                 <RangeInput
+                                    id="grid-step"
                                     value={this.state.gridStepTextbox}
                                     onChange={this.changeGridStep}
                                 />
@@ -484,8 +491,9 @@ const GraphSettings = createReactClass({
                         {_.contains(this.props.editableSettings, "snap") && (
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
-                                    Snap Step
+                                    <label htmlFor="snap-step">Snap Step</label>
                                     <RangeInput
+                                        id="snap-step"
                                         value={this.state.snapStepTextbox}
                                         onChange={this.changeSnapStep}
                                     />
@@ -519,8 +527,9 @@ const GraphSettings = createReactClass({
                     <div className="image-settings">
                         <div>Background image:</div>
                         <div>
-                            Url:{" "}
+                            <label htmlFor="bg-url">Url:</label>
                             <input
+                                id="bg-url"
                                 type="text"
                                 className="graph-settings-background-url"
                                 // eslint-disable-next-line react/no-string-refs
