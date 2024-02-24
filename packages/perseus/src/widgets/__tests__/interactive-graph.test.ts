@@ -4,7 +4,10 @@ import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {questionsAndAnswers} from "../__testdata__/interactive-graph.testdata";
+import {
+    questionsAndAnswers,
+    segmentQuestion,
+} from "../__testdata__/interactive-graph.testdata";
 
 import {renderQuestion} from "./renderQuestion";
 
@@ -103,4 +106,11 @@ describe("interactive-graph widget", function () {
             });
         },
     );
+});
+
+describe("segment graph", () => {
+    it("should render", () => {
+        // Mafs isn't very RTL friendly...
+        renderQuestion(segmentQuestion, blankOptions);
+    });
 });

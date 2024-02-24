@@ -32,6 +32,8 @@ import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
+import {MafsGraph, mafsGraphTypes} from "./interactive-graphs";
+
 import type {Coord} from "../interactive2/types";
 import type {
     PerseusGraphType,
@@ -174,6 +176,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         },
     };
 
+    mafsRef = React.createRef<PerseusGraphType>();
+
     state: State = {
         shouldShowInstructions: _getShouldShowInstructions(this.props),
     };
@@ -184,9 +188,11 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
-        this.setGraphie(this.refs.graph.graphie());
+        if (this.refs.graph) {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2339 - Property 'graphie' does not exist on type 'ReactInstance'.
+            this.setGraphie(this.refs.graph.graphie());
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -1672,9 +1678,9 @@ class InteractiveGraph extends React.Component<Props, State> {
         this.onChange({graph: graph});
     };
 
-    getUserInput: () => PerseusGraphType = () => {
-        return InteractiveGraph.getUserInputFromProps(this.props);
-    };
+    getUserInput: () => PerseusGraphType = () =>
+        this.mafsRef.current ??
+        InteractiveGraph.getUserInputFromProps(this.props);
 
     simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) => {
         return InteractiveGraph.validate(this.getUserInput(), rubric, this);
@@ -1683,6 +1689,10 @@ class InteractiveGraph extends React.Component<Props, State> {
     focus: () => void = $.noop;
 
     render(): React.ReactNode {
+        if (mafsGraphTypes.includes(this.props.graph.type)) {
+            return <MafsGraph {...this.props} ref={this.mafsRef} />;
+        }
+
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
         );
