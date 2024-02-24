@@ -75,7 +75,7 @@ export const MafsGraph = React.forwardRef<
                     {renderGraph({
                         ...props,
                         usesLegacyGrid: !!legacyGrid,
-                        onChange: handleGraphUpdate,
+                        onGraphChange: handleGraphUpdate,
                     })}
                 </Mafs>
             </View>

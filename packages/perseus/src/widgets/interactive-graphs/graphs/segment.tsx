@@ -51,7 +51,7 @@ export const SegmentGraph = (props: SegmentProps) => {
 
     React.useEffect(() => {
         // set initial state
-        props.onChange((current) => ({
+        props.onGraphChange((current) => ({
             ...current,
             coords: segments,
         }));
@@ -67,7 +67,7 @@ export const SegmentGraph = (props: SegmentProps) => {
                     segment={segment}
                     snaps={props.snapStep}
                     range={props.range}
-                    onChange={props.onChange}
+                    onGraphChange={props.onGraphChange}
                     data-testid={"segment" + i}
                 />
             ))}
@@ -80,7 +80,7 @@ const Segment = (props: {
     segment: ReadonlyArray<Coord>;
     snaps: [number, number];
     range: [[number, number], [number, number]];
-    onChange: SegmentProps["onChange"];
+    onGraphChange: SegmentProps["onGraphChange"];
 }) => {
     const [start, end] = props.segment;
     const p1 = useInteractivePoint(start, props.snaps, props.range);
@@ -89,7 +89,7 @@ const Segment = (props: {
     React.useEffect(() => {
         // update state when points move
         const segment = [p1.point, p2.point];
-        props.onChange((current) => ({
+        props.onGraphChange((current) => ({
             ...current,
             coords: current.coords
                 ? current.coords.map((c, i) => (i === props.i ? segment : c))
