@@ -42,7 +42,7 @@ export default {
     },
     backgroundImage: {
         control: {
-            type: "text",
+            type: "object",
         },
     },
     markings: {
