@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 19.6.1
+
+### Patch Changes
+
+-   [#1014](https://github.com/Khan/perseus/pull/1014) [`b1552885`](https://github.com/Khan/perseus/commit/b155288568a3f13b3983515391cdbf4dd5092a51) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Fix Spacebar Usage on Explanation Widget
+
 ## 19.6.0
 
 ### Minor Changes
