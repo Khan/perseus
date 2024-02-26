@@ -279,22 +279,6 @@ export const pureMarkdownRules = {
             /^ *>[^\n]+(\n( *>)?[^\n]+)*\n{2,}/,
         ) as any,
     },
-    list: {
-        ...SimpleMarkdown.defaultRules.list,
-        match: (source: any, state: any, prevCapture: any): any => {
-            // Since lists can contain double newlines and we have special
-            // handling of double newlines while parsing jipt content, just
-            // disable the list parser.
-            if (state.isJipt) {
-                return null;
-            }
-            return SimpleMarkdown.defaultRules.list.match(
-                source,
-                state,
-                prevCapture,
-            );
-        },
-    },
     // The lint rule never actually matches anything.
     // We check for lint after parsing, and, if we find any, we
     // transform the tree to add lint nodes. This rule is here
