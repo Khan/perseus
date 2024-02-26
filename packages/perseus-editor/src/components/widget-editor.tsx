@@ -76,6 +76,9 @@ class WidgetEditor extends React.Component<
         cb: () => unknown,
         silent: boolean,
     ) => {
+        // Casting to PerseusWidget is necessary because typescript
+        // seems confused about the type of WidgetOptions
+        // STOPSHIP PUT TICKET NUMBER: LC-12345
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             options: {
@@ -83,7 +86,7 @@ class WidgetEditor extends React.Component<
                 ...(this.widget.current?.serialize() ?? {}),
                 ...newProps,
             },
-        };
+        } as any;
         this.props.onChange(newWidgetInfo, cb, silent);
     };
 

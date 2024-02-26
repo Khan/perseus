@@ -86,7 +86,6 @@ export const question2: PerseusRenderer = {
 };
 
 // Note that if this item is used, you _must_ first register the MockWidget
-// @ts-expect-error - TS2352 - Conversion of type '{ content: string; images: {}; widgets: { "mock-widget 1": { graded: true; version: { major: number; minor: number; }; static: false; type: "mock-widget"; options: { static: false; smiling: boolean; }; alignment: string; }; "mock-widget 2": { ...; }; "mock-widget 3": { ...; }; }; }' to type 'PerseusRenderer' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
 export const mockedItem: PerseusRenderer = {
     // The mock widget type is not part of the PerseusWidget type union (and
     // we don't want to make it such to avoid polluting our production types

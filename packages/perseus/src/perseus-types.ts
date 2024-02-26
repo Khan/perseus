@@ -13,6 +13,124 @@ type StyleParams = {
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
 
+export type Widgets = {
+    [key in `radio ${number}`]: RadioWidget;
+} & {
+    [key in `expression ${number}`]: ExpressionWidget;
+} & {
+    [key in `dropdown ${number}`]: DropdownWidget;
+} & {
+    [key in `categorizer ${number}`]: CategorizerWidget;
+} & {
+    [key in `matrix ${number}`]: MatrixWidget;
+} & {
+    [key in `measurer ${number}`]: MeasurerWidget;
+} & {
+    [key in `number_line ${number}`]: NumberLineWidget;
+} & {
+    [key in `sorter ${number}`]: SorterWidget;
+} & {
+    [key in `sequence ${number}`]: SequenceWidget;
+} & {
+    [key in `graph ${number}`]: GrapherWidget;
+} & {
+    [key in `interactive_graph ${number}`]: InteractiveGraphWidget;
+} & {
+    [key in `table ${number}`]: TableWidget;
+} & {
+    [key in `unit_input ${number}`]: UnitInputWidget;
+} & {
+    [key in `cs_program ${number}`]: CSProgramWidget;
+} & {
+    [key in `definition ${number}`]: DefinitionWidget;
+} & {
+    [key in `example ${number}`]: ExampleWidget;
+} & {
+    [key in `example_graphie ${number}`]: ExampleGraphieWidget;
+} & {
+    [key in `explanation ${number}`]: ExplanationWidget;
+} & {
+    [key in `group ${number}`]: GroupWidget;
+} & {
+    [key in `image ${number}`]: ImageWidget;
+} & {
+    [key in `label_image ${number}`]: LabelImageWidget;
+} & {
+    [key in `matcher ${number}`]: MatcherWidget;
+} & {
+    [key in `passage ${number}`]: PassageWidget;
+} & {
+    [key in `passage-ref ${number}`]: PassageRefWidget;
+} & {
+    [key in `reaction-diagram ${number}`]: ReactionDiagramWidget;
+} & {
+    [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
+} & {[key in `video ${number}`]: VideoWidget} & {
+    [key in `iframe ${number}`]: IFrameWidget;
+} & {
+    [key in `input-number ${number}`]: InputNumberWidget;
+} & {[key in `numeric-input ${number}`]: NumericInputWidget} & {
+    [key in `lights-puzzle ${number}`]: LightsPuzzleWidget;
+} & {
+    [key in `molecule-renderer ${number}`]: MoleculeRendererWidget;
+} & {
+    [key in `passage-ref-target ${number}`]: PassageRefWidget;
+} & {
+    [key in `python-program ${number}`]: PythonProgramWidget;
+} & {
+    [key in `simulator ${number}`]: SimulatorWidget;
+} & {
+    [key in `label-image ${number}`]: LabelImageWidget;
+} & {
+    [key in `interactive-graph ${number}`]: InteractiveGraphWidget;
+} & {
+    [key in `number-line ${number}`]: NumberLineWidget;
+} & {
+    [key in `grapher ${number}`]: GrapherWidget;
+} & {
+    [key in `graded-group ${number}`]: GradedGroupWidget;
+} & {
+    [key in `plotter ${number}`]: PlotterWidget;
+} & {
+    [key in `orderer ${number}`]: OrdererWidget;
+} & {
+    [key in `graded-group-set ${number}`]: GradedGroupSetWidget;
+} & {
+    [key in `cs-program ${number}`]: CSProgramWidget;
+} & {
+    [key in `definition ${number}`]: DefinitionWidget;
+} & {
+    [key in `dropdown ${number}`]: DropdownWidget;
+} & {
+    [key in `explanation ${number}`]: ExplanationWidget;
+} & {
+    [key in `expression ${number}`]: ExpressionWidget;
+} & {
+    [key in `categorizer ${number}`]: CategorizerWidget;
+} & {
+    [key in `matrix ${number}`]: MatrixWidget;
+} & {
+    [key in `measurer ${number}`]: MeasurerWidget;
+} & {
+    [key in `number_line ${number}`]: NumberLineWidget;
+} & {
+    [key in `numeric-input ${number}`]: NumericInputWidget;
+} & {
+    [key in `radio ${number}`]: RadioWidget;
+} & {
+    [key in `sequence ${number}`]: SequenceWidget;
+} & {
+    [key in `sorter ${number}`]: SorterWidget;
+} & {
+    [key in `table ${number}`]: TableWidget;
+} & {
+    [key in `unit_input ${number}`]: UnitInputWidget;
+} & {
+    [key in `video ${number}`]: VideoWidget;
+} & {
+    [key in `interaction ${number}`]: InteractionWidget;
+};
+
 export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
@@ -45,9 +163,7 @@ export type PerseusRenderer = {
     // additional attributes for the image.
     content: string;
     // A dictionary of {[widgetName]: Widget} to be referenced from the content field
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: Widgets;
     // Used only for PerseusItem.hints.  If true, it replaces the previous hint in the list with the current one. This allows for hints that build upon each other.
     replace?: boolean;
     // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
@@ -198,8 +314,8 @@ export type PerseusWidget =
     | CSProgramWidget
     | DefinitionWidget
     | DropdownWidget
-    | ExampleGraphieWidget // any fixed
-    | ExampleWidget // any fixed
+    | ExampleGraphieWidget
+    | ExampleWidget
     | ExplanationWidget
     | ExpressionWidget
     | GradedGroupSetWidget
@@ -212,29 +328,29 @@ export type PerseusWidget =
     | InteractionWidget
     | InteractiveGraphWidget
     | LabelImageWidget
-    | LightsPuzzleWidget // any fixed
+    | LightsPuzzleWidget
     | MatcherWidget
     | MatrixWidget
     | MeasurerWidget
-    | MoleculeRendererWidget // any fixed
+    | MoleculeRendererWidget
     | NumberLineWidget
     | NumericInputWidget
     | OrdererWidget
-    | PassageRefWidget // any fixed
+    | PassageRefWidget
     | PassageWidget
     | PlotterWidget
     | PythonProgramWidget
     | RadioWidget
-    | ReactionDiagramWidget // any fixed
-    | RefTargetWidget // any fixed
+    | ReactionDiagramWidget
+    | RefTargetWidget
     | SequenceWidget
-    | SimpleMarkdownTesterWidget // any fixed
+    | SimpleMarkdownTesterWidget
     | SimulatorWidget
     | SorterWidget
     | TableWidget
-    | UnitInputWidget // any fixed
+    | UnitInputWidget
     | VideoWidget
-    | AutoCorrectWidget; // any fixed
+    | AutoCorrectWidget;
 
 // A background image applied to various widgets.
 export type PerseusImageBackground = {
@@ -341,9 +457,7 @@ export type PerseusExplanationWidgetOptions = {
     // Translatable Markdown; The explanation that is shown when showPrompt is clicked.  e.g. "An apple is a tasty fruit."
     explanation: string;
     // explanation fields can embed widgets. When they do, the details of the widgets are here.
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: Widgets;
     // Always false.  Not used for this widget
     static: boolean;
 };
@@ -404,9 +518,7 @@ export type PerseusGradedGroupWidgetOptions = {
     // Translatable Markdown. May include widgets and images embedded.
     content: string;
     // See PerseusRenderer.widgets
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: Widgets;
     // Not used in Perseus
     widgetEnabled?: boolean | null | undefined;
     // Not used in Perseus
@@ -994,9 +1106,7 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    widgets?: {
-        [key: string]: PerseusWidget;
-    };
+    widgets?: Widgets;
 };
 
 export type PerseusSequenceWidgetOptions = {

@@ -5,9 +5,6 @@ export const question1: PerseusRenderer = {
         "The elementary school principal asked teachers to report the number of students absent in each grade during the past week.\n\n**Create a bar graph to show how many students were absent in each grade.**\n\nSchool grade | Number of absent students  \n:- | :-: \n$1^{\\text{st}} \\text{ grade}$ | $15$ \n$2^{\\text{nd}} \\text{ grade}$ |$25$ \n$3^{\\text{rd}} \\text{ grade}$ | $5$  \n$4^{\\text{th}} \\text{ grade}$ | $10$  \n$5^{\\text{th}} \\text{ grade}$ | $10$  \n\n[[☃ plotter 1]]\n\n",
     images: {},
     widgets: {
-        // This is the actual problem from the server
-        // I don't know why the type is incorrect
-        // @ts-expect-error - TS2322
         "plotter 1": {
             alignment: "default",
             graded: true,
@@ -19,6 +16,10 @@ export const question1: PerseusRenderer = {
                     "$4^{\\text{th}} \\text{}$",
                     "$5^{\\text{th}} \\text{}$",
                 ],
+                picBoxHeight: 300,
+                picSize: 300,
+                picUrl: "",
+                plotDimensions: [0, 0],
                 correct: [15, 25, 5, 10, 10],
                 labelInterval: 1,
                 labels: ["School grade", "Number of absent students"],
