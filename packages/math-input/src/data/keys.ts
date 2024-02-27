@@ -118,6 +118,6 @@ export const KeyArray = [
     "LOG_B",
 ] as const;
 
-type Key = typeof KeyArray[number];
+type Key = (typeof KeyArray)[number];
 
 export default Key;

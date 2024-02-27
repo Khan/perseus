@@ -2,13 +2,12 @@
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
-import {vector as kvector, point as kpoint} from "@khanacademy/kmath";
+import {point as kpoint, vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 
-import KhanMath from "../util/math";
-
+import {Arrowhead} from "./arrowhead";
+import {getClipPoint} from "./get-clip-point";
 import WrappedLine from "./wrapped-line";
-import WrappedPath from "./wrapped-path";
 
 import type {Coord} from "./types";
 
@@ -19,119 +18,6 @@ const getScaledAngle = function (line: any) {
     const scaledA = line.graphie.scalePoint(line.coord(0));
     const scaledZ = line.graphie.scalePoint(line.coord(1));
     return kvector.polarDegFromCart(kvector.subtract(scaledZ, scaledA))[1];
-};
-
-// Given `coord` and `angle`, find the point where a line extended
-// from `coord` in the direction of `angle` would be clipped by the
-// edge of the graphie canvas. Then draw an arrowhead at that point
-// pointing in the direction of `angle`.
-const getClipPoint = function (graph, coord: Coord, angle: number) {
-    // Actually put the arrowheads 4px from the edge so they have
-    // a bit of room
-    const xExtent = graph.range[0][1] - graph.range[0][0];
-    const yExtent = graph.range[1][1] - graph.range[1][0];
-
-    // shoot a point off into the distance ...
-    const distance = xExtent + yExtent;
-    // we need to scale the point according to the scale of the axes
-    const angleVec = graph.unscaleVector(kvector.cartFromPolarDeg(1, angle));
-    const distVec = kvector.scale(kvector.normalize(angleVec), distance);
-    const farCoord = kvector.add(coord, distVec);
-    const scaledAngle = kvector.polarDegFromCart(angleVec)[1];
-    // ... and then bring it back
-    const clipPoint = graph.constrainToBoundsOnAngle(
-        farCoord,
-        4,
-        (scaledAngle * Math.PI) / 180,
-    );
-    return clipPoint;
-};
-
-// Given `coord` and `angle`, find the point where a line extended
-// from `coord` in the direction of `angle` would be clipped by the
-// edge of the graphie canvas. Then draw an arrowhead at that point
-// pointing in the direction of `angle`.
-const createArrow = function (graph, style: any) {
-    // Points that define the arrowhead
-    const center = [0.75, 0];
-    let points = [
-        [-3, 4],
-        [-2.75, 2.5],
-        [0, 0.25],
-        center,
-        [0, -0.25],
-        [-2.75, -2.5],
-        [-3, -4],
-    ];
-
-    // Scale points by 1.4 around (0.75, 0)
-    const scale = 1.4;
-    points = _.map(points, function (point) {
-        const pv = kvector.subtract(point, center);
-        const pvScaled = kvector.scale(pv, scale);
-        return kvector.add(center, pvScaled);
-    });
-
-    // We can't just pass in a path to `graph.fixedPath` as we need to modify
-    // the points in some way, so instead we provide a function for creating
-    // the path once the points have been transformed
-    const createCubicPath = function (points) {
-        let path = "M" + points[0][0] + " " + points[0][1];
-        for (let i = 1; i < points.length; i += 3) {
-            path +=
-                "C" +
-                points[i][0] +
-                " " +
-                points[i][1] +
-                " " +
-                points[i + 1][0] +
-                " " +
-                points[i + 1][1] +
-                " " +
-                points[i + 2][0] +
-                " " +
-                points[i + 2][1];
-        }
-        return path;
-    };
-
-    // Create arrowhead
-    const unscaledPoints = _.map(points, graph.unscalePoint);
-    const options = {
-        center: graph.unscalePoint(center),
-        createPath: createCubicPath,
-    } as const;
-    const arrowHead = new WrappedPath(graph, unscaledPoints, options);
-    arrowHead.attr(
-        _.extend(
-            {
-                "stroke-linejoin": "round",
-                "stroke-linecap": "round",
-                "stroke-dasharray": "",
-            },
-            style,
-        ),
-    );
-
-    // Add custom function for transforming arrowheads that accounts for
-    // center, scaling, etc.
-    arrowHead.toCoordAtAngle = function (coord: Coord, angle: number) {
-        const clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
-        arrowHead.transform(
-            "translateX(" +
-                (clipPoint[0] + scale * center[0]) +
-                "px) " +
-                "translateY(" +
-                (clipPoint[1] + scale * center[1]) +
-                "px) " +
-                "translateZ(0) " +
-                "rotate(" +
-                (360 - KhanMath.bound(angle)) +
-                "deg)",
-        );
-    };
-
-    return arrowHead;
 };
 
 /**
@@ -229,18 +115,18 @@ const draw = {
                 // @ts-expect-error - TS2551 - Property '_arrows' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. Did you mean 'arrows'?
                 this._arrows.push(
                     // @ts-expect-error - TS2339 - Property 'graphie' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. | TS2339 - Property 'normalStyle' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
-                    createArrow(this.graphie, this.normalStyle()),
+                    new Arrowhead(this.graphie, this.normalStyle()),
                 );
                 // @ts-expect-error - TS2551 - Property '_arrows' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. Did you mean 'arrows'?
                 this._arrows.push(
                     // @ts-expect-error - TS2339 - Property 'graphie' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. | TS2339 - Property 'normalStyle' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
-                    createArrow(this.graphie, this.normalStyle()),
+                    new Arrowhead(this.graphie, this.normalStyle()),
                 );
             } else if (state.extendRay) {
                 // @ts-expect-error - TS2551 - Property '_arrows' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. Did you mean 'arrows'?
                 this._arrows.push(
                     // @ts-expect-error - TS2339 - Property 'graphie' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'. | TS2339 - Property 'normalStyle' does not exist on type '{ readonly basic: (state: any) => void; readonly arrows: (state: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
-                    createArrow(this.graphie, this.normalStyle()),
+                    new Arrowhead(this.graphie, this.normalStyle()),
                 );
             }
         }

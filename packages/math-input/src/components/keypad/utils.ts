@@ -9,7 +9,7 @@ export const expandedViewThreshold = 500;
 // based on the cursorContext prop.  It is used in the keypad to determine
 // which key to render as the "jump out" key.
 export function getCursorContextConfig(
-    cursorContext?: typeof CursorContext[keyof typeof CursorContext],
+    cursorContext?: (typeof CursorContext)[keyof typeof CursorContext],
 ) {
     if (!cursorContext) {
         return null;
