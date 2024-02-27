@@ -1,5 +1,13 @@
 # @khanacademy/pure-markdown
 
+## 0.3.0
+
+### Minor Changes
+
+-   [#1005](https://github.com/Khan/perseus/pull/1005) [`0562929c`](https://github.com/Khan/perseus/commit/0562929c03645028b68da497382489747f0fc2c6) Thanks [@mpolyak](https://github.com/mpolyak)! - In JIPT context rendering split sections into paragraphs in ArticleRenderer
+
+*   [#996](https://github.com/Khan/perseus/pull/996) [`4e2b5100`](https://github.com/Khan/perseus/commit/4e2b51002e41c8f36051775a7ceff4fd1a564526) Thanks [@mpolyak](https://github.com/mpolyak)! - Revert disabling markdown parser list rule in JIPT context
+
 ## 0.2.15
 
 ### Patch Changes

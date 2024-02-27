@@ -1,5 +1,60 @@
 # @khanacademy/perseus-editor
 
+## 4.2.8
+
+### Patch Changes
+
+-   Updated dependencies [[`b1552885`](https://github.com/Khan/perseus/commit/b155288568a3f13b3983515391cdbf4dd5092a51)]:
+    -   @khanacademy/perseus@19.6.1
+
+## 4.2.7
+
+### Patch Changes
+
+-   Updated dependencies [[`0562929c`](https://github.com/Khan/perseus/commit/0562929c03645028b68da497382489747f0fc2c6), [`4e2b5100`](https://github.com/Khan/perseus/commit/4e2b51002e41c8f36051775a7ceff4fd1a564526)]:
+    -   @khanacademy/perseus@19.6.0
+
+## 4.2.6
+
+### Patch Changes
+
+-   [#1020](https://github.com/Khan/perseus/pull/1020) [`30405816`](https://github.com/Khan/perseus/commit/3040581645a67f518920fdf6d94b4f78f2233f0c) Thanks [@nishasy](https://github.com/nishasy)! - Undo update to GraphSettings making it a class function
+
+-   Updated dependencies [[`30405816`](https://github.com/Khan/perseus/commit/3040581645a67f518920fdf6d94b4f78f2233f0c)]:
+    -   @khanacademy/perseus@19.5.1
+
+## 4.2.5
+
+### Patch Changes
+
+-   Updated dependencies [[`7038c046`](https://github.com/Khan/perseus/commit/7038c046d3e869e4ad43e3805248f06d61a94af0)]:
+    -   @khanacademy/math-input@17.2.0
+    -   @khanacademy/perseus@19.5.0
+
+## 4.2.4
+
+### Patch Changes
+
+-   [#1009](https://github.com/Khan/perseus/pull/1009) [`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878) Thanks [@nishasy](https://github.com/nishasy)! - Update GraphSettings to React class. Update `markings` type to be "graph" | "grid" | "none" instead of string.
+
+-   Updated dependencies [[`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878), [`7d4d098d`](https://github.com/Khan/perseus/commit/7d4d098dbdbc3f41e89d7e118c8cd83fbcaeb928)]:
+    -   @khanacademy/perseus@19.4.0
+
+## 4.2.3
+
+### Patch Changes
+
+-   Updated dependencies [[`6ef53d21`](https://github.com/Khan/perseus/commit/6ef53d213fae13977effbd28c784aa6cd91c6e7f)]:
+    -   @khanacademy/perseus@19.3.1
+
+## 4.2.2
+
+### Patch Changes
+
+-   Updated dependencies [[`955ae480`](https://github.com/Khan/perseus/commit/955ae480a822d875784fb2de65240fe1acd283a5), [`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89)]:
+    -   @khanacademy/perseus@19.3.0
+    -   @khanacademy/math-input@17.1.0
+
 ## 4.2.1
 
 ### Patch Changes

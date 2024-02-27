@@ -1,142 +1,46 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
-import {
-    useUniqueIdWithMock,
-    RenderStateRoot,
-    View,
-} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import {css, StyleSheet} from "aphrodite";
+import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useReducer} from "react";
 import {render} from "react-dom";
 
-import {Renderer} from "../packages/perseus/src";
 import {setDependencies} from "../packages/perseus/src/dependencies";
-import * as grapher from "../packages/perseus/src/widgets/__testdata__/grapher.testdata";
-import * as interactiveGraph from "../packages/perseus/src/widgets/__testdata__/interactive-graph.testdata";
-import * as numberLine from "../packages/perseus/src/widgets/__testdata__/number-line.testdata";
 import {storybookTestDependencies} from "../testing/test-dependencies";
 
-import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
-
-import "../packages/perseus/src/styles/perseus-renderer.less";
-
-const questions = [
-    interactiveGraph.pointQuestion,
-    interactiveGraph.angleQuestion,
-    interactiveGraph.linearSystemQuestion,
-    interactiveGraph.circleQuestion,
-    interactiveGraph.linearQuestion,
-    interactiveGraph.polygonQuestion,
-    interactiveGraph.rayQuestion,
-    interactiveGraph.segmentQuestion,
-    interactiveGraph.sinusoidQuestion,
-    grapher.absoluteValueQuestion,
-    grapher.exponentialQuestion,
-    grapher.linearQuestion,
-    grapher.logarithmQuestion,
-    grapher.multipleAvailableTypesQuestion,
-    grapher.quadraticQuestion,
-    grapher.sinusoidQuestion,
-    numberLine.question1,
-];
-
-const styles = StyleSheet.create({
-    page: {
-        height: "100vh",
-        overflowY: "hidden",
-    },
-
-    header: {
-        display: "flex",
-        alignItems: "center",
-        boxShadow: "0 0 10px #0002",
-        borderBlockEnd: `1px solid ${color.offBlack32}`,
-        background: color.offBlack8,
-        padding: Spacing.small_12,
-    },
-
-    main: {
-        flexGrow: 1,
-        overflowY: "scroll",
-        paddingBlock: Spacing.xLarge_32,
-    },
-
-    cards: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
-    },
-
-    card: {
-        float: "left",
-        margin: 16,
-        width: 460,
-        borderRadius: 7,
-        border: "1px solid #ccc",
-    },
-});
+import {Flipbook} from "./flipbook";
+import {Gallery} from "./gallery";
 
 setDependencies(storybookTestDependencies);
 
 render(
     <RenderStateRoot>
-        <DevUI />
+        <Router />
     </RenderStateRoot>,
     document.getElementById("app-root"),
 );
 
-function DevUI() {
-    const ids = useUniqueIdWithMock();
+function Router() {
+    const hash = useUrlHash();
 
-    const [isMobile, setIsMobile] = useState(false);
-
-    return (
-        <View className={css(styles.page)}>
-            <header className={css(styles.header)}>
-                <Switch
-                    id={ids.get("mobile")}
-                    checked={isMobile}
-                    onChange={setIsMobile}
-                />
-                <Strut size={Spacing.xSmall_8} />
-                <label htmlFor={ids.get("mobile")}>Mobile</label>
-            </header>
-            <main className={css(styles.main)}>
-                <View style={styles.cards}>
-                    {questions.map((question, i) => (
-                        <QuestionRenderer
-                            key={i}
-                            question={question}
-                            apiOptions={{isMobile}}
-                        />
-                    ))}
-                </View>
-            </main>
-        </View>
-    );
+    switch (hash) {
+        case "#flipbook":
+            return <Flipbook />;
+        default:
+            return <Gallery />;
+    }
 }
 
-type QuestionRendererProps = {
-    question: PerseusRenderer;
-    apiOptions?: APIOptions;
-};
+function useUrlHash() {
+    const rerender = useRerender();
 
-function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
-    return (
-        <div className={css(styles.card)}>
-            <div style={{padding: 28}} className="framework-perseus">
-                <Renderer
-                    content={question.content}
-                    images={question.images}
-                    widgets={question.widgets}
-                    problemNum={0}
-                    apiOptions={apiOptions}
-                />
-            </div>
-        </div>
-    );
+    useEffect(() => {
+        window.addEventListener("hashchange", rerender);
+        return () => window.removeEventListener("hashchange", rerender);
+    }, [rerender]);
+
+    return window.location.hash;
+}
+
+function useRerender(): () => void {
+    return useReducer((n) => n + 1, 0)[1];
 }

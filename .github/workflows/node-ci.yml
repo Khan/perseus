@@ -356,6 +356,11 @@ jobs:
                       steps.publish-snapshot.outputs.npm_snapshot_tag }}
                       ```
 
+                      If you are working in Khan Academy's webapp, you can run:
+                      ```sh
+                      ./dev/tools/bump_perseus_version.sh -t PR${{ github.event.pull_request.number }}
+                      ```
+
             - name: Create or update npm snapshot comment - failure
               if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
               uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d
