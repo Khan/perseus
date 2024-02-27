@@ -27,7 +27,7 @@ import type {
 import type {PropsFor, StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
-const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
+const {containerSizeClass} = SizingUtils;
 const DeprecationMixin = Util.DeprecationMixin;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
@@ -460,7 +460,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </InfoTip>
                 </Row>
                 <InteractiveGraphSettings
-                    box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
                     labels={this.props.labels}
                     step={this.props.step}

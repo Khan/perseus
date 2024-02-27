@@ -1,14 +1,6 @@
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
-import {
-    components,
-    interactiveSizes,
-    Changeable,
-    Dependencies,
-    KhanMath,
-    Util,
-} from "@khanacademy/perseus";
+import {components, Changeable, Util, SizingUtils} from "@khanacademy/perseus";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import type {PerseusImageBackground} from "@khanacademy/perseus";
@@ -21,27 +13,73 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
+const smallBox = SizingUtils.getInteractiveBoxFromSizeClass(
+    SizingUtils.containerSizeClass.SMALL,
+);
+
 function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
-type EditableSetting = "canvas" | "graph" | "snap" | "image" | "measure";
+type Range = [min: number, max: number];
 
 type Props = {
-    editableSettings: ReadonlyArray<EditableSetting>;
-    box: [number, number];
+    /**
+     * The labels for the x and y axes.
+     */
     labels: ReadonlyArray<string>;
-    range: [[number, number], [number, number]];
-    step: [number, number];
-    gridStep: [number, number];
-    snapStep: [number, number];
+    /**
+     * The range of the graph.
+     */
+    range: [x: Range, y: Range];
+    /**
+     * How far apart the tick marks on the axes are in the x and y
+     * directions.
+     */
+    step: [x: number, y: number];
+    /**
+     * How far apart the grid lines are in the x and y directions.
+     */
+    gridStep: [x: number, y: number];
+    /**
+     * How far apart the snap-to points are in the x and y directions.
+     */
+    snapStep: [x: number, y: number];
+    /**
+     * An error message to display in the graph area, or true if the
+     * graph is valid.
+     */
     valid: boolean | string;
+    /**
+     * The background image to display in the graph area and its properties.
+     */
     backgroundImage: PerseusImageBackground;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
     markings: "graph" | "grid" | "none";
+    /**
+     * Whether to show the protractor on the graph.
+     */
     showProtractor: boolean;
+    /**
+     * Whether to show the ruler on the graph.
+     */
     showRuler: boolean;
+    /**
+     * Whether to show tooltips on the graph.
+     */
     showTooltips: boolean;
+    /**
+     * The label to display on the ruler, if any.
+     */
     rulerLabel: string;
+    /**
+     * The number of ticks to display on the ruler.
+     */
     rulerTicks: number;
 
     onChange: (arg1: Partial<Props>) => void;
@@ -49,15 +87,19 @@ type Props = {
 
 type State = {
     labelsTextbox: ReadonlyArray<string>;
-    gridStepTextbox: [number, number];
-    snapStepTextbox: [number, number];
-    stepTextbox: [number, number];
-    rangeTextbox: [[number, number], [number, number]];
+    gridStepTextbox: [x: number, y: number];
+    snapStepTextbox: [x: number, y: number];
+    stepTextbox: [x: number, y: number];
+    rangeTextbox: [x: Range, y: Range];
     backgroundImage: PerseusImageBackground;
 };
 
 class InteractiveGraphSettings extends React.Component<Props, State> {
     _isMounted = false;
+
+    bgUrlRef = React.createRef<HTMLInputElement>();
+    labelXRef = React.createRef<HTMLInputElement>();
+    labelYRef = React.createRef<HTMLInputElement>();
 
     static stateFromProps(props) {
         return {
@@ -66,7 +108,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             snapStepTextbox: props.snapStep,
             stepTextbox: props.step,
             rangeTextbox: props.range,
-            backgroundImage: _.clone(props.backgroundImage),
+            // Shallow-copied clone
+            backgroundImage: {...props.backgroundImage},
         };
     }
 
@@ -77,11 +120,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     }
 
     static defaultProps = {
-        editableSettings: ["graph", "snap", "image", "measure"],
-        box: [
-            interactiveSizes.defaultBoxSizeSmall,
-            interactiveSizes.defaultBoxSizeSmall,
-        ],
         labels: ["x", "y"],
         range: [
             [-10, 10],
@@ -148,7 +186,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         }
 
         const setUrl = (url, width: number, height: number) => {
-            const image = _.clone(this.props.backgroundImage);
+            // Shallow-copied clone
+            const image = {...this.props.backgroundImage};
             image.url = url;
             image.width = width;
             image.height = height;
@@ -160,8 +199,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             );
         };
 
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
+        const url = this.bgUrlRef.current?.value;
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
@@ -195,9 +233,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     validateStepValue = (settings) => {
         const {step, range, name, minTicks, maxTicks} = settings;
 
-        if (!_.isFinite(step)) {
-            return name + " must be a valid number";
-        }
         const nSteps = numSteps(range, step);
         if (nSteps < minTicks) {
             return (
@@ -314,9 +349,9 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         const step = this.state.stepTextbox.slice();
         const gridStep = this.state.gridStepTextbox.slice();
         const snapStep = this.state.snapStepTextbox.slice();
-        const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
+        const scale = Util.scaleFromExtent(ranges[i], smallBox[i]);
         if (this.validRange(ranges[i]) === true) {
-            step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
+            step[i] = Util.tickStepFromExtent(ranges[i], smallBox[i]);
 
             const gridStepValue = Util.gridStepFromTickStep(step[i], scale);
             if (gridStepValue) {
@@ -398,251 +433,202 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     };
 
     render() {
-        const scale = [
-            KhanMath.roundTo(
-                2,
-                Util.scaleFromExtent(this.props.range[0], this.props.box[0]),
-            ),
-            KhanMath.roundTo(
-                2,
-                Util.scaleFromExtent(this.props.range[1], this.props.box[1]),
-            ),
-        ];
-
-        const {TeX} = Dependencies.getDependencies();
-
         return (
             <div>
-                {_.contains(this.props.editableSettings, "canvas") && (
-                    <div className="graph-settings">
-                        <div className="perseus-widget-row">
-                            <label htmlFor="canvas-size">
-                                Canvas size (x,y pixels)
-                            </label>
-                            <RangeInput
-                                id="canvas-size"
-                                value={this.props.box}
-                                onChange={(box) => {
-                                    this.change({box: box});
-                                }}
+                <div className="graph-settings">
+                    <div className="perseus-widget-row">
+                        <div className="perseus-widget-left-col">
+                            <label htmlFor="labels-x">x Label</label>
+                            <input
+                                id="labels-x"
+                                type="text"
+                                className="graph-settings-axis-label"
+                                ref={this.labelXRef}
+                                onChange={(e) => this.changeLabel(0, e)}
+                                value={this.state.labelsTextbox[0] || ""}
                             />
                         </div>
-                        <div className="perseus-widget-row">
-                            Scale (px per div):{" "}
-                            <TeX>{"(" + scale[0] + ", " + scale[1] + ")"}</TeX>
+                        <div className="perseus-widget-right-col">
+                            <label htmlFor="labels-y">y Label</label>
+                            <input
+                                id="labels-y"
+                                type="text"
+                                className="graph-settings-axis-label"
+                                ref={this.labelYRef}
+                                onChange={(e) => this.changeLabel(1, e)}
+                                value={this.state.labelsTextbox[1] || ""}
+                            />
                         </div>
                     </div>
-                )}
 
-                {_.contains(this.props.editableSettings, "graph") && (
-                    <div className="graph-settings">
-                        <div className="perseus-widget-row">
-                            <div className="perseus-widget-left-col">
-                                <label htmlFor="labels-x">x Label</label>
-                                <input
-                                    id="labels-x"
-                                    type="text"
-                                    className="graph-settings-axis-label"
-                                    // eslint-disable-next-line react/no-string-refs
-                                    ref="labels-0"
-                                    onChange={(e) => this.changeLabel(0, e)}
-                                    value={this.state.labelsTextbox[0] || ""}
-                                />
-                            </div>
-                            <div className="perseus-widget-right-col">
-                                <label htmlFor="labels-y">y Label</label>
-                                <input
-                                    id="labels-y"
-                                    type="text"
-                                    className="graph-settings-axis-label"
-                                    // eslint-disable-next-line react/no-string-refs
-                                    ref="labels-1"
-                                    onChange={(e) => this.changeLabel(1, e)}
-                                    value={this.state.labelsTextbox[1] || ""}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="perseus-widget-row">
-                            <div className="perseus-widget-left-col">
-                                <label htmlFor="range-x">x Range</label>
-                                <RangeInput
-                                    id="range-x"
-                                    value={this.state.rangeTextbox[0]}
-                                    onChange={(vals) =>
-                                        this.changeRange(0, vals)
-                                    }
-                                />
-                            </div>
-                            <div className="perseus-widget-right-col">
-                                <label htmlFor="range-y">y Range</label>
-                                <RangeInput
-                                    id="range-y"
-                                    value={this.state.rangeTextbox[1]}
-                                    onChange={(vals) =>
-                                        this.changeRange(1, vals)
-                                    }
-                                />
-                            </div>
-                        </div>
-                        <div className="perseus-widget-row">
-                            <div className="perseus-widget-left-col">
-                                <label htmlFor="tick-step">Tick Step</label>
-                                <RangeInput
-                                    id="tick-step"
-                                    value={this.state.stepTextbox}
-                                    onChange={this.changeStep}
-                                />
-                            </div>
-                            <div className="perseus-widget-right-col">
-                                <label htmlFor="grid-step">Grid Step</label>
-                                <RangeInput
-                                    id="grid-step"
-                                    value={this.state.gridStepTextbox}
-                                    onChange={this.changeGridStep}
-                                />
-                            </div>
-                        </div>
-                        {_.contains(this.props.editableSettings, "snap") && (
-                            <div className="perseus-widget-row">
-                                <div className="perseus-widget-left-col">
-                                    <label htmlFor="snap-step">Snap Step</label>
-                                    <RangeInput
-                                        id="snap-step"
-                                        value={this.state.snapStepTextbox}
-                                        onChange={this.changeSnapStep}
-                                    />
-                                </div>
-                            </div>
-                        )}
-                        <div className="perseus-widget-row">
-                            <label>Markings: </label>
-                            <ButtonGroup
-                                value={this.props.markings}
-                                allowEmpty={false}
-                                buttons={[
-                                    {value: "graph", content: "Graph"},
-                                    {value: "grid", content: "Grid"},
-                                    {value: "none", content: "None"},
-                                ]}
-                                onChange={this.change("markings")}
+                    <div className="perseus-widget-row">
+                        <div className="perseus-widget-left-col">
+                            <label htmlFor="range-x">x Range</label>
+                            <RangeInput
+                                id="range-x"
+                                value={this.state.rangeTextbox[0]}
+                                onChange={(vals) => this.changeRange(0, vals)}
                             />
                         </div>
+                        <div className="perseus-widget-right-col">
+                            <label htmlFor="range-y">y Range</label>
+                            <RangeInput
+                                id="range-y"
+                                value={this.state.rangeTextbox[1]}
+                                onChange={(vals) => this.changeRange(1, vals)}
+                            />
+                        </div>
+                    </div>
+                    <div className="perseus-widget-row">
+                        <div className="perseus-widget-left-col">
+                            <label htmlFor="tick-step">Tick Step</label>
+                            <RangeInput
+                                id="tick-step"
+                                value={this.state.stepTextbox}
+                                onChange={this.changeStep}
+                            />
+                        </div>
+                        <div className="perseus-widget-right-col">
+                            <label htmlFor="grid-step">Grid Step</label>
+                            <RangeInput
+                                id="grid-step"
+                                value={this.state.gridStepTextbox}
+                                onChange={this.changeGridStep}
+                            />
+                        </div>
+                    </div>
+                    <div className="perseus-widget-row">
+                        <div className="perseus-widget-left-col">
+                            <label htmlFor="snap-step">Snap Step</label>
+                            <RangeInput
+                                id="snap-step"
+                                value={this.state.snapStepTextbox}
+                                onChange={this.changeSnapStep}
+                            />
+                        </div>
+                    </div>
+                    <div className="perseus-widget-row">
+                        <label>Markings: </label>
+                        <ButtonGroup
+                            value={this.props.markings}
+                            allowEmpty={false}
+                            buttons={[
+                                {value: "graph", content: "Graph"},
+                                {value: "grid", content: "Grid"},
+                                {value: "none", content: "None"},
+                            ]}
+                            onChange={this.change("markings")}
+                        />
+                    </div>
+                    <div className="perseus-widget-left-col">
+                        <PropCheckBox
+                            label="Show tooltips"
+                            showTooltips={this.props.showTooltips}
+                            onChange={this.change}
+                        />
+                    </div>
+                </div>
+
+                <div className="image-settings">
+                    <div>Background image:</div>
+                    <div>
+                        <label htmlFor="bg-url">Url:</label>
+                        <input
+                            id="bg-url"
+                            type="text"
+                            className="graph-settings-background-url"
+                            ref={this.bgUrlRef}
+                            value={this.state.backgroundImage.url || ""}
+                            onChange={(e) => {
+                                const image = _.clone(
+                                    this.props.backgroundImage,
+                                );
+                                image.url = e.target.value;
+                                this.setState({backgroundImage: image});
+                            }}
+                            onKeyPress={this.changeBackgroundUrl}
+                            onBlur={this.changeBackgroundUrl}
+                        />
+                        <InfoTip>
+                            <p>
+                                Create an image in graphie, or use the "Add
+                                image" function to create a background.
+                            </p>
+                        </InfoTip>
+                    </div>
+                </div>
+
+                <div className="misc-settings">
+                    <div className="perseus-widget-row">
                         <div className="perseus-widget-left-col">
                             <PropCheckBox
-                                label="Show tooltips"
-                                showTooltips={this.props.showTooltips}
+                                label="Show ruler"
+                                showRuler={this.props.showRuler}
+                                onChange={this.change}
+                            />
+                        </div>
+                        <div className="perseus-widget-right-col">
+                            <PropCheckBox
+                                label="Show protractor"
+                                showProtractor={this.props.showProtractor}
                                 onChange={this.change}
                             />
                         </div>
                     </div>
-                )}
-
-                {_.contains(this.props.editableSettings, "image") && (
-                    <div className="image-settings">
-                        <div>Background image:</div>
+                    {this.props.showRuler && (
                         <div>
-                            <label htmlFor="bg-url">Url:</label>
-                            <input
-                                id="bg-url"
-                                type="text"
-                                className="graph-settings-background-url"
-                                // eslint-disable-next-line react/no-string-refs
-                                ref="bg-url"
-                                value={this.state.backgroundImage.url || ""}
-                                onChange={(e) => {
-                                    const image = _.clone(
-                                        this.props.backgroundImage,
-                                    );
-                                    image.url = e.target.value;
-                                    this.setState({backgroundImage: image});
-                                }}
-                                onKeyPress={this.changeBackgroundUrl}
-                                onBlur={this.changeBackgroundUrl}
-                            />
-                            <InfoTip>
-                                <p>
-                                    Create an image in graphie, or use the "Add
-                                    image" function to create a background.
-                                </p>
-                            </InfoTip>
-                        </div>
-                    </div>
-                )}
-
-                {_.contains(this.props.editableSettings, "measure") && (
-                    <div className="misc-settings">
-                        <div className="perseus-widget-row">
-                            <div className="perseus-widget-left-col">
-                                <PropCheckBox
-                                    label="Show ruler"
-                                    showRuler={this.props.showRuler}
-                                    onChange={this.change}
-                                />
-                            </div>
-                            <div className="perseus-widget-right-col">
-                                <PropCheckBox
-                                    label="Show protractor"
-                                    showProtractor={this.props.showProtractor}
-                                    onChange={this.change}
-                                />
-                            </div>
-                        </div>
-                        {this.props.showRuler && (
                             <div>
-                                <div>
-                                    <label>
-                                        {" "}
-                                        Ruler label:{" "}
-                                        <select
-                                            onChange={this.changeRulerLabel}
-                                            value={this.props.rulerLabel}
-                                        >
-                                            <option value="">None</option>
-                                            <optgroup label="Metric">
-                                                {this.renderLabelChoices([
-                                                    ["milimeters", "mm"],
-                                                    ["centimeters", "cm"],
-                                                    ["meters", "m"],
-                                                    ["kilometers", "km"],
-                                                ])}
-                                            </optgroup>
-                                            <optgroup label="Imperial">
-                                                {this.renderLabelChoices([
-                                                    ["inches", "in"],
-                                                    ["feet", "ft"],
-                                                    ["yards", "yd"],
-                                                    ["miles", "mi"],
-                                                ])}
-                                            </optgroup>
-                                        </select>
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        {" "}
-                                        Ruler ticks:{" "}
-                                        <select
-                                            onChange={this.changeRulerTicks}
-                                            value={this.props.rulerTicks}
-                                        >
-                                            {_.map(
-                                                [1, 2, 4, 8, 10, 16],
-                                                function (n) {
-                                                    return (
-                                                        <option value={n}>
-                                                            {n}
-                                                        </option>
-                                                    );
-                                                },
-                                            )}
-                                        </select>
-                                    </label>
-                                </div>
+                                <label>
+                                    {" "}
+                                    Ruler label:{" "}
+                                    <select
+                                        onChange={this.changeRulerLabel}
+                                        value={this.props.rulerLabel}
+                                    >
+                                        <option value="">None</option>
+                                        <optgroup label="Metric">
+                                            {this.renderLabelChoices([
+                                                ["milimeters", "mm"],
+                                                ["centimeters", "cm"],
+                                                ["meters", "m"],
+                                                ["kilometers", "km"],
+                                            ])}
+                                        </optgroup>
+                                        <optgroup label="Imperial">
+                                            {this.renderLabelChoices([
+                                                ["inches", "in"],
+                                                ["feet", "ft"],
+                                                ["yards", "yd"],
+                                                ["miles", "mi"],
+                                            ])}
+                                        </optgroup>
+                                    </select>
+                                </label>
                             </div>
-                        )}
-                    </div>
-                )}
+                            <div>
+                                <label>
+                                    {" "}
+                                    Ruler ticks:{" "}
+                                    <select
+                                        onChange={this.changeRulerTicks}
+                                        value={this.props.rulerTicks}
+                                    >
+                                        {_.map(
+                                            [1, 2, 4, 8, 10, 16],
+                                            function (n) {
+                                                return (
+                                                    <option value={n}>
+                                                        {n}
+                                                    </option>
+                                                );
+                                            },
+                                        )}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         );
     }
