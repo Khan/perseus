@@ -80,24 +80,24 @@ type Props = {
     /**
      * The range of the graph in the x and y directions.
      */
-    range: [Range, Range]; // x, y
+    range: [x: Range, y: Range];
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
      */
-    step: [number, number]; // x, y
+    step: [x: number, y: number];
     /**
      * How far apart the grid lines are in the x and y directions.
      */
-    gridStep: [number, number]; // x, y
+    gridStep: [x: number, y: number];
     /**
      * How far apart the snap-to points are in the x and y directions.
      */
-    snapStep: [number, number]; // x, y
+    snapStep: [x: number, y: number];
     /**
      * The size of the graph in pixels.
      */
-    box: [number, number]; // x, y
+    box: [x: number, y: number];
 
     /**
      * An error message to display in the graph area, or true if the
@@ -135,6 +135,9 @@ type Props = {
      * The number of ticks to display on the ruler.
      */
     rulerTicks: number;
+    /**
+     * The data for checking if an answer is correct.
+     */
     correct: any; // TODO(jeremy)
 
     /**
