@@ -71,7 +71,7 @@ describe("graded-group", () => {
             );
 
             // Act
-            await checkAnswer(await userEvent);
+            await checkAnswer(userEvent);
 
             // Assert
             expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
@@ -98,7 +98,7 @@ describe("graded-group", () => {
             );
 
             // Act
-            await checkAnswer(await userEvent);
+            await checkAnswer(userEvent);
 
             // Assert
             expect(
@@ -118,7 +118,7 @@ describe("graded-group", () => {
             );
 
             // Act
-            await checkAnswer(await userEvent);
+            await checkAnswer(userEvent);
 
             // Assert
             expect(
@@ -187,7 +187,7 @@ describe("graded-group", () => {
             jest.runOnlyPendingTimers();
 
             // Act
-            await checkAnswer(await userEvent);
+            await checkAnswer(userEvent);
 
             // Assert
             expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
@@ -217,7 +217,7 @@ describe("graded-group", () => {
             jest.runOnlyPendingTimers();
 
             // Act
-            await checkAnswer(await userEvent);
+            await checkAnswer(userEvent);
 
             // Assert
             expect(
@@ -238,7 +238,7 @@ describe("graded-group", () => {
             );
             jest.runOnlyPendingTimers();
 
-            await checkAnswer(await userEvent);
+            await checkAnswer(userEvent);
 
             // Act
             await userEvent.click(

@@ -71,7 +71,7 @@ describe("single-choice question", () => {
                 const {container} = renderQuestion(question, apiOptions);
 
                 // Act
-                await selectOption(await userEvent, correct);
+                await selectOption(userEvent, correct);
 
                 // Assert
                 expect(container).toMatchSnapshot("correct answer");
@@ -82,7 +82,7 @@ describe("single-choice question", () => {
                 const {container} = renderQuestion(question, apiOptions);
 
                 // Act
-                await selectOption(await userEvent, incorrect[0]);
+                await selectOption(userEvent, incorrect[0]);
 
                 // Assert
                 expect(container).toMatchSnapshot("incorrect answer");
@@ -95,7 +95,7 @@ describe("single-choice question", () => {
                 });
 
                 // Act
-                await selectOption(await userEvent, correct);
+                await selectOption(userEvent, correct);
 
                 // Assert
                 expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -126,7 +126,7 @@ describe("single-choice question", () => {
                     const {renderer} = renderQuestion(question, apiOptions);
 
                     // Act
-                    await selectOption(await userEvent, incorrect);
+                    await selectOption(userEvent, incorrect);
 
                     // Assert
                     expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -155,7 +155,7 @@ describe("single-choice question", () => {
                 // Act
                 // Since this is a single-select setup, just select the first
                 // incorrect choice.
-                await selectOption(await userEvent, incorrect[0]);
+                await selectOption(userEvent, incorrect[0]);
                 renderer.deselectIncorrectSelectedChoices();
 
                 // Assert
@@ -179,7 +179,7 @@ describe("single-choice question", () => {
                 renderQuestion(staticQuestion, apiOptions, {reviewMode});
 
                 // Act
-                await selectOption(await userEvent, correct);
+                await selectOption(userEvent, correct);
 
                 // Assert
                 // Everything's read-only so no selections made
@@ -343,7 +343,7 @@ describe("single-choice question", () => {
         const {renderer} = renderQuestion(question, apiOptions);
 
         // Act
-        await selectOption(await userEvent, incorrect[0]);
+        await selectOption(userEvent, incorrect[0]);
         renderer.showRationalesForCurrentlySelectedChoices();
 
         // Assert
@@ -520,7 +520,7 @@ describe("single-choice question", () => {
         renderQuestion(question, apiOptions, {reviewMode: true});
 
         // Act
-        await selectOption(await userEvent, correct);
+        await selectOption(userEvent, correct);
 
         // Assert
         expect(screen.getAllByText("Correct (selected)")).toHaveLength(1);
@@ -534,7 +534,7 @@ describe("single-choice question", () => {
         renderQuestion(question, apiOptions, {reviewMode: true});
 
         // Act
-        await selectOption(await userEvent, incorrect[0]);
+        await selectOption(userEvent, incorrect[0]);
 
         // Assert
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);

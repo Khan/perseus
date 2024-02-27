@@ -110,17 +110,17 @@ describe("Expression Widget", function () {
 
     describe("grading", function () {
         it("should not grade a thing that doesn't parse", async () => {
-            await assertInvalid(await userEvent, expressionItem2, "+++");
+            await assertInvalid(userEvent, expressionItem2, "+++");
         });
 
         it("should not grade a thing that is empty", async () => {
-            await assertInvalid(await userEvent, expressionItem2, "");
+            await assertInvalid(userEvent, expressionItem2, "");
         });
     });
 
     describe("fallthrough", function () {
         it("should grade answers which don't match anything as wrong", async function () {
-            await assertIncorrect(await userEvent, expressionItem2, "500");
+            await assertIncorrect(userEvent, expressionItem2, "500");
         });
     });
 
@@ -129,7 +129,7 @@ describe("Expression Widget", function () {
             "should not grade answers that are correct except for the " +
                 "variable case",
             async function (input) {
-                await assertInvalid(await userEvent, expressionItem2, input);
+                await assertInvalid(userEvent, expressionItem2, input);
             },
         );
 
@@ -139,14 +139,14 @@ describe("Expression Widget", function () {
             "should not grade answers that have the wrong variable case, " +
                 "even if the answer has got other errors",
             async function () {
-                await assertInvalid(await userEvent, expressionItem2, "123+X");
+                await assertInvalid(userEvent, expressionItem2, "123+X");
             },
         );
 
         it.each(["123-y", "123-Y"])(
             "should not not grade answers that use the wrong variable",
             async function (input) {
-                await assertInvalid(await userEvent, expressionItem2, input);
+                await assertInvalid(userEvent, expressionItem2, input);
             },
         );
     });
@@ -155,7 +155,7 @@ describe("Expression Widget", function () {
         it.each(["x-123", "123-x"])(
             "should recognize either of two possibilities",
             async (input) => {
-                await assertCorrect(await userEvent, expressionItem2, input);
+                await assertCorrect(userEvent, expressionItem2, input);
             },
         );
 
@@ -172,22 +172,22 @@ describe("Expression Widget", function () {
          */
 
         it("should match from top to bottom", async function () {
-            await assertInvalid(await userEvent, expressionItem3, "x+1");
+            await assertInvalid(userEvent, expressionItem3, "x+1");
         });
 
         it("should match from top to bottom (2)", async function () {
-            await assertIncorrect(await userEvent, expressionItem3, "y+1");
+            await assertIncorrect(userEvent, expressionItem3, "y+1");
         });
 
         it("should match from top to bottom (3)", async function () {
-            await assertCorrect(await userEvent, expressionItem3, "z+1");
+            await assertCorrect(userEvent, expressionItem3, "z+1");
         });
 
         it.each([["X+1"], ["Y+1"], ["Z+1"]])(
             "should give casing or variable name error only relative to the " +
                 "correct answer",
             async (input) => {
-                await assertInvalid(await userEvent, expressionItem3, input);
+                await assertInvalid(userEvent, expressionItem3, input);
             },
         );
     });
@@ -209,17 +209,17 @@ describe("Expression Widget", function () {
     describe("when the question uses the sin function", () => {
         it("allows parens", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            await assertCorrect(await userEvent, item, "sin(x)");
+            await assertCorrect(userEvent, item, "sin(x)");
         });
 
         it("allows no parens", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            await assertCorrect(await userEvent, item, "sin x");
+            await assertCorrect(userEvent, item, "sin x");
         });
 
         it("grades a wrong answer as incorrect", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            await assertIncorrect(await userEvent, item, "2");
+            await assertIncorrect(userEvent, item, "2");
         });
     });
 
