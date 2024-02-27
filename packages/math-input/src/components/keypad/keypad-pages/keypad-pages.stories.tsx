@@ -1,5 +1,4 @@
 import {action} from "@storybook/addon-actions";
-import {withKnobs} from "@storybook/addon-knobs";
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
 import * as React from "react";
 
@@ -9,7 +8,6 @@ import PrealgebraInputPage from "./operators-page";
 
 export default {
     title: "math-input/components/Keypad pages",
-    decorators: [withKnobs],
     parameters: {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
