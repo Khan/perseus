@@ -360,6 +360,7 @@ class MathInput extends React.Component<Props, State> {
 
         this.mathField.focus();
         this.props?.onFocus();
+
         this.setState({focused: true}, () => {
             // NOTE(charlie): We use `setTimeout` to allow for a layout pass to
             // occur. Otherwise, the keypad is measured incorrectly. Ideally,
@@ -623,6 +624,13 @@ class MathInput extends React.Component<Props, State> {
         if (!this.state.focused) {
             this.focus();
         }
+
+        // If the user clicked on the input using a mouse or tap gesture,
+        // we want to set the focus to the inputRef so that the keyUp
+        // event will be triggered when the user types on the keyboard.
+        // This is necessary to support Chromebooks as they use mobile user
+        // agents, do not simulate touch events, and have physical keyboards.
+        this.inputRef?.focus();
     };
 
     // We want to allow the user to be able to focus the input via click
@@ -658,6 +666,13 @@ class MathInput extends React.Component<Props, State> {
         if (!this.state.focused) {
             this.focus();
         }
+
+        // If the user clicked on the input using a mouse or tap gesture,
+        // we want to set the focus to the inputRef so that the keyUp
+        // event will be triggered when the user types on the keyboard.
+        // This is necessary to support Chromebooks as they use mobile user
+        // agents, do not simulate touch events, and have physical keyboards.
+        this.inputRef?.focus();
     };
 
     handleTouchMove: (arg1: React.TouchEvent<HTMLDivElement>) => void = (e) => {
@@ -857,7 +872,7 @@ class MathInput extends React.Component<Props, State> {
             const value = this.mathField.getContent();
             if (this.props.value !== value) {
                 this.mathField.setContent(this.props.value);
-                this.props.onChange(value, false);
+                this.props.onChange(value, () => {});
                 this._hideCursorHandle();
             }
         }

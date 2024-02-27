@@ -198,16 +198,6 @@ describe("Expression Widget", function () {
             const item = expressionItemWithAnswer("sin(x)");
             assertIncorrect(item, "2");
         });
-
-        it("treats sen as equivalent to sin", () => {
-            const item = expressionItemWithAnswer("sin(x)");
-            assertCorrect(item, "sen x");
-        });
-
-        it("treats multiple usages of sen as equivalent to sin", () => {
-            const item = expressionItemWithAnswer("sin(sin(x))");
-            assertCorrect(item, "sen(sen(x))");
-        });
     });
 
     describe("analytics", () => {
@@ -254,6 +244,48 @@ describe("Expression Widget", function () {
 
         it("should default the virtual keypad version to MATH_INPUT_KEYPAD_V2", () => {
             assertKeypadVersion(Object.freeze({}), "MATH_INPUT_KEYPAD_V2");
+        });
+    });
+
+    describe("international trig operators", () => {
+        it("treats sen as equivalent to sin", () => {
+            const item = expressionItemWithAnswer("sin(x)");
+            assertCorrect(item, "sen x");
+        });
+
+        it("works when multiple operators are present", () => {
+            const item = expressionItemWithAnswer("sin(sin(x))");
+            assertCorrect(item, "sen(sen(x))");
+        });
+
+        it("treats arctg as equivalent to arctan", () => {
+            const item = expressionItemWithAnswer("arctan(x)");
+            assertCorrect(item, "arctg x");
+        });
+
+        it("treats cosec as equivalent to csc", () => {
+            const item = expressionItemWithAnswer("csc(x)");
+            assertCorrect(item, "cosec x");
+        });
+
+        it("treats cossec as equivalent to csc", () => {
+            const item = expressionItemWithAnswer("csc(x)");
+            assertCorrect(item, "cossec x");
+        });
+
+        it("treats cotg as equivalent to cot", () => {
+            const item = expressionItemWithAnswer("cot(x)");
+            assertCorrect(item, "cotg x");
+        });
+
+        it("treats ctg as equivalent to cot", () => {
+            const item = expressionItemWithAnswer("cot(x)");
+            assertCorrect(item, "ctg x");
+        });
+
+        it("treats tg as equivalent to tan", () => {
+            const item = expressionItemWithAnswer("tan(x)");
+            assertCorrect(item, "tg x");
         });
     });
 });

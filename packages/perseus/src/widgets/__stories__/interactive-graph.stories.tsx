@@ -5,6 +5,7 @@ import {
     angleQuestion,
     circleQuestion,
     linearQuestion,
+    linearQuestionWithLockedPoints,
     linearSystemQuestion,
     pointQuestion,
     polygonQuestion,
@@ -29,6 +30,10 @@ export const Circle = (args: StoryArgs): React.ReactElement => (
 
 export const Linear = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI question={linearQuestion} />
+);
+
+export const LinearWithLockedPoints = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={linearQuestionWithLockedPoints} />
 );
 
 export const LinearSystem = (args: StoryArgs): React.ReactElement => (
