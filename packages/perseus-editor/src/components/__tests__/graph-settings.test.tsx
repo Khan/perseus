@@ -1,6 +1,6 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
 import {render, screen, waitFor, fireEvent} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -8,8 +8,33 @@ import GraphSettings from "../graph-settings";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 
+/**
+ * userEvent vs. userEventLib - which to use?
+ *
+ * This file contains tests that use real timers (by default, the Perseus Jest
+ * tests are set to use fake timers).
+ *
+ * By default, the @testing-library/user-event library only knows how to
+ * advance real timers. It does, however, contain a setup() function that we
+ * can use to tell it how to advance Jest's fake timers (see the beforeEach()
+ * in this file).
+ *
+ * So, if your test calls `jest.useRealTimers()` you should use the
+ * `userEventLib` import. If it does not, you should use the configured
+ * `userEvent` variable.
+ *
+ * The failure mode for running tests with fake timers is that they'll fail by
+ * timing out. If you get that error, you most likely need to switch to using
+ * the configured `userEvent` instance.
+ */
+
 describe("GraphSettings", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -128,7 +153,7 @@ describe("GraphSettings", () => {
         expect(screen.getByText("Show protractor")).toBeInTheDocument();
     });
 
-    test("calls onChange when markings are changed", () => {
+    test("calls onChange when markings are changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -137,7 +162,7 @@ describe("GraphSettings", () => {
 
         // Act
         const button = screen.getByRole("button", {name: "Grid"});
-        button.click();
+        await userEvent.click(button);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -146,7 +171,7 @@ describe("GraphSettings", () => {
         );
     });
 
-    test("calls onChange when ruler label is changed", () => {
+    test("calls onChange when ruler label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
 
@@ -160,7 +185,7 @@ describe("GraphSettings", () => {
 
         // Act
         const select = screen.getByRole("combobox", {name: "Ruler label:"});
-        userEvent.selectOptions(select, ["cm"]);
+        await userEvent.selectOptions(select, ["cm"]);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -169,7 +194,7 @@ describe("GraphSettings", () => {
         );
     });
 
-    test("calls onChange when rulerTicks is changed", () => {
+    test("calls onChange when rulerTicks is changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -182,7 +207,7 @@ describe("GraphSettings", () => {
 
         // Act
         const select = screen.getByRole("combobox", {name: "Ruler ticks:"});
-        userEvent.selectOptions(select, ["4"]);
+        await userEvent.selectOptions(select, ["4"]);
 
         // Assert
         expect(onChange).toBeCalledWith(
@@ -207,8 +232,8 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox");
-        userEvent.type(input, "https://example.com/image.png");
-        userEvent.tab();
+        await userEventLib.type(input, "https://example.com/image.png");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -240,8 +265,8 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox");
-        userEvent.type(input, "https://example.com/image.png");
-        userEvent.tab();
+        await userEventLib.type(input, "https://example.com/image.png");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -267,9 +292,9 @@ describe("GraphSettings", () => {
         );
 
         // Act
-        const input = screen.getByRole("textbox");
-        userEvent.type(input, "");
-        userEvent.tab();
+        const input = screen.getByRole("textbox") as HTMLInputElement;
+        await userEventLib.clear(input);
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -306,7 +331,7 @@ describe("GraphSettings", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    test("calls onChange when protractor label is changed", () => {
+    test("calls onChange when protractor label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -321,7 +346,7 @@ describe("GraphSettings", () => {
         const checkbox = screen.getByRole("checkbox", {
             name: "Show protractor",
         });
-        checkbox.click();
+        await userEvent.click(checkbox);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -341,8 +366,8 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Range"});
-        userEvent.clear(input);
-        userEvent.paste(input, "0");
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "0");
 
         // Assert
         await waitFor(() =>
@@ -370,8 +395,8 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "y Range"});
-        userEvent.clear(input);
-        userEvent.paste(input, "0");
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "0");
 
         // Assert
         await waitFor(() =>
@@ -399,8 +424,8 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Range"});
-        userEvent.clear(input);
-        userEvent.paste(input, "20");
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "20");
 
         // Assert
         await waitFor(() =>
@@ -428,8 +453,8 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Tick Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "2");
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "2");
 
         // Assert
         await waitFor(() =>
@@ -454,8 +479,8 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Tick Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "20");
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "20");
 
         // Assert
         await waitFor(() =>
@@ -487,8 +512,8 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Tick Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "2");
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "2");
 
         // Assert
         await waitFor(() =>
@@ -516,9 +541,9 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Snap Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "2");
-        userEvent.tab();
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "2");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -546,9 +571,9 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Snap Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "100");
-        userEvent.tab();
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "100");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -573,9 +598,9 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Grid Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "2");
-        userEvent.tab();
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "2");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -600,9 +625,9 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Grid Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "100");
-        userEvent.tab();
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "100");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -627,9 +652,9 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Label"});
-        userEvent.clear(input);
-        userEvent.paste(input, "time");
-        userEvent.tab();
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "time");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -653,9 +678,9 @@ describe("GraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "y Label"});
-        userEvent.clear(input);
-        userEvent.paste(input, "count");
-        userEvent.tab();
+        await userEventLib.clear(input);
+        await userEventLib.type(input, "count");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
@@ -681,9 +706,10 @@ describe("GraphSettings", () => {
         const input = screen.getByRole("textbox", {
             name: "Canvas size (x,y pixels)",
         });
-        userEvent.clear(input);
-        userEvent.paste(input, "300");
-        userEvent.tab();
+
+        await userEventLib.clear(input);
+        await userEventLib.paste("300");
+        await userEventLib.tab();
 
         // Assert
         await waitFor(() =>
