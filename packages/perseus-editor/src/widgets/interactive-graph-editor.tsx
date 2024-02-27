@@ -43,7 +43,7 @@ const deprecatedProps = {
     },
 } as const;
 
-type Range = [number, number]; // [min, max]
+type Range = [min: number, max: number];
 
 // Renders the given children in a View laid out horizontally.
 const Row = (props: {style?: StyleType; children: React.ReactNode}) => {
