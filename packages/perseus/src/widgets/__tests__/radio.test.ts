@@ -26,7 +26,7 @@ const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     index: number,
 ) => {
-    const options = await screen.findAllByRole("radio");
+    const options = screen.getAllByRole("radio");
 
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)
@@ -366,7 +366,7 @@ describe("single-choice question", () => {
 
             // Assert
             expect(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Open menu for Choice B/,
                 }),
             ).toBeVisible();
@@ -378,7 +378,7 @@ describe("single-choice question", () => {
 
             // Act
             await userEvent.click(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Open menu for Choice B/,
                 }),
             );
@@ -388,7 +388,7 @@ describe("single-choice question", () => {
 
             // Assert
             expect(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Cross out Choice B/,
                 }),
             ).toBeVisible();
@@ -408,7 +408,7 @@ describe("single-choice question", () => {
 
             // Assert
             expect(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Cross out Choice A/,
                 }),
             ).toBeVisible();
@@ -418,14 +418,14 @@ describe("single-choice question", () => {
             // Arrange
             renderQuestion(question, crossOutApiOptions);
             await userEvent.click(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Open menu for Choice B/,
                 }),
             );
 
             // Act
             await userEvent.click(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Cross out Choice B/,
                 }),
             );
@@ -438,7 +438,7 @@ describe("single-choice question", () => {
             ).toHaveLength(0);
 
             expect(
-                await screen.findByTestId("choice-icon__cross-out-line"),
+                screen.getByTestId("choice-icon__cross-out-line"),
             ).toBeVisible();
         });
 
@@ -446,21 +446,21 @@ describe("single-choice question", () => {
             // Arrange
             renderQuestion(question, crossOutApiOptions);
             await userEvent.click(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Open menu for Choice B/,
                 }),
             );
 
             // Act
             await userEvent.click(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Cross out Choice B/,
                 }),
             );
             jest.runAllTimers();
 
             await userEvent.click(
-                await screen.findByRole("radio", {
+                screen.getByRole("radio", {
                     name: "(Choice B, Crossed out) -8",
                 }),
             );
@@ -482,7 +482,7 @@ describe("single-choice question", () => {
             jest.runAllTimers();
 
             expect(
-                await screen.findByRole("button", {
+                screen.getByRole("button", {
                     name: /Cross out Choice A/,
                 }),
             ).toBeVisible();
@@ -559,17 +559,15 @@ describe("single-choice question", () => {
         // Assert
         // Part of Choice A rationale
         expect(
-            await screen.findByText(
+            screen.getByText(
                 /the positive square root when performed on a number, so/,
             ),
         ).toBeVisible();
         // Part of Choice B rationale
-        expect(
-            await screen.findByText(/, the square root operation/),
-        ).toBeVisible();
+        expect(screen.getByText(/, the square root operation/)).toBeVisible();
         // Part of Choice C rationale
         expect(
-            await screen.findByText(/is the positive square root of/),
+            screen.getByText(/is the positive square root of/),
         ).toBeVisible();
         // Part of Choice D rationale
         expect(screen.getAllByText(/satisfies the equation./)[3]).toBeVisible();
@@ -588,7 +586,7 @@ describe("single-choice question", () => {
         const {renderer} = renderQuestion(q);
 
         // Act
-        const noneOption = await screen.findByRole("radio", {
+        const noneOption = screen.getByRole("radio", {
             name: "(Choice D) None of the above",
         });
         await userEvent.click(noneOption);
