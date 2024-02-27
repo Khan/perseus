@@ -57,9 +57,7 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Geometry"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
         expect(mockSelectCallback).toHaveBeenCalledWith("Geometry");
     });
 
@@ -107,9 +105,7 @@ describe("<Tabbar />", () => {
         );
 
         // Assert
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Dismiss"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Dismiss"}));
         expect(mockClickCloseCallback).toHaveBeenCalled();
     });
 });
