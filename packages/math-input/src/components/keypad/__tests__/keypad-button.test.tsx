@@ -25,7 +25,7 @@ describe("<KeypadButton />", () => {
 
         // Assert
         expect(
-            await screen.findByRole("button", {name: "Left parenthesis"}),
+            screen.getByRole("button", {name: "Left parenthesis"}),
         ).toBeInTheDocument();
     });
 
@@ -43,7 +43,7 @@ describe("<KeypadButton />", () => {
 
         // Act
         await userEvent.click(
-            await screen.findByRole("button", {name: "Left parenthesis"}),
+            screen.getByRole("button", {name: "Left parenthesis"}),
         );
 
         // Assert
