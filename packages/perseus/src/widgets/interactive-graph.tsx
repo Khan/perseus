@@ -1682,9 +1682,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         this.mafsRef.current ??
         InteractiveGraph.getUserInputFromProps(this.props);
 
-    simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) => {
-        return InteractiveGraph.validate(this.getUserInput(), rubric, this);
-    };
+    simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>
+        InteractiveGraph.validate(this.getUserInput(), rubric, this);
 
     focus: () => void = $.noop;
 

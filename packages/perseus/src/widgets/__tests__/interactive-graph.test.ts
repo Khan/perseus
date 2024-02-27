@@ -7,6 +7,7 @@ import {ApiOptions} from "../../perseus-api";
 import {
     questionsAndAnswers,
     segmentQuestion,
+    segmentQuestionDefaultCorrect,
 } from "../__testdata__/interactive-graph.testdata";
 
 import {renderQuestion} from "./renderQuestion";
@@ -15,6 +16,7 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
+import {waitFor} from "@testing-library/dom";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -108,9 +110,29 @@ describe("interactive-graph widget", function () {
     );
 });
 
-describe("segment graph", () => {
+describe.only("segment graph", () => {
+    const apiOptions = {flags: {mafs: {segment: true}}};
+
     it("should render", () => {
         // Mafs isn't very RTL friendly...
-        renderQuestion(segmentQuestion, blankOptions);
+        renderQuestion(segmentQuestion, apiOptions);
+    });
+
+    it("rejects incorrect answer", async () => {
+        const {renderer} = renderQuestion(segmentQuestion, apiOptions);
+
+        await waitFor(() => {
+            expect(renderer).toHaveBeenAnsweredIncorrectly();
+        });
+    });
+
+    it("accepts correct answer", async () => {
+        const {renderer} = renderQuestion(
+            segmentQuestionDefaultCorrect,
+            apiOptions,
+        );
+        await waitFor(() => {
+            expect(renderer).toHaveBeenAnsweredCorrectly();
+        });
     });
 });
