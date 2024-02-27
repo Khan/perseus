@@ -12,7 +12,7 @@ import {
     waitFor,
     within,
 } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {
@@ -81,7 +81,12 @@ describe("expression mobile", () => {
         registerWidget("expression", ExpressionExport);
     });
 
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -134,7 +139,7 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        userEvent.click(screen.getByRole("tab", {name: "Dismiss"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Dismiss"}));
 
         // wait for the keypad to close
         await waitFor(() =>
@@ -163,7 +168,7 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
 
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
@@ -190,9 +195,9 @@ describe("expression mobile", () => {
         );
 
         const testNumbers = [8, 6, 7, 5, 3, 0, 9];
-        testNumbers.forEach((num) => {
-            userEvent.click(screen.getByRole("button", {name: `${num}`}));
-        });
+        for (const num of testNumbers) {
+            await userEvent.click(screen.getByRole("button", {name: `${num}`}));
+        }
 
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
@@ -221,9 +226,9 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(screen.getByRole("button", {name: "2"}));
-        userEvent.click(screen.getByRole("button", {name: "Percent"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(screen.getByRole("button", {name: "Percent"}));
 
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
@@ -253,9 +258,9 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(screen.getByRole("button", {name: "Plus"}));
-        userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
 
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
@@ -285,7 +290,7 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
         expect(screen.getByRole("button", {name: "Equals sign"})).toBeVisible();
     });
 
@@ -303,7 +308,7 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
         expect(screen.getByRole("button", {name: "Sine"})).toBeVisible();
     });
 
@@ -321,7 +326,7 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
         expect(screen.getByRole("button", {name: "x"})).toBeVisible();
     });
 
@@ -339,14 +344,16 @@ describe("expression mobile", () => {
             expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
         );
 
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "x"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Equals sign"}));
-        userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
-        userEvent.click(screen.getByRole("button", {name: "Sine"}));
-        userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        userEvent.click(screen.getByRole("button", {name: "9"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "x"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Equals sign"}),
+        );
+        await userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
+        await userEvent.click(screen.getByRole("button", {name: "Sine"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "9"}));
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ

@@ -1,6 +1,6 @@
 import {describe, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import Choice from "../../radio/choice";
@@ -106,15 +106,23 @@ describe("all choice options", () => {
 
 // Tests 1 of 2 element types used to select a choice
 describe("choice button", () => {
+    let userEvent;
+
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
     it.each([[true], [false]])(
         "selects the choice by clicking the option when multiple select is: %s",
-        (multipleSelect: boolean) => {
+        async (multipleSelect: boolean) => {
             // Arrange / Act
             const onChangeSpy = jest.fn();
             renderChoice({onChange: onChangeSpy, multipleSelect});
 
             const button = screen.getByRole("button", {hidden: true});
-            userEvent.click(button);
+            await userEvent.click(button);
 
             // Assert
             expect(onChangeSpy).toHaveBeenCalledWith({
@@ -144,7 +152,7 @@ describe("choice button", () => {
         expect(button.getAttribute("aria-disabled")).toBe("false");
     });
 
-    it("can be checked", () => {
+    it("can be checked", async () => {
         // Arrange
         let checked = false;
         renderChoice({
@@ -156,13 +164,13 @@ describe("choice button", () => {
 
         // Act
         const button = screen.getByRole("button", {hidden: true});
-        userEvent.click(button);
+        await userEvent.click(button);
 
         // Assert
         expect(checked).toBeTrue();
     });
 
-    it("can be unchecked", () => {
+    it("can be unchecked", async () => {
         // Arrange
         let checked = true;
         renderChoice({
@@ -174,7 +182,7 @@ describe("choice button", () => {
 
         // Act
         const button = screen.getByRole("button", {hidden: true});
-        userEvent.click(button);
+        await userEvent.click(button);
 
         // Assert
         expect(checked).toBeFalse();
@@ -183,9 +191,17 @@ describe("choice button", () => {
 
 // Tests 2 of 2 element types used to select a choice
 describe("choice input (screen reader only)", () => {
+    let userEvent;
+
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
     it.each([[true], [false]])(
         "selects the choice by clicking the option when multiple select is: %s",
-        (multipleSelect: boolean) => {
+        async (multipleSelect: boolean) => {
             // Arrange / Act
             const onChangeSpy = jest.fn();
             renderChoice({onChange: onChangeSpy, multipleSelect});
@@ -196,7 +212,7 @@ describe("choice input (screen reader only)", () => {
                     name: "(Choice A) This is a possible choice",
                 },
             );
-            userEvent.click(input);
+            await userEvent.click(input);
 
             // Assert
             expect(onChangeSpy).toHaveBeenCalledWith({
@@ -266,7 +282,7 @@ describe("choice input (screen reader only)", () => {
         expect(input).toBeVisible();
     });
 
-    it("can be checked", () => {
+    it("can be checked", async () => {
         // Arrange
         let checked = false;
         renderChoice({
@@ -280,13 +296,13 @@ describe("choice input (screen reader only)", () => {
         const input = screen.getByRole("radio", {
             name: "(Choice A) This is a possible choice",
         });
-        userEvent.click(input);
+        await userEvent.click(input);
 
         // Assert
         expect(checked).toBe(true);
     });
 
-    it("can be unchecked", () => {
+    it("can be unchecked", async () => {
         // Arrange
         let checked = true;
         renderChoice({
@@ -300,7 +316,7 @@ describe("choice input (screen reader only)", () => {
         const input = screen.getByRole("radio", {
             name: "(Choice A, Checked) This is a possible choice",
         });
-        userEvent.click(input);
+        await userEvent.click(input);
 
         // Assert
         expect(checked).toBeFalse();

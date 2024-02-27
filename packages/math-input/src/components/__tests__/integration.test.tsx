@@ -5,7 +5,7 @@ import {
     within,
     waitFor,
 } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import MathQuill from "mathquill";
 import React, {useState} from "react";
 
@@ -80,7 +80,14 @@ function ConnectedMathInput({keypadConfiguration = defaultConfiguration}) {
 }
 
 describe("math input integration", () => {
-    it("renders", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("renders", async () => {
         render(<ConnectedMathInput />);
 
         expect(
@@ -90,7 +97,7 @@ describe("math input integration", () => {
         ).toBeInTheDocument();
     });
 
-    it("doesn't show the keypad initially", () => {
+    it("doesn't show the keypad initially", async () => {
         render(<ConnectedMathInput />);
 
         expect(
@@ -101,49 +108,55 @@ describe("math input integration", () => {
     it("shows the keypad after input touch-interaction", async () => {
         render(<ConnectedMathInput />);
 
-        const input = screen.getByLabelText(
+        const input = await screen.findByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
         fireEvent.touchStart(input);
 
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        await waitFor(async () => {
+            expect(
+                await screen.findByRole("button", {name: "4"}),
+            ).toBeVisible();
         });
 
-        expect(screen.getByRole("button", {name: "1"})).toBeVisible();
+        expect(await screen.findByRole("button", {name: "1"})).toBeVisible();
     });
 
     it("shows the keypad after input click-interaction", async () => {
         render(<ConnectedMathInput />);
 
-        const input = screen.getByLabelText(
+        const input = await screen.findByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
-        userEvent.click(input);
+        await userEvent.click(input);
 
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        await waitFor(async () => {
+            expect(
+                await screen.findByRole("button", {name: "4"}),
+            ).toBeVisible();
         });
 
-        expect(screen.getByRole("button", {name: "1"})).toBeVisible();
+        expect(await screen.findByRole("button", {name: "1"})).toBeVisible();
     });
 
     it("updates input when using keypad", async () => {
         render(<ConnectedMathInput />);
 
-        const input = screen.getByLabelText(
+        const input = await screen.findByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
         fireEvent.touchStart(input);
 
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        await waitFor(async () => {
+            expect(
+                await screen.findByRole("button", {name: "4"}),
+            ).toBeVisible();
         });
 
-        userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(await screen.findByRole("button", {name: "1"}));
 
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
@@ -158,20 +171,23 @@ describe("math input integration", () => {
     it("updates input when pressing many numbers", async () => {
         render(<ConnectedMathInput />);
 
-        const input = screen.getByLabelText(
+        const input = await screen.findByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
         fireEvent.touchStart(input);
 
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        await waitFor(async () => {
+            expect(
+                await screen.findByRole("button", {name: "4"}),
+            ).toBeVisible();
         });
 
-        const testNumbers = [8, 6, 7, 5, 3, 0, 9];
-        testNumbers.forEach((num) => {
-            userEvent.click(screen.getByRole("button", {name: `${num}`}));
-        });
+        for (const num of [8, 6, 7, 5, 3, 0, 9]) {
+            await userEvent.click(
+                await screen.findByRole("button", {name: `${num}`}),
+            );
+        }
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
@@ -188,19 +204,23 @@ describe("math input integration", () => {
     it("can handle symbols", async () => {
         render(<ConnectedMathInput />);
 
-        const input = screen.getByLabelText(
+        const input = await screen.findByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
         fireEvent.touchStart(input);
 
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        await waitFor(async () => {
+            expect(
+                await screen.findByRole("button", {name: "4"}),
+            ).toBeVisible();
         });
 
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(screen.getByRole("button", {name: "2"}));
-        userEvent.click(screen.getByRole("button", {name: "Percent"}));
+        await userEvent.click(await screen.findByRole("button", {name: "4"}));
+        await userEvent.click(await screen.findByRole("button", {name: "2"}));
+        await userEvent.click(
+            await screen.findByRole("button", {name: "Percent"}),
+        );
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
@@ -222,29 +242,31 @@ describe("math input integration", () => {
             <ConnectedMathInput keypadConfiguration={keypadConfiguration} />,
         );
 
-        const input = screen.getByLabelText(
+        const input = await screen.findByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
         fireEvent.touchStart(input);
 
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        await waitFor(async () => {
+            expect(
+                await screen.findByRole("button", {name: "4"}),
+            ).toBeVisible();
         });
 
-        userEvent.click(screen.getByRole("button", {name: "1"}));
-        userEvent.click(
-            screen.getByRole("button", {
+        await userEvent.click(await screen.findByRole("button", {name: "1"}));
+        await userEvent.click(
+            await screen.findByRole("button", {
                 name: "Fraction, excluding the current expression",
             }),
         );
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(
-            screen.getByRole("button", {
+        await userEvent.click(await screen.findByRole("button", {name: "4"}));
+        await userEvent.click(
+            await screen.findByRole("button", {
                 name: "Navigate right out of the numerator and into the denominator",
             }),
         );
-        userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(await screen.findByRole("button", {name: "2"}));
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
@@ -261,29 +283,31 @@ describe("math input integration", () => {
     it("handles fractions correctly in fraction", async () => {
         render(<ConnectedMathInput />);
 
-        const input = screen.getByLabelText(
+        const input = await screen.findByLabelText(
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
         fireEvent.touchStart(input);
 
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
+        await waitFor(async () => {
+            expect(
+                await screen.findByRole("button", {name: "4"}),
+            ).toBeVisible();
         });
 
-        userEvent.click(screen.getByRole("button", {name: "1"}));
-        userEvent.click(
-            screen.getByRole("button", {
+        await userEvent.click(await screen.findByRole("button", {name: "1"}));
+        await userEvent.click(
+            await screen.findByRole("button", {
                 name: "Fraction, excluding the current expression",
             }),
         );
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(
-            screen.getByRole("button", {
+        await userEvent.click(await screen.findByRole("button", {name: "4"}));
+        await userEvent.click(
+            await screen.findByRole("button", {
                 name: "Navigate right out of the numerator and into the denominator",
             }),
         );
-        userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(await screen.findByRole("button", {name: "2"}));
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ

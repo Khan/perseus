@@ -1,13 +1,18 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import DropdownEditor from "../dropdown-editor";
 
 describe("dropdown-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -19,7 +24,7 @@ describe("dropdown-editor", () => {
         render(<DropdownEditor onChange={onChangeMock} />);
 
         const input = screen.getByPlaceholderText("Placeholder value");
-        userEvent.type(input, "a");
+        await userEvent.type(input, "a");
 
         expect(onChangeMock).toBeCalledWith({placeholder: "a"});
     });
@@ -29,7 +34,9 @@ describe("dropdown-editor", () => {
 
         render(<DropdownEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("link", {name: "Delete choice"}));
+        await userEvent.click(
+            screen.getByRole("link", {name: "Delete choice"}),
+        );
 
         expect(onChangeMock).toBeCalledWith({choices: []});
     });
@@ -39,7 +46,7 @@ describe("dropdown-editor", () => {
 
         render(<DropdownEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("link", {name: "Add a choice"}));
+        await userEvent.click(screen.getByRole("link", {name: "Add a choice"}));
 
         expect(onChangeMock).toBeCalledWith(
             {

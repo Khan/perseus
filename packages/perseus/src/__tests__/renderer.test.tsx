@@ -1,6 +1,6 @@
 import {describe, beforeAll, beforeEach, it} from "@jest/globals";
 import {screen, waitFor, within} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {clone} from "../../../../testing/object-utils";
@@ -55,7 +55,12 @@ describe("renderer", () => {
         registerWidget("mock-widget", MockWidgetExport);
     });
 
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -78,26 +83,26 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot("initial render");
         });
 
-        it("correct answer", () => {
+        it("correct answer", async () => {
             // Arrange
             const {container} = renderQuestion(question1);
 
             // Act
-            userEvent.click(screen.getByRole("button"));
-            userEvent.click(screen.getAllByRole("option")[2]);
+            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getAllByRole("option")[2]);
             jest.runOnlyPendingTimers();
 
             // Assert
             expect(container).toMatchSnapshot("correct answer");
         });
 
-        it("incorrect answer", () => {
+        it("incorrect answer", async () => {
             // Arrange
             const {container} = renderQuestion(question1);
 
             // Act
-            userEvent.click(screen.getByRole("button"));
-            userEvent.click(screen.getAllByRole("option")[1]);
+            await userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getAllByRole("option")[1]);
             jest.runOnlyPendingTimers();
 
             // Assert
@@ -249,7 +254,7 @@ describe("renderer", () => {
                     // type and empty options object).
                     expect(info.type).toBe("dropdown");
                     expect(info.options).toStrictEqual({});
-                    expect(info.graded).toBeTrue();
+                    expect(info.graded).toBe(true);
 
                     sawDropdown2 = true;
                     return true;
@@ -258,13 +263,13 @@ describe("renderer", () => {
             });
 
             // Assert
-            expect(sawDropdown2).toBeTrue();
+            expect(sawDropdown2).toBe(true);
             // `dropdown 2` not found, however, because the Renderer doesn't
             // render widget's that don't have options defined.
             expect(widgets).toStrictEqual([null]);
         });
 
-        it("should restore serialized state on mount if provided in prop", () => {
+        it("should restore serialized state on mount if provided in prop", async () => {
             // Arrange
             renderQuestion(
                 question1,
@@ -752,7 +757,7 @@ describe("renderer", () => {
         let rerender;
         let renderer;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             // Arrange
             // eslint-disable-next-line testing-library/no-render-in-setup
             const result = renderQuestion(question1);
@@ -763,9 +768,9 @@ describe("renderer", () => {
             originalWidgetProps = clone(renderer.state.widgetProps);
 
             // Poke the renderer so it's not in it's initial-render state
-            userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("button"));
             jest.runOnlyPendingTimers(); // There's a setTimeout to open the dropdown
-            userEvent.click(screen.getAllByRole("option")[1]);
+            await userEvent.click(screen.getAllByRole("option")[1]);
         });
 
         it("'content' prop'", () => {
@@ -849,7 +854,7 @@ describe("renderer", () => {
             const focusResult = renderer.focus();
 
             // Assert
-            expect(focusResult).toBeTrue();
+            expect(focusResult).toBe(true);
             expect(onFocusChange).toHaveBeenCalledWith(["dropdown 1"], null);
         });
 
@@ -891,7 +896,7 @@ describe("renderer", () => {
             expect(onFocusChange).not.toHaveBeenCalled();
         });
 
-        it("should call onFocusChange callback when new widget receives focus", () => {
+        it("should call onFocusChange callback when new widget receives focus", async () => {
             // Arrange
             const onFocusChange = jest.fn();
             renderQuestion(
@@ -909,7 +914,7 @@ describe("renderer", () => {
             );
 
             // Act
-            userEvent.click(screen.getAllByRole("textbox")[1]);
+            await userEvent.click(screen.getAllByRole("textbox")[1]);
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -918,7 +923,7 @@ describe("renderer", () => {
             );
         });
 
-        it("should call onFocusChange callback when a widget loses focus", () => {
+        it("should call onFocusChange callback when a widget loses focus", async () => {
             // Arrange
             const onFocusChange = jest.fn();
             renderQuestion(
@@ -934,11 +939,11 @@ describe("renderer", () => {
                 },
                 {onFocusChange},
             );
-            userEvent.click(screen.getAllByRole("textbox")[1]);
+            await userEvent.click(screen.getAllByRole("textbox")[1]);
             onFocusChange.mockClear();
 
             // Act
-            userEvent.tab();
+            await userEvent.tab();
             // There's a _.defer() in the blur handling
             jest.runOnlyPendingTimers();
 
@@ -1240,7 +1245,7 @@ describe("renderer", () => {
                 return false;
             });
 
-            expect(filterCalled).toBeTrue();
+            expect(filterCalled).toBe(true);
         });
     });
 
@@ -1355,7 +1360,7 @@ describe("renderer", () => {
             const [dropdownWidget] = renderer.findWidgets("dropdown 1");
 
             // Act
-            expect(dropdownWidget.props.static).toBeFalse();
+            expect(dropdownWidget.props.static).toBe(false);
         });
 
         it("should ask each widget to show rationales", () => {
@@ -1409,7 +1414,7 @@ describe("renderer", () => {
             );
         });
 
-        it("should return user input", () => {
+        it("should return user input", async () => {
             // Arrange
             const {renderer} = renderQuestion({
                 ...question2,
@@ -1437,9 +1442,10 @@ describe("renderer", () => {
                 },
             });
 
-            screen
-                .getAllByRole("textbox")
-                .forEach((el, i) => userEvent.type(el, i.toString()));
+            const textboxes = screen.getAllByRole("textbox");
+            for (let i = 0; i < textboxes.length; i++) {
+                await userEvent.type(textboxes[i], i.toString());
+            }
 
             // Act
             const input = renderer.getUserInput();
@@ -1599,7 +1605,7 @@ describe("renderer", () => {
     });
 
     describe("emptyWidgets", () => {
-        it("should return all empty widgets", () => {
+        it("should return all empty widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
                 ...question2,
@@ -1611,7 +1617,7 @@ describe("renderer", () => {
                     "input-number 2": question2.widgets["input-number 1"],
                 },
             });
-            userEvent.type(screen.getAllByRole("textbox")[0], "150");
+            await userEvent.type(screen.getAllByRole("textbox")[0], "150");
 
             // Act
             const emptyWidgets = renderer.emptyWidgets();
@@ -1697,7 +1703,7 @@ describe("renderer", () => {
     });
 
     describe("getUserInputForWidgets", () => {
-        it("should return user input for all rendered widgets", () => {
+        it("should return user input for all rendered widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
                 content:
@@ -1714,13 +1720,13 @@ describe("renderer", () => {
                 images: {},
             });
 
-            userEvent.type(screen.getAllByRole("textbox")[0], "100");
-            userEvent.type(screen.getAllByRole("textbox")[1], "200");
+            await userEvent.type(screen.getAllByRole("textbox")[0], "100");
+            await userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
             // Open the dropdown and select the second (idx: 1) item
-            userEvent.click(screen.getByRole("button"));
+            await userEvent.click(screen.getByRole("button"));
             jest.runOnlyPendingTimers();
-            userEvent.click(screen.getAllByRole("option")[1]);
+            await userEvent.click(screen.getAllByRole("option")[1]);
             jest.runOnlyPendingTimers();
 
             // Act

@@ -1,6 +1,6 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {cleanup, render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -12,7 +12,12 @@ import {question1} from "../__testdata__/group.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 describe("group widget", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -127,7 +132,7 @@ describe("group widget", () => {
         });
     });
 
-    it("should call onInteractWithWidget when internal widget interacted with", () => {
+    it("should call onInteractWithWidget when internal widget interacted with", async () => {
         // Arrange
         const onInteractWithWidget = jest.fn();
 
@@ -145,7 +150,7 @@ describe("group widget", () => {
         );
 
         // Act
-        userEvent.type(screen.getAllByRole("textbox")[0], "99");
+        await userEvent.type(screen.getAllByRole("textbox")[0], "99");
         jest.runOnlyPendingTimers();
         jest.runOnlyPendingTimers();
 
@@ -154,10 +159,10 @@ describe("group widget", () => {
         expect(onInteractWithWidget).toHaveBeenCalledWith("group 2");
     });
 
-    it("should return contained renderer's getUserInput", () => {
+    it("should return contained renderer's getUserInput", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.type(screen.getAllByRole("textbox")[0], "99");
+        await userEvent.type(screen.getAllByRole("textbox")[0], "99");
 
         // Act
         const userInput = renderer.getUserInput();
@@ -189,10 +194,10 @@ describe("group widget", () => {
         `);
     });
 
-    it("should return contained renderer's getSerializedState", () => {
+    it("should return contained renderer's getSerializedState", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.type(screen.getAllByRole("textbox")[0], "99");
+        await userEvent.type(screen.getAllByRole("textbox")[0], "99");
 
         // Act
         const state = renderer.getSerializedState();
@@ -334,15 +339,15 @@ describe("group widget", () => {
         `);
     });
 
-    it("should be able to restore serialized state", () => {
+    it("should be able to restore serialized state", async () => {
         // This test checks the state restoration by serializing state with one
         // renderer and then restore it to a different one.
 
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.click(screen.getAllByRole("radio")[4]);
-        userEvent.type(screen.getAllByRole("textbox")[0], "1000");
-        userEvent.type(screen.getAllByRole("textbox")[1], "9999");
+        await userEvent.click(screen.getAllByRole("radio")[4]);
+        await userEvent.type(screen.getAllByRole("textbox")[0], "1000");
+        await userEvent.type(screen.getAllByRole("textbox")[1], "9999");
 
         const state = renderer.getSerializedState();
         cleanup(); // Resets the DOM
@@ -358,13 +363,13 @@ describe("group widget", () => {
         expect(screen.getAllByRole("textbox")[1]).toHaveValue("9999");
     });
 
-    it("should return score from contained Renderer", () => {
+    it("should return score from contained Renderer", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         // Answer all widgets correctly
-        userEvent.click(screen.getAllByRole("radio")[4]);
-        userEvent.type(screen.getAllByRole("textbox")[0], "230");
-        userEvent.type(screen.getAllByRole("textbox")[1], "200");
+        await userEvent.click(screen.getAllByRole("radio")[4]);
+        await userEvent.type(screen.getAllByRole("textbox")[0], "230");
+        await userEvent.type(screen.getAllByRole("textbox")[1], "200");
 
         const guessAndScore = renderer.guessAndScore();
 
@@ -443,10 +448,10 @@ describe("group widget", () => {
         expect(cb).toHaveBeenCalled();
     });
 
-    it("should show rationales for contained widgets", () => {
+    it("should show rationales for contained widgets", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
-        userEvent.click(screen.getAllByRole("radio")[2]); // Incorrect!
+        await userEvent.click(screen.getAllByRole("radio")[2]); // Incorrect!
 
         // Act
         renderer.showRationalesForCurrentlySelectedChoices();
@@ -492,7 +497,7 @@ describe("group widget", () => {
             ]);
         });
 
-        it("should call the optionsCallback for each top-level widget options", () => {
+        it("should call the optionsCallback for each top-level widget options", async () => {
             // Arrange
             const optionsCallback = jest.fn();
 

@@ -1,13 +1,18 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import MatcherEditor from "../matcher-editor";
 
 describe("matcher-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -24,7 +29,7 @@ describe("matcher-editor", () => {
 
         render(<MatcherEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "Order of the matched pairs matters:",
             }),
@@ -38,7 +43,7 @@ describe("matcher-editor", () => {
 
         render(<MatcherEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
+        await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
 
         expect(onChangeMock).toBeCalledWith({padding: false});
     });

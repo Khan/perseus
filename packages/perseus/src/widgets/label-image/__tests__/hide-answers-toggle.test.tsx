@@ -1,6 +1,6 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {HideAnswersToggle} from "../hide-answers-toggle";
@@ -9,7 +9,14 @@ import {strings} from "../strings";
 const labelText = strings.hideAnswersToggleLabel;
 
 describe("HideAnswersToggle", () => {
-    it("should render the toggle switch", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("should render the toggle switch", async () => {
         const screen = render(
             <HideAnswersToggle areAnswersHidden={false} onChange={undefined} />,
             {
@@ -32,7 +39,7 @@ describe("HideAnswersToggle", () => {
         const toggleSwitchBefore = screen.getByLabelText(
             labelText,
         ) as HTMLInputElement;
-        userEvent.click(toggleSwitchBefore);
+        await userEvent.click(toggleSwitchBefore);
         expect(onChange).toHaveBeenCalledTimes(1);
     });
 });

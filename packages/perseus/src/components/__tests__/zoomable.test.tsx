@@ -1,6 +1,6 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import Zoomable from "../zoomable";
@@ -22,11 +22,29 @@ const mockSize = (
     }
 };
 
+// The zoomable does some measuring after the initial render to determine what
+// its zoomed-out scaling should be. So on initial render, we want to wait for
+// this process so that we "see" the settled component state.
+const renderAndWaitToSettle = (component: React.ReactElement) => {
+    const result = render(component);
+
+    jest.runAllTimers();
+
+    return result;
+};
+
 describe("Zoomable", () => {
-    it("should snapshot", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("should render zoomed-out (scale != 1) initially", async () => {
         // Arrange and Act
-        const {container} = render(
-            <Zoomable>
+        const {container} = renderAndWaitToSettle(
+            <Zoomable readyToMeasure>
                 <span>Some zoomable text</span>
             </Zoomable>,
         );
@@ -35,7 +53,7 @@ describe("Zoomable", () => {
         expect(container).toMatchInlineSnapshot(`
             <div>
               <span
-                style="display: block; width: 100%; transform: scale(1, 1)  translate(0, 8px); transform-origin: 0 0; opacity: 0;"
+                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out;"
               >
                 <span>
                   Some zoomable text
@@ -45,46 +63,18 @@ describe("Zoomable", () => {
         `);
     });
 
-    it("should toggle to zoomed state when clicked", () => {
+    it("should toggle to zoomed-in (scale == 1) when clicked", async () => {
         // Arrange
-        const {container} = render(
+        const {container} = renderAndWaitToSettle(
             <Zoomable>
                 <span>Some zoomable text</span>
             </Zoomable>,
         );
 
         // Act
-        userEvent.click(screen.getByText("Some zoomable text"));
-        jest.runOnlyPendingTimers();
-
-        // Assert
-        expect(container).toMatchInlineSnapshot(`
-            <div>
-              <span
-                style="display: block; width: 100%; transform: scale(0, 0)  translate(0, 8px); transform-origin: 0 0; opacity: 0; height: 0px;"
-              >
-                <span>
-                  Some zoomable text
-                </span>
-              </span>
-            </div>
-        `);
-    });
-
-    it("should toggle to unzoomed state when clicked while zoomed", () => {
-        // Arrange
-        const {container} = render(
-            <Zoomable>
-                <span>Some zoomable text</span>
-            </Zoomable>,
-        );
-
-        userEvent.click(screen.getByText("Some zoomable text"));
-        jest.runOnlyPendingTimers();
-
-        // Act
-        userEvent.click(screen.getByText("Some zoomable text"));
-        jest.runOnlyPendingTimers();
+        await waitFor(async () => {
+            await userEvent.click(screen.getByText("Some zoomable text"));
+        });
 
         // Assert
         expect(container).toMatchInlineSnapshot(`
@@ -100,24 +90,55 @@ describe("Zoomable", () => {
         `);
     });
 
-    it("should use provided computeChildBounds function when zooming", () => {
+    it("should toggle back to zoomed-out state when clicked while zoomed in", async () => {
+        // Arrange
+        const {container} = renderAndWaitToSettle(
+            <Zoomable>
+                <span>Some zoomable text</span>
+            </Zoomable>,
+        );
+
+        await userEvent.click(screen.getByText("Some zoomable text"));
+        jest.runOnlyPendingTimers();
+
+        // Act
+        await userEvent.click(screen.getByText("Some zoomable text"));
+        jest.runOnlyPendingTimers();
+
+        // Assert
+        expect(container).toMatchInlineSnapshot(`
+            <div>
+              <span
+                style="display: block; width: 100%; transform: scale(0, 0); transform-origin: 0 0; opacity: 1; height: 0px; transition-property: opacity transform; transition-duration: 0.3s; transition-timing-function: ease-out;"
+              >
+                <span>
+                  Some zoomable text
+                </span>
+              </span>
+            </div>
+        `);
+    });
+
+    it("should use provided computeChildBounds function when zooming", async () => {
         // Arrange
         const computeChildBounds = jest.fn(() => ({width: 1000, height: 1000}));
 
         // Act
-        render(
+        renderAndWaitToSettle(
             <Zoomable computeChildBounds={computeChildBounds}>
                 <span>Some zoomable text</span>
             </Zoomable>,
         );
-        jest.runOnlyPendingTimers();
 
         // Assert
         expect(computeChildBounds).toHaveBeenCalled();
     });
 
-    it("should scale if computeChildBounds is larger than root node size", () => {
+    it("should scale if computeChildBounds is larger than root node size", async () => {
         // Arrange
+        // We don't use the renderAndWaitToSettle() helper here because we need
+        // to mock _after_ initial render but _before_ the measuring stage
+        // happens after that render!
         const {container} = render(
             <Zoomable>
                 <span>Some zoomable text</span>
@@ -137,8 +158,7 @@ describe("Zoomable", () => {
 
         // Act
         // The measure action uses a setState and setTimeout(0)
-        jest.runOnlyPendingTimers();
-        jest.runOnlyPendingTimers();
+        jest.runAllTimers();
 
         // Assert
         expect(container).toMatchInlineSnapshot(`
@@ -154,7 +174,7 @@ describe("Zoomable", () => {
         `);
     });
 
-    it("should not scale if computeChildBounds is smaller than root node size", () => {
+    it("should not scale if computeChildBounds is smaller than root node size", async () => {
         // Arrange
         const {container} = render(
             <Zoomable>
@@ -190,7 +210,7 @@ describe("Zoomable", () => {
         `);
     });
 
-    it("should reset to initial state on window resize", () => {
+    it("should reset to initial state on window resize", async () => {
         // Arrange
         // Simulate window resize event
         const resizeWindowTo = (width: number, height: number) => {
@@ -221,26 +241,42 @@ describe("Zoomable", () => {
         expect(screen.queryByText("Some zoomable text")).not.toBeVisible();
     });
 
-    it("should toggle zoom if zoomed", () => {
+    it("should not call onClick prop when zoomed out (ie. initial render)", async () => {
         // Arrange
         const onClickHandler = jest.fn();
-        let zoomable: Zoomable | null | undefined;
-        render(
-            <Zoomable ref={(c) => (zoomable = c)}>
+        renderAndWaitToSettle(
+            <Zoomable>
                 <span onClick={onClickHandler}>Some zoomable text</span>
             </Zoomable>,
         );
-        userEvent.click(screen.getByText("Some zoomable text"));
-        jest.runOnlyPendingTimers();
-        onClickHandler.mockClear();
 
         // Act
-        userEvent.click(screen.getByText("Some zoomable text"));
-        jest.runOnlyPendingTimers();
+        await userEvent.click(screen.getByText("Some zoomable text"));
 
         // Assert
         expect(onClickHandler).not.toHaveBeenCalled();
-        expect(zoomable?.state.zoomed).toBeTrue();
+    });
+
+    it("should call onClick prop when zoomed in", async () => {
+        // Arrange
+        const {rerender} = renderAndWaitToSettle(
+            <Zoomable>
+                <span>Some zoomable text</span>
+            </Zoomable>,
+        );
+        await userEvent.click(screen.getByText("Some zoomable text"));
+
+        // Act
+        const onClickHandler = jest.fn();
+        rerender(
+            <Zoomable>
+                <span onClick={onClickHandler}>Some zoomable text</span>
+            </Zoomable>,
+        );
+        await userEvent.click(screen.getByText("Some zoomable text"));
+
+        // Assert
+        expect(onClickHandler).toHaveBeenCalledTimes(1);
     });
 
     describe.each([
@@ -248,17 +284,16 @@ describe("Zoomable", () => {
         ["onTouchEndCapture", fireEvent.touchEnd],
         ["onTouchCancelCapture", fireEvent.touchCancel],
     ])("propogation of touch event: %s", (propName: string, eventFirer) => {
-        it("should not propogate event to children when zoomed", () => {
+        it("should not propogate event to children when zoomed out", async () => {
             // Arrange
             const props: Record<string, any> = {};
             props[propName] = jest.fn();
 
-            render(
+            renderAndWaitToSettle(
                 <Zoomable>
                     <span {...props}>Some zoomable text</span>
                 </Zoomable>,
             );
-            userEvent.click(screen.getByText("Some zoomable text"));
 
             // Act
             eventFirer(screen.getByText("Some zoomable text"));
@@ -268,18 +303,18 @@ describe("Zoomable", () => {
             expect(props[propName]).not.toHaveBeenCalled();
         });
 
-        it("should propogate event to children when not zoomed", () => {
+        it("should propogate event to children when not zoomed", async () => {
             // Arrange
             const props: Record<string, any> = {};
             props[propName] = jest.fn();
 
-            render(
+            renderAndWaitToSettle(
                 <Zoomable>
                     <span {...props}>Some zoomable text</span>
                 </Zoomable>,
             );
-            jest.runOnlyPendingTimers();
-            userEvent.click(screen.getByText("Some zoomable text"));
+
+            await userEvent.click(screen.getByText("Some zoomable text"));
             jest.runOnlyPendingTimers();
 
             // Act
@@ -323,7 +358,7 @@ describe("Zoomable", () => {
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(() => {
+            await waitFor(async () => {
                 screen.getByText("Some more zoomable text");
             });
 
@@ -348,7 +383,7 @@ describe("Zoomable", () => {
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(() => {
+            await waitFor(async () => {
                 screen.getByText("Some more zoomable text");
             });
 
@@ -370,13 +405,13 @@ describe("Zoomable", () => {
         it("should remain unzoomed", async () => {
             // Arrange
             // We default to "zoomed", so this "unzooms"
-            userEvent.click(screen.getByText("Some zoomable text"));
+            await userEvent.click(screen.getByText("Some zoomable text"));
             jest.runOnlyPendingTimers();
 
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(() => {
+            await waitFor(async () => {
                 screen.getByText("Some more zoomable text");
             });
 

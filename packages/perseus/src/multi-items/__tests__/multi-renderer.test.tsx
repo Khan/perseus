@@ -1,6 +1,6 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {
@@ -95,7 +95,12 @@ describe("multi-item renderer", () => {
         registerWidget("mock-widget", MockWidgetExport);
     });
 
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -136,7 +141,7 @@ describe("multi-item renderer", () => {
     });
 
     describe("state serialization", () => {
-        it("should return serialized state from all items", () => {
+        it("should return serialized state from all items", async () => {
             // Arrange
             const {renderer} = renderSimpleQuestion(question1);
 
@@ -144,8 +149,8 @@ describe("multi-item renderer", () => {
             // selected, a value is entered). You can see the result of this in the `choiceStates`
             // array in the captured state below where the choice at index 2 has
             // `"selected": true` (instead of false) and the input-number has a `currentValue`.
-            userEvent.click(screen.getAllByRole("radio")[2]); // Correct
-            userEvent.paste(screen.getByRole("textbox"), "+42"); // Correct
+            await userEvent.click(screen.getAllByRole("radio")[2]); // Correct
+            await userEvent.type(screen.getByRole("textbox"), "+42"); // Correct
 
             // Act
             // @ts-expect-error - TS2339 - Property '_getSerializedState' does not exist on type 'never'.
@@ -273,12 +278,12 @@ describe("multi-item renderer", () => {
             `);
         });
 
-        it("should return values from lastSerializedState if ref's getSerializedState returns null", () => {
+        it("should return values from lastSerializedState if ref's getSerializedState returns null", async () => {
             // Arrange
             const {renderer} = renderSimpleQuestion(question1);
 
-            userEvent.click(screen.getAllByRole("radio")[2]);
-            userEvent.paste(screen.getByRole("textbox"), "99");
+            await userEvent.click(screen.getAllByRole("radio")[2]);
+            await userEvent.type(screen.getByRole("textbox"), "99");
 
             // Act
             // @ts-expect-error - TS2339 - Property '_getSerializedState' does not exist on type 'never'.
@@ -590,12 +595,12 @@ describe("multi-item renderer", () => {
         expect(widget1).not.toBeNull();
     });
 
-    it("should return the scores in the shape of the tree", () => {
+    it("should return the scores in the shape of the tree", async () => {
         // Arrange
         const {renderer} = renderSimpleQuestion(question1);
 
-        userEvent.click(screen.getAllByRole("radio")[3]); // Correct
-        userEvent.paste(screen.getByRole("textbox"), "-42"); // Correct
+        await userEvent.click(screen.getAllByRole("radio")[3]); // Correct
+        await userEvent.type(screen.getByRole("textbox"), "-42"); // Correct
 
         // Act
         // @ts-expect-error - TS2339 - Property 'getScores' does not exist on type 'never'.
@@ -752,12 +757,12 @@ describe("multi-item renderer", () => {
         `);
     });
 
-    it("should return the composite score for the whole tree", () => {
+    it("should return the composite score for the whole tree", async () => {
         // Arrange
         const {renderer} = renderSimpleQuestion(question1);
 
-        userEvent.click(screen.getAllByRole("radio")[3]); // Correct
-        userEvent.paste(screen.getByRole("textbox"), "-42"); // Correct
+        await userEvent.click(screen.getAllByRole("radio")[3]); // Correct
+        await userEvent.type(screen.getByRole("textbox"), "-42"); // Correct
 
         // Act
         // @ts-expect-error - TS2339 - Property 'score' does not exist on type 'never'.

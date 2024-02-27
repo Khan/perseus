@@ -1,5 +1,5 @@
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -12,7 +12,12 @@ import type {APIOptions} from "../../types";
 import type {Rubric} from "../categorizer";
 
 describe("categorizer widget", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -31,7 +36,7 @@ describe("categorizer widget", () => {
         expect(container).toMatchSnapshot("first render");
     });
 
-    it("should snapshot on mobile", () => {
+    it("should snapshot on mobile", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             isMobile: true,
@@ -44,7 +49,7 @@ describe("categorizer widget", () => {
         expect(container).toMatchSnapshot("first mobile render");
     });
 
-    it("is incorrect when blank", () => {
+    it("is incorrect when blank", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             isMobile: false,
@@ -63,12 +68,12 @@ describe("categorizer widget", () => {
         `);
     });
 
-    it("can be answered incorrectly", () => {
+    it("can be answered incorrectly", async () => {
         // arrange
         const {renderer} = renderQuestion(question1);
 
         const firstItem = screen.getAllByRole("row")[0];
-        userEvent.click(firstItem);
+        await userEvent.click(firstItem);
 
         // act
         const [_, score] = renderer.guessAndScore();
@@ -82,29 +87,30 @@ describe("categorizer widget", () => {
         `);
     });
 
-    it("can be answered correctly", () => {
+    it("can be answered correctly", async () => {
         // arrange
         const {renderer} = renderQuestion(question1);
 
         // act
-        userEvent.click(
+        await userEvent.click(
             screen.getAllByRole("button", {name: "No relationship"})[0],
         );
-        userEvent.click(
+        await userEvent.click(
             screen.getAllByRole("button", {
                 name: "Positive linear relationship",
             })[0],
         );
-        userEvent.click(
+        await userEvent.click(
             screen.getAllByRole("button", {
                 name: "Negative linear relationship",
             })[1],
         );
-        userEvent.click(
-            screen.getAllByRole("button", {name: "Nonlinear relationship"})[1],
+        await userEvent.click(
+            screen.getAllByRole("button", {
+                name: "Nonlinear relationship",
+            })[1],
         );
 
-        jest.runOnlyPendingTimers();
         renderer.guessAndScore();
 
         // assert

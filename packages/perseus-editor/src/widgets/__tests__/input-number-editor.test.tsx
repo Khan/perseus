@@ -1,13 +1,18 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import InputNumberEditor from "../input-number-editor";
 
 describe("input-number-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -25,7 +30,7 @@ describe("input-number-editor", () => {
         render(<InputNumberEditor onChange={onChangeMock} />);
 
         const input = screen.getByRole("textbox", {name: "Correct answer:"});
-        userEvent.type(input, "1");
+        await userEvent.type(input, "1");
         input.blur();
 
         expect(onChangeMock).toBeCalledWith(
@@ -38,7 +43,7 @@ describe("input-number-editor", () => {
 
         render(<InputNumberEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {name: "Allow inexact answers"}),
         );
 
@@ -52,7 +57,7 @@ describe("input-number-editor", () => {
 
         render(<InputNumberEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {name: "Right alignment"}),
         );
 
@@ -71,7 +76,7 @@ describe("input-number-editor", () => {
             const select = screen.getByRole("combobox", {
                 name: "Unsimplified answers",
             });
-            userEvent.selectOptions(select, opt);
+            await userEvent.selectOptions(select, opt);
 
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({simplify: opt}),
@@ -98,7 +103,7 @@ describe("input-number-editor", () => {
             const select = screen.getByRole("combobox", {
                 name: "Answer type",
             });
-            userEvent.selectOptions(select, opt);
+            await userEvent.selectOptions(select, opt);
 
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({answerType: opt}),
@@ -116,7 +121,7 @@ describe("input-number-editor", () => {
             const select = screen.getByRole("combobox", {
                 name: "Width",
             });
-            userEvent.selectOptions(select, opt);
+            await userEvent.selectOptions(select, opt);
 
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({size: opt}),

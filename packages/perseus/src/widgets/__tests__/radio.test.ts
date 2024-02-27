@@ -1,6 +1,6 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {act, screen, fireEvent} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
 import {getMockUniqueId} from "../../../../../testing/mock-unique-id";
@@ -22,8 +22,11 @@ import type {
 } from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
-const selectOption = (index: number) => {
-    const options = screen.getAllByRole("radio");
+const selectOption = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
+    index: number,
+) => {
+    const options = await screen.findAllByRole("radio");
 
     // element that is null/undefined (ie. if the index is invalid) so we
     // manually check and throw here to protect future me, and others :)
@@ -31,11 +34,16 @@ const selectOption = (index: number) => {
         throw new Error("Invalid array index for radio");
     }
 
-    userEvent.click(options[index]);
+    await userEvent.click(options[index]);
 };
 
 describe("single-choice question", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(_, "uniqueId").mockImplementation(getMockUniqueId());
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
@@ -48,7 +56,7 @@ describe("single-choice question", () => {
     describe.each([[true], [false]])(
         "reviewMode: %s",
         (reviewMode: boolean) => {
-            it("should snapshot the same", () => {
+            it("should snapshot the same", async () => {
                 // Arrange & Act
                 const {container} = renderQuestion(question, apiOptions, {
                     reviewMode,
@@ -58,41 +66,42 @@ describe("single-choice question", () => {
                 expect(container).toMatchSnapshot("first render");
             });
 
-            it("should snapshot the same with correct answer", () => {
+            it("should snapshot the same with correct answer", async () => {
                 // Arrange
                 const {container} = renderQuestion(question, apiOptions);
 
                 // Act
-                selectOption(correct);
+                await selectOption(await userEvent, correct);
 
                 // Assert
                 expect(container).toMatchSnapshot("correct answer");
             });
 
-            it("should snapshot the same with incorrect answer", () => {
+            it("should snapshot the same with incorrect answer", async () => {
                 // Arrange
                 const {container} = renderQuestion(question, apiOptions);
 
                 // Act
-                selectOption(incorrect[0]);
+                await selectOption(await userEvent, incorrect[0]);
 
                 // Assert
                 expect(container).toMatchSnapshot("incorrect answer");
             });
 
-            it("should accept the right answer (mouse)", () => {
+            it("should accept the right answer (mouse)", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, apiOptions, {
                     reviewMode,
                 });
 
                 // Act
-                selectOption(correct);
+                await selectOption(await userEvent, correct);
+
                 // Assert
                 expect(renderer).toHaveBeenAnsweredCorrectly();
             });
 
-            it("should accept the right answer (touch)", () => {
+            it("should accept the right answer (touch)", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, apiOptions);
                 const correctRadio = screen.getAllByRole("radio")[correct];
@@ -112,19 +121,19 @@ describe("single-choice question", () => {
 
             it.each(incorrect)(
                 "should reject incorrect answer - choice %d",
-                (incorrect: number) => {
+                async (incorrect: number) => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions);
 
                     // Act
-                    selectOption(incorrect);
+                    await selectOption(await userEvent, incorrect);
 
                     // Assert
                     expect(renderer).toHaveBeenAnsweredIncorrectly();
                 },
             );
 
-            it("calling .focus() on the renderer should succeed", () => {
+            it("calling .focus() on the renderer should succeed", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, apiOptions, {
                     reviewMode,
@@ -134,10 +143,10 @@ describe("single-choice question", () => {
                 const gotFocus = renderer.focus();
 
                 // Assert
-                expect(gotFocus).toBeTrue();
+                expect(gotFocus).toBe(true);
             });
 
-            it("should deselect incorrect selected choices", () => {
+            it("should deselect incorrect selected choices", async () => {
                 // Arrange
                 const {renderer} = renderQuestion(question, apiOptions, {
                     reviewMode,
@@ -146,7 +155,7 @@ describe("single-choice question", () => {
                 // Act
                 // Since this is a single-select setup, just select the first
                 // incorrect choice.
-                selectOption(incorrect[0]);
+                await selectOption(await userEvent, incorrect[0]);
                 renderer.deselectIncorrectSelectedChoices();
 
                 // Assert
@@ -155,7 +164,7 @@ describe("single-choice question", () => {
                 });
             });
 
-            it("should disable all radio inputs when static is true", () => {
+            it("should disable all radio inputs when static is true", async () => {
                 // Arrange
                 const staticQuestion = {
                     ...question,
@@ -170,7 +179,7 @@ describe("single-choice question", () => {
                 renderQuestion(staticQuestion, apiOptions, {reviewMode});
 
                 // Act
-                selectOption(correct);
+                await selectOption(await userEvent, correct);
 
                 // Assert
                 // Everything's read-only so no selections made
@@ -189,13 +198,13 @@ describe("single-choice question", () => {
         },
     );
 
-    it("should be able to navigate down by keyboard", () => {
+    it("should be able to navigate down by keyboard", async () => {
         // Arrange
         renderQuestion(question, apiOptions);
 
         // Act
-        userEvent.tab();
-        userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab();
 
         // Assert
         // Note(TB): The visual buttons are hidden from screen readers
@@ -204,38 +213,38 @@ describe("single-choice question", () => {
         expect(screen.getAllByRole("button", {hidden: true})[1]).toHaveFocus();
     });
 
-    it("should be able to navigate up by keyboard", () => {
+    it("should be able to navigate up by keyboard", async () => {
         // Arrange
         renderQuestion(question, apiOptions);
 
         // Act
-        userEvent.tab();
+        await userEvent.tab();
         // Note(TB): The visual buttons are hidden from screen readers
         // so they need to be identified as hidden
         expect(screen.getAllByRole("button", {hidden: true})[0]).toHaveFocus();
 
-        userEvent.tab();
+        await userEvent.tab();
         expect(screen.getAllByRole("button", {hidden: true})[1]).toHaveFocus();
 
-        userEvent.tab({shift: true});
+        await userEvent.tab({shift: true});
 
         // Assert
         expect(screen.getAllByRole("button", {hidden: true})[0]).toHaveFocus();
     });
 
-    it("should be able to select an option by keyboard", () => {
+    it("should be able to select an option by keyboard", async () => {
         // Arrange
         renderQuestion(question, apiOptions);
 
         // Act
-        userEvent.tab();
-        userEvent.keyboard("{space}");
+        await userEvent.tab();
+        await userEvent.keyboard(" ");
 
         // Assert
         expect(screen.getAllByRole("radio")[0]).toBeChecked();
     });
 
-    it("should be able to navigate to 'None of the above' choice by keyboard", () => {
+    it("should be able to navigate to 'None of the above' choice by keyboard", async () => {
         // Arrange
         const q = clone(question);
         (
@@ -244,9 +253,9 @@ describe("single-choice question", () => {
         renderQuestion(q, apiOptions);
 
         // Act
-        userEvent.tab();
-        userEvent.tab();
-        userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab();
+        await userEvent.tab();
 
         // Assert
         // Note(TB): The visual buttons are hidden from screen readers
@@ -257,7 +266,7 @@ describe("single-choice question", () => {
     it.each([
         ["No", "Yes"],
         ["False", "True"],
-    ])("should enforce ordering for common answers: %j", (...answers) => {
+    ])("should enforce ordering for common answers: %j", async (...answers) => {
         // Arrange
         const q = clone(question);
         (q.widgets["radio 1"].options as PerseusRadioWidgetOptions).choices =
@@ -271,7 +280,7 @@ describe("single-choice question", () => {
         // We click on the first item, which was the second (index == 1)
         // item in the original choices. But because of enforced ordering,
         // it is now at the top of the list (and thus our correct answer).
-        userEvent.click(screen.getAllByRole("radio")[0]);
+        await userEvent.click(screen.getAllByRole("radio")[0]);
 
         // Assert
         const items = screen.getAllByRole("listitem");
@@ -280,7 +289,7 @@ describe("single-choice question", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should not change ordering of non-common answers", () => {
+    it("should not change ordering of non-common answers", async () => {
         // Arrange
         const answers = ["Last", "First"];
         const q = clone(question);
@@ -299,7 +308,7 @@ describe("single-choice question", () => {
         expect(items[1]).toHaveTextContent(answers[1]);
     });
 
-    it("should transform inline passage-refs to references to passage widgets", () => {
+    it("should transform inline passage-refs to references to passage widgets", async () => {
         // Arrange
 
         // Add a passage widget to the question content and then reference it
@@ -329,12 +338,12 @@ describe("single-choice question", () => {
         expect(passageRefRadio).toHaveTextContent("lines NaN–NaN");
     });
 
-    it("should render rationales for selected choices", () => {
+    it("should render rationales for selected choices", async () => {
         // Arrange
         const {renderer} = renderQuestion(question, apiOptions);
 
         // Act
-        selectOption(incorrect[0]);
+        await selectOption(await userEvent, incorrect[0]);
         renderer.showRationalesForCurrentlySelectedChoices();
 
         // Assert
@@ -351,13 +360,13 @@ describe("single-choice question", () => {
             crossOutEnabled: true,
         } as const;
 
-        it("should render cross-out menu button", () => {
+        it("should render cross-out menu button", async () => {
             // Arrange & Act
             renderQuestion(question, crossOutApiOptions);
 
             // Assert
             expect(
-                screen.getByRole("button", {
+                await screen.findByRole("button", {
                     name: /Open menu for Choice B/,
                 }),
             ).toBeVisible();
@@ -368,8 +377,8 @@ describe("single-choice question", () => {
             renderQuestion(question, crossOutApiOptions);
 
             // Act
-            userEvent.click(
-                screen.getByRole("button", {
+            await userEvent.click(
+                await screen.findByRole("button", {
                     name: /Open menu for Choice B/,
                 }),
             );
@@ -379,7 +388,7 @@ describe("single-choice question", () => {
 
             // Assert
             expect(
-                screen.getByRole("button", {
+                await screen.findByRole("button", {
                     name: /Cross out Choice B/,
                 }),
             ).toBeVisible();
@@ -388,35 +397,35 @@ describe("single-choice question", () => {
         it("should open the cross-out menu when focused and spacebar pressed", async () => {
             // Arrange
             renderQuestion(question, crossOutApiOptions);
-            userEvent.tab(); // Choice icon
-            userEvent.tab(); // Cross-out menu ellipsis
+            await userEvent.tab(); // Choice icon
+            await userEvent.tab(); // Cross-out menu ellipsis
 
             // Act
-            userEvent.keyboard("{space}");
+            await userEvent.keyboard(" ");
             await act(async () => {
                 await jest.runAllTimers();
             });
 
             // Assert
             expect(
-                screen.getByRole("button", {
+                await screen.findByRole("button", {
                     name: /Cross out Choice A/,
                 }),
             ).toBeVisible();
         });
 
-        it("should cross-out selection and dismiss button when clicked", () => {
+        it("should cross-out selection and dismiss button when clicked", async () => {
             // Arrange
             renderQuestion(question, crossOutApiOptions);
-            userEvent.click(
-                screen.getByRole("button", {
+            await userEvent.click(
+                await screen.findByRole("button", {
                     name: /Open menu for Choice B/,
                 }),
             );
 
             // Act
-            userEvent.click(
-                screen.getByRole("button", {
+            await userEvent.click(
+                await screen.findByRole("button", {
                     name: /Cross out Choice B/,
                 }),
             );
@@ -429,29 +438,29 @@ describe("single-choice question", () => {
             ).toHaveLength(0);
 
             expect(
-                screen.getByTestId("choice-icon__cross-out-line"),
+                await screen.findByTestId("choice-icon__cross-out-line"),
             ).toBeVisible();
         });
 
         it("should remove cross-out line on selection", async () => {
             // Arrange
             renderQuestion(question, crossOutApiOptions);
-            userEvent.click(
-                screen.getByRole("button", {
+            await userEvent.click(
+                await screen.findByRole("button", {
                     name: /Open menu for Choice B/,
                 }),
             );
 
             // Act
-            userEvent.click(
-                screen.getByRole("button", {
+            await userEvent.click(
+                await screen.findByRole("button", {
                     name: /Cross out Choice B/,
                 }),
             );
             jest.runAllTimers();
 
-            userEvent.click(
-                screen.getByRole("radio", {
+            await userEvent.click(
+                await screen.findByRole("radio", {
                     name: "(Choice B, Crossed out) -8",
                 }),
             );
@@ -465,22 +474,20 @@ describe("single-choice question", () => {
         it("should dismiss cross-out button with {tab} key", async () => {
             // Arrange
             renderQuestion(question, crossOutApiOptions);
-            userEvent.tab(); // Choice icon
-            userEvent.tab(); // Cross-out menu ellipsis
+            await userEvent.tab(); // Choice icon
+            await userEvent.tab(); // Cross-out menu ellipsis
 
             // Act
-            userEvent.keyboard("{space}");
-            await act(async () => {
-                await jest.runAllTimers();
-            });
+            await userEvent.keyboard(" ");
+            jest.runAllTimers();
 
             expect(
-                screen.getByRole("button", {
+                await screen.findByRole("button", {
                     name: /Cross out Choice A/,
                 }),
             ).toBeVisible();
 
-            userEvent.keyboard("{space}");
+            await userEvent.keyboard(" ");
             jest.runAllTimers();
 
             // Assert
@@ -492,7 +499,7 @@ describe("single-choice question", () => {
         });
     });
 
-    it("should be invalid when first rendered", () => {
+    it("should be invalid when first rendered", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -505,7 +512,7 @@ describe("single-choice question", () => {
         expect(renderer).toHaveInvalidInput();
     });
 
-    it("Should render correct option select statuses (rationales) when review mode enabled", () => {
+    it("Should render correct option select statuses (rationales) when review mode enabled", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -513,13 +520,13 @@ describe("single-choice question", () => {
         renderQuestion(question, apiOptions, {reviewMode: true});
 
         // Act
-        selectOption(correct);
+        await selectOption(await userEvent, correct);
 
         // Assert
         expect(screen.getAllByText("Correct (selected)")).toHaveLength(1);
     });
 
-    it("Should render incorrect option select statuses (rationales) when review mode enabled", () => {
+    it("Should render incorrect option select statuses (rationales) when review mode enabled", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -527,13 +534,13 @@ describe("single-choice question", () => {
         renderQuestion(question, apiOptions, {reviewMode: true});
 
         // Act
-        selectOption(incorrect[0]);
+        await selectOption(await userEvent, incorrect[0]);
 
         // Assert
         expect(screen.getAllByText("Incorrect (selected)")).toHaveLength(1);
     });
 
-    it("should display all rationales when static is true", () => {
+    it("should display all rationales when static is true", async () => {
         // Arrange
         const staticQuestion = {
             ...question,
@@ -552,21 +559,23 @@ describe("single-choice question", () => {
         // Assert
         // Part of Choice A rationale
         expect(
-            screen.getByText(
+            await screen.findByText(
                 /the positive square root when performed on a number, so/,
             ),
         ).toBeVisible();
         // Part of Choice B rationale
-        expect(screen.getByText(/, the square root operation/)).toBeVisible();
+        expect(
+            await screen.findByText(/, the square root operation/),
+        ).toBeVisible();
         // Part of Choice C rationale
         expect(
-            screen.getByText(/is the positive square root of/),
+            await screen.findByText(/is the positive square root of/),
         ).toBeVisible();
         // Part of Choice D rationale
         expect(screen.getAllByText(/satisfies the equation./)[3]).toBeVisible();
     });
 
-    it("should register as correct when none of the above option selected", () => {
+    it("should register as correct when none of the above option selected", async () => {
         // Arrange
         const q = clone(question);
         const choices = (
@@ -579,10 +588,10 @@ describe("single-choice question", () => {
         const {renderer} = renderQuestion(q);
 
         // Act
-        const noneOption = screen.getByRole("radio", {
+        const noneOption = await screen.findByRole("radio", {
             name: "(Choice D) None of the above",
         });
-        userEvent.click(noneOption);
+        await userEvent.click(noneOption);
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -595,25 +604,32 @@ describe("multi-choice question", () => {
 
     const apiOptions: APIOptions = Object.freeze({});
 
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("should accept the right answer", () => {
+    it("should accept the right answer", async () => {
         // Arrange
         const {renderer} = renderQuestion(question, apiOptions);
 
         // Act
         const options = screen.getAllByRole("checkbox");
-        correct.forEach((i) => userEvent.click(options[i]));
+        for (const i of correct) {
+            await userEvent.click(options[i]);
+        }
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should select multiple options when clicked", () => {
+    it("should select multiple options when clicked", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -648,15 +664,15 @@ describe("multi-choice question", () => {
 
         // Act
         const options = screen.getAllByRole("checkbox");
-        userEvent.click(options[2]);
-        userEvent.click(options[3]);
+        await userEvent.click(options[2]);
+        await userEvent.click(options[3]);
 
         // Assert
         expect(options[2]).toBeChecked();
         expect(options[3]).toBeChecked();
     });
 
-    it("should deselect selected options when clicked", () => {
+    it("should deselect selected options when clicked", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -691,29 +707,31 @@ describe("multi-choice question", () => {
 
         // Act
         const options = screen.getAllByRole("checkbox");
-        userEvent.click(options[2]);
-        userEvent.click(options[3]);
-        userEvent.click(options[2]);
-        userEvent.click(options[3]);
+        await userEvent.click(options[2]);
+        await userEvent.click(options[3]);
+        await userEvent.click(options[2]);
+        await userEvent.click(options[3]);
 
         // Assert
         expect(options[2]).not.toBeChecked();
         expect(options[3]).not.toBeChecked();
     });
 
-    it("should snapshot the same when invalid", () => {
+    it("should snapshot the same when invalid", async () => {
         // Arrange
         const {container} = renderQuestion(question, apiOptions);
 
         // Act
         const options = screen.getAllByRole("checkbox");
-        incorrect[0].forEach((i) => userEvent.click(options[i]));
+        for (const i of incorrect[0]) {
+            await userEvent.click(options[i]);
+        }
 
         // Assert
         expect(container).toMatchSnapshot("invalid state");
     });
 
-    it("should be invalid when first rendered", () => {
+    it("should be invalid when first rendered", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -726,7 +744,7 @@ describe("multi-choice question", () => {
         expect(renderer).toHaveInvalidInput();
     });
 
-    it("should be invalid when incorrect number of choices selected", () => {
+    it("should be invalid when incorrect number of choices selected", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
@@ -764,9 +782,9 @@ describe("multi-choice question", () => {
 
         // Act
         const option = screen.getAllByRole("checkbox");
-        userEvent.click(option[0]); // correct
-        userEvent.click(option[1]); // correct
-        userEvent.click(option[2]); // incorrect
+        await userEvent.click(option[0]); // correct
+        await userEvent.click(option[1]); // correct
+        await userEvent.click(option[2]); // incorrect
 
         // Assert
         expect(renderer).toHaveInvalidInput(
@@ -776,13 +794,15 @@ describe("multi-choice question", () => {
 
     it.each(incorrect)(
         "should reject an incorrect answer - test #%#",
-        (...choices) => {
+        async (...choices) => {
             // Arrange
             const {renderer} = renderQuestion(question, apiOptions);
 
             // Act
             const option = screen.getAllByRole("checkbox");
-            choices.forEach((i) => userEvent.click(option[i]));
+            for (let i = 0; i < choices.length; i++) {
+                await userEvent.click(option[i]);
+            }
 
             // Assert
             expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -797,7 +817,7 @@ describe("multi-choice question", () => {
 
             // Act
             const option = screen.getAllByRole("checkbox");
-            choices.forEach((i) => userEvent.click(option[i]));
+            choices.forEach(async (i) => await userEvent.click(option[i]));
 
             // Assert
             expect(renderer).toHaveInvalidInput();

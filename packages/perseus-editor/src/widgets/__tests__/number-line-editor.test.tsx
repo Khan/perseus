@@ -1,13 +1,18 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import NumberLineEditor from "../number-line-editor";
 
 describe("number-line-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -29,7 +34,7 @@ describe("number-line-editor", () => {
             const select = screen.getByRole("combobox", {
                 name: "Select relationship",
             });
-            userEvent.selectOptions(select, rel);
+            await userEvent.selectOptions(select, rel);
 
             expect(onChangeMock).toBeCalledWith(
                 expect.objectContaining({correctRel: rel}),
@@ -43,7 +48,7 @@ describe("number-line-editor", () => {
         render(<NumberLineEditor onChange={onChangeMock} />);
 
         const input = screen.getByPlaceholderText("answer");
-        userEvent.type(input, "1");
+        await userEvent.type(input, "1");
 
         expect(onChangeMock).toBeCalledWith({correctX: 1});
     });
@@ -54,7 +59,7 @@ describe("number-line-editor", () => {
         render(<NumberLineEditor onChange={onChangeMock} />);
 
         const input = screen.getByRole("textbox", {name: "Position: ∈"});
-        userEvent.type(input, "1");
+        await userEvent.type(input, "1");
 
         expect(onChangeMock).toBeCalledWith({initialX: 1});
     });
@@ -71,7 +76,7 @@ describe("number-line-editor", () => {
 
             render(<NumberLineEditor onChange={onChangeMock} />);
 
-            userEvent.click(screen.getByTitle(title));
+            await userEvent.click(screen.getByTitle(title));
 
             expect(onChangeMock).toBeCalledWith({labelStyle: key});
         });
@@ -82,7 +87,7 @@ describe("number-line-editor", () => {
 
         render(<NumberLineEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {name: "Show tick controller"}),
         );
 
@@ -94,7 +99,7 @@ describe("number-line-editor", () => {
 
         render(<NumberLineEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {name: "Show label ticks"}),
         );
 
@@ -106,7 +111,9 @@ describe("number-line-editor", () => {
 
         render(<NumberLineEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("checkbox", {name: "Show tooltips"}));
+        await userEvent.click(
+            screen.getByRole("checkbox", {name: "Show tooltips"}),
+        );
 
         expect(onChangeMock).toBeCalledWith({showTooltips: true});
     });
@@ -119,7 +126,7 @@ describe("number-line-editor", () => {
         const input = screen.getByRole("textbox", {
             name: "or tick step:",
         });
-        userEvent.type(input, "6");
+        await userEvent.type(input, "6");
 
         expect(onChangeMock).toBeCalledWith({
             numDivisions: null,
@@ -135,7 +142,7 @@ describe("number-line-editor", () => {
         const input = screen.getByRole("textbox", {
             name: "Snap increments per tick:",
         });
-        userEvent.type(input, "6");
+        await userEvent.type(input, "6");
 
         expect(onChangeMock).toBeCalledWith({snapDivisions: 26});
     });

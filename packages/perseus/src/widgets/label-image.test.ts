@@ -1,5 +1,5 @@
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
     testDependencies,
@@ -20,6 +20,13 @@ const emptyMarker = {
 } as const;
 
 describe("LabelImage", function () {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
     describe("gradeMarker", function () {
         it("should score correct for empty marker with no user answers", function () {
             const score = LabelImage.gradeMarker({
@@ -872,7 +879,7 @@ describe("LabelImage", function () {
 
             // Toggle the switch
             const toggleAnswerSwitch = await screen.findByRole("switch");
-            userEvent.click(toggleAnswerSwitch);
+            await userEvent.click(toggleAnswerSwitch);
 
             expect(
                 testDependenciesV2.analytics.onAnalyticsEvent,
@@ -890,7 +897,7 @@ describe("LabelImage", function () {
             const markerButton = await screen.findByLabelText(
                 "The fourth unlabeled bar line.",
             );
-            userEvent.click(markerButton);
+            await userEvent.click(markerButton);
 
             expect(
                 testDependenciesV2.analytics.onAnalyticsEvent,
@@ -908,12 +915,12 @@ describe("LabelImage", function () {
             const markerButton = await screen.findByLabelText(
                 "The fourth unlabeled bar line.",
             );
-            userEvent.click(markerButton);
+            await userEvent.click(markerButton);
 
             // Select a choice
             const choices = await screen.findAllByText("Trucks");
             const choice = choices[choices.length - 1];
-            userEvent.click(choice);
+            await userEvent.click(choice);
 
             expect(
                 testDependenciesV2.analytics.onAnalyticsEvent,

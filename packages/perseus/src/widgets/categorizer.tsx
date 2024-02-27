@@ -130,12 +130,12 @@ export class Categorizer extends React.Component<Props, State> {
                                                     }
                                                     role="button"
                                                     aria-label={catName}
-                                                    // eslint-disable-next-line react/jsx-no-bind
-                                                    onClick={this.onChange.bind(
-                                                        this,
-                                                        itemNum,
-                                                        catNum,
-                                                    )}
+                                                    onClick={() =>
+                                                        this.onChange(
+                                                            itemNum,
+                                                            catNum,
+                                                        )
+                                                    }
                                                 >
                                                     {isMobile && (
                                                         <input
@@ -146,12 +146,12 @@ export class Categorizer extends React.Component<Props, State> {
                                                                 sharedStyles.responsiveRadioInput,
                                                             )}
                                                             checked={selected}
-                                                            // eslint-disable-next-line react/jsx-no-bind
-                                                            onChange={this.onChange.bind(
-                                                                this,
-                                                                itemNum,
-                                                                catNum,
-                                                            )}
+                                                            onChange={() =>
+                                                                this.onChange(
+                                                                    itemNum,
+                                                                    catNum,
+                                                                )
+                                                            }
                                                             onClick={(e) =>
                                                                 e.stopPropagation()
                                                             }
@@ -210,13 +210,13 @@ export class Categorizer extends React.Component<Props, State> {
         );
     }
 
-    onChange: (arg1: number, arg2: number) => void = (itemNum, catNum) => {
+    onChange(itemNum, catNum) {
         const values = [...this.props.values];
         // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
         values[itemNum] = catNum;
         this.change("values", values);
         this.props.trackInteraction();
-    };
+    }
 
     simpleValidate: (arg1: Rubric) => PerseusScore = (rubric) => {
         return Categorizer.validate(this.getUserInput(), rubric);
@@ -225,7 +225,7 @@ export class Categorizer extends React.Component<Props, State> {
     static validate(userInput: UserInput, rubric: Rubric): PerseusScore {
         let completed = true;
         let allCorrect = true;
-        _.each(rubric.values, function (value, i) {
+        rubric.values.forEach((value, i) => {
             if (userInput.values[i] == null) {
                 completed = false;
             }
