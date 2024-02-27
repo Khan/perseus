@@ -5,8 +5,15 @@ import * as React from "react";
 import {SegmentGraph} from "./graphs";
 import {getLegacyGrid} from "./legacy-grid";
 
-import type {InteractiveGraphProps, MafsGraphProps} from "./types";
-import type {PerseusGraphType} from "../../perseus-types";
+import type {
+    InteractiveGraphProps,
+    MafsGraphProps,
+    OnGraphChange,
+} from "./types";
+import type {
+    PerseusGraphType,
+    PerseusGraphTypeSegment,
+} from "../../perseus-types";
 
 import "mafs/core.css";
 import "mafs/font.css";
@@ -18,7 +25,15 @@ const renderGraph = (props: MafsGraphProps<PerseusGraphType>) => {
     const {graph, ...rest} = props;
     switch (graph.type) {
         case "segment":
-            return <SegmentGraph {...rest} graph={graph} />;
+            return (
+                <SegmentGraph
+                    {...rest}
+                    graph={graph}
+                    onGraphChange={
+                        props.onGraphChange as OnGraphChange<PerseusGraphTypeSegment>
+                    }
+                />
+            );
     }
 };
 
