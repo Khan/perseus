@@ -6,13 +6,10 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
         interface Matchers<R> {
-            toHaveBeenAnsweredCorrectly(renderer: PerseusRenderer): R;
-            toHaveInvalidInput(
-                renderer: PerseusRenderer,
-                message: string | null,
-            ): R;
-            toHaveBeenAnsweredIncorrectly(renderer: PerseusRenderer): R;
-            toBeHighlighted(el: HTMLElement): R;
+            toHaveBeenAnsweredCorrectly(): R;
+            toHaveInvalidInput(message?: string | null): R;
+            toHaveBeenAnsweredIncorrectly(): R;
+            toBeHighlighted(): R;
         }
     }
 }
