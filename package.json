@@ -147,6 +147,7 @@
     "storybook": "storybook dev -p 6006",
     "start": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "post:build-storybook": "touch ./storybook-static/.nojekyll",
     "cypress": "cypress open --component",
     "cypress:ci": "cross-env BABEL_COVERAGE=1 cypress run --component --env CYPRESS_COVERAGE=1",
     "format": "prettier --write .",
