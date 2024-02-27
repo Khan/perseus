@@ -4,7 +4,8 @@ import "cypress-jest-adapter";
 import "cypress-wait-until";
 
 if (Cypress.env("CYPRESS_COVERAGE")) {
-    require("@cypress/code-coverage/support");
+    // @ts-expect-error - TS1378 - (trust me!) Top-level 'await' expressions are only allowed when the 'module' option is set to 'es2022', 'esnext', 'system', 'node16', or 'nodenext', and the 'target' option is set to 'es2017' or higher.
+    await import("@cypress/code-coverage/support");
 }
 
 // Here we register our custom commands
@@ -37,4 +38,5 @@ const dragTo = (node, pos) => {
         .trigger("mouseout", {force: true});
 };
 
+// @ts-expect-error - TS2769 - Argument of type '"dragTo"' is not assignable to parameter of type 'keyof Chainable<any>'.
 Cypress.Commands.add("dragTo", {prevSubject: true}, dragTo);

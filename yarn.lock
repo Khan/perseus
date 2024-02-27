@@ -1649,10 +1649,10 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@cypress/code-coverage@^3.12.11":
-  version "3.12.11"
-  resolved "https://registry.yarnpkg.com/@cypress/code-coverage/-/code-coverage-3.12.11.tgz#f06ac081664c82b0bab0a16d82dd99d1a0b3edf7"
-  integrity sha512-R/gfUO8CEPT3Mp1ni4kV66fkkUaIS1seLWD8CqAxuqY8qATcN53/2RvpGsoBYuuvNMVuBZdeeC5XjKaVelzBfQ==
+"@cypress/code-coverage@^3.12.24":
+  version "3.12.24"
+  resolved "https://registry.yarnpkg.com/@cypress/code-coverage/-/code-coverage-3.12.24.tgz#5cff6a24d39a6ef1ea094e2b60d615866fc46c5e"
+  integrity sha512-ihvYLXduJyYW9SqJp5dwFn8lRk6/hSZmSloVYp+52fsaTVhB+Ypb7Zh7GbjpVfuqW81KnPEyPa1IdcnOqHMjwA==
   dependencies:
     "@cypress/webpack-preprocessor" "^6.0.0"
     chalk "4.1.2"
@@ -1660,7 +1660,7 @@
     debug "4.3.4"
     execa "4.1.0"
     globby "11.1.0"
-    istanbul-lib-coverage "3.0.0"
+    istanbul-lib-coverage "^3.0.0"
     js-yaml "4.1.0"
     nyc "15.1.0"
 
@@ -2076,7 +2076,7 @@
     wrap-ansi "^8.1.0"
     wrap-ansi-cjs "npm:wrap-ansi@^7.0.0"
 
-"@istanbuljs/load-nyc-config@^1.0.0":
+"@istanbuljs/load-nyc-config@^1.0.0", "@istanbuljs/load-nyc-config@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
   integrity sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==
@@ -4458,7 +4458,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.48.tgz#55f70bd432b6515828c0298689776861b90ca4fa"
   integrity sha512-4kxzqkrpwYtn6okJUcb2lfUu9ilnb3yhUOH6qX3nug8D2DupZ2drIkff2yJzYcNJVl3begnlcaBJ7tqiTTzjnQ==
 
-"@types/node@^18.0.0", "@types/node@^18.17.5":
+"@types/node@^18.0.0":
   version "18.18.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.8.tgz#2b285361f2357c8c8578ec86b5d097c7f464cfd6"
   integrity sha512-OLGBaaK5V3VRBS1bAkMVP2/W9B+H8meUfl866OrMNQqt7wDgdpWPp5o6gmIc9pB+lIQHSq4ZL8ypeH1vPxcPaQ==
@@ -5845,7 +5845,7 @@ buffer-from@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
   integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
 
-buffer@^5.5.0, buffer@^5.6.0:
+buffer@^5.5.0, buffer@^5.7.1:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.7.1.tgz#ba62e7c13133053582197160851a8f648e99eed0"
   integrity sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==
@@ -6754,25 +6754,24 @@ cypress-jest-adapter@^0.1.1:
     jest-jquery-matchers "^2.1.0"
     jquery "^3.4.0"
 
-cypress-wait-until@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/cypress-wait-until/-/cypress-wait-until-2.0.1.tgz#69c575c7207d83e4ae023e2aaecf2b66148c9fc0"
-  integrity sha512-+IyVnYNiaX1+C+V/LazrJWAi/CqiwfNoRSrFviECQEyolW1gDRy765PZosL2alSSGK8V10Y7BGfOQyZUDgmnjQ==
+cypress-wait-until@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/cypress-wait-until/-/cypress-wait-until-3.0.1.tgz#6a697a600f4fb8cd2897489a15fda77c9857abec"
+  integrity sha512-kpoa8yL6Bi/JNsThGBbrrm7g4SNzYyBUv9M5pF6/NTVm/ClY0HnJzeuWnHiAUZKIZ5l86Oedb12wQyjx7/CWPg==
 
-cypress@^13.6.0:
-  version "13.6.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-13.6.0.tgz#b98b7b837679012ed09c7ecee5565bf7b31d4982"
-  integrity sha512-quIsnFmtj4dBUEJYU4OH0H12bABJpSujvWexC24Ju1gTlKMJbeT6tTO0vh7WNfiBPPjoIXLN+OUqVtiKFs6SGw==
+cypress@^13.6.5:
+  version "13.6.5"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-13.6.5.tgz#d8ab22dda3b9a8abeebcb65dc8a2707cb73bf925"
+  integrity sha512-2NxSDcO2zHw5kTcosc6dzv2zppEqiXrFFhZw5cx/EWrSNZABTzpr/EyvYzGgrWm46o5173JUfuJfDQcaiZZPVQ==
   dependencies:
     "@cypress/request" "^3.0.0"
     "@cypress/xvfb" "^1.2.4"
-    "@types/node" "^18.17.5"
     "@types/sinonjs__fake-timers" "8.1.1"
     "@types/sizzle" "^2.3.2"
     arch "^2.2.0"
     blob-util "^2.0.2"
     bluebird "^3.7.2"
-    buffer "^5.6.0"
+    buffer "^5.7.1"
     cachedir "^2.3.0"
     chalk "^4.1.0"
     check-more-types "^2.24.0"
@@ -6790,7 +6789,7 @@ cypress@^13.6.0:
     figures "^3.2.0"
     fs-extra "^9.1.0"
     getos "^3.2.1"
-    is-ci "^3.0.0"
+    is-ci "^3.0.1"
     is-installed-globally "~0.4.0"
     lazy-ass "^1.6.0"
     listr2 "^3.8.3"
@@ -9567,7 +9566,7 @@ is-callable@^1.1.3, is-callable@^1.1.4, is-callable@^1.2.4, is-callable@^1.2.7:
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.2.7.tgz#3bc2a85ea742d9e36205dcacdd72ca1fdc51b055"
   integrity sha512-1BC0BVFhS/p0qtw6enp8e+8OD0UrK0oFLztSjNzhcKA3WDuJxxAPXzPuPtKkjEY9UUoEWlX/8fgKeu2S8i9JTA==
 
-is-ci@^3.0.0, is-ci@^3.0.1:
+is-ci@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/is-ci/-/is-ci-3.0.1.tgz#db6ecbed1bd659c43dac0f45661e7674103d1867"
   integrity sha512-ZYvCgrefwqoQ6yTyYUbQu64HsITZ3NfKX1lzaEYdkTDcfKzzCI/wthRRYKkdjHKFVgNiXKAKm65Zo1pk2as/QQ==
@@ -9939,11 +9938,6 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-istanbul-lib-coverage@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.0.0.tgz#f5944a37c70b550b02a78a5c3b2055b280cec8ec"
-  integrity sha512-UiUIqxMgRDET6eR+o5HbfRYP1l0hqkWOs7vNxC/mggutCMUIhWMm8gAHb8tHlyfD3/l6rlgNA5cKdDzEAf6hEg==
-
 istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.0.0-alpha.1, istanbul-lib-coverage@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/istanbul-lib-coverage/-/istanbul-lib-coverage-3.2.0.tgz#189e7909d0a39fa5a3dfad5b03f71947770191d3"
@@ -9970,6 +9964,17 @@ istanbul-lib-instrument@^5.0.4:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/istanbul-lib-instrument/-/istanbul-lib-instrument-5.2.0.tgz#31d18bdd127f825dd02ea7bfdfd906f8ab840e9f"
   integrity sha512-6Lthe1hqXHBNsqvgDzGO6l03XNeu3CrG4RqQ1KM9+l5+jNGpEJfIELx1NS3SEHmJQA8np/u+E4EPRKRiu6m19A==
+  dependencies:
+    "@babel/core" "^7.12.3"
+    "@babel/parser" "^7.14.7"
+    "@istanbuljs/schema" "^0.1.2"
+    istanbul-lib-coverage "^3.2.0"
+    semver "^6.3.0"
+
+istanbul-lib-instrument@^5.1.0:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/istanbul-lib-instrument/-/istanbul-lib-instrument-5.2.1.tgz#d10c8885c2125574e1c231cacadf955675e1ce3d"
+  integrity sha512-pzqtp31nLv/XFOzXGuvhCb8qhjmTVo5vjVk19XE4CRlSWz0KoeJ3bw9XsA7nOp9YBf4qHjwBxkDzKcME/J29Yg==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/parser" "^7.14.7"
@@ -15640,6 +15645,17 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+vite-plugin-istanbul@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-istanbul/-/vite-plugin-istanbul-5.0.0.tgz#7539d76d7c3cafb7b3b0f2371a4e3a69031dcd44"
+  integrity sha512-Tg9zDmm/u4SdEDFbEWHBz7mmFe7jhLRmArA2XCmw5yydEFCARU9r4TxqFFnBFWCL63D9A7XA7VELulOO5T5o/g==
+  dependencies:
+    "@istanbuljs/load-nyc-config" "^1.1.0"
+    espree "^9.6.1"
+    istanbul-lib-instrument "^5.1.0"
+    picocolors "^1.0.0"
+    test-exclude "^6.0.0"
 
 vite-plugin-turbosnap@^1.0.3:
   version "1.0.3"
