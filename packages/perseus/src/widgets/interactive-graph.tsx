@@ -1688,8 +1688,14 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     focus: () => void = $.noop;
 
+    // const segment: boolean = useFeatureIsOn("mafs-segment-graph");
+    // <Renderer apiOptions={{flags: {mafs: {segment}}}}
     render(): React.ReactNode {
-        if (mafsGraphTypes.includes(this.props.graph.type)) {
+        if (
+            this.props.apiOptions?.flags?.["mafs"] &&
+            mafsGraphTypes.includes(this.props.graph.type) &&
+            this.props.apiOptions?.flags?.["mafs"][this.props.graph.type]
+        ) {
             return <MafsGraph {...this.props} ref={this.mafsRef} />;
         }
 

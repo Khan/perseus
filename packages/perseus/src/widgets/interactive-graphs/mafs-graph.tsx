@@ -84,6 +84,7 @@ export const MafsGraph = React.forwardRef<
                     }}
                     pan={false}
                     zoom={false}
+                    // TODO: verify
                     width={400}
                     height={400}
                 >

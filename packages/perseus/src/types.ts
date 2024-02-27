@@ -228,6 +228,8 @@ export type APIOptions = Readonly<{
     // This is useful for when we need to know how a widget has shuffled its
     // the available choices.
     onWidgetStartProps?: (widgets: PerseusWidgetMap) => PerseusWidgetMap;
+    // Feature flags that can be passed from consuming application
+    flags?: Record<string, boolean | Record<string, boolean>>;
 }>;
 
 type TeXProps = {
