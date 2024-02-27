@@ -54,7 +54,7 @@ describe("keypad", () => {
 
                 // Assert
                 expect(
-                    await screen.findByRole("button", {
+                    screen.getByRole("button", {
                         name: ariaLabel,
                     }),
                 ).toBeInTheDocument();
@@ -111,7 +111,7 @@ describe("keypad", () => {
 
         // Assert
         expect(
-            await screen.findByRole("tab", {
+            screen.getByRole("tab", {
                 name: "Dismiss",
             }),
         ).toBeInTheDocument();
@@ -144,7 +144,7 @@ describe("keypad", () => {
         );
 
         // Assert
-        expect(await screen.findByTestId("CDOT")).toBeInTheDocument();
+        expect(screen.getByTestId("CDOT")).toBeInTheDocument();
     });
 
     it(`shows the times symbol when convertDotToTimes is true`, async () => {
@@ -159,7 +159,7 @@ describe("keypad", () => {
         );
 
         // Assert
-        expect(await screen.findByTestId("TIMES")).toBeInTheDocument();
+        expect(screen.getByTestId("TIMES")).toBeInTheDocument();
     });
 
     it(`forces CDOT in locales that require it`, async () => {
@@ -176,7 +176,7 @@ describe("keypad", () => {
         );
 
         // Assert
-        expect(await screen.findByTestId("CDOT")).toBeInTheDocument();
+        expect(screen.getByTestId("CDOT")).toBeInTheDocument();
         expect(screen.queryByTestId("TIMES")).not.toBeInTheDocument();
     });
 
@@ -194,7 +194,7 @@ describe("keypad", () => {
         );
 
         // Assert
-        expect(await screen.findByTestId("TIMES")).toBeInTheDocument();
+        expect(screen.getByTestId("TIMES")).toBeInTheDocument();
         expect(screen.queryByTestId("CDOT")).not.toBeInTheDocument();
     });
 
@@ -229,10 +229,10 @@ describe("keypad", () => {
         );
 
         for (const tabData of tabs) {
-            const tab = await screen.findByLabelText(tabData.name);
+            const tab = screen.getByLabelText(tabData.name);
             expect(tab).toBeInTheDocument();
             await userEvent.click(tab);
-            const key = await screen.findByLabelText(tabData.label);
+            const key = screen.getByLabelText(tabData.label);
             expect(key).toBeInTheDocument();
             await userEvent.click(key);
         }
@@ -286,16 +286,16 @@ describe("keypad", () => {
 
         // Assert
         expect(
-            await screen.findByRole("button", {name: "Up arrow"}),
+            screen.getByRole("button", {name: "Up arrow"}),
         ).toBeInTheDocument();
         expect(
-            await screen.findByRole("button", {name: "Right arrow"}),
+            screen.getByRole("button", {name: "Right arrow"}),
         ).toBeInTheDocument();
         expect(
-            await screen.findByRole("button", {name: "Down arrow"}),
+            screen.getByRole("button", {name: "Down arrow"}),
         ).toBeInTheDocument();
         expect(
-            await screen.findByRole("button", {name: "Left arrow"}),
+            screen.getByRole("button", {name: "Left arrow"}),
         ).toBeInTheDocument();
     });
 
@@ -311,7 +311,7 @@ describe("keypad", () => {
         );
 
         // Assert
-        expect(await screen.findByTestId("comma-decimal")).toBeInTheDocument();
+        expect(screen.getByTestId("comma-decimal")).toBeInTheDocument();
     });
 
     it(`can show the period decimal separator`, async () => {
@@ -322,6 +322,6 @@ describe("keypad", () => {
         );
 
         // Assert
-        expect(await screen.findByTestId("period-decimal")).toBeInTheDocument();
+        expect(screen.getByTestId("period-decimal")).toBeInTheDocument();
     });
 });
