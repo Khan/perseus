@@ -1704,6 +1704,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         );
 
         let instructions;
+        // isClickToAddPoints() only applies to points and polygons
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
             if (this.props.graph.type === "point") {
                 instructions = i18n._("Click to add points");
