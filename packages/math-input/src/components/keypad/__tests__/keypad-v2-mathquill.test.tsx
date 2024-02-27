@@ -122,45 +122,29 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
 
         // a^2
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "a"}));
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "a"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // +
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Numbers"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Plus"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
 
         // b^2 =
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
         await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Equals sign"}),
+            screen.getByRole("button", {name: "Equals sign"}),
         );
 
         // c^2
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "c"}));
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "c"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
@@ -178,45 +162,31 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
 
         // c = /Square root
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "c"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "c"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
         await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
+            screen.getByRole("button", {name: "Equals sign"}),
         );
         await userEvent.click(
-            await screen.findByRole("button", {name: "Equals sign"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square root"}),
+            screen.getByRole("button", {name: "Square root"}),
         );
 
         // a^2
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "a"}));
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "a"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // +
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Numbers"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Plus"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
 
         // b^2
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "b"}));
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
@@ -234,26 +204,18 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
 
         // Argument is empty because mathquill generates textarea w/o label
-        await userEvent.type(await screen.findByRole("textbox"), "a");
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
+        await userEvent.type(screen.getByRole("textbox"), "a");
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
-        await userEvent.type(await screen.findByRole("textbox"), "+");
+        await userEvent.type(screen.getByRole("textbox"), "+");
 
         // b^2
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "b"}));
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
-        await userEvent.type(await screen.findByRole("textbox"), "=c^{2}");
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
+        await userEvent.type(screen.getByRole("textbox"), "=c^{2}");
 
         // Assert
         expect(mockMathInputCallback).toHaveBeenLastCalledWith(
@@ -271,45 +233,29 @@ describe("Keypad v2 with MathQuill", () => {
         // Act
 
         // a^2
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "a"}));
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "a"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // +
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Numbers"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Plus"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
 
         // b^2
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "b"}));
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "b"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // =c^2
         await userEvent.click(
-            await screen.findByRole("button", {name: "Equals sign"}),
+            screen.getByRole("button", {name: "Equals sign"}),
         );
-        await userEvent.click(await screen.findByRole("tab", {name: "Extras"}));
-        await userEvent.click(await screen.findByRole("button", {name: "c"}));
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Operators"}),
-        );
-        await userEvent.click(
-            await screen.findByRole("button", {name: "Square"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Extras"}));
+        await userEvent.click(screen.getByRole("button", {name: "c"}));
+        await userEvent.click(screen.getByRole("tab", {name: "Operators"}));
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
 
         // Assert
         // make sure the formula was typed correctly
@@ -317,14 +263,10 @@ describe("Keypad v2 with MathQuill", () => {
             "a^{2}+b^{2}=c^{2}",
         );
 
-        await userEvent.click(
-            await screen.findByRole("tab", {name: "Numbers"}),
-        );
+        await userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
         // delete: need 14 backspaces in MathQuill to delete `a^2+b^2=c^2`
         for (let i = 0; i < 14; i++) {
-            await userEvent.click(
-                await screen.findByRole("button", {name: "Delete"}),
-            );
+            await userEvent.click(screen.getByRole("button", {name: "Delete"}));
         }
 
         expect(mockMathInputCallback).toHaveBeenLastCalledWith("");
@@ -344,7 +286,7 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Act
         await userEvent.click(
-            await screen.findByRole("button", {name: "Keypad toggle"}),
+            screen.getByRole("button", {name: "Keypad toggle"}),
         );
 
         // Assert
@@ -367,7 +309,7 @@ describe("Keypad v2 with MathQuill", () => {
 
         // Act
         await userEvent.click(
-            await screen.findByRole("button", {name: "Keypad toggle"}),
+            screen.getByRole("button", {name: "Keypad toggle"}),
         );
 
         // Assert
