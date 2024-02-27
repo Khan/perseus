@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 4.3.0
+
+### Minor Changes
+
+-   [#1025](https://github.com/Khan/perseus/pull/1025) [`5ec2bb71`](https://github.com/Khan/perseus/commit/5ec2bb7152bfb9b980798c3247b4df9c5846d092) Thanks [@nishasy](https://github.com/nishasy)! - Create InteractiveGraphSettings to be used in InteractiveGraphEditor in place of GraphSettings
+
+### Patch Changes
+
+-   [#1029](https://github.com/Khan/perseus/pull/1029) [`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @testing-library/user-event v14.
+
+*   [#1022](https://github.com/Khan/perseus/pull/1022) [`b2649c32`](https://github.com/Khan/perseus/commit/b2649c32ac15a5d8ad9787155ecebe24ffcf783d) Thanks [@nishasy](https://github.com/nishasy)! - Correct type for `valid` prop from `boolean` to `boolean | string`
+
+-   [#1024](https://github.com/Khan/perseus/pull/1024) [`0c9fe476`](https://github.com/Khan/perseus/commit/0c9fe476de5e6712c0f0abdd42768d1c1fbfdba5) Thanks [@nishasy](https://github.com/nishasy)! - Add labels to input fields in GraphSettings + tests.
+
+-   Updated dependencies [[`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139), [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171)]:
+    -   @khanacademy/math-input@17.2.1
+    -   @khanacademy/perseus@19.6.2
+
 ## 4.2.8
 
 ### Patch Changes
