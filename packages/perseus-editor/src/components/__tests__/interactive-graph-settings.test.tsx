@@ -1,6 +1,6 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
 import {render, screen, waitFor, fireEvent} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -9,7 +9,12 @@ import InteractiveGraphSettings from "../interactive-graph-settings";
 import "@testing-library/jest-dom"; // Imports custom matchers
 
 describe("InteractiveGraphSettings", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -161,7 +166,7 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("calls onChange when ruler label is changed", () => {
+    test("calls onChange when ruler label is changed", async () => {
         // Arrange
         const onChange = jest.fn();
 
@@ -175,7 +180,7 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const select = screen.getByRole("combobox", {name: "Ruler label:"});
-        userEvent.selectOptions(select, ["cm"]);
+        await await userEvent.selectOptions(select, ["cm"]);
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -184,7 +189,7 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("calls onChange when rulerTicks is changed", () => {
+    test("calls onChange when rulerTicks is changed", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -197,7 +202,7 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const select = screen.getByRole("combobox", {name: "Ruler ticks:"});
-        userEvent.selectOptions(select, ["4"]);
+        await userEvent.selectOptions(select, ["4"]);
 
         // Assert
         expect(onChange).toBeCalledWith(
@@ -225,8 +230,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox");
-        userEvent.type(input, "https://example.com/image.png");
-        userEvent.tab();
+        await userEvent.type(input, "https://example.com/image.png");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -261,8 +266,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox");
-        userEvent.type(input, "https://example.com/image.png");
-        userEvent.tab();
+        await userEvent.type(input, "https://example.com/image.png");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -292,8 +297,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox");
-        userEvent.type(input, "");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -371,8 +376,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Range"});
-        userEvent.clear(input);
-        userEvent.paste(input, "0");
+        await userEvent.clear(input);
+        await userEvent.type(input, "0");
 
         // Assert
         await waitFor(() =>
@@ -403,8 +408,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "y Range"});
-        userEvent.clear(input);
-        userEvent.paste(input, "0");
+        await userEvent.clear(input);
+        await userEvent.type(input, "0");
 
         // Assert
         await waitFor(() =>
@@ -435,8 +440,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Range"});
-        userEvent.clear(input);
-        userEvent.paste(input, "20");
+        await userEvent.clear(input);
+        await userEvent.type(input, "20");
 
         // Assert
         await waitFor(() =>
@@ -467,8 +472,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Tick Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "2");
+        await userEvent.clear(input);
+        await userEvent.type(input, "2");
 
         // Assert
         await waitFor(() =>
@@ -496,8 +501,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Tick Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "20");
+        await userEvent.clear(input);
+        await userEvent.type(input, "20");
 
         // Assert
         await waitFor(() =>
@@ -529,8 +534,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Tick Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "2");
+        await userEvent.clear(input);
+        await userEvent.type(input, "2");
 
         // Assert
         await waitFor(() =>
@@ -558,9 +563,9 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Snap Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "2");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.type(input, "2");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -588,9 +593,9 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Snap Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "100");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.type(input, "100");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -618,9 +623,9 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Grid Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "2");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.type(input, "2");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -648,9 +653,9 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Grid Step"});
-        userEvent.clear(input);
-        userEvent.paste(input, "100");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.type(input, "100");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -678,9 +683,9 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "x Label"});
-        userEvent.clear(input);
-        userEvent.paste(input, "time");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.type(input, "time");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -707,9 +712,9 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "y Label"});
-        userEvent.clear(input);
-        userEvent.paste(input, "count");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.type(input, "count");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -738,9 +743,9 @@ describe("InteractiveGraphSettings", () => {
         const input = screen.getByRole("textbox", {
             name: "Canvas size (x,y pixels)",
         });
-        userEvent.clear(input);
-        userEvent.paste(input, "300");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.paste("300");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
