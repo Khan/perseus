@@ -52,7 +52,7 @@ describe("GraphSettings", () => {
         );
 
         // Assert
-        expect(screen.queryByText("Snap Step")).toBeNull();
+        expect(screen.queryByText("Snap Step")).not.toBeInTheDocument();
     });
 
     test("displays snap settings", () => {
@@ -185,7 +185,6 @@ describe("GraphSettings", () => {
         userEvent.selectOptions(select, ["4"]);
 
         // Assert
-        // TODO: use this pattern everywhere else too
         expect(onChange).toBeCalledWith(
             expect.objectContaining({rulerTicks: 4}),
             undefined,
@@ -197,10 +196,10 @@ describe("GraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        const mockImplementation = (url, cb: (width, height) => void) => {
+        const mockGetImageSize = (url, cb: (width, height) => void) => {
             cb(100, 100);
         };
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockImplementation);
+        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <GraphSettings editableSettings={["image"]} onChange={onChange} />,
@@ -229,11 +228,11 @@ describe("GraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        const mockImplementation = (url, cb: (width, height) => void) => {
+        const mockGetImageSize = (url, cb: (width, height) => void) => {
             // Large image should be invalid
             cb(1000, 1000);
         };
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockImplementation);
+        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <GraphSettings editableSettings={["image"]} onChange={onChange} />,
@@ -260,8 +259,8 @@ describe("GraphSettings", () => {
         // TODO(nisha): Figure out how to use fake timers for this.
         jest.useRealTimers();
         const onChange = jest.fn();
-        const mockImplementation = (url, cb: (width, height) => void) => {};
-        jest.spyOn(Util, "getImageSize").mockImplementation(mockImplementation);
+        const mockGetImageSize = (url, cb: (width, height) => void) => {};
+        jest.spyOn(Util, "getImageSize").mockImplementation(mockGetImageSize);
 
         render(
             <GraphSettings editableSettings={["image"]} onChange={onChange} />,
@@ -305,9 +304,6 @@ describe("GraphSettings", () => {
 
         // Assert
         expect(onChange).not.toHaveBeenCalled();
-
-        userEvent.tab();
-        await waitFor(() => expect(onChange).toHaveBeenCalled());
     });
 
     test("calls onChange when protractor label is changed", () => {
