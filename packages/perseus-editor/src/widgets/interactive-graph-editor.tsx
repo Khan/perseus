@@ -14,8 +14,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import GraphPointsCountSelector from "../components/graph-points-count-selector";
-import GraphSettings from "../components/graph-settings";
 import GraphTypeSelector from "../components/graph-type-selector";
+import InteractiveGraphSettings from "../components/interactive-graph-settings";
 import SegmentCountSelector from "../components/segment-count-selector";
 import {parsePointCount} from "../util/points";
 
@@ -459,7 +459,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>
                 </Row>
-                <GraphSettings
+                <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
                     labels={this.props.labels}

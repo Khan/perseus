@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
 /**
- * Used in the editors for the Grapher and Interaction widgets.
+ * Used in the editor for the InteractiveGraph widget.
  */
 import {
     components,
@@ -28,8 +28,8 @@ function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
-const GraphSettings = createReactClass({
-    displayName: "GraphSettings",
+const InteractiveGraphSettings = createReactClass({
+    displayName: "InteractiveGraphSettings",
 
     propTypes: {
         ...Changeable.propTypes,
@@ -636,4 +636,4 @@ const GraphSettings = createReactClass({
     },
 });
 
-export default GraphSettings;
+export default InteractiveGraphSettings;
