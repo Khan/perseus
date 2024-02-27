@@ -76,9 +76,10 @@ class WidgetEditor extends React.Component<
         cb: () => unknown,
         silent: boolean,
     ) => {
-        // Casting to PerseusWidget is necessary because typescript
+        // Casting to any is necessary because typescript
         // seems confused about the type of WidgetOptions
-        // STOPSHIP PUT TICKET NUMBER: LC-12345
+        // TODO (LC-1794): Fix this type so that we don't
+        // require the cast to any.
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             options: {
