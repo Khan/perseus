@@ -538,7 +538,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
     // What to show on the graph.  "graph", "grid", or "none"
-    markings: string;
+    markings: "graph" | "grid" | "none";
     // How to label the X and Y axis.  default: ["x", "y"]
     labels: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
