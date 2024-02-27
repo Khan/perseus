@@ -1,15 +1,18 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import DefinitionEditor from "../definition-editor";
 
 describe("definition-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -31,7 +34,7 @@ describe("definition-editor", () => {
         const input = screen.getByRole("textbox", {
             name: "Word to be defined:",
         });
-        userEvent.type(input, "a");
+        await userEvent.type(input, "a");
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({togglePrompt: "a"}),

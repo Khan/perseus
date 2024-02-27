@@ -1,5 +1,3 @@
-import "@testing-library/jest-dom";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {question2} from "../__testdata__/orderer.testdata";

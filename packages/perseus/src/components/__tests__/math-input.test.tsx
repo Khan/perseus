@@ -1,8 +1,7 @@
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import "@testing-library/jest-dom/extend-expect";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import MathInput from "../math-input";
@@ -17,7 +16,12 @@ const allButtonSets = {
 };
 
 describe("Perseus' MathInput", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -38,7 +42,7 @@ describe("Perseus' MathInput", () => {
         expect(screen.getByLabelText("test")).toBeInTheDocument();
     });
 
-    it("is possible to type in the input", () => {
+    it("is possible to type in the input", async () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
@@ -50,13 +54,13 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
-        userEvent.type(screen.getByRole("textbox"), "12345");
+        await userEvent.type(screen.getByRole("textbox"), "12345");
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("12345");
     });
 
-    it("is possible to use buttons", () => {
+    it("is possible to use buttons", async () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
@@ -69,17 +73,17 @@ describe("Perseus' MathInput", () => {
 
         // Act
         screen.getByRole("switch").click();
-        userEvent.click(screen.getByRole("button", {name: "1"}));
-        userEvent.click(screen.getByRole("button", {name: "Plus"}));
-        userEvent.click(screen.getByRole("button", {name: "2"}));
-        userEvent.click(screen.getByRole("button", {name: "Minus"}));
-        userEvent.click(screen.getByRole("button", {name: "3"}));
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(screen.getByRole("button", {name: "Minus"}));
+        await userEvent.click(screen.getByRole("button", {name: "3"}));
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2-3");
     });
 
-    it("is possible to use buttons with legacy props", () => {
+    it("is possible to use buttons with legacy props", async () => {
         // Assemble
         const mockOnChange = jest.fn();
         render(
@@ -93,17 +97,17 @@ describe("Perseus' MathInput", () => {
         // Act
         // focusing the input triggers the popover
         screen.getByRole("switch").click();
-        userEvent.click(screen.getByRole("button", {name: "1"}));
-        userEvent.click(screen.getByRole("button", {name: "Plus"}));
-        userEvent.click(screen.getByRole("button", {name: "2"}));
-        userEvent.click(screen.getByRole("button", {name: "Divide"}));
-        userEvent.click(screen.getByRole("button", {name: "3"}));
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(screen.getByRole("button", {name: "Divide"}));
+        await userEvent.click(screen.getByRole("button", {name: "3"}));
 
         // Assert
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2\\div3");
     });
 
-    it("returns focus to input after button click", () => {
+    it("returns focus to input after button click", async () => {
         // Assemble
         render(
             <MathInput
@@ -116,13 +120,13 @@ describe("Perseus' MathInput", () => {
         // Act
         // focusing the input triggers the popover
         screen.getByRole("switch").click();
-        userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
     });
 
-    it("does not return focus to input after button press via keyboard", () => {
+    it("does not return focus to input after button press via keyboard", async () => {
         // Assemble
         render(
             <MathInput
@@ -135,11 +139,11 @@ describe("Perseus' MathInput", () => {
         // Act
         // focusing the input triggers the popover
         screen.getByRole("switch").click();
-        userEvent.tab(); // to "123" tab
-        userEvent.tab(); // to extra keys tab
-        userEvent.tab(); // to whole keypad
-        userEvent.tab(); // to "1" button
-        userEvent.keyboard("{enter}");
+        await userEvent.tab(); // to "123" tab
+        await userEvent.tab(); // to extra keys tab
+        await userEvent.tab(); // to whole keypad
+        await userEvent.tab(); // to "1" button
+        await userEvent.keyboard("{enter}");
 
         // Assert
         expect(screen.getByRole("textbox")).not.toHaveFocus();

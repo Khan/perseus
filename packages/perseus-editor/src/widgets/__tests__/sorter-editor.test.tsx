@@ -1,15 +1,18 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import SorterEditor from "../sorter-editor";
 
 describe("sorter-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -27,7 +30,7 @@ describe("sorter-editor", () => {
         render(<SorterEditor onChange={onChangeMock} />);
 
         const select = screen.getByRole("combobox", {name: "Layout:"});
-        userEvent.selectOptions(select, "vertical");
+        await userEvent.selectOptions(select, "vertical");
 
         expect(onChangeMock).toBeCalledWith({layout: "vertical"});
     });
@@ -38,7 +41,7 @@ describe("sorter-editor", () => {
         render(<SorterEditor onChange={onChangeMock} />);
 
         const select = screen.getByRole("combobox", {name: "Layout:"});
-        userEvent.selectOptions(select, "horizontal");
+        await userEvent.selectOptions(select, "horizontal");
 
         expect(onChangeMock).toBeCalledWith({layout: "horizontal"});
     });
@@ -48,7 +51,7 @@ describe("sorter-editor", () => {
 
         render(<SorterEditor onChange={onChangeMock} />);
 
-        userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
+        await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
 
         expect(onChangeMock).toBeCalledWith({padding: false});
     });

@@ -1,12 +1,18 @@
-import "@testing-library/jest-dom";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
 import ItemExtrasEditor from "../item-extras-editor";
 
 describe("ItemExtrasEditor", () => {
-    it("should render correctly with default props", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("should render correctly with default props", async () => {
         // Act
         render(<ItemExtrasEditor onChange={() => {}} />);
 
@@ -27,20 +33,20 @@ describe("ItemExtrasEditor", () => {
         ).not.toBeChecked();
     });
 
-    it("should call onChange with updated calculator value", () => {
+    it("should call onChange with updated calculator value", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(<ItemExtrasEditor calculator={false} onChange={onChangeMock} />);
         const checkbox = screen.getByLabelText("Show calculator:");
 
         // Act
-        userEvent.click(checkbox);
+        await userEvent.click(checkbox);
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({calculator: true});
     });
 
-    it("should call onChange with updated periodicTableWithKey value when periodicTable is unchecked", () => {
+    it("should call onChange with updated periodicTableWithKey value when periodicTable is unchecked", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -53,7 +59,7 @@ describe("ItemExtrasEditor", () => {
         const checkbox = screen.getByLabelText("Show periodic table:");
 
         // Act
-        userEvent.click(checkbox);
+        await userEvent.click(checkbox);
 
         // Assert
         // visible when periodicTable is checked
@@ -66,14 +72,14 @@ describe("ItemExtrasEditor", () => {
         });
     });
 
-    it("should call onChange on dependent values when financialCalculator is checked", () => {
+    it("should call onChange on dependent values when financialCalculator is checked", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(<ItemExtrasEditor onChange={onChangeMock} />);
         const checkbox = screen.getByLabelText("Show financial calculator:");
 
         // Act
-        userEvent.click(checkbox);
+        await userEvent.click(checkbox);
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
