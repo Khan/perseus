@@ -147,7 +147,7 @@ export type {
     PerseusSimpleMarkdownTesterWidgetOptions,
     PerseusRenderer,
     PerseusWidget,
-    PerseusWidgets,
+    PerseusWidgetsMap,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";

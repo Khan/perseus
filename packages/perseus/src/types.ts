@@ -4,7 +4,7 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
     PerseusWidget,
-    PerseusWidgets,
+    PerseusWidgetsMap,
 } from "./perseus-types";
 import type {SizeClass} from "./util/sizing-utils";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -230,7 +230,7 @@ export type APIOptions = Readonly<{
     // the available choices.
     // Feature flags that can be passed from consuming application
     flags?: Record<string, boolean | Record<string, boolean>>;
-    onWidgetStartProps?: (widgets: PerseusWidgets) => PerseusWidgets;
+    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => PerseusWidgetsMap;
 }>;
 
 type TeXProps = {

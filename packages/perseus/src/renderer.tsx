@@ -35,7 +35,7 @@ import type {
     PerseusRenderer,
     PerseusWidget,
     PerseusWidgetOptions,
-    PerseusWidgets,
+    PerseusWidgetsMap,
 } from "./perseus-types";
 import type {
     APIOptions,
@@ -474,7 +474,9 @@ class Renderer extends React.Component<Props, State> {
     };
 
     // @ts-expect-error - TS2322 - Type '(props: Props) => Partial<Record<string, CategorizerWidget | CSProgramWidget | DefinitionWidget | DropdownWidget | ... 35 more ... | VideoWidget>>' is not assignable to type '(props: Props) => { [key: string]: PerseusWidget; }'.
-    _getAllWidgetsInfo: (props: Props) => PerseusWidgets = (props: Props) => {
+    _getAllWidgetsInfo: (props: Props) => PerseusWidgetsMap = (
+        props: Props,
+    ) => {
         // @ts-expect-error - TS2345 - Argument of type '{ [key: string]: PerseusWidget; }' is not assignable to parameter of type 'Partial<Record<string, CategorizerWidget>>'.
         return mapObject(props.widgets, (widgetInfo, widgetId) => {
             if (!widgetInfo.type || !widgetInfo.alignment) {
@@ -494,11 +496,11 @@ class Renderer extends React.Component<Props, State> {
     };
 
     _getAllWidgetsStartProps: (
-        allWidgetInfo: PerseusWidgets,
+        allWidgetInfo: PerseusWidgetsMap,
         props: Props,
-    ) => PerseusWidgets = (allWidgetInfo, props) => {
+    ) => PerseusWidgetsMap = (allWidgetInfo, props) => {
         const {apiOptions, problemNum} = props;
-        const widgetsStartProps: PerseusWidgets = {};
+        const widgetsStartProps: PerseusWidgetsMap = {};
         entries(allWidgetInfo).forEach(([key, widgetInfo]) => {
             widgetsStartProps[key] = Widgets.getRendererPropsForWidgetInfo(
                 widgetInfo,
