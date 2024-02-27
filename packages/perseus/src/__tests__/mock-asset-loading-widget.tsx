@@ -8,11 +8,11 @@ import type {WidgetExports} from "../types";
 
 export const mockedAssetItem: PerseusItem = {
     question: {
-        content: "[[\u2603 mocked-asset-widget 1]]",
+        content: "[[\u2603 example-widget 1]]",
         images: Object.freeze({}),
         widgets: {
-            "example 1": {
-                type: "mocked-asset-widget" as any,
+            "example-widget 1": {
+                type: "example-widget",
                 alignment: "default",
                 static: false,
                 graded: true,
