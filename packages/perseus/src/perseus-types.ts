@@ -14,7 +14,7 @@ type StyleParams = {
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
 
-export type WidgetsType = {
+export type PerseusWidgets = {
     [key in `categorizer ${number}`]: CategorizerWidget;
 } & {
     [key in `cs-program ${number}`]: CSProgramWidget;
@@ -128,7 +128,7 @@ export type PerseusRenderer = {
     // additional attributes for the image.
     content: string;
     // A dictionary of {[widgetName]: Widget} to be referenced from the content field
-    widgets: WidgetsType;
+    widgets: PerseusWidgets;
     // Used only for PerseusItem.hints.  If true, it replaces the previous hint in the list with the current one. This allows for hints that build upon each other.
     replace?: boolean;
     // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
@@ -422,7 +422,7 @@ export type PerseusExplanationWidgetOptions = {
     // Translatable Markdown; The explanation that is shown when showPrompt is clicked.  e.g. "An apple is a tasty fruit."
     explanation: string;
     // explanation fields can embed widgets. When they do, the details of the widgets are here.
-    widgets: WidgetsType;
+    widgets: PerseusWidgets;
     // Always false.  Not used for this widget
     static: boolean;
 };
@@ -483,7 +483,7 @@ export type PerseusGradedGroupWidgetOptions = {
     // Translatable Markdown. May include widgets and images embedded.
     content: string;
     // See PerseusRenderer.widgets
-    widgets: WidgetsType;
+    widgets: PerseusWidgets;
     // Not used in Perseus
     widgetEnabled?: boolean | null | undefined;
     // Not used in Perseus
@@ -1071,7 +1071,7 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    widgets?: WidgetsType;
+    widgets?: PerseusWidgets;
 };
 
 export type PerseusSequenceWidgetOptions = {
