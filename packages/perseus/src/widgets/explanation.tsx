@@ -1,5 +1,7 @@
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import Clickable from "@khanacademy/wonder-blocks-clickable";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -69,14 +71,13 @@ class Explanation extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const {Link} = this.props.apiOptions.baseElements;
         const {isArticle, isMobile} = this.props.apiOptions;
 
-        const linkAnchor = this.state.expanded
+        const promptText = this.state.expanded
             ? this.props.hidePrompt
             : this.props.showPrompt;
 
-        let linkContainer;
+        let promptContainer: React.ReactNode;
 
         // TODO(diedra): This isn't a valid href;
         // change this to a button that looks like a link.
@@ -84,7 +85,7 @@ class Explanation extends React.Component<Props, State> {
         const onClick = this._onClick;
 
         if (isMobile) {
-            linkContainer = (
+            promptContainer = (
                 <div className={css(styles.linkContainer)}>
                     <a
                         className={css(styles.mobileExplanationLink)}
@@ -93,7 +94,7 @@ class Explanation extends React.Component<Props, State> {
                         role="button"
                         aria-expanded={this.state.expanded}
                     >
-                        {linkAnchor}
+                        {promptText}
                     </a>
                     {this.state.expanded && (
                         <svg className={css(styles.disclosureArrow)}>
@@ -110,53 +111,17 @@ class Explanation extends React.Component<Props, State> {
                 </div>
             );
         } else {
-            if (isArticle) {
-                // NOTE: For articles, the baseElements `Link` may is either be
-                // an anchor tag (if rendered in a modal) or a Wonder Blocks
-                // link component in lesson page, see: `article-page.jsx`.
-                linkContainer = (
-                    <div
-                        className={css(
-                            styles.linkContainer,
-                            styles.articleLink,
-                        )}
-                    >
-                        <Link
-                            className={css(styles.explanationLink)}
-                            // HACK(michaelpolyak): WB Link doesn't passthrough
-                            // class name.
-                            style={styles.explanationLink}
-                            href={href}
-                            onClick={onClick}
-                            role="button"
-                            aria-expanded={this.state.expanded}
-                        >
-                            {`[${linkAnchor}]`}
-                        </Link>
-                    </div>
-                );
-            } else {
-                // NOTE: For exercises, the baseElements `Link` is an
-                // anchor tag, see: `perseus-api.jsx`.
-                linkContainer = (
-                    <div
-                        className={css(
-                            styles.linkContainer,
-                            styles.exerciseLink,
-                        )}
-                    >
-                        <Link
-                            className={css(styles.explanationLink)}
-                            href={href}
-                            onClick={onClick}
-                            role="button"
-                            aria-expanded={this.state.expanded}
-                        >
-                            {`[${linkAnchor}]`}
-                        </Link>
-                    </div>
-                );
-            }
+            const viewStyling = isArticle
+                ? [styles.explanationLink, styles.articleLink]
+                : [styles.explanationLink, styles.exerciseLink];
+            promptContainer = (
+                <Clickable
+                    onClick={onClick}
+                    aria-expanded={this.state.expanded}
+                >
+                    {() => <View style={viewStyling}>{`[${promptText}]`}</View>}
+                </Clickable>
+            );
         }
 
         const expandedStyle = isMobile
@@ -165,7 +130,7 @@ class Explanation extends React.Component<Props, State> {
 
         return (
             <div className={css(styles.container)}>
-                {linkContainer}
+                {promptContainer}
                 {this.state.expanded && (
                     <div
                         className={css(

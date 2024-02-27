@@ -7,7 +7,8 @@ import * as PerseusLinter from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 
-import {DependenciesContext} from "./dependencies";
+import {DependenciesContext, getDependencies} from "./dependencies";
+import JiptParagraphs from "./jipt-paragraphs";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
 import Util from "./util";
@@ -162,9 +163,32 @@ class ArticleRenderer
     };
 
     _sections: () => any = () => {
-        return Array.isArray(this.props.json)
+        const sections = Array.isArray(this.props.json)
             ? this.props.json
             : [this.props.json];
+
+        // In JIPT context we split sections to paragraphs in order match the
+        // translatable strings found on Crowdin when rendering articles in
+        // the WYSIWYG mode for translation. This is needed for the jipt.js
+        // integration in order to attribute the rendered strings on Crowdin.
+        if (getDependencies().JIPT.useJIPT) {
+            const paragraphs: Array<PerseusRenderer> = [];
+
+            for (const section of sections) {
+                JiptParagraphs.parseToArray(section.content).forEach(
+                    (paragraph) => {
+                        paragraphs.push({
+                            ...section,
+                            content: paragraph,
+                        });
+                    },
+                );
+            }
+
+            return paragraphs;
+        }
+
+        return sections;
     };
 
     render(): React.ReactNode {

@@ -20,18 +20,18 @@ exports[`Explanation should snapshot for article when expanded: expanded 1`] = `
           <div
             class="container_167wsvl"
           >
-            <div
-              class="linkContainer_36rlri-o_O-articleLink_17wlykh"
+            <button
+              aria-disabled="false"
+              aria-expanded="true"
+              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+              type="button"
             >
-              <a
-                aria-expanded="true"
-                class="explanationLink_7n4oib"
-                href="javascript:void(0)"
-                role="button"
+              <div
+                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-articleLink_17wlykh"
               >
                 [Hide explanation!]
-              </a>
-            </div>
+              </div>
+            </button>
             <div
               class="content_z5b02x-o_O-contentExpanded_1c06cap"
             >
@@ -190,18 +190,18 @@ exports[`Explanation should snapshot for article: initial render 1`] = `
           <div
             class="container_167wsvl"
           >
-            <div
-              class="linkContainer_36rlri-o_O-articleLink_17wlykh"
+            <button
+              aria-disabled="false"
+              aria-expanded="false"
+              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+              type="button"
             >
-              <a
-                aria-expanded="false"
-                class="explanationLink_7n4oib"
-                href="javascript:void(0)"
-                role="button"
+              <div
+                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-articleLink_17wlykh"
               >
                 [Explanation]
-              </a>
-            </div>
+              </div>
+            </button>
           </div>
         </div>
         
@@ -342,18 +342,18 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
           <div
             class="container_167wsvl"
           >
-            <div
-              class="linkContainer_36rlri-o_O-exerciseLink_574wt1"
+            <button
+              aria-disabled="false"
+              aria-expanded="true"
+              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+              type="button"
             >
-              <a
-                aria-expanded="true"
-                class="explanationLink_7n4oib"
-                href="javascript:void(0)"
-                role="button"
+              <div
+                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-exerciseLink_574wt1"
               >
                 [Hide explanation!]
-              </a>
-            </div>
+              </div>
+            </button>
             <div
               class="content_z5b02x-o_O-contentExpanded_1c06cap"
             >
@@ -402,18 +402,18 @@ exports[`Explanation should snapshot: initial render 1`] = `
           <div
             class="container_167wsvl"
           >
-            <div
-              class="linkContainer_36rlri-o_O-exerciseLink_574wt1"
+            <button
+              aria-disabled="false"
+              aria-expanded="false"
+              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4"
+              type="button"
             >
-              <a
-                aria-expanded="false"
-                class="explanationLink_7n4oib"
-                href="javascript:void(0)"
-                role="button"
+              <div
+                class="default_xu2jcg-o_O-explanationLink_7n4oib-o_O-exerciseLink_574wt1"
               >
                 [Explanation]
-              </a>
-            </div>
+              </div>
+            </button>
           </div>
         </div>
         
