@@ -114,7 +114,7 @@ describe("math input integration", () => {
 
         fireEvent.touchStart(input);
 
-        await waitFor(async () => {
+        await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
@@ -130,7 +130,7 @@ describe("math input integration", () => {
 
         await userEvent.click(input);
 
-        await waitFor(async () => {
+        await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
@@ -146,7 +146,7 @@ describe("math input integration", () => {
 
         fireEvent.touchStart(input);
 
-        await waitFor(async () => {
+        await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
@@ -171,7 +171,7 @@ describe("math input integration", () => {
 
         fireEvent.touchStart(input);
 
-        await waitFor(async () => {
+        await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
@@ -200,7 +200,7 @@ describe("math input integration", () => {
 
         fireEvent.touchStart(input);
 
-        await waitFor(async () => {
+        await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
@@ -234,7 +234,7 @@ describe("math input integration", () => {
 
         fireEvent.touchStart(input);
 
-        await waitFor(async () => {
+        await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
@@ -273,7 +273,7 @@ describe("math input integration", () => {
 
         fireEvent.touchStart(input);
 
-        await waitFor(async () => {
+        await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 

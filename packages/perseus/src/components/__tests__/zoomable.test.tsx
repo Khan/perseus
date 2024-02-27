@@ -358,7 +358,7 @@ describe("Zoomable", () => {
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(async () => {
+            await waitFor(() => {
                 screen.getByText("Some more zoomable text");
             });
 
@@ -383,7 +383,7 @@ describe("Zoomable", () => {
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(async () => {
+            await waitFor(() => {
                 screen.getByText("Some more zoomable text");
             });
 
@@ -411,7 +411,7 @@ describe("Zoomable", () => {
             // Act
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
-            await waitFor(async () => {
+            await waitFor(() => {
                 screen.getByText("Some more zoomable text");
             });
 
