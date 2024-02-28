@@ -111,6 +111,15 @@ type SerializedState = {
     [id: string]: any;
 };
 
+/**
+ * The Widget type represents the common API that the Renderer uses to interact
+ * with all widgets. All widgets must implement the methods in this API, unless
+ * they are marked as optional (?: ...).
+ *
+ * These methods are called on the widget ref and allow the renderer to
+ * communicate with the individual widgets to coordinate actions such as
+ * scoring, state serialization/deserialization, and focus management.
+ */
 export type Widget = {
     focus: () =>
         | {
