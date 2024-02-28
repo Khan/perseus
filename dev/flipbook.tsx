@@ -20,6 +20,14 @@ import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
+const exampleCommands = `
+# copy all questions
+cat data/questions/*/*/* | pbcopy
+
+# copy all segment questions
+grep -rl '"type":"segment"' data/questions/ | xargs cat | pbcopy
+`.trim();
+
 export function Flipbook() {
     const [state, dispatch] = useReducer(flipbookModelReducer, {
         questions: "",
@@ -30,6 +38,24 @@ export function Flipbook() {
 
     return (
         <View style={{padding: Spacing.medium_16}}>
+            <details open>
+                <summary>Instructions (click to show/hide)</summary>
+                <ol>
+                    <li>
+                        <p>
+                            Run a command like one of the following to copy
+                            question data to your clipboard.
+                        </p>
+                        <code>
+                            <pre>{exampleCommands}</pre>
+                        </code>
+                    </li>
+                    <li>
+                        <p>Paste the data in the box below.</p>
+                    </li>
+                </ol>
+            </details>
+
             <textarea
                 wrap={"off"}
                 rows={10}

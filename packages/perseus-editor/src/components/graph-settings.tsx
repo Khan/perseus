@@ -121,6 +121,7 @@ const GraphSettings = createReactClass({
     },
 
     change(...args) {
+        args; // ?
         return Changeable.change.apply(this, args);
     },
 
@@ -155,6 +156,7 @@ const GraphSettings = createReactClass({
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
+        url; //  ?
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
@@ -398,7 +400,7 @@ const GraphSettings = createReactClass({
         ];
 
         const {TeX} = Dependencies.getDependencies();
-
+        this.props.box; // ?
         return (
             <div>
                 {_.contains(this.props.editableSettings, "canvas") && (
@@ -411,6 +413,7 @@ const GraphSettings = createReactClass({
                                 id="canvas-size"
                                 value={this.props.box}
                                 onChange={(box) => {
+                                    box; // ?
                                     this.change({box: box});
                                 }}
                             />

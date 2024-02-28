@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom";
 import {
     screen,
     render,
@@ -6,7 +5,7 @@ import {
     within,
     waitFor,
 } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import MathQuill from "mathquill";
 import React, {useState} from "react";
 
@@ -81,7 +80,14 @@ function ConnectedMathInput({keypadConfiguration = defaultConfiguration}) {
 }
 
 describe("math input integration", () => {
-    it("renders", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("renders", async () => {
         render(<ConnectedMathInput />);
 
         expect(
@@ -91,7 +97,7 @@ describe("math input integration", () => {
         ).toBeInTheDocument();
     });
 
-    it("doesn't show the keypad initially", () => {
+    it("doesn't show the keypad initially", async () => {
         render(<ConnectedMathInput />);
 
         expect(
@@ -122,7 +128,7 @@ describe("math input integration", () => {
             "Math input box Tap with one or two fingers to open keyboard",
         );
 
-        userEvent.click(input);
+        await userEvent.click(input);
 
         await waitFor(() => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
@@ -144,7 +150,7 @@ describe("math input integration", () => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
-        userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
 
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
@@ -169,10 +175,9 @@ describe("math input integration", () => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
-        const testNumbers = [8, 6, 7, 5, 3, 0, 9];
-        testNumbers.forEach((num) => {
-            userEvent.click(screen.getByRole("button", {name: `${num}`}));
-        });
+        for (const num of [8, 6, 7, 5, 3, 0, 9]) {
+            await userEvent.click(screen.getByRole("button", {name: `${num}`}));
+        }
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
@@ -199,9 +204,9 @@ describe("math input integration", () => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(screen.getByRole("button", {name: "2"}));
-        userEvent.click(screen.getByRole("button", {name: "Percent"}));
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(screen.getByRole("button", {name: "Percent"}));
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
@@ -233,19 +238,19 @@ describe("math input integration", () => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
-        userEvent.click(screen.getByRole("button", {name: "1"}));
-        userEvent.click(
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(
             screen.getByRole("button", {
                 name: "Fraction, excluding the current expression",
             }),
         );
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(
             screen.getByRole("button", {
                 name: "Navigate right out of the numerator and into the denominator",
             }),
         );
-        userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
@@ -272,19 +277,19 @@ describe("math input integration", () => {
             expect(screen.getByRole("button", {name: "4"})).toBeVisible();
         });
 
-        userEvent.click(screen.getByRole("button", {name: "1"}));
-        userEvent.click(
+        await userEvent.click(screen.getByRole("button", {name: "1"}));
+        await userEvent.click(
             screen.getByRole("button", {
                 name: "Fraction, excluding the current expression",
             }),
         );
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(
+        await userEvent.click(screen.getByRole("button", {name: "4"}));
+        await userEvent.click(
             screen.getByRole("button", {
                 name: "Navigate right out of the numerator and into the denominator",
             }),
         );
-        userEvent.click(screen.getByRole("button", {name: "2"}));
+        await userEvent.click(screen.getByRole("button", {name: "2"}));
 
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ

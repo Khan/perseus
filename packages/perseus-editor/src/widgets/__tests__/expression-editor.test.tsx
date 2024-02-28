@@ -1,9 +1,7 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import ExpressionEditor from "../expression-editor";
@@ -11,7 +9,12 @@ import ExpressionEditor from "../expression-editor";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 describe("expression-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -55,12 +58,12 @@ describe("expression-editor", () => {
         expect(await screen.findByText(/π/)).toBeInTheDocument();
     });
 
-    it("should toggle multiplication checkbox", () => {
+    it("should toggle multiplication checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "Use × for rendering multiplication instead of a center dot.",
             }),
@@ -69,7 +72,7 @@ describe("expression-editor", () => {
         expect(onChangeMock).toBeCalledWith({times: true});
     });
 
-    it("should be possible to change function variables", () => {
+    it("should be possible to change function variables", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} functions={[]} />);
@@ -78,17 +81,17 @@ describe("expression-editor", () => {
             name: "Function variables:",
         });
 
-        userEvent.type(input, "x");
+        await userEvent.type(input, "x");
 
         expect(onChangeMock).toBeCalledWith({functions: ["x"]});
     });
 
-    it("should toggle division checkbox", () => {
+    it("should toggle division checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "show \\div button",
             }),
@@ -105,12 +108,12 @@ describe("expression-editor", () => {
         );
     });
 
-    it("should toggle trig checkbox", () => {
+    it("should toggle trig checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "trig",
             }),
@@ -121,12 +124,12 @@ describe("expression-editor", () => {
         });
     });
 
-    it("should toggle prealgebra checkbox", () => {
+    it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "prealgebra",
             }),
@@ -137,12 +140,12 @@ describe("expression-editor", () => {
         });
     });
 
-    it("should toggle prealgebra checkbox", () => {
+    it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "logarithms",
             }),
@@ -153,12 +156,12 @@ describe("expression-editor", () => {
         });
     });
 
-    it("should toggle prealgebra checkbox", () => {
+    it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "basic relations",
             }),
@@ -169,12 +172,12 @@ describe("expression-editor", () => {
         });
     });
 
-    it("should toggle prealgebra checkbox", () => {
+    it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "advanced relations",
             }),
@@ -185,12 +188,12 @@ describe("expression-editor", () => {
         });
     });
 
-    it("should be possible to add an answer", () => {
+    it("should be possible to add an answer", async () => {
         const onChangeMock = jest.fn();
 
         render(<ExpressionEditor onChange={onChangeMock} />);
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("button", {
                 name: "Add new answer",
             }),
@@ -215,7 +218,7 @@ describe("expression-editor", () => {
         );
     });
 
-    it("should be possible to update answer", () => {
+    it("should be possible to update answer", async () => {
         const onChangeMock = jest.fn();
 
         render(
@@ -233,13 +236,13 @@ describe("expression-editor", () => {
             />,
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("switch", {
                 name: "open math keypad",
             }),
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("button", {
                 name: "9",
             }),
@@ -274,7 +277,7 @@ describe("expression-editor", () => {
         );
     });
 
-    it("should be possible to toggle same form", () => {
+    it("should be possible to toggle same form", async () => {
         const onChangeMock = jest.fn();
 
         render(
@@ -292,7 +295,7 @@ describe("expression-editor", () => {
             />,
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "Answer expression must have the same form.",
             }),
@@ -317,7 +320,7 @@ describe("expression-editor", () => {
         );
     });
 
-    it("should be possible to toggle expanded and simplified", () => {
+    it("should be possible to toggle expanded and simplified", async () => {
         const onChangeMock = jest.fn();
 
         render(
@@ -335,7 +338,7 @@ describe("expression-editor", () => {
             />,
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "Answer expression must be fully expanded and simplified.",
             }),
@@ -360,7 +363,7 @@ describe("expression-editor", () => {
         );
     });
 
-    it("should be possible to delete answer", () => {
+    it("should be possible to delete answer", async () => {
         const onChangeMock = jest.fn();
 
         render(
@@ -378,13 +381,13 @@ describe("expression-editor", () => {
             />,
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("button", {
                 name: "Delete",
             }),
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("button", {
                 name: "I'm sure!",
             }),

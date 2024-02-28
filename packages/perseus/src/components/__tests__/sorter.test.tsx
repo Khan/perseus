@@ -1,5 +1,4 @@
 import * as React from "react";
-import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";

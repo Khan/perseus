@@ -1,8 +1,6 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-// TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
-import "@testing-library/jest-dom/extend-expect";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -12,16 +10,24 @@ import {renderQuestion} from "./renderQuestion";
 
 import type {APIOptions} from "../../types";
 
-const checkAnswer = () => {
+const checkAnswer = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
+) => {
     // NOTE(jeremy): The graded-group widget does not participate in
     // Renderer grading. So we can't call `renderer.score()` and see that
     // the widget is answered correctly. The only route to check the answer
     // is to use the "Check" button that is embedded _inside_ the widget.
-    userEvent.click(screen.getByRole("button", {name: "Check"}));
+    await userEvent.click(screen.getByRole("button", {name: "Check"}));
 };
 
 describe("graded-group", () => {
+    let userEvent;
+
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         // Suppress message from Link component: "Warning: A future version of
         // React will block javascript: URLs as a security precaution. Use
         // event handlers instead if you can. If you need to generate unsafe
@@ -47,17 +53,25 @@ describe("graded-group", () => {
     });
 
     describe("on desktop", () => {
-        it("should be able to be answered correctly", () => {
+        it("should be able to be answered correctly", async () => {
             // Arrange
             renderQuestion(question1);
 
-            userEvent.click(screen.getAllByRole("button", {name: "True"})[0]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
-            userEvent.click(screen.getAllByRole("button", {name: "True"})[2]);
-            userEvent.click(screen.getAllByRole("button", {name: "True"})[3]);
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[2],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[3],
+            );
 
             // Act
-            checkAnswer();
+            await checkAnswer(userEvent);
 
             // Assert
             expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
@@ -66,17 +80,25 @@ describe("graded-group", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("should be able to be answered incorrectly", () => {
+        it("should be able to be answered incorrectly", async () => {
             // Arrange
             renderQuestion(question1);
 
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[0]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[2]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[3]);
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[2],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[3],
+            );
 
             // Act
-            checkAnswer();
+            await checkAnswer(userEvent);
 
             // Assert
             expect(
@@ -87,14 +109,16 @@ describe("graded-group", () => {
             ).toBeVisible();
         });
 
-        it("should display an error if not fully answered", () => {
+        it("should display an error if not fully answered", async () => {
             // Arrange
             renderQuestion(question1);
 
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
 
             // Act
-            checkAnswer();
+            await checkAnswer(userEvent);
 
             // Assert
             expect(
@@ -104,12 +128,12 @@ describe("graded-group", () => {
             ).toBeVisible();
         });
 
-        it("should be able to reveal the hint", () => {
+        it("should be able to reveal the hint", async () => {
             // Arrange
             renderQuestion(question1);
 
             // Act
-            userEvent.click(screen.getByRole("button", {name: "[Hint]"}));
+            await userEvent.click(screen.getByRole("button", {name: "[Hint]"}));
             jest.runOnlyPendingTimers();
 
             // Assert
@@ -118,14 +142,16 @@ describe("graded-group", () => {
             ).toBeVisible();
         });
 
-        it("should be able to hide the hint", () => {
+        it("should be able to hide the hint", async () => {
             // Arrange
             renderQuestion(question1);
-            userEvent.click(screen.getByRole("button", {name: "[Hint]"}));
+            await userEvent.click(screen.getByRole("button", {name: "[Hint]"}));
             jest.runOnlyPendingTimers();
 
             // Act
-            userEvent.click(screen.getByRole("button", {name: "[Hide hint]"}));
+            await userEvent.click(
+                screen.getByRole("button", {name: "[Hide hint]"}),
+            );
 
             // Assert
             expect(
@@ -142,18 +168,26 @@ describe("graded-group", () => {
             isMobile: true,
         };
 
-        it("should be able to be answered correctly", () => {
+        it("should be able to be answered correctly", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
 
-            userEvent.click(screen.getAllByRole("button", {name: "True"})[0]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
-            userEvent.click(screen.getAllByRole("button", {name: "True"})[2]);
-            userEvent.click(screen.getAllByRole("button", {name: "True"})[3]);
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[2],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[3],
+            );
             jest.runOnlyPendingTimers();
 
             // Act
-            checkAnswer();
+            await checkAnswer(userEvent);
 
             // Assert
             expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
@@ -164,18 +198,26 @@ describe("graded-group", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("should be able to be answered incorrectly", () => {
+        it("should be able to be answered incorrectly", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
 
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[0]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[2]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[3]);
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[2],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[3],
+            );
             jest.runOnlyPendingTimers();
 
             // Act
-            checkAnswer();
+            await checkAnswer(userEvent);
 
             // Assert
             expect(
@@ -184,30 +226,36 @@ describe("graded-group", () => {
             expect(screen.getByText("Keep trying")).toBeVisible();
         });
 
-        it("should let the user retry when checked if not fully answered", () => {
+        it("should let the user retry when checked if not fully answered", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
 
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[0]);
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
             jest.runOnlyPendingTimers();
 
-            checkAnswer();
+            await checkAnswer(userEvent);
 
             // Act
-            userEvent.click(screen.getAllByRole("button", {name: "False"})[2]);
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[2],
+            );
             jest.runOnlyPendingTimers();
 
             // Assert
             expect(screen.getByRole("button", {name: "Check"})).toBeVisible();
         });
 
-        it("should be able to reveal the hint", () => {
+        it("should be able to reveal the hint", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
 
             // Act
-            userEvent.click(screen.getByRole("button", {name: "Hint"}));
+            await userEvent.click(screen.getByRole("button", {name: "Hint"}));
 
             // Assert
             expect(
@@ -215,13 +263,15 @@ describe("graded-group", () => {
             ).toBeVisible();
         });
 
-        it("should be able to hide the hint", () => {
+        it("should be able to hide the hint", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
-            userEvent.click(screen.getByRole("button", {name: "Hint"}));
+            await userEvent.click(screen.getByRole("button", {name: "Hint"}));
 
             // Act
-            userEvent.click(screen.getByRole("button", {name: "Hide hint"}));
+            await userEvent.click(
+                screen.getByRole("button", {name: "Hide hint"}),
+            );
 
             // Assert
             expect(

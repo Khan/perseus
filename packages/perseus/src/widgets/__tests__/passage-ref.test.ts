@@ -1,5 +1,4 @@
 import {screen} from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";

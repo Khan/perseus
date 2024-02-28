@@ -6,7 +6,6 @@ import {
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render, fireEvent, waitFor} from "@testing-library/react";
 import * as React from "react";
-import "@testing-library/jest-dom"; // Imports custom matchers
 
 import {
     testDependencies,

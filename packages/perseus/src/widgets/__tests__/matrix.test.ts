@@ -1,6 +1,5 @@
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -11,7 +10,12 @@ import {renderQuestion} from "./renderQuestion";
 import type {APIOptions} from "../../types";
 
 describe("matrix widget", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -43,7 +47,7 @@ describe("matrix widget", () => {
         expect(container).toMatchSnapshot("first mobile render");
     });
 
-    it("can be answered correctly", () => {
+    it("can be answered correctly", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             isMobile: false,
@@ -52,9 +56,10 @@ describe("matrix widget", () => {
 
         // Act
         const correctAnswers = [5, -2, 1, 1, 1, 1, 7, -3, 3, 0, 0, -2];
-        screen.getAllByRole("textbox").forEach((textbox, index) => {
-            userEvent.paste(textbox, correctAnswers[index].toString());
-        });
+        const textboxes = await screen.findAllByRole("textbox");
+        for (let i = 0; i < textboxes.length; i++) {
+            await userEvent.type(textboxes[i], correctAnswers[i].toString());
+        }
 
         renderer.guessAndScore();
 
@@ -62,7 +67,7 @@ describe("matrix widget", () => {
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("can be answered incorrectly", () => {
+    it("can be answered incorrectly", async () => {
         // Arrange
         const apiOptions: APIOptions = {
             isMobile: false,
@@ -70,9 +75,10 @@ describe("matrix widget", () => {
         const {renderer} = renderQuestion(question1, apiOptions);
 
         // Act
-        screen.getAllByRole("textbox").forEach((textbox, index) => {
-            userEvent.paste(textbox, "1");
-        });
+        const textboxes = await screen.findAllByRole("textbox");
+        for (let i = 0; i < textboxes.length; i++) {
+            await userEvent.type(textboxes[i], "1");
+        }
 
         renderer.guessAndScore();
 

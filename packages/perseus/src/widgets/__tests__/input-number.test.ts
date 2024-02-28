@@ -3,7 +3,7 @@
  */
 import {describe, beforeEach, it} from "@jest/globals";
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -28,41 +28,52 @@ const options: PerseusInputNumberWidgetOptions = {
 };
 
 describe("input-number", function () {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
     describe("full render", function () {
-        it("Shoud accept the right answer", () => {
+        it("Shoud accept the right answer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
 
             // Act
-            userEvent.paste(screen.getByRole("textbox"), "1/2");
+            const textbox = screen.getByRole("textbox");
+            await userEvent.click(textbox);
+            await userEvent.type(textbox, "1/2");
 
             // Assert
             expect(renderer).toHaveBeenAnsweredCorrectly();
         });
 
-        it("should reject an incorrect answer", () => {
+        it("should reject an incorrect answer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
 
             // Act
-            userEvent.paste(screen.getByRole("textbox"), "0.7");
+            const textbox = screen.getByRole("textbox");
+            await userEvent.click(textbox);
+            await userEvent.type(textbox, "0.7");
 
             // Assert
             expect(renderer).toHaveBeenAnsweredIncorrectly();
         });
 
-        it("should refuse to score an incoherent answer", () => {
+        it("should refuse to score an incoherent answer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
 
             // Act
-            userEvent.paste(screen.getByRole("textbox"), "0..7");
+            const textbox = screen.getByRole("textbox");
+            await userEvent.click(textbox);
+            await userEvent.type(textbox, "0..7");
 
             // Assert
             expect(renderer).toHaveInvalidInput();
@@ -185,23 +196,27 @@ describe("input-number", function () {
             "0.56",
         ],
     ])("answer type", (question, correct, incorrect) => {
-        it("Shoud accept the right answer", () => {
+        it("Shoud accept the right answer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
 
             // Act
-            userEvent.paste(screen.getByRole("textbox"), correct);
+            const textbox = screen.getByRole("textbox");
+            await userEvent.click(textbox);
+            await userEvent.type(textbox, correct);
 
             // Assert
             expect(renderer).toHaveBeenAnsweredCorrectly();
         });
 
-        it("should reject an incorrect answer", () => {
+        it("should reject an incorrect answer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question);
 
             // Act
-            userEvent.paste(screen.getByRole("textbox"), incorrect);
+            const textbox = screen.getByRole("textbox");
+            await userEvent.click(textbox);
+            await userEvent.type(textbox, incorrect);
 
             // Assert
             expect(renderer).toHaveBeenAnsweredIncorrectly();

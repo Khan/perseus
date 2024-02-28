@@ -1,7 +1,5 @@
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
-import "@testing-library/jest-dom"; // Imports custom matchers
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -32,15 +30,18 @@ const question = {
 } as const;
 
 describe("Definition widget", () => {
+    let userEvent;
     beforeEach(() => {
-        jest.useRealTimers();
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
 
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("should have a default snapshot", () => {
+    it("should have a default snapshot", async () => {
         // Arrange & Act
         const {container} = renderQuestion(question);
 
@@ -54,10 +55,10 @@ describe("Definition widget", () => {
 
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
-        userEvent.click(definitionAnchor);
+        await userEvent.click(definitionAnchor);
 
         // Assert
-        const tooltip = await screen.findByRole("dialog");
+        const tooltip = screen.getByRole("dialog");
         expect(tooltip).toBeVisible();
         expect(container).toMatchSnapshot("open state");
     });
@@ -68,10 +69,10 @@ describe("Definition widget", () => {
 
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
-        userEvent.click(definitionAnchor);
+        await userEvent.click(definitionAnchor);
 
         // Assert
-        const tooltip = await screen.findByRole("dialog");
+        const tooltip = screen.getByRole("dialog");
         expect(tooltip).toBeVisible();
         expect(tooltip).toHaveTextContent("Definition text");
     });
@@ -82,8 +83,8 @@ describe("Definition widget", () => {
 
         // Act
         const definitionAnchor = screen.getByText("the Pequots");
-        userEvent.click(definitionAnchor);
-        const tooltip = await screen.findByRole("dialog");
+        await userEvent.click(definitionAnchor);
+        const tooltip = screen.getByRole("dialog");
 
         // Assert
         expect(tooltip).toBeVisible();
@@ -96,10 +97,10 @@ describe("Definition widget", () => {
 
         // Act - Tab in to set focus
         const definitionAnchor = screen.getByText("the Pequots");
-        userEvent.type(definitionAnchor, "{space}");
+        await userEvent.type(definitionAnchor, "{space}");
 
         // Assert
-        const tooltip = await screen.findByRole("dialog");
+        const tooltip = screen.getByRole("dialog");
         expect(tooltip).toBeVisible();
         expect(tooltip).toHaveTextContent("Definition text");
     });
@@ -110,11 +111,11 @@ describe("Definition widget", () => {
         // Act
         // Click on the anchor
         const definitionAnchor = screen.getByText("the Pequots");
-        userEvent.click(definitionAnchor);
+        await userEvent.click(definitionAnchor);
 
         // Click close, tooltip is hidden
         const close = screen.getByTestId("popover-close-btn");
-        userEvent.click(close);
+        await userEvent.click(close);
 
         // Assert
         expect(screen.queryByRole("dialog")).toBeNull();

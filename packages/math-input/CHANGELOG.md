@@ -1,5 +1,13 @@
 # @khanacademy/math-input
 
+## 17.2.1
+
+### Patch Changes
+
+-   [#1029](https://github.com/Khan/perseus/pull/1029) [`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @testing-library/user-event v14.
+
+*   [#1012](https://github.com/Khan/perseus/pull/1012) [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix handling of "Fractions" keypad in the keypad tab bar icon component
+
 ## 17.2.0
 
 ### Minor Changes

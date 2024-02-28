@@ -1,15 +1,18 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import PythonProgramEditor, {validateOptions} from "../python-program-editor";
 
 describe("python-program-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -30,7 +33,7 @@ describe("python-program-editor", () => {
             name: "User Program ID:",
         });
 
-        userEvent.type(input, "1");
+        await userEvent.type(input, "1");
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({programID: "1", height: 400}),
@@ -47,7 +50,7 @@ describe("python-program-editor", () => {
             name: "Height:",
         });
 
-        userEvent.type(input, "1");
+        await userEvent.type(input, "1");
 
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({programID: "", height: 4001}),

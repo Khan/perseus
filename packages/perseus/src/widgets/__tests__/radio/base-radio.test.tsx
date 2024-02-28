@@ -1,8 +1,6 @@
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import "@testing-library/jest-dom"; // Imports custom mathers
 
 // eslint-disable-next-line import/no-relative-packages
 import {testDependencies} from "../../../../../../testing/test-dependencies";
@@ -43,7 +41,13 @@ function renderBaseRadio(props) {
 }
 
 describe("base-radio", () => {
+    let userEvent;
+
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         // because choice-none-above uses a Renderer
         // we need to set dependencies when it's rendered
         // (this probably needs to be fixed)
@@ -80,7 +84,7 @@ describe("base-radio", () => {
         expect(screen.getAllByText("None of the above")).toHaveLength(2);
     });
 
-    it("registers as checked when none of the above choice is clicked", () => {
+    it("registers as checked when none of the above choice is clicked", async () => {
         // Arrange
         let updatedValues = null;
         const onChangeHandler = (newValues: {
@@ -110,7 +114,7 @@ describe("base-radio", () => {
         });
 
         // Act
-        userEvent.click(noneOption);
+        await userEvent.click(noneOption);
 
         // Assert
         expect(updatedValues).toMatchObject({
@@ -135,7 +139,7 @@ describe("base-radio", () => {
             expect(screen.getAllByRole("listitem")).toHaveLength(4);
         });
 
-        it("should not toggle choice when inner element clicked", () => {
+        it("should not toggle choice when inner element clicked", async () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
@@ -158,15 +162,17 @@ describe("base-radio", () => {
             });
 
             // Act
-            userEvent.click(
-                screen.getByRole("radio", {name: "(Choice C) Option Gamma"}),
+            await userEvent.click(
+                screen.getByRole("radio", {
+                    name: "(Choice C) Option Gamma",
+                }),
             );
 
             // Assert
             expect(updatedValues).toBeNull();
         });
 
-        it("should toggle choice when choice icon clicked", () => {
+        it("should toggle choice when choice icon clicked", async () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
@@ -189,7 +195,7 @@ describe("base-radio", () => {
             });
 
             // Act
-            userEvent.click(
+            await userEvent.click(
                 screen.getAllByTestId("choice-icon__library-choice-icon")[2],
             );
 
@@ -201,7 +207,7 @@ describe("base-radio", () => {
     });
 
     describe("selecting and deselecting options", () => {
-        it("deselects multi-select choice", () => {
+        it("deselects multi-select choice", async () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
@@ -243,7 +249,7 @@ describe("base-radio", () => {
             const radioButton = screen.getByRole("checkbox", {
                 name: "(Choice C, Checked) Option Gamma",
             });
-            userEvent.click(radioButton);
+            await userEvent.click(radioButton);
 
             // Assert
             expect(updatedValues).toMatchObject({
@@ -252,7 +258,7 @@ describe("base-radio", () => {
         });
 
         // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
-        it("selects single select choice", () => {
+        it("selects single select choice", async () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
@@ -291,8 +297,10 @@ describe("base-radio", () => {
             });
 
             // Act
-            userEvent.click(
-                screen.getByRole("radio", {name: "(Choice C) Option Gamma"}),
+            await userEvent.click(
+                screen.getByRole("radio", {
+                    name: "(Choice C) Option Gamma",
+                }),
             );
 
             // Assert
@@ -301,7 +309,7 @@ describe("base-radio", () => {
             });
         });
 
-        it("deselects single select choice", () => {
+        it("deselects single select choice", async () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
@@ -343,7 +351,7 @@ describe("base-radio", () => {
             const radioButton = screen.getByRole("radio", {
                 name: "(Choice C, Checked) Option Gamma",
             });
-            userEvent.click(radioButton);
+            await userEvent.click(radioButton);
 
             // Assert
             expect(updatedValues).toMatchObject({
@@ -351,7 +359,7 @@ describe("base-radio", () => {
             });
         });
 
-        it("selects multi-select choice", () => {
+        it("selects multi-select choice", async () => {
             // Arrange
             let updatedValues = null;
             const onChangeHandler = (newValues: {
@@ -386,8 +394,10 @@ describe("base-radio", () => {
             });
 
             // Act
-            userEvent.click(
-                screen.getByRole("checkbox", {name: "(Choice C) Option Gamma"}),
+            await userEvent.click(
+                screen.getByRole("checkbox", {
+                    name: "(Choice C) Option Gamma",
+                }),
             );
 
             // Assert

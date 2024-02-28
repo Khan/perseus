@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 19.6.3
+
+### Patch Changes
+
+-   [#1036](https://github.com/Khan/perseus/pull/1036) [`664b037f`](https://github.com/Khan/perseus/commit/664b037fd76e4406f21add1449fc56e90d742148) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add documentation for Widgets type in Renderer
+
+## 19.6.2
+
+### Patch Changes
+
+-   [#1029](https://github.com/Khan/perseus/pull/1029) [`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @testing-library/user-event v14.
+
+-   Updated dependencies [[`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139), [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171)]:
+    -   @khanacademy/math-input@17.2.1
+
 ## 19.6.1
 
 ### Patch Changes

@@ -1,5 +1,3 @@
-import "@testing-library/jest-dom";
-
 import {question1} from "../__testdata__/python-program.testdata";
 
 import {renderQuestion} from "./renderQuestion";
