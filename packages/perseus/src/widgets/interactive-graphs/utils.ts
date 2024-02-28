@@ -43,7 +43,7 @@ export const useEffectAfterFirstRender = (
     }, [fn, ...deps]);
 };
 
-export const snap = (val: number, step: number) => {
+const snap = (val: number, step: number) => {
     const inverse = 1 / step;
     return Math.round(val * inverse) / inverse;
 };
@@ -51,7 +51,7 @@ export const snap = (val: number, step: number) => {
 const clamp = (n: number, min: number, max: number) =>
     Math.max(min, Math.min(max, n));
 
-const constrain = (
+export const constrain = (
     coord: [number, number],
     snapStep: [number, number],
     range: [[number, number], [number, number]],
@@ -74,18 +74,22 @@ export const normalizePoints = (
 ): Array<Coord> =>
     coordsList.map(
         (coords) =>
+            // maps over [x, y]
             coords.map((coord, i) => {
-                const xRange = range[i];
+                const axisRange = range[i];
                 if (noSnap) {
-                    return xRange[0] + (xRange[1] - xRange[0]) * coord;
+                    return axisRange[0] + (axisRange[1] - axisRange[0]) * coord;
                 }
-                const xStep = step[i];
-                const nSteps = Math.floor((xRange[1] - xRange[0]) / xStep);
+                const axisStep = step[i];
+                const nSteps = Math.floor(
+                    (axisRange[1] - axisRange[0]) / axisStep,
+                );
                 const tick = Math.round(coord * nSteps);
-                return xRange[0] + xStep * tick;
+                return axisRange[0] + axisStep * tick;
             }) as Coord,
     );
 
+// same as normalizeCoords in interactive-graph.tsx
 export const normalizeCoords = (
     coordsList: ReadonlyArray<Coord>,
     ranges: PerseusInteractiveGraphWidgetOptions["range"],
