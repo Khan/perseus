@@ -79,8 +79,8 @@
         "lodash.debounce": "^4.0.8",
         "perseus-build-settings": "^0.4.1",
         "prop-types": "15.6.1",
-        "react": "16.14.0",
-        "react-dom": "16.14.0",
+        "react": ">= 18",
+        "react-dom": ">= 18",
         "react-popper": "^2.2.5",
         "underscore": "^1.4.4"
     },
@@ -112,8 +112,6 @@
         "jquery": "^2.1.1",
         "lodash.debounce": "^4.0.8",
         "prop-types": "15.6.1",
-        "react": "16.14.0",
-        "react-dom": "16.14.0",
         "react-popper": "^2.2.5",
         "underscore": "^1.4.4"
     },
