@@ -122,7 +122,6 @@ export const testDependenciesV2: PerseusDependenciesV2 = {
 export const storybookTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestMathjax,
-    // $FlowIgnore[incompatible-type]
     staticUrl: (str) => str,
 };
 
@@ -134,7 +133,6 @@ export const storybookDependenciesV2: PerseusDependenciesV2 = {
 export const cypressTestDependencies: PerseusDependencies = {
     ...testDependencies,
     TeX: TestMathjax,
-    // $FlowIgnore[incompatible-type]
     staticUrl: (str) => str,
 };
 
