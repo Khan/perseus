@@ -26,18 +26,24 @@ class ItemExtrasEditor extends React.Component<Props, State> {
         zTable: false,
     };
 
+    finCalcOptions = [
+        this.props.financialCalculatorMonthlyPayment,
+        this.props.financialCalculatorTotalAmount,
+        this.props.financialCalculatorTimeToPayOff,
+    ];
+
     state = {
-        financialCalculatorOptionsExpanded: false,
+        financialCalculatorOptionsExpanded: this.finCalcOptions.some(
+            (opt) => opt === true,
+        ),
     };
 
-    componentDidUpdate(prevProps: Readonly<Props>): void {
+    componentDidUpdate(): void {
         // If no financial calculator options are checked, uncheck the
         // financial calculator option.
         if (
             this.state.financialCalculatorOptionsExpanded &&
-            !this.props.financialCalculatorMonthlyPayment &&
-            !this.props.financialCalculatorTotalAmount &&
-            !this.props.financialCalculatorTimeToPayOff
+            !this.finCalcOptions.some((option) => option === true)
         ) {
             this.setState({financialCalculatorOptionsExpanded: false});
         }
@@ -76,7 +82,7 @@ class ItemExtrasEditor extends React.Component<Props, State> {
                                     e.target.checked,
                             });
                             // If the financial calculator is unchecked,
-                            // this needs to be reset. All checked by
+                            // these need to be reset. All checked by
                             // default.
                             this.props.onChange({
                                 financialCalculatorMonthlyPayment:
