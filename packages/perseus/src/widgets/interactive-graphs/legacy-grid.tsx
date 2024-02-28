@@ -4,22 +4,19 @@ import * as React from "react";
 import AssetContext from "../../asset-context";
 import {SvgImage} from "../../components";
 import {interactiveSizes} from "../../styles/constants";
-import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 
 import type {PerseusImageBackground} from "../../perseus-types";
-import type {SizeClass} from "../../util/sizing-utils";
 
 /**
- * If a graphie-to-png URL is provided in `backgroundImage`, will return the rendered graphie background.
+ * If a graphie URL is provided in `backgroundImage`, will return the rendered graphie background.
  * Otherwise, returns `null`.
  */
 export const getLegacyGrid = (
-    containerSizeClass: SizeClass,
+    box: [number, number],
     backgroundImage?: PerseusImageBackground,
 ) => {
     const {url, width, height} = backgroundImage ?? {};
     if (url && typeof url === "string") {
-        const box = getInteractiveBoxFromSizeClass(containerSizeClass);
         const scale = box[0] / interactiveSizes.defaultBoxSize;
         return (
             <View

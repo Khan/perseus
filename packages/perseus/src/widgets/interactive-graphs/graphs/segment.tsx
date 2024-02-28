@@ -1,7 +1,6 @@
 import {Line} from "mafs";
 import * as React from "react";
 
-import {Grid} from "../grid";
 import {normalizeCoords, normalizePoints, useInteractivePoint} from "../utils";
 
 import type {Coord} from "../../../interactive2/types";
@@ -59,7 +58,6 @@ export const SegmentGraph = (props: SegmentProps) => {
 
     return (
         <>
-            {!props.usesLegacyGrid && <Grid {...props} />}
             {segments.map((segment, i) => (
                 <Segment
                     key={i}

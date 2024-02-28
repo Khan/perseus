@@ -2,7 +2,10 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
+import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
+
 import {SegmentGraph} from "./graphs";
+import {Grid} from "./grid";
 import {getLegacyGrid} from "./legacy-grid";
 
 import type {
@@ -55,16 +58,16 @@ export const MafsGraph = React.forwardRef<
     // busy state object would be difficult. Plus, it would trigger re-renders.
     React.useImperativeHandle(ref, () => graphRef.current, [graphRef]);
 
-    const legacyGrid = getLegacyGrid(
+    const [width, height] = getInteractiveBoxFromSizeClass(
         props.containerSizeClass,
-        props.backgroundImage,
     );
+    const legacyGrid = getLegacyGrid([width, height], props.backgroundImage);
 
     return (
         <View
             style={{
-                height: props.backgroundImage?.height ?? 400,
-                width: props.backgroundImage?.width ?? 400,
+                width: props.backgroundImage?.width ?? width,
+                height: props.backgroundImage?.height ?? height,
                 position: "relative",
             }}
         >
@@ -84,13 +87,12 @@ export const MafsGraph = React.forwardRef<
                     }}
                     pan={false}
                     zoom={false}
-                    // TODO: verify
-                    width={400}
-                    height={400}
+                    width={width}
+                    height={height}
                 >
+                    {!!legacyGrid && <Grid {...props} />}
                     {renderGraph({
                         ...props,
-                        usesLegacyGrid: !!legacyGrid,
                         onGraphChange: handleGraphUpdate,
                     })}
                 </Mafs>

@@ -14,6 +14,5 @@ export type OnGraphChange<T extends PerseusGraphType> = (
 ) => void;
 
 export type MafsGraphProps<T extends PerseusGraphType> = {
-    usesLegacyGrid?: boolean;
     onGraphChange: OnGraphChange<T>;
 } & Omit<InteractiveGraphProps, "graph"> & {graph: T};

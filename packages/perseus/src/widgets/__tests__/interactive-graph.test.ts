@@ -1,4 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
+import {waitFor} from "@testing-library/react";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -16,7 +17,6 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
-import {waitFor} from "@testing-library/dom";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -110,7 +110,7 @@ describe("interactive-graph widget", function () {
     );
 });
 
-describe.only("segment graph", () => {
+describe("segment graph", () => {
     const apiOptions = {flags: {mafs: {segment: true}}};
 
     it("should render", () => {

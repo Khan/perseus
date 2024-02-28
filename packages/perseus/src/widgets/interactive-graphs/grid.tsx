@@ -1,29 +1,33 @@
 import {Coordinates} from "mafs";
 import * as React from "react";
 
-import type {PerseusImageBackground} from "../../perseus-types";
 import type {SizeClass} from "../../util/sizing-utils";
+
+interface GridProps {
+    step: [number, number];
+    gridStep: [number, number];
+    range: [[number, number], [number, number]];
+    containerSizeClass: SizeClass;
+    markings: "graph" | "grid" | "none";
+}
 
 const renderLineLabel = (n: number, [min, max]: [number, number]) =>
     n !== -1 && n !== min && n !== max;
 
-export const Grid = (props: {
-    step: number[];
-    gridStep: number[];
-    range: [[number, number], [number, number]];
-    backgroundImage?: PerseusImageBackground;
-    containerSizeClass: SizeClass;
-}) => (
-    <Coordinates.Cartesian
-        xAxis={{
-            lines: props.step[0],
-            subdivisions: props.step[0] / props.gridStep[0],
-            labels: (n) => (renderLineLabel(n, props.range[0]) ? n : ""),
-        }}
-        yAxis={{
-            lines: props.step[1],
-            subdivisions: props.step[1] / props.gridStep[1],
-            labels: (n) => (renderLineLabel(n, props.range[1]) ? n : ""),
-        }}
-    />
-);
+const axisOptions = (
+    props: Omit<GridProps, "containerSizeClass">,
+    index: number,
+) => ({
+    axis: props.markings === "graph",
+    lines: props.step[index],
+    subdivisions: props.step[index] / props.gridStep[index],
+    labels: (n: number) => (renderLineLabel(n, props.range[index]) ? n : ""),
+});
+
+export const Grid = (props: GridProps) =>
+    props.markings === "none" ? null : (
+        <Coordinates.Cartesian
+            xAxis={axisOptions(props, 0)}
+            yAxis={axisOptions(props, 1)}
+        />
+    );
