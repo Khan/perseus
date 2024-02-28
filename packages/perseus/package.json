@@ -68,8 +68,8 @@
         "lodash.debounce": "^4.0.8",
         "perseus-build-settings": "^0.3.0",
         "prop-types": "^15.6.1",
-        "react": "16.14.0",
-        "react-dom": "16.14.0",
+        "react": ">= 16.14.0 < 17",
+        "react-dom": ">= 16.14.0 < 17",
         "react-popper": "^2.0.0",
         "underscore": "^1.4.4"
     },
@@ -102,8 +102,8 @@
         "jquery": "^2.1.1",
         "lodash.debounce": "^4.0.8",
         "prop-types": "^15.6.1",
-        "react": "16.14.0",
-        "react-dom": "16.14.0",
+        "react": ">= 16.14.0 < 17",
+        "react-dom": ">= 16.14.0 < 17",
         "react-popper": "^2.0.0",
         "underscore": "^1.4.4"
     },

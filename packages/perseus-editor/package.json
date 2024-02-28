@@ -49,8 +49,8 @@
         "katex": "^0.11.1",
         "perseus-build-settings": "^0.3.0",
         "prop-types": "^15.6.1",
-        "react": "16.14.0",
-        "react-dom": "16.14.0",
+        "react": ">= 16.14.0 < 17",
+        "react-dom": ">= 16.14.0 < 17",
         "underscore": "^1.4.4"
     },
     "peerDependencies": {
@@ -69,8 +69,8 @@
         "create-react-class": "^15.6.3",
         "jquery": "^2.1.1",
         "prop-types": "^15.6.1",
-        "react": "16.14.0",
-        "react-dom": "16.14.0",
+        "react": ">= 16.14.0 < 17",
+        "react-dom": ">= 16.14.0 < 17",
         "underscore": "^1.4.4"
     },
     "keywords": []
