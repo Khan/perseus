@@ -438,7 +438,6 @@ describe("renderer", () => {
             expect(screen.queryAllByRole("img")).toHaveLength(1);
 
             const wrapperStyle = getComputedStyle(
-                // $FlowIgnore[incompatible-call]
                 // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
                 screen.getByAltText("This image has dimensions").parentElement, // eslint-disable-line testing-library/no-node-access
             );
@@ -464,7 +463,6 @@ describe("renderer", () => {
             expect(screen.queryAllByRole("img")).toHaveLength(1);
 
             const wrapperStyle = getComputedStyle(
-                // $FlowIgnore[incompatible-call]
                 // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
                 screen.getByAltText("This image doesn't").parentElement, // eslint-disable-line testing-library/no-node-access
             );
