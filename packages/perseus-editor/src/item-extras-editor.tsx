@@ -26,17 +26,27 @@ class ItemExtrasEditor extends React.Component<Props, State> {
         zTable: false,
     };
 
-    finCalcOptions = [
-        this.props.financialCalculatorMonthlyPayment,
-        this.props.financialCalculatorTotalAmount,
-        this.props.financialCalculatorTimeToPayOff,
-    ];
+    finCalcOptions: Array<boolean> = [];
 
     state = {
-        financialCalculatorOptionsExpanded: this.finCalcOptions.some(
-            (opt) => opt === true,
-        ),
+        financialCalculatorOptionsExpanded: false,
     };
+
+    constructor(props: Props) {
+        super(props);
+
+        this.finCalcOptions = [
+            props.financialCalculatorMonthlyPayment,
+            props.financialCalculatorTotalAmount,
+            props.financialCalculatorTimeToPayOff,
+        ];
+
+        this.state = {
+            financialCalculatorOptionsExpanded: this.finCalcOptions.some(
+                (opt) => opt === true,
+            ),
+        };
+    }
 
     componentDidUpdate(): void {
         // If no financial calculator options are checked, uncheck the
