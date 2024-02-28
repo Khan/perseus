@@ -152,6 +152,7 @@ type Props = {
 };
 
 type DefaultProps = {
+    box: Props["box"];
     labels: Props["labels"];
     range: Props["range"];
     step: Props["step"];
@@ -180,6 +181,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
     static defaultProps: DefaultProps = {
         ...InteractiveGraph.defaultProps,
+        box: [interactiveSizes.defaultBoxSize, interactiveSizes.defaultBoxSize],
         valid: true,
         backgroundImage: defaultBackgroundImage,
         showTooltips: false,
