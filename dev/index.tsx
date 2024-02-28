@@ -1,19 +1,5 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
-<<<<<<< HEAD
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-=======
-import {
-    useUniqueIdWithMock,
-    RenderStateRoot,
-    View,
-} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, MultiSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Spacing from "@khanacademy/wonder-blocks-spacing";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import {css, StyleSheet} from "aphrodite";
->>>>>>> 3ee5b688 (add flags to api options)
 import * as React from "react";
 import {useEffect, useReducer} from "react";
 import {render} from "react-dom";

@@ -1,6 +1,6 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {waitFor} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -18,6 +18,7 @@ import type {Coord} from "../../interactive2/types";
 import type {PerseusRenderer} from "../../perseus-types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     const state = clone(renderer.getSerializedState());
@@ -112,10 +113,16 @@ describe("interactive-graph widget", function () {
 });
 
 describe("segment graph", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
     const apiOptions = {flags: {mafs: {segment: true}}};
 
     it("should render", () => {
-        // Mafs isn't very RTL friendly...
         renderQuestion(segmentQuestion, apiOptions);
     });
 
