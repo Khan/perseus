@@ -17,6 +17,7 @@ import type {
     PerseusGraphType,
     PerseusGraphTypeSegment,
 } from "../../perseus-types";
+import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
 import "mafs/font.css";
@@ -41,7 +42,7 @@ const renderGraph = (props: MafsGraphProps<PerseusGraphType>) => {
 };
 
 export const MafsGraph = React.forwardRef<
-    PerseusGraphType,
+    Partial<Widget>,
     React.PropsWithChildren<InteractiveGraphProps>
 >((props, ref) => {
     // Storing the gradable state in a ref so that it can be updated without
@@ -53,10 +54,9 @@ export const MafsGraph = React.forwardRef<
         graphRef.current = callback(graphRef.current);
     };
 
-    // Exposing the gradable state to the parent. We cannot wrap the parent
-    // in a context, and it is incredibly complex, so using its already very
-    // busy state object would be difficult. Plus, it would trigger re-renders.
-    React.useImperativeHandle(ref, () => graphRef.current, [graphRef]);
+    React.useImperativeHandle(ref, () => ({
+        getUserInput: () => graphRef.current,
+    }));
 
     const [width, height] = getInteractiveBoxFromSizeClass(
         props.containerSizeClass,

@@ -43,6 +43,7 @@ import type {
     PerseusGraphTypeSegment,
     PerseusInteractiveGraphWidgetOptions,
 } from "../perseus-types";
+import type {Widget} from "../renderer";
 import type {PerseusScore, WidgetExports, WidgetProps} from "../types";
 import type {
     QuadraticCoefficient,
@@ -176,7 +177,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         },
     };
 
-    mafsRef = React.createRef<PerseusGraphType>();
+    mafsRef = React.createRef<Widget>();
 
     state: State = {
         shouldShowInstructions: _getShouldShowInstructions(this.props),
@@ -1679,7 +1680,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     };
 
     getUserInput: () => PerseusGraphType = () =>
-        this.mafsRef.current ??
+        this.mafsRef.current?.getUserInput?.() ??
         InteractiveGraph.getUserInputFromProps(this.props);
 
     simpleValidate: (rubric: Rubric) => PerseusScore = (rubric) =>

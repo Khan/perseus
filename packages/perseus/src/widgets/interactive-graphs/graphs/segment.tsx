@@ -1,7 +1,12 @@
 import {Line} from "mafs";
 import * as React from "react";
 
-import {normalizeCoords, normalizePoints, useInteractivePoint} from "../utils";
+import {
+    normalizeCoords,
+    normalizePoints,
+    useEffectAfterFirstRender,
+    useInteractivePoint,
+} from "../utils";
 
 import type {Coord} from "../../../interactive2/types";
 import type {PerseusGraphTypeSegment} from "../../../perseus-types";
@@ -45,16 +50,22 @@ const getSegmentCoords = (
     });
 };
 
+const updateSegmentsArray = (
+    segments: ReadonlyArray<ReadonlyArray<Coord>>,
+    index: number,
+    segment: ReadonlyArray<Coord>,
+) => segments.map((seg: any, i: any) => (index === i ? segment : seg));
+
 export const SegmentGraph = (props: SegmentProps) => {
     const segments = getSegmentCoords(props);
 
-    React.useEffect(() => {
-        // set initial state
+    const handleChange = (i: number, segment: any) =>
         props.onGraphChange((current) => ({
             ...current,
-            coords: segments,
+            coords: current.coords
+                ? updateSegmentsArray(current.coords, i, segment)
+                : updateSegmentsArray(segments, i, segment),
         }));
-    });
 
     return (
         <>
@@ -65,7 +76,7 @@ export const SegmentGraph = (props: SegmentProps) => {
                     segment={segment}
                     snaps={props.snapStep}
                     range={props.range}
-                    onGraphChange={props.onGraphChange}
+                    onChange={handleChange}
                     data-testid={"segment" + i}
                 />
             ))}
@@ -78,28 +89,33 @@ const Segment = (props: {
     segment: ReadonlyArray<Coord>;
     snaps: [number, number];
     range: [[number, number], [number, number]];
-    onGraphChange: SegmentProps["onGraphChange"];
+    onChange: (
+        index: number,
+        coords: [[number, number], [number, number]],
+    ) => void;
 }) => {
     const [start, end] = props.segment;
-    const p1 = useInteractivePoint(start, props.snaps, props.range);
-    const p2 = useInteractivePoint(end, props.snaps, props.range);
+    const {point: pt1, element: el1} = useInteractivePoint(
+        start,
+        props.snaps,
+        props.range,
+    );
+    const {point: pt2, element: el2} = useInteractivePoint(
+        end,
+        props.snaps,
+        props.range,
+    );
 
-    React.useEffect(() => {
-        // update state when points move
-        const segment = [p1.point, p2.point];
-        props.onGraphChange((current) => ({
-            ...current,
-            coords: current.coords
-                ? current.coords.map((c, i) => (i === props.i ? segment : c))
-                : [segment],
-        }));
-    });
+    useEffectAfterFirstRender(
+        () => props.onChange(props.i, [pt1, pt2]),
+        [pt1, pt2],
+    );
 
     return (
         <>
-            <Line.Segment point1={p1.point} point2={p2.point} />
-            {p1.element}
-            {p2.element}
+            <Line.Segment point1={pt1} point2={pt2} />
+            {el1}
+            {el2}
         </>
     );
 };

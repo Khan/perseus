@@ -1,5 +1,6 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {waitFor} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -118,19 +119,53 @@ describe("segment graph", () => {
         renderQuestion(segmentQuestion, apiOptions);
     });
 
-    it("rejects incorrect answer", async () => {
+    it("should reject when has not been interacteracted with", () => {
+        // Arrange
         const {renderer} = renderQuestion(segmentQuestion, apiOptions);
 
+        // Act
+        // no action
+
+        // Assert
+        expect(renderer).toHaveInvalidInput();
+    });
+
+    it("rejects incorrect answer", async () => {
+        // Arrange
+        const {renderer, container} = renderQuestion(
+            segmentQuestion,
+            apiOptions,
+        );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "circle.mafs-movable-point-hitbox",
+        );
+
+        // Act
+        await userEvent.type(movablePoints[0], "{arrowup}{arrowdown}");
+
+        // Assert
         await waitFor(() => {
             expect(renderer).toHaveBeenAnsweredIncorrectly();
         });
     });
 
     it("accepts correct answer", async () => {
-        const {renderer} = renderQuestion(
+        const {renderer, container} = renderQuestion(
             segmentQuestionDefaultCorrect,
             apiOptions,
         );
+
+        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+        const movablePoints = container.querySelectorAll(
+            "circle.mafs-movable-point-hitbox",
+        );
+
+        // Act
+        await userEvent.type(movablePoints[0], "{arrowup}{arrowdown}");
+
+        // Assert
         await waitFor(() => {
             expect(renderer).toHaveBeenAnsweredCorrectly();
         });

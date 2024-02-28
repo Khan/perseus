@@ -1,5 +1,6 @@
 import Color from "@khanacademy/wonder-blocks-color";
 import {useMovablePoint} from "mafs";
+import {useRef, useEffect} from "react";
 
 import type {Coord} from "../../interactive2/types";
 import type {
@@ -8,6 +9,7 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
 } from "../../perseus-types";
 import type {vec} from "mafs";
+import type {DependencyList} from "react";
 
 export const useInteractivePoint = (
     coords: vec.Vector2,
@@ -18,6 +20,28 @@ export const useInteractivePoint = (
         constrain: (coord) => constrain(coord, snaps, range),
         color: Color.blue,
     });
+
+/**
+ * We do not want to call `onGraphChange` until the user
+ * has interacted with the graph. See the test,
+ * "should reject no interaction"
+ */
+export const useEffectAfterFirstRender = (
+    fn: () => void,
+    deps: DependencyList,
+) => {
+    const firstRender = useRef(true);
+
+    useEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false;
+            return;
+        }
+
+        fn();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fn, ...deps]);
+};
 
 export const snap = (val: number, step: number) => {
     const inverse = 1 / step;
