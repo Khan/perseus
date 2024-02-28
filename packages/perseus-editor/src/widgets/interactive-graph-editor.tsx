@@ -114,7 +114,7 @@ type Props = {
      * - grid: shows only the grid lines
      * - none: shows no markings
      */
-    markings: string; // TODO(jeremy)
+    markings: "graph" | "grid" | "none";
     /**
      * Whether to show the protractor on the graph.
      */
