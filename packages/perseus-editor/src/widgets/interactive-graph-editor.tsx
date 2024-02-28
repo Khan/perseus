@@ -121,11 +121,11 @@ type Props = {
     showProtractor: boolean;
     /**
      * Whether to show the ruler on the graph.
-     * Currently only shown in mobile.
      */
     showRuler: boolean;
     /**
      * Whether to show tooltips on the graph.
+     * (Currently not used, but will be in the future.)
      */
     showTooltips: boolean;
     /**
