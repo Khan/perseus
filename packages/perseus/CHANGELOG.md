@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 19.6.3
+
+### Patch Changes
+
+-   [#1036](https://github.com/Khan/perseus/pull/1036) [`664b037f`](https://github.com/Khan/perseus/commit/664b037fd76e4406f21add1449fc56e90d742148) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add documentation for Widgets type in Renderer
+
 ## 19.6.2
 
 ### Patch Changes
