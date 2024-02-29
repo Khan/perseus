@@ -47,17 +47,9 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   ssh-private-key: ${{ secrets.KHAN_ACTIONS_BOT_SSH_PRIVATE_KEY }}
 
-            - name: Build Storybook
-              # Generate a static version of storybook inside "storybook-static/"
-              run: yarn build-storybook
-
-            - name: Deploy to GitHub pages
-              uses: JamesIves/github-pages-deploy-action@v4.5.0
-              with:
-                  # The branch the action should deploy to.
-                  branch: gh-pages
-                  # The folder the action should deploy.
-                  folder: storybook-static
+            - id: deploy-to-gh-pages
+              name: Deploy to GitHub pages
+              uses: ./.github/actions/storybook-to-gh-pages
 
             - name: Create Release Pull Request or Publish to npm
               id: changesets
