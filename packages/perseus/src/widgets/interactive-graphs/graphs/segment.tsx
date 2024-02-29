@@ -60,11 +60,9 @@ export const SegmentGraph = (props: SegmentProps) => {
     const {coords: segments = getDefaultSegments(props)} = props.graph
 
     const handleChange = (i: number) => (segment: ReadonlyArray<Coord>) => {
-        props.onGraphChange((current: PerseusGraphTypeSegment) => ({
-            ...current,
-            coords: current.coords
-                ? updateAtIndex(current.coords, i, segment)
-                : updateAtIndex(segments, i, segment),
+        props.onGraphChange(() => ({
+            ...props.graph,
+            coords: updateAtIndex(segments, i, segment),
         }));
     }
 
