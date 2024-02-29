@@ -64,7 +64,7 @@ function updateAtIndex<T>(
 export const SegmentGraph = (props: SegmentProps) => {
     const {coords: segments = getSegmentCoords(props)} = props.graph
 
-    const handleChange = (i: number, segment: ReadonlyArray<Coord>) => {
+    const handleChange = (i: number) => (segment: ReadonlyArray<Coord>) => {
         props.onGraphChange((current: PerseusGraphTypeSegment) => ({
             ...current,
             coords: current.coords
@@ -78,11 +78,10 @@ export const SegmentGraph = (props: SegmentProps) => {
             {segments.map((segment, i) => (
                 <Segment
                     key={i}
-                    i={i}
                     segment={segment}
                     snaps={props.snapStep}
                     range={props.range}
-                    onChange={handleChange}
+                    onChange={handleChange(i)}
                     data-testid={"segment" + i}
                 />
             ))}
@@ -91,12 +90,10 @@ export const SegmentGraph = (props: SegmentProps) => {
 };
 
 const Segment = (props: {
-    i: number;
     segment: ReadonlyArray<Coord>;
     snaps: [number, number];
     range: [[number, number], [number, number]];
     onChange: (
-        index: number,
         coords: [[number, number], [number, number]],
     ) => void;
 }) => {
@@ -118,7 +115,7 @@ const Segment = (props: {
             shiftBy,
             constrainToGrid,
         );
-        props.onChange(props.i, [newPt1, newPt2]);
+        props.onChange([newPt1, newPt2]);
     }
 
     const midpoint = vec.midpoint(pt1, pt2);
@@ -135,14 +132,14 @@ const Segment = (props: {
                 point={pt1}
                 color={Color.blue}
                 onMove={(newPoint) =>
-                    props.onChange(props.i, [constrainToGrid(newPoint, pt1, pt2), pt2])
+                    props.onChange([constrainToGrid(newPoint, pt1, pt2), pt2])
                 }
             />
             <MovablePoint
                 point={pt2}
                 color={Color.blue}
                 onMove={(newPoint) =>
-                    props.onChange(props.i, [pt1, constrainToGrid(newPoint, pt2, pt1)])
+                    props.onChange([pt1, constrainToGrid(newPoint, pt2, pt1)])
                 }
             />
         </>
