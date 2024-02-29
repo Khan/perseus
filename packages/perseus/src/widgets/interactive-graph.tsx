@@ -1691,14 +1691,27 @@ class InteractiveGraph extends React.Component<Props, State> {
     // const segment: boolean = useFeatureIsOn("mafs-segment-graph");
     // <Renderer apiOptions={{flags: {mafs: {segment}}}}
     render(): React.ReactNode {
-        // Mafs shim
-        if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
-            return <MafsGraph {...this.props} ref={this.mafsRef} />;
-        }
-
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
         );
+        const gridStep =
+            this.props.gridStep ||
+            Util.getGridStep(this.props.range, this.props.step, box[0]);
+        const snapStep =
+            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+
+        // Mafs shim
+        if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
+            return (
+                <MafsGraph
+                    {...this.props}
+                    ref={this.mafsRef}
+                    gridStep={gridStep}
+                    snapStep={snapStep}
+                    box={box}
+                />
+            );
+        }
 
         let instructions;
         // isClickToAddPoints() only applies to points and polygons
@@ -1716,12 +1729,6 @@ class InteractiveGraph extends React.Component<Props, State> {
         if (this.isClickToAddPoints()) {
             onMouseDown = this.handleAddPointsMouseDown;
         }
-
-        const gridStep =
-            this.props.gridStep ||
-            Util.getGridStep(this.props.range, this.props.step, box[0]);
-        const snapStep =
-            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
         const isMobile = this.props.apiOptions.isMobile;
 

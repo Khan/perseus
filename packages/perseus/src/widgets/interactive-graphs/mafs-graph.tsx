@@ -2,8 +2,6 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Mafs} from "mafs";
 import * as React from "react";
 
-import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
-
 import {SegmentGraph} from "./graphs";
 import {Grid} from "./grid";
 import {getLegacyGrid} from "./legacy-grid";
@@ -41,7 +39,7 @@ const renderGraph = (props: MafsGraphProps<PerseusGraphType>) => {
 
 export const MafsGraph = React.forwardRef<
     Partial<Widget>,
-    React.PropsWithChildren<InteractiveGraphProps>
+    React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
 >((props, ref) => {
     // Storing the gradable state in a ref so that it can be updated without
     // causing a re-render.
@@ -56,9 +54,7 @@ export const MafsGraph = React.forwardRef<
         getUserInput: () => graphRef.current,
     }));
 
-    const [width, height] = getInteractiveBoxFromSizeClass(
-        props.containerSizeClass,
-    );
+    const [width, height] = props.box;
     const legacyGrid = getLegacyGrid([width, height], props.backgroundImage);
 
     return (
@@ -88,7 +84,7 @@ export const MafsGraph = React.forwardRef<
                     width={width}
                     height={height}
                 >
-                    {!!legacyGrid && <Grid {...props} />}
+                    {!legacyGrid && <Grid {...props} />}
                     {renderGraph({
                         ...props,
                         onGraphChange: handleGraphUpdate,
