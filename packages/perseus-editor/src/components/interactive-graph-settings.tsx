@@ -1,4 +1,7 @@
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
+/**
+ * Used in the editor for the InteractiveGraph widget.
+ */
 import {components, Changeable, Util, SizingUtils} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";

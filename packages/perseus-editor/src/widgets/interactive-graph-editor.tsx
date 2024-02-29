@@ -27,7 +27,6 @@ import type {
 import type {PropsFor, StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
-const {containerSizeClass} = SizingUtils;
 const DeprecationMixin = Util.DeprecationMixin;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
@@ -94,10 +93,6 @@ type Props = {
      * How far apart the snap-to points are in the x and y directions.
      */
     snapStep: [x: number, y: number];
-    /**
-     * The size of the graph in pixels.
-     */
-    box: [x: number, y: number];
 
     /**
      * An error message to display in the graph area, or true if the
@@ -137,7 +132,10 @@ type Props = {
      */
     rulerTicks: number;
     /**
-     * The current correct answer for the graph. This is not an interactive
+     * The current correct answer for the graph. Updated by this component
+     * when the graph is changed.
+     *
+     * Note that the "Correct answer:" textbox is not an interactive
      * element. Instead, it is a representation of the correct answer based
      * on the state of the interactive graph previewed at the bottom of the
      * editor page.
@@ -152,7 +150,6 @@ type Props = {
 };
 
 type DefaultProps = {
-    box: Props["box"];
     labels: Props["labels"];
     range: Props["range"];
     step: Props["step"];
@@ -181,7 +178,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
     static defaultProps: DefaultProps = {
         ...InteractiveGraph.defaultProps,
-        box: [interactiveSizes.defaultBoxSize, interactiveSizes.defaultBoxSize],
         valid: true,
         backgroundImage: defaultBackgroundImage,
         showTooltips: false,
@@ -208,17 +204,15 @@ class InteractiveGraphEditor extends React.Component<Props> {
             Util.getGridStep(
                 this.props.range,
                 this.props.step,
-                interactiveSizes.defaultBoxSize,
+                interactiveSizes.defaultBoxSizeSmall,
             );
         const snapStep =
             this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
-        const sizeClass = containerSizeClass.SMALL;
         if (this.props.valid === true) {
             // TODO(aria): send these down all at once
             const graphProps = {
                 ref: "graph",
-                box: this.props.box,
                 range: this.props.range,
                 labels: this.props.labels,
                 step: this.props.step,
@@ -252,7 +246,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // @ts-expect-error - TS2769 - No overload matches this call.
                 <InteractiveGraph
                     {...graphProps}
-                    containerSizeClass={sizeClass}
                     apiOptions={{
                         ...this.props.apiOptions,
                         isMobile: false,

@@ -30,7 +30,10 @@ import {
 } from "../util/geometry";
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
-import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
+import {
+    containerSizeClass,
+    getInteractiveBoxFromSizeClass,
+} from "../util/sizing-utils";
 
 import type {Coord} from "../interactive2/types";
 import type {
@@ -200,8 +203,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         if (
             this.props.backgroundImage?.url !==
                 nextProps.backgroundImage?.url ||
-            this.props.backgroundImage !== nextProps.backgroundImage ||
-            this.props.containerSizeClass !== nextProps.containerSizeClass
+            this.props.backgroundImage !== nextProps.backgroundImage
         ) {
             this.shouldResetGraphie = true;
         }
@@ -1683,9 +1685,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     focus: () => void = $.noop;
 
     render(): React.ReactNode {
-        const box = getInteractiveBoxFromSizeClass(
-            this.props.containerSizeClass,
-        );
+        const box = getInteractiveBoxFromSizeClass(containerSizeClass.SMALL);
 
         let instructions;
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
