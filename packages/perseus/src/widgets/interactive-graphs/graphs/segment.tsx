@@ -1,7 +1,8 @@
-import {Line} from "mafs";
+import {Line, MovablePoint, vec} from "mafs";
 import * as React from "react";
 
 import {
+    constrain,
     normalizeCoords,
     normalizePoints,
     useEffectAfterFirstRender,
@@ -11,6 +12,7 @@ import {
 import type {Coord} from "../../../interactive2/types";
 import type {PerseusGraphTypeSegment} from "../../../perseus-types";
 import type {MafsGraphProps} from "../types";
+import Color from "@khanacademy/wonder-blocks-color";
 
 export type SegmentProps = MafsGraphProps<PerseusGraphTypeSegment>;
 
@@ -95,27 +97,40 @@ const Segment = (props: {
     ) => void;
 }) => {
     const [start, end] = props.segment;
-    const {point: pt1, element: el1} = useInteractivePoint(
+    const {point: pt1, element: el1, setPoint: setPoint1} = useInteractivePoint(
         start,
         props.snaps,
         props.range,
     );
-    const {point: pt2, element: el2} = useInteractivePoint(
+    const {point: pt2, element: el2, setPoint: setPoint2} = useInteractivePoint(
         end,
         props.snaps,
         props.range,
     );
+
+    function shiftSegment(shiftBy: vec.Vector2) {
+        const [newPt1, newPt2] = shiftEndpoints(pt1, pt2, shiftBy, (coord) => constrain(coord, props.snaps, props.range))
+        setPoint1(newPt1)
+        setPoint2(newPt2)
+    }
 
     useEffectAfterFirstRender(
         () => props.onChange(props.i, [pt1, pt2]),
         [pt1, pt2],
     );
 
+    const midpoint = vec.midpoint(pt1, pt2)
+
     return (
         <>
             <Line.Segment point1={pt1} point2={pt2} />
+            <MovablePoint point={midpoint} color={Color.blue} onMove={(newPoint) => shiftSegment(vec.sub(newPoint, midpoint))}/>
             {el1}
             {el2}
         </>
     );
 };
+
+function shiftEndpoints(start: Coord, end: Coord, shiftBy: vec.Vector2, constrainPoint: (point: Coord) => Coord) {
+    return [constrainPoint(vec.add(start, shiftBy)), constrainPoint(vec.add(end, shiftBy))]
+}
