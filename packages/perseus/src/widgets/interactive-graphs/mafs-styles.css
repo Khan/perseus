@@ -1,0 +1,14 @@
+/**
+ * Overrides of mafs styles-- we will want to move this into JS land
+ * to take advantage of WB tokens, but I cannot get that to work at the moment
+ */
+.MafsView {
+    --mafs-bg: transparent;
+    --mafs-fg: #21242c; /* WB color.offBlack */
+
+    --mafs-blue: #1865f2; /* WB color.blue */
+    --mafs-red: #d92916; /* WB color.red */
+    --mafs-green: #00a60e; /* WB color.green */
+    --mafs-violet: #9059ff; /* WB color.purple */
+    --mafs-yellow: #ffb100; /* WB color.gold */
+}
