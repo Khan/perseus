@@ -113,8 +113,10 @@ const Segment = (props: {
         () => [pt1]
     );
 
+    const constrainToGrid = (coord) => constrain(coord, props.snaps, props.range)
+
     function shiftSegment(shiftBy: vec.Vector2) {
-        const [newPt1, newPt2] = shiftEndpoints(pt1, pt2, shiftBy, (coord) => constrain(coord, props.snaps, props.range))
+        const [newPt1, newPt2] = shiftEndpoints(pt1, pt2, shiftBy, constrainToGrid)
         setPoint1(newPt1)
         setPoint2(newPt2)
     }
@@ -130,8 +132,8 @@ const Segment = (props: {
         <>
             <Line.Segment point1={pt1} point2={pt2} />
             <MovablePoint point={midpoint} color={Color.blue} onMove={(newPoint) => shiftSegment(vec.sub(newPoint, midpoint))}/>
-            {el1}
-            {el2}
+            <MovablePoint point={pt1} color={Color.blue} onMove={(newPoint) => setPoint1(constrainToGrid(newPoint))}/>
+            <MovablePoint point={pt2} color={Color.blue} onMove={(newPoint) => setPoint2(constrainToGrid(newPoint))}/>
         </>
     );
 };
