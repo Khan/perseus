@@ -88,4 +88,31 @@ describe("ItemExtrasEditor", () => {
             financialCalculatorTimeToPayOff: true,
         });
     });
+
+    it("when fin calc option checked, should render with expanded options and expected option checked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ItemExtrasEditor
+                onChange={onChangeMock}
+                financialCalculatorMonthlyPayment={true}
+            />,
+        );
+        const checkbox = screen.getByLabelText("Show financial calculator:");
+        const monthlyPaymentCheckbox = screen.getByLabelText(
+            "Include monthly payment:",
+        );
+        const totalAmountCheckbox = screen.getByLabelText(
+            "Include total amount:",
+        );
+        const timeToPayOffCheckbox = screen.getByLabelText(
+            "Include time-to-pay-off:",
+        );
+
+        // Assert
+        expect(checkbox).toBeChecked();
+        expect(monthlyPaymentCheckbox).toBeChecked();
+        expect(totalAmountCheckbox).not.toBeChecked();
+        expect(timeToPayOffCheckbox).not.toBeChecked();
+    });
 });

@@ -98,14 +98,14 @@ function QuestionRenderer({question, apiOptions = {}}: QuestionRendererProps) {
                 images={question.images}
                 widgets={question.widgets}
                 problemNum={0}
-                apiOptions={apiOptions}
+                apiOptions={{...apiOptions, flags: {mafs: false}}}
             />
             <Renderer
                 content={question.content}
                 images={question.images}
                 widgets={question.widgets}
                 problemNum={0}
-                apiOptions={apiOptions}
+                apiOptions={{...apiOptions, flags: {mafs: {segment: true}}}}
             />
         </div>
     );

@@ -480,6 +480,57 @@ export const segmentQuestion: PerseusRenderer = {
     },
 };
 
+export const segmentQuestionDefaultCorrect: PerseusRenderer = {
+    content:
+        "Line segment $\\overline{OG}$ is rotated $180^\\circ$ about the point $(-2,4)$.  \n\n**Draw the image of this rotation using the interactive graph.**\n\n*The direction of a rotation by a positive angle is counter-clockwise.* \n\n[[☃ interactive-graph 1]]\n\n",
+    images: {},
+    widgets: {
+        "interactive-graph 1": {
+            graded: true,
+            options: {
+                backgroundImage: {
+                    bottom: 0,
+                    height: 425,
+                    left: 0,
+                    scale: 1,
+                    url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/567155d84afcfa01baf0a44afd994fce3df17b5c",
+                    width: 425,
+                },
+                correct: {
+                    coords: [
+                        [
+                            [-5, 5],
+                            [5, 5],
+                        ],
+                    ],
+                    type: "segment",
+                },
+                graph: {
+                    type: "segment",
+                },
+                gridStep: [1, 1],
+                labels: ["x", "y"],
+                markings: "none",
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                rulerLabel: "",
+                rulerTicks: 10,
+                showProtractor: false,
+                showRuler: false,
+                snapStep: [0.5, 0.5],
+                step: [1, 1],
+            },
+            type: "interactive-graph",
+            version: {
+                major: 0,
+                minor: 0,
+            },
+        },
+    },
+};
+
 export const sinusoidQuestion: PerseusRenderer = {
     content:
         "**Graph $h(x)=3\\sin(2x-\\pi)+2$ in the interactive widget.**  \n*Note that one moveable point always defines an extremum point in the graph and the other point always defines a neighbouring intersection with the midline.*\n\n[[☃ interactive-graph 1]]",
@@ -547,9 +598,6 @@ export const questionsAndAnswers: ReadonlyArray<
             [1.5, 2],
         ],
         [
-            // [1, 2],
-            // [1, 3],
-            // [3, 3],
             [5.0, 2],
             [1.5, 5],
             [1.5, 2],

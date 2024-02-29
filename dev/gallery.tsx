@@ -1,5 +1,6 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
 import {useUniqueIdWithMock, View} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, MultiSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
 import Switch from "@khanacademy/wonder-blocks-switch";
@@ -77,6 +78,12 @@ export function Gallery() {
     const ids = useUniqueIdWithMock();
 
     const [isMobile, setIsMobile] = useState(false);
+    const [mafsFlags, setMafsFlags] = useState<Array<string>>([]);
+
+    const mafsFlagsObject = mafsFlags.reduce((acc, flag) => {
+        acc[flag] = true;
+        return acc;
+    }, {});
 
     return (
         <View className={css(styles.page)}>
@@ -89,6 +96,12 @@ export function Gallery() {
                 <Strut size={Spacing.xSmall_8} />
                 <label htmlFor={ids.get("mobile")}>Mobile</label>
                 <Strut size={Spacing.medium_16} />
+                <MultiSelect onChange={setMafsFlags} selectedValues={mafsFlags}>
+                    <OptionItem value="segment" label="Segment" />
+                    <OptionItem value="linear" label="Linear" />
+                    <OptionItem value="point" label="Point" />
+                </MultiSelect>
+                <Strut size={Spacing.medium_16} />
                 <nav>
                     <a href="#flipbook">Flipbook</a>
                 </nav>
@@ -99,7 +112,10 @@ export function Gallery() {
                         <QuestionRenderer
                             key={i}
                             question={question}
-                            apiOptions={{isMobile}}
+                            apiOptions={{
+                                isMobile,
+                                flags: {mafs: mafsFlagsObject},
+                            }}
                         />
                     ))}
                 </View>
