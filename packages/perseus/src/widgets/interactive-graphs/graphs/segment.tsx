@@ -17,14 +17,9 @@ import type {MafsGraphProps} from "../types";
 
 export type SegmentProps = MafsGraphProps<PerseusGraphTypeSegment>;
 
-const getSegmentCoords = (
+const getDefaultSegments = (
     props: SegmentProps,
 ): ReadonlyArray<ReadonlyArray<Coord>> => {
-    const coords = props.graph.coords;
-    if (coords) {
-        return coords;
-    }
-
     const ys = (n?: number) => {
         switch (n) {
             case 2:
@@ -62,7 +57,7 @@ function updateAtIndex<T>(
 }
 
 export const SegmentGraph = (props: SegmentProps) => {
-    const {coords: segments = getSegmentCoords(props)} = props.graph
+    const {coords: segments = getDefaultSegments(props)} = props.graph
 
     const handleChange = (i: number) => (segment: ReadonlyArray<Coord>) => {
         props.onGraphChange((current: PerseusGraphTypeSegment) => ({
