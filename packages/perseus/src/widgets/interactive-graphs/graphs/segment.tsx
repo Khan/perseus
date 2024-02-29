@@ -1,5 +1,6 @@
 import {Line, MovablePoint, vec} from "mafs";
 import * as React from "react";
+import {vector as kvector} from "../../../../../kmath"
 
 import {
     constrain,
@@ -131,6 +132,11 @@ const Segment = (props: {
     );
 };
 
-function shiftEndpoints(start: Coord, end: Coord, shiftBy: vec.Vector2, constrainPoint: (point: Coord) => Coord) {
-    return [constrainPoint(vec.add(start, shiftBy)), constrainPoint(vec.add(end, shiftBy))]
+export function shiftEndpoints(start: Coord, end: Coord, shiftBy: vec.Vector2, constrainPoint: (point: Coord) => Coord) {
+    let newStart = constrainPoint(vec.add(start, shiftBy));
+    let newEnd = constrainPoint(vec.add(end, shiftBy));
+    if (!kvector.equal(vec.sub(end, start), vec.sub(newEnd, newStart))) {
+        return [start, end]
+    }
+    return [newStart, newEnd]
 }
