@@ -1,128 +1,114 @@
+import {render, screen} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-import ReactDOM from "react-dom";
-import TestUtils from "react-dom/test-utils";
-import _ from "underscore";
 
 import NumberInput from "../number-input";
+
+import type {UserEvent} from "@testing-library/user-event";
 
 const STARTING_VALUE = 1;
 
 describe("NumberInput", function () {
-    const testInputResult = function (
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    const testInputResult = async function (
         input: string,
         result: number,
-        extraProps:
-            | undefined
-            | {
-                  placeholder: number;
-              },
+        extraProps?: {placeholder: number},
     ) {
-        let newVal;
-        const handleChange = function (val: any) {
-            newVal = val;
-        };
+        const onChange = jest.fn();
 
-        const props = _.extend(
-            {
-                value: STARTING_VALUE,
-                onChange: handleChange,
-            },
-            extraProps,
-        );
-
-        const node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
-        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'Element | Component<any, {}, any>'. | TS2345 - Argument of type 'void' is not assignable to parameter of type 'ReactInstance | null | undefined'.
-        TestUtils.Simulate.change(ReactDOM.findDOMNode(node), {
-            target: {value: input},
-        });
-        expect(newVal).toEqual(result);
-    };
-
-    it("basic input", function () {
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-        testInputResult("42", 42);
-    });
-
-    it("invalid input does not change", function () {
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-        testInputResult("asdf", STARTING_VALUE);
-    });
-
-    it("should use placeholder value if blank and has placeholder", () => {
-        testInputResult("", 15, {
-            placeholder: 15,
-        });
-    });
-
-    const testArrowKeys = function (args: {
-        endingValue: number;
-        key: string;
-        keysEnabled: boolean;
-        startingValue: number;
-    }) {
-        const key = args.key;
-        const startingValue = args.startingValue;
-        const endingValue = args.endingValue;
-        const keysEnabled = args.keysEnabled;
-
-        let newVal = startingValue;
-        const handleChange = function (val) {
-            newVal = val;
-        };
-
-        const node = TestUtils.renderIntoDocument(
+        render(
             <NumberInput
-                value={startingValue}
-                // eslint-disable-next-line react/jsx-no-bind
-                onChange={handleChange}
-                useArrowKeys={keysEnabled}
+                value={STARTING_VALUE}
+                onChange={onChange}
+                {...extraProps}
             />,
         );
-        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null' is not assignable to parameter of type 'Element | Component<any, {}, any>'. | TS2345 - Argument of type 'void' is not assignable to parameter of type 'ReactInstance | null | undefined'.
-        TestUtils.Simulate.keyDown(ReactDOM.findDOMNode(node), {key: key});
-        expect(newVal).toEqual(endingValue);
+
+        await userEvent.clear(screen.getByRole("textbox"));
+        await userEvent.paste(input);
+
+        expect(onChange).toHaveBeenCalledWith(result);
     };
 
-    it("should let you increment with the arrow keys", function () {
-        testArrowKeys({
-            key: "ArrowUp",
-            startingValue: 0,
-            endingValue: 1,
-            keysEnabled: true,
-        });
+    it("basic input", async function () {
+        await testInputResult("42", 42);
     });
 
-    it("should let you decrement with the arrow keys", function () {
-        testArrowKeys({
-            key: "ArrowDown",
-            startingValue: 0,
-            endingValue: -1,
-            keysEnabled: true,
-        });
+    it("invalid input does not change", async function () {
+        await testInputResult("asdf", STARTING_VALUE);
     });
 
-    it("does not increment and decrement non-integers", function () {
-        testArrowKeys({
-            key: "ArrowDown",
-            startingValue: 1 / 2,
-            endingValue: 1 / 2,
-            keysEnabled: true,
-        });
-
-        testArrowKeys({
-            key: "ArrowUp",
-            startingValue: 0.5,
-            endingValue: 0.5,
-            keysEnabled: true,
-        });
+    it("should use placeholder value if blank and has placeholder", async function () {
+        await testInputResult("", 15, {placeholder: 15});
     });
 
-    it("shouldn't increment when the arrow keys are disabled", function () {
-        testArrowKeys({
-            key: "ArrowUp",
-            startingValue: 0,
-            endingValue: 0,
-            keysEnabled: false,
-        });
+    it("should let you increment with the arrow keys", async function () {
+        const onChange = jest.fn();
+        render(
+            <NumberInput value={0} onChange={onChange} useArrowKeys={true} />,
+        );
+
+        await userEvent.type(screen.getByRole("textbox"), "{arrowup}");
+
+        expect(onChange).toHaveBeenCalledWith(1);
+    });
+
+    it("should let you decrement with the arrow keys", async function () {
+        const onChange = jest.fn();
+        render(
+            <NumberInput value={0} onChange={onChange} useArrowKeys={true} />,
+        );
+
+        await userEvent.type(screen.getByRole("textbox"), "{arrowdown}");
+
+        expect(onChange).toHaveBeenCalledWith(-1);
+    });
+
+    it("does not increment non-integers", async function () {
+        const onChange = jest.fn();
+        render(
+            <NumberInput
+                value={1 / 2}
+                onChange={onChange}
+                useArrowKeys={true}
+            />,
+        );
+
+        await userEvent.type(screen.getByRole("textbox"), "{arrowdown}");
+
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it("does not decrement non-integers", async function () {
+        const onChange = jest.fn();
+        render(
+            <NumberInput
+                value={1 / 2}
+                onChange={onChange}
+                useArrowKeys={true}
+            />,
+        );
+
+        await userEvent.type(screen.getByRole("textbox"), "{arrow}");
+
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it("shouldn't increment when the arrow keys are disabled", async function () {
+        const onChange = jest.fn();
+        render(
+            <NumberInput value={0} onChange={onChange} useArrowKeys={false} />,
+        );
+
+        await userEvent.type(screen.getByRole("textbox"), "{arrowdown}");
+
+        expect(onChange).not.toHaveBeenCalled();
     });
 });
