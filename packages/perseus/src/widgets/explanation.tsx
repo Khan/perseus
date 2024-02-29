@@ -1,7 +1,9 @@
 /* eslint-disable react/sort-comp */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
+import Button from "@khanacademy/wonder-blocks-button";
+import {UniqueIDProvider} from "@khanacademy/wonder-blocks-core";
+import caretDown from "@phosphor-icons/core/assets/regular/caret-down.svg";
+import caretUp from "@phosphor-icons/core/assets/regular/caret-up.svg";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -31,6 +33,10 @@ type DefaultProps = {
     explanation: Props["explanation"];
     widgets: Props["widgets"];
     linterContext: Props["linterContext"];
+};
+
+type PromptProps = {
+    contentId: string;
 };
 
 type State = {
@@ -77,7 +83,7 @@ class Explanation extends React.Component<Props, State> {
             ? this.props.hidePrompt
             : this.props.showPrompt;
 
-        let promptContainer: React.ReactNode;
+        let promptContainer: (props: PromptProps) => React.ReactNode;
 
         // TODO(diedra): This isn't a valid href;
         // change this to a button that looks like a link.
@@ -85,7 +91,7 @@ class Explanation extends React.Component<Props, State> {
         const onClick = this._onClick;
 
         if (isMobile) {
-            promptContainer = (
+            promptContainer = ({contentId}) => (
                 <div className={css(styles.linkContainer)}>
                     <a
                         className={css(styles.mobileExplanationLink)}
@@ -93,6 +99,7 @@ class Explanation extends React.Component<Props, State> {
                         onClick={onClick}
                         role="button"
                         aria-expanded={this.state.expanded}
+                        aria-controls={contentId}
                     >
                         {promptText}
                     </a>
@@ -111,16 +118,21 @@ class Explanation extends React.Component<Props, State> {
                 </div>
             );
         } else {
-            const viewStyling = isArticle
-                ? [styles.explanationLink, styles.articleLink]
-                : [styles.explanationLink, styles.exerciseLink];
-            promptContainer = (
-                <Clickable
-                    onClick={onClick}
+            // const viewStyling = isArticle
+            //     ? [styles.explanationLink, styles.articleLink]
+            //     : [styles.explanationLink, styles.exerciseLink];
+            const caretIcon = this.state.expanded ? caretUp : caretDown;
+            promptContainer = ({contentId}) => (
+                <Button
                     aria-expanded={this.state.expanded}
+                    aria-controls={contentId}
+                    endIcon={caretIcon}
+                    kind="tertiary"
+                    onClick={onClick}
+                    size="medium"
                 >
-                    {() => <View style={viewStyling}>{`[${promptText}]`}</View>}
-                </Clickable>
+                    {promptText}
+                </Button>
             );
         }
 
@@ -129,27 +141,36 @@ class Explanation extends React.Component<Props, State> {
             : styles.contentExpanded;
 
         return (
-            <div className={css(styles.container)}>
-                {promptContainer}
-                {/*{this.state.expanded && (*/}
-                <div
-                    className={css(
-                        styles.content,
-                        isMobile && styles.contentMobile,
-                        this.state.expanded && expandedStyle,
-                    )}
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="content"
-                >
-                    <Renderer
-                        apiOptions={this.props.apiOptions}
-                        content={this.props.explanation}
-                        widgets={this.props.widgets}
-                        linterContext={this.props.linterContext}
-                    />
-                </div>
-                {/*)}*/}
-            </div>
+            <UniqueIDProvider
+                mockOnFirstRender={false}
+                scope="explanation-widget"
+            >
+                {(ids) => (
+                    <div className={css(styles.container)}>
+                        {promptContainer({contentId: ids.get("content")})}
+                        <div
+                            className={css(
+                                styles.content,
+                                isMobile && styles.contentMobile,
+                                this.state.expanded && expandedStyle,
+                            )}
+                            aria-hidden={!this.state.expanded}
+                        >
+                            <div
+                                id={ids.get("content")}
+                                className={css(styles.explanationContent)}
+                            >
+                                <Renderer
+                                    apiOptions={this.props.apiOptions}
+                                    content={this.props.explanation}
+                                    widgets={this.props.widgets}
+                                    linterContext={this.props.linterContext}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </UniqueIDProvider>
         );
     }
 
@@ -284,6 +305,10 @@ const styles = StyleSheet.create({
         marginLeft: -(arrowWidth / 2),
         position: "absolute",
         width: arrowWidth,
+    },
+
+    explanationContent: {
+        overflow: "hidden",
     },
 });
 
