@@ -58,7 +58,7 @@ export const constrain = (
     coord: [number, number],
     snapStep: [number, number],
     range: [[number, number], [number, number]],
-    pointBeforeMove: () => [number, number],
+    pointBeforeMove?: () => [number, number],
     bannedCoords?: () => vec.Vector2[]
 ): [number, number] => {
     const [x, y] = coord;
@@ -71,7 +71,7 @@ export const constrain = (
         newX,
         newY,
     ] as Coord;
-    if (banned.some(coord => kvector.equal(coord, snapped))) {
+    if (banned.some(coord => kvector.equal(coord, snapped)) && pointBeforeMove) {
         return pointBeforeMove()
     }
     return snapped
