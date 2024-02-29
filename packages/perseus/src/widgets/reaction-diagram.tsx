@@ -9,7 +9,12 @@ import type {
 } from "../perseus-types";
 import type {WidgetExports} from "../types";
 
-class Separator extends React.Component<PerseusReactionDiagramSeparators> {
+type SeparatorProps = {
+    data: PerseusReactionDiagramSeparators;
+    index: number;
+};
+
+class Separator extends React.Component<SeparatorProps> {
     arrowLength = 100;
 
     componentDidMount() {
@@ -122,7 +127,7 @@ class ReactionDiagramWidget extends React.Component<ReactionDiagramProps> {
                             />
                             {i === this.props.smiles.length - 1 ? null : (
                                 <Separator
-                                    data={this.props.separators[i].data}
+                                    data={this.props.separators[i]}
                                     index={i}
                                 />
                             )}

@@ -264,7 +264,7 @@ export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMolecule
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
 // prettier-ignore
-export type ReactionDiagramWidget = Widget<'reaction-diagtram', PerseusReactionDiagramWidgetOptions>;
+export type ReactionDiagramWidget = Widget<'reaction-diagram', PerseusReactionDiagramWidgetOptions>;
 // prettier-ignore
 export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
@@ -1473,8 +1473,9 @@ export type PerseusReactionDiagramWidgetOptions = {
 };
 
 export type PerseusReactionDiagramSeparators = {
-    data: PerseusReactionDiagramSeparatorsData;
-    index: number;
+    type: string;
+    topText: string;
+    bottomText: string;
 };
 
 export type PerseusReactionDiagramSeparatorsData = {
