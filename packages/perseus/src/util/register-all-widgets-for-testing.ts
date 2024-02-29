@@ -8,6 +8,5 @@ import * as Widgets from "../widgets";
 
 export const registerAllWidgetsForTesting = () => {
     Widgets.registerWidgets(allWidgets);
-
-    Widgets.replaceWidget("transformer", "deprecated-standin");
+    Widgets.replaceDeprecatedWidgets();
 };

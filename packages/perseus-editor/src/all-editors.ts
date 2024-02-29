@@ -17,7 +17,6 @@ import InputNumberEditor from "./widgets/input-number-editor";
 import InteractionEditor from "./widgets/interaction-editor";
 import InteractiveGraphEditor from "./widgets/interactive-graph-editor";
 import LabelImageEditor from "./widgets/label-image-editor";
-import LightsPuzzleEditor from "./widgets/lights-puzzle-editor";
 import MatcherEditor from "./widgets/matcher-editor";
 import MatrixEditor from "./widgets/matrix-editor";
 import MeasurerEditor from "./widgets/measurer-editor";
@@ -32,7 +31,6 @@ import PlotterEditor from "./widgets/plotter-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
 import RadioEditor from "./widgets/radio/editor";
 import ReactionDiagramEditor from "./widgets/reaction-diagram-editor";
-import SequenceEditor from "./widgets/sequence-editor";
 import SimpleMarkdownTesterEditor from "./widgets/simple-markdown-tester-editor";
 import SimulatorEditor from "./widgets/simulator-editor";
 import SorterEditor from "./widgets/sorter-editor";
@@ -59,7 +57,6 @@ export default [
     InteractionEditor,
     InteractiveGraphEditor,
     LabelImageEditor,
-    LightsPuzzleEditor,
     MatcherEditor,
     MatrixEditor,
     MeasurerEditor,
@@ -73,7 +70,6 @@ export default [
     PlotterEditor,
     PythonProgramEditor,
     ReactionDiagramEditor,
-    SequenceEditor,
     SimpleMarkdownTesterEditor,
     SimulatorEditor,
     SorterEditor,
