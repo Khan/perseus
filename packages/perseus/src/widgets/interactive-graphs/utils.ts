@@ -10,14 +10,17 @@ import type {
 } from "../../perseus-types";
 import type {vec} from "mafs";
 import type {DependencyList} from "react";
+import {vector as kvector} from "../../../../kmath"
 
 export const useInteractivePoint = (
     coords: vec.Vector2,
     snaps: [number, number],
     range: [[number, number], [number, number]],
+    pointBeforeMove: () => [number, number],
+    getBannedCoords?: () => vec.Vector2[],
 ) =>
     useMovablePoint(coords, {
-        constrain: (coord) => constrain(coord, snaps, range),
+        constrain: (coord) => constrain(coord, snaps, range, pointBeforeMove, getBannedCoords),
         color: Color.blue,
     });
 
@@ -55,14 +58,23 @@ export const constrain = (
     coord: [number, number],
     snapStep: [number, number],
     range: [[number, number], [number, number]],
+    pointBeforeMove: () => [number, number],
+    bannedCoords?: () => vec.Vector2[]
 ): [number, number] => {
     const [x, y] = coord;
     const [xSnap, ySnap] = snapStep;
     const [[xMin, xMax], [yMin, yMax]] = range;
-    return [
-        clamp(snap(x, xSnap), xMin, xMax),
-        clamp(snap(y, ySnap), yMin, yMax),
-    ];
+    let newX = clamp(snap(x, xSnap), xMin, xMax);
+    let newY = clamp(snap(y, ySnap), yMin, yMax);
+    const banned = bannedCoords?.() ?? []
+    const snapped = [
+        newX,
+        newY,
+    ] as Coord;
+    if (banned.some(coord => kvector.equal(coord, snapped))) {
+        return pointBeforeMove()
+    }
+    return snapped
 };
 
 // same as pointsFromNormalized in interactive-graph.tsx

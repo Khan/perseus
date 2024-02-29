@@ -102,11 +102,15 @@ const Segment = (props: {
         start,
         props.snaps,
         props.range,
+        () => pt1,
+        () => [pt2]
     );
     const {point: pt2, element: el2, setPoint: setPoint2} = useInteractivePoint(
         end,
         props.snaps,
         props.range,
+        () => pt2,
+        () => [pt1]
     );
 
     function shiftSegment(shiftBy: vec.Vector2) {
