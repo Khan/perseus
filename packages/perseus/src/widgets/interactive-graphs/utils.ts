@@ -20,7 +20,7 @@ export const useInteractivePoint = (
     getBannedCoords?: () => vec.Vector2[],
 ) =>
     useMovablePoint(coords, {
-        constrain: (coord) => constrain(coord, snaps, range, pointBeforeMove, getBannedCoords),
+        constrain: (requestedPoint) => constrain(requestedPoint, snaps, range, pointBeforeMove, getBannedCoords),
         color: Color.blue,
     });
 
