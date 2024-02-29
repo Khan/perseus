@@ -3,7 +3,7 @@ name: Deploy Storybook to Github Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [$default-branch]
+    branches: [$default-branch, "gh-pages-publish"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
