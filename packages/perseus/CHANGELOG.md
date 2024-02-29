@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 19.7.1
+
+### Patch Changes
+
+-   [#1043](https://github.com/Khan/perseus/pull/1043) [`1b1d0404`](https://github.com/Khan/perseus/commit/1b1d040461dc6c6b9d238a81be4d2d3e96c452d8) Thanks [@nedredmond](https://github.com/nedredmond)! - Bugfixes re: sizing props
+
 ## 19.7.0
 
 ### Minor Changes
