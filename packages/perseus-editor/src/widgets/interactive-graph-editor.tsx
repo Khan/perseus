@@ -4,7 +4,6 @@ import {
     components,
     interactiveSizes,
     InteractiveGraphWidget,
-    SizingUtils,
     Util,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";

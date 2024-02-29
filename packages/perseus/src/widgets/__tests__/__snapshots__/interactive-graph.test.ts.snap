@@ -58,21 +58,21 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
         >
           <div
             class="perseus-widget perseus-widget-interactive-graph"
-            style="width: 400px; height: 400px;"
+            style="width: 288px; height: 288px;"
           >
             <div
               class="graphie-container above-scratchpad"
-              style="width: 400px; height: 400px;"
+              style="width: 288px; height: 288px;"
             >
               <div
                 class="graphie"
-                style="position: relative; width: 400px; height: 400px;"
+                style="position: relative; width: 288px; height: 288px;"
               >
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -84,7 +84,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M371.42857142857144,228.57142857142858L142.85714285714286,57.142857142857146L142.85714285714286,228.57142857142858Z"
+                    d="M267.42857142857144,164.57142857142858L102.85714285714286,41.142857142857146L102.85714285714286,164.57142857142858Z"
                     fill="#000000"
                     opacity="0"
                     stroke="#000000"
@@ -92,10 +92,10 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   />
                 </svg>
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -107,7 +107,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M371.42857142857144,228.57142857142858L142.85714285714286,57.142857142857146L142.85714285714286,228.57142857142858Z"
+                    d="M267.42857142857144,164.57142857142858L102.85714285714286,41.142857142857146L102.85714285714286,164.57142857142858Z"
                     fill="#71b307"
                     fill-opacity="0"
                     stroke="#71b307"
@@ -115,14 +115,14 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; fill-opacity: 0;"
                   />
                   <path
-                    d="M156.23200184286875,228.57142857142858L156.23200184286875,215.1965695857027"
+                    d="M116.23200184286875,164.57142857142858L116.23200184286875,151.1965695857027"
                     fill="none"
                     stroke="#6495ed"
                     stroke-width="1"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                   />
                   <path
-                    d="M142.85714285714286,215.1965695857027L156.23200184286875,215.1965695857027"
+                    d="M102.85714285714286,151.1965695857027L116.23200184286875,151.1965695857027"
                     fill="none"
                     stroke="#6495ed"
                     stroke-width="1"
@@ -133,7 +133,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; left: 0px; top: 0px;"
                 >
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 358.42857142857144px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 254.42857142857144px; top: 151.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -164,7 +164,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 44.142857142857146px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 89.85714285714286px; top: 28.142857142857146px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -195,7 +195,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 89.85714285714286px; top: 151.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -231,7 +231,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 >
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 347.42857142857144px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 243.42857142857144px; top: 140.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -262,7 +262,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 33.142857142857146px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 78.85714285714286px; top: 17.142857142857146px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -293,7 +293,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 78.85714285714286px; top: 140.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -326,7 +326,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 41.142857142857146px; top: 246.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -335,7 +335,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 41.142857142857146px; top: 246.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -344,7 +344,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 41.142857142857146px; top: 246.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -353,7 +353,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula="5.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 269.14285714285717px; top: 126.85714285714285px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 197.14285714285717px; top: 86.85714285714286px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -362,7 +362,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula="3.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 122.85714285714286px; top: 142.85714285714286px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 82.85714285714286px; top: 102.85714285714286px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -371,7 +371,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula="4.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 257.14285714285717px; top: 248.57142857142856px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 185.14285714285717px; top: 184.57142857142856px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -441,15 +441,15 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
         >
           <div
             class="perseus-widget perseus-widget-interactive-graph"
-            style="width: 400px; height: 400px;"
+            style="width: 288px; height: 288px;"
           >
             <div
               class="graphie-container above-scratchpad"
-              style="width: 400px; height: 400px;"
+              style="width: 288px; height: 288px;"
             >
               <div
                 class="unresponsive-svg-image"
-                style="width: 400px; height: 400px;"
+                style="width: 288px; height: 288px;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -474,13 +474,13 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
               </div>
               <div
                 class="graphie"
-                style="position: relative; width: 400px; height: 400px;"
+                style="position: relative; width: 288px; height: 288px;"
               >
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -492,7 +492,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M50,375L225,300L125,300Z"
+                    d="M36,270L162,216L90,216Z"
                     fill="#000000"
                     opacity="0"
                     stroke="#000000"
@@ -500,10 +500,10 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   />
                 </svg>
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -515,7 +515,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M50,375L225,300L125,300Z"
+                    d="M36,270L162,216L90,216Z"
                     fill="#71b307"
                     fill-opacity="0"
                     stroke="#71b307"
@@ -527,7 +527,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; left: 0px; top: 0px;"
                 >
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 37px; top: 362px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 23px; top: 257px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -558,7 +558,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 212px; top: 287px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 149px; top: 203px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -589,7 +589,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 112px; top: 287px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 77px; top: 203px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -625,7 +625,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 >
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 26px; top: 351px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 12px; top: 246px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -656,7 +656,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 201px; top: 276px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 138px; top: 192px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -687,7 +687,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 101px; top: 276px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 66px; top: 192px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -720,7 +720,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -729,7 +729,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -738,7 +738,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -747,7 +747,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -756,7 +756,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -765,7 +765,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -851,15 +851,15 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
         >
           <div
             class="perseus-widget perseus-widget-interactive-graph"
-            style="width: 400px; height: 400px;"
+            style="width: 288px; height: 288px;"
           >
             <div
               class="graphie-container above-scratchpad"
-              style="width: 400px; height: 400px;"
+              style="width: 288px; height: 288px;"
             >
               <div
                 class="unresponsive-svg-image"
-                style="width: 425px; height: 425px;"
+                style="width: 306px; height: 306px;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -884,13 +884,13 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
               </div>
               <div
                 class="graphie"
-                style="position: relative; width: 400px; height: 400px;"
+                style="position: relative; width: 288px; height: 288px;"
               >
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -903,23 +903,23 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   />
                   <rect
                     fill="#000000"
-                    height="400"
+                    height="288"
                     opacity="0"
                     r="0"
                     rx="0"
                     ry="0"
                     stroke="#000"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
-                    width="400"
+                    width="288"
                     x="0"
                     y="0"
                   />
                 </svg>
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -937,8 +937,8 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     preserveAspectRatio="none"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
                     width="40"
-                    x="360"
-                    y="360"
+                    x="248"
+                    y="248"
                   />
                 </svg>
                 <div
@@ -954,7 +954,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; left: 0px; top: 0px;"
                 >
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 131px; top: 131px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -985,7 +985,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 62px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 41px; top: 131px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1016,7 +1016,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 137px; top: 187px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 95px; top: 131px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1052,7 +1052,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 >
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 120px; top: 120px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1083,7 +1083,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 51px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 30px; top: 120px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1114,7 +1114,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 126px; top: 176px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 84px; top: 120px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1254,15 +1254,15 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
         >
           <div
             class="perseus-widget perseus-widget-interactive-graph"
-            style="width: 400px; height: 400px;"
+            style="width: 288px; height: 288px;"
           >
             <div
               class="graphie-container above-scratchpad"
-              style="width: 400px; height: 400px;"
+              style="width: 288px; height: 288px;"
             >
               <div
                 class="unresponsive-svg-image"
-                style="width: 425px; height: 425px;"
+                style="width: 306px; height: 306px;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -1287,13 +1287,13 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
               </div>
               <div
                 class="graphie"
-                style="position: relative; width: 400px; height: 400px;"
+                style="position: relative; width: 288px; height: 288px;"
               >
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -1306,19 +1306,19 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   />
                   <rect
                     fill="#000000"
-                    height="400"
+                    height="288"
                     opacity="0"
                     r="0"
                     rx="0"
                     ry="0"
                     stroke="#000"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
-                    width="400"
+                    width="288"
                     x="0"
                     y="0"
                   />
                   <path
-                    d="M116.66666666666667,266.6666666666667L266.6666666666667,16.666666666666668L266.6666666666667,266.6666666666667L216.66666666666669,216.66666666666669Z"
+                    d="M84,192L192,12L192,192L156,156Z"
                     fill="#000000"
                     opacity="0"
                     stroke="#000000"
@@ -1326,10 +1326,10 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   />
                 </svg>
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -1347,11 +1347,11 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     preserveAspectRatio="none"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
                     width="40"
-                    x="360"
-                    y="360"
+                    x="248"
+                    y="248"
                   />
                   <path
-                    d="M116.66666666666667,266.6666666666667L266.6666666666667,16.666666666666668L266.6666666666667,266.6666666666667L216.66666666666669,216.66666666666669Z"
+                    d="M84,192L192,12L192,192L156,156Z"
                     fill="#71b307"
                     fill-opacity="0"
                     stroke="#71b307"
@@ -1372,7 +1372,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   style="position: absolute; left: 0px; top: 0px;"
                 >
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 103.66666666666667px; top: 253.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 71px; top: 179px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1403,7 +1403,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 253.66666666666669px; top: 3.666666666666668px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 179px; top: -1px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1434,7 +1434,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 253.66666666666669px; top: 253.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 179px; top: 179px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1465,7 +1465,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 203.66666666666669px; top: 203.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 143px; top: 143px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1501,7 +1501,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 >
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 92.66666666666667px; top: 242.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 60px; top: 168px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1532,7 +1532,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 242.66666666666669px; top: -7.333333333333332px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 168px; top: -12px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1563,7 +1563,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 242.66666666666669px; top: 242.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 168px; top: 168px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1594,7 +1594,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 192.66666666666669px; top: 192.66666666666669px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 132px; top: 132px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1627,7 +1627,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 192px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -1636,7 +1636,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 192px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -1645,7 +1645,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 192px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -1654,7 +1654,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 192px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -1663,7 +1663,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 192px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -1672,7 +1672,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 192px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -1681,7 +1681,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 192px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -1690,7 +1690,7 @@ exports[`interactive-graph widget question Shoud render predictably: after inter
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 266.6666666666667px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 192px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -1764,21 +1764,21 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
         >
           <div
             class="perseus-widget perseus-widget-interactive-graph"
-            style="width: 400px; height: 400px;"
+            style="width: 288px; height: 288px;"
           >
             <div
               class="graphie-container above-scratchpad"
-              style="width: 400px; height: 400px;"
+              style="width: 288px; height: 288px;"
             >
               <div
                 class="graphie"
-                style="position: relative; width: 400px; height: 400px;"
+                style="position: relative; width: 288px; height: 288px;"
               >
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -1790,7 +1790,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
+                    d="M185.14285714285717,164.57142857142858L144,82.28571428571429L102.85714285714286,164.57142857142858Z"
                     fill="#000000"
                     opacity="0"
                     stroke="#000000"
@@ -1798,10 +1798,10 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   />
                 </svg>
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -1813,7 +1813,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M257.14285714285717,228.57142857142858L200,114.28571428571429L142.85714285714286,228.57142857142858Z"
+                    d="M185.14285714285717,164.57142857142858L144,82.28571428571429L102.85714285714286,164.57142857142858Z"
                     fill="#71b307"
                     fill-opacity="0"
                     stroke="#71b307"
@@ -1825,7 +1825,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; left: 0px; top: 0px;"
                 >
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 244.14285714285717px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 172.14285714285717px; top: 151.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1856,7 +1856,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 101.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 131px; top: 69.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1887,7 +1887,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 129.85714285714286px; top: 215.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 89.85714285714286px; top: 151.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -1923,7 +1923,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 >
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 233.14285714285717px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 161.14285714285717px; top: 140.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1954,7 +1954,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 90.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 120px; top: 58.28571428571429px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -1985,7 +1985,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 118.85714285714286px; top: 204.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 78.85714285714286px; top: 140.57142857142858px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -2018,7 +2018,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 41.142857142857146px; top: 246.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2027,7 +2027,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 41.142857142857146px; top: 246.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2036,7 +2036,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 57.142857142857146px; top: 342.8571428571429px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 41.142857142857146px; top: 246.8571428571429px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2045,7 +2045,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula="\\approx 2.2"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 246.45997239142687px; top: 162.4842995185723px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 182.4599723914269px; top: 114.48429951857229px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2054,7 +2054,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula="\\approx 2.2"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 153.54002760857313px; top: 162.48429951857227px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 105.54002760857313px; top: 114.48429951857229px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2063,7 +2063,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula="2.0"
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 248.57142857142856px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 184.57142857142856px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2133,15 +2133,15 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
         >
           <div
             class="perseus-widget perseus-widget-interactive-graph"
-            style="width: 400px; height: 400px;"
+            style="width: 288px; height: 288px;"
           >
             <div
               class="graphie-container above-scratchpad"
-              style="width: 400px; height: 400px;"
+              style="width: 288px; height: 288px;"
             >
               <div
                 class="unresponsive-svg-image"
-                style="width: 400px; height: 400px;"
+                style="width: 288px; height: 288px;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -2166,13 +2166,13 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
               </div>
               <div
                 class="graphie"
-                style="position: relative; width: 400px; height: 400px;"
+                style="position: relative; width: 288px; height: 288px;"
               >
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -2184,7 +2184,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M275,250L200,125L125,250Z"
+                    d="M198,180L144,90L90,180Z"
                     fill="#000000"
                     opacity="0"
                     stroke="#000000"
@@ -2192,10 +2192,10 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   />
                 </svg>
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -2207,7 +2207,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <path
-                    d="M275,250L200,125L125,250Z"
+                    d="M198,180L144,90L90,180Z"
                     fill="#71b307"
                     fill-opacity="0"
                     stroke="#71b307"
@@ -2219,7 +2219,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   style="position: absolute; left: 0px; top: 0px;"
                 >
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 262px; top: 237px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 185px; top: 167px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -2250,7 +2250,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 187px; top: 112px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 131px; top: 77px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -2281,7 +2281,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     </svg>
                   </div>
                   <div
-                    style="position: absolute; width: 26px; height: 26px; left: 112px; top: 237px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 26px; height: 26px; left: 77px; top: 167px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="26"
@@ -2317,7 +2317,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 >
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 251px; top: 226px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 174px; top: 156px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -2348,7 +2348,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 176px; top: 101px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 120px; top: 66px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -2379,7 +2379,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   </div>
                   <div
                     data-interactive-kind-for-testing="movable-point"
-                    style="position: absolute; width: 48px; height: 48px; left: 101px; top: 226px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                    style="position: absolute; width: 48px; height: 48px; left: 66px; top: 156px; transform: translateX(0px) translateY(0px) translateZ(0);"
                   >
                     <svg
                       height="48"
@@ -2412,7 +2412,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2421,7 +2421,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2430,7 +2430,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2439,7 +2439,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2448,7 +2448,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2457,7 +2457,7 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                 <span
                   class="graphie-label"
                   data-math-formula=""
-                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 200px; top: 200px; fill: none; stroke: #6495ED;"
+                  style="position: absolute; padding: 7px; color: rgb(100, 149, 237); left: 144px; top: 144px; fill: none; stroke: #6495ED;"
                 >
                   <span
                     class="tex-holder"
@@ -2543,15 +2543,15 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
         >
           <div
             class="perseus-widget perseus-widget-interactive-graph"
-            style="width: 400px; height: 400px;"
+            style="width: 288px; height: 288px;"
           >
             <div
               class="graphie-container above-scratchpad"
-              style="width: 400px; height: 400px;"
+              style="width: 288px; height: 288px;"
             >
               <div
                 class="unresponsive-svg-image"
-                style="width: 425px; height: 425px;"
+                style="width: 306px; height: 306px;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -2576,13 +2576,13 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
               </div>
               <div
                 class="graphie"
-                style="position: relative; width: 400px; height: 400px;"
+                style="position: relative; width: 288px; height: 288px;"
               >
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -2595,23 +2595,23 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   />
                   <rect
                     fill="#000000"
-                    height="400"
+                    height="288"
                     opacity="0"
                     r="0"
                     rx="0"
                     ry="0"
                     stroke="#000"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
-                    width="400"
+                    width="288"
                     x="0"
                     y="0"
                   />
                 </svg>
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -2629,8 +2629,8 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     preserveAspectRatio="none"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
                     width="40"
-                    x="360"
-                    y="360"
+                    x="248"
+                    y="248"
                   />
                 </svg>
                 <div
@@ -2758,15 +2758,15 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
         >
           <div
             class="perseus-widget perseus-widget-interactive-graph"
-            style="width: 400px; height: 400px;"
+            style="width: 288px; height: 288px;"
           >
             <div
               class="graphie-container above-scratchpad"
-              style="width: 400px; height: 400px;"
+              style="width: 288px; height: 288px;"
             >
               <div
                 class="unresponsive-svg-image"
-                style="width: 425px; height: 425px;"
+                style="width: 306px; height: 306px;"
               >
                 <span
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
@@ -2791,13 +2791,13 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
               </div>
               <div
                 class="graphie"
-                style="position: relative; width: 400px; height: 400px;"
+                style="position: relative; width: 288px; height: 288px;"
               >
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); z-index: 2;"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -2810,14 +2810,14 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   />
                   <rect
                     fill="#000000"
-                    height="400"
+                    height="288"
                     opacity="0"
                     r="0"
                     rx="0"
                     ry="0"
                     stroke="#000"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"
-                    width="400"
+                    width="288"
                     x="0"
                     y="0"
                   />
@@ -2830,10 +2830,10 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                   />
                 </svg>
                 <svg
-                  height="400"
+                  height="288"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   version="1.1"
-                  width="400"
+                  width="288"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <desc
@@ -2851,8 +2851,8 @@ exports[`interactive-graph widget question Shoud render predictably: first rende
                     preserveAspectRatio="none"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0.5;"
                     width="40"
-                    x="360"
-                    y="360"
+                    x="248"
+                    y="248"
                   />
                   <path
                     d="M0,0"
