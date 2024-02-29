@@ -396,7 +396,7 @@ export type PerseusExampleWidgetOptions = {
     value: string;
 };
 
-export type PerseuxExampleGraphieGraph = {
+export type PerseusExampleGraphieGraph = {
     box: Size;
     range: [Coord, Coord];
     labels: ReadonlyArray<string>;
@@ -410,7 +410,7 @@ export type PerseuxExampleGraphieGraph = {
 };
 
 export type PerseusExampleGraphieWidgetOptions = {
-    graph: PerseuxExampleGraphieGraph;
+    graph: PerseusExampleGraphieGraph;
     coord: [Coord, Coord] | null;
 };
 
