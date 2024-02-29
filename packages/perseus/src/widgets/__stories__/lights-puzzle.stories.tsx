@@ -5,29 +5,23 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 import type {PerseusRenderer} from "../../perseus-types";
 
 export default {
-    title: "Perseus/Widgets/ReactionDiagram",
+    title: "Perseus/Widgets/LightsPuzzle",
 };
 
 const question1 = {
-    content: "[[\u2603 reaction-diagram 1]]",
+    content: "[[\u2603 lights-puzzle 1]]",
     images: {},
     widgets: {
-        "reaction-diagram 1": {
+        "lights-puzzle 1": {
             graded: true,
             version: {
                 major: 0,
                 minor: 0,
             },
             static: false,
-            type: "reaction-diagram",
+            type: "lights-puzzle",
             options: {
-                rotationAngle: [90, 90, 180],
-                widgetId: "reaction-diagram 1",
-                separators: [
-                    {type: "right", topText: "", bottomText: ""},
-                    {type: "points", topText: "", bottomText: ""},
-                ],
-                smiles: ["CCC(=O)O", "CC(CC)C", "CC(=O)[O-]"],
+                startCells: [[false, false, false, false, false]],
             },
             alignment: "default",
         },

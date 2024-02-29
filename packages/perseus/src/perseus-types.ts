@@ -809,10 +809,10 @@ export type PerseusLabelImageMarker = {
 };
 
 export type PerseusLightsPuzzleWidgetOptions = {
-    cells: ReadonlyArray<ReadonlyArray<boolean>>;
-    startCells: ReadonlyArray<ReadonlyArray<boolean>>;
-    flipPattern: string;
-    moveCount: number;
+    cells?: ReadonlyArray<ReadonlyArray<boolean>>;
+    startCells?: ReadonlyArray<ReadonlyArray<boolean>>;
+    flipPattern?: string;
+    moveCount?: number;
 };
 
 export type PerseusMatcherWidgetOptions = {
