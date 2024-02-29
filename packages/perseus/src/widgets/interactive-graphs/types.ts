@@ -9,9 +9,7 @@ export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions
 >;
 
-export type OnGraphChange<T extends PerseusGraphType> = (
-    callback: (current: T) => T,
-) => void;
+export type OnGraphChange<T extends PerseusGraphType> = (graph: T) => void;
 
 export type MafsGraphProps<T extends PerseusGraphType> = {
     onGraphChange: OnGraphChange<T>;

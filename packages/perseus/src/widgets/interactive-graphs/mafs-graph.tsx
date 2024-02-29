@@ -41,11 +41,7 @@ export const MafsGraph = React.forwardRef<
     React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
 >((props, ref) => {
     const [graph, setGraph] = React.useState(props.graph);
-    const handleGraphUpdate = (
-        callback: (current: PerseusGraphType) => PerseusGraphType,
-    ) => {
-        setGraph(callback(graph));
-    };
+    const handleGraphUpdate = (newGraph: PerseusGraphType) => setGraph(newGraph);
 
     React.useImperativeHandle(ref, () => ({
         getUserInput: () => graph,

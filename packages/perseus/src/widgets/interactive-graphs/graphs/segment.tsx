@@ -60,10 +60,10 @@ export const SegmentGraph = (props: SegmentProps) => {
     const {coords: segments = getDefaultSegments(props)} = props.graph
 
     const handleChange = (i: number) => (segment: ReadonlyArray<Coord>) => {
-        props.onGraphChange(() => ({
+        props.onGraphChange({
             ...props.graph,
             coords: updateAtIndex(segments, i, segment),
-        }));
+        });
     }
 
     return (
