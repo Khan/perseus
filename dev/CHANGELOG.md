@@ -1,5 +1,11 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.2.0
+
+### Minor Changes
+
+-   [#1023](https://github.com/Khan/perseus/pull/1023) [`3901f863`](https://github.com/Khan/perseus/commit/3901f863f674fec614ec6422af45aa7ad96f0d6d) Thanks [@nedredmond](https://github.com/nedredmond)! - Adds new interactive graph experience behind feature flag
+
 ## 1.1.5
 
 ### Patch Changes

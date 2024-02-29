@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 4.3.2
+
+### Patch Changes
+
+-   [#1041](https://github.com/Khan/perseus/pull/1041) [`11c2d97f`](https://github.com/Khan/perseus/commit/11c2d97f85e660e2c87cde50ea1bbbe703c8113c) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix bug that would cause Financial Calculator options to appear unchecked on initial render
+
+*   [#1033](https://github.com/Khan/perseus/pull/1033) [`a78cfc0f`](https://github.com/Khan/perseus/commit/a78cfc0f138fced4b1a465f8774be2c12b2fe789) Thanks [@nishasy](https://github.com/nishasy)! - Update InteractiveGraphSettings to React class. Update `markings` to be "graph" | "grid" | "none" instead of string.
+
+*   Updated dependencies [[`3901f863`](https://github.com/Khan/perseus/commit/3901f863f674fec614ec6422af45aa7ad96f0d6d), [`a78cfc0f`](https://github.com/Khan/perseus/commit/a78cfc0f138fced4b1a465f8774be2c12b2fe789)]:
+    -   @khanacademy/perseus@19.7.0
+
 ## 4.3.1
 
 ### Patch Changes
