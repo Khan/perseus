@@ -102,9 +102,9 @@ const Segment = (props: {
 }) => {
     const [pt1, pt2] = props.segment;
 
-    const constrainToGrid = (coord, originalPoint, bannedPoint) => {
+    const constrainToGrid = (coord, originalPoint, bannedPoint?: Coord) => {
         const constrained = constrain(coord, props.snaps, props.range);
-        if (kvector.equal(constrained, bannedPoint)) {
+        if (bannedPoint && kvector.equal(constrained, bannedPoint)) {
             return originalPoint
         }
         return constrained
@@ -153,10 +153,10 @@ export function shiftEndpoints(
     start: Coord,
     end: Coord,
     shiftBy: vec.Vector2,
-    constrainPoint: (point: Coord) => Coord,
+    constrainPoint: (point: Coord, originalPoint: Coord) => Coord,
 ) {
-    const newStart = constrainPoint(vec.add(start, shiftBy));
-    const newEnd = constrainPoint(vec.add(end, shiftBy));
+    const newStart = constrainPoint(vec.add(start, shiftBy), start);
+    const newEnd = constrainPoint(vec.add(end, shiftBy), end);
     if (!kvector.equal(vec.sub(end, start), vec.sub(newEnd, newStart))) {
         return [start, end];
     }
