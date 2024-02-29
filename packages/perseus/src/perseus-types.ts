@@ -1491,7 +1491,6 @@ export type PerseusUnitInputWidgetOptions = {
 };
 
 export type PerseusWidgetOptions =
-    | PerseusExpressionWidgetOptions
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
@@ -1499,6 +1498,7 @@ export type PerseusWidgetOptions =
     | PerseusExampleGraphieWidgetOptions
     | PerseusExampleWidgetOptions
     | PerseusExplanationWidgetOptions
+    | PerseusExpressionWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
     | PerseusGradedGroupWidgetOptions
     | PerseusIFrameWidgetOptions

@@ -8,12 +8,10 @@
 import {number as knumber, point as kpoint} from "@khanacademy/kmath";
 import {
     components,
-    ApiOptions,
     Changeable,
     Util,
     WidgetJsonifyDeprecated,
 } from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -21,7 +19,7 @@ import type {
     Coord,
     WidgetExports,
     PerseusExampleGraphieWidgetOptions,
-    APIOptions,
+    APIOptionsWithDefaults,
 } from "@khanacademy/perseus";
 
 const {Graphie} = components;
@@ -30,7 +28,7 @@ const {Graphie} = components;
 const MovablePoint = Graphie.MovablePoint;
 
 type Props = Changeable.ChangeableProps & {
-    apiOptions: APIOptions;
+    apiOptions: APIOptionsWithDefaults;
     graph: PerseusExampleGraphieWidgetOptions["graph"];
     coord: PerseusExampleGraphieWidgetOptions["coord"];
 };
