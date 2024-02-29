@@ -23,8 +23,6 @@ import "mafs/core.css";
 import "mafs/font.css";
 import "./mafs-styles.css";
 
-export const mafsGraphTypes = ["segment"];
-
 const renderGraph = (props: MafsGraphProps<PerseusGraphType>) => {
     const {graph, ...rest} = props;
     switch (graph.type) {

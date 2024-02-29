@@ -32,7 +32,7 @@ import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
 import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
-import {MafsGraph, mafsGraphTypes} from "./interactive-graphs";
+import {MafsGraph} from "./interactive-graphs";
 
 import type {Coord} from "../interactive2/types";
 import type {
@@ -1692,10 +1692,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     // <Renderer apiOptions={{flags: {mafs: {segment}}}}
     render(): React.ReactNode {
         // Mafs shim
-        if (
-            this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type] &&
-            mafsGraphTypes.includes(this.props.graph.type)
-        ) {
+        if (this.props.apiOptions?.flags?.["mafs"]?.[this.props.graph.type]) {
             return <MafsGraph {...this.props} ref={this.mafsRef} />;
         }
 

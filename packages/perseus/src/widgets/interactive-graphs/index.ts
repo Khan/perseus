@@ -1,1 +1,1 @@
-export {MafsGraph, mafsGraphTypes} from "./mafs-graph";
+export {MafsGraph} from "./mafs-graph";
