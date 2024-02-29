@@ -103,8 +103,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Url:"});
-        userEvent.type(input, "https://example.com/image.png");
-        userEvent.tab();
+        await userEvent.type(input, "https://example.com/image.png");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -134,8 +134,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Url:"});
-        userEvent.type(input, "https://example.com/image.png");
-        userEvent.tab();
+        await userEvent.type(input, "https://example.com/image.png");
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
@@ -160,8 +160,8 @@ describe("InteractiveGraphSettings", () => {
 
         // Act
         const input = screen.getByRole("textbox", {name: "Url:"});
-        userEvent.type(input, "");
-        userEvent.tab();
+        await userEvent.clear(input);
+        await userEvent.tab();
 
         // Assert
         await waitFor(() =>
