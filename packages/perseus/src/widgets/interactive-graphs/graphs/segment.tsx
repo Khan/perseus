@@ -1,6 +1,7 @@
+import {vector as kvector} from "../../../../../kmath";
+import Color from "@khanacademy/wonder-blocks-color";
 import {Line, MovablePoint, vec} from "mafs";
 import * as React from "react";
-import {vector as kvector} from "../../../../../kmath"
 
 import {
     constrain,
@@ -13,7 +14,6 @@ import {
 import type {Coord} from "../../../interactive2/types";
 import type {PerseusGraphTypeSegment} from "../../../perseus-types";
 import type {MafsGraphProps} from "../types";
-import Color from "@khanacademy/wonder-blocks-color";
 
 export type SegmentProps = MafsGraphProps<PerseusGraphTypeSegment>;
 
@@ -53,22 +53,25 @@ const getSegmentCoords = (
     });
 };
 
-const updateSegmentsArray = (
-    segments: ReadonlyArray<ReadonlyArray<Coord>>,
+function updateAtIndex<T>(
+    array: ReadonlyArray<T>,
     index: number,
-    segment: ReadonlyArray<Coord>,
-) => segments.map((seg: any, i: any) => (index === i ? segment : seg));
+    newValue: T,
+) {
+    return array.map((orig, i) => (index === i ? newValue : orig));
+}
 
 export const SegmentGraph = (props: SegmentProps) => {
-    const segments = getSegmentCoords(props);
+    const {coords: segments = getSegmentCoords(props)} = props.graph
 
-    const handleChange = (i: number, segment: any) =>
+    const handleChange = (i: number, segment: ReadonlyArray<Coord>) => {
         props.onGraphChange((current: PerseusGraphTypeSegment) => ({
             ...current,
             coords: current.coords
-                ? updateSegmentsArray(current.coords, i, segment)
-                : updateSegmentsArray(segments, i, segment),
+                ? updateAtIndex(current.coords, i, segment)
+                : updateAtIndex(segments, i, segment),
         }));
+    }
 
     return (
         <>
@@ -97,52 +100,65 @@ const Segment = (props: {
         coords: [[number, number], [number, number]],
     ) => void;
 }) => {
-    const [start, end] = props.segment;
-    const {point: pt1, element: el1, setPoint: setPoint1} = useInteractivePoint(
-        start,
-        props.snaps,
-        props.range,
-        () => pt1,
-        () => [pt2]
-    );
-    const {point: pt2, element: el2, setPoint: setPoint2} = useInteractivePoint(
-        end,
-        props.snaps,
-        props.range,
-        () => pt2,
-        () => [pt1]
-    );
+    const [pt1, pt2] = props.segment;
 
-    const constrainToGrid = (coord) => constrain(coord, props.snaps, props.range)
-
-    function shiftSegment(shiftBy: vec.Vector2) {
-        const [newPt1, newPt2] = shiftEndpoints(pt1, pt2, shiftBy, constrainToGrid)
-        setPoint1(newPt1)
-        setPoint2(newPt2)
+    const constrainToGrid = (coord, originalPoint, bannedPoint) => {
+        const constrained = constrain(coord, props.snaps, props.range);
+        if (kvector.equal(constrained, bannedPoint)) {
+            return originalPoint
+        }
+        return constrained
     }
 
-    useEffectAfterFirstRender(
-        () => props.onChange(props.i, [pt1, pt2]),
-        [pt1, pt2],
-    );
 
-    const midpoint = vec.midpoint(pt1, pt2)
+    function shiftSegment(shiftBy: vec.Vector2) {
+        const [newPt1, newPt2] = shiftEndpoints(
+            pt1,
+            pt2,
+            shiftBy,
+            constrainToGrid,
+        );
+        props.onChange(props.i, [newPt1, newPt2]);
+    }
+
+    const midpoint = vec.midpoint(pt1, pt2);
 
     return (
         <>
             <Line.Segment point1={pt1} point2={pt2} />
-            <MovablePoint point={midpoint} color={Color.blue} onMove={(newPoint) => shiftSegment(vec.sub(newPoint, midpoint))}/>
-            <MovablePoint point={pt1} color={Color.blue} onMove={(newPoint) => setPoint1(constrainToGrid(newPoint))}/>
-            <MovablePoint point={pt2} color={Color.blue} onMove={(newPoint) => setPoint2(constrainToGrid(newPoint))}/>
+            <MovablePoint
+                point={midpoint}
+                color={Color.blue}
+                onMove={(newPoint) => shiftSegment(vec.sub(newPoint, midpoint))}
+            />
+            <MovablePoint
+                point={pt1}
+                color={Color.blue}
+                onMove={(newPoint) =>
+                    props.onChange(props.i, [constrainToGrid(newPoint, pt1, pt2), pt2])
+                }
+            />
+            <MovablePoint
+                point={pt2}
+                color={Color.blue}
+                onMove={(newPoint) =>
+                    props.onChange(props.i, [pt1, constrainToGrid(newPoint, pt2, pt1)])
+                }
+            />
         </>
     );
 };
 
-export function shiftEndpoints(start: Coord, end: Coord, shiftBy: vec.Vector2, constrainPoint: (point: Coord) => Coord) {
-    let newStart = constrainPoint(vec.add(start, shiftBy));
-    let newEnd = constrainPoint(vec.add(end, shiftBy));
+export function shiftEndpoints(
+    start: Coord,
+    end: Coord,
+    shiftBy: vec.Vector2,
+    constrainPoint: (point: Coord) => Coord,
+) {
+    const newStart = constrainPoint(vec.add(start, shiftBy));
+    const newEnd = constrainPoint(vec.add(end, shiftBy));
     if (!kvector.equal(vec.sub(end, start), vec.sub(newEnd, newStart))) {
-        return [start, end]
+        return [start, end];
     }
-    return [newStart, newEnd]
+    return [newStart, newEnd];
 }

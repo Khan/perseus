@@ -40,17 +40,15 @@ export const MafsGraph = React.forwardRef<
     Partial<Widget>,
     React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
 >((props, ref) => {
-    // Storing the gradable state in a ref so that it can be updated without
-    // causing a re-render.
-    const graphRef = React.useRef(props.graph);
+    const [graph, setGraph] = React.useState(props.graph);
     const handleGraphUpdate = (
         callback: (current: PerseusGraphType) => PerseusGraphType,
     ) => {
-        graphRef.current = callback(graphRef.current);
+        setGraph(callback(graph));
     };
 
     React.useImperativeHandle(ref, () => ({
-        getUserInput: () => graphRef.current,
+        getUserInput: () => graph,
     }));
 
     const [width, height] = props.box;
@@ -86,6 +84,7 @@ export const MafsGraph = React.forwardRef<
                     {!legacyGrid && <Grid {...props} />}
                     {renderGraph({
                         ...props,
+                        graph,
                         onGraphChange: handleGraphUpdate,
                     })}
                 </Mafs>
