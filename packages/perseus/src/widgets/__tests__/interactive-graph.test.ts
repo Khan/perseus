@@ -150,7 +150,7 @@ describe("segment graph", () => {
         );
 
         // Act
-        await userEvent.type(movablePoints[0], "{arrowup}{arrowdown}");
+        await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
 
         // Assert
         await waitFor(() => {
@@ -170,7 +170,7 @@ describe("segment graph", () => {
         );
 
         // Act
-        await userEvent.type(movablePoints[0], "{arrowup}{arrowdown}");
+        await userEvent.type(movablePoints[1], "{arrowup}{arrowdown}");
 
         // Assert
         await waitFor(() => {
