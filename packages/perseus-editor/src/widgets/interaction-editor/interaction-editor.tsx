@@ -218,7 +218,6 @@ class InteractionEditor extends React.Component<Props, State> {
 
         return (
             <div className="perseus-widget-interaction-editor">
-                {/* @ts-expect-error - TS2322 - Type '{ children: (false | Element)[]; title: string; }' is not assignable to type 'Pick<Readonly<ElementContainerProps> & Readonly<{ children?: ReactNode; }>, "children" | "onDelete" | "onDown" | "onUp">'. */}
                 <ElementContainer title="Grid settings">
                     <GraphSettings
                         editableSettings={["canvas", "graph"]}
