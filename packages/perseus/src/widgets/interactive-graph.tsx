@@ -30,10 +30,7 @@ import {
 } from "../util/geometry";
 import GraphUtils from "../util/graph-utils";
 import {polar} from "../util/graphie";
-import {
-    containerSizeClass,
-    getInteractiveBoxFromSizeClass,
-} from "../util/sizing-utils";
+import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
 
 import {MafsGraph} from "./interactive-graphs";
 
@@ -210,7 +207,8 @@ class InteractiveGraph extends React.Component<Props, State> {
         if (
             this.props.backgroundImage?.url !==
                 nextProps.backgroundImage?.url ||
-            this.props.backgroundImage !== nextProps.backgroundImage
+            this.props.backgroundImage !== nextProps.backgroundImage ||
+            this.props.containerSizeClass !== nextProps.containerSizeClass
         ) {
             this.shouldResetGraphie = true;
         }
@@ -1693,7 +1691,9 @@ class InteractiveGraph extends React.Component<Props, State> {
     // const segment: boolean = useFeatureIsOn("mafs-segment-graph");
     // <Renderer apiOptions={{flags: {mafs: {segment}}}}
     render(): React.ReactNode {
-        const box = getInteractiveBoxFromSizeClass(containerSizeClass.SMALL);
+        const box = getInteractiveBoxFromSizeClass(
+            this.props.containerSizeClass,
+        );
         const gridStep =
             this.props.gridStep ||
             Util.getGridStep(this.props.range, this.props.step, box[0]);

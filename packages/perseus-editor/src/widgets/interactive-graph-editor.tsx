@@ -4,6 +4,7 @@ import {
     components,
     interactiveSizes,
     InteractiveGraphWidget,
+    SizingUtils,
     Util,
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -26,6 +27,7 @@ import type {
 import type {PropsFor, StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
+const {containerSizeClass, getInteractiveBoxFromSizeClass} = SizingUtils;
 const DeprecationMixin = Util.DeprecationMixin;
 const InteractiveGraph = InteractiveGraphWidget.widget;
 
@@ -92,6 +94,10 @@ type Props = {
      * How far apart the snap-to points are in the x and y directions.
      */
     snapStep: [x: number, y: number];
+    /**
+     * The size of the graph in pixels.
+     */
+    box: [x: number, y: number];
 
     /**
      * An error message to display in the graph area, or true if the
@@ -203,15 +209,17 @@ class InteractiveGraphEditor extends React.Component<Props> {
             Util.getGridStep(
                 this.props.range,
                 this.props.step,
-                interactiveSizes.defaultBoxSizeSmall,
+                interactiveSizes.defaultBoxSize,
             );
         const snapStep =
             this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
+        const sizeClass = containerSizeClass.SMALL;
         if (this.props.valid === true) {
             // TODO(aria): send these down all at once
             const graphProps = {
                 ref: "graph",
+                box: this.props.box,
                 range: this.props.range,
                 labels: this.props.labels,
                 step: this.props.step,
@@ -245,6 +253,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 // @ts-expect-error - TS2769 - No overload matches this call.
                 <InteractiveGraph
                     {...graphProps}
+                    containerSizeClass={sizeClass}
                     apiOptions={{
                         ...this.props.apiOptions,
                         isMobile: false,
@@ -459,6 +468,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     </InfoTip>
                 </Row>
                 <InteractiveGraphSettings
+                    box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
                     labels={this.props.labels}
                     step={this.props.step}

@@ -2,7 +2,12 @@
 /**
  * Used in the editor for the InteractiveGraph widget.
  */
-import {components, Changeable, Util, SizingUtils} from "@khanacademy/perseus";
+import {
+    components,
+    interactiveSizes,
+    Changeable,
+    Util,
+} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
@@ -16,10 +21,6 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-const smallBox = SizingUtils.getInteractiveBoxFromSizeClass(
-    SizingUtils.containerSizeClass.SMALL,
-);
-
 function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
 }
@@ -27,6 +28,10 @@ function numSteps(range: any, step: any) {
 type Range = [min: number, max: number];
 
 type Props = {
+    /**
+     * The size of the graph area in pixels.
+     */
+    box: [x: number, y: number];
     /**
      * The labels for the x and y axes.
      */
@@ -123,6 +128,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     }
 
     static defaultProps = {
+        box: [
+            interactiveSizes.defaultBoxSizeSmall,
+            interactiveSizes.defaultBoxSizeSmall,
+        ],
         labels: ["x", "y"],
         range: [
             [-10, 10],
@@ -352,9 +361,9 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         const step = this.state.stepTextbox.slice();
         const gridStep = this.state.gridStepTextbox.slice();
         const snapStep = this.state.snapStepTextbox.slice();
-        const scale = Util.scaleFromExtent(ranges[i], smallBox[i]);
+        const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
         if (this.validRange(ranges[i]) === true) {
-            step[i] = Util.tickStepFromExtent(ranges[i], smallBox[i]);
+            step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
 
             const gridStepValue = Util.gridStepFromTickStep(step[i], scale);
             if (gridStepValue) {

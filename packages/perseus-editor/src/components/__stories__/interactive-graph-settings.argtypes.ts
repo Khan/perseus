@@ -1,4 +1,9 @@
 export default {
+    box: {
+        control: {
+            type: "array",
+        },
+    },
     range: {
         control: {
             type: "object",
