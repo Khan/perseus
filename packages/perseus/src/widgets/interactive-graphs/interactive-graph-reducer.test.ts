@@ -55,4 +55,27 @@ describe("moveControlPoint", () => {
 
         expect(updated.hasBeenInteractedWith).toBe(true);
     });
+
+    it("does not allow moving the endpoints of a segment to the same location", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            segments: [
+                [
+                    [1, 1],
+                    [2, 2],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            moveControlPoint(0, 0, [2, 2]),
+        );
+
+        // Assert: the move was canceled
+        expect(updated.segments[0]).toEqual([
+            [1, 1],
+            [2, 2],
+        ]);
+    })
 });
