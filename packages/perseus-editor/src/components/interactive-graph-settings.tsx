@@ -225,7 +225,11 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
     renderLabelChoices = (choices) => {
         return _.map(choices, function (nameAndValue) {
-            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
+            return (
+                <option key={nameAndValue[1]} value={nameAndValue[1]}>
+                    {nameAndValue[0]}
+                </option>
+            );
         });
     };
 
@@ -629,7 +633,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             [1, 2, 4, 8, 10, 16],
                                             function (n) {
                                                 return (
-                                                    <option value={n}>
+                                                    <option
+                                                        key={`ruler-tick-${n}`}
+                                                        value={n}
+                                                    >
                                                         {n}
                                                     </option>
                                                 );
