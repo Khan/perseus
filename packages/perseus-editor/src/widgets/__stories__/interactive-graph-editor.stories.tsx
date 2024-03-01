@@ -39,7 +39,7 @@ Default.args = {
 
 /**
  * Example of what the InteractiveGraphEditor experience is when all
- * props are controlled by the parent.
+ * props are controlled by the parent. (Checkboxes update when clicked, etc.)
  */
 export const Controlled: StoryComponentType = {
     render: function Render() {
