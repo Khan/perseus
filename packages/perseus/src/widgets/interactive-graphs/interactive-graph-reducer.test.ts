@@ -78,4 +78,50 @@ describe("moveControlPoint", () => {
             [2, 2],
         ]);
     })
+
+    it("snaps points to the snap grid", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            snapStep: [1, 2],
+            segments: [
+                [
+                    [1, 2],
+                    [3, 4],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            moveControlPoint(0, 0, [1.5, 6.6]),
+        );
+
+        // Assert: x snaps to the nearest whole number; y snaps to the nearest
+        // multiple of 2.
+        expect(updated.segments[0][0]).toEqual([2, 6]);
+    })
+
+    it("constrains points to be at least one snap step within the graph bounds", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            snapStep: [0.5, 0.5],
+            range: [
+                [-5, 5],
+                [-8, 8],
+            ],
+            segments: [
+                [
+                    [1, 2],
+                    [3, 4],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            moveControlPoint(0, 0, [99, 99]),
+        );
+
+        expect(updated.segments[0][0]).toEqual([4.5, 7.5]);
+    })
 });
