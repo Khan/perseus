@@ -3,4 +3,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Deprecation of Lights-Puzzle and Sequence Widgets
+Deprecation of Lights-Puzzle, Simulator, and Sequence Widgets
