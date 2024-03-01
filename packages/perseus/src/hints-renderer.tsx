@@ -244,7 +244,6 @@ class HintsRenderer extends React.Component<Props, State> {
                 {hints}
                 {showGetAnotherHint && (
                     <button
-                        // @ts-expect-error - TS2322 - Type '{ children: Element[]; rel: string; className: string; onClick: (evt: MouseEvent<HTMLButtonElement, MouseEvent>) => void; }' is not assignable to type 'DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>'.
                         rel="button"
                         className={css(
                             styles.linkButton,
