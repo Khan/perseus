@@ -612,14 +612,22 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     }}
                                     placeholder="None"
                                 >
-                                    <OptionItem value="" label="None" />
+                                    <OptionItem
+                                        value=""
+                                        label="None"
+                                        horizontalRule="full-width"
+                                    />
                                     <OptionItem value="mm" label="Milimeters" />
                                     <OptionItem
                                         value="cm"
                                         label="Centimeters"
                                     />
                                     <OptionItem value="m" label="Meters" />
-                                    <OptionItem value="km" label="Kilometers" />
+                                    <OptionItem
+                                        value="km"
+                                        label="Kilometers"
+                                        horizontalRule="full-width"
+                                    />
                                     <OptionItem value="in" label="Inches" />
                                     <OptionItem value="ft" label="Feet" />
                                     <OptionItem value="yd" label="Yards" />
