@@ -52,7 +52,7 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("calls onChange when ruler label is changed", async () => {
+    test("calls onChange when ruler label is changed", () => {
         // Arrange
         const onChange = jest.fn();
 
@@ -61,8 +61,10 @@ describe("InteractiveGraphSettings", () => {
         );
 
         // Act
-        const select = screen.getByRole("combobox", {name: "Ruler label:"});
-        await await userEvent.selectOptions(select, ["cm"]);
+        const select = screen.getByRole("button", {name: "Ruler label:"});
+        select.click();
+        const option = screen.getByRole("option", {name: "Centimeters"});
+        option.click();
 
         // Assert
         expect(onChange).toHaveBeenCalledWith(
@@ -71,7 +73,7 @@ describe("InteractiveGraphSettings", () => {
         );
     });
 
-    test("calls onChange when rulerTicks is changed", async () => {
+    test("calls onChange when rulerTicks is changed", () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -79,12 +81,14 @@ describe("InteractiveGraphSettings", () => {
         );
 
         // Act
-        const select = screen.getByRole("combobox", {name: "Ruler ticks:"});
-        await userEvent.selectOptions(select, ["4"]);
+        const select = screen.getByRole("button", {name: "Ruler ticks:"});
+        select.click();
+        const option = screen.getByRole("option", {name: "4"});
+        option.click();
 
         // Assert
         expect(onChange).toBeCalledWith(
-            expect.objectContaining({rulerTicks: 4}),
+            expect.objectContaining({rulerTicks: "4"}),
             undefined,
         );
     });

@@ -55,6 +55,7 @@ const Row = (props: {style?: StyleType; children: React.ReactNode}) => {
                 ...style,
                 flexDirection: "row",
                 marginTop: Spacing.xSmall_8,
+                alignItems: "center",
             }}
         >
             {children}

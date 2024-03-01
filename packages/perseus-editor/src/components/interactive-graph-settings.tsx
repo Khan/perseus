@@ -8,6 +8,11 @@ import {
     Changeable,
     Util,
 } from "@khanacademy/perseus";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
@@ -20,6 +25,8 @@ const defaultBackgroundImage = {
     width: 0,
     height: 0,
 } as const;
+
+const RULER_TICKS = [1, 2, 4, 8, 10, 16];
 
 function numSteps(range: any, step: any) {
     return Math.floor((range[1] - range[0]) / step);
@@ -62,6 +69,7 @@ type Props = {
      * The background image to display in the graph area and its properties.
      */
     backgroundImage: PerseusImageBackground;
+
     /**
      * The type of markings to display on the graph.
      * - graph: shows the axes and the grid lines
@@ -545,7 +553,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
                 <div className="image-settings">
                     <div>Background image:</div>
-                    <div>
+                    <View style={styles.row}>
                         <label htmlFor="bg-url">Url:</label>
                         <input
                             id="bg-url"
@@ -569,7 +577,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 image" function to create a background.
                             </p>
                         </InfoTip>
-                    </div>
+                    </View>
                 </div>
 
                 <div className="misc-settings">
@@ -590,65 +598,71 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                         </div>
                     </div>
                     {this.props.showRuler && (
-                        <div>
-                            <div>
-                                <label>
-                                    {" "}
-                                    Ruler label:{" "}
-                                    <select
-                                        onChange={this.changeRulerLabel}
-                                        value={this.props.rulerLabel}
-                                    >
-                                        <option value="">None</option>
-                                        <optgroup label="Metric">
-                                            {this.renderLabelChoices([
-                                                ["milimeters", "mm"],
-                                                ["centimeters", "cm"],
-                                                ["meters", "m"],
-                                                ["kilometers", "km"],
-                                            ])}
-                                        </optgroup>
-                                        <optgroup label="Imperial">
-                                            {this.renderLabelChoices([
-                                                ["inches", "in"],
-                                                ["feet", "ft"],
-                                                ["yards", "yd"],
-                                                ["miles", "mi"],
-                                            ])}
-                                        </optgroup>
-                                    </select>
+                        <View>
+                            <View style={styles.row}>
+                                <label htmlFor="ruler-label-select">
+                                    Ruler label:
                                 </label>
-                            </div>
-                            <div>
-                                <label>
-                                    {" "}
-                                    Ruler ticks:{" "}
-                                    <select
-                                        onChange={this.changeRulerTicks}
-                                        value={this.props.rulerTicks}
-                                    >
-                                        {_.map(
-                                            [1, 2, 4, 8, 10, 16],
-                                            function (n) {
-                                                return (
-                                                    <option
-                                                        key={`ruler-tick-${n}`}
-                                                        value={n}
-                                                    >
-                                                        {n}
-                                                    </option>
-                                                );
-                                            },
-                                        )}
-                                    </select>
+                                <Strut size={spacing.xSmall_8} />
+                                <SingleSelect
+                                    id="ruler-label-select"
+                                    selectedValue={this.props.rulerLabel}
+                                    onChange={(newValue) => {
+                                        this.change({rulerLabel: newValue});
+                                    }}
+                                    placeholder="None"
+                                >
+                                    <OptionItem value="" label="None" />
+                                    <OptionItem value="mm" label="Milimeters" />
+                                    <OptionItem
+                                        value="cm"
+                                        label="Centimeters"
+                                    />
+                                    <OptionItem value="m" label="Meters" />
+                                    <OptionItem value="km" label="Kilometers" />
+                                    <OptionItem value="in" label="Inches" />
+                                    <OptionItem value="ft" label="Feet" />
+                                    <OptionItem value="yd" label="Yards" />
+                                    <OptionItem value="mi" label="Miles" />
+                                </SingleSelect>
+                            </View>
+                            <View style={styles.row}>
+                                <label htmlFor="ruler-ticks-select">
+                                    Ruler ticks:
                                 </label>
-                            </div>
-                        </div>
+                                <Strut size={spacing.xSmall_8} />
+                                <SingleSelect
+                                    id="ruler-ticks-select"
+                                    selectedValue={`${this.props.rulerTicks}`}
+                                    onChange={(newValue) => {
+                                        this.change({rulerTicks: newValue});
+                                    }}
+                                    placeholder="10"
+                                >
+                                    {RULER_TICKS.map((value) => (
+                                        <OptionItem
+                                            key={value}
+                                            value={`${value}`}
+                                            label={`${value}`}
+                                        />
+                                    ))}
+                                </SingleSelect>
+                            </View>
+                        </View>
                     )}
                 </div>
             </div>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    row: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: spacing.xSmall_8,
+    },
+});
 
 export default InteractiveGraphSettings;

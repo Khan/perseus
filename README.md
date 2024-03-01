@@ -37,6 +37,27 @@ The components and widgets of Perseus are developed using [Storybook](https://gi
 
 We use [changesets](https://github.com/changesets/changesets) to help manage our versioning/releases. Before pushing a new PR, add a changeset by running `yarn changeset`. Commit and submit that with the PR.
 
+### Updating Dependencies
+
+If you want to use another library in Perseus (e.g. Wonder Blocks), you will need up update the dependencies.
+1. `cd` into to the package in which you would like to update the dependency.
+```
+cd packages/[package-name]
+
+// Example
+cd packages/perseus-editor
+```
+
+2. Run the following command to update the dev dependencies and the peer dependencies.
+```
+yarn add --dev [dependency name]
+yarn add --peer [dependency name]
+
+// Example
+yarn add --dev @khanacademy/wonder-blocks-button
+yarn add --peer @khanacademy/wonder-blocks-button
+```
+
 ## Contributing
 
 The Perseus project is not accepting external contributions. We’re releasing the code for others to refer to and learn from, but we are not open to pull requests or issues at this time.
