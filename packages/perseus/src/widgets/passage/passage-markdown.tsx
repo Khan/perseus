@@ -202,6 +202,7 @@ const rules = {
 
             return {
                 ref: ref,
+                // @ts-expect-error - TS2322- Type 'SingleASTNode[]' is not assignable to type 'ReactNode'.
                 refContent: refContent,
             };
         },
