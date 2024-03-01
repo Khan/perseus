@@ -32,7 +32,6 @@ import PythonProgramEditor from "./widgets/python-program-editor";
 import RadioEditor from "./widgets/radio/editor";
 import ReactionDiagramEditor from "./widgets/reaction-diagram-editor";
 import SimpleMarkdownTesterEditor from "./widgets/simple-markdown-tester-editor";
-import SimulatorEditor from "./widgets/simulator-editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
 import UnitEditor from "./widgets/unit-editor";
@@ -71,7 +70,6 @@ export default [
     PythonProgramEditor,
     ReactionDiagramEditor,
     SimpleMarkdownTesterEditor,
-    SimulatorEditor,
     SorterEditor,
     TableEditor,
     UnitEditor,

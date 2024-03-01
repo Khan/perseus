@@ -29,7 +29,6 @@ import PassageRefTarget from "./widgets/passage-ref-target";
 import Plotter from "./widgets/plotter";
 import PythonProgram from "./widgets/python-program";
 import ReactionDiagram from "./widgets/reaction-diagram";
-import Simulator from "./widgets/simulator";
 import Sorter from "./widgets/sorter";
 import Table from "./widgets/table";
 import Unit from "./widgets/unit";
@@ -64,7 +63,6 @@ export default [
     Plotter,
     PythonProgram,
     ReactionDiagram,
-    Simulator,
     Sorter,
     Table,
     Unit,

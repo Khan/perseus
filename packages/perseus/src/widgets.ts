@@ -69,6 +69,7 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("transformer", "deprecated-standin");
     replaceWidget("lights-puzzle", "deprecated-standin");
     replaceWidget("sequence", "deprecated-standin");
+    replaceWidget("simulator", "deprecated-standin");
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
@@ -107,6 +108,7 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("transformer", "deprecated-standin");
     replaceEditor("lights-puzzle", "deprecated-standin");
     replaceEditor("sequence", "deprecated-standin");
+    replaceEditor("simulator", "deprecated-standin");
 };
 
 export const getWidget = (

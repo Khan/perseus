@@ -37,7 +37,6 @@ describe("Widget API support", () => {
         "passage-ref",
         "passage-ref-target",
         "plotter",
-        "simulator",
         "sorter",
         "table",
         "unit-input",
