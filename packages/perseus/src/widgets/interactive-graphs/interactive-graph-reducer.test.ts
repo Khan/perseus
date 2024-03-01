@@ -3,16 +3,21 @@ import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {InteractiveGraphState} from "./interactive-graph-state";
 
+const baseSegmentGraphState: InteractiveGraphState = {
+    hasBeenInteractedWith: false,
+    type: "segment",
+    range: [
+        [-10, 10],
+        [-10, 10],
+    ],
+    snapStep: [1, 1],
+    segments: []
+};
+
 describe("moveControlPoint", () => {
     it("moves the given point", () => {
         const state: InteractiveGraphState = {
-            hasBeenInteractedWith: false,
-            type: "segment",
-            range: [
-                [0, 10],
-                [0, 10],
-            ],
-            snapStep: [1, 1],
+            ...baseSegmentGraphState,
             segments: [
                 [
                     [1, 2],
@@ -34,13 +39,7 @@ describe("moveControlPoint", () => {
 
     it("sets hasBeenInteractedWith", () => {
         const state: InteractiveGraphState = {
-            hasBeenInteractedWith: false,
-            type: "segment",
-            range: [
-                [0, 10],
-                [0, 10],
-            ],
-            snapStep: [1, 1],
+            ...baseSegmentGraphState,
             segments: [
                 [
                     [1, 2],
