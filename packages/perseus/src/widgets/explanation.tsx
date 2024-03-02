@@ -118,9 +118,6 @@ class Explanation extends React.Component<Props, State> {
                 </div>
             );
         } else {
-            // const viewStyling = isArticle
-            //     ? [styles.explanationLink, styles.articleLink]
-            //     : [styles.explanationLink, styles.exerciseLink];
             const caretIcon = this.state.expanded ? caretUp : caretDown;
             promptContainer = ({contentId}) => (
                 <Button
@@ -130,6 +127,7 @@ class Explanation extends React.Component<Props, State> {
                     kind="tertiary"
                     onClick={onClick}
                     size="medium"
+                    style={{paddingLeft: "2px", marginLeft: "-2px"}}
                 >
                     {promptText}
                 </Button>
@@ -146,9 +144,10 @@ class Explanation extends React.Component<Props, State> {
                 scope="explanation-widget"
             >
                 {(ids) => (
-                    <div className={css(styles.container)}>
+                    <>
                         {promptContainer({contentId: ids.get("content")})}
                         <div
+                            id={ids.get("content")}
                             className={css(
                                 styles.content,
                                 isMobile && styles.contentMobile,
@@ -168,7 +167,7 @@ class Explanation extends React.Component<Props, State> {
                                 />
                             </div>
                         </div>
-                    </div>
+                    </>
                 )}
             </UniqueIDProvider>
         );
@@ -191,30 +190,8 @@ const arrowHeight = 14;
 const backgroundColor = styleConstants.gray95;
 
 const styles = StyleSheet.create({
-    container: {
-        display: "inline",
-        position: "relative",
-    },
-
     linkContainer: {
         display: "inline-block",
-    },
-
-    explanationLink: {
-        fontStyle: "italic",
-        color: "#007d96",
-    },
-
-    articleLink: {
-        // Copied from .body-text in articles.less
-        fontSize: 20,
-        lineHeight: "30px",
-    },
-
-    exerciseLink: {
-        // Copied from .legacy-typography in util.less
-        fontSize: 14,
-        lineHeight: "19.6px",
     },
 
     mobileExplanationLink: {
