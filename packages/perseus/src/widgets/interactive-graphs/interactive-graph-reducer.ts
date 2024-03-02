@@ -5,25 +5,49 @@ import type {
     Point,
     Segment
 } from "./interactive-graph-state";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import {vec} from "mafs";
 
 export function interactiveGraphReducer(
     state: Readonly<InteractiveGraphState>,
     action: InteractiveGraphAction,
 ): InteractiveGraphState {
-    const newSegments = updateAtIndex(state.segments, action.objectIndex, (segment) =>
-        setAtIndex(segment, action.pointIndex, snap(bound(action.destination, state), state)),
-    )
-    if (!validSegments(newSegments)) {
-        return state
+    switch (action.type) {
+        case "move-control-point": {
+            const newSegments = updateAtIndex(state.segments, action.objectIndex, (segment) =>
+                setAtIndex(segment, action.pointIndex, snap(state, bound(state, action.destination))),
+            )
+            if (!validSegments(newSegments)) {
+                return state
+            }
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                segments: newSegments
+            };
+        }
+        case "move-segment": {
+            const oldSegment = state.segments[action.segmentIndex]
+            const maxMoves = oldSegment.map((point) => maxMove(state, point))
+            const minMoves = oldSegment.map((point) => minMove(state, point))
+            const maxXMove = Math.min(...maxMoves.map(move => move[0]))
+            const maxYMove = Math.min(...maxMoves.map(move => move[1]))
+            const minXMove = Math.max(...minMoves.map(move => move[0]))
+            const minYMove = Math.max(...minMoves.map(move => move[1]))
+            const dx = clamp(action.delta[0], minXMove, maxXMove)
+            const dy = clamp(action.delta[1], minYMove, maxYMove)
+            const newSegment = oldSegment.map((point) => snap(state, kvector.add(point, [dx, dy]))) as Segment
+
+            const newSegments = setAtIndex(state.segments, action.segmentIndex, newSegment)
+
+            return {...state, segments: newSegments};
+        }
+        default:
+            throw new UnreachableCaseError(action)
     }
-    return {
-        ...state,
-        hasBeenInteractedWith: true,
-        segments: newSegments
-    };
 }
 
-function snap(point: Point, state: Readonly<InteractiveGraphState>): Point {
+function snap(state: Readonly<InteractiveGraphState>, point: Point): Point {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = state.snapStep;
     return [
@@ -32,11 +56,21 @@ function snap(point: Point, state: Readonly<InteractiveGraphState>): Point {
     ]
 }
 
-function bound(point: Point, state: Readonly<InteractiveGraphState>): Point {
+function bound(state: Readonly<InteractiveGraphState>, point: Point): Point {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = state.snapStep;
     const [[minX, maxX], [minY, maxY]] = state.range;
     return [clamp(requestedX, minX + snapX, maxX - snapX), clamp(requestedY, minY + snapY, maxY - snapY)]
+}
+
+function maxMove(state: Readonly<InteractiveGraphState>, point: Point): vec.Vector2 {
+    const topRight = bound(state, [Infinity, Infinity])
+    return vec.sub(topRight, point)
+}
+
+function minMove(state: Readonly<InteractiveGraphState>, point: Point): vec.Vector2 {
+    const bottomLeft= bound(state, [-Infinity, -Infinity])
+    return vec.sub(bottomLeft, point)
 }
 
 function clamp(value: number, min: number, max: number) {

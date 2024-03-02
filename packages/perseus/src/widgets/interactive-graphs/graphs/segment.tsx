@@ -3,7 +3,7 @@ import Color from "@khanacademy/wonder-blocks-color";
 import {Line, MovablePoint, vec} from "mafs";
 import * as React from "react";
 
-import {moveControlPoint} from "../interactive-graph-action";
+import {moveControlPoint, moveSegment} from "../interactive-graph-action";
 import {constrain} from "../utils";
 
 import type {Coord} from "../../../interactive2/types";
@@ -29,6 +29,9 @@ export const SegmentGraph = (props: {
                     segment={segment}
                     snaps={snapStep}
                     range={range}
+                    onMoveSegment={(delta: vec.Vector2) => {
+                        dispatch(moveSegment(i, delta));
+                    }}
                     onMovePoint={(
                         endpointIndex: number,
                         destination: vec.Vector2,
@@ -50,6 +53,7 @@ const Segment = (props: {
     snaps: [number, number];
     range: [[number, number], [number, number]];
     onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
+    onMoveSegment: (delta: vec.Vector2) => unknown;
     onChange: (coords: [[number, number], [number, number]]) => void;
 }) => {
     const [pt1, pt2] = props.segment;
@@ -81,7 +85,7 @@ const Segment = (props: {
                 point={midpoint}
                 color={Color.blue}
                 onMove={(newPoint) => {
-                    shiftSegment(vec.sub(newPoint, midpoint));
+                    props.onMoveSegment(vec.sub(newPoint, midpoint))
                 }}
             />
             <MovablePoint

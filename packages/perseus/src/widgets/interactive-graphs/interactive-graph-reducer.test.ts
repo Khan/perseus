@@ -1,4 +1,4 @@
-import {moveControlPoint} from "./interactive-graph-action";
+import {moveControlPoint, moveSegment} from "./interactive-graph-action";
 import {interactiveGraphReducer} from "./interactive-graph-reducer";
 
 import type {InteractiveGraphState} from "./interactive-graph-state";
@@ -125,3 +125,68 @@ describe("moveControlPoint", () => {
         expect(updated.segments[0][0]).toEqual([4.5, 7.5]);
     })
 });
+
+describe("moveSegment", () => {
+    it("moves an entire segment by the given delta vector", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            segments: [
+                [
+                    [1, 2],
+                    [3, 4],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            moveSegment(0, [5, -3]),
+        );
+
+        expect(updated.segments[0]).toEqual([
+            [6, -1],
+            [8, 1],
+        ]);
+    })
+
+    it("snaps to the snap grid", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            segments: [
+                [
+                    [1, 2],
+                    [3, 4],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            moveSegment(0, [0.5, 0.5]),
+        );
+
+        expect(updated.segments[0]).toEqual([
+            [2, 3],
+            [4, 5],
+        ]);
+    })
+
+    it("keeps the segment within the graph bounds", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            segments: [
+                [
+                    [1, 2],
+                    [3, 4],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(
+            state,
+            moveSegment(0, [99, 99]),
+        );
+
+        expect(updated.segments[0]).toEqual([[7, 7], [9, 9]])
+    })
+})
