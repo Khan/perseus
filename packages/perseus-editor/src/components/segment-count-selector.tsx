@@ -1,3 +1,4 @@
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 import _ from "underscore";
 
@@ -8,20 +9,23 @@ const SegmentCountSelector = ({
     numSegments?: number;
     onChange: (numSegments: number) => void;
 }) => (
-    <select
+    <SingleSelect
         key="segment-select"
-        value={numSegments}
-        onChange={(e) => {
-            const num = +e.target.value;
+        selectedValue={`${numSegments}`}
+        placeholder=""
+        onChange={(newValue) => {
+            const num = +newValue;
             onChange(num);
         }}
     >
         {_.range(1, 7).map((n) => (
-            <option key={n} value={n}>
-                {`${n} segment${n > 1 ? "s" : ""}`}
-            </option>
+            <OptionItem
+                key={n}
+                value={`${n}`}
+                label={`${n} segment${n > 1 ? "s" : ""}`}
+            />
         ))}
-    </select>
+    </SingleSelect>
 );
 
 export default SegmentCountSelector;

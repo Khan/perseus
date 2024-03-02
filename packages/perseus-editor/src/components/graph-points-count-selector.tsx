@@ -1,8 +1,17 @@
+import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 
 import {UNLIMITED, parsePointCount} from "../util/points";
 
 import type {PointValue} from "../util/points";
+
+const NUMERIC_OPTIONS = [...Array(7).keys()].map((n) => (
+    <OptionItem
+        key={n}
+        value={`${n}`}
+        label={`${n} point${n > 1 ? "s" : ""}`}
+    />
+));
 
 const GraphPointsCountSelector = ({
     numPoints = 1,
@@ -12,19 +21,18 @@ const GraphPointsCountSelector = ({
     onChange: (points: PointValue) => void;
 }) => {
     return (
-        <select
-            value={numPoints}
-            onChange={(e) => {
-                onChange(parsePointCount(e.target.value));
+        <SingleSelect
+            selectedValue={`${numPoints}`}
+            onChange={(newValue) => {
+                onChange(parsePointCount(newValue));
             }}
+            placeholder=""
         >
-            {[...Array(7).keys()].map((n) => (
-                <option key={n} value={n}>
-                    {`${n} point${n > 1 ? "s" : ""}`}
-                </option>
-            ))}
-            <option value={UNLIMITED}>unlimited</option>
-        </select>
+            {[
+                ...NUMERIC_OPTIONS,
+                <OptionItem value={UNLIMITED} label="unlimited" />,
+            ]}
+        </SingleSelect>
     );
 };
 
