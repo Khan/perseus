@@ -18,7 +18,6 @@ import type {
 import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
-import "mafs/font.css";
 import "./mafs-styles.css";
 
 const renderGraph = (props: MafsGraphProps<PerseusGraphType>) => {
