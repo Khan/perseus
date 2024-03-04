@@ -5,7 +5,6 @@ import {vec} from "mafs";
 import type {InteractiveGraphAction} from "./interactive-graph-action";
 import type {
     InteractiveGraphState,
-    Point,
     Segment,
 } from "./interactive-graph-state";
 
@@ -61,7 +60,7 @@ export function interactiveGraphReducer(
     }
 }
 
-function snap(state: Readonly<InteractiveGraphState>, point: Point): Point {
+function snap(state: Readonly<InteractiveGraphState>, point: vec.Vector2): vec.Vector2 {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = state.snapStep;
     return [
@@ -72,7 +71,7 @@ function snap(state: Readonly<InteractiveGraphState>, point: Point): Point {
 
 // Returns the closest point to the given `point` that is within the graph
 // bounds given in `state`.
-function bound(state: Readonly<InteractiveGraphState>, point: Point): Point {
+function bound(state: Readonly<InteractiveGraphState>, point: vec.Vector2): vec.Vector2 {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = state.snapStep;
     const [[minX, maxX], [minY, maxY]] = state.range;
@@ -85,7 +84,7 @@ function bound(state: Readonly<InteractiveGraphState>, point: Point): Point {
 // Returns the vector from the given point to the top-right corner of the graph
 function maxMove(
     state: Readonly<InteractiveGraphState>,
-    point: Point,
+    point: vec.Vector2,
 ): vec.Vector2 {
     const topRight = bound(state, [Infinity, Infinity]);
     return vec.sub(topRight, point);
@@ -95,7 +94,7 @@ function maxMove(
 // graph
 function minMove(
     state: Readonly<InteractiveGraphState>,
-    point: Point,
+    point: vec.Vector2,
 ): vec.Vector2 {
     const bottomLeft = bound(state, [-Infinity, -Infinity]);
     return vec.sub(bottomLeft, point);

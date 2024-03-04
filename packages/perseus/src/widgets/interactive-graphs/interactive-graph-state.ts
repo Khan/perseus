@@ -22,7 +22,7 @@ export interface InteractiveGraphStateCommon {
     snapStep: vec.Vector2;
 }
 
-export type Segment = [Point, Point];
+export type Segment = [vec.Vector2, vec.Vector2];
 
 export function initializeGraphState(params: {
     range: [Interval, Interval];
@@ -76,5 +76,3 @@ const getDefaultSegments = (props: {
         return endpoints;
     });
 };
-
-export type Point = vec.Vector2;
