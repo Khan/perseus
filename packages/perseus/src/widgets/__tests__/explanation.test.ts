@@ -8,8 +8,6 @@ import ExplanationWidgetExports from "../explanation";
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
-
 describe("Explanation", function () {
     let userEvent;
     beforeEach(() => {
@@ -245,8 +243,7 @@ describe("Explanation", function () {
         it("should always return 0 points", async () => {
             const result = ExplanationWidgetExports.widget.validate(
                 {},
-                question1.widgets["explanation 1"]
-                    .options as PerseusExplanationWidgetOptions,
+                question1.widgets["explanation 1"].options,
             );
 
             expect(result).toMatchInlineSnapshot(`

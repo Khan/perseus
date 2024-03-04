@@ -142,8 +142,12 @@ export type {
     PerseusPlotterWidgetOptions,
     PerseusPythonProgramWidgetOptions,
     PerseusRadioWidgetOptions,
+    PerseusExampleWidgetOptions,
+    PerseusExampleGraphieWidgetOptions,
+    PerseusSimpleMarkdownTesterWidgetOptions,
     PerseusRenderer,
     PerseusWidget,
+    PerseusWidgetsMap,
 } from "./perseus-types";
 export type {Coord} from "./interactive2/types";
 export type {MarkerType} from "./widgets/label-image/types";

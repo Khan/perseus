@@ -9,13 +9,19 @@
  * TODO(jack): Add more comments
  */
 import {Changeable} from "@khanacademy/perseus";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
-import type {WidgetExports} from "@khanacademy/perseus";
+import type {
+    WidgetExports,
+    PerseusExampleWidgetOptions,
+} from "@khanacademy/perseus";
 
-class TextInput extends React.Component<any> {
+type Props = Changeable.ChangeableProps & {
+    value: PerseusExampleWidgetOptions["value"];
+};
+
+class TextInput extends React.Component<Props> {
     input = React.createRef<HTMLInputElement>();
 
     render(): React.ReactNode {
@@ -40,18 +46,16 @@ class TextInput extends React.Component<any> {
     };
 }
 
+type DefaultProps = {
+    value: Props["value"];
+};
 /**
  * This is the widget's renderer. It shows up in the right column
  * in the demo, and is what is visible to users, and where
  * users enter their answers.
  */
-class ExampleWidget extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        value: PropTypes.string,
-    };
-
-    static defaultProps: any = {
+class ExampleWidget extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
         value: "",
     };
 

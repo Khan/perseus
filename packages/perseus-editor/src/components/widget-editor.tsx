@@ -76,6 +76,10 @@ class WidgetEditor extends React.Component<
         cb: () => unknown,
         silent: boolean,
     ) => {
+        // Casting to any is necessary because typescript
+        // seems confused about the type of WidgetOptions
+        // TODO (LC-1794): Fix this type so that we don't
+        // require the cast to any.
         const newWidgetInfo = {
             ...this.state.widgetInfo,
             options: {
@@ -83,7 +87,7 @@ class WidgetEditor extends React.Component<
                 ...(this.widget.current?.serialize() ?? {}),
                 ...newProps,
             },
-        };
+        } as any;
         this.props.onChange(newWidgetInfo, cb, silent);
     };
 

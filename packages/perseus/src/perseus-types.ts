@@ -14,6 +14,88 @@ type StyleParams = {
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
 
+export type PerseusWidgetsMap = {
+    [key in `categorizer ${number}`]: CategorizerWidget;
+} & {
+    [key in `cs-program ${number}`]: CSProgramWidget;
+} & {
+    [key in `definition ${number}`]: DefinitionWidget;
+} & {
+    [key in `dropdown ${number}`]: DropdownWidget;
+} & {
+    [key in `example-widget ${number}`]: ExampleWidget;
+} & {
+    [key in `example-graphie-widget ${number}`]: ExampleGraphieWidget;
+} & {
+    [key in `explanation ${number}`]: ExplanationWidget;
+} & {
+    [key in `expression ${number}`]: ExpressionWidget;
+} & {
+    [key in `grapher ${number}`]: GrapherWidget;
+} & {
+    [key in `group ${number}`]: GroupWidget;
+} & {
+    [key in `graded-group ${number}`]: GradedGroupWidget;
+} & {
+    [key in `graded-group-set ${number}`]: GradedGroupSetWidget;
+} & {
+    [key in `iframe ${number}`]: IFrameWidget;
+} & {
+    [key in `image ${number}`]: ImageWidget;
+} & {
+    [key in `input-number ${number}`]: InputNumberWidget;
+} & {
+    [key in `interaction ${number}`]: InteractionWidget;
+} & {
+    [key in `interactive-graph ${number}`]: InteractiveGraphWidget;
+} & {
+    [key in `label-image ${number}`]: LabelImageWidget;
+} & {
+    [key in `lights-puzzle ${number}`]: LightsPuzzleWidget;
+} & {
+    [key in `matcher ${number}`]: MatcherWidget;
+} & {
+    [key in `matrix ${number}`]: MatrixWidget;
+} & {
+    [key in `measurer ${number}`]: MeasurerWidget;
+} & {
+    [key in `molecule-renderer ${number}`]: MoleculeRendererWidget;
+} & {
+    [key in `number-line ${number}`]: NumberLineWidget;
+} & {
+    [key in `numeric-input ${number}`]: NumericInputWidget;
+} & {
+    [key in `orderer ${number}`]: OrdererWidget;
+} & {
+    [key in `passage ${number}`]: PassageWidget;
+} & {
+    [key in `passage-ref ${number}`]: PassageRefWidget;
+} & {
+    [key in `passage-ref-target ${number}`]: PassageRefWidget;
+} & {
+    [key in `plotter ${number}`]: PlotterWidget;
+} & {
+    [key in `python-program ${number}`]: PythonProgramWidget;
+} & {
+    [key in `radio ${number}`]: RadioWidget;
+} & {
+    [key in `reaction-diagram ${number}`]: ReactionDiagramWidget;
+} & {
+    [key in `sequence ${number}`]: SequenceWidget;
+} & {
+    [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
+} & {
+    [key in `simulator ${number}`]: SimulatorWidget;
+} & {
+    [key in `sorter ${number}`]: SorterWidget;
+} & {
+    [key in `table ${number}`]: TableWidget;
+} & {
+    [key in `unit-input ${number}`]: UnitInputWidget;
+} & {
+    [key in `video ${number}`]: VideoWidget;
+};
+
 export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
@@ -46,9 +128,7 @@ export type PerseusRenderer = {
     // additional attributes for the image.
     content: string;
     // A dictionary of {[widgetName]: Widget} to be referenced from the content field
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: PerseusWidgetsMap;
     // Used only for PerseusItem.hints.  If true, it replaces the previous hint in the list with the current one. This allows for hints that build upon each other.
     replace?: boolean;
     // Used in the PerseusGradedGroup widget.  A list of "tags" that are keys that represent other content in the system.  Not rendered to the user.
@@ -184,7 +264,7 @@ export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMolecule
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
 // prettier-ignore
-export type ReactionDiagramWidget = Widget<'reaction-diagtram', PerseusReactionDiagramWidgetOptions>;
+export type ReactionDiagramWidget = Widget<'reaction-diagram', PerseusReactionDiagramWidgetOptions>;
 // prettier-ignore
 export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
@@ -312,6 +392,28 @@ export type PerseusDropdownChoice = {
     correct: boolean;
 };
 
+export type PerseusExampleWidgetOptions = {
+    value: string;
+};
+
+export type PerseusExampleGraphieGraph = {
+    box: Size;
+    range: [Coord, Coord];
+    labels: ReadonlyArray<string>;
+    markings: "graph" | "grid" | "none";
+    gridStep: [number, number];
+    step: [number, number];
+    showProtractor?: boolean;
+    showRuler?: boolean;
+    valid?: boolean;
+    backgroundImage?: PerseusImageBackground | null;
+};
+
+export type PerseusExampleGraphieWidgetOptions = {
+    graph: PerseusExampleGraphieGraph;
+    coord: [Coord, Coord] | null;
+};
+
 export type PerseusExplanationWidgetOptions = {
     // Translatable Text; The clickable text to expand an explanation.  e.g. "What is an apple?"
     showPrompt: string;
@@ -320,9 +422,7 @@ export type PerseusExplanationWidgetOptions = {
     // Translatable Markdown; The explanation that is shown when showPrompt is clicked.  e.g. "An apple is a tasty fruit."
     explanation: string;
     // explanation fields can embed widgets. When they do, the details of the widgets are here.
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: PerseusWidgetsMap;
     // Always false.  Not used for this widget
     static: boolean;
 };
@@ -383,9 +483,7 @@ export type PerseusGradedGroupWidgetOptions = {
     // Translatable Markdown. May include widgets and images embedded.
     content: string;
     // See PerseusRenderer.widgets
-    widgets: {
-        [key: string]: PerseusWidget;
-    };
+    widgets: PerseusWidgetsMap;
     // Not used in Perseus
     widgetEnabled?: boolean | null | undefined;
     // Not used in Perseus
@@ -710,6 +808,13 @@ export type PerseusLabelImageMarker = {
     y: number;
 };
 
+export type PerseusLightsPuzzleWidgetOptions = {
+    cells?: ReadonlyArray<ReadonlyArray<boolean>>;
+    startCells?: ReadonlyArray<ReadonlyArray<boolean>>;
+    flipPattern?: string;
+    moveCount?: number;
+};
+
 export type PerseusMatcherWidgetOptions = {
     // Translatable Text; Labels to adorn the headings for the columns.  Only 2 values [left, right]. e.g. ["Concepts", "Things"]
     labels: ReadonlyArray<string>;
@@ -966,9 +1071,7 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    widgets?: {
-        [key: string]: PerseusWidget;
-    };
+    widgets?: PerseusWidgetsMap;
 };
 
 export type PerseusSequenceWidgetOptions = {
@@ -1352,15 +1455,40 @@ export type PerseusInputNumberWidgetOptions = {
     customKeypad?: boolean;
 };
 
-// TODO(FEI-3983): Create proper types for these.
-export type PerseusExampleGraphieWidgetOptions = any;
-export type PerseusExampleWidgetOptions = any;
-export type PerseusLightsPuzzleWidgetOptions = any;
-export type PerseusMoleculeRendererWidgetOptions = any;
-export type PerseusPassageRefTargetWidgetOptions = any;
-export type PerseusReactionDiagramWidgetOptions = any;
-export type PerseusSimpleMarkdownTesterWidgetOptions = any;
-export type PerseusUnitInputWidgetOptions = any;
+export type PerseusMoleculeRendererWidgetOptions = {
+    widgetId: string;
+    rotationAngle?: number;
+    smiles?: string;
+};
+
+export type PerseusPassageRefTargetWidgetOptions = {
+    content: string;
+};
+
+export type PerseusReactionDiagramWidgetOptions = {
+    rotationAngle: ReadonlyArray<number>;
+    widgetId: string;
+    separators: ReadonlyArray<PerseusReactionDiagramSeparators>;
+    smiles: ReadonlyArray<string>;
+};
+
+export type PerseusReactionDiagramSeparators = {
+    type: string;
+    topText: string;
+    bottomText: string;
+};
+
+export type PerseusReactionDiagramSeparatorsData = {
+    topText: string;
+    bottomText: string;
+};
+
+export type PerseusSimpleMarkdownTesterWidgetOptions = {
+    value: string;
+};
+export type PerseusUnitInputWidgetOptions = {
+    value: string;
+};
 
 export type PerseusWidgetOptions =
     | PerseusCategorizerWidgetOptions

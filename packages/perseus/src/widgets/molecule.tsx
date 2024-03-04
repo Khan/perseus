@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unsafe */
 import * as i18n from "@khanacademy/wonder-blocks-i18n";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import draw from "./molecule/molecule-drawing";
 import MoleculeLayout from "./molecule/molecule-layout";
 import SmilesParser from "./molecule/smiles-parser";
 
+import type {PerseusMoleculeRendererWidgetOptions} from "../perseus-types";
 import type {WidgetExports} from "../types";
 
 const {layout} = MoleculeLayout;
@@ -15,14 +15,19 @@ const ParseError = SmilesParser.ParseError;
 
 const borderSize = 30;
 
-export class Molecule extends React.Component<any, any> {
-    static propTypes = {
-        id: PropTypes.string.isRequired,
-        rotationAngle: PropTypes.number,
-        smiles: PropTypes.string,
-    };
+type MoleculeState = {
+    parsedSmiles: any;
+    error: string | null;
+};
 
-    state: any = {parsedSmiles: null, error: null};
+type Props = {
+    widgetId: PerseusMoleculeRendererWidgetOptions["widgetId"];
+    smiles: PerseusMoleculeRendererWidgetOptions["smiles"];
+    rotationAngle: PerseusMoleculeRendererWidgetOptions["rotationAngle"];
+};
+
+export class Molecule extends React.Component<Props, MoleculeState> {
+    state: MoleculeState = {parsedSmiles: null, error: null};
 
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
     UNSAFE_componentWillMount() {
@@ -105,7 +110,7 @@ export class Molecule extends React.Component<any, any> {
         let content = (
             <canvas
                 className="molecule-canvas"
-                id={this.props.id + "-molecule"}
+                id={this.props.widgetId + "-molecule"}
                 // eslint-disable-next-line react/no-string-refs
                 ref="canvas"
             >
@@ -124,14 +129,13 @@ export class Molecule extends React.Component<any, any> {
     }
 }
 
-class MoleculeWidget extends React.Component<any> {
-    static propTypes = {
-        rotationAngle: PropTypes.number,
-        smiles: PropTypes.string,
-        widgetId: PropTypes.string,
+type DefaultProps = {
+    rotationAngle: Props["rotationAngle"];
+};
+class MoleculeWidget extends React.Component<Props> {
+    static defaultProps: DefaultProps = {
+        rotationAngle: 0,
     };
-
-    static defaultProps: any = {rotationAngle: 0};
 
     simpleValidate: (arg1: any) => any = () => {
         return {type: "points", earned: 0, total: 0, message: null};
@@ -156,7 +160,7 @@ class MoleculeWidget extends React.Component<any> {
     render(): React.ReactNode {
         return (
             <Molecule
-                id={this.props.widgetId}
+                widgetId={this.props.widgetId}
                 smiles={this.props.smiles}
                 rotationAngle={this.props.rotationAngle}
             />

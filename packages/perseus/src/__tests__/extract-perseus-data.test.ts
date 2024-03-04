@@ -365,7 +365,7 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
 
-            const answer = getAnswersFromWidgets({"Label-Image 1": widget});
+            const answer = getAnswersFromWidgets({"label-image 1": widget});
             expect(answer).toEqual([
                 `{label: "Label 1", position: {10,10}, answer: "answer 1"}`,
                 `{label: "Label 2", position: {20,10}, answer: "answer 2"}`,
@@ -391,7 +391,7 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
 
-            const answer = getAnswersFromWidgets({"Number-Line 1": widget});
+            const answer = getAnswersFromWidgets({"number-line 1": widget});
             expect(answer).toEqual(["-1.5"]);
         });
 
@@ -412,7 +412,7 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
 
-            const answer = getAnswersFromWidgets({"Matrix 1": widget});
+            const answer = getAnswersFromWidgets({"matrix 1": widget});
             expect(answer).toEqual(["[-2,22,-29,-16], [1,-4,7,5], [3,4,6,1]"]);
         });
 
@@ -428,7 +428,7 @@ describe("ExtractPerseusData", () => {
                 },
             } as const;
 
-            const answer = getAnswersFromWidgets({"Matcher 1": widget});
+            const answer = getAnswersFromWidgets({"matcher 1": widget});
             expect(answer).toEqual([
                 "| Left | Right |\n| --- | --- |\n| 1 | 1 |\n| 2 | 2 |\n| 3 | 3 |\n| 4 | 4 |",
             ]);
@@ -1015,8 +1015,6 @@ describe("ExtractPerseusData", () => {
             } as const;
             const content = injectWidgets(
                 "Content with an unsupported widget [[☃ mock-widget 1]]",
-                // purposefully passing in a fake widget
-                // @ts-expect-error - TS2345 - Argument of type '{ readonly "mock-widget 1": { readonly type: "mock"; readonly options: {}; }; }' is not assignable to parameter of type '{ [key: string]: PerseusWidget; }'.
                 widgets,
             );
             expect(content).toEqual(

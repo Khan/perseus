@@ -302,7 +302,7 @@ export const getRendererPropsForWidgetInfo = (
         // It shouldn't matter what we return here, but for consistency
         // we return the untransformed options, as if the widget did
         // not have a transform defined.
-        return widgetInfo.options;
+        return widgetInfo;
     }
     let transform;
     if (widgetInfo.static) {

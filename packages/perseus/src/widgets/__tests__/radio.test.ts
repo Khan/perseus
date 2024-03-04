@@ -15,11 +15,7 @@ import {
 
 import {renderQuestion} from "./renderQuestion";
 
-import type {
-    PerseusRenderer,
-    RadioWidget,
-    PerseusRadioWidgetOptions,
-} from "../../perseus-types";
+import type {PerseusRenderer} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
 const selectOption = async (
@@ -247,9 +243,7 @@ describe("single-choice question", () => {
     it("should be able to navigate to 'None of the above' choice by keyboard", async () => {
         // Arrange
         const q = clone(question);
-        (
-            q.widgets["radio 1"].options as PerseusRadioWidgetOptions
-        ).choices[3].isNoneOfTheAbove = true;
+        q.widgets["radio 1"].options.choices[3].isNoneOfTheAbove = true;
         renderQuestion(q, apiOptions);
 
         // Act
@@ -269,11 +263,10 @@ describe("single-choice question", () => {
     ])("should enforce ordering for common answers: %j", async (...answers) => {
         // Arrange
         const q = clone(question);
-        (q.widgets["radio 1"].options as PerseusRadioWidgetOptions).choices =
-            answers.map((answer, idx) => ({
-                content: answer,
-                correct: idx === 1, // Correct answer is the "truthy" item
-            }));
+        q.widgets["radio 1"].options.choices = answers.map((answer, idx) => ({
+            content: answer,
+            correct: idx === 1, // Correct answer is the "truthy" item
+        }));
 
         // Act
         const {renderer} = renderQuestion(q, apiOptions);
@@ -293,11 +286,10 @@ describe("single-choice question", () => {
         // Arrange
         const answers = ["Last", "First"];
         const q = clone(question);
-        (q.widgets["radio 1"].options as PerseusRadioWidgetOptions).choices =
-            answers.map((answer, idx) => ({
-                content: answer,
-                correct: idx === 1,
-            }));
+        q.widgets["radio 1"].options.choices = answers.map((answer, idx) => ({
+            content: answer,
+            correct: idx === 1,
+        }));
 
         // Act
         renderQuestion(q, apiOptions);
@@ -320,7 +312,7 @@ describe("single-choice question", () => {
         // HACK(jeremy): TypeScript doesn't know what type these options are because
         // we've extracted them out of a generic `PerseusJson` blob and all the
         // `widget` items are just type `Widget`.
-        (radioOptions.options as any).choices[0].content =
+        radioOptions.options.choices[0].content =
             '{{passage-ref 1 1 "Reference 1 here"}}';
 
         // Act
@@ -576,9 +568,7 @@ describe("single-choice question", () => {
     it("should register as correct when none of the above option selected", async () => {
         // Arrange
         const q = clone(question);
-        const choices = (
-            q.widgets["radio 1"].options as PerseusRadioWidgetOptions
-        ).choices;
+        const choices = q.widgets["radio 1"].options.choices;
         choices[2].correct = false;
         choices[3].isNoneOfTheAbove = true;
         choices[3].correct = true;
@@ -632,7 +622,7 @@ describe("multi-choice question", () => {
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
         };
-        const radio1Widget = question.widgets["radio 1"] as RadioWidget;
+        const radio1Widget = question.widgets["radio 1"];
         const radioOptions = radio1Widget.options;
 
         const multipleCorrectChoicesQuestion: PerseusRenderer = {
@@ -654,7 +644,7 @@ describe("multi-choice question", () => {
                             },
                         ],
                     },
-                } as RadioWidget,
+                },
             },
         };
 
@@ -675,7 +665,7 @@ describe("multi-choice question", () => {
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
         };
-        const radio1Widget = question.widgets["radio 1"] as RadioWidget;
+        const radio1Widget = question.widgets["radio 1"];
         const radioOptions = radio1Widget.options;
 
         const multipleCorrectChoicesQuestion: PerseusRenderer = {
@@ -697,7 +687,7 @@ describe("multi-choice question", () => {
                             },
                         ],
                     },
-                } as RadioWidget,
+                },
             },
         };
 
@@ -747,7 +737,7 @@ describe("multi-choice question", () => {
         const apiOptions: APIOptions = {
             crossOutEnabled: false,
         };
-        const radio1Widget = question.widgets["radio 1"] as RadioWidget;
+        const radio1Widget = question.widgets["radio 1"];
         const radioOptions = radio1Widget.options;
 
         const multipleCorrectChoicesQuestion: PerseusRenderer = {
@@ -769,7 +759,7 @@ describe("multi-choice question", () => {
                             },
                         ],
                     },
-                } as RadioWidget,
+                },
             },
         };
 
