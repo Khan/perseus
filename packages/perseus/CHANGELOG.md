@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 19.8.0
+
+### Minor Changes
+
+-   [#1028](https://github.com/Khan/perseus/pull/1028) [`06abf394`](https://github.com/Khan/perseus/commit/06abf3946f044a7ebfdaddaa369f43f781cb091b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Typescript improvements for Perseus Widget Options and Widget types
+
+*   [#1047](https://github.com/Khan/perseus/pull/1047) [`ec31bc74`](https://github.com/Khan/perseus/commit/ec31bc74efe089f312895f4133d20440e19aebe9) Thanks [@benchristel](https://github.com/benchristel)! - Make whole segments draggable in Mafs segment graphs
+
 ## 19.7.3
 
 ### Patch Changes
