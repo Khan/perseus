@@ -3,10 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 
 import type {InteractiveGraphAction} from "./interactive-graph-action";
-import type {
-    InteractiveGraphState,
-    Segment,
-} from "./interactive-graph-state";
+import type {InteractiveGraphState, Segment} from "./interactive-graph-state";
 
 export function interactiveGraphReducer(
     state: Readonly<InteractiveGraphState>,
@@ -53,14 +50,21 @@ export function interactiveGraphReducer(
                 newSegment,
             );
 
-            return {...state, segments: newSegments};
+            return {
+                ...state,
+                hasBeenInteractedWith: true,
+                segments: newSegments,
+            };
         }
         default:
             throw new UnreachableCaseError(action);
     }
 }
 
-function snap(state: Readonly<InteractiveGraphState>, point: vec.Vector2): vec.Vector2 {
+function snap(
+    state: Readonly<InteractiveGraphState>,
+    point: vec.Vector2,
+): vec.Vector2 {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = state.snapStep;
     return [
@@ -71,7 +75,10 @@ function snap(state: Readonly<InteractiveGraphState>, point: vec.Vector2): vec.V
 
 // Returns the closest point to the given `point` that is within the graph
 // bounds given in `state`.
-function bound(state: Readonly<InteractiveGraphState>, point: vec.Vector2): vec.Vector2 {
+function bound(
+    state: Readonly<InteractiveGraphState>,
+    point: vec.Vector2,
+): vec.Vector2 {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = state.snapStep;
     const [[minX, maxX], [minY, maxY]] = state.range;

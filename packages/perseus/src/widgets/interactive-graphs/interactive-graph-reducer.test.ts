@@ -189,4 +189,20 @@ describe("moveSegment", () => {
             [9, 9],
         ]);
     });
+
+    it("sets hasBeenInteractedWith", () => {
+        const state: InteractiveGraphState = {
+            ...baseSegmentGraphState,
+            segments: [
+                [
+                    [1, 2],
+                    [3, 4],
+                ],
+            ],
+        };
+
+        const updated = interactiveGraphReducer(state, moveSegment(0, [1, 1]));
+
+        expect(updated.hasBeenInteractedWith).toBe(true);
+    });
 });
