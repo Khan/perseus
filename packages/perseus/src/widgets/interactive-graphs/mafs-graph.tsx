@@ -4,57 +4,68 @@ import * as React from "react";
 
 import {SegmentGraph} from "./graphs";
 import {Grid} from "./grid";
+import {interactiveGraphReducer} from "./interactive-graph-reducer";
+import {initializeGraphState} from "./interactive-graph-state";
 import {getLegacyGrid} from "./legacy-grid";
 
-import type {
-    InteractiveGraphProps,
-    MafsGraphProps,
-    OnGraphChange,
-} from "./types";
-import type {
-    PerseusGraphType,
-    PerseusGraphTypeSegment,
-} from "../../perseus-types";
+import type {InteractiveGraphAction} from "./interactive-graph-action";
+import type {InteractiveGraphState} from "./interactive-graph-state";
+import type {InteractiveGraphProps} from "./types";
+import type {PerseusGraphType} from "../../perseus-types";
 import type {Widget} from "../../renderer";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
 
-const renderGraph = (props: MafsGraphProps<PerseusGraphType>) => {
-    const {graph, ...rest} = props;
-    switch (graph.type) {
+const renderGraph = (props: {
+    state: InteractiveGraphState;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+}) => {
+    const {state, dispatch} = props;
+    switch (state.type) {
         case "segment":
-            return (
-                <SegmentGraph
-                    {...rest}
-                    graph={graph}
-                    onGraphChange={
-                        props.onGraphChange as OnGraphChange<PerseusGraphTypeSegment>
-                    }
-                />
-            );
+            return <SegmentGraph graphState={state} dispatch={dispatch} />;
     }
+    throw new Error(
+        "Mafs is not yet implemented for graph type: " + state.type,
+    );
 };
+
+function getGradableGraph(
+    state: InteractiveGraphState,
+    initialGraph: PerseusGraphType,
+): PerseusGraphType {
+    if (!state.hasBeenInteractedWith) {
+        return initialGraph;
+    }
+    switch (initialGraph.type) {
+        case "segment":
+            return {
+                ...initialGraph,
+                coords: state.segments,
+            };
+    }
+    throw new Error(
+        "Mafs is not yet implemented for graph type: " + initialGraph.type,
+    );
+}
 
 export const MafsGraph = React.forwardRef<
     Partial<Widget>,
     React.PropsWithChildren<InteractiveGraphProps> & {box: [number, number]}
 >((props, ref) => {
-    // Storing the gradable state in a ref so that it can be updated without
-    // causing a re-render.
-    const graphRef = React.useRef(props.graph);
-    const handleGraphUpdate = (
-        callback: (current: PerseusGraphType) => PerseusGraphType,
-    ) => {
-        graphRef.current = callback(graphRef.current);
-    };
-
-    React.useImperativeHandle(ref, () => ({
-        getUserInput: () => graphRef.current,
-    }));
-
     const [width, height] = props.box;
     const legacyGrid = getLegacyGrid([width, height], props.backgroundImage);
+
+    const [state, dispatch] = React.useReducer(
+        interactiveGraphReducer,
+        props,
+        initializeGraphState,
+    );
+
+    React.useImperativeHandle(ref, () => ({
+        getUserInput: () => getGradableGraph(state, props.graph),
+    }));
 
     return (
         <View
@@ -85,8 +96,8 @@ export const MafsGraph = React.forwardRef<
                 >
                     {!legacyGrid && <Grid {...props} />}
                     {renderGraph({
-                        ...props,
-                        onGraphChange: handleGraphUpdate,
+                        state,
+                        dispatch,
                     })}
                 </Mafs>
             </View>

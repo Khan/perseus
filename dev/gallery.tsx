@@ -19,6 +19,7 @@ import type {APIOptions, PerseusRenderer} from "../packages/perseus/src";
 import "../packages/perseus/src/styles/perseus-renderer.less";
 
 const questions = [
+    interactiveGraph.segmentQuestion,
     interactiveGraph.pointQuestion,
     interactiveGraph.angleQuestion,
     interactiveGraph.linearSystemQuestion,
@@ -26,7 +27,6 @@ const questions = [
     interactiveGraph.linearQuestion,
     interactiveGraph.polygonQuestion,
     interactiveGraph.rayQuestion,
-    interactiveGraph.segmentQuestion,
     interactiveGraph.sinusoidQuestion,
     grapher.absoluteValueQuestion,
     grapher.exponentialQuestion,
