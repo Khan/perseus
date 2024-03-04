@@ -24,7 +24,7 @@
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "1.4.2",
-        "mathquill": "git+https://git@github.com/Khan/mathquill.git#9c8ebec00c735c9f32270774f52208bf99aa164a"
+        "mathquill": "git+https://git@github.com/Khan/mathquill.git#2060bab7813edde638c0af25920caa6ed73c2b13"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "git+ssh://git@github.com:Khan/mathjax-renderer.git#v1.6.2",

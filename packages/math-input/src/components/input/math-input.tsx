@@ -17,6 +17,7 @@ import {
 import DragListener from "./drag-listener";
 import MathWrapper from "./math-wrapper";
 import {scrollIntoView} from "./scroll-into-view";
+import {mathQuillStrings} from "./strings";
 
 import type {Cursor, KeypadAPI} from "../../types";
 
@@ -939,7 +940,7 @@ class MathInput extends React.Component<Props, State> {
         // TODO(diedra): Fix the bug that is causing Android to require a two finger tap
         // to the open the keyboard, and then remove the second half of this label.
         const ariaLabel =
-            i18n._("Math input box") +
+            mathQuillStrings.mathInputBox +
             " " +
             i18n._("Tap with one or two fingers to open keyboard");
 
