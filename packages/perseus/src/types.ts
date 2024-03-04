@@ -147,7 +147,7 @@ export type APIOptions = Readonly<{
     readOnly?: boolean;
     answerableCallback?: (arg1: boolean) => unknown;
     getAnotherHint?: () => unknown;
-    interactionCallback?: () => unknown;
+    interactionCallback?: (widgetData: {[widgetId: string]: any}) => void;
     // A function that takes in the relative problem number (starts at
     // 0 and is incremented for each group widget), and the ID of the
     // group widget, then returns a react component that will be added
@@ -228,6 +228,8 @@ export type APIOptions = Readonly<{
     // This is useful for when we need to know how a widget has shuffled its
     // the available choices.
     onWidgetStartProps?: (widgets: PerseusWidgetMap) => PerseusWidgetMap;
+    // Feature flags that can be passed from consuming application
+    flags?: Record<string, boolean | Record<string, boolean>>;
 }>;
 
 type TeXProps = {

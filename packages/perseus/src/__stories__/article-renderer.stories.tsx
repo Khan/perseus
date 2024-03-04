@@ -7,7 +7,7 @@ import {
     singleSectionArticle,
     multiSectionArticle,
     passageArticle,
-    articleWithExpression,
+    articleSectionWithExpression,
     multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
@@ -62,7 +62,7 @@ export const ExpressionArticle = ({useNewStyles}): any => (
                     ref={(node) => {
                         setRenderer(node);
                     }}
-                    json={articleWithExpression}
+                    json={articleSectionWithExpression}
                     dependencies={storybookDependenciesV2}
                     useNewStyles={useNewStyles}
                     apiOptions={{

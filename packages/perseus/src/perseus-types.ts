@@ -6,6 +6,11 @@ import type {Coord} from "./interactive2/types";
 export type Range = [number, number];
 export type Size = [number, number];
 
+type StyleParams = {
+    fill?: string;
+    stroke?: string;
+};
+
 // TODO(FEI-5054): Figure out how to get global .d.ts files working with monorepos
 type Empty = Record<never, never>;
 
@@ -532,8 +537,13 @@ export type PerseusInteractiveGraphWidgetOptions = {
     snapStep: [number, number];
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
-    // What to show on the graph.  "graph", "grid", or "none"
-    markings: string;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
+    markings: "graph" | "grid" | "none";
     // How to label the X and Y axis.  default: ["x", "y"]
     labels: ReadonlyArray<string>;
     // Whether to show the Protractor tool overlayed on top of the graph
@@ -555,6 +565,17 @@ export type PerseusInteractiveGraphWidgetOptions = {
     graph: PerseusGraphType;
     // The correct kind of graph, if being used to select function type
     correct: PerseusGraphType;
+    // Shapes (points, chords, etc) displayed on the graph that cannot
+    // be moved by the user.
+    lockedFigures?: ReadonlyArray<LockedFigure>;
+};
+
+export type LockedFigure = LockedPoint;
+
+export type LockedPoint = {
+    type: "point";
+    coord: Coord;
+    style?: StyleParams;
 };
 
 export type PerseusGraphType =
@@ -1040,8 +1061,13 @@ export type PerseusInteractionGraph = {
     range: [Range, Range];
     // The steps in the grid. default [1, 1]
     gridStep: [number, number];
-    // What to show on the graph.  "graph", "grid", or "none"
-    markings: string;
+    /**
+     * The type of markings to display on the graph.
+     * - graph: shows the axes and the grid lines
+     * - grid: shows only the grid lines
+     * - none: shows no markings
+     */
+    markings: "graph" | "grid" | "none";
     // The snap steps. default [0.5, 0.5]
     snapStep?: [number, number];
     // Whether the grid is valid or not.  Do the numbers all make sense?

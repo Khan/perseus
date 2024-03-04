@@ -1,5 +1,5 @@
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -26,41 +26,55 @@ import type {Rubric} from "../numeric-input";
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
 
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("Should accept the right answer", () => {
+    it("Should accept the right answer", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), correct);
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            correct,
+        );
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("Should render predictably", () => {
+    it("Should render predictably", async () => {
         // Arrange
         const {container} = renderQuestion(question);
         expect(container).toMatchSnapshot("first render");
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), correct);
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            correct,
+        );
 
         // Assert
         expect(container).toMatchSnapshot("after interaction");
     });
 
-    it("should reject an incorrect answer", () => {
+    it("should reject an incorrect answer", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), incorrect);
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            incorrect,
+        );
 
         // Assert
         expect(renderer).toHaveBeenAnsweredIncorrectly();
@@ -389,73 +403,90 @@ describe("static function validate", () => {
 });
 
 describe("Numeric input widget", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
     });
 
-    it("can handle multiple correct answers (Part one)", () => {
+    it("can handle multiple correct answers (Part one)", async () => {
         // Arrange
         const {renderer} = renderQuestion(multipleAnswers);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), "1");
+        await userEvent.type(screen.getByRole("textbox", {hidden: true}), "1");
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("can handle multiple correct answers (Part two)", () => {
+    it("can handle multiple correct answers (Part two)", async () => {
         // Arrange
         const {renderer} = renderQuestion(multipleAnswers);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), "2");
+        await userEvent.type(screen.getByRole("textbox", {hidden: true}), "2");
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("can handle duplicated answers", () => {
+    it("can handle duplicated answers", async () => {
         // Arrange
         const {renderer} = renderQuestion(duplicatedAnswers);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), "2.4");
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            "2.4",
+        );
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("can handle coefficients", () => {
+    it("can handle coefficients", async () => {
         // Arrange
         const {renderer} = renderQuestion(withCoefficient);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), "1.0");
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            "1.0",
+        );
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("handles answers that are percentages", () => {
+    it("handles answers that are percentages", async () => {
         // Arrange
         const {renderer} = renderQuestion(percentageProblem);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), "33%");
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            "33%",
+        );
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
     });
 
-    it("handles answers that are decimals", () => {
+    it("handles answers that are decimals", async () => {
         // Arrange
         const {renderer} = renderQuestion(multipleAnswersWithDecimals);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox", {hidden: true}), "12.2");
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            "12.2",
+        );
 
         // Assert
         expect(renderer).toHaveBeenAnsweredCorrectly();
@@ -483,20 +514,6 @@ describe("Numeric input widget", () => {
         expect(document.activeElement).toBe(
             screen.getByRole("textbox", {hidden: true}),
         );
-    });
-
-    it("calls the interaction callback on focus", () => {
-        const testCallback = jest.fn();
-
-        const {renderer} = renderQuestion(question1, {
-            interactionCallback: testCallback,
-        });
-
-        // Act
-        renderer.focus();
-
-        // Assert
-        expect(testCallback).toHaveBeenCalled();
     });
 
     it("can be blurred", () => {

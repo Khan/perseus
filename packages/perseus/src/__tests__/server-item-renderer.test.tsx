@@ -1,8 +1,7 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {within, render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-import "@testing-library/jest-dom"; // Imports custom matchers
 
 import {
     testDependencies,
@@ -11,6 +10,7 @@ import {
 import {
     itemWithInput,
     itemWithLintingError,
+    itemWithNumericAndNumberInputs,
     mockedItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
@@ -72,7 +72,12 @@ describe("server item renderer", () => {
         registerWidget("mock-widget", MockWidgetExport);
     });
 
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -121,10 +126,10 @@ describe("server item renderer", () => {
         expect(score.empty).toBe(true);
     });
 
-    it("should be answerable", () => {
+    it("should be answerable", async () => {
         // Arrange
         const {renderer} = renderQuestion(itemWithInput);
-        userEvent.type(screen.getByRole("textbox"), "-42");
+        await userEvent.type(screen.getByRole("textbox"), "-42");
 
         // Act
         const score = renderer.scoreInput();
@@ -134,19 +139,24 @@ describe("server item renderer", () => {
         expect(score.empty).toBe(false);
     });
 
-    it("calls onInteraction callback", () => {
+    it("calls onInteraction callback with the current user data", async () => {
         // Arrange
         const interactionCallback = jest.fn();
-        renderQuestion(itemWithInput, {
+        renderQuestion(itemWithNumericAndNumberInputs, {
             interactionCallback,
         });
 
         // Act
-        userEvent.type(screen.getByRole("textbox"), "-42");
+        const inputs = screen.getAllByRole("textbox");
+        await userEvent.type(inputs[0], "1");
+        await userEvent.type(inputs[1], "2");
         jest.runOnlyPendingTimers(); // Renderer uses setTimeout setting widget props
 
         // Assert
-        expect(interactionCallback).toHaveBeenCalled();
+        expect(interactionCallback).toHaveBeenCalledWith({
+            "input-number 1": {currentValue: "1"},
+            "numeric-input 1": {currentValue: "2"},
+        });
     });
 
     it("should set the input value for a widget", () => {
@@ -220,7 +230,7 @@ describe("server item renderer", () => {
         ]);
     });
 
-    it("should call the answerable callback when no widgets are empty", () => {
+    it("should call the answerable callback when no widgets are empty", async () => {
         // Arrange
         const answerableCallback = jest.fn();
         const {rerender} = render(
@@ -236,7 +246,7 @@ describe("server item renderer", () => {
                 />
             </RenderStateRoot>,
         );
-        userEvent.type(screen.getByRole("textbox"), "-42");
+        await userEvent.type(screen.getByRole("textbox"), "-42");
 
         // Act
         rerender(
@@ -331,7 +341,7 @@ describe("server item renderer", () => {
             jest.runAllTimers();
 
             // Assert
-            expect(gotFocus).toBeTrue();
+            expect(gotFocus).toBe(true);
             expect(onFocusChange).toHaveBeenCalledWith(
                 ["input-number 1"],
                 null,
@@ -376,7 +386,7 @@ describe("server item renderer", () => {
 
             // Assert
             expect(keypadElement.activate).toHaveBeenCalled();
-            expect(gotFocus).toBeTrue();
+            expect(gotFocus).toBe(true);
             expect(onFocusChange).toHaveBeenCalledWith(
                 ["input-number 1"],
                 null,
@@ -479,7 +489,7 @@ describe("server item renderer", () => {
     });
 
     describe("state serialization", () => {
-        it("should serialize the current state", () => {
+        it("should serialize the current state", async () => {
             // Arrange
             const {renderer} = renderQuestion({
                 ...itemWithInput,
@@ -489,7 +499,7 @@ describe("server item renderer", () => {
                     {content: "Hint #3", images: {}, widgets: {}},
                 ],
             });
-            userEvent.type(screen.getByRole("textbox"), "-42");
+            await userEvent.type(screen.getByRole("textbox"), "-42");
 
             // Act
             const state = renderer.getSerializedState();

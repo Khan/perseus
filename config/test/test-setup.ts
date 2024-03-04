@@ -9,6 +9,8 @@ import {StyleSheetTestUtils} from "aphrodite";
 import jestSerializerHtml from "jest-serializer-html";
 import {addSerializer} from "jest-specific-snapshot";
 
+import "@testing-library/jest-dom";
+
 // Prevent aphrodite from trying to inject styles into the CSSOM
 StyleSheetTestUtils.suppressStyleInjection();
 

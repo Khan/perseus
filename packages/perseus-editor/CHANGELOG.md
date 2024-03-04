@@ -1,5 +1,103 @@
 # @khanacademy/perseus-editor
 
+## 4.3.3
+
+### Patch Changes
+
+-   Updated dependencies [[`1b1d0404`](https://github.com/Khan/perseus/commit/1b1d040461dc6c6b9d238a81be4d2d3e96c452d8)]:
+    -   @khanacademy/perseus@19.7.1
+
+## 4.3.2
+
+### Patch Changes
+
+-   [#1041](https://github.com/Khan/perseus/pull/1041) [`11c2d97f`](https://github.com/Khan/perseus/commit/11c2d97f85e660e2c87cde50ea1bbbe703c8113c) Thanks [@nedredmond](https://github.com/nedredmond)! - Fix bug that would cause Financial Calculator options to appear unchecked on initial render
+
+*   [#1033](https://github.com/Khan/perseus/pull/1033) [`a78cfc0f`](https://github.com/Khan/perseus/commit/a78cfc0f138fced4b1a465f8774be2c12b2fe789) Thanks [@nishasy](https://github.com/nishasy)! - Update InteractiveGraphSettings to React class. Update `markings` to be "graph" | "grid" | "none" instead of string.
+
+*   Updated dependencies [[`3901f863`](https://github.com/Khan/perseus/commit/3901f863f674fec614ec6422af45aa7ad96f0d6d), [`a78cfc0f`](https://github.com/Khan/perseus/commit/a78cfc0f138fced4b1a465f8774be2c12b2fe789)]:
+    -   @khanacademy/perseus@19.7.0
+
+## 4.3.1
+
+### Patch Changes
+
+-   Updated dependencies [[`664b037f`](https://github.com/Khan/perseus/commit/664b037fd76e4406f21add1449fc56e90d742148)]:
+    -   @khanacademy/perseus@19.6.3
+
+## 4.3.0
+
+### Minor Changes
+
+-   [#1025](https://github.com/Khan/perseus/pull/1025) [`5ec2bb71`](https://github.com/Khan/perseus/commit/5ec2bb7152bfb9b980798c3247b4df9c5846d092) Thanks [@nishasy](https://github.com/nishasy)! - Create InteractiveGraphSettings to be used in InteractiveGraphEditor in place of GraphSettings
+
+### Patch Changes
+
+-   [#1029](https://github.com/Khan/perseus/pull/1029) [`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @testing-library/user-event v14.
+
+*   [#1022](https://github.com/Khan/perseus/pull/1022) [`b2649c32`](https://github.com/Khan/perseus/commit/b2649c32ac15a5d8ad9787155ecebe24ffcf783d) Thanks [@nishasy](https://github.com/nishasy)! - Correct type for `valid` prop from `boolean` to `boolean | string`
+
+-   [#1024](https://github.com/Khan/perseus/pull/1024) [`0c9fe476`](https://github.com/Khan/perseus/commit/0c9fe476de5e6712c0f0abdd42768d1c1fbfdba5) Thanks [@nishasy](https://github.com/nishasy)! - Add labels to input fields in GraphSettings + tests.
+
+-   Updated dependencies [[`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139), [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171)]:
+    -   @khanacademy/math-input@17.2.1
+    -   @khanacademy/perseus@19.6.2
+
+## 4.2.8
+
+### Patch Changes
+
+-   Updated dependencies [[`b1552885`](https://github.com/Khan/perseus/commit/b155288568a3f13b3983515391cdbf4dd5092a51)]:
+    -   @khanacademy/perseus@19.6.1
+
+## 4.2.7
+
+### Patch Changes
+
+-   Updated dependencies [[`0562929c`](https://github.com/Khan/perseus/commit/0562929c03645028b68da497382489747f0fc2c6), [`4e2b5100`](https://github.com/Khan/perseus/commit/4e2b51002e41c8f36051775a7ceff4fd1a564526)]:
+    -   @khanacademy/perseus@19.6.0
+
+## 4.2.6
+
+### Patch Changes
+
+-   [#1020](https://github.com/Khan/perseus/pull/1020) [`30405816`](https://github.com/Khan/perseus/commit/3040581645a67f518920fdf6d94b4f78f2233f0c) Thanks [@nishasy](https://github.com/nishasy)! - Undo update to GraphSettings making it a class function
+
+-   Updated dependencies [[`30405816`](https://github.com/Khan/perseus/commit/3040581645a67f518920fdf6d94b4f78f2233f0c)]:
+    -   @khanacademy/perseus@19.5.1
+
+## 4.2.5
+
+### Patch Changes
+
+-   Updated dependencies [[`7038c046`](https://github.com/Khan/perseus/commit/7038c046d3e869e4ad43e3805248f06d61a94af0)]:
+    -   @khanacademy/math-input@17.2.0
+    -   @khanacademy/perseus@19.5.0
+
+## 4.2.4
+
+### Patch Changes
+
+-   [#1009](https://github.com/Khan/perseus/pull/1009) [`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878) Thanks [@nishasy](https://github.com/nishasy)! - Update GraphSettings to React class. Update `markings` type to be "graph" | "grid" | "none" instead of string.
+
+-   Updated dependencies [[`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878), [`7d4d098d`](https://github.com/Khan/perseus/commit/7d4d098dbdbc3f41e89d7e118c8cd83fbcaeb928)]:
+    -   @khanacademy/perseus@19.4.0
+
+## 4.2.3
+
+### Patch Changes
+
+-   Updated dependencies [[`6ef53d21`](https://github.com/Khan/perseus/commit/6ef53d213fae13977effbd28c784aa6cd91c6e7f)]:
+    -   @khanacademy/perseus@19.3.1
+
+## 4.2.2
+
+### Patch Changes
+
+-   Updated dependencies [[`955ae480`](https://github.com/Khan/perseus/commit/955ae480a822d875784fb2de65240fe1acd283a5), [`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89)]:
+    -   @khanacademy/perseus@19.3.0
+    -   @khanacademy/math-input@17.1.0
+
 ## 4.2.1
 
 ### Patch Changes

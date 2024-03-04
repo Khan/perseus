@@ -1,5 +1,25 @@
 # @khanacademy/math-input
 
+## 17.2.1
+
+### Patch Changes
+
+-   [#1029](https://github.com/Khan/perseus/pull/1029) [`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @testing-library/user-event v14.
+
+*   [#1012](https://github.com/Khan/perseus/pull/1012) [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix handling of "Fractions" keypad in the keypad tab bar icon component
+
+## 17.2.0
+
+### Minor Changes
+
+-   [#1000](https://github.com/Khan/perseus/pull/1000) [`7038c046`](https://github.com/Khan/perseus/commit/7038c046d3e869e4ad43e3805248f06d61a94af0) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fixes to ensure that users can properly interact with the numberline widget
+
+## 17.1.0
+
+### Minor Changes
+
+-   [#1006](https://github.com/Khan/perseus/pull/1006) [`17c38bf7`](https://github.com/Khan/perseus/commit/17c38bf743da3675d8ce13d4dc3c0b8efaa93d89) Thanks [@benchristel](https://github.com/benchristel)! - Allow learners to type trig operators in any language in the Expression widget
+
 ## 17.0.8
 
 ### Patch Changes
