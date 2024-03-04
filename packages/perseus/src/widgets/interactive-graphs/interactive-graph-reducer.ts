@@ -56,6 +56,8 @@ function snap(state: Readonly<InteractiveGraphState>, point: Point): Point {
     ]
 }
 
+// Returns the closest point to the given `point` that is within the graph
+// bounds given in `state`.
 function bound(state: Readonly<InteractiveGraphState>, point: Point): Point {
     const [requestedX, requestedY] = point;
     const [snapX, snapY] = state.snapStep;
@@ -63,11 +65,14 @@ function bound(state: Readonly<InteractiveGraphState>, point: Point): Point {
     return [clamp(requestedX, minX + snapX, maxX - snapX), clamp(requestedY, minY + snapY, maxY - snapY)]
 }
 
+// Returns the vector from the given point to the top-right corner of the graph
 function maxMove(state: Readonly<InteractiveGraphState>, point: Point): vec.Vector2 {
     const topRight = bound(state, [Infinity, Infinity])
     return vec.sub(topRight, point)
 }
 
+// Returns the vector from the given point to the bottom-left corner of the
+// graph
 function minMove(state: Readonly<InteractiveGraphState>, point: Point): vec.Vector2 {
     const bottomLeft= bound(state, [-Infinity, -Infinity])
     return vec.sub(bottomLeft, point)
