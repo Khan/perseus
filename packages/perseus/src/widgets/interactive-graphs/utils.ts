@@ -64,7 +64,7 @@ export const normalizePoints = <A extends ReadonlyArray<Coord>>(
     ) as any;
 
 // same as normalizeCoords in interactive-graph.tsx
-export const normalizeCoords = <A extends Array<Coord>>(
+export const normalizeCoords = <A extends ReadonlyArray<Coord>>(
     coordsList: A,
     ranges: PerseusInteractiveGraphWidgetOptions["range"],
 ): A =>
@@ -74,7 +74,7 @@ export const normalizeCoords = <A extends Array<Coord>>(
                 const extent = ranges[i][1] - ranges[i][0];
                 return (coord + ranges[i][1]) / extent;
             }) as Coord,
-    ) as A;
+    ) as any;
 
 export const getLineCoords = (
     graph: PerseusGraphTypeRay | PerseusGraphTypeLinear,
