@@ -1,5 +1,14 @@
 # @khanacademy/perseus
 
+## 19.7.2
+
+### Patch Changes
+
+-   [#1051](https://github.com/Khan/perseus/pull/1051) [`4ef7b067`](https://github.com/Khan/perseus/commit/4ef7b06705bdab89298b8b36b5773cfdf8ce0bec) Thanks [@nedredmond](https://github.com/nedredmond)! - Remove font import from Mafs wrapper
+
+-   Updated dependencies [[`16ca445c`](https://github.com/Khan/perseus/commit/16ca445cf138b82092518498159de2826b169ee8)]:
+    -   @khanacademy/math-input@17.2.2
+
 ## 19.7.1
 
 ### Patch Changes
