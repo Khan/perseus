@@ -1,43 +1,5 @@
-import {vector as kvector} from "@khanacademy/kmath";
-
 import type {Coord} from "../../interactive2/types";
-import type {
-    PerseusGraphTypeLinear,
-    PerseusGraphTypeRay,
-    PerseusInteractiveGraphWidgetOptions,
-} from "../../perseus-types";
-import type {vec} from "mafs";
-
-const snap = (val: number, step: number) => {
-    const inverse = 1 / step;
-    return Math.round(val * inverse) / inverse;
-};
-
-const clamp = (n: number, min: number, max: number) =>
-    Math.max(min, Math.min(max, n));
-
-export const constrain = (
-    coord: [number, number],
-    snapStep: [number, number],
-    range: [[number, number], [number, number]],
-    pointBeforeMove?: () => [number, number],
-    bannedCoords?: () => vec.Vector2[],
-): [number, number] => {
-    const [x, y] = coord;
-    const [xSnap, ySnap] = snapStep;
-    const [[xMin, xMax], [yMin, yMax]] = range;
-    const newX = clamp(snap(x, xSnap), xMin, xMax);
-    const newY = clamp(snap(y, ySnap), yMin, yMax);
-    const banned = bannedCoords?.() ?? [];
-    const snapped = [newX, newY] as Coord;
-    if (
-        banned.some((coord) => kvector.equal(coord, snapped)) &&
-        pointBeforeMove
-    ) {
-        return pointBeforeMove();
-    }
-    return snapped;
-};
+import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 
 // same as pointsFromNormalized in interactive-graph.tsx
 export const normalizePoints = <A extends ReadonlyArray<Coord>>(
@@ -75,14 +37,3 @@ export const normalizeCoords = <A extends ReadonlyArray<Coord>>(
                 return (coord + ranges[i][1]) / extent;
             }) as Coord,
     ) as any;
-
-export const getLineCoords = (
-    graph: PerseusGraphTypeRay | PerseusGraphTypeLinear,
-    range: PerseusInteractiveGraphWidgetOptions["range"],
-    step: PerseusInteractiveGraphWidgetOptions["step"],
-): ReadonlyArray<Coord> =>
-    graph.coords ??
-    normalizePoints(range, step, [
-        [0.25, 0.75],
-        [0.75, 0.75],
-    ]);
