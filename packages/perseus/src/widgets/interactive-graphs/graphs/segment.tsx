@@ -1,12 +1,9 @@
-import {vector as kvector} from "@khanacademy/kmath";
 import Color from "@khanacademy/wonder-blocks-color";
 import {Line, MovablePoint, vec} from "mafs";
 import * as React from "react";
 
 import {moveControlPoint, moveSegment} from "../interactive-graph-action";
-import {constrain} from "../utils";
 
-import type {Coord} from "../../../interactive2/types";
 import type {SegmentGraphState} from "../interactive-graph-state";
 import type {MafsGraphProps} from "../types";
 
@@ -43,7 +40,7 @@ export const SegmentGraph = (props: SegmentProps) => {
 };
 
 const Segment = (props: {
-    segment: ReadonlyArray<Coord>;
+    segment: ReadonlyArray<vec.Vector2>;
     snaps: [number, number];
     range: [[number, number], [number, number]];
     onMovePoint: (endpointIndex: number, destination: vec.Vector2) => unknown;
