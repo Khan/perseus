@@ -30,7 +30,6 @@ import PassageRefTargetEditor from "./widgets/passage-ref-target-editor";
 import PlotterEditor from "./widgets/plotter-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
 import RadioEditor from "./widgets/radio/editor";
-import ReactionDiagramEditor from "./widgets/reaction-diagram-editor";
 import SimpleMarkdownTesterEditor from "./widgets/simple-markdown-tester-editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
@@ -68,7 +67,6 @@ export default [
     PassageRefTargetEditor,
     PlotterEditor,
     PythonProgramEditor,
-    ReactionDiagramEditor,
     SimpleMarkdownTesterEditor,
     SorterEditor,
     TableEditor,

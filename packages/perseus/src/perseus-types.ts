@@ -77,8 +77,6 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `radio ${number}`]: RadioWidget;
 } & {
-    [key in `reaction-diagram ${number}`]: ReactionDiagramWidget;
-} & {
     [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
 } & {
     [key in `sorter ${number}`]: SorterWidget;
@@ -252,8 +250,6 @@ export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMolecule
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
 // prettier-ignore
-export type ReactionDiagramWidget = Widget<'reaction-diagram', PerseusReactionDiagramWidgetOptions>;
-// prettier-ignore
 export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
 export type UnitInputWidget = Widget<'unit-input', PerseusUnitInputWidgetOptions>;
@@ -293,7 +289,6 @@ export type PerseusWidget =
     | PlotterWidget
     | PythonProgramWidget
     | RadioWidget
-    | ReactionDiagramWidget
     | RefTargetWidget
     | SimpleMarkdownTesterWidget
     | SorterWidget
@@ -1506,7 +1501,6 @@ export type PerseusWidgetOptions =
     | PerseusPassageWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
-    | PerseusReactionDiagramWidgetOptions
     | PerseusSimpleMarkdownTesterWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions

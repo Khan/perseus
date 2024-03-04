@@ -68,6 +68,7 @@ export const replaceWidget = (name: string, replacementName: string) => {
 export const replaceDeprecatedWidgets = () => {
     replaceWidget("transformer", "deprecated-standin");
     replaceWidget("lights-puzzle", "deprecated-standin");
+    replaceWidget("reaction-diagram", "deprecated-standin");
     replaceWidget("sequence", "deprecated-standin");
     replaceWidget("simulator", "deprecated-standin");
 };
@@ -107,6 +108,7 @@ export const replaceEditor = (name: string, replacementName: string) => {
 export const replaceDeprecatedEditors = () => {
     replaceEditor("transformer", "deprecated-standin");
     replaceEditor("lights-puzzle", "deprecated-standin");
+    replaceEditor("reaction-diagram", "deprecated-standin");
     replaceEditor("sequence", "deprecated-standin");
     replaceEditor("simulator", "deprecated-standin");
 };
