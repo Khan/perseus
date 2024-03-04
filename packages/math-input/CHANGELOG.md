@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.2.3
+
+### Patch Changes
+
+-   [#1052](https://github.com/Khan/perseus/pull/1052) [`54a301e9`](https://github.com/Khan/perseus/commit/54a301e9fa264310927c0909899706a786357c4b) Thanks [@nedredmond](https://github.com/nedredmond)! - Switch from github URL to tarball for MathQuill dependency
+
 ## 17.2.2
 
 ### Patch Changes
