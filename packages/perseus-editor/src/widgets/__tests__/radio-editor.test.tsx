@@ -1,15 +1,18 @@
 import {Dependencies, ApiOptions} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
-import "@testing-library/jest-dom";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import RadioEditor from "../radio/editor";
 
 describe("radio-editor", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -23,12 +26,10 @@ describe("radio-editor", () => {
             />,
         );
 
-        expect(
-            await screen.findByText(/Multiple selections/),
-        ).toBeInTheDocument();
+        expect(screen.getByText(/Multiple selections/)).toBeInTheDocument();
     });
 
-    it("should toggle multiple select checkbox", () => {
+    it("should toggle multiple select checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(
@@ -38,7 +39,7 @@ describe("radio-editor", () => {
             />,
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "Multiple selections",
             }),
@@ -47,7 +48,7 @@ describe("radio-editor", () => {
         expect(onChangeMock).toBeCalledWith({multipleSelect: true});
     });
 
-    it("should toggle randomize order checkbox", () => {
+    it("should toggle randomize order checkbox", async () => {
         const onChangeMock = jest.fn();
 
         render(
@@ -57,7 +58,7 @@ describe("radio-editor", () => {
             />,
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("checkbox", {
                 name: "Randomize order",
             }),
@@ -66,7 +67,7 @@ describe("radio-editor", () => {
         expect(onChangeMock).toBeCalledWith({randomize: true});
     });
 
-    it("should be possible to add answer", () => {
+    it("should be possible to add answer", async () => {
         const onChangeMock = jest.fn();
 
         render(
@@ -76,7 +77,7 @@ describe("radio-editor", () => {
             />,
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getAllByRole("link", {
                 name: "Add a choice",
             })[0],
@@ -92,7 +93,7 @@ describe("radio-editor", () => {
         );
     });
 
-    it("should be possible to delete answer", () => {
+    it("should be possible to delete answer", async () => {
         const onChangeMock = jest.fn();
 
         render(
@@ -102,7 +103,7 @@ describe("radio-editor", () => {
             />,
         );
 
-        userEvent.click(
+        await userEvent.click(
             screen.getAllByRole("link", {
                 name: "Remove this choice",
             })[0],

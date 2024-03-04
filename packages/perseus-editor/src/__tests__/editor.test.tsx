@@ -6,9 +6,8 @@ import {
     Util,
 } from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-import "@testing-library/jest-dom"; // Imports custom mathers
 
 import {testDependencies} from "../../../../testing/test-dependencies";
 import Editor from "../editor";
@@ -46,7 +45,12 @@ describe("Editor", () => {
         Widgets.registerEditors([ImageEditor]);
     });
 
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -60,7 +64,7 @@ describe("Editor", () => {
         render(<Harnessed onChange={onChangeMock} />);
 
         // Act
-        userEvent.click(
+        await userEvent.click(
             screen.getByRole("button", {name: "Remove image widget"}),
         );
 
@@ -76,9 +80,8 @@ describe("Editor", () => {
         render(<Harnessed onChange={onChangeMock} />);
 
         // Act
-        userEvent.click(
-            screen.getByRole("button", {name: "Remove image widget"}),
-        );
+        screen.getByRole("button", {name: "Remove image widget"}),
+            await userEvent.click();
 
         // Assert
         expect(onChangeMock).not.toHaveBeenCalled();
@@ -92,7 +95,7 @@ describe("Editor", () => {
         const widgetDisclosure = screen.getByRole("link", {
             name: "image 1",
         });
-        userEvent.click(widgetDisclosure);
+        await userEvent.click(widgetDisclosure);
 
         // Assert
         const previewImage = screen.getByAltText("Editor preview of image");
@@ -113,13 +116,13 @@ describe("Editor", () => {
         const widgetDisclosure = screen.getByRole("link", {
             name: "image 1",
         });
-        userEvent.click(widgetDisclosure);
+        await userEvent.click(widgetDisclosure);
 
         const captionInput = screen.getByLabelText(/Caption:/);
 
-        userEvent.clear(captionInput);
-        userEvent.type(captionInput, "A picture of kittens");
-        userEvent.tab(); // blurring the input triggers onChange to be called
+        await userEvent.clear(captionInput);
+        await userEvent.type(captionInput, "A picture of kittens");
+        await userEvent.tab(); // blurring the input triggers onChange to be called
         jest.runOnlyPendingTimers();
 
         // Assert

@@ -1,56 +1,70 @@
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import BlurInput from "../blur-input";
 
-import "@testing-library/jest-dom"; // Imports custom matchers
-
 describe("BlurInput", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
     it("should render", () => {
         render(<BlurInput value="Hello world!" onChange={() => {}} />);
     });
 
-    it("should call onChange prop on blur", () => {
+    it("should call onChange prop on blur", async () => {
         // Arrange
         const onChange = jest.fn();
         render(<BlurInput value="Hello world!" onChange={onChange} />);
 
         // Act
-        userEvent.type(screen.getByRole("textbox"), "Hello Khan Academy!");
-        userEvent.tab();
+        await userEvent.type(
+            screen.getByRole("textbox"),
+            "Hello Khan Academy!",
+        );
+        await userEvent.tab();
 
         // Assert
         expect(onChange).toHaveBeenCalledTimes(1);
     });
 
-    it("should call onChange prop when typing into input", () => {
+    it("should call onChange prop when typing into input", async () => {
         // Arrange
         const onChange = jest.fn();
         render(<BlurInput value="Hello world!" onChange={onChange} />);
 
         // Act
-        userEvent.type(screen.getByRole("textbox"), "Hello Khan Academy!");
+        await userEvent.type(
+            screen.getByRole("textbox"),
+            "Hello Khan Academy!",
+        );
         // NO TAB
 
         // Assert
         expect(onChange).not.toHaveBeenCalledTimes(1);
     });
 
-    it("should call onChange prop when pasting into input", () => {
+    it("should call onChange prop when pasting into input", async () => {
         // Arrange
         const onChange = jest.fn();
         render(<BlurInput value="Hello world!" onChange={onChange} />);
 
         // Act
-        userEvent.paste(screen.getByRole("textbox"), "Hello Khan Academy!");
+        await userEvent.type(
+            screen.getByRole("textbox"),
+            "Hello Khan Academy!",
+        );
         // NO TAB
 
         // Assert
         expect(onChange).not.toHaveBeenCalledTimes(1);
     });
 
-    it("should focus input through focus function", () => {
+    it("should focus input through focus function", async () => {
         const ref = React.createRef<BlurInput>();
 
         // Arrange

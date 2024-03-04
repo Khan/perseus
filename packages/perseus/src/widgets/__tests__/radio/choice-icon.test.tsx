@@ -2,8 +2,6 @@ import {describe, it} from "@jest/globals";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import "@testing-library/jest-dom"; // Imports custom mathers
-
 import ChoiceIcon from "../../radio/choice-icon/choice-icon";
 import {CHOICE_ICON_SIZE} from "../../radio/choice-icon/shared-styles";
 

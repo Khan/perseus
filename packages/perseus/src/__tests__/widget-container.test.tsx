@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom"; // Joyous side-effects
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 

@@ -1,8 +1,5 @@
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
-// TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
-import "@testing-library/jest-dom/extend-expect";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -14,7 +11,12 @@ import {renderQuestion} from "./renderQuestion";
 import type {PerseusExplanationWidgetOptions} from "../../perseus-types";
 
 describe("Explanation", function () {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         // We mock out `console.error` because the explanation widget adds
         // `javascript:void(0);` to the `onClick` handler which triggers an
         // error in our test env.
@@ -33,18 +35,18 @@ describe("Explanation", function () {
         expect(container).toMatchSnapshot("initial render");
     });
 
-    it("should snapshot when expanded", () => {
+    it("should snapshot when expanded", async () => {
         // Arrange
         const {container} = renderQuestion(question1);
 
         // Act
-        userEvent.click(screen.getByRole("button"));
+        await userEvent.click(screen.getByRole("button"));
 
         // Assert
         expect(container).toMatchSnapshot("expanded");
     });
 
-    it("should snapshot for mobile", () => {
+    it("should snapshot for mobile", async () => {
         // Arrange and Act
         const {container} = renderQuestion(question1, {
             isMobile: true,
@@ -54,20 +56,20 @@ describe("Explanation", function () {
         expect(container).toMatchSnapshot("initial render");
     });
 
-    it("should snapshot for mobile when expanded", () => {
+    it("should snapshot for mobile when expanded", async () => {
         // Arrange
         const {container} = renderQuestion(question1, {
             isMobile: true,
         });
 
         // Act
-        userEvent.click(screen.getByRole("button"));
+        await userEvent.click(screen.getByRole("button"));
 
         // Assert
         expect(container).toMatchSnapshot("expanded");
     });
 
-    it("should snapshot for article", () => {
+    it("should snapshot for article", async () => {
         // Arrange and Act
         const {container} = renderQuestion(question1, {
             isArticle: true,
@@ -77,20 +79,20 @@ describe("Explanation", function () {
         expect(container).toMatchSnapshot("initial render");
     });
 
-    it("should snapshot for article when expanded", () => {
+    it("should snapshot for article when expanded", async () => {
         // Arrange
         const {container} = renderQuestion(question1, {
             isArticle: true,
         });
 
         // Act
-        userEvent.click(screen.getByRole("button"));
+        await userEvent.click(screen.getByRole("button"));
 
         // Assert
         expect(container).toMatchSnapshot("expanded");
     });
 
-    it("should snapshot for article+mobile", () => {
+    it("should snapshot for article+mobile", async () => {
         // Arrange and Act
         const {container} = renderQuestion(question1, {
             isMobile: true,
@@ -101,7 +103,7 @@ describe("Explanation", function () {
         expect(container).toMatchSnapshot("initial render");
     });
 
-    it("should snapshot for article+mobile when expanded", () => {
+    it("should snapshot for article+mobile when expanded", async () => {
         // Arrange
         const {container} = renderQuestion(question1, {
             isMobile: true,
@@ -109,13 +111,13 @@ describe("Explanation", function () {
         });
 
         // Act
-        userEvent.click(screen.getByRole("button"));
+        await userEvent.click(screen.getByRole("button"));
 
         // Assert
         expect(container).toMatchSnapshot("expanded");
     });
 
-    it("can be expanded and collapsed with a mouse click", function () {
+    it("can be expanded and collapsed with a mouse click", async function () {
         // Arrange
         renderQuestion(question1);
 
@@ -123,7 +125,7 @@ describe("Explanation", function () {
         const expandButton = screen.getByRole("button", {
             name: "[Explanation]",
         });
-        userEvent.click(expandButton);
+        await userEvent.click(expandButton);
 
         // Assert
         // get asserts if it doesn't find a single matching element
@@ -133,13 +135,13 @@ describe("Explanation", function () {
         const collapseButton = screen.getByRole("button", {
             name: "[Hide explanation!]",
         });
-        userEvent.click(collapseButton); // collapse
+        await userEvent.click(collapseButton); // collapse
 
         // Assert
         expect(screen.queryByText("This is an explanation")).toBeNull();
     });
 
-    it("can be expanded and collapsed with the keyboard - Enter key", function () {
+    it("can be expanded and collapsed with the keyboard - Enter key", async function () {
         // Arrange
         renderQuestion(question1);
 
@@ -148,7 +150,7 @@ describe("Explanation", function () {
             name: "[Explanation]",
         });
         expandButton.focus();
-        userEvent.keyboard("{Enter}");
+        await userEvent.keyboard("{Enter}");
 
         // Assert
         // get asserts if it doesn't find a single matching element
@@ -159,13 +161,13 @@ describe("Explanation", function () {
             name: "[Hide explanation!]",
         });
         collapseButton.focus();
-        userEvent.keyboard("{Enter}");
+        await userEvent.keyboard("{Enter}");
 
         // Assert
         expect(screen.queryByText("This is an explanation")).toBeNull();
     });
 
-    it("can be expanded and collapsed with the keyboard - Space bar", function () {
+    it("can be expanded and collapsed with the keyboard - Space bar", async function () {
         // Arrange
         renderQuestion(question1);
 
@@ -174,7 +176,7 @@ describe("Explanation", function () {
             name: "[Explanation]",
         });
         expandButton.focus();
-        userEvent.keyboard(" ");
+        await userEvent.keyboard(" ");
 
         // Assert
         // get asserts if it doesn't find a single matching element
@@ -185,13 +187,26 @@ describe("Explanation", function () {
             name: "[Hide explanation!]",
         });
         collapseButton.focus();
-        userEvent.keyboard(" ");
+        await userEvent.keyboard(" ");
 
         // Assert
         expect(screen.queryByText("This is an explanation")).toBeNull();
     });
 
-    it("should return an empty object for getUserInput()", () => {
+    it("can be collapsed", async function () {
+        // Arrange
+        renderQuestion(question1);
+
+        // Act
+        const expandLink = screen.getByRole("button", {expanded: false});
+        await userEvent.click(expandLink); // expand and then
+        const collapseLink = screen.getByRole("button", {
+            expanded: true,
+        });
+        await userEvent.click(collapseLink); // collapse
+    });
+
+    it("should return an empty object for getUserInput()", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
 
@@ -206,7 +221,7 @@ describe("Explanation", function () {
         `);
     });
 
-    it("should return a zero score for simpleValidate()", () => {
+    it("should return a zero score for simpleValidate()", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
 
@@ -227,7 +242,7 @@ describe("Explanation", function () {
     });
 
     describe("static validate", () => {
-        it("should always return 0 points", () => {
+        it("should always return 0 points", async () => {
             const result = ExplanationWidgetExports.widget.validate(
                 {},
                 question1.widgets["explanation 1"]

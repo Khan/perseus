@@ -112,9 +112,27 @@ const IconAsset = function ({tintColor, type}: Props): React.ReactElement {
                 </svg>
             );
         }
+
+        case "Fractions":
+            // The Fractions keypad is a special one that never displays anything
+            // in the tabbar. Ideally, we'd separate the KeypadPageType from the
+            // tab bar item types, but that's not easy given how the keypad manages
+            // the selected page. For now, we'll just return a dummy SVG to satisfy
+            // the types here.
+            return (
+                <svg
+                    width="44"
+                    height="44"
+                    viewBox="0 0 44 44"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                />
+            );
+
         default: {
-            // type as never;
-            throw new Error("Invalid icon type");
+            // Ensure we handle all icon types
+            const _: never = type;
+            throw new Error(`Invalid icon type: ${type}`);
         }
     }
 };

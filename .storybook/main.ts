@@ -1,13 +1,11 @@
-import {dirname, join} from "path";
-const babelConfig = require("../babel.config");
-const path = require("path");
-const fs = require("fs");
-const glob = require("fast-glob");
+import turbosnap from "vite-plugin-turbosnap";
+import viteConfig from "../dev/vite.config";
+import {mergeConfig} from "vite";
 
-import type {StorybookConfig} from "@storybook/react-webpack5";
+import type {StorybookConfig} from "@storybook/react-vite";
 
 const config: StorybookConfig = {
-    framework: "@storybook/react-webpack5",
+    framework: "@storybook/react-vite",
 
     stories: [
         // NOTE(jeremy): This glob is extremely finicky! I would have written
@@ -40,92 +38,21 @@ const config: StorybookConfig = {
         </style>
     `,
 
-    babel: async (options) => {
-        return babelConfig;
-    },
-
-    webpackFinal: async (webpackConfig) => {
-        // We remove the existing rule for CSS files so that we can replace
-        // it with our own.  Storybook isn't configured to use LESS out of
-        // the box so we don't have to worry about removing a rule for it.
-        const rulesWithoutCss = webpackConfig.module.rules.filter((rule) => {
-            // We have to call .toString() on .test since regexes can't
-            // be compared directly.
-            return rule.test?.toString() !== /\.css$/.toString();
+    viteFinal: async (config, {configType}) => {
+        return mergeConfig(config, {
+            ...viteConfig,
+            // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
+            assetsInclude: ["/sb-preview/runtime.js"],
+            plugins:
+                configType === "PRODUCTION"
+                    ? [
+                          turbosnap({
+                              // This should be the base path of your storybook.  In monorepos, you may only need process.cwd().
+                              rootDir: config.root ?? process.cwd(),
+                          }),
+                      ]
+                    : [],
         });
-
-        const aliases = {};
-        glob.sync(path.join(__dirname, "../packages/*/package.json")).forEach(
-            (pkgPath) => {
-                const pkgJson = require(pkgPath);
-                aliases[pkgJson.name] = path.join(
-                    __dirname,
-                    "../packages",
-                    path.basename(path.dirname(pkgPath)),
-                    pkgJson.source,
-                );
-            },
-        );
-        fs.readdirSync(path.join(__dirname, "../vendor")).forEach((name) => {
-            aliases[name] = path.join(__dirname, "../vendor", name);
-        });
-
-        const updateWebpackConfig = {
-            ...webpackConfig,
-            resolve: {
-                ...webpackConfig.resolve,
-                alias: {
-                    ...webpackConfig.resolve?.alias,
-                    ...aliases,
-                },
-                extensions: [".js", ".jsx", ".ts", ".tsx"],
-            },
-            module: {
-                ...webpackConfig.module,
-                rules: [
-                    ...rulesWithoutCss,
-                    {
-                        test: /\.less$/,
-                        /**
-                         * We want to disable url processing in the css-loader so that images
-                         * are not processed. Images are handled as static assets outside of
-                         * webpack.
-                         */
-                        use: [
-                            "style-loader",
-                            {
-                                loader: "css-loader",
-                                options: {url: false},
-                            },
-                            {
-                                loader: "less-loader",
-                                options: {lessOptions: {math: "always"}},
-                            },
-                        ],
-                    },
-                    {
-                        test: /\.css$/,
-                        use: [
-                            "style-loader",
-                            // We use `css-loader` to filter out imports for
-                            // KaTeX fonts. These fonts are then emitted to the
-                            // `fonts` output path by `file-loader` below.
-                            {
-                                loader: "css-loader",
-                                options: {
-                                    url: {
-                                        filter: (url, resourcePath) =>
-                                            /\.(woff|woff2|ttf|otf)$/.test(url),
-                                    },
-                                },
-                            },
-                        ],
-                    },
-                ],
-            },
-        };
-
-        return updateWebpackConfig;
     },
 
     docs: {
@@ -133,4 +60,4 @@ const config: StorybookConfig = {
     },
 };
 
-module.exports = config;
+export default config;

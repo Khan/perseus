@@ -258,8 +258,8 @@ export const withCoefficient: PerseusRenderer = {
     },
 };
 
-export const question1AndAnswer: [PerseusRenderer, string, string] = [
-    question1,
-    "1252",
-    "1/2",
-];
+export const question1AndAnswer: [
+    question: PerseusRenderer,
+    correct: string,
+    incorrect: string,
+] = [question1, "1252", "1/2"];

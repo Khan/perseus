@@ -28,3 +28,33 @@ export const question1: PerseusRenderer = {
         },
     },
 };
+
+export const question2: PerseusRenderer = {
+    content:
+        "$E=2.5$\n\n**Move the dot to $-E$ on the number line.**\n\n\n[[\u2603 number-line 1]]",
+    images: {},
+    widgets: {
+        "number-line 1": {
+            type: "number-line",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                static: false,
+                range: [0, 1],
+                labelRange: [null, null],
+                labelStyle: "improper",
+                labelTicks: false,
+                divisionRange: [1, 12],
+                numDivisions: 1,
+                snapDivisions: 1,
+                tickStep: null,
+                correctRel: "eq",
+                correctX: 0.5,
+                initialX: null,
+                showTooltip: false,
+                isTickCtrl: true,
+            },
+        },
+    },
+};

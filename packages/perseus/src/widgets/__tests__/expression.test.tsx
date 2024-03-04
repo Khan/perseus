@@ -1,7 +1,6 @@
 import {it, describe, beforeEach} from "@jest/globals";
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
     testDependencies,
@@ -21,23 +20,31 @@ import {renderQuestion} from "./renderQuestion";
 import type {PerseusItem} from "../../perseus-types";
 import type {APIOptions} from "../../types";
 
-const assertComplete = (
+const renderAndAnswer = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     itemData: PerseusItem,
     input: string,
     isCorrect: boolean,
 ) => {
     const {renderer} = renderQuestion(itemData.question);
-    userEvent.type(screen.getByRole("textbox"), input);
-    const [_, score] = renderer.guessAndScore();
 
-    expect(score).toMatchObject({
-        type: "points",
-        earned: isCorrect ? 1 : 0,
-    });
+    await userEvent.type(screen.getByRole("textbox"), input);
+
+    return renderer;
 };
 
-const assertCorrect = (itemData: PerseusItem, input: string) => {
-    assertComplete(itemData, input, true);
+const assertCorrect = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
+    itemData: PerseusItem,
+    input: string,
+) => {
+    const renderer = await renderAndAnswer(
+        await userEvent,
+        itemData,
+        input,
+        true,
+    );
+    expect(renderer).toHaveBeenAnsweredCorrectly();
 
     expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
@@ -48,8 +55,18 @@ const assertCorrect = (itemData: PerseusItem, input: string) => {
     });
 };
 
-const assertIncorrect = (itemData: PerseusItem, input: string) => {
-    assertComplete(itemData, input, false);
+const assertIncorrect = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
+    itemData: PerseusItem,
+    input: string,
+) => {
+    const renderer = await renderAndAnswer(
+        await userEvent,
+        itemData,
+        input,
+        false,
+    );
+    expect(renderer).toHaveBeenAnsweredIncorrectly();
 
     expect(testDependenciesV2.analytics.onAnalyticsEvent).toHaveBeenCalledWith({
         type: "perseus:expression-evaluated",
@@ -61,21 +78,27 @@ const assertIncorrect = (itemData: PerseusItem, input: string) => {
 };
 
 // TODO: actually Assert that message is being set on the score object.
-const assertInvalid = (
+const assertInvalid = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     itemData: PerseusItem,
     input: string,
     message?: string,
 ) => {
     const {renderer} = renderQuestion(itemData.question);
     if (input.length) {
-        userEvent.type(screen.getByRole("textbox"), input);
+        await userEvent.type(screen.getByRole("textbox"), input);
     }
-    const [_, score] = renderer.guessAndScore();
-    expect(score).toMatchObject({type: "invalid"});
+
+    expect(renderer).toHaveInvalidInput();
 };
 
 describe("Expression Widget", function () {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
@@ -86,18 +109,18 @@ describe("Expression Widget", function () {
     });
 
     describe("grading", function () {
-        it("should not grade a thing that doesn't parse", () => {
-            assertInvalid(expressionItem2, "+++");
+        it("should not grade a thing that doesn't parse", async () => {
+            await assertInvalid(userEvent, expressionItem2, "+++");
         });
 
-        it("should not grade a thing that is empty", () => {
-            assertInvalid(expressionItem2, "");
+        it("should not grade a thing that is empty", async () => {
+            await assertInvalid(userEvent, expressionItem2, "");
         });
     });
 
     describe("fallthrough", function () {
-        it("should grade answers which don't match anything as wrong", function () {
-            assertIncorrect(expressionItem2, "500");
+        it("should grade answers which don't match anything as wrong", async function () {
+            await assertIncorrect(userEvent, expressionItem2, "500");
         });
     });
 
@@ -105,8 +128,8 @@ describe("Expression Widget", function () {
         it.each(["123-X", "X-123"])(
             "should not grade answers that are correct except for the " +
                 "variable case",
-            function (input) {
-                assertInvalid(expressionItem2, input);
+            async function (input) {
+                await assertInvalid(userEvent, expressionItem2, input);
             },
         );
 
@@ -115,15 +138,15 @@ describe("Expression Widget", function () {
         it(
             "should not grade answers that have the wrong variable case, " +
                 "even if the answer has got other errors",
-            function () {
-                assertInvalid(expressionItem2, "123+X");
+            async function () {
+                await assertInvalid(userEvent, expressionItem2, "123+X");
             },
         );
 
         it.each(["123-y", "123-Y"])(
             "should not not grade answers that use the wrong variable",
-            function (input) {
-                assertInvalid(expressionItem2, input);
+            async function (input) {
+                await assertInvalid(userEvent, expressionItem2, input);
             },
         );
     });
@@ -131,8 +154,8 @@ describe("Expression Widget", function () {
     describe("multiple answers", function () {
         it.each(["x-123", "123-x"])(
             "should recognize either of two possibilities",
-            (input) => {
-                assertCorrect(expressionItem2, input);
+            async (input) => {
+                await assertCorrect(userEvent, expressionItem2, input);
             },
         );
 
@@ -148,23 +171,23 @@ describe("Expression Widget", function () {
          *     value: z+1
          */
 
-        it("should match from top to bottom", function () {
-            assertInvalid(expressionItem3, "x+1");
+        it("should match from top to bottom", async function () {
+            await assertInvalid(userEvent, expressionItem3, "x+1");
         });
 
-        it("should match from top to bottom (2)", function () {
-            assertIncorrect(expressionItem3, "y+1");
+        it("should match from top to bottom (2)", async function () {
+            await assertIncorrect(userEvent, expressionItem3, "y+1");
         });
 
-        it("should match from top to bottom (3)", function () {
-            assertCorrect(expressionItem3, "z+1");
+        it("should match from top to bottom (3)", async function () {
+            await assertCorrect(userEvent, expressionItem3, "z+1");
         });
 
         it.each([["X+1"], ["Y+1"], ["Z+1"]])(
             "should give casing or variable name error only relative to the " +
                 "correct answer",
-            (input) => {
-                assertInvalid(expressionItem3, input);
+            async (input) => {
+                await assertInvalid(userEvent, expressionItem3, input);
             },
         );
     });
@@ -184,19 +207,19 @@ describe("Expression Widget", function () {
     });
 
     describe("when the question uses the sin function", () => {
-        it("allows parens", () => {
+        it("allows parens", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            assertCorrect(item, "sin(x)");
+            await assertCorrect(userEvent, item, "sin(x)");
         });
 
-        it("allows no parens", () => {
+        it("allows no parens", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            assertCorrect(item, "sin x");
+            await assertCorrect(userEvent, item, "sin x");
         });
 
-        it("grades a wrong answer as incorrect", () => {
+        it("grades a wrong answer as incorrect", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            assertIncorrect(item, "2");
+            await assertIncorrect(userEvent, item, "2");
         });
     });
 
@@ -248,44 +271,44 @@ describe("Expression Widget", function () {
     });
 
     describe("international trig operators", () => {
-        it("treats sen as equivalent to sin", () => {
+        it("treats sen as equivalent to sin", async () => {
             const item = expressionItemWithAnswer("sin(x)");
-            assertCorrect(item, "sen x");
+            await assertCorrect(userEvent, item, "sen x");
         });
 
-        it("works when multiple operators are present", () => {
+        it("works when multiple operators are present", async () => {
             const item = expressionItemWithAnswer("sin(sin(x))");
-            assertCorrect(item, "sen(sen(x))");
+            await assertCorrect(userEvent, item, "sen(sen(x))");
         });
 
-        it("treats arctg as equivalent to arctan", () => {
+        it("treats arctg as equivalent to arctan", async () => {
             const item = expressionItemWithAnswer("arctan(x)");
-            assertCorrect(item, "arctg x");
+            await assertCorrect(userEvent, item, "arctg x");
         });
 
-        it("treats cosec as equivalent to csc", () => {
+        it("treats cosec as equivalent to csc", async () => {
             const item = expressionItemWithAnswer("csc(x)");
-            assertCorrect(item, "cosec x");
+            await assertCorrect(userEvent, item, "cosec x");
         });
 
-        it("treats cossec as equivalent to csc", () => {
+        it("treats cossec as equivalent to csc", async () => {
             const item = expressionItemWithAnswer("csc(x)");
-            assertCorrect(item, "cossec x");
+            await assertCorrect(userEvent, item, "cossec x");
         });
 
-        it("treats cotg as equivalent to cot", () => {
+        it("treats cotg as equivalent to cot", async () => {
             const item = expressionItemWithAnswer("cot(x)");
-            assertCorrect(item, "cotg x");
+            await assertCorrect(userEvent, item, "cotg x");
         });
 
-        it("treats ctg as equivalent to cot", () => {
+        it("treats ctg as equivalent to cot", async () => {
             const item = expressionItemWithAnswer("cot(x)");
-            assertCorrect(item, "ctg x");
+            await assertCorrect(userEvent, item, "ctg x");
         });
 
-        it("treats tg as equivalent to tan", () => {
+        it("treats tg as equivalent to tan", async () => {
             const item = expressionItemWithAnswer("tan(x)");
-            assertCorrect(item, "tg x");
+            await assertCorrect(userEvent, item, "tg x");
         });
     });
 });

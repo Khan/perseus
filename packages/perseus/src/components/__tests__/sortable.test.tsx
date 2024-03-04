@@ -1,6 +1,5 @@
 import {render} from "@testing-library/react";
 import * as React from "react";
-import "@testing-library/jest-dom"; // Imports custom mathers
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";

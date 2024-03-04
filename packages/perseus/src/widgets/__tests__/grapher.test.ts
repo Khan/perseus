@@ -1,6 +1,3 @@
-// TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
-import "@testing-library/jest-dom/extend-expect";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {setDependencies} from "../../dependencies";
 import {

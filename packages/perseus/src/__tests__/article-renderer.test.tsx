@@ -6,17 +6,17 @@ import {
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {screen, render, fireEvent, waitFor} from "@testing-library/react";
 import * as React from "react";
-import "@testing-library/jest-dom"; // Imports custom matchers
 
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
-import {articleWithExpression} from "../__testdata__/article-renderer.testdata";
+import {articleSectionWithExpression} from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
 
+import type {PerseusRenderer} from "../perseus-types";
 import type {APIOptions} from "../types";
 
 function KeypadWithContext() {
@@ -38,6 +38,9 @@ function KeypadWithContext() {
 // the ArticleRenderer instead of Renderer
 export const RenderArticle = (
     apiOptions: APIOptions = Object.freeze({}),
+    json:
+        | PerseusRenderer
+        | ReadonlyArray<PerseusRenderer> = articleSectionWithExpression,
 ): {
     container: HTMLElement;
     renderer: ArticleRenderer;
@@ -53,7 +56,7 @@ export const RenderArticle = (
                                 renderer = node;
                                 setRenderer(node);
                             }}
-                            json={articleWithExpression}
+                            json={json}
                             dependencies={testDependenciesV2}
                             apiOptions={{...apiOptions}}
                             keypadElement={keypadElement}
@@ -92,13 +95,77 @@ describe("article renderer", () => {
         jest.runOnlyPendingTimers();
     });
 
-    it("should render the content", () => {
+    it("should render the content for a section", () => {
         // Arrange and Act
-        RenderArticle({
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
+        RenderArticle(
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            articleSectionWithExpression,
+        );
+
+        // Assert
+        expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
+    it("should render the content for a section as list", () => {
+        // Arrange and Act
+        RenderArticle(
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            [articleSectionWithExpression],
+        );
+
+        // Assert
+        expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
+    it("should render the content for a section in JIPT context", () => {
+        // Arrange
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            JIPT: {
+                useJIPT: true,
+            },
         });
+
+        // Act
+        RenderArticle(
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            articleSectionWithExpression,
+        );
+
+        // Assert
+        expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
+    it("should render the content for a section as list in JIPT context", () => {
+        // Arrange
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            JIPT: {
+                useJIPT: true,
+            },
+        });
+
+        // Act
+        RenderArticle(
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            [articleSectionWithExpression],
+        );
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();

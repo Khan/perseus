@@ -441,69 +441,6 @@ describe("pure markdown", () => {
 
         it.each([
             {
-                content: "1. test\n\n" + "2. boo\n\n",
-                expected: [
-                    {
-                        type: "paragraph",
-                        content: [
-                            {
-                                type: "text",
-                                content: "1",
-                            },
-                            {
-                                type: "text",
-                                content: ". test",
-                            },
-                        ],
-                    },
-                    {
-                        type: "paragraph",
-                        content: [
-                            {
-                                type: "text",
-                                content: "2",
-                            },
-                            {
-                                type: "text",
-                                content: ". boo",
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                content: "* test\n\n" + "* boo\n\n",
-                expected: [
-                    {
-                        type: "paragraph",
-                        content: [
-                            {
-                                type: "text",
-                                content: "* test",
-                            },
-                        ],
-                    },
-                    {
-                        type: "paragraph",
-                        content: [
-                            {
-                                type: "text",
-                                content: "* boo",
-                            },
-                        ],
-                    },
-                ],
-            },
-        ])("should ignore lists in jipt mode", ({content, expected}) => {
-            // Arrange, Act
-            const parsed = parse(content, {isJipt: true});
-
-            // Assert
-            expect(parsed).toEqual(expected);
-        });
-
-        it.each([
-            {
                 content: "$",
                 expected: [
                     {

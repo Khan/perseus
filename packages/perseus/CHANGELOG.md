@@ -1,5 +1,88 @@
 # @khanacademy/perseus
 
+## 19.7.1
+
+### Patch Changes
+
+-   [#1043](https://github.com/Khan/perseus/pull/1043) [`1b1d0404`](https://github.com/Khan/perseus/commit/1b1d040461dc6c6b9d238a81be4d2d3e96c452d8) Thanks [@nedredmond](https://github.com/nedredmond)! - Bugfixes re: sizing props
+
+## 19.7.0
+
+### Minor Changes
+
+-   [#1023](https://github.com/Khan/perseus/pull/1023) [`3901f863`](https://github.com/Khan/perseus/commit/3901f863f674fec614ec6422af45aa7ad96f0d6d) Thanks [@nedredmond](https://github.com/nedredmond)! - Adds new interactive graph experience behind feature flag
+
+### Patch Changes
+
+-   [#1033](https://github.com/Khan/perseus/pull/1033) [`a78cfc0f`](https://github.com/Khan/perseus/commit/a78cfc0f138fced4b1a465f8774be2c12b2fe789) Thanks [@nishasy](https://github.com/nishasy)! - Update InteractiveGraphSettings to React class. Update `markings` to be "graph" | "grid" | "none" instead of string.
+
+## 19.6.3
+
+### Patch Changes
+
+-   [#1036](https://github.com/Khan/perseus/pull/1036) [`664b037f`](https://github.com/Khan/perseus/commit/664b037fd76e4406f21add1449fc56e90d742148) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add documentation for Widgets type in Renderer
+
+## 19.6.2
+
+### Patch Changes
+
+-   [#1029](https://github.com/Khan/perseus/pull/1029) [`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @testing-library/user-event v14.
+
+-   Updated dependencies [[`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139), [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171)]:
+    -   @khanacademy/math-input@17.2.1
+
+## 19.6.1
+
+### Patch Changes
+
+-   [#1014](https://github.com/Khan/perseus/pull/1014) [`b1552885`](https://github.com/Khan/perseus/commit/b155288568a3f13b3983515391cdbf4dd5092a51) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Fix Spacebar Usage on Explanation Widget
+
+## 19.6.0
+
+### Minor Changes
+
+-   [#1005](https://github.com/Khan/perseus/pull/1005) [`0562929c`](https://github.com/Khan/perseus/commit/0562929c03645028b68da497382489747f0fc2c6) Thanks [@mpolyak](https://github.com/mpolyak)! - In JIPT context rendering split sections into paragraphs in ArticleRenderer
+
+*   [#996](https://github.com/Khan/perseus/pull/996) [`4e2b5100`](https://github.com/Khan/perseus/commit/4e2b51002e41c8f36051775a7ceff4fd1a564526) Thanks [@mpolyak](https://github.com/mpolyak)! - Revert disabling markdown parser list rule in JIPT context
+
+### Patch Changes
+
+-   Updated dependencies [[`0562929c`](https://github.com/Khan/perseus/commit/0562929c03645028b68da497382489747f0fc2c6), [`4e2b5100`](https://github.com/Khan/perseus/commit/4e2b51002e41c8f36051775a7ceff4fd1a564526)]:
+    -   @khanacademy/pure-markdown@0.3.0
+
+## 19.5.1
+
+### Patch Changes
+
+-   [#1020](https://github.com/Khan/perseus/pull/1020) [`30405816`](https://github.com/Khan/perseus/commit/3040581645a67f518920fdf6d94b4f78f2233f0c) Thanks [@nishasy](https://github.com/nishasy)! - Undo update to GraphSettings making it a class function
+
+## 19.5.0
+
+### Minor Changes
+
+-   [#1000](https://github.com/Khan/perseus/pull/1000) [`7038c046`](https://github.com/Khan/perseus/commit/7038c046d3e869e4ad43e3805248f06d61a94af0) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fixes to ensure that users can properly interact with the numberline widget
+
+### Patch Changes
+
+-   Updated dependencies [[`7038c046`](https://github.com/Khan/perseus/commit/7038c046d3e869e4ad43e3805248f06d61a94af0)]:
+    -   @khanacademy/math-input@17.2.0
+
+## 19.4.0
+
+### Minor Changes
+
+-   [#980](https://github.com/Khan/perseus/pull/980) [`7d4d098d`](https://github.com/Khan/perseus/commit/7d4d098dbdbc3f41e89d7e118c8cd83fbcaeb928) Thanks [@Myranae](https://github.com/Myranae)! - Create a helper function for generating correctly typed Perseus test items
+
+### Patch Changes
+
+-   [#1009](https://github.com/Khan/perseus/pull/1009) [`7c030e61`](https://github.com/Khan/perseus/commit/7c030e61613b67ba92d2fc4f0015c85e0af6b878) Thanks [@nishasy](https://github.com/nishasy)! - Update GraphSettings to React class. Update `markings` type to be "graph" | "grid" | "none" instead of string.
+
+## 19.3.1
+
+### Patch Changes
+
+-   [#997](https://github.com/Khan/perseus/pull/997) [`6ef53d21`](https://github.com/Khan/perseus/commit/6ef53d213fae13977effbd28c784aa6cd91c6e7f) Thanks [@nishasy](https://github.com/nishasy)! - Add a type for LockedPoint
+
 ## 19.3.0
 
 ### Minor Changes

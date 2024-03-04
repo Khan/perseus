@@ -1,8 +1,5 @@
 import {screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
-// TODO(FEI-3857): Include in jest setup so that we don't need to import it everywhere
-import "@testing-library/jest-dom/extend-expect";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -11,7 +8,12 @@ import {article1} from "../__testdata__/graded-group-set.testdata";
 import {renderQuestion} from "./renderQuestion";
 
 describe("graded group widget", () => {
+    let userEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -47,14 +49,14 @@ describe("graded group widget", () => {
         expect(screen.getByText("No current group...")).toBeVisible();
     });
 
-    it("should show 'Next question' button when answered correctly", () => {
+    it("should show 'Next question' button when answered correctly", async () => {
         // Arrange
         renderQuestion(article1);
 
         // Act
         // Answer first question correctly
-        userEvent.type(screen.getByRole("textbox"), "0.9");
-        userEvent.click(screen.getByRole("button", {name: "Check"}));
+        await userEvent.type(screen.getByRole("textbox"), "0.9");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
         expect(
@@ -62,14 +64,14 @@ describe("graded group widget", () => {
         ).toBeVisible();
     });
 
-    it("should not show 'Next question' button when answered incorrectly", () => {
+    it("should not show 'Next question' button when answered incorrectly", async () => {
         // Arrange
         renderQuestion(article1);
 
         // Act
         // Answer first question IN-correctly
-        userEvent.type(screen.getByRole("textbox"), "0.000000000001");
-        userEvent.click(screen.getByRole("button", {name: "Check"}));
+        await userEvent.type(screen.getByRole("textbox"), "0.000000000001");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
         expect(screen.getByRole("alert")).toHaveTextContent("Incorrect");
@@ -78,36 +80,42 @@ describe("graded group widget", () => {
         ).toBeNull();
     });
 
-    it("should be able to advance to next group", () => {
+    it("should be able to advance to next group", async () => {
         // Arrange
         renderQuestion(article1);
         // Answer first question correctly
-        userEvent.type(screen.getByRole("textbox"), "0.9");
-        userEvent.click(screen.getByRole("button", {name: "Check"}));
+        await userEvent.type(screen.getByRole("textbox"), "0.9");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Act
-        userEvent.click(screen.getByRole("button", {name: "Next question"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Next question"}),
+        );
 
         // Assert
         expect(screen.getByText("Problem 1b")).toBeVisible();
     });
 
-    it("should not allow advancing past the last group", () => {
+    it("should not allow advancing past the last group", async () => {
         // Arrange
         renderQuestion(article1);
 
-        userEvent.type(screen.getByRole("textbox"), "0.9");
-        userEvent.click(screen.getByRole("button", {name: "Check"}));
-        userEvent.click(screen.getByRole("button", {name: "Next question"}));
+        await userEvent.type(screen.getByRole("textbox"), "0.9");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Next question"}),
+        );
 
-        userEvent.type(screen.getByRole("textbox"), "1");
-        userEvent.click(screen.getByRole("button", {name: "Check"}));
-        userEvent.click(screen.getByRole("button", {name: "Next question"}));
+        await userEvent.type(screen.getByRole("textbox"), "1");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Next question"}),
+        );
 
-        userEvent.type(screen.getByRole("textbox"), "1.2");
+        await userEvent.type(screen.getByRole("textbox"), "1.2");
 
         // Act
-        userEvent.click(screen.getByRole("button", {name: "Check"}));
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
         expect(screen.getByRole("alert")).toHaveTextContent("Correct");
@@ -117,12 +125,12 @@ describe("graded group widget", () => {
     });
 
     describe("should be able to jump to an arbitrary question using Indicators", () => {
-        it("by click", () => {
+        it("by click", async () => {
             // Arrange
             renderQuestion(article1);
 
             // Act
-            userEvent.click(
+            await userEvent.click(
                 screen.getByRole("button", {name: "Skip to Problem 1c"}),
             );
 
@@ -130,26 +138,26 @@ describe("graded group widget", () => {
             expect(screen.getByText("Problem 1c")).toBeVisible();
         });
 
-        it("by key", () => {
+        it("by key", async () => {
             // Arrange
             renderQuestion(article1);
 
             // Act
-            userEvent.tab(); // 1a
-            userEvent.tab(); // 1b
-            userEvent.keyboard(" ");
+            await userEvent.tab(); // 1a
+            await userEvent.tab(); // 1b
+            await userEvent.keyboard(" ");
 
             // Assert
             expect(screen.getByText("Problem 1b")).toBeVisible();
 
-            userEvent.tab(); // 1c
-            userEvent.keyboard("[Enter]");
+            await userEvent.tab(); // 1c
+            await userEvent.keyboard("[Enter]");
 
             expect(screen.getByText("Problem 1c")).toBeVisible();
         });
     });
 
-    it("should return input paths", () => {
+    it("should return input paths", async () => {
         // Arrange
         const {renderer} = renderQuestion(article1);
 
@@ -206,10 +214,10 @@ describe("graded group widget", () => {
         expect(screen.getByRole("textbox")).toHaveFocus();
     });
 
-    it("should be able to blur a specific input path", () => {
+    it("should be able to blur a specific input path", async () => {
         // Arrange
         const {renderer} = renderQuestion(article1);
-        userEvent.click(screen.getByRole("textbox"));
+        await userEvent.click(screen.getByRole("textbox"));
 
         // Act
         renderer.blurPath(["graded-group-set 1", "numeric-input 1"]);
@@ -218,12 +226,12 @@ describe("graded group widget", () => {
         expect(screen.getByRole("textbox")).not.toHaveFocus();
     });
 
-    it("should be able to Explain (via mouse)", () => {
+    it("should be able to Explain (via mouse)", async () => {
         // Arrange
         renderQuestion(article1);
 
         // Act
-        userEvent.click(screen.getByRole("button", {name: "Explain"}));
+        await userEvent.click(screen.getByRole("button", {name: "Explain"}));
 
         // Assert
         expect(
@@ -234,14 +242,16 @@ describe("graded group widget", () => {
         ).toBeVisible();
     });
 
-    it("should be able to Explain (via keyboard)", () => {
+    it("should be able to Explain (via keyboard)", async () => {
         // Arrange
         renderQuestion(article1);
 
         // Act
-        const explainButton = screen.getByRole("button", {name: "Explain"});
+        const explainButton = screen.getByRole("button", {
+            name: "Explain",
+        });
         explainButton.focus();
-        userEvent.type(explainButton, "{enter}");
+        await userEvent.type(explainButton, "{enter}");
 
         // Assert
         expect(
@@ -252,13 +262,15 @@ describe("graded group widget", () => {
         ).toBeVisible();
     });
 
-    it("should be able to hide explanation (via mouse)", () => {
+    it("should be able to hide explanation (via mouse)", async () => {
         // Arrange
         renderQuestion(article1);
-        userEvent.click(screen.getByRole("button", {name: "Explain"}));
+        await userEvent.click(screen.getByRole("button", {name: "Explain"}));
 
         // Act
-        userEvent.click(screen.getByRole("button", {name: "Hide explanation"}));
+        await userEvent.click(
+            screen.getByRole("button", {name: "Hide explanation"}),
+        );
 
         // Assert
         expect(screen.getByRole("button", {name: "Explain"})).toBeVisible();
@@ -267,17 +279,17 @@ describe("graded group widget", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("should be able to hide explanation (via keyboard)", () => {
+    it("should be able to hide explanation (via keyboard)", async () => {
         // Arrange
         renderQuestion(article1);
-        userEvent.click(screen.getByRole("button", {name: "Explain"}));
+        await userEvent.click(screen.getByRole("button", {name: "Explain"}));
 
         // Act
         const hideExplanationButton = screen.getByRole("button", {
             name: "Hide explanation",
         });
         hideExplanationButton.focus();
-        userEvent.type(hideExplanationButton, "{enter}");
+        await userEvent.type(hideExplanationButton, "{enter}");
 
         // Assert
         expect(screen.getByRole("button", {name: "Explain"})).toBeVisible();

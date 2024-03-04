@@ -1,5 +1,36 @@
 # @khanacademy/perseus-dev-ui
 
+## 1.2.0
+
+### Minor Changes
+
+-   [#1023](https://github.com/Khan/perseus/pull/1023) [`3901f863`](https://github.com/Khan/perseus/commit/3901f863f674fec614ec6422af45aa7ad96f0d6d) Thanks [@nedredmond](https://github.com/nedredmond)! - Adds new interactive graph experience behind feature flag
+
+## 1.1.5
+
+### Patch Changes
+
+-   [#1029](https://github.com/Khan/perseus/pull/1029) [`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate to @testing-library/user-event v14.
+
+*   [#1012](https://github.com/Khan/perseus/pull/1012) [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change Vite config so it can be re-used by Storybook
+
+*   Updated dependencies [[`17d05e8e`](https://github.com/Khan/perseus/commit/17d05e8ec4edb417cff8007efd333b166ffdd139), [`7e4a65f0`](https://github.com/Khan/perseus/commit/7e4a65f0ea795ea004437099de4df8ca3cdbb171)]:
+    -   @khanacademy/math-input@17.2.1
+
+## 1.1.4
+
+### Patch Changes
+
+-   Updated dependencies [[`0562929c`](https://github.com/Khan/perseus/commit/0562929c03645028b68da497382489747f0fc2c6), [`4e2b5100`](https://github.com/Khan/perseus/commit/4e2b51002e41c8f36051775a7ceff4fd1a564526)]:
+    -   @khanacademy/pure-markdown@0.3.0
+
+## 1.1.3
+
+### Patch Changes
+
+-   Updated dependencies [[`7038c046`](https://github.com/Khan/perseus/commit/7038c046d3e869e4ad43e3805248f06d61a94af0)]:
+    -   @khanacademy/math-input@17.2.0
+
 ## 1.1.2
 
 ### Patch Changes
