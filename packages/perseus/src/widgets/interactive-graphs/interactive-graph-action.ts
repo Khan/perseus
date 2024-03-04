@@ -7,12 +7,12 @@ export interface MoveControlPoint {
     type: typeof MOVE_CONTROL_POINT;
     objectIndex: number;
     pointIndex: number;
-    destination: Point;
+    destination: vec.Vector2;
 }
 export function moveControlPoint(
     objectIndex: number,
     pointIndex: number,
-    destination: Point,
+    destination: vec.Vector2,
 ): MoveControlPoint {
     return {
         type: MOVE_CONTROL_POINT,
@@ -38,5 +38,3 @@ export function moveSegment(
         delta,
     };
 }
-
-type Point = vec.Vector2;
