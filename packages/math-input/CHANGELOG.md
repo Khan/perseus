@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 17.2.2
+
+### Patch Changes
+
+-   [#1004](https://github.com/Khan/perseus/pull/1004) [`16ca445c`](https://github.com/Khan/perseus/commit/16ca445cf138b82092518498159de2826b169ee8) Thanks [@nedredmond](https://github.com/nedredmond)! - Replace hardcoded MathQuill aria strings with translatable ones
+
 ## 17.2.1
 
 ### Patch Changes

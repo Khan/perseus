@@ -1,5 +1,13 @@
 # @khanacademy/perseus-editor
 
+## 4.3.4
+
+### Patch Changes
+
+-   Updated dependencies [[`16ca445c`](https://github.com/Khan/perseus/commit/16ca445cf138b82092518498159de2826b169ee8), [`4ef7b067`](https://github.com/Khan/perseus/commit/4ef7b06705bdab89298b8b36b5773cfdf8ce0bec)]:
+    -   @khanacademy/math-input@17.2.2
+    -   @khanacademy/perseus@19.7.2
+
 ## 4.3.3
 
 ### Patch Changes
