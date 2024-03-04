@@ -11,7 +11,7 @@ const baseSegmentGraphState: InteractiveGraphState = {
         [-10, 10],
     ],
     snapStep: [1, 1],
-    segments: []
+    segments: [],
 };
 
 describe("moveControlPoint", () => {
@@ -77,7 +77,7 @@ describe("moveControlPoint", () => {
             [1, 1],
             [2, 2],
         ]);
-    })
+    });
 
     it("snaps points to the snap grid", () => {
         const state: InteractiveGraphState = {
@@ -99,7 +99,7 @@ describe("moveControlPoint", () => {
         // Assert: x snaps to the nearest whole number; y snaps to the nearest
         // multiple of 2.
         expect(updated.segments[0][0]).toEqual([2, 6]);
-    })
+    });
 
     it("constrains points to be at least one snap step within the graph bounds", () => {
         const state: InteractiveGraphState = {
@@ -123,7 +123,7 @@ describe("moveControlPoint", () => {
         );
 
         expect(updated.segments[0][0]).toEqual([4.5, 7.5]);
-    })
+    });
 });
 
 describe("moveSegment", () => {
@@ -138,16 +138,13 @@ describe("moveSegment", () => {
             ],
         };
 
-        const updated = interactiveGraphReducer(
-            state,
-            moveSegment(0, [5, -3]),
-        );
+        const updated = interactiveGraphReducer(state, moveSegment(0, [5, -3]));
 
         expect(updated.segments[0]).toEqual([
             [6, -1],
             [8, 1],
         ]);
-    })
+    });
 
     it("snaps to the snap grid", () => {
         const state: InteractiveGraphState = {
@@ -169,7 +166,7 @@ describe("moveSegment", () => {
             [2, 3],
             [4, 5],
         ]);
-    })
+    });
 
     it("keeps the segment within the graph bounds", () => {
         const state: InteractiveGraphState = {
@@ -187,6 +184,9 @@ describe("moveSegment", () => {
             moveSegment(0, [99, 99]),
         );
 
-        expect(updated.segments[0]).toEqual([[7, 7], [9, 9]])
-    })
-})
+        expect(updated.segments[0]).toEqual([
+            [7, 7],
+            [9, 9],
+        ]);
+    });
+});

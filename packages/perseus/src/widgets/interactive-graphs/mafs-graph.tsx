@@ -26,12 +26,17 @@ const renderGraph = (props: {
         case "segment":
             return <SegmentGraph graphState={state} dispatch={dispatch} />;
     }
-    throw new Error("Mafs is not yet implemented for graph type: " + state.type)
+    throw new Error(
+        "Mafs is not yet implemented for graph type: " + state.type,
+    );
 };
 
-function getGradableGraph(state: InteractiveGraphState, initialGraph: PerseusGraphType): PerseusGraphType {
+function getGradableGraph(
+    state: InteractiveGraphState,
+    initialGraph: PerseusGraphType,
+): PerseusGraphType {
     if (!state.hasBeenInteractedWith) {
-        return initialGraph
+        return initialGraph;
     }
     switch (initialGraph.type) {
         case "segment":
@@ -40,7 +45,9 @@ function getGradableGraph(state: InteractiveGraphState, initialGraph: PerseusGra
                 coords: state.segments,
             };
     }
-    throw new Error("Mafs is not yet implemented for graph type: " + initialGraph.type)
+    throw new Error(
+        "Mafs is not yet implemented for graph type: " + initialGraph.type,
+    );
 }
 
 export const MafsGraph = React.forwardRef<

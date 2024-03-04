@@ -28,12 +28,15 @@ export interface MoveSegment {
     segmentIndex: number;
     delta: vec.Vector2;
 }
-export function moveSegment(segmentIndex: number, delta: vec.Vector2): MoveSegment {
+export function moveSegment(
+    segmentIndex: number,
+    delta: vec.Vector2,
+): MoveSegment {
     return {
         type: MOVE_SEGMENT,
         segmentIndex,
         delta,
-    }
+    };
 }
 
 type Point = vec.Vector2;

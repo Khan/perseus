@@ -1,7 +1,6 @@
-import type {
-    PerseusGraphType,
-    PerseusInteractiveGraphWidgetOptions,
-} from "../../perseus-types";
+import type {InteractiveGraphAction} from "./interactive-graph-action";
+import type {InteractiveGraphState} from "./interactive-graph-state";
+import type {PerseusInteractiveGraphWidgetOptions} from "../../perseus-types";
 import type {WidgetProps} from "../../types";
 
 export type InteractiveGraphProps = WidgetProps<
@@ -9,8 +8,7 @@ export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions
 >;
 
-export type OnGraphChange<T extends PerseusGraphType> = (graph: T) => void;
-
-export type MafsGraphProps<T extends PerseusGraphType> = {
-    onGraphChange: OnGraphChange<T>;
-} & Omit<InteractiveGraphProps, "graph"> & {graph: T};
+export type MafsGraphProps<T extends InteractiveGraphState> = {
+    graphState: T;
+    dispatch: (action: InteractiveGraphAction) => unknown;
+};
