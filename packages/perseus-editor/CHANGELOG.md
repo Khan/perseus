@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 5.0.0
+
+### Major Changes
+
+-   [#1046](https://github.com/Khan/perseus/pull/1046) [`18a2862a`](https://github.com/Khan/perseus/commit/18a2862ab5eb56bc69b527fcad0edf86ad91ba12) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Deprecation of Lights-Puzzle, Simulator, Reaction Diagram, and Sequence Widgets.
+
+### Patch Changes
+
+-   Updated dependencies [[`18a2862a`](https://github.com/Khan/perseus/commit/18a2862ab5eb56bc69b527fcad0edf86ad91ba12)]:
+    -   @khanacademy/perseus@20.0.0
+
 ## 4.4.1
 
 ### Patch Changes
