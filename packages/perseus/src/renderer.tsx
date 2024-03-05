@@ -172,6 +172,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     widgets: PerseusRenderer["widgets"];
     // Skip adding paragraph class
     inline?: boolean;
+    widgetGroupId?: string;
 };
 
 type State = {
@@ -628,6 +629,9 @@ class Renderer extends React.Component<Props, State> {
             },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: id === this.state.lastUsedWidgetId,
+            ...(this.props.widgetGroupId
+                ? {widgetGroupId: this.props.widgetGroupId}
+                : {}),
         };
     };
 
