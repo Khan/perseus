@@ -51,8 +51,6 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `label-image ${number}`]: LabelImageWidget;
 } & {
-    [key in `lights-puzzle ${number}`]: LightsPuzzleWidget;
-} & {
     [key in `matcher ${number}`]: MatcherWidget;
 } & {
     [key in `matrix ${number}`]: MatrixWidget;
@@ -79,13 +77,7 @@ export type PerseusWidgetsMap = {
 } & {
     [key in `radio ${number}`]: RadioWidget;
 } & {
-    [key in `reaction-diagram ${number}`]: ReactionDiagramWidget;
-} & {
-    [key in `sequence ${number}`]: SequenceWidget;
-} & {
     [key in `simple-markdown-tester ${number}`]: SimpleMarkdownTesterWidget;
-} & {
-    [key in `simulator ${number}`]: SimulatorWidget;
 } & {
     [key in `sorter ${number}`]: SorterWidget;
 } & {
@@ -244,10 +236,6 @@ export type PythonProgramWidget = Widget<'python-program', PerseusPythonProgramW
 // prettier-ignore
 export type RadioWidget = Widget<'radio', PerseusRadioWidgetOptions>;
 // prettier-ignore
-export type SequenceWidget = Widget<'sequence', PerseusSequenceWidgetOptions>;
-// prettier-ignore
-export type SimulatorWidget = Widget<'simulator', PerseusSimulatorWidgetOptions>;
-// prettier-ignore
 export type SorterWidget = Widget<'sorter', PerseusSorterWidgetOptions>;
 // prettier-ignore
 export type TableWidget = Widget<'table', PerseusTableWidgetOptions>;
@@ -258,13 +246,9 @@ export type ExampleWidget = Widget<'example-widget', PerseusExampleWidgetOptions
 // prettier-ignore
 export type InputNumberWidget = Widget<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
-export type LightsPuzzleWidget = Widget<'lights-puzzle', PerseusLightsPuzzleWidgetOptions>;
-// prettier-ignore
 export type MoleculeRendererWidget = Widget<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
 // prettier-ignore
 export type RefTargetWidget = Widget<'passage-ref-target', PerseusPassageRefTargetWidgetOptions>;
-// prettier-ignore
-export type ReactionDiagramWidget = Widget<'reaction-diagram', PerseusReactionDiagramWidgetOptions>;
 // prettier-ignore
 export type SimpleMarkdownTesterWidget = Widget<'simple-markdown-tester', PerseusSimpleMarkdownTesterWidgetOptions>;
 // prettier-ignore
@@ -293,7 +277,6 @@ export type PerseusWidget =
     | InteractionWidget
     | InteractiveGraphWidget
     | LabelImageWidget
-    | LightsPuzzleWidget
     | MatcherWidget
     | MatrixWidget
     | MeasurerWidget
@@ -306,11 +289,8 @@ export type PerseusWidget =
     | PlotterWidget
     | PythonProgramWidget
     | RadioWidget
-    | ReactionDiagramWidget
     | RefTargetWidget
-    | SequenceWidget
     | SimpleMarkdownTesterWidget
-    | SimulatorWidget
     | SorterWidget
     | TableWidget
     | UnitInputWidget
@@ -1507,7 +1487,6 @@ export type PerseusWidgetOptions =
     | PerseusInteractionWidgetOptions
     | PerseusInteractiveGraphWidgetOptions
     | PerseusLabelImageWidgetOptions
-    | PerseusLightsPuzzleWidgetOptions
     | PerseusMatcherWidgetOptions
     | PerseusMatrixWidgetOptions
     | PerseusMeasurerWidgetOptions
@@ -1520,10 +1499,7 @@ export type PerseusWidgetOptions =
     | PerseusPassageWidgetOptions
     | PerseusPlotterWidgetOptions
     | PerseusRadioWidgetOptions
-    | PerseusReactionDiagramWidgetOptions
-    | PerseusSequenceWidgetOptions
     | PerseusSimpleMarkdownTesterWidgetOptions
-    | PerseusSimulatorWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions
     | PerseusUnitInputWidgetOptions

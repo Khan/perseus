@@ -24,7 +24,7 @@ import AllWidgets from "./all-widgets";
 Widgets.registerEditors(AllEditors);
 Widgets.registerWidgets(AllWidgets);
 
-Widgets.replaceEditor("transformer", "deprecated-standin");
-Widgets.replaceWidget("transformer", "deprecated-standin");
+Widgets.replaceDeprecatedWidgets();
+Widgets.replaceDeprecatedEditors();
 
 export {AllEditors, AllWidgets};
