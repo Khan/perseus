@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     },
 
     articleLink: {
-        // Copied from .body-text in articles.less
+        // Copied from .body-text in styles.less
         fontSize: 20,
         lineHeight: "30px",
     },
