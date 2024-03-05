@@ -11,7 +11,7 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
@@ -557,31 +557,30 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                     </div>
                 </div>
 
-                <div className="image-settings">
-                    <LabeledRow label="Background image URL:">
-                        <input
-                            type="text"
-                            className="graph-settings-background-url"
-                            ref={this.bgUrlRef}
-                            value={this.state.backgroundImage.url || ""}
-                            onChange={(e) => {
-                                const image = _.clone(
-                                    this.props.backgroundImage,
-                                );
-                                image.url = e.target.value;
-                                this.setState({backgroundImage: image});
-                            }}
-                            onKeyPress={this.changeBackgroundUrl}
-                            onBlur={this.changeBackgroundUrl}
-                        />
-                        <InfoTip>
-                            <p>
-                                Create an image in graphie, or use the "Add
-                                image" function to create a background.
-                            </p>
-                        </InfoTip>
-                    </LabeledRow>
-                </div>
+                <LabeledRow
+                    label="Background image URL:"
+                    style={styles.resetSpaceTop}
+                >
+                    <input
+                        type="text"
+                        className={css(styles.backgroundUrlInput)}
+                        ref={this.bgUrlRef}
+                        value={this.state.backgroundImage.url || ""}
+                        onChange={(e) => {
+                            const image = _.clone(this.props.backgroundImage);
+                            image.url = e.target.value;
+                            this.setState({backgroundImage: image});
+                        }}
+                        onKeyPress={this.changeBackgroundUrl}
+                        onBlur={this.changeBackgroundUrl}
+                    />
+                    <InfoTip>
+                        <p>
+                            Create an image in graphie, or use the "Add image"
+                            function to create a background.
+                        </p>
+                    </InfoTip>
+                </LabeledRow>
 
                 <View style={styles.rulerSection}>
                     <View style={styles.checkboxRow}>
@@ -674,12 +673,18 @@ const styles = StyleSheet.create({
         // without running into styling issues with the dropdown.
         height: 26,
     },
+    backgroundUrlInput: {
+        border: `1px solid ${color.offBlack32}`,
+        borderRadius: spacing.xxxSmall_4,
+        padding: spacing.xxxSmall_4,
+    },
     checkboxRow: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
     },
     rulerSection: {
+        marginTop: spacing.xSmall_8,
         borderTop: `1px solid ${color.offBlack16}`,
         paddingTop: spacing.xSmall_8,
         paddingBottom: spacing.xSmall_8,
