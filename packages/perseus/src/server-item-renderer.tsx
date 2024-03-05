@@ -149,11 +149,6 @@ export class ServerItemRenderer
     ) => {
         if (newFocus != null) {
             this._setCurrentFocus(newFocus);
-
-            // Call the interactionCallback, if it exists, with the current user input data
-            this.props.apiOptions?.interactionCallback?.(
-                this.questionRenderer.getUserInputForWidgets(),
-            );
         } else {
             this._onRendererBlur(oldFocus);
         }
