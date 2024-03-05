@@ -1,4 +1,5 @@
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {UNLIMITED, parsePointCount} from "../util/points";
@@ -27,6 +28,7 @@ const GraphPointsCountSelector = ({
                 onChange(parsePointCount(newValue));
             }}
             placeholder=""
+            style={styles.singleSelectShort}
         >
             {[
                 ...NUMERIC_OPTIONS,
@@ -35,5 +37,13 @@ const GraphPointsCountSelector = ({
         </SingleSelect>
     );
 };
+
+const styles = StyleSheet.create({
+    singleSelectShort: {
+        // Non-standard spacing, but it's the smallest we can go
+        // without running into styling issues with the dropdown.
+        height: 26,
+    },
+});
 
 export default GraphPointsCountSelector;

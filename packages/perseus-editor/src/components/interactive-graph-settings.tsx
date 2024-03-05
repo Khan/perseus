@@ -10,8 +10,7 @@ import {
 } from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -559,12 +558,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 </div>
 
                 <div className="image-settings">
-                    <LabelSmall style={styles.spaceTop}>
-                        Background image:
-                    </LabelSmall>
-                    <LabeledRow label="Url:">
+                    <LabeledRow label="Background image URL:">
                         <input
-                            id="bg-url"
                             type="text"
                             className="graph-settings-background-url"
                             ref={this.bgUrlRef}
@@ -588,27 +583,23 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                     </LabeledRow>
                 </div>
 
-                <div className="misc-settings">
-                    <div className="perseus-widget-row">
-                        <div className="perseus-widget-left-col">
-                            <PropCheckBox
-                                label="Show ruler"
-                                showRuler={this.props.showRuler}
-                                onChange={this.change}
-                                style={styles.resetSpaceTop}
-                            />
-                        </div>
-                        <div className="perseus-widget-right-col">
-                            <PropCheckBox
-                                label="Show protractor"
-                                showProtractor={this.props.showProtractor}
-                                onChange={this.change}
-                                style={styles.resetSpaceTop}
-                            />
-                        </div>
-                    </div>
+                <View style={styles.rulerSection}>
+                    <View style={styles.checkboxRow}>
+                        <PropCheckBox
+                            label="Show ruler"
+                            showRuler={this.props.showRuler}
+                            onChange={this.change}
+                            style={styles.resetSpaceTop}
+                        />
+                        <PropCheckBox
+                            label="Show protractor"
+                            showProtractor={this.props.showProtractor}
+                            onChange={this.change}
+                            style={styles.resetSpaceTop}
+                        />
+                    </View>
                     {this.props.showRuler && (
-                        <View>
+                        <View style={styles.spaceTop}>
                             <LabeledRow
                                 label="Ruler label:"
                                 style={styles.resetSpaceTop}
@@ -665,23 +656,34 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                             </LabeledRow>
                         </View>
                     )}
-                </div>
+                </View>
             </div>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    spaceTop: {
-        marginTop: spacing.xSmall_8,
-    },
     resetSpaceTop: {
         marginTop: 0,
+    },
+    spaceTop: {
+        marginTop: spacing.xSmall_8,
     },
     singleSelectShort: {
         // Non-standard spacing, but it's the smallest we can go
         // without running into styling issues with the dropdown.
         height: 26,
+    },
+    checkboxRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
+    rulerSection: {
+        borderTop: `1px solid ${color.offBlack16}`,
+        paddingTop: spacing.xSmall_8,
+        paddingBottom: spacing.xSmall_8,
+        borderBottom: `1px solid ${color.offBlack16}`,
     },
 });
 

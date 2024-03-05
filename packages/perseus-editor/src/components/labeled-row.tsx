@@ -10,18 +10,22 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 const LabeledRow = (props: {
     id?: string;
     label: string;
+    labelSide?: "start" | "end";
     style?: StyleType;
     children: React.ReactNode;
 }) => {
-    const {children, label, style} = props;
+    const {children, label, labelSide = "left", style} = props;
 
     return (
         <label>
             <View style={[styles.row, style]}>
-                <LabelSmall style={{marginRight: spacing.xSmall_8}}>
-                    {label}
-                </LabelSmall>
+                {labelSide === "start" || (
+                    <LabelSmall style={styles.spaceEnd}>{label}</LabelSmall>
+                )}
                 {children}
+                {labelSide === "end" && (
+                    <LabelSmall style={styles.spaceStart}>{label}</LabelSmall>
+                )}
             </View>
         </label>
     );
@@ -32,6 +36,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginTop: spacing.xSmall_8,
         alignItems: "center",
+    },
+    spaceStart: {
+        marginInlineStart: spacing.xSmall_8,
+    },
+    spaceEnd: {
+        marginInlineEnd: spacing.xSmall_8,
     },
 });
 

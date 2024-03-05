@@ -31,7 +31,7 @@ describe("InteractiveGraphSettings", () => {
         expect(screen.getByText("y Label")).toBeInTheDocument();
         expect(screen.getByText("Markings:")).toBeInTheDocument();
         expect(screen.getByText("Snap Step")).toBeInTheDocument();
-        expect(screen.getByText("Background image:")).toBeInTheDocument();
+        expect(screen.getByText("Background image URL:")).toBeInTheDocument();
         expect(screen.getByText("Show ruler")).toBeInTheDocument();
         expect(screen.getByText("Show protractor")).toBeInTheDocument();
     });
@@ -106,7 +106,9 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Url:"});
+        const input = screen.getByRole("textbox", {
+            name: "Background image URL:",
+        });
         await userEvent.type(input, "https://example.com/image.png");
         await userEvent.tab();
 
@@ -137,7 +139,9 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Url:"});
+        const input = screen.getByRole("textbox", {
+            name: "Background image URL:",
+        });
         await userEvent.type(input, "https://example.com/image.png");
         await userEvent.tab();
 
@@ -163,7 +167,9 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Url:"});
+        const input = screen.getByRole("textbox", {
+            name: "Background image URL:",
+        });
         await userEvent.clear(input);
         await userEvent.tab();
 
@@ -189,7 +195,9 @@ describe("InteractiveGraphSettings", () => {
         render(<InteractiveGraphSettings onChange={onChange} />);
 
         // Act
-        const input = screen.getByRole("textbox", {name: "Url:"});
+        const input = screen.getByRole("textbox", {
+            name: "Background image URL:",
+        });
         input.focus();
         // Disabling this because we need to test keypress events that are
         // unfortunately being used in legacy code.

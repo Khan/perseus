@@ -11,7 +11,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import Spacing from "@khanacademy/wonder-blocks-spacing";
-import * as Typography from "@khanacademy/wonder-blocks-typography";
+import {BodyMonospace, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -373,8 +373,11 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 measure respectively.
                             </InfoTip>
                         </LabeledRow>
-                        <LabeledRow label="Show angle measures:">
+                        <View style={styles.row}>
                             <Checkbox
+                                label={
+                                    <LabelSmall>Show angle measures</LabelSmall>
+                                }
                                 checked={
                                     // Don't show indeterminate checkbox state
                                     !!this.props.correct?.showAngles
@@ -392,9 +395,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             <InfoTip>
                                 <p>Displays the interior angle measures.</p>
                             </InfoTip>
-                        </LabeledRow>
-                        <LabeledRow label="Show side measures:">
+                        </View>
+                        <View style={styles.row}>
                             <Checkbox
+                                label={
+                                    <LabelSmall>Show side measures</LabelSmall>
+                                }
                                 checked={
                                     // Don't show indeterminate checkbox state
                                     !!this.props.correct?.showSides
@@ -412,7 +418,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             <InfoTip>
                                 <p>Displays the side lengths.</p>
                             </InfoTip>
-                        </LabeledRow>
+                        </View>
                     </>
                 )}
                 {this.props.correct?.type === "segment" && (
@@ -431,28 +437,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         />
                     </LabeledRow>
                 )}
-
-                <LabeledRow label="Correct answer:">
-                    <Typography.BodyMonospace
-                        style={{
-                            fontSize: 12,
-                            backgroundColor: "#eee",
-                            paddingInline: Spacing.xxSmall_6,
-                            borderColor: "#ccc",
-                            borderStyle: "solid",
-                            borderWidth: 1,
-                        }}
-                    >
-                        {equationString}
-                    </Typography.BodyMonospace>
-                    <InfoTip>
-                        <p>
-                            Graph the correct answer in the graph below and
-                            ensure the equation or point coordinates displayed
-                            represent the correct answer.
-                        </p>
-                    </InfoTip>
-                </LabeledRow>
                 <InteractiveGraphSettings
                     box={getInteractiveBoxFromSizeClass(sizeClass)}
                     range={this.props.range}
@@ -471,111 +455,114 @@ class InteractiveGraphEditor extends React.Component<Props> {
                     onChange={this.props.onChange}
                 />
                 {this.props.correct.type === "polygon" && (
-                    <div className="type-settings">
-                        <LabeledRow label="Student answer must">
-                            <SingleSelect
-                                selectedValue={
-                                    this.props.correct.match || "exact"
-                                }
-                                onChange={this.changeMatchType}
-                                placeholder=""
-                                style={styles.singleSelectShort}
-                            >
-                                <OptionItem
-                                    value="exact"
-                                    label="match exactly"
-                                />
-                                <OptionItem
-                                    value="congruent"
-                                    label="be congruent"
-                                />
-                                <OptionItem
-                                    value="approx"
-                                    label="be approximately congruent"
-                                />
-                                <OptionItem
-                                    value="similar"
-                                    label="be similar"
-                                />
-                            </SingleSelect>
+                    <LabeledRow label="Student answer must">
+                        <SingleSelect
+                            selectedValue={this.props.correct.match || "exact"}
+                            onChange={this.changeMatchType}
+                            placeholder=""
+                            style={styles.singleSelectShort}
+                        >
+                            <OptionItem value="exact" label="match exactly" />
+                            <OptionItem
+                                value="congruent"
+                                label="be congruent"
+                            />
+                            <OptionItem
+                                value="approx"
+                                label="be approximately congruent"
+                            />
+                            <OptionItem value="similar" label="be similar" />
+                        </SingleSelect>
 
-                            <InfoTip>
-                                <ul>
-                                    <li>
-                                        <p>
-                                            <b>Match Exactly:</b> Match exactly
-                                            in size, orientation, and location
-                                            on the grid even if it is not shown
-                                            in the background.
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <b>Be Congruent:</b> Be congruent in
-                                            size and shape, but can be located
-                                            anywhere on the grid.
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <b>Be Approximately Congruent:</b>{" "}
-                                            Be exactly similar, and congruent in
-                                            size and shape to within 0.1 units,
-                                            but can be located anywhere on the
-                                            grid.{" "}
-                                            <em>
-                                                Use this with snapping to angle
-                                                measure.
-                                            </em>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <b>Be Similar:</b> Be similar with
-                                            matching interior angles, and side
-                                            measures that are matching or a
-                                            multiple of the correct side
-                                            measures. The figure can be located
-                                            anywhere on the grid.
-                                        </p>
-                                    </li>
-                                </ul>
-                            </InfoTip>
-                        </LabeledRow>
-                    </div>
+                        <InfoTip>
+                            <ul>
+                                <li>
+                                    <p>
+                                        <b>Match Exactly:</b> Match exactly in
+                                        size, orientation, and location on the
+                                        grid even if it is not shown in the
+                                        background.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <b>Be Congruent:</b> Be congruent in
+                                        size and shape, but can be located
+                                        anywhere on the grid.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <b>Be Approximately Congruent:</b> Be
+                                        exactly similar, and congruent in size
+                                        and shape to within 0.1 units, but can
+                                        be located anywhere on the grid.{" "}
+                                        <em>
+                                            Use this with snapping to angle
+                                            measure.
+                                        </em>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <b>Be Similar:</b> Be similar with
+                                        matching interior angles, and side
+                                        measures that are matching or a multiple
+                                        of the correct side measures. The figure
+                                        can be located anywhere on the grid.
+                                    </p>
+                                </li>
+                            </ul>
+                        </InfoTip>
+                    </LabeledRow>
                 )}
                 {this.props.correct.type === "angle" && (
-                    <div className="type-settings">
-                        <LabeledRow label="Student answer must">
-                            <SingleSelect
-                                selectedValue={
-                                    this.props.correct.match || "exact"
-                                }
-                                onChange={this.changeMatchType}
-                                placeholder=""
-                                style={styles.singleSelectShort}
-                            >
-                                <OptionItem
-                                    value="exact"
-                                    label="match exactly"
-                                />
-                                <OptionItem
-                                    value="congruent"
-                                    label="be congruent"
-                                />
-                            </SingleSelect>
-                            <InfoTip>
-                                <p>
-                                    Congruency requires only that the angle
-                                    measures are the same. An exact match
-                                    implies congruency, but also requires that
-                                    the angles have the same orientation and
-                                    that the vertices are in the same position.
-                                </p>
-                            </InfoTip>
-                        </LabeledRow>
-                    </div>
+                    <LabeledRow label="Student answer must">
+                        <SingleSelect
+                            selectedValue={this.props.correct.match || "exact"}
+                            onChange={this.changeMatchType}
+                            placeholder=""
+                            style={styles.singleSelectShort}
+                        >
+                            <OptionItem value="exact" label="match exactly" />
+                            <OptionItem
+                                value="congruent"
+                                label="be congruent"
+                            />
+                        </SingleSelect>
+                        <InfoTip>
+                            <p>
+                                Congruency requires only that the angle measures
+                                are the same. An exact match implies congruency,
+                                but also requires that the angles have the same
+                                orientation and that the vertices are in the
+                                same position.
+                            </p>
+                        </InfoTip>
+                    </LabeledRow>
                 )}
+                <LabeledRow label="Correct answer:">
+                    <BodyMonospace
+                        style={{
+                            fontSize: 12,
+                            backgroundColor: "#eee",
+                            paddingInline: Spacing.xxSmall_6,
+                            borderColor: "#ccc",
+                            borderStyle: "solid",
+                            borderWidth: 1,
+                        }}
+                    >
+                        {equationString}
+                    </BodyMonospace>
+                    <InfoTip>
+                        <p>
+                            Graph the correct answer in the graph below and
+                            ensure the equation or point coordinates displayed
+                            represent the correct answer.
+                        </p>
+                    </InfoTip>
+                </LabeledRow>
+
                 {graph}
             </View>
         );
@@ -646,6 +633,11 @@ const styles = StyleSheet.create({
         // Non-standard spacing, but it's the smallest we can go
         // without running into styling issues with the dropdown.
         height: 26,
+    },
+    row: {
+        flexDirection: "row",
+        marginTop: Spacing.xSmall_8,
+        alignItems: "center",
     },
 });
 
