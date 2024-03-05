@@ -43,9 +43,7 @@ export const KeypadButton = ({
             testId={keyConfig.id}
         >
             <Clickable
-                onClick={(e) =>
-                    onClickKey(keyConfig.id, keyConfig.ariaLabel, e)
-                }
+                onClick={(e) => onClickKey(keyConfig.id, e)}
                 onMouseDown={(e) =>
                     // Prevent the default behavior of forcing the focus to the
                     // button when it is clicked. This way, the focus can

@@ -75,10 +75,6 @@ type State = {
     keypadOpen: boolean;
     cursorContext: (typeof CursorContext)[keyof typeof CursorContext];
     openedWithEventType?: string;
-    // count is just used to trigger a re-render
-    count: number;
-    // used in a role="alert" element to provide feedback as the user types
-    lastCharacterTyped: string;
 };
 
 const customKeyTranslator = {
@@ -111,8 +107,6 @@ class MathInput extends React.Component<Props, State> {
         focused: false,
         keypadOpen: this.props.buttonsVisible === "always" ? true : false,
         cursorContext: CursorContext.NONE,
-        count: 0,
-        lastCharacterTyped: "",
     };
 
     componentDidMount() {
@@ -242,22 +236,9 @@ class MathInput extends React.Component<Props, State> {
     // input is still focused
     blur: () => void = () => this.setState({focused: false});
 
-    handleKeypadPress: (key: Keys, label: string, e: any) => void = (
-        key,
-        label,
-        e,
-    ) => {
+    handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
         const translator = keyTranslator[key];
         const mathField = this.mathField();
-
-        this.setState({
-            // Incremenet the count to trigger a re-render even if the
-            // same number was pressed again.
-            count: this.state.count + 1,
-            // Update the label to the last character typed to be
-            // read by screen readers.
-            lastCharacterTyped: label,
-        });
 
         if (mathField) {
             if (translator) {
@@ -327,13 +308,6 @@ class MathInput extends React.Component<Props, State> {
                         onFocus={() => this.focus()}
                         onBlur={() => this.blur()}
                     />
-                    <span
-                        className="perseus-sr-only"
-                        role="alert"
-                        key={this.state.count}
-                    >
-                        {this.state.lastCharacterTyped}
-                    </span>
                     <Popover
                         opened={this.state.keypadOpen}
                         onClose={() => this.closeKeypad()}

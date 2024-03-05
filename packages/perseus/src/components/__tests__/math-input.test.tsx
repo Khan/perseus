@@ -160,7 +160,8 @@ describe("Perseus' MathInput", () => {
         );
 
         // Act
-        userEvent.click(screen.getByLabelText("1"));
+        const button = screen.getByRole("button", {name: "1"});
+        button.click();
 
         // Assert
         expect(screen.getByRole("button", {name: "1"})).not.toHaveFocus();

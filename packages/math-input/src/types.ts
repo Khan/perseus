@@ -35,11 +35,7 @@ export type Cursor = {
     context: (typeof CursorContext)[keyof typeof CursorContext];
 };
 
-export type ClickKeyCallback = (
-    key: Key,
-    label: string,
-    event?: React.SyntheticEvent,
-) => void;
+export type ClickKeyCallback = (key: Key, event?: React.SyntheticEvent) => void;
 
 export type KeypadPageType =
     | "Geometry"
